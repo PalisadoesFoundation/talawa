@@ -7,9 +7,12 @@ class EventBottomSheet {
   /// This function creates a modal material design bottom sheet.
   ///
   /// to let the user add admin or members to an organization.
-  /// params:
+  /// **params**:
   /// * `context`: BuildContext
   /// * `model`: CreateEventViewModel
+  ///
+  /// **returns**:
+  ///   None
   void addUserBottomSheet({
     required BuildContext context,
     required CreateEventViewModel model,

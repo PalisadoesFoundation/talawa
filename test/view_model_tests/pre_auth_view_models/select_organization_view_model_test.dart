@@ -67,7 +67,7 @@ class _MockUserConfig extends Mock implements UserConfig {
   Future updateUserJoinedOrg(List<OrgInfo> orgDetails) async => 1;
 
   @override
-  saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) => 1;
+  int saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) => 1;
 }
 
 User _user = User();
@@ -347,7 +347,7 @@ void main() {
 
       selectOrganizationViewModel.selectedOrganization = org;
 
-      await selectOrganizationViewModel.onTapContinue();
+      selectOrganizationViewModel.onTapContinue();
 
       verify(
         navigationService.pushScreen(
@@ -370,7 +370,7 @@ void main() {
 
       selectOrganizationViewModel.selectedOrganization = OrgInfo(id: '-1');
 
-      await selectOrganizationViewModel.onTapContinue();
+      selectOrganizationViewModel.onTapContinue();
 
       verify(
         navigationService.showTalawaErrorSnackBar(

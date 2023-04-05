@@ -16,7 +16,7 @@ class AppTheme extends BaseModel {
   bool get isdarkTheme => _isDarkMode;
 
   // initializer
-  initialize() {
+  void initialize() {
     _isDarkMode = true;
     _loadFromPrefs();
   }
@@ -25,23 +25,23 @@ class AppTheme extends BaseModel {
   ///
   /// * `Dart` -> `Light`
   /// * `Light` -> `Dark`
-  switchTheme({required bool isOn}) {
+  void switchTheme({required bool isOn}) {
     _isDarkMode = isOn;
     _saveToPrefs();
     notifyListeners();
   }
 
-  _initPrefs() async {
+  Future<void> _initPrefs() async {
     _pref = await SharedPreferences.getInstance();
   }
 
-  _loadFromPrefs() async {
+  Future<void> _loadFromPrefs() async {
     await _initPrefs();
     _isDarkMode = _pref.getBool(key) ?? true;
     notifyListeners();
   }
 
-  _saveToPrefs() async {
+  Future<void> _saveToPrefs() async {
     await _initPrefs();
     _pref.setBool(key, _isDarkMode);
   }

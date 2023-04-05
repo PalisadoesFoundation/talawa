@@ -4,50 +4,52 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:io' as _i17;
+import 'dart:io' as _i18;
 import 'dart:ui' as _i9;
 
-import 'package:connectivity_plus/connectivity_plus.dart' as _i24;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i25;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
-    as _i25;
+    as _i26;
 import 'package:flutter/material.dart' as _i1;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
+import 'package:image_cropper/image_cropper.dart' as _i40;
+import 'package:image_picker/image_picker.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i2;
-import 'package:qr_code_scanner/src/qr_code_scanner.dart' as _i30;
-import 'package:qr_code_scanner/src/types/barcode.dart' as _i31;
-import 'package:qr_code_scanner/src/types/camera.dart' as _i32;
+import 'package:qr_code_scanner/src/qr_code_scanner.dart' as _i31;
+import 'package:qr_code_scanner/src/types/barcode.dart' as _i32;
+import 'package:qr_code_scanner/src/types/camera.dart' as _i33;
 import 'package:qr_code_scanner/src/types/features.dart' as _i11;
-import 'package:talawa/enums/enums.dart' as _i12;
-import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i20;
-import 'package:talawa/models/chats/chat_message.dart' as _i21;
-import 'package:talawa/models/events/event_model.dart' as _i18;
+import 'package:talawa/enums/enums.dart' as _i13;
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i21;
+import 'package:talawa/models/chats/chat_message.dart' as _i22;
+import 'package:talawa/models/events/event_model.dart' as _i19;
 import 'package:talawa/models/organization/org_info.dart' as _i5;
-import 'package:talawa/models/post/post_model.dart' as _i15;
-import 'package:talawa/models/task/task_model.dart' as _i36;
+import 'package:talawa/models/post/post_model.dart' as _i16;
+import 'package:talawa/models/task/task_model.dart' as _i37;
 import 'package:talawa/models/user/user_info.dart' as _i6;
-import 'package:talawa/services/chat_service.dart' as _i19;
-import 'package:talawa/services/comment_service.dart' as _i33;
+import 'package:talawa/services/chat_service.dart' as _i20;
+import 'package:talawa/services/comment_service.dart' as _i34;
 import 'package:talawa/services/database_mutation_functions.dart' as _i8;
 import 'package:talawa/services/event_service.dart' as _i10;
-import 'package:talawa/services/graphql_config.dart' as _i13;
+import 'package:talawa/services/graphql_config.dart' as _i14;
 import 'package:talawa/services/navigation_service.dart' as _i7;
-import 'package:talawa/services/org_service.dart' as _i27;
-import 'package:talawa/services/post_service.dart' as _i14;
-import 'package:talawa/services/task_service.dart' as _i35;
+import 'package:talawa/services/org_service.dart' as _i28;
+import 'package:talawa/services/post_service.dart' as _i15;
+import 'package:talawa/services/task_service.dart' as _i36;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
-    as _i16;
-import 'package:talawa/services/user_config.dart' as _i22;
-import 'package:talawa/utils/validators.dart' as _i29;
+    as _i17;
+import 'package:talawa/services/user_config.dart' as _i23;
+import 'package:talawa/utils/validators.dart' as _i30;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
-    as _i38;
+    as _i39;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
-    as _i37;
+    as _i38;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
-    as _i28;
-import 'package:talawa/view_model/lang_view_model.dart' as _i23;
+    as _i29;
+import 'package:talawa/view_model/lang_view_model.dart' as _i24;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
-    as _i26;
-import 'package:talawa/view_model/theme_view_model.dart' as _i34;
+    as _i27;
+import 'package:talawa/view_model/theme_view_model.dart' as _i35;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -303,6 +305,27 @@ class _FakeDateTime_22 extends _i2.SmartFake implements DateTime {
         );
 }
 
+class _FakeLostData_23 extends _i2.SmartFake implements _i12.LostData {
+  _FakeLostData_23(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLostDataResponse_24 extends _i2.SmartFake
+    implements _i12.LostDataResponse {
+  _FakeLostDataResponse_24(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -427,7 +450,7 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
   @override
   void showTalawaErrorSnackBar(
     String? errorMessage,
-    _i12.MessageType? messageType, {
+    _i13.MessageType? messageType, {
     Duration? duration = const Duration(seconds: 2),
   }) =>
       super.noSuchMethod(
@@ -444,7 +467,7 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
   @override
   void showTalawaErrorDialog(
     String? errorMessage,
-    _i12.MessageType? messageType,
+    _i13.MessageType? messageType,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -469,7 +492,7 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
 /// A class which mocks [GraphqlConfig].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGraphqlConfig extends _i2.Mock implements _i13.GraphqlConfig {
+class MockGraphqlConfig extends _i2.Mock implements _i14.GraphqlConfig {
   @override
   _i3.HttpLink get httpLink => (super.noSuchMethod(
         Invocation.getter(#httpLink),
@@ -528,6 +551,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i13.GraphqlConfig {
         returnValueForMissingStub: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
   @override
+  void getOrgUrl() => super.noSuchMethod(
+        Invocation.method(
+          #getOrgUrl,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i3.GraphQLClient clientToQuery() => (super.noSuchMethod(
         Invocation.method(
           #clientToQuery,
@@ -569,6 +600,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i13.GraphqlConfig {
           ),
         ),
       ) as _i3.GraphQLClient);
+  @override
+  void test() => super.noSuchMethod(
+        Invocation.method(
+          #test,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [GraphQLClient].
@@ -908,19 +947,19 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
 /// A class which mocks [PostService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPostService extends _i2.Mock implements _i14.PostService {
+class MockPostService extends _i2.Mock implements _i15.PostService {
   @override
-  _i4.Stream<List<_i15.Post>> get postStream => (super.noSuchMethod(
+  _i4.Stream<List<_i16.Post>> get postStream => (super.noSuchMethod(
         Invocation.getter(#postStream),
-        returnValue: _i4.Stream<List<_i15.Post>>.empty(),
-        returnValueForMissingStub: _i4.Stream<List<_i15.Post>>.empty(),
-      ) as _i4.Stream<List<_i15.Post>>);
+        returnValue: _i4.Stream<List<_i16.Post>>.empty(),
+        returnValueForMissingStub: _i4.Stream<List<_i16.Post>>.empty(),
+      ) as _i4.Stream<List<_i16.Post>>);
   @override
-  _i4.Stream<_i15.Post> get updatedPostStream => (super.noSuchMethod(
+  _i4.Stream<_i16.Post> get updatedPostStream => (super.noSuchMethod(
         Invocation.getter(#updatedPostStream),
-        returnValue: _i4.Stream<_i15.Post>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i15.Post>.empty(),
-      ) as _i4.Stream<_i15.Post>);
+        returnValue: _i4.Stream<_i16.Post>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i16.Post>.empty(),
+      ) as _i4.Stream<_i16.Post>);
   @override
   void setOrgStreamSubscription() => super.noSuchMethod(
         Invocation.method(
@@ -970,7 +1009,7 @@ class MockPostService extends _i2.Mock implements _i14.PostService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMultiMediaPickerService extends _i2.Mock
-    implements _i16.MultiMediaPickerService {
+    implements _i17.MultiMediaPickerService {
   @override
   _i4.Stream<dynamic> get fileStream => (super.noSuchMethod(
         Invocation.getter(#fileStream),
@@ -978,27 +1017,27 @@ class MockMultiMediaPickerService extends _i2.Mock
         returnValueForMissingStub: _i4.Stream<dynamic>.empty(),
       ) as _i4.Stream<dynamic>);
   @override
-  _i4.Future<_i17.File?> getPhotoFromGallery({bool? camera = false}) =>
+  _i4.Future<_i18.File?> getPhotoFromGallery({bool? camera = false}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPhotoFromGallery,
           [],
           {#camera: camera},
         ),
-        returnValue: _i4.Future<_i17.File?>.value(),
-        returnValueForMissingStub: _i4.Future<_i17.File?>.value(),
-      ) as _i4.Future<_i17.File?>);
+        returnValue: _i4.Future<_i18.File?>.value(),
+        returnValueForMissingStub: _i4.Future<_i18.File?>.value(),
+      ) as _i4.Future<_i18.File?>);
   @override
-  _i4.Future<_i17.File?> cropImage({required _i17.File? imageFile}) =>
+  _i4.Future<_i18.File?> cropImage({required _i18.File? imageFile}) =>
       (super.noSuchMethod(
         Invocation.method(
           #cropImage,
           [],
           {#imageFile: imageFile},
         ),
-        returnValue: _i4.Future<_i17.File?>.value(),
-        returnValueForMissingStub: _i4.Future<_i17.File?>.value(),
-      ) as _i4.Future<_i17.File?>);
+        returnValue: _i4.Future<_i18.File?>.value(),
+        returnValueForMissingStub: _i4.Future<_i18.File?>.value(),
+      ) as _i4.Future<_i18.File?>);
 }
 
 /// A class which mocks [EventService].
@@ -1006,11 +1045,11 @@ class MockMultiMediaPickerService extends _i2.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockEventService extends _i2.Mock implements _i10.EventService {
   @override
-  _i4.Stream<_i18.Event> get eventStream => (super.noSuchMethod(
+  _i4.Stream<_i19.Event> get eventStream => (super.noSuchMethod(
         Invocation.getter(#eventStream),
-        returnValue: _i4.Stream<_i18.Event>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i18.Event>.empty(),
-      ) as _i4.Stream<_i18.Event>);
+        returnValue: _i4.Stream<_i19.Event>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i19.Event>.empty(),
+      ) as _i4.Stream<_i19.Event>);
   @override
   void setOrgStreamSubscription() => super.noSuchMethod(
         Invocation.method(
@@ -1087,7 +1126,7 @@ class MockEventService extends _i2.Mock implements _i10.EventService {
 /// A class which mocks [ChatService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockChatService extends _i2.Mock implements _i19.ChatService {
+class MockChatService extends _i2.Mock implements _i20.ChatService {
   @override
   _i4.Stream<_i3.QueryResult<Object?>> get chatStream => (super.noSuchMethod(
         Invocation.getter(#chatStream),
@@ -1104,19 +1143,19 @@ class MockChatService extends _i2.Mock implements _i19.ChatService {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Stream<_i20.ChatListTileDataModel> get chatListStream =>
+  _i4.Stream<_i21.ChatListTileDataModel> get chatListStream =>
       (super.noSuchMethod(
         Invocation.getter(#chatListStream),
-        returnValue: _i4.Stream<_i20.ChatListTileDataModel>.empty(),
+        returnValue: _i4.Stream<_i21.ChatListTileDataModel>.empty(),
         returnValueForMissingStub:
-            _i4.Stream<_i20.ChatListTileDataModel>.empty(),
-      ) as _i4.Stream<_i20.ChatListTileDataModel>);
+            _i4.Stream<_i21.ChatListTileDataModel>.empty(),
+      ) as _i4.Stream<_i21.ChatListTileDataModel>);
   @override
-  _i4.Stream<_i21.ChatMessage> get chatMessagesStream => (super.noSuchMethod(
+  _i4.Stream<_i22.ChatMessage> get chatMessagesStream => (super.noSuchMethod(
         Invocation.getter(#chatMessagesStream),
-        returnValue: _i4.Stream<_i21.ChatMessage>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i21.ChatMessage>.empty(),
-      ) as _i4.Stream<_i21.ChatMessage>);
+        returnValue: _i4.Stream<_i22.ChatMessage>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i22.ChatMessage>.empty(),
+      ) as _i4.Stream<_i22.ChatMessage>);
   @override
   _i4.Future<void> sendMessageToDirectChat(
     String? chatId,
@@ -1157,7 +1196,7 @@ class MockChatService extends _i2.Mock implements _i19.ChatService {
 /// A class which mocks [UserConfig].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserConfig extends _i2.Mock implements _i22.UserConfig {
+class MockUserConfig extends _i2.Mock implements _i23.UserConfig {
   @override
   _i4.Stream<_i5.OrgInfo> get currentOrgInfoStream => (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoStream),
@@ -1309,7 +1348,15 @@ class MockUserConfig extends _i2.Mock implements _i22.UserConfig {
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
   @override
-  dynamic saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
+  void saveUserInHive() => super.noSuchMethod(
+        Invocation.method(
+          #saveUserInHive,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
       super.noSuchMethod(
         Invocation.method(
           #saveCurrentOrgInHive,
@@ -1322,7 +1369,7 @@ class MockUserConfig extends _i2.Mock implements _i22.UserConfig {
 /// A class which mocks [AppLanguage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppLanguage extends _i2.Mock implements _i23.AppLanguage {
+class MockAppLanguage extends _i2.Mock implements _i24.AppLanguage {
   @override
   bool get isTest => (super.noSuchMethod(
         Invocation.getter(#isTest),
@@ -1366,11 +1413,11 @@ class MockAppLanguage extends _i2.Mock implements _i23.AppLanguage {
         ),
       ) as _i9.Locale);
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -1411,6 +1458,15 @@ class MockAppLanguage extends _i2.Mock implements _i23.AppLanguage {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
+  _i4.Future<void> selectLanguagePress() => (super.noSuchMethod(
+        Invocation.method(
+          #selectLanguagePress,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
   _i4.Future<void> dbLanguageUpdate() => (super.noSuchMethod(
         Invocation.method(
           #dbLanguageUpdate,
@@ -1438,7 +1494,7 @@ class MockAppLanguage extends _i2.Mock implements _i23.AppLanguage {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -1482,33 +1538,33 @@ class MockAppLanguage extends _i2.Mock implements _i23.AppLanguage {
 /// A class which mocks [Connectivity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConnectivity extends _i2.Mock implements _i24.Connectivity {
+class MockConnectivity extends _i2.Mock implements _i25.Connectivity {
   @override
-  _i4.Stream<_i25.ConnectivityResult> get onConnectivityChanged =>
+  _i4.Stream<_i26.ConnectivityResult> get onConnectivityChanged =>
       (super.noSuchMethod(
         Invocation.getter(#onConnectivityChanged),
-        returnValue: _i4.Stream<_i25.ConnectivityResult>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i25.ConnectivityResult>.empty(),
-      ) as _i4.Stream<_i25.ConnectivityResult>);
+        returnValue: _i4.Stream<_i26.ConnectivityResult>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i26.ConnectivityResult>.empty(),
+      ) as _i4.Stream<_i26.ConnectivityResult>);
   @override
-  _i4.Future<_i25.ConnectivityResult> checkConnectivity() =>
+  _i4.Future<_i26.ConnectivityResult> checkConnectivity() =>
       (super.noSuchMethod(
         Invocation.method(
           #checkConnectivity,
           [],
         ),
-        returnValue: _i4.Future<_i25.ConnectivityResult>.value(
-            _i25.ConnectivityResult.bluetooth),
-        returnValueForMissingStub: _i4.Future<_i25.ConnectivityResult>.value(
-            _i25.ConnectivityResult.bluetooth),
-      ) as _i4.Future<_i25.ConnectivityResult>);
+        returnValue: _i4.Future<_i26.ConnectivityResult>.value(
+            _i26.ConnectivityResult.bluetooth),
+        returnValueForMissingStub: _i4.Future<_i26.ConnectivityResult>.value(
+            _i26.ConnectivityResult.bluetooth),
+      ) as _i4.Future<_i26.ConnectivityResult>);
 }
 
 /// A class which mocks [SignupDetailsViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignupDetailsViewModel extends _i2.Mock
-    implements _i26.SignupDetailsViewModel {
+    implements _i27.SignupDetailsViewModel {
   @override
   _i1.GlobalKey<_i1.FormState> get formKey => (super.noSuchMethod(
         Invocation.getter(#formKey),
@@ -1706,11 +1762,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -1724,7 +1780,7 @@ class MockSignupDetailsViewModel extends _i2.Mock
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  dynamic initialise(_i5.OrgInfo? org) => super.noSuchMethod(
+  void initialise(_i5.OrgInfo? org) => super.noSuchMethod(
         Invocation.method(
           #initialise,
           [org],
@@ -1732,7 +1788,16 @@ class MockSignupDetailsViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  _i4.Future<void> signUp() => (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -1776,7 +1841,7 @@ class MockSignupDetailsViewModel extends _i2.Mock
 /// A class which mocks [Post].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPost extends _i2.Mock implements _i15.Post {
+class MockPost extends _i2.Mock implements _i16.Post {
   @override
   String get sId => (super.noSuchMethod(
         Invocation.getter(#sId),
@@ -1840,7 +1905,7 @@ class MockPost extends _i2.Mock implements _i15.Post {
         returnValueForMissingStub: null,
       );
   @override
-  set likedBy(List<_i15.LikedBy>? _likedBy) => super.noSuchMethod(
+  set likedBy(List<_i16.LikedBy>? _likedBy) => super.noSuchMethod(
         Invocation.setter(
           #likedBy,
           _likedBy,
@@ -1848,7 +1913,7 @@ class MockPost extends _i2.Mock implements _i15.Post {
         returnValueForMissingStub: null,
       );
   @override
-  set comments(List<_i15.Comments>? _comments) => super.noSuchMethod(
+  set comments(List<_i16.Comments>? _comments) => super.noSuchMethod(
         Invocation.setter(
           #comments,
           _comments,
@@ -2060,6 +2125,14 @@ class MockDataBaseMutationFunctions extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
+  void init() => super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   bool? encounteredExceptionOrError(
     _i3.OperationException? exception, {
     bool? showSnackBar = true,
@@ -2158,7 +2231,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizationService extends _i2.Mock
-    implements _i27.OrganizationService {
+    implements _i28.OrganizationService {
   @override
   _i4.Future<List<_i6.User>> getOrgMembersList(String? orgId) =>
       (super.noSuchMethod(
@@ -2176,13 +2249,13 @@ class MockOrganizationService extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockExploreEventsViewModel extends _i2.Mock
-    implements _i28.ExploreEventsViewModel {
+    implements _i29.ExploreEventsViewModel {
   @override
-  List<_i18.Event> get events => (super.noSuchMethod(
+  List<_i19.Event> get events => (super.noSuchMethod(
         Invocation.getter(#events),
-        returnValue: <_i18.Event>[],
-        returnValueForMissingStub: <_i18.Event>[],
-      ) as List<_i18.Event>);
+        returnValue: <_i19.Event>[],
+        returnValueForMissingStub: <_i19.Event>[],
+      ) as List<_i19.Event>);
   @override
   _i10.EventService get eventService => (super.noSuchMethod(
         Invocation.getter(#eventService),
@@ -2208,11 +2281,11 @@ class MockExploreEventsViewModel extends _i2.Mock
         returnValueForMissingStub: '',
       ) as String);
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -2253,7 +2326,7 @@ class MockExploreEventsViewModel extends _i2.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> checkIfExistsAndAddNewEvent(_i18.Event? newEvent) =>
+  _i4.Future<void> checkIfExistsAndAddNewEvent(_i19.Event? newEvent) =>
       (super.noSuchMethod(
         Invocation.method(
           #checkIfExistsAndAddNewEvent,
@@ -2274,13 +2347,14 @@ class MockExploreEventsViewModel extends _i2.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  dynamic choseValueFromDropdown(String? value) => super.noSuchMethod(
+  _i4.Future<void> choseValueFromDropdown(String? value) => (super.noSuchMethod(
         Invocation.method(
           #choseValueFromDropdown,
           [value],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
@@ -2290,7 +2364,7 @@ class MockExploreEventsViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -2326,7 +2400,7 @@ class MockExploreEventsViewModel extends _i2.Mock
 /// A class which mocks [Validator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockValidator extends _i2.Mock implements _i29.Validator {
+class MockValidator extends _i2.Mock implements _i30.Validator {
   @override
   _i4.Future<bool?> validateUrlExistence(String? url) => (super.noSuchMethod(
         Invocation.method(
@@ -2341,13 +2415,13 @@ class MockValidator extends _i2.Mock implements _i29.Validator {
 /// A class which mocks [QRViewController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQRViewController extends _i2.Mock implements _i30.QRViewController {
+class MockQRViewController extends _i2.Mock implements _i31.QRViewController {
   @override
-  _i4.Stream<_i31.Barcode> get scannedDataStream => (super.noSuchMethod(
+  _i4.Stream<_i32.Barcode> get scannedDataStream => (super.noSuchMethod(
         Invocation.getter(#scannedDataStream),
-        returnValue: _i4.Stream<_i31.Barcode>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i31.Barcode>.empty(),
-      ) as _i4.Stream<_i31.Barcode>);
+        returnValue: _i4.Stream<_i32.Barcode>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i32.Barcode>.empty(),
+      ) as _i4.Stream<_i32.Barcode>);
   @override
   bool get hasPermissions => (super.noSuchMethod(
         Invocation.getter(#hasPermissions),
@@ -2355,27 +2429,27 @@ class MockQRViewController extends _i2.Mock implements _i30.QRViewController {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  _i4.Future<_i32.CameraFacing> getCameraInfo() => (super.noSuchMethod(
+  _i4.Future<_i33.CameraFacing> getCameraInfo() => (super.noSuchMethod(
         Invocation.method(
           #getCameraInfo,
           [],
         ),
         returnValue:
-            _i4.Future<_i32.CameraFacing>.value(_i32.CameraFacing.back),
+            _i4.Future<_i33.CameraFacing>.value(_i33.CameraFacing.back),
         returnValueForMissingStub:
-            _i4.Future<_i32.CameraFacing>.value(_i32.CameraFacing.back),
-      ) as _i4.Future<_i32.CameraFacing>);
+            _i4.Future<_i33.CameraFacing>.value(_i33.CameraFacing.back),
+      ) as _i4.Future<_i33.CameraFacing>);
   @override
-  _i4.Future<_i32.CameraFacing> flipCamera() => (super.noSuchMethod(
+  _i4.Future<_i33.CameraFacing> flipCamera() => (super.noSuchMethod(
         Invocation.method(
           #flipCamera,
           [],
         ),
         returnValue:
-            _i4.Future<_i32.CameraFacing>.value(_i32.CameraFacing.back),
+            _i4.Future<_i33.CameraFacing>.value(_i33.CameraFacing.back),
         returnValueForMissingStub:
-            _i4.Future<_i32.CameraFacing>.value(_i32.CameraFacing.back),
-      ) as _i4.Future<_i32.CameraFacing>);
+            _i4.Future<_i33.CameraFacing>.value(_i33.CameraFacing.back),
+      ) as _i4.Future<_i33.CameraFacing>);
   @override
   _i4.Future<bool?> getFlashStatus() => (super.noSuchMethod(
         Invocation.method(
@@ -2466,7 +2540,7 @@ class MockQRViewController extends _i2.Mock implements _i30.QRViewController {
 /// A class which mocks [CommentService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCommentService extends _i2.Mock implements _i33.CommentService {
+class MockCommentService extends _i2.Mock implements _i34.CommentService {
   @override
   _i4.Future<void> createComments(
     String? postId,
@@ -2497,7 +2571,7 @@ class MockCommentService extends _i2.Mock implements _i33.CommentService {
 /// A class which mocks [AppTheme].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
+class MockAppTheme extends _i2.Mock implements _i35.AppTheme {
   @override
   String get key => (super.noSuchMethod(
         Invocation.getter(#key),
@@ -2511,11 +2585,11 @@ class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -2529,7 +2603,15 @@ class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  dynamic switchTheme({required bool? isOn}) => super.noSuchMethod(
+  void initialize() => super.noSuchMethod(
+        Invocation.method(
+          #initialize,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void switchTheme({required bool? isOn}) => super.noSuchMethod(
         Invocation.method(
           #switchTheme,
           [],
@@ -2538,7 +2620,7 @@ class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -2582,7 +2664,7 @@ class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
 /// A class which mocks [TaskService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTaskService extends _i2.Mock implements _i35.TaskService {
+class MockTaskService extends _i2.Mock implements _i36.TaskService {
   @override
   _i9.VoidCallback get callbackNotifyListeners => (super.noSuchMethod(
         Invocation.getter(#callbackNotifyListeners),
@@ -2599,11 +2681,11 @@ class MockTaskService extends _i2.Mock implements _i35.TaskService {
         returnValueForMissingStub: null,
       );
   @override
-  List<_i36.Task> get tasks => (super.noSuchMethod(
+  List<_i37.Task> get tasks => (super.noSuchMethod(
         Invocation.getter(#tasks),
-        returnValue: <_i36.Task>[],
-        returnValueForMissingStub: <_i36.Task>[],
-      ) as List<_i36.Task>);
+        returnValue: <_i37.Task>[],
+        returnValueForMissingStub: <_i37.Task>[],
+      ) as List<_i37.Task>);
   @override
   _i4.Future<void> getTasksForEvent(String? eventId) => (super.noSuchMethod(
         Invocation.method(
@@ -2686,7 +2768,7 @@ class MockTaskService extends _i2.Mock implements _i35.TaskService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCreateEventViewModel extends _i2.Mock
-    implements _i37.CreateEventViewModel {
+    implements _i38.CreateEventViewModel {
   @override
   _i1.TextEditingController get eventTitleTextController => (super.noSuchMethod(
         Invocation.getter(#eventTitleTextController),
@@ -2992,11 +3074,11 @@ class MockCreateEventViewModel extends _i2.Mock
         returnValueForMissingStub: <String, bool>{},
       ) as Map<String, bool>);
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -3073,7 +3155,7 @@ class MockCreateEventViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -3118,7 +3200,7 @@ class MockCreateEventViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDirectChatViewModel extends _i2.Mock
-    implements _i38.DirectChatViewModel {
+    implements _i39.DirectChatViewModel {
   @override
   _i1.GlobalKey<_i1.AnimatedListState> get listKey => (super.noSuchMethod(
         Invocation.getter(#listKey),
@@ -3132,13 +3214,13 @@ class MockDirectChatViewModel extends _i2.Mock
         ),
       ) as _i1.GlobalKey<_i1.AnimatedListState>);
   @override
-  _i12.ChatState get chatState => (super.noSuchMethod(
+  _i13.ChatState get chatState => (super.noSuchMethod(
         Invocation.getter(#chatState),
-        returnValue: _i12.ChatState.initial,
-        returnValueForMissingStub: _i12.ChatState.initial,
-      ) as _i12.ChatState);
+        returnValue: _i13.ChatState.initial,
+        returnValueForMissingStub: _i13.ChatState.initial,
+      ) as _i13.ChatState);
   @override
-  set chatState(_i12.ChatState? _chatState) => super.noSuchMethod(
+  set chatState(_i13.ChatState? _chatState) => super.noSuchMethod(
         Invocation.setter(
           #chatState,
           _chatState,
@@ -3154,24 +3236,24 @@ class MockDirectChatViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  List<_i20.ChatListTileDataModel> get chats => (super.noSuchMethod(
+  List<_i21.ChatListTileDataModel> get chats => (super.noSuchMethod(
         Invocation.getter(#chats),
-        returnValue: <_i20.ChatListTileDataModel>[],
-        returnValueForMissingStub: <_i20.ChatListTileDataModel>[],
-      ) as List<_i20.ChatListTileDataModel>);
+        returnValue: <_i21.ChatListTileDataModel>[],
+        returnValueForMissingStub: <_i21.ChatListTileDataModel>[],
+      ) as List<_i21.ChatListTileDataModel>);
   @override
-  Map<String, List<_i21.ChatMessage>> get chatMessagesByUser =>
+  Map<String, List<_i22.ChatMessage>> get chatMessagesByUser =>
       (super.noSuchMethod(
         Invocation.getter(#chatMessagesByUser),
-        returnValue: <String, List<_i21.ChatMessage>>{},
-        returnValueForMissingStub: <String, List<_i21.ChatMessage>>{},
-      ) as Map<String, List<_i21.ChatMessage>>);
+        returnValue: <String, List<_i22.ChatMessage>>{},
+        returnValueForMissingStub: <String, List<_i22.ChatMessage>>{},
+      ) as Map<String, List<_i22.ChatMessage>>);
   @override
-  _i12.ViewState get state => (super.noSuchMethod(
+  _i13.ViewState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i12.ViewState.idle,
-        returnValueForMissingStub: _i12.ViewState.idle,
-      ) as _i12.ViewState);
+        returnValue: _i13.ViewState.idle,
+        returnValueForMissingStub: _i13.ViewState.idle,
+      ) as _i13.ViewState);
   @override
   bool get isBusy => (super.noSuchMethod(
         Invocation.getter(#isBusy),
@@ -3243,7 +3325,7 @@ class MockDirectChatViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
+  void setState(_i13.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -3274,4 +3356,234 @@ class MockDirectChatViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [ImageCropper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImageCropper extends _i2.Mock implements _i40.ImageCropper {
+  @override
+  _i4.Future<_i40.CroppedFile?> cropImage({
+    required String? sourcePath,
+    int? maxWidth,
+    int? maxHeight,
+    _i40.CropAspectRatio? aspectRatio,
+    List<_i40.CropAspectRatioPreset>? aspectRatioPresets = const [
+      _i40.CropAspectRatioPreset.original,
+      _i40.CropAspectRatioPreset.square,
+      _i40.CropAspectRatioPreset.ratio3x2,
+      _i40.CropAspectRatioPreset.ratio4x3,
+      _i40.CropAspectRatioPreset.ratio16x9,
+    ],
+    _i40.CropStyle? cropStyle = _i40.CropStyle.rectangle,
+    _i40.ImageCompressFormat? compressFormat = _i40.ImageCompressFormat.jpg,
+    int? compressQuality = 90,
+    List<_i40.PlatformUiSettings>? uiSettings,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cropImage,
+          [],
+          {
+            #sourcePath: sourcePath,
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #aspectRatio: aspectRatio,
+            #aspectRatioPresets: aspectRatioPresets,
+            #cropStyle: cropStyle,
+            #compressFormat: compressFormat,
+            #compressQuality: compressQuality,
+            #uiSettings: uiSettings,
+          },
+        ),
+        returnValue: _i4.Future<_i40.CroppedFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i40.CroppedFile?>.value(),
+      ) as _i4.Future<_i40.CroppedFile?>);
+  @override
+  _i4.Future<_i40.CroppedFile?> recoverImage() => (super.noSuchMethod(
+        Invocation.method(
+          #recoverImage,
+          [],
+        ),
+        returnValue: _i4.Future<_i40.CroppedFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i40.CroppedFile?>.value(),
+      ) as _i4.Future<_i40.CroppedFile?>);
+}
+
+/// A class which mocks [ImagePicker].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImagePicker extends _i2.Mock implements _i12.ImagePicker {
+  @override
+  _i4.Future<_i12.PickedFile?> getImage({
+    required _i12.ImageSource? source,
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    _i12.CameraDevice? preferredCameraDevice = _i12.CameraDevice.rear,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getImage,
+          [],
+          {
+            #source: source,
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #preferredCameraDevice: preferredCameraDevice,
+          },
+        ),
+        returnValue: _i4.Future<_i12.PickedFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.PickedFile?>.value(),
+      ) as _i4.Future<_i12.PickedFile?>);
+  @override
+  _i4.Future<List<_i12.PickedFile>?> getMultiImage({
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMultiImage,
+          [],
+          {
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+          },
+        ),
+        returnValue: _i4.Future<List<_i12.PickedFile>?>.value(),
+        returnValueForMissingStub: _i4.Future<List<_i12.PickedFile>?>.value(),
+      ) as _i4.Future<List<_i12.PickedFile>?>);
+  @override
+  _i4.Future<_i12.PickedFile?> getVideo({
+    required _i12.ImageSource? source,
+    _i12.CameraDevice? preferredCameraDevice = _i12.CameraDevice.rear,
+    Duration? maxDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getVideo,
+          [],
+          {
+            #source: source,
+            #preferredCameraDevice: preferredCameraDevice,
+            #maxDuration: maxDuration,
+          },
+        ),
+        returnValue: _i4.Future<_i12.PickedFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.PickedFile?>.value(),
+      ) as _i4.Future<_i12.PickedFile?>);
+  @override
+  _i4.Future<_i12.LostData> getLostData() => (super.noSuchMethod(
+        Invocation.method(
+          #getLostData,
+          [],
+        ),
+        returnValue: _i4.Future<_i12.LostData>.value(_FakeLostData_23(
+          this,
+          Invocation.method(
+            #getLostData,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i12.LostData>.value(_FakeLostData_23(
+          this,
+          Invocation.method(
+            #getLostData,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i12.LostData>);
+  @override
+  _i4.Future<_i12.XFile?> pickImage({
+    required _i12.ImageSource? source,
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    _i12.CameraDevice? preferredCameraDevice = _i12.CameraDevice.rear,
+    bool? requestFullMetadata = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickImage,
+          [],
+          {
+            #source: source,
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #preferredCameraDevice: preferredCameraDevice,
+            #requestFullMetadata: requestFullMetadata,
+          },
+        ),
+        returnValue: _i4.Future<_i12.XFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.XFile?>.value(),
+      ) as _i4.Future<_i12.XFile?>);
+  @override
+  _i4.Future<List<_i12.XFile>> pickMultiImage({
+    double? maxWidth,
+    double? maxHeight,
+    int? imageQuality,
+    bool? requestFullMetadata = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickMultiImage,
+          [],
+          {
+            #maxWidth: maxWidth,
+            #maxHeight: maxHeight,
+            #imageQuality: imageQuality,
+            #requestFullMetadata: requestFullMetadata,
+          },
+        ),
+        returnValue: _i4.Future<List<_i12.XFile>>.value(<_i12.XFile>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.XFile>>.value(<_i12.XFile>[]),
+      ) as _i4.Future<List<_i12.XFile>>);
+  @override
+  _i4.Future<_i12.XFile?> pickVideo({
+    required _i12.ImageSource? source,
+    _i12.CameraDevice? preferredCameraDevice = _i12.CameraDevice.rear,
+    Duration? maxDuration,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickVideo,
+          [],
+          {
+            #source: source,
+            #preferredCameraDevice: preferredCameraDevice,
+            #maxDuration: maxDuration,
+          },
+        ),
+        returnValue: _i4.Future<_i12.XFile?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.XFile?>.value(),
+      ) as _i4.Future<_i12.XFile?>);
+  @override
+  _i4.Future<_i12.LostDataResponse> retrieveLostData() => (super.noSuchMethod(
+        Invocation.method(
+          #retrieveLostData,
+          [],
+        ),
+        returnValue:
+            _i4.Future<_i12.LostDataResponse>.value(_FakeLostDataResponse_24(
+          this,
+          Invocation.method(
+            #retrieveLostData,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i12.LostDataResponse>.value(_FakeLostDataResponse_24(
+          this,
+          Invocation.method(
+            #retrieveLostData,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i12.LostDataResponse>);
 }

@@ -43,7 +43,7 @@ Widget createExploreEventDialog() {
   );
 }
 
-main() {
+void main() {
   DateTime startDate = DateTime.now().toLocal();
   // DateTime _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
   setUp(() {

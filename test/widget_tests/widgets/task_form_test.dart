@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,13 +21,6 @@ import '../../helpers/test_locator.dart';
 /// Services include:
 /// * `call` : mock function to test callback
 class OnSaveCallback {
-  /// This is a mock function to test callback.
-  ///
-  /// params:
-  /// None
-  ///
-  /// returns:
-  /// None
   void call() {}
 }
 
@@ -39,9 +34,10 @@ MockOnSaveCallback mockOnSaveCallback = MockOnSaveCallback();
 
 /// This function is used to return TaskFormWidget for testing.
 ///
-/// params:
-/// None
-/// returns:
+/// **params**:
+///   None
+///
+/// **returns**:
 /// * `Widget`: TaskForm Widget for testing.
 
 Widget createTaskFormWidget() {
@@ -77,23 +73,8 @@ Widget createTaskFormWidget() {
   );
 }
 
-/// callback is again executed here.
-///
-/// params:
-/// None
-///
-/// returns:
-/// None
-
 void callback() {}
 
-/// Tests task_form.dart.
-///
-/// params:
-/// None
-///
-/// returns:
-/// None
 void main() {
   testSetupLocator();
   setUp(() {
