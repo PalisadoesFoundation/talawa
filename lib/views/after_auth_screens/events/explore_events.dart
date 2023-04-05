@@ -90,77 +90,87 @@ class ExploreEvents extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Card(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    elevation: 2,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                      ),
-                                      width: SizeConfig.screenWidth! * 0.45,
-                                      child: DropdownButtonHideUnderline(
-                                        child: dropDownList(model, context),
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        // on tap open the Explore Event Dialog.
-                                        context: context,
-                                        builder: (_) {
-                                          return const ExploreEventDialog(
-                                            key: Key('ExploreEvents'),
-                                          );
-                                        },
-                                      );
-                                    },
+                                  Expanded(
+                                    flex: 3,
                                     child: Card(
-                                      key: homeModel?.keySEDateFilter,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
+                                      elevation: 2,
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 20,
-                                          vertical: 12,
                                         ),
-                                        // width: SizeConfig.screenWidth! * 0.30,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            const Icon(
-                                              Icons.calendar_today,
-                                              color: Color(0xff524F4F),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .strictTranslate(
-                                                "Add Date",
-                                              ),
-                                            ),
-                                          ],
+                                        //width: SizeConfig.screenWidth! * 0.45,
+                                        child: DropdownButtonHideUnderline(
+                                          child: dropDownList(model, context),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  Card(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        navigationService.pushScreen(
-                                          Routes.calendar,
-                                          arguments: model.events,
+                                  Expanded(
+                                    flex: 2,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          // on tap open the Explore Event Dialog.
+                                          context: context,
+                                          builder: (_) {
+                                            return const ExploreEventDialog(
+                                              key: Key('ExploreEvents'),
+                                            );
+                                          },
                                         );
                                       },
-                                      icon: const Icon(
-                                        Icons.calendar_month,
+                                      child: Card(
+                                        key: homeModel?.keySEDateFilter,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
+                                          ),
+                                          // width: SizeConfig.screenWidth! * 0.30,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              const Icon(
+                                                Icons.calendar_today,
+                                                color: Color(0xff524F4F),
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .strictTranslate(
+                                                  "Add Date",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Card(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          navigationService.pushScreen(
+                                            Routes.calendar,
+                                            arguments: model.events,
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          Icons.calendar_month,
+                                        ),
                                       ),
                                     ),
                                   ),
