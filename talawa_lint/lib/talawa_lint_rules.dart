@@ -57,8 +57,7 @@ class TalawaGoodDocLintRules {
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.',
     correctionMessage:
-        "Documentation does not contain information about the return type,\n"
-        "even though it is not `void`\n"
+        "Documentation does not contain information about the return type.\n"
         "Add '**returns**:' block followed by the return doc.",
   );
 
@@ -68,7 +67,7 @@ class TalawaGoodDocLintRules {
     correctionMessage:
         "Documentation format of return type is in wrong format.\n"
         "For void type - '/// **returns**: \n///   None'\n"
-        "For other types - '/// **returns**:' followed by types in new lines",
+        "For other types - '/// **returns**:' followed by type in new lines",
   );
 
   static const noReturnDoc = LintCode(

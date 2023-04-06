@@ -308,22 +308,22 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
       }
     }
 
-    // Check if there is atleast one blank line above
+    final isVoid = TalawaLintHelpers.isVoid(node);
 
-    if (doc[currentDocLine - 1].lexeme.trim() != '///') {
+    if (!containsReturn) {
       reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
+        TalawaGoodDocLintRules.doesNotContainReturn,
         node.documentationComment!,
       );
 
       return;
     }
 
-    final isVoid = TalawaLintHelpers.isVoid(node);
+    // Check if there is atleast one blank line above
 
-    if (!containsReturn && !isVoid) {
+    if (doc[currentDocLine - 1].lexeme.trim() != '///') {
       reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.doesNotContainReturn,
+        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
         node.documentationComment!,
       );
 
