@@ -387,7 +387,7 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
               returnTypeDocPattern.pattern,
             )) {
       reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noEndWithNoneForVoid,
+        TalawaGoodDocLintRules.wrongReturnsDoc,
         node.documentationComment!,
       );
 

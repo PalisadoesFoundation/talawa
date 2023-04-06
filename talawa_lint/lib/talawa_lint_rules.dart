@@ -66,8 +66,11 @@ class TalawaGoodDocLintRules {
     problemMessage: 'Wrong doc format.',
     correctionMessage:
         "Documentation format of return type is in wrong format.\n"
-        "For void type - '/// **returns**: \n///   None'\n"
-        "For other types - '/// **returns**:' followed by type in new lines",
+        "For void type - \n"
+        "/// **returns**: \n///   None\n"
+        "For other types - \n"
+        "/// **returns**: \n"
+        "/// * `return_type`: documentation of the return type.",
   );
 
   static const noReturnDoc = LintCode(
