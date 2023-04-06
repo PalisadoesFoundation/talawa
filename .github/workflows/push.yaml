@@ -45,7 +45,7 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
       - name: setup python
         uses: actions/setup-python@v4
       - name: Check for presence of ignore directives corresponding to custom lints
