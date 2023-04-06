@@ -43,7 +43,7 @@ class PostQueries {
   /// Add Like to a post.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `String`: The query related to addingLike
@@ -61,7 +61,7 @@ class PostQueries {
   /// Remove Like from a post.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `String`: The query related to removingLike
@@ -82,7 +82,7 @@ class PostQueries {
   /// Upload a post to database.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `String`: The query related to uploadingPost.

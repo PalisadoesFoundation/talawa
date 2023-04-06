@@ -73,7 +73,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 /// First function to initialize the application, invoked automatically.
 ///
 /// **params**:
-/// None
+///   None
 ///
 /// **returns**:
 /// * `Future<void>`: resolves if the application was successfully initialized.
@@ -201,7 +201,7 @@ class _MyAppState extends State<MyApp> {
   /// It allows to manage and interact with the application’s home screen quick actions.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
@@ -333,7 +333,7 @@ class DemoViewModel extends BaseModel {
 /// Set up firebase instance, enbables messaging,listens to icoming messages.
 ///
 /// **params**:
-/// None
+///   None
 ///
 /// **returns**:
 /// * `Future<void>`: promise that will be fulfilled Firebase is setted up.
