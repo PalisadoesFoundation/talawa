@@ -44,7 +44,7 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
       - name: Running count lines
