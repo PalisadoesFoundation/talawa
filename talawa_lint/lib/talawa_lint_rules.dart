@@ -32,8 +32,7 @@ class TalawaGoodDocLintRules {
   static const startShouldFollowParam = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: '* should follow a param name',
-    correctionMessage:
-        "Make sure you have added a param name after *, and it\n"
+    correctionMessage: "Make sure you have added a param name after *, and it\n"
         "is in the same order as it appears in the function",
   );
 
