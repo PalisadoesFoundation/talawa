@@ -660,8 +660,8 @@ class MainScreenViewModel extends BaseModel {
   /// This returns a widget for a step in a tutorial.
   ///
   /// **params**:
-  /// * `keyName`: key where the widget shows.
   /// * `key`: key of type GlobalKey.
+  /// * `keyName`: key where the widget shows.
   /// * `description`: description of the step.
   /// * `isCircle`: bool to specify if circle
   /// * `next`: Function` type, this show the next step or `key` to show the tour of.
