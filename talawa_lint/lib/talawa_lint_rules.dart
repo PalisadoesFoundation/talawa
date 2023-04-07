@@ -5,20 +5,21 @@ class TalawaAPIDocLintRules {}
 class TalawaGoodDocLintRules {
   static const firstLineEndCode = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
+    problemMessage:
+        "First line of the documentation doesn't end with end punctuation.",
     correctionMessage: "End first line of documentation with '.', '!' etc",
   );
 
   static const secondLineEmptyCode = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
+    problemMessage: 'Second line of the doc is not empty.',
     correctionMessage:
         "Second line should be left empty to improve readability",
   );
 
   static const includeParamsKeywordCode = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
+    problemMessage: 'params block not found in the documentation.',
     correctionMessage: "Include `**params**:` keyword in function/method doc",
   );
 
@@ -30,20 +31,23 @@ class TalawaGoodDocLintRules {
 
   static const startShouldFollowParam = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
-    correctionMessage: "* should follow a param name",
+    problemMessage: '* should follow a param name',
+    correctionMessage:
+        "Make sure you have added a param name after *, and it\n"
+        "is in the same order as it appears in the function",
   );
 
   static const emptyParamDoc = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
+    problemMessage: 'No documentation is written for this parameter',
     correctionMessage: "Param name should follow its documentation",
   );
 
   static const allParamsNotDocumented = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong doc format.',
-    correctionMessage: "Some parameters are missing documentation",
+    problemMessage: 'Some parameters are missing documentation',
+    correctionMessage: "Please make sure that you have documented all\n"
+        "of the parameters in the same order as they appear in the function.",
   );
 
   static const noBlankLineBWParamAndReturn = LintCode(
