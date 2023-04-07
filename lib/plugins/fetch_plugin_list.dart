@@ -4,12 +4,12 @@ import 'package:talawa/locator.dart';
 
 /// This class fetch plugins list.
 class FetchPluginList {
-  /// Constructor of the class
+  /// Constructor of the class.
   FetchPluginList() {
     fetchList();
   }
 
-  /// late initialize the box
+  /// late initialize the box.
   late Box box;
 
   /// Fetches plugins from server and stores them in Hive `pluginBox`.

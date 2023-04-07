@@ -188,6 +188,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// Contains the Widgets to be rendered for corresponding navbar items.
+  ///
   /// Features that should be implemented as plugins should be kept here.
   List<StatelessWidget> pages = [];
 
@@ -202,13 +203,18 @@ class MainScreenViewModel extends BaseModel {
   /// name stored here.
   Map<dynamic, dynamic> pluginPrototypeData = {};
 
+  /// list of all the pluginList
   List<dynamic> pluginList = [];
 
   /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
+  ///
   /// by mapping over the data received from the server.
   ///
   /// **params**:
   /// * `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info
+  ///
+  /// **returns**:
+  ///   None
   void fetchAndAddPlugins(
     BuildContext context,
   ) {
@@ -294,6 +300,7 @@ class MainScreenViewModel extends BaseModel {
     });
 
     /// Causes the app check the plugins updates in every 300 sec
+    ///
     /// updated and re-render the navbar
     Timer.periodic(const Duration(seconds: 300), (timer) {
       FetchPluginList();
@@ -313,6 +320,9 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `index` : it is track of current page index
+  ///
+  /// **returns**:
+  ///   None
   void onTabTapped(int index) {
     currentPageIndex = index;
     notifyListeners();
@@ -323,6 +333,10 @@ class MainScreenViewModel extends BaseModel {
   /// **params**:
   /// * `onClickTarget` : Its a function which is required to run desired tasks on click
   /// * `onFinish` : Its a function which is required to run desired tasks on finish
+  ///
+  ///
+  /// **returns**:
+  ///   None
   void showTutorial({
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
@@ -356,6 +370,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **prams**:
   ///   None
+  ///
   /// **returns**:
   ///   None
   void tourHomeTargets() {
