@@ -211,7 +211,7 @@ class MainScreenViewModel extends BaseModel {
   /// by mapping over the data received from the server.
   ///
   /// **params**:
-  /// * `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info.
+  /// * `context`: its the same context you use everywhere in the flutter framework refer flutter docs for more info.
   ///
   /// **returns**:
   ///   None
@@ -319,7 +319,7 @@ class MainScreenViewModel extends BaseModel {
   /// Handles click on [BottomNavigationBarItem].
   ///
   /// **params**:
-  /// * `index` : it is track of current page index.
+  /// * `index`: it is track of current page index.
   ///
   /// **returns**:
   ///   None
@@ -331,8 +331,8 @@ class MainScreenViewModel extends BaseModel {
   /// This function show tutorial to user.
   ///
   /// **params**:
-  /// * `onClickTarget` : Its a function which is required to run desired tasks on click.
-  /// * `onFinish` : Its a function which is required to run desired tasks on finish
+  /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
+  /// * `onFinish`: Its a function which is required to run desired tasks on finish
   ///
   ///
   /// **returns**:
@@ -368,7 +368,7 @@ class MainScreenViewModel extends BaseModel {
 
   /// this functions starts the tour and info to be displayed is mentioned in this functions.
   ///
-  /// **prams**:
+  /// **params**:
   ///   None
   ///
   /// **returns**:
@@ -461,7 +461,7 @@ class MainScreenViewModel extends BaseModel {
   /// This function shows the Home screen.
   ///
   /// **params**:
-  /// * `clickedTarget` : object to identify clickedTarget.
+  /// * `clickedTarget`: object to identify clickedTarget.
   ///
   /// **returns**:
   ///   None
@@ -660,11 +660,11 @@ class MainScreenViewModel extends BaseModel {
   /// This returns a widget for a step in a tutorial.
   ///
   /// **params**:
-  /// * `keyName` : key where the widget shows.
-  /// * `description` : description of the step.
+  /// * `keyName`: key where the widget shows.
+  /// * `description`: description of the step.
   /// * `isCircle`: bool to specify if circle
-  /// * `next` : `Function` type, this show the next step or `key` to show the tour of.
-  /// * `isEnd` : true if last step of the tour.
+  /// * `next`: `Function` type, this show the next step or `key` to show the tour of.
+  /// * `isEnd`: true if last step of the tour.
   ///
   ///
   /// **returns**:
