@@ -30,97 +30,108 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `tourChat`
 /// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
-  /// static variables
+  /// static variables.
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
 
-  /// static variables
+  /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySHPinnedPost =
       GlobalKey(debugLabel: "HomeScreenPinnedPost");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySHPost = GlobalKey(debugLabel: "HomeScreenPost");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
-  /// static variables
+  /// static variables.
   static final GlobalKey keyDrawerCurOrg =
       GlobalKey(debugLabel: "DrawerCurrentOrg");
 
-  /// static variables
+  /// static variables.
   static final GlobalKey keyDrawerSwitchableOrg =
       GlobalKey(debugLabel: "DrawerSwitchableOrg");
 
-  /// static variables
+  /// static variables.
   static final GlobalKey keyDrawerJoinOrg =
       GlobalKey(debugLabel: "DrawerJoinOrg");
 
-  /// static variables
+  /// static variables.
   static final GlobalKey keyDrawerLeaveCurrentOrg =
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySECategoryMenu =
       GlobalKey(debugLabel: "EventScreenCategory");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySEDateFilter =
       GlobalKey(debugLabel: "EventScreenDateFilter");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySEAdd = GlobalKey(debugLabel: "EventScreenAdd");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySECard = GlobalKey(debugLabel: "EventScreenCard");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPAppSetting =
       GlobalKey(debugLabel: "ProfileScreenAppSetting");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPHelp = GlobalKey(debugLabel: "ProfileScreenHelp");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPDonateUs =
       GlobalKey(debugLabel: "ProfileScreenDonateUs");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPInvite = GlobalKey(debugLabel: "ProfileScreenInvite");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPLogout = GlobalKey(debugLabel: "ProfileScreenLogout");
 
-  /// static variables
+  /// static variables.
   final GlobalKey keySPPalisadoes =
       GlobalKey(debugLabel: "ProfileScreenPalisadoes");
 
+  /// bool to determine if we wanna show the apptour.
   late bool showAppTour;
+
+  /// bool to determine if apptour is complete.
   bool tourComplete = false;
+
+  /// bool to determine if apptour is skipped.
   bool tourSkipped = false;
+
+  /// context consist of parent info.
   late BuildContext context;
+
+  /// tutorialCoachMark consist of coach used to give tutorial.
   late TutorialCoachMark tutorialCoachMark;
+
+  /// array of target.
   final List<TargetFocus> targets = [];
 
   /// Initalizing function.
@@ -130,7 +141,7 @@ class MainScreenViewModel extends BaseModel {
   /// * `fromSignUp`: Bool to find user entry
   /// * `mainScreenIndex`: Index to find tab on mainScreen
   ///
-  /// **return**:
+  /// **returns**:
   ///   None
   void initialise(
     BuildContext ctx, {
