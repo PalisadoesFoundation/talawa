@@ -664,7 +664,7 @@ class MainScreenViewModel extends BaseModel {
   /// * `key`: key of type GlobalKey.
   /// * `description`: description of the step.
   /// * `isCircle`: bool to specify if circle
-  /// * `next`: `Function` type, this show the next step or `key` to show the tour of.
+  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
   /// * `isEnd`: true if last step of the tour.
   /// * `align`: align of type ContentAlign to align button.
   /// * `crossAlign`: Cross align axes
