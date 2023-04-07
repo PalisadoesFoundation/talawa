@@ -203,7 +203,7 @@ class MainScreenViewModel extends BaseModel {
   /// name stored here.
   Map<dynamic, dynamic> pluginPrototypeData = {};
 
-  /// list of all the pluginList
+  /// list of all the pluginList.
   List<dynamic> pluginList = [];
 
   /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
@@ -211,7 +211,7 @@ class MainScreenViewModel extends BaseModel {
   /// by mapping over the data received from the server.
   ///
   /// **params**:
-  /// * `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info
+  /// * `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info.
   ///
   /// **returns**:
   ///   None
@@ -313,13 +313,13 @@ class MainScreenViewModel extends BaseModel {
     });
   }
 
-  /// var for current page in index
+  /// var for current page in index.
   int currentPageIndex = 0;
 
   /// Handles click on [BottomNavigationBarItem].
   ///
   /// **params**:
-  /// * `index` : it is track of current page index
+  /// * `index` : it is track of current page index.
   ///
   /// **returns**:
   ///   None
@@ -331,7 +331,7 @@ class MainScreenViewModel extends BaseModel {
   /// This function show tutorial to user.
   ///
   /// **params**:
-  /// * `onClickTarget` : Its a function which is required to run desired tasks on click
+  /// * `onClickTarget` : Its a function which is required to run desired tasks on click.
   /// * `onFinish` : Its a function which is required to run desired tasks on finish
   ///
   ///
