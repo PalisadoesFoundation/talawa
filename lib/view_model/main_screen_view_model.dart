@@ -664,12 +664,12 @@ class MainScreenViewModel extends BaseModel {
   /// * `keyName`: key where the widget shows.
   /// * `description`: description of the step.
   /// * `isCircle`: bool to specify if circle
-  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
-  /// * `isEnd`: true if last step of the tour.
   /// * `align`: align of type ContentAlign to align button.
   /// * `crossAlign`: Cross align axes
   /// * `skipAlignment`: to give alignment of skip option
+  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
   /// * `nextCrossAlign`: nextCrossAlign to give alignment of next option
+  /// * `isEnd`: true if last step of the tour.
   ///
   ///
   /// **returns**:
