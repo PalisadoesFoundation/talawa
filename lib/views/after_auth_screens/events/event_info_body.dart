@@ -231,13 +231,6 @@ class EventInfoBody extends StatelessWidget {
                       .headlineSmall!
                       .copyWith(fontSize: 16),
                 ),
-                Text(
-                  AppLocalizations.of(context)!.strictTranslate('See all'),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: const Color(0xff4285F4)),
-                ),
               ],
             ),
             Divider(
