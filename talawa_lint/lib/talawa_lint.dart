@@ -1,7 +1,7 @@
 // This is the entrypoint of our custom linter
 import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:talawa_lint/talawa_api_doc.dart';
-import 'package:talawa_lint/talawa_good_doc.dart';
+import 'package:talawa_lint/talawa_api_doc/talawa_api_doc.dart';
+import 'package:talawa_lint/talawa_good_doc/talawa_good_doc.dart';
 
 PluginBase createPlugin() => _ExampleLinter();
 

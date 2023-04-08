@@ -51,7 +51,7 @@ class EventService {
   /// This function is used to set stream subscription for an organization.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
@@ -65,7 +65,7 @@ class EventService {
   /// This function is used to fetch all the events of an organization.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Future<void>`: void
@@ -184,7 +184,7 @@ class EventService {
   /// This function is used to cancel the stream subscription of an organization.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
