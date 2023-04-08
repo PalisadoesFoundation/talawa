@@ -221,17 +221,12 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.strictTranslate("Attendees"),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontSize: 16),
-                ),
-              ],
+            Text(
+              AppLocalizations.of(context)!.strictTranslate("Attendees"),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             Divider(
               color: Theme.of(context).colorScheme.onBackground,
