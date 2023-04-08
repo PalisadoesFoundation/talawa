@@ -255,7 +255,6 @@ class EventInfoBody extends StatelessWidget {
               //then renders all the attendees in ListView.
               ListView.builder(
                 padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: model.registrants.length,
                 itemBuilder: (BuildContext context, int index) {
