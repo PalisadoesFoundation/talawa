@@ -9,8 +9,10 @@ class TalawaGoodDocComments extends DartLintRule {
   /// This is used for `// ignore: code` and enabling/disabling the lint
   static const _code = LintCode(
     name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong comment format.\n'
+    problemMessage: 'Wrong comment format.',
+    correctionMessage:
         'Use "/// ..." for public api and "// ..." for other cases.',
+    url: "https://docs.talawa.io/docs/developers/talawa/talawa-lint/",
   );
 
   @override

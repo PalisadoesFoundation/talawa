@@ -10,7 +10,9 @@ class TalawaApiDocLintRule extends DartLintRule {
   /// This is used for `// ignore: code` and enabling/disabling the lint
   static const _code = LintCode(
     name: 'talawa_api_doc',
-    problemMessage: 'Prefer documentation for fields.',
+    problemMessage: 'No documentation found for this field.',
+    correctionMessage: "Add a valid documentation describing usecase.",
+    url: "https://docs.talawa.io/docs/developers/talawa/talawa-lint/",
   );
 
   @override
