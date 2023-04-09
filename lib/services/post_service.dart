@@ -68,15 +68,18 @@ class PostService {
     final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
-    if (result.data!['postsByOrganization'] == null) return;
+    if ((result?.data?['postsByOrganization']) == null) return;
 
-    final List postsJson = result.data!['postsByOrganization'] as List;
+    final List<Object?> postsJson =
+        result?.data!['postsByOrganization'] as List<Object?>;
 
     postsJson.forEach((postJson) {
-      final Post post = Post.fromJson(postJson as Map<String, dynamic>);
-      if (!_renderedPostID.contains(post.sId)) {
-        _posts.insert(0, post);
-        _renderedPostID.add(post.sId);
+      if (postJson != null) {
+        final Post post = Post.fromJson(postJson as Map<String, dynamic>);
+        if (!_renderedPostID.contains(post.sId)) {
+          _posts.insert(0, post);
+          _renderedPostID.add(post.sId);
+        }
       }
     });
     _postStreamController.add(_posts);

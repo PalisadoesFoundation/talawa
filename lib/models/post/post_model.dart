@@ -36,14 +36,18 @@ class Post {
         : null;
     if (json['likedBy'] != null) {
       likedBy = <LikedBy>[];
-      json['likedBy'].forEach((v) {
-        likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
+      (json['likedBy'] as List<Object?>).forEach((v) {
+        if (v != null) {
+          likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
+        }
       });
     }
     if (json['comments'] != null) {
       comments = <Comments>[];
-      json['comments'].forEach((v) {
-        comments?.add(Comments.fromJson(v as Map<String, dynamic>));
+      (json['comments'] as List<Object?>).forEach((v) {
+        if (v != null) {
+          comments?.add(Comments.fromJson(v as Map<String, dynamic>));
+        }
       });
     }
   }
