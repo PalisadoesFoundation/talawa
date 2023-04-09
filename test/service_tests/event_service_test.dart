@@ -51,5 +51,29 @@ void main() {
         navigationService.pop(),
       );
     });
+
+    test('Test deleteEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = TaskQueries.eventTasks('eventId');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().deleteEvent('eventId'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'deleteEvent': {
+              '_id': 'eventId',
+              'title': 'Test task',
+              'description': 'Test description'
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventService();
+      await services.deleteEvent('eventId');
+    });
   });
 }
