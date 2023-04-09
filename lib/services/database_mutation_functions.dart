@@ -163,7 +163,7 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for authentication.
-  Future<dynamic> gqlAuthQuery(
+  Future<QueryResult<Object?>?> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
   }) async {
