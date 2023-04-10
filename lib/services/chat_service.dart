@@ -38,6 +38,7 @@ class ChatService {
 
   ///getter for chatListStream.
   Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
+
   ///getter for chatMessagesStream.
   Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
 
