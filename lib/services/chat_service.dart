@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -30,6 +27,7 @@ class ChatService {
 
   final _userConfig = locator<UserConfig>();
 
+  ///Stream of chats that we get from server.
   late Stream<QueryResult> chatStream;
 
   final StreamController<ChatListTileDataModel> _chatController =
@@ -38,7 +36,9 @@ class ChatService {
   final StreamController<ChatMessage> _chatMessageController =
       StreamController<ChatMessage>();
 
+  ///getter for chatListStream.
   Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
+  ///getter for chatMessagesStream.
   Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
 
   // Stream<QueryResult> getMessagesFromDirectChat() async* {
@@ -52,9 +52,12 @@ class ChatService {
 
   /// This function is used to send the message in the direct chats.
   ///
-  /// parameters required:
-  /// * [chatId] - id of the direct chat where message need to be send.
-  /// * [messageContent] - the text that need to be send.
+  /// **params**:
+  /// * `chatId`: id of the direct chat where message need to be send.
+  /// * `messageContent`: the text that need to be send.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> sendMessageToDirectChat(
     String chatId,
     String messageContent,
@@ -76,8 +79,11 @@ class ChatService {
 
   /// This function is used to get all the chats by the user.
   ///
-  /// parameters required:
-  /// * [usedId] - current user id, to get all the direct chats associated with this id.
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> getDirectChatsByUserId() async {
     final userId = _userConfig.currentUser.id;
 
@@ -101,8 +107,11 @@ class ChatService {
 
   /// This function is used to get all the chat messages of a particular chat by the user.
   ///
-  /// parameters required:
-  /// * [chatId] - id of the direct chat.
+  /// **params**:
+  /// * `chatId`: id of the direct chat.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> getDirectChatMessagesByChatId(chatId) async {
     // trigger graphQL query to get all the chat messages of a particular chat using [chatId].
     final String query =
