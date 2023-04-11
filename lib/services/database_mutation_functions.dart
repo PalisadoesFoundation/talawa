@@ -17,16 +17,16 @@ import 'package:talawa/utils/queries.dart';
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
 class DataBaseMutationFunctions {
-  /// Client Auth for handling non-authenticated request
+  /// Client Auth for handling non-authenticated request.
   late GraphQLClient clientNonAuth;
 
-  /// Client Auth for handling authenticated request
+  /// Client Auth for handling authenticated request.
   late GraphQLClient clientAuth;
 
-  /// Query passed by fucntion calling this function
+  /// Query passed by fucntion calling this function.
   late Queries _query;
 
-  /// initialization function
+  /// initialization function.
   ///
   /// **params**:
   ///  None
@@ -39,36 +39,36 @@ class DataBaseMutationFunctions {
     _query = Queries();
   }
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError userNotAuthenticated =
       const GraphQLError(message: 'User is not authenticated');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError emailAccountPresent =
       const GraphQLError(message: 'Email address already exists');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError wrongCredentials =
       const GraphQLError(message: 'Invalid credentials');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError organizationNotFound =
       const GraphQLError(message: 'Organization not found');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
     message:
         'Access Token has expired. Please refresh session.: Undefined location',
   );
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
-  /// Graphql error for handling
+  /// Graphql error for handling.
   GraphQLError notifFeatureNotInstalled = const GraphQLError(
     message:
         'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND',
@@ -308,7 +308,6 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for the non signed-in user.
-  ///
   ///
   /// **params**:
   /// * `query`: query is used to fetch data in graphql, for more info read graphql docs
