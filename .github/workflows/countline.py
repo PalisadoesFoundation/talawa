@@ -214,7 +214,7 @@ def main():
         with open(filepath, encoding='latin-1') as code:
             line_count = sum(
                 1 for line in code
-                if line.strip() and not (line.startswith('#') or line.startswith('/'))
+                if line.strip() and not (line.strip().startswith('#') or line.strip().startswith('/'))
             )
             lookup[filepath] = line_count
 
