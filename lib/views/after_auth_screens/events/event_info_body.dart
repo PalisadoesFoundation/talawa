@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -29,27 +26,45 @@ class EventInfoBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Stack(
               children: [
-                Text(
-                  // event title
-                  event.title!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(fontSize: 26),
-                ),
-                const Spacer(),
-                (model.event.creator!.id == userConfig.currentUser.id)
-                    ? IconButton(
-                        onPressed: () => navigationService.pushScreen(
-                          "/editEventPage",
-                          arguments: model.event,
+                Container(
+                  padding: const EdgeInsets.only(
+                    right: 48.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          // event title
+                          event.title!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: 26),
                         ),
-                        icon: const Icon(Icons.edit),
-                      )
-                    : Container(),
-                const Icon(Icons.chat_bubble_outline)
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 0.0,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      (model.event.creator!.id == userConfig.currentUser.id)
+                          ? IconButton(
+                              onPressed: () => navigationService.pushScreen(
+                                "/editEventPage",
+                                arguments: model.event,
+                              ),
+                              icon: const Icon(Icons.edit),
+                            )
+                          : Container(),
+                      const Icon(Icons.chat_bubble_outline),
+                    ],
+                  ),
+                ),
               ],
             ),
             Text(
