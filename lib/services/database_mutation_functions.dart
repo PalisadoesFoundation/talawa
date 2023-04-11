@@ -285,7 +285,7 @@ class DataBaseMutationFunctions {
     return null;
   }
 
-  /// This function is used to run the graph-ql query for the non signed-in user.
+  /// This function is used to run the graph-ql query for  non signed-in users.
   ///
   /// **params**:
   /// * `query`: query for non signed-in users
