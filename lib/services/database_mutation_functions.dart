@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -46,6 +43,9 @@ class DataBaseMutationFunctions {
   );
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
+  GraphQLError notifFeatureNotInstalled = const GraphQLError(
+      message:
+          'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND');
 
   /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
   bool? encounteredExceptionOrError(
@@ -150,12 +150,27 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
+      if (exception.graphqlErrors[i].message ==
+          notifFeatureNotInstalled.message) {
+        if (showSnackBar) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Notification Feature is not installed",
+              MessageType.error,
+            ),
+          );
+        }
+        return false;
+      }
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+      print(exception.graphqlErrors[i].message);
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
     // if the error is unknown
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => navigationService.showTalawaErrorDialog(
-        "Something went wrong!",
+        "Something went wrogg!",
         MessageType.error,
       ),
     );
