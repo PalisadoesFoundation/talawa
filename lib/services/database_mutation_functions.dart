@@ -44,8 +44,9 @@ class DataBaseMutationFunctions {
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
   GraphQLError notifFeatureNotInstalled = const GraphQLError(
-      message:
-          'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND');
+    message:
+        'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND',
+  );
 
   /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
   bool? encounteredExceptionOrError(
@@ -65,7 +66,8 @@ class DataBaseMutationFunctions {
       }
       return false;
     }
-    // looping through graphQL errors.
+
+    /// looping through graphQL errors.
     debugPrint(exception.graphqlErrors.toString());
     for (int i = 0; i < exception.graphqlErrors.length; i++) {
       // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
@@ -80,7 +82,8 @@ class DataBaseMutationFunctions {
         print('client refreshed');
         return true;
       }
-      // if the error message is "User is not authenticated"
+
+      /// if the error message is "User is not authenticated"
       if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
         print('client refreshed');
         refreshAccessToken(userConfig.currentUser.refreshToken!).then(
@@ -90,7 +93,8 @@ class DataBaseMutationFunctions {
         );
         return true;
       }
-      // if the error message is "User not found"
+
+      /// if the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -102,7 +106,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Membership Request already exists"
+
+      /// if the error message is "Membership Request already exists"
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -114,7 +119,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Invalid credentials"
+
+      /// if the error message is "Invalid credentials"
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -126,7 +132,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Organization not found"
+
+      /// if the error message is "Organization not found"
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -138,7 +145,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Email address already exists"
+
+      /// if the error message is "Email address already exists"
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -162,15 +170,12 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-      print(exception.graphqlErrors[i].message);
-      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
     // if the error is unknown
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => navigationService.showTalawaErrorDialog(
-        "Something went wrogg!",
+        "Something went wrong!",
         MessageType.error,
       ),
     );
