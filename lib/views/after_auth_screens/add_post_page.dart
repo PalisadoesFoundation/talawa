@@ -88,15 +88,6 @@ class AddPost extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.file_upload),
                   ),
-                  // button to add hastags to the post.
-                  TextButton(
-                    key: const Key('add_post_text_btn2'),
-                    onPressed: () {},
-                    child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
                 ],
               ),
               const Divider(),
