@@ -146,13 +146,17 @@ void main() {
       // testing userLanguageQuery function
       const userId = "xyz1";
       when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return null;
+      });
       await model.userLanguageQuery(userId);
       verify(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)));
 
       //testing appLanguageQueryFunction
       when(databaseFunctions.gqlAuthQuery(queries.userLanguage()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return null;
+      });
       await model.appLanguageQuery();
       verify(databaseFunctions.gqlAuthQuery(queries.userLanguage()));
 

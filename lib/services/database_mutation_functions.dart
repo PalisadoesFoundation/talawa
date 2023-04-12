@@ -1,5 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
+// ignore_for_file: avoid_dynamic_calls
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -20,34 +19,67 @@ import 'package:talawa/utils/queries.dart';
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
 class DataBaseMutationFunctions {
+  ///Defining the parameters for non authorised client.
   late GraphQLClient clientNonAuth;
+
+  ///Defining the parameters for an authorised client.
   late GraphQLClient clientAuth;
   late Queries _query;
 
+  /// init function for initializatioin of parameters.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
     _query = Queries();
   }
 
-  // initialising default messages for an event.
+  /// initialising default messages for an event.
+  ///
+  ///Error message when a user is not found.
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
+
+  ///Error message when a user is not authenticated.
   GraphQLError userNotAuthenticated =
       const GraphQLError(message: 'User is not authenticated');
+
+  ///Error message when an email address already exists.
   GraphQLError emailAccountPresent =
       const GraphQLError(message: 'Email address already exists');
+
+  ///Error message when the entered credentials are wrong.
   GraphQLError wrongCredentials =
       const GraphQLError(message: 'Invalid credentials');
+
+  ///Error message when the specified organization cannot be found.
   GraphQLError organizationNotFound =
       const GraphQLError(message: 'Organization not found');
+
+  ///Error message when the access token has expired.
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
     message:
         'Access Token has expired. Please refresh session.: Undefined location',
   );
+
+  ///Error message when the membership request already exists.
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
-  /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
+  /// This function is used to check if any exceptions or error encountered.
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `exception`: the exception encounterred
+  /// * `showSnackBar`: parameter for showing the snack bar.
+  ///
+  /// **returns**:
+  /// * `bool?`: wether it is an exception(true) or an error(false)
   bool? encounteredExceptionOrError(
     OperationException exception, {
     bool showSnackBar = true,
@@ -163,6 +195,13 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for authentication.
+  ///
+  /// **params**:
+  /// * `query`: the query used for authentication
+  /// * `variables`: the map of variables required for authentication
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>?>`: returns the query result after authentication
   Future<QueryResult<Object?>?> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
@@ -185,6 +224,13 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql mutation for authenticated user.
+  ///
+  /// **params**:
+  /// * `mutation`: the mutation for authenticated user
+  /// * `variables`: The map of variables required for authentication
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: returns the query result after authentication
   Future<dynamic> gqlAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
@@ -208,6 +254,14 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql mutation to authenticate the non signed-in user.
+  ///
+  /// **params**:
+  /// * `mutation`: the mutation for authenticated user
+  /// * `variables`: The map of variables required for authentication
+  /// * `reCall`: wether it is required to recall the function
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: the query result after sign in attempt by the user
   Future<dynamic> gqlNonAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
@@ -232,6 +286,13 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for the non signed-in user.
+  ///
+  /// **params**:
+  /// * `query`: query for non signed-in users
+  /// * `variables`: variables required for authorization
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>?>`: the query result after sign in attempt by the user
   Future<QueryResult?> gqlNonAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
@@ -255,6 +316,12 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to refresh the Authenication token to access the application.
+  ///
+  /// **params**:
+  /// * `refreshToken`: the refresh token involved
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: if the access token has expired or not
   Future<bool> refreshAccessToken(String refreshToken) async {
     // run the graphQL mutation
     final QueryResult result = await clientNonAuth.mutate(
@@ -283,7 +350,13 @@ class DataBaseMutationFunctions {
     return false;
   }
 
-  /// This function fetch the organization using the [id] passed.
+  /// This function is used to fetch the organization.
+  ///
+  /// **params**:
+  /// * `id`: id of the organization to be fetched
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: boolean return for wether the org could be fetched or not
   Future<dynamic> fetchOrgById(String id) async {
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));

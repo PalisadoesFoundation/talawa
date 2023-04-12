@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:talawa/locator.dart';
@@ -43,11 +40,19 @@ class PostService {
   // ignore: prefer_final_fields
   List<Post> _posts = [];
 
-  //Getters
+  ///Getter for postStream.
   Stream<List<Post>> get postStream => _postStream;
+
+  ///Getter for updatedPostStream.
   Stream<Post> get updatedPostStream => _updatedPostStream;
 
-  //Setters
+  /// This function is used for setters.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void setOrgStreamSubscription() {
     _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       if (updatedOrganization != _currentOrg) {
@@ -60,7 +65,14 @@ class PostService {
   }
 
   /// This function used to get all posts of an organization.
+  ///
   /// The function reference the organization Id from `_currentOrg`.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> getPosts() async {
     // variables
     final String currentOrgID = _currentOrg.id!;
@@ -87,8 +99,11 @@ class PostService {
 
   /// This function is used to add Like to the Post.
   ///
-  /// params:
-  /// * [postId] : id of the post where like need to be added.
+  /// **params**:
+  /// * `postID`: id of the post where like need to be added.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> addLike(String postID) async {
     _localAddLike(postID);
     final String mutation = PostQueries().addLike();
@@ -100,6 +115,13 @@ class PostService {
     return result;
   }
 
+  /// This function is used to add likes to the post locally.
+  ///
+  /// **params**:
+  /// * `postID`: id of the post where like need to be added.
+  ///
+  /// **returns**:
+  ///   None
   void _localAddLike(String postID) {
     _posts.forEach((post) {
       if (post.sId == postID) {
@@ -111,8 +133,11 @@ class PostService {
 
   /// This function is used to remove like from the Post.
   ///
-  /// params:
-  /// * [postId] : id of the post where like need to be removed.
+  /// **params**:
+  /// * `postID`: id of the post where like need to be removed.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> removeLike(String postID) async {
     _removeLocal(postID);
     final String mutation = PostQueries().removeLike();
@@ -122,6 +147,13 @@ class PostService {
     return result;
   }
 
+  /// This function is used to remove the likes locally.
+  ///
+  /// **params**:
+  /// * `postID`: id of the post where like need to be removed.
+  ///
+  /// **returns**:
+  ///   None
   void _removeLocal(String postID) {
     _posts.forEach((post) {
       if (post.sId == postID) {
@@ -133,7 +165,13 @@ class PostService {
     });
   }
 
-  // Functions related to comments
+  /// Functions related to adding comments.
+  ///
+  /// **params**:
+  /// * `postID`: id of the post where like need to be removed.
+  ///
+  /// **returns**:
+  ///   None
   void addCommentLocally(String postID) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == postID) {

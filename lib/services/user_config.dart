@@ -1,6 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
+// ignore_for_file: avoid_dynamic_calls
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -29,24 +27,45 @@ class UserConfig {
   final StreamController<OrgInfo> _currentOrgInfoController =
       StreamController<OrgInfo>.broadcast();
 
+  ///getter for the current org information.
   Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
+
+  ///getter for current org info controller.
   StreamController<OrgInfo> get currentOrgInfoController =>
       _currentOrgInfoController;
 
+  ///getter for current org.
   OrgInfo get currentOrg => _currentOrg!;
+
+  ///getter for current org name.
   String get currentOrgName => _currentOrg!.name!;
   set currentOrg(OrgInfo org) => _currentOrg = org;
+
+  ///getter for current org user.
   User get currentUser => _currentUser!;
   set currentUser(User user) {
     _currentUser = user;
   }
 
+  /// function for initialising the stream.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initialiseStream() {
     _currentOrgInfoStream =
         _currentOrgInfoController.stream.asBroadcastStream();
   }
 
   /// This function is used to log in the user.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: wether the user has logged in
   Future<bool> userLoggedIn() async {
     initialiseStream();
     final boxUser = Hive.box<User>('currentUser');
@@ -65,12 +84,12 @@ class UserConfig {
     graphqlConfig.getToken().then((value) async {
       databaseFunctions.init();
       try {
-        final QueryResult result = await databaseFunctions.gqlAuthQuery(
+        final QueryResult? result = await databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
           variables: {'id': currentUser.id},
-        ) as QueryResult;
+        );
         final User userInfo = User.fromJson(
-          result.data!['users'][0] as Map<String, dynamic>,
+          result?.data!['users'][0] as Map<String, dynamic>,
           fromOrg: true,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
@@ -94,46 +113,63 @@ class UserConfig {
 
   /// This function is used to update the user joined organization.
   ///
-  /// params:
-  /// * [orgDetails] : details of the organization that user joined.
-  Future updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
+  /// **params**:
+  /// * `orgDetails`: details of the organization that user joined.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
+  Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateJoinedOrg(orgDetails);
     saveUserInHive();
   }
 
   /// This function is used to update the user created organization.
   ///
-  /// params:
-  /// * [orgDetails] : details of the organization that user created.
-  Future updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
+  /// **params**:
+  /// * `orgDetails`: details of the organization that user created.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
+  Future<void> updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateCreatedOrg(orgDetails);
     saveUserInHive();
   }
 
   /// This function is used to update the user request to join the organization.
   ///
-  /// params:
-  /// * [orgDetails] : details of the organization that user requested to join.
-  Future updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
+  /// **params**:
+  /// * `orgDetails`: details of the organization that user requested to join.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
+  Future<void> updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateMemberRequestOrg(orgDetails);
     saveUserInHive();
   }
 
   /// This function is used to update the organization admin.
   ///
-  /// params:
-  /// * [orgDetails] : details of the organization.
-  Future updateUserAdminOrg(List<OrgInfo> orgDetails) async {
+  /// **params**:
+  /// * `orgDetails`: details of the organization.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
+  Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateAdminFor(orgDetails);
     saveUserInHive();
   }
 
   /// This function is used to updated the access token of the user.
   ///
-  /// params:
-  /// * [accessToken]
-  /// * [refreshToken]
-  Future updateAccessToken({
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `accessToken`: the access token
+  /// * `refreshToken`: the refresh token
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
+  Future<void> updateAccessToken({
     required String accessToken,
     required String refreshToken,
   }) async {
@@ -144,8 +180,13 @@ class UserConfig {
 
   /// This function is used to update the user details.
   ///
-  /// params:
-  /// * [updatedUserDetails] : `User` type variable containing all the details of an user need to be updated.
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `updatedUserDetails`: `User` type variable containing all the details of an user need to be updated.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: wether user details are updated or not.
   Future<bool> updateUser(User updatedUserDetails) async {
     try {
       _currentUser = updatedUserDetails;
@@ -159,7 +200,13 @@ class UserConfig {
     }
   }
 
-  // save user in hive.
+  /// function to save a user in the hive.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void saveUserInHive() {
     final box = Hive.box<User>('currentUser');
     if (box.get('user') == null) {
@@ -169,7 +216,13 @@ class UserConfig {
     }
   }
 
-  // save current organization details in hive.
+  ///function to save current organization details in hive.
+  ///
+  /// **params**:
+  /// * `saveOrgAsCurrent`: the current org details to be saved
+  ///
+  /// **returns**:
+  ///   None
   void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);
