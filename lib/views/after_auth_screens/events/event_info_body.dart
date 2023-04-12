@@ -29,8 +29,8 @@ class EventInfoBody extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(
-                    right: 48.0,
+                  padding: EdgeInsets.only(
+                    right: SizeConfig.safeBlockHorizontal! * 15,
                   ),
                   child: Row(
                     children: [
@@ -48,7 +48,7 @@ class EventInfoBody extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: 0.0,
+                  right: SizeConfig.screenWidth! * 0.002,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
