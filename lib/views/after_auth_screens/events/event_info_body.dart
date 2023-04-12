@@ -29,7 +29,6 @@ class EventInfoBody extends StatelessWidget {
             Stack(
               children: [
                 Container(
-
                   padding: EdgeInsets.only(
                     right: SizeConfig.safeBlockHorizontal! * 15,
                   ),
