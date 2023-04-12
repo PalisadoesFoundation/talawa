@@ -108,6 +108,7 @@ class UserConfig {
         );
       }
     });
+
     return true;
   }
 
