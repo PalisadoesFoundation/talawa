@@ -65,7 +65,7 @@ class UserConfig {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<bool>`: wether the user has logged in
+  /// * `Future<bool>`: wether the user has logged in or not
   Future<bool> userLoggedIn() async {
     initialiseStream();
     final boxUser = Hive.box<User>('currentUser');
