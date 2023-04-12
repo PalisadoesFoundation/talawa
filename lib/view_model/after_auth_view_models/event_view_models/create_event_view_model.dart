@@ -116,7 +116,7 @@ class CreateEventViewModel extends BaseModel {
   /// Function To Initialize.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
@@ -134,7 +134,7 @@ class CreateEventViewModel extends BaseModel {
   /// for creating an event and passes the required variables for the event.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Future<void>`: Asynchronous function for creating event
@@ -224,7 +224,7 @@ class CreateEventViewModel extends BaseModel {
   /// This function remove the selected image.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
@@ -236,7 +236,7 @@ class CreateEventViewModel extends BaseModel {
   /// This function fetch all the users in the current organization and return `List`.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Future<List<User>>`: Current Organization Users List
@@ -258,7 +258,7 @@ class CreateEventViewModel extends BaseModel {
   /// This function build the user list.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None

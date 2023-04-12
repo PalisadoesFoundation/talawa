@@ -78,5 +78,5 @@ linter:
     # MyObj obj = json_data['obj'] as MyObj;
     # ```
     
-    avoid_dynamic_calls: false
+    avoid_dynamic_calls: true
     

@@ -72,7 +72,7 @@ class AddPostViewModel extends BaseModel {
   /// This function is usedto do initialisation of stuff in the view model.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None
@@ -110,7 +110,7 @@ class AddPostViewModel extends BaseModel {
   /// This function uploads the post finally, and navigate the success message or error message in Snack Bar.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Future<void>`: Uploading post by contacting queries
@@ -146,7 +146,7 @@ class AddPostViewModel extends BaseModel {
   /// This function removes the image selected.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   ///   None

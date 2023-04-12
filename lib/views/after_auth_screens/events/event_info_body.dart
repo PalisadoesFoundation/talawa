@@ -29,6 +29,7 @@ class EventInfoBody extends StatelessWidget {
             Stack(
               children: [
                 Container(
+
                   padding: EdgeInsets.only(
                     right: SizeConfig.safeBlockHorizontal! * 15,
                   ),
@@ -236,24 +237,12 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.strictTranslate("Attendees"),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontSize: 16),
-                ),
-                Text(
-                  AppLocalizations.of(context)!.strictTranslate('See all'),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: const Color(0xff4285F4)),
-                ),
-              ],
+            Text(
+              AppLocalizations.of(context)!.strictTranslate("Attendees"),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             Divider(
               color: Theme.of(context).colorScheme.onBackground,
@@ -270,7 +259,6 @@ class EventInfoBody extends StatelessWidget {
               //then renders all the attendees in ListView.
               ListView.builder(
                 padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: model.registrants.length,
                 itemBuilder: (BuildContext context, int index) {

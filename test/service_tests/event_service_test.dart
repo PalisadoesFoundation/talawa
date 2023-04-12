@@ -51,5 +51,96 @@ void main() {
         navigationService.pop(),
       );
     });
+
+    test('Test deleteEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = TaskQueries.eventTasks('eventId');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().deleteEvent('eventId'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'deleteEvent': {
+              '_id': 'eventId',
+              'title': 'Test task',
+              'description': 'Test description'
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventService();
+      await services.deleteEvent('eventId');
+    });
+
+    test('Test registerForAnEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = TaskQueries.eventTasks('eventId');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().registerForEvent(),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'register for an event': {
+              '_id': 'eventId',
+              'name': 'name',
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventService();
+      await services.registerForAnEvent('eventId');
+    });
+
+    test('Test fetchRegistrantsByEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = TaskQueries.eventTasks('eventId');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().registrantsByEvent('eventId'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'registrant': {'_id': 'registrantId', 'name': 'name'}
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventQueries();
+      services.registrantsByEvent('eventId');
+    });
+
+    test('Test getEvents method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = TaskQueries.eventTasks('eventId');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().fetchOrgEvents('OrgId'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'Events': {
+              '_id': 'eventId',
+              'title': 'Test task',
+              'description': 'Test description'
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventQueries();
+      services.fetchOrgEvents('OrgId');
+    });
   });
 }
