@@ -1,8 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -43,17 +42,46 @@ import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dar
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 // Creating an instance of GetIt and storing it in a global variable
+/// Intializaing the locator.
 GetIt locator = GetIt.instance;
+
+///creating GetIt for UserConfig.
 final userConfig = locator<UserConfig>();
+
+///creating GetIt for NavigationService.
 final navigationService = locator<NavigationService>();
+
+///creating GetIt for DataBaseMutationFunctions.
 final databaseFunctions = locator<DataBaseMutationFunctions>();
+
+///creating GetIt for GraphqlConfig.
 final graphqlConfig = locator<GraphqlConfig>();
+
+///creating GetIt for SizeConfig.
 final sizeConfig = locator<SizeConfig>();
+
+///creating GetIt for Queries.
 final queries = locator<Queries>();
+
+///creating GetIt for Connectivity.
 final connectivity = locator<Connectivity>();
+
+///creating GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
-/// This function registers the widgets/objects in "GetIt"
+///creating GetIt for ImageCropper.
+final imageCropper = locator<ImageCropper>();
+
+///creating GetIt for ImagePicker.
+final imagePicker = locator<ImagePicker>();
+
+/// This function registers the widgets/objects in "GetIt".
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void setupLocator() {
   //services
   locator.registerSingleton(NavigationService());
@@ -75,6 +103,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => Connectivity());
   locator.registerLazySingleton(() => ChatService());
+  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImagePicker());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

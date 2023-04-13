@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -58,10 +60,10 @@ class SetUrlMock extends StatelessWidget {
 
 /// This is a class for mock url for testing.
 ///
-/// params:
+/// **params**:
 /// * `themeMode`: dark
 ///
-/// returns:
+/// **returns**:
 /// * `Widget`: widget
 
 Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
@@ -88,14 +90,6 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
         );
       },
     );
-
-/// This is a main function for testing.
-///
-/// params:
-/// None
-///
-/// returns:
-/// * `Future<void>`: void
 
 Future<void> main() async {
   SizeConfig().test();

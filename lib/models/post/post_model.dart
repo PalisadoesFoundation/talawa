@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -77,10 +79,10 @@ class Post {
 
   /// this is to get duration of post.
   ///
-  /// params:
-  /// None
+  /// **params**:
+  ///   None
   ///
-  /// returns:
+  /// **returns**:
   /// * `String`: date is returned in ago form.
   String getPostCreatedDuration() {
     if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
@@ -103,17 +105,12 @@ class Post {
 class LikedBy {
   LikedBy({this.sId});
 
-  /// Convert json to dart object.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `Map<String, dynamic>`: Dart object is returned.
+  /// JSON factory constructor.
   LikedBy.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String?;
   }
 
-  /// these are dart object.
+  /// These are dart object.
   ///
   /// params:
   /// * `sId` : unique identifier for post
@@ -121,10 +118,10 @@ class LikedBy {
 
   /// Convert dart object to json.
   ///
-  /// params:
-  /// None
+  /// **params**:
+  ///   None
   ///
-  /// returns:
+  /// **returns**:
   /// * `Map<String, dynamic>`: json is returned.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -155,10 +152,10 @@ class Comments {
 
   /// Convert dart object to json.
   ///
-  /// params:
-  /// None
+  /// **params**:
+  ///   None
   ///
-  /// returns:
+  /// **returns**:
   /// * `Map<String, dynamic>`: json is returned.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

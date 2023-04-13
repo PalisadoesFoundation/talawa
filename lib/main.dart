@@ -28,10 +28,10 @@ import 'package:talawa/views/base_view.dart';
 /// Define a top-level named handler which background/terminated messages will call.
 ///
 /// To verify things are working, check out the native platform logs.
-/// params:
+/// **params**:
 /// * `message`: incoming messsage.
 ///
-/// returns:
+/// **returns**:
 /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -44,10 +44,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 /// Initializes the firebase in the app according to the userplatform (android/iOS).
 ///
-/// params:
-/// None
+/// **params**:
+///   None
 ///
-/// returns:
+/// **returns**:
 /// * `Future<void>`: promise that will be fulfilled Firebase is setted up in app.
 Future<void> setUpFirebase() async {
   await Firebase.initializeApp(
@@ -72,10 +72,10 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 /// First function to initialize the application, invoked automatically.
 ///
-/// params:
-/// None
+/// **params**:
+///   None
 ///
-/// returns:
+/// **returns**:
 /// * `Future<void>`: resolves if the application was successfully initialized.
 Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
@@ -92,10 +92,9 @@ Future<void> main() async {
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-    /// Create an Android Notification Channel.
-    ///
-    /// We use this channel in the `AndroidManifest.xml` file to override the
-    /// default FCM channel to enable heads up notifications.
+    // Create an Android Notification Channel.
+    // We use this channel in the `AndroidManifest.xml` file to override the
+    // default FCM channel to enable heads up notifications.
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -134,10 +133,10 @@ Future<void> main() async {
 
 /// Initializes the firebase keys in the app according to the userplatform (android/iOS).
 ///
-/// params:
-/// None
+/// **params**:
+///   None
 ///
-/// returns:
+/// **returns**:
 /// * `Future<void>`: promise that will be fulfilled Firebase keys are setted up.
 Future<void> setUpFirebaseKeys() async {
   final androidFirebaseOptionsBox =
@@ -201,10 +200,11 @@ class _MyAppState extends State<MyApp> {
 
   /// It allows to manage and interact with the application’s home screen quick actions.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
 
 // ignore: avoid_void_async
   void initQuickActions() async {
@@ -296,14 +296,6 @@ class _MyAppState extends State<MyApp> {
 /// DemoPageView is demo PageView of Talawa Mobile App.
 class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
-
-  /// Builds the UI enabling plugins and localization.
-  ///
-  /// params:
-  /// * `context`: object containing data of the entire UI of the app.
-  ///
-  /// returns:
-  /// * `Widget`: UI of the app.
   @override
   Widget build(BuildContext context) {
     FetchPluginList();
@@ -325,10 +317,6 @@ class DemoPageView extends StatelessWidget {
 ///
 /// between the ViewModel and the View, and drives the View changes
 /// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
-/// params:
-/// None
-/// returns:
-/// None
 class DemoViewModel extends BaseModel {
   /// Demo title to be used.
   final String _title = "Title from the viewMode GSoC branch";
@@ -344,10 +332,10 @@ class DemoViewModel extends BaseModel {
 
 /// Set up firebase instance, enbables messaging,listens to icoming messages.
 ///
-/// params:
-/// None
+/// **params**:
+///   None
 ///
-/// returns:
+/// **returns**:
 /// * `Future<void>`: promise that will be fulfilled Firebase is setted up.
 Future<void> setUpFirebaseMessaging() async {
   /// Set the background messaging handler early on, as a named top-level function

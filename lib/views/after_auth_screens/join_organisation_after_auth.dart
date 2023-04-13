@@ -141,7 +141,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   }
 
   /// scanQR returns a widget that is use in joining the organization via the QR code.
-  scanQR(BuildContext context, SelectOrganizationViewModel model) {
+  void scanQR(BuildContext context, SelectOrganizationViewModel model) {
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,

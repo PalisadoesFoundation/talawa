@@ -57,11 +57,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// This function initialises the variables.
   ///
-  /// params:
+  /// **params**:
   /// * `inviteUrl`: url
   ///
-  /// returns:
-  /// None
+  /// **returns**:
+  ///   None
 
   void initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
@@ -115,11 +115,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// This function check the URL and navigate to the respective URL.
   ///
-  /// params:
+  /// **params**:
   /// * `navigateTo`: url
   /// * `argument`: message
   ///
-  /// returns:
+  /// **returns**:
   /// * `Future<void>`: void
 
   Future<void> checkURLandNavigate(String navigateTo, String argument) async {
@@ -154,10 +154,10 @@ class SetUrlViewModel extends BaseModel {
 
   /// This function check the URL and navigate to the respective URL.
   ///
-  /// params:
+  /// **params**:
   /// * `argument`: message
   ///
-  /// returns:
+  /// **returns**:
   /// * `Future<void>`: sdf
 
   Future<void> checkURLandShowPopUp(String argument) async {
@@ -194,11 +194,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// This function create a widget which is used to scan the QR-code.
   ///
-  /// params:
+  /// **params**:
   /// * `context`: BuildContext
   ///
-  /// returns:
-  /// None
+  /// **returns**:
+  ///   None
 
   void scanQR(BuildContext context) {
     showModalBottomSheet(
@@ -256,11 +256,11 @@ class SetUrlViewModel extends BaseModel {
 
   /// This is the helper function which execute when the on QR view created.
   ///
-  /// params:
+  /// **params**:
   /// * `controller`: QRViewController
   ///
-  /// returns:
-  /// None
+  /// **returns**:
+  ///   None
 
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {

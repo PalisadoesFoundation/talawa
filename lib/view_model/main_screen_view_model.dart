@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/foundation.dart';
@@ -280,7 +280,7 @@ class MainScreenViewModel extends BaseModel {
     )..show(context: context);
   }
 
-  tourHomeTargets() {
+  void tourHomeTargets() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -366,7 +366,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function shows the Home screen.
-  showHome(TargetFocus clickedTarget) {
+  void showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
@@ -377,7 +377,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for Events.
-  tourEventTargets() {
+  void tourEventTargets() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -429,7 +429,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial to add Post in the organization.
-  tourAddPost() {
+  void tourAddPost() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -452,7 +452,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tour of chats.
-  tourChat() {
+  void tourChat() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -475,7 +475,7 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for the profile page.
-  tourProfile() {
+  void tourProfile() {
     targets.clear();
     targets.add(
       focusTarget(

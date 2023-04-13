@@ -36,10 +36,12 @@ linter:
 
     leading_newlines_in_multiline_strings: false
 
-    always_declare_return_types: false
+    # Forces explicit return type declaration
+    always_declare_return_types: true
 
     type_annotate_public_apis: false
-    #always_use_package_imports to make a quick navigation to particular files
+    
+    # To make a quick navigation to particular files
     always_use_package_imports: true
 
     directives_ordering: true
@@ -76,5 +78,5 @@ linter:
     # MyObj obj = json_data['obj'] as MyObj;
     # ```
     
-    avoid_dynamic_calls: false
+    avoid_dynamic_calls: true
     

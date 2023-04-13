@@ -7,7 +7,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class MockCallbackFunction extends Mock {
-  call();
+  void call();
 }
 
 void main() {

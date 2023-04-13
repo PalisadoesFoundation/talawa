@@ -31,11 +31,11 @@ jobs:
           # This is important to fetch all history for all branches and tags.
           # This could be important for our documentation generation process.
           # See: https://github.com/actions/checkout
-          fetch-depth: 0      
+          fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '12.0'          
+          java-version: '12.0'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.3'
@@ -45,7 +45,7 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
       - name: setup python
         uses: actions/setup-python@v4
       - name: Check for presence of ignore directives corresponding to custom lints
@@ -79,6 +79,7 @@ jobs:
 
   Update-Documentation:
     runs-on: ubuntu-latest
+    environment: TALAWA_ENVIRONMENT
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -107,44 +108,56 @@ jobs:
         id: DocUpdated
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo '::set-output name=updateDoc::true'
+            echo "updateDoc=true" >> $GITHUB_OUTPUT
+            echo -e "Documentation has been updated!!"
           else
             Green='0;32'
             NoColor='\033[0m'
             echo -e "${Green}No documentation updated${NoColor}"
           fi
       - name: Set env variables
-        if: steps.DocUpdated.updateDoc
+        if: steps.DocUpdated.outputs.updateDoc
         run: |
           echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
           echo "email=$(echo $(git log --pretty=format:"%ae" $commit_id))" >> $GITHUB_ENV
-      - name: Update Doc
-        if: steps.DocUpdated.updateDoc
-        run: |
-          Green='0;32'
-          NoColor='\033[0m'
-          git config --global user.name "${{github.actor}}"
-          git config --global user.email "${{env.email}}"
-          git commit -a -m "Updated docs"
-          git push
-          echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
+      #- name: Update Doc
+        #if: steps.DocUpdated.outputs.updateDoc
+        #run: |
+          #Green='0;32'
+          #NoColor='\033[0m'
+          #git config --global user.name "${{github.actor}}"
+          #git config --global user.email "${{env.email}}"
+          #git commit -a -m "Updated docs"
+          #git push
+          #echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
+      - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.TALAWA_DOCS_SYNC }}
+        with:
+          source_file: 'docs/talawa/'
+          destination_repo: 'PalisadoesFoundation/talawa-docs'
+          destination_branch: 'develop'
+          destination_folder: 'static'
+          user_email: '${{env.email}}'
+          user_name: '${{github.actor}}'
+          commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
           
-  Copy-docs-to-talawa-docs:
-    runs-on: ubuntu-latest
-    needs: Update-Documentation
-    steps:
-    - uses: actions/checkout@v3
-    - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}    
-      with:
-        source_file: 'docs/talawa/'
-        destination_repo: 'PalisadoesFoundation/talawa-docs'
-        destination_branch: 'develop'
-        destination_folder: 'static/talawa'
-        user_email: '${{env.email}}'
-        user_name: '${{github.actor}}'
-        commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
+  #Copy-docs-to-talawa-docs:
+    #runs-on: ubuntu-latest
+    #needs: Update-Documentation
+    #steps:
+    #- uses: actions/checkout@v3
+    #- uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+      #env:
+        #API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #with:
+        #source_file: 'docs/talawa/'
+        #destination_repo: 'PalisadoesFoundation/talawa-docs'
+        #destination_branch: 'develop'
+        #destination_folder: 'static/talawa'
+        #user_email: '${{env.email}}'
+        #user_name: '${{github.actor}}'
+        #commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
 
   Flutter-Testing:
     name: Testing codebase

@@ -2,9 +2,10 @@
 class PostQueries {
   /// Getting Posts by Id.
   ///
-  /// params:
+  /// **params**:
   /// * `orgId`: The organisation id
-  /// returns:
+  ///
+  /// **returns**:
   /// * `String`: The query related to gettingPostsbyId
   String getPostsById(String orgId) {
     return """
@@ -41,9 +42,10 @@ class PostQueries {
 
   /// Add Like to a post.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `String`: The query related to addingLike
   String addLike() {
     return """
@@ -58,9 +60,10 @@ class PostQueries {
 
   /// Remove Like from a post.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `String`: The query related to removingLike
   String removeLike() {
     return """
@@ -78,9 +81,10 @@ class PostQueries {
 
   /// Upload a post to database.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `String`: The query related to uploadingPost.
   String uploadPost() {
     return '''

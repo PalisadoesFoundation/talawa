@@ -35,7 +35,7 @@ class EditEventViewModel extends BaseModel {
   AutovalidateMode validate = AutovalidateMode.disabled;
 
   // initialiser, invoke `_fillEditForm` function.
-  initialize(Event event) {
+  void initialize(Event event) {
     _event = event;
     _fillEditForm();
   }

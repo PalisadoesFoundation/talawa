@@ -151,7 +151,7 @@ class CustomDrawer extends StatelessWidget {
   }
 
   /// Button to exit the organization
-  exitButton() {
+  void exitButton() {
     return navigationService.pushDialog(
       CustomAlertDialog(
         key: const Key("Exit?"),

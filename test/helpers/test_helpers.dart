@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -86,6 +88,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<TaskService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault)
   ],
 )
 final User member1 = User(id: "testMem1");
@@ -389,6 +393,20 @@ MultiMediaPickerService getAndRegisterMultiMediaPickerService() {
   return service;
 }
 
+ImageCropper getAndRegisterImageCropper() {
+  _removeRegistrationIfExists<ImageCropper>();
+  final service = MockImageCropper();
+  locator.registerLazySingleton<ImageCropper>(() => service);
+  return service;
+}
+
+ImagePicker getAndRegisterImagePicker() {
+  _removeRegistrationIfExists<ImagePicker>();
+  final service = MockImagePicker();
+  locator.registerLazySingleton<ImagePicker>(() => service);
+  return service;
+}
+
 TaskService getAndRegisterTaskService() {
   _removeRegistrationIfExists<TaskService>();
   final service = MockTaskService();
@@ -616,6 +634,8 @@ void registerServices() {
   getAndRegisterOrganizationService();
   getAndRegisterCommentService();
   getAndRegisterChatService();
+  getAndRegisterImageCropper();
+  getAndRegisterImagePicker();
 }
 
 void unregisterServices() {
@@ -629,6 +649,8 @@ void unregisterServices() {
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
   locator.unregister<CommentService>();
+  locator.unregister<ImageCropper>();
+  locator.unregister<ImagePicker>();
 }
 
 void registerViewModels() {

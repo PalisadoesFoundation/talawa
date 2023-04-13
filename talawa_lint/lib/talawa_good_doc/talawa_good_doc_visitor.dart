@@ -8,76 +8,8 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/helpers.dart';
 import 'package:talawa_lint/talawa_lint_rules.dart';
 
-class TalawaGoodDocComments extends DartLintRule {
-  const TalawaGoodDocComments() : super(code: _code);
-
-  /// Metadata about the warning that will show-up in the IDE.
-  /// This is used for `// ignore: code` and enabling/disabling the lint
-  static const _code = LintCode(
-    name: 'talawa_good_doc_comments',
-    problemMessage: 'Wrong comment format.\n'
-        'Use "/// ..." for public api and "// ..." for other cases.',
-  );
-
-  @override
-  void run(
-    CustomLintResolver resolver,
-    ErrorReporter reporter,
-    CustomLintContext context,
-  ) {
-    final visitor = _Visitor(
-      this,
-      context,
-      reporter,
-    );
-
-    context.registry.addClassDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addClassTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addCompilationUnit(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addConstructorDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addEnumConstantDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addEnumDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addExtensionDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addFieldDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addFunctionDeclaration(
-      visitor.check,
-    );
-    context.registry.addFunctionTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addGenericTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addMixinDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addTopLevelVariableDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addComment(
-      (node) => node.visitChildren(visitor),
-    );
-  }
-}
-
-class _Visitor extends SimpleAstVisitor {
-  _Visitor(
+class TalawaGoodDocVisitor extends SimpleAstVisitor {
+  TalawaGoodDocVisitor(
     this.rule,
     this.context,
     this.reporter,
@@ -101,8 +33,6 @@ class _Visitor extends SimpleAstVisitor {
   void visitCompilationUnit(CompilationUnit node) {
     final getters = <String, FunctionDeclaration>{};
     final setters = <FunctionDeclaration>[];
-
-    // Check functions.
 
     // Non-getters/setters.
     final functions = <FunctionDeclaration>[];
@@ -215,6 +145,12 @@ class _Visitor extends SimpleAstVisitor {
       );
     }
 
+    // Don't check for [setters] and [getters]
+    // TODO: Fix this completely
+    if (node is MethodDeclaration && (node.isGetter || node.isSetter)) {
+      return true;
+    }
+
     if (doc.length == 1) {
       if (node is FunctionDeclaration || node is MethodDeclaration) {
         reporter.reportErrorForNode(
@@ -244,14 +180,15 @@ class _Visitor extends SimpleAstVisitor {
     }
 
     if (node is FunctionDeclaration || node is MethodDeclaration) {
-      checkContainsParams(doc, node);
-      checkContainsReturn(doc, node);
+      if (checkContainsParams(doc, node)) {
+        checkContainsReturn(doc, node);
+      }
     }
 
     return true;
   }
 
-  void checkContainsParams(List<Token> doc, Declaration rawNode) {
+  bool checkContainsParams(List<Token> doc, Declaration rawNode) {
     final node =
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
@@ -271,7 +208,7 @@ class _Visitor extends SimpleAstVisitor {
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       final line = doc[currentDocLine];
-      if (line.lexeme == '/// params:') {
+      if (line.lexeme == '/// **params**:') {
         containsParamsKeyword = true;
         currentDocLine++;
         break;
@@ -284,12 +221,27 @@ class _Visitor extends SimpleAstVisitor {
         node.documentationComment!,
       );
 
-      return;
+      return false;
+    }
+
+    final paramList = params?.parameterElements ?? [];
+
+    if (paramList.isEmpty) {
+      if (currentDocLine == doc.length) {
+        return false;
+      } else if (doc[currentDocLine].lexeme != "///   None") {
+        reporter.reportErrorForToken(
+          TalawaGoodDocLintRules.noParamNone,
+          doc[currentDocLine],
+        );
+        return false;
+      }
+
+      return true;
     }
 
     // The currentParam we are checking for
     int currentParam = 0;
-    final paramList = params?.parameterElements ?? [];
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       final line = doc[currentDocLine];
@@ -307,7 +259,7 @@ class _Visitor extends SimpleAstVisitor {
             line,
           );
 
-          return;
+          return false;
         } else {
           if (line.lexeme.trim() == paramRegex.pattern) {
             reporter.reportErrorForToken(
@@ -315,7 +267,7 @@ class _Visitor extends SimpleAstVisitor {
               line,
             );
 
-            return;
+            return false;
           } else {
             currentParam++;
           }
@@ -331,12 +283,18 @@ class _Visitor extends SimpleAstVisitor {
         node,
       );
     }
+
+    return true;
   }
 
   void checkContainsReturn(
     List<Token> doc,
     Declaration rawNode,
   ) {
+    // Let the implicit_return_type warning be fixed first
+
+    if (TalawaLintHelpers.isImplicitReturn(rawNode)) return;
+
     int currentDocLine = 0;
     bool containsReturn = false;
 
@@ -344,23 +302,15 @@ class _Visitor extends SimpleAstVisitor {
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
     for (; currentDocLine < doc.length; currentDocLine++) {
-      if (doc[currentDocLine].lexeme.startsWith('/// returns:')) {
+      if (doc[currentDocLine].lexeme.trim() == '/// **returns**:') {
         containsReturn = true;
         break;
       }
     }
 
-    bool isVoid = false;
+    final isVoid = TalawaLintHelpers.isVoid(node);
 
-    if (node is FunctionDeclaration) {
-      final nodeReturnTypeLocal = node.returnType;
-      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
-    } else if (node is MethodDeclaration) {
-      final nodeReturnTypeLocal = node.returnType;
-      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
-    }
-
-    if (!containsReturn && !isVoid) {
+    if (!containsReturn) {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.doesNotContainReturn,
         node.documentationComment!,
@@ -369,19 +319,23 @@ class _Visitor extends SimpleAstVisitor {
       return;
     }
 
-    if (isVoid && currentDocLine == doc.length) return;
+    // Check if there is atleast one blank line above
 
-    // if (node.returnType!.type!.isVoid &&
-    //     doc[currentDocLine].lexeme != '/// returns: None') {
-    //   reporter.reportErrorForNode(
-    //     _wrongReturnsDoc,
-    //     node.documentationComment!,
-    //   );
+    if (doc[currentDocLine - 1].lexeme.trim() != '///') {
+      reporter.reportErrorForNode(
+        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
+        node.documentationComment!,
+      );
 
-    //   return;
-    // }
+      return;
+    }
 
-    if (doc[currentDocLine].lexeme != '/// returns:') {
+    // Uncomment below line if returns block is made optional for
+    // void types someday :)
+
+    // if (isVoid && currentDocLine == doc.length) return;
+
+    if (doc[currentDocLine].lexeme.trim() != '/// **returns**:') {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.wrongReturnsDoc,
         node.documentationComment!,
@@ -410,7 +364,7 @@ class _Visitor extends SimpleAstVisitor {
     // If return type is [void] and doc doesn't end with [None] or
     // there are more lines to the doc
     if (isVoid &&
-        (doc[currentDocLine - 1].lexeme != '/// None' ||
+        (doc[currentDocLine - 1].lexeme != '///   None' ||
             currentDocLine != doc.length)) {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.noEndWithNoneForVoid,
@@ -420,16 +374,7 @@ class _Visitor extends SimpleAstVisitor {
       return;
     }
 
-    // ignore: prefer_typing_uninitialized_variables
-    late final returnType;
-
-    if (node is FunctionDeclaration) {
-      final nodeReturnTypeLocal = node.returnType;
-      returnType = nodeReturnTypeLocal?.type;
-    } else if (node is MethodDeclaration) {
-      final nodeReturnTypeLocal = node.returnType;
-      returnType = nodeReturnTypeLocal?.type;
-    }
+    final returnType = TalawaLintHelpers.returnType(node);
 
     // If return type is not [void] and doc doesn't end with [return_type] or
     // there are more lines to the doc
@@ -442,7 +387,7 @@ class _Visitor extends SimpleAstVisitor {
               returnTypeDocPattern.pattern,
             )) {
       reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noEndWithNoneForVoid,
+        TalawaGoodDocLintRules.wrongReturnsDoc,
         node.documentationComment!,
       );
 

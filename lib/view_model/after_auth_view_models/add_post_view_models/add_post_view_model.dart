@@ -71,10 +71,11 @@ class AddPostViewModel extends BaseModel {
 
   /// This function is usedto do initialisation of stuff in the view model.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initialise() {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
@@ -88,24 +89,30 @@ class AddPostViewModel extends BaseModel {
   ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
-  /// params:
+  /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<void>`: Getting image from gallery returns future
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (image != null) {
       _imageFile = image;
+      _navigationService.showTalawaErrorSnackBar(
+        "Image is added",
+        MessageType.info,
+      );
       notifyListeners();
     }
   }
 
   /// This function uploads the post finally, and navigate the success message or error message in Snack Bar.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `Future<void>`: Uploading post by contacting queries
   Future<void> uploadPost() async {
     // {TODO: }
@@ -138,10 +145,11 @@ class AddPostViewModel extends BaseModel {
 
   /// This function removes the image selected.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void removeImage() {
     _imageFile = null;
     notifyListeners();

@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:async';
@@ -160,7 +160,7 @@ class UserConfig {
   }
 
   // save user in hive.
-  saveUserInHive() {
+  void saveUserInHive() {
     final box = Hive.box<User>('currentUser');
     if (box.get('user') == null) {
       box.put('user', _currentUser!);
@@ -170,7 +170,7 @@ class UserConfig {
   }
 
   // save current organization details in hive.
-  saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
+  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);
     final box = Hive.box<OrgInfo>('currentOrg');

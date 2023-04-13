@@ -5,72 +5,8 @@ import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/helpers.dart';
 
-class TalawaApiDocLintRule extends DartLintRule {
-  const TalawaApiDocLintRule() : super(code: _code);
-
-  /// Metadata about the warning that will show-up in the IDE.
-  /// This is used for `// ignore: code` and enabling/disabling the lint
-  static const _code = LintCode(
-    name: 'talawa_api_doc',
-    problemMessage: 'Prefer documentation for fields.',
-  );
-
-  @override
-  void run(
-    CustomLintResolver resolver,
-    ErrorReporter reporter,
-    CustomLintContext context,
-  ) {
-    final visitor = _Visitor(
-      this,
-      context,
-      reporter,
-    );
-
-    context.registry.addClassDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addClassTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addCompilationUnit(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addConstructorDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addEnumConstantDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addEnumDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addExtensionDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addFieldDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addFunctionDeclaration(
-      (node) => visitor.check(node),
-    );
-    context.registry.addFunctionTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addGenericTypeAlias(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addMixinDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-    context.registry.addTopLevelVariableDeclaration(
-      (node) => node.visitChildren(visitor),
-    );
-  }
-}
-
-class _Visitor extends SimpleAstVisitor {
-  _Visitor(
+class TalawaApiDocVisitor extends SimpleAstVisitor {
+  TalawaApiDocVisitor(
     this.rule,
     this.context,
     this.reporter,
@@ -91,13 +27,16 @@ class _Visitor extends SimpleAstVisitor {
         !isOverridingMember(node) &&
         !extendsState) {
       final errorNode = getNodeToAnnotate(node);
+
       reporter.reportErrorForOffset(
         rule.code,
         errorNode.offset,
         errorNode.length,
       );
+
       return true;
     }
+
     return false;
   }
 

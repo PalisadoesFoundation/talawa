@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class SignupDetailsViewModel extends BaseModel {
   bool hidePassword = true;
 
   // initialiser
-  initialise(OrgInfo org) {
+  void initialise(OrgInfo org) {
     selectedOrganization = org;
     // greeting message
     greeting = [
@@ -66,7 +66,7 @@ class SignupDetailsViewModel extends BaseModel {
 
   /// This function is used to sign up the user into the application by passing the data to database query.
   /// The function uses `gqlNonAuthMutation` method provided by `databaseFunctions` services.
-  signUp() async {
+  Future<void> signUp() async {
     FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
     setState(ViewState.busy);
     validate = AutovalidateMode.always;

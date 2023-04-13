@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -50,10 +52,11 @@ class EventService {
 
   /// This function is used to set stream subscription for an organization.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
@@ -63,9 +66,10 @@ class EventService {
 
   /// This function is used to fetch all the events of an organization.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `Future<void>`: void
   Future<void> getEvents() async {
     // refresh user's access token
@@ -92,9 +96,10 @@ class EventService {
 
   /// This function is used to fetch all registrants of an event.
   ///
-  /// params:
+  /// **params**:
   /// * `eventId`: id of an event.
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<dynamic>`: Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -106,9 +111,10 @@ class EventService {
 
   /// This function is used to register user for an event.
   ///
-  /// params:
+  /// **params**:
   /// * `eventId`: id of an event.
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<dynamic>`: Information about the event registration.
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
@@ -124,9 +130,10 @@ class EventService {
 
   /// This function is used to delete the event.
   ///
-  /// params:
+  /// **params**:
   /// * `eventId`: id of an event
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<dynamic>`: Information about the event deletion
   Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
@@ -144,10 +151,11 @@ class EventService {
 
   /// This function is used to edit an event.
   ///
-  /// params:
+  /// **params**:
   /// * `eventId`: id of an event
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<void>`: void return
   Future<void> editEvent({
     required String eventId,
@@ -177,10 +185,11 @@ class EventService {
 
   /// This function is used to cancel the stream subscription of an organization.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void dispose() {
     _currentOrganizationStreamSubscription.cancel();
   }

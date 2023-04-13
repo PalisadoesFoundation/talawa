@@ -20,7 +20,7 @@ class SelectContactViewModel extends BaseModel {
   }
 
   /// This function is used to get all users list of an current organization.
-  getCurrentOrgUsersList() async {
+  Future<void> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await _organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);

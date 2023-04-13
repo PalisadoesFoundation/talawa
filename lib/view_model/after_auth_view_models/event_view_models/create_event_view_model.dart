@@ -115,11 +115,11 @@ class CreateEventViewModel extends BaseModel {
 
   /// Function To Initialize.
   ///
-  /// params:
-  /// None
+  /// **params**:
+  ///   None
   ///
-  /// returns:
-  /// None
+  /// **returns**:
+  ///   None
   void initialize() {
     _currentOrg = _userConfig.currentOrg;
     //_organizationService = locator<OrganizationService>();
@@ -132,9 +132,11 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// The function uses `database_mutation_functions` services to call the graphQL mutation
   /// for creating an event and passes the required variables for the event.
-  /// params:
-  /// None
-  /// returns:
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `Future<void>`: Asynchronous function for creating event
   Future<void> createEvent() async {
     titleFocus.unfocus();
@@ -205,9 +207,10 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
-  /// params:
+  /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
-  /// returns:
+  ///
+  /// **returns**:
   /// * `Future<void>`: Asynchronous function for getting image from gallery
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
@@ -220,8 +223,11 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function remove the selected image.
   ///
-  /// params:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void removeImage() {
     _imageFile = null;
     notifyListeners();
@@ -229,9 +235,10 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function fetch all the users in the current organization and return `List`.
   ///
-  /// params:
-  /// None
-  /// returns:
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
   /// * `Future<List<User>>`: Current Organization Users List
   Future<List<User>> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
@@ -250,10 +257,11 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function build the user list.
   ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void buildUserList() {
     _selectedMembers.clear();
 
@@ -269,10 +277,11 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function is used to remove a user from user's list.
   ///
-  /// params:
+  /// **params**:
   /// * `userId`: id of the user that need to be removed.
-  /// returns:
-  /// None
+  ///
+  /// **returns**:
+  ///   None
   void removeUserFromList({required String userId}) {
     _selectedMembers.removeWhere((user) => user.id == userId);
     _memberCheckedMap[userId] = false;
