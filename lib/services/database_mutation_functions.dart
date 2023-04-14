@@ -29,10 +29,10 @@ class DataBaseMutationFunctions {
   /// initialization function.
   ///
   /// **params**:
-  ///  None
+  ///   None
   ///
   /// **returns**:
-  ///  None
+  ///   None
   void init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
@@ -314,8 +314,8 @@ class DataBaseMutationFunctions {
   /// * `variables`: variables to be passed with query
   ///
   /// **returns**:
-  /// * `Future<QueryResult?>`: it returns Future of QueryResult, contains all data
-  Future<QueryResult?> gqlNonAuthQuery(
+  /// * `Future<QueryResult<Object?>?>`: it returns Future of QueryResult, contains all data
+  Future<QueryResult<Object?>?> gqlNonAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
   }) async {
