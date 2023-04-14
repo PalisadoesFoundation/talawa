@@ -1,8 +1,6 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-///This file contains demo data. It contains a list of type Map<String, Object>
-/// and sample data of chats.
+/// This file contains demo data.
+///
+/// It contains a list of type Map<String, Object> and sample data of chats.
 const directChatDemoData = [
   {
     "sender": {
