@@ -18,10 +18,14 @@ on:
     branches-ignore:
       - 'master'
 
+    tags:
+      - "*"
+
 env:
     CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
     
 jobs:
+
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
@@ -187,8 +191,11 @@ jobs:
           fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
-  Android-Build:
+  Android-Build-and-Release:
     name: Testing build for android
+    permissions:
+      contents: write
+    environment: TALAWA_ENVIRONMENT
     runs-on: ubuntu-latest
     needs: Flutter-Testing
     steps:
@@ -207,6 +214,21 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+
+        ###################################################
+        ## Release the built apk as an automated release ##
+        ###################################################
+
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "Automated Android Release"
+          artifacts: "./build/app/outputs/flutter-apk/app-release.apk"
+          allowUpdates: "true"
+          generateReleaseNotes: true
+          tag: "automated"
+          body: |
+            This is an automated release, triggered by a recent push. 
+            This may or may not be stable, so please have a look at the stable release(s).
 
   iOS-Build:
     name: Testing build for iOS
