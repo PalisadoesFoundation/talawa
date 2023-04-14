@@ -1280,48 +1280,47 @@ class MockUserConfig extends _i2.Mock implements _i23.UserConfig {
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
   @override
-  _i4.Future<dynamic> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i4.Future<void> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserJoinedOrg,
           [orgDetails],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  _i4.Future<dynamic> updateUserCreatedOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i4.Future<void> updateUserCreatedOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserCreatedOrg,
           [orgDetails],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  _i4.Future<dynamic> updateUserMemberRequestOrg(
-          List<_i5.OrgInfo>? orgDetails) =>
+  _i4.Future<void> updateUserMemberRequestOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserMemberRequestOrg,
           [orgDetails],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  _i4.Future<dynamic> updateUserAdminOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i4.Future<void> updateUserAdminOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserAdminOrg,
           [orgDetails],
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
-  _i4.Future<dynamic> updateAccessToken({
+  _i4.Future<void> updateAccessToken({
     required String? accessToken,
     required String? refreshToken,
   }) =>
@@ -1334,9 +1333,9 @@ class MockUserConfig extends _i2.Mock implements _i23.UserConfig {
             #refreshToken: refreshToken,
           },
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   _i4.Future<bool> updateUser(_i6.User? updatedUserDetails) =>
       (super.noSuchMethod(
@@ -2146,7 +2145,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
         returnValueForMissingStub: null,
       ) as bool?);
   @override
-  _i4.Future<dynamic> gqlAuthQuery(
+  _i4.Future<_i3.QueryResult<Object?>?> gqlAuthQuery(
     String? query, {
     Map<String, dynamic>? variables,
   }) =>
@@ -2156,9 +2155,10 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           [query],
           {#variables: variables},
         ),
-        returnValue: _i4.Future<dynamic>.value(),
-        returnValueForMissingStub: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
+        returnValue: _i4.Future<_i3.QueryResult<Object?>?>.value(),
+        returnValueForMissingStub:
+            _i4.Future<_i3.QueryResult<Object?>?>.value(),
+      ) as _i4.Future<_i3.QueryResult<Object?>?>);
   @override
   _i4.Future<dynamic> gqlAuthMutation(
     String? mutation, {
