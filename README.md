@@ -2,7 +2,7 @@
 
 [💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1s3fehykg-n2wfvgapdRxMakOQs~U7PA)
 
-![talawa-logo-lite-200x200](https://user-images.githubusercontent.com/65951872/231709493-cb09e37a-8125-4679-85eb-5d1de3b58afa.png)
+![talawa-logo-lite-200x200](https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png)
 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
