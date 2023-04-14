@@ -363,8 +363,12 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       userConfig.updateAccessToken(
-        refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
-        accessToken: result.data!['refreshToken']['accessToken'].toString(),
+        refreshToken: (result.data!['refreshToken']
+                as Map<String, dynamic>)['refreshToken']
+            .toString(),
+        accessToken: (result.data!['refreshToken']
+                as Map<String, dynamic>)['accessToken']
+            .toString(),
       );
       databaseFunctions.init();
       return true;
@@ -390,7 +394,8 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       return OrgInfo.fromJson(
-        result.data!['organizations'][0] as Map<String, dynamic>,
+        (result.data!['organizations'] as Map<String, dynamic>)[0]
+            as Map<String, dynamic>,
       );
     }
     return false;
