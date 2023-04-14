@@ -110,6 +110,7 @@ Future<void> main() async {
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
 
+  /// PluginBox stores the updated list of plugins being used by the current instance of talawa
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 
@@ -177,12 +178,12 @@ class _MyAppState extends State<MyApp> {
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
+    FetchPluginList();
     // initState() is a method that is called once when the Stateful Widget
     // is inserted in the widget tree. We generally override this method if
     // we need to do some sort of initialization work like
     // registering a listener because, unlike build(), this method is called once.
     super.initState();
-
     initQuickActions();
 
     final urlBox = Hive.box('url');
