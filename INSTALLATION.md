@@ -43,6 +43,12 @@ You'll need to set up the IDE and mobile device emulator on your local system an
 
 # Installation
 
+You can start using Talawa by any of the two methods:
+
+1. Install the `apk` provided in the release section of this repo. It is built against the latest codebase. Please note that the release is provided only for Android. For iOS, you will still need to build the app yourself.
+2. Manually build the app by below described steps.
+   
+
 We have tried to make the process simple. Here's what you need to do.
 
 1. Clone and change into the project.
