@@ -281,7 +281,8 @@ class MainScreenViewModel extends BaseModel {
 
     pluginList.forEach((plugin) {
       if (pluginPrototypeData.containsKey(
-              (plugin as Map<String, dynamic>)["pluginName"] as String) &&
+            (plugin as Map<String, dynamic>)["pluginName"] as String,
+          ) &&
           plugin["pluginInstallStatus"] as bool) {
         navBarItems.add(
           BottomNavigationBarItem(
