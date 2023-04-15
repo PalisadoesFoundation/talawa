@@ -78,7 +78,7 @@ final imagePicker = locator<ImagePicker>();
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
-///  None
+///   None
 ///
 /// **returns**:
 ///   None

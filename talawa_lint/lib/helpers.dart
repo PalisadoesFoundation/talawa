@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
@@ -138,3 +139,27 @@ bool isMethod(ClassMember m) => m is MethodDeclaration;
 bool isPrivate(Token? name) =>
     // ignore: avoid_bool_literals_in_conditional_expressions
     name != null ? Identifier.isPrivateName(name.lexeme) : false;
+
+class TalawaLintHelpers {
+  static bool isVoid(Declaration node) {
+    return ((node is FunctionDeclaration)
+            ? node.returnType?.type!.isVoid
+            : (node as MethodDeclaration).returnType?.type!.isVoid) ??
+        true;
+  }
+
+  static bool isImplicitReturn(Declaration node) {
+    return ((node is FunctionDeclaration)
+            ? node.declaredElement?.hasImplicitReturnType
+            : (node as MethodDeclaration)
+                .declaredElement
+                ?.hasImplicitReturnType) ??
+        false;
+  }
+
+  static DartType? returnType(Declaration node) {
+    return (node is FunctionDeclaration)
+        ? node.returnType?.type
+        : (node as MethodDeclaration).returnType?.type;
+  }
+}

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -78,7 +80,7 @@ class Post {
   /// this is to get duration of post.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `String`: date is returned in ago form.
@@ -117,7 +119,7 @@ class LikedBy {
   /// Convert dart object to json.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Map<String, dynamic>`: json is returned.
@@ -151,7 +153,7 @@ class Comments {
   /// Convert dart object to json.
   ///
   /// **params**:
-  /// None
+  ///   None
   ///
   /// **returns**:
   /// * `Map<String, dynamic>`: json is returned.

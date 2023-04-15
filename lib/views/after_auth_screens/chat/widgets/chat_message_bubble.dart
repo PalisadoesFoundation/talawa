@@ -10,7 +10,9 @@ import 'package:talawa/services/size_config.dart';
 class Message extends StatelessWidget {
   const Message({Key? key, required this.message}) : super(key: key);
 
+  /// {@nodoc}
   final ChatMessage message;
+
   @override
   Widget build(BuildContext context) {
     // styling

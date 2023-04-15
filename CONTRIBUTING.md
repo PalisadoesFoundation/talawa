@@ -161,7 +161,7 @@ The process of proposing a change to Talawa can be summarized as:
       1. _IntelliJ_, _Android Studio_, and other _Jetbrains_-based IDEs. Use the `Ctrl + Alt + L` or `Cmd + Opt + L` to trigger code formatting.
    1. **_On the command line before committing_**: Run this command from the root of your repository directory tree.
       ```
-      flutter format --set-exit-if-changed .
+      dart format --set-exit-if-changed .
       ```
 
 1. Ensure that your code should not be more than **_300 lines_**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.

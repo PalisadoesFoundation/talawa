@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -278,15 +277,17 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<String>;
 
     pluginList.forEach((plugin) {
-      if (pluginPrototypeData.containsKey(plugin["pluginName"] as String) &&
+      if (pluginPrototypeData.containsKey(
+              (plugin as Map<String, dynamic>)["pluginName"] as String) &&
           plugin["pluginInstallStatus"] as bool) {
         navBarItems.add(
           BottomNavigationBarItem(
             icon: Icon(
-              pluginPrototypeData[plugin["pluginName"]]["icon"] as IconData,
+              (pluginPrototypeData[plugin["pluginName"]]
+                  as Map<String, dynamic>)["icon"] as IconData,
             ),
             label: AppLocalizations.of(context)!.strictTranslate(
               plugin["pluginName"] as String,
@@ -294,7 +295,8 @@ class MainScreenViewModel extends BaseModel {
           ),
         );
         pages.add(
-          pluginPrototypeData[plugin["pluginName"]]["class"] as StatelessWidget,
+          (pluginPrototypeData[plugin["pluginName"]]
+              as Map<String, dynamic>)["class"] as StatelessWidget,
         );
       }
     });
@@ -723,6 +725,7 @@ class MainScreenViewModel extends BaseModel {
             return GestureDetector(
               onTap: () {
                 if (next != null) {
+                  // ignore: avoid_dynamic_calls
                   next();
                 }
                 tutorialCoachMark.next();
