@@ -64,7 +64,8 @@ class OrganizationList extends StatelessWidget {
                 result.data!['organizationsConnection'] as List,
               );
             }
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+
+            Timer(const Duration(seconds: 5), () {
               if (model.organizations.isEmpty) {
                 navigationServiceLocal.showTalawaErrorDialog(
                   "No organizations found Please contact your admin",
@@ -72,7 +73,6 @@ class OrganizationList extends StatelessWidget {
                 );
               }
             });
-            // return the Scroll bar wid  get for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
