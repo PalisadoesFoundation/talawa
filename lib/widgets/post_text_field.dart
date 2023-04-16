@@ -58,6 +58,13 @@ class PostTextController extends TextEditingController {
     return TextSpan(style: style, children: children);
   }
 
+  /// This function is used to get the index of the match value in the text.
+  ///
+  /// **params**:
+  /// * `match`: Taking the match value.
+  ///
+  /// **returns**:
+  /// * `Map<String, List<int>>?`: Getting the map.
   Map<String, List<int>>? matchValueIndex(Match match) {
     final matchValue = match[0]?.replaceFirstMapped('#', (match) => '');
     if (matchValue != null) {

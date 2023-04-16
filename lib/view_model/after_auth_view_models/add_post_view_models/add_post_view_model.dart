@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -63,7 +62,11 @@ class AddPostViewModel extends BaseModel {
   /// returns:
   /// * `TextEditingController`: The main text controller of the post body
   PostTextController get controller => _controller;
+
+  /// This function is used to fetch the hashtags from previously defined array.
   List<String> get fetchedhashtags => [..._fetchedhashtags];
+
+  /// This function is used to show the hashtags that the currently being used.
   bool get showHashtagList => _showHashtagList;
 
   /// Post title text controller.
@@ -162,8 +165,13 @@ class AddPostViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function will return the start and end index of the current tag where the pointer/
-  /// cursor is currently placed
+  /// This function will return the start and end index of the current tag where the pointer cursor is currently placed.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `MapEntry<int, int>`: Getting the map.
   MapEntry<int, int> _getCurrentString() {
     final text = _controller.text;
     final cursorPosition = _controller.selection;
@@ -199,17 +207,26 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function is used to fetch the hashtags from server based on the prefix.
-  /// params:
-  /// * [prefix] : prefix of the hashtags
+  ///
+  /// **params**:
+  /// * `prefix`: Taking the prefix of the tag.
+  ///
+  /// **returns**:
+  /// * `List<String>`: Answer of life.
   List<String> _fetchTags(String prefix) {
     // function that will make a request for trending tags and add it to provide user
-    return [];
+    return ["React", "Flutter", "Dart", "Talawa"];
   }
 
-  /// This function is used to add the tag in the post(textField) on tapping the one of the tag from suggestions
-  /// and is responsible to reposition the cursor at the end of the string
-  /// params:
-  /// * [tag] : String value of the tag
+  /// This function is used to add the tag in the post(textField) on tapping the one of the tag from suggestions and is responsible to reposition the cursor at the end of the string.
+  ///
+  /// Other description.
+  ///
+  /// **params**:
+  /// * `tag`: The tag that is being added to the string.
+  ///
+  /// **returns**:
+  ///   None
   void onTagClick(String tag) {
     final list = _controller.text.split(' ');
 
@@ -238,8 +255,15 @@ class AddPostViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function is responsible to detect weather the tag is being added to the string currently
-  /// and is responsible to reposition the cursor at the end of the string
+  /// This function is responsible to detect wether the tag is being added to the string currently and is responsible to reposition the cursor at the end of the string.
+  ///
+  /// Other description.
+  ///
+  /// **params**:
+  /// * `_`: Not to be used
+  ///
+  /// **returns**:
+  ///   None
   void handleTextChange(_) {
     final vals = _getCurrentString();
     final currText = _controller.text.substring(vals.key, vals.value);
