@@ -118,6 +118,7 @@ class AddPost extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
                   controller: model.controller,
+                  onChanged: model.handleTextChange,
                   maxLines: null,
                   // input field to write the description of the post.
                   decoration: InputDecoration(
@@ -132,6 +133,21 @@ class AddPost extends StatelessWidget {
                   ),
                 ),
               ),
+              if (model.showHashtagList)
+                SizedBox(
+                  height: 200,
+                  child: ListView(
+                    children: List.generate(
+                      model.fetchedhashtags.length,
+                      (index) => ListTile(
+                        title: Text("#${model.fetchedhashtags[index]}"),
+                        onTap: () => model.onTagClick(
+                          model.fetchedhashtags[index],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               // if the image for the post is added then render button to remove it.
               model.imageFile != null
                   // ignore: sized_box_for_whitespace
