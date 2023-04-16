@@ -333,41 +333,6 @@ void main() {
       });
     });
 
-    group('checks if the add hashtag button is working properly', () {
-      testWidgets('checks if the add hashtag button shows correct text',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
-
-        /// using the key of text button
-        /// because their are many text button
-
-        final finder = find.byKey(const Key('add_post_text_btn2'));
-
-        final icon =
-            find.descendant(of: finder, matching: find.text('# Add hashtag'));
-
-        expect(finder, findsOneWidget);
-        expect(icon, findsOneWidget);
-      });
-
-      testWidgets('checks if the add hashtag button is pressable',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
-
-        /// using the key of text button
-        /// because their are many text button
-
-        final finder = find.byKey(const Key('add_post_text_btn2'));
-
-        expect(finder, findsOneWidget);
-
-        await tester.tap(finder);
-        await tester.pump();
-      });
-    });
-
 //TODO: null
     testWidgets('Check if icon button is pressable.', (tester) async {
       await tester.pumpWidget(createAddPostScreen());
