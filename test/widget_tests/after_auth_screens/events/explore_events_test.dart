@@ -25,7 +25,6 @@ import 'package:talawa/widgets/event_card.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
-import '../../../view_model_tests/after_auth_view_model_tests/profile_view_model_tests/profile_page_view_model_tests.dart';
 
 Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       locale: const Locale('en'),
