@@ -1,24 +1,26 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
-// import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-// import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
-// import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import '../../helpers/test_helpers.dart';
-// import '../../helpers/test_helpers.mocks.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
+// Mock class for testing.
 class MockBuildContext extends Mock implements BuildContext {}
+
+// Mock Hive class.
+class MockHive extends Mock implements HiveInterface {}
 
 Widget createHomePageScreen() {
   return MaterialApp(
@@ -44,10 +46,11 @@ void main() {
     registerServices();
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();
+    locator.registerSingleton<HiveInterface>(MockHive());
   });
 
   group('Exit Button', () {
-    /* testWidgets("Tapping Tests for Exit", (tester) async {
+    testWidgets("Tapping Tests for Exit", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
       tester.binding.window.physicalSizeTestValue = const Size(4000, 4000);
@@ -58,21 +61,22 @@ void main() {
       await tester.pumpAndSettle();
       final dialogPopUP = verify(
               (locator<NavigationService>() as MockNavigationService)
-                  .pushDialog(captureAny))
+                  .pushDialog(captureAny),)
           .captured;
       expect(dialogPopUP[0], isA<CustomAlertDialog>());
       // calling success() to have complete code coverage.
       dialogPopUP[0].success();
-    });*/
+      await Hive.openBox('ExitBox');
+    });
   });
   group('Custom Drawer Test', () {
-    /*testWidgets("Widget Testing", (tester) async {
+    testWidgets("Widget Testing", (tester) async {
       // pumping the Widget
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
-          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
+          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0),);
       await tester.pumpAndSettle();
       // getting the Finders for Code Coverage
       expect(find.byKey(const ValueKey("Drawer")), findsOneWidget);
@@ -83,7 +87,7 @@ void main() {
       expect(listOfOrgs, findsOneWidget);
       expect(find.byKey(MainScreenViewModel.keyDrawerCurOrg), findsOneWidget);
       expect(find.byKey(MainScreenViewModel.keyDrawerSwitchableOrg),
-          findsOneWidget);
+          findsOneWidget,);
       expect(find.byType(UserAccountsDrawerHeader), findsOneWidget);
       expect(find.text("Join new Organization"), findsOneWidget);
       expect(find.text("Leave Current Organization"), findsOneWidget);
@@ -95,7 +99,7 @@ void main() {
       await tester.pumpAndSettle();
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
-          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
+          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0),);
       await tester.pumpAndSettle();
       final orgs = find.byKey(const ValueKey("Org"));
       // Atleast One Org should be there
@@ -117,7 +121,7 @@ void main() {
       final joinOrg = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
       await tester.tap(joinOrg);
       // await tester.pumpAndSettle();
-    });*/
+    });
   });
 
   tearDown(() {
