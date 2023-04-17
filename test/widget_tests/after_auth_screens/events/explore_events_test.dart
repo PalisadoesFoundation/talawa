@@ -16,6 +16,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
@@ -24,6 +25,7 @@ import 'package:talawa/widgets/event_card.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../view_model_tests/after_auth_view_model_tests/profile_view_model_tests/profile_page_view_model_tests.dart';
 
 Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       locale: const Locale('en'),
@@ -182,6 +184,23 @@ void main() {
           find.text("Looks like there aren't any events."),
           findsOneWidget,
         );
+      });
+    });
+    testWidgets("Testing if tapping on Calendar button works", (tester) async {
+      await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+
+        await tester.pumpWidget(createExploreEventsScreen(homeModel));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EventCalendar), findsNothing);
+
+        await tester.tap(
+          find.byIcon(
+            Icons.calendar_month,
+          ),
+        );
+        await tester.pumpAndSettle();
       });
     });
   });
