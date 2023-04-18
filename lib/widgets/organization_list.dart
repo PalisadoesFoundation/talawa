@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/timeout.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -65,7 +66,7 @@ class OrganizationList extends StatelessWidget {
               );
             }
 
-            Timer(const Duration(seconds: 5), () {
+            Timer(const Duration(seconds: TimeOuts.small), () {
               if (model.organizations.isEmpty) {
                 navigationServiceLocal.showTalawaErrorDialog(
                   "No organizations found Please contact your admin",
