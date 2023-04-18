@@ -16,12 +16,13 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
-// Mock class for testing.
+// Mock BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
 
-// Mock Hive class.
+// Mock HiveInterface class.
 class MockHive extends Mock implements HiveInterface {}
 
+// Create home Page Screen widget
 Widget createHomePageScreen() {
   return MaterialApp(
     locale: const Locale('en'),
@@ -39,6 +40,7 @@ Widget createHomePageScreen() {
   );
 }
 
+// Main function
 void main() {
   testSetupLocator();
 
@@ -60,9 +62,9 @@ void main() {
       await tester.tap(leaveOrg);
       await tester.pumpAndSettle();
       final dialogPopUP = verify(
-              (locator<NavigationService>() as MockNavigationService)
-                  .pushDialog(captureAny),)
-          .captured;
+        (locator<NavigationService>() as MockNavigationService)
+            .pushDialog(captureAny),
+      ).captured;
       expect(dialogPopUP[0], isA<CustomAlertDialog>());
       // calling success() to have complete code coverage.
       dialogPopUP[0].success();
@@ -76,7 +78,9 @@ void main() {
       await tester.pumpAndSettle();
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
-          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0),);
+        tester.getTopLeft(find.byType(MaterialApp)),
+        const Offset(300, 0),
+      );
       await tester.pumpAndSettle();
       // getting the Finders for Code Coverage
       expect(find.byKey(const ValueKey("Drawer")), findsOneWidget);
@@ -86,8 +90,10 @@ void main() {
       final listOfOrgs = find.byKey(const ValueKey("Switching Org"));
       expect(listOfOrgs, findsOneWidget);
       expect(find.byKey(MainScreenViewModel.keyDrawerCurOrg), findsOneWidget);
-      expect(find.byKey(MainScreenViewModel.keyDrawerSwitchableOrg),
-          findsOneWidget,);
+      expect(
+        find.byKey(MainScreenViewModel.keyDrawerSwitchableOrg),
+        findsOneWidget,
+      );
       expect(find.byType(UserAccountsDrawerHeader), findsOneWidget);
       expect(find.text("Join new Organization"), findsOneWidget);
       expect(find.text("Leave Current Organization"), findsOneWidget);
@@ -99,7 +105,9 @@ void main() {
       await tester.pumpAndSettle();
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
-          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0),);
+        tester.getTopLeft(find.byType(MaterialApp)),
+        const Offset(300, 0),
+      );
       await tester.pumpAndSettle();
       final orgs = find.byKey(const ValueKey("Org"));
       // Atleast One Org should be there
