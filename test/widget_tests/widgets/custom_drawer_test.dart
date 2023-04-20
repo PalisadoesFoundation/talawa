@@ -1,7 +1,9 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -16,13 +18,8 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
-// Mock BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
 
-// Mock HiveInterface class.
-class MockHive extends Mock implements HiveInterface {}
-
-// Create home Page Screen widget
 Widget createHomePageScreen() {
   return MaterialApp(
     locale: const Locale('en'),
@@ -40,7 +37,6 @@ Widget createHomePageScreen() {
   );
 }
 
-// Main function
 void main() {
   testSetupLocator();
 
@@ -48,7 +44,6 @@ void main() {
     registerServices();
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();
-    locator.registerSingleton<HiveInterface>(MockHive());
   });
 
   group('Exit Button', () {
@@ -68,7 +63,6 @@ void main() {
       expect(dialogPopUP[0], isA<CustomAlertDialog>());
       // calling success() to have complete code coverage.
       dialogPopUP[0].success();
-      await Hive.openBox('ExitBox');
     });
   });
   group('Custom Drawer Test', () {
