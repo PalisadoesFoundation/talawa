@@ -43,7 +43,7 @@ def _valid_filename(filepath):
 
     """
     # Initialize key variables
-    invalid_filenames = [".test."]
+    invalid_filenames = [".test.", ".spec."]
     result = True
 
     # Test
