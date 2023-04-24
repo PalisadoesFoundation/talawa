@@ -53,7 +53,7 @@ dependencies:
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^0.13.3
-  image_cropper: ^3.0.2
+  image_cropper: ^3.0.3
   image_picker: ^0.8.7
   intl: ^0.17.0
   json_annotation: ^4.7.0
