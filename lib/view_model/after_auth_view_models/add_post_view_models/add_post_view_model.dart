@@ -12,11 +12,15 @@ import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/post_text_field.dart';
 
+/// This class is used to function like a tuple.
 class StringRange {
-  final int left;
-  final int right;
-
   StringRange(this.left, this.right);
+
+  /// This variable is for the first index of the String.
+  final int left;
+
+  /// This variable is for the second index of the String.
+  final int right;
 }
 
 /// AddPostViewModel class have different functions that are used.
@@ -26,10 +30,6 @@ class AddPostViewModel extends BaseModel {
   //Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
-
-  late int left;
-  late int right;
-
   // ignore: unused_field
   late File? _imageFile;
   late User _currentUser;
