@@ -123,17 +123,5 @@ void main() {
       model.removeImage();
       expect(model.imageFile, null);
     });
-
-    test('getCurrentString should return a valid string range', () {
-      final controller = TextEditingController();
-      controller.text = 'Hello world!\nHow are you?';
-      controller.selection =
-          const TextSelection(baseOffset: 12, extentOffset: 12);
-
-      final stringRange = AddPostViewModel().getCurrentString(controller);
-
-      expect(stringRange.left, 6);
-      expect(stringRange.right, 12);
-    });
   });
 }
