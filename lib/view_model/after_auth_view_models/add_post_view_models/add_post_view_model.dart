@@ -12,6 +12,17 @@ import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/post_text_field.dart';
 
+/// StringRange Class is used to give Tuple like Functionality.
+class StringRange {
+  StringRange(this.left, this.right);
+
+  /// Defines the first index of the string.
+  final int left;
+
+  /// Defines the second index of the string.
+  final int right;
+}
+
 /// AddPostViewModel class have different functions that are used.
 ///
 /// to interact with the model to add a new post in the organization.
@@ -168,14 +179,18 @@ class AddPostViewModel extends BaseModel {
   /// This function will return the start and end index of the current tag where the pointer cursor is currently placed.
   ///
   /// **params**:
-  ///   None
+  /// * `controller`: the present text written in the text field.
   ///
   /// **returns**:
-  /// * `MapEntry<int, int>`: Getting the map.
-  MapEntry<int, int> _getCurrentString() {
-    final text = _controller.text;
-    final cursorPosition = _controller.selection;
+  /// * `StringRange`: Getting the map.
+  StringRange getCurrentString(TextEditingController controller) {
+    final text = controller.text;
+    final cursorPosition = controller.selection;
     final cursorIndex = cursorPosition.baseOffset - 1;
+
+    if (text.isEmpty || cursorIndex < 0 || cursorIndex >= text.length) {
+      return StringRange(0, 0);
+    }
 
     int left = 0;
     int right = 0;
@@ -203,7 +218,7 @@ class AddPostViewModel extends BaseModel {
     if (temp == text.length) {
       right = text.length;
     }
-    return MapEntry(left, right);
+    return StringRange(left, right);
   }
 
   /// This function is used to fetch the hashtags from server based on the prefix.
@@ -230,8 +245,10 @@ class AddPostViewModel extends BaseModel {
   void onTagClick(String tag) {
     final list = _controller.text.split(' ');
 
-    final vals = _getCurrentString();
-    final currString = _controller.text.substring(vals.key, vals.value);
+    final currString = _controller.text.substring(
+      getCurrentString(_controller).left,
+      getCurrentString(_controller).right,
+    );
 
     final index = list.indexOf(currString);
 
@@ -245,8 +262,9 @@ class AddPostViewModel extends BaseModel {
 
     _controller.selection = TextSelection.fromPosition(
       TextPosition(
-        offset:
-            (index == -1) ? _controller.text.length : vals.key + tag.length + 1,
+        offset: (index == -1)
+            ? _controller.text.length
+            : getCurrentString(_controller).left + tag.length + 1,
       ),
     );
 
@@ -265,8 +283,10 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void handleTextChange(_) {
-    final vals = _getCurrentString();
-    final currText = _controller.text.substring(vals.key, vals.value);
+    final currText = _controller.text.substring(
+      getCurrentString(_controller).left,
+      getCurrentString(_controller).right,
+    );
 
     if (currText == '#' || currText.startsWith('#')) {
       _fetchedhashtags.clear();
