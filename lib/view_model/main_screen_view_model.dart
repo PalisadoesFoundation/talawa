@@ -1,6 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -18,8 +16,9 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-/// MainScreenViewModel class provide methods to interact with the modal to
-/// serve data in user's action in Main Screen Views. The functions in this class are
+/// MainScreenViewModel class provide methods to interact with the modal to serve data in user's action in Main Screen Views.
+///
+/// The functions in this class are
 /// mainly in the context of Tutorials for different componenets of the App.
 ///
 /// Functions include:
@@ -30,57 +29,119 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `tourChat`
 /// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
-  // getters
+  /// static variables.
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
+
+  /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
+
+  /// static variables.
   final GlobalKey keySHPinnedPost =
       GlobalKey(debugLabel: "HomeScreenPinnedPost");
+
+  /// static variables.
   final GlobalKey keySHPost = GlobalKey(debugLabel: "HomeScreenPost");
+
+  /// static variables.
   final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
+
+  /// static variables.
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
-  // variables
+  /// static variables.
   static final GlobalKey keyDrawerCurOrg =
       GlobalKey(debugLabel: "DrawerCurrentOrg");
+
+  /// static variables.
   static final GlobalKey keyDrawerSwitchableOrg =
       GlobalKey(debugLabel: "DrawerSwitchableOrg");
+
+  /// static variables.
   static final GlobalKey keyDrawerJoinOrg =
       GlobalKey(debugLabel: "DrawerJoinOrg");
+
+  /// static variables.
   static final GlobalKey keyDrawerLeaveCurrentOrg =
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
+  /// static variables.
   final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
+
+  /// static variables.
   final GlobalKey keySECategoryMenu =
       GlobalKey(debugLabel: "EventScreenCategory");
+
+  /// static variables.
   final GlobalKey keySEDateFilter =
       GlobalKey(debugLabel: "EventScreenDateFilter");
+
+  /// static variables.
   final GlobalKey keySEAdd = GlobalKey(debugLabel: "EventScreenAdd");
+
+  /// static variables.
   final GlobalKey keySECard = GlobalKey(debugLabel: "EventScreenCard");
 
+  /// static variables.
   final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
 
+  /// static variables.
   final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
 
+  /// static variables.
   final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
+
+  /// static variables.
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
+
+  /// static variables.
   final GlobalKey keySPAppSetting =
       GlobalKey(debugLabel: "ProfileScreenAppSetting");
+
+  /// static variables.
   final GlobalKey keySPHelp = GlobalKey(debugLabel: "ProfileScreenHelp");
+
+  /// static variables.
   final GlobalKey keySPDonateUs =
       GlobalKey(debugLabel: "ProfileScreenDonateUs");
+
+  /// static variables.
   final GlobalKey keySPInvite = GlobalKey(debugLabel: "ProfileScreenInvite");
+
+  /// static variables.
   final GlobalKey keySPLogout = GlobalKey(debugLabel: "ProfileScreenLogout");
+
+  /// static variables.
   final GlobalKey keySPPalisadoes =
       GlobalKey(debugLabel: "ProfileScreenPalisadoes");
 
+  /// bool to determine if we wanna show the apptour.
   late bool showAppTour;
+
+  /// bool to determine if apptour is complete.
   bool tourComplete = false;
+
+  /// bool to determine if apptour is skipped.
   bool tourSkipped = false;
+
+  /// context consist of parent info.
   late BuildContext context;
+
+  /// tutorialCoachMark consist of coach used to give tutorial.
   late TutorialCoachMark tutorialCoachMark;
+
+  /// array of target.
   final List<TargetFocus> targets = [];
 
+  /// Initalizing function.
+  ///
+  /// **params**:
+  /// * `ctx`: BuildContext, contain parent info
+  /// * `fromSignUp`: Bool to find user entry
+  /// * `mainScreenIndex`: Index to find tab on mainScreen
+  ///
+  /// **returns**:
+  ///   None
   void initialise(
     BuildContext ctx, {
     required bool fromSignUp,
@@ -126,24 +187,33 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// Contains the Widgets to be rendered for corresponding navbar items.
+  ///
   /// Features that should be implemented as plugins should be kept here.
   List<StatelessWidget> pages = [];
 
-  /// Actual [BottomNavigationBarItem]s that show up on the screen
+  /// Actual [BottomNavigationBarItem]s that show up on the screen.
   List<BottomNavigationBarItem> navBarItems = [];
 
   /// Maps the feature names with their proper Icon and Page.
+  ///
   /// `icon` contains the [IconData] corresponding to plugin's icon.
-  /// `page` contains the corresponding page to be displayed
-  /// Name of the feature provided by the admin must [exactly] match with the
+  /// `page` contains the corresponding page to be displayed.
+  /// Name of the feature provided by the admin must [exactly] match with the.
   /// name stored here.
   Map<dynamic, dynamic> pluginPrototypeData = {};
 
-  /// Contains plugin data fetched from the server
+  /// list of all the pluginList.
   List<dynamic> pluginList = [];
 
-  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`
+  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
+  ///
   /// by mapping over the data received from the server.
+  ///
+  /// **params**:
+  /// * `context`: its the same context you use everywhere in the flutter framework refer flutter docs for more info.
+  ///
+  /// **returns**:
+  ///   None
   void fetchAndAddPlugins(
     BuildContext context,
   ) {
@@ -207,15 +277,18 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<String>;
 
     pluginList.forEach((plugin) {
-      if (pluginPrototypeData.containsKey(plugin["pluginName"] as String) &&
+      if (pluginPrototypeData.containsKey(
+            (plugin as Map<String, dynamic>)["pluginName"] as String,
+          ) &&
           plugin["pluginInstallStatus"] as bool) {
         navBarItems.add(
           BottomNavigationBarItem(
             icon: Icon(
-              pluginPrototypeData[plugin["pluginName"]]["icon"] as IconData,
+              (pluginPrototypeData[plugin["pluginName"]]
+                  as Map<String, dynamic>)["icon"] as IconData,
             ),
             label: AppLocalizations.of(context)!.strictTranslate(
               plugin["pluginName"] as String,
@@ -223,14 +296,16 @@ class MainScreenViewModel extends BaseModel {
           ),
         );
         pages.add(
-          pluginPrototypeData[plugin["pluginName"]]["class"] as StatelessWidget,
+          (pluginPrototypeData[plugin["pluginName"]]
+              as Map<String, dynamic>)["class"] as StatelessWidget,
         );
       }
     });
 
-    /// Causes the app to continously check for plugins if they are
+    /// Causes the app check the plugins updates in every 300 sec
+    ///
     /// updated and re-render the navbar
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    Timer.periodic(const Duration(seconds: 300), (timer) {
       FetchPluginList();
       final newPluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
@@ -241,16 +316,30 @@ class MainScreenViewModel extends BaseModel {
     });
   }
 
-  /// Currently selected page
+  /// var for current page in index.
   int currentPageIndex = 0;
 
-  /// Handles click on [BottomNavigationBarItem]
+  /// Handles click on [BottomNavigationBarItem].
+  ///
+  /// **params**:
+  /// * `index`: it is track of current page index.
+  ///
+  /// **returns**:
+  ///   None
   void onTabTapped(int index) {
     currentPageIndex = index;
     notifyListeners();
   }
 
   /// This function show tutorial to user.
+  ///
+  /// **params**:
+  /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
+  /// * `onFinish`: Its a function which is required to run desired tasks on finish
+  ///
+  ///
+  /// **returns**:
+  ///   None
   void showTutorial({
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
@@ -280,6 +369,13 @@ class MainScreenViewModel extends BaseModel {
     )..show(context: context);
   }
 
+  /// this functions starts the tour and info to be displayed is mentioned in this functions.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void tourHomeTargets() {
     targets.clear();
     targets.add(
@@ -366,6 +462,12 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function shows the Home screen.
+  ///
+  /// **params**:
+  /// * `clickedTarget`: object to identify clickedTarget.
+  ///
+  /// **returns**:
+  ///   None
   void showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
@@ -377,6 +479,12 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for Events.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void tourEventTargets() {
     targets.clear();
     targets.add(
@@ -429,6 +537,12 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial to add Post in the organization.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void tourAddPost() {
     targets.clear();
     targets.add(
@@ -452,6 +566,12 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tour of chats.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void tourChat() {
     targets.clear();
     targets.add(
@@ -475,6 +595,12 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for the profile page.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void tourProfile() {
     targets.clear();
     targets.add(
@@ -536,12 +662,21 @@ class MainScreenViewModel extends BaseModel {
 
   /// This returns a widget for a step in a tutorial.
   ///
-  /// params:
-  /// * [keyName] : key where the widget shows.
-  /// * [description] : description of the step.
-  /// * [isCircle]
-  /// * [next] : `Function` type, this show the next step or `key` to show the tour of.
-  /// * [isEnd] : true if last step of the tour.
+  /// **params**:
+  /// * `key`: key of type GlobalKey.
+  /// * `keyName`: key where the widget shows.
+  /// * `description`: description of the step.
+  /// * `isCircle`: bool to specify if circle
+  /// * `align`: align of type ContentAlign to align button.
+  /// * `crossAlign`: Cross align axes
+  /// * `skipAlignment`: to give alignment of skip option
+  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
+  /// * `nextCrossAlign`: nextCrossAlign to give alignment of next option
+  /// * `isEnd`: true if last step of the tour.
+  ///
+  ///
+  /// **returns**:
+  /// * `TargetFocus`: This return widget foa a step in a tut
   TargetFocus focusTarget(
     GlobalKey key,
     String keyName,
@@ -591,6 +726,7 @@ class MainScreenViewModel extends BaseModel {
             return GestureDetector(
               onTap: () {
                 if (next != null) {
+                  // ignore: avoid_dynamic_calls
                   next();
                 }
                 tutorialCoachMark.next();
