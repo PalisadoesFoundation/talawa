@@ -45,6 +45,7 @@ dependencies:
     sdk: flutter
   flutter_speed_dial: ^6.2.0
   flutter_svg: ^2.0.4
+  flutter_mentions: ^2.0.1
   font_awesome_flutter: ^10.4.0
   geocoding: ^2.1.0
   geolocator: ^9.0.2

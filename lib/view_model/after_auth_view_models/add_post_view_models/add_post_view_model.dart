@@ -10,6 +10,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+
 import 'package:talawa/widgets/post_text_field.dart';
 
 /// This class is used to function like a tuple.
@@ -37,7 +38,16 @@ class AddPostViewModel extends BaseModel {
 
   final PostTextController _controller = PostTextController();
   final List<String> _fetchedhashtags = [];
-  late bool _showHashtagList;
+  bool _showHashtagList = false;
+
+  /// Get Method for Post Controller.
+  PostTextController get postController => _controller;
+
+  /// Get Method for getting Hashtag List.
+  List<String> get fetchedhashtags => [..._fetchedhashtags];
+
+  /// Get Method for checking if to show Hashtag List or not.
+  bool get showHashtagList => _showHashtagList;
 
   final TextEditingController _titleController = TextEditingController();
 
@@ -65,20 +75,6 @@ class AddPostViewModel extends BaseModel {
   /// * `String`: The organisation name
   String get orgName => _selectedOrg.name!;
 
-  /// Post body text controller.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `TextEditingController`: The main text controller of the post body
-  PostTextController get controller => _controller;
-
-  /// This function is used to fetch the hashtags from previously defined array.
-  List<String> get fetchedhashtags => [..._fetchedhashtags];
-
-  /// This function is used to show the hashtags that the currently being used.
-  bool get showHashtagList => _showHashtagList;
-
   /// Post title text controller.
   ///
   /// params:
@@ -100,7 +96,6 @@ class AddPostViewModel extends BaseModel {
     _navigationService = locator<NavigationService>();
     _selectedOrg = locator<UserConfig>().currentOrg;
     _imageFile = null;
-    _showHashtagList = false;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
     _dbFunctions = locator<DataBaseMutationFunctions>();
   }
@@ -141,7 +136,6 @@ class AddPostViewModel extends BaseModel {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
-            "text": _controller.text,
             "organizationId": _selectedOrg.id,
             "title": _titleController.text
           },
@@ -158,7 +152,6 @@ class AddPostViewModel extends BaseModel {
       }
     }
     removeImage();
-    _controller.text = "";
     _titleController.text = "";
     notifyListeners();
   }
@@ -175,22 +168,17 @@ class AddPostViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function will return the start and end index of the current tag where the pointer cursor is currently placed.
+  /// Getting the Current String.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `StringRange`: Getting the map.
-  StringRange getCurrentString() {
+  /// * `StringRange`: Getting the String Range with two indexes.
+  StringRange _getCurrentString() {
     final text = _controller.text;
     final cursorPosition = _controller.selection;
-    final cursorIndex = cursorPosition.baseOffset - 1;
-
-    if (text.isEmpty || cursorIndex < 0 || cursorIndex >= text.length) {
-      return StringRange(0, 0);
-    }
-
+    final cursorIndex = cursorPosition.extentOffset - 1;
     int left = 0;
     int right = 0;
 
@@ -220,24 +208,73 @@ class AddPostViewModel extends BaseModel {
     return StringRange(left, right);
   }
 
-  /// This function is used to fetch the hashtags from server based on the prefix.
+  /// Function for getting the tags.
   ///
   /// **params**:
-  /// * `prefix`: Taking the prefix of the tag.
+  /// * `prefix`: getting what the user has typed.
   ///
   /// **returns**:
-  /// * `List<String>`: Answer of life.
+  /// * `List<String>`: Getting the list of tags.
   List<String> _fetchTags(String prefix) {
-    // function that will make a request for trending tags and add it to provide user
-    return ["React", "Flutter", "Dart", "Talawa"];
+    final tags = [
+      "CodeNewbie",
+      "ProgrammingHumor",
+      "DevCommunity",
+      "StackOverflow",
+      "Github",
+      "CodeChallenge",
+      "CodeReview",
+      "TechTalk",
+      "CleanCode",
+      "DeveloperLife",
+      "WebDevelopment",
+      "SoftwareEngineering",
+      "OpenSource",
+      "JavaScript",
+      "Flutter",
+      "Flask",
+      "Java",
+      "CSharp",
+      "PHP",
+      "ReactJS",
+      "AngularJS",
+      "NodeJS",
+      "VueJS",
+      "TypeScript",
+      "GraphQL",
+      "DevOps",
+      "AgileMethodology",
+      "MobileDevs",
+      "ContinuousIntegration",
+      "Git",
+      "CodeQuality",
+      "BackendDevelopment",
+      "FrontendDevelopment",
+      "MobileDevelopment",
+      "TestAutomation",
+      "SoftwareArchitecture",
+      "Microservices",
+      "Serverless",
+      "CloudComputing",
+      "MachineLearning",
+      "ArtificialIntelligence",
+      "DataScience",
+      "BigData",
+      "Blockchain",
+      "Cryptocurrency",
+      "Cybersecurity",
+      "Hackathon",
+    ];
+
+    return tags
+        .where((element) => element.toLowerCase().startsWith(prefix))
+        .toList();
   }
 
-  /// This function is used to add the tag in the post(textField) on tapping the one of the tag from suggestions and is responsible to reposition the cursor at the end of the string.
-  ///
-  /// Other description.
+  /// Function to be called when a particular tag is clickex.
   ///
   /// **params**:
-  /// * `tag`: The tag that is being added to the string.
+  /// * `tag`: the tag which is clicked.
   ///
   /// **returns**:
   ///   None
@@ -245,7 +282,7 @@ class AddPostViewModel extends BaseModel {
     final list = _controller.text.split(' ');
 
     final currString = _controller.text
-        .substring(getCurrentString().left, getCurrentString().right);
+        .substring(_getCurrentString().left, _getCurrentString().right);
 
     final index = list.indexOf(currString);
 
@@ -261,7 +298,7 @@ class AddPostViewModel extends BaseModel {
       TextPosition(
         offset: (index == -1)
             ? _controller.text.length
-            : getCurrentString().left + tag.length + 1,
+            : _getCurrentString().left + tag.length + 1,
       ),
     );
 
@@ -270,23 +307,20 @@ class AddPostViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function is responsible to detect wether the tag is being added to the string currently and is responsible to reposition the cursor at the end of the string.
-  ///
-  /// Other description.
+  /// Funciton for handling the text change.
   ///
   /// **params**:
-  /// * `_`: Not to be used
+  /// * `_`: to be ignored
   ///
   /// **returns**:
   ///   None
   void handleTextChange(_) {
     final currText = _controller.text
-        .substring(getCurrentString().left, getCurrentString().right);
+        .substring(_getCurrentString().left, _getCurrentString().right);
 
     if (currText == '#' || currText.startsWith('#')) {
       _fetchedhashtags.clear();
       if (currText.length > 1) {
-        print("In here");
         _fetchedhashtags.addAll(_fetchTags(currText.substring(1)));
       }
       _showHashtagList = true;
