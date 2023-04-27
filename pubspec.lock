@@ -467,14 +467,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_mentions:
-    dependency: "direct main"
-    description:
-      name: flutter_mentions
-      sha256: "86206b70e14a96c195130202f258c5764ef16f406c72613dfadbaea6bc4717d2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -483,14 +475,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
-  flutter_portal:
-    dependency: transitive
-    description:
-      name: flutter_portal
-      sha256: "0e3f9428dbe9f5253b0e65cdc5ce4fa65a1d8cd6ec2a3f3770b46785aa3c57fd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   flutter_speed_dial:
     dependency: "direct main"
     description:
