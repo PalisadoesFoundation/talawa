@@ -136,6 +136,7 @@ class AddPostViewModel extends BaseModel {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
+            "text": _controller.text,
             "organizationId": _selectedOrg.id,
             "title": _titleController.text
           },
