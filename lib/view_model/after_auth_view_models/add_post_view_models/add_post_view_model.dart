@@ -36,12 +36,12 @@ class AddPostViewModel extends BaseModel {
   late User _currentUser;
   late OrgInfo _selectedOrg;
 
-  final PostTextController _controller = PostTextController();
+  final PostTextController controller = PostTextController();
   final List<String> _fetchedhashtags = [];
   bool _showHashtagList = false;
 
   /// Get Method for Post Controller.
-  PostTextController get postController => _controller;
+  PostTextController get postController => controller;
 
   /// Get Method for getting Hashtag List.
   List<String> get fetchedhashtags => [..._fetchedhashtags];
@@ -136,7 +136,7 @@ class AddPostViewModel extends BaseModel {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
-            "text": _controller.text,
+            "text": controller.text,
             "organizationId": _selectedOrg.id,
             "title": _titleController.text
           },
@@ -176,9 +176,9 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `StringRange`: Getting the String Range with two indexes.
-  StringRange _getCurrentString() {
-    final text = _controller.text;
-    final cursorPosition = _controller.selection;
+  StringRange getCurrentString() {
+    final text = controller.text;
+    final cursorPosition = controller.selection;
     final cursorIndex = cursorPosition.extentOffset - 1;
     int left = 0;
     int right = 0;
@@ -216,7 +216,7 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `List<String>`: Getting the list of tags.
-  List<String> _fetchTags(String prefix) {
+  List<String> fetchTags(String prefix) {
     final tags = [
       "CodeNewbie",
       "ProgrammingHumor",
@@ -280,10 +280,10 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void onTagClick(String tag) {
-    final list = _controller.text.split(' ');
+    final list = controller.text.split(' ');
 
-    final currString = _controller.text
-        .substring(_getCurrentString().left, _getCurrentString().right);
+    final currString = controller.text
+        .substring(getCurrentString().left, getCurrentString().right);
 
     final index = list.indexOf(currString);
 
@@ -293,13 +293,13 @@ class AddPostViewModel extends BaseModel {
       list.add("#$tag");
     }
 
-    _controller.text = list.join(' ');
+    controller.text = list.join(' ');
 
-    _controller.selection = TextSelection.fromPosition(
+    controller.selection = TextSelection.fromPosition(
       TextPosition(
         offset: (index == -1)
-            ? _controller.text.length
-            : _getCurrentString().left + tag.length + 1,
+            ? controller.text.length
+            : getCurrentString().left + tag.length + 1,
       ),
     );
 
@@ -316,13 +316,13 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void handleTextChange(_) {
-    final currText = _controller.text
-        .substring(_getCurrentString().left, _getCurrentString().right);
+    final currText = controller.text
+        .substring(getCurrentString().left, getCurrentString().right);
 
     if (currText == '#' || currText.startsWith('#')) {
       _fetchedhashtags.clear();
       if (currText.length > 1) {
-        _fetchedhashtags.addAll(_fetchTags(currText.substring(1)));
+        _fetchedhashtags.addAll(fetchTags(currText.substring(1)));
       }
       _showHashtagList = true;
     } else {
