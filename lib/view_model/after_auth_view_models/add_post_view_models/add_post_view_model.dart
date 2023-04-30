@@ -36,6 +36,7 @@ class AddPostViewModel extends BaseModel {
   late User _currentUser;
   late OrgInfo _selectedOrg;
 
+  /// Controller for the Post Body.
   final PostTextController controller = PostTextController();
   final List<String> _fetchedhashtags = [];
   bool _showHashtagList = false;
