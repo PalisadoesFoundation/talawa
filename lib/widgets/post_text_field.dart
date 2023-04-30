@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// This class is used to function like a tuple.
-class StringRange {
-  StringRange(this.left, this.right);
-
-  /// This variable is for the first index of the String.
-  final int left;
-
-  /// This variable is for the second index of the String.
-  final int right;
-}
-
-/// Class for controlling the Text written in the description of post.
-///
-/// more_info_if_required
+/// PostTextController is customized to highlight the the tags that are present in the text.
 class PostTextController extends TextEditingController {
   PostTextController({
     String? text,
   }) : super(text: text);
 
+  /// Setting this will notify all the listeners of this [TextEditingController]
+  /// that they need to update (it calls [notifyListeners]).
   @override
   set text(String newText) {
     value = value.copyWith(
@@ -69,15 +58,13 @@ class PostTextController extends TextEditingController {
     return TextSpan(style: style, children: children);
   }
 
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+  /// This function is used to get the index of the match value in the text.
   ///
   /// **params**:
-  /// * `match`: define_the_param
+  /// * `match`: Taking the match value.
   ///
   /// **returns**:
-  /// * `Map<String, List<int>>?`: define_the_return
+  /// * `Map<String, List<int>>?`: Getting the map.
   Map<String, List<int>>? matchValueIndex(Match match) {
     final matchValue = match[0]?.replaceFirstMapped('#', (match) => '');
     if (matchValue != null) {
