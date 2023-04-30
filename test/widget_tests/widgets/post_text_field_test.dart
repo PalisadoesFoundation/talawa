@@ -48,5 +48,19 @@ void main() {
       controller.text = 'hello';
       expect(controller.text, 'hello');
     });
+
+    test('matchValueIndex returns expected result', () {
+      final postTextController =
+          PostTextController(text: 'Sample #hashtag text');
+      final regex = RegExp(r"\B#[a-zA-Z0-9]+\b");
+      final match = regex.firstMatch(postTextController.text)!;
+
+      final expected = {
+        'hashtag': [8, 14]
+      };
+      final actual = postTextController.matchValueIndex(match);
+
+      expect(actual, equals(expected));
+    });
   });
 }
