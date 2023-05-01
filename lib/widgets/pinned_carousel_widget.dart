@@ -159,6 +159,7 @@ class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
         PageView(
           scrollDirection: Axis.horizontal,
           controller: controller,
+          physics: const BouncingScrollPhysics(),
           onPageChanged: (index) {
             setState(() {
               pindex = index;
