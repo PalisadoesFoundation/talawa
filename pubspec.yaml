@@ -33,27 +33,27 @@ dependencies:
   file: ^6.1.4
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.3.0
+  firebase_messaging: ^14.4.1
   firebase_messaging_platform_interface: ^4.2.16
   flutter:
     sdk: flutter
 
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.0
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^14.0.0
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^6.2.0
-  flutter_svg: ^2.0.4
+  flutter_svg: ^2.0.5
   font_awesome_flutter: ^10.4.0
   geocoding: ^2.1.0
   geolocator: ^9.0.2
-  get_it: ^7.2.0
+  get_it: ^7.3.0
   google_maps_flutter: ^2.2.5
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^0.13.3
-  image_cropper: ^3.0.2
+  image_cropper: ^3.0.3
   image_picker: ^0.8.7
   intl: ^0.17.0
   json_annotation: ^4.7.0
