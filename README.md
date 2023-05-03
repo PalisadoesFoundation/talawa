@@ -1,9 +1,8 @@
 # Talawa
 
-[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1s3fehykg-n2wfvgapdRxMakOQs~U7PA)
+[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1trp8k1qa-Dk938uYIaVMKStV64XAYDA)
 
- 
-[![N|Solid](https://github.com/PalisadoesFoundation/talawa/blob/81c0d49458e176e8968fa42c610d220519860e06/assets/images/talawa-logo-lite-200x200.png)](https://github.com/PalisadoesFoundation/talawa) 
+![talawa-logo-lite-200x200](https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png)
 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
