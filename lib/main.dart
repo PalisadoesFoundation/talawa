@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -176,9 +176,18 @@ class _MyAppState extends State<MyApp> {
 
   /// Initializing the mainScreen window to 1 to show the events by default after app in opened.
   late int mainScreenQuickActionindex = 0;
+  Timer? timer;
   @override
   void initState() {
-    FetchPluginList();
+    print("CLDD: let's called -------------------------------------");
+
+    // Timer.periodic(const Duration(seconds: 300), (timer) {
+    //   FetchPluginList();
+    // });
+    timer = Timer.periodic(
+      const Duration(seconds: 15),
+      (Timer t) => FetchPluginList(),
+    );
     // initState() is a method that is called once when the Stateful Widget
     // is inserted in the widget tree. We generally override this method if
     // we need to do some sort of initialization work like
@@ -188,7 +197,7 @@ class _MyAppState extends State<MyApp> {
 
     final urlBox = Hive.box('url');
     if (urlBox.get('url') != null) {
-      FetchPluginList();
+      // FetchPluginList();
     }
 
     fs.SystemChrome.setPreferredOrientations(
@@ -197,6 +206,12 @@ class _MyAppState extends State<MyApp> {
         fs.DeviceOrientation.portraitDown,
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   /// It allows to manage and interact with the application’s home screen quick actions.
@@ -299,7 +314,7 @@ class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    FetchPluginList();
+    // FetchPluginList();
     return BaseView<DemoViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(

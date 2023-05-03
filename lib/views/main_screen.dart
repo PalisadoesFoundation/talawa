@@ -1,5 +1,6 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
 // ignore_for_file: talawa_good_doc_comments
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -31,11 +32,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<List<Object>> renderBottomNavBarPlugins(
-      List<BottomNavigationBarItem> navBarItems,
-      List<StatelessWidget> navBarClasses,
-      Map navNameClasses,
-      Map<String, Widget> navNameIcons,
-      BuildContext context) {
+    List<BottomNavigationBarItem> navBarItems,
+    List<StatelessWidget> navBarClasses,
+    Map navNameClasses,
+    Map<String, Widget> navNameIcons,
+    BuildContext context,
+  ) {
     //get list from hive
     final Box box;
     // ignore: prefer_typing_uninitialized_variables
@@ -52,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
     pluginList ??= [
       // if null then it will be replace with the following data
       {
-        "_id": "62cfcd6e33bbe266f59644dd",
+        "_id": "63929c1915ad470d13c3bcb6",
         "pluginInstallStatus": true,
         "pluginName": "Events",
         "pluginCreatedBy": " Mr. Siddhesh Bhupendra  Kukade",
@@ -65,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         ]
       },
       {
-        "_id": "62cfcd6233bbe266f59644db",
+        "_id": "63929c1915ad470d13c3bcb6",
         "pluginInstallStatus": true,
         "pluginName": "Posts",
         "pluginCreatedBy": "Mr.Johnathan Doe ",
@@ -124,7 +126,13 @@ class _MainScreenState extends State<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       /// This line causes the app to continiously check for plugins if they are updated
       /// and it will automatically re-render the navbar with enables or disabled features
-      FetchPluginList(); // dont delete
+      // Timer? timer;
+      // timer = Timer.periodic(
+      //   const Duration(seconds: 15),
+      //   (Timer t) => FetchPluginList(),s
+      // );
+
+      // FetchPluginList(); // dont delete
       setState(() {});
     });
 
@@ -199,7 +207,7 @@ class _MainScreenState extends State<MainScreen> {
           drawer:
               CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
           body: IndexedStack(
-            index: model.currentIndex,
+            index: model.currentPageIndex,
             children: navBarClasses,
           ),
           bottomNavigationBar: Stack(
@@ -258,7 +266,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                currentIndex: model.currentIndex,
+                currentIndex: model.currentPageIndex,
                 onTap: model.onTabTapped,
                 selectedItemColor: const Color(0xff34AD64),
                 items: navBarItems,
