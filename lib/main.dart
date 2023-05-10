@@ -20,7 +20,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/view_model/base_view_model.dart';  
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -179,8 +179,6 @@ class _MyAppState extends State<MyApp> {
   Timer? timer;
   @override
   void initState() {
-    print("CLDD: let's called -------------------------------------");
-
     // Timer.periodic(const Duration(seconds: 300), (timer) {
     //   FetchPluginList();
     // });

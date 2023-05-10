@@ -126,13 +126,6 @@ class _MainScreenState extends State<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       /// This line causes the app to continiously check for plugins if they are updated
       /// and it will automatically re-render the navbar with enables or disabled features
-      // Timer? timer;
-      // timer = Timer.periodic(
-      //   const Duration(seconds: 15),
-      //   (Timer t) => FetchPluginList(),s
-      // );
-
-      // FetchPluginList(); // dont delete
       setState(() {});
     });
 
