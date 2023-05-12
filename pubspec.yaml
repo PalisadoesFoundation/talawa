@@ -33,7 +33,7 @@ dependencies:
   file: ^6.1.4
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.4.1
+  firebase_messaging: ^14.6.0
   firebase_messaging_platform_interface: ^4.2.16
   flutter:
     sdk: flutter
