@@ -22,7 +22,7 @@ dependencies:
   
   auto_size_text: ^3.0.0
   cached_network_image: ^3.1.0
-  connectivity_plus: ^3.0.0
+  connectivity_plus: ^3.0.6
   cupertino_icons: ^1.0.3
   currency_picker: ^2.0.16
 
