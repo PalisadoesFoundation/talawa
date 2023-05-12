@@ -44,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
     var pluginList;
     const bool res = false;
     box = Hive.box('pluginBox');
-    pluginList = box.get('plugins');
+    // pluginList = box.get('plugins');
 
     /// CAUTION : `pluginList` is currently filled with dummy data in order to make sure that
     /// all features of talawa should be visible from the navbar.

@@ -6,6 +6,8 @@ import 'package:talawa/locator.dart';
 class FetchPluginList {
   /// Constructor of the class.
   FetchPluginList() {
+    print(
+        "Fetching pligins =================================================================");
     fetchList();
   }
 
