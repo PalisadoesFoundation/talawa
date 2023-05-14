@@ -86,7 +86,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.0
-  json_serializable: ^6.6.1
+  json_serializable: ^6.6.2
   lint: ^2.0.1
   mocktail_image_network: ^0.3.1
   talawa_lint:
