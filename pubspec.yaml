@@ -43,7 +43,7 @@ dependencies:
   flutter_local_notifications: ^14.0.0
   flutter_localizations:
     sdk: flutter
-  flutter_speed_dial: ^6.2.0
+  flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.5
   font_awesome_flutter: ^10.4.0
   geocoding: ^2.1.0
