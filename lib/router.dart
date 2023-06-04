@@ -203,7 +203,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case Routes.requestAccess:
-      return MaterialPageRoute(builder: (context) => SendAccessRequest(key: const Key('SendAccessRequest')));
+      return MaterialPageRoute(builder: (context) => const SendAccessRequest(key: Key('SendAccessRequest')));
 
     // Returns the EditEventPage Widget
     case Routes.editEventPage:
