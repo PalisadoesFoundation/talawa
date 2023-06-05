@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/apptheme.dart';
 import 'package:talawa/locator.dart';
+
 ///requestAccess
 class SendAccessRequest extends StatelessWidget {
   const SendAccessRequest({Key? key}) : super(key: key);
@@ -8,7 +9,6 @@ class SendAccessRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-
       child: Scaffold(
         appBar: AppBar(),
         body: Column(
@@ -25,17 +25,23 @@ class SendAccessRequest extends StatelessWidget {
                     "You need access",
                     style: AppTheme.title.copyWith(color: AppTheme.white),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   const Text(
-                      "Request access, or switch to an account with access",),
-                  const SizedBox(height: 20,),
+                    "Request access, or switch to an account with access",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     child: TextField(
                       style: const TextStyle(color: AppTheme.blackPrimary),
                       minLines: 15,
                       maxLines: 20,
                       decoration: InputDecoration(
-                        constraints: const BoxConstraints(maxWidth: 400, minWidth: 100),
+                        constraints:
+                            const BoxConstraints(maxWidth: 400, minWidth: 100),
                         enabledBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: const BorderSide(
@@ -43,9 +49,9 @@ class SendAccessRequest extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-
                         hintText: "Message (optional)",
-                        hintStyle: const TextStyle(color: AppTheme.blackSecondary),
+                        hintStyle:
+                            const TextStyle(color: AppTheme.blackSecondary),
                         filled: true,
                         fillColor: AppTheme.white,
                       ),
@@ -56,9 +62,10 @@ class SendAccessRequest extends StatelessWidget {
             ),
             Center(
               child: TextButton(
-                onPressed: () {navigationService.pop();},
-                style:
-                TextButton.styleFrom(backgroundColor: AppTheme.green),
+                onPressed: () {
+                  navigationService.pop();
+                },
+                style: TextButton.styleFrom(backgroundColor: AppTheme.green),
                 child: const Text(
                   "Request Access",
                   style: TextStyle(
