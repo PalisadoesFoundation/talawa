@@ -30,7 +30,7 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
     
-    compileSdkVersion 33
+    compileSdkVersion flutter.compileSdkVersion
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
