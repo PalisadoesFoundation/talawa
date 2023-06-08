@@ -104,6 +104,10 @@ class SelectOrganizationViewModel extends BaseModel {
     } else {
       selectedOrganization = item;
       notifyListeners();
+      navigationService.pushScreen(
+        Routes.signupDetailScreen,
+        arguments: selectedOrganization,
+      );
     }
   }
 

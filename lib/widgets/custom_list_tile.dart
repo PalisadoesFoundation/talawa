@@ -45,107 +45,55 @@ class CustomListTile extends StatelessWidget {
               ? onTapUserInfo!()
               : onTapOption!(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: type == TileType.option
-                  ? option!.icon
-                  : CustomAvatar(
-                      isImageNull: type == TileType.org
-                          ? orgInfo!.image == null
-                          : userInfo!.image == null,
-                      imageUrl: type == TileType.org
-                          ? orgInfo!.image
-                          : userInfo!.image,
-                      firstAlphabet: type == TileType.org
-                          ? orgInfo!.name!.substring(0, 1)
-                          : userInfo!.firstName!.substring(0, 1),
-                      fontSize: 18,
-                    ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+        padding: const EdgeInsets.all(18.0),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          height: 70,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25, ),
+                  child: Text(
                     type == TileType.org
                         ? orgInfo!.name!
                         : type == TileType.user
                             ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
                             : option!.title,
                     style: type == TileType.org
-                        ? Theme.of(context).textTheme.headlineSmall
+                        ? Theme.of(context).textTheme.headlineSmall!
+                        .copyWith(fontSize: 18, color: Colors.black)
                         : type == TileType.user
-                            ? Theme.of(context).textTheme.titleLarge
+                            ? Theme.of(context).textTheme.titleLarge!
+                        .copyWith(fontSize: 18, color: Colors.black)
                             : option!.trailingIconButton == null
-                                ? Theme.of(context).textTheme.bodyMedium
+                                ? Theme.of(context).textTheme.bodyMedium!
+                        .copyWith(fontSize: 18, color: Colors.black)
                                 : Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
-                                    .copyWith(fontSize: 18),
+                                    .copyWith(fontSize: 18, color: Colors.black),
                   ),
-                  type != TileType.user
-                      ? Text(
-                          type == TileType.org
-                              ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
-                              : option!.subtitle,
-                          style: type == TileType.org
-                              ? Theme.of(context).textTheme.titleLarge
-                              : option!.trailingIconButton == null
-                                  ? Theme.of(context).textTheme.bodySmall
-                                  : Theme.of(context).textTheme.titleLarge,
-                        )
-                      : const SizedBox(),
-                ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: type != TileType.user
-                  ? type == TileType.org
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: SizeConfig.blockSizeHorizontal! * 15,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      orgInfo!.isPublic!
-                                          ? AppLocalizations.of(context)!
-                                              .strictTranslate('Public')
-                                          : AppLocalizations.of(context)!
-                                              .strictTranslate('Private'),
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  orgInfo!.isPublic!
-                                      ? Icons.lock_open
-                                      : Icons.lock,
-                                  color: orgInfo!.isPublic!
-                                      ? const Color(0xFF34AD64)
-                                      : const Color(0xffFABC57),
-                                ),
-                              ],
-                            ),
-                            showIcon
-                                ? const Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 25,
-                                  )
-                                : const SizedBox(),
-                          ],
+              Expanded(
+                flex: 1,
+                child: type != TileType.user
+                    ? type == TileType.org
+                        ? Icon(
+                          orgInfo!.isPublic!
+                              ? Icons.lock_open
+                              : Icons.lock,
+                          color: orgInfo!.isPublic!
+                              ? const Color(0xFF34AD64)
+                              : const Color(0xffFABC57),
                         )
-                      : option!.trailingIconButton ?? const SizedBox()
-                  : const SizedBox(),
-            ),
-          ],
+                        : option!.trailingIconButton ?? const SizedBox()
+                    : const SizedBox(),
+              ),
+            ],
+          ),
         ),
       ),
     );
