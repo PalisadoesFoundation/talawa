@@ -52,10 +52,14 @@ class _SelectOrganizationState extends State<SelectOrganization> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18, ),
-                  child: Text("Choose an Organization", style: TextStyle(fontSize: 40),),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 18,
+                  ),
+                  child: Text(
+                    "Choose an Organization",
+                    style: TextStyle(fontSize: 40),
+                  ),
                 ),
                 // SignupProgressIndicator(
                 //   key: const Key('SelectOrg'),

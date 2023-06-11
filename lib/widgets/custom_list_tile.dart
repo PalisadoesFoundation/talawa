@@ -47,14 +47,17 @@ class CustomListTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(20)),
           height: 70,
           child: Row(
             children: [
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25, ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                  ),
                   child: Text(
                     type == TileType.org
                         ? orgInfo!.name!
@@ -62,18 +65,25 @@ class CustomListTile extends StatelessWidget {
                             ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
                             : option!.title,
                     style: type == TileType.org
-                        ? Theme.of(context).textTheme.headlineSmall!
-                        .copyWith(fontSize: 18, color: Colors.black)
+                        ? Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(fontSize: 18, color: Colors.black)
                         : type == TileType.user
-                            ? Theme.of(context).textTheme.titleLarge!
-                        .copyWith(fontSize: 18, color: Colors.black)
+                            ? Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontSize: 18, color: Colors.black)
                             : option!.trailingIconButton == null
-                                ? Theme.of(context).textTheme.bodyMedium!
-                        .copyWith(fontSize: 18, color: Colors.black)
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 18, color: Colors.black)
                                 : Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
-                                    .copyWith(fontSize: 18, color: Colors.black),
+                                    .copyWith(
+                                        fontSize: 18, color: Colors.black),
                   ),
                 ),
               ),
@@ -82,13 +92,11 @@ class CustomListTile extends StatelessWidget {
                 child: type != TileType.user
                     ? type == TileType.org
                         ? Icon(
-                          orgInfo!.isPublic!
-                              ? Icons.lock_open
-                              : Icons.lock,
-                          color: orgInfo!.isPublic!
-                              ? const Color(0xFF34AD64)
-                              : const Color(0xffFABC57),
-                        )
+                            orgInfo!.isPublic! ? Icons.lock_open : Icons.lock,
+                            color: orgInfo!.isPublic!
+                                ? const Color(0xFF34AD64)
+                                : const Color(0xffFABC57),
+                          )
                         : option!.trailingIconButton ?? const SizedBox()
                     : const SizedBox(),
               ),
