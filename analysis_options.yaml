@@ -79,4 +79,10 @@ linter:
     # ```
     
     avoid_dynamic_calls: true
-    
+
+    #############################################
+    ################### REMOVE ##################
+    #############################################
+    unreachable_from_main: false
+    implicit_call_tearoffs: false
+    dangling_library_doc_comments: false
