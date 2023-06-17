@@ -81,23 +81,23 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               //   ),
               // ),
               // if organization selected then renders the organization info in CustomListTile.
-              model.selectedOrganization.id != '-1'
-                  ? ColoredBox(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondaryContainer
-                          .withOpacity(0.2),
-                      child: CustomListTile(
-                        index: model.organizations
-                            .indexOf(model.selectedOrganization),
-                        type: TileType.org,
-                        orgInfo: model.selectedOrganization,
-                        onTapOrgInfo: (item) => model.selectOrg(item),
-                        key: const Key('OrgSelItem'),
-                        showIcon: true,
-                      ),
-                    )
-                  : const SizedBox(),
+              // model.selectedOrganization.id != '-1'
+              //     ? ColoredBox(
+              //         color: Theme.of(context)
+              //             .colorScheme
+              //             .secondaryContainer
+              //             .withOpacity(0.2),
+              //         child: CustomListTile(
+              //           index: model.organizations
+              //               .indexOf(model.selectedOrganization),
+              //           type: TileType.org,
+              //           orgInfo: model.selectedOrganization,
+              //           onTapOrgInfo: (item) => model.selectOrg(item),
+              //           key: const Key('OrgSelItem'),
+              //           showIcon: true,
+              //         ),
+              //       )
+              //     : const SizedBox(),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                 child: Divider(

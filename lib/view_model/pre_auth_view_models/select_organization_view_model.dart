@@ -11,6 +11,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 
 /// SelectOrganizationViewModel class helps to interact with model to serve data
 /// and react to user's input in Select Organization View.
@@ -89,6 +90,10 @@ class SelectOrganizationViewModel extends BaseModel {
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
         notifyListeners();
+        navigationService.pushScreen(
+          Routes.requestAccess,
+          arguments: selectedOrganization,
+        );
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showTalawaErrorSnackBar(
@@ -128,6 +133,8 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  
+  
   /// This function make user to join the selected organization.
   /// The function uses `joinOrgById` graph QL query.
   Future<void> onTapJoin() async {
@@ -168,38 +175,18 @@ class SelectOrganizationViewModel extends BaseModel {
           MessageType.error,
         );
       }
-    } else {
-      try {
-        final result = await databaseFunctions.gqlAuthMutation(
-          queries.sendMembershipRequest(selectedOrganization.id!),
-        );
-        if (result != null) {
-          final OrgInfo membershipRequest = OrgInfo.fromJson(
-            result.data!['sendMembershipRequest']['organization']
-                as Map<String, dynamic>,
-          );
-          userConfig.updateUserMemberRequestOrg([membershipRequest]);
-          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.removeAllAndPush(
-              Routes.waitingScreen,
-              Routes.splashScreen,
-            );
-          } else {
-            navigationService.pop();
-            navigationService.showTalawaErrorSnackBar(
-              'Join in request sent to ${selectedOrganization.name} successfully',
-              MessageType.info,
-            );
-          }
-        }
-      } on Exception catch (e) {
-        print(e);
-        navigationService.showTalawaErrorSnackBar(
-          'SomeThing went wrong',
-          MessageType.error,
-        );
-      }
     }
+    // else {
+    //   try {
+    //     // navigationService.pushScreen(Routes.requestAccess);
+    //   } on Exception catch (e) {
+    //     print(e);
+    //     navigationService.showTalawaErrorSnackBar(
+    //       'SomeThing went wrong',
+    //       MessageType.error,
+    //     );
+    //   }
+    // }
   }
 
   /// This function fetch more option.

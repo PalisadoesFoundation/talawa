@@ -13,6 +13,7 @@ import 'package:talawa/models/task/task_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
@@ -203,10 +204,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case Routes.requestAccess:
-      return MaterialPageRoute(
-          builder: (context) =>
-              const SendAccessRequest(key: Key('SendAccessRequest')));
-
+      final OrgInfo org = settings.arguments! as OrgInfo;
+      return CupertinoPageRoute(
+        builder: (context) => SendAccessRequest(
+          key: const Key('Signup'),
+          org: org,
+        ),
+      );
     // Returns the EditEventPage Widget
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;
