@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../services_post_service/services_post_service-library.html">post_service</a></li>
@@ -38,15 +37,23 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">setOrgStreamSubscription</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -65,7 +72,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void setOrgStreamSubscription() {
-  _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
+  _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
     if (updatedOrganization != _currentOrg) {
       print(&quot;org changes from post service&quot;);
       _renderedPostID.clear();
@@ -97,29 +104,29 @@
     <h5>PostService class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../services_post_service/PostService-class.html#constructors">Constructors</a></li>
-    <li><a href="../../services_post_service/PostService/PostService.html">PostService</a></li>
+        <li class="section-title"><a href="../../services_post_service/PostService-class.html#constructors">Constructors</a></li>
+          <li><a href="../../services_post_service/PostService/PostService.html">PostService</a></li>
 
 
-    <li class="section-title">
-      <a href="../../services_post_service/PostService-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../../services_post_service/PostService/postStream.html">postStream</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../services_post_service/PostService/updatedPostStream.html">updatedPostStream</a></li>
+        <li class="section-title">
+          <a href="../../services_post_service/PostService-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../../services_post_service/PostService/postStream.html">postStream</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../services_post_service/PostService/updatedPostStream.html">updatedPostStream</a></li>
 
-    <li class="section-title"><a href="../../services_post_service/PostService-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../services_post_service/PostService/addCommentLocally.html">addCommentLocally</a></li>
-    <li><a href="../../services_post_service/PostService/addLike.html">addLike</a></li>
-    <li><a href="../../services_post_service/PostService/getPosts.html">getPosts</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../services_post_service/PostService/removeLike.html">removeLike</a></li>
-    <li><a href="../../services_post_service/PostService/setOrgStreamSubscription.html">setOrgStreamSubscription</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title"><a href="../../services_post_service/PostService-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../services_post_service/PostService/addCommentLocally.html">addCommentLocally</a></li>
+          <li><a href="../../services_post_service/PostService/addLike.html">addLike</a></li>
+          <li><a href="../../services_post_service/PostService/getPosts.html">getPosts</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../../services_post_service/PostService/removeLike.html">removeLike</a></li>
+          <li><a href="../../services_post_service/PostService/setOrgStreamSubscription.html">setOrgStreamSubscription</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../../services_post_service/PostService-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../services_post_service/PostService-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -145,7 +152,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

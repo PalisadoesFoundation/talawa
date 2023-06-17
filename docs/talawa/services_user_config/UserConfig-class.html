@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li><a href="../services_user_config/services_user_config-library.html">user_config</a></li>
@@ -37,80 +36,102 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">UserConfig</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>UserConfig class provides different services in the context of the User.</p>
+<p>Services include:</p>
+<ul>
+<li><code>userLoggedIn</code> : helps to make user logged in to the application.</li>
+<li><code>updateUserJoinedOrg</code> : helps to update the user joined organization.</li>
+<li><code>updateUserCreatedOrg</code> : helps to update the user created organization.</li>
+<li><code>updateUserMemberRequestOrg</code> : helps to update the User membership request for the organization.</li>
+<li><code>updateUserAdminOrg</code> : helps to update the Admin of the Organization.</li>
+<li><code>updateAccessToken</code> : helps to update the access token of an user.</li>
+<li><code>updateUser</code> : helps to update the user.</li>
+</ul>
+</section>
 
 
 
-    <section class="summary offset-anchor" id="constructors">
-      <h2>Constructors</h2>
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
 
-      <dl class="constructor-summary-list">
+    <dl class="constructor-summary-list">
         <dt id="UserConfig" class="callable">
           <span class="name"><a href="../services_user_config/UserConfig/UserConfig.html">UserConfig</a></span><span class="signature">()</span>
         </dt>
         <dd>
-           
+          
         </dd>
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     <section class="summary offset-anchor" id="instance-properties">
       <h2>Properties</h2>
 
       <dl class="properties">
-        <dt id="currentOrfInfoStream" class="property">
-  <span class="name"><a href="../services_user_config/UserConfig/currentOrfInfoStream.html">currentOrfInfoStream</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-   
-  <div class="features">read-only</div>
-
-</dd>
-
         <dt id="currentOrg" class="property">
   <span class="name"><a href="../services_user_config/UserConfig/currentOrg.html">currentOrg</a></span>
   <span class="signature">&#8596; <a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span> 
 
 </dt>
 <dd>
-   
-  <div class="features">read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="currentOrgInfoController" class="property">
   <span class="name"><a href="../services_user_config/UserConfig/currentOrgInfoController.html">currentOrgInfoController</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/StreamController-class.html">StreamController</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/StreamController-class.html">StreamController</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> 
 
 </dt>
 <dd>
-   
-  <div class="features">read-only</div>
+  
+  <div class="features"><span class="feature">read-only</span></div>
+
+</dd>
+
+        <dt id="currentOrgInfoStream" class="property">
+  <span class="name"><a href="../services_user_config/UserConfig/currentOrgInfoStream.html">currentOrgInfoStream</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">read-only</span></div>
 
 </dd>
 
         <dt id="currentOrgName" class="property">
   <span class="name"><a href="../services_user_config/UserConfig/currentOrgName.html">currentOrgName</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
 
 </dt>
 <dd>
-   
-  <div class="features">read-only</div>
+  
+  <div class="features"><span class="feature">read-only</span></div>
 
 </dd>
 
@@ -120,39 +141,42 @@
 
 </dt>
 <dd>
-   
-  <div class="features">read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
-  The hash code for this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">[...]</a>
-  <div class="features">read-only, inherited</div>
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
-  A representation of the runtime type of the object. 
-  <div class="features">read-only, inherited</div>
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-methods">
-      <h2>Methods</h2>
-      <dl class="callables">
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
         <dt id="initialiseStream" class="callable">
   <span class="name"><a href="../services_user_config/UserConfig/initialiseStream.html">initialiseStream</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; void</span>
@@ -161,177 +185,180 @@
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
+  Invoked when a non-existent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="saveCurrentOrgInHive" class="callable">
   <span class="name"><a href="../services_user_config/UserConfig/saveCurrentOrgInHive.html">saveCurrentOrgInHive</a></span><span class="signature">(<wbr><span class="parameter" id="saveCurrentOrgInHive-param-saveOrgAsCurrent"><span class="type-annotation"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span> <span class="parameter-name">saveOrgAsCurrent</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="saveUserInHive" class="callable">
   <span class="name"><a href="../services_user_config/UserConfig/saveUserInHive.html">saveUserInHive</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  A string representation of this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">[...]</a>
-  <div class="features">inherited</div>
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="updateAccessToken" class="callable">
-  <span class="name"><a href="../services_user_config/UserConfig/updateAccessToken.html">updateAccessToken</a></span><span class="signature">(<wbr><span class="parameter" id="updateAccessToken-param-accessToken">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">accessToken</span>, </span><span class="parameter" id="updateAccessToken-param-refreshToken"><span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">refreshToken</span>}</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a></span>
+  <span class="name"><a href="../services_user_config/UserConfig/updateAccessToken.html">updateAccessToken</a></span><span class="signature">(<wbr><span class="parameter" id="updateAccessToken-param-accessToken">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">accessToken</span>, </span><span class="parameter" id="updateAccessToken-param-refreshToken"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">refreshToken</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to updated the access token of the user.
   
 
 </dd>
 
         <dt id="updateUser" class="callable">
   <span class="name"><a href="../services_user_config/UserConfig/updateUser.html">updateUser</a></span><span class="signature">(<wbr><span class="parameter" id="updateUser-param-updatedUserDetails"><span class="type-annotation"><a href="../models_user_user_info/User-class.html">User</a></span> <span class="parameter-name">updatedUserDetails</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to update the user details.
   
 
 </dd>
 
         <dt id="updateUserAdminOrg" class="callable">
-  <span class="name"><a href="../services_user_config/UserConfig/updateUserAdminOrg.html">updateUserAdminOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserAdminOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a></span>
+  <span class="name"><a href="../services_user_config/UserConfig/updateUserAdminOrg.html">updateUserAdminOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserAdminOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to update the organization admin.
   
 
 </dd>
 
         <dt id="updateUserCreatedOrg" class="callable">
-  <span class="name"><a href="../services_user_config/UserConfig/updateUserCreatedOrg.html">updateUserCreatedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserCreatedOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a></span>
+  <span class="name"><a href="../services_user_config/UserConfig/updateUserCreatedOrg.html">updateUserCreatedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserCreatedOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to update the user created organization.
   
 
 </dd>
 
         <dt id="updateUserJoinedOrg" class="callable">
-  <span class="name"><a href="../services_user_config/UserConfig/updateUserJoinedOrg.html">updateUserJoinedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserJoinedOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a></span>
+  <span class="name"><a href="../services_user_config/UserConfig/updateUserJoinedOrg.html">updateUserJoinedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserJoinedOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to update the user joined organization.
   
 
 </dd>
 
         <dt id="updateUserMemberRequestOrg" class="callable">
-  <span class="name"><a href="../services_user_config/UserConfig/updateUserMemberRequestOrg.html">updateUserMemberRequestOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserMemberRequestOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a></span>
+  <span class="name"><a href="../services_user_config/UserConfig/updateUserMemberRequestOrg.html">updateUserMemberRequestOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateUserMemberRequestOrg-param-orgDetails"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgDetails</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to update the user request to join the organization.
   
 
 </dd>
 
         <dt id="userLoggedIn" class="callable">
   <span class="name"><a href="../services_user_config/UserConfig/userLoggedIn.html">userLoggedIn</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-   
+  This function is used to log in the user.
   
 
 </dd>
 
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor inherited" id="operators">
-      <h2>Operators</h2>
-      <dl class="callables">
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  The equality operator. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">[...]</a>
-  <div class="features">inherited</div>
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
-
-
+    </dl>
+  </section>
+    
+    
+    
 
 
   </div> <!-- /.main-content -->
@@ -352,8 +379,8 @@
 
     <h5>user_config library</h5>
     <ol>
-  <li class="section-title"><a href="../services_user_config/services_user_config-library.html#classes">Classes</a></li>
-  <li><a href="../services_user_config/UserConfig-class.html">UserConfig</a></li>
+      <li class="section-title"><a href="../services_user_config/services_user_config-library.html#classes">Classes</a></li>
+        <li><a href="../services_user_config/UserConfig-class.html">UserConfig</a></li>
 
 
 
@@ -369,37 +396,37 @@
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <ol>
 
-    <li class="section-title"><a href="../services_user_config/UserConfig-class.html#constructors">Constructors</a></li>
-    <li><a href="../services_user_config/UserConfig/UserConfig.html">UserConfig</a></li>
+        <li class="section-title"><a href="../services_user_config/UserConfig-class.html#constructors">Constructors</a></li>
+          <li><a href="../services_user_config/UserConfig/UserConfig.html">UserConfig</a></li>
 
 
-    <li class="section-title">
-      <a href="../services_user_config/UserConfig-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../services_user_config/UserConfig/currentOrfInfoStream.html">currentOrfInfoStream</a></li>
-    <li><a href="../services_user_config/UserConfig/currentOrg.html">currentOrg</a></li>
-    <li><a href="../services_user_config/UserConfig/currentOrgInfoController.html">currentOrgInfoController</a></li>
-    <li><a href="../services_user_config/UserConfig/currentOrgName.html">currentOrgName</a></li>
-    <li><a href="../services_user_config/UserConfig/currentUser.html">currentUser</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title">
+          <a href="../services_user_config/UserConfig-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../services_user_config/UserConfig/currentOrg.html">currentOrg</a></li>
+          <li><a href="../services_user_config/UserConfig/currentOrgInfoController.html">currentOrgInfoController</a></li>
+          <li><a href="../services_user_config/UserConfig/currentOrgInfoStream.html">currentOrgInfoStream</a></li>
+          <li><a href="../services_user_config/UserConfig/currentOrgName.html">currentOrgName</a></li>
+          <li><a href="../services_user_config/UserConfig/currentUser.html">currentUser</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../services_user_config/UserConfig-class.html#instance-methods">Methods</a></li>
-    <li><a href="../services_user_config/UserConfig/initialiseStream.html">initialiseStream</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../services_user_config/UserConfig/saveCurrentOrgInHive.html">saveCurrentOrgInHive</a></li>
-    <li><a href="../services_user_config/UserConfig/saveUserInHive.html">saveUserInHive</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
-    <li><a href="../services_user_config/UserConfig/updateAccessToken.html">updateAccessToken</a></li>
-    <li><a href="../services_user_config/UserConfig/updateUser.html">updateUser</a></li>
-    <li><a href="../services_user_config/UserConfig/updateUserAdminOrg.html">updateUserAdminOrg</a></li>
-    <li><a href="../services_user_config/UserConfig/updateUserCreatedOrg.html">updateUserCreatedOrg</a></li>
-    <li><a href="../services_user_config/UserConfig/updateUserJoinedOrg.html">updateUserJoinedOrg</a></li>
-    <li><a href="../services_user_config/UserConfig/updateUserMemberRequestOrg.html">updateUserMemberRequestOrg</a></li>
-    <li><a href="../services_user_config/UserConfig/userLoggedIn.html">userLoggedIn</a></li>
+        <li class="section-title"><a href="../services_user_config/UserConfig-class.html#instance-methods">Methods</a></li>
+          <li><a href="../services_user_config/UserConfig/initialiseStream.html">initialiseStream</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../services_user_config/UserConfig/saveCurrentOrgInHive.html">saveCurrentOrgInHive</a></li>
+          <li><a href="../services_user_config/UserConfig/saveUserInHive.html">saveUserInHive</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+          <li><a href="../services_user_config/UserConfig/updateAccessToken.html">updateAccessToken</a></li>
+          <li><a href="../services_user_config/UserConfig/updateUser.html">updateUser</a></li>
+          <li><a href="../services_user_config/UserConfig/updateUserAdminOrg.html">updateUserAdminOrg</a></li>
+          <li><a href="../services_user_config/UserConfig/updateUserCreatedOrg.html">updateUserCreatedOrg</a></li>
+          <li><a href="../services_user_config/UserConfig/updateUserJoinedOrg.html">updateUserJoinedOrg</a></li>
+          <li><a href="../services_user_config/UserConfig/updateUserMemberRequestOrg.html">updateUserMemberRequestOrg</a></li>
+          <li><a href="../services_user_config/UserConfig/userLoggedIn.html">userLoggedIn</a></li>
 
-    <li class="section-title inherited"><a href="../services_user_config/UserConfig-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../services_user_config/UserConfig-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -422,7 +449,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

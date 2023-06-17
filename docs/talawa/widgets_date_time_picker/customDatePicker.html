@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li><a href="../widgets_date_time_picker/widgets_date_time_picker-library.html">date_time_picker</a></li>
@@ -37,41 +36,57 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-function">customDatePicker</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     <section class="multi-line-signature">
         
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.16.1/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
-<span class="name ">customDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="customDatePicker-param-initialDate">{<span>required</span> <span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">initialDate</span>}</span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></span>
+<span class="name ">customDatePicker</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="customDatePicker-param-initialDate">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">initialDate</span>}</span></li>
 </ol>)
+
+        
 
     </section>
     
+<section class="desc markdown">
+  <p>Shows a dialog containing a Material Design date picker.</p>
+<p>The returned Future resolves to the date selected by the user when the user confirms the dialog.
+If the user cancels the dialog, null is returned.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;DateTime&gt; customDatePicker({required DateTime initialDate}) async {
-  final DateTime? _picked = await showDatePicker(
+  &#47;&#47; showDatePicker which shows a material design date range picker used to select a range of dates.
+  final DateTime? picked = await showDatePicker(
     context: navigationService.navigatorKey.currentContext!,
     initialDate: initialDate,
     firstDate: DateTime(2015, 8),
     lastDate: DateTime(2101),
   );
-  if (_picked != null &amp;&amp; _picked != initialDate) {
-    return _picked;
+  if (picked != null &amp;&amp; picked != initialDate) {
+    return picked;
   }
   return initialDate;
 }</code></pre>
@@ -101,9 +116,9 @@
 
 
 
-  <li class="section-title"><a href="../widgets_date_time_picker/widgets_date_time_picker-library.html#functions">Functions</a></li>
-  <li><a href="../widgets_date_time_picker/customDatePicker.html">customDatePicker</a></li>
-  <li><a href="../widgets_date_time_picker/customTimePicker.html">customTimePicker</a></li>
+      <li class="section-title"><a href="../widgets_date_time_picker/widgets_date_time_picker-library.html#functions">Functions</a></li>
+        <li><a href="../widgets_date_time_picker/customDatePicker.html">customDatePicker</a></li>
+        <li><a href="../widgets_date_time_picker/customTimePicker.html">customTimePicker</a></li>
 
 
 
@@ -128,7 +143,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

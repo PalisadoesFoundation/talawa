@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library.html">custom_drawer_view_model</a></li>
@@ -38,21 +37,29 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">switchOrg</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
 
-<span class="returntype">dynamic</span>
+<span class="returntype">void</span>
 <span class="name ">switchOrg</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="switchOrg-param-switchToOrg"><span class="type-annotation"><a href="../../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span> <span class="parameter-name">switchToOrg</span></span></li>
 </ol>)
 
@@ -60,19 +67,30 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>This function switch the current organization to another organization,
+if the organization(want switch to) is present.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">switchOrg(OrgInfo switchToOrg) {
+  <pre class="language-dart"><code class="language-dart">void switchOrg(OrgInfo switchToOrg) {
+  &#47;&#47; if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
   if (selectedOrg == switchToOrg &amp;&amp; isPresentinSwitchableOrg(switchToOrg)) {
     &#47;&#47; _navigationService.pop();
-    navigationService.showSnackBar(&#39;${switchToOrg.name} already selected&#39;);
+    navigationService.showTalawaErrorSnackBar(
+      &#39;${switchToOrg.name} already selected&#39;,
+      MessageType.warning,
+    );
   } else {
     userConfig.saveCurrentOrgInHive(switchToOrg);
     setSelectedOrganizationName(switchToOrg);
-    navigationService.showSnackBar(&#39;Switched to ${switchToOrg.name}&#39;);
+    navigationService.showTalawaErrorSnackBar(
+      &#39;Switched to ${switchToOrg.name}&#39;,
+      MessageType.info,
+    );
   }
   navigationService.pop();
 }</code></pre>
@@ -99,39 +117,39 @@
     <h5>CustomDrawerViewModel class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#constructors">Constructors</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.html">CustomDrawerViewModel</a></li>
+        <li class="section-title"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#constructors">Constructors</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.html">CustomDrawerViewModel</a></li>
 
 
-    <li class="section-title">
-      <a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.html">controller</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/hasListeners.html">hasListeners</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/isBusy.html">isBusy</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.html">selectedOrg</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/state.html">state</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.html">switchAbleOrg</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.html">targets</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.html">tutorialCoachMark</a></li>
+        <li class="section-title">
+          <a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.html">controller</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/isBusy.html">isBusy</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.html">selectedOrg</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/state.html">state</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.html">switchAbleOrg</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.html">targets</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.html">tutorialCoachMark</a></li>
 
-    <li class="section-title"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/addListener.html">addListener</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.html">dispose</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.html">initialize</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.html">isPresentinSwitchableOrg</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/notifyListeners.html">notifyListeners</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/removeListener.html">removeListener</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.html">setSelectedOrganizationName</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/setState.html">setState</a></li>
-    <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.html">switchOrg</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.html">dispose</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.html">initialize</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.html">isPresentinSwitchableOrg</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.html">notifyListeners</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.html">setSelectedOrganizationName</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/setState.html">setState</a></li>
+          <li><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.html">switchOrg</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -157,7 +175,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li><a href="../main/main-library.html">main</a></li>
@@ -37,28 +36,44 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-function">main</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     <section class="multi-line-signature">
         
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">main</span>(<wbr>)
+
+        
 
     </section>
     
 <section class="desc markdown">
-  <p>This is the main function</p>
+  <p>First function to initialize the application, invoked automatically.</p>
+<p><strong>params</strong>:
+  None</p>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Future&lt;void&gt;</code>: resolves if the application was successfully initialized.</li>
+</ul>
 </section>
 
 
@@ -66,16 +81,56 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; main() async {
+  &#47;&#47; Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (!kIsWeb) {
+    channel = const AndroidNotificationChannel(
+      &#39;high_importance_channel&#39;, &#47;&#47; id
+      &#39;High Importance Notifications&#39;, &#47;&#47; title
+      description:
+          &#39;This channel is used for important notifications.&#39;, &#47;&#47; description
+      importance: Importance.high,
+    );
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    &#47;&#47; Create an Android Notification Channel.
+    &#47;&#47; We use this channel in the `AndroidManifest.xml` file to override the
+    &#47;&#47; default FCM channel to enable heads up notifications.
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation&lt;
+            AndroidFlutterLocalNotificationsPlugin&gt;()
+        ?.createNotificationChannel(channel);
+  }
+
   final Directory dir = await path.getApplicationDocumentsDirectory();
   Hive
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
+
   await Hive.openBox&lt;User&gt;(&#39;currentUser&#39;);
   await Hive.openBox&lt;OrgInfo&gt;(&#39;currentOrg&#39;);
+
+  await Hive.openBox(&#39;pluginBox&#39;);
   await Hive.openBox(&#39;url&#39;);
+
+  final urlBox = await Hive.openBox(&#39;url&#39;);
+
+  try {
+    if (urlBox.get(&#39;url&#39;) != null) {
+      await setUpFirebaseKeys();
+
+      await setUpFirebase();
+      await setUpFirebaseMessaging();
+    }
+  } catch (e) {
+    print(&quot;Firebase not working&quot;);
+  }
+
   setupLocator();
+  &#47;&#47; The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }</code></pre>
 </section>
@@ -99,17 +154,25 @@
 
     <h5>main library</h5>
     <ol>
-  <li class="section-title"><a href="../main/main-library.html#classes">Classes</a></li>
-  <li><a href="../main/DemoPageView-class.html">DemoPageView</a></li>
-  <li><a href="../main/DemoViewModel-class.html">DemoViewModel</a></li>
-  <li><a href="../main/MyApp-class.html">MyApp</a></li>
+      <li class="section-title"><a href="../main/main-library.html#classes">Classes</a></li>
+        <li><a href="../main/DemoPageView-class.html">DemoPageView</a></li>
+        <li><a href="../main/DemoViewModel-class.html">DemoViewModel</a></li>
+        <li><a href="../main/MyApp-class.html">MyApp</a></li>
 
 
 
 
+      <li class="section-title"><a href="../main/main-library.html#properties">Properties</a></li>
+        <li><a href="../main/androidFirebaseOptions.html">androidFirebaseOptions</a></li>
+        <li><a href="../main/channel.html">channel</a></li>
+        <li><a href="../main/flutterLocalNotificationsPlugin.html">flutterLocalNotificationsPlugin</a></li>
+        <li><a href="../main/iosFirebaseOptions.html">iosFirebaseOptions</a></li>
 
-  <li class="section-title"><a href="../main/main-library.html#functions">Functions</a></li>
-  <li><a href="../main/main.html">main</a></li>
+      <li class="section-title"><a href="../main/main-library.html#functions">Functions</a></li>
+        <li><a href="../main/main.html">main</a></li>
+        <li><a href="../main/setUpFirebase.html">setUpFirebase</a></li>
+        <li><a href="../main/setUpFirebaseKeys.html">setUpFirebaseKeys</a></li>
+        <li><a href="../main/setUpFirebaseMessaging.html">setUpFirebaseMessaging</a></li>
 
 
 
@@ -134,7 +197,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

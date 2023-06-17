@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li><a href="../constants_routing_constants/constants_routing_constants-library.html">routing_constants</a></li>
@@ -37,483 +36,606 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">Routes</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>This file contains the routes.</p>
+</section>
 
 
 
-    <section class="summary offset-anchor" id="constructors">
-      <h2>Constructors</h2>
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
 
-      <dl class="constructor-summary-list">
+    <dl class="constructor-summary-list">
         <dt id="Routes" class="callable">
           <span class="name"><a href="../constants_routing_constants/Routes/Routes.html">Routes</a></span><span class="signature">()</span>
         </dt>
         <dd>
-           
+          
         </dd>
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     <section class="summary offset-anchor inherited" id="instance-properties">
       <h2>Properties</h2>
 
       <dl class="properties">
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
-  The hash code for this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">[...]</a>
-  <div class="features">read-only, inherited</div>
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
-  A representation of the runtime type of the object. 
-  <div class="features">read-only, inherited</div>
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
       </dl>
     </section>
 
-    <section class="summary offset-anchor inherited" id="instance-methods">
-      <h2>Methods</h2>
-      <dl class="callables">
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
+  Invoked when a non-existent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  A string representation of this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">[...]</a>
-  <div class="features">inherited</div>
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor inherited" id="operators">
-      <h2>Operators</h2>
-      <dl class="callables">
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  The equality operator. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">[...]</a>
-  <div class="features">inherited</div>
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
+    </dl>
+  </section>
+    
+    
+    
 
+  <section class="summary offset-anchor" id="constants">
+    <h2>Constants</h2>
 
-
-    <section class="summary offset-anchor" id="constants">
-      <h2>Constants</h2>
-
-      <dl class="properties">
-        <dt id="appSettings" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/appSettings-constant.html">appSettings</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <dl class="properties">
+        <dt id="addTask" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/addTask-constant.html">addTask</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&#39;&#47;appSettingsPage&#39;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&#39;&#47;addTask&#39;</code></span>
+    </div>
+</dd>
+
+        <dt id="appSettings" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/appSettings-constant.html">appSettings</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;appSettingsPage&#39;</code></span>
+    </div>
+</dd>
+
+        <dt id="calendar" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/calendar-constant.html">calendar</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;calendar&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="chatMessageScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/chatMessageScreen-constant.html">chatMessageScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/chatMessageScreen-constant.html">chatMessageScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&#39;&#47;chatMessageScreen&#39;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&#39;&#47;chatMessageScreen&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="createEventPage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/createEventPage-constant.html">createEventPage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/createEventPage-constant.html">createEventPage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;createEventPage&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;createEventPage&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="demoPageViewRoute" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/demoPageViewRoute-constant.html">demoPageViewRoute</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/demoPageViewRoute-constant.html">demoPageViewRoute</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;demoPageViewRoute&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;demoPageViewRoute&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="editEventPage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/editEventPage-constant.html">editEventPage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/editEventPage-constant.html">editEventPage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;editEventPage&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;editEventPage&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="editProfilePage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/editProfilePage-constant.html">editProfilePage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/editProfilePage-constant.html">editProfilePage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;editProfilePage&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;editProfilePage&quot;</code></span>
+    </div>
+</dd>
+
+        <dt id="editTask" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/editTask-constant.html">editTask</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;editTask&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="eventInfoPage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/eventInfoPage-constant.html">eventInfoPage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/eventInfoPage-constant.html">eventInfoPage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;eventInfo&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;eventInfo&quot;</code></span>
+    </div>
+</dd>
+
+        <dt id="eventTasks" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/eventTasks-constant.html">eventTasks</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;event_tasks&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="exploreEventsScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/exploreEventsScreen-constant.html">exploreEventsScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/exploreEventsScreen-constant.html">exploreEventsScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;exploreEvents&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;exploreEvents&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="homeScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/homeScreen-constant.html">homeScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/homeScreen-constant.html">homeScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;homeScreen&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;homeScreen&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="individualPost" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/individualPost-constant.html">individualPost</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/individualPost-constant.html">individualPost</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;individualPost&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;individualPost&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="joinOrg" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/joinOrg-constant.html">joinOrg</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/joinOrg-constant.html">joinOrg</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&#39;&#47;joinOrg&#39;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&#39;&#47;joinOrg&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="languageSelectionRoute" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/languageSelectionRoute-constant.html">languageSelectionRoute</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/languageSelectionRoute-constant.html">languageSelectionRoute</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;selectLang&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;selectLang&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="loginScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/loginScreen-constant.html">loginScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/loginScreen-constant.html">loginScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;login&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;login&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="mainScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/mainScreen-constant.html">mainScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/mainScreen-constant.html">mainScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;mainScreen&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;mainScreen&quot;</code></span>
+    </div>
+</dd>
+
+        <dt id="mapScreen" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/mapScreen-constant.html">mapScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;mapScreen&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="pinnedPostPage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/pinnedPostPage-constant.html">pinnedPostPage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/pinnedPostPage-constant.html">pinnedPostPage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;pinnedPostPage&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;pinnedPostPage&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="profilePage" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/profilePage-constant.html">profilePage</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/profilePage-constant.html">profilePage</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;profilePage&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;profilePage&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="progressDialog" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/progressDialog-constant.html">progressDialog</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/progressDialog-constant.html">progressDialog</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;progress&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;progress&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="recoverScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/recoverScreen-constant.html">recoverScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/recoverScreen-constant.html">recoverScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;recover&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;recover&quot;</code></span>
+    </div>
+</dd>
+
+        <dt id="selectContact" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/selectContact-constant.html">selectContact</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;selectContact&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="selectOrgScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/selectOrgScreen-constant.html">selectOrgScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/selectOrgScreen-constant.html">selectOrgScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;selectOrg&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;selectOrg&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="setUrlScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/setUrlScreen-constant.html">setUrlScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/setUrlScreen-constant.html">setUrlScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;setUrl&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;setUrl&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="signupDetailScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/signupDetailScreen-constant.html">signupDetailScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/signupDetailScreen-constant.html">signupDetailScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;signupDetails&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;signupDetails&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="splashScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/splashScreen-constant.html">splashScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/splashScreen-constant.html">splashScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;&quot;</code></span>
+    </div>
 </dd>
 
         <dt id="updateScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/updateScreen-constant.html">updateScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/updateScreen-constant.html">updateScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;update&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;update&quot;</code></span>
+    </div>
+</dd>
+
+        <dt id="userTasks" class="constant">
+    <span class="name "><a href="../constants_routing_constants/Routes/userTasks-constant.html">userTasks</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+    <div>
+      <span class="signature"><code>&#39;&#47;user_tasks&#39;</code></span>
+    </div>
 </dd>
 
         <dt id="waitingScreen" class="constant">
-  <span class="name "><a href="../constants_routing_constants/Routes/waitingScreen-constant.html">waitingScreen</a></span>
-  <span class="signature">&#8594; const <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+    <span class="name "><a href="../constants_routing_constants/Routes/waitingScreen-constant.html">waitingScreen</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   
 
 </dt>
 <dd>
-   
+  
   
 
-  <div>
-    <span class="signature"><code>&quot;&#47;waiting&quot;</code></span>
-  </div>
+    <div>
+      <span class="signature"><code>&quot;&#47;waiting&quot;</code></span>
+    </div>
 </dd>
 
-      </dl>
-    </section>
+    </dl>
+  </section>
 
   </div> <!-- /.main-content -->
 
@@ -533,8 +655,8 @@
 
     <h5>routing_constants library</h5>
     <ol>
-  <li class="section-title"><a href="../constants_routing_constants/constants_routing_constants-library.html#classes">Classes</a></li>
-  <li><a href="../constants_routing_constants/Routes-class.html">Routes</a></li>
+      <li class="section-title"><a href="../constants_routing_constants/constants_routing_constants-library.html#classes">Classes</a></li>
+        <li><a href="../constants_routing_constants/Routes-class.html">Routes</a></li>
 
 
 
@@ -550,51 +672,58 @@
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <ol>
 
-    <li class="section-title"><a href="../constants_routing_constants/Routes-class.html#constructors">Constructors</a></li>
-    <li><a href="../constants_routing_constants/Routes/Routes.html">Routes</a></li>
+        <li class="section-title"><a href="../constants_routing_constants/Routes-class.html#constructors">Constructors</a></li>
+          <li><a href="../constants_routing_constants/Routes/Routes.html">Routes</a></li>
 
 
-    <li class="section-title inherited">
-      <a href="../constants_routing_constants/Routes-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title inherited">
+          <a href="../constants_routing_constants/Routes-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title inherited"><a href="../constants_routing_constants/Routes-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title inherited"><a href="../constants_routing_constants/Routes-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../constants_routing_constants/Routes-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
+        <li class="section-title inherited"><a href="../constants_routing_constants/Routes-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
-    <li class="section-title"><a href="../constants_routing_constants/Routes-class.html#constants">Constants</a></li>
-    <li><a href="../constants_routing_constants/Routes/appSettings-constant.html">appSettings</a></li>
-    <li><a href="../constants_routing_constants/Routes/chatMessageScreen-constant.html">chatMessageScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/createEventPage-constant.html">createEventPage</a></li>
-    <li><a href="../constants_routing_constants/Routes/demoPageViewRoute-constant.html">demoPageViewRoute</a></li>
-    <li><a href="../constants_routing_constants/Routes/editEventPage-constant.html">editEventPage</a></li>
-    <li><a href="../constants_routing_constants/Routes/editProfilePage-constant.html">editProfilePage</a></li>
-    <li><a href="../constants_routing_constants/Routes/eventInfoPage-constant.html">eventInfoPage</a></li>
-    <li><a href="../constants_routing_constants/Routes/exploreEventsScreen-constant.html">exploreEventsScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/homeScreen-constant.html">homeScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/individualPost-constant.html">individualPost</a></li>
-    <li><a href="../constants_routing_constants/Routes/joinOrg-constant.html">joinOrg</a></li>
-    <li><a href="../constants_routing_constants/Routes/languageSelectionRoute-constant.html">languageSelectionRoute</a></li>
-    <li><a href="../constants_routing_constants/Routes/loginScreen-constant.html">loginScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/mainScreen-constant.html">mainScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/pinnedPostPage-constant.html">pinnedPostPage</a></li>
-    <li><a href="../constants_routing_constants/Routes/profilePage-constant.html">profilePage</a></li>
-    <li><a href="../constants_routing_constants/Routes/progressDialog-constant.html">progressDialog</a></li>
-    <li><a href="../constants_routing_constants/Routes/recoverScreen-constant.html">recoverScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/selectOrgScreen-constant.html">selectOrgScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/setUrlScreen-constant.html">setUrlScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/signupDetailScreen-constant.html">signupDetailScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/splashScreen-constant.html">splashScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/updateScreen-constant.html">updateScreen</a></li>
-    <li><a href="../constants_routing_constants/Routes/waitingScreen-constant.html">waitingScreen</a></li>
+
+
+        <li class="section-title"><a href="../constants_routing_constants/Routes-class.html#constants">Constants</a></li>
+          <li><a href="../constants_routing_constants/Routes/addTask-constant.html">addTask</a></li>
+          <li><a href="../constants_routing_constants/Routes/appSettings-constant.html">appSettings</a></li>
+          <li><a href="../constants_routing_constants/Routes/calendar-constant.html">calendar</a></li>
+          <li><a href="../constants_routing_constants/Routes/chatMessageScreen-constant.html">chatMessageScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/createEventPage-constant.html">createEventPage</a></li>
+          <li><a href="../constants_routing_constants/Routes/demoPageViewRoute-constant.html">demoPageViewRoute</a></li>
+          <li><a href="../constants_routing_constants/Routes/editEventPage-constant.html">editEventPage</a></li>
+          <li><a href="../constants_routing_constants/Routes/editProfilePage-constant.html">editProfilePage</a></li>
+          <li><a href="../constants_routing_constants/Routes/editTask-constant.html">editTask</a></li>
+          <li><a href="../constants_routing_constants/Routes/eventInfoPage-constant.html">eventInfoPage</a></li>
+          <li><a href="../constants_routing_constants/Routes/eventTasks-constant.html">eventTasks</a></li>
+          <li><a href="../constants_routing_constants/Routes/exploreEventsScreen-constant.html">exploreEventsScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/homeScreen-constant.html">homeScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/individualPost-constant.html">individualPost</a></li>
+          <li><a href="../constants_routing_constants/Routes/joinOrg-constant.html">joinOrg</a></li>
+          <li><a href="../constants_routing_constants/Routes/languageSelectionRoute-constant.html">languageSelectionRoute</a></li>
+          <li><a href="../constants_routing_constants/Routes/loginScreen-constant.html">loginScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/mainScreen-constant.html">mainScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/mapScreen-constant.html">mapScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/pinnedPostPage-constant.html">pinnedPostPage</a></li>
+          <li><a href="../constants_routing_constants/Routes/profilePage-constant.html">profilePage</a></li>
+          <li><a href="../constants_routing_constants/Routes/progressDialog-constant.html">progressDialog</a></li>
+          <li><a href="../constants_routing_constants/Routes/recoverScreen-constant.html">recoverScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/selectContact-constant.html">selectContact</a></li>
+          <li><a href="../constants_routing_constants/Routes/selectOrgScreen-constant.html">selectOrgScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/setUrlScreen-constant.html">setUrlScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/signupDetailScreen-constant.html">signupDetailScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/splashScreen-constant.html">splashScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/updateScreen-constant.html">updateScreen</a></li>
+          <li><a href="../constants_routing_constants/Routes/userTasks-constant.html">userTasks</a></li>
+          <li><a href="../constants_routing_constants/Routes/waitingScreen-constant.html">waitingScreen</a></li>
 </ol>
 
   </div><!--/.sidebar-offcanvas-->
@@ -613,7 +742,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

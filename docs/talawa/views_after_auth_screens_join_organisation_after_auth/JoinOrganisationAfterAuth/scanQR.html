@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../views_after_auth_screens_join_organisation_after_auth/views_after_auth_screens_join_organisation_after_auth-library.html">join_organisation_after_auth</a></li>
@@ -38,22 +37,30 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">scanQR</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
 
-<span class="returntype">dynamic</span>
-<span class="name ">scanQR</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="scanQR-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span></li>
+<span class="returntype">void</span>
+<span class="name ">scanQR</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="scanQR-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
 <li><span class="parameter" id="scanQR-param-model"><span class="type-annotation"><a href="../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.html">SelectOrganizationViewModel</a></span> <span class="parameter-name">model</span></span></li>
 </ol>)
 
@@ -61,12 +68,15 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>scanQR returns a widget that is use in joining the organization via the QR code.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">scanQR(BuildContext context, SelectOrganizationViewModel model) {
+  <pre class="language-dart"><code class="language-dart">void scanQR(BuildContext context, SelectOrganizationViewModel model) {
   showModalBottomSheet(
     context: context,
     barrierColor: Colors.transparent,
@@ -144,33 +154,33 @@
     <h5>JoinOrganisationAfterAuth class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#constructors">Constructors</a></li>
-    <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/JoinOrganisationAfterAuth.html">JoinOrganisationAfterAuth</a></li>
+        <li class="section-title"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#constructors">Constructors</a></li>
+          <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/JoinOrganisationAfterAuth.html">JoinOrganisationAfterAuth</a></li>
 
 
-    <li class="section-title">
-      <a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/key.html">key</a></li>
-    <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/orgId.html">orgId</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title">
+          <a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+          <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/orgId.html">orgId</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/build.html">build</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/debugDescribeChildren.html">debugDescribeChildren</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/debugFillProperties.html">debugFillProperties</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/scanQR.html">scanQR</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/toString.html">toString</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/toStringDeep.html">toStringDeep</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/toStringShallow.html">toStringShallow</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/toStringShort.html">toStringShort</a></li>
+        <li class="section-title"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/build.html">build</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/scanQR.html">scanQR</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
 
-    <li class="section-title inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../views_after_auth_screens_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
 
 
 
@@ -196,7 +206,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 
