@@ -150,7 +150,6 @@ jobs:
         user_email: '${{env.email}}'
         user_name: '${{github.actor}}'
         commit_message: 'Overwriting static/talawa from talawa-repo'
-        overwrite: true
 
   Flutter-Testing:
     name: Testing codebase
