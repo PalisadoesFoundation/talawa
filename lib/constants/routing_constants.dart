@@ -25,6 +25,7 @@ class Routes {
   static const String profilePage = "/profilePage";
   static const String editProfilePage = "/editProfilePage";
   static const String joinOrg = '/joinOrg';
+  static const String requestAccess = '/requestAccess';
   static const String editEventPage = "/editEventPage";
   static const String appSettings = '/appSettingsPage';
   static const String chatMessageScreen = '/chatMessageScreen';

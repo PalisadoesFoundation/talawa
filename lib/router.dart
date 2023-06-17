@@ -24,7 +24,8 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
-import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
@@ -200,6 +201,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           orgId: id,
         ),
       );
+
+    case Routes.requestAccess:
+      return MaterialPageRoute(
+          builder: (context) =>
+              const SendAccessRequest(key: Key('SendAccessRequest')));
 
     // Returns the EditEventPage Widget
     case Routes.editEventPage:
