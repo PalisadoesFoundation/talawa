@@ -56,30 +56,30 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-                // Cupertino search textfield in flutter is ios style (like) searchTextfield.
-                // A cupertinoSearchTextField widget lets us create a searchTextField in ios style.
-                // It is used to display a text field where the user can type his search query.
-                child: CupertinoSearchTextField(
-                  focusNode: model.searchFocus,
-                  controller: model.searchController,
-                  onChanged: (value) => model.setState(ViewState.idle),
-                  suffixMode: OverlayVisibilityMode.always,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                  suffixIcon: const Icon(
-                    CupertinoIcons.xmark_circle_fill,
-                    size: 25,
-                  ),
-                  onSuffixTap: () {
-                    model.searchController.clear();
-                    model.organizations = [];
-                    model.searchFocus.unfocus();
-                    model.searching = false;
-                    model.setState(ViewState.idle);
-                  },
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+              //   // Cupertino search textfield in flutter is ios style (like) searchTextfield.
+              //   // A cupertinoSearchTextField widget lets us create a searchTextField in ios style.
+              //   // It is used to display a text field where the user can type his search query.
+              //   child: CupertinoSearchTextField(
+              //     focusNode: model.searchFocus,
+              //     controller: model.searchController,
+              //     onChanged: (value) => model.setState(ViewState.idle),
+              //     suffixMode: OverlayVisibilityMode.always,
+              //     style: Theme.of(context).textTheme.headlineSmall,
+              //     suffixIcon: const Icon(
+              //       CupertinoIcons.xmark_circle_fill,
+              //       size: 25,
+              //     ),
+              //     onSuffixTap: () {
+              //       model.searchController.clear();
+              //       model.organizations = [];
+              //       model.searchFocus.unfocus();
+              //       model.searching = false;
+              //       model.setState(ViewState.idle);
+              //     },
+              //   ),
+              // ),
               // if organization selected then renders the organization info in CustomListTile.
               model.selectedOrganization.id != '-1'
                   ? ColoredBox(
