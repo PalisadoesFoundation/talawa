@@ -470,14 +470,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.6"
-  flutter_lints:
-    dependency: transitive
-    description:
-      name: flutter_lints
-      sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   flutter_local_notifications:
     dependency: "direct main"
     description:
@@ -661,14 +653,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  google_maps:
+    dependency: transitive
+    description:
+      name: google_maps
+      sha256: "555d5d736339b0478e821167ac521c810d7b51c3b2734e6802a9f046b64ea37a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.0"
   google_maps_flutter:
     dependency: "direct main"
     description:
       name: google_maps_flutter
-      sha256: abefcb1e5e5c96bdd8084939dda555257af272c7972902ca46d5631092c1df68
+      sha256: "7b417a64ee7a060f42cf44d8c274d3b562423f6fe57d2911b7b536857c0d8eb6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.8"
+    version: "2.3.0"
   google_maps_flutter_android:
     dependency: transitive
     description:
@@ -693,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.7"
+  google_maps_flutter_web:
+    dependency: transitive
+    description:
+      name: google_maps_flutter_web
+      sha256: "5f58d7c491240b0074f455e70ce8d9b038f92472559e49e3b611d9f39b8d51a7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0+1"
   gql:
     dependency: transitive
     description:
@@ -941,6 +949,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.5"
+  js_wrapping:
+    dependency: transitive
+    description:
+      name: js_wrapping
+      sha256: e385980f7c76a8c1c9a560dfb623b890975841542471eade630b2871d243851c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.4"
   json_annotation:
     dependency: "direct main"
     description:
@@ -965,14 +981,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.20"
-  lints:
-    dependency: transitive
-    description:
-      name: lints
-      sha256: "5e4a9cd06d447758280a8ac2405101e0e2094d2a1dbdd3756aec3fe7775ba593"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   logging:
     dependency: transitive
     description:
@@ -1333,6 +1341,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  sanitize_html:
+    dependency: transitive
+    description:
+      name: sanitize_html
+      sha256: "0a445f19bbaa196f5a4f93461aa066b94e6e025622eb1e9bc77872a5e25233a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1629,10 +1645,10 @@ packages:
     dependency: "direct main"
     description:
       name: tutorial_coach_mark
-      sha256: "669d4bd517d22e14671f3ddee0e7442d976ab71f94bb6eec6ad057ca3944fd73"
+      sha256: ba60583d1b500111bf5040eb24330862b25162d926f72923b8e45c16621878b0
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.8"
+    version: "1.2.9"
   typed_data:
     dependency: transitive
     description:
