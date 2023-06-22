@@ -50,7 +50,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0 
   geocoding: ^2.1.0
   geolocator: ^9.0.2
-  get_it: ^7.4.0
+  get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
@@ -67,16 +67,16 @@ dependencies:
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
-  quick_actions: ^1.0.1
+  quick_actions: ^1.0.3
   shared_preferences: ^2.1.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
   syncfusion_flutter_calendar: 20.4.54
   syncfusion_flutter_datepicker: 20.4.54
   timelines: ^0.1.0
-  tutorial_coach_mark: ^1.2.8
+  tutorial_coach_mark: ^1.2.9
   uni_links: ^0.5.1
-  vibration: ^1.7.6
+  vibration: ^1.8.1
   video_player: ^2.6.1
   visibility_detector: ^0.4.0+2
 
