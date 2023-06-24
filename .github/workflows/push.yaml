@@ -135,8 +135,8 @@ jobs:
           
   Copy-docs-to-talawa-docs:
     runs-on: ubuntu-latest
-#     if: github.ref == 'refs/heads/automated-docs'
-#     needs: Update-Documentation
+    if: github.ref == 'refs/heads/automated-docs'
+    needs: Update-Documentation
     steps:
     - uses: actions/checkout@v3
     - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
