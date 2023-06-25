@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../models_comment_comment_model/models_comment_comment_model-library.html">comment_model</a></li>
@@ -38,21 +37,30 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-property">likeCount</span> property 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
         <section class="multi-line-signature">
-          <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?
+          
+          <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?
           <span class="name ">likeCount</span>
-          <div class="features">read / write</div>
+          <div class="features"><span class="feature">read / write</span></div>
 
         </section>
         
@@ -60,9 +68,7 @@
         
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">String? likeCount;
-
-</code></pre>
+  <pre class="language-dart"><code class="language-dart">String? likeCount;</code></pre>
 </section>
 
 
@@ -86,28 +92,28 @@
     <h5>Comment class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../models_comment_comment_model/Comment-class.html#constructors">Constructors</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/Comment.html">Comment</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/Comment.fromJson.html">fromJson</a></li>
+        <li class="section-title"><a href="../../models_comment_comment_model/Comment-class.html#constructors">Constructors</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/Comment.html">Comment</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/Comment.fromJson.html">fromJson</a></li>
 
 
-    <li class="section-title">
-      <a href="../../models_comment_comment_model/Comment-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../../models_comment_comment_model/Comment/createdAt.html">createdAt</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/creator.html">creator</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/likeCount.html">likeCount</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/post.html">post</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../models_comment_comment_model/Comment/text.html">text</a></li>
+        <li class="section-title">
+          <a href="../../models_comment_comment_model/Comment-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../../models_comment_comment_model/Comment/createdAt.html">createdAt</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/creator.html">creator</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/likeCount.html">likeCount</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/post.html">post</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../models_comment_comment_model/Comment/text.html">text</a></li>
 
-    <li class="section-title inherited"><a href="../../models_comment_comment_model/Comment-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title inherited"><a href="../../models_comment_comment_model/Comment-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../../models_comment_comment_model/Comment-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../models_comment_comment_model/Comment-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -133,7 +139,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

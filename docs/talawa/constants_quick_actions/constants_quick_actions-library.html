@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li class="self-crumb">quick_actions library</li>
@@ -36,15 +35,24 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
   <div id="dartdoc-main-content" class="main-content">
+    
       <div>
 <h1><span class="kind-library">quick_actions</span> library 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -60,7 +68,8 @@
 
 </dt>
 <dd>
-   
+  This file contains the shortcuts by which user can manage and interact with the
+application. quick_actions package is used for this purpose.
 </dd>
 
       </dl>
@@ -117,6 +126,8 @@
       <li><a href="../views_after_auth_screens_events_create_event_form/views_after_auth_screens_events_create_event_form-library.html">create_event_form</a></li>
       <li><a href="../views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library.html">create_event_page</a></li>
       <li><a href="../view_model_after_auth_view_models_event_view_models_create_event_view_model/view_model_after_auth_view_models_event_view_models_create_event_view_model-library.html">create_event_view_model</a></li>
+      <li><a href="../views_after_auth_screens_tasks_create_task_page/views_after_auth_screens_tasks_create_task_page-library.html">create_task_page</a></li>
+      <li><a href="../view_model_after_auth_view_models_task_view_models_create_task_view_model/view_model_after_auth_view_models_task_view_models_create_task_view_model-library.html">create_task_view_model</a></li>
       <li><a href="../widgets_custom_alert_dialog/widgets_custom_alert_dialog-library.html">custom_alert_dialog</a></li>
       <li><a href="../widgets_custom_avatar/widgets_custom_avatar-library.html">custom_avatar</a></li>
       <li><a href="../widgets_custom_drawer/widgets_custom_drawer-library.html">custom_drawer</a></li>
@@ -134,22 +145,28 @@
       <li><a href="../views_after_auth_screens_events_edit_events_form/views_after_auth_screens_events_edit_events_form-library.html">edit_events_form</a></li>
       <li><a href="../views_after_auth_screens_profile_edit_profile_page/views_after_auth_screens_profile_edit_profile_page-library.html">edit_profile_page</a></li>
       <li><a href="../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/view_model_after_auth_view_models_profile_view_models_edit_profile_view_model-library.html">edit_profile_view_model</a></li>
+      <li><a href="../views_after_auth_screens_tasks_edit_task_page/views_after_auth_screens_tasks_edit_task_page-library.html">edit_task_page</a></li>
       <li><a href="../enums_enums/enums_enums-library.html">enums</a></li>
-      <li><a href="../widgets_event_admin_fab/widgets_event_admin_fab-library.html">event_admin_fab</a></li>
+      <li><a href="../views_after_auth_screens_events_event_calendar/views_after_auth_screens_events_event_calendar-library.html">event_calendar</a></li>
       <li><a href="../widgets_event_card/widgets_event_card-library.html">event_card</a></li>
       <li><a href="../view_model_widgets_view_models_event_card_view_model/view_model_widgets_view_models_event_card_view_model-library.html">event_card_view_model</a></li>
       <li><a href="../views_after_auth_screens_chat_event_chats/views_after_auth_screens_chat_event_chats-library.html">event_chats</a></li>
       <li><a href="../widgets_event_date_time_tile/widgets_event_date_time_tile-library.html">event_date_time_tile</a></li>
+      <li><a href="../views_after_auth_screens_events_event_info_body/views_after_auth_screens_events_event_info_body-library.html">event_info_body</a></li>
       <li><a href="../views_after_auth_screens_events_event_info_page/views_after_auth_screens_events_event_info_page-library.html">event_info_page</a></li>
       <li><a href="../view_model_after_auth_view_models_event_view_models_event_info_view_model/view_model_after_auth_view_models_event_view_models_event_info_view_model-library.html">event_info_view_model</a></li>
       <li><a href="../models_events_event_model/models_events_event_model-library.html">event_model</a></li>
       <li><a href="../utils_event_queries/utils_event_queries-library.html">event_queries</a></li>
       <li><a href="../widgets_event_search_delegate/widgets_event_search_delegate-library.html">event_search_delegate</a></li>
       <li><a href="../services_event_service/services_event_service-library.html">event_service</a></li>
+      <li><a href="../views_after_auth_screens_tasks_event_tasks_page/views_after_auth_screens_tasks_event_tasks_page-library.html">event_tasks_page</a></li>
       <li><a href="../demo_server_data_events_demo_data/demo_server_data_events_demo_data-library.html">events_demo_data</a></li>
       <li><a href="../views_after_auth_screens_events_explore_event_dialogue/views_after_auth_screens_events_explore_event_dialogue-library.html">explore_event_dialogue</a></li>
       <li><a href="../views_after_auth_screens_events_explore_events/views_after_auth_screens_events_explore_events-library.html">explore_events</a></li>
       <li><a href="../view_model_after_auth_view_models_event_view_models_explore_events_view_model/view_model_after_auth_view_models_event_view_models_explore_events_view_model-library.html">explore_events_view_model</a></li>
+      <li><a href="../view_model_after_auth_view_models_task_view_models_explore_tasks_view_model/view_model_after_auth_view_models_task_view_models_explore_tasks_view_model-library.html">explore_tasks_view_model</a></li>
+      <li><a href="../plugins_fetch_plugin_list/plugins_fetch_plugin_list-library.html">fetch_plugin_list</a></li>
+      <li><a href="../firebase_options/firebase_options-library.html">firebase_options</a></li>
       <li><a href="../widgets_from_palisadoes/widgets_from_palisadoes-library.html">from_palisadoes</a></li>
       <li><a href="../generated_plugin_registrant/generated_plugin_registrant-library.html">generated_plugin_registrant</a></li>
       <li><a href="../services_graphql_config/services_graphql_config-library.html">graphql_config</a></li>
@@ -168,6 +185,7 @@
       <li><a href="../views_main_screen/views_main_screen-library.html">main_screen</a></li>
       <li><a href="../view_model_main_screen_view_model/view_model_main_screen_view_model-library.html">main_screen_view_model</a></li>
       <li><a href="../models_mainscreen_navigation_args/models_mainscreen_navigation_args-library.html">mainscreen_navigation_args</a></li>
+      <li><a href="../views_after_auth_screens_venue_map_screen/views_after_auth_screens_venue_map_screen-library.html">map_screen</a></li>
       <li><a href="../widgets_member_name_tile/widgets_member_name_tile-library.html">member_name_tile</a></li>
       <li><a href="../services_third_party_service_multi_media_pick_service/services_third_party_service_multi_media_pick_service-library.html">multi_media_pick_service</a></li>
       <li><a href="../services_navigation_service/services_navigation_service-library.html">navigation_service</a></li>
@@ -176,6 +194,8 @@
       <li><a href="../services_org_service/services_org_service-library.html">org_service</a></li>
       <li><a href="../views_after_auth_screens_feed_organization_feed/views_after_auth_screens_feed_organization_feed-library.html">organization_feed</a></li>
       <li><a href="../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/view_model_after_auth_view_models_feed_view_models_organization_feed_view_model-library.html">organization_feed_view_model</a></li>
+      <li><a href="../widgets_organization_list/widgets_organization_list-library.html">organization_list</a></li>
+      <li><a href="../widgets_organization_search_list/widgets_organization_search_list-library.html">organization_search_list</a></li>
       <li><a href="../widgets_pinned_carousel_widget/widgets_pinned_carousel_widget-library.html">pinned_carousel_widget</a></li>
       <li><a href="../demo_server_data_pinned_post_demo_data/demo_server_data_pinned_post_demo_data-library.html">pinned_post_demo_data</a></li>
       <li><a href="../views_after_auth_screens_feed_pinned_post_page/views_after_auth_screens_feed_pinned_post_page-library.html">pinned_post_page</a></li>
@@ -208,12 +228,21 @@
       <li><a href="../widgets_signup_progress_indicator/widgets_signup_progress_indicator-library.html">signup_progress_indicator</a></li>
       <li><a href="../services_size_config/services_size_config-library.html">size_config</a></li>
       <li><a href="../splash_screen/splash_screen-library.html">splash_screen</a></li>
+      <li><a href="../widgets_talawa_error_dialog/widgets_talawa_error_dialog-library.html">talawa_error_dialog</a></li>
+      <li><a href="../widgets_talawa_error_snackbar/widgets_talawa_error_snackbar-library.html">talawa_error_snackbar</a></li>
       <li><a href="../custom_painters_talawa_logo/custom_painters_talawa_logo-library.html">talawa_logo</a></li>
+      <li><a href="../plugins_talawa_plugin_provider/plugins_talawa_plugin_provider-library.html">talawa_plugin_provider</a></li>
+      <li><a href="../widgets_task_form/widgets_task_form-library.html">task_form</a></li>
+      <li><a href="../models_task_task_model/models_task_task_model-library.html">task_model</a></li>
+      <li><a href="../utils_task_queries/utils_task_queries-library.html">task_queries</a></li>
+      <li><a href="../widgets_task_schedule/widgets_task_schedule-library.html">task_schedule</a></li>
+      <li><a href="../services_task_service/services_task_service-library.html">task_service</a></li>
       <li><a href="../custom_painters_telegram_logo/custom_painters_telegram_logo-library.html">telegram_logo</a></li>
       <li><a href="../widgets_theme_switch/widgets_theme_switch-library.html">theme_switch</a></li>
       <li><a href="../view_model_theme_view_model/view_model_theme_view_model-library.html">theme_view_model</a></li>
       <li><a href="../services_user_config/services_user_config-library.html">user_config</a></li>
       <li><a href="../models_user_user_info/models_user_user_info-library.html">user_info</a></li>
+      <li><a href="../views_after_auth_screens_tasks_user_tasks_page/views_after_auth_screens_tasks_user_tasks_page-library.html">user_tasks_page</a></li>
       <li><a href="../utils_validators/utils_validators-library.html">validators</a></li>
       <li><a href="../widgets_video_widget/widgets_video_widget-library.html">video_widget</a></li>
       <li><a href="../views_pre_auth_screens_waiting_to_join_private_org/views_pre_auth_screens_waiting_to_join_private_org-library.html">waiting_to_join_private_org</a></li>
@@ -226,8 +255,8 @@
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>quick_actions library</h5>
     <ol>
-  <li class="section-title"><a href="../constants_quick_actions/constants_quick_actions-library.html#classes">Classes</a></li>
-  <li><a href="../constants_quick_actions/ShortCutMenu-class.html">ShortCutMenu</a></li>
+      <li class="section-title"><a href="../constants_quick_actions/constants_quick_actions-library.html#classes">Classes</a></li>
+        <li><a href="../constants_quick_actions/ShortCutMenu-class.html">ShortCutMenu</a></li>
 
 
 
@@ -254,7 +283,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

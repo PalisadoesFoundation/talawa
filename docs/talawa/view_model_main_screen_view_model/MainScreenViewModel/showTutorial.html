@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../view_model_main_screen_view_model/view_model_main_screen_view_model-library.html">main_screen_view_model</a></li>
@@ -38,22 +37,30 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">showTutorial</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
 
 <span class="returntype">void</span>
-<span class="name ">showTutorial</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="showTutorial-param-onClickTarget">{<span>required</span> <span class="type-annotation">dynamic</span> <span class="parameter-name">onClickTarget</span>(<ol class="parameter-list"><li><span class="parameter" id="param-"><span class="type-annotation"><a href="https://pub.dev/documentation/tutorial_coach_mark/1.1.1/tutorial_coach_mark/TargetFocus-class.html">TargetFocus</a></span></span></li>
+<span class="name ">showTutorial</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="showTutorial-param-onClickTarget">{<span>required</span> <span class="type-annotation">dynamic</span> <span class="parameter-name">onClickTarget</span>(<ol class="parameter-list"><li><span class="parameter" id="param-"><span class="type-annotation"><a href="https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html">TargetFocus</a></span></span></li>
 </ol>
 ), </span></li>
 <li><span class="parameter" id="showTutorial-param-onFinish"><span>required</span> <span class="type-annotation">dynamic</span> <span class="parameter-name">onFinish</span>(<ol class="parameter-list"></ol>
@@ -64,6 +71,16 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>This function show tutorial to user.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>onClickTarget</code>: Its a function which is required to run desired tasks on click.</li>
+<li><code>onFinish</code>: Its a function which is required to run desired tasks on finish</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
 
 
     
@@ -74,12 +91,13 @@
   required dynamic Function() onFinish,
 }) {
   tutorialCoachMark = TutorialCoachMark(
-    context,
     targets: targets,
     colorShadow: Theme.of(context).colorScheme.secondaryContainer,
     textSkip: &quot;SKIP&quot;,
-    textStyleSkip:
-        TextStyle(color: Theme.of(context).backgroundColor, fontSize: 20),
+    textStyleSkip: TextStyle(
+      color: Theme.of(context).colorScheme.background,
+      fontSize: 20,
+    ),
     paddingFocus: 10,
     opacityShadow: 1.0,
     onFinish: onFinish,
@@ -94,7 +112,7 @@
     onClickOverlay: (target) {
       onClickTarget(target);
     },
-  )..show();
+  )..show(context: context);
 }</code></pre>
 </section>
 
@@ -119,75 +137,80 @@
     <h5>MainScreenViewModel class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#constructors">Constructors</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.html">MainScreenViewModel</a></li>
+        <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#constructors">Constructors</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/MainScreenViewModel.html">MainScreenViewModel</a></li>
 
 
-    <li class="section-title">
-      <a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/context.html">context</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/currentIndex.html">currentIndex</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/hasListeners.html">hasListeners</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/isBusy.html">isBusy</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNChat.html">keyBNChat</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNEvents.html">keyBNEvents</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNHome.html">keyBNHome</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNPost.html">keyBNPost</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNProfile.html">keyBNProfile</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySEAdd.html">keySEAdd</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySECard.html">keySECard</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySECategoryMenu.html">keySECategoryMenu</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySEDateFilter.html">keySEDateFilter</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHMenuIcon.html">keySHMenuIcon</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHOrgName.html">keySHOrgName</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHPinnedPost.html">keySHPinnedPost</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHPost.html">keySHPost</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPAppSetting.html">keySPAppSetting</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPDonateUs.html">keySPDonateUs</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPEditProfile.html">keySPEditProfile</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPHelp.html">keySPHelp</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPInvite.html">keySPInvite</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPLogout.html">keySPLogout</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPPalisadoes.html">keySPPalisadoes</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showAppTour.html">showAppTour</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/state.html">state</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/targets.html">targets</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourComplete.html">tourComplete</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourSkipped.html">tourSkipped</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tutorialCoachMark.html">tutorialCoachMark</a></li>
+        <li class="section-title">
+          <a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/context.html">context</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/currentPageIndex.html">currentPageIndex</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/isBusy.html">isBusy</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNChat.html">keyBNChat</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNEvents.html">keyBNEvents</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNHome.html">keyBNHome</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNPost.html">keyBNPost</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyBNProfile.html">keyBNProfile</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySEAdd.html">keySEAdd</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySECard.html">keySECard</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySECategoryMenu.html">keySECategoryMenu</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySEDateFilter.html">keySEDateFilter</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHMenuIcon.html">keySHMenuIcon</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHOrgName.html">keySHOrgName</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHPinnedPost.html">keySHPinnedPost</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySHPost.html">keySHPost</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPAppSetting.html">keySPAppSetting</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPDonateUs.html">keySPDonateUs</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPEditProfile.html">keySPEditProfile</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPHelp.html">keySPHelp</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPInvite.html">keySPInvite</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPLogout.html">keySPLogout</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keySPPalisadoes.html">keySPPalisadoes</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/navBarItems.html">navBarItems</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/pages.html">pages</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/pluginList.html">pluginList</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/pluginPrototypeData.html">pluginPrototypeData</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showAppTour.html">showAppTour</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/state.html">state</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/targets.html">targets</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourComplete.html">tourComplete</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourSkipped.html">tourSkipped</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tutorialCoachMark.html">tutorialCoachMark</a></li>
 
-    <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/addListener.html">addListener</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/dispose.html">dispose</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/focusTarget.html">focusTarget</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/initialise.html">initialise</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/notifyListeners.html">notifyListeners</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/onTabTapped.html">onTabTapped</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/removeListener.html">removeListener</a></li>
-    <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/setState.html">setState</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showHome.html">showHome</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showTutorial.html">showTutorial</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourAddPost.html">tourAddPost</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourChat.html">tourChat</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourEventTargets.html">tourEventTargets</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourHomeTargets.html">tourHomeTargets</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourProfile.html">tourProfile</a></li>
+        <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/fetchAndAddPlugins.html">fetchAndAddPlugins</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/focusTarget.html">focusTarget</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/initialise.html">initialise</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/onTabTapped.html">onTabTapped</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/setState.html">setState</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showHome.html">showHome</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/showTutorial.html">showTutorial</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourAddPost.html">tourAddPost</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourChat.html">tourChat</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourEventTargets.html">tourEventTargets</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourHomeTargets.html">tourHomeTargets</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/tourProfile.html">tourProfile</a></li>
 
-    <li class="section-title inherited"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
-    <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#static-properties">Static properties</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.html">keyDrawerCurOrg</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.html">keyDrawerJoinOrg</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.html">keyDrawerLeaveCurrentOrg</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.html">keyDrawerSwitchableOrg</a></li>
-    <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.html">scaffoldKey</a></li>
+        <li class="section-title"><a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.html#static-properties">Static properties</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerCurOrg.html">keyDrawerCurOrg</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerJoinOrg.html">keyDrawerJoinOrg</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerLeaveCurrentOrg.html">keyDrawerLeaveCurrentOrg</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/keyDrawerSwitchableOrg.html">keyDrawerSwitchableOrg</a></li>
+          <li><a href="../../view_model_main_screen_view_model/MainScreenViewModel/scaffoldKey.html">scaffoldKey</a></li>
 
 
 </ol>
@@ -211,7 +234,7 @@
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 
