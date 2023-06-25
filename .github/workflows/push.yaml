@@ -74,6 +74,7 @@ jobs:
 
   Update-Documentation:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
     environment: TALAWA_ENVIRONMENT
     steps:
       - uses: actions/checkout@v3
@@ -132,8 +133,9 @@ jobs:
           git push
           echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
           
-  Copy-docs-to-talawa-docs:
+  Documentation-to-talawa-docs:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
     needs: Update-Documentation
     steps:
     - uses: actions/checkout@v3
