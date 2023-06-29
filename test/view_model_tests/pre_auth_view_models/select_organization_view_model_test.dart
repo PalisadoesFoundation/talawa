@@ -273,51 +273,51 @@ void main() {
       expect(selectOrganizationViewModel.selectedOrganization, org);
     });
     testWidgets('Test for successful selectOrg function when org is private',
-            (WidgetTester tester) async {
-          locator.registerSingleton<UserConfig>(_MockUserConfig());
-          final selectOrganizationViewModel = SelectOrganizationViewModel();
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-          await tester.pumpWidget(
-            SelectOrganizationViewModelWidget(
-              qrKey: selectOrganizationViewModel.qrKey,
-            ),
-          );
-          org.isPublic = false;
-          selectOrganizationViewModel.selectedOrganization = org;
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+      org.isPublic = false;
+      selectOrganizationViewModel.selectedOrganization = org;
 
-          when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
-              .thenAnswer((realInvocation) async {
-            final data = {
-              'joinPublicOrganization': {
-                'joinedOrganizations': [],
-              },
-            };
+      when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
+          .thenAnswer((realInvocation) async {
+        final data = {
+          'joinPublicOrganization': {
+            'joinedOrganizations': [],
+          },
+        };
 
-            return QueryResult(
-              source: QueryResultSource.network,
-              data: data,
-              options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
-            );
-          });
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
+      });
 
-          _userLoggedIn = true;
-          _user = User(
-            joinedOrganizations: [
-              OrgInfo(
-                id: '1',
-              )
-            ],
-            membershipRequests: [
-              OrgInfo(
-                id: '1',
-              )
-            ],
-          );
+      _userLoggedIn = true;
+      _user = User(
+        joinedOrganizations: [
+          OrgInfo(
+            id: '1',
+          )
+        ],
+        membershipRequests: [
+          OrgInfo(
+            id: '1',
+          )
+        ],
+      );
 
-          await selectOrganizationViewModel.selectOrg(org);
+      await selectOrganizationViewModel.selectOrg(org);
 
-          expect(selectOrganizationViewModel.selectedOrganization, org);
-        });
+      expect(selectOrganizationViewModel.selectedOrganization, org);
+    });
 
     testWidgets('Test for selectOrg function when userLoggedIn is false',
         (WidgetTester tester) async {
@@ -492,7 +492,6 @@ void main() {
         ),
       );
     });
-
 
     testWidgets(
         'Test for onTapJoin function when joined organization length is not 1',

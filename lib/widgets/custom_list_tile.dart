@@ -36,9 +36,9 @@ class CustomListTile extends StatelessWidget {
       onTap: () => type == TileType.org
           ? onTapOrgInfo!(orgInfo!)
           : type == TileType.user
-          ? onTapUserInfo!()
-          // ignore: avoid_dynamic_calls
-          : onTapOption!(),
+              ? onTapUserInfo!()
+              // ignore: avoid_dynamic_calls
+              : onTapOption!(),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(

@@ -119,7 +119,6 @@ void main() {
 
       expect(orgName, findsOneWidget);
 
-
       // Test for icon when is public is true
       expect(find.byIcon(Icons.lock_open), findsOneWidget);
 
@@ -284,7 +283,8 @@ void main() {
         optionTitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .bodyMedium?.copyWith(fontSize: 18,  color: Colors.black),
+            .bodyMedium
+            ?.copyWith(fontSize: 18, color: Colors.black),
       );
 
       // Testing Text that contains option's subtitle
@@ -303,7 +303,8 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .bodySmall?.copyWith(color: Colors.black, fontSize: 18),
+            .bodySmall
+            ?.copyWith(color: Colors.black, fontSize: 18),
       );
 
       // Testing SizedBox for option when trailing icon button is null (fallback for creater info)
