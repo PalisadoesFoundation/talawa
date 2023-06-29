@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 
 /// SelectOrganizationViewModel class helps to interact with model to serve data
 /// and react to user's input in Select Organization View.

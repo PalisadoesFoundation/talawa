@@ -1,14 +1,9 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/widgets/custom_avatar.dart';
 
 /// Returns a widget for rendering Customized tiles.
 /// A Tile shows the org info, user info, options that on tap user & org info.
