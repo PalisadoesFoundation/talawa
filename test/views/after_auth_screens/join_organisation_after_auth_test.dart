@@ -60,7 +60,7 @@ void main() {
       "Check if JoinOrganizationsAfterAuth shows up",
       (tester) async {
         await tester.pumpWidget(createJoinOrgAfterAuth());
-        await tester.pumpAndSettle(Duration(seconds: 6));
+        await tester.pumpAndSettle(const Duration(seconds: 6));
 
         expect(find.byType(JoinOrganisationAfterAuth), findsOneWidget);
       },
@@ -70,7 +70,7 @@ void main() {
       "Check if children show up correctly",
       (tester) async {
         await tester.pumpWidget(createJoinOrgAfterAuth());
-        await tester.pumpAndSettle(Duration(seconds: 6));
+        await tester.pumpAndSettle(const Duration(seconds: 6));
 
         expect(
           find.byWidgetPredicate(
@@ -111,7 +111,7 @@ void main() {
   group("Tests for JoinOrganizationAfterAuth - widgets", () {
     testWidgets("Check if QR bottom model sheet shows up", (tester) async {
       await tester.pumpWidget(createJoinOrgAfterAuth());
-      await tester.pumpAndSettle(Duration(seconds: 6));
+      await tester.pumpAndSettle(const Duration(seconds: 6));
 
       await tester.tap(find.byIcon(Icons.qr_code_scanner));
       await tester.pumpAndSettle();
@@ -159,16 +159,16 @@ void main() {
       final selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
 
       await tester.pumpWidget(createJoinOrgAfterAuth());
-      await tester.pumpAndSettle(Duration(seconds: 6));
+      await tester.pumpAndSettle(const Duration(seconds: 6));
 
       // This button comes from CupertinoSearchTextField
       await tester.tap(find.byType(CupertinoButton));
-      await tester.pumpAndSettle(Duration(seconds: 6));
+      await tester.pumpAndSettle(const Duration(seconds: 6));
 
       // Checking for text change
       selectOrgInfoVM.setState(ViewState.busy);
       selectOrgInfoVM.searchController.text = "tmmmext";
-      await tester.pumpAndSettle(Duration(seconds: 6));
+      await tester.pumpAndSettle(const Duration(seconds: 6));
 
       expect(find.text("tmmmext"), findsOneWidget);
 
@@ -184,7 +184,7 @@ void main() {
       selectOrgInfoVM.selectedOrganization = orgOne;
 
       selectOrgInfoVM.notifyListeners();
-      await tester.pumpAndSettle(Duration(seconds: 6));
+      await tester.pumpAndSettle(const Duration(seconds: 6));
 
       selectOrgInfoVM.searching = true;
       selectOrgInfoVM.notifyListeners();
