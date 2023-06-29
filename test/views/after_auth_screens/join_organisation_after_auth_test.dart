@@ -130,65 +130,67 @@ void main() {
     // re-register SelectOrganizationViewModel in that test as it will
     // be disposed once this test ends, or better, write any new tests
     // before this one.
-    testWidgets("Check if model related functions work", (tester) async {
-      // Registers a singleton, which means that every instance of
-      // SelectOrganizationViewModel will be the same.
-      locator.unregister<SelectOrganizationViewModel>();
-      locator.registerSingleton<SelectOrganizationViewModel>(
-        SelectOrganizationViewModel(),
-      );
-
-      final orgOne = OrgInfo(
-        name: "org_one",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
-        isPublic: false,
-      );
-      final orgTwo = OrgInfo(
-        name: "org_two",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
-        isPublic: false,
-      );
-
-      final selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
-
-      await tester.pumpWidget(createJoinOrgAfterAuth());
-      await tester.pumpAndSettle(const Duration(seconds: 6));
-
-      // This button comes from CupertinoSearchTextField
-      // await tester.tap(find.byType(CupertinoButton));
-      // await tester.pumpAndSettle(const Duration(seconds: 6));
-
-      // Checking for text change
-      selectOrgInfoVM.setState(ViewState.busy);
-      selectOrgInfoVM.searchController.text = "tmmmext";
-      await tester.pumpAndSettle(const Duration(seconds: 6));
-
-      expect(find.text("tmmmext"), findsOneWidget);
-
-      // Checking for Org selection
-
-      expect(selectOrgInfoVM.organizations, []);
-
-      selectOrgInfoVM.organizations = [
-        orgOne,
-        orgTwo,
-      ];
-
-      selectOrgInfoVM.selectedOrganization = orgOne;
-
-      selectOrgInfoVM.notifyListeners();
-      await tester.pumpAndSettle(const Duration(seconds: 6));
-
-      selectOrgInfoVM.searching = true;
-      selectOrgInfoVM.notifyListeners();
-
-      expect(find.byType(OrganizationSearchList), findsNothing);
-    });
+    /// Search is No-Longer is a feature, if it gets implemented in future use this test
+    /// Really good test to learn from so not deleting
+    // testWidgets("Check if model related functions work", (tester) async {
+    //   // Registers a singleton, which means that every instance of
+    //   // SelectOrganizationViewModel will be the same.
+    //   locator.unregister<SelectOrganizationViewModel>();
+    //   locator.registerSingleton<SelectOrganizationViewModel>(
+    //     SelectOrganizationViewModel(),
+    //   );
+    //
+    //   final orgOne = OrgInfo(
+    //     name: "org_one",
+    //     creatorInfo: User(
+    //       firstName: "ravidi",
+    //       lastName: "shaikh",
+    //     ),
+    //     isPublic: false,
+    //   );
+    //   final orgTwo = OrgInfo(
+    //     name: "org_two",
+    //     creatorInfo: User(
+    //       firstName: "ravidi",
+    //       lastName: "shaikh",
+    //     ),
+    //     isPublic: false,
+    //   );
+    //
+    //   final selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
+    //
+    //   await tester.pumpWidget(createJoinOrgAfterAuth());
+    //   await tester.pumpAndSettle(const Duration(seconds: 6));
+    //
+    //   // This button comes from CupertinoSearchTextField
+    //   // await tester.tap(find.byType(CupertinoButton));
+    //   // await tester.pumpAndSettle(const Duration(seconds: 6));
+    //
+    //   // Checking for text change
+    //   selectOrgInfoVM.setState(ViewState.busy);
+    //   selectOrgInfoVM.searchController.text = "tmmmext";
+    //   await tester.pumpAndSettle(const Duration(seconds: 6));
+    //
+    //   expect(find.text("tmmmext"), findsOneWidget);
+    //
+    //   // Checking for Org selection
+    //
+    //   expect(selectOrgInfoVM.organizations, []);
+    //
+    //   selectOrgInfoVM.organizations = [
+    //     orgOne,
+    //     orgTwo,
+    //   ];
+    //
+    //   selectOrgInfoVM.selectedOrganization = orgOne;
+    //
+    //   selectOrgInfoVM.notifyListeners();
+    //   await tester.pumpAndSettle(const Duration(seconds: 6));
+    //
+    //   selectOrgInfoVM.searching = true;
+    //   selectOrgInfoVM.notifyListeners();
+    //
+    //   expect(find.byType(OrganizationSearchList), findsNothing);
+    // });
   });
 }
