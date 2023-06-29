@@ -1,5 +1,4 @@
-///This file contains the routes.
-///These can be used to make push screen call via Routes.splashScreen to access these string
+///This file contains the routes. These can be used to make push screen call via Routes.splashScreen to access these string.
 
 class Routes {
   /// static variables.
