@@ -13,11 +13,9 @@ class AccessScreenViewModel extends BaseModel {
   late String orgId;
   final optionalMessageController = TextEditingController();
 
-
   Future<void> initialise(OrgInfo org) async {
-      selectedOrganization = org;
+    selectedOrganization = org;
   }
-
 
   Future<void> sendMembershipRequest() async {
     //TODO: Implement Message arg for below function
@@ -44,6 +42,4 @@ class AccessScreenViewModel extends BaseModel {
       }
     }
   }
-
-
 }

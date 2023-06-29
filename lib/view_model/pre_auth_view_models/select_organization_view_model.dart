@@ -133,8 +133,6 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
-  
-  
   /// This function make user to join the selected organization.
   /// The function uses `joinOrgById` graph QL query.
   Future<void> onTapJoin() async {
