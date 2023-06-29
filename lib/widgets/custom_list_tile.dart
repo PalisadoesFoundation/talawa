@@ -33,7 +33,12 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       // checking wheather the tapped tile is of user or org.
-      onTap: () => onTapOrgInfo!(orgInfo!),
+      onTap: () => type == TileType.org
+          ? onTapOrgInfo!(orgInfo!)
+          : type == TileType.user
+          ? onTapUserInfo!()
+          // ignore: avoid_dynamic_calls
+          : onTapOption!(),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
