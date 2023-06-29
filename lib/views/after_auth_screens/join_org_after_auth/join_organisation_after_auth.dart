@@ -116,23 +116,23 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 height: SizeConfig.screenHeight! * 0.0215,
               ),
               // if user selected the organization then renders the button to join the organization.
-              model.selectedOrganization.id != '-1'
-                  ? Column(
-                      children: [
-                        RaisedRoundedButton(
-                          buttonLabel: AppLocalizations.of(context)!
-                              .strictTranslate('Join selected organisation'),
-                          onTap: model.onTapJoin,
-                          textColor: const Color(0xFF008A37),
-                          key: const Key('JoinSelectedOrgButton'),
-                          backgroundColor: Colors.white,
-                        ),
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.0215,
-                        ),
-                      ],
-                    )
-                  : const SizedBox(),
+              // model.selectedOrganization.id != '-1'
+              //     ? Column(
+              //         children: [
+              //           RaisedRoundedButton(
+              //             buttonLabel: AppLocalizations.of(context)!
+              //                 .strictTranslate('Join selected organisation'),
+              //             onTap: model.onTapJoin,
+              //             textColor: const Color(0xFF008A37),
+              //             key: const Key('JoinSelectedOrgButton'),
+              //             backgroundColor: Colors.white,
+              //           ),
+              //           SizedBox(
+              //             height: SizeConfig.screenHeight! * 0.0215,
+              //           ),
+              //         ],
+              //       )
+              //     : const SizedBox(),
             ],
           ),
         );

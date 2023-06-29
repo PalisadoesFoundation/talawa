@@ -20,10 +20,12 @@ class SendAccessRequest extends StatelessWidget {
         onModelReady: (model) => model.initialise(org),
         builder: (context, model, child) {
           return SafeArea(
+
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
               ),
+              resizeToAvoidBottomInset: false,
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

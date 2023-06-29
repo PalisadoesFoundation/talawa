@@ -90,10 +90,15 @@ class SelectOrganizationViewModel extends BaseModel {
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
         notifyListeners();
-        navigationService.pushScreen(
-          Routes.requestAccess,
-          arguments: selectedOrganization,
-        );
+        onTapJoin();
+        // print(selectedOrganization.isPublic);
+
+        if (!selectedOrganization.isPublic!) {
+          navigationService.pushScreen(
+            Routes.requestAccess,
+            arguments: selectedOrganization,
+          );
+        }
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showTalawaErrorSnackBar(
