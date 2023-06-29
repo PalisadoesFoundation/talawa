@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
