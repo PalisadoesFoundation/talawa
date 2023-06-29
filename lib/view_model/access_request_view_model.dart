@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/view_model/base_view_model.dart';
-
 import 'package:talawa/models/organization/org_info.dart';
-
-import '../constants/routing_constants.dart';
-import '../enums/enums.dart';
+import 'package:talawa/view_model/base_view_model.dart';
 
 class AccessScreenViewModel extends BaseModel {
   late OrgInfo selectedOrganization = OrgInfo(id: '-1');
@@ -24,8 +23,8 @@ class AccessScreenViewModel extends BaseModel {
     );
     if (result != null) {
       final OrgInfo membershipRequest = OrgInfo.fromJson(
-        result.data!['sendMembershipRequest']['organization']
-            as Map<String, dynamic>,
+        (((result as QueryResult).data!)['sendMembershipRequest']
+            as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
       );
       userConfig.updateUserMemberRequestOrg([membershipRequest]);
       if (userConfig.currentUser.joinedOrganizations!.isEmpty) {

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/enums/enums.dart';
@@ -8,10 +7,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/organization_list.dart';
 import 'package:talawa/widgets/organization_search_list.dart';
-import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:vibration/vibration.dart';
 
 /// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
@@ -53,48 +50,6 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
           ),
           body: Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-              //   // Cupertino search textfield in flutter is ios style (like) searchTextfield.
-              //   // A cupertinoSearchTextField widget lets us create a searchTextField in ios style.
-              //   // It is used to display a text field where the user can type his search query.
-              //   child: CupertinoSearchTextField(
-              //     focusNode: model.searchFocus,
-              //     controller: model.searchController,
-              //     onChanged: (value) => model.setState(ViewState.idle),
-              //     suffixMode: OverlayVisibilityMode.always,
-              //     style: Theme.of(context).textTheme.headlineSmall,
-              //     suffixIcon: const Icon(
-              //       CupertinoIcons.xmark_circle_fill,
-              //       size: 25,
-              //     ),
-              //     onSuffixTap: () {
-              //       model.searchController.clear();
-              //       model.organizations = [];
-              //       model.searchFocus.unfocus();
-              //       model.searching = false;
-              //       model.setState(ViewState.idle);
-              //     },
-              //   ),
-              // ),
-              // if organization selected then renders the organization info in CustomListTile.
-              // model.selectedOrganization.id != '-1'
-              //     ? ColoredBox(
-              //         color: Theme.of(context)
-              //             .colorScheme
-              //             .secondaryContainer
-              //             .withOpacity(0.2),
-              //         child: CustomListTile(
-              //           index: model.organizations
-              //               .indexOf(model.selectedOrganization),
-              //           type: TileType.org,
-              //           orgInfo: model.selectedOrganization,
-              //           onTapOrgInfo: (item) => model.selectOrg(item),
-              //           key: const Key('OrgSelItem'),
-              //           showIcon: true,
-              //         ),
-              //       )
-              //     : const SizedBox(),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                 child: Divider(
@@ -112,24 +67,6 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.0215,
               ),
-              // if user selected the organization then renders the button to join the organization.
-              // model.selectedOrganization.id != '-1'
-              //     ? Column(
-              //         children: [
-              //           RaisedRoundedButton(
-              //             buttonLabel: AppLocalizations.of(context)!
-              //                 .strictTranslate('Join selected organisation'),
-              //             onTap: model.onTapJoin,
-              //             textColor: const Color(0xFF008A37),
-              //             key: const Key('JoinSelectedOrgButton'),
-              //             backgroundColor: Colors.white,
-              //           ),
-              //           SizedBox(
-              //             height: SizeConfig.screenHeight! * 0.0215,
-              //           ),
-              //         ],
-              //       )
-              //     : const SizedBox(),
             ],
           ),
         );

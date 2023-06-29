@@ -145,10 +145,12 @@ class SelectOrganizationViewModel extends BaseModel {
           queries.joinOrgById(selectedOrganization.id!),
         ) as QueryResult;
 
-        final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
-                ['joinedOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList();
+        final List<OrgInfo>? joinedOrg =
+            ((result.data!['joinPublicOrganization']
+                        as Map<String, dynamic>)['joinedOrganizations']
+                    as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                .toList();
         userConfig.updateUserJoinedOrg(joinedOrg!);
         // if user joined organization length is 1
         if (userConfig.currentUser.joinedOrganizations!.length == 1) {

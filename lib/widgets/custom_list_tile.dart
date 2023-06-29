@@ -33,16 +33,14 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       // checking wheather the tapped tile is of user or org.
-      onTap: () => type == TileType.org
-          ? onTapOrgInfo!(orgInfo!)
-          : type == TileType.user
-              ? onTapUserInfo!()
-              : onTapOption!(),
+      onTap: () => onTapOrgInfo!(orgInfo!),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
           height: 70,
           child: Row(
             children: [
@@ -77,7 +75,9 @@ class CustomListTile extends StatelessWidget {
                                     .textTheme
                                     .headlineSmall!
                                     .copyWith(
-                                        fontSize: 18, color: Colors.black),
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
                   ),
                 ),
               ),
