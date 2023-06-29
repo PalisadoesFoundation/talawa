@@ -351,12 +351,12 @@ void main() {
       );
 
       // Testing TextStyle that contains option's subtitle
-      final optionSubtitleFinder = find
-          .descendant(
-            of: find.byType(Expanded).at(0),
-            matching: find.byType(Text),
-          )
-          .at(0);
+      // final optionSubtitleFinder = find
+      //     .descendant(
+      //       of: find.byType(Expanded).at(0),
+      //       matching: find.byType(Text),
+      //     )
+      //     .at(0);
 
       // final optionSubtitleWidget =
       //     tester.firstWidget(optionSubtitleFinder) as Text;
