@@ -115,12 +115,6 @@ void main() {
       expect(find.byIcon(Icons.add), findsNothing);
 
       // Testing Text for that contains org's name
-      final orgNameFinder = find
-          .descendant(
-            of: find.byType(Expanded).at(1),
-            matching: find.byType(Text),
-          )
-          .first;
       final orgName = find.text('Test Name');
 
       expect(orgName, findsOneWidget);
@@ -363,8 +357,8 @@ void main() {
           )
           .at(0);
 
-      final optionSubtitleWidget =
-          tester.firstWidget(optionSubtitleFinder) as Text;
+      // final optionSubtitleWidget =
+      //     tester.firstWidget(optionSubtitleFinder) as Text;
 
       // expect(
       //   optionSubtitleWidget.style,
