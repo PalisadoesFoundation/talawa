@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the ProfilePage class, for the Dart programming language.">
+  <title>build method - ProfilePage class - profile_page library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/views_after_auth_screens_profile_profile_page-library.html">profile_page</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html">ProfilePage</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">build</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method when this widget is inserted into the tree
+in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
+(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
+method can potentially be called in every frame and should not have any side
+effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor and
+from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. A
+given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
+arguments over time if the widget is moved around the tree or if the
+widget is inserted into the tree in multiple places at once.</p>
+<p>The implementation of this method must only depend on:</p>
+<ul>
+<li>the fields of the widget, which themselves must not change over time,
+and</li>
+<li>any ambient state obtained from the <code>context</code> using
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
+</ul>
+<p>If a widget's <a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/build.html">build</a> method is to depend on anything else, use a
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  return BaseView&lt;ProfilePageViewModel&gt;(
+    onModelReady: (model) =&gt; model.initialize(),
+    builder: (context, model, child) {
+      return Scaffold(
+        key: model.scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          elevation: 0.0,
+          centerTitle: true,
+          leading: IconButton(
+            color: Theme.of(context).iconTheme.color,
+            icon: const Icon(Icons.menu),
+            onPressed: () =&gt;
+                MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+          ),
+          key: const Key(&quot;ProfilePageAppBar&quot;),
+          title: Text(
+            AppLocalizations.of(context)!.strictTranslate(&#39;Profile&#39;),
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+          ),
+        ),
+        &#47;&#47; if data fetching is under process then renders Circular Progress Icon
+        &#47;&#47; else renders the widget.
+        body: model.isBusy
+            ? const CircularProgressIndicator()
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.01,
+                    ),
+                    CustomListTile(
+                      key: const Key(&#39;OptionEditProfile&#39;),
+                      index: 0,
+                      type: TileType.option,
+                      option: Options(
+                        &#47;&#47; Avatar
+                        icon: CustomAvatar(
+                          isImageNull: model.currentUser.image == null,
+                          firstAlphabet:
+                              model.currentUser.firstName!.substring(0, 1),
+                          imageUrl: model.currentUser.image,
+                          fontSize: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .fontSize,
+                        ),
+                        &#47;&#47; display first and last name.
+                        title:
+                            &#39;${model.currentUser.firstName!} ${model.currentUser.lastName!}&#39;,
+                        &#47;&#47; display email address
+                        subtitle: model.currentUser.email!,
+                        &#47;&#47; button to edit the profile which redirects to edit profile page.
+                        trailingIconButton: IconButton(
+                          icon: Icon(
+                            Icons.drive_file_rename_outline,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          onPressed: () {
+                            navigationService.pushScreen(&quot;&#47;editProfilePage&quot;);
+                          },
+                        ),
+                      ),
+                      onTapOption: () {},
+                    ),
+                    const Divider(
+                      thickness: 1, &#47;&#47; thickness of the line
+                      indent:
+                          20, &#47;&#47; empty space to the leading edge of divider.
+                      endIndent:
+                          20, &#47;&#47; empty space to the trailing edge of the divider.
+                      color: Colors
+                          .black26, &#47;&#47; The color to use when painting the line.
+                      height: 20, &#47;&#47;
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.67,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.01,
+                          ),
+                          CustomListTile(
+                            key: homeModel!.keySPAppSetting,
+                            index: 0,
+                            type: TileType.option,
+                            option: Options(
+                              icon: Icon(
+                                Icons.phonelink_setup,
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                                size: 30,
+                              ),
+                              &#47;&#47; title for App Settings.
+                              title: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;App Settings&#39;),
+                              &#47;&#47; display language of the app.
+                              subtitle:
+                                  &#39;${AppLocalizations.of(context)!.strictTranslate(&quot;Language&quot;)}, ${AppLocalizations.of(context)!.strictTranslate(&quot;dark mode&quot;)}, ${AppLocalizations.of(context)!.strictTranslate(&quot;font size&quot;)}&#39;,
+                            ),
+                            &#47;&#47; button for the app setting which redirects to app setting page.
+                            onTapOption: () {
+                              navigationService
+                                  .pushScreen(&quot;&#47;appSettingsPage&quot;);
+                            },
+                          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.05,
+                          ),
+                          CustomListTile(
+                            key: const Key(&#39;TasksByUser&#39;),
+                            index: 1,
+                            type: TileType.option,
+                            option: Options(
+                              icon: Icon(
+                                Icons.task_outlined,
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                                size: 30,
+                              ),
+                              &#47;&#47; title for My Tasks tile
+                              title: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;My Tasks&#39;),
+                              &#47;&#47; display subtitle
+                              subtitle: AppLocalizations.of(context)!
+                                  .strictTranslate(
+                                &quot;View and edit all tasks created by you&quot;,
+                              ),
+                            ),
+                            &#47;&#47; on tag redirects to the user Tasks page.
+                            onTapOption: () {
+                              navigationService.pushScreen(Routes.userTasks);
+                            },
+                          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.05,
+                          ),
+                          &#47;&#47; &#47;&#47; Will be added later when we add the Help Section in Documentation.
+                          &#47;&#47; CustomListTile(
+                          &#47;&#47;   key: homeModel!.keySPHelp,
+                          &#47;&#47;   index: 1,
+                          &#47;&#47;   type: TileType.option,
+                          &#47;&#47;   option: Options(
+                          &#47;&#47;     icon: const Icon(
+                          &#47;&#47;       Icons.help_outline,
+                          &#47;&#47;       size: 30,
+                          &#47;&#47;     ),
+                          &#47;&#47;     title: AppLocalizations.of(context)!
+                          &#47;&#47;         .strictTranslate(&#39;Help&#39;),
+                          &#47;&#47;     subtitle: AppLocalizations.of(context)!
+                          &#47;&#47;         .strictTranslate(
+                          &#47;&#47;       &#39;Reach out to us for help&#39;,
+                          &#47;&#47;     ),
+                          &#47;&#47;   ),
+                          &#47;&#47;   onTapOption: () {},
+                          &#47;&#47; ),
+                          &#47;&#47;&#47; `Donation` acts as plugin. If visible is true the it will be always visible.
+                          &#47;&#47;&#47; even if it&#39;s uninstalled by the admin (for development purposes)
+                          TalawaPluginProvider(
+                            pluginName: &quot;Donation&quot;,
+                            visible: true,
+                            child: Column(
+                              children: [
+                                CustomListTile(
+                                  key: homeModel!.keySPDonateUs,
+                                  index: 2,
+                                  type: TileType.option,
+                                  option: Options(
+                                    icon: Icon(
+                                      Icons.monetization_on,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      size: 30,
+                                    ),
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate(&#39;Donate  Us&#39;),
+                                    subtitle: AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      &#39;Help us to develop for you&#39;,
+                                    ),
+                                  ),
+                                  onTapOption: () =&gt; donate(context, model),
+                                ),
+                                SizedBox(
+                                  height: SizeConfig.screenHeight! * 0.05,
+                                ),
+                              ],
+                            ),
+                          ),
+                          &#47;&#47; custom tile for Invitation.
+                          CustomListTile(
+                            key: homeModel!.keySPInvite,
+                            index: 3,
+                            type: TileType.option,
+                            option: Options(
+                              icon: Icon(
+                                Icons.share,
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                                size: 30,
+                              ),
+                              &#47;&#47; title
+                              title: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Invite&#39;),
+                              &#47;&#47; subtitle
+                              subtitle: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Invite to org&#39;),
+                            ),
+                            &#47;&#47; on tap call the invite function
+                            onTapOption: () =&gt; model.invite(context),
+                          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.05,
+                          ),
+                          &#47;&#47; Custom tile for Logout option.
+                          CustomListTile(
+                            key: homeModel!.keySPLogout,
+                            index: 3,
+                            type: TileType.option,
+                            option: Options(
+                              icon: Icon(
+                                Icons.logout,
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                                size: 30,
+                              ),
+                              title: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Log out&#39;),
+                              subtitle: AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Log out from Talawa&#39;),
+                            ),
+                            &#47;&#47; on tap calls the logout function
+                            onTapOption: () =&gt; model.logout(context),
+                          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.05,
+                          ),
+                          FromPalisadoes(key: homeModel!.keySPPalisadoes),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../views_after_auth_screens_profile_profile_page/views_after_auth_screens_profile_profile_page-library.html">profile_page</a></li>
+  <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html">ProfilePage</a></li>
+  <li class="self-crumb">build method</li>
+</ol>
+
+
+    <h5>ProfilePage class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html#constructors">Constructors</a></li>
+          <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/ProfilePage.html">ProfilePage</a></li>
+
+
+        <li class="section-title">
+          <a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+          <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/homeModel.html">homeModel</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+        <li class="section-title"><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/build.html">build</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
+          <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/donate.html">donate</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
+
+        <li class="section-title inherited"><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
