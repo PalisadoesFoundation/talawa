@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the invite method from the ProfilePageViewModel class, for the Dart programming language.">
+  <title>invite method - ProfilePageViewModel class - profile_page_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.html">profile_page_view_model</a></li>
+    <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html">ProfilePageViewModel</a></li>
+    <li class="self-crumb">invite method</li>
+  </ol>
+  <div class="self-name">invite</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">invite</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">void</span>
+<span class="name ">invite</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="invite-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function generates the organization invitation link in a Dialog Box.
+Dialog box contains the QR-code of organization invite link and social media sharing options.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void invite(BuildContext context) {
+  _appLanguageService.initialize();
+  &#47;&#47; organization url
+  final String url =
+      &#39;https:&#47;&#47;cyberwake.github.io&#47;applink&#47;invite?selectLang=${_appLanguageService.appLocal.languageCode}&amp;setUrl=${GraphqlConfig.orgURI}&amp;selectOrg=${userConfig.currentOrg.id!}&#39;;
+  &#47;&#47; QR
+  final String qrData =
+      &#39;${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}&#39;;
+  print(url);
+  print(qrData);
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
+      ),
+    ),
+    builder: (BuildContext context) {
+      return ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.75,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              QrImage(
+                data: qrData,
+                version: QrVersions.auto,
+                size: 200.0,
+                foregroundColor: Colors.black,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.08,
+              ),
+              Text(
+                &#39;Scan the QR to join ${userConfig.currentOrg.name}&#39;,
+                style: const TextStyle(color: Colors.black),
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight! * 0.02,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  iconButton(
+                    const FaIcon(
+                      FontAwesomeIcons.twitter,
+                      size: 35,
+                      color: Color(0xFF1DA1F2),
+                    ),
+                    () async =&gt; SocialShare.shareTwitter(&#39;Join us&#39;, url: url),
+                  ),
+                  iconButton(
+                    CustomPaint(
+                      size: const Size(
+                        50,
+                        50 * 1.004,
+                      ), &#47;&#47;You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: WhatsappLogo(),
+                    ),
+                    () async =&gt; SocialShare.shareWhatsapp(url),
+                  ),
+                  iconButton(
+                    CustomPaint(
+                      size: Size(
+                        45,
+                        (45 * 1).toDouble(),
+                      ), &#47;&#47;You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: TelegramLogo(),
+                    ),
+                    () async =&gt; SocialShare.shareTelegram(url),
+                  ),
+                  iconButton(
+                    const FaIcon(
+                      FontAwesomeIcons.shareNodes,
+                      size: 30,
+                      color: Color(0xff40c351),
+                    ),
+                    () async =&gt; SocialShare.shareOptions(url),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/view_model_after_auth_view_models_profile_view_models_profile_page_view_model-library.html">profile_page_view_model</a></li>
+  <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html">ProfilePageViewModel</a></li>
+  <li class="self-crumb">invite method</li>
+</ol>
+
+
+    <h5>ProfilePageViewModel class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html#constructors">Constructors</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/ProfilePageViewModel.html">ProfilePageViewModel</a></li>
+
+
+        <li class="section-title">
+          <a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/bottomSheetHeight.html">bottomSheetHeight</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/currentOrg.html">currentOrg</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/currentUser.html">currentUser</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/denomination.html">denomination</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationAmount.html">donationAmount</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationCurrency.html">donationCurrency</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationCurrencySymbol.html">donationCurrencySymbol</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/donationField.html">donationField</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html">hasListeners</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/isBusy.html">isBusy</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/organisation.html">organisation</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/scaffoldKey.html">scaffoldKey</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/state.html">state</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/url.html">url</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/user.html">user</a></li>
+
+        <li class="section-title"><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/attachListener.html">attachListener</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/changeCurrency.html">changeCurrency</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html">dispose</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/dominationButton.html">dominationButton</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/iconButton.html">iconButton</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/initialize.html">initialize</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/invite.html">invite</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/logout.html">logout</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/notifyListeners.html">notifyListeners</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/popBottomSheet.html">popBottomSheet</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html">removeListener</a></li>
+          <li class="inherited"><a href="../../view_model_base_view_model/BaseModel/setState.html">setState</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/showSnackBar.html">showSnackBar</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+          <li><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel/updateSheetHeight.html">updateSheetHeight</a></li>
+
+        <li class="section-title inherited"><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the EventCard class, for the Dart programming language.">
+  <title>build method - EventCard class - event_card library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_event_card/widgets_event_card-library.html">event_card</a></li>
+    <li><a href="../../widgets_event_card/EventCard-class.html">EventCard</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">build</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method when this widget is inserted into the tree
+in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
+(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
+method can potentially be called in every frame and should not have any side
+effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor and
+from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. A
+given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
+arguments over time if the widget is moved around the tree or if the
+widget is inserted into the tree in multiple places at once.</p>
+<p>The implementation of this method must only depend on:</p>
+<ul>
+<li>the fields of the widget, which themselves must not change over time,
+and</li>
+<li>any ambient state obtained from the <code>context</code> using
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
+</ul>
+<p>If a widget's <a href="../../widgets_event_card/EventCard/build.html">build</a> method is to depend on anything else, use a
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  final bool isRegistered = event.isRegistered ?? false;
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Stack(
+      children: [
+        Card(
+          shape: RoundedRectangleBorder(
+            side:
+                isRegistered &amp;&amp; userConfig.currentUser.id != event.creator!.id
+                    ? BorderSide(
+                        color: Theme.of(context).colorScheme.secondary,
+                        width: SizeConfig.screenWidth! * 0.008,
+                      )
+                    : BorderSide.none,
+          ),
+          elevation: 3,
+          color: Theme.of(context).primaryColor,
+          child: Column(
+            children: [
+              AspectRatio(
+                aspectRatio: 2.5,
+                child: Container(
+                  height: SizeConfig.screenHeight! * 0.11,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    image: const DecorationImage(
+                      fit: BoxFit.fitWidth,
+                      alignment: FractionalOffset.topCenter,
+                      image: NetworkImage(
+                        &#39;https:&#47;&#47;picsum.photos&#47;id&#47;1022&#47;200&#47;300&#39;,
+                      ),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.48,
+                          child: isSearchItem
+                              ? RichText(
+                                  text: TextSpan(
+                                    text: eventTitleHighlightedText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                    children: [
+                                      TextSpan(
+                                        text: eventTitleNormalText,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                              color: Colors.grey,
+                                            ),
+                                      )
+                                    ],
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                )
+                              : Text(
+                                  event.title!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall,
+                                ),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.calendar_today,
+                          size: 13,
+                        ),
+                        const Spacer(),
+                        Text(
+                          &quot;${event.startDate!} - ${event.endDate!}&quot;,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.006,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.schedule,
+                          size: 12,
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.015,
+                        ),
+                        Text(
+                          &quot;${event.startTime!} - ${event.endTime!}&quot;,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.place,
+                          size: 12,
+                        ),
+                        SizedBox(
+                          child: Text(
+                            event.location!.substring(
+                              0,
+                              min(event.location!.length, 20),
+                            ),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.55,
+                          child: Text(
+                            event.description!,
+                            style: Theme.of(context).textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            maxLines: 3,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.chevron_right,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.007,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        userConfig.currentUser.id == event.creator!.id
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    Icons.verified,
+                                    size: 13,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary,
+                                  ),
+                                  SizedBox(
+                                    width: SizeConfig.screenWidth! * 0.013,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(&#39;Created&#39;),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        const Spacer(),
+                        event.isPublic!
+                            ? Icon(
+                                Icons.lock_open,
+                                size: 13,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            : Icon(
+                                Icons.lock,
+                                size: 13,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.013,
+                        ),
+                        event.isPublic!
+                            ? Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate(&#39;public&#39;),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )
+                            : Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate(&#39;private&#39;),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.027,
+                        ),
+                        const Icon(
+                          Icons.people_outline,
+                          size: 13,
+                          color: Color(0xff4285F4),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.013,
+                        ),
+                        event.attendees != null
+                            ? Text(
+                                event.attendees!,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )
+                            : Text(
+                                (event.registrants?.length ?? 0).toString(),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          top: SizeConfig.screenHeight! * 0.007,
+          right: SizeConfig.screenWidth! * 0.013,
+          child: isRegistered &amp;&amp;
+                  userConfig.currentUser.id != event.creator!.id
+              ? DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate(&quot;Registered&quot;),
+                        style:
+                            Theme.of(context).textTheme.titleLarge!.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
+        )
+      ],
+    ),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../widgets_event_card/widgets_event_card-library.html">event_card</a></li>
+  <li><a href="../../widgets_event_card/EventCard-class.html">EventCard</a></li>
+  <li class="self-crumb">build method</li>
+</ol>
+
+
+    <h5>EventCard class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../widgets_event_card/EventCard-class.html#constructors">Constructors</a></li>
+          <li><a href="../../widgets_event_card/EventCard/EventCard.html">EventCard</a></li>
+
+
+        <li class="section-title">
+          <a href="../../widgets_event_card/EventCard-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../../widgets_event_card/EventCard/event.html">event</a></li>
+          <li><a href="../../widgets_event_card/EventCard/eventTitleHighlightedText.html">eventTitleHighlightedText</a></li>
+          <li><a href="../../widgets_event_card/EventCard/eventTitleNormalText.html">eventTitleNormalText</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+          <li><a href="../../widgets_event_card/EventCard/isSearchItem.html">isSearchItem</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+        <li class="section-title"><a href="../../widgets_event_card/EventCard-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../widgets_event_card/EventCard/build.html">build</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
+
+        <li class="section-title inherited"><a href="../../widgets_event_card/EventCard-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

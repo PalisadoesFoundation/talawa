@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the addUserBottomSheet method from the EventBottomSheet class, for the Dart programming language.">
+  <title>addUserBottomSheet method - EventBottomSheet class - add_members_bottom_sheet library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.html">add_members_bottom_sheet</a></li>
+    <li><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html">EventBottomSheet</a></li>
+    <li class="self-crumb">addUserBottomSheet method</li>
+  </ol>
+  <div class="self-name">addUserBottomSheet</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">addUserBottomSheet</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">void</span>
+<span class="name ">addUserBottomSheet</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="addUserBottomSheet-param-context">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="addUserBottomSheet-param-model"><span>required</span> <span class="type-annotation"><a href="../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html">CreateEventViewModel</a></span> <span class="parameter-name">model</span>}</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function creates a modal material design bottom sheet.</p>
+<p>to let the user add admin or members to an organization.
+<strong>params</strong>:</p>
+<ul>
+<li><code>context</code>: BuildContext</li>
+<li><code>model</code>: CreateEventViewModel</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void addUserBottomSheet({
+  required BuildContext context,
+  required CreateEventViewModel model,
+}) {
+  &#47;&#47; Returns a Future that resolves to the value (&quot;context&quot;) passed
+  &#47;&#47; to Navigator.pop
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
+      ),
+    ),
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    const Text(
+                      &quot;Add Members&quot;,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextButton(
+                      key: const Key(&#39;text_btn_ambs1&#39;),
+                      onPressed: () {
+                        model.buildUserList();
+                        Navigator.pop(context);
+                      },
+                      child: const Text(&quot;Done&quot;),
+                    ),
+                    const Divider(),
+                    FutureBuilder(
+                      &#47;&#47; an admin can access the list of the members in an organization
+                      future: model.getCurrentOrgUsersList(),
+                      builder: (
+                        BuildContext context,
+                        AsyncSnapshot&lt;List&lt;User&gt;&gt; snapshot,
+                      ) {
+                        if (snapshot.data == null) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return snapshot.data!.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                    &quot;There aren&#39;t any members in this organization.&quot;,
+                                  ),
+                                )
+                              &#47;&#47; Displaying the list of the members
+                              : Flexible(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return CheckboxListTile(
+                                        checkColor: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                        activeColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        title: Text(
+                                          &quot;${snapshot.data![index].firstName!} ${snapshot.data![index].lastName!}&quot;,
+                                        ),
+                                        value: model.memberCheckedMap[
+                                            snapshot.data![index].id],
+                                        onChanged: (val) {
+                                          setState(
+                                            () {
+                                              model.memberCheckedMap[snapshot
+                                                  .data![index].id!] = val!;
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../widgets_add_members_bottom_sheet/widgets_add_members_bottom_sheet-library.html">add_members_bottom_sheet</a></li>
+  <li><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html">EventBottomSheet</a></li>
+  <li class="self-crumb">addUserBottomSheet method</li>
+</ol>
+
+
+    <h5>EventBottomSheet class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html#constructors">Constructors</a></li>
+          <li><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet/EventBottomSheet.html">EventBottomSheet</a></li>
+
+
+        <li class="section-title inherited">
+          <a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+        <li class="section-title"><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet/addUserBottomSheet.html">addUserBottomSheet</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+        <li class="section-title inherited"><a href="../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
