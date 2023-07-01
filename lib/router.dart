@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -24,7 +21,8 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
-import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
+import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
@@ -201,6 +199,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
 
+    case Routes.requestAccess:
+      final OrgInfo org = settings.arguments! as OrgInfo;
+      return CupertinoPageRoute(
+        builder: (context) => SendAccessRequest(
+          key: const Key('Signup'),
+          org: org,
+        ),
+      );
     // Returns the EditEventPage Widget
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;

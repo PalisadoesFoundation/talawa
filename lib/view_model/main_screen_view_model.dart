@@ -277,7 +277,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<String>;
+    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
     pluginList.forEach((plugin) {
       if (pluginPrototypeData.containsKey(

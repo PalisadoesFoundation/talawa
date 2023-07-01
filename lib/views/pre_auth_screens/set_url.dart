@@ -67,6 +67,7 @@ class _SetUrlState extends State<SetUrl> {
                           semanticLabel: 'Join Organisation with QR',
                         ),
                         onPressed: () => model.scanQR(context),
+                        // model.scanQR(context),
                       ),
                     ),
                     Padding(

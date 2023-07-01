@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -89,6 +86,15 @@ class SelectOrganizationViewModel extends BaseModel {
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
         notifyListeners();
+        onTapJoin();
+        // print(selectedOrganization.isPublic);
+
+        if (!selectedOrganization.isPublic!) {
+          navigationService.pushScreen(
+            Routes.requestAccess,
+            arguments: selectedOrganization,
+          );
+        }
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showTalawaErrorSnackBar(
@@ -104,6 +110,10 @@ class SelectOrganizationViewModel extends BaseModel {
     } else {
       selectedOrganization = item;
       notifyListeners();
+      navigationService.pushScreen(
+        Routes.signupDetailScreen,
+        arguments: selectedOrganization,
+      );
     }
   }
 
@@ -135,10 +145,12 @@ class SelectOrganizationViewModel extends BaseModel {
           queries.joinOrgById(selectedOrganization.id!),
         ) as QueryResult;
 
-        final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
-                ['joinedOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList();
+        final List<OrgInfo>? joinedOrg =
+            ((result.data!['joinPublicOrganization']
+                        as Map<String, dynamic>)['joinedOrganizations']
+                    as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                .toList();
         userConfig.updateUserJoinedOrg(joinedOrg!);
         // if user joined organization length is 1
         if (userConfig.currentUser.joinedOrganizations!.length == 1) {
@@ -164,38 +176,18 @@ class SelectOrganizationViewModel extends BaseModel {
           MessageType.error,
         );
       }
-    } else {
-      try {
-        final result = await databaseFunctions.gqlAuthMutation(
-          queries.sendMembershipRequest(selectedOrganization.id!),
-        );
-        if (result != null) {
-          final OrgInfo membershipRequest = OrgInfo.fromJson(
-            result.data!['sendMembershipRequest']['organization']
-                as Map<String, dynamic>,
-          );
-          userConfig.updateUserMemberRequestOrg([membershipRequest]);
-          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.removeAllAndPush(
-              Routes.waitingScreen,
-              Routes.splashScreen,
-            );
-          } else {
-            navigationService.pop();
-            navigationService.showTalawaErrorSnackBar(
-              'Join in request sent to ${selectedOrganization.name} successfully',
-              MessageType.info,
-            );
-          }
-        }
-      } on Exception catch (e) {
-        print(e);
-        navigationService.showTalawaErrorSnackBar(
-          'SomeThing went wrong',
-          MessageType.error,
-        );
-      }
     }
+    // else {
+    //   try {
+    //     // navigationService.pushScreen(Routes.requestAccess);
+    //   } on Exception catch (e) {
+    //     print(e);
+    //     navigationService.showTalawaErrorSnackBar(
+    //       'SomeThing went wrong',
+    //       MessageType.error,
+    //     );
+    //   }
+    // }
   }
 
   /// This function fetch more option.
