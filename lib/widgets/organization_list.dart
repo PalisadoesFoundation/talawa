@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/timeout.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -64,7 +65,8 @@ class OrganizationList extends StatelessWidget {
                 result.data!['organizationsConnection'] as List,
               );
             }
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+
+            Timer(const Duration(seconds: TimeOuts.small), () {
               if (model.organizations.isEmpty) {
                 navigationServiceLocal.showTalawaErrorDialog(
                   "No organizations found Please contact your admin",
@@ -72,7 +74,6 @@ class OrganizationList extends StatelessWidget {
                 );
               }
             });
-            // return the Scroll bar wid  get for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
@@ -129,16 +130,7 @@ class OrganizationList extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth! * 0.2,
-                      right: 12,
-                    ),
-                    child: const Divider(
-                      color: Color(0xFFE5E5E5),
-                      thickness: 0.5,
-                    ),
-                  );
+                  return Container();
                 },
               ),
             );

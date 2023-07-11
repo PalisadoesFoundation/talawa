@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">talawa</a></li>
     <li><a href="../models_user_user_info/models_user_user_info-library.html">user_info</a></li>
@@ -37,60 +36,81 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">User</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>This class creates a User model and returns a user instance.</p>
+</section>
 
 
     <section>
       <dl class="dl-horizontal">
-        <dt>Inheritance</dt>
-        <dd><ul class="gt-separated dark clazz-relationships">
-          <li><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object-class.html">Object</a></li>
-          <li><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObject-class.html">HiveObject</a></li>
-          <li>User</li>
-        </ul></dd>
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark clazz-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObject-class.html">HiveObject</a></li>
+      <li>User</li>
+    </ul>
+  </dd>
+
+        
+        
 
 
 
+        
+  <dt>Annotations</dt>
+  <dd>
+    <ul class="annotation-list clazz-relationships">
+        <li>@<a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html">HiveType</a>(typeId: 1)</li>
+    </ul>
+  </dd>
 
 
-        <dt>Annotations</dt>
-        <dd><ul class="annotation-list clazz-relationships">
-          <li>@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveType-class.html">HiveType</a>(typeId: 1)</li>
-        </ul></dd>
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="constructors">
-      <h2>Constructors</h2>
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
 
-      <dl class="constructor-summary-list">
+    <dl class="constructor-summary-list">
         <dt id="User" class="callable">
-          <span class="name"><a href="../models_user_user_info/User/User.html">User</a></span><span class="signature">(<span class="parameter" id="-param-adminFor">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">adminFor</span>, </span><span class="parameter" id="-param-createdOrganizations"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">createdOrganizations</span>, </span><span class="parameter" id="-param-email"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">email</span>, </span><span class="parameter" id="-param-firstName"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">firstName</span>, </span><span class="parameter" id="-param-id"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="-param-image"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">image</span>, </span><span class="parameter" id="-param-joinedOrganizations"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">joinedOrganizations</span>, </span><span class="parameter" id="-param-lastName"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">lastName</span>, </span><span class="parameter" id="-param-authToken"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">authToken</span>, </span><span class="parameter" id="-param-refreshToken"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">refreshToken</span>, </span><span class="parameter" id="-param-membershipRequests"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">membershipRequests</span>}</span>)</span>
+          <span class="name"><a href="../models_user_user_info/User/User.html">User</a></span><span class="signature">(<span class="parameter" id="-param-adminFor">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">adminFor</span>, </span><span class="parameter" id="-param-createdOrganizations"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">createdOrganizations</span>, </span><span class="parameter" id="-param-email"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">email</span>, </span><span class="parameter" id="-param-firstName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">firstName</span>, </span><span class="parameter" id="-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="-param-image"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">image</span>, </span><span class="parameter" id="-param-joinedOrganizations"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">joinedOrganizations</span>, </span><span class="parameter" id="-param-lastName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">lastName</span>, </span><span class="parameter" id="-param-authToken"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">authToken</span>, </span><span class="parameter" id="-param-refreshToken"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">refreshToken</span>, </span><span class="parameter" id="-param-membershipRequests"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> <span class="parameter-name">membershipRequests</span>}</span>)</span>
         </dt>
         <dd>
-           
+          
         </dd>
         <dt id="User.fromJson" class="callable">
-          <span class="name"><a href="../models_user_user_info/User/User.fromJson.html">User.fromJson</a></span><span class="signature">(<span class="parameter" id="fromJson-param-json1"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">json1</span>, </span><span class="parameter" id="fromJson-param-fromOrg">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">fromOrg</span> = <span class="default-value">false</span>}</span>)</span>
+          <span class="name"><a href="../models_user_user_info/User/User.fromJson.html">User.fromJson</a></span><span class="signature">(<span class="parameter" id="fromJson-param-json1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">json1</span>, </span><span class="parameter" id="fromJson-param-fromOrg">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">fromOrg</span> = <span class="default-value">false</span>}</span>)</span>
         </dt>
         <dd>
-           
-          <div class="constructor-modifier features">factory</div>
+          
+            <div class="constructor-modifier features">factory</div>
         </dd>
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     <section class="summary offset-anchor" id="instance-properties">
       <h2>Properties</h2>
@@ -98,341 +118,347 @@
       <dl class="properties">
         <dt id="adminFor" class="property">
   <span class="name"><a href="../models_user_user_info/User/adminFor.html">adminFor</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(9), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="authToken" class="property">
   <span class="name"><a href="../models_user_user_info/User/authToken.html">authToken</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(0), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="box" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/box.html">box</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/hive/2.0.4/hive/BoxBase-class.html">BoxBase</a>?</span> 
+  <span class="name"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/box.html">box</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/hive/2.2.3/hive/BoxBase-class.html">BoxBase</a>?</span> 
 
 </dt>
 <dd class="inherited">
   Get the box in which this object is stored. Returns <code>null</code> if object has
-not been added to a box yet. 
-  <div class="features">read-only, inherited</div>
+not been added to a box yet.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="createdOrganizations" class="property">
   <span class="name"><a href="../models_user_user_info/User/createdOrganizations.html">createdOrganizations</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(8), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="email" class="property">
   <span class="name"><a href="../models_user_user_info/User/email.html">email</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(5), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="firstName" class="property">
   <span class="name"><a href="../models_user_user_info/User/firstName.html">firstName</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(3), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="hashCode" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
-  The hash code for this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">[...]</a>
-  <div class="features">read-only, inherited</div>
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="id" class="property">
   <span class="name"><a href="../models_user_user_info/User/id.html">id</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(2), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="image" class="property">
   <span class="name"><a href="../models_user_user_info/User/image.html">image</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(6), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="isInBox" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/isInBox.html">isInBox</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span> 
+  <span class="name"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/isInBox.html">isInBox</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
 
 </dt>
 <dd class="inherited">
-  Returns whether this object is currently stored in a box. <a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/isInBox.html">[...]</a>
-  <div class="features">read-only, inherited</div>
+  Returns whether this object is currently stored in a box.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="joinedOrganizations" class="property">
   <span class="name"><a href="../models_user_user_info/User/joinedOrganizations.html">joinedOrganizations</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(7), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="key" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/key.html">key</a></span>
+  <span class="name"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/key.html">key</a></span>
   <span class="signature">&#8594; dynamic</span> 
 
 </dt>
 <dd class="inherited">
   Get the key associated with this object. Returns <code>null</code> if object has
-not been added to a box yet. 
-  <div class="features">read-only, inherited</div>
+not been added to a box yet.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="lastName" class="property">
   <span class="name"><a href="../models_user_user_info/User/lastName.html">lastName</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(4), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="membershipRequests" class="property">
   <span class="name"><a href="../models_user_user_info/User/membershipRequests.html">membershipRequests</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(10), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="refreshToken" class="property">
   <span class="name"><a href="../models_user_user_info/User/refreshToken.html">refreshToken</a></span>
-  <span class="signature">&#8596; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a>?</span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
 
 </dt>
 <dd>
-   
-  <div class="features">@<a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveField-class.html">HiveField</a>(1), read / write</div>
+  
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
         <dt id="runtimeType" class="property inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/Type-class.html">Type</a></span> 
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
-  A representation of the runtime type of the object. 
-  <div class="features">read-only, inherited</div>
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-methods">
-      <h2>Methods</h2>
-      <dl class="callables">
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
         <dt id="delete" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/delete.html">delete</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html">delete</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Deletes this object from the box it is stored in. 
-  <div class="features">inherited</div>
+  Deletes this object from the box it is stored in.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="noSuchMethod" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
+  Invoked when a non-existent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="print" class="callable">
   <span class="name"><a href="../models_user_user_info/User/print.html">print</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="save" class="callable inherited">
-  <span class="name"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/save.html">save</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  <span class="name"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html">save</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Persists this object. 
-  <div class="features">inherited</div>
+  Persists this object.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="toString" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  A string representation of this object. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">[...]</a>
-  <div class="features">inherited</div>
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="update" class="callable">
   <span class="name"><a href="../models_user_user_info/User/update.html">update</a></span><span class="signature">(<wbr><span class="parameter" id="update-param-details"><span class="type-annotation"><a href="../models_user_user_info/User-class.html">User</a></span> <span class="parameter-name">details</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="updateAdminFor" class="callable">
-  <span class="name"><a href="../models_user_user_info/User/updateAdminFor.html">updateAdminFor</a></span><span class="signature">(<wbr><span class="parameter" id="updateAdminFor-param-orgList"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+  <span class="name"><a href="../models_user_user_info/User/updateAdminFor.html">updateAdminFor</a></span><span class="signature">(<wbr><span class="parameter" id="updateAdminFor-param-orgList"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="updateCreatedOrg" class="callable">
-  <span class="name"><a href="../models_user_user_info/User/updateCreatedOrg.html">updateCreatedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateCreatedOrg-param-orgList"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+  <span class="name"><a href="../models_user_user_info/User/updateCreatedOrg.html">updateCreatedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateCreatedOrg-param-orgList"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="updateJoinedOrg" class="callable">
-  <span class="name"><a href="../models_user_user_info/User/updateJoinedOrg.html">updateJoinedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateJoinedOrg-param-orgList"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+  <span class="name"><a href="../models_user_user_info/User/updateJoinedOrg.html">updateJoinedOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateJoinedOrg-param-orgList"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
         <dt id="updateMemberRequestOrg" class="callable">
-  <span class="name"><a href="../models_user_user_info/User/updateMemberRequestOrg.html">updateMemberRequestOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateMemberRequestOrg-param-orgList"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
+  <span class="name"><a href="../models_user_user_info/User/updateMemberRequestOrg.html">updateMemberRequestOrg</a></span><span class="signature">(<wbr><span class="parameter" id="updateMemberRequestOrg-param-orgList"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../models_organization_org_info/OrgInfo-class.html">OrgInfo</a></span>&gt;</span></span> <span class="parameter-name">orgList</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-   
+  
   
 
 </dd>
 
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor inherited" id="operators">
-      <h2>Operators</h2>
-      <dl class="callables">
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
         <dt id="operator ==" class="callable inherited">
-  <span class="name"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  The equality operator. <a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">[...]</a>
-  <div class="features">inherited</div>
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
-
-
+    </dl>
+  </section>
+    
+    
+    
 
 
   </div> <!-- /.main-content -->
@@ -453,9 +479,9 @@ not been added to a box yet.
 
     <h5>user_info library</h5>
     <ol>
-  <li class="section-title"><a href="../models_user_user_info/models_user_user_info-library.html#classes">Classes</a></li>
-  <li><a href="../models_user_user_info/User-class.html">User</a></li>
-  <li><a href="../models_user_user_info/UserAdapter-class.html">UserAdapter</a></li>
+      <li class="section-title"><a href="../models_user_user_info/models_user_user_info-library.html#classes">Classes</a></li>
+        <li><a href="../models_user_user_info/User-class.html">User</a></li>
+        <li><a href="../models_user_user_info/UserAdapter-class.html">UserAdapter</a></li>
 
 
 
@@ -471,45 +497,45 @@ not been added to a box yet.
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <ol>
 
-    <li class="section-title"><a href="../models_user_user_info/User-class.html#constructors">Constructors</a></li>
-    <li><a href="../models_user_user_info/User/User.html">User</a></li>
-    <li><a href="../models_user_user_info/User/User.fromJson.html">fromJson</a></li>
+        <li class="section-title"><a href="../models_user_user_info/User-class.html#constructors">Constructors</a></li>
+          <li><a href="../models_user_user_info/User/User.html">User</a></li>
+          <li><a href="../models_user_user_info/User/User.fromJson.html">fromJson</a></li>
 
 
-    <li class="section-title">
-      <a href="../models_user_user_info/User-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../models_user_user_info/User/adminFor.html">adminFor</a></li>
-    <li><a href="../models_user_user_info/User/authToken.html">authToken</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/box.html">box</a></li>
-    <li><a href="../models_user_user_info/User/createdOrganizations.html">createdOrganizations</a></li>
-    <li><a href="../models_user_user_info/User/email.html">email</a></li>
-    <li><a href="../models_user_user_info/User/firstName.html">firstName</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../models_user_user_info/User/id.html">id</a></li>
-    <li><a href="../models_user_user_info/User/image.html">image</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/isInBox.html">isInBox</a></li>
-    <li><a href="../models_user_user_info/User/joinedOrganizations.html">joinedOrganizations</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/key.html">key</a></li>
-    <li><a href="../models_user_user_info/User/lastName.html">lastName</a></li>
-    <li><a href="../models_user_user_info/User/membershipRequests.html">membershipRequests</a></li>
-    <li><a href="../models_user_user_info/User/refreshToken.html">refreshToken</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title">
+          <a href="../models_user_user_info/User-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../models_user_user_info/User/adminFor.html">adminFor</a></li>
+          <li><a href="../models_user_user_info/User/authToken.html">authToken</a></li>
+          <li class="inherited"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/box.html">box</a></li>
+          <li><a href="../models_user_user_info/User/createdOrganizations.html">createdOrganizations</a></li>
+          <li><a href="../models_user_user_info/User/email.html">email</a></li>
+          <li><a href="../models_user_user_info/User/firstName.html">firstName</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../models_user_user_info/User/id.html">id</a></li>
+          <li><a href="../models_user_user_info/User/image.html">image</a></li>
+          <li class="inherited"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/isInBox.html">isInBox</a></li>
+          <li><a href="../models_user_user_info/User/joinedOrganizations.html">joinedOrganizations</a></li>
+          <li class="inherited"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/key.html">key</a></li>
+          <li><a href="../models_user_user_info/User/lastName.html">lastName</a></li>
+          <li><a href="../models_user_user_info/User/membershipRequests.html">membershipRequests</a></li>
+          <li><a href="../models_user_user_info/User/refreshToken.html">refreshToken</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../models_user_user_info/User-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/delete.html">delete</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../models_user_user_info/User/print.html">print</a></li>
-    <li class="inherited"><a href="https://pub.dev/documentation/hive/2.0.4/hive/HiveObjectMixin/save.html">save</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
-    <li><a href="../models_user_user_info/User/update.html">update</a></li>
-    <li><a href="../models_user_user_info/User/updateAdminFor.html">updateAdminFor</a></li>
-    <li><a href="../models_user_user_info/User/updateCreatedOrg.html">updateCreatedOrg</a></li>
-    <li><a href="../models_user_user_info/User/updateJoinedOrg.html">updateJoinedOrg</a></li>
-    <li><a href="../models_user_user_info/User/updateMemberRequestOrg.html">updateMemberRequestOrg</a></li>
+        <li class="section-title"><a href="../models_user_user_info/User-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/delete.html">delete</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../models_user_user_info/User/print.html">print</a></li>
+          <li class="inherited"><a href="https://pub.dev/documentation/hive/2.2.3/hive/HiveObjectMixin/save.html">save</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+          <li><a href="../models_user_user_info/User/update.html">update</a></li>
+          <li><a href="../models_user_user_info/User/updateAdminFor.html">updateAdminFor</a></li>
+          <li><a href="../models_user_user_info/User/updateCreatedOrg.html">updateCreatedOrg</a></li>
+          <li><a href="../models_user_user_info/User/updateJoinedOrg.html">updateJoinedOrg</a></li>
+          <li><a href="../models_user_user_info/User/updateMemberRequestOrg.html">updateMemberRequestOrg</a></li>
 
-    <li class="section-title inherited"><a href="../models_user_user_info/User-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../models_user_user_info/User-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -532,7 +558,7 @@ not been added to a box yet.
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

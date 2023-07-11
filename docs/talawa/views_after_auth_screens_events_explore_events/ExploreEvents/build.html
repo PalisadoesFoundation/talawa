@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../views_after_auth_screens_events_explore_events/views_after_auth_screens_events_explore_events-library.html">explore_events</a></li>
@@ -38,52 +37,60 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">build</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
-<div>
-  <ol class="annotation-list">
-    <li>@<a href="https://api.dart.dev/stable/2.16.1/dart-core/override-constant.html">override</a></li>
-  </ol>
-</div>
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
 
-<span class="returntype">Widget</span>
-<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
 </ol>)
 
-      
+      <div class="features"><span class="feature">override</span></div>
 
     </section>
     
 <section class="desc markdown">
   <p>Describes the part of the user interface represented by this widget.</p>
 <p>The framework calls this method when this widget is inserted into the tree
-in a given <code>BuildContext</code> and when the dependencies of this widget change
-(e.g., an <code>InheritedWidget</code> referenced by this widget changes). This
+in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
+(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
 method can potentially be called in every frame and should not have any side
 effects beyond building a widget.</p>
 <p>The framework replaces the subtree below this widget with the widget
 returned by this method, either by updating the existing subtree or by
 removing the subtree and inflating a new subtree, depending on whether the
 widget returned by this method can update the root of the existing
-subtree, as determined by calling <code>Widget.canUpdate</code>.</p>
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
 <p>Typically implementations return a newly created constellation of widgets
 that are configured with information from this widget's constructor and
-from the given <code>BuildContext</code>.</p>
-<p>The given <code>BuildContext</code> contains information about the location in the
+from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
 tree at which this widget is being built. For example, the context
 provides the set of inherited widgets for this location in the tree. A
-given widget might be built with multiple different <code>BuildContext</code>
+given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
 arguments over time if the widget is moved around the tree or if the
 widget is inserted into the tree in multiple places at once.</p>
 <p>The implementation of this method must only depend on:</p>
@@ -91,13 +98,13 @@ widget is inserted into the tree in multiple places at once.</p>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
 <li>any ambient state obtained from the <code>context</code> using
-<code>BuildContext.dependOnInheritedWidgetOfExactType</code>.</li>
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/build.html">build</a> method is to depend on anything else, use a
-<code>StatefulWidget</code> instead.</p>
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
 <p>See also:</p>
 <ul>
-<li><code>StatelessWidget</code>, which contains the discussion on performance considerations.</li>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
 </ul>
 </section>
 
@@ -112,6 +119,7 @@ Widget build(BuildContext context) {
     builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(
+          &#47;&#47; AppBar returns widget for the header.
           backgroundColor: Theme.of(context).primaryColor,
           key: const Key(&quot;ExploreEventsAppBar&quot;),
           elevation: 0.0,
@@ -119,12 +127,13 @@ Widget build(BuildContext context) {
           centerTitle: true,
           title: Text(
             AppLocalizations.of(context)!.strictTranslate(&#39;Explore Events&#39;),
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
           ),
           leading: IconButton(
+            &#47;&#47; returns a button of menu icon to redirect to home.
             color: Theme.of(context).iconTheme.color,
             icon: const Icon(Icons.menu),
             onPressed: () =&gt;
@@ -135,6 +144,7 @@ Widget build(BuildContext context) {
               padding: EdgeInsets.only(
                 right: SizeConfig.screenWidth! * 0.027,
               ),
+              &#47;&#47; if the events is not empty then renders button for searching the events else renders just a box.
               child: model.events.isNotEmpty
                   ? IconButton(
                       onPressed: () {
@@ -152,17 +162,19 @@ Widget build(BuildContext context) {
             )
           ],
         ),
+        &#47;&#47; if the model is still fetching the events list then renders the Circular Progress Indicator
+        &#47;&#47; else render refresh icon along with the list of searched events for exploration.
         body: model.isBusy
             ? const Center(child: CircularProgressIndicator())
             : RefreshIndicator(
-                onRefresh: () async =&gt; model.fetchNewEvents(),
+                onRefresh: () async =&gt; model.refreshEvents(),
                 child: Stack(
                   children: [
                     SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth! * 0.027,
+                          horizontal: SizeConfig.screenWidth! * 0.010,
                         ),
                         child: Column(
                           children: [
@@ -170,72 +182,97 @@ Widget build(BuildContext context) {
                               mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                               children: [
-                                Card(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  elevation: 2,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    width: SizeConfig.screenWidth! * 0.55,
-                                    child: DropdownButtonHideUnderline(
-                                      child: dropDownList(model, context),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return const ExploreEventDialog(
-                                          key: Key(&#39;ExploreEvents&#39;),
-                                        );
-                                      },
-                                    );
-                                  },
+                                Expanded(
+                                  flex: 3,
                                   child: Card(
-                                    key: homeModel?.keySEDateFilter,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onPrimary,
-                                    child: SizedBox(
-                                      height:
-                                          SizeConfig.screenHeight! * 0.068,
-                                      width: SizeConfig.screenWidth! * 0.27,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Icon(
-                                            Icons.calendar_today,
-                                            color: Color(0xff524F4F),
-                                            size: 19,
-                                          ),
-                                          SizedBox(
-                                            width: SizeConfig.screenWidth! *
-                                                0.17,
-                                            child: Text(
+                                    elevation: 2,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                      &#47;&#47;width: SizeConfig.screenWidth! * 0.45,
+                                      child: DropdownButtonHideUnderline(
+                                        child: dropDownList(model, context),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        &#47;&#47; on tap open the Explore Event Dialog.
+                                        context: context,
+                                        builder: (_) {
+                                          return const ExploreEventDialog(
+                                            key: Key(&#39;ExploreEvents&#39;),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Card(
+                                      key: homeModel?.keySEDateFilter,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                        ),
+                                        &#47;&#47; width: SizeConfig.screenWidth! * 0.30,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            const Icon(
+                                              Icons.calendar_today,
+                                              color: Color(0xff524F4F),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
                                               AppLocalizations.of(context)!
                                                   .strictTranslate(
                                                 &quot;Add Date&quot;,
                                               ),
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Card(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        navigationService.pushScreen(
+                                          Routes.calendar,
+                                          arguments: model.events,
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.calendar_month,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.027,
                             ),
+                            &#47;&#47; if the events model is empty then renders a box with text as &quot;Empty List&quot;
+                            &#47;&#47; else renders lists of the all event tile.
                             model.events.isEmpty
                                 ? SizedBox(
                                     height: SizeConfig.screenHeight! * 0.5,
@@ -276,7 +313,8 @@ Widget build(BuildContext context) {
               ),
         floatingActionButton: FloatingActionButton.extended(
           key: homeModel?.keySEAdd,
-          backgroundColor: Theme.of(context).primaryColor,
+          heroTag: &quot;AddEventFab&quot;,
+          backgroundColor: Theme.of(context).colorScheme.background,
           onPressed: () {
             navigationService.pushScreen(
               &quot;&#47;createEventPage&quot;,
@@ -290,7 +328,7 @@ Widget build(BuildContext context) {
             AppLocalizations.of(context)!.strictTranslate(&quot;Event&quot;),
             style: Theme.of(context)
                 .textTheme
-                .headline5!
+                .headlineSmall!
                 .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         ),
@@ -321,33 +359,33 @@ Widget build(BuildContext context) {
     <h5>ExploreEvents class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#constructors">Constructors</a></li>
-    <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.html">ExploreEvents</a></li>
+        <li class="section-title"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#constructors">Constructors</a></li>
+          <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.html">ExploreEvents</a></li>
 
 
-    <li class="section-title">
-      <a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/hashCode.html">hashCode</a></li>
-    <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/homeModel.html">homeModel</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/key.html">key</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title">
+          <a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+          <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/homeModel.html">homeModel</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/build.html">build</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/createElement.html">createElement</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/debugDescribeChildren.html">debugDescribeChildren</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/debugFillProperties.html">debugFillProperties</a></li>
-    <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/dropDownList.html">dropDownList</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/toString.html">toString</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/toStringDeep.html">toStringDeep</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/toStringShallow.html">toStringShallow</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/toStringShort.html">toStringShort</a></li>
+        <li class="section-title"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/build.html">build</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
+          <li><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/dropDownList.html">dropDownList</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
 
-    <li class="section-title inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
 
 
 
@@ -373,7 +411,7 @@ Widget build(BuildContext context) {
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

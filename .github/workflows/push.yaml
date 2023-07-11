@@ -74,6 +74,7 @@ jobs:
 
   Update-Documentation:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
     environment: TALAWA_ENVIRONMENT
     steps:
       - uses: actions/checkout@v3
@@ -115,17 +116,40 @@ jobs:
         run: |
           echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
           echo "email=$(echo $(git log --pretty=format:"%ae" $commit_id))" >> $GITHUB_ENV
-      - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.TALAWA_DOCS_SYNC }}
-        with:
-          source_file: 'docs/talawa/'
-          destination_repo: 'PalisadoesFoundation/talawa-docs'
-          destination_branch: 'develop'
-          destination_folder: 'static'
-          user_email: '${{env.email}}'
-          user_name: '${{github.actor}}'
-          commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
+      - name: Handle untracked files
+        if: steps.DocUpdated.outputs.updateDoc
+        run: |
+          git config --global user.name "${{github.actor}}"
+          git config --global user.email "${{env.email}}"
+          git add .
+      - name: Update Doc
+        if: steps.DocUpdated.outputs.updateDoc
+        run: |
+          Green='0;32'
+          NoColor='\033[0m'
+          git config --global user.name "${{github.actor}}"
+          git config --global user.email "${{env.email}}"
+          git commit -a -m "Updated docs"
+          git push
+          echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
+          
+  Documentation-to-talawa-docs:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
+    needs: Update-Documentation
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
+      with:
+        source_file: 'docs/talawa/'
+        destination_repo: 'PalisadoesFoundation/talawa-docs'
+        destination_branch: 'develop'
+        destination_folder: 'static'
+        user_email: '${{env.email}}'
+        user_name: '${{github.actor}}'
+        commit_message: 'Overwriting static/talawa from talawa-repo'
 
   Flutter-Testing:
     name: Testing codebase

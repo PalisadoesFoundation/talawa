@@ -33,48 +33,50 @@ dependencies:
   file: ^6.1.4
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.4.1
-  firebase_messaging_platform_interface: ^4.2.16
+
+  firebase_messaging: ^14.6.4
+  firebase_messaging_platform_interface: ^4.5.3
+
   flutter:
     sdk: flutter
 
   flutter_braintree: ^3.0.0
-  flutter_cache_manager: ^3.3.0
-  flutter_local_notifications: ^14.0.0
+  flutter_cache_manager: ^3.3.1
+  flutter_local_notifications: ^15.1.0+1
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.5
-  font_awesome_flutter: ^10.4.0
+  font_awesome_flutter: ^10.4.0 
   geocoding: ^2.1.0
   geolocator: ^9.0.2
-  get_it: ^7.4.0
-  google_maps_flutter: ^2.2.5
+  get_it: ^7.5.0
+  google_maps_flutter: ^2.3.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^0.13.6
   image_cropper: ^4.0.1
-  image_picker: ^0.8.7
+  image_picker: ^1.0.0
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.3.2
   network_image_mock: ^2.1.1
   path_provider: ^2.0.15
-  permission_handler: ^10.2.0
+  permission_handler: ^10.4.2
   plugin_platform_interface: ^2.1.3
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
-  quick_actions: ^1.0.1
-  shared_preferences: ^2.1.0
+  quick_actions: ^1.0.3
+  shared_preferences: ^2.2.0
   shimmer: ^3.0.0
   social_share: ^2.2.1
   syncfusion_flutter_calendar: 20.4.54
   syncfusion_flutter_datepicker: 20.4.54
   timelines: ^0.1.0
-  tutorial_coach_mark: ^1.2.8
+  tutorial_coach_mark: ^1.2.9
   uni_links: ^0.5.1
-  vibration: ^1.7.6
+  vibration: ^1.8.1
   video_player: ^2.6.1
   visibility_detector: ^0.4.0+2
 
@@ -86,8 +88,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.0
-  json_serializable: ^6.6.2
-  lint: ^2.0.1
+
+  json_serializable: ^6.6.1
+  lint: ^2.0.20 
+
   mocktail_image_network: ^0.3.1
   talawa_lint:
     path: talawa_lint/

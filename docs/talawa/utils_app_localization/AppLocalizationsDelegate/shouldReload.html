@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../../"
-      data-using-base-href="false">
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">talawa</a></li>
     <li><a href="../../utils_app_localization/utils_app_localization-library.html">app_localization</a></li>
@@ -38,37 +37,45 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-method">shouldReload</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
-<div>
-  <ol class="annotation-list">
-    <li>@<a href="https://api.dart.dev/stable/2.16.1/dart-core/override-constant.html">override</a></li>
-  </ol>
-</div>
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.16.1/dart-core/bool-class.html">bool</a></span>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
 <span class="name ">shouldReload</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="shouldReload-param-old"><span>covariant</span> <span class="type-annotation"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html">AppLocalizationsDelegate</a></span> <span class="parameter-name">old</span></span></li>
 </ol>)
 
-      
+      <div class="features"><span class="feature">override</span></div>
 
     </section>
     
 <section class="desc markdown">
   <p>Returns true if the resources for this delegate should be loaded
 again by calling the <a href="../../utils_app_localization/AppLocalizationsDelegate/load.html">load</a> method.</p>
-<p>This method is called whenever its <code>Localizations</code> widget is
+<p>This method is called whenever its <a href="https://api.flutter.dev/flutter/widgets/Localizations-class.html">Localizations</a> widget is
 rebuilt. If it returns true then dependent widgets will be rebuilt
 after <a href="../../utils_app_localization/AppLocalizationsDelegate/load.html">load</a> has completed.</p>
 </section>
@@ -102,27 +109,27 @@ bool shouldReload(AppLocalizationsDelegate old) =&gt; false;</code></pre>
     <h5>AppLocalizationsDelegate class</h5>
     <ol>
 
-    <li class="section-title"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#constructors">Constructors</a></li>
-    <li><a href="../../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.html">AppLocalizationsDelegate</a></li>
+        <li class="section-title"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#constructors">Constructors</a></li>
+          <li><a href="../../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.html">AppLocalizationsDelegate</a></li>
 
 
-    <li class="section-title">
-      <a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../../utils_app_localization/AppLocalizationsDelegate/isTest.html">isTest</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li class="inherited"><a href="../../utils_app_localization/AppLocalizationsDelegate/type.html">type</a></li>
+        <li class="section-title">
+          <a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../../utils_app_localization/AppLocalizationsDelegate/isTest.html">isTest</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/type.html">type</a></li>
 
-    <li class="section-title"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../utils_app_localization/AppLocalizationsDelegate/isSupported.html">isSupported</a></li>
-    <li><a href="../../utils_app_localization/AppLocalizationsDelegate/load.html">load</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../../utils_app_localization/AppLocalizationsDelegate/shouldReload.html">shouldReload</a></li>
-    <li class="inherited"><a href="../../utils_app_localization/AppLocalizationsDelegate/toString.html">toString</a></li>
+        <li class="section-title"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../utils_app_localization/AppLocalizationsDelegate/isSupported.html">isSupported</a></li>
+          <li><a href="../../utils_app_localization/AppLocalizationsDelegate/load.html">load</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../../utils_app_localization/AppLocalizationsDelegate/shouldReload.html">shouldReload</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../../utils_app_localization/AppLocalizationsDelegate-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -148,7 +155,7 @@ bool shouldReload(AppLocalizationsDelegate old) =&gt; false;</code></pre>
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
-<script src="../../static-assets/script.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
 
 
 

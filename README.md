@@ -1,6 +1,6 @@
 # Talawa
 
-[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1w0mkgk1u-o7B4cChAAkQYSJQKWJs4qQ)
+[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1xt5a6r2v-PzOXSYskbnHD17CwaiaBXA)
 
 ![talawa-logo-lite-200x200](https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png)
 
@@ -35,8 +35,8 @@ Core features include:
 
 Get familiar with `talawa`:
 
-1. Read our [Talawa Mobile App installation guide](INSTALLATION.md) to get setup quickly.
+1. Read our [Talawa Mobile App installation guide](https://github.com/PalisadoesFoundation/talawa/blob/develop/INSTALLATION.md) to get setup quickly.
 1. The complete talawa documentation set can be found [here](https://docs.talawa.io).
-1. Want to contribute? Look at [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+1. Want to contribute? Look at [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/CONTRIBUTING.md) to get started.
 1. Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
 
