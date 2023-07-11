@@ -110,7 +110,8 @@ class ChatService {
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
-    final messages = result.data['directChatsMessagesByChatID'] as List;
+    var messages = result?.data['directChatsMessagesByChatID'];
+    messages = messages != null ? messages as List : [];
 
     messages.forEach((message) {
       final chatMessage = ChatMessage.fromJson(message as Map<String, dynamic>);

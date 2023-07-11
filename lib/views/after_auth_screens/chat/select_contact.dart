@@ -3,7 +3,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
+import 'package:talawa/models/chats/chat_user.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/base_view.dart';
 
 /// SelectContact returns a widget that has mutable state _SelectContactState.
@@ -48,7 +52,15 @@ class _SelectContactState extends State<SelectContact> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatMessageScreen(chat: ChatListTileDataModel(ChatUser(model.orgMembersList[index].firstName,model.orgMembersList[index].id,model.orgMembersList[index].image),null,0))));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatMessageScreen(
+                        chatId: model.orgMembersList[index].id ?? "",
+                        model: DirectChatViewModel(),
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   child: Padding(
