@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/apptheme.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -17,6 +18,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
@@ -34,7 +36,8 @@ class ProfilePage extends StatelessWidget {
         return Scaffold(
           key: model.scaffoldKey,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
+            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             leading: IconButton(
@@ -47,9 +50,9 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
+                  // fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  color: Colors.white),
             ),
           ),
           // if data fetching is under process then renders Circular Progress Icon
@@ -62,50 +65,97 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.01,
                       ),
-                      CustomListTile(
-                        key: const Key('OptionEditProfile'),
-                        index: 0,
-                        type: TileType.option,
-                        option: Options(
-                          // Avatar
-                          icon: CustomAvatar(
-                            isImageNull: model.currentUser.image == null,
-                            firstAlphabet:
-                                model.currentUser.firstName!.substring(0, 1),
-                            imageUrl: model.currentUser.image,
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .fontSize,
-                          ),
-                          // display first and last name.
-                          title:
-                              '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                          // display email address
-                          subtitle: model.currentUser.email!,
-                          // button to edit the profile which redirects to edit profile page.
-                          trailingIconButton: IconButton(
-                            icon: Icon(
-                              Icons.drive_file_rename_outline,
-                              color: Theme.of(context).colorScheme.secondary,
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomAvatar(
+                                isImageNull: model.currentUser.image == null,
+                                firstAlphabet: model.currentUser.firstName!
+                                    .substring(0, 1),
+                                imageUrl: model.currentUser.image,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .fontSize,
+                                maxRadius: 30,
+                              ),
                             ),
-                            onPressed: () {
-                              navigationService.pushScreen("/editProfilePage");
-                            },
                           ),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.drive_file_rename_outline,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              onPressed: () {
+                                navigationService
+                                    .pushScreen("/editProfilePage");
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20,),
+                      TalawaPluginProvider(
+                        pluginName: "Donation",
+                        visible: true,
+                        child: Column(
+                          children: [
+                            // CustomListTile(
+                            //   key: homeModel!.keySPDonateUs,
+                            //   index: 2,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.monetization_on,
+                            //       color: Theme.of(context)
+                            //           .colorScheme
+                            //           .secondary,
+                            //       size: 30,
+                            //     ),
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Donate  Us'),
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate(
+                            //       'Help us to develop for you',
+                            //     ),
+                            //   ),
+                            //   onTapOption: () => donate(context, model),
+                            // ),
+                            RaisedRoundedButton(
+                              key: homeModel!.keySPDonateUs,
+                              buttonLabel: AppLocalizations.of(context)!
+                                  .strictTranslate('Donate to the Community'),
+                              onTap: () => donate(context, model),
+                              textColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .focusedBorder!
+                                  .borderSide
+                                  .color,
+                              backgroundColor:
+                              Theme.of(context).colorScheme.secondaryContainer,
+                            ),
+                          ],
                         ),
-                        onTapOption: () {},
                       ),
-                      const Divider(
-                        thickness: 1, // thickness of the line
-                        indent:
-                            20, // empty space to the leading edge of divider.
-                        endIndent:
-                            20, // empty space to the trailing edge of the divider.
-                        color: Colors
-                            .black26, // The color to use when painting the line.
-                        height: 20, //
-                      ),
+
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.67,
                         child: Column(
@@ -114,58 +164,60 @@ class ProfilePage extends StatelessWidget {
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.01,
                             ),
-                            CustomListTile(
-                              key: homeModel!.keySPAppSetting,
-                              index: 0,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.phonelink_setup,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title for App Settings.
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('App Settings'),
-                                // display language of the app.
-                                subtitle:
-                                    '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
-                              ),
-                              // button for the app setting which redirects to app setting page.
-                              onTapOption: () {
-                                navigationService
-                                    .pushScreen("/appSettingsPage");
-                              },
-                            ),
+                            //TODO: App setting bar.
+                            // CustomListTile(
+                            //   key: homeModel!.keySPAppSetting,
+                            //   index: 0,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.phonelink_setup,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     // title for App Settings.
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('App Settings'),
+                            //     // display language of the app.
+                            //     subtitle:
+                            //         '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
+                            //   ),
+                            //   // button for the app setting which redirects to app setting page.
+                            //   onTapOption: () {
+                            //     navigationService
+                            //         .pushScreen("/appSettingsPage");
+                            //   },
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
-                            CustomListTile(
-                              key: const Key('TasksByUser'),
-                              index: 1,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.task_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title for My Tasks tile
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('My Tasks'),
-                                // display subtitle
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  "View and edit all tasks created by you",
-                                ),
-                              ),
-                              // on tag redirects to the user Tasks page.
-                              onTapOption: () {
-                                navigationService.pushScreen(Routes.userTasks);
-                              },
-                            ),
+                            //TODO: my task.
+                            // CustomListTile(
+                            //   key: const Key('TasksByUser'),
+                            //   index: 1,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.task_outlined,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     // title for My Tasks tile
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('My Tasks'),
+                            //     // display subtitle
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate(
+                            //       "View and edit all tasks created by you",
+                            //     ),
+                            //   ),
+                            //   // on tag redirects to the user Tasks page.
+                            //   onTapOption: () {
+                            //     navigationService.pushScreen(Routes.userTasks);
+                            //   },
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
@@ -190,83 +242,85 @@ class ProfilePage extends StatelessWidget {
                             // ),
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
-                            TalawaPluginProvider(
-                              pluginName: "Donation",
-                              visible: true,
-                              child: Column(
-                                children: [
-                                  CustomListTile(
-                                    key: homeModel!.keySPDonateUs,
-                                    index: 2,
-                                    type: TileType.option,
-                                    option: Options(
-                                      icon: Icon(
-                                        Icons.monetization_on,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        size: 30,
-                                      ),
-                                      title: AppLocalizations.of(context)!
-                                          .strictTranslate('Donate  Us'),
-                                      subtitle: AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'Help us to develop for you',
-                                      ),
-                                    ),
-                                    onTapOption: () => donate(context, model),
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.screenHeight! * 0.05,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // custom tile for Invitation.
-                            CustomListTile(
-                              key: homeModel!.keySPInvite,
-                              index: 3,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.share,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite'),
-                                // subtitle
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite to org'),
-                              ),
-                              // on tap call the invite function
-                              onTapOption: () => model.invite(context),
-                            ),
+                            //TODO: the donating button
+                            // TalawaPluginProvider(
+                            //   pluginName: "Donation",
+                            //   visible: true,
+                            //   child: Column(
+                            //     children: [
+                            //       CustomListTile(
+                            //         key: homeModel!.keySPDonateUs,
+                            //         index: 2,
+                            //         type: TileType.option,
+                            //         option: Options(
+                            //           icon: Icon(
+                            //             Icons.monetization_on,
+                            //             color: Theme.of(context)
+                            //                 .colorScheme
+                            //                 .secondary,
+                            //             size: 30,
+                            //           ),
+                            //           title: AppLocalizations.of(context)!
+                            //               .strictTranslate('Donate  Us'),
+                            //           subtitle: AppLocalizations.of(context)!
+                            //               .strictTranslate(
+                            //             'Help us to develop for you',
+                            //           ),
+                            //         ),
+                            //         onTapOption: () => donate(context, model),
+                            //       ),
+                            //       SizedBox(
+                            //         height: SizeConfig.screenHeight! * 0.05,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            //TODO: custom tile for Invitation.
+                            // CustomListTile(
+                            //   key: homeModel!.keySPInvite,
+                            //   index: 3,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.share,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     // title
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Invite'),
+                            //     // subtitle
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate('Invite to org'),
+                            //   ),
+                            //   // on tap call the invite function
+                            //   onTapOption: () => model.invite(context),
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
                             // Custom tile for Logout option.
-                            CustomListTile(
-                              key: homeModel!.keySPLogout,
-                              index: 3,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.logout,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Log out'),
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate('Log out from Talawa'),
-                              ),
-                              // on tap calls the logout function
-                              onTapOption: () => model.logout(context),
-                            ),
+                            //TODO: logout
+                            // CustomListTile(
+                            //   key: homeModel!.keySPLogout,
+                            //   index: 3,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.logout,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Log out'),
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate('Log out from Talawa'),
+                            //   ),
+                            //   // on tap calls the logout function
+                            //   onTapOption: () => model.logout(context),
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),

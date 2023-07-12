@@ -29,13 +29,6 @@ class PostListWidget extends StatelessWidget {
               post: posts[index],
               function: function,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              child: Divider(
-                height: 8,
-                thickness: 8,
-              ),
-            )
           ],
         );
       },

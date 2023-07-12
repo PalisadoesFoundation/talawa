@@ -26,15 +26,16 @@ class OrganizationFeed extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             // AppBar returns a widget for the header of the page.
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
+            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             title: Text(
               model.currentOrgName,
               key: homeModel?.keySHOrgName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    color: Colors.white,
                   ),
             ),
             leading: IconButton(

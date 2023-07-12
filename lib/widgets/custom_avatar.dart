@@ -16,12 +16,13 @@ class CustomAvatar extends StatelessWidget {
     this.firstAlphabet,
     this.cacheManager,
     this.imageUrl,
-    this.fontSize = 40,
+    this.fontSize = 40, this.maxRadius = 16,
   }) : super(key: key);
   final bool isImageNull;
   final String? firstAlphabet;
   final String? imageUrl;
   final double? fontSize;
+  final double? maxRadius;
   final BaseCacheManager? cacheManager;
 
   @override
@@ -31,12 +32,13 @@ class CustomAvatar extends StatelessWidget {
         ? CircleAvatar(
             backgroundColor:
                 Theme.of(context).iconTheme.color!.withOpacity(0.2),
+            maxRadius: maxRadius,
             child: Center(
               child: Text(
                 firstAlphabet!,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodySmall!
                     .copyWith(fontSize: fontSize),
               ),
             ),
