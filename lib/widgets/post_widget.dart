@@ -41,7 +41,7 @@ class NewsPost extends StatelessWidget {
           ),
           subtitle: Text(post.getPostCreatedDuration()),
         ),
-        DescriptionTextWidget(text: post.description!),
+        // DescriptionTextWidget(text: post.description!),
         Container(
           height: 400,
           color:

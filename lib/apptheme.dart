@@ -9,6 +9,7 @@ class AppTheme {
     fontWeight: FontWeight.w600,
     color: blackPrimary,
     fontFamily: 'OpenSans',
+    decorationThickness: 0,
   );
   static TextStyle headline1 = const TextStyle(
     fontSize: 24,

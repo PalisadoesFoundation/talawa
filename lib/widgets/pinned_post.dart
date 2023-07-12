@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 
@@ -86,41 +87,50 @@ class PinnedPost extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: 10,
             ),
-            child: SizedBox(
-              width: SizeConfig.screenWidth! / 4.1,
-              child: Column(
-                children: [
-                  CachedNetworkImage(
-                    cacheKey: pinnedPosts[index]['postId'],
-                    imageUrl:
-                    (pinnedPosts[index]['imageUrl'] ?? '').isEmpty
-                        ? 'placeHolderUrl'
-                        : pinnedPosts[index]['imageUrl']!,
-                    errorWidget: (context, url, error) {
-                      return const CircularProgressIndicator();
-                    },
-                    height: SizeConfig.screenHeight! * 0.15,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Text(
-                        '${pinnedPosts[index]['time']!}hr',
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w200,
+            child: GestureDetector(
+              onTap: (){
+                // final Map<String, dynamic> arg = {"index": "$index","post": pinnedPosts};
+                navigationService.pushScreen('/pinnedpostscreen', arguments: pinnedPosts[index]);
+              },
+              child: SizedBox(
+                width: SizeConfig.screenWidth! / 4.1,
+                child: Column(
+                  children: [
+                    CachedNetworkImage(
+                      cacheKey: pinnedPosts[index]['postId'],
+                      imageUrl:
+                      (pinnedPosts[index]['imageUrl'] ?? '').isEmpty
+                          ? 'placeHolderUrl'
+                          : pinnedPosts[index]['imageUrl']!,
+                      errorWidget: (context, url, error) {
+                        return const CircularProgressIndicator();
+                      },
+                      height: SizeConfig.screenHeight! * 0.15,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${pinnedPosts[index]['time']!}hr',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    pinnedPosts[index]['title']!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      pinnedPosts[index]['title']!,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

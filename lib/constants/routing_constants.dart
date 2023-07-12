@@ -96,4 +96,7 @@ class Routes {
 
   /// static variables.
   static const String selectContact = '/selectContact';
+
+  /// static variable to access pinnedpostscreen
+  static const String pinnedPostScreen = '/pinnedpostscreen';
 }
