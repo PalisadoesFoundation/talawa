@@ -18,10 +18,14 @@ on:
     branches-ignore:
       - 'master'
 
+    tags:
+      - "*"
+
 env:
     CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
     
 jobs:
+
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
@@ -67,18 +71,10 @@ jobs:
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
 #         run: echo "${{ toJSON(github) }}"
-      # - name: Granting permission to documentationcheck.py
-      #   run: chmod +x ./.github/workflows/documentationcheck.py
-      # - name: execute py script
-      #   # For more information on the GitHub context used for the "--repository" flag used by this script visit:
-      #   # https://docs.github.com/en/actions/learn-github-actions/contexts
-      #   run: |
-      #     git branch
-      #     pip install GitPython
-      #     python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
 
   Update-Documentation:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
     environment: TALAWA_ENVIRONMENT
     steps:
       - uses: actions/checkout@v3
@@ -120,44 +116,40 @@ jobs:
         run: |
           echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
           echo "email=$(echo $(git log --pretty=format:"%ae" $commit_id))" >> $GITHUB_ENV
-      #- name: Update Doc
-        #if: steps.DocUpdated.outputs.updateDoc
-        #run: |
-          #Green='0;32'
-          #NoColor='\033[0m'
-          #git config --global user.name "${{github.actor}}"
-          #git config --global user.email "${{env.email}}"
-          #git commit -a -m "Updated docs"
-          #git push
-          #echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
-      - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.TALAWA_DOCS_SYNC }}
-        with:
-          source_file: 'docs/talawa/'
-          destination_repo: 'PalisadoesFoundation/talawa-docs'
-          destination_branch: 'develop'
-          destination_folder: 'static'
-          user_email: '${{env.email}}'
-          user_name: '${{github.actor}}'
-          commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
+      - name: Handle untracked files
+        if: steps.DocUpdated.outputs.updateDoc
+        run: |
+          git config --global user.name "${{github.actor}}"
+          git config --global user.email "${{env.email}}"
+          git add .
+      - name: Update Doc
+        if: steps.DocUpdated.outputs.updateDoc
+        run: |
+          Green='0;32'
+          NoColor='\033[0m'
+          git config --global user.name "${{github.actor}}"
+          git config --global user.email "${{env.email}}"
+          git commit -a -m "Updated docs"
+          git push
+          echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
           
-  #Copy-docs-to-talawa-docs:
-    #runs-on: ubuntu-latest
-    #needs: Update-Documentation
-    #steps:
-    #- uses: actions/checkout@v3
-    #- uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      #env:
-        #API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      #with:
-        #source_file: 'docs/talawa/'
-        #destination_repo: 'PalisadoesFoundation/talawa-docs'
-        #destination_branch: 'develop'
-        #destination_folder: 'static/talawa'
-        #user_email: '${{env.email}}'
-        #user_name: '${{github.actor}}'
-        #commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
+  Documentation-to-talawa-docs:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/automated-docs'
+    needs: Update-Documentation
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
+      with:
+        source_file: 'docs/talawa/'
+        destination_repo: 'PalisadoesFoundation/talawa-docs'
+        destination_branch: 'develop'
+        destination_folder: 'static'
+        user_email: '${{env.email}}'
+        user_name: '${{github.actor}}'
+        commit_message: 'Overwriting static/talawa from talawa-repo'
 
   Flutter-Testing:
     name: Testing codebase
@@ -187,8 +179,11 @@ jobs:
           fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
-  Android-Build:
+  Android-Build-and-Release:
     name: Testing build for android
+    permissions:
+      contents: write
+    environment: TALAWA_ENVIRONMENT
     runs-on: ubuntu-latest
     needs: Flutter-Testing
     steps:
@@ -207,6 +202,21 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+
+        ###################################################
+        ## Release the built apk as an automated release ##
+        ###################################################
+
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "Automated Android Release"
+          artifacts: "./build/app/outputs/flutter-apk/app-release.apk"
+          allowUpdates: "true"
+          generateReleaseNotes: false
+          tag: "automated"
+          body: |
+            This is an automated release, triggered by a recent push. 
+            This may or may not be stable, so please have a look at the stable release(s).
 
   iOS-Build:
     name: Testing build for iOS

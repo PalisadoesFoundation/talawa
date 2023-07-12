@@ -32,6 +32,29 @@ import argparse
 from collections import namedtuple
 
 
+def _valid_filename(filepath):
+    """Determine whether filepath has the correct filename.
+
+    Args:
+        filepath: Filepath to check
+
+    Returns:
+        result: True if valid
+
+    """
+    # Initialize key variables
+    invalid_filenames = [".test.", ".spec."]
+    result = True
+
+    # Test
+    for invalid_filename in invalid_filenames:
+        if invalid_filename.lower() not in filepath.lower():
+            continue
+        result = False
+
+    return result
+
+
 def _valid_extension(filepath):
     """Determine whether filepath has the correct extension.
 
@@ -43,7 +66,7 @@ def _valid_extension(filepath):
 
     """
     # Initialize key variables
-    invalid_extensions = ['.css', '.jpg', '.png', '.jpeg']
+    invalid_extensions = [".css", ".jpg", ".png", ".jpeg"]
     result = True
 
     # Test
@@ -88,7 +111,7 @@ def _valid_exclusions(excludes):
             continue
 
         # Create a file path
-        filepath = '{}{}{}'.format(os.getcwd(), os.sep, filename)
+        filepath = "{}{}{}".format(os.getcwd(), os.sep, filename)
         if os.path.isfile(filepath) is True:
             result.append(filepath)
 
@@ -132,26 +155,39 @@ def _arg_parser_resolver():
     # Initialize parser and add the CLI options we should expect
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--lines', type=int, required=False, default=300,
-        help='The maximum number of lines of code to accept.')
+        "--lines",
+        type=int,
+        required=False,
+        default=300,
+        help="The maximum number of lines of code to accept.",
+    )
     parser.add_argument(
-        '--directory', type=str, required=False,
+        "--directory",
+        type=str,
+        required=False,
         default=os.getcwd(),
-        help='The parent directory of files to analyze.')
+        help="The parent directory of files to analyze.",
+    )
     parser.add_argument(
-        '--exclude_files', type=str, required=False,
-        nargs='*',
+        "--exclude_files",
+        type=str,
+        required=False,
+        nargs="*",
         default=None,
         const=None,
-        help='''An optional space separated list of \
-files to exclude from the analysis.''')
+        help="""An optional space separated list of \
+files to exclude from the analysis.""",
+    )
     parser.add_argument(
-        '--exclude_directories', type=str, required=False,
-        nargs='*',
+        "--exclude_directories",
+        type=str,
+        required=False,
+        nargs="*",
         default=None,
         const=None,
-        help='''An optional space separated list of \
-directories to exclude from the analysis.''')
+        help="""An optional space separated list of \
+directories to exclude from the analysis.""",
+    )
 
     # Return parser
     result = parser.parse_args()
@@ -175,22 +211,23 @@ def main():
     lookup = {}
     errors_found = False
     file_count = 0
-    Excludes = namedtuple('Excludes', 'files directories')
+    Excludes = namedtuple("Excludes", "files directories")
 
     # Get the CLI arguments
     args = _arg_parser_resolver()
 
     # Define the directories of interest
     directories = [
-        os.path.expanduser(os.path.join(args.directory, 'lib')),
-        os.path.expanduser(os.path.join(args.directory, 'src')),
-        os.path.expanduser(os.path.join(args.directory, 'test'))
+        os.path.expanduser(os.path.join(args.directory, "lib")),
+        os.path.expanduser(os.path.join(args.directory, "src")),
+        os.path.expanduser(os.path.join(args.directory, "test")),
     ]
 
     # Get a corrected list of filenames to exclude
     exclude_list = _valid_exclusions(
         Excludes(
-            files=args.exclude_files, directories=args.exclude_directories)
+            files=args.exclude_files, directories=args.exclude_directories
+        )
     )
 
     # Get interesting filepaths
@@ -203,18 +240,27 @@ def main():
             continue
 
         # Skip /node_modules/ sub directories
-        if '{0}node_modules{0}'.format(os.sep) in filepath:
+        if "{0}node_modules{0}".format(os.sep) in filepath:
             continue
 
         # Ignore invalid file extensions
         if _valid_extension(filepath) is False:
             continue
 
+        # Ignore invalid file filenames
+        if _valid_filename(filepath) is False:
+            continue
+
         # Process the rest
-        with open(filepath, encoding='latin-1') as code:
+        with open(filepath, encoding="latin-1") as code:
             line_count = sum(
-                1 for line in code
-                if line.strip() and not (line.strip().startswith('#') or line.strip().startswith('/'))
+                1
+                for line in code
+                if line.strip()
+                and not (
+                    line.strip().startswith("#")
+                    or line.strip().startswith("/")
+                )
             )
             lookup[filepath] = line_count
 
@@ -224,22 +270,28 @@ def main():
             errors_found = True
             file_count += 1
             if file_count == 1:
-                print('''
-LINE COUNT ERROR: Files with excessive lines of code have been found\n''')
+                print(
+                    """
+LINE COUNT ERROR: Files with excessive lines of code have been found\n"""
+                )
 
-            print('  Line count: {:>5} File: {}'.format(line_count, filepath))
+            print("  Line count: {:>5} File: {}".format(line_count, filepath))
 
     # Evaluate and exit
     if bool(errors_found) is True:
-        print('''
+        print(
+            """
 The {} files listed above have more than {} lines of code.
 
 Please fix this. It is a pre-requisite for pull request approval.
-'''.format(file_count, args.lines))
+""".format(
+                file_count, args.lines
+            )
+        )
         sys.exit(1)
     else:
         sys.exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

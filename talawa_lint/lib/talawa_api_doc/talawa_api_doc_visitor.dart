@@ -21,7 +21,7 @@ class TalawaApiDocVisitor extends SimpleAstVisitor {
     // If the class extends [State], we don't want documentation
     // for it
     final extendsState = (node is ClassDeclaration) &&
-        node.extendsClause?.superclass.name.name == "State";
+        node.extendsClause?.superclass.element?.name == "State";
 
     if (node.documentationComment == null &&
         !isOverridingMember(node) &&

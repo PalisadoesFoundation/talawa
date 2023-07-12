@@ -20,6 +20,8 @@ For best results you should setup your own **_local instances_** of:
 The INSTALLATION.md files in both repositories show you how. The Talawa-API INSTALLATION.md will also show you the Organization URL to use when you first login to Talawa mobile.
 
 ### Talawa Mobile App
+**Note:** If you are an Android user, you may choose to directly use the `apk` file provided in this repo, and skip the manual setup part. For more information about this, see the [Installation section](#Installation). But if you want to setup the development environment for yourself, read along.
+
 You'll need to set up the IDE and mobile device emulator on your local system and have access to a system running the Talawa API, which the mobile needs to access to operate properly.
 
 1. **Development Environment**: You'll need to have the following installed:
@@ -42,6 +44,17 @@ You'll need to set up the IDE and mobile device emulator on your local system an
         1. **Remember** to remove the key before committing changes and replace again with YOUR_KEY_HERE.
 
 # Installation
+
+You can start using Talawa by any of the two methods:
+
+1. Install the `apk` provided in the release section of this repo. It is built against the latest codebase. Please note that the release is provided only for Android. For iOS, you will still need to build the app yourself.	
+   - Head over to the [release section](https://github.com/PalisadoesFoundation/talawa/releases) of Talawa repository.
+   - You will find a release with the name of `Automated Android Release`. Scroll a bit and you will find a file named `app-release.apk`. Click on it and have it downloaded.
+   - Head over to the downloads of your browser and then click on `app-release.apk` there. That will ask you to install the app. Click on `Install`.
+   - Once done, you can find `Talawa` in your apps list. Start using it from right there :)
+2. Manually build the app by below described steps.
+
+## Manual Build and Installation
 
 We have tried to make the process simple. Here's what you need to do.
 

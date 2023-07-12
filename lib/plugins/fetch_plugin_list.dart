@@ -1,17 +1,24 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 
+/// This class fetch plugins list.
 class FetchPluginList {
+  /// Constructor of the class.
   FetchPluginList() {
     fetchList();
   }
+
+  /// late initialize the box.
   late Box box;
 
-  /// Fetches plugins from server and stores them in Hive `pluginBox`
+  /// Fetches plugins from server and stores them in Hive `pluginBox`.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: it returns Future of void
   Future<void> fetchList() async {
     late final GraphQLClient client = graphqlConfig.clientToQuery();
     final QueryResult result = await client.query(

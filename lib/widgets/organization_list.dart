@@ -130,16 +130,7 @@ class OrganizationList extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth! * 0.2,
-                      right: 12,
-                    ),
-                    child: const Divider(
-                      color: Color(0xFFE5E5E5),
-                      thickness: 0.5,
-                    ),
-                  );
+                  return Container();
                 },
               ),
             );
