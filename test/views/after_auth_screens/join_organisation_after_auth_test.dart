@@ -63,7 +63,6 @@ void main() {
       },
     );
 
-
     testWidgets(
       "Check if children show up correctly",
       (tester) async {
