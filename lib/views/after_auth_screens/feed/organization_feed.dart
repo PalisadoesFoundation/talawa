@@ -6,6 +6,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
+import 'package:talawa/widgets/pinned_post.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 /// OrganizationFeed returns a widget that shows the feed of the organization.
@@ -56,16 +57,17 @@ class OrganizationFeed extends StatelessWidget {
                     shrinkWrap: true,
                     children: [
                       // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
-                      model.pinnedPosts.isNotEmpty
-                          ? PinnedPostCarousel(
-                              key: homeModel?.keySHPinnedPost,
-                              pinnedPosts: model.pinnedPosts,
-                              navigateToPinnedPostPage:
-                                  model.navigateToPinnedPostPage,
-                              navigateToIndividualPostPage:
-                                  model.navigateToIndividualPage,
-                            )
-                          : Container(),
+                      // model.pinnedPosts.isNotEmpty
+                      //     ? PinnedPostCarousel(
+                      //         key: homeModel?.keySHPinnedPost,
+                      //         pinnedPosts: model.pinnedPosts,
+                      //         navigateToPinnedPostPage:
+                      //             model.navigateToPinnedPostPage,
+                      //         navigateToIndividualPostPage:
+                      //             model.navigateToIndividualPage,
+                      //       )
+                      //     : Container(),
+                      PinnedPost(pinnedPost: model.pinnedPosts),
                       // If the organization has posts then renders PostListWidget widget else Container.
                       model.posts.isNotEmpty
                           ? PostListWidget(
