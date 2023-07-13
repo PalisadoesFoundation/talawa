@@ -16,8 +16,10 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
@@ -65,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                       return Container(
                         height: 200,
                         decoration: const BoxDecoration(
-                          color: Colors.black38,
+                          color: Colors.white,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.zero,
                             bottomRight: Radius.zero,
@@ -79,15 +81,21 @@ class ProfilePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               TextButton(
-                                  onPressed: () {}, child: Text('App Setting')),
+                                  onPressed: () {}, child: const Text('App Setting', style: TextStyle(color: Colors.black38, fontFamily: 'open-sans'),),),
                               TextButton(
-                                  onPressed: () {navigationService.pushScreen(Routes.userTasks);}, child: Text('My tasks')),
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen(Routes.userTasks);
+                                  },
+                                  child: const Text('My tasks', style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),),
                               TextButton(
                                   onPressed: () {
                                     navigationService
                                         .pushScreen("/editProfilePage");
                                   },
-                                  child: Text("Edit Profile"))
+                                  child: const Text("Edit Profile",  style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),),
+                              TextButton(
+                                  onPressed: () {}, child: const Text("Log Out",  style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),)
                             ],
                           ),
                         ),
@@ -148,7 +156,7 @@ class ProfilePage extends StatelessWidget {
                                 Icons.share,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
-                              onPressed: ()  => model.invite(context),
+                              onPressed: () => model.invite(context),
                             ),
                           ),
                         ],
@@ -214,9 +222,9 @@ class ProfilePage extends StatelessWidget {
                             ),
                             Container(
                                 color:
-                                Theme.of(context).colorScheme.background),
+                                    Theme.of(context).colorScheme.background,),
                             Container(
-                                color: Theme.of(context).colorScheme.onPrimary),
+                                color: Theme.of(context).colorScheme.onPrimary,),
                           ],
                         ),
                       ),
@@ -231,6 +239,7 @@ class ProfilePage extends StatelessWidget {
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
+
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
                             //TODO: custom tile for Invitation.
