@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -144,13 +145,10 @@ class ProfilePage extends StatelessWidget {
                             flex: 1,
                             child: IconButton(
                               icon: Icon(
-                                Icons.drive_file_rename_outline,
+                                Icons.share,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
-                              onPressed: () {
-                                navigationService
-                                    .pushScreen("/editProfilePage");
-                              },
+                              onPressed: ()  => model.invite(context),
                             ),
                           ),
                         ],
@@ -233,54 +231,6 @@ class ProfilePage extends StatelessWidget {
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
-                            //TODO: my task.
-                            // CustomListTile(
-                            //   key: const Key('TasksByUser'),
-                            //   index: 1,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: Icon(
-                            //       Icons.task_outlined,
-                            //       color:
-                            //           Theme.of(context).colorScheme.secondary,
-                            //       size: 30,
-                            //     ),
-                            //     // title for My Tasks tile
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('My Tasks'),
-                            //     // display subtitle
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate(
-                            //       "View and edit all tasks created by you",
-                            //     ),
-                            //   ),
-                            //   // on tag redirects to the user Tasks page.
-                            //   onTapOption: () {
-                            //     navigationService.pushScreen(Routes.userTasks);
-                            //   },
-                            // ),
-                            // SizedBox(
-                            //   height: SizeConfig.screenHeight! * 0.05,
-                            // ),
-                            // // Will be added later when we add the Help Section in Documentation.
-                            // CustomListTile(
-                            //   key: homeModel!.keySPHelp,
-                            //   index: 1,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: const Icon(
-                            //       Icons.help_outline,
-                            //       size: 30,
-                            //     ),
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('Help'),
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate(
-                            //       'Reach out to us for help',
-                            //     ),
-                            //   ),
-                            //   onTapOption: () {},
-                            // ),
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
                             //TODO: custom tile for Invitation.
