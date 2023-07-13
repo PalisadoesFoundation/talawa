@@ -29,7 +29,7 @@ class NewsPost extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(16))),
+            borderRadius: BorderRadius.all(Radius.circular(16)),),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,7 +49,7 @@ class NewsPost extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black38),
+                        color: Colors.black38,),
                   ),
                   Text(
                     '    ${post.getPostCreatedDuration()}',
@@ -90,7 +90,7 @@ class NewsPost extends StatelessWidget {
                                   model.toggleIsLiked();
                                 },
                                 child: SvgPicture.asset(
-                                    'assets/images/🦆 icon _like_.svg'),
+                                    'assets/images/🦆 icon _like_.svg',),
                               ),
                               Text(
                                 "${model.likedBy.length}",
@@ -115,7 +115,7 @@ class NewsPost extends StatelessWidget {
                                 onTap: () =>
                                     function != null ? function!(post) : {},
                                 child: SvgPicture.asset(
-                                    'assets/images/comment.svg'),
+                                    'assets/images/comment.svg',),
                               ),
                               Text(
                                 "${post.comments!.length}",
@@ -144,7 +144,7 @@ class NewsPost extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
+                        horizontal: 16, vertical: 10,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -50,10 +50,53 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  // fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                  color: Colors.white),
+                    // fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          color: Colors.black38,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.zero,
+                            bottomRight: Radius.zero,
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              TextButton(
+                                  onPressed: () {}, child: Text('App Setting')),
+                              TextButton(
+                                  onPressed: () {navigationService.pushScreen(Routes.userTasks);}, child: Text('My tasks')),
+                              TextButton(
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen("/editProfilePage");
+                                  },
+                                  child: Text("Edit Profile"))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              )
+            ],
           ),
           // if data fetching is under process then renders Circular Progress Icon
           // else renders the widget.
@@ -112,33 +155,14 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       TalawaPluginProvider(
                         pluginName: "Donation",
                         visible: true,
                         child: Column(
                           children: [
-                            // CustomListTile(
-                            //   key: homeModel!.keySPDonateUs,
-                            //   index: 2,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: Icon(
-                            //       Icons.monetization_on,
-                            //       color: Theme.of(context)
-                            //           .colorScheme
-                            //           .secondary,
-                            //       size: 30,
-                            //     ),
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('Donate  Us'),
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate(
-                            //       'Help us to develop for you',
-                            //     ),
-                            //   ),
-                            //   onTapOption: () => donate(context, model),
-                            // ),
                             RaisedRoundedButton(
                               key: homeModel!.keySPDonateUs,
                               buttonLabel: AppLocalizations.of(context)!
@@ -149,13 +173,55 @@ class ProfilePage extends StatelessWidget {
                                   .focusedBorder!
                                   .borderSide
                                   .color,
-                              backgroundColor:
-                              Theme.of(context).colorScheme.secondaryContainer,
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
                             ),
                           ],
                         ),
                       ),
-
+                      SizedBox(
+                        height: 600,
+                        width: double.infinity,
+                        child: ContainedTabBarView(
+                          tabs: [
+                            const Tab(text: 'Posts'),
+                            const Tab(text: 'Events'),
+                            const Tab(text: 'Tasks'),
+                          ],
+                          views: [
+                            Container(
+                              color: Theme.of(context).colorScheme.background,
+                              child: GridView.count(
+                                mainAxisSpacing: 5,
+                                crossAxisCount: 3,
+                                children: [
+                                  // const SizedBox(
+                                  //   width: 20,
+                                  //   height: 20,
+                                  //   child: Image(
+                                  //     image:
+                                  //         AssetImage('assets/images/pfp1.jpeg'),
+                                  //     width: 2,
+                                  //     height: 2,
+                                  //   ),
+                                  // ),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                                color:
+                                Theme.of(context).colorScheme.background),
+                            Container(
+                                color: Theme.of(context).colorScheme.onPrimary),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.67,
                         child: Column(
@@ -164,31 +230,6 @@ class ProfilePage extends StatelessWidget {
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.01,
                             ),
-                            //TODO: App setting bar.
-                            // CustomListTile(
-                            //   key: homeModel!.keySPAppSetting,
-                            //   index: 0,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: Icon(
-                            //       Icons.phonelink_setup,
-                            //       color:
-                            //           Theme.of(context).colorScheme.secondary,
-                            //       size: 30,
-                            //     ),
-                            //     // title for App Settings.
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('App Settings'),
-                            //     // display language of the app.
-                            //     subtitle:
-                            //         '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
-                            //   ),
-                            //   // button for the app setting which redirects to app setting page.
-                            //   onTapOption: () {
-                            //     navigationService
-                            //         .pushScreen("/appSettingsPage");
-                            //   },
-                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
@@ -218,9 +259,9 @@ class ProfilePage extends StatelessWidget {
                             //     navigationService.pushScreen(Routes.userTasks);
                             //   },
                             // ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
-                            ),
+                            // SizedBox(
+                            //   height: SizeConfig.screenHeight! * 0.05,
+                            // ),
                             // // Will be added later when we add the Help Section in Documentation.
                             // CustomListTile(
                             //   key: homeModel!.keySPHelp,
@@ -242,39 +283,6 @@ class ProfilePage extends StatelessWidget {
                             // ),
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
-                            //TODO: the donating button
-                            // TalawaPluginProvider(
-                            //   pluginName: "Donation",
-                            //   visible: true,
-                            //   child: Column(
-                            //     children: [
-                            //       CustomListTile(
-                            //         key: homeModel!.keySPDonateUs,
-                            //         index: 2,
-                            //         type: TileType.option,
-                            //         option: Options(
-                            //           icon: Icon(
-                            //             Icons.monetization_on,
-                            //             color: Theme.of(context)
-                            //                 .colorScheme
-                            //                 .secondary,
-                            //             size: 30,
-                            //           ),
-                            //           title: AppLocalizations.of(context)!
-                            //               .strictTranslate('Donate  Us'),
-                            //           subtitle: AppLocalizations.of(context)!
-                            //               .strictTranslate(
-                            //             'Help us to develop for you',
-                            //           ),
-                            //         ),
-                            //         onTapOption: () => donate(context, model),
-                            //       ),
-                            //       SizedBox(
-                            //         height: SizeConfig.screenHeight! * 0.05,
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                             //TODO: custom tile for Invitation.
                             // CustomListTile(
                             //   key: homeModel!.keySPInvite,
