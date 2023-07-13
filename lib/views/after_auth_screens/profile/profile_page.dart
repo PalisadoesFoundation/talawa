@@ -52,6 +52,7 @@ class ProfilePage extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   // fontWeight: FontWeight.w600,
                   fontSize: 20,
+                  fontFamily: 'open-sans',
                   color: Colors.white),
             ),
           ),
@@ -93,6 +94,7 @@ class ProfilePage extends StatelessWidget {
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
+                                  fontFamily: 'open-sans',
                                 ),
                               ),
                             ),

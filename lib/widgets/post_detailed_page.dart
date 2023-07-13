@@ -46,7 +46,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(fontFamily: 'open-sans'),
+                  .copyWith(fontFamily: 'open-sans', color: Colors.black38),
             )
           : Column(
               children: <Widget>[

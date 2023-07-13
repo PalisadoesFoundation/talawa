@@ -28,8 +28,9 @@ class NewsPost extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(16))),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,14 +48,61 @@ class NewsPost extends StatelessWidget {
                   Text(
                     "${post.creator!.firstName} ${post.creator!.lastName}",
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black38),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black38,
+                    ),
                   ),
-                  Text(
-                    '    ${post.getPostCreatedDuration()}',
-                    style: const TextStyle(color: Colors.black38, fontSize: 12),
-                  )
+                  const SizedBox(
+                    width: 115,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 60,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),),),
+                              child: Center(
+                                child: Row(
+                                  children: <Widget>[
+                                    const Padding(
+                                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Icon(
+                                        Icons.report_gmailerrorred_outlined,
+                                        color: Colors.black38,
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text(
+                                          'Report the post to the Admin',
+                                          style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 20,
+                                            fontFamily: 'open-sans',
+                                          ),
+                                        ),)
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.report_gmailerrorred_outlined,
+                        color: Colors.black38,
+                      ),)
+                  // Text(
+                  //   '    ${post.getPostCreatedDuration()}',
+                  //   style: const TextStyle(color: Colors.black38, fontSize: 12),
+                  // )
                 ],
               ),
               // subtitle: Text(post.getPostCreatedDuration()),
@@ -90,7 +138,8 @@ class NewsPost extends StatelessWidget {
                                   model.toggleIsLiked();
                                 },
                                 child: SvgPicture.asset(
-                                    'assets/images/🦆 icon _like_.svg'),
+                                  'assets/images/🦆 icon _like_.svg',
+                                ),
                               ),
                               Text(
                                 "${model.likedBy.length}",
@@ -115,7 +164,8 @@ class NewsPost extends StatelessWidget {
                                 onTap: () =>
                                     function != null ? function!(post) : {},
                                 child: SvgPicture.asset(
-                                    'assets/images/comment.svg'),
+                                  'assets/images/comment.svg',
+                                ),
                               ),
                               Text(
                                 "${post.comments!.length}",
@@ -138,13 +188,24 @@ class NewsPost extends StatelessWidget {
                         //   ),
                         // ),
 
-                        DescriptionTextWidget(text: post.description!),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(180, 0, 0, 0),
+                          child: Text(
+                            '    ${post.getPostCreatedDuration()}',
+                            style: const TextStyle(
+                              color: Colors.black38,
+                              fontSize: 12,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
+                      horizontal: 16,
+                      vertical: 0,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -159,6 +220,19 @@ class NewsPost extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 5,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DescriptionTextWidget(text: post.description!),
                       ],
                     ),
                   ),
