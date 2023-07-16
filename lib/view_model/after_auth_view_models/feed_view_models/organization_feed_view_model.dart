@@ -27,7 +27,7 @@ class OrganizationFeedViewModel extends BaseModel {
   List<Post> _posts = [];
   bool istest = false;
   List<Post> _pinnedPosts =
-  pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+      pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
@@ -82,9 +82,9 @@ class OrganizationFeedViewModel extends BaseModel {
 
   void initialise(
       // bool forTest,
-          {
-        bool isTest = false,
-      }) {
+      {
+    bool isTest = false,
+  }) {
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
 
     _currentOrgName = _userConfig.currentOrg.name!;
@@ -92,9 +92,9 @@ class OrganizationFeedViewModel extends BaseModel {
     // Attaching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen(
-              (updatedOrganization) =>
-              setCurrentOrganizationName(updatedOrganization.name!),
-        );
+      (updatedOrganization) =>
+          setCurrentOrganizationName(updatedOrganization.name!),
+    );
     _postsSubscription = _postService.postStream.listen((newPosts) {
       return buildNewPosts(newPosts);
     });
@@ -176,4 +176,3 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 }
-

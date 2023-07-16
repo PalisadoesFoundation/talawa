@@ -220,9 +220,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case Routes.pinnedPostScreen:
       // final Map<String, dynamic> post = settings.arguments! as Map<String, dynamic> ;
-      final Map<String, String> post = settings.arguments! as Map<String, String> ;
+      final Map<String, String> post =
+          settings.arguments! as Map<String, String>;
 
-      return MaterialPageRoute(builder: (context) => PinnedPostScreen(post: post));
+      return MaterialPageRoute(
+          builder: (context) => PinnedPostScreen(post: post));
     // Returns the AppSettingsPage Widget
     case Routes.appSettings:
       return MaterialPageRoute(
