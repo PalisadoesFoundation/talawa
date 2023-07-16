@@ -224,10 +224,9 @@ void main() {
 
           // Testing if all direct children of column are there
           expect(firstColumnWidget.children[0], isA<ListTile>());
-          expect(firstColumnWidget.children[1], isA<DescriptionTextWidget>());
-          expect(firstColumnWidget.children[2], isA<Container>());
+          expect(firstColumnWidget.children[1], isA<Container>());
           expect(
-            firstColumnWidget.children[3],
+            firstColumnWidget.children[2],
             isA<BaseView<LikeButtonViewModel>>(),
           );
         });
@@ -314,14 +313,7 @@ void main() {
           );
 
           // Testing if DescriptionTextWidget shows
-          expect(descriptionTextWidgetFinder, findsOneWidget);
-
-          final descriptionTextWidget =
-              tester.firstWidget(descriptionTextWidgetFinder)
-                  as DescriptionTextWidget;
-
-          // Testing if the text description is correct
-          expect(descriptionTextWidget.text, "TestDescription");
+          expect(descriptionTextWidgetFinder, findsNothing);
         });
       });
       testWidgets("Test props of Container containing the Post Container",
@@ -335,7 +327,7 @@ void main() {
               .first;
 
           final containerWidget = (tester.firstWidget(columnFinder) as Column)
-              .children[2] as Container;
+              .children[1] as Container;
 
           // Testing if the text description is correct
           expect(containerWidget.constraints!.maxHeight, 400);
@@ -367,7 +359,7 @@ void main() {
               find.descendant(of: postFinder, matching: find.byType(Column));
 
           final baseViewWidget = (tester.firstWidget(columnFinder) as Column)
-              .children[3] as BaseView<LikeButtonViewModel>;
+              .children[2] as BaseView<LikeButtonViewModel>;
 
           // Testing if the text description is correct
           expect(baseViewWidget.onModelReady, isNotNull);
