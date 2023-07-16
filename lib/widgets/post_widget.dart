@@ -1,13 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
-import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/video_widget.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 

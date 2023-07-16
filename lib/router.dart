@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -224,7 +223,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           settings.arguments! as Map<String, String>;
 
       return MaterialPageRoute(
-          builder: (context) => PinnedPostScreen(post: post));
+        builder: (context) => PinnedPostScreen(post: post),
+      );
     // Returns the AppSettingsPage Widget
     case Routes.appSettings:
       return MaterialPageRoute(
