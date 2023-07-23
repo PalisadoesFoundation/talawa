@@ -141,10 +141,10 @@ jobs:
     - uses: actions/checkout@v3
     - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
       env:
-        API_TOKEN_GITHUB: ${{ secrets.TALAWA_DOCS_SYNC }}    
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
       with:
         source_file: 'talawa-mobile-docs/'
-        destination_repo: 'Palisadoes-Foundation/talawa-docs'
+        destination_repo: 'PalisadoesFoundation/talawa-docs'
         destination_branch: 'develop'
         destination_folder: 'docs'
         user_email: '${{env.email}}'
