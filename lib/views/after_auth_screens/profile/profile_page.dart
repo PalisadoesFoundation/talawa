@@ -53,10 +53,17 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+<<<<<<< HEAD
                     // fontWeight: FontWeight.w600,
                     fontSize: 20,
                     color: Colors.white,
                   ),
+=======
+                  // fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  fontFamily: 'open-sans',
+                  color: Colors.white),
+>>>>>>> Ayush0Chaudhary/post_ui
             ),
             actions: [
               IconButton(
@@ -145,6 +152,7 @@ class ProfilePage extends StatelessWidget {
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
+                                  fontFamily: 'open-sans',
                                 ),
                               ),
                             ),
