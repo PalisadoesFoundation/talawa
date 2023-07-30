@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -137,8 +138,15 @@ class _LoginState extends State<Login> {
                     ),
                     //Option to recover the password if the user forgets his/her password.
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        IconButton(
+                            onPressed: () {
+                              navigationService.showTalawaErrorSnackBar(
+                                  'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+                                  MessageType.info);
+                            },
+                            icon: const Icon(Icons.question_mark_sharp)),
                         TextButton(
                           onPressed: () {
                             model.emailFocus.unfocus();
