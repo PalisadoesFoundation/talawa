@@ -2,21 +2,15 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/apptheme.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/options/options.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
@@ -84,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                                   'App Setting',
                                   style: TextStyle(
                                       color: Colors.black38,
-                                      fontFamily: 'open-sans'),
+                                      fontFamily: 'open-sans',),
                                 ),
                               ),
                               TextButton(
@@ -95,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                                 child: const Text('My tasks',
                                     style: TextStyle(
                                         color: Colors.black38,
-                                        fontFamily: 'open-sans')),
+                                        fontFamily: 'open-sans',),),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -105,14 +99,14 @@ class ProfilePage extends StatelessWidget {
                                 child: const Text("Edit Profile",
                                     style: TextStyle(
                                         color: Colors.black38,
-                                        fontFamily: 'open-sans')),
+                                        fontFamily: 'open-sans',),),
                               ),
                               TextButton(
                                 onPressed: () {},
                                 child: const Text("Log Out",
                                     style: TextStyle(
                                         color: Colors.black38,
-                                        fontFamily: 'open-sans')),
+                                        fontFamily: 'open-sans',),),
                               )
                             ],
                           ),
