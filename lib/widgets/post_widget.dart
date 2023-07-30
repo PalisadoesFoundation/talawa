@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -8,9 +5,8 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
-import 'package:talawa/widgets/video_widget.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
@@ -103,10 +99,6 @@ class NewsPost extends StatelessWidget {
                       color: Colors.black38,
                     ),
                   )
-                  // Text(
-                  //   '    ${post.getPostCreatedDuration()}',
-                  //   style: const TextStyle(color: Colors.black38, fontSize: 12),
-                  // )
                 ],
               ),
               // subtitle: Text(post.getPostCreatedDuration()),
@@ -180,18 +172,6 @@ class NewsPost extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // GestureDetector(
-                        //   onTap: () => function != null ? function!(post) : {},
-                        //   child: Padding(
-                        //     padding: EdgeInsets.only(left: 18.0),
-                        //     child: SvgPicture.asset('assets/images/repost.svg'),
-                        //     // child: Icon(
-                        //     //   Icons.comment,
-                        //     //   color: Color(0xff737373),
-                        //     // ),
-                        //   ),
-                        // ),
-
                         Padding(
                           padding: const EdgeInsets.fromLTRB(180, 0, 0, 0),
                           child: Text(
@@ -245,111 +225,6 @@ class NewsPost extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class PostContainer extends StatefulWidget {
-  const PostContainer({
-    required this.id,
-    Key? key,
-  }) : super(key: key);
-  final String id;
-
-  @override
-  PostContainerState createState() => PostContainerState();
-}
-
-class PostContainerState extends State<PostContainer> {
-  bool startedPlaying = false;
-  bool inView = true;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  final PageController controller = PageController(initialPage: 0);
-  int pindex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: Key(widget.id),
-      onVisibilityChanged: (info) {
-        info.visibleFraction > 0.5 ? inView = true : inView = false;
-        if (mounted) setState(() {});
-      },
-      child: Stack(
-        children: [
-          PageView(
-            scrollDirection: Axis.horizontal,
-            controller: controller,
-            onPageChanged: (index) {
-              setState(() {
-                pindex = index;
-                inView = pindex == 0;
-              });
-            },
-            children: List.generate(
-              4,
-              (index) =>
-                  // index == 0
-                  // ? Center(
-                  //     child: VideoWidget(
-                  //       url:
-                  //           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-                  //       play: inView,
-                  //     ),
-                  //   )
-                  // :
-                  const Image(
-                image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 100.0,
-                    vertical: 10.0,
-                  ),
-                  child: Row(
-                    children: [
-                      for (int i = 0; i < 4; i++)
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Divider(
-                              thickness: 3.0,
-                              color: pindex == i
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey,
-                            ),
-                          ),
-                        )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
