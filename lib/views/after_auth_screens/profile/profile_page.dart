@@ -53,17 +53,11 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-<<<<<<< HEAD
                     // fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    fontFamily: 'open-sans',
                     color: Colors.white,
                   ),
-=======
-                  // fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                  fontFamily: 'open-sans',
-                  color: Colors.white),
->>>>>>> Ayush0Chaudhary/post_ui
             ),
             actions: [
               IconButton(
@@ -88,21 +82,41 @@ class ProfilePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               TextButton(
-                                  onPressed: () {}, child: const Text('App Setting', style: TextStyle(color: Colors.black38, fontFamily: 'open-sans'),),),
+                                onPressed: () {},
+                                child: const Text(
+                                  'App Setting',
+                                  style: TextStyle(
+                                      color: Colors.black38,
+                                      fontFamily: 'open-sans'),
+                                ),
+                              ),
                               TextButton(
-                                  onPressed: () {
-                                    navigationService
-                                        .pushScreen(Routes.userTasks);
-                                  },
-                                  child: const Text('My tasks', style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),),
+                                onPressed: () {
+                                  navigationService
+                                      .pushScreen(Routes.userTasks);
+                                },
+                                child: const Text('My tasks',
+                                    style: TextStyle(
+                                        color: Colors.black38,
+                                        fontFamily: 'open-sans')),
+                              ),
                               TextButton(
-                                  onPressed: () {
-                                    navigationService
-                                        .pushScreen("/editProfilePage");
-                                  },
-                                  child: const Text("Edit Profile",  style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),),
+                                onPressed: () {
+                                  navigationService
+                                      .pushScreen("/editProfilePage");
+                                },
+                                child: const Text("Edit Profile",
+                                    style: TextStyle(
+                                        color: Colors.black38,
+                                        fontFamily: 'open-sans')),
+                              ),
                               TextButton(
-                                  onPressed: () {}, child: const Text("Log Out",  style: TextStyle(color: Colors.black38, fontFamily: 'open-sans')),)
+                                onPressed: () {},
+                                child: const Text("Log Out",
+                                    style: TextStyle(
+                                        color: Colors.black38,
+                                        fontFamily: 'open-sans')),
+                              )
                             ],
                           ),
                         ),
@@ -229,10 +243,11 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                                color:
-                                    Theme.of(context).colorScheme.background,),
+                              color: Theme.of(context).colorScheme.background,
+                            ),
                             Container(
-                                color: Theme.of(context).colorScheme.onPrimary,),
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                           ],
                         ),
                       ),
