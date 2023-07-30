@@ -109,6 +109,7 @@ class NewsPost extends StatelessWidget {
                         ),
                       ),
                     ),
+
                   ],
                 ),
               ),
@@ -123,6 +124,7 @@ class NewsPost extends StatelessWidget {
 class PostContainer extends StatefulWidget {
   const PostContainer({
     required this.id,
+
     Key? key,
   }) : super(key: key);
   final String id;
