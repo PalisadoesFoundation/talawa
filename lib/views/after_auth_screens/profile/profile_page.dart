@@ -219,22 +219,12 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Tasks'),
                           ],
                           views: [
-                            Container(
+                            ColoredBox(
                               color: Theme.of(context).colorScheme.background,
                               child: GridView.count(
                                 mainAxisSpacing: 5,
                                 crossAxisCount: 3,
                                 children: [
-                                  // const SizedBox(
-                                  //   width: 20,
-                                  //   height: 20,
-                                  //   child: Image(
-                                  //     image:
-                                  //         AssetImage('assets/images/pfp1.jpeg'),
-                                  //     width: 2,
-                                  //     height: 2,
-                                  //   ),
-                                  // ),
                                   Image.asset('assets/images/pfp2.jpeg'),
                                   Image.asset('assets/images/pfp2.jpeg'),
                                   Image.asset('assets/images/pfp2.jpeg'),
