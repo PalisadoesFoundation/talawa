@@ -77,8 +77,9 @@ class ProfilePage extends StatelessWidget {
                                 child: const Text(
                                   'App Setting',
                                   style: TextStyle(
-                                      color: Colors.black38,
-                                      fontFamily: 'open-sans',),
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
                                 ),
                               ),
                               TextButton(
@@ -86,27 +87,36 @@ class ProfilePage extends StatelessWidget {
                                   navigationService
                                       .pushScreen(Routes.userTasks);
                                 },
-                                child: const Text('My tasks',
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontFamily: 'open-sans',),),
+                                child: const Text(
+                                  'My tasks',
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
                                   navigationService
                                       .pushScreen("/editProfilePage");
                                 },
-                                child: const Text("Edit Profile",
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontFamily: 'open-sans',),),
+                                child: const Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {},
-                                child: const Text("Log Out",
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontFamily: 'open-sans',),),
+                                child: const Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
                               )
                             ],
                           ),
