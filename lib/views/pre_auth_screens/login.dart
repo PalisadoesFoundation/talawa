@@ -144,14 +144,14 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             navigationService.showTalawaErrorSnackBar(
                                 'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
-                                MessageType.info);
+                                MessageType.info,);
                           },
                           child: const Text(
                             'Tip',
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.green,
-                                fontFamily: 'open-sans'),
+                                fontFamily: 'open-sans',),
                           ),
                         ),
                         TextButton(
