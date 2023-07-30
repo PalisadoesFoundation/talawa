@@ -16,7 +16,8 @@ class CustomAvatar extends StatelessWidget {
     this.firstAlphabet,
     this.cacheManager,
     this.imageUrl,
-    this.fontSize = 40, this.maxRadius = 16,
+    this.fontSize = 40,
+    this.maxRadius = 16,
   }) : super(key: key);
   final bool isImageNull;
   final String? firstAlphabet;
