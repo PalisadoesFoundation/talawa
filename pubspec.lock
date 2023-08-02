@@ -1049,18 +1049,18 @@ packages:
     dependency: transitive
     description:
       name: mocktail
-      sha256: "80a996cd9a69284b3dc521ce185ffe9150cde69767c2d3a0720147d93c0cef53"
+      sha256: "9503969a7c2c78c7292022c70c0289ed6241df7a9ba720010c0b215af29a5a58"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "1.0.0"
   mocktail_image_network:
     dependency: "direct dev"
     description:
       name: mocktail_image_network
-      sha256: a13cb88a8e199c797ad9ddce80880821781c164a9693ddb58104c07915f60877
+      sha256: "83e6b9fa3c6b0952636719f0444752d94c0ef7caa4172ca467d9c1b682aeddbb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
