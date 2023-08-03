@@ -92,7 +92,7 @@ dev_dependencies:
   json_serializable: ^6.6.1
   lint: ^2.0.20 
 
-  mocktail_image_network: ^0.3.1
+  mocktail_image_network: ^1.0.0
   talawa_lint:
     path: talawa_lint/
 
