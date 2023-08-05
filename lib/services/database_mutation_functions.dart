@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -20,34 +17,71 @@ import 'package:talawa/utils/queries.dart';
 /// * `refreshAccessToken`
 /// * `fetchOrgById`
 class DataBaseMutationFunctions {
+  /// Client Auth for handling non-authenticated request.
   late GraphQLClient clientNonAuth;
+
+  /// Client Auth for handling authenticated request.
   late GraphQLClient clientAuth;
+
+  /// Query passed by fucntion calling this function.
   late Queries _query;
 
+  /// initialization function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
     _query = Queries();
   }
 
-  // initialising default messages for an event.
+  /// Graphql error for handling.
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
+
+  /// Graphql error for handling.
   GraphQLError userNotAuthenticated =
       const GraphQLError(message: 'User is not authenticated');
+
+  /// Graphql error for handling.
   GraphQLError emailAccountPresent =
       const GraphQLError(message: 'Email address already exists');
+
+  /// Graphql error for handling.
   GraphQLError wrongCredentials =
       const GraphQLError(message: 'Invalid credentials');
+
+  /// Graphql error for handling.
   GraphQLError organizationNotFound =
       const GraphQLError(message: 'Organization not found');
+
+  /// Graphql error for handling.
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
     message:
         'Access Token has expired. Please refresh session.: Undefined location',
   );
+
+  /// Graphql error for handling.
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
+  /// Graphql error for handling.
+  GraphQLError notifFeatureNotInstalled = const GraphQLError(
+    message:
+        'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND',
+  );
+
   /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
+  ///
+  /// **params**:
+  /// * `exception`: OperationException which occur when calling for graphql post request
+  /// * `showSnackBar`: Tell if the the place where this function is called wants a SnackBar on error
+  ///
+  /// **returns**:
+  /// * `bool?`: returns a bool whether or not their is error, can be null
   bool? encounteredExceptionOrError(
     OperationException exception, {
     bool showSnackBar = true,
@@ -65,7 +99,8 @@ class DataBaseMutationFunctions {
       }
       return false;
     }
-    // looping through graphQL errors.
+
+    /// looping through graphQL errors.
     debugPrint(exception.graphqlErrors.toString());
     for (int i = 0; i < exception.graphqlErrors.length; i++) {
       // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
@@ -80,7 +115,8 @@ class DataBaseMutationFunctions {
         print('client refreshed');
         return true;
       }
-      // if the error message is "User is not authenticated"
+
+      /// if the error message is "User is not authenticated"
       if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
         print('client refreshed');
         refreshAccessToken(userConfig.currentUser.refreshToken!).then(
@@ -90,7 +126,8 @@ class DataBaseMutationFunctions {
         );
         return true;
       }
-      // if the error message is "User not found"
+
+      /// if the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -102,7 +139,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Membership Request already exists"
+
+      /// if the error message is "Membership Request already exists"
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -114,7 +152,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Invalid credentials"
+
+      /// if the error message is "Invalid credentials"
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -126,7 +165,8 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Organization not found"
+
+      /// if the error message is "Organization not found"
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -138,12 +178,25 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      // if the error message is "Email address already exists"
+
+      /// if the error message is "Email address already exists"
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
               "Account with this email already registered",
+              MessageType.error,
+            ),
+          );
+        }
+        return false;
+      }
+      if (exception.graphqlErrors[i].message ==
+          notifFeatureNotInstalled.message) {
+        if (showSnackBar) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Notification Feature is not installed",
               MessageType.error,
             ),
           );
@@ -163,6 +216,13 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for authentication.
+  ///
+  /// **params**:
+  /// * `query`: query is used to fetch data in graphql, for more info read graphql docs
+  /// * `variables`: variables to be passed with query
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
@@ -185,6 +245,13 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql mutation for authenticated user.
+  ///
+  /// **params**:
+  /// * `mutation`: mutation is used to change/add/delete data in graphql, for more info read graphql docs
+  /// * `variables`: variables to be passed with mutation
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> gqlAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
@@ -208,6 +275,15 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql mutation to authenticate the non signed-in user.
+  ///
+  ///
+  /// **params**:
+  /// * `mutation`: mutation is used to change/add/delete data in graphql, for more info read graphql docs
+  /// * `variables`: variables to be passed with mutation
+  /// * `reCall`: when not first fetch call
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> gqlNonAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
@@ -232,7 +308,14 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to run the graph-ql query for the non signed-in user.
-  Future<QueryResult?> gqlNonAuthQuery(
+  ///
+  /// **params**:
+  /// * `query`: query is used to fetch data in graphql, for more info read graphql docs
+  /// * `variables`: variables to be passed with query
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>?>`: it returns Future of QueryResult, contains all data
+  Future<QueryResult<Object?>?> gqlNonAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
   }) async {
@@ -255,6 +338,12 @@ class DataBaseMutationFunctions {
   }
 
   /// This function is used to refresh the Authenication token to access the application.
+  ///
+  /// **params**:
+  /// * `refreshToken`: Needed for authentication
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: it returns Future of dynamic
   Future<bool> refreshAccessToken(String refreshToken) async {
     // run the graphQL mutation
     final QueryResult result = await clientNonAuth.mutate(
@@ -274,8 +363,12 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       userConfig.updateAccessToken(
-        refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
-        accessToken: result.data!['refreshToken']['accessToken'].toString(),
+        refreshToken: (result.data!['refreshToken']
+                as Map<String, dynamic>)['refreshToken']
+            .toString(),
+        accessToken: (result.data!['refreshToken']
+                as Map<String, dynamic>)['accessToken']
+            .toString(),
       );
       databaseFunctions.init();
       return true;
@@ -284,6 +377,12 @@ class DataBaseMutationFunctions {
   }
 
   /// This function fetch the organization using the [id] passed.
+  ///
+  /// **params**:
+  /// * `id`: id that identifies a particular org
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> fetchOrgById(String id) async {
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
@@ -295,7 +394,9 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       return OrgInfo.fromJson(
-        result.data!['organizations'][0] as Map<String, dynamic>,
+        // ignore: collection_methods_unrelated_type
+        (result.data!['organizations'] as Map<String, dynamic>)[0]
+            as Map<String, dynamic>,
       );
     }
     return false;
