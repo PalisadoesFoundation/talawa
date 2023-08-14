@@ -87,7 +87,7 @@ dev_dependencies:
   custom_lint:
   flutter_test:
     sdk: flutter
-  hive_generator: ^2.0.0
+  hive_generator: ^2.0.1
 
   json_serializable: ^6.6.1
   lint: ^2.0.20 
