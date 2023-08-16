@@ -22,7 +22,7 @@ dependencies:
   
   auto_size_text: ^3.0.0
   cached_network_image: ^3.1.0
-  connectivity_plus: ^3.0.0
+  connectivity_plus: ^4.0.2
   cupertino_icons: ^1.0.3
   currency_picker: ^2.0.16
 
@@ -56,12 +56,12 @@ dependencies:
   hive: ^2.2.3
   http: ^0.13.6
   image_cropper: ^4.0.1
-  image_picker: ^1.0.1
+  image_picker: ^1.0.2
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.3.2
   network_image_mock: ^2.1.1
-  path_provider: ^2.0.15
+  path_provider: ^2.1.0
   permission_handler: ^10.4.3
   plugin_platform_interface: ^2.1.5
   provider: ^6.0.3
@@ -92,7 +92,7 @@ dev_dependencies:
   json_serializable: ^6.6.1
   lint: ^2.0.20 
 
-  mocktail_image_network: ^0.3.1
+  mocktail_image_network: ^1.0.0
   talawa_lint:
     path: talawa_lint/
 
