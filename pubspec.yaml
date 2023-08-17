@@ -31,7 +31,7 @@ dependencies:
   ################################
   
   file: ^6.1.4
-  firebase_core: ^2.15.0
+  firebase_core: ^2.15.1
   firebase_core_platform_interface: ^4.5.3
 
   firebase_messaging: ^14.6.4
