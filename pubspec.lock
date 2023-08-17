@@ -609,10 +609,10 @@ packages:
     dependency: "direct main"
     description:
       name: geolocator
-      sha256: "5c23f3613f50586c0bbb2b8f970240ae66b3bd992088cf60dd5ee2e6f7dde3a8"
+      sha256: "9d6eff112971b9f195271834b390fc0e1899a9a6c96225ead72efd5d4aaa80c7"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.2"
+    version: "10.0.0"
   geolocator_android:
     dependency: transitive
     description:
@@ -649,10 +649,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_windows
-      sha256: f5911c88e23f48b598dd506c7c19eff0e001645bdc03bb6fecb9f4549208354d
+      sha256: "463045515b08bd83f73e014359c4ad063b902eb3899952cfb784497ae6c6583b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.2.0"
   get_it:
     dependency: "direct main"
     description:
