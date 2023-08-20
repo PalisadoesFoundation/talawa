@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';

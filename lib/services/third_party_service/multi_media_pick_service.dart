@@ -119,7 +119,7 @@ class MultiMediaPickerService {
           ),
           IOSUiSettings(
             minimumAspectRatio: 1.0,
-          )
+          ),
         ],
       );
       if (croppedImage != null) {

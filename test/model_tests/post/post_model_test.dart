@@ -79,7 +79,7 @@ void main() {
         },
         'likedBy': [
           {'_id': 'test1'},
-          {'_id': 'test2'}
+          {'_id': 'test2'},
         ],
         'comments': [
           {
@@ -91,7 +91,7 @@ void main() {
           {
             '_id': 'comment3',
           }
-        ]
+        ],
       };
       final postFromJson = Post.fromJson(postJson);
       post.getPostCreatedDuration();

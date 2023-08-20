@@ -13,40 +13,40 @@ const postsDemoData = [
     "creator": {
       "firstName": "Rutvik",
       "lastName": "Chandla",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"},
     ],
     "comments": [
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "5", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "5", "_id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "asdasdasd",
@@ -57,40 +57,40 @@ const postsDemoData = [
     "creator": {
       "firstName": "Ranchhod Das Chhanchad",
       "lastName": "Chandla",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"},
     ],
     "comments": [
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "asdasdasd",
@@ -101,40 +101,40 @@ const postsDemoData = [
     "creator": {
       "firstName": "Ritik",
       "lastName": "Srivastav",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"},
     ],
     "comments": [
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "asdasdasd",
@@ -145,39 +145,39 @@ const postsDemoData = [
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shengde",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "_id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "_id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "_id": "asdasdasdas"},
     ],
     "comments": [
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
       {
         "_id": "commentID",
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "_id": "asdasdasdas"},
       },
-    ]
+    ],
   },
 ];

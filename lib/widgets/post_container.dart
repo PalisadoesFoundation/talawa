@@ -83,10 +83,10 @@ class PostContainerState extends State<PostContainer> {
                                   : Colors.grey,
                             ),
                           ),
-                        )
+                        ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

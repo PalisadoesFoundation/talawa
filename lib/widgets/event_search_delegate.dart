@@ -25,7 +25,7 @@ class EventSearch extends SearchDelegate<Event> {
           query.isNotEmpty ? query = '' : close(context, eventList.first);
         },
         icon: const Icon(Icons.clear),
-      )
+      ),
     ];
   }
 
@@ -83,7 +83,7 @@ class EventSearch extends SearchDelegate<Event> {
                 "/eventInfo",
                 arguments: {
                   "event": suggestions[index],
-                  "exploreEventViewModel": exploreEventsViewModel
+                  "exploreEventViewModel": exploreEventsViewModel,
                 },
               );
             },

@@ -40,12 +40,12 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         ),
       ),
       // style of the AppBar.
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
           children: [
-            const ChangeThemeTile(),
-            const LanguageTile(),
+            ChangeThemeTile(),
+            LanguageTile(),
           ],
         ),
       ),

@@ -37,16 +37,16 @@ void main() {
         [
           {
             'text': "Please wait",
-            'textStyle': Theme.of(context).textTheme.headlineSmall
+            'textStyle': Theme.of(context).textTheme.headlineSmall,
           },
           {
             'text': " ${model.currentUser.firstName} ",
             'textStyle':
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
+                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24),
           },
           {
             'text': "for organisation(s) to accept your invitation.",
-            'textStyle': Theme.of(context).textTheme.headlineSmall
+            'textStyle': Theme.of(context).textTheme.headlineSmall,
           },
         ],
       );

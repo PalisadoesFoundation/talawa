@@ -67,7 +67,7 @@ class ExploreEvents extends StatelessWidget {
                         icon: const Icon(Icons.search, size: 20),
                       )
                     : const SizedBox(),
-              )
+              ),
             ],
           ),
           // if the model is still fetching the events list then renders the Circular Progress Indicator
@@ -201,7 +201,7 @@ class ExploreEvents extends StatelessWidget {
                                               "/eventInfo",
                                               arguments: {
                                                 "event": model.events[index],
-                                                "exploreEventViewModel": model
+                                                "exploreEventViewModel": model,
                                               },
                                             );
                                           },

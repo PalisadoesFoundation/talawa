@@ -28,7 +28,7 @@ class CommentService {
       createCommentQuery,
       variables: {
         'postId': postId, //Add your variables here
-        'text': text
+        'text': text,
       },
     );
     print("comment added");

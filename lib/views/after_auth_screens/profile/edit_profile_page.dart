@@ -114,7 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                 ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -223,7 +223,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(fontSize: 18),
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -236,7 +236,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -41,7 +41,7 @@ void main() {
               },
               'receiver': {
                 'firstName': 'Ali',
-              }
+              },
             },
           },
           source: QueryResultSource.network,
@@ -69,7 +69,7 @@ void main() {
                 'users': [],
                 '_id': 'xzy1',
               }
-            ]
+            ],
           },
           source: QueryResultSource.network,
         ),
@@ -92,7 +92,7 @@ void main() {
                 '_id': 'test',
                 'messageContent': 'test',
               }
-            ]
+            ],
           },
           source: QueryResultSource.network,
         ),

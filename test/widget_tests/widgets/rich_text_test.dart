@@ -81,9 +81,9 @@ void main() {
 
       // Second
       expect(
-        (((tester.firstWidget(find.byType(RichText)) as RichText).text
+        ((tester.firstWidget(find.byType(RichText)) as RichText).text
                     as TextSpan)
-                .children![0])
+                .children![0]
             .style,
         isA<TextStyle>()
             .having((style) => style.color, 'Color', Colors.black)

@@ -72,7 +72,7 @@ final testDataNotFromOrg = {
     'createdOrganizations': testOrgList,
     'joinedOrganizations': testOrgList,
     'membershipRequests': membershipRequestOrgList,
-  }
+  },
 };
 
 void main() {

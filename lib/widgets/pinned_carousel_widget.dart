@@ -66,11 +66,11 @@ class PinnedPostCarousel extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-                const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
+                const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios)),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -149,10 +149,10 @@ class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                                 : Colors.grey,
                           ),
                         ),
-                      )
+                      ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

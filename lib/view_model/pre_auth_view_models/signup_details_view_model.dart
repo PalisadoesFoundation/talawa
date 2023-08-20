@@ -40,26 +40,26 @@ class SignupDetailsViewModel extends BaseModel {
         'text': "Let's ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'get ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': "you ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'SignUp ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
     ];
   }

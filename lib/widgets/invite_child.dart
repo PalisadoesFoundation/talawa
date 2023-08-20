@@ -98,7 +98,7 @@ Widget invite(BuildContext context) {
             () async => SocialShare.shareOptions(url),
           ),
         ],
-      )
+      ),
     ],
   );
 }

@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate("Selected Organization"),
-                          )
+                          ),
                         ],
                       ),
                       accountEmail: const SizedBox(),
@@ -143,7 +143,7 @@ class CustomDrawer extends StatelessWidget {
                     SizedBox(
                       key: const Key("Sized BottomBox Drawer"),
                       height: SizeConfig.screenHeight! * 0.03,
-                    )
+                    ),
                   ],
                 ),
               ],

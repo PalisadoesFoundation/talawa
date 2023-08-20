@@ -95,7 +95,7 @@ void main() {
               'firstName': 'Ayush',
               'lastName': 'Chaudhary',
               'email': 'test@test.com',
-            }
+            },
           },
           <String, dynamic>{
             'user': {
@@ -103,7 +103,7 @@ void main() {
               'firstName': 'Aykkush',
               'lastName': 'Chaudhary',
               'email': 'test@test.com',
-            }
+            },
           },
         ],
       };

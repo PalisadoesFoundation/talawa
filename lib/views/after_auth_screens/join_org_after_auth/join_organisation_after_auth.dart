@@ -122,7 +122,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 const Text('Scan QR'),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
-                )
+                ),
               ],
             ),
           ),

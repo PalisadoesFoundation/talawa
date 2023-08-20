@@ -34,8 +34,8 @@ void main() {
             'updateEvent': {
               '_id': 'eventId',
               'title': 'Test task',
-              'description': 'Test description'
-            }
+              'description': 'Test description',
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -66,8 +66,8 @@ void main() {
             'deleteEvent': {
               '_id': 'eventId',
               'title': 'Test task',
-              'description': 'Test description'
-            }
+              'description': 'Test description',
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -90,7 +90,7 @@ void main() {
             'register for an event': {
               '_id': 'eventId',
               'name': 'name',
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -110,7 +110,7 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'registrant': {'_id': 'registrantId', 'name': 'name'}
+            'registrant': {'_id': 'registrantId', 'name': 'name'},
           },
           source: QueryResultSource.network,
         ),
@@ -133,8 +133,8 @@ void main() {
             'Events': {
               '_id': 'eventId',
               'title': 'Test task',
-              'description': 'Test description'
-            }
+              'description': 'Test description',
+            },
           },
           source: QueryResultSource.network,
         ),

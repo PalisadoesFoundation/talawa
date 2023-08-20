@@ -86,7 +86,7 @@ class NewsPost extends StatelessWidget {
                                         fontFamily: 'open-sans',
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -98,7 +98,7 @@ class NewsPost extends StatelessWidget {
                       Icons.report_gmailerrorred_outlined,
                       color: Colors.black38,
                     ),
-                  )
+                  ),
                 ],
               ),
               // subtitle: Text(post.getPostCreatedDuration()),
@@ -181,7 +181,7 @@ class NewsPost extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

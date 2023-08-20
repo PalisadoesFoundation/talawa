@@ -271,7 +271,7 @@ class EventInfoBody extends StatelessWidget {
                     onTapUserInfo: () {},
                   );
                 },
-              )
+              ),
           ],
         ),
       ),

@@ -63,6 +63,8 @@ void main() {
 
       final List<Post> postList = [mockPost1, mockPost2];
       //Extremely large screen to test if scrolling takes place
+
+      // ignore: deprecated_member_use
       tester.binding.window.physicalSizeTestValue = const Size(1000, 1000);
       await tester.runAsync(() async {
         await tester.pumpWidget(createPostListWidget(postList));

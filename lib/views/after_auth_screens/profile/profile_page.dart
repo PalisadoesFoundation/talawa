@@ -117,7 +117,7 @@ class ProfilePage extends StatelessWidget {
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -126,7 +126,7 @@ class ProfilePage extends StatelessWidget {
                   );
                 },
                 icon: const Icon(Icons.settings),
-              )
+              ),
             ],
           ),
           // if data fetching is under process then renders Circular Progress Icon
@@ -308,7 +308,7 @@ class ProfilePage extends StatelessWidget {
                             FromPalisadoes(key: homeModel!.keySPPalisadoes),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -377,7 +377,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           onPressed: model.popBottomSheet,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   body: SingleChildScrollView(
@@ -467,7 +467,7 @@ class ProfilePage extends StatelessWidget {
                                       ),
                                       const Icon(
                                         Icons.arrow_drop_down_circle_outlined,
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -575,7 +575,7 @@ class ProfilePage extends StatelessWidget {
                             'DONATE',
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

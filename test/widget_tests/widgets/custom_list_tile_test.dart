@@ -250,7 +250,7 @@ void main() {
     testWidgets("Test when type is option", (WidgetTester tester) async {
       bool executed = false;
       _tileType = TileType.option;
-      _onTapOption = () => {executed = true};
+      _onTapOption = () => executed = true;
       await tester.pumpWidget(_createCustomListTile());
       await tester.pumpAndSettle();
 

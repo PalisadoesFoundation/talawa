@@ -81,33 +81,33 @@ class SetUrlViewModel extends BaseModel {
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
         'text': 'and ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Collaborate ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+            .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
       },
       {
         'text': 'with your ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Organizations',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headlineSmall!
-            .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
+            .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
       },
     ];
     notifyListeners();
@@ -245,7 +245,7 @@ class SetUrlViewModel extends BaseModel {
                 const Text('Scan QR'),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
-                )
+                ),
               ],
             ),
           ),

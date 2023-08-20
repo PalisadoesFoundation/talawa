@@ -52,7 +52,7 @@ class CustomAlertDialog extends StatelessWidget {
         backgroundColor: Colors.white,
         width: SizeConfig.screenWidth! * 0.2,
         height: SizeConfig.screenHeight! * 0.06,
-      )
+      ),
     ];
     return AlertDialog(
       title: Text(
