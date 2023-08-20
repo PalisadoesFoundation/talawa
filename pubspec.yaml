@@ -11,7 +11,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 repository: https://github.com/PalisadoesFoundation/talawa
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <3.13.0"
 
 dependencies:
   ############# Remove ###########
