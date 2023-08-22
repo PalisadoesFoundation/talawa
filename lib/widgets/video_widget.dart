@@ -26,7 +26,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
     //Constructs a [VideoPlayerController] playing a video from obtained from the network.
-    _controller = VideoPlayerController.network(widget.url);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url));
     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
       if (widget.play) {
@@ -93,7 +93,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                       color: Colors.white,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );
