@@ -35,7 +35,7 @@ dependencies:
   firebase_core_platform_interface: ^4.5.3
 
   firebase_messaging: ^14.6.6
-  firebase_messaging_platform_interface: ^4.5.4
+  firebase_messaging_platform_interface: ^4.5.6
 
   flutter:
     sdk: flutter
