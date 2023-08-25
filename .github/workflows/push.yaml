@@ -95,11 +95,11 @@ jobs:
           flutter analyze
           dart analyze
           flutter pub global activate dartdoc
-          flutter pub global run dartdoc . --output docs/talawa
+          flutter pub global run dartdoc . --output talawa-mobile-docs --format md
       - uses: actions/upload-artifact@v1
         with:
-          name: docs
-          path: docs/talawa
+          name: talawa-mobile-docs
+          path: talawa-mobile-docs
       - name: Checking doc updated
         id: DocUpdated
         run: |
@@ -143,13 +143,15 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
       with:
-        source_file: 'docs/talawa/'
+        source_file: 'talawa-mobile-docs/'
         destination_repo: 'PalisadoesFoundation/talawa-docs'
         destination_branch: 'develop'
-        destination_folder: 'static'
+        destination_folder: 'docs'
         user_email: '${{env.email}}'
         user_name: '${{github.actor}}'
-        commit_message: 'Overwriting static/talawa from talawa-repo'
+        commit_message: 'Overwriting talawa-mobile-docs from talawa-repo'
+
+  
 
   Flutter-Testing:
     name: Testing codebase

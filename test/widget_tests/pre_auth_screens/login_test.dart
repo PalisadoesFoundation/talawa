@@ -227,6 +227,15 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
     });
+    testWidgets('Check if tip button works', (tester) async {
+      await showLoginScreen(tester);
+
+      final tipButton = find.text('Tip');
+      expect(tipButton, findsOneWidget);
+
+      await tester.tap(tipButton);
+      await tester.pumpAndSettle();
+    });
 
     testWidgets('Check if Recover button works', (tester) async {
       await showLoginScreen(tester);

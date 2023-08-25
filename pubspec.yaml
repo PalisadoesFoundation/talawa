@@ -35,34 +35,34 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_core_platform_interface: ^4.5.3
 
-  firebase_messaging: ^14.6.4
-  firebase_messaging_platform_interface: ^4.5.4
+  firebase_messaging: ^14.6.7
+  firebase_messaging_platform_interface: ^4.5.6
 
   flutter:
     sdk: flutter
 
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^15.1.1
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.5
   font_awesome_flutter: ^10.4.0 
   geocoding: ^2.1.0
-  geolocator: ^9.0.2
+  geolocator: ^10.0.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^0.13.6
   image_cropper: ^4.0.1
-  image_picker: ^1.0.1
+  image_picker: ^1.0.2
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.3.2
   network_image_mock: ^2.1.1
-  path_provider: ^2.0.15
+  path_provider: ^2.1.0
   permission_handler: ^10.4.3
   plugin_platform_interface: ^2.1.5
   provider: ^6.0.3
@@ -88,12 +88,12 @@ dev_dependencies:
   custom_lint:
   flutter_test:
     sdk: flutter
-  hive_generator: ^2.0.0
+  hive_generator: ^2.0.1
 
   json_serializable: ^6.6.1
   lint: ^2.0.20 
 
-  mocktail_image_network: ^0.3.1
+  mocktail_image_network: ^1.0.0
   talawa_lint:
     path: talawa_lint/
 
