@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/widgets/post_text_field.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -24,8 +25,9 @@ class AddPostViewModel extends BaseModel {
   late File? _imageFile;
   late User _currentUser;
   late OrgInfo _selectedOrg;
-  final TextEditingController _controller = TextEditingController();
-
+  final PostTextController _controller = PostTextController();
+  final List<String> _fetchedhashtags = [];
+  late bool _showHashtagList;
   final TextEditingController _titleController = TextEditingController();
 
   /// The image file that is to be uploaded.
@@ -58,7 +60,9 @@ class AddPostViewModel extends BaseModel {
   /// None
   /// returns:
   /// * `TextEditingController`: The main text controller of the post body
-  TextEditingController get controller => _controller;
+  PostTextController get controller => _controller;
+  List<String> get fetchedhashtags => [..._fetchedhashtags];
+  bool get showHashtagList => _showHashtagList;
 
   /// Post title text controller.
   ///
@@ -83,6 +87,7 @@ class AddPostViewModel extends BaseModel {
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
     _dbFunctions = locator<DataBaseMutationFunctions>();
+    _showHashtagList = false;
   }
 
   /// This function is used to get the image from gallery.
@@ -152,6 +157,99 @@ class AddPostViewModel extends BaseModel {
   ///   None
   void removeImage() {
     _imageFile = null;
+    notifyListeners();
+  }
+  /// This function will return the start and end index of the current tag where the pointer/
+  /// 
+  /// cursor is currently placed
+  MapEntry<int, int> _getCurrentString() {
+    final text = _controller.text;
+    final cursorPosition = _controller.selection;
+    final cursorIndex = cursorPosition.baseOffset - 1;
+
+    int left = 0;
+    int right = 0;
+    int temp = cursorIndex;
+    while (temp > 0) {
+      if (text[temp] == ' ' || text[temp] == '\n') {
+        left = temp + 1;
+        break;
+      }
+      temp--;
+    }
+    if (temp == 0) {
+      left = 0;
+    }
+    temp = cursorIndex;
+
+    while (temp < text.length) {
+      if (text[temp] == ' ' || text[temp] == '\n') {
+        right = temp;
+        break;
+      }
+      temp++;
+    }
+    if (temp == text.length) {
+      right = text.length;
+    }
+    return MapEntry(left, right);
+  }
+
+  /// This function is used to fetch the hashtags from server based on the prefix.
+  /// params:
+  /// * [prefix] : prefix of the hashtags
+  List<String> _fetchTags(String prefix) {
+    // function that will make a request for trending tags and add it to provide user
+    return [];
+  }
+  /// This function is used to add the tag in the post(textField) on tapping the one of the tag from suggestions
+  /// and is responsible to reposition the cursor at the end of the string
+  /// params:
+  /// * [tag] : String value of the tag
+  void onTagClick(String tag) {
+    final list = _controller.text.split(' ');
+    final vals = _getCurrentString();
+    final currString = _controller.text.substring(vals.key, vals.value);
+    final index = list.indexOf(currString);
+
+    if (index != -1) {
+      list[index] = "#$tag";
+    } else {
+      list.add("#$tag");
+    }
+
+    _controller.text = list.join(' ');
+
+    _controller.selection = TextSelection.fromPosition(
+      TextPosition(
+        offset:
+            (index == -1) ? _controller.text.length : vals.key + tag.length + 1,
+      ),
+    );
+
+    _showHashtagList = false;
+
+    notifyListeners();
+  }
+
+  /// This function is responsible to detect weather the tag is being added to the string currently
+  /// 
+  /// and is responsible to reposition the cursor at the end of the string
+  void handleTextChange(_) {
+    final vals = _getCurrentString();
+    final currText = _controller.text.substring(vals.key, vals.value);
+
+    if (currText == '#' || currText.startsWith('#')) {
+      _fetchedhashtags.clear();
+      if (currText.length > 1) {
+        print("In here");
+        _fetchedhashtags.addAll(_fetchTags(currText.substring(1)));
+      }
+      _showHashtagList = true;
+    } else {
+      _showHashtagList = false;
+    }
+
     notifyListeners();
   }
 }

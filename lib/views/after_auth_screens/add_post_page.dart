@@ -88,15 +88,6 @@ class AddPost extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.file_upload),
                   ),
-                  // button to add hastags to the post.
-                  TextButton(
-                    key: const Key('add_post_text_btn2'),
-                    onPressed: () {},
-                    child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
                 ],
               ),
               const Divider(),
@@ -126,7 +117,7 @@ class AddPost extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
-                  controller: model.controller,
+                  onChanged: model.handleTextChange,
                   maxLines: null,
                   // input field to write the description of the post.
                   decoration: InputDecoration(
@@ -141,6 +132,22 @@ class AddPost extends StatelessWidget {
                   ),
                 ),
               ),
+                if (model.showHashtagList)
+                SizedBox(
+                  height: 200,
+                  child: ListView(
+                    children: List.generate(
+                      model.fetchedhashtags.length,
+                      (index) => ListTile(
+                        title: Text("#${model.fetchedhashtags[index]}"),
+                        onTap: () => model.onTagClick(
+                          model.fetchedhashtags[index],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
               // if the image for the post is added then render button to remove it.
               model.imageFile != null
                   // ignore: sized_box_for_whitespace
