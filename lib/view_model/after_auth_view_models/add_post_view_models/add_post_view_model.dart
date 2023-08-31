@@ -159,8 +159,9 @@ class AddPostViewModel extends BaseModel {
     _imageFile = null;
     notifyListeners();
   }
+
   /// This function will return the start and end index of the current tag where the pointer/
-  /// 
+  ///
   /// cursor is currently placed
   MapEntry<int, int> _getCurrentString() {
     final text = _controller.text;
@@ -202,6 +203,7 @@ class AddPostViewModel extends BaseModel {
     // function that will make a request for trending tags and add it to provide user
     return [];
   }
+
   /// This function is used to add the tag in the post(textField) on tapping the one of the tag from suggestions
   /// and is responsible to reposition the cursor at the end of the string
   /// params:
@@ -233,7 +235,7 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function is responsible to detect weather the tag is being added to the string currently
-  /// 
+  ///
   /// and is responsible to reposition the cursor at the end of the string
   void handleTextChange(_) {
     final vals = _getCurrentString();

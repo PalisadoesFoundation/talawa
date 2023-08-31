@@ -132,7 +132,7 @@ class AddPost extends StatelessWidget {
                   ),
                 ),
               ),
-                if (model.showHashtagList)
+              if (model.showHashtagList)
                 SizedBox(
                   height: 200,
                   child: ListView(
