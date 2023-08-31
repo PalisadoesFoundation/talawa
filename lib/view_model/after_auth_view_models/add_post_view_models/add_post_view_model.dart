@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:talawa/widgets/post_text_field.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -12,6 +11,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/post_text_field.dart';
 
 /// AddPostViewModel class have different functions that are used.
 ///
