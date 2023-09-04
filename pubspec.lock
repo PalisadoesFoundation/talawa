@@ -277,10 +277,10 @@ packages:
     dependency: "direct main"
     description:
       name: currency_picker
-      sha256: "4d5a3f0d13a62908c7d00d9c18a6356d0a14bddabdff86e6751aa105e2ad79e2"
+      sha256: b63dab8530de424323e0c6d31bff85b3628bc8515de0eb4fa8c2eb58065f1c2d
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.16"
+    version: "2.0.17"
   custom_lint:
     dependency: "direct dev"
     description:
