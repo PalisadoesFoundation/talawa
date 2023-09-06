@@ -63,7 +63,7 @@ dependencies:
   network_image_mock: ^2.1.1
   path_provider: ^2.1.0
   permission_handler: ^10.4.3
-  plugin_platform_interface: ^2.1.5
+  plugin_platform_interface: ^2.1.6
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
