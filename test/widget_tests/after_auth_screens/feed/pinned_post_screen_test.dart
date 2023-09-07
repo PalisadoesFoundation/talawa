@@ -12,12 +12,11 @@ import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createApp() {
-
-  final Map<String, String> postDetails =     {
+  final Map<String, String> postDetails = {
     'title': 'Debate over stocks bybacks.',
     'postId': 'agdjvfhsjaf',
     'imageUrl':
-    'https://m.wsj.net/video/20200105/wsjglossarystockbuybackssplash/wsjglossarystockbuybackssplash_640x360.jpg',
+        'https://m.wsj.net/video/20200105/wsjglossarystockbuybackssplash/wsjglossarystockbuybackssplash_640x360.jpg',
     'time': '9',
   };
   return MaterialApp(
@@ -36,7 +35,8 @@ Widget createApp() {
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         );
 
-        await navigationService.pushScreen('/pinnedpostscreen', arguments: postDetails);
+        await navigationService.pushScreen('/pinnedpostscreen',
+            arguments: postDetails);
       },
       child: const Text('Ayush'),
     ),
