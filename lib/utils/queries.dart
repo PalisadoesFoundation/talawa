@@ -151,6 +151,24 @@ class Queries {
     """;
   }
 
+  String updateUserProfile() {
+    return """  
+      mutation UpdateUserProfile(
+        \$firstName: String
+        \$lastName: String
+        \$email: EmailAddress
+        \$file: String
+      ) {
+      updateUserProfile(
+        data: { firstName: \$firstName, lastName: \$lastName, email: \$email }
+        file: \$file
+      ) {
+        _id
+        }
+      }
+    """;
+  }
+
   String saveFcmToken(String? token) {
     return """
         mutation {

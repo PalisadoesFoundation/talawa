@@ -94,6 +94,7 @@ class PostQueries {
     \$imageUrl: URL
     \$videoUrl: URL
     \$organizationId: ID!
+    \$file: String
   ) {
     createPost(
       data: {
@@ -103,6 +104,7 @@ class PostQueries {
         videoUrl: \$videoUrl
         organizationId: \$organizationId
       }
+      file: \$file
     ) {
       _id
     }

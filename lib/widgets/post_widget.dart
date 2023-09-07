@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
@@ -20,6 +22,11 @@ class NewsPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (post.base64String != null) {
+      print("${post.base64String!}%%%%%%%%%%%%%%%%%%");
+    } else {
+      print(post.description);
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -77,7 +84,10 @@ class NewsPost extends StatelessWidget {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: () => Navigator.pop(context),
+                                    onPressed: () {
+                                      navigationService.showTalawaErrorSnackBar('Your Report has been sent to the Admin', MessageType.info);
+                                      Navigator.pop(context);
+                                    },
                                     child: const Text(
                                       'Report the post to the Admin',
                                       style: TextStyle(
@@ -103,12 +113,16 @@ class NewsPost extends StatelessWidget {
               ),
               // subtitle: Text(post.getPostCreatedDuration()),
             ),
-            // DescriptionTextWidget(text: post.description!),
-            Container(
-              height: 380,
-              color: Colors.white,
-              child: PostContainer(id: post.sId),
-            ),
+            post.imageUrl == null
+                ? DescriptionTextWidget(text: post.description!)
+                : Container(),
+            post.imageUrl != null
+                ? Container(
+                    height: 380,
+                    color: Colors.white,
+                    child: PostContainer(photoUrl: post.imageUrl),
+                  )
+                : Container(),
             BaseView<LikeButtonViewModel>(
               onModelReady: (model) {
                 model.initialize(post.likedBy ?? [], post.sId);
@@ -216,7 +230,9 @@ class NewsPost extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        DescriptionTextWidget(text: post.description!),
+                        post.imageUrl != null
+                            ? DescriptionTextWidget(text: post.description!)
+                            : Container(),
                       ],
                     ),
                   ),

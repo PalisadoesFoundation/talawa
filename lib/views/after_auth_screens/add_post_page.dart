@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -15,6 +19,9 @@ class AddPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final Uint8List imageBytes = base64Decode(sampleBase64Image);
+    // final Uint8List bytes = BASE64.decode(_base64);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // header for the widget
@@ -41,7 +48,11 @@ class AddPost extends StatelessWidget {
         actions: [
           TextButton(
             key: const Key('add_post_text_btn1'),
-            onPressed: () => model.uploadPost(),
+            onPressed: () {
+
+                  model.uploadPost();
+                  // convertImageToBase64(sampleBase64Image);
+            },
             child: Text(
               AppLocalizations.of(context)!.strictTranslate("Post"),
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
@@ -50,6 +61,7 @@ class AddPost extends StatelessWidget {
                   ),
             ),
           ),
+    // Image.memory(imageBytes)
         ],
       ),
       body: BaseView<AddPostViewModel>(
@@ -83,20 +95,21 @@ class AddPost extends StatelessWidget {
                     icon: const Icon(Icons.camera_alt),
                   ),
                   // button to select file
-                  IconButton(
-                    key: const Key('add_post_icon_button4'),
-                    onPressed: () {},
-                    icon: const Icon(Icons.file_upload),
-                  ),
+                  // IconButton(
+                  //   key: const Key('add_post_icon_button4'),
+                  //   onPressed: () {
+                  //   },
+                  //   icon: const Icon(Icons.file_upload),
+                  // ),
                   // button to add hastags to the post.
-                  TextButton(
-                    key: const Key('add_post_text_btn2'),
-                    onPressed: () {},
-                    child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
+                  // TextButton(
+                  //   key: const Key('add_post_text_btn2'),
+                  //   onPressed: () {},
+                  //   child: Text(
+                  //     '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
+                  //     style: Theme.of(context).textTheme.titleLarge,
+                  //   ),
+                  // ),
                 ],
               ),
               const Divider(),
@@ -149,11 +162,12 @@ class AddPost extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Stack(
                         children: [
-                          Image.file(
-                            model.imageFile!,
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                          ),
+                          // Image.file(
+                          //   model.imageFile!,
+                          //   fit: BoxFit.cover,
+                          //   width: MediaQuery.of(context).size.width,
+                          // ),
+                          Image.file(model.imageFile!),
                           Positioned(
                             right: 5,
                             top: 5,

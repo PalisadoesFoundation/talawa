@@ -91,7 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // if image is null the function will be get getImageFromGallery()
                             // else removeImage()
                             model.imageFile == null
-                                ? model.getImageFromGallery()
+                                ? model.getImageFromGallery(camera: true)
                                 : model.removeImage();
                           },
                           child: model.imageFile == null
@@ -232,7 +232,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const Divider(),
                 // button to update the profile.
                 TextButton(
-                  onPressed: () async {},
+                  onPressed: () {
+
+                  },
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),

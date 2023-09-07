@@ -109,7 +109,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  model.logout(context);
+                                },
                                 child: const Text(
                                   "Log Out",
                                   style: TextStyle(

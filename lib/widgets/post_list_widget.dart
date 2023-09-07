@@ -14,12 +14,14 @@ class PostListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: posts.length,
       itemBuilder: (BuildContext context, int index) {
+        print(posts[index].imageUrl);
         return Column(
           children: [
             NewsPost(

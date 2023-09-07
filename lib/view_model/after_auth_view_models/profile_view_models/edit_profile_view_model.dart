@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -41,6 +42,25 @@ class EditProfilePageViewModel extends BaseModel {
       notifyListeners();
     }
   }
+
+  /// This function is used to convert the image into Base64 format
+  ///
+  /// params:
+  /// * [file] : Takes the iimage in format of file.
+  Future<String> convertToBase64(File file) async {
+    try {
+      final List<int> bytes = await file.readAsBytes();
+      String base64String = base64Encode(bytes);
+      base64String = base64String;
+      print(base64String);
+      imageFile = base64String as File?;
+      return base64String;
+    } catch (error) {
+      return '';
+    }
+  }
+
+
 
   /// This function remove the selected image.
   void removeImage() {

@@ -61,9 +61,10 @@ class OrganizationList extends StatelessWidget {
           } else {
             // If the result is still loading!
             if (!result.isLoading) {
-              model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'] as List,
-              );
+              print(result.data!['organizationsConnection']);
+              // model.organizations = OrgInfo().fromJsonToList(
+              //   result.data!['organizationsConnection'] as List,
+              // );
             }
 
             Timer(const Duration(seconds: TimeOuts.small), () {

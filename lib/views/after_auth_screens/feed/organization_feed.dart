@@ -20,6 +20,7 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
+        print(model.posts);
         return Scaffold(
           appBar: AppBar(
             // AppBar returns a widget for the header of the page.
@@ -41,8 +42,10 @@ class OrganizationFeed extends StatelessWidget {
                 Icons.menu,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: () =>
-                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+              onPressed: () {
+                MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+
+              },
             ),
           ),
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
