@@ -27,6 +27,7 @@ dependencies:
 
   cupertino_icons: ^1.0.3
   currency_picker: ^2.0.16
+
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
@@ -37,11 +38,12 @@ dependencies:
   firebase_core_platform_interface: ^4.5.3
   firebase_messaging: ^14.6.6
   firebase_messaging_platform_interface: ^4.5.4
+
   flutter:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^15.1.1
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^7.0.0
@@ -62,12 +64,12 @@ dependencies:
   network_image_mock: ^2.1.1
   path_provider: ^2.1.0
   permission_handler: ^10.4.3
-  plugin_platform_interface: ^2.1.5
+  plugin_platform_interface: ^2.1.6
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
-  quick_actions: ^1.0.3
-  shared_preferences: ^2.2.0
+  quick_actions: ^1.0.6
+  shared_preferences: ^2.2.1
   shimmer: ^3.0.0
   social_share: ^2.2.1
   syncfusion_flutter_calendar: 20.4.54
@@ -76,7 +78,7 @@ dependencies:
   tutorial_coach_mark: ^1.2.9
   uni_links: ^0.5.1
   vibration: ^1.8.1
-  video_player: ^2.6.1
+  video_player: ^2.7.1
   visibility_detector: ^0.4.0+2
 
 

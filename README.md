@@ -1,14 +1,6 @@
 # Talawa
 
-[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-201rfrnid-TTDT4fPjdVEhnHGeYJ6uSw)
-
-![talawa-logo-lite-200x200](https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png)
-
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![GitHub stars](https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&label=Star&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
-[![GitHub forks](https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
-[![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
+[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-22ei930ts-wOT3nDSuoINwwtO_9sntUQ)
 
 **Talawa** is a comprehensive platform that aims to revolutionize the way organizations manage and interact with their data and content. Talawa empowers administrators to access and manage content with ease through the Talawa Admin interface, ensuring that information remains up-to-date and accessible to the platform's members. 
 
