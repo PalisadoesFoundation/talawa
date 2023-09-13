@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
 /// This class creates a video widget.
 class VideoWidget extends StatefulWidget {
   const VideoWidget({Key? key, required this.url, required this.play})
@@ -11,6 +12,7 @@ class VideoWidget extends StatefulWidget {
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
+
 class _VideoWidgetState extends State<VideoWidget> {
   //Controls a platform video player, and provides updates when the state is changing.
   late VideoPlayerController _controller;
@@ -32,6 +34,7 @@ class _VideoWidgetState extends State<VideoWidget> {
       setState(() {});
     });
   }
+
   @override
   void didUpdateWidget(VideoWidget oldWidget) {
     if (oldWidget.play != widget.play) {
@@ -44,12 +47,15 @@ class _VideoWidgetState extends State<VideoWidget> {
     }
     super.didUpdateWidget(oldWidget);
   }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
+
   /// This function returns a GestureDetector for controlling the volume.
   /// On tap, the volume is either set to 1 or 0 depending on the previous value.
   Widget build(BuildContext context) {
