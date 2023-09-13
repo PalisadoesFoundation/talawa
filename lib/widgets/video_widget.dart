@@ -26,7 +26,6 @@ class _VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
     //Constructs a [VideoPlayerController] playing a video from obtained from the network.
-    // ignore: deprecated_member_use
     _controller = VideoPlayerController.network(widget.url);
     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
