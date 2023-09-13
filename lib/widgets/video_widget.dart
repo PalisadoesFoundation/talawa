@@ -1,5 +1,6 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -9,6 +10,7 @@ class VideoWidget extends StatefulWidget {
       : super(key: key);
   final String url;
   final bool play;
+
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -19,6 +21,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   late Future<void> _initializeVideoPlayerFuture;
   //setting the mute variable to true initially
   bool mute = true;
+
   @override
   void initState() {
     super.initState();
@@ -90,7 +93,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                       color: Colors.white,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           );
