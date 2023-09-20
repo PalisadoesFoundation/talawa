@@ -62,8 +62,8 @@ jobs:
           git pull
           git branch
           git diff --name-only develop..HEAD
-          git stash
           git checkout temp_branch
+          git stash
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
       - name: Analysing codebase for default linting
