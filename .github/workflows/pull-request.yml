@@ -58,6 +58,7 @@ jobs:
           git branch
           git checkout -b temp_branch
           git branch
+          git stash
           git checkout develop
           git pull
           git branch
