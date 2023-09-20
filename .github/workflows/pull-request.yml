@@ -58,7 +58,7 @@ jobs:
           git branch
           git checkout -b temp_branch
           git branch
-          git stash
+          git stash push -m lock_file pubspec.lock
           git checkout develop
           git pull
           git branch
