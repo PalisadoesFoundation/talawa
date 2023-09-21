@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 
@@ -46,7 +43,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(fontFamily: 'open-sans'),
+                  .copyWith(fontFamily: 'open-sans', color: Colors.black38),
             )
           : Column(
               children: <Widget>[

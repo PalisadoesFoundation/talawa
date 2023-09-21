@@ -164,7 +164,7 @@ class AddPost extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     )

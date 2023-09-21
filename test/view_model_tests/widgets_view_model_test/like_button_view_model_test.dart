@@ -14,7 +14,7 @@ void main() {
 
   final List<LikedBy> likedBy0 = [
     LikedBy(sId: 'Test user 1'),
-    LikedBy(sId: 'Test user 2')
+    LikedBy(sId: 'Test user 2'),
   ];
 
   final post = Post(

@@ -90,7 +90,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 .strictTranslate("Add Image"),
                             style: subtitleTextStyle,
                           ),
-                        )
+                        ),
                       ],
                     ),
                     // If the image for the event is selected or not null.
@@ -116,7 +116,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           )
@@ -239,7 +239,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           AppLocalizations.of(context)!
                               .strictTranslate('Does not repeat'),
                           style: subtitleTextStyle,
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
@@ -318,7 +318,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           Icon(
                             Icons.add,
                             color: Theme.of(context).colorScheme.secondary,
-                          )
+                          ),
                         ],
                       ),
                     ),

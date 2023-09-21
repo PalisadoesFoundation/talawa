@@ -46,7 +46,7 @@ Event getEvent(bool isPublic, bool isCreator) {
         id: isCreator ? "xzy1" : "abc1",
         firstName: "Test",
         lastName: "User",
-      )
+      ),
     ],
     isPublic: isPublic,
     organization: OrgInfo(id: 'XYZ'),

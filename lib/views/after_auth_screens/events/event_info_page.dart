@@ -55,7 +55,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                   ),
                 ),
               ),
-              const EventInfoBody()
+              const EventInfoBody(),
             ],
           ),
           // if the event is created by current user then renders explore

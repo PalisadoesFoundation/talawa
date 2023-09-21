@@ -19,7 +19,7 @@ Widget createEventCalendar() {
         startTime: '7:00 PM',
         endDate: '07/14/2022',
         endTime: '8:00 PM',
-      )
+      ),
     ]),
   );
 }

@@ -51,7 +51,7 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
               offset: const Offset(0, 1),
               blurRadius: 4.0,
               spreadRadius: 0,
-            )
+            ),
           ],
         ),
         // If the widget.showArrow is true then show Row wrapper else FittedBox wrapper.

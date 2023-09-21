@@ -25,7 +25,7 @@ void main() {
           query,
           variables: {
             'postId': 'ayush post', //Add your variables here
-            'text': 'hey Ayush here!'
+            'text': 'hey Ayush here!',
           },
         ),
       ).thenAnswer(
@@ -94,7 +94,7 @@ void main() {
                 'post': 'test post',
                 'likeCount': 'test count',
               }
-            ]
+            ],
           },
           source: QueryResultSource.network,
         ),

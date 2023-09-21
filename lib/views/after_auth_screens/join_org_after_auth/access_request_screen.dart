@@ -89,7 +89,7 @@ class SendAccessRequest extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
