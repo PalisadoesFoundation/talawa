@@ -259,12 +259,12 @@ void main() {
         joinedOrganizations: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
         membershipRequests: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
       );
 
@@ -305,12 +305,12 @@ void main() {
         joinedOrganizations: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
         membershipRequests: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
       );
 
@@ -351,7 +351,7 @@ void main() {
         membershipRequests: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
       );
       _userLoggedIn = true;
@@ -383,7 +383,7 @@ void main() {
         joinedOrganizations: [
           OrgInfo(
             id: '1',
-          )
+          ),
         ],
         membershipRequests: [org],
       );
@@ -744,10 +744,10 @@ void main() {
         (FetchMoreOptions options) async {
           expected = options.updateQuery(
             <String, dynamic>{
-              "organizationsConnection": [1, 2]
+              "organizationsConnection": [1, 2],
             },
             <String, dynamic>{
-              "organizationsConnection": [3, 4]
+              "organizationsConnection": [3, 4],
             },
           );
           return Future.value(
@@ -761,7 +761,7 @@ void main() {
       );
 
       expect(expected, {
-        'organizationsConnection': [1, 2, 3, 4]
+        'organizationsConnection': [1, 2, 3, 4],
       });
     });
   });

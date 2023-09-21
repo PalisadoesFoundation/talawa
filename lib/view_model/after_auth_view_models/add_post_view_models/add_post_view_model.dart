@@ -123,7 +123,7 @@ class AddPostViewModel extends BaseModel {
           variables: {
             "text": _controller.text,
             "organizationId": _selectedOrg.id,
-            "title": _titleController.text
+            "title": _titleController.text,
           },
         );
         _navigationService.showTalawaErrorSnackBar(

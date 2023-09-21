@@ -33,21 +33,21 @@ class _ChangePassState extends State<ChangePass> {
     final text = [
       {
         'text': "${AppLocalizations.of(context)!.translate("Hello")}, ",
-        'textStyle': Theme.of(context).textTheme.headlineSmall
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
         'text': '${AppLocalizations.of(context)!.translate("User Name")} ',
         'textStyle':
-            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24),
       },
       {
         'text': "${AppLocalizations.of(context)!.translate("we've")} ",
-        'textStyle': Theme.of(context).textTheme.headlineSmall
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
         'text':
             '${AppLocalizations.of(context)!.translate("got you covered")} ',
-        'textStyle': Theme.of(context).textTheme.headlineSmall
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
     ];
     return Scaffold(

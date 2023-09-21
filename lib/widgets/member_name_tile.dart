@@ -65,7 +65,7 @@ class MemberNameTile extends StatelessWidget {
                 color: Color(0xff524F4F),
                 size: 19,
               ),
-            )
+            ),
           ],
         ),
       ),

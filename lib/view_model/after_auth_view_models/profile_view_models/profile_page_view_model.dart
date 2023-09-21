@@ -217,7 +217,7 @@ class ProfilePageViewModel extends BaseModel {
                       () async => SocialShare.shareOptions(url),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

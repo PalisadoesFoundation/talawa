@@ -149,7 +149,7 @@ class TalawaAPIDocFixer extends DartFix {
     );
 
     final paramList = (node is FunctionDeclaration)
-        ? (node.functionExpression.parameters)?.parameters
+        ? node.functionExpression.parameters?.parameters
         : (node as MethodDeclaration).parameters?.parameters;
 
     if (paramList == null || paramList.isEmpty) {

@@ -84,7 +84,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       TextButton(
                         onPressed: () {},
                         child: Text("Add Image", style: subtitleTextStyle),
-                      )
+                      ),
                     ],
                   ),
                   const Divider(),
@@ -168,7 +168,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       SizedBox(
                         width: SizeConfig.screenWidth! * 0.045,
                       ),
-                      Text('Does not repeat', style: subtitleTextStyle)
+                      Text('Does not repeat', style: subtitleTextStyle),
                     ],
                   ),
                   SizedBox(

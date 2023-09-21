@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -17,11 +14,13 @@ class CustomAvatar extends StatelessWidget {
     this.cacheManager,
     this.imageUrl,
     this.fontSize = 40,
+    this.maxRadius = 16,
   }) : super(key: key);
   final bool isImageNull;
   final String? firstAlphabet;
   final String? imageUrl;
   final double? fontSize;
+  final double? maxRadius;
   final BaseCacheManager? cacheManager;
 
   @override
@@ -31,12 +30,13 @@ class CustomAvatar extends StatelessWidget {
         ? CircleAvatar(
             backgroundColor:
                 Theme.of(context).iconTheme.color!.withOpacity(0.2),
+            maxRadius: maxRadius,
             child: Center(
               child: Text(
                 firstAlphabet!,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
+                    .bodySmall!
                     .copyWith(fontSize: fontSize),
               ),
             ),

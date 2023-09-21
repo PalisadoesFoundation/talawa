@@ -37,27 +37,27 @@ class LoginViewModel extends BaseModel {
         'text': "We're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Glad ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
       {
         'text': "you're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Back ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
     ];
   }

@@ -9,7 +9,7 @@ class ShortCutMenu {
   static final quickActionsList = <ShortcutItem>[
     eventAction,
     feedAction,
-    chatAction
+    chatAction,
   ];
 
   static const eventAction = ShortcutItem(

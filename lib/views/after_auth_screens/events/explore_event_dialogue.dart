@@ -76,7 +76,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Column(
@@ -125,7 +125,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -166,11 +166,11 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
