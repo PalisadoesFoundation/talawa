@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
