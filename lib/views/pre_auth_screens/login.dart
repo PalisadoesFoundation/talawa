@@ -10,7 +10,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This is the login widget.
-/// 
+///
 /// There are two input fiels. The first one takes in the email and
 /// the second one takes in the password of the user.
 /// There is also a "Forgot Password" text button, which directs to
