@@ -55,8 +55,8 @@ dependencies:
   google_maps_flutter: ^2.3.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
-  http: ^0.13.6
-  image_cropper: ^4.0.1
+  http: ^1.1.0
+  image_cropper: ^5.0.0
 
   intl: ^0.18.0
   image_picker: ^1.0.4
