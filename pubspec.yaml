@@ -90,7 +90,7 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^2.0.1
 
-  json_serializable: ^6.6.1
+  json_serializable: ^6.7.1
   lint: ^2.1.2
 
   mocktail_image_network: ^1.0.0
