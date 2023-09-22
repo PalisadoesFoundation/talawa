@@ -49,14 +49,14 @@ class TaskSchedule extends StatelessWidget {
             children: [
               Text(appointmentDetails.notes!),
               const SizedBox(height: 10),
-              Text('$dateText $timeDetails')
+              Text('$dateText $timeDetails'),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => navigationService.pop(),
               child: const Text('Close'),
-            )
+            ),
           ],
         ),
       );

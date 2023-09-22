@@ -64,7 +64,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -9,6 +9,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -36,27 +37,27 @@ class LoginViewModel extends BaseModel {
         'text': "We're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Glad ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
       {
         'text': "you're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'Back ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
     ];
   }
@@ -74,8 +75,14 @@ class LoginViewModel extends BaseModel {
       databaseFunctions.init();
       try {
         // run the graph QL query to login the user, passing `email` and `password`.
-        final result = await databaseFunctions
-            .gqlNonAuthMutation(queries.loginUser(email.text, password.text));
+        final result = await databaseFunctions.gqlNonAuthMutation(
+          queries.loginUser(
+            email.text,
+            Encryptor.encryptString(
+              password.text,
+            ),
+          ),
+        );
         navigationService.pop();
         // if user found.
         if (result != null) {

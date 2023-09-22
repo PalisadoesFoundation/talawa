@@ -27,6 +27,7 @@ void setupFirebaseMocks() {
     'plugins.flutter.io/firebase_core',
   );
 
+  // ignore: deprecated_member_use
   firebaseChannel.setMockMethodCallHandler((call) async {
     if (call.method == 'Firebase#initializeCore') {
       return [
@@ -173,7 +174,7 @@ class MockFirebaseMessaging extends Mock
         #carPlay: carPlay,
         #criticalAlert: criticalAlert,
         #provisional: provisional,
-        #sound: sound
+        #sound: sound,
       }),
       returnValue: neverEndingFuture<NotificationSettings>(),
       returnValueForMissingStub: neverEndingFuture<NotificationSettings>(),

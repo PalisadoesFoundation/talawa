@@ -9,6 +9,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -40,26 +41,26 @@ class SignupDetailsViewModel extends BaseModel {
         'text': "Let's ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'get ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': "you ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headlineSmall
+            .headlineSmall,
       },
       {
         'text': 'SignUp ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .titleLarge!
-            .copyWith(fontSize: 24)
+            .copyWith(fontSize: 24),
       },
     ];
   }
@@ -82,7 +83,9 @@ class SignupDetailsViewModel extends BaseModel {
             firstName.text,
             lastName.text,
             email.text,
-            password.text,
+            Encryptor.encryptString(
+              password.text,
+            ),
           ),
         );
         navigationService.pop();

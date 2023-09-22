@@ -93,7 +93,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                       color: Colors.white,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );

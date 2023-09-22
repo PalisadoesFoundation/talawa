@@ -41,7 +41,7 @@ void main() {
                   '_id': '123',
                 },
               }
-            ]
+            ],
           },
           source: QueryResultSource.network,
         ),
@@ -74,7 +74,7 @@ void main() {
                   '_id': '123',
                 },
               }
-            ]
+            ],
           },
           source: QueryResultSource.network,
         ),
@@ -110,7 +110,7 @@ void main() {
               'event': {
                 '_id': '123',
               },
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -205,7 +205,7 @@ void main() {
               'event': {
                 '_id': '123',
               },
-            }
+            },
           },
           source: QueryResultSource.network,
         ),

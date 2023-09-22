@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final routeNames = [
         Routes.mainScreen.split('/').last,
-        Routes.joinOrg.split('/').last
+        Routes.joinOrg.split('/').last,
       ];
       final arguments = [
         mainScreenArgs,
@@ -157,7 +157,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final routeNames = [
         Routes.mainScreen.split('/').last,
-        Routes.eventInfoPage.split('/').last
+        Routes.eventInfoPage.split('/').last,
       ];
 
       final model = locator<ExploreEventsViewModel>();
@@ -297,7 +297,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

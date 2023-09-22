@@ -18,10 +18,10 @@ class TelegramLogo extends CustomPainter {
         Offset(size.width * 0.6670000, size.height * 0.1670000),
         Offset(size.width * 0.4170000, size.height * 0.7500000), [
       const Color(0xff37aee2).withOpacity(1),
-      const Color(0xff1e96c8).withOpacity(1)
+      const Color(0xff1e96c8).withOpacity(1),
     ], [
       0,
-      1
+      1,
     ]);
     canvas.drawCircle(
       Offset(size.width * 0.5000000, size.height * 0.5000000),
@@ -108,10 +108,10 @@ class TelegramLogo extends CustomPainter {
         Offset(size.width * 0.6600000, size.height * 0.4370000),
         Offset(size.width * 0.8510000, size.height * 0.8020000), [
       const Color(0xffeff7fc).withOpacity(1),
-      const Color(0xffffffff).withOpacity(1)
+      const Color(0xffffffff).withOpacity(1),
     ], [
       0,
-      1
+      1,
     ]);
     canvas.drawPath(path_3, paint3Fill);
   }

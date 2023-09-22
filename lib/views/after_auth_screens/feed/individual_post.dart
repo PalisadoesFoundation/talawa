@@ -64,7 +64,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 _controller.text = "";
               },
               child: const Text("Send"),
-            )
+            ),
           ],
         ),
       ),
@@ -90,10 +90,10 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 ),
                 const SizedBox(
                   height: 200,
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -130,7 +130,7 @@ class IndividualPageLikeSection extends StatelessWidget {
             // Looping through the usersLiked list,
             for (int i = 0; i < usersLiked.length; i++)
               // renders the custom widget for invidual user.
-              likedUserCircleAvatar(usersLiked[i])
+              likedUserCircleAvatar(usersLiked[i]),
           ],
         ),
       ],
@@ -163,7 +163,7 @@ class IndividualPostCommentSection extends StatelessWidget {
           // Looping through the commentList list,
           for (int i = 0; i < model.commentList.length; i++)
             // renders the custom widget for invidual user.
-            CommentTemplate(comment: model.commentList[i])
+            CommentTemplate(comment: model.commentList[i]),
         ],
       ),
     );
@@ -213,7 +213,7 @@ class CommentTemplate extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -221,17 +221,17 @@ class CommentTemplate extends StatelessWidget {
 
 /// likedUserCircleAvatar returns a widget of the individual user liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
+  return const Padding(
+    padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
     child: Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           backgroundColor: Color(0xfff2f2f2),
           radius: 20,
         ),
-        const Positioned(
+        Positioned(
           top: 30,
           right: 0,
           bottom: 20,

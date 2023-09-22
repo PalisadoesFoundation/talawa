@@ -100,7 +100,7 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Hello")}, ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
         {
           'text':
@@ -108,21 +108,21 @@ void main() {
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
-              .copyWith(fontSize: 24)
+              .copyWith(fontSize: 24),
         },
         {
           'text':
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("we've")} ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("got you covered")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
       ];
 
@@ -224,7 +224,7 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Hello")}, ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
         {
           'text':
@@ -232,21 +232,21 @@ void main() {
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
-              .copyWith(fontSize: 24)
+              .copyWith(fontSize: 24),
         },
         {
           'text':
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("we've")} ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("got you covered")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
       ];
 

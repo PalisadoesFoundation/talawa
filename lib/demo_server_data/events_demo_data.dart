@@ -23,7 +23,7 @@ const eventsDemoData = [
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -47,8 +47,8 @@ const eventsDemoData = [
       "creator": {
         "firstName": "Utkarsh",
         "lastName": "Shendge",
-        "_id": "asdasdasd"
-      }
+        "_id": "asdasdasd",
+      },
     },
   },
   {
@@ -70,7 +70,7 @@ const eventsDemoData = [
     "creator": {
       "firstName": "Rutvik",
       "lastName": "Chandla",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -94,8 +94,8 @@ const eventsDemoData = [
       "creator": {
         "firstName": "Rutvik",
         "lastName": "Chandla",
-        "_id": "asdasdasd"
-      }
+        "_id": "asdasdasd",
+      },
     },
   },
   {
@@ -117,7 +117,7 @@ const eventsDemoData = [
     "creator": {
       "firstName": "Ritik",
       "lastName": "Srivastav",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -141,8 +141,8 @@ const eventsDemoData = [
       "creator": {
         "firstName": "Ritik",
         "lastName": "Srivastav",
-        "_id": "asdasdasd"
-      }
+        "_id": "asdasdasd",
+      },
     },
   },
   {
@@ -167,7 +167,7 @@ const eventsDemoData = [
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
-      "_id": "asdasdasd"
+      "_id": "asdasdasd",
     },
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -191,8 +191,8 @@ const eventsDemoData = [
       "creator": {
         "firstName": "Utkarsh",
         "lastName": "Shendge",
-        "_id": "asdasdasd"
-      }
+        "_id": "asdasdasd",
+      },
     },
   }
 ];
