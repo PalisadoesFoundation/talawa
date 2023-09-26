@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
