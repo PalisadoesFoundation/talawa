@@ -737,18 +737,18 @@ packages:
     dependency: transitive
     description:
       name: gql
-      sha256: c2d4248adf2cc568976d9bb42803531232a981eff205b9931b73389e0665ac63
+      sha256: "56c5707f84128dfad2db16f513bbfe011f0dae96073bbdc4e6a9925915641a03"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1-alpha+1690479830964"
+    version: "1.0.1-alpha+1691943394579"
   gql_dedupe_link:
     dependency: transitive
     description:
       name: gql_dedupe_link
-      sha256: "307a33a0723edd5d9de652e38f6ccb01fbf04b90464e32efca7a3fa9027367d3"
+      sha256: "80419ab0618dea72a0961617cf24fba690ff4e63fffdd57a701b0c7de08b8360"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4-alpha+1690479831065"
+    version: "2.0.4-alpha+1691943394662"
   gql_error_link:
     dependency: transitive
     description:
@@ -761,10 +761,10 @@ packages:
     dependency: transitive
     description:
       name: gql_exec
-      sha256: "257b6eeb206343349b188a4bfe874ba5826ec7992461a97890ebf4802eaa9a86"
+      sha256: "7b8c816f1d4830a21ae37e107bb035073b2f5613acde8f76a7768a7eb23322d3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1-alpha+1690479830973"
+    version: "1.0.1-alpha+1691943394588"
   gql_http_link:
     dependency: transitive
     description:
@@ -777,10 +777,10 @@ packages:
     dependency: transitive
     description:
       name: gql_link
-      sha256: "6e429187a7c199c9a7bb7fc26c8ed0673dae9be3a00c8be6ecf15ba9b713b3cb"
+      sha256: "255a0262425b6efd9df2312fd90546105baaad22a98a9873dfca56efbe9163eb"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1-alpha+1690479830981"
+    version: "1.0.1-alpha+1691943394596"
   gql_transform_link:
     dependency: transitive
     description:
@@ -1883,4 +1883,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.1.0-185.0.dev <3.13.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.7.0"
