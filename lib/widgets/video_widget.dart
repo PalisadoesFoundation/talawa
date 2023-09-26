@@ -13,7 +13,7 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-  //Controls a platform video player, and provides updates when the state is changing.
+  //Controls a platform video player, and provides updates when the state is changing
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   //setting the mute variable to true initially
