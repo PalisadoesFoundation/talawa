@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// This class will be use to uniform the apptheme of the app in future.
 class AppTheme {
