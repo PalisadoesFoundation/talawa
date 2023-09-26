@@ -44,7 +44,6 @@ class OrganizationFeed extends StatelessWidget {
               ),
               onPressed: () {
                 MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
-
               },
             ),
           ),

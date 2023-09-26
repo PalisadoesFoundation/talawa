@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -59,8 +56,6 @@ class EditProfilePageViewModel extends BaseModel {
       return '';
     }
   }
-
-
 
   /// This function remove the selected image.
   void removeImage() {

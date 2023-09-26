@@ -22,11 +22,6 @@ class NewsPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (post.base64String != null) {
-      print("${post.base64String!}%%%%%%%%%%%%%%%%%%");
-    } else {
-      print(post.description);
-    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -85,7 +80,10 @@ class NewsPost extends StatelessWidget {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      navigationService.showTalawaErrorSnackBar('Your Report has been sent to the Admin', MessageType.info);
+                                      navigationService.showTalawaErrorSnackBar(
+                                        'Your Report has been sent to the Admin',
+                                        MessageType.info,
+                                      );
                                       Navigator.pop(context);
                                     },
                                     child: const Text(

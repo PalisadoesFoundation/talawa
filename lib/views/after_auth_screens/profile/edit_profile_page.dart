@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -232,9 +229,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const Divider(),
                 // button to update the profile.
                 TextButton(
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),

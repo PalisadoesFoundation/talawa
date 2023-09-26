@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:hive/hive.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -64,7 +61,7 @@ class OrgInfo {
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
     final List<OrgInfo> orgList = [];
     json.forEach((element) {
-      if(element is Map<String, dynamic>) {
+      if (element is Map<String, dynamic>) {
         // print(68);
         final OrgInfo org = OrgInfo.fromJson(element);
         orgList.add(org);

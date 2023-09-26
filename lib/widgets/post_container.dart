@@ -5,7 +5,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class PostContainer extends StatefulWidget {
   const PostContainer({
-    Key? key, required this.photoUrl,
+    Key? key,
+    required this.photoUrl,
   }) : super(key: key);
   final String? photoUrl;
 
@@ -38,14 +39,17 @@ class PostContainerState extends State<PostContainer> {
         info.visibleFraction > 0.5 ? inView = true : inView = false;
         if (mounted) setState(() {});
       },
-      child:  Center(
-        child: widget.photoUrl != null ? Image(
-              image: NetworkImage(
-                widget.photoUrl != null ? widget.photoUrl! : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-              ),
-            ): Container(),
+      child: Center(
+        child: widget.photoUrl != null
+            ? Image(
+                image: NetworkImage(
+                  widget.photoUrl != null
+                      ? widget.photoUrl!
+                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                ),
+              )
+            : Container(),
       ),
-
     );
   }
 }

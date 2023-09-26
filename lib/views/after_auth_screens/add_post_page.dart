@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -49,9 +46,8 @@ class AddPost extends StatelessWidget {
           TextButton(
             key: const Key('add_post_text_btn1'),
             onPressed: () {
-
-                  model.uploadPost();
-                  // convertImageToBase64(sampleBase64Image);
+              model.uploadPost();
+              // convertImageToBase64(sampleBase64Image);
             },
             child: Text(
               AppLocalizations.of(context)!.strictTranslate("Post"),
@@ -61,7 +57,7 @@ class AddPost extends StatelessWidget {
                   ),
             ),
           ),
-    // Image.memory(imageBytes)
+          // Image.memory(imageBytes)
         ],
       ),
       body: BaseView<AddPostViewModel>(
