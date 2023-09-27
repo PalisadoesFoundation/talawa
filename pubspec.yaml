@@ -52,7 +52,7 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^10.1.0
   get_it: ^7.5.0
-  google_maps_flutter: ^2.3.0
+  google_maps_flutter: ^2.5.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^1.1.0
