@@ -38,6 +38,8 @@ class AddPostViewModel extends BaseModel {
   /// returns:
   /// * `File?`: The image file
   File? get imageFile => _imageFile;
+
+  /// Getter to access the base64 type.
   String? get imageInBase64 => _imageInBase64;
 
   /// The Username.
@@ -89,6 +91,14 @@ class AddPostViewModel extends BaseModel {
     _dbFunctions = locator<DataBaseMutationFunctions>();
   }
 
+  /// to convert the image in base64.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: file of image clicked.
+  ///
+  /// **returns**:
+  /// * `Future<String>`: Future string containing the base 64 format image
   Future<String> convertToBase64(File file) async {
     try {
       final List<int> bytes = await file.readAsBytes();

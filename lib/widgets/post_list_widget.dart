@@ -9,7 +9,14 @@ class PostListWidget extends StatelessWidget {
     required this.posts,
     this.function,
   }) : super(key: key);
+
+  /// lis of all the post.
+  ///
   final List<Post> posts;
+
+  /// This function is passed for the handling the action to be performed when the comment button is clicked.
+  ///
+  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
   @override

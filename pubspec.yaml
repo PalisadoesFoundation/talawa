@@ -25,6 +25,7 @@ dependencies:
   connectivity_plus: ^4.0.2
   contained_tab_bar_view: ^0.8.0
 
+  crypto: any
   cupertino_icons: ^1.0.3
   currency_picker: ^2.0.16
   ############## Remove ##########
@@ -61,8 +62,8 @@ dependencies:
   intl: ^0.18.0
   json_annotation: ^4.7.0
   mockito: ^5.4.2
-  nock: ^1.2.3
   network_image_mock: ^2.1.1
+  nock: ^1.2.3
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
   plugin_platform_interface: ^2.1.6

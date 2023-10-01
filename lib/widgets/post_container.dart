@@ -3,11 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+/// the widget which contains the actual image.
+///
 class PostContainer extends StatefulWidget {
   const PostContainer({
     Key? key,
     required this.photoUrl,
   }) : super(key: key);
+
+  /// image url.
+  ///
   final String? photoUrl;
 
   @override
@@ -15,7 +20,12 @@ class PostContainer extends StatefulWidget {
 }
 
 class PostContainerState extends State<PostContainer> {
+  /// video was removed for mvp.
+  ///
   bool startedPlaying = false;
+
+  /// same as above.
+  ///
   bool inView = true;
 
   @override
@@ -29,7 +39,13 @@ class PostContainerState extends State<PostContainer> {
     super.dispose();
   }
 
+  /// manage the carousel.
+  ///
+
   final PageController controller = PageController(initialPage: 0);
+
+  /// to manage the image index in carousel.
+  ///
   int pindex = 0;
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,11 @@ class OrganizationFeed extends StatelessWidget {
     this.homeModel,
     this.forTest = false,
   }) : super(key: key);
+
+  /// MainScreenViewModel.
   final MainScreenViewModel? homeModel;
+
+  /// To implement the test.
   final bool forTest;
 
   @override

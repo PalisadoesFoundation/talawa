@@ -4,6 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
 /// Creates a custom avatar.
+///
 /// The avatar is created using the image provided,
 /// or the first alphabet with a standard background color.
 class CustomAvatar extends StatelessWidget {
@@ -16,11 +17,23 @@ class CustomAvatar extends StatelessWidget {
     this.fontSize = 40,
     this.maxRadius = 16,
   }) : super(key: key);
+
+  /// Custom avatar data.
   final bool isImageNull;
+
+  /// Custom avatar data.
   final String? firstAlphabet;
+
+  /// Custom avatar data.
   final String? imageUrl;
+
+  /// Custom avatar data.
   final double? fontSize;
+
+  /// Custom avatar data.
   final double? maxRadius;
+
+  /// Custom avatar data.
   final BaseCacheManager? cacheManager;
 
   @override

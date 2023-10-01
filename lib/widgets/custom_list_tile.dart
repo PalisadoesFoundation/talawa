@@ -20,26 +20,33 @@ class CustomListTile extends StatelessWidget {
     this.onTapOption,
     this.option,
   }) : super(key: key);
+
   /// Index int of tiles.
-final int index;
+  final int index;
+
   /// Tiletype object to specify tle type.
-final TileType type;
+  final TileType type;
 
   /// Object containing all the necessary info regarding the org.
-final OrgInfo? orgInfo;
+  final OrgInfo? orgInfo;
+
   /// Object containing all the necessary info regarding the user.
-final User? userInfo;
+  final User? userInfo;
 
   /// Object containing all the necessary info regarding the options.
-final Options? option;
+  final Options? option;
+
   /// Object containing all the necessary info regarding the onTapOption.
-final Function? onTapOption;
+  final Function? onTapOption;
+
   /// Function to handle the tap on user info.
-final Function()? onTapUserInfo;
+  final Function()? onTapUserInfo;
+
   /// Function to handle the tap on org info.
-final Function(OrgInfo)? onTapOrgInfo;
+  final Function(OrgInfo)? onTapOrgInfo;
+
   /// Flag to determine whether thge Icons should be shown.
-final bool showIcon;
+  final bool showIcon;
 
   @override
   Widget build(BuildContext context) {

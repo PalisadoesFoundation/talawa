@@ -20,6 +20,9 @@ class ProfilePage extends StatelessWidget {
     required Key key,
     this.homeModel,
   }) : super(key: key);
+
+  /// MainScreenViewModel.
+  ///
   final MainScreenViewModel? homeModel;
 
   @override
@@ -319,7 +322,14 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // donate widget, this widget is used in donate custom tile.
+  /// donate widget, this widget is used in donate custom tile.
+  ///
+  /// **params**:
+  /// * `context`: Build context to perform context related operation
+  /// * `model`: Viewmodel
+  ///
+  /// **returns**:
+  ///   None
   void donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
       context: context,

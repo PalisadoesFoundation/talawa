@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+/// currently not part of MVP.
+///
 /// This class creates a video widget.
 class VideoWidget extends StatefulWidget {
   const VideoWidget({Key? key, required this.url, required this.play})
       : super(key: key);
+
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
   final String url;
+
+  /// Is the video playing.
+  ///
   final bool play;
 
   @override
@@ -17,6 +26,8 @@ class _VideoWidgetState extends State<VideoWidget> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   //setting the mute variable to true initially
+  /// Is the Video muted.
+  ///
   bool mute = true;
 
   @override
@@ -55,10 +66,9 @@ class _VideoWidgetState extends State<VideoWidget> {
   }
 
   @override
-
-  /// This function returns a GestureDetector for controlling the volume.
-  /// On tap, the volume is either set to 1 or 0 depending on the previous value.
   Widget build(BuildContext context) {
+    /// This function returns a GestureDetector for controlling the volume.
+    ///On tap, the volume is either set to 1 or 0 depending on the previous value.
     return FutureBuilder(
       future: _initializeVideoPlayerFuture,
       builder: (context, snapshot) {
