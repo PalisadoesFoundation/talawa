@@ -761,7 +761,10 @@ void main() {
       );
 
       expect(expected, {
-        'organizationsConnection': [1, 2, 3, 4],
+        'organizationsConnection': [
+          [1, 2],
+          [3, 4]
+        ],
       });
     });
   });

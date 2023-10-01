@@ -10,6 +10,9 @@ import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 
+/// Stateless class to show the fetched post.
+///
+/// entirely ui based widget
 class NewsPost extends StatelessWidget {
   const NewsPost({
     Key? key,
@@ -17,7 +20,14 @@ class NewsPost extends StatelessWidget {
     this.function,
   }) : super(key: key);
 
+  /// Post object containing all the data related to the post.
+  ///
+  /// see the post model to get more information regarding this
   final Post post;
+
+  /// This function is passed for the handling the action to be performed when the comment button is clicked.
+  ///
+  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
   @override
