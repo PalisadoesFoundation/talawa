@@ -46,10 +46,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.0.5
+  flutter_svg: ^2.0.7
   font_awesome_flutter: ^10.5.0
   geocoding: ^2.1.0
-  geolocator: ^10.0.1
+  geolocator: ^10.1.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
   googleapis: any
@@ -60,7 +60,7 @@ dependencies:
   image_picker: ^1.0.4
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockito: ^5.3.2
+  mockito: ^5.4.2
   nock: ^1.2.3
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
