@@ -1109,14 +1109,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-  nock:
-    dependency: "direct main"
-    description:
-      name: nock
-      sha256: e5bb7dae9c94405477988cf3bd8a94ef141abd74577125d6a51d47909ff107f9
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.3"
   node_preamble:
     dependency: transitive
     description:

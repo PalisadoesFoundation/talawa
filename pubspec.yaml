@@ -63,7 +63,6 @@ dependencies:
   json_annotation: ^4.7.0
   mockito: ^5.4.2
   network_image_mock: ^2.1.1
-  nock: ^1.2.3
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
   plugin_platform_interface: ^2.1.6

@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-// import 'package:network_image_mock/network_image_mock.dart';
-import 'package:nock/nock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -73,10 +71,8 @@ void main() {
   SizeConfig().test();
   locator.registerSingleton(NavigationService());
 
-  setUpAll(nock.init);
 
   setUp(() {
-    nock.cleanAll();
     registerServices();
     registerViewModels();
   });
