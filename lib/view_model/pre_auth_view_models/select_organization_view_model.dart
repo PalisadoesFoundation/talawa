@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';

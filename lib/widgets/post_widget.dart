@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';

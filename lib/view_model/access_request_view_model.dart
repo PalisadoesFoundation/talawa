@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
