@@ -12,8 +12,11 @@ import 'package:talawa/views/base_view.dart';
 
 /// ChatMessageScreen returns a StatelessWidget for showing the chat message screen.
 class ChatMessageScreen extends StatelessWidget {
-  const ChatMessageScreen(
-      {super.key, required this.chatId, required this.model,});
+  const ChatMessageScreen({
+    super.key,
+    required this.chatId,
+    required this.model,
+  });
 
   final String chatId;
   final DirectChatViewModel model;
