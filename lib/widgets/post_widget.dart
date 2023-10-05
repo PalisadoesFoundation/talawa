@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
