@@ -15,8 +15,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
   Widget build(BuildContext context) {
     return ReactionButton(
       onReactionChanged: (value) {
-         // ignore: unnecessary_statements
-         widget.toggle;
+        // ignore: unnecessary_statements
+        widget.toggle;
       },
       initialReaction: Reaction(
         icon: Padding(
