@@ -7,9 +7,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 ///
 class PostContainer extends StatefulWidget {
   const PostContainer({
-    Key? key,
+    super.key,
     required this.photoUrl,
-  }) : super(key: key);
+  });
 
   /// image url.
   ///
