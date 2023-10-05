@@ -71,7 +71,6 @@ void main() {
   SizeConfig().test();
   locator.registerSingleton(NavigationService());
 
-
   setUp(() {
     registerServices();
     registerViewModels();
