@@ -5,8 +5,7 @@ import 'package:video_player/video_player.dart';
 ///
 /// This class creates a video widget.
 class VideoWidget extends StatefulWidget {
-  const VideoWidget({Key? key, required this.url, required this.play})
-      : super(key: key);
+  const VideoWidget({super.key, required this.url, required this.play});
 
   /// a_line_ending_with_end_punctuation.
   ///

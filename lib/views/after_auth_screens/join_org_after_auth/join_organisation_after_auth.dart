@@ -14,8 +14,7 @@ import 'package:vibration/vibration.dart';
 
 /// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
 class JoinOrganisationAfterAuth extends StatelessWidget {
-  const JoinOrganisationAfterAuth({Key? key, required this.orgId})
-      : super(key: key);
+  const JoinOrganisationAfterAuth({super.key, required this.orgId});
 
   /// org identifier.
   ///

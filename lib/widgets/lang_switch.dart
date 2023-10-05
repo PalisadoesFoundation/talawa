@@ -11,7 +11,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 
 /// This widget enables language switch for "internationalizing our app".
 class LanguageTile extends StatelessWidget {
-  const LanguageTile({Key? key}) : super(key: key);
+  const LanguageTile({super.key});
 
   @override
   Widget build(BuildContext context) {

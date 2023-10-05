@@ -9,7 +9,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 /// EditEventForm returns a widget of a Form for editing an event.
 /// This widget is used in EditEventPage widget.
 class EditEventForm extends StatelessWidget {
-  const EditEventForm({Key? key, required this.model}) : super(key: key);
+  const EditEventForm({super.key, required this.model});
   final EditEventViewModel model;
   @override
   Widget build(BuildContext context) {

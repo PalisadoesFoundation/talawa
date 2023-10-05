@@ -13,7 +13,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 /// runtime of a application.
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
-    Key? key,
+    super.key,
     this.successText,
     this.dialogTitle,
     this.reverse = false,
@@ -21,7 +21,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.secondaryButtonTap,
     required this.success,
     required this.dialogSubTitle,
-  }) : super(key: key);
+  });
   final bool reverse;
   final Function success;
   final Function? secondaryButtonTap;

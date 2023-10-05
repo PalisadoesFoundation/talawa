@@ -8,10 +8,10 @@ import 'package:talawa/views/base_view.dart';
 ///requestAccess.
 class SendAccessRequest extends StatelessWidget {
   const SendAccessRequest({
-    Key? key,
+    super.key,
     required this.org,
     // required this.model
-  }) : super(key: key);
+  });
 
   /// OrgInfo object.
   final OrgInfo org;

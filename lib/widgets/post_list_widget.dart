@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/widgets/post_widget.dart';
@@ -6,10 +5,10 @@ import 'package:talawa/widgets/post_widget.dart';
 /// This class receives a List of all the Post widgets and returns a ListView.
 class PostListWidget extends StatelessWidget {
   const PostListWidget({
-    Key? key,
+    super.key,
     required this.posts,
     this.function,
-  }) : super(key: key);
+  });
 
   /// lis of all the post.
   ///

@@ -6,7 +6,7 @@ import 'package:talawa/views/base_view.dart';
 
 /// EditProfilePage returns a widget that has mutable state _EditProfilePageState.
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({super.key});
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();

@@ -8,7 +8,7 @@ import 'package:talawa/widgets/post_list_widget.dart';
 
 /// PinnedPostPage returns a widget that shows the list of all the pinned post.
 class PinnedPostPage extends StatelessWidget {
-  const PinnedPostPage({Key? key, required this.pinnedPosts}) : super(key: key);
+  const PinnedPostPage({super.key, required this.pinnedPosts});
   final List<Post> pinnedPosts;
 
   @override

@@ -8,7 +8,7 @@ import 'package:talawa/widgets/date_time_picker.dart';
 
 /// EventCalendar returns a widget that has mutable state _EventCalendarState.
 class EventCalendar extends StatefulWidget {
-  const EventCalendar(this.eventList, {Key? key}) : super(key: key);
+  const EventCalendar(this.eventList, {super.key});
 
   /// List of events that needs to bge passed when the calling this widget.
   final List<Event> eventList;

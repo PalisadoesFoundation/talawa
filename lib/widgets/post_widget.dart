@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/enums/enums.dart';
@@ -16,10 +15,10 @@ import 'package:talawa/widgets/post_detailed_page.dart';
 /// entirely ui based widget
 class NewsPost extends StatelessWidget {
   const NewsPost({
-    Key? key,
+    super.key,
     required this.post,
     this.function,
-  }) : super(key: key);
+  });
 
   /// Post object containing all the data related to the post.
   ///

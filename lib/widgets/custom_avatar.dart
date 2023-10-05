@@ -10,14 +10,14 @@ import 'package:shimmer/shimmer.dart';
 /// or the first alphabet with a standard background color.
 class CustomAvatar extends StatelessWidget {
   const CustomAvatar({
-    Key? key,
+    super.key,
     required this.isImageNull,
     this.firstAlphabet,
     this.cacheManager,
     this.imageUrl,
     this.fontSize = 40,
     this.maxRadius = 16,
-  }) : super(key: key);
+  });
 
   /// Custom avatar data.
   final bool isImageNull;

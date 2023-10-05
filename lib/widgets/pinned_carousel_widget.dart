@@ -11,11 +11,11 @@ import 'package:talawa/utils/app_localization.dart';
 /// Tapping on a post will redirect you to the respective post screen.
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
-    Key? key,
+    super.key,
     required this.pinnedPosts,
     required this.navigateToPinnedPostPage,
     required this.navigateToIndividualPostPage,
-  }) : super(key: key);
+  });
 
   // variables
   final List<Post> pinnedPosts;
@@ -79,10 +79,10 @@ class PinnedPostCarousel extends StatelessWidget {
 @visibleForTesting
 class CustomCarouselScroller extends StatefulWidget {
   const CustomCarouselScroller({
-    Key? key,
+    super.key,
     required this.pinnedPosts,
     required this.navigateToIndividualPostPage,
-  }) : super(key: key);
+  });
   final List<Post> pinnedPosts;
   final Function navigateToIndividualPostPage;
 
