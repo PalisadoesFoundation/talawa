@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -129,13 +130,109 @@ class NewsPost extends StatelessWidget {
                           // decoration: BoxDecoration(color: Colors.green),
                           child: Column(
                             children: [
-                              GestureDetector(
-                                onTap: () {
+                              ReactionButton(
+                                onReactionChanged: (value) {
                                   model.toggleIsLiked();
                                 },
-                                child: SvgPicture.asset(
-                                  'assets/images/🦆 icon _like_.svg',
+                                initialReaction: Reaction(
+                                  icon: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: 35,
+                                      width: 35,
+                                      child: SvgPicture.asset(
+                                        'assets/images/🦆 icon _like_.svg',
+                                      ),
+                                    ),
+                                  ),
+                                  value: 12,
                                 ),
+                                reactions: [
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/angel.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 1,
+                                    // enabled: false,
+                                  ),
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/happy.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 3,
+                                    // enabled: false,
+                                  ),
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/laugh.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 4,
+                                    // enabled: false,
+                                  ),
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/love.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 1,
+                                    // enabled: false,
+                                  ),
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/tear.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 1,
+                                    // enabled: false,
+                                  ),
+                                  Reaction(
+                                    icon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/angry.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    value: 2,
+                                    // enabled: false,
+                                  ),
+                                ],
                               ),
                               Text(
                                 "${model.likedBy.length}",
@@ -159,8 +256,15 @@ class NewsPost extends StatelessWidget {
                               GestureDetector(
                                 onTap: () =>
                                     function != null ? function!(post) : {},
-                                child: SvgPicture.asset(
-                                  'assets/images/comment.svg',
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    height: 35,
+                                    width: 35,
+                                    child: SvgPicture.asset(
+                                      'assets/images/comment.svg',
+                                    ),
+                                  ),
                                 ),
                               ),
                               Text(
@@ -173,7 +277,7 @@ class NewsPost extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(180, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(120, 0, 0, 0),
                           child: Text(
                             '    ${post.getPostCreatedDuration()}',
                             style: const TextStyle(
