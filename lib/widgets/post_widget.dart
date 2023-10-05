@@ -11,10 +11,10 @@ import 'package:talawa/widgets/post_detailed_page.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
-    Key? key,
+    super.key,
     required this.post,
     this.function,
-  }) : super(key: key);
+  });
 
   final Post post;
   final Function(Post)? function;
@@ -122,9 +122,11 @@ class NewsPost extends StatelessWidget {
                         Container(
                           child: Column(
                             children: [
-                              MultiReactButton(toggle: () {
-                                model.toggleIsLiked();
-                              }),
+                              MultiReactButton(
+                                toggle: () {
+                                  model.toggleIsLiked();
+                                },
+                              ),
                               Text(
                                 "${model.likedBy.length}",
                                 style: const TextStyle(
