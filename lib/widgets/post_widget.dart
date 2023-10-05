@@ -6,6 +6,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/multi_reaction.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 
@@ -31,7 +32,6 @@ class NewsPost extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const PinnedPostCarousel(),
             ListTile(
               leading: CustomAvatar(
                 isImageNull: post.creator!.image == null,
@@ -102,9 +102,7 @@ class NewsPost extends StatelessWidget {
                   ),
                 ],
               ),
-              // subtitle: Text(post.getPostCreatedDuration()),
             ),
-            // DescriptionTextWidget(text: post.description!),
             Container(
               height: 380,
               color: Colors.white,
@@ -116,10 +114,6 @@ class NewsPost extends StatelessWidget {
               },
               builder: (context, model, child) => Column(
                 children: [
-                  // const Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  //   child: Divider(),
-                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -127,113 +121,11 @@ class NewsPost extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          // decoration: BoxDecoration(color: Colors.green),
                           child: Column(
                             children: [
-                              ReactionButton(
-                                onReactionChanged: (value) {
-                                  model.toggleIsLiked();
-                                },
-                                initialReaction: Reaction(
-                                  icon: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      height: 35,
-                                      width: 35,
-                                      child: SvgPicture.asset(
-                                        'assets/images/🦆 icon _like_.svg',
-                                      ),
-                                    ),
-                                  ),
-                                  value: 12,
-                                ),
-                                reactions: [
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/angel.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 1,
-                                    // enabled: false,
-                                  ),
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/happy.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 3,
-                                    // enabled: false,
-                                  ),
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/laugh.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 4,
-                                    // enabled: false,
-                                  ),
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/love.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 1,
-                                    // enabled: false,
-                                  ),
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/tear.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 1,
-                                    // enabled: false,
-                                  ),
-                                  Reaction(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: 35,
-                                        width: 35,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/angry.svg',
-                                        ),
-                                      ),
-                                    ),
-                                    value: 2,
-                                    // enabled: false,
-                                  ),
-                                ],
-                              ),
+                              MultiReactButton(toggle: () {
+                                model.toggleIsLiked();
+                              }),
                               Text(
                                 "${model.likedBy.length}",
                                 style: const TextStyle(
@@ -248,10 +140,7 @@ class NewsPost extends StatelessWidget {
                           width: 20,
                         ),
                         Container(
-                          // decoration: BoxDecoration(color: Colors.black38),
                           child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               GestureDetector(
                                 onTap: () =>
@@ -311,7 +200,6 @@ class NewsPost extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 6,
