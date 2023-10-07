@@ -88,7 +88,7 @@ class DataBaseMutationFunctions {
   }) {
     // if server link is wrong.
     if (exception.linkException != null) {
-      // debugPrint(exception.linkException.toString());
+      debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => navigationService.showTalawaErrorSnackBar(

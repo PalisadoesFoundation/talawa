@@ -13,7 +13,7 @@ import 'package:talawa/widgets/event_date_time_tile.dart';
 
 /// EditEventPage returns a widget that has mutable state _EditEventPageState.
 class EditEventPage extends StatefulWidget {
-  const EditEventPage({Key? key, required this.event}) : super(key: key);
+  const EditEventPage({super.key, required this.event});
   final Event event;
 
   @override

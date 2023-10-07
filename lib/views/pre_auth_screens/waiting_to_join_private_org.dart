@@ -14,7 +14,7 @@ import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This class returns a widget which shows the request sent by the user to join a private organization.
 class WaitingPage extends StatelessWidget {
-  const WaitingPage({Key? key}) : super(key: key);
+  const WaitingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

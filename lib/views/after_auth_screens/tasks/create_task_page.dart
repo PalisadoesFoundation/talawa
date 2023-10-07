@@ -8,7 +8,7 @@ import 'package:talawa/widgets/task_form.dart';
 
 /// CreateTaskPage returns a widget for page to create task for the user.
 class CreateTaskPage extends StatelessWidget {
-  const CreateTaskPage({required this.eventId, Key? key}) : super(key: key);
+  const CreateTaskPage({required this.eventId, super.key});
 
   final String eventId;
 

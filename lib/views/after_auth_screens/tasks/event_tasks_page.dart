@@ -10,7 +10,7 @@ import 'package:talawa/widgets/task_schedule.dart';
 
 /// EventTasksPage return a widget for Event Task Page that is created by event creator.
 class EventTasksPage extends StatelessWidget {
-  const EventTasksPage({Key? key, required this.eventId}) : super(key: key);
+  const EventTasksPage({super.key, required this.eventId});
 
   final String eventId;
 

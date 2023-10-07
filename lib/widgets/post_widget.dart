@@ -1,6 +1,7 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
@@ -9,14 +10,24 @@ import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 
+/// Stateless class to show the fetched post.
+///
+/// entirely ui based widget
 class NewsPost extends StatelessWidget {
   const NewsPost({
-    Key? key,
+    super.key,
     required this.post,
     this.function,
-  }) : super(key: key);
+  });
 
+  /// Post object containing all the data related to the post.
+  ///
+  /// see the post model to get more information regarding this
   final Post post;
+
+  /// This function is passed for the handling the action to be performed when the comment button is clicked.
+  ///
+  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
   @override
@@ -78,7 +89,13 @@ class NewsPost extends StatelessWidget {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: () => Navigator.pop(context),
+                                    onPressed: () {
+                                      navigationService.showTalawaErrorSnackBar(
+                                        'Your Report has been sent to the Admin',
+                                        MessageType.info,
+                                      );
+                                      Navigator.pop(context);
+                                    },
                                     child: const Text(
                                       'Report the post to the Admin',
                                       style: TextStyle(
@@ -104,12 +121,16 @@ class NewsPost extends StatelessWidget {
               ),
               // subtitle: Text(post.getPostCreatedDuration()),
             ),
-            // DescriptionTextWidget(text: post.description!),
-            Container(
-              height: 380,
-              color: Colors.white,
-              child: PostContainer(id: post.sId),
-            ),
+            post.imageUrl == null
+                ? DescriptionTextWidget(text: post.description!)
+                : Container(),
+            post.imageUrl != null
+                ? Container(
+                    height: 380,
+                    color: Colors.white,
+                    child: PostContainer(photoUrl: post.imageUrl),
+                  )
+                : Container(),
             BaseView<LikeButtonViewModel>(
               onModelReady: (model) {
                 model.initialize(post.likedBy ?? [], post.sId);
@@ -217,7 +238,9 @@ class NewsPost extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        DescriptionTextWidget(text: post.description!),
+                        post.imageUrl != null
+                            ? DescriptionTextWidget(text: post.description!)
+                            : Container(),
                       ],
                     ),
                   ),

@@ -10,27 +10,53 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// SelectOrganizationViewModel class helps to interact with model to serve data
-/// and react to user's input in Select Organization View.
+/// SelectOrganizationViewModel class helps to interact with model to serve data and react to user's input in Select Organization View.
 ///
 /// Methods include:
 /// * `selectOrg`
 /// * `onTapJoin`
 class SelectOrganizationViewModel extends BaseModel {
   // variables
+  /// Organization selection required data.
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  /// Organization selection required data.
   late Barcode result;
+
+  /// Organization selection required data.
   final ScrollController allOrgController = ScrollController();
+
+  /// Organization selection required data.
   final ScrollController controller = ScrollController();
+
+  /// Organization selection required data.
   final FocusNode searchFocus = FocusNode();
+
+  /// Organization selection required data.
   final TextEditingController searchController = TextEditingController();
+
+  /// Organization selection required data.
   late OrgInfo selectedOrganization = OrgInfo(id: '-1');
+
+  /// Organization selection required data.
   late List<OrgInfo> organizations = [];
+
+  /// Organization selection required data.
   bool searching = false;
+
+  /// Organization selection required data.
   late Widget showSearchOrgList = Container();
+
+  /// Organization selection required data.
   late String orgId;
 
-  // if the search box is on tap
+  /// if search is enabled.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void searchActive() {
     if (searchFocus.hasFocus) {
       organizations = [];
@@ -39,7 +65,13 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
-  // initialiser
+  /// initializer.
+  ///
+  /// **params**:
+  /// * `initialData`: data
+  ///
+  /// **returns**:
+  /// * `Future<void>`: None
   Future<void> initialise(String initialData) async {
     searchFocus.addListener(searchActive);
     if (!initialData.contains('-1')) {
@@ -62,8 +94,11 @@ class SelectOrganizationViewModel extends BaseModel {
 
   /// This function select the organization.
   ///
-  /// params:
-  /// * [item] : Selected organization data.
+  /// **params**:
+  /// * `item`: Selected organization data.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: None
   Future<void> selectOrg(OrgInfo item) async {
     print(item.id);
     bool orgAlreadyJoined = false;
@@ -118,7 +153,13 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
-  // Helper for listener to check if user can tap on continue option or not.
+  /// Helper for listener to check if user can tap on continue option or not.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void onTapContinue() {
     // if user selected any organization.
     if (selectedOrganization.id != '-1') {
@@ -136,7 +177,15 @@ class SelectOrganizationViewModel extends BaseModel {
   }
 
   /// This function make user to join the selected organization.
-  /// The function uses `joinOrgById` graph QL query.
+  ///
+  ///
+  /// The function uses `joinOrgById` graph QL query
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: None
   Future<void> onTapJoin() async {
     // if `selectedOrganization` is public.
     if (selectedOrganization.isPublic == true) {
@@ -192,6 +241,14 @@ class SelectOrganizationViewModel extends BaseModel {
   }
 
   /// This function fetch more option.
+  ///
+  ///
+  /// **params**:
+  /// * `fetchMore`: client function
+  /// * `organizations`: org list
+  ///
+  /// **returns**:
+  ///   None
   void fetchMoreHelper(FetchMore fetchMore, List organizations) {
     fetchMore(
       FetchMoreOptions(

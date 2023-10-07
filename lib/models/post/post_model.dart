@@ -10,6 +10,7 @@ class Post {
     this.description,
     this.createdAt,
     this.imageUrl,
+    this.base64String,
     this.videoUrl,
     required this.creator,
     this.organization,
@@ -29,6 +30,7 @@ class Post {
     description = json['text'] as String?;
     createdAt = DateTime.parse(json['createdAt'] as String);
     imageUrl = json['imageUrl'] as String?;
+    base64String = json['base64String'] as String?;
     videoUrl = json['videoUrl'] as String?;
     creator = json['creator'] != null
         ? User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true)
@@ -61,6 +63,9 @@ class Post {
 
   /// imageUrl for post.
   String? imageUrl;
+
+  /// base64String for Image.
+  String? base64String;
 
   /// videoUrl for post.
   String? videoUrl;

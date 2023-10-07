@@ -8,7 +8,7 @@ import 'package:talawa/views/base_view.dart';
 
 /// SelectContact returns a widget that has mutable state _SelectContactState.
 class SelectContact extends StatefulWidget {
-  const SelectContact({Key? key}) : super(key: key);
+  const SelectContact({super.key});
 
   @override
   _SelectContactState createState() => _SelectContactState();

@@ -13,7 +13,7 @@ import 'package:talawa/widgets/member_name_tile.dart';
 
 /// CreateEventPage returns a widget that has mutable state _CreateEventPageState.
 class CreateEventPage extends StatefulWidget {
-  const CreateEventPage({Key? key}) : super(key: key);
+  const CreateEventPage({super.key});
 
   @override
   _CreateEventPageState createState() => _CreateEventPageState();

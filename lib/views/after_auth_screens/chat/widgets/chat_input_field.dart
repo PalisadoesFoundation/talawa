@@ -7,8 +7,8 @@ class ChatInputField extends StatefulWidget {
   const ChatInputField({
     required this.chatId,
     required this.model,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// DirectChatViewModel instance.
   final DirectChatViewModel model;

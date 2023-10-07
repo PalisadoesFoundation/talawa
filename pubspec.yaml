@@ -11,7 +11,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=2.12.0 <3.13.0"
+  sdk: ">=2.17.0 <3.13.0"
 
 dependencies:
   ############# Remove ###########
@@ -28,18 +28,17 @@ dependencies:
   crypto: ^3.0.3
   cupertino_icons: ^1.0.3
   currency_picker: ^2.0.16
-
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
   ################################
   file: ^6.1.4
-
   firebase_core: ^2.16.0
   firebase_core_platform_interface: ^4.5.3
-
   firebase_messaging: ^14.6.8
   firebase_messaging_platform_interface: ^4.5.7
+
+
   flutter:
     sdk: flutter
   flutter_braintree: ^3.0.0
@@ -54,11 +53,11 @@ dependencies:
   geolocator: ^10.1.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
+  googleapis: any
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^1.1.0
   image_cropper: ^5.0.0
-
   image_picker: ^1.0.4
   intl: ^0.18.0
   json_annotation: ^4.7.0
@@ -99,29 +98,12 @@ dev_dependencies:
   talawa_lint:
     path: talawa_lint/
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-# The following section is specific to Flutter.
 flutter:
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
     - assets/icons/
     - lang/
-  #   - images/a_dot_ham.jpeg
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
     - family: product-sans
       fonts:
@@ -137,13 +119,3 @@ flutter:
           weight: 600
         - asset: assets/fonts/OpenSans-Bold.ttf
           weight: 800
-  #       - asset:
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: assets\fonts\OpenSans-Bold.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

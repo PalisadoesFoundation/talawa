@@ -11,9 +11,9 @@ import 'package:talawa/utils/app_localization.dart';
 class TalawaErrorDialog extends StatelessWidget {
   const TalawaErrorDialog(
     this.errorMessage, {
-    Key? key,
+    super.key,
     required this.messageType,
-  }) : super(key: key);
+  });
   final String errorMessage;
   final MessageType messageType;
 

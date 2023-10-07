@@ -11,7 +11,7 @@ import 'package:talawa/views/base_view.dart';
 /// DirectChats return a statelessWidget for rendering all the directs
 /// chats of the current user in the Chat List Screen
 class DirectChats extends StatelessWidget {
-  const DirectChats({Key? key}) : super(key: key);
+  const DirectChats({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,7 @@ class DirectChats extends StatelessWidget {
 
 /// ChatTile return a widget for a tile in the list of Direct Chats in the Chat List Screen.
 class ChatTile extends StatelessWidget {
-  const ChatTile({Key? key, required this.chat, required this.model})
-      : super(key: key);
+  const ChatTile({super.key, required this.chat, required this.model});
 
   final ChatListTileDataModel chat;
   final DirectChatViewModel model;

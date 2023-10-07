@@ -18,7 +18,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 /// which shows the list of all organizations exists in the URL.
 /// This widget is used after the authentication.
 class OrganizationList extends StatelessWidget {
-  const OrganizationList({required this.model, Key? key}) : super(key: key);
+  const OrganizationList({required this.model, super.key});
 
   /// [model] is a type of [SelectOrganizationViewModel] which provides methods to handle the data for this component.
   final SelectOrganizationViewModel model;
@@ -61,6 +61,7 @@ class OrganizationList extends StatelessWidget {
           } else {
             // If the result is still loading!
             if (!result.isLoading) {
+              // print(result.data!['organizationsConnection']);
               model.organizations = OrgInfo().fromJsonToList(
                 result.data!['organizationsConnection'] as List,
               );

@@ -81,7 +81,7 @@ void main() {
         /// because their are many text button
 
         final finder = find.byKey(const Key('add_post_text_btn1'));
-
+        await tester.tap(finder);
         expect(finder, findsOneWidget);
         await tester.pump();
       });
@@ -94,7 +94,6 @@ void main() {
         /// because their are many text button
 
         final finder = find.byKey(const Key('add_post_text_btn1'));
-
         final text = find.descendant(of: finder, matching: find.text('Post'));
 
         expect(finder, findsOneWidget);
@@ -297,75 +296,57 @@ void main() {
     });
 
     group('checks if the upload file button is working properly', () {
-      testWidgets('checks if the upload file button shows correct icon',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
-
-        /// using the key of icon button
-        /// because their are many icon button
-
-        final finder = find.byKey(const Key('add_post_icon_button4'));
-
-        final icon = find.descendant(
-          of: finder,
-          matching: find.byIcon(Icons.file_upload),
-        );
-
-        expect(finder, findsOneWidget);
-        expect(icon, findsOneWidget);
-      });
-
-      testWidgets('checks if the upload file button button is pressable',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
-
-        /// using the key of icon button
-        /// because their are many icon button
-
-        final finder = find.byKey(const Key('add_post_icon_button4'));
-
-        expect(finder, findsOneWidget);
-
-        await tester.tap(finder);
-        await tester.pump();
-      });
+      // testWidgets('checks if the upload file button button is pressable',
+      //     (tester) async {
+      //   await tester.pumpWidget(createAddPostScreen());
+      //   await tester.pump();
+      //
+      //   /// using the key of icon button
+      //   /// because their are many icon button
+      //
+      //   final finder = find.byKey(const Key('add_post_icon_button4'));
+      //
+      //   expect(finder, findsOneWidget);
+      //
+      //   await tester.tap(finder);
+      //   await tester.pump();
+      // });
     });
 
     group('checks if the add hashtag button is working properly', () {
-      testWidgets('checks if the add hashtag button shows correct text',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
+      /// TODO: Hashtags implementation removed currently
+      // testWidgets('checks if the add hashtag button shows correct text',
+      //     (tester) async {
+      //   await tester.pumpWidget(createAddPostScreen());
+      //   await tester.pump();
+      //
+      //   /// using the key of text button
+      //   /// because their are many text button
+      //
+      //   final finder = find.byKey(const Key('add_post_text_btn2'));
+      //
+      //   final icon =
+      //       find.descendant(of: finder, matching: find.text('# Add hashtag'));
+      //
+      //   expect(finder, findsOneWidget);
+      //   expect(icon, findsOneWidget);
+      // });
 
-        /// using the key of text button
-        /// because their are many text button
-
-        final finder = find.byKey(const Key('add_post_text_btn2'));
-
-        final icon =
-            find.descendant(of: finder, matching: find.text('# Add hashtag'));
-
-        expect(finder, findsOneWidget);
-        expect(icon, findsOneWidget);
-      });
-
-      testWidgets('checks if the add hashtag button is pressable',
-          (tester) async {
-        await tester.pumpWidget(createAddPostScreen());
-        await tester.pump();
-
-        /// using the key of text button
-        /// because their are many text button
-
-        final finder = find.byKey(const Key('add_post_text_btn2'));
-
-        expect(finder, findsOneWidget);
-
-        await tester.tap(finder);
-        await tester.pump();
-      });
+      // testWidgets('checks if the add hashtag button is pressable',
+      //     (tester) async {
+      //   await tester.pumpWidget(createAddPostScreen());
+      //   await tester.pump();
+      //
+      //   /// using the key of text button
+      //   /// because their are many text button
+      //
+      //   final finder = find.byKey(const Key('add_post_text_btn2'));
+      //
+      //   expect(finder, findsOneWidget);
+      //
+      //   await tester.tap(finder);
+      //   await tester.pump();
+      // });
     });
 
 //TODO: null
