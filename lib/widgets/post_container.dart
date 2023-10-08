@@ -1,19 +1,31 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+/// the widget which contains the actual image.
+///
 class PostContainer extends StatefulWidget {
   const PostContainer({
-    required this.id,
-    Key? key,
-  }) : super(key: key);
-  final String id;
+    super.key,
+    required this.photoUrl,
+  });
+
+  /// image url.
+  ///
+  final String? photoUrl;
 
   @override
   PostContainerState createState() => PostContainerState();
 }
 
 class PostContainerState extends State<PostContainer> {
+  /// video was removed for mvp.
+  ///
   bool startedPlaying = false;
+
+  /// same as above.
+  ///
   bool inView = true;
 
   @override
@@ -27,70 +39,32 @@ class PostContainerState extends State<PostContainer> {
     super.dispose();
   }
 
+  /// manage the carousel.
+  ///
+
   final PageController controller = PageController(initialPage: 0);
+
+  /// to manage the image index in carousel.
+  ///
   int pindex = 0;
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: Key(widget.id),
+      key: Key(Random().nextInt(1000).toString()),
       onVisibilityChanged: (info) {
         info.visibleFraction > 0.5 ? inView = true : inView = false;
         if (mounted) setState(() {});
       },
-      child: Stack(
-        children: [
-          PageView(
-            scrollDirection: Axis.horizontal,
-            controller: controller,
-            onPageChanged: (index) {
-              setState(() {
-                pindex = index;
-                inView = pindex == 0;
-              });
-            },
-            children: List.generate(
-              4,
-              (index) => const Image(
+      child: Center(
+        child: widget.photoUrl != null
+            ? Image(
                 image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                  widget.photoUrl != null
+                      ? widget.photoUrl!
+                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 100.0,
-                    vertical: 10.0,
-                  ),
-                  child: Row(
-                    children: [
-                      for (int i = 0; i < 4; i++)
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Divider(
-                              thickness: 3.0,
-                              color: pindex == i
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+              )
+            : Container(),
       ),
     );
   }

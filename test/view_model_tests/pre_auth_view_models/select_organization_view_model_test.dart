@@ -25,8 +25,8 @@ class SelectOrganizationViewModelWidget extends StatelessWidget {
     this.child,
     this.focusNode,
     this.autoFocus,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final GlobalKey qrKey;
   final FocusNode? focusNode;
   final bool? autoFocus;
@@ -761,7 +761,10 @@ void main() {
       );
 
       expect(expected, {
-        'organizationsConnection': [1, 2, 3, 4],
+        'organizationsConnection': [
+          [1, 2],
+          [3, 4],
+        ],
       });
     });
   });

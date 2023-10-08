@@ -1,16 +1,19 @@
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/apptheme.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-///requestAccess
+///requestAccess.
 class SendAccessRequest extends StatelessWidget {
   const SendAccessRequest({
-    Key? key,
+    super.key,
     required this.org,
     // required this.model
-  }) : super(key: key);
+  });
+
+  /// OrgInfo object.
   final OrgInfo org;
   @override
   Widget build(BuildContext context) {

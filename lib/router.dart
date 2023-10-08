@@ -40,10 +40,17 @@ import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 
-/// The MaterialApp provides us with a property called generateRoute where
-/// we can pass in a Function that returns a Route<dynamic> and takes in RouteSettings
+/// The MaterialApp provides us with a property called generateRoute where.
 ///
+///
+/// we can pass in a Function that returns a Route<dynamic> and takes in RouteSettings
 /// Thus for this purpose, we create a function named generateRoute
+///
+/// **params**:
+/// * `settings`: RouteSetting have been passed
+///
+/// **returns**:
+/// * `Route<dynamic>`: Return a Route
 Route<dynamic> generateRoute(RouteSettings settings) {
   // The settings contains the route information of the requested route.
   // It provides two key things to us: the name, and the arguments.

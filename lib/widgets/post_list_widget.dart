@@ -5,11 +5,18 @@ import 'package:talawa/widgets/post_widget.dart';
 /// This class receives a List of all the Post widgets and returns a ListView.
 class PostListWidget extends StatelessWidget {
   const PostListWidget({
-    Key? key,
+    super.key,
     required this.posts,
     this.function,
-  }) : super(key: key);
+  });
+
+  /// lis of all the post.
+  ///
   final List<Post> posts;
+
+  /// This function is passed for the handling the action to be performed when the comment button is clicked.
+  ///
+  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
   @override
@@ -20,6 +27,7 @@ class PostListWidget extends StatelessWidget {
       shrinkWrap: true,
       itemCount: posts.length,
       itemBuilder: (BuildContext context, int index) {
+        print(posts[index].imageUrl);
         return Column(
           children: [
             NewsPost(

@@ -26,7 +26,7 @@ import '../../helpers/test_helpers.mocks.dart';
 
 /// This is a TestWidget class.
 class TestWidget extends StatelessWidget {
-  const TestWidget(this.model, {Key? key}) : super(key: key);
+  const TestWidget(this.model, {super.key});
 
   /// State.
   final SetUrlViewModel model;
@@ -42,7 +42,7 @@ class TestWidget extends StatelessWidget {
 
 /// This is a class for mock url for testing.
 class SetUrlMock extends StatelessWidget {
-  const SetUrlMock({required this.formKey, Key? key}) : super(key: key);
+  const SetUrlMock({required this.formKey, super.key});
 
   /// formKey.
   final GlobalKey<FormState> formKey;

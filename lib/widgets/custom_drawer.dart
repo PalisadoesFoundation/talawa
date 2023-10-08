@@ -15,9 +15,9 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 /// joining new organizations, or leaving an organization.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
-    Key? key,
+    super.key,
     required this.homeModel,
-  }) : super(key: key);
+  });
 
   /// home model.
   final MainScreenViewModel homeModel;

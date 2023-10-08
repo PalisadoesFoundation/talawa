@@ -33,7 +33,7 @@ final data = {
 };
 
 class SignUpMock extends StatelessWidget {
-  const SignUpMock({required this.formKey, Key? key}) : super(key: key);
+  const SignUpMock({required this.formKey, super.key});
 
   final GlobalKey<FormState> formKey;
   @override

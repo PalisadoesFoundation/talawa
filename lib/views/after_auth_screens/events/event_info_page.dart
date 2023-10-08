@@ -14,7 +14,7 @@ import 'package:talawa/views/base_view.dart';
 
 /// EventInfoPage returns a widget that has mutable state _EventInfoPageState.
 class EventInfoPage extends StatefulWidget {
-  const EventInfoPage({Key? key, required this.args}) : super(key: key);
+  const EventInfoPage({super.key, required this.args});
   final Map<String, dynamic> args;
   @override
   _EventInfoPageState createState() => _EventInfoPageState();

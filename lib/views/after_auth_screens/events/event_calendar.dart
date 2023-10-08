@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +8,9 @@ import 'package:talawa/widgets/date_time_picker.dart';
 
 /// EventCalendar returns a widget that has mutable state _EventCalendarState.
 class EventCalendar extends StatefulWidget {
-  const EventCalendar(this.eventList, {Key? key}) : super(key: key);
+  const EventCalendar(this.eventList, {super.key});
+
+  /// List of events that needs to bge passed when the calling this widget.
   final List<Event> eventList;
 
   @override
@@ -24,6 +23,14 @@ class _EventCalendarState extends State<EventCalendar> {
   final DateRangePickerController _dateRangePickerController =
       DateRangePickerController();
 
+  /// The function to triggered when the view is changed.
+  ///
+  ///
+  /// **params**:
+  /// * `viewChangedDetails`: The dates that visible on the view changes in SfCalendar. type is ViewChangedDetails
+  ///
+  /// **returns**:
+  ///   None
   void viewChanged(ViewChangedDetails viewChangedDetails) {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _dateRangePickerController.selectedDate =
@@ -33,6 +40,14 @@ class _EventCalendarState extends State<EventCalendar> {
     });
   }
 
+  /// function to be triggered when selection is changed.
+  ///
+  ///
+  /// **params**:
+  /// * `args`: Object of type DateRangePickerSelectionChangedArgs, The selected dates or ranges changes in the SfDateRangePicker.
+  ///
+  /// **returns**:
+  ///   None
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _calendarController.displayDate = args.value as DateTime?;
@@ -90,6 +105,15 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 }
 
+/// function to convert List<event> to Appointment object.
+///
+/// Appointment is provided by the calender external library
+///
+/// **params**:
+/// * `eventsList`: list of events to be converted
+///
+/// **returns**:
+/// * `_AppointmentDataSource`: Entire data in <Appointment>[](list) format
 _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   final appointments = <Appointment>[];
   final colors = [
@@ -104,9 +128,13 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   // looping through all the events created in the organization.
   eventsList.forEach((event) {
     final startDate = DateFormat('yMd').parse(event.startDate!);
-    final startTime = DateFormat.jm().parse(event.startTime!);
+    print("${event.startTime!}##############################");
+    final startTime =
+        DateFormat('Hms', 'en_US').parse(event.startTime ?? '14:23:01');
+    // .parse(event.startTime!);
     final endDate = DateFormat('yMd').parse(event.endDate!);
-    final endTime = DateFormat.jm().parse(event.endTime!);
+    final endTime =
+        DateFormat('Hms', 'en_US').parse(event.endTime ?? '14:23:01');
 
     // adding appointments on the calender for event[index] date time.
     appointments.add(
@@ -127,6 +155,9 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   return _AppointmentDataSource(appointments);
 }
 
+/// class for handling the data source.
+///
+/// assign the appointments value
 class _AppointmentDataSource extends CalendarDataSource {
   _AppointmentDataSource(List<Appointment> source) {
     appointments = source;

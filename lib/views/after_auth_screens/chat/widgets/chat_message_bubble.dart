@@ -8,7 +8,7 @@ import 'package:talawa/services/size_config.dart';
 
 /// Message returns a widget for chat message in the bubble form.
 class Message extends StatelessWidget {
-  const Message({Key? key, required this.message}) : super(key: key);
+  const Message({super.key, required this.message});
 
   /// {@nodoc}
   final ChatMessage message;

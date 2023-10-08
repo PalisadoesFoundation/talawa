@@ -10,8 +10,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 /// MapScreen returns a widget that has mutable state _MapScreenState.
 class MapScreen extends StatefulWidget {
-  const MapScreen(this.model, this.latitude, this.longitude, {Key? key})
-      : super(key: key);
+  const MapScreen(this.model, this.latitude, this.longitude, {super.key});
 
   final CreateEventViewModel? model;
   final double latitude;

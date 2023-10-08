@@ -16,8 +16,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 /// OrganizationSearchList class return a widget that shows all
 /// the matching organizations searched on the search bar.
 class OrganizationSearchList extends StatelessWidget {
-  const OrganizationSearchList({required this.model, Key? key})
-      : super(key: key);
+  const OrganizationSearchList({required this.model, super.key});
   final SelectOrganizationViewModel model;
 
   @override

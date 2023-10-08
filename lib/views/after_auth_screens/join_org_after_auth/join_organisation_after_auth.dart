@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc, talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/enums/enums.dart';
@@ -13,8 +14,10 @@ import 'package:vibration/vibration.dart';
 
 /// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
 class JoinOrganisationAfterAuth extends StatelessWidget {
-  const JoinOrganisationAfterAuth({Key? key, required this.orgId})
-      : super(key: key);
+  const JoinOrganisationAfterAuth({super.key, required this.orgId});
+
+  /// org identifier.
+  ///
   final String orgId;
 
   @override
@@ -75,6 +78,13 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   }
 
   /// scanQR returns a widget that is use in joining the organization via the QR code.
+  ///
+  /// **params**:
+  /// * `context`: Build context to perform context related operation
+  /// * `model`: Viewmodel
+  ///
+  /// **returns**:
+  ///   None
   void scanQR(BuildContext context, SelectOrganizationViewModel model) {
     showModalBottomSheet(
       context: context,
@@ -131,6 +141,14 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
     );
   }
 
+  /// To handle to qr.
+  ///
+  /// **params**:
+  /// * `controller`: Controller to manage qr activity
+  /// * `model`: Viewmodel
+  ///
+  /// **returns**:
+  ///   None
   void _onQRViewCreated(
     QRViewController controller,
     SelectOrganizationViewModel model,

@@ -8,7 +8,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key, required this.mainScreenArgs}) : super(key: key);
+  const MainScreen({super.key, required this.mainScreenArgs});
   final MainScreenArgs mainScreenArgs;
 
   @override

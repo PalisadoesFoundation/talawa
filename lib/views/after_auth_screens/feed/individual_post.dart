@@ -14,7 +14,7 @@ late CommentsViewModel _commentViewModel;
 
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
-  const IndividualPostView({Key? key, required this.post}) : super(key: key);
+  const IndividualPostView({super.key, required this.post});
   final Post post;
 
   @override
@@ -113,9 +113,9 @@ Padding buildPadding(BuildContext context, String text) {
 /// IndividualPageLikeSection returns a widget that show the list of all the users liked the post.
 class IndividualPageLikeSection extends StatelessWidget {
   const IndividualPageLikeSection({
-    Key? key,
+    super.key,
     required this.usersLiked,
-  }) : super(key: key);
+  });
 
   final List<LikedBy> usersLiked;
 
@@ -141,10 +141,10 @@ class IndividualPageLikeSection extends StatelessWidget {
 /// IndividualPostCommentSection returns a widget that show the list of all the users commented on the post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
-    Key? key,
+    super.key,
     required this.comments,
     required this.postID,
-  }) : super(key: key);
+  });
   final List<Comments> comments;
   final String postID;
 
@@ -173,9 +173,9 @@ class IndividualPostCommentSection extends StatelessWidget {
 /// CommentTemplate returns a widget of the individual user commented on the post.
 class CommentTemplate extends StatelessWidget {
   const CommentTemplate({
-    Key? key,
+    super.key,
     required this.comment,
-  }) : super(key: key);
+  });
 
   final Comment comment;
 
