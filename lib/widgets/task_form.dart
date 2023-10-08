@@ -17,8 +17,8 @@ class TaskForm extends StatefulWidget {
     required this.onSave,
     required this.title,
     required this.actionText,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Future<bool> Function() onSave;
   final String title;
@@ -131,7 +131,7 @@ class _TaskFormState extends State<TaskForm> {
 }
 
 class TitleField extends StatelessWidget {
-  const TitleField({Key? key}) : super(key: key);
+  const TitleField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +167,7 @@ class TitleField extends StatelessWidget {
 }
 
 class DescriptionField extends StatelessWidget {
-  const DescriptionField({Key? key}) : super(key: key);
+  const DescriptionField({super.key});
 
   @override
   Widget build(BuildContext context) {

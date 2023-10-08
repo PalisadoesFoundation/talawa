@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ class AddPostViewModel extends BaseModel {
 
   // ignore: unused_field
   late File? _imageFile;
+  late String? _imageInBase64;
   late User _currentUser;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
@@ -35,6 +38,9 @@ class AddPostViewModel extends BaseModel {
   /// returns:
   /// * `File?`: The image file
   File? get imageFile => _imageFile;
+
+  /// Getter to access the base64 type.
+  String? get imageInBase64 => _imageInBase64;
 
   /// The Username.
   ///
@@ -85,6 +91,27 @@ class AddPostViewModel extends BaseModel {
     _dbFunctions = locator<DataBaseMutationFunctions>();
   }
 
+  /// to convert the image in base64.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: file of image clicked.
+  ///
+  /// **returns**:
+  /// * `Future<String>`: Future string containing the base 64 format image
+  Future<String> convertToBase64(File file) async {
+    try {
+      final List<int> bytes = await file.readAsBytes();
+      String base64String = base64Encode(bytes);
+      base64String = base64String;
+      print(base64String);
+      _imageInBase64 = base64String;
+      return base64String;
+    } catch (error) {
+      return '';
+    }
+  }
+
   /// This function is used to get the image from gallery.
   ///
   /// The function uses the `_multiMediaPickerService` services.
@@ -97,8 +124,12 @@ class AddPostViewModel extends BaseModel {
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
+    // convertImageToBase64(image!.path);
     if (image != null) {
       _imageFile = image;
+      // convertImageToBase64(image.path);
+      convertToBase64(image);
+      // print(_imageInBase64);
       _navigationService.showTalawaErrorSnackBar(
         "Image is added",
         MessageType.info,
@@ -123,7 +154,29 @@ class AddPostViewModel extends BaseModel {
           variables: {
             "text": _controller.text,
             "organizationId": _selectedOrg.id,
-            "title": _titleController.text
+            "title": _titleController.text,
+          },
+        );
+        _navigationService.showTalawaErrorSnackBar(
+          "Post is uploaded",
+          MessageType.info,
+        );
+      } on Exception catch (e) {
+        print(e);
+        _navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        );
+      }
+    } else {
+      try {
+        await _dbFunctions.gqlAuthMutation(
+          PostQueries().uploadPost(),
+          variables: {
+            "text": _controller.text,
+            "organizationId": _selectedOrg.id,
+            "title": _titleController.text,
+            "file": 'data:image/png;base64,${_imageInBase64!}',
           },
         );
         _navigationService.showTalawaErrorSnackBar(

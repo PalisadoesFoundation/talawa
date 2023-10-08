@@ -10,7 +10,7 @@ import 'package:talawa/widgets/custom_list_tile.dart';
 
 /// EventInfoBody returns a stateless widget which describes the body of a particular event.
 class EventInfoBody extends StatelessWidget {
-  const EventInfoBody({Key? key}) : super(key: key);
+  const EventInfoBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +271,7 @@ class EventInfoBody extends StatelessWidget {
                     onTapUserInfo: () {},
                   );
                 },
-              )
+              ),
           ],
         ),
       ),

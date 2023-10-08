@@ -131,20 +131,20 @@ Future<void> main() async {
           'text': "Please wait",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
         {
           'text': " Test ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
               .titleLarge!
-              .copyWith(fontSize: 24)
+              .copyWith(fontSize: 24),
         },
         {
           'text': "for organisation(s) to accept your invitation.",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headlineSmall
+              .headlineSmall,
         },
       ];
 

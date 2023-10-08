@@ -7,7 +7,7 @@ import 'package:talawa/utils/app_localization.dart';
 
 /// This class generates the text "From Palisadoes" in a custom way.
 class FromPalisadoes extends StatelessWidget {
-  const FromPalisadoes({Key? key}) : super(key: key);
+  const FromPalisadoes({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 /// CreateEventForm returns a widget of a Form for creating events in the organization.
 /// This widget is used in CreateEventPage widget.
 class CreateEventForm extends StatelessWidget {
-  const CreateEventForm({Key? key, required this.model}) : super(key: key);
+  const CreateEventForm({super.key, required this.model});
   final CreateEventViewModel model;
   @override
   Widget build(BuildContext context) {

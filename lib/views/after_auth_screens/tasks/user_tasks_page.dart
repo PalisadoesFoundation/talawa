@@ -8,7 +8,7 @@ import 'package:talawa/widgets/task_schedule.dart';
 
 /// UserTasksPage returns a widget for page of User Tasks.
 class UserTasksPage extends StatelessWidget {
-  const UserTasksPage({Key? key}) : super(key: key);
+  const UserTasksPage({super.key});
 
   @override
   Widget build(BuildContext context) {

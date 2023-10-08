@@ -28,16 +28,16 @@ class _RecoverState extends State<Recover> {
       {
         'text':
             "${AppLocalizations.of(context)!.translate("Sit back relax, we'll")} ",
-        'textStyle': Theme.of(context).textTheme.headlineSmall
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
       {
         'text': '${AppLocalizations.of(context)!.translate("Recover")} ',
         'textStyle':
-            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24),
       },
       {
         'text': AppLocalizations.of(context)!.translate("your password"),
-        'textStyle': Theme.of(context).textTheme.headlineSmall
+        'textStyle': Theme.of(context).textTheme.headlineSmall,
       },
     ];
     return Scaffold(

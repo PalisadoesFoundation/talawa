@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:hive/hive.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -61,29 +58,55 @@ class OrgInfo {
     );
   }
 
+  /// The conventional function to parse json, check flutter docs to know more.
+  ///
+  ///
+  /// **params**:
+  /// * `json`: Passing the json to be parsed.
+  ///
+  /// **returns**:
+  /// * `List<OrgInfo>`: returning the OrgInfo object containing the json data
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
     final List<OrgInfo> orgList = [];
     json.forEach((element) {
-      final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
-      orgList.add(org);
+      if (element is Map<String, dynamic>) {
+        // print(68);
+        final OrgInfo org = OrgInfo.fromJson(element);
+        orgList.add(org);
+      }
     });
     return orgList;
   }
 
+  /// contains the Image url.
   @HiveField(0)
   String? image;
+
+  /// The org id.
   @HiveField(1)
   String? id;
+
+  /// The org name.
   @HiveField(2)
   String? name;
+
+  /// The org admins.
   @HiveField(3)
   List<User>? admins;
+
+  /// The org name.
   @HiveField(4)
   List<User>? members;
+
+  /// The org descriptions.
   @HiveField(5)
   String? description;
+
+  /// The org visibility.
   @HiveField(6)
   bool? isPublic;
+
+  /// The org creatorInfo.
   @HiveField(7)
   User? creatorInfo;
 }

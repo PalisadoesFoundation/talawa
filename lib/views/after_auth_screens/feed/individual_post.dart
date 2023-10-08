@@ -14,7 +14,7 @@ late CommentsViewModel _commentViewModel;
 
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
-  const IndividualPostView({Key? key, required this.post}) : super(key: key);
+  const IndividualPostView({super.key, required this.post});
   final Post post;
 
   @override
@@ -64,7 +64,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 _controller.text = "";
               },
               child: const Text("Send"),
-            )
+            ),
           ],
         ),
       ),
@@ -90,10 +90,10 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 ),
                 const SizedBox(
                   height: 200,
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -113,9 +113,9 @@ Padding buildPadding(BuildContext context, String text) {
 /// IndividualPageLikeSection returns a widget that show the list of all the users liked the post.
 class IndividualPageLikeSection extends StatelessWidget {
   const IndividualPageLikeSection({
-    Key? key,
+    super.key,
     required this.usersLiked,
-  }) : super(key: key);
+  });
 
   final List<LikedBy> usersLiked;
 
@@ -130,7 +130,7 @@ class IndividualPageLikeSection extends StatelessWidget {
             // Looping through the usersLiked list,
             for (int i = 0; i < usersLiked.length; i++)
               // renders the custom widget for invidual user.
-              likedUserCircleAvatar(usersLiked[i])
+              likedUserCircleAvatar(usersLiked[i]),
           ],
         ),
       ],
@@ -141,10 +141,10 @@ class IndividualPageLikeSection extends StatelessWidget {
 /// IndividualPostCommentSection returns a widget that show the list of all the users commented on the post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
-    Key? key,
+    super.key,
     required this.comments,
     required this.postID,
-  }) : super(key: key);
+  });
   final List<Comments> comments;
   final String postID;
 
@@ -163,7 +163,7 @@ class IndividualPostCommentSection extends StatelessWidget {
           // Looping through the commentList list,
           for (int i = 0; i < model.commentList.length; i++)
             // renders the custom widget for invidual user.
-            CommentTemplate(comment: model.commentList[i])
+            CommentTemplate(comment: model.commentList[i]),
         ],
       ),
     );
@@ -173,9 +173,9 @@ class IndividualPostCommentSection extends StatelessWidget {
 /// CommentTemplate returns a widget of the individual user commented on the post.
 class CommentTemplate extends StatelessWidget {
   const CommentTemplate({
-    Key? key,
+    super.key,
     required this.comment,
-  }) : super(key: key);
+  });
 
   final Comment comment;
 
@@ -213,7 +213,7 @@ class CommentTemplate extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -221,17 +221,17 @@ class CommentTemplate extends StatelessWidget {
 
 /// likedUserCircleAvatar returns a widget of the individual user liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
+  return const Padding(
+    padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
     child: Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           backgroundColor: Color(0xfff2f2f2),
           radius: 20,
         ),
-        const Positioned(
+        Positioned(
           top: 30,
           right: 0,
           bottom: 20,

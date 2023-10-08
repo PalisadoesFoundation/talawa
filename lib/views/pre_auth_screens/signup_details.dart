@@ -84,7 +84,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 autofillHints: const <String>[
-                                  AutofillHints.givenName
+                                  AutofillHints.givenName,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
@@ -122,7 +122,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 autofillHints: const <String>[
-                                  AutofillHints.familyName
+                                  AutofillHints.familyName,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
@@ -159,7 +159,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.emailAddress,
                                 autofillHints: const <String>[
-                                  AutofillHints.email
+                                  AutofillHints.email,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
@@ -192,7 +192,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: model.hidePassword,
                                 autofillHints: const <String>[
-                                  AutofillHints.password
+                                  AutofillHints.password,
                                 ],
                                 enableSuggestions: true,
                                 validator: (value) {
@@ -246,7 +246,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 keyboardType: TextInputType.text,
                                 enableSuggestions: true,
                                 autofillHints: const <String>[
-                                  AutofillHints.password
+                                  AutofillHints.password,
                                 ],
                                 obscureText: model.hidePassword,
                                 validator: (value) {
@@ -291,7 +291,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

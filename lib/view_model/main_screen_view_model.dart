@@ -154,7 +154,7 @@ class MainScreenViewModel extends BaseModel {
       "Donation": {
         "icon": Icons.attach_money_outlined,
         "page": const ChangeThemeTile(),
-      }
+      },
     };
 
     notifyListeners();
@@ -252,7 +252,7 @@ class MainScreenViewModel extends BaseModel {
           key: keyBNProfile,
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Profile'),
-      )
+      ),
     ];
 
     pages = [

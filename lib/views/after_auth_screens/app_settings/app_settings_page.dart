@@ -8,7 +8,7 @@ import 'package:talawa/widgets/theme_switch.dart';
 
 /// AppSettingsPage is a widget that has mutable state _AppSettingsPageState.
 class AppSettingsPage extends StatefulWidget {
-  const AppSettingsPage({Key? key}) : super(key: key);
+  const AppSettingsPage({super.key});
 
   @override
   _AppSettingsPageState createState() => _AppSettingsPageState();
@@ -40,12 +40,12 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         ),
       ),
       // style of the AppBar.
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
           children: [
-            const ChangeThemeTile(),
-            const LanguageTile(),
+            ChangeThemeTile(),
+            LanguageTile(),
           ],
         ),
       ),

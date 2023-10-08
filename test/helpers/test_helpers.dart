@@ -89,7 +89,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault)
+    MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 final User member1 = User(id: "testMem1");
@@ -191,7 +191,7 @@ ChatService getAndRegisterChatService() {
             firstName: 'test',
             id: '1',
             image: 'fakeHttp',
-          )
+          ),
         ],
         '1',
       ),
@@ -357,7 +357,7 @@ UserConfig getAndRegisterUserConfig() {
           name: 'test org',
           isPublic: false,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
-        )
+        ),
       ],
     ),
   );
@@ -465,7 +465,7 @@ EventService getAndRegisterEventService() {
             id: "xzy1",
             firstName: "Test",
             lastName: "User",
-          )
+          ),
         ],
         isPublic: true,
         organization: OrgInfo(id: 'XYZ'),
@@ -594,7 +594,7 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   final ChatMessage chatMessage2 =
       ChatMessage("XYZ", chatUser1, "Something", chatUser2);
   final Map<String, List<ChatMessage>> messages = {
-    "XYZ": [chatMessage1]
+    "XYZ": [chatMessage1],
   };
   final ChatListTileDataModel chatListTileDataModel1 =
       ChatListTileDataModel([chatUser1, chatUser2], "XYZ");

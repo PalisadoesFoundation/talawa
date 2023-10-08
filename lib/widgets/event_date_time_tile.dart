@@ -7,12 +7,12 @@ import 'package:talawa/services/size_config.dart';
 /// Returns a widget tile(item) for displaying date and time.
 class DateTimeTile extends StatelessWidget {
   const DateTimeTile({
-    Key? key,
+    super.key,
     required this.date,
     required this.time,
     required this.setDate,
     required this.setTime,
-  }) : super(key: key);
+  });
   // variables
   final String date;
   final String time;

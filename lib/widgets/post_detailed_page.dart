@@ -1,15 +1,17 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 
 /// This class sets up the post page.
+///
 /// To implement the "show less" and "show more" functions for the text,
 /// we divide the text into two parts: firstHalf and secondHalf. A flag is set to
 /// track whether to display either the firstHalf or both(the entire text).
 class DescriptionTextWidget extends StatefulWidget {
   const DescriptionTextWidget({required this.text});
+
+  /// actual description to be displayed.
+  ///
   final String text;
 
   @override
@@ -17,10 +19,20 @@ class DescriptionTextWidget extends StatefulWidget {
 }
 
 class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
+  /// before clicking show more.
+  ///
+  ///
   late String firstHalf;
+
+  /// After the show more.
+  ///
+  ///
   late String secondHalf;
 
   //setting the flag to true initially
+  /// is show more turned on.
+  ///
+  ///
   bool flag = true;
 
   @override
@@ -46,7 +58,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(fontFamily: 'open-sans'),
+                  .copyWith(fontFamily: 'open-sans', color: Colors.black38),
             )
           : Column(
               children: <Widget>[

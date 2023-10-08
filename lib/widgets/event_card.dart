@@ -12,12 +12,12 @@ import 'package:talawa/utils/app_localization.dart';
 /// This class returns the EventCard widget.
 class EventCard extends StatelessWidget {
   const EventCard({
-    Key? key,
+    super.key,
     required this.event,
     this.eventTitleHighlightedText,
     this.eventTitleNormalText,
     required this.isSearchItem,
-  }) : super(key: key);
+  });
   // variables
   final Event event;
   final String? eventTitleHighlightedText;
@@ -98,7 +98,7 @@ class EventCard extends StatelessWidget {
                                               .copyWith(
                                                 color: Colors.grey,
                                               ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -120,7 +120,7 @@ class EventCard extends StatelessWidget {
                           Text(
                             "${event.startDate!} - ${event.endDate!}",
                             style: Theme.of(context).textTheme.bodySmall,
-                          )
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -152,7 +152,7 @@ class EventCard extends StatelessWidget {
                               ),
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                          )
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -250,12 +250,12 @@ class EventCard extends StatelessWidget {
                               : Text(
                                   (event.registrants?.length ?? 0).toString(),
                                   style: Theme.of(context).textTheme.bodySmall,
-                                )
+                                ),
                         ],
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -287,7 +287,7 @@ class EventCard extends StatelessWidget {
                     ),
                   )
                 : const SizedBox(),
-          )
+          ),
         ],
       ),
     );

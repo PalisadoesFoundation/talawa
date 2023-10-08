@@ -23,7 +23,7 @@ Widget createApp() {
 }
 
 class LocalizationsInj extends StatelessWidget {
-  const LocalizationsInj({Key? key, required this.child}) : super(key: key);
+  const LocalizationsInj({super.key, required this.child});
   final Widget child;
 
   @override

@@ -8,10 +8,10 @@ import 'package:talawa/utils/app_localization.dart';
 
 class TalawaErrorSnackBar extends StatelessWidget {
   const TalawaErrorSnackBar({
-    Key? key,
+    super.key,
     required this.errorMessage,
     required this.messageType,
-  }) : super(key: key);
+  });
   final String errorMessage;
   final MessageType messageType;
   @override
@@ -64,7 +64,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -12,10 +12,10 @@ import 'package:talawa/view_model/after_auth_view_models/task_view_models/explor
 
 class TaskSchedule extends StatelessWidget {
   const TaskSchedule({
-    Key? key,
+    super.key,
     required this.tasks,
     this.showMoreOptions = false,
-  }) : super(key: key);
+  });
 
   final List<Task> tasks;
   final bool showMoreOptions;
@@ -49,14 +49,14 @@ class TaskSchedule extends StatelessWidget {
             children: [
               Text(appointmentDetails.notes!),
               const SizedBox(height: 10),
-              Text('$dateText $timeDetails')
+              Text('$dateText $timeDetails'),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => navigationService.pop(),
               child: const Text('Close'),
-            )
+            ),
           ],
         ),
       );
@@ -91,11 +91,11 @@ class TaskSchedule extends StatelessWidget {
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
-    Key? key,
+    super.key,
     required this.appointment,
     required this.showMoreOptions,
     required this.task,
-  }) : super(key: key);
+  });
 
   final Appointment appointment;
   final bool showMoreOptions;

@@ -29,7 +29,7 @@ Widget createChatTile() {
               firstName: 'test',
               id: '1',
               image: 'fakeHttp',
-            )
+            ),
           ],
           '1',
         ),

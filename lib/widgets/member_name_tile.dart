@@ -10,11 +10,11 @@ import 'package:talawa/services/size_config.dart';
 /// uppercase.
 class MemberNameTile extends StatelessWidget {
   const MemberNameTile({
-    Key? key,
+    super.key,
     required this.userName,
     this.userImage,
     required this.onDelete,
-  }) : super(key: key);
+  });
   final String userName;
   final Function onDelete;
   final String? userImage;
@@ -65,7 +65,7 @@ class MemberNameTile extends StatelessWidget {
                 color: Color(0xff524F4F),
                 size: 19,
               ),
-            )
+            ),
           ],
         ),
       ),

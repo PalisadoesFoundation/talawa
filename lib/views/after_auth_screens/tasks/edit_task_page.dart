@@ -9,7 +9,7 @@ import 'package:talawa/widgets/task_form.dart';
 
 /// EditTaskPage returns a widget for page to edit the task for the user.
 class EditTaskPage extends StatelessWidget {
-  const EditTaskPage({required this.task, Key? key}) : super(key: key);
+  const EditTaskPage({required this.task, super.key});
 
   final Task task;
 

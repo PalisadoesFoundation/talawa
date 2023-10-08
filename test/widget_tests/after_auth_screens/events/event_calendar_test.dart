@@ -16,10 +16,10 @@ Widget createEventCalendar() {
       Event(
         title: 'Test',
         startDate: '07/14/2022',
-        startTime: '7:00 PM',
+        startTime: '14:23:01',
         endDate: '07/14/2022',
-        endTime: '8:00 PM',
-      )
+        endTime: '21:23:01',
+      ),
     ]),
   );
 }

@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,9 +37,11 @@ Widget createApp() {
           isPublic: true,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         );
-
-        await navigationService.pushScreen('/pinnedpostscreen',
-            arguments: postDetails);
+        print(org);
+        await navigationService.pushScreen(
+          '/pinnedpostscreen',
+          arguments: postDetails,
+        );
       },
       child: const Text('Ayush'),
     ),

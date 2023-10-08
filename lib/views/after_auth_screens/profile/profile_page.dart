@@ -1,13 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/options/options.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -15,8 +11,8 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/pro
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
@@ -24,6 +20,9 @@ class ProfilePage extends StatelessWidget {
     required Key key,
     this.homeModel,
   }) : super(key: key);
+
+  /// MainScreenViewModel.
+  ///
   final MainScreenViewModel? homeModel;
 
   @override
@@ -34,7 +33,8 @@ class ProfilePage extends StatelessWidget {
         return Scaffold(
           key: model.scaffoldKey,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
+            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             leading: IconButton(
@@ -47,10 +47,92 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    // fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    fontFamily: 'open-sans',
+                    color: Colors.white,
                   ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.zero,
+                            bottomRight: Radius.zero,
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'App Setting',
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  navigationService
+                                      .pushScreen(Routes.userTasks);
+                                },
+                                child: const Text(
+                                  'My tasks',
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  navigationService
+                                      .pushScreen("/editProfilePage");
+                                },
+                                child: const Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  model.logout(context);
+                                },
+                                child: const Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              ),
+            ],
           ),
           // if data fetching is under process then renders Circular Progress Icon
           // else renders the widget.
@@ -62,49 +144,108 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.01,
                       ),
-                      CustomListTile(
-                        key: const Key('OptionEditProfile'),
-                        index: 0,
-                        type: TileType.option,
-                        option: Options(
-                          // Avatar
-                          icon: CustomAvatar(
-                            isImageNull: model.currentUser.image == null,
-                            firstAlphabet:
-                                model.currentUser.firstName!.substring(0, 1),
-                            imageUrl: model.currentUser.image,
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .fontSize,
-                          ),
-                          // display first and last name.
-                          title:
-                              '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                          // display email address
-                          subtitle: model.currentUser.email!,
-                          // button to edit the profile which redirects to edit profile page.
-                          trailingIconButton: IconButton(
-                            icon: Icon(
-                              Icons.drive_file_rename_outline,
-                              color: Theme.of(context).colorScheme.secondary,
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomAvatar(
+                                isImageNull: model.currentUser.image == null,
+                                firstAlphabet: model.currentUser.firstName!
+                                    .substring(0, 1),
+                                imageUrl: model.currentUser.image,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .fontSize,
+                                maxRadius: 30,
+                              ),
                             ),
-                            onPressed: () {
-                              navigationService.pushScreen("/editProfilePage");
-                            },
                           ),
-                        ),
-                        onTapOption: () {},
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'open-sans',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.share,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              onPressed: () => model.invite(context),
+                            ),
+                          ),
+                        ],
                       ),
-                      const Divider(
-                        thickness: 1, // thickness of the line
-                        indent:
-                            20, // empty space to the leading edge of divider.
-                        endIndent:
-                            20, // empty space to the trailing edge of the divider.
-                        color: Colors
-                            .black26, // The color to use when painting the line.
-                        height: 20, //
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TalawaPluginProvider(
+                        pluginName: "Donation",
+                        visible: true,
+                        child: Column(
+                          children: [
+                            RaisedRoundedButton(
+                              key: homeModel!.keySPDonateUs,
+                              buttonLabel: AppLocalizations.of(context)!
+                                  .strictTranslate('Donate to the Community'),
+                              onTap: () => donate(context, model),
+                              textColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .focusedBorder!
+                                  .borderSide
+                                  .color,
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 600,
+                        width: double.infinity,
+                        child: ContainedTabBarView(
+                          tabs: [
+                            const Tab(text: 'Posts'),
+                            const Tab(text: 'Events'),
+                            const Tab(text: 'Tasks'),
+                          ],
+                          views: [
+                            ColoredBox(
+                              color: Theme.of(context).colorScheme.background,
+                              child: GridView.count(
+                                mainAxisSpacing: 5,
+                                crossAxisCount: 3,
+                                children: [
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.jpeg'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                            Container(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.67,
@@ -114,166 +255,65 @@ class ProfilePage extends StatelessWidget {
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.01,
                             ),
-                            CustomListTile(
-                              key: homeModel!.keySPAppSetting,
-                              index: 0,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.phonelink_setup,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title for App Settings.
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('App Settings'),
-                                // display language of the app.
-                                subtitle:
-                                    '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
-                              ),
-                              // button for the app setting which redirects to app setting page.
-                              onTapOption: () {
-                                navigationService
-                                    .pushScreen("/appSettingsPage");
-                              },
-                            ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
-                            CustomListTile(
-                              key: const Key('TasksByUser'),
-                              index: 1,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.task_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title for My Tasks tile
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('My Tasks'),
-                                // display subtitle
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  "View and edit all tasks created by you",
-                                ),
-                              ),
-                              // on tag redirects to the user Tasks page.
-                              onTapOption: () {
-                                navigationService.pushScreen(Routes.userTasks);
-                              },
-                            ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
-                            ),
-                            // // Will be added later when we add the Help Section in Documentation.
-                            // CustomListTile(
-                            //   key: homeModel!.keySPHelp,
-                            //   index: 1,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: const Icon(
-                            //       Icons.help_outline,
-                            //       size: 30,
-                            //     ),
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('Help'),
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate(
-                            //       'Reach out to us for help',
-                            //     ),
-                            //   ),
-                            //   onTapOption: () {},
-                            // ),
+
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
-                            TalawaPluginProvider(
-                              pluginName: "Donation",
-                              visible: true,
-                              child: Column(
-                                children: [
-                                  CustomListTile(
-                                    key: homeModel!.keySPDonateUs,
-                                    index: 2,
-                                    type: TileType.option,
-                                    option: Options(
-                                      icon: Icon(
-                                        Icons.monetization_on,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        size: 30,
-                                      ),
-                                      title: AppLocalizations.of(context)!
-                                          .strictTranslate('Donate  Us'),
-                                      subtitle: AppLocalizations.of(context)!
-                                          .strictTranslate(
-                                        'Help us to develop for you',
-                                      ),
-                                    ),
-                                    onTapOption: () => donate(context, model),
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.screenHeight! * 0.05,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // custom tile for Invitation.
-                            CustomListTile(
-                              key: homeModel!.keySPInvite,
-                              index: 3,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.share,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                // title
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite'),
-                                // subtitle
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite to org'),
-                              ),
-                              // on tap call the invite function
-                              onTapOption: () => model.invite(context),
-                            ),
+                            //TODO: custom tile for Invitation.
+                            // CustomListTile(
+                            //   key: homeModel!.keySPInvite,
+                            //   index: 3,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.share,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     // title
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Invite'),
+                            //     // subtitle
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate('Invite to org'),
+                            //   ),
+                            //   // on tap call the invite function
+                            //   onTapOption: () => model.invite(context),
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
                             // Custom tile for Logout option.
-                            CustomListTile(
-                              key: homeModel!.keySPLogout,
-                              index: 3,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.logout,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  size: 30,
-                                ),
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Log out'),
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate('Log out from Talawa'),
-                              ),
-                              // on tap calls the logout function
-                              onTapOption: () => model.logout(context),
-                            ),
+                            //TODO: logout
+                            // CustomListTile(
+                            //   key: homeModel!.keySPLogout,
+                            //   index: 3,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: Icon(
+                            //       Icons.logout,
+                            //       color:
+                            //           Theme.of(context).colorScheme.secondary,
+                            //       size: 30,
+                            //     ),
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Log out'),
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate('Log out from Talawa'),
+                            //   ),
+                            //   // on tap calls the logout function
+                            //   onTapOption: () => model.logout(context),
+                            // ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),
                             FromPalisadoes(key: homeModel!.keySPPalisadoes),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -282,7 +322,14 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // donate widget, this widget is used in donate custom tile.
+  /// donate widget, this widget is used in donate custom tile.
+  ///
+  /// **params**:
+  /// * `context`: Build context to perform context related operation
+  /// * `model`: Viewmodel
+  ///
+  /// **returns**:
+  ///   None
   void donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
       context: context,
@@ -342,7 +389,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           onPressed: model.popBottomSheet,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   body: SingleChildScrollView(
@@ -432,7 +479,7 @@ class ProfilePage extends StatelessWidget {
                                       ),
                                       const Icon(
                                         Icons.arrow_drop_down_circle_outlined,
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -540,7 +587,7 @@ class ProfilePage extends StatelessWidget {
                             'DONATE',
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

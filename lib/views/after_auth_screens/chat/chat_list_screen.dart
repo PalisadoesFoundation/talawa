@@ -9,7 +9,7 @@ import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 /// ChatPage returns a stateless widget for current user Chat Page which renders
 /// the list of all the users that the current user has chat with.
 class ChatPage extends StatelessWidget {
-  const ChatPage({Key? key}) : super(key: key);
+  const ChatPage({super.key});
 
   @override
   Widget build(BuildContext context) {

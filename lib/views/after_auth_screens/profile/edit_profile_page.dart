@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -9,7 +6,7 @@ import 'package:talawa/views/base_view.dart';
 
 /// EditProfilePage returns a widget that has mutable state _EditProfilePageState.
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({super.key});
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -91,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // if image is null the function will be get getImageFromGallery()
                             // else removeImage()
                             model.imageFile == null
-                                ? model.getImageFromGallery()
+                                ? model.getImageFromGallery(camera: true)
                                 : model.removeImage();
                           },
                           child: model.imageFile == null
@@ -114,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   ),
                                 ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -223,7 +220,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(fontSize: 18),
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -232,11 +229,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const Divider(),
                 // button to update the profile.
                 TextButton(
-                  onPressed: () async {},
+                  onPressed: () {},
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),
-                )
+                ),
               ],
             ),
           ),

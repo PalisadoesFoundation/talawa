@@ -153,7 +153,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   key: const Key('SelectLangTextButton'),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

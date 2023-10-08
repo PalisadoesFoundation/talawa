@@ -15,9 +15,9 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 /// joining new organizations, or leaving an organization.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
-    Key? key,
+    super.key,
     required this.homeModel,
-  }) : super(key: key);
+  });
 
   /// home model.
   final MainScreenViewModel homeModel;
@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate("Selected Organization"),
-                          )
+                          ),
                         ],
                       ),
                       accountEmail: const SizedBox(),
@@ -143,7 +143,7 @@ class CustomDrawer extends StatelessWidget {
                     SizedBox(
                       key: const Key("Sized BottomBox Drawer"),
                       height: SizeConfig.screenHeight! * 0.03,
-                    )
+                    ),
                   ],
                 ),
               ],

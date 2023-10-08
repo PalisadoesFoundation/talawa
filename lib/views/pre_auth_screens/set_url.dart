@@ -213,11 +213,11 @@ class _SetUrlState extends State<SetUrl> {
                                         .onBackground
                                         .withOpacity(0.8),
                                   ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

@@ -10,35 +10,35 @@ const pinnedPostsDemoData = [
     "creator": {
       "firstName": "Rutvik",
       "lastName": "Chandla",
-      "id": "asdasdasd"
+      "id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
     ],
     "comments": [
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "2",
@@ -49,35 +49,35 @@ const pinnedPostsDemoData = [
     "creator": {
       "firstName": "Ranchhod Das",
       "lastName": "Chanchad",
-      "id": "asdasdasd"
+      "id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
     ],
     "comments": [
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "3",
@@ -88,35 +88,35 @@ const pinnedPostsDemoData = [
     "creator": {
       "firstName": "Ritik",
       "lastName": "Srivastav",
-      "id": "asdasdasd"
+      "id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
     ],
     "comments": [
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
-    ]
+    ],
   },
   {
     "_id": "4",
@@ -127,34 +127,34 @@ const pinnedPostsDemoData = [
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
-      "id": "asdasdasd"
+      "id": "asdasdasd",
     },
     "likedBy": [
       {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
       {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"}
+      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
     ],
     "comments": [
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
       },
-    ]
+    ],
   },
 ];

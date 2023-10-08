@@ -9,7 +9,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 /// This class enables theme switch.
 /// It returns a ListTile which contains a Toggle button to switch between Dark and Light Themes.
 class ChangeThemeTile extends StatelessWidget {
-  const ChangeThemeTile({Key? key}) : super(key: key);
+  const ChangeThemeTile({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,11 @@ class OrganizationFeed extends StatelessWidget {
     this.homeModel,
     this.forTest = false,
   }) : super(key: key);
+
+  /// MainScreenViewModel.
   final MainScreenViewModel? homeModel;
+
+  /// To implement the test.
   final bool forTest;
 
   @override
@@ -20,18 +24,20 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
+        print(model.posts);
         return Scaffold(
           appBar: AppBar(
             // AppBar returns a widget for the header of the page.
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
+            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             title: Text(
               model.currentOrgName,
               key: homeModel?.keySHOrgName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    color: Colors.white,
                   ),
             ),
             leading: IconButton(
@@ -40,8 +46,9 @@ class OrganizationFeed extends StatelessWidget {
                 Icons.menu,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onPressed: () =>
-                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+              onPressed: () {
+                MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+              },
             ),
           ),
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
