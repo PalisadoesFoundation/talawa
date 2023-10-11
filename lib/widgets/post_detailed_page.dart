@@ -29,6 +29,10 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   ///
   late String secondHalf;
 
+  /// tags in the post.
+  ///
+  late String tag;
+
   //setting the flag to true initially
   /// is show more turned on.
   ///
@@ -42,8 +46,18 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
     if (widget.text.length > 150) {
       firstHalf = widget.text.substring(0, 150);
       secondHalf = widget.text.substring(150, widget.text.length);
+      tag = "";
     } else {
-      firstHalf = widget.text;
+      if (widget.text.split("#").length == 2) {
+        firstHalf = widget.text.split("#")[0];
+        tag = widget.text.split("#")[1];
+      } else if (widget.text.split("#").length == 1) {
+        firstHalf = widget.text;
+        tag = "";
+      } else {
+        firstHalf = widget.text.split("#")[0];
+        tag = "";
+      }
       secondHalf = "";
     }
   }
@@ -53,12 +67,25 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: secondHalf.isEmpty
-          ? Text(
-              firstHalf,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontFamily: 'open-sans', color: Colors.black38),
+          ? Column(
+              children: [
+                Text(
+                  firstHalf,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontFamily: 'open-sans', color: Colors.black38),
+                ),
+                tag != ""
+                    ? Text(
+                        "# $tag",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontFamily: 'open-sans',
+                              color: Colors.black38,
+                            ),
+                      )
+                    : Container(),
+              ],
             )
           : Column(
               children: <Widget>[

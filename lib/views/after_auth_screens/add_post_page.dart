@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -89,22 +91,47 @@ class AddPost extends StatelessWidget {
                     onPressed: () => model.getImageFromGallery(camera: true),
                     icon: const Icon(Icons.camera_alt),
                   ),
-                  // button to select file
-                  // IconButton(
-                  //   key: const Key('add_post_icon_button4'),
-                  //   onPressed: () {
-                  //   },
-                  //   icon: const Icon(Icons.file_upload),
-                  // ),
                   // button to add hastags to the post.
-                  // TextButton(
-                  //   key: const Key('add_post_text_btn2'),
-                  //   onPressed: () {},
-                  //   child: Text(
-                  //     '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                  //     style: Theme.of(context).textTheme.titleLarge,
-                  //   ),
-                  // ),
+                  TextButton(
+                    key: const Key('add_post_text_btn2'),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Enter the Tag"),
+                            content: TextField(
+                              controller: model.textHashTagController,
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  navigationService.showTalawaErrorSnackBar(
+                                    "The tag was added",
+                                    MessageType.info,
+                                  );
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Add"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      model.textHashTagController.text == ""
+                          ? '# ${AppLocalizations.of(context)!.strictTranslate("Add tag")}'
+                          : model.textHashTagController.text,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
                 ],
               ),
               const Divider(),
