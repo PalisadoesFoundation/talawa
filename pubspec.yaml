@@ -33,23 +33,23 @@ dependencies:
   # custom_lint_builder: ^0.4.0
   ################################
   file: ^6.1.4
-  firebase_core: ^2.16.0
+  firebase_core: ^2.17.0
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.6.8
-  firebase_messaging_platform_interface: ^4.5.7
+  firebase_messaging: ^14.6.9
+  firebase_messaging_platform_interface: ^4.5.8
 
 
   flutter:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^15.1.1
+  flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.7
   font_awesome_flutter: ^10.5.0
-  geocoding: ^2.1.0
+  geocoding: ^2.1.1
   geolocator: ^10.1.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
@@ -64,18 +64,18 @@ dependencies:
   mockito: ^5.4.2
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
-  permission_handler: ^11.0.0
+  permission_handler: ^11.0.1
   plugin_platform_interface: ^2.1.6
   pointycastle: ^3.7.3
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
   quick_actions: ^1.0.6
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: 20.4.54
-  syncfusion_flutter_datepicker: 20.4.54
+  syncfusion_flutter_calendar: 23.1.39
+  syncfusion_flutter_datepicker: 23.1.40
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.9
   uni_links: ^0.5.1
