@@ -1757,10 +1757,10 @@ packages:
     dependency: "direct main"
     description:
       name: vibration
-      sha256: ab6d26f6694ae0cf702b6d3d1b399570f2911eddb1132c8f82eeacb71a08ece2
+      sha256: "63d4f6b03e38d106599da18e786d5edcd02354433a4ed478fccbbcfc347193ab"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.3"
   video_player:
     dependency: "direct main"
     description:
