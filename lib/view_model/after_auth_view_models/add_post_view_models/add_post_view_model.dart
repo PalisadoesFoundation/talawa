@@ -146,7 +146,7 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: Uploading post by contacting queries
   Future<void> uploadPost() async {
-    // {TODO: }
+    // {TODO: Image not getting uploaded}
     if (_imageFile == null) {
       try {
         await _dbFunctions.gqlAuthMutation(

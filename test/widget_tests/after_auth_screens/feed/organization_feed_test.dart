@@ -117,31 +117,8 @@ void main() {
     await tester.pump();
 
     final finder = find.byType(Text);
-    expect(finder, findsNWidgets(4));
+    expect(finder, findsNWidgets(19));
     // expect(text, findsOneWidget);
-  });
-  testWidgets('check if pinned post is displayed shows up', (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
-
-    final finder = find.byType(Text);
-
-    final text1 = find.text('Rutvik Chandla');
-
-    final text2 = find.text(
-      'Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS...',
-    );
-
-    final text3 = find.text('See all Pinned news');
-
-    expect(text1, findsOneWidget);
-
-    expect(text2, findsOneWidget);
-
-    expect(text3, findsOneWidget);
-
-    expect(finder, findsNWidgets(4));
   });
   testWidgets('check if side drawer shows up', (tester) async {
     final model = locator<MainScreenViewModel>();

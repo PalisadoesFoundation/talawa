@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Apptheme class.
 ///
@@ -13,6 +12,7 @@ class AppTheme {
     fontWeight: FontWeight.w600,
     color: blackPrimary,
     fontFamily: 'OpenSans',
+    decorationThickness: 0,
   );
 
   /// Custom theme for the app.

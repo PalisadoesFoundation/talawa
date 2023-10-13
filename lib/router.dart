@@ -21,6 +21,7 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
@@ -223,7 +224,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           event: event,
         ),
       );
+    case Routes.pinnedPostScreen:
+      // final Map<String, dynamic> post = settings.arguments! as Map<String, dynamic> ;
+      final Map<String, String> post =
+          settings.arguments! as Map<String, String>;
 
+      return MaterialPageRoute(
+        builder: (context) => PinnedPostScreen(post: post),
+      );
     // Returns the AppSettingsPage Widget
     case Routes.appSettings:
       return MaterialPageRoute(
