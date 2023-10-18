@@ -16,6 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/multi_reaction.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/post_widget.dart';
@@ -398,7 +399,7 @@ void main() {
             final secondColumnWidget =
                 tester.firstWidget(column2Finder) as Column;
             final firstPaddingWidget =
-                secondColumnWidget.children[0] as GestureDetector;
+                secondColumnWidget.children[0] as MultiReactButton;
             // expect(
             //   // firstPaddingWidget.padding,
             //   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),

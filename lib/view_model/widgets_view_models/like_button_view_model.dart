@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:talawa/locator.dart';
@@ -51,8 +48,6 @@ class LikeButtonViewModel extends BaseModel {
   void toggleIsLiked() {
     if (!_isLiked) {
       _postService.addLike(_postID);
-    } else {
-      _postService.removeLike(_postID);
     }
   }
 

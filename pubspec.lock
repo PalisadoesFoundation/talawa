@@ -531,6 +531,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.16"
+  flutter_reaction_button:
+    dependency: "direct main"
+    description:
+      name: flutter_reaction_button
+      sha256: "087d9ec8c60e6761e93893d16b1e4b894b6766e90b001c69ce41e0a03bffdfaa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   flutter_speed_dial:
     dependency: "direct main"
     description:
