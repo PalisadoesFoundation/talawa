@@ -1,15 +1,10 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -79,7 +74,6 @@ void main() {
     test("Check if upload post works correctly", () async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = AddPostViewModel()..addListener(notifyListenerCallback);
-      final query = PostQueries().uploadPost();
       model.initialise();
 
       await model.uploadPost();

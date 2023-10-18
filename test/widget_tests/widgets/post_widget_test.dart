@@ -399,6 +399,7 @@ void main() {
                 tester.firstWidget(column2Finder) as Column;
             final firstPaddingWidget =
                 secondColumnWidget.children[0] as Padding;
+
             // expect(
             //   // firstPaddingWidget.padding,
             //   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -469,7 +470,8 @@ void main() {
             final column2Finder = columnFinder.at(2);
             final secondColumnWidget =
                 tester.firstWidget(column2Finder) as Column;
-            final secondPaddingWidget = secondColumnWidget.children[1] as Padding;
+            final secondPaddingWidget =
+                secondColumnWidget.children[1] as Padding;
             print(secondPaddingWidget);
           });
         });
