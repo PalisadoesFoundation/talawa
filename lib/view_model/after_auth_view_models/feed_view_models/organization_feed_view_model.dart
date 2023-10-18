@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:talawa/constants/routing_constants.dart';
@@ -27,6 +24,9 @@ class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
   // ignore: prefer_final_fields
   List<Post> _posts = [];
+
+  /// flag for the test.
+  ///
   bool istest = false;
   List<Post> _pinnedPosts =
       pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
@@ -45,6 +45,8 @@ class OrganizationFeedViewModel extends BaseModel {
   late StreamSubscription _updatePostSubscription;
 
   // Getters
+  /// getter for the posts.
+  ///
   List<Post> get posts {
     // if (istest) {
     //   _posts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
@@ -53,6 +55,8 @@ class OrganizationFeedViewModel extends BaseModel {
     return _posts;
   }
 
+  /// getter for the pinned post.
+  ///
   List<Post> get pinnedPosts {
     if (istest) {
       _pinnedPosts = [];
@@ -61,12 +65,19 @@ class OrganizationFeedViewModel extends BaseModel {
     return _pinnedPosts;
   }
 
+  /// getter for the currentOrgName.
+  ///
   String get currentOrgName => _currentOrgName;
 
   /// This function sets the organization name after update.
   ///
-  /// params:
-  /// * [updatedOrganization] : updated organization name.
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `updatedOrganization`: updated organization name.
+  ///
+  /// **returns**:
+  ///   None
   void setCurrentOrganizationName(String updatedOrganization) {
     // if `updatedOrganization` is not same to `_currentOrgName`.
     if (updatedOrganization != _currentOrgName) {
@@ -79,10 +90,25 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   /// This function fetches new posts in the organization.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void fetchNewPosts() {
     _postService.getPosts();
   }
 
+  /// To initialize the view model.
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `isTest`: for test
+  ///
+  /// **returns**:
+  ///   None
   void initialise(
       // bool forTest,
       {
@@ -111,6 +137,14 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
+  /// initializing the demo data.
+  ///
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initializeWithDemoData() {
     // final postJsonResult = postsDemoData;
     //
@@ -127,20 +161,37 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// This function initialise `_posts` with `newPosts`.
   ///
-  /// params:
-  /// * [newPosts]
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `newPosts`: new post
+  ///
+  /// **returns**:
+  ///   None
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
     notifyListeners();
   }
 
-  /// This function navigate to individual post page.
+  /// This function navigate to individual post page..
+  ///
+  /// **params**:
+  /// * `post`: define_the_param
+  ///
+  /// **returns**:
+  ///   None
   void navigateToIndividualPage(Post post) {
     // uses `pushScreen` method by `navigationService` service.
     _navigationService.pushScreen(Routes.individualPost, arguments: post);
   }
 
   /// This function navigate to pinned post page.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void navigateToPinnedPostPage() {
     // uses `pushScreen` method by `navigationService` service.
     _navigationService.pushScreen(
@@ -160,8 +211,11 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// This function adds new Post.
   ///
-  /// params:
-  /// * [newPost]
+  /// **params**:
+  /// * `newPost`: define_the_param
+  ///
+  /// **returns**:
+  ///   None
   void addNewPost(Post newPost) {
     _posts.insert(0, newPost);
     notifyListeners();
@@ -169,8 +223,11 @@ class OrganizationFeedViewModel extends BaseModel {
 
   /// This function updates the post.
   ///
-  /// params:
-  /// * [post]
+  /// **params**:
+  /// * `post`: post object
+  ///
+  /// **returns**:
+  ///   None
   void updatedPost(Post post) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == post.sId) {
@@ -181,6 +238,13 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
+  /// function to remove the post.
+  ///
+  /// **params**:
+  /// * `post`: post object
+  ///
+  /// **returns**:
+  /// * `Future<void>`: void
   Future<void> removePost(Post post) async {
     await _dbFunctions.gqlAuthMutation(
       PostQueries().removePost(),
