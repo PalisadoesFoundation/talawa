@@ -111,4 +111,14 @@ class PostQueries {
   }
     ''';
   }
+
+  String removePost() {
+    return '''   
+    mutation RemovePost(\$id: ID!) {
+      removePost(id: \$id) {
+        _id
+      }
+    }
+    ''';
+  }
 }

@@ -8,6 +8,7 @@ class PostListWidget extends StatelessWidget {
     super.key,
     required this.posts,
     this.function,
+    this.deletePost,
   });
 
   /// lis of all the post.
@@ -18,6 +19,7 @@ class PostListWidget extends StatelessWidget {
   ///
   /// to see the function check the place where the widget is called.
   final Function(Post)? function;
+  final Function(Post)? deletePost;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class PostListWidget extends StatelessWidget {
             NewsPost(
               post: posts[index],
               function: function,
+              deletePost: deletePost,
             ),
           ],
         );

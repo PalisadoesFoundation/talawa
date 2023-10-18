@@ -18,6 +18,7 @@ class NewsPost extends StatelessWidget {
     super.key,
     required this.post,
     this.function,
+    this.deletePost,
   });
 
   /// Post object containing all the data related to the post.
@@ -29,6 +30,11 @@ class NewsPost extends StatelessWidget {
   ///
   /// to see the function check the place where the widget is called.
   final Function(Post)? function;
+
+  /// To delete the post if user can.
+  ///
+  /// only work if the post is made by the user
+  final Function(Post)? deletePost;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +74,9 @@ class NewsPost extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet<void>(
                         context: context,
-                        builder: (BuildContext context) {
+                        builder: (BuildContext context1) {
                           return Container(
-                            height: 60,
+                            height: 120,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -78,35 +84,101 @@ class NewsPost extends StatelessWidget {
                                 topLeft: Radius.circular(16),
                               ),
                             ),
-                            child: Center(
-                              child: Row(
-                                children: <Widget>[
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Icon(
-                                      Icons.report_gmailerrorred_outlined,
-                                      color: Colors.black38,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      navigationService.showTalawaErrorSnackBar(
-                                        'Your Report has been sent to the Admin',
-                                        MessageType.info,
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Report the post to the Admin',
-                                      style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 20,
-                                        fontFamily: 'open-sans',
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: Row(
+                                    children: <Widget>[
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Icon(
+                                          Icons.report_gmailerrorred_outlined,
+                                          color: Colors.black38,
+                                        ),
                                       ),
-                                    ),
+                                      TextButton(
+                                        onPressed: () {
+                                          navigationService
+                                              .showTalawaErrorSnackBar(
+                                            'Your Report has been sent to the Admin',
+                                            MessageType.info,
+                                          );
+                                          Navigator.pop(context1);
+                                        },
+                                        child: const Text(
+                                          'Report the post to the Admin',
+                                          style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 20,
+                                            fontFamily: 'open-sans',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Center(
+                                  child: Row(
+                                    children: <Widget>[
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.black38,
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          deletePost != null
+                                              ? deletePost!(post)
+                                              // ignore: unnecessary_statements
+                                              : {};
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext builder) {
+                                              return AlertDialog(
+                                                title: const Text("Warning"),
+                                                content: const Text(
+                                                  "Do you really want to delete the post?",
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      navigationService
+                                                          .showTalawaErrorSnackBar(
+                                                        'Post was deleted if you had the rights!',
+                                                        MessageType.info,
+                                                      );
+                                                      Navigator.pop(context1);
+                                                    },
+                                                    child: const Text("Yes"),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context1);
+                                                    },
+                                                    child: const Text("No"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: const Text(
+                                          'The post was deleted',
+                                          style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 20,
+                                            fontFamily: 'open-sans',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -219,7 +291,7 @@ class NewsPost extends StatelessWidget {
                           onTap: () => function != null ? function!(post) : {},
                           child: Text(
                             //TODO: Currently the Liked Model contain on SID of USER who liked the post, thus my name here
-                            "${AppLocalizations.of(context)!.strictTranslate("Liked")} by Ayush Chaudhary...",
+                            "${AppLocalizations.of(context)!.strictTranslate("Liked")} by ...",
                             style: const TextStyle(
                               fontFamily: 'open-sans',
                               color: Colors.black38,

@@ -10,7 +10,10 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+
+import '../../../services/database_mutation_functions.dart';
 
 /// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
 ///
@@ -35,6 +38,7 @@ class OrganizationFeedViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserConfig _userConfig = locator<UserConfig>();
   final PostService _postService = locator<PostService>();
+  late DataBaseMutationFunctions _dbFunctions;
 
   // Stream variables
   late StreamSubscription _currentOrganizationStreamSubscription;
@@ -101,6 +105,8 @@ class OrganizationFeedViewModel extends BaseModel {
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
+
+    _dbFunctions = locator<DataBaseMutationFunctions>();
     if (isTest) {
       istest = true;
     }
@@ -174,5 +180,14 @@ class OrganizationFeedViewModel extends BaseModel {
         break;
       }
     }
+  }
+
+  Future<void> removePost(Post post) async {
+    await _dbFunctions.gqlAuthMutation(
+      PostQueries().removePost(),
+      variables: {
+        "id": post.sId,
+      },
+    );
   }
 }
