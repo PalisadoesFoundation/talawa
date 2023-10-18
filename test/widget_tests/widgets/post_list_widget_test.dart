@@ -70,6 +70,7 @@ void main() {
         await tester.pumpWidget(createPostListWidget(postList));
         await tester.pump();
         //Attempt to scroll
+
         // await tester.drag(find.byType(ListView), const Offset(0, -800));
         // await tester.pump();
         // First post in list should still be visible as scrolling is disabled
