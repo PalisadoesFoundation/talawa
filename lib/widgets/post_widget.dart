@@ -9,6 +9,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
+import 'package:talawa/widgets/post_modal.dart';
 
 /// Stateless class to show the fetched post.
 ///
@@ -76,111 +77,19 @@ class NewsPost extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context1) {
                           return Container(
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                topLeft: Radius.circular(16),
+                              height: 120,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  topLeft: Radius.circular(16),
+                                ),
                               ),
-                            ),
-                            child: Column(
-                              children: [
-                                Center(
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                        child: Icon(
-                                          Icons.report_gmailerrorred_outlined,
-                                          color: Colors.black38,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          navigationService
-                                              .showTalawaErrorSnackBar(
-                                            'Your Report has been sent to the Admin',
-                                            MessageType.info,
-                                          );
-                                          Navigator.pop(context1);
-                                        },
-                                        child: const Text(
-                                          'Report the post to the Admin',
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontSize: 20,
-                                            fontFamily: 'open-sans',
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Center(
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.black38,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          deletePost != null
-                                              ? deletePost!(post)
-                                              // ignore: unnecessary_statements
-                                              : {};
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext builder) {
-                                              return AlertDialog(
-                                                title: const Text("Warning"),
-                                                content: const Text(
-                                                  "Do you really want to delete the post?",
-                                                ),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      navigationService
-                                                          .showTalawaErrorSnackBar(
-                                                        'Post was deleted if you had the rights!',
-                                                        MessageType.info,
-                                                      );
-                                                      Navigator.pop(context1);
-                                                    },
-                                                    child: const Text("Yes"),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context1);
-                                                    },
-                                                    child: const Text("No"),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: const Text(
-                                          'The post was deleted',
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontSize: 20,
-                                            fontFamily: 'open-sans',
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
+                              child: PostBottomModal(
+                                post: post,
+                                deletePost: deletePost,
+                                function: function,
+                              ));
                         },
                       );
                     },
