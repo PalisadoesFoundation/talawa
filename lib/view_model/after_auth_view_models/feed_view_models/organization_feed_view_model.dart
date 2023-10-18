@@ -7,13 +7,12 @@ import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-
-import '../../../services/database_mutation_functions.dart';
 
 /// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
 ///
