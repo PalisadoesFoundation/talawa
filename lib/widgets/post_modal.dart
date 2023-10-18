@@ -3,9 +3,16 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 
+/// To add options to the bottom nav bar, increase the height too.
+///
+///
 class PostBottomModal extends StatelessWidget {
-  const PostBottomModal(
-      {super.key, this.function, this.deletePost, required this.post});
+  const PostBottomModal({
+    super.key,
+    this.function,
+    this.deletePost,
+    required this.post,
+  });
 
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
   ///

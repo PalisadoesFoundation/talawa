@@ -5,8 +5,12 @@ import 'package:talawa/apptheme.dart';
 import 'package:talawa/services/size_config.dart';
 
 /// Pinned post screen.
+///
 class PinnedPostScreen extends StatefulWidget {
   const PinnedPostScreen({super.key, required this.post});
+
+  /// Contains the data of the post.
+  ///
   final Map<String, String> post;
 
   @override

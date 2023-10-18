@@ -75,19 +75,20 @@ class NewsPost extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context1) {
                           return Container(
-                              height: 120,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(16),
-                                  topLeft: Radius.circular(16),
-                                ),
+                            height: 120,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(16),
+                                topLeft: Radius.circular(16),
                               ),
-                              child: PostBottomModal(
-                                post: post,
-                                deletePost: deletePost,
-                                function: function,
-                              ));
+                            ),
+                            child: PostBottomModal(
+                              post: post,
+                              deletePost: deletePost,
+                              function: function,
+                            ),
+                          );
                         },
                       );
                     },

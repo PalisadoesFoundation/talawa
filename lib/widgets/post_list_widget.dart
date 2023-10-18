@@ -19,6 +19,9 @@ class PostListWidget extends StatelessWidget {
   ///
   /// to see the function check the place where the widget is called.
   final Function(Post)? function;
+
+  /// Function the deleting the post.
+  ///
   final Function(Post)? deletePost;
 
   @override

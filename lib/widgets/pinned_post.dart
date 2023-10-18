@@ -9,7 +9,14 @@ import 'package:talawa/services/size_config.dart';
 /// more_info_if_required
 class PinnedPost extends StatelessWidget {
   const PinnedPost({super.key, required this.pinnedPost});
+
+  /// contains the pinned post.
+  ///
   final List<Post> pinnedPost;
+
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
   static const List<Map<String, String>> pinnedPosts = [
     {
       'title': 'Church Meeting',
