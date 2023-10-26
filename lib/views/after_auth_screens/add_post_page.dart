@@ -105,6 +105,7 @@ class AddPost extends StatelessWidget {
                             ),
                             actions: [
                               TextButton(
+                                key: const Key("add_hashtag_button"),
                                 onPressed: () {
                                   navigationService.showTalawaErrorSnackBar(
                                     "The tag was added",
@@ -115,6 +116,7 @@ class AddPost extends StatelessWidget {
                                 child: const Text("Add"),
                               ),
                               TextButton(
+                                key: const Key("cancel_hashtag_button"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -194,6 +196,7 @@ class AddPost extends StatelessWidget {
                             right: 5,
                             top: 5,
                             child: IconButton(
+                              key: const Key("remove_icon"),
                               onPressed: () => model.removeImage(),
                               icon: const Icon(
                                 Icons.cancel,
