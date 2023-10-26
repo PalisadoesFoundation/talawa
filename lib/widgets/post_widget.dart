@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:talawa/enums/enums.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
@@ -10,6 +8,7 @@ import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/multi_reaction.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
+import 'package:talawa/widgets/post_modal.dart';
 
 /// Stateless class to show the fetched post.
 ///
@@ -19,6 +18,7 @@ class NewsPost extends StatelessWidget {
     super.key,
     required this.post,
     this.function,
+    this.deletePost,
   });
 
   /// Post object containing all the data related to the post.
@@ -30,6 +30,11 @@ class NewsPost extends StatelessWidget {
   ///
   /// to see the function check the place where the widget is called.
   final Function(Post)? function;
+
+  /// To delete the post if user can.
+  ///
+  /// only work if the post is made by the user
+  final Function(Post)? deletePost;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +73,9 @@ class NewsPost extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet<void>(
                         context: context,
-                        builder: (BuildContext context) {
+                        builder: (BuildContext context1) {
                           return Container(
-                            height: 60,
+                            height: 120,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -78,35 +83,10 @@ class NewsPost extends StatelessWidget {
                                 topLeft: Radius.circular(16),
                               ),
                             ),
-                            child: Center(
-                              child: Row(
-                                children: <Widget>[
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Icon(
-                                      Icons.report_gmailerrorred_outlined,
-                                      color: Colors.black38,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      navigationService.showTalawaErrorSnackBar(
-                                        'Your Report has been sent to the Admin',
-                                        MessageType.info,
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Report the post to the Admin',
-                                      style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 20,
-                                        fontFamily: 'open-sans',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: PostBottomModal(
+                              post: post,
+                              deletePost: deletePost,
+                              function: function,
                             ),
                           );
                         },
@@ -214,7 +194,7 @@ class NewsPost extends StatelessWidget {
                           onTap: () => function != null ? function!(post) : {},
                           child: Text(
                             //TODO: Currently the Liked Model contain on SID of USER who liked the post, thus my name here
-                            "${AppLocalizations.of(context)!.strictTranslate("Liked")} by Ayush Chaudhary...",
+                            "${AppLocalizations.of(context)!.strictTranslate("Liked")} by ...",
                             style: const TextStyle(
                               fontFamily: 'open-sans',
                               color: Colors.black38,
