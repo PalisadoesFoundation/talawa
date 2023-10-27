@@ -28,7 +28,7 @@ class AddPostViewModel extends BaseModel {
   late User _currentUser;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
-
+  final TextEditingController _textHashTagController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
 
   /// The image file that is to be uploaded.
@@ -65,6 +65,14 @@ class AddPostViewModel extends BaseModel {
   /// returns:
   /// * `TextEditingController`: The main text controller of the post body
   TextEditingController get controller => _controller;
+
+  /// hashtag text controller.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `TextEditingController`: The main text controller of the hashtag
+  TextEditingController get textHashTagController => _textHashTagController;
 
   /// Post title text controller.
   ///
@@ -152,7 +160,7 @@ class AddPostViewModel extends BaseModel {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
-            "text": _controller.text,
+            "text": "${_controller.text} #${_textHashTagController.text}",
             "organizationId": _selectedOrg.id,
             "title": _titleController.text,
           },
