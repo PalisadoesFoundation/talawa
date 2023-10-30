@@ -15,6 +15,8 @@ import '../../helpers/test_locator.dart';
 const longString =
     'iloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamiloveicecreamil888890';
 const shortString = 'I love ice-cream';
+const tagString = 'I love ice-cream #icecream';
+const multiTagString = 'I love ice-cream #icec#ream';
 Widget createDescriptionTextWidgetWithShortText() {
   return MaterialApp(
     navigatorKey: locator<NavigationService>().navigatorKey,
@@ -71,6 +73,62 @@ Widget createDescriptionTextWidgetWithLongText() {
   );
 }
 
+Widget createDescriptionTextWidgetWithTag() {
+  return MaterialApp(
+    navigatorKey: locator<NavigationService>().navigatorKey,
+    navigatorObservers: [],
+    locale: const Locale('en'),
+    supportedLocales: [
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('hi', 'IN'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('ja', 'JP'),
+      const Locale('pt', 'PT'),
+    ],
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    home: const Scaffold(
+      body: DescriptionTextWidget(
+        text: tagString,
+      ),
+    ),
+  );
+}
+
+Widget createDescriptionTextWidgetWithMultiTag() {
+  return MaterialApp(
+    navigatorKey: locator<NavigationService>().navigatorKey,
+    navigatorObservers: [],
+    locale: const Locale('en'),
+    supportedLocales: [
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('hi', 'IN'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('ja', 'JP'),
+      const Locale('pt', 'PT'),
+    ],
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    home: const Scaffold(
+      body: DescriptionTextWidget(
+        text: multiTagString,
+      ),
+    ),
+  );
+}
+
 void main() {
   SizeConfig().test();
   locator.registerSingleton(NavigationService());
@@ -99,6 +157,24 @@ void main() {
         (WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createDescriptionTextWidgetWithLongText());
+        await tester.pump();
+        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+      });
+    });
+    testWidgets(
+        "Test if Description text Widget is displayed with text more than 150",
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createDescriptionTextWidgetWithTag());
+        await tester.pump();
+        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+      });
+    });
+    testWidgets(
+        "Test if Description text Widget is displayed with text more than 150",
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createDescriptionTextWidgetWithMultiTag());
         await tester.pump();
         expect(find.byType(DescriptionTextWidget), findsOneWidget);
       });

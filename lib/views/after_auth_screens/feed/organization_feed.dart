@@ -69,6 +69,7 @@ class OrganizationFeed extends StatelessWidget {
                               key: homeModel?.keySHPost,
                               posts: model.posts,
                               function: model.navigateToIndividualPage,
+                              deletePost: model.removePost,
                             )
                           : Container(),
                     ],

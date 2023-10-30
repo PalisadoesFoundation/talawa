@@ -315,38 +315,83 @@ void main() {
 
     group('checks if the add hashtag button is working properly', () {
       /// TODO: Hashtags implementation removed currently
-      // testWidgets('checks if the add hashtag button shows correct text',
-      //     (tester) async {
-      //   await tester.pumpWidget(createAddPostScreen());
-      //   await tester.pump();
-      //
-      //   /// using the key of text button
-      //   /// because their are many text button
-      //
-      //   final finder = find.byKey(const Key('add_post_text_btn2'));
-      //
-      //   final icon =
-      //       find.descendant(of: finder, matching: find.text('# Add hashtag'));
-      //
-      //   expect(finder, findsOneWidget);
-      //   expect(icon, findsOneWidget);
-      // });
+      testWidgets('checks if the add hashtag button shows correct text',
+          (tester) async {
+        await tester.pumpWidget(createAddPostScreen());
+        await tester.pump();
 
-      // testWidgets('checks if the add hashtag button is pressable',
-      //     (tester) async {
-      //   await tester.pumpWidget(createAddPostScreen());
-      //   await tester.pump();
-      //
-      //   /// using the key of text button
-      //   /// because their are many text button
-      //
-      //   final finder = find.byKey(const Key('add_post_text_btn2'));
-      //
-      //   expect(finder, findsOneWidget);
-      //
-      //   await tester.tap(finder);
-      //   await tester.pump();
-      // });
+        /// using the key of text button
+        /// because their are many text button
+
+        final finder = find.byKey(const Key('add_post_text_btn2'));
+
+        // final icon =
+        //     find.descendant(of: finder, matching: find.text('Add tag'));
+
+        expect(finder, findsOneWidget);
+        // expect(icon, findsOneWidget);
+      });
+
+      testWidgets('checks if the add hashtag button is pressable',
+          (tester) async {
+        await tester.pumpWidget(createAddPostScreen());
+        await tester.pump();
+
+        /// using the key of text button
+        /// because their are many text button
+
+        final finder = find.byKey(const Key('add_post_text_btn2'));
+
+        expect(finder, findsOneWidget);
+
+        await tester.tap(finder);
+        await tester.pump();
+      });
+      testWidgets('checks if the add hashtag button add is pressable',
+          (tester) async {
+        await tester.pumpWidget(createAddPostScreen());
+        await tester.pump();
+
+        /// using the key of text button
+        /// because their are many text button
+
+        final finder = find.byKey(const Key('add_post_text_btn2'));
+
+        expect(finder, findsOneWidget);
+
+        await tester.tap(finder);
+        await tester.pump();
+
+        final hashtag = find.byKey(const Key("add_hashtag_button"));
+
+        expect(hashtag, findsOneWidget);
+
+        await tester.tap(hashtag);
+        await tester.pump();
+      });
+
+      testWidgets('checks if the cancel hashtag button add is pressable',
+          (tester) async {
+        await tester.pumpWidget(createAddPostScreen());
+        await tester.pump();
+
+        /// using the key of text button
+        /// because their are many text button
+
+        final finder = find.byKey(const Key('add_post_text_btn2'));
+
+        expect(finder, findsOneWidget);
+
+        await tester.tap(finder);
+        await tester.pump();
+
+        final hashtag = find.byKey(const Key("cancel_hashtag_button"));
+
+        expect(hashtag, findsOneWidget);
+
+        await tester.tap(hashtag);
+        await tester.pump();
+      });
     });
 
 //TODO: null

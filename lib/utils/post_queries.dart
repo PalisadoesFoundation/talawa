@@ -111,4 +111,22 @@ class PostQueries {
   }
     ''';
   }
+
+  /// Mutation to remove the post.
+  ///
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: query is returned
+  String removePost() {
+    return '''   
+    mutation RemovePost(\$id: ID!) {
+      removePost(id: \$id) {
+        _id
+      }
+    }
+    ''';
+  }
 }
