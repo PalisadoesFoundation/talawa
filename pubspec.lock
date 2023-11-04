@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
-      sha256: "7bcb5c5d62b3907fb4a269c0f0843df46760d38e12829a715f2ff1fb492f19ef"
+      sha256: "5dadadeecceac19d6a63c9d2e037bb8df58ddd4aedb94e8a056af2f39ee50f9d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.10"
+    version: "1.3.11"
   analyzer:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: "37299e4907391d7fac8c7ea059bb3292768cc07b72b6c6c777675cc58da2ef4d"
+      sha256: "7706f4ade6cc2698c70074083bc262586a185047f6bfdd53938dcc35d35cbb9e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.20.0"
+    version: "2.21.0"
   firebase_core_platform_interface:
     dependency: "direct main"
     description:
@@ -437,26 +437,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_messaging
-      sha256: d7b6f9c394f8575598fa94e67220cdd2097a0bc28ce20a3ef2db2da94ede5b47
+      sha256: "53952a6f7860c44429bec80719c411e0ff77ce6cf31fade1515c7bdd87abe4a1"
       url: "https://pub.dev"
     source: hosted
-    version: "14.7.2"
+    version: "14.7.3"
   firebase_messaging_platform_interface:
     dependency: "direct main"
     description:
       name: firebase_messaging_platform_interface
-      sha256: "825356880eb94bf16ea7ef6a71384d2c32cc88143b54ecffed8b3987f7178854"
+      sha256: "543390d1c76aaf3fa563de223d1732a5def5a5efe31428e43a44e9a47efc5ed3"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.11"
+    version: "4.5.12"
   firebase_messaging_web:
     dependency: transitive
     description:
       name: firebase_messaging_web
-      sha256: "9c82e55c4b470970c77a99c90733adff6be7d5a67251007727b2a98d4f04e0cd"
+      sha256: ecfe4e851652dc5f40f1e42efcac0c2bc6bf5ef08faca936c94e1472c247d222
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.11"
+    version: "3.5.12"
   fixnum:
     dependency: transitive
     description:
