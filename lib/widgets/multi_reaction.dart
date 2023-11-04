@@ -14,7 +14,7 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
   @override
   Widget build(BuildContext context) {
     return ReactionButton(
-      itemSize: Size.square(35),
+      itemSize: const Size.square(35),
       onReactionChanged: (value) {
         // ignore: unnecessary_statements
         widget.toggle;
