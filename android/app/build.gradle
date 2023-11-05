@@ -41,6 +41,9 @@ android {
         applicationId "com.example.talawa"
         minSdkVersion 21
 
+        compileSdkVersion 33
+        buildToolsVersion "30.0.2"
+
         targetSdkVersion 30
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
