@@ -8,7 +8,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
-import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+// import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
@@ -239,13 +239,16 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Add'),
       ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.chat_outlined,
-          key: keyBNChat,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
-      ),
+
+      /// Makes chat inaccessible for the user
+      ///
+      // BottomNavigationBarItem(
+      //   icon: Icon(
+      //     Icons.chat_outlined,
+      //     key: keyBNChat,
+      //   ),
+      //   label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      // ),
       BottomNavigationBarItem(
         icon: Icon(
           Icons.account_circle,
@@ -268,9 +271,9 @@ class MainScreenViewModel extends BaseModel {
         key: const Key('AddPost'),
         drawerKey: MainScreenViewModel.scaffoldKey,
       ),
-      const ChatPage(
-        key: Key('Chats'),
-      ),
+      // const ChatPage(
+      //   key: Key('Chats'),
+      // ),
       ProfilePage(
         key: keySPEditProfile,
         homeModel: this,
