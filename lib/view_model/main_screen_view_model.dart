@@ -241,7 +241,7 @@ class MainScreenViewModel extends BaseModel {
       ),
 
       /// Makes chat inaccessible for the user
-      ///
+      //TODO: add chat functionality
       // BottomNavigationBarItem(
       //   icon: Icon(
       //     Icons.chat_outlined,
