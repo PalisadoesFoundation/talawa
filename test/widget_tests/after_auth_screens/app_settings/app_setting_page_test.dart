@@ -94,7 +94,10 @@ Future<void> main() async {
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
   final Directory dir = Directory('temporaryPath');
-  Hive
+  if (!dir.existsSync()) {
+    dir.createSync(recursive: true);
+  }
+  await Hive
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
