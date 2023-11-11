@@ -119,7 +119,7 @@ class LoginViewModel extends BaseModel {
               queries.saveFcmToken(token),
             );
 
-            //await setUpFirebaseMessaging();
+            ///await setUpFirebaseMessaging();
 
             final androidFirebaseOptionsBox =
                 await Hive.openBox('androidFirebaseOptions');

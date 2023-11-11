@@ -33,14 +33,14 @@ import 'package:talawa/views/base_view.dart';
 ///
 /// **returns**:
 /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  final Directory dir = await path.getApplicationDocumentsDirectory();
-  Hive.init(dir.path);
-  await setUpFirebaseKeys();
-  await setUpFirebase();
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   final Directory dir = await path.getApplicationDocumentsDirectory();
+//   Hive.init(dir.path);
+//   await setUpFirebaseKeys();
+//   await setUpFirebase();
+// }
 
 /// Initializes the firebase in the app according to the userplatform (android/iOS).
 ///
