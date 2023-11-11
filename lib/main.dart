@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
@@ -348,29 +348,29 @@ class DemoViewModel extends BaseModel {
 //     sound: true,
 //   );
 
-  // FirebaseMessaging.instance
-  //     .getInitialMessage()
-  //     .then((RemoteMessage? message) {});
+// FirebaseMessaging.instance
+//     .getInitialMessage()
+//     .then((RemoteMessage? message) {});
 
-  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   final RemoteNotification? notification = message.notification;
-  //   final AndroidNotification? android = message.notification?.android;
-  //   if (notification != null && android != null && !kIsWeb) {
-  //     flutterLocalNotificationsPlugin.show(
-  //       notification.hashCode,
-  //       notification.title,
-  //       notification.body,
-  //       NotificationDetails(
-  //         android: AndroidNotificationDetails(
-  //           channel.id,
-  //           channel.name,
-  //           channelDescription: channel.description,
-  //           icon: 'launch_background',
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // });
+// FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//   final RemoteNotification? notification = message.notification;
+//   final AndroidNotification? android = message.notification?.android;
+//   if (notification != null && android != null && !kIsWeb) {
+//     flutterLocalNotificationsPlugin.show(
+//       notification.hashCode,
+//       notification.title,
+//       notification.body,
+//       NotificationDetails(
+//         android: AndroidNotificationDetails(
+//           channel.id,
+//           channel.name,
+//           channelDescription: channel.description,
+//           icon: 'launch_background',
+//         ),
+//       ),
+//     );
+//   }
+// });
 
 //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
 // }
