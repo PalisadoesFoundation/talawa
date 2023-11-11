@@ -101,6 +101,9 @@ Future<void> main() async {
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
+  tearDown(() async {
+    await Hive.close();
+  });
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
