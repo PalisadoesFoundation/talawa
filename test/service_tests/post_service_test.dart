@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -16,46 +13,60 @@ void main() {
     registerServices();
   });
   final demoJson = {
-            'postsByOrganization': [{
-              '__typename': 'Post',
-              '_id': '1',
-              'text': 'text #hastag',
-              'createdAt': '2023-11-13T19:28:21.095Z',
-              'imageUrl': 'https://imageurl',
-              'videoUrl': 'https://videoUrl',
-              'title': 'demo title',
-              'commentCount': 0,
-              'likeCount': 0,
-              'creator': {'__typename': 'User', '_id': '1', 'firstName': 'Ayush', 'lastName': 'Raghuwanshi', 'image': 'https://imageUrl'},
-              'organization': {'__typename': 'Organization', '_id': '1'},
-              'likedBy': [],
-              'comments': [],
-            },
-            {
-              '__typename': 'Post',
-              '_id': '2',
-              'text': 'text #hastag',
-              'createdAt': '2023-11-13T19:28:21.095Z',
-              'imageUrl': 'https://imageurl',
-              'videoUrl': 'https://videoUrl',
-              'title': 'demo title',
-              'commentCount': 0,
-              'likeCount': 0,
-              'creator': {'__typename': 'User', '_id': '1', 'firstName': 'Ayush', 'lastName': 'Raghuwanshi', 'image': 'https://imageUrl'},
-              'organization': {'__typename': 'Organization', '_id': '1'},
-              'likedBy': [],
-              'comments': [],
-            }],
-          };
-      //Fake CurrentOrgID
-      const currentOrgID = 'XYZ';
-      //Fake PostID
-      const postID = '1';
-      
+    'postsByOrganization': [
+      {
+        '__typename': 'Post',
+        '_id': '1',
+        'text': 'text #hastag',
+        'createdAt': '2023-11-13T19:28:21.095Z',
+        'imageUrl': 'https://imageurl',
+        'videoUrl': 'https://videoUrl',
+        'title': 'demo title',
+        'commentCount': 0,
+        'likeCount': 0,
+        'creator': {
+          '__typename': 'User',
+          '_id': '1',
+          'firstName': 'Ayush',
+          'lastName': 'Raghuwanshi',
+          'image': 'https://imageUrl'
+        },
+        'organization': {'__typename': 'Organization', '_id': '1'},
+        'likedBy': [],
+        'comments': [],
+      },
+      {
+        '__typename': 'Post',
+        '_id': '2',
+        'text': 'text #hastag',
+        'createdAt': '2023-11-13T19:28:21.095Z',
+        'imageUrl': 'https://imageurl',
+        'videoUrl': 'https://videoUrl',
+        'title': 'demo title',
+        'commentCount': 0,
+        'likeCount': 0,
+        'creator': {
+          '__typename': 'User',
+          '_id': '1',
+          'firstName': 'Ayush',
+          'lastName': 'Raghuwanshi',
+          'image': 'https://imageUrl'
+        },
+        'organization': {'__typename': 'Organization', '_id': '1'},
+        'likedBy': [],
+        'comments': [],
+      }
+    ],
+  };
+  //Fake CurrentOrgID
+  const currentOrgID = 'XYZ';
+  //Fake PostID
+  const postID = '1';
+
   group('Test PostService', () {
     test('Test getPosts Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      //Setting up Demo data to be returned 
+      //Setting up Demo data to be returned
       final query = PostQueries().getPostsById(currentOrgID);
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -68,14 +79,13 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      
+
       final service = PostService();
       await service.getPosts();
       //Fetching Post Stream
       final List<Post> posts = await service.postStream.first;
       //Testing if Two Mock posts got added
       expect(posts.length, 2);
-
     });
 
     test('Test addLike Method', () async {
@@ -103,14 +113,15 @@ void main() {
       //Fetching Post Stream
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be Liked
-      final Post likedPost = posts.firstWhere((element) => element.sId==postID);
+      final Post likedPost =
+          posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got liked
       expect(likedPost.likedBy!.length, 1);
     });
 
     test('Test removeLike Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
- 
+
       final query = PostQueries().getPostsById(currentOrgID);
       //Mocking GetPosts
       when(
@@ -135,14 +146,15 @@ void main() {
       //Fetching Post Stream
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be Unliked
-      final Post likedPost = posts.firstWhere((element) => element.sId==postID);
+      final Post likedPost =
+          posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got unliked
       expect(likedPost.likedBy!.length, 0);
     });
 
     test('Test addCommentLocally Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      
+
       final query = PostQueries().getPostsById(currentOrgID);
       //Mocking GetPosts
       when(
@@ -165,7 +177,8 @@ void main() {
       //Fetching Post Stream
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be commented
-      final Post commentedPost = posts.firstWhere((element) => element.sId==postID);
+      final Post commentedPost =
+          posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got a comment
       expect(commentedPost.comments!.length, 1);
     });
