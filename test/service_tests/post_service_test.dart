@@ -8,6 +8,15 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
+
+
+/// Tests post_service.dart.
+/// 
+/// **params**:
+///   None
+/// 
+/// **returns**:
+///   None
 void main() {
   setUp(() {
     registerServices();
@@ -29,7 +38,7 @@ void main() {
           '_id': '1',
           'firstName': 'Ayush',
           'lastName': 'Raghuwanshi',
-          'image': 'https://imageUrl'
+          'image': 'https://imageUrl',
         },
         'organization': {'__typename': 'Organization', '_id': '1'},
         'likedBy': [],
@@ -50,7 +59,7 @@ void main() {
           '_id': '1',
           'firstName': 'Ayush',
           'lastName': 'Raghuwanshi',
-          'image': 'https://imageUrl'
+          'image': 'https://imageUrl',
         },
         'organization': {'__typename': 'Organization', '_id': '1'},
         'likedBy': [],
