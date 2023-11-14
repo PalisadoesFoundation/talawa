@@ -57,6 +57,7 @@ class NewsPost extends StatelessWidget {
                 fontSize: 20,
               ),
               title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "${post.creator!.firstName} ${post.creator!.lastName}",
@@ -65,9 +66,6 @@ class NewsPost extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Colors.black38,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 115,
                   ),
                   IconButton(
                     onPressed: () {
