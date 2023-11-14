@@ -8,13 +8,11 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
-
-
 /// Tests post_service.dart.
-/// 
+///
 /// **params**:
 ///   None
-/// 
+///
 /// **returns**:
 ///   None
 void main() {
