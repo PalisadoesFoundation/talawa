@@ -135,23 +135,23 @@ jobs:
           git push
           echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
           
-  Documentation-to-talawa-docs:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/automated-docs'
-    needs: Update-Documentation
-    steps:
-    - uses: actions/checkout@v3
-    - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
-      with:
-        source_file: 'talawa-mobile-docs/'
-        destination_repo: 'PalisadoesFoundation/talawa-docs'
-        destination_branch: 'develop'
-        destination_folder: 'docs'
-        user_email: '${{env.email}}'
-        user_name: '${{github.actor}}'
-        commit_message: 'Overwriting talawa-mobile-docs from talawa-repo'
+  # Documentation-to-talawa-docs:
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/automated-docs'
+  #   needs: Update-Documentation
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+  #     env:
+  #       API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB_NEW }}    
+  #     with:
+  #       source_file: 'talawa-mobile-docs/'
+  #       destination_repo: 'PalisadoesFoundation/talawa-docs'
+  #       destination_branch: 'develop'
+  #       destination_folder: 'docs'
+  #       user_email: '${{env.email}}'
+  #       user_name: '${{github.actor}}'
+  #       commit_message: 'Overwriting talawa-mobile-docs from talawa-repo'
 
   
 
