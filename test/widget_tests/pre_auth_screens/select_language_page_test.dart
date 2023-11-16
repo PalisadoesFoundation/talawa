@@ -297,4 +297,5 @@ Future<void> main() async {
   File('test/fixtures/core/currentorg.lock').delete();
   File('test/fixtures/core/currentuser.hive').delete();
   File('test/fixtures/core/currentuser.lock').delete();
+  Hive.deleteFromDisk();
 }

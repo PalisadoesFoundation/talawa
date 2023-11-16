@@ -228,4 +228,5 @@ void main() async {
     //   });
     // });
   });
+  Hive.deleteFromDisk();
 }

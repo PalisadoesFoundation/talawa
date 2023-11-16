@@ -251,4 +251,5 @@ Future<void> main() async {
       File('temporaryPath/url.lock').delete();
     });
   });
+  Hive.deleteFromDisk();
 }
