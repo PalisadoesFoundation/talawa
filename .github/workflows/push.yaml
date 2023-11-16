@@ -75,7 +75,7 @@ jobs:
   Update-Documentation:
     runs-on: ubuntu-latest
     environment: TALAWA_ENVIRONMENT
-    needs: Android-Build-and-Release
+    # needs: Android-Build-and-Release
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
