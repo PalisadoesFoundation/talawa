@@ -387,8 +387,9 @@ void main() {
       });
 
       group('Test props of children for baseview', () {
-
-        testWidgets('Test MultiReactButton presence and onReactionChanged property in NewsPostWidget', (WidgetTester tester) async {
+        testWidgets(
+            'Test MultiReactButton presence and onReactionChanged property in NewsPostWidget',
+            (WidgetTester tester) async {
           await tester.runAsync(() async {
             // Variable to check if onReactionChanged is called
             bool reactionChangedCalled = false;
@@ -410,15 +411,14 @@ void main() {
             expect(multiReactButtonFinder, findsOneWidget);
 
             // Simulate a reaction change on the MultiReactButton
-            await tester.tap(multiReactButtonFinder); // Replace with your actual tap action
+            await tester.tap(
+                multiReactButtonFinder); // Replace with your actual tap action
             await tester.pump();
 
             // Ensure that onReactionChanged callback was triggered
             expect(reactionChangedCalled, true);
           });
         });
-
-
 
         testWidgets('Test props first padding widget',
             (WidgetTester tester) async {
