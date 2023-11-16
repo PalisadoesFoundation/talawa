@@ -17,7 +17,7 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
       itemSize: const Size.square(35),
       onReactionChanged: (value) {
         // ignore: unnecessary_statements
-        widget.toggle;
+        widget.toggle();
       },
       selectedReaction: Reaction(
         icon: Padding(
