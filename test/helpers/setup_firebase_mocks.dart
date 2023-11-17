@@ -156,30 +156,33 @@ class MockFirebaseMessaging extends Mock
     );
   }
 
-  @override
-  Future<NotificationSettings> requestPermission({
-    bool? alert = true,
-    bool? announcement = false,
-    bool? badge = true,
-    bool? carPlay = false,
-    bool? criticalAlert = false,
-    bool? provisional = false,
-    bool? sound = true,
-  }) {
-    return super.noSuchMethod(
-      Invocation.method(#requestPermission, [], {
-        #alert: alert,
-        #announcement: announcement,
-        #badge: badge,
-        #carPlay: carPlay,
-        #criticalAlert: criticalAlert,
-        #provisional: provisional,
-        #sound: sound,
-      }),
-      returnValue: neverEndingFuture<NotificationSettings>(),
-      returnValueForMissingStub: neverEndingFuture<NotificationSettings>(),
-    );
-  }
+// Comment out the notification logic for the MVP
+// TODO: Re-enable notifications when needed for the final release.
+
+  // @override
+  // Future<NotificationSettings> requestPermission({
+  //   bool? alert = true,
+  //   bool? announcement = false,
+  //   bool? badge = true,
+  //   bool? carPlay = false,
+  //   bool? criticalAlert = false,
+  //   bool? provisional = false,
+  //   bool? sound = true,
+  // }) {
+  //   return super.noSuchMethod(
+  //     Invocation.method(#requestPermission, [], {
+  //       #alert: alert,
+  //       #announcement: announcement,
+  //       #badge: badge,
+  //       #carPlay: carPlay,
+  //       #criticalAlert: criticalAlert,
+  //       #provisional: provisional,
+  //       #sound: sound,
+  //     }),
+  //     returnValue: neverEndingFuture<NotificationSettings>(),
+  //     returnValueForMissingStub: neverEndingFuture<NotificationSettings>(),
+  //   );
+  // }
 
   @override
   Future<void> subscribeToTopic(String? topic) {
