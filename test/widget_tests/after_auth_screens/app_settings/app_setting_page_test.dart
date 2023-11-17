@@ -93,11 +93,6 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
-  final Directory dir = Directory('temporaryPath');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
