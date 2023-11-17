@@ -412,7 +412,8 @@ void main() {
 
             // Simulate a reaction change on the MultiReactButton
             await tester.tap(
-                multiReactButtonFinder,); // Replace with your actual tap action
+              multiReactButtonFinder,
+            ); // Replace with your actual tap action
             await tester.pump();
 
             // Ensure that onReactionChanged callback was triggered
