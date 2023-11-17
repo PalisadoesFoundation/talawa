@@ -150,8 +150,12 @@ class NewsPost extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    height: 35,
-                                    width: 35,
+                                    height: (MediaQuery.sizeOf(context).width /
+                                            392) *
+                                        35,
+                                    width: (MediaQuery.sizeOf(context).width /
+                                            392) *
+                                        35,
                                     child: SvgPicture.asset(
                                       'assets/images/comment.svg',
                                     ),
