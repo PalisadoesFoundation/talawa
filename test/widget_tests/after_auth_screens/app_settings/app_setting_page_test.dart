@@ -1,19 +1,14 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/language/language_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -93,17 +88,6 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
-  final Directory dir = Directory('temporaryPath');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
-  tearDown(() async {
-    await Hive.close();
-  });
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
@@ -243,12 +227,6 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
-      File('temporaryPath/currentorg.hive').delete();
-      File('temporaryPath/currentorg.lock').delete();
-      File('temporaryPath/currentuser.hive').delete();
-      File('temporaryPath/currentuser.lock').delete();
-      File('temporaryPath/url.hive').delete();
-      File('temporaryPath/url.lock').delete();
     });
   });
 }
