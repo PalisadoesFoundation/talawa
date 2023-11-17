@@ -340,5 +340,4 @@ Future<void> main() async {
       verify(notifyListenerCallback());
     });
   });
-  Hive.deleteFromDisk();
 }
