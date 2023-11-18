@@ -1521,7 +1521,7 @@ packages:
       sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
       url: "https://pub.dev"
     source: hosted
-    ersion: "2.1.2"
+    version: "2.1.2"
   stream_transform:
     dependency: transitive
     description:
