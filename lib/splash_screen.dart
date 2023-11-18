@@ -1,17 +1,15 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-/// This widget return the SplashScreen. Splash Screen is the first screen that
-/// we see when we run our application. It is also known as Launch Screen.
+/// This widget return the SplashScreen. Splash Screen is the first screen that we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key, this.mainScreenIndex = 0})
       : super(key: key);
+
+  /// This is required if url requires us to push different Screen to Home Screen.
   final int mainScreenIndex;
 
   @override
@@ -24,10 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
   // Uri? _latestUri;
   // late StreamSubscription _sub;
 
-  /// Flutter supports deep linking on iOS, Android, and web browsers.
-  /// Opening a URL displays that screen in your app.
-  /// `_handleInitialUri` is an async function that is used to hanlde
-  /// the initial uri of the application.
+  // / Flutter supports deep linking on iOS, Android, and web browsers.
+  // / Opening a URL displays that screen in your app.
+  // / `_handleInitialUri` is an async function that is used to hanlde
+  // / the initial uri of the application.
   // Future<void> _handleInitialUri() async {
   //   _sub = uriLinkStream.listen(
   //     (Uri? uri) {
@@ -220,9 +218,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-  /// Describes the part of the user interface represented by this widget.
-  /// BuildContext is a locator that is used to track each widget in a tree
-  /// and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);

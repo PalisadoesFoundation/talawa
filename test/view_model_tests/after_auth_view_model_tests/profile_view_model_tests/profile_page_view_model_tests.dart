@@ -94,7 +94,13 @@ void main() {
       const String amt = "test_amt";
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(body: model.dominationButton(amt, mockContext, () {})),
+          home: Scaffold(
+            body: model.dominationButton(
+              amt,
+              mockContext,
+              (void Function() callback) {},
+            ),
+          ),
         ),
       );
       final containerFinder = find.byType(Container);

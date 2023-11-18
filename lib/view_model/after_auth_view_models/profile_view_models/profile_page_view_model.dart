@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:currency_picker/currency_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +15,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// ProfilePageViewModel class helps to interact with model to serve data
-/// and react to user's input in Profile Page view.
+/// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
 /// Methods include:
 /// * `logout`
@@ -28,20 +24,49 @@ class ProfilePageViewModel extends BaseModel {
   final _userConfig = locator<UserConfig>();
   final _navigationService = locator<NavigationService>();
   // final _appLanguageService = locator<AppLanguage>();
+  /// GlobalKey for scaffoldKey.
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// FocusNode for donationField.
   final FocusNode donationField = FocusNode();
+
+  /// Text Controller for donation Amount.
   TextEditingController donationAmount = TextEditingController();
+
+  /// Hive Box of user.
   late final Box<User> user;
+
+  /// Hive Box of url.
   late final Box<dynamic> url;
+
+  /// Hive Box of organisation.
   late final Box<OrgInfo> organisation;
+
+  /// Holds Current Organization.
   late OrgInfo currentOrg;
+
+  /// Holds Current user.
   late User currentUser;
+
+  /// Size of Bottom Sheet Height.
   double bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
+
+  /// donationCurrency.
   String donationCurrency = "USD";
+
+  /// Currency Symbol.
   String donationCurrencySymbol = "\$";
+
+  /// denomination.
   final List<String> denomination = ['1', '5', '10'];
 
-  // initializer
+  /// First function to initialize the viewmodel.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initialize() {
     setState(ViewState.busy);
     currentOrg = _userConfig.currentOrg;
@@ -49,8 +74,13 @@ class ProfilePageViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  /// This method destroys the user's session or sign out the user from app.
-  /// The function asks for the confimation in Custom Alert Dialog.
+  /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
+  ///
+  /// **params**:
+  /// * `context`: BuildContext of the widget
+  ///
+  /// **returns**:
+  /// * `Future<void>`: Resolves when user logout
   Future<void> logout(BuildContext context) async {
     // push custom alert dialog with the confirmation message.
     navigationService.pushDialog(
@@ -104,7 +134,17 @@ class ProfilePageViewModel extends BaseModel {
   }
 
   /// This method changes the currency of the user for donation purpose.
-  void changeCurrency(BuildContext context, Function setter) {
+  ///
+  /// **params**:
+  /// * `context`: BuildContext of the widget
+  /// * `setter`: Setter Function
+  ///
+  /// **returns**:
+  ///   None
+  void changeCurrency(
+    BuildContext context,
+    void Function(void Function()) setter,
+  ) {
     showCurrencyPicker(
       context: context,
       currencyFilter: supportedCurrencies,
@@ -117,8 +157,8 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
-  /// This function generates the organization invitation link in a Dialog Box.
-  /// Dialog box contains the QR-code of organization invite link and social media sharing options.
+  // / This function generates the organization invitation link in a Dialog Box.
+  // / Dialog box contains the QR-code of organization invite link and social media sharing options.
   // void invite(BuildContext context) {
   //   _appLanguageService.initialize();
   //   // organization url
@@ -221,10 +261,13 @@ class ProfilePageViewModel extends BaseModel {
 
   /// This widget returns the button for social media sharing option.
   ///
-  /// params:
-  /// * [icon] : This is `Widget` type with icon details.
-  /// * [onTap] : This is `Function`, which invoke on tap.
-  Widget iconButton(Widget icon, Function onTap) {
+  /// **params**:
+  /// * `icon`: This is Widget type with icon details.
+  /// * `onTap`: This is Function which invoke on tap.
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button
+  Widget iconButton(Widget icon, void Function() onTap) {
     return Stack(
       children: [
         IconButton(
@@ -240,13 +283,17 @@ class ProfilePageViewModel extends BaseModel {
 
   /// This widget returns button for domination.
   ///
-  /// params:
-  /// * [amount] : donation Amount.
-  /// * [setter] : `Function` type, which on tap set the amount to `donationAmount`.
+  /// **params**:
+  /// * `amount`: donation Amount.
+  /// * `context`: BuildContext.
+  /// * `setter`: `Function` type, which on tap set the amount to `donationAmount`.
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button
   Widget dominationButton(
     String amount,
     BuildContext context,
-    Function setter,
+    void Function(void Function()) setter,
   ) {
     return InkWell(
       onTap: () {
@@ -273,8 +320,14 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
-  // Listener on `donationField` widget focus.
-  void attachListener(Function setter) {
+  /// This widget returns button for domination.
+  ///
+  /// **params**:
+  /// * `setter`: SetState holder.
+  ///
+  /// **returns**:
+  ///   None
+  void attachListener(void Function(void Function()) setter) {
     donationField.addListener(() {
       if (donationField.hasFocus) {
         setter(() {
@@ -292,18 +345,36 @@ class ProfilePageViewModel extends BaseModel {
     });
   }
 
-  // pop the route from `navigationService`.
+  /// pop the route from `navigationService`.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void popBottomSheet() {
     _navigationService.pop();
   }
 
-  // to update the bottom sheet height.
+  /// to update the bottom sheet height.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void updateSheetHeight() {
     bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
     notifyListeners();
   }
 
-  // show message on Snack Bar.
+  /// show message on Snack Bar.
+  ///
+  /// **params**:
+  /// * `message`: String Message to show on snackbar
+  ///
+  /// **returns**:
+  ///   None
   void showSnackBar(String message) {
     _navigationService.showTalawaErrorDialog(message, MessageType.error);
   }

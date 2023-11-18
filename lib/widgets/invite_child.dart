@@ -1,13 +1,10 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 
-/// Creating an instance of AppLangauge() to set up localized values for each locale that our app supports.
+// / Creating an instance of AppLangauge() to set up localized values for each locale that our app supports.
 // final _appLanguageService = locator<AppLanguage>();
 
-/// This widget gives us various options to invite someone to an organization.
-/// We can use QR code scanner, social media platforms like twitter, whatsapp, telegram and many more.
+// / This widget gives us various options to invite someone to an organization.
+// / We can use QR code scanner, social media platforms like twitter, whatsapp, telegram and many more.
 // Widget invite(BuildContext context) {
 //   _appLanguageService.initialize();
 
@@ -94,9 +91,16 @@ import 'package:flutter/material.dart';
 //   );
 // }
 
-/// This function is for debugging purposes.
 /// It prints "tapped" in the console for the developer to know that the button was tapped.
-Widget iconButton(String key, Widget icon, Function onTap) {
+///
+/// **params**:
+/// * `key`: Key of the Widget
+/// * `icon`: Icon to be displayed
+/// * `onTap`: on tap function
+///
+/// **returns**:
+/// * `Widget`: returns IconButton.
+Widget iconButton(String key, Widget icon, void Function() onTap) {
   return Stack(
     children: [
       IconButton(

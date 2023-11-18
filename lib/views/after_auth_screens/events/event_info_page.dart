@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -13,6 +10,8 @@ import 'package:talawa/views/base_view.dart';
 /// EventInfoPage returns a widget that has mutable state _EventInfoPageState.
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({super.key, required this.args});
+
+  /// Takes in Arguments for the Page.
   final Map<String, dynamic> args;
   @override
   _EventInfoPageState createState() => _EventInfoPageState();
