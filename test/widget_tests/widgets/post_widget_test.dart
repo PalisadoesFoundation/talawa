@@ -16,6 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/multi_reaction.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/post_widget.dart';
@@ -386,6 +387,40 @@ void main() {
       });
 
       group('Test props of children for baseview', () {
+        testWidgets(
+            'Test MultiReactButton presence and onReactionChanged property in NewsPostWidget',
+            (WidgetTester tester) async {
+          await tester.runAsync(() async {
+            // Variable to check if onReactionChanged is called
+            bool reactionChangedCalled = false;
+
+            // Build the NewsPostWidget containing the MultiReactButton
+            await tester.pumpWidget(
+              MultiReactButton(
+                toggle: () {
+                  // Set the flag when onReactionChanged is called
+                  reactionChangedCalled = true;
+                },
+              ),
+            );
+
+            // Find the MultiReactButton widget within the NewsPostWidget
+            final multiReactButtonFinder = find.byType(MultiReactButton);
+
+            // Ensure the MultiReactButton widget is present in the widget tree
+            expect(multiReactButtonFinder, findsOneWidget);
+
+            // Simulate a reaction change on the MultiReactButton
+            await tester.tap(
+              multiReactButtonFinder,
+            ); // Replace with your actual tap action
+            await tester.pump();
+
+            // Ensure that onReactionChanged callback was triggered
+            expect(reactionChangedCalled, true);
+          });
+        });
+
         testWidgets('Test props first padding widget',
             (WidgetTester tester) async {
           await tester.runAsync(() async {

@@ -46,7 +46,7 @@ dependencies:
   flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
-  flutter_reaction_button: ^2.0.1+2
+  flutter_reaction_button: ^3.0.0+2
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.8
   font_awesome_flutter: ^10.6.0

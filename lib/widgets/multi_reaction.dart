@@ -14,11 +14,12 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
   @override
   Widget build(BuildContext context) {
     return ReactionButton(
+      itemSize: const Size.square(35),
       onReactionChanged: (value) {
         // ignore: unnecessary_statements
-        widget.toggle;
+        widget.toggle();
       },
-      initialReaction: Reaction(
+      selectedReaction: Reaction(
         icon: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
