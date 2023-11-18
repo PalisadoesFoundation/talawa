@@ -22,8 +22,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
         icon: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            height: 35,
-            width: 35,
+            height: (MediaQuery.sizeOf(context).width / 392) * 35,
+            width: (MediaQuery.sizeOf(context).width / 392) * 35,
             child: SvgPicture.asset(
               'assets/images/🦆 icon _like_.svg',
             ),
@@ -36,8 +36,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/angel.svg',
               ),
@@ -49,8 +49,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/happy.svg',
               ),
@@ -62,8 +62,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/laugh.svg',
               ),
@@ -75,8 +75,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/love.svg',
               ),
@@ -88,8 +88,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/tear.svg',
               ),
@@ -101,8 +101,8 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
           icon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 35,
-              width: 35,
+              height: (MediaQuery.sizeOf(context).width / 392) * 35,
+              width: (MediaQuery.sizeOf(context).width / 392) * 35,
               child: SvgPicture.asset(
                 'assets/icons/angry.svg',
               ),

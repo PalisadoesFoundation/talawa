@@ -57,6 +57,7 @@ class NewsPost extends StatelessWidget {
                 fontSize: 20,
               ),
               title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "${post.creator!.firstName} ${post.creator!.lastName}",
@@ -65,9 +66,6 @@ class NewsPost extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Colors.black38,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 115,
                   ),
                   IconButton(
                     onPressed: () {
@@ -152,8 +150,12 @@ class NewsPost extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    height: 35,
-                                    width: 35,
+                                    height: (MediaQuery.sizeOf(context).width /
+                                            392) *
+                                        35,
+                                    width: (MediaQuery.sizeOf(context).width /
+                                            392) *
+                                        35,
                                     child: SvgPicture.asset(
                                       'assets/images/comment.svg',
                                     ),
