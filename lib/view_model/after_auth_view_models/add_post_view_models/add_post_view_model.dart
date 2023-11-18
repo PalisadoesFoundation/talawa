@@ -110,8 +110,7 @@ class AddPostViewModel extends BaseModel {
   Future<String> convertToBase64(File file) async {
     try {
       final List<int> bytes = await file.readAsBytes();
-      String base64String = base64Encode(bytes);
-      base64String = base64String;
+      final String base64String = base64Encode(bytes);
       print(base64String);
       _imageInBase64 = base64String;
       return base64String;
