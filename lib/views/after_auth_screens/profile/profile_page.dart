@@ -177,16 +177,16 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.share,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                              onPressed: () => model.invite(context),
-                            ),
-                          ),
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: IconButton(
+                          //     icon: Icon(
+                          //       Icons.share,
+                          //       color: Theme.of(context).colorScheme.secondary,
+                          //     ),
+                          //     onPressed: () => model.invite(context),
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(
