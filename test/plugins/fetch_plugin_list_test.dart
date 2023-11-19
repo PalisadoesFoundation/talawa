@@ -45,9 +45,9 @@ void main() async {
               'pluginCreatedBy': 'User A',
               'pluginDesc': 'Description A',
               'pluginInstallStatus': true,
-              'installedOrgs': ['Org A']
+              'installedOrgs': ['Org A'],
             },
-          ]
+          ],
         },
         options: QueryOptions(
           document: gql(queries.getPluginsList()),
