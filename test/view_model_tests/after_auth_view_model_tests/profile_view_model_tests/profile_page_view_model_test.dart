@@ -130,5 +130,70 @@ void main() {
       //Ensures that naviagation service was called
       verifyInteraction(mocknav, mockName: "NavigationService");
     });
+
+    testWidgets('Test changeCurrency function', (WidgetTester tester) async {
+      // Mock data
+      final model = ProfilePageViewModel();
+      model.initialize();
+      // Set up a MaterialApp for testing
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return TextButton(
+                child: Container(),
+                // You might need a button to trigger the changeCurrency function
+                onPressed: () {
+                  model.changeCurrency(context, (Function callback) {});
+                },
+              );
+            },
+          ),
+        ),
+      );
+
+      // Trigger the button press to invoke changeCurrency
+      await tester.tap(find.byType(TextButton));
+      await tester.pump();
+    });
+
+    testWidgets('Test attachListener function', (WidgetTester tester) async {
+      // Mock data
+      final model = ProfilePageViewModel();
+      model.initialize();
+      final TextEditingController donationField = TextEditingController();
+      // Set up a MaterialApp for testing
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return Material(
+                child: TextFormField(
+                  controller: donationField,
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      // Attach the listener
+      model.attachListener(
+        (p0) => p0(),
+      );
+
+      // Trigger the listener by focusing on the TextFormField
+      await tester.tap(find.byType(TextFormField));
+      await tester.pump();
+
+      // Now you can check if bottomSheetHeight is updated when the field has focus
+      expect(model.bottomSheetHeight, 465.12000000000006);
+
+      // Trigger the listener by removing focus from the TextFormField after a delay
+      await tester.pump(const Duration(milliseconds: 300));
+
+      // Now you can check if bottomSheetHeight is updated after losing focus
+      expect(model.bottomSheetHeight, SizeConfig.screenHeight! * 0.68);
+    });
   });
 }
