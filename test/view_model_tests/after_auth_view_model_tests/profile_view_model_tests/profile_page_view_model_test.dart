@@ -4,10 +4,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
@@ -58,7 +58,12 @@ void main() {
       model.initialize();
 
       model.showSnackBar("fake_message");
-      verify(navigationService.showSnackBar("fake_message"));
+      verify(
+        navigationService.showTalawaErrorDialog(
+          "fake_message",
+          MessageType.error,
+        ),
+      );
 
       model.popBottomSheet();
       verify(navigationService.pop());
