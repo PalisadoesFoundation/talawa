@@ -68,7 +68,7 @@ dependencies:
   permission_handler: ^11.0.1
   plugin_platform_interface: ^2.1.6
   pointycastle: ^3.7.3
-  provider: ^6.0.3
+  provider: ^6.1.1
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
   quick_actions: ^1.0.6
