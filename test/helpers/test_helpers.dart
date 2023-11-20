@@ -250,19 +250,33 @@ GraphQLClient getAndRegisterGraphQLClient() {
   // Either fill this with mock data or override this stub
   // and return null
 
-  // when(service.query(QueryOptions(
-  //   document: gql(queries.getPluginsList()),
-  // ))).thenAnswer(
-  //   (realInvocation) async {
-  //     return QueryResult.internal(
-  //       source: QueryResultSource.network,
-  //       parserFn: (data) => {},
-  //       data: {
-  //         "getPlugins": [],
-  //       },
-  //     );
-  //   },
-  // );
+  when(service.query(any)).thenAnswer(
+    (realInvocation) async {
+      if (locator.isRegistered<GraphQLClient>()) {
+        return Future.value(
+          QueryResult<Map<String, dynamic>>(
+            source: QueryResultSource.network,
+            data: {
+              "getPlugins": null,
+            },
+            options: QueryOptions(
+              document: gql(queries.getPluginsList()),
+            ),
+          ),
+        );
+      } else {
+        return Future.value(
+          QueryResult<Map<String, dynamic>>(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(
+              document: gql(queries.getPluginsList()),
+            ),
+          ),
+        );
+      }
+    },
+  );
 
   when(service.defaultPolicies).thenAnswer(
     (realInvocation) => DefaultPolicies(),
