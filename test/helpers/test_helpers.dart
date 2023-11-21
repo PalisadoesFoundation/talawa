@@ -126,6 +126,13 @@ NavigationService getAndRegisterNavigationService() {
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
+  when(service.pushReplacementScreen(any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
+  when(service.pushDialog(any)).thenReturn(null);
+  when(service.showSnackBar(any)).thenReturn(null);
+  when(service.showTalawaErrorSnackBar(any, any)).thenReturn(null);
+  when(service.showTalawaErrorDialog(any, any)).thenReturn(null);
+  when(service.pop()).thenReturn(null);
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
