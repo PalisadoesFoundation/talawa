@@ -4,7 +4,6 @@ description: Welcome to the Talawa Project for the Palisadoes Foundation
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 homepage: https://github.com/PalisadoesFoundation/talawa
@@ -38,7 +37,6 @@ dependencies:
   firebase_messaging: ^14.7.4
   firebase_messaging_platform_interface: ^4.5.13
 
-
   flutter:
     sdk: flutter
   flutter_braintree: ^3.0.0
@@ -62,28 +60,27 @@ dependencies:
   image_picker: ^1.0.4
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockito: ^5.4.2
+  mockito: ^5.4.3
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
   permission_handler: ^11.0.1
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
-  provider: ^6.0.3
+  provider: ^6.1.1
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.0.0
   quick_actions: ^1.0.6
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: 23.1.43
+  syncfusion_flutter_calendar: 23.1.44
   syncfusion_flutter_datepicker: 23.1.44
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.9
   uni_links: ^0.5.1
   vibration: ^1.8.3
-  video_player: ^2.7.2
+  video_player: ^2.8.1
   visibility_detector: ^0.4.0+2
-
 
 dev_dependencies:
   build_runner: ^2.4.6
