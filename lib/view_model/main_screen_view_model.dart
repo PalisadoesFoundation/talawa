@@ -365,6 +365,7 @@ class MainScreenViewModel extends BaseModel {
         }
         tourSkipped = true;
         onTabTapped(0);
+        return false;
       },
       onClickOverlay: (target) {
         onClickTarget(target);
