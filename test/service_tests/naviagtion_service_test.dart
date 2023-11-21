@@ -16,6 +16,7 @@ import '../helpers/test_locator.dart';
 ///   None
 void main() {
   testSetupLocator();
+  WidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
     registerServices();
@@ -28,13 +29,39 @@ void main() {
   group('Testing all functions in NavigationService', () {
     test('NavigationService should call pushScreen with correct route',
         () async {
+      when(
+        navigationService.pushScreen(
+          'testroute',
+          arguments: anyNamed('arguments'),
+        ),
+      ).thenAnswer(
+        (invocation) => Future.value(
+          navigationService.navigatorKey.currentState?.pushNamed(
+            invocation.positionalArguments[0] as String,
+            arguments: invocation.namedArguments[#arguments],
+          ),
+        ),
+      );
       await navigationService.pushScreen('testRoute', arguments: 'testArgs');
       verify(navigationService.pushScreen('testRoute', arguments: 'testArgs'))
           .called(1);
     });
-
     test('NavigationService should call popAndPushScreen with correct route',
         () async {
+      when(
+        navigationService.popAndPushScreen(
+          'testroute',
+          arguments: anyNamed('arguments'),
+        ),
+      ).thenAnswer((invocation) {
+        navigationService.navigatorKey.currentState?.pop();
+        return Future.value(
+          navigationService.navigatorKey.currentState?.pushNamed(
+            invocation.positionalArguments[0] as String,
+            arguments: invocation.namedArguments[#arguments],
+          ),
+        );
+      });
       await navigationService.popAndPushScreen(
         'newRoute',
         arguments: 'newArgs',
@@ -46,10 +73,54 @@ void main() {
         ),
       ).called(1);
     });
+    test('NavigationService should call fromInviteLink with correct routenames',
+        () async {
+      when(navigationService.fromInviteLink([], [])).thenAnswer((invocation) {
+        final List<String> routeNames =
+            invocation.positionalArguments[0] as List<String>;
+        final List<dynamic> arguments =
+            invocation.positionalArguments[1] as List<dynamic>;
+
+        if (routeNames.isNotEmpty) {
+          navigationService.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+            '/${routeNames[0]}',
+            ModalRoute.withName('/'),
+            arguments: arguments[0],
+          );
+          for (int i = 1; i < routeNames.length; i++) {
+            navigationService.navigatorKey.currentState
+                ?.pushNamed('/${routeNames[i]}', arguments: arguments[i]);
+          }
+        }
+      });
+      navigationService.fromInviteLink(
+        [],
+        [],
+      );
+      verifyNever(
+        navigationService.pushReplacementScreen(
+          'replacementRoute',
+          arguments: 'replacementArgs',
+        ),
+      );
+    });
 
     test(
         'NavigationService should call pushReplacementScreen with correct route',
         () async {
+      when(
+        navigationService.pushReplacementScreen(
+          '',
+          arguments: anyNamed('arguments'),
+        ),
+      ).thenAnswer(
+        (invocation) => Future.value(
+          navigationService.navigatorKey.currentState?.pushReplacementNamed(
+            invocation.positionalArguments[0] as String,
+            arguments: invocation.namedArguments[#arguments],
+          ),
+        ),
+      );
       await navigationService.pushReplacementScreen(
         'replacementRoute',
         arguments: 'replacementArgs',
@@ -64,6 +135,22 @@ void main() {
 
     test('NavigationService should call removeAllAndPush with correct routes',
         () async {
+      // ignore: require_trailing_commas
+      when(
+        navigationService.removeAllAndPush(
+          '',
+          '',
+          arguments: anyNamed('arguments'),
+        ),
+      ).thenAnswer(
+        (invocation) => Future.value(
+          navigationService.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+            invocation.positionalArguments[0] as String,
+            ModalRoute.withName(invocation.positionalArguments[1] as String),
+            arguments: invocation.namedArguments[#arguments],
+          ),
+        ),
+      );
       await navigationService.removeAllAndPush(
         'routeName',
         '/tillRoute',
