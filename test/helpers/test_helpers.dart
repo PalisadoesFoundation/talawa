@@ -149,8 +149,10 @@ NavigationService getAndRegisterNavigationService() {
 
     if (routeNames.isNotEmpty) {
       service.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-          '/${routeNames[0]}', ModalRoute.withName('/'),
-          arguments: arguments[0]);
+        '/${routeNames[0]}',
+        ModalRoute.withName('/'),
+        arguments: arguments[0],
+      );
       for (int i = 1; i < routeNames.length; i++) {
         service.navigatorKey.currentState
             ?.pushNamed('/${routeNames[i]}', arguments: arguments[i]);
