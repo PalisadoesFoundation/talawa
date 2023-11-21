@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -60,25 +58,6 @@ class EditProfilePageViewModel extends BaseModel {
     if (image != null) {
       imageFile = image;
       notifyListeners();
-    }
-  }
-
-  /// This function is used to convert the image into Base64 format.
-  ///
-  /// **params**:
-  /// * `file`:  Takes the image in format of file.
-  ///
-  /// **returns**:
-  /// * `Future<String>`: image in string format
-  Future<String> convertToBase64(File file) async {
-    try {
-      final List<int> bytes = await file.readAsBytes();
-      final String base64String = base64Encode(bytes);
-      print(base64String);
-      imageFile = base64String as File?;
-      return base64String;
-    } catch (error) {
-      return '';
     }
   }
 
