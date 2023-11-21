@@ -15,8 +15,8 @@ import '../helpers/test_locator.dart';
 /// **returns**:
 ///   None
 void main() {
-  testSetupLocator();
   WidgetsFlutterBinding.ensureInitialized();
+  testSetupLocator();
 
   setUp(() {
     registerServices();
