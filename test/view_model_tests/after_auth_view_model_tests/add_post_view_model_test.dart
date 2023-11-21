@@ -96,6 +96,29 @@ void main() {
       // );
       verify(notifyListenerCallback());
     });
+    test('convertToBase64 converts file to base64 string', () async {
+      final notifyListenerCallback = MockCallbackFunction();
+      final model = AddPostViewModel()..addListener(notifyListenerCallback);
+      model.initialise();
+      //using this asset as the test asset
+      final file = File('assets/images/Group 8948.png');
+      final fileString = await model.convertToBase64(file);
+      expect(model.imageInBase64, fileString);
+      verifyNever(notifyListenerCallback());
+    });
+
+    test(
+        'Check if convertToBase64 is working even if wrong file path is provided',
+        () async {
+      final notifyListenerCallback = MockCallbackFunction();
+      final model = AddPostViewModel()..addListener(notifyListenerCallback);
+      model.initialise();
+      final file = File('fakePath');
+      final fileString = await model.convertToBase64(file);
+      expect('', fileString);
+      verifyNever(notifyListenerCallback());
+    });
+
     test("Check if remove_image method works correctly", () async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = AddPostViewModel()..addListener(notifyListenerCallback);
