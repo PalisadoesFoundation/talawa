@@ -1621,10 +1621,10 @@ packages:
     dependency: "direct main"
     description:
       name: tutorial_coach_mark
-      sha256: ba60583d1b500111bf5040eb24330862b25162d926f72923b8e45c16621878b0
+      sha256: "1f1fd234790afb929dec7391a4d90aa54ffe8c8e4d278d9283df8e3f5ac5d63e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.9"
+    version: "1.2.11"
   typed_data:
     dependency: transitive
     description:
