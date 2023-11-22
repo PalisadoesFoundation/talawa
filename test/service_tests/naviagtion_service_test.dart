@@ -183,7 +183,6 @@ void main() {
           home: Builder(
             builder: (BuildContext context) {
               final currentContext = navigatorKey.currentContext;
-              print(currentContext);
               return Scaffold(
                 body: ElevatedButton(
                   onPressed: () {

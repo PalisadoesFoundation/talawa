@@ -120,69 +120,12 @@ void _removeRegistrationIfExists<T extends Object>() {
 NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
-
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
-
-  when(service.pushScreen(any, arguments: anyNamed('arguments'))).thenAnswer(
-    (invocation) => Future.value(
-      service.navigatorKey.currentState?.pushNamed(
-        invocation.positionalArguments[0] as String,
-        arguments: invocation.namedArguments[#arguments],
-      ),
-    ),
-  );
-  when(service.popAndPushScreen(any, arguments: anyNamed('arguments')))
-      .thenAnswer((invocation) {
-    service.navigatorKey.currentState?.pop();
-    return Future.value(
-      service.navigatorKey.currentState?.pushNamed(
-        invocation.positionalArguments[0] as String,
-        arguments: invocation.namedArguments[#arguments],
-      ),
-    );
-  });
-  when(service.fromInviteLink(any, any)).thenAnswer((invocation) {
-    final List<String> routeNames =
-        invocation.positionalArguments[0] as List<String>;
-    final List<dynamic> arguments =
-        invocation.positionalArguments[1] as List<dynamic>;
-
-    if (routeNames.isNotEmpty) {
-      service.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        '/${routeNames[0]}',
-        ModalRoute.withName('/'),
-        arguments: arguments[0],
-      );
-      for (int i = 1; i < routeNames.length; i++) {
-        service.navigatorKey.currentState
-            ?.pushNamed('/${routeNames[i]}', arguments: arguments[i]);
-      }
-    }
-  });
-  when(service.pushReplacementScreen(any, arguments: anyNamed('arguments')))
-      .thenAnswer(
-    (invocation) => Future.value(
-      service.navigatorKey.currentState?.pushReplacementNamed(
-        invocation.positionalArguments[0] as String,
-        arguments: invocation.namedArguments[#arguments],
-      ),
-    ),
-  );
   when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
-      .thenAnswer(
-    (invocation) => Future.value(
-      service.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        invocation.positionalArguments[0] as String,
-        ModalRoute.withName(invocation.positionalArguments[1] as String),
-        arguments: invocation.namedArguments[#arguments],
-      ),
-    ),
-  );
-  when(service.pushDialog(any)).thenReturn(null);
-  when(service.showSnackBar(any)).thenReturn(null);
-  when(service.showTalawaErrorSnackBar(any, any)).thenReturn(null);
-  when(service.showTalawaErrorDialog(any, any)).thenReturn(null);
-
+      .thenAnswer((_) async {});
+  when(service.pushScreen(any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
+  when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
