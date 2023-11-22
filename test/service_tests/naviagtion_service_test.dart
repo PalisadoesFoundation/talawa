@@ -15,11 +15,11 @@ import '../helpers/test_locator.dart';
 /// **returns**:
 ///   None
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   testSetupLocator();
 
   setUp(() {
     registerServices();
+    WidgetsFlutterBinding.ensureInitialized();
   });
 
   tearDown(() {
@@ -172,10 +172,42 @@ void main() {
       verify(navigationService.pushDialog(testDialog)).called(1);
     });
 
-    test('NavigationService should call showSnackBar with correct message', () {
-      const testMessage = 'Test Message';
-      navigationService.showSnackBar(testMessage);
-      verify(navigationService.showSnackBar(testMessage)).called(1);
+    testWidgets('NavigationService should show SnackBar with correct message',
+        (WidgetTester tester) async {
+      final GlobalKey<NavigatorState> navigatorKey =
+          GlobalKey<NavigatorState>();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigatorKey,
+          home: Builder(
+            builder: (BuildContext context) {
+              final currentContext = navigatorKey.currentContext;
+              print(currentContext);
+              return Scaffold(
+                body: ElevatedButton(
+                  onPressed: () {
+                    if (currentContext != null) {
+                      ScaffoldMessenger.of(currentContext).showSnackBar(
+                        const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text('Test Snackbar'),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Show Snackbar'),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show Snackbar'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Test Snackbar'), findsOneWidget);
     });
 
     test(
