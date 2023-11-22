@@ -37,8 +37,8 @@ void main() {
       ).thenAnswer(
         (invocation) => Future.value(
           navigationService.navigatorKey.currentState?.pushNamed(
-            invocation.positionalArguments[0] as String,
-            arguments: invocation.namedArguments[#arguments],
+            'testRoute',
+            arguments: 'testArgs',
           ),
         ),
       );
@@ -54,11 +54,11 @@ void main() {
           arguments: anyNamed('arguments'),
         ),
       ).thenAnswer((invocation) {
-        navigationService.navigatorKey.currentState?.pop();
+        navigationService.navigatorKey.currentState!.pop();
         return Future.value(
-          navigationService.navigatorKey.currentState?.pushNamed(
-            invocation.positionalArguments[0] as String,
-            arguments: invocation.namedArguments[#arguments],
+          navigationService.navigatorKey.currentState!.pushNamed(
+            'newRoute',
+            arguments: 'newArgs',
           ),
         );
       });
@@ -75,14 +75,17 @@ void main() {
     });
     test('NavigationService should call fromInviteLink with correct routenames',
         () async {
-      when(navigationService.fromInviteLink([], [])).thenAnswer((invocation) {
-        final List<String> routeNames =
-            invocation.positionalArguments[0] as List<String>;
-        final List<dynamic> arguments =
-            invocation.positionalArguments[1] as List<dynamic>;
+      when(
+        navigationService.fromInviteLink(
+          ['testroute'],
+          ['arguments'],
+        ),
+      ).thenAnswer((invocation) {
+        final List<String> routeNames = ['testroute'];
+        final List<dynamic> arguments = ['arguments'];
 
         if (routeNames.isNotEmpty) {
-          navigationService.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+          navigationService.navigatorKey.currentState!.pushNamedAndRemoveUntil(
             '/${routeNames[0]}',
             ModalRoute.withName('/'),
             arguments: arguments[0],
@@ -94,8 +97,8 @@ void main() {
         }
       });
       navigationService.fromInviteLink(
-        [],
-        [],
+        ['replacementRoute'],
+        ['replacementArgs'],
       );
       verifyNever(
         navigationService.pushReplacementScreen(
@@ -116,8 +119,8 @@ void main() {
       ).thenAnswer(
         (invocation) => Future.value(
           navigationService.navigatorKey.currentState?.pushReplacementNamed(
-            invocation.positionalArguments[0] as String,
-            arguments: invocation.namedArguments[#arguments],
+            'replacementRoute',
+            arguments: 'replacementArgs',
           ),
         ),
       );
@@ -135,19 +138,18 @@ void main() {
 
     test('NavigationService should call removeAllAndPush with correct routes',
         () async {
-      // ignore: require_trailing_commas
       when(
         navigationService.removeAllAndPush(
-          '',
-          '',
-          arguments: anyNamed('arguments'),
+          'testroute1',
+          '/testroute2',
+          arguments: 'args',
         ),
       ).thenAnswer(
         (invocation) => Future.value(
           navigationService.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-            invocation.positionalArguments[0] as String,
-            ModalRoute.withName(invocation.positionalArguments[1] as String),
-            arguments: invocation.namedArguments[#arguments],
+            'testroute1',
+            ModalRoute.withName('/testroute2'),
+            arguments: 'args',
           ),
         ),
       );
@@ -174,15 +176,13 @@ void main() {
 
     testWidgets('NavigationService should show SnackBar with correct message',
         (WidgetTester tester) async {
-      final GlobalKey<NavigatorState> navigatorKey =
-          GlobalKey<NavigatorState>();
-
       await tester.pumpWidget(
         MaterialApp(
-          navigatorKey: navigatorKey,
+          navigatorKey: navigationService.navigatorKey,
           home: Builder(
             builder: (BuildContext context) {
-              final currentContext = navigatorKey.currentContext;
+              final currentContext =
+                  navigationService.navigatorKey.currentContext;
               return Scaffold(
                 body: ElevatedButton(
                   onPressed: () {
