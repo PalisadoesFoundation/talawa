@@ -36,8 +36,7 @@ import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart'; // Import your app's main file here to access the generateRoute function
-// ... Import other necessary dependencies and models
+import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart'; 
 
 class MockBuildContext extends Mock implements BuildContext {}
 
