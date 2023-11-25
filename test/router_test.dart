@@ -36,7 +36,7 @@ import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart'; 
+import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
