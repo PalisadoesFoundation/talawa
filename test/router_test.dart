@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:googleapis/people/v1.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
