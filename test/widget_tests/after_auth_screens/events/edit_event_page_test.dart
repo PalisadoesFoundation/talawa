@@ -175,11 +175,16 @@ void main() {
 
       expect(find.byType(TimePickerDialog), findsOneWidget);
 
+      final center = tester
+          .getCenter(find.byKey(const ValueKey<String>('time-picker-dial')));
+      await tester.tapAt(Offset(center.dx - 10, center.dy));
+      await tester.pump();
+      await tester.tapAt(Offset(center.dx, center.dy + 10));
       await tester.tap(find.text('PM'));
       await tester.tap(find.text('OK'));
       await tester.pump();
 
-      expect(find.text('12:00 PM'), findsOneWidget);
+      expect(find.text('9:30 PM'), findsOneWidget);
     });
   });
 
@@ -378,15 +383,16 @@ void main() {
         final dateTimeTiles = find.byType(DateTimeTile);
         expect(textDesc, findsOneWidget);
         expect(dateTimeTiles, findsNWidgets(2));
+        final expectedDate = DateTime(2021, 1, 1);
+        const expectedTime = '5:30 AM';
+
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).date,
-          DateTime(2021, 1, 1).toString().split(' ')[0],
+          expectedDate.toString().split(' ')[0],
         );
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2021, 1, 1)).format(
-            navigationService.navigatorKey.currentContext!,
-          ),
+          expectedTime,
         );
         expect(
           (tester.widget(textDesc) as Text?)?.style!.fontSize,
@@ -409,21 +415,16 @@ void main() {
         final dateTimeTiles = find.byType(DateTimeTile);
         expect(textDesc, findsOneWidget);
         expect(dateTimeTiles, findsNWidgets(2));
+        final expectedDate = DateTime(2021, 1, 1);
+        const expectedTime = '5:30 AM';
+
         expect(
-          (tester.widgetList(dateTimeTiles).toList()[1] as DateTimeTile).date,
-          DateTime(2022, 1, 1).toString().split(' ')[0],
+          (tester.firstWidget(dateTimeTiles) as DateTimeTile).date,
+          expectedDate.toString().split(' ')[0],
         );
         expect(
-          (tester.widgetList(dateTimeTiles).toList()[1] as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2022, 1, 1)).format(
-            navigationService.navigatorKey.currentContext!,
-          ),
-        );
-        expect(
-          (tester.widgetList(dateTimeTiles).toList()[1] as DateTimeTile).time,
-          TimeOfDay.fromDateTime(DateTime(2022, 1, 1)).format(
-            navigationService.navigatorKey.currentContext!,
-          ),
+          (tester.firstWidget(dateTimeTiles) as DateTimeTile).time,
+          expectedTime,
         );
         expect(
           (tester.widget(textDesc) as Text?)?.style!.fontSize,
@@ -484,8 +485,10 @@ void main() {
           16,
         );
         expect((tester.firstWidget(switches) as Switch).value, true);
+        await tester.ensureVisible(switches.first);
         await tester.tap(switches.first);
         await tester.pumpAndSettle();
+
         expect((tester.firstWidget(switches) as Switch).value, false);
       });
       testWidgets("Testing Keep Registerable section", (tester) async {

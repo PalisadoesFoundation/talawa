@@ -71,11 +71,11 @@ void main() {
     testWidgets('Check if cancelling the time picker works', (tester) async {
       await tester
           .pumpWidget(dateTimePicker(checkProp: cancelTime, isTimeType: true));
-
+      await tester.ensureVisible(find.text('Open'));
       await tester.tap(find.text('Open'));
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
-      await tester.tap(find.textContaining('CANCEL'));
+      await tester.tap(find.textContaining('Cancel'));
 
       expect(testTime, cancelTime);
     });
@@ -109,7 +109,7 @@ void main() {
       await tester.tap(find.text('Open'));
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
-      await tester.tap(find.textContaining('CANCEL'));
+      await tester.tap(find.textContaining('Cancel'));
 
       expect(testDate, cancelDate);
     });
