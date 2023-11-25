@@ -41,10 +41,10 @@ dependencies:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^16.1.0
+  flutter_local_notifications: ^16.2.0
   flutter_localizations:
     sdk: flutter
-  flutter_reaction_button: ^3.0.0+2
+  flutter_reaction_button: ^3.0.0+3
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.9
   font_awesome_flutter: ^10.6.0
@@ -63,7 +63,7 @@ dependencies:
   mockito: ^5.4.3
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
-  permission_handler: ^11.0.1
+  permission_handler: ^11.1.0
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
   provider: ^6.1.1
@@ -90,7 +90,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
 
   json_serializable: ^6.7.1
-  lint: ^2.1.2
+  lint: ^2.2.0
 
   mocktail_image_network: ^1.0.0
   talawa_lint:
