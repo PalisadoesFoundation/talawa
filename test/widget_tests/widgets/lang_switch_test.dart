@@ -16,7 +16,7 @@ import '../../helpers/test_locator.dart';
 
 Widget createLanguageTile() {
   return BaseView<AppLanguage>(
-    onModelReady: (_) => _.initialize(),
+    onModelReady: (model) => model.initialize(),
     builder: (_, __, ___) => MaterialApp(
       localizationsDelegates: [
         const AppLocalizationsDelegate(isTest: true),
