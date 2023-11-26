@@ -184,7 +184,7 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pump();
 
-      expect(find.text('9:30 PM'), findsOneWidget);
+      expect(find.text('12:00 PM'), findsOneWidget);
     });
   });
 
@@ -384,7 +384,7 @@ void main() {
         expect(textDesc, findsOneWidget);
         expect(dateTimeTiles, findsNWidgets(2));
         final expectedDate = DateTime(2021, 1, 1);
-        const expectedTime = '5:30 AM';
+        const expectedTime = '12:00 AM';
 
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).date,
@@ -416,7 +416,7 @@ void main() {
         expect(textDesc, findsOneWidget);
         expect(dateTimeTiles, findsNWidgets(2));
         final expectedDate = DateTime(2021, 1, 1);
-        const expectedTime = '5:30 AM';
+        const expectedTime = '12:00 AM';
 
         expect(
           (tester.firstWidget(dateTimeTiles) as DateTimeTile).date,
