@@ -96,22 +96,11 @@ void main() {
     });
     testWidgets('Testing the Cancel button', (tester) async {
       await prepareDatePicker(tester, (date) async {
-        // Find the TextButton with a specific key
         final cancelBtnFinder = find.byKey(const ValueKey('CancelButton'));
-
-        // Ensure the TextButton is present
         expect(cancelBtnFinder, findsOneWidget);
-
-        // Ensure the TextButton is visible
         await tester.ensureVisible(cancelBtnFinder);
-
-        // Tap the TextButton
         await tester.tap(cancelBtnFinder);
-
-        // Wait for the animation to complete
         await tester.pumpAndSettle();
-
-        // Ensure that the expected text is present
         expect(
           find.textContaining(
             (await date).toLocal().toString().split(' ')[0],
