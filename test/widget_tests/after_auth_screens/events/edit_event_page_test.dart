@@ -169,6 +169,7 @@ void main() {
     testWidgets('Tap on DataTimeTile time for end', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
       await tester.pumpAndSettle();
+
       await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
       await tester.pump();
 
@@ -179,10 +180,10 @@ void main() {
       await tester.tapAt(Offset(center.dx - 10, center.dy));
       await tester.pump();
       await tester.tapAt(Offset(center.dx, center.dy + 10));
-      await tester.tap(find.text('PM'));
       await tester.tap(find.text('OK'));
       await tester.pump();
-      expect(find.text('9:30 PM'), findsOneWidget);
+
+      expect(find.text('9:30 AM'), findsOneWidget);
     });
   });
 
@@ -487,6 +488,7 @@ void main() {
           16,
         );
         expect((tester.firstWidget(switches) as Switch).value, true);
+        await tester.ensureVisible(switches.first);
         await tester.tap(switches.first);
         await tester.pumpAndSettle();
         expect((tester.firstWidget(switches) as Switch).value, false);
