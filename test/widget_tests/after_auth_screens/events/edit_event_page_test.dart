@@ -522,7 +522,9 @@ void main() {
             16,
           );
           expect(
-              (tester.widgetList(switches).toList()[1] as Switch).value, true);
+            (tester.widgetList(switches).toList()[1] as Switch).value,
+            true,
+          );
           await tester.ensureVisible(switches.at(1));
           await tester.tap(switches.at(1));
           await tester.pumpAndSettle();
