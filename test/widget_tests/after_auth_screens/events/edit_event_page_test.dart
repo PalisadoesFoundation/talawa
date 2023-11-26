@@ -484,6 +484,7 @@ void main() {
           16,
         );
         expect((tester.firstWidget(switches) as Switch).value, true);
+        await tester.ensureVisible(switches.first);
         await tester.tap(switches.first);
         await tester.pumpAndSettle();
         expect((tester.firstWidget(switches) as Switch).value, false);

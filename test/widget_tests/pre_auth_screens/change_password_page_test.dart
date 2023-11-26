@@ -168,6 +168,7 @@ void main() {
       //inputting a invalid pass in the field
       await tester.enterText(passInputFieldWidget, 'nontext');
       //submitting the field with invalid input
+      await tester.ensureVisible(findChangePassButton);
       await tester.tap(findChangePassButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
       //testing the invalidPassSubmission widget appears
@@ -291,6 +292,7 @@ void main() {
       //inputting a invalid pass in the field
       await tester.enterText(passInputFieldWidget, 'nontext');
       //submitting the field with invalid input
+      await tester.ensureVisible(findRecoverButton);
       await tester.tap(findRecoverButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
       //testing the invalidPassSubmission widget appears

@@ -125,6 +125,7 @@ void main() {
       //inputting a non email text in the field
       await tester.enterText(emailInputFieldWidget, 'non-url text');
       //submitting the field with non url input
+      await tester.ensureVisible(findLoginButton);
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
       //testing the invalidEmailSubmission widget appears
@@ -171,6 +172,7 @@ void main() {
       //inputting a invalid password text in the field
       await tester.enterText(passwordInputFieldWidget, 'test');
       //submitting the field with invalid password input
+      await tester.ensureVisible(findLoginButton);
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
       //testing the invalidPasswordSubmission widget appears
