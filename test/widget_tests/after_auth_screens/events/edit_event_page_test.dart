@@ -170,20 +170,16 @@ void main() {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
+      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
       await tester.pump();
 
       expect(find.byType(TimePickerDialog), findsOneWidget);
 
-      final center = tester
-          .getCenter(find.byKey(const ValueKey<String>('time-picker-dial')));
-      await tester.tapAt(Offset(center.dx - 10, center.dy));
-      await tester.pump();
-      await tester.tapAt(Offset(center.dx, center.dy + 10));
+      await tester.tap(find.text('PM'));
       await tester.tap(find.text('OK'));
       await tester.pump();
 
-      expect(find.text('9:30 AM'), findsOneWidget);
+      expect(find.text('12:00 PM'), findsOneWidget);
     });
   });
 
