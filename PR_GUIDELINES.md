@@ -18,7 +18,7 @@ These are key guidelines for the procedure:
 
 ### Only submit PRs against our `develop` branch, not the default `main` branch
 
-1. Only submit PRs against our `develop` branch. The default is `main`, so you will have to modify this before submitting your PR for review.
+1. Only submit PRs against our `develop` branch. The default is `main`, so you will have to modify this before submitting your PR for review. PRs made against `main` will be closed.
 1. We do not accept draft Pull Requests. They will be closed if submitted. We focus on work that is ready for immediate review.
 1. Removing assigned reviewers from your Pull Request will cause it to be closed. The quality of our code is very important to us. Therefore we make experienced maintainers of our code base review your code. Removing these assigned persons is not in the best interest of this goal.
 1. If you have not done so already, please read the `Pull Requests and Issues` and `Testing` sections above.
