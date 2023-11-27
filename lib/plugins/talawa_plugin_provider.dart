@@ -39,12 +39,11 @@ class TalawaPluginProvider extends StatelessWidget {
           (plugin) => {
             if (plugin["pluginName"] == pluginName)
               {
-                if (plugin["pluginInstallStatus"] as bool)
-                  {
-                    res = plugin["pluginInstallStatus"] as bool ||
-                        plugin["installedOrgs"]
-                            .contains(userConfig.currentOrg.id) as bool,
-                  },
+                {
+                  res = plugin["pluginInstallStatus"] as bool ||
+                      plugin["installedOrgs"].contains(userConfig.currentOrg.id)
+                          as bool,
+                },
               },
           },
         )
