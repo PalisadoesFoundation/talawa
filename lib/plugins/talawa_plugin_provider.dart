@@ -38,21 +38,15 @@ class TalawaPluginProvider extends StatelessWidget {
         (box.get('plugins') as List<Map<String, dynamic>>?) ?? [];
 
     ///mapping over the list from the server
-    pluginList
-        .map(
-          (plugin) => {
-            if (plugin["pluginName"] == pluginName)
-              {
-                if (plugin["pluginInstallStatus"] as bool)
-                  {
-                    res = plugin["pluginInstallStatus"] as bool ||
-                        (plugin["installedOrgs"] as List)
-                            .contains(userConfig.currentOrg.id),
-                  },
-              },
-          },
-        )
-        .toList();
+    pluginList.forEach((plugin) {
+      if (plugin["pluginName"] == pluginName) {
+        if (plugin["pluginInstallStatus"] as bool) {
+          res = plugin["pluginInstallStatus"] as bool ||
+              (plugin["installedOrgs"] as List)
+                  .contains(userConfig.currentOrg.id);
+        }
+      }
+    });
     return res;
   }
 
