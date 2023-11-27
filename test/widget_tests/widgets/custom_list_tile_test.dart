@@ -258,6 +258,7 @@ void main() {
       expect(find.byKey(_key), findsOneWidget);
 
       // test to see if onTap of Inkwell works
+      await tester.ensureVisible(find.byType(InkWell));
       await tester.tap(find.byType(InkWell));
       await tester.pump();
       expect(executed, true);
@@ -303,8 +304,11 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .bodySmall
-            ?.copyWith(color: Colors.black, fontSize: 18),
+            .bodyMedium
+            ?.copyWith(
+              color: Colors.black,
+              fontSize: 18,
+            ),
       );
 
       // Testing SizedBox for option when trailing icon button is null (fallback for creater info)

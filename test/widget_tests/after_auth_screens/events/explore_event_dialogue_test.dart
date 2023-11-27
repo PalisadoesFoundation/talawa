@@ -96,8 +96,10 @@ void main() {
     });
     testWidgets('Testing the Cancel button', (tester) async {
       await prepareDatePicker(tester, (date) async {
-        expect(find.text('CANCEL'), findsOneWidget);
-        await tester.tap(find.text('CANCEL'));
+        final cancelBtnFinder = find.byKey(const ValueKey('CancelButton'));
+        expect(cancelBtnFinder, findsOneWidget);
+        await tester.ensureVisible(cancelBtnFinder);
+        await tester.tap(cancelBtnFinder);
         await tester.pumpAndSettle();
         expect(
           find.textContaining(

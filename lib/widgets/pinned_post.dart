@@ -88,7 +88,7 @@ class PinnedPost extends StatelessWidget {
     return Container(
       child: pinnedPosts.isNotEmpty
           ? SizedBox(
-              height: SizeConfig.screenHeight! * 0.25,
+              height: SizeConfig.screenHeight! * 0.28,
               child: ListView.builder(
                 itemCount: pinnedPosts.length,
                 shrinkWrap: true,
