@@ -86,7 +86,7 @@ void main() {
             'pluginCreatedBy': 'User A',
             'pluginDesc': 'Description A',
             'pluginInstallStatus': false,
-            'installedOrgs': ['org1'],
+            'installedOrgs': ['org2'],
           },
         ],
       );
@@ -116,6 +116,36 @@ void main() {
             'pluginCreatedBy': 'User A',
             'pluginDesc': 'Description A',
             'pluginInstallStatus': true,
+            'installedOrgs': ['org1'],
+          },
+        ],
+      );
+
+      when(userConfig.currentOrg).thenReturn(org);
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: TalawaPluginProvider(
+            visible: false,
+            pluginName: 'Plugin 1',
+            child: Text('Test Plugin'),
+          ),
+        ),
+      );
+
+      expect(find.text('Test Plugin'), findsOneWidget);
+    });
+    testWidgets(
+        'Widget displays child when not visible but plugin is already installed in that org',
+        (WidgetTester tester) async {
+      box.put(
+        'plugins',
+        [
+          {
+            '_id': '1',
+            'pluginName': 'Plugin 1',
+            'pluginCreatedBy': 'User A',
+            'pluginDesc': 'Description A',
+            'pluginInstallStatus': false,
             'installedOrgs': ['org1'],
           },
         ],
