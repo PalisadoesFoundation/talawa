@@ -75,7 +75,7 @@ void main() {
     });
 
     testWidgets(
-        'Widget hides child when not visible and plugins are not installed',
+        'Widget hides child when not visible and plugins are not installed also plugin not installed in org',
         (WidgetTester tester) async {
       box.put(
         'plugins',
