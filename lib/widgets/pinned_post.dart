@@ -12,7 +12,7 @@ class PinnedPost extends StatelessWidget {
 
   /// contains the pinned post.
   ///
-  final List<Post> pinnedPost;
+  final List<Post>? pinnedPost;
 
   /// a_line_ending_with_end_punctuation.
   ///
@@ -86,6 +86,7 @@ class PinnedPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const Key('hello'),
       child: pinnedPosts.isNotEmpty
           ? SizedBox(
               height: SizeConfig.screenHeight! * 0.25,
@@ -109,28 +110,32 @@ class PinnedPost extends StatelessWidget {
                       width: SizeConfig.screenWidth! / 4.1,
                       child: Column(
                         children: [
-                          CachedNetworkImage(
-                            cacheKey: pinnedPosts[index]['postId'],
-                            imageUrl:
-                                (pinnedPosts[index]['imageUrl'] ?? '').isEmpty
-                                    ? 'placeHolderUrl'
-                                    : pinnedPosts[index]['imageUrl']!,
-                            errorWidget: (context, url, error) {
-                              return const CircularProgressIndicator();
-                            },
-                            height: SizeConfig.screenHeight! * 0.15,
-                            fit: BoxFit.cover,
+                          Expanded(
+                            child: CachedNetworkImage(
+                              cacheKey: pinnedPosts[index]['postId'],
+                              imageUrl:
+                                  (pinnedPosts[index]['imageUrl'] ?? '').isEmpty
+                                      ? 'placeHolderUrl'
+                                      : pinnedPosts[index]['imageUrl']!,
+                              errorWidget: (context, url, error) {
+                                return const CircularProgressIndicator();
+                              },
+                              height: SizeConfig.screenHeight! * 0.15,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  '${pinnedPosts[index]['time']!}hr',
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w200,
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${pinnedPosts[index]['time']!}hr',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w200,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -149,7 +154,9 @@ class PinnedPost extends StatelessWidget {
                 ),
               ),
             )
-          : Container(),
+          : Container(
+            
+          ),
     );
   }
 }
