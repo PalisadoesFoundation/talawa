@@ -258,10 +258,11 @@ class SelectOrganizationViewModel extends BaseModel {
         },
         updateQuery: (existingOrganizations, newOrganizations) {
           return {
-            'organizationsConnection': [
-              existingOrganizations!["organizationsConnection"],
-              newOrganizations!['organizationsConnection'],
-            ],
+            'organizationsConnection':
+                (existingOrganizations!["organizationsConnection"]
+                        as List<dynamic>) +
+                    (newOrganizations!['organizationsConnection']
+                        as List<dynamic>),
           };
         },
       ),
