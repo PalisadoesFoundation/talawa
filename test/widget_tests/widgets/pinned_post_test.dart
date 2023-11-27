@@ -8,7 +8,7 @@ import 'package:talawa/widgets/pinned_post.dart';
 
 import '../../helpers/test_helpers.dart';
 
-/// List of pinned posts. These are posts that have been marked as important.
+/// List of pinned posts.
 List<Post> _pinnedPosts =
     pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
 
