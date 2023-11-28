@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
@@ -34,11 +32,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   locator<SizeConfig>().test();
-  NavigationService navigationService;
   setUp(() {
     registerServices();
     locator<SizeConfig>().test();
-    navigationService = NavigationService();
   });
   tearDown(() {
     unregisterServices();
