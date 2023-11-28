@@ -12,7 +12,7 @@ class PinnedPost extends StatelessWidget {
 
   /// contains the pinned post.
   ///
-  final List<Post>? pinnedPost;
+  final List<Post> pinnedPost;
 
   /// a_line_ending_with_end_punctuation.
   ///
@@ -154,9 +154,7 @@ class PinnedPost extends StatelessWidget {
                 ),
               ),
             )
-          : Container(
-            
-          ),
+          : Container(),
     );
   }
 }
