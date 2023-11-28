@@ -13,18 +13,18 @@ List<Post> _pinnedPosts =
     pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
 
 /// getter for pinned post.
-/// 
+///
 /// **params**:
- 
+
 List<Post> get pinnedPosts {
   return _pinnedPosts;
 }
 
 /// main function.
-/// 
+///
 /// **params**:
 ///   None
-/// 
+///
 /// **returns**:
 ///   None
 void main() {
@@ -49,23 +49,24 @@ void main() {
     expect(find.byKey(const Key('hello')), findsOneWidget);
   });
 
- testWidgets('Text widget is present when there are pinned posts', (widgetTester) async {
-  await widgetTester.pumpWidget(
-    MaterialApp(
-      home: PinnedPost(pinnedPost: pinnedPosts),
-    ),
-  );
-  await widgetTester.pumpAndSettle();
-  expect(find.byType(Text), findsWidgets);
-});
+  testWidgets('Text widget is present when there are pinned posts',
+      (widgetTester) async {
+    await widgetTester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: pinnedPosts),
+      ),
+    );
+    await widgetTester.pumpAndSettle();
+    expect(find.byType(Text), findsWidgets);
+  });
 
-testWidgets('Text widget displays the correct text', (widgetTester) async {
-  await widgetTester.pumpWidget(
-    MaterialApp(
-      home: PinnedPost(pinnedPost: pinnedPosts),
-    ),
-  );
-  await widgetTester.pumpAndSettle();
-  expect(find.text('Church Meeting'), findsOneWidget);
-});
+  testWidgets('Text widget displays the correct text', (widgetTester) async {
+    await widgetTester.pumpWidget(
+      MaterialApp(
+        home: PinnedPost(pinnedPost: pinnedPosts),
+      ),
+    );
+    await widgetTester.pumpAndSettle();
+    expect(find.text('Church Meeting'), findsOneWidget);
+  });
 }
