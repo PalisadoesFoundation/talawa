@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 
 /// a_line_ending_with_end_punctuation.
 ///
@@ -101,10 +102,10 @@ class PinnedPost extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       // final Map<String, dynamic> arg = {"index": "$index","post": pinnedPosts};
-                      navigationService.pushScreen(
-                        '/pinnedpostscreen',
-                        arguments: pinnedPosts[index],
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            PinnedPostScreen(post: pinnedPosts[index]),
+                      ));
                     },
                     child: SizedBox(
                       width: SizeConfig.screenWidth! / 4.1,
