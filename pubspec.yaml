@@ -55,7 +55,7 @@ dependencies:
   googleapis: any
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
-  http: ^1.1.0
+  http: ^1.1.2
   image_cropper: ^5.0.1
   image_picker: ^1.0.4
   intl: ^0.18.0
