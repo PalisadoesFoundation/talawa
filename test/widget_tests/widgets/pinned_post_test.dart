@@ -68,4 +68,5 @@ testWidgets('Text widget displays the correct text', (widgetTester) async {
   await widgetTester.pumpAndSettle();
   expect(find.text('Church Meeting'), findsOneWidget);
 });
+
 }
