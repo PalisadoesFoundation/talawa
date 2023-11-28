@@ -212,34 +212,35 @@ void main() {
       expect(find.text('Test Plugin'), findsNothing);
     });
     testWidgets(
-        'Widget hides child when not visible and Current Organization is Not Set ',
-        (WidgetTester tester) async {
-      box.put(
-        'plugins',
-        [
-          {
-            '_id': '1',
-            'pluginName': 'Plugin 1',
-            'pluginCreatedBy': 'User A',
-            'pluginDesc': 'Description A',
-            'pluginInstallStatus': false,
-            'installedOrgs': [''],
-          },
-        ],
-      );
+      'Widget hides child when not visible and Current Organization is Not Set ',
+      (WidgetTester tester) async {
+        box.put(
+          'plugins',
+          [
+            {
+              '_id': '1',
+              'pluginName': 'Plugin 1',
+              'pluginCreatedBy': 'User A',
+              'pluginDesc': 'Description A',
+              'pluginInstallStatus': false,
+              'installedOrgs': [''],
+            },
+          ],
+        );
 
-      when(userConfig.currentOrg).thenReturn(org);
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: TalawaPluginProvider(
-            visible: false,
-            pluginName: 'Plugin 1',
-            child: Text('Test Plugin'),
+        when(userConfig.currentOrg).thenReturn(org);
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: TalawaPluginProvider(
+              visible: false,
+              pluginName: 'Plugin 1',
+              child: Text('Test Plugin'),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.text('Test Plugin'), findsNothing);
-    });
+        expect(find.text('Test Plugin'), findsNothing);
+      },
+    );
   });
 }
