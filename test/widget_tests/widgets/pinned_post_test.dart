@@ -79,7 +79,7 @@ void main() {
       ),
     );
     await widgetTester.pump();
-    await widgetTester.tap(find.text('1hr'));
+    await widgetTester.tap(find.text('Church Meeting'));
     await widgetTester.pumpAndSettle();
     expect(find.byType(PinnedPost), findsNothing);
     expect(find.byType(PinnedPostScreen), findsOneWidget);
