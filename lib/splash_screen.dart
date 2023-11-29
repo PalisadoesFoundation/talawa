@@ -29,14 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
   // / `_handleInitialUri` is an async function that is used to hanlde
   // / the initial uri of the application.
 
-/// Opening a URL displays that screen in your app, `_handleInitialUri` is an async function that is used to handle the initial uri of the application.
-/// 
-/// **params**:
-///   None
-/// 
-/// **returns**:
-/// * `Future<void>`: resolves when the check for userLoggedin is complete or not 
-Future<void> _handleInitialUri() async {
+  /// Opening a URL displays that screen in your app, `_handleInitialUri` is an async function that is used to handle the initial uri of the application.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: resolves when the check for userLoggedin is complete or not
+  Future<void> _handleInitialUri() async {
     // _sub = uriLinkStream.listen(
     //   (Uri? uri) {
     //     // After creating a State object and before calling initState, the framework
@@ -70,12 +70,12 @@ Future<void> _handleInitialUri() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     // if (_latestUri == null && _initialUri == null) {
     _handleUserLogIn(userLoggedIn);
-      // return;
+    // return;
     // }
 
-  // if (_initialUri != null) {
-  //   await _handleDeepLinks(userLoggedIn);
-  // }
+    // if (_initialUri != null) {
+    //   await _handleDeepLinks(userLoggedIn);
+    // }
   }
 
   // Future<void> _handleDeepLinks(bool userLoggedIn) async {
@@ -189,14 +189,14 @@ Future<void> _handleInitialUri() async {
   //   }
   // }
 
-/// Handles User Login.
-/// 
-/// **params**:
-/// * `userLoggedIn`: Bool for if user is logged in already or not
-/// 
-/// **returns**:
-///   None
-void _handleUserLogIn(bool userLoggedIn) {
+  /// Handles User Login.
+  ///
+  /// **params**:
+  /// * `userLoggedIn`: Bool for if user is logged in already or not
+  ///
+  /// **returns**:
+  ///   None
+  void _handleUserLogIn(bool userLoggedIn) {
     Future.delayed(const Duration(milliseconds: 750)).then((value) async {
       final pushReplacementScreen = navigationService.pushReplacementScreen;
       if (!userLoggedIn) {
