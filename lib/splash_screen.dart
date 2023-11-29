@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
@@ -26,47 +28,55 @@ class _SplashScreenState extends State<SplashScreen> {
   // / Opening a URL displays that screen in your app.
   // / `_handleInitialUri` is an async function that is used to hanlde
   // / the initial uri of the application.
-  // Future<void> _handleInitialUri() async {
-  //   _sub = uriLinkStream.listen(
-  //     (Uri? uri) {
-  //       // After creating a State object and before calling initState, the framework
-  //       // "mounts" the State object by associating it with a BuildContext.
-  //       if (!mounted) return;
-  //       setState(() {
-  //         _latestUri = uri;
-  //       });
-  //     },
-  //     onError: (Object err) {
-  //       if (!mounted) return;
-  //       setState(() {
-  //         _latestUri = null;
-  //       });
-  //     },
-  //   );
-  //   try {
-  //     // Retrieving the initial URI from getIntitialUri function.
-  //     // final uri = await getInitialUri();
-  //     if (!mounted) return;
-  //     setState(() => _initialUri = uri);
-  //   } on PlatformException {
-  //     if (!mounted) return;
-  //     setState(() => _initialUri = null);
-  //   } on FormatException catch (err) {
-  //     debugPrint(err.toString());
-  //     if (!mounted) return;
-  //     setState(() => _initialUri = null);
-  //   }
 
-  //   final bool userLoggedIn = await userConfig.userLoggedIn();
-  //   if (_latestUri == null && _initialUri == null) {
-  //     _handleUserLogIn(userLoggedIn);
-  //     return;
-  //   }
+/// Opening a URL displays that screen in your app, `_handleInitialUri` is an async function that is used to handle the initial uri of the application.
+/// 
+/// **params**:
+///   None
+/// 
+/// **returns**:
+/// * `Future<void>`: resolves when the check for userLoggedin is complete or not 
+Future<void> _handleInitialUri() async {
+    // _sub = uriLinkStream.listen(
+    //   (Uri? uri) {
+    //     // After creating a State object and before calling initState, the framework
+    //     // "mounts" the State object by associating it with a BuildContext.
+    //     if (!mounted) return;
+    //     setState(() {
+    //       _latestUri = uri;
+    //     });
+    //   },
+    //   onError: (Object err) {
+    //     if (!mounted) return;
+    //     setState(() {
+    //       _latestUri = null;
+    //     });
+    //   },
+    // );
+    // try {
+    //   // Retrieving the initial URI from getIntitialUri function.
+    //   // final uri = await getInitialUri();
+    //   if (!mounted) return;
+    //   setState(() => _initialUri = uri);
+    // } on PlatformException {
+    //   if (!mounted) return;
+    //   setState(() => _initialUri = null);
+    // } on FormatException catch (err) {
+    //   debugPrint(err.toString());
+    //   if (!mounted) return;
+    //   setState(() => _initialUri = null);
+    // }
+
+    final bool userLoggedIn = await userConfig.userLoggedIn();
+    // if (_latestUri == null && _initialUri == null) {
+    _handleUserLogIn(userLoggedIn);
+      // return;
+    // }
 
   // if (_initialUri != null) {
   //   await _handleDeepLinks(userLoggedIn);
   // }
-  // }
+  }
 
   // Future<void> _handleDeepLinks(bool userLoggedIn) async {
   //   final keys = _initialUri!.queryParameters.keys;
@@ -179,37 +189,44 @@ class _SplashScreenState extends State<SplashScreen> {
   //   }
   // }
 
-  // void _handleUserLogIn(bool userLoggedIn) {
-  //   Future.delayed(const Duration(milliseconds: 750)).then((value) async {
-  //     final pushReplacementScreen = navigationService.pushReplacementScreen;
-  //     if (!userLoggedIn) {
-  //       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
-  //       return;
-  //     }
+/// Handles User Login.
+/// 
+/// **params**:
+/// * `userLoggedIn`: Bool for if user is logged in already or not
+/// 
+/// **returns**:
+///   None
+void _handleUserLogIn(bool userLoggedIn) {
+    Future.delayed(const Duration(milliseconds: 750)).then((value) async {
+      final pushReplacementScreen = navigationService.pushReplacementScreen;
+      if (!userLoggedIn) {
+        pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
+        return;
+      }
 
-  //     final currentUser = userConfig.currentUser;
-  //     if (currentUser.joinedOrganizations!.isNotEmpty) {
-  //       final mainScreenArgs = MainScreenArgs(
-  //         mainScreenIndex: widget.mainScreenIndex,
-  //         fromSignUp: false,
-  //       );
-  //       pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
-  //       return;
-  //     }
+      final currentUser = userConfig.currentUser;
+      if (currentUser.joinedOrganizations!.isNotEmpty) {
+        final mainScreenArgs = MainScreenArgs(
+          mainScreenIndex: widget.mainScreenIndex,
+          fromSignUp: false,
+        );
+        pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+        return;
+      }
 
-  //     if (currentUser.membershipRequests!.isNotEmpty) {
-  //       pushReplacementScreen(Routes.waitingScreen, arguments: '0');
-  //       return;
-  //     }
+      if (currentUser.membershipRequests!.isNotEmpty) {
+        pushReplacementScreen(Routes.waitingScreen, arguments: '0');
+        return;
+      }
 
-  //     pushReplacementScreen(Routes.joinOrg, arguments: '-1');
-  //   });
-  // }
+      pushReplacementScreen(Routes.joinOrg, arguments: '-1');
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    // _handleInitialUri();
+    _handleInitialUri();
   }
 
   @override
