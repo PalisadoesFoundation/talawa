@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:uni_links/uni_links.dart';
 
 /// This widget return the SplashScreen. Splash Screen is the first screen that we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
@@ -20,9 +24,9 @@ class SplashScreen extends StatefulWidget {
 
 /// This return state for the SplashScreen Widget.
 class _SplashScreenState extends State<SplashScreen> {
-  // Uri? _initialUri;
-  // Uri? _latestUri;
-  // late StreamSubscription _sub;
+  Uri? _initialUri;
+  Uri? _latestUri;
+  late StreamSubscription _sub;
 
   // / Flutter supports deep linking on iOS, Android, and web browsers.
   // / Opening a URL displays that screen in your app.
@@ -37,41 +41,43 @@ class _SplashScreenState extends State<SplashScreen> {
   /// **returns**:
   /// * `Future<void>`: resolves when the check for userLoggedin is complete or not
   Future<void> _handleInitialUri() async {
-    // _sub = uriLinkStream.listen(
-    //   (Uri? uri) {
-    //     // After creating a State object and before calling initState, the framework
-    //     // "mounts" the State object by associating it with a BuildContext.
-    //     if (!mounted) return;
-    //     setState(() {
-    //       _latestUri = uri;
-    //     });
-    //   },
-    //   onError: (Object err) {
-    //     if (!mounted) return;
-    //     setState(() {
-    //       _latestUri = null;
-    //     });
-    //   },
-    // );
-    // try {
-    //   // Retrieving the initial URI from getIntitialUri function.
-    //   // final uri = await getInitialUri();
-    //   if (!mounted) return;
-    //   setState(() => _initialUri = uri);
-    // } on PlatformException {
-    //   if (!mounted) return;
-    //   setState(() => _initialUri = null);
-    // } on FormatException catch (err) {
-    //   debugPrint(err.toString());
-    //   if (!mounted) return;
-    //   setState(() => _initialUri = null);
-    // }
+    _sub = uriLinkStream.listen(
+      (Uri? uri) {
+        // After creating a State object and before calling initState, the framework
+        // "mounts" the State object by associating it with a BuildContext.
+        if (!mounted) return;
+        setState(() {
+          _latestUri = uri;
+        });
+      },
+      onError: (Object err) {
+        if (!mounted) return;
+        setState(() {
+          _latestUri = null;
+        });
+      },
+    );
+    try {
+      // Retrieving the initial URI from getIntitialUri function.
+      final uri = await getInitialUri();
+      if (!mounted) return;
+      setState(() => _initialUri = uri);
+    } on PlatformException {
+      if (!mounted) return;
+      setState(() => _initialUri = null);
+    } on FormatException catch (err) {
+      debugPrint(err.toString());
+      if (!mounted) return;
+      setState(() => _initialUri = null);
+    }
 
     final bool userLoggedIn = await userConfig.userLoggedIn();
-    // if (_latestUri == null && _initialUri == null) {
-    _handleUserLogIn(userLoggedIn);
-    // return;
-    // }
+    _initialUri = null;
+    _latestUri = null;
+    if (_latestUri == null && _initialUri == null) {
+      _handleUserLogIn(userLoggedIn);
+      return;
+    }
 
     // if (_initialUri != null) {
     //   await _handleDeepLinks(userLoggedIn);
@@ -231,7 +237,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    // _sub.cancel();
+    _sub.cancel();
     super.dispose();
   }
 
