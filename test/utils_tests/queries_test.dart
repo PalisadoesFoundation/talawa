@@ -220,8 +220,8 @@ void main() {
 
       final fnData = Queries().updateUserProfile();
 
-      if (fnData.contains('mutation UpdateUserProfile')
-          && fnData.contains('updateUserProfile')) {
+      if (fnData.contains('mutation UpdateUserProfile') &&
+          fnData.contains('updateUserProfile')) {
         mutation = true;
       }
       expect(mutation, true);
