@@ -52,18 +52,12 @@ class PostContainerState extends State<PostContainer> {
     return VisibilityDetector(
       key: Key(Random().nextInt(1000).toString()),
       onVisibilityChanged: (info) {
-        info.visibleFraction > 0.5 ? inView = true : inView = false;
+        info.visibleFraction > 0 ? inView = true : inView = false;
         if (mounted) setState(() {});
       },
       child: Center(
         child: widget.photoUrl != null
-            ? Image(
-                image: NetworkImage(
-                  widget.photoUrl != null
-                      ? widget.photoUrl!
-                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                ),
-              )
+            ? Image.network(widget.photoUrl!)
             : Container(),
       ),
     );
