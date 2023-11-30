@@ -638,13 +638,13 @@ class MainScreenViewModel extends BaseModel {
         'To help your organization grow you can support them financially from here',
       ),
     );
-    targets.add(
-      focusTarget(
-        keySPInvite,
-        'keySPInvite',
-        'Wanna invite colleague, invite them from here',
-      ),
-    );
+    // targets.add(
+    //   focusTarget(
+    //     keySPInvite,
+    //     'keySPInvite',
+    //     'Wanna invite colleague, invite them from here',
+    //   ),
+    // );
     targets.add(
       focusTarget(
         keySPPalisadoes,
