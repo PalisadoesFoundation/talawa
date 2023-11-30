@@ -1,10 +1,5 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
-import 'package:social_share/social_share.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -15,6 +10,8 @@ import 'package:talawa/views/base_view.dart';
 /// EventInfoPage returns a widget that has mutable state _EventInfoPageState.
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({super.key, required this.args});
+
+  /// Takes in Arguments for the Page.
   final Map<String, dynamic> args;
   @override
   _EventInfoPageState createState() => _EventInfoPageState();
@@ -37,15 +34,15 @@ class _EventInfoPageState extends State<EventInfoPage> {
                   AppLocalizations.of(context)!
                       .strictTranslate('Event Details'),
                 ),
-                actions: [
-                  IconButton(
-                    // Button to share the event in the social medias.
-                    icon: const Icon(Icons.share),
-                    onPressed: () => SocialShare.shareOptions(
-                      'https://cyberwake.github.io/applink/eventInvite?setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}&eventId=${model.event.id}',
-                    ),
-                  ),
-                ],
+                // actions: [
+                //   IconButton(
+                //     // Button to share the event in the social medias.
+                //     icon: const Icon(Icons.share),
+                //     onPressed: () => SocialShare.shareOptions(
+                //       'https://cyberwake.github.io/applink/eventInvite?setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}&eventId=${model.event.id}',
+                //     ),
+                //   ),
+                // ],
                 pinned: true,
                 expandedHeight: SizeConfig.screenWidth,
                 flexibleSpace: FlexibleSpaceBar(
