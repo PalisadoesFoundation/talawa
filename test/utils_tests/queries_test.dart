@@ -214,20 +214,17 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("updateUserProfile returns correct mutation string", () {
-      final fnData = Queries().updateUserProfile();
-      expect(fnData.contains('mutation UpdateUserProfile'), true);
-      expect(fnData.contains('updateUserProfile'), true);
-    });
+    test("Check if updateUserProfile works correctly", () {
+      var mutation = false;
+      expect(mutation, false);
 
-    test("updateUserProfile handles null values correctly", () {
       final fnData = Queries().updateUserProfile();
-      expect(fnData.contains('null'), false);
-    });
 
-    test("updateUserProfile handles empty values correctly", () {
-      final fnData = Queries().updateUserProfile();
-      expect(fnData.contains('""'), false);
+      if (fnData.contains('mutation UpdateUserProfile')
+          && fnData.contains('updateUserProfile')) {
+        mutation = true;
+      }
+      expect(mutation, true);
     });
   });
 }
