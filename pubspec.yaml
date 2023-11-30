@@ -52,7 +52,7 @@ dependencies:
   geolocator: ^10.1.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
-  googleapis: any
+  googleapis: 12.0.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^1.1.2
@@ -73,12 +73,12 @@ dependencies:
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: 23.2.5
+  syncfusion_flutter_calendar: 23.2.6
   syncfusion_flutter_datepicker: 23.2.6
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
-  vibration: ^1.8.3
+  vibration: ^1.8.4
   video_player: ^2.8.1
   visibility_detector: ^0.4.0+2
 
