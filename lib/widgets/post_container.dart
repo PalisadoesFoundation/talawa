@@ -57,13 +57,7 @@ class PostContainerState extends State<PostContainer> {
       },
       child: Center(
         child: widget.photoUrl != null
-            ? Image(
-                image: NetworkImage(
-                  widget.photoUrl != null
-                      ? widget.photoUrl!
-                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                ),
-              )
+            ? Image.network(widget.photoUrl!)
             : Container(),
       ),
     );
