@@ -52,7 +52,7 @@ class PostContainerState extends State<PostContainer> {
     return VisibilityDetector(
       key: Key(Random().nextInt(1000).toString()),
       onVisibilityChanged: (info) {
-        info.visibleFraction > 0 ? inView = true : inView = false;
+        info.visibleFraction > 0.5 ? inView = true : inView = false;
         if (mounted) setState(() {});
       },
       child: Center(
