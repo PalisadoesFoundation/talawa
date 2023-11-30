@@ -1550,10 +1550,10 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_calendar
-      sha256: c88c232857bfbf19b2c73faae9c6b3a8d50f5811222aa4ea0d08c25b07b44127
+      sha256: "68b7555324f76badae05cd12c2e6d55020896ab041d8c7e07ca7762b3235e76c"
       url: "https://pub.dev"
     source: hosted
-    version: "23.2.5"
+    version: "23.2.6"
   syncfusion_flutter_core:
     dependency: transitive
     description:
