@@ -201,11 +201,10 @@ class ProfilePageViewModel extends BaseModel {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                QrImage(
+                QrImageView(
                   data: qrData,
                   version: QrVersions.auto,
                   size: 200.0,
-                  foregroundColor: Colors.black,
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.08,

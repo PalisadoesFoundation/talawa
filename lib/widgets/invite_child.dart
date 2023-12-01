@@ -33,12 +33,11 @@ Widget invite(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       //Scan the below given QR code to join the organization.
-      QrImage(
+      QrImageView(
         key: const Key("QRcode"),
         data: qrData,
         version: QrVersions.auto,
         size: 200.0,
-        foregroundColor: Colors.black,
       ),
       SizedBox(
         height: SizeConfig.screenHeight! * 0.08,
