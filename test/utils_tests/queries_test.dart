@@ -214,5 +214,17 @@ void main() {
       }
       expect(mutation, true);
     });
+    test("Check if updateUserProfile works correctly", () {
+      var mutation = false;
+      expect(mutation, false);
+
+      final fnData = Queries().updateUserProfile();
+
+      if (fnData.contains('mutation UpdateUserProfile') &&
+          fnData.contains('updateUserProfile')) {
+        mutation = true;
+      }
+      expect(mutation, true);
+    });
   });
 }
