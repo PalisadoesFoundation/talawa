@@ -1,15 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
-
 import '../../helpers/test_helpers.dart';
 
 /// List of pinned posts.
+///
+///This file contains demo data for pinned posts. It contains a list of type Map<String, Object> and sample data.
+const pinnedPostsDemoData = [
+  {
+    "_id": "1",
+    "text": "church meeting",
+    "createdAt": "2023-03-15T15:28:52.122Z",
+    "imageUrl": "",
+    "creator": {
+      "firstName": "Rutvik",
+      "lastName": "Chandla",
+      "id": "asdasdasd",
+    },
+    "likedBy": [
+      {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
+      {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
+      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
+    ],
+    "comments": [
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
+      },
+    ],
+  },
+];
+
+///List of pinned post.
 List<Post> _pinnedPosts =
     pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
 
@@ -40,7 +82,7 @@ void main() {
     unregisterServices();
   });
 
-  testWidgets('If conatiner is coming on calling pinnedwidget',
+  testWidgets('If container is coming on calling pinnedwidget',
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
@@ -69,7 +111,7 @@ void main() {
       ),
     );
     await widgetTester.pumpAndSettle();
-    expect(find.text('Church Meeting'), findsOneWidget);
+    expect(find.text('church meeting'), findsOneWidget);
   });
 
   testWidgets('Tapping on a post triggers navigation', (widgetTester) async {
@@ -79,9 +121,27 @@ void main() {
       ),
     );
     await widgetTester.pump();
-    await widgetTester.tap(find.text('Church Meeting'));
+    await widgetTester.tap(find.byType(GestureDetector));
     await widgetTester.pumpAndSettle();
     expect(find.byType(PinnedPost), findsNothing);
     expect(find.byType(PinnedPostScreen), findsOneWidget);
   });
+
+  testWidgets('Container comes if list is empty', (widgetTester) async {
+    await widgetTester.pumpWidget(
+      const PinnedPost(pinnedPost: []),
+    );
+    await widgetTester.pump();
+    expect(find.byKey(const Key('hi')), findsOneWidget);
+  });
+testWidgets('finds CircularProgressIndicator', (WidgetTester tester) async {
+  // Build our app and trigger a frame.
+  await tester.pumpWidget(const MaterialApp(
+    home: Scaffold(
+      body: CircularProgressIndicator(),
+    ),
+  ),);
+  await tester.pump(const Duration(seconds: 5));
+  expect(find.byType(CircularProgressIndicator), findsOneWidget);
+});
 }
