@@ -16,7 +16,9 @@ import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createApp() {
-  List<Post>? pinnedPost;
+  final List<Post> pinnedPost = [
+    Post(sId: '1', creator: User(firstName: 'test',lastName: 'test')),
+  ];
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
