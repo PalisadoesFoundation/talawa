@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_test/flutter_test.dart';
+//import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -11,7 +11,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/views/pre_auth_screens/signup_details.dart';
+//import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 
 import '../../../helpers/test_locator.dart';
 
