@@ -121,7 +121,7 @@ void main() {
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
-   
+
     await widgetTester.tap(find.byType(GestureDetector));
     await widgetTester.pumpAndSettle();
     expect(find.byType(PinnedPost), findsNothing);

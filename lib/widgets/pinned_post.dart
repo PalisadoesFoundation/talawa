@@ -46,9 +46,9 @@ class PinnedPost extends StatelessWidget {
                           children: [
                             CachedNetworkImage(
                               imageUrl:
-                              (pinnedPost[index].imageUrl ?? '').isEmpty
-                                  ? 'placeHolderUrl'
-                                  : pinnedPost[index].imageUrl!,
+                                  (pinnedPost[index].imageUrl ?? '').isEmpty
+                                      ? 'placeHolderUrl'
+                                      : pinnedPost[index].imageUrl!,
                               errorWidget: (context, error, stackTrace) {
                                 return const CircularProgressIndicator();
                               },
