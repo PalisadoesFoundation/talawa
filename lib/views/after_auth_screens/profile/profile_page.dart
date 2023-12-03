@@ -81,19 +81,6 @@ class ProfilePage extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   navigationService
-                                      .pushScreen(Routes.userTasks);
-                                },
-                                child: const Text(
-                                  'My tasks',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: 'open-sans',
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  navigationService
                                       .pushScreen("/editProfilePage");
                                 },
                                 child: const Text(
@@ -236,6 +223,11 @@ class ProfilePage extends StatelessWidget {
                             ),
                             Container(
                               color: Theme.of(context).colorScheme.onPrimary,
+                              child: GestureDetector(
+                                onTap: () {
+                                  navigationService.pushScreen(Routes.userTasks);
+                                },
+                              ),
                             ),
                           ],
                         ),
