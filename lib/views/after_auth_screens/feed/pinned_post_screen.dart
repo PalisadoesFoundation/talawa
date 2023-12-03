@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/apptheme.dart';
+import 'package:talawa/models/post/post_model.dart';
 
 import 'package:talawa/services/size_config.dart';
 
@@ -11,7 +12,7 @@ class PinnedPostScreen extends StatefulWidget {
 
   /// Contains the data of the post.
   ///
-  final Map<String, String> post;
+  final Post post;
 
   @override
   State<PinnedPostScreen> createState() => _PinnedPostScreenState();
@@ -29,7 +30,7 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Text(
-                widget.post['title']!,
+                widget.post.description!,
                 maxLines: 2,
                 style: AppTheme.title.copyWith(
                   color: Colors.white,
@@ -43,7 +44,7 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '${widget.post['time']!}hr',
+                    '${widget.post.createdAt!}hr',
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w200,
@@ -55,10 +56,10 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
               ],
             ),
             CachedNetworkImage(
-              cacheKey: widget.post['postId'],
-              imageUrl: (widget.post['imageUrl'] ?? '').isEmpty
+              cacheKey: widget.post.sId,
+              imageUrl: (widget.post.imageUrl ?? '').isEmpty
                   ? 'placeHolderUrl'
-                  : widget.post['imageUrl']!,
+                  : widget.post.imageUrl!,
               errorWidget: (context, url, error) {
                 return const CircularProgressIndicator();
               },

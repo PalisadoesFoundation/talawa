@@ -134,14 +134,16 @@ void main() {
     await widgetTester.pump();
     expect(find.byKey(const Key('hi')), findsOneWidget);
   });
-testWidgets('finds CircularProgressIndicator', (WidgetTester tester) async {
-  // Build our app and trigger a frame.
-  await tester.pumpWidget(const MaterialApp(
-    home: Scaffold(
-      body: CircularProgressIndicator(),
-    ),
-  ),);
-  await tester.pump(const Duration(seconds: 5));
-  expect(find.byType(CircularProgressIndicator), findsOneWidget);
-});
+  testWidgets('finds CircularProgressIndicator', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: CircularProgressIndicator(),
+        ),
+      ),
+    );
+    await tester.pump(const Duration(seconds: 5));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
 }
