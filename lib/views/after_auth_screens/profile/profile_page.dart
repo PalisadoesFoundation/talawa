@@ -214,7 +214,7 @@ class ProfilePage extends StatelessWidget {
                             Container(
                               color: Theme.of(context).colorScheme.background,
                             ),
-                            Container(
+                            ColoredBox(
                               color: Theme.of(context).colorScheme.onPrimary,
                               child: GestureDetector(
                                 onTap: () {
