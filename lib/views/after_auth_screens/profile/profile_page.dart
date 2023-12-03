@@ -79,16 +79,6 @@ class ProfilePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'App Setting',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: 'open-sans',
-                                  ),
-                                ),
-                              ),
-                              TextButton(
                                 onPressed: () {
                                   navigationService
                                       .pushScreen(Routes.userTasks);
