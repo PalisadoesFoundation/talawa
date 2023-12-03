@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
@@ -15,13 +16,7 @@ import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createApp() {
-  final Map<String, String> postDetails = {
-    'title': 'Debate over stocks bybacks.',
-    'postId': 'agdjvfhsjaf',
-    'imageUrl':
-        'https://m.wsj.net/video/20200105/wsjglossarystockbuybackssplash/wsjglossarystockbuybackssplash_640x360.jpg',
-    'time': '9',
-  };
+  List<Post>? pinnedPost;
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -40,7 +35,7 @@ Widget createApp() {
         print(org);
         await navigationService.pushScreen(
           '/pinnedpostscreen',
-          arguments: postDetails,
+          arguments: pinnedPost,
         );
       },
       child: const Text('Ayush'),

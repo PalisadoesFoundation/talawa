@@ -117,7 +117,7 @@ void main() {
     await tester.pump();
 
     final finder = find.byType(Text);
-    expect(finder, findsNWidgets(19));
+    expect(finder, findsNWidgets(9));
     // expect(text, findsOneWidget);
   });
   testWidgets('check if side drawer shows up', (tester) async {
