@@ -16,8 +16,8 @@ import 'package:talawa/utils/app_localization.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createApp() {
-  final Post pinnedPost = 
-    Post(sId: '1', creator: User(firstName: 'test',lastName: 'test'));
+  final Post pinnedPost =
+      Post(sId: '1', creator: User(firstName: 'test', lastName: 'test'));
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -61,7 +61,7 @@ void main() {
   //    await tester.tap(find.textContaining('Ayush'));
   //    await tester.pumpAndSettle();
 
-      // expect(find.byType(SignUpDetails), findsOneWidget);
+  // expect(find.byType(SignUpDetails), findsOneWidget);
   //  });
- // });
+  // });
 }
