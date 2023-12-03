@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/base_view.dart';
@@ -164,9 +166,22 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           initialTime: model.eventStartTime,
                         );
 
-                        setState(() {
-                          model.eventStartTime = time;
-                        });
+                        final validationError = Validator.validateEventTime(
+                          time,
+                          model.eventEndTime,
+                        );
+                        final showSnackBar =
+                            navigationService.showTalawaErrorSnackBar;
+                        if (validationError != null) {
+                          showSnackBar(
+                            'Start time must be before end time',
+                            MessageType.error,
+                          );
+                        } else {
+                          setState(() {
+                            model.eventStartTime = time;
+                          });
+                        }
                       },
                     ),
                     SizedBox(
@@ -207,22 +222,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final time = await customTimePicker(
                           initialTime: model.eventEndTime,
                         );
-                        final currTimeToInt = time.hour + time.minute / 60.0;
-                        final startTime = model.eventStartTime;
-                        final startTimeToInt =
-                            startTime.hour + startTime.minute / 60;
-                        final eventStartDate = model.eventStartDate;
-                        final eventEndDate = model.eventEndDate;
-                        if (startTimeToInt.compareTo(currTimeToInt) < 0 &&
-                            eventStartDate.compareTo(eventEndDate) < 0) {
+                        final validationError = Validator.validateEventTime(
+                            model.eventStartTime, time,);
+                        final showSnackBar = navigationService.showTalawaErrorSnackBar;
+                        if (validationError != null) {
+                          showSnackBar('Start time must be before end time', MessageType.error);
+                        } else {
                           setState(() {
                             model.eventEndTime = time;
                           });
-                        } else {
-                          // ignore: undefined_method
-                          navigationServiceLocal.showSnackBar(
-                            "End time cannot be before the start time. ",
-                          );
                         }
                       },
                     ),

@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 ///This class creats various validator methods for the application.
@@ -124,6 +125,14 @@ class Validator {
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return "Invalid $label";
+    }
+    return null;
+  }
+
+  static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
+    if (startTime.hour > endTime.hour ||
+        (startTime.hour == endTime.hour && startTime.minute > endTime.minute)) {
+      return 'Start time must be before or equal to end time';
     }
     return null;
   }
