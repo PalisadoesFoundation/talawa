@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -26,6 +27,19 @@ class OrganizationFeed extends StatelessWidget {
       builder: (context, model, child) {
         print(model.posts);
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            shape: const CircleBorder(side: BorderSide.none),
+            key: const Key('floating_action_btn'),
+            backgroundColor: Colors.green,
+            onPressed: () {
+              navigationService.pushScreen('/addpostscreen');
+            },
+            child: const Icon(
+              Icons.add,
+              size: 35,
+              color: Colors.white,
+            ),
+          ),
           appBar: AppBar(
             // AppBar returns a widget for the header of the page.
             backgroundColor: Colors.green,
