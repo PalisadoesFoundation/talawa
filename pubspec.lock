@@ -261,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: "2f9d2cbccb76127ba28528cb3ae2c2326a122446a83de5a056aaa3880d3882c5"
+      sha256: fedaadfa3a6996f75211d835aaeb8fede285dae94262485698afd832371b9a5e
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+7"
+    version: "0.3.3+8"
   crypto:
     dependency: "direct main"
     description:
@@ -705,18 +705,18 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_android
-      sha256: "4023e79184c762e63efe04da629d876085e0c296a7ca26745fb5750d4acd0aa2"
+      sha256: "4279a338b79288fad5c8b03e5ae6ec30888bff210e0bab10b1f31f31e5a90558"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.3"
+    version: "2.6.0"
   google_maps_flutter_ios:
     dependency: transitive
     description:
       name: google_maps_flutter_ios
-      sha256: "2aa28eb9b9d5dfdce6932a7b7f096430bf83a1a09b4e21e81939351f407c787f"
+      sha256: "6ad65362aeeeda44b7c2c807e36bf578ef4b1c163882e085bdb040bf2934b246"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   google_maps_flutter_platform_interface:
     dependency: transitive
     description:
@@ -1070,7 +1070,7 @@ packages:
     source: hosted
     version: "5.4.3"
   mocktail:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mocktail
       sha256: bac151b31e4ed78bd59ab89aa4c0928f297b1180186d5daf03734519e5f596c1
@@ -1249,10 +1249,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: eeb2d1428ee7f4170e2bd498827296a18d4e7fc462b71727d111c0ac7707cfa6
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   platform:
     dependency: transitive
     description:
@@ -1797,10 +1797,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "7c99c0e1e2fa190b48d25c81ca5e42036d5cac81430ef249027d97b0935c553f"
+      sha256: b0f37db61ba2f2e9b7a78a1caece0052564d1bc70668156cf3a29d676fe4e574
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.0"
+    version: "5.1.1"
   win32_registry:
     dependency: transitive
     description:
