@@ -177,11 +177,11 @@ class Validator {
   }
 
   /// Method to validate event time.
-  /// 
+  ///
   /// **params**:
   /// * `startTime`: the start time of the event
   /// * `endTime`: the end time of the event
-  /// 
+  ///
   /// **returns**:
   /// * `String?`: error message if time is invalid.
   static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
