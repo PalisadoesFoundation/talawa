@@ -53,7 +53,7 @@ class OrganizationSearchList extends StatelessWidget {
             // If the result is still loading!
             if (!result.isLoading) {
               model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'] as List,
+                result.data!['organizationsConnection'],
               );
             }
             // return the Scroll bar widget for scrolling down the organizations.
