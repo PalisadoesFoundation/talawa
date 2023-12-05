@@ -1,9 +1,13 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:file/local.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
@@ -14,6 +18,31 @@ import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+
+class MockCacheManager extends Mock implements DefaultCacheManager {
+  static const fileSystem = LocalFileSystem();
+
+  @override
+  Stream<FileResponse> getImageFile(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = true,
+    int? maxHeight,
+    int? maxWidth,
+  }) async* {
+    if (url == "wrong_url") {
+      throw Exception("File not found");
+    } else {
+      yield FileInfo(
+        fileSystem.file(url),
+        FileSource.Cache,
+        DateTime(2050),
+        url,
+      );
+    }
+  }
+}
 
 Widget createApp() {
   return BaseView<AppLanguage>(
@@ -47,14 +76,23 @@ Future<void> showPinnedPostScreen(WidgetTester tester) async {
 }
 
 void main() {
-  testSetupLocator();
-
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
     registerServices();
     locator<SizeConfig>().test();
   });
+  GetIt.instance.registerSingleton<BaseCacheManager>(
+    MockCacheManager(),
+  );
+
+  GetIt.instance.registerSingleton<NavigationService>(
+    NavigationService(),
+  );
+
+  GetIt.instance.registerSingleton<SizeConfig>(
+    SizeConfig(),
+  );
 
   tearDown(() {
     unregisterServices();
@@ -85,5 +123,22 @@ void main() {
     });
   });
 
-
+  testWidgets('Check if CachedNetworkImage shows CircularProgressIndicator',
+      (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: PinnedPostScreen(
+          post: {
+            'title': 'Sample Title',
+            'time': '23:00',
+            'postId': 'postId',
+            'imageUrl': 'wrong_url',
+          },
+          cacheManager: GetIt.instance.get<BaseCacheManager>(),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
 }
