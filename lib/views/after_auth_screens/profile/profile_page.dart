@@ -210,7 +210,7 @@ class ProfilePage extends StatelessWidget {
                                   5, // Adjust the number of posts as needed
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: SizedBox(
                                     height: 100,
                                     width: SizeConfig.screenWidth! *
