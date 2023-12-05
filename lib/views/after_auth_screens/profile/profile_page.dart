@@ -233,7 +233,8 @@ class ProfilePage extends StatelessWidget {
                               color: Theme.of(context).colorScheme.onPrimary,
                               child: GestureDetector(
                                 onTap: () {
-                                  navigationService.pushScreen(Routes.userTasks);
+                                  navigationService
+                                      .pushScreen(Routes.userTasks);
                                 },
                               ),
                             ),
