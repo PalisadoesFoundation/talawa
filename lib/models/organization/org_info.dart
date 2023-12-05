@@ -74,28 +74,15 @@ class OrgInfo {
         if (outerElement is List) {
           for (final dynamic innerElement in outerElement) {
             if (innerElement is Map<String, dynamic>) {
-              print(68);
               final OrgInfo org = OrgInfo.fromJson(innerElement);
               orgList.add(org);
-            } else {
-              print(
-                'Unexpected type for inner element: ${innerElement.runtimeType}',
-              );
             }
           }
         } else if (outerElement is Map<String, dynamic>) {
-          // Handle the case when the outer element is directly a map
-          print(68);
           final OrgInfo org = OrgInfo.fromJson(outerElement);
           orgList.add(org);
-        } else {
-          print(
-            'Unexpected type for outer element: ${outerElement.runtimeType}',
-          );
         }
       }
-    } else {
-      print('Unexpected type for json: ${json.runtimeType}');
     }
 
     return orgList;
