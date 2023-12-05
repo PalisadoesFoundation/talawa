@@ -81,19 +81,6 @@ class ProfilePage extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   navigationService
-                                      .pushScreen(Routes.userTasks);
-                                },
-                                child: const Text(
-                                  'My tasks',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: 'open-sans',
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  navigationService
                                       .pushScreen("/editProfilePage");
                                 },
                                 child: const Text(
@@ -217,25 +204,38 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Tasks'),
                           ],
                           views: [
+                            ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount:
+                                  5, // Adjust the number of posts as needed
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: SizedBox(
+                                    height: 100,
+                                    width: SizeConfig.screenWidth! *
+                                        0.3, // Adjust the width of each post
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'assets/images/pfp2.jpeg',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            Container(
+                              color: Theme.of(context).colorScheme.background,
+                            ),
                             ColoredBox(
-                              color: Theme.of(context).colorScheme.background,
-                              child: GridView.count(
-                                mainAxisSpacing: 5,
-                                crossAxisCount: 3,
-                                children: [
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                            Container(
                               color: Theme.of(context).colorScheme.onPrimary,
+                              child: GestureDetector(
+                                onTap: () {
+                                  navigationService.pushScreen(Routes.userTasks);
+                                },
+                              ),
                             ),
                           ],
                         ),
