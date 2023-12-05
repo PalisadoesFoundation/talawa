@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -13,10 +10,11 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-/// OrganizationSearchList class return a widget that shows all
-/// the matching organizations searched on the search bar.
+/// This class returns the widget that shows all the matching orgs searched in the search bar.
 class OrganizationSearchList extends StatelessWidget {
   const OrganizationSearchList({required this.model, super.key});
+
+  /// model constructor for the selectOrganisation widget.
   final SelectOrganizationViewModel model;
 
   @override
