@@ -100,6 +100,6 @@ class Routes {
   /// static variable to access pinnedpostscreen.
   static const String pinnedPostScreen = '/pinnedpostscreen';
 
-  /// static variable.
+  /// static variable to access addPostScreen.
   static const String addPostScreen = '/addpostscreen';
 }

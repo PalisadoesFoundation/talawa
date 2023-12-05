@@ -310,7 +310,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.addPostScreen:
       return MaterialPageRoute(
         builder: (context) => const AddPost(
-          key: Key('addpostscreen'),
+          key: Key('addPostScreen'),
         ),
       );
     // Returns the DemoPageView Widget by default

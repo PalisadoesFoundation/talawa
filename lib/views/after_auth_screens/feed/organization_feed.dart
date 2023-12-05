@@ -25,7 +25,6 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
-        print(model.posts);
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             shape: const CircleBorder(side: BorderSide.none),
