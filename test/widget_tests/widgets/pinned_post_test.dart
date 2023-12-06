@@ -160,8 +160,10 @@ void main() {
     await widgetTester.pump(const Duration(seconds: 5));
 
     expect(
-        find.byWidgetPredicate((widget) =>
-            widget is CachedNetworkImage && widget.errorWidget != null,),
-        findsOneWidget,);
+      find.byWidgetPredicate(
+        (widget) => widget is CachedNetworkImage && widget.errorWidget != null,
+      ),
+      findsOneWidget,
+    );
   });
 }

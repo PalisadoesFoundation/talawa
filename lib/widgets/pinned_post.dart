@@ -32,10 +32,12 @@ class PinnedPost extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       // final Map<String, dynamic> arg = {"index": "$index","post": pinnedPosts};
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            PinnedPostScreen(post: pinnedPost[index]),
-                      ),);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PinnedPostScreen(post: pinnedPost[index]),
+                        ),
+                      );
                     },
                     child: SizedBox(
                       width: SizeConfig.screenWidth! / 4.1,

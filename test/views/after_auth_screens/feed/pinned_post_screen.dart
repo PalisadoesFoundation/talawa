@@ -59,7 +59,9 @@ Widget createApp() {
         ],
         home: PinnedPostScreen(
           post: Post(
-              sId: '1', creator: User(firstName: 'test', lastName: 'name'),),
+            sId: '1',
+            creator: User(firstName: 'test', lastName: 'name'),
+          ),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -127,7 +129,9 @@ void main() {
       MaterialApp(
         home: PinnedPostScreen(
           post: Post(
-              sId: '1', creator: User(firstName: 'test', lastName: 'name'),),
+            sId: '1',
+            creator: User(firstName: 'test', lastName: 'name'),
+          ),
           cacheManager: GetIt.instance.get<BaseCacheManager>(),
         ),
       ),
