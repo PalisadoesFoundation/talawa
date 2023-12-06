@@ -64,13 +64,12 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
             Expanded(
               child: CachedNetworkImage(
                 cacheManager: widget.cacheManager,
-                 imageUrl:
-                                    (widget.post.imageUrl ?? '').isEmpty
-                                        ? 'placeHolderUrl'
-                                        : widget.post.imageUrl!,
-                                errorWidget: (context, url, error) {
-                                  return const CircularProgressIndicator();
-                                },
+                imageUrl: (widget.post.imageUrl ?? '').isEmpty
+                    ? 'placeHolderUrl'
+                    : widget.post.imageUrl!,
+                errorWidget: (context, url, error) {
+                  return const CircularProgressIndicator();
+                },
                 height: SizeConfig.screenHeight! * .75,
                 fit: BoxFit.cover,
               ),

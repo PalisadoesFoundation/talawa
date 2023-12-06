@@ -57,8 +57,9 @@ Widget createApp() {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home:  PinnedPostScreen(
-          post: Post(sId: '1', creator: User(firstName: 'test',lastName: 'name')),
+        home: PinnedPostScreen(
+          post: Post(
+              sId: '1', creator: User(firstName: 'test', lastName: 'name')),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -125,7 +126,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: PinnedPostScreen(
-          post: Post(sId: '1', creator: User(firstName: 'test',lastName: 'name')) ,
+          post: Post(
+              sId: '1', creator: User(firstName: 'test', lastName: 'name')),
           cacheManager: GetIt.instance.get<BaseCacheManager>(),
         ),
       ),
