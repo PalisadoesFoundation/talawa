@@ -228,7 +228,8 @@ void main() {
             expect(result, null);
           });
 
-          test('Test validateEventTime for start time greater than end time', () {
+          test('Test validateEventTime for start time greater than end time',
+              () {
             const startTime = TimeOfDay(hour: 14, minute: 30);
             const endTime = TimeOfDay(hour: 12, minute: 30);
 

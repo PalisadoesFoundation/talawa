@@ -170,10 +170,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           time,
                           model.eventEndTime,
                         );
-                        final showSnackBar =
-                            navigationService.showTalawaErrorSnackBar;
                         if (validationError != null) {
-                          showSnackBar(
+                          navigationService.showTalawaErrorSnackBar(
                             'Start time must be before end time',
                             MessageType.error,
                           );
