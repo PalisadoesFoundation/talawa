@@ -168,4 +168,15 @@ void main() {
     await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
     await tester.pumpAndSettle(const Duration(seconds: 1));
   });
+  testWidgets('check if floating action button is visible and functional',
+      (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
+    final fabFinder = find.byKey(const Key('floating_action_btn'));
+    expect(fabFinder, findsOneWidget);
+    await tester.tap(fabFinder);
+    await tester.pump();
+    verify(navigationService.pushScreen('/addpostscreen')).called(1);
+  });
 }
