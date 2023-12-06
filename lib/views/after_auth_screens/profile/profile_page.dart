@@ -220,7 +220,7 @@ class ProfilePage extends StatelessWidget {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.asset(
-                                        'assets/images/pfp2.jpeg',
+                                        'assets/images/pfp2.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
