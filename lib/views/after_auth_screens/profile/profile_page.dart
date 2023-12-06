@@ -211,7 +211,8 @@ class ProfilePage extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(
-                                      8.0,), // Add space between posts
+                                    8.0,
+                                  ), // Add space between posts
                                   child: SizedBox(
                                     height: 230,
                                     width: SizeConfig.screenWidth! *
