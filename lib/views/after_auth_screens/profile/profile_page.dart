@@ -204,19 +204,28 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Tasks'),
                           ],
                           views: [
-                            ColoredBox(
-                              color: Theme.of(context).colorScheme.background,
-                              child: GridView.count(
-                                mainAxisSpacing: 5,
-                                crossAxisCount: 3,
-                                children: [
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                ],
-                              ),
+                            ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount:
+                                  5, // Adjust the number of posts as needed
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(
+                                      8.0), // Add space between posts
+                                  child: SizedBox(
+                                    height: 230,
+                                    width: SizeConfig.screenWidth! *
+                                        0.9, // Adjust the width of each post (here 90% of the screen width)
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'assets/images/pfp2.jpeg',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                             Container(
                               color: Theme.of(context).colorScheme.background,
