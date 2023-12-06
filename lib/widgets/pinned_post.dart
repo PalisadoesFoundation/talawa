@@ -35,7 +35,7 @@ class PinnedPost extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             PinnedPostScreen(post: pinnedPost[index]),
-                      ));
+                      ),);
                     },
                     child: SizedBox(
                       width: SizeConfig.screenWidth! / 4.1,

@@ -161,7 +161,7 @@ void main() {
 
     expect(
         find.byWidgetPredicate((widget) =>
-            widget is CachedNetworkImage && widget.errorWidget != null),
-        findsOneWidget);
+            widget is CachedNetworkImage && widget.errorWidget != null,),
+        findsOneWidget,);
   });
 }
