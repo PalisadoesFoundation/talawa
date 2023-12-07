@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:talawa/apptheme.dart';
+import 'package:talawa/models/post/post_model.dart';
 
 import 'package:talawa/services/size_config.dart';
 
@@ -12,7 +13,7 @@ class PinnedPostScreen extends StatefulWidget {
 
   /// Contains the data of the post.
   ///
-  final Map<String, String> post;
+  final Post post;
 
   /// Custom avatar data.
   final BaseCacheManager? cacheManager;
@@ -33,7 +34,7 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Text(
-                widget.post['title']!,
+                widget.post.description ?? '',
                 maxLines: 2,
                 style: AppTheme.title.copyWith(
                   color: Colors.white,
@@ -41,31 +42,37 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${widget.post['time']!}hr',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w200,
-                      fontSize: 14,
-                      decorationThickness: 0,
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '${widget.post.createdAt ?? ""}hr',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200,
+                        fontSize: 14,
+                        decorationThickness: 0,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            CachedNetworkImage(
-              cacheManager: widget.cacheManager,
-              imageUrl: widget.post['imageUrl']!,
-              errorWidget: (context, url, error) {
-                return const CircularProgressIndicator();
-              },
-              height: SizeConfig.screenHeight! * .75,
-              fit: BoxFit.cover,
+            Expanded(
+              child: CachedNetworkImage(
+                cacheManager: widget.cacheManager,
+                imageUrl: (widget.post.imageUrl ?? '').isEmpty
+                    ? 'placeHolderUrl'
+                    : widget.post.imageUrl!,
+                errorWidget: (context, url, error) {
+                  return const CircularProgressIndicator();
+                },
+                height: SizeConfig.screenHeight! * .75,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),
