@@ -115,16 +115,17 @@ void main() {
       final cipher = OAEPEncoding(RSAEngine())
         ..init(true, PublicKeyParameter<RSAPublicKey>(keyPair.publicKey));
       final encryptedBytes = cipher.process(Uint8List.fromList(data.codeUnits));
-      final String encryptedMessge=base64Encode(encryptedBytes);
-       final Map<String, dynamic> message = {"encryptedMessage": encryptedMessge};
+      final String encryptedMessge = base64Encode(encryptedBytes);
+      final Map<String, dynamic> message = {
+        "encryptedMessage": encryptedMessge
+      };
       when(mockHiveInterface.openBox<AsymetricKeys>('user_keys'))
           .thenAnswer((realInvocation) async {
         return mockHiveBox;
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
-          expect(encryptor.receiveMessage(message, mockHiveInterface),
-          completes);
+      expect(encryptor.receiveMessage(message, mockHiveInterface), completes);
     });
   });
 }

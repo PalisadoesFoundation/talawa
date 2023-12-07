@@ -106,7 +106,8 @@ Future<void> main() async {
   Hive
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter())..registerAdapter(AsymetricKeysAdapter());
+    ..registerAdapter(OrgInfoAdapter())
+    ..registerAdapter(AsymetricKeysAdapter());
 
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');

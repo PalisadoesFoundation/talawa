@@ -140,8 +140,8 @@ class Encryptor {
       Map<String, dynamic> message, HiveInterface hive) async {
     try {
       final encryptedMessage = message['encryptedMessage'] as String;
-       final privateKey = (await loadKeyPair(hive)).privateKey;
-       final decryptedMessage = assymetricDecryptString(
+      final privateKey = (await loadKeyPair(hive)).privateKey;
+      final decryptedMessage = assymetricDecryptString(
         encryptedMessage,
         privateKey as RSAPrivateKey,
       );
