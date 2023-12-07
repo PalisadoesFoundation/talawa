@@ -34,6 +34,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
+import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
@@ -58,6 +59,7 @@ import 'test_helpers.mocks.dart';
 @GenerateMocks(
   [],
   customMocks: [
+    MockSpec<AccessScreenViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphqlConfig>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLClient>(onMissingStub: OnMissingStub.returnDefault),
@@ -114,6 +116,36 @@ final fakeOrgInfo = OrgInfo(
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
+  }
+}
+
+void registerationForAccessRequestScreenTest(){
+  if(!locator.isRegistered<AccessScreenViewModel>()){
+    locator.registerFactory<AccessScreenViewModel>(() => AccessScreenViewModel());
+  }
+  if(!locator.isRegistered<GraphqlConfig>()){
+    locator.registerFactory<GraphqlConfig>(() => GraphqlConfig());
+  }
+  if(!locator.isRegistered<Connectivity>()){
+    locator.registerFactory<Connectivity>(() => Connectivity());
+  }
+  if(!locator.isRegistered<DataBaseMutationFunctions>()){
+    locator.registerFactory<DataBaseMutationFunctions>(() => DataBaseMutationFunctions());
+  }
+}
+
+void unregisterationForAccessRequestScreenTest(){
+  if(locator.isRegistered<AccessScreenViewModel>()){
+    locator.unregister<AccessScreenViewModel>();
+  }
+  if(locator.isRegistered<Connectivity>()){
+    locator.unregister<Connectivity>();
+  }
+  if(locator.isRegistered<GraphqlConfig>()){
+    locator.unregister<GraphqlConfig>();
+  }
+  if(locator.isRegistered<DataBaseMutationFunctions>()){
+    locator.unregister<DataBaseMutationFunctions>();
   }
 }
 
