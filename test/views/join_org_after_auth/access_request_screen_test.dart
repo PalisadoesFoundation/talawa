@@ -49,21 +49,21 @@ Widget createAccessRequestScreen(){
 final viewModel=MockAccessScreenViewModel();
 Widget createTextButton(){
   return MaterialApp(
-  home: Scaffold(
-  body: TextButton(
-  onPressed: () {
-  viewModel.sendMembershipRequest();
-  },
-  style:
-  TextButton.styleFrom(backgroundColor: AppTheme.green),
-  child: const Text(
-  "Request Access",
-  style: TextStyle(
-  color: AppTheme.white,
-  ),
-  ),
-  ),
-  ),
+    home: Scaffold(
+      body: TextButton(
+        onPressed: () {
+          viewModel.sendMembershipRequest();
+        },
+        style:
+        TextButton.styleFrom(backgroundColor: AppTheme.green),
+        child: const Text(
+          "Request Access",
+          style: TextStyle(
+            color: AppTheme.white,
+          ),
+        ),
+      ),
+    ),
   );
 
 }
