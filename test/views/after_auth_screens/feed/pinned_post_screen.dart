@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -55,13 +57,11 @@ Widget createApp() {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: const PinnedPostScreen(
-          post: {
-            'title': 'Sample Title',
-            'time': '23:00',
-            'postId': 'postId',
-            'imageUrl': 'imageUrl',
-          },
+        home: PinnedPostScreen(
+          post: Post(
+            sId: '1',
+            creator: User(firstName: 'test', lastName: 'name'),
+          ),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -128,12 +128,10 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: PinnedPostScreen(
-          post: {
-            'title': 'Sample Title',
-            'time': '23:00',
-            'postId': 'postId',
-            'imageUrl': 'wrong_url',
-          },
+          post: Post(
+            sId: '1',
+            creator: User(firstName: 'test', lastName: 'name'),
+          ),
           cacheManager: GetIt.instance.get<BaseCacheManager>(),
         ),
       ),
