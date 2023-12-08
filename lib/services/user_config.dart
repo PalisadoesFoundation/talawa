@@ -60,7 +60,7 @@ class UserConfig {
   ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void initialiseStream() {
@@ -72,7 +72,7 @@ class UserConfig {
   ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.
   Future<bool> userLoggedIn() async {
@@ -168,7 +168,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: returns future of void type.
   Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
@@ -180,7 +180,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: returns future of void type.
   Future<void> updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
@@ -192,7 +192,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: returns future of void type.
   Future<void> updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
@@ -204,7 +204,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: returns future of void type.
   Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async {
@@ -217,7 +217,7 @@ class UserConfig {
   /// **params**:
   /// * `accessToken`: current user's accesstoken.
   /// * `refreshToken`: current user's refreshtoken.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: returns future of void type.
   Future<void> updateAccessToken({
@@ -233,7 +233,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `updatedUserDetails`: `User` type variable containing all the details of an user need to be updated.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.
   Future<bool> updateUser(User updatedUserDetails) async {
@@ -253,7 +253,7 @@ class UserConfig {
   ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void saveUserInHive() {
@@ -269,7 +269,7 @@ class UserConfig {
   ///
   /// **params**:
   /// * `saveOrgAsCurrent`: instance of OrgInfo
-  /// 
+  ///
   /// **returns**:
   ///   None
   void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {

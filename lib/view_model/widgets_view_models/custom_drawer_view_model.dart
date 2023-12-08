@@ -37,6 +37,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// Getter method to retrieve the switchAble organization.
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+
   /// Setter method for switchAble organization.
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
