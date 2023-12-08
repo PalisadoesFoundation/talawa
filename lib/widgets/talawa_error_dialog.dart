@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
 class TalawaErrorDialog extends StatelessWidget {
@@ -22,8 +23,8 @@ class TalawaErrorDialog extends StatelessWidget {
     return SizedBox(
       child: AlertDialog(
         content: SizedBox(
-          width: 200,
-          height: 135,
+          width: SizeConfig.screenWidth! * 0.75,
+          height: SizeConfig.screenWidth! * 0.37,
           child: Column(
             children: [
               SvgPicture.asset(
@@ -75,6 +76,7 @@ class TalawaErrorDialog extends StatelessWidget {
                 height: 5,
               ),
               AutoSizeText(
+                overflow: TextOverflow.clip,
                 AppLocalizations.of(context)!.strictTranslate(errorMessage),
                 style: const TextStyle(fontSize: 16),
                 maxLines: 3,
