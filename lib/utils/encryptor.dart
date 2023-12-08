@@ -70,7 +70,7 @@ class Encryptor {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> saveKeyPair(AsymmetricKeyPair<PublicKey, PrivateKey> keyPair,
-      HiveInterface hiveInterface) async {
+      HiveInterface hiveInterface,) async {
     // TODO: Implement secure storage here
     final Box<AsymetricKeys> keysBox =
         await hiveInterface.openBox<AsymetricKeys>('user_keys');
@@ -86,7 +86,7 @@ class Encryptor {
   /// * `Future<AsymmetricKeyPair<PublicKey, PrivateKey>>`: The public and
   /// private key pair
   Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
-      HiveInterface hive) async {
+      HiveInterface hive,) async {
     final keysBox = await hive.openBox<AsymetricKeys>('user_keys');
     return keysBox.get('key_pair')!.keyPair;
   }
@@ -137,7 +137,7 @@ class Encryptor {
   /// * `Future<void>`: None
   /// TODO: Use this somewhere
   Future<void> receiveMessage(
-      Map<String, dynamic> message, HiveInterface hive) async {
+      Map<String, dynamic> message, HiveInterface hive,) async {
     try {
       final encryptedMessage = message['encryptedMessage'] as String;
       final privateKey = (await loadKeyPair(hive)).privateKey;
