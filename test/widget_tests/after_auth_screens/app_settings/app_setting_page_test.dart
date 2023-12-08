@@ -110,11 +110,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       expect(
-        find.byKey(
-          const Key('AppSettingScaffold'),
-        ),
-        findsNothing,
-      );
+          find.byKey(
+            const Key('AppSettingScaffold'),
+          ),
+          findsNothing);
     });
     testWidgets(
         "Testing if Settings Screen shows up in dark mode with Theme selection tile",
