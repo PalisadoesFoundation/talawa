@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,13 +6,18 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// Common Error Dialog box for the whole talawa app.
 class TalawaErrorDialog extends StatelessWidget {
   const TalawaErrorDialog(
     this.errorMessage, {
     super.key,
     required this.messageType,
   });
+
+  /// error message for the talawaDialogBox.
   final String errorMessage;
+
+  /// enum to what is the type of error message.
   final MessageType messageType;
 
   @override
@@ -23,8 +25,8 @@ class TalawaErrorDialog extends StatelessWidget {
     return SizedBox(
       child: AlertDialog(
         content: SizedBox(
-          width: SizeConfig.screenWidth! * 0.75,
-          height: SizeConfig.screenWidth! * 0.37,
+          width: SizeConfig.screenWidth! * 0.65,
+          height: SizeConfig.screenWidth! * 0.38,
           child: Column(
             children: [
               SvgPicture.asset(
@@ -75,11 +77,12 @@ class TalawaErrorDialog extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              AutoSizeText(
-                overflow: TextOverflow.clip,
-                AppLocalizations.of(context)!.strictTranslate(errorMessage),
-                style: const TextStyle(fontSize: 16),
-                maxLines: 3,
+              Expanded(
+                child: AutoSizeText(
+                  AppLocalizations.of(context)!.strictTranslate(errorMessage),
+                  style: const TextStyle(fontSize: 16),
+                  maxLines: 3,
+                ),
               ),
               const SizedBox(
                 height: 19,
