@@ -6,6 +6,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_members_bottom_sheet.dart';
@@ -54,8 +55,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
             ),
             actions: [
               TextButton(
+                key: const Key('addButton'),
                 onPressed: () {
-                  model.createEvent();
+                  if (userConfig.loggedIn) {
+                    model.createEvent();
+                  } else {
+                    navigationService.pop();
+                    MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+                  }
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Add'),

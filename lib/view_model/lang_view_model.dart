@@ -3,7 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -107,12 +109,13 @@ class AppLanguage extends BaseModel {
   /// This function navigate user to `/appSettingsPage` route if the user is authenticated
   /// else navigate to `/setUrl` route.
   Future<void> selectLanguagePress() async {
-    final bool userLoggedIn = await userConfig.userLoggedIn();
-    if (userLoggedIn) {
+    if (userConfig.loggedIn) {
       dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
-      navigationService.pushScreen('/setUrl', arguments: '');
+      navigationService.pushScreen(Routes.mainScreen,
+          arguments: MainScreenArgs(
+              mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true));
     }
   }
 

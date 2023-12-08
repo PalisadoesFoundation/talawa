@@ -11,6 +11,9 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_screens/explore_events_demo.dart';
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
+import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -34,6 +37,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
+
+  /// static variables.
+  final GlobalKey keyBNDemoHome = GlobalKey(debugLabel: "DemoHomeTab");
 
   /// static variables.
   final GlobalKey keySHPinnedPost =
@@ -68,6 +74,9 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
 
   /// static variables.
+  final GlobalKey keyBNDemoEvents = GlobalKey(debugLabel: "DemoEventTab");
+
+  /// static variables.
   final GlobalKey keySECategoryMenu =
       GlobalKey(debugLabel: "EventScreenCategory");
 
@@ -85,10 +94,16 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
 
   /// static variables.
+  final GlobalKey keyBNDemoPost = GlobalKey(debugLabel: "DemoPostTab");
+
+  /// static variables.
   final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
 
   /// static variables.
   final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
+
+  /// static variables.
+  final GlobalKey keyBNDemoProfile = GlobalKey(debugLabel: "DemoProfileTab");
 
   /// static variables.
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
@@ -132,6 +147,8 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<TargetFocus> targets = [];
 
+  bool demoMode = false;
+
   /// Initalizing function.
   ///
   /// **params**:
@@ -145,9 +162,11 @@ class MainScreenViewModel extends BaseModel {
     BuildContext ctx, {
     required bool fromSignUp,
     required int mainScreenIndex,
+    bool demoMode = false,
   }) {
+    this.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
-    showAppTour = fromSignUp;
+    showAppTour = fromSignUp || demoMode;
 
     pluginPrototypeData = {
       "Donation": {
@@ -172,11 +191,17 @@ class MainScreenViewModel extends BaseModel {
             success: () {
               context = ctx;
               navigationService.pop();
+              if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
+                  false) {
+                MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
+              }
               tourHomeTargets();
             },
             secondaryButtonTap: () {
+              print("hi");
               tourComplete = false;
               tourSkipped = true;
+              navigationService.pop();
               notifyListeners();
             },
           ),
@@ -250,58 +275,133 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    pages = [
-      OrganizationFeed(
-        key: const Key("HomeView"),
-        homeModel: this,
-      ),
-      ExploreEvents(
-        key: const Key('ExploreEvents'),
-        homeModel: this,
-      ),
-      ProfilePage(
-        key: keySPEditProfile,
-        homeModel: this,
-      ),
-    ];
+    if (!demoMode) {
+      pages = [
+        OrganizationFeed(
+          key: const Key("HomeView"),
+          homeModel: this,
+        ),
+        ExploreEvents(
+          key: const Key('ExploreEvents'),
+          homeModel: this,
+        ),
+        // AddPost(
+        //   key: const Key('AddPost'),
+        //   drawerKey: MainScreenViewModel.scaffoldKey,
+        // ),
+        // const ChatPage(
+        //   key: Key('Chats'),
+        // ),
+        ProfilePage(
+          key: keySPEditProfile,
+          homeModel: this,
+        ),
+      ];
 
-    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
-
-    pluginList.forEach((plugin) {
-      if (pluginPrototypeData.containsKey(
-            (plugin as Map<String, dynamic>)["pluginName"] as String,
-          ) &&
-          plugin["pluginInstallStatus"] as bool) {
-        navBarItems.add(
-          BottomNavigationBarItem(
-            icon: Icon(
-              (pluginPrototypeData[plugin["pluginName"]]
-                  as Map<String, dynamic>)["icon"] as IconData,
-            ),
-            label: AppLocalizations.of(context)!.strictTranslate(
-              plugin["pluginName"] as String,
-            ),
-          ),
-        );
-        pages.add(
-          (pluginPrototypeData[plugin["pluginName"]]
-              as Map<String, dynamic>)["class"] as StatelessWidget,
-        );
-      }
-    });
-
-    /// Causes the app check the plugins updates in every 300 sec
-    ///
-    /// updated and re-render the navbar
-    Timer.periodic(const Duration(seconds: 300), (timer) {
-      FetchPluginList();
-      final newPluginList =
+      pluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
-      if (listEquals(pluginList, newPluginList)) {
-        notifyListeners();
-      }
-    });
+      pluginList.forEach((plugin) {
+        if (pluginPrototypeData.containsKey(
+              (plugin as Map<String, dynamic>)["pluginName"] as String,
+            ) &&
+            plugin["pluginInstallStatus"] as bool) {
+          navBarItems.add(
+            BottomNavigationBarItem(
+              icon: Icon(
+                (pluginPrototypeData[plugin["pluginName"]]
+                    as Map<String, dynamic>)["icon"] as IconData,
+              ),
+              label: AppLocalizations.of(context)!.strictTranslate(
+                plugin["pluginName"] as String,
+              ),
+            ),
+          );
+          pages.add(
+            (pluginPrototypeData[plugin["pluginName"]]
+                as Map<String, dynamic>)["class"] as StatelessWidget,
+          );
+        }
+      });
+
+      /// Causes the app check the plugins updates in every 300 sec
+      ///
+      /// updated and re-render the navbar
+      Timer.periodic(const Duration(seconds: 300), (timer) {
+        FetchPluginList();
+        final newPluginList =
+            (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+        if (listEquals(pluginList, newPluginList)) {
+          notifyListeners();
+        }
+      });
+    } else {
+      pages = [
+        DemoOrganizationFeed(
+          key: const Key("DemoHomeView"),
+          homeModel: this,
+        ),
+        DemoExploreEvents(
+          key: const Key('DemoExploreEvents'),
+          homeModel: this,
+        ),
+        // DemoAddPost(
+        //   key: const Key('DemoAddPost'),
+        //   drawerKey: MainScreenViewModel.scaffoldKey,
+        // ),
+        // const ChatPage(
+        //   key: Key('Chats'),
+        // ),
+        DemoProfilePage(
+          key: const Key('DemoProfile'),
+          homeModel: this,
+        ),
+      ];
+    }
+  }
+
+  void fetchAndAddDemoPlugins(BuildContext context) {
+    navBarItems = [
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          key: keyBNDemoHome,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Home'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.event_note,
+          key: keyBNDemoEvents,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Events'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.add_box,
+          key: keyBNDemoPost,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Add'),
+      ),
+
+      /// Makes chat inaccessible for the user
+      //TODO: add chat functionality
+      // BottomNavigationBarItem(
+      //   icon: Icon(
+      //     Icons.chat_outlined,
+      //     key: keyBNChat,
+      //   ),
+      //   label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      // ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.account_circle,
+          key: keyBNDemoProfile,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Profile'),
+      ),
+    ];
   }
 
   /// var for current page in index.
@@ -403,17 +503,24 @@ class MainScreenViewModel extends BaseModel {
         'keyDrawerJoinOrg',
         "From this button you can join other listed organizations",
         align: ContentAlign.top,
+        next: () {
+          if (!userConfig.loggedIn) {
+            navigationService.pop();
+          }
+        },
       ),
     );
-    targets.add(
-      focusTarget(
-        keyDrawerLeaveCurrentOrg,
-        'keyDrawerLeaveCurrentOrg',
-        "To leave the current organization you can use this option",
-        align: ContentAlign.top,
-        next: () => navigationService.pop(),
-      ),
-    );
+    if (userConfig.loggedIn) {
+      targets.add(
+        focusTarget(
+          keyDrawerLeaveCurrentOrg,
+          'keyDrawerLeaveCurrentOrg',
+          "To leave the current organization you can use this option",
+          align: ContentAlign.top,
+          next: () => navigationService.pop(),
+        ),
+      );
+    }
     targets.add(
       focusTarget(
         keyBNHome,
@@ -518,7 +625,7 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          tourAddPost();
+          tourProfile();
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -547,7 +654,8 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          tourChat();
+          // tourChat();
+          tourProfile();
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -662,6 +770,7 @@ class MainScreenViewModel extends BaseModel {
   /// * `next`: Function` type, this show the next step or `key` to show the tour of.
   /// * `nextCrossAlign`: nextCrossAlign to give alignment of next option
   /// * `isEnd`: true if last step of the tour.
+  /// * `tutorialCoachMark`: instance of tutorialCoachMark to which this focusTarget is linked.
   ///
   ///
   /// **returns**:
@@ -697,7 +806,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     description,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
                     ),
                   ),
@@ -727,7 +836,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     isEnd ? 'COMPLETE' : 'NEXT',
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
                     ),
                   ),

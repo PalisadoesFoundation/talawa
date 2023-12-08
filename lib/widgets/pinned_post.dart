@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 
 /// a_line_ending_with_end_punctuation.
 ///
 /// more_info_if_required
 class PinnedPost extends StatelessWidget {
-  const PinnedPost({super.key, required this.pinnedPost});
+  const PinnedPost({super.key, required this.pinnedPost, required this.model});
 
   /// contains the pinned post.
   ///
   final List<Post> pinnedPost;
+
+  /// gives access mainScreenViewModel's attributes.
+  final MainScreenViewModel model;
 
   /// a_line_ending_with_end_punctuation.
   ///
@@ -94,6 +98,7 @@ class PinnedPost extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
+                  key: index == 0 ? model.keySHPinnedPost : const Key(''),
                   padding: const EdgeInsets.only(
                     left: 10,
                   ),

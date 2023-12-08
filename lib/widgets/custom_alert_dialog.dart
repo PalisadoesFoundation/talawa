@@ -35,7 +35,11 @@ class CustomAlertDialog extends StatelessWidget {
     final List<Widget> actions = [
       RaisedRoundedButton(
         key: const Key('Close'),
-        onTap: () => secondaryButtonTap ?? navigationService.pop(),
+        onTap: () {
+          secondaryButtonTap != null
+              ? secondaryButtonTap!()
+              : navigationService.pop();
+        },
         buttonLabel:
             AppLocalizations.of(context)!.strictTranslate(secondaryButtonText),
         textColor: Colors.white,

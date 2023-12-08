@@ -111,12 +111,24 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const Divider(),
                     // A Tile to join a new organization
                     ListTile(
                       key: MainScreenViewModel.keyDrawerJoinOrg,
-                      onTap: () => navigationService
-                          .popAndPushScreen(Routes.joinOrg, arguments: '-1'),
+                      onTap: () {
+                        if (userConfig.loggedIn) {
+                          navigationService.popAndPushScreen(
+                            Routes.joinOrg,
+                            arguments: '-1',
+                          );
+                        } else {
+                          navigationService.popAndPushScreen(
+                            Routes.setUrlScreen,
+                            arguments: '',
+                          );
+                        }
+                      },
                       leading: const Icon(
                         Icons.add,
                         size: 30,
@@ -126,15 +138,18 @@ class CustomDrawer extends StatelessWidget {
                             .strictTranslate("Join new Organization"),
                       ),
                     ),
-                    ListTile(
-                      key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-                      onTap: () => exitButton(),
-                      leading: const Icon(Icons.logout, size: 30),
-                      title: Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate("Leave Current Organization"),
-                      ),
-                    ),
+                    userConfig.loggedIn
+                        ? ListTile(
+                            key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                            onTap: () => exitButton(),
+                            leading: const Icon(Icons.logout, size: 30),
+                            title: Text(
+                              AppLocalizations.of(context)!.strictTranslate(
+                                "Leave Current Organization",
+                              ),
+                            ),
+                          )
+                        : Container(),
                     SizedBox(
                       key: const Key("Sized Box Drawer"),
                       height: SizeConfig.screenHeight! * 0.03,

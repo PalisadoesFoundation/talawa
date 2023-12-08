@@ -165,11 +165,11 @@ Future<void> main() async {
         BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
       );
     });
-    testWidgets("Testing to navigate to url page", (tester) async {
+    testWidgets("Testing to navigate to MainScreen", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
 
-      final findAppNameWidget = find.byKey(const Key('NavigateToUrlPage'));
+      final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
 
       await tester.tap(findAppNameWidget);
       await tester.pumpAndSettle(const Duration(seconds: 3));
@@ -287,9 +287,9 @@ Future<void> main() async {
     testWidgets("Testing to navigate to url page", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenDark());
       await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('NavigateToUrlPage'));
+      final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
       await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(findAppNameWidget, findsNothing);
     });
   });

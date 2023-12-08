@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     try {
-      // Retrieving the initial URI from getIntitialUri function.
+      // Retrieving the initial URI from getInitialUri function.
       final uri = await getInitialUri();
       if (!mounted) return;
       setState(() => _initialUri = uri);

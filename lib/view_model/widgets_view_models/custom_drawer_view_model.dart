@@ -44,7 +44,7 @@ class CustomDrawerViewModel extends BaseModel {
     );
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
-    _switchAbleOrg = _currentUser.joinedOrganizations!;
+    _switchAbleOrg = _currentUser.joinedOrganizations ?? [];
   }
 
   /// This function switch the current organization to another organization,

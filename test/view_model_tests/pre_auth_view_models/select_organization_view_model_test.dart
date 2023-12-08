@@ -744,10 +744,16 @@ void main() {
         (FetchMoreOptions options) async {
           expected = options.updateQuery(
             <String, dynamic>{
-              "organizationsConnection": [1, 2],
+              "organizationsConnection": [
+                {"one": 1},
+                {"two": 2}
+              ],
             },
             <String, dynamic>{
-              "organizationsConnection": [3, 4],
+              "organizationsConnection": [
+                {"three": 3},
+                {"four": 4}
+              ],
             },
           );
           return Future.value(
@@ -762,8 +768,10 @@ void main() {
 
       expect(expected, {
         'organizationsConnection': [
-          [1, 2],
-          [3, 4],
+          {"one": 1},
+          {"two": 2},
+          {"three": 3},
+          {"four": 4},
         ],
       });
     });

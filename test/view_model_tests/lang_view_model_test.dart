@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -97,22 +99,21 @@ void main() {
       final model = AppLanguage(isTest: true);
       await model.initialize();
 
-      // testing selectLanguagePress function
-      // first considering user is not logged in
-      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async {
-        return false;
-      });
+      // consider if user is not logged in.
+      when(userConfig.loggedIn).thenReturn(false);
 
-      when(navigationService.pushScreen('/setUrl', arguments: ''))
+      when(navigationService.pushScreen(Routes.mainScreen,
+              arguments: MainScreenArgs(
+                  mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true)))
           .thenAnswer((_) async {});
 
       await model.selectLanguagePress();
-      verify(navigationService.pushScreen('/setUrl', arguments: ''));
+      verify(navigationService.pushScreen(Routes.mainScreen,
+          arguments: MainScreenArgs(
+              mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true)));
 
-      // now consider user to be logged in
-      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async {
-        return true;
-      });
+      // consider if user is logged in.
+      when(userConfig.loggedIn).thenReturn(true);
 
       when(
         navigationService.popAndPushScreen(

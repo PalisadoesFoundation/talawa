@@ -10,6 +10,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// UserConfig class provides different services in the context of the User.
 ///
@@ -35,6 +36,7 @@ class UserConfig {
 
   OrgInfo get currentOrg => _currentOrg!;
   String get currentOrgName => _currentOrg!.name!;
+  bool get loggedIn => _currentUser?.id != 'null';
   set currentOrg(OrgInfo org) => _currentOrg = org;
   User get currentUser => _currentUser!;
   set currentUser(User user) {
@@ -89,6 +91,43 @@ class UserConfig {
         );
       }
     });
+    return true;
+  }
+
+  Future<bool> userLogOut() async {
+    try {
+      final result = await databaseFunctions.gqlAuthMutation(queries.logout())
+          as QueryResult?;
+      if (result != null && result.data!['logout'] == true) {
+        navigationService.pop();
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('LogoutProgress'),
+          ),
+        );
+        // throw StateError('error');
+
+        final user = Hive.box<User>('currentUser');
+        final url = Hive.box('url');
+        // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
+        // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
+        final organisation = Hive.box<OrgInfo>('currentOrg');
+        await user.clear();
+        await url.clear();
+        // androidFirebaseOptionsBox.clear();
+        // iosFirebaseOptionsBox.clear();
+        // try {
+        //   Firebase.app()
+        //       .delete(); // Deleting app will stop all Firebase plugins
+        // } catch (e) {
+        //   debugPrint("ERROR: Unable to delete firebase app $e");
+        // }
+        await organisation.clear();
+        _currentUser = User(id: 'null', authToken: 'null');
+      }
+    } catch (e) {
+      return false;
+    }
     return true;
   }
 

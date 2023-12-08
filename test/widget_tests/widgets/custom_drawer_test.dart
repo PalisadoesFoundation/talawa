@@ -1,16 +1,23 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 // import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 // import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
 // import 'package:talawa/widgets/custom_alert_dialog.dart';
@@ -20,7 +27,7 @@ import '../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
-Widget createHomePageScreen() {
+Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -32,12 +39,16 @@ Widget createHomePageScreen() {
     theme: TalawaTheme.lightTheme,
     home: MainScreen(
       key: const Key('MainScreen'),
-      mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
+      mainScreenArgs: MainScreenArgs(
+        mainScreenIndex: 0,
+        fromSignUp: false,
+        toggleDemoMode: demoMode,
+      ),
     ),
   );
 }
 
-void main() {
+void main() async {
   testSetupLocator();
 
   setUp(() {
@@ -45,6 +56,19 @@ void main() {
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();
   });
+
+  final Directory dir = Directory('test/fixtures/core');
+
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(OrgInfoAdapter());
+
+  await Hive.openBox<User>('currentUser');
+  await Hive.openBox<OrgInfo>('currentOrg');
+
+  await Hive.openBox('pluginBox');
+  await Hive.openBox('url');
 
   group('Exit Button', () {
     /* testWidgets("Tapping Tests for Exit", (tester) async {
@@ -65,6 +89,73 @@ void main() {
       dialogPopUP[0].success();
     });*/
   });
+
+  group('Test Organization action Buttons', () {
+    testWidgets('Test Join Organization Button when user not logged in.',
+        (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // if user not logged in
+      when(userConfig.loggedIn).thenReturn(false);
+
+      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('Drawer')), findsOneWidget);
+
+      final buttonFinder = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
+
+      await tester.tap(buttonFinder);
+      await tester.pumpAndSettle();
+
+      when(
+        navigationService.popAndPushScreen(
+          Routes.setUrlScreen,
+          arguments: '',
+        ),
+      ).thenAnswer((_) async {});
+
+      verify(
+        navigationService.popAndPushScreen(
+          Routes.setUrlScreen,
+          arguments: '',
+        ),
+      );
+    });
+
+    testWidgets('Test Join Organization Button when user logged in.',
+        (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // if user not logged in
+      when(userConfig.loggedIn).thenReturn(true);
+
+      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      final buttonFinder = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
+
+      await tester.tap(buttonFinder);
+      await tester.pumpAndSettle();
+
+      when(
+        navigationService.popAndPushScreen(
+          Routes.joinOrg,
+          arguments: '-1',
+        ),
+      ).thenAnswer((_) async {});
+
+      verify(
+        navigationService.popAndPushScreen(
+          Routes.joinOrg,
+          arguments: '-1',
+        ),
+      );
+    });
+  });
+
   group('Custom Drawer Test', () {
     /*testWidgets("Widget Testing", (tester) async {
       // pumping the Widget

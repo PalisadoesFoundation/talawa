@@ -30,6 +30,7 @@ class SetUrl extends StatefulWidget {
 class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
+    print("built");
     return BaseView<SetUrlViewModel>(
       onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
       builder: (context, model, child) {
@@ -107,7 +108,7 @@ class _SetUrlState extends State<SetUrl> {
                           .translate(Validator.validateURL(value)),
                       decoration: InputDecoration(
                         labelText:
-                            '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
+                            '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
                         labelStyle: Theme.of(context).textTheme.titleMedium,
                         suffixIcon: InkWell(
                           key: const Key('VerifyButton'),

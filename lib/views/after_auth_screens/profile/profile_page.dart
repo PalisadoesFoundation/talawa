@@ -179,8 +179,10 @@ class ProfilePage extends StatelessWidget {
                           children: [
                             RaisedRoundedButton(
                               key: homeModel!.keySPDonateUs,
-                              buttonLabel: AppLocalizations.of(context)!
-                                  .strictTranslate('Donate to the Community'),
+                              buttonLabel:
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                'Donate to the Community',
+                              ),
                               onTap: () => donate(context, model),
                               textColor: Theme.of(context)
                                   .inputDecorationTheme
@@ -210,11 +212,11 @@ class ProfilePage extends StatelessWidget {
                                 mainAxisSpacing: 5,
                                 crossAxisCount: 3,
                                 children: [
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
                                 ],
                               ),
                             ),

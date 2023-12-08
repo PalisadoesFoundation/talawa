@@ -139,7 +139,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
               height: SizeConfig.screenHeight! * 0.08,
               alignment: Alignment.centerRight,
               child: TextButton(
-                key: const Key('NavigateToUrlPage'),
+                key: const Key('NavigateToMainScreen'),
                 onPressed: () async {
                   Provider.of<AppLanguage>(context, listen: false)
                       .selectLanguagePress();
