@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
@@ -11,8 +8,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-/// CustomDrawerViewModel class helps to serve the data and
-/// to react to user's input for Custom Dialog Widget.
+/// CustomDrawerViewModel class helps to serve the data and to react to user's input for Custom Dialog Widget.
 ///
 /// Functions include:
 /// * `switchOrg`
@@ -20,21 +16,39 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `setSelectedOrganizationName`
 class CustomDrawerViewModel extends BaseModel {
   // getters
+
+  /// Scroll controller for managing scrolling behavior.
   final ScrollController controller = ScrollController();
+
+  /// List of TargetFocus objects used for tutorial coaching.
   final List<TargetFocus> targets = [];
+
+  /// Instance of TutorialCoachMark responsible for providing tutorial guidance.
   late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
   bool _disposed = false;
   OrgInfo? _selectedOrg;
   StreamSubscription? _currentOrganizationStreamSubscription;
+
+  //// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
-  // ignore: unnecessary_getters_setters
+  
+  /// Getter method to retrieve the switchable organizations.
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+
+  /// Setter method to set the switchable organizations.
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
 
-  // initializer
+  /// initializer.
+  /// 
+  /// **params**:
+  /// * `homeModel`: instance of MainScreenViewModel.
+  /// * `context`: instance of BuildContext.
+  /// 
+  /// **returns**:
+  ///   None
   void initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
         userConfig.currentOrgInfoStream.listen(
@@ -47,8 +61,17 @@ class CustomDrawerViewModel extends BaseModel {
     _switchAbleOrg = _currentUser.joinedOrganizations ?? [];
   }
 
-  /// This function switch the current organization to another organization,
-  /// if the organization(want switch to) is present.
+  /// This function switches the organization to the specified `switchToOrg`.
+  ///
+  /// If `selectedOrg` is equal to `switchToOrg` and `switchToOrg` is present, a warning message is displayed using a custom Snackbar.
+  /// Otherwise, it saves the `switchToOrg` as the current organization, updates the selected organization name,
+  /// and displays an informational message using a custom Snackbar.
+  ///
+  /// **params**:
+  /// * `switchToOrg`: The organization to switch to.
+  /// 
+  /// **returns**: 
+  ///   None
   void switchOrg(OrgInfo switchToOrg) {
     // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
     if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
@@ -70,8 +93,11 @@ class CustomDrawerViewModel extends BaseModel {
 
   /// This function checks `switchOrg` is present in the `switchAbleOrg`.
   ///
-  /// params:
-  /// * [switchToOrg] : `OrgInfo` type of organization want to switch into.
+  /// **params**:
+  /// * `switchToOrg`: `OrgInfo` type of organization want to switch into.
+  /// 
+  /// **returns**:
+  /// * `bool`: returns true if switchToOrg is in switchAbleOrg list.
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
     var isPresent = false;
     for (final OrgInfo orgs in switchAbleOrg) {
@@ -91,8 +117,11 @@ class CustomDrawerViewModel extends BaseModel {
 
   /// This function switches the current organization to new organization.
   ///
-  /// params:
-  /// * [updatedOrganization] : `OrgInfo` type, new organization.
+  /// **params**:
+  /// * `updatedOrganization`: `OrgInfo` type, new organization.
+  /// 
+  /// **returns**:
+  ///   None
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {
     // if current and updated organization are not same.
     if (_selectedOrg != updatedOrganization) {

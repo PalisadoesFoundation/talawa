@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
@@ -9,6 +6,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
 /// This widget enables us to select a different language.
+/// 
 /// The default language is English. We can choose among the options to switch the language.
 /// There is a text button at the right bottom of the screen which changes the language when tapped.
 /// The user finally gets redirected to the previous screen.

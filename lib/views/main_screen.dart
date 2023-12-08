@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -10,8 +7,11 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
 
+/// This widget is responsible for displaying the main screen of the application.
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.mainScreenArgs});
+
+  /// Holds data for the MainScreenArgs model, providing information to MainScreen.
   final MainScreenArgs mainScreenArgs;
 
   @override

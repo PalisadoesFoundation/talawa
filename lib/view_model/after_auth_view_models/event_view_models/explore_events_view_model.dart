@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:intl/intl.dart';
@@ -34,14 +31,28 @@ class ExploreEventsViewModel extends BaseModel {
   final Set<String> _uniqueEventIds = {};
   late StreamSubscription _currentOrganizationStreamSubscription;
   late final List<Event> _bufferEvents;
+
+  /// Getter method to retrieve the list of events.
   List<Event> get events => _events;
+
+  /// Getter method to retrieve the EventService instance.
   EventService get eventService => _eventService;
+
+  /// Getter method to retrieve the empty list message.
   String get emptyListMessage => _emptyListMessage;
 
+  /// Getter method to retrieve the chosen value.
   String get chosenValue => _chosenValue;
 
   /// This function is used to fetch new events in the organization.
+  /// 
   /// The function uses `getEvents` method from `EventService`.
+  /// 
+  /// **params**:
+  ///   None
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> fetchNewEvents() async {
     setState(ViewState.busy);
     notifyListeners();
@@ -50,7 +61,14 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   /// This function is used to refresh the events in the organization.
+  /// 
   /// The function uses `getEvents` method from `EventService`.
+  /// 
+  /// **params**:
+  ///   None
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> refreshEvents() async {
     setState(ViewState.busy);
     _events.clear();
@@ -59,7 +77,14 @@ class ExploreEventsViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  // initialiser
+  /// initialiser.
+  /// 
+  /// 
+  /// **params**:
+  ///   None
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> initialise() async {
     setState(ViewState.busy);
     if (!demoMode) {
@@ -77,8 +102,11 @@ class ExploreEventsViewModel extends BaseModel {
 
   /// This function add a new event if the event not exist.
   ///
-  /// params:
-  /// * [newEvent] : `Event` type variable containing data to create a new event.
+  /// **params**:
+  /// * `newEvent`: `Event` type variable containing data to create a new event.
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
     // checking if the `newEvent.id` is unique and not exist already.
     if ((!_uniqueEventIds.contains(newEvent.id)) &&
@@ -90,6 +118,12 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   /// The helper function that used to parse the date and time.
+  /// 
+  /// **params**:
+  /// * `newEvent`: `Event` type variable containing data to create a new event.
+  /// 
+  /// **returns**:
+  ///   None
   void _parseEventDateTime(Event newEvent) {
     // Maybe needed for the tests. Can be further discussed.
     if (newEvent.startDate == null ||
@@ -120,8 +154,11 @@ class ExploreEventsViewModel extends BaseModel {
 
   /// This function deletes the event.
   ///
-  /// params:
-  /// * [eventId] : id of the event that need to be delete.
+  /// **params**:
+  /// * `eventId`: id of the event that need to be delete.
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> deleteEvent({required String eventId}) async {
     // push the custom alert dialog to ask for confirmation.
     navigationService.pushDialog(
@@ -149,11 +186,14 @@ class ExploreEventsViewModel extends BaseModel {
     );
   }
 
-  /// This function takes the choosen value from dropdown and
-  /// return the filter events, if empty list then return relevant message.
+  /// This function takes the choosen value from dropdown and return the filter events, if empty list then return relevant message.
   ///
-  /// params:
-  /// * [value] : choosen value from dropdown.
+  /// **params**:
+  /// * `value`: choosen value from dropdown.
+  /// 
+  /// 
+  /// **returns**:
+  /// * `Future<void>`: return future void.
   Future<void> choseValueFromDropdown(String value) async {
     _chosenValue = value;
     notifyListeners();
