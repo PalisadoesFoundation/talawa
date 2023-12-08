@@ -77,7 +77,9 @@ void main() {
         () {
       const String data = 'Hello Talawa';
       final output = encryptor.assymetricEncryptString(
-          data, keyPair.publicKey as RSAPublicKey,);
+        data,
+        keyPair.publicKey as RSAPublicKey,
+      );
       final cipher = OAEPEncoding(RSAEngine())
         ..init(false, PrivateKeyParameter<RSAPrivateKey>(keyPair.privateKey));
       final decryptedBytes = cipher.process(base64Decode(output));
@@ -91,13 +93,17 @@ void main() {
         ..init(true, PublicKeyParameter<RSAPublicKey>(keyPair.publicKey));
       final encryptedBytes = cipher.process(Uint8List.fromList(data.codeUnits));
       final output = encryptor.assymetricDecryptString(
-          base64Encode(encryptedBytes), keyPair.privateKey as RSAPrivateKey,);
+        base64Encode(encryptedBytes),
+        keyPair.privateKey as RSAPrivateKey,
+      );
       expect(output, data);
     });
     test('Test for wrong message sent to receiveMessage()', () {
       const Map<String, dynamic> message = {"message": "Hello Talawa"};
-      expect(encryptor.receiveMessage(message, mockHiveInterface),
-          throwsException,);
+      expect(
+        encryptor.receiveMessage(message, mockHiveInterface),
+        throwsException,
+      );
     });
     test('Unencrypted message sent to receiveMessage()', () {
       const Map<String, dynamic> message = {"encryptedMessage": "Hello Talawa"};
@@ -107,8 +113,10 @@ void main() {
       });
       when(mockHiveBox.get('key_pair'))
           .thenAnswer((realInvocation) => AsymetricKeys(keyPair: keyPair));
-      expect(encryptor.receiveMessage(message, mockHiveInterface),
-          throwsException,);
+      expect(
+        encryptor.receiveMessage(message, mockHiveInterface),
+        throwsException,
+      );
     });
     test('Encrypted Message sent to receiveMessage()', () {
       const String data = 'Hello Talawa';
