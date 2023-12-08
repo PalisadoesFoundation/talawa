@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:talawa/apptheme.dart';
 
 import 'package:talawa/services/size_config.dart';
@@ -7,11 +8,14 @@ import 'package:talawa/services/size_config.dart';
 /// Pinned post screen.
 ///
 class PinnedPostScreen extends StatefulWidget {
-  const PinnedPostScreen({super.key, required this.post});
+  const PinnedPostScreen({super.key, required this.post, this.cacheManager});
 
   /// Contains the data of the post.
   ///
   final Map<String, String> post;
+
+  /// Custom avatar data.
+  final BaseCacheManager? cacheManager;
 
   @override
   State<PinnedPostScreen> createState() => _PinnedPostScreenState();
@@ -55,10 +59,8 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
               ],
             ),
             CachedNetworkImage(
-              cacheKey: widget.post['postId'],
-              imageUrl: (widget.post['imageUrl'] ?? '').isEmpty
-                  ? 'placeHolderUrl'
-                  : widget.post['imageUrl']!,
+              cacheManager: widget.cacheManager,
+              imageUrl: widget.post['imageUrl']!,
               errorWidget: (context, url, error) {
                 return const CircularProgressIndicator();
               },

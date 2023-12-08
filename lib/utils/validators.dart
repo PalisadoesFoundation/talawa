@@ -1,13 +1,17 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 ///This class creats various validator methods for the application.
+///
 ///They are used to validate information given by the users.
 class Validator {
-  //Method to validate an organization's URL.
+  /// Method to validate an organization's URL.
+  ///
+  /// **params**:
+  /// * `value`: the URL of the organization
+  ///
+  /// **returns**:
+  /// * `String?`: error message if URL is invalid.
   static String? validateURL(
     String value,
   ) {
@@ -21,7 +25,13 @@ class Validator {
     return null;
   }
 
-  //Method to validate a user's first name
+  /// Method to validate a user's first name.
+  ///
+  /// **params**:
+  /// * `value`: the value of the first name
+  ///
+  /// **returns**:
+  /// * `String?`: error message if first name is invalid.
   static String? validateFirstName(String value) {
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
@@ -35,7 +45,13 @@ class Validator {
     return null;
   }
 
-  //Method to validate a user's last name
+  /// Method to validate a user's last name.
+  ///
+  /// **params**:
+  /// * `value`: the value of the last name
+  ///
+  /// **returns**:
+  /// * `String?`: error message if last name is invalid.
   static String? validateLastName(String value) {
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
@@ -49,7 +65,13 @@ class Validator {
     return null;
   }
 
-  //Method to validate a user's email
+  /// Method to validate a user's email.
+  ///
+  /// **params**:
+  /// * `email`: the entered email
+  ///
+  /// **returns**:
+  /// * `String?`: error message if email is invalid.
   static String? validateEmail(
     String email,
   ) {
@@ -66,7 +88,13 @@ class Validator {
     return null;
   }
 
-  //Method to validate password
+  /// Method to validate password.
+  ///
+  /// **params**:
+  /// * `password`: the entered password
+  ///
+  /// **returns**:
+  /// * `String?`: error message if password is invalid.
   static String? validatePassword(
     String password,
   ) {
@@ -92,7 +120,14 @@ class Validator {
     return null;
   }
 
-  //Method to valid password re-entered for confirmation
+  /// Method to valid password re-entered for confirmation.
+  ///
+  /// **params**:
+  /// * `value`: the entered password
+  /// * `comparator`: the original password
+  ///
+  /// **returns**:
+  /// * `String?`: error message if password is invalid.
   static String? validatePasswordConfirm(
     String value,
     String comparator,
@@ -103,7 +138,13 @@ class Validator {
     return null;
   }
 
-  //Method to validate already exisiting URL
+  /// Method to validate already exisiting URL.
+  ///
+  /// **params**:
+  /// * `url`: the entered URL
+  ///
+  /// **returns**:
+  /// * `Future<bool?>`: true if URL exists, false otherwise.
   Future<bool?> validateUrlExistence(String url) async {
     try {
       await http.get(Uri.parse(url));
@@ -114,7 +155,14 @@ class Validator {
     }
   }
 
-  //Method to validate event form
+  /// Method to validate event form.
+  ///
+  /// **params**:
+  /// * `value`: the value of the field
+  /// * `label`: the (optional) label of the field
+  ///
+  /// **returns**:
+  /// * `String?`: error message if field is invalid.
   static String? validateEventForm(String value, String? label) {
     if (value.isEmpty) {
       return '$label must not be left blank.';
@@ -124,6 +172,22 @@ class Validator {
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
       return "Invalid $label";
+    }
+    return null;
+  }
+
+  /// Method to validate event time.
+  ///
+  /// **params**:
+  /// * `startTime`: the start time of the event
+  /// * `endTime`: the end time of the event
+  ///
+  /// **returns**:
+  /// * `String?`: error message if time is invalid.
+  static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
+    if (startTime.hour > endTime.hour ||
+        (startTime.hour == endTime.hour && startTime.minute > endTime.minute)) {
+      return 'Start time must be before or equal to end time';
     }
     return null;
   }

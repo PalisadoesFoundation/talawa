@@ -39,8 +39,13 @@ class AddPost extends StatelessWidget {
           //TODO: showing the null pointer exception
           key: const Key('add_post_icon_button1'),
           color: Theme.of(context).iconTheme.color,
-          icon: const Icon(Icons.menu),
-          onPressed: () => drawerKey!.currentState!.openDrawer(),
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 36,
+          ),
+          onPressed: () {
+            navigationService.pop();
+          },
         ),
         // button to upload the post.
         actions: [
@@ -48,6 +53,7 @@ class AddPost extends StatelessWidget {
             key: const Key('add_post_text_btn1'),
             onPressed: () {
               model.uploadPost();
+              navigationService.pop();
               // convertImageToBase64(sampleBase64Image);
             },
             child: Text(

@@ -55,7 +55,7 @@ dependencies:
   googleapis: 12.0.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
-  http: ^1.1.2
+  http: any
   image_cropper: ^5.0.1
   image_picker: ^1.0.4
   intl: ^0.18.0
@@ -63,7 +63,7 @@ dependencies:
   mockito: ^5.4.3
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
-  permission_handler: ^11.1.0
+  permission_handler: any
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
   provider: ^6.1.1
@@ -73,8 +73,8 @@ dependencies:
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: 23.2.6
-  syncfusion_flutter_datepicker: 23.2.6
+  syncfusion_flutter_calendar: ^22.2.12
+  syncfusion_flutter_datepicker: any
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
