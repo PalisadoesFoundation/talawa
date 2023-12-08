@@ -6,11 +6,15 @@ import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -18,8 +22,9 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
+// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({
+  ProfilePage({
     required Key key,
     this.homeModel,
   }) : super(key: key);
@@ -27,6 +32,39 @@ class ProfilePage extends StatelessWidget {
   /// MainScreenViewModel.
   ///
   final MainScreenViewModel? homeModel;
+
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
+  Post samplePost = Post(
+    sId: '123',
+    description: 'This is a sample post description.',
+    createdAt: DateTime.now().subtract(const Duration(days: 2)),
+    imageUrl: 'https://example.com/sample_image.jpg',
+    base64String: 'base64encodedstring',
+    videoUrl: 'https://example.com/sample_video.mp4',
+    creator: User(
+      id: 'user123',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      image: 'https://example.com/user_avatar.jpg',
+    ),
+    organization: OrgInfo(
+      id: 'org456',
+      name: 'Sample Organization',
+      description: 'This is a sample organization.',
+      image: 'https://example.com/org_logo.png',
+    ),
+    likedBy: [
+      LikedBy(sId: 'like123'),
+      LikedBy(sId: 'like456'),
+    ],
+    comments: [
+      Comments(sId: 'comment123'),
+      Comments(sId: 'comment456'),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -204,29 +242,8 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Tasks'),
                           ],
                           views: [
-                            ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount:
-                                  5, // Adjust the number of posts as needed
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(
-                                    8.0,
-                                  ), // Add space between posts
-                                  child: SizedBox(
-                                    height: 230,
-                                    width: SizeConfig.screenWidth! *
-                                        0.9, // Adjust the width of each post (here 90% of the screen width)
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        'assets/images/pfp2.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                            Container(
+                              child: IndividualPostView(post: samplePost),
                             ),
                             Container(
                               color: Theme.of(context).colorScheme.background,

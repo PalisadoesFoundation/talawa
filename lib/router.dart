@@ -189,7 +189,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     // Returns the ProfilePage Widget
     case Routes.profilePage:
       return MaterialPageRoute(
-        builder: (context) => const ProfilePage(key: Key('Profile')),
+        builder: (context) => ProfilePage(key: const Key('Profile')),
       );
 
     // Returns the EditProfilePage Widget
