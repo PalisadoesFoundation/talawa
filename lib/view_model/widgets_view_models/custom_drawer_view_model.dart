@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
@@ -37,8 +34,10 @@ class CustomDrawerViewModel extends BaseModel {
   //// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
 
+  /// Getter method to retrieve the switchAble organization.
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+  /// Setter method for switchAble organization.
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
 
