@@ -120,6 +120,13 @@ class UserConfig {
     return true;
   }
 
+  /// This function logs out the current user.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: returns future of bool type.
   Future<bool> userLogOut() async {
     try {
       final result = await databaseFunctions.gqlAuthMutation(queries.logout())
