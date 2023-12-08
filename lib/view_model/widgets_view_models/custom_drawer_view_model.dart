@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
@@ -33,20 +36,18 @@ class CustomDrawerViewModel extends BaseModel {
 
   //// Getter method to retrieve the selected organization.
   OrgInfo? get selectedOrg => _selectedOrg;
-  
-  /// Getter method to retrieve the switchable organizations.
-  List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
-  /// Setter method to set the switchable organizations.
+  // ignore: unnecessary_getters_setters
+  List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
 
   /// initializer.
-  /// 
+  ///
   /// **params**:
   /// * `homeModel`: instance of MainScreenViewModel.
   /// * `context`: instance of BuildContext.
-  /// 
+  ///
   /// **returns**:
   ///   None
   void initialize(MainScreenViewModel homeModel, BuildContext context) {
@@ -69,8 +70,8 @@ class CustomDrawerViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `switchToOrg`: The organization to switch to.
-  /// 
-  /// **returns**: 
+  ///
+  /// **returns**:
   ///   None
   void switchOrg(OrgInfo switchToOrg) {
     // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
@@ -95,7 +96,7 @@ class CustomDrawerViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `switchToOrg`: `OrgInfo` type of organization want to switch into.
-  /// 
+  ///
   /// **returns**:
   /// * `bool`: returns true if switchToOrg is in switchAbleOrg list.
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
@@ -119,7 +120,7 @@ class CustomDrawerViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `updatedOrganization`: `OrgInfo` type, new organization.
-  /// 
+  ///
   /// **returns**:
   ///   None
   void setSelectedOrganizationName(OrgInfo updatedOrganization) {

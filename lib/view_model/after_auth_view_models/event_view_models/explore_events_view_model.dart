@@ -45,12 +45,12 @@ class ExploreEventsViewModel extends BaseModel {
   String get chosenValue => _chosenValue;
 
   /// This function is used to fetch new events in the organization.
-  /// 
+  ///
   /// The function uses `getEvents` method from `EventService`.
-  /// 
+  ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> fetchNewEvents() async {
@@ -61,12 +61,12 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   /// This function is used to refresh the events in the organization.
-  /// 
+  ///
   /// The function uses `getEvents` method from `EventService`.
-  /// 
+  ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> refreshEvents() async {
@@ -78,11 +78,11 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   /// initialiser.
-  /// 
-  /// 
+  ///
+  ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> initialise() async {
@@ -104,7 +104,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `newEvent`: `Event` type variable containing data to create a new event.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
@@ -118,10 +118,10 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   /// The helper function that used to parse the date and time.
-  /// 
+  ///
   /// **params**:
   /// * `newEvent`: `Event` type variable containing data to create a new event.
-  /// 
+  ///
   /// **returns**:
   ///   None
   void _parseEventDateTime(Event newEvent) {
@@ -156,7 +156,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `eventId`: id of the event that need to be delete.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> deleteEvent({required String eventId}) async {
@@ -190,8 +190,8 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `value`: choosen value from dropdown.
-  /// 
-  /// 
+  ///
+  ///
   /// **returns**:
   /// * `Future<void>`: return future void.
   Future<void> choseValueFromDropdown(String value) async {
