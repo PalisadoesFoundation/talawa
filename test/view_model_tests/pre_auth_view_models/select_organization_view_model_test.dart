@@ -746,13 +746,13 @@ void main() {
             <String, dynamic>{
               "organizationsConnection": [
                 {"one": 1},
-                {"two": 2}
+                {"two": 2},
               ],
             },
             <String, dynamic>{
               "organizationsConnection": [
                 {"three": 3},
-                {"four": 4}
+                {"four": 4},
               ],
             },
           );

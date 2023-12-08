@@ -102,15 +102,28 @@ void main() {
       // consider if user is not logged in.
       when(userConfig.loggedIn).thenReturn(false);
 
-      when(navigationService.pushScreen(Routes.mainScreen,
-              arguments: MainScreenArgs(
-                  mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true)))
-          .thenAnswer((_) async {});
+      when(
+        navigationService.pushScreen(
+          Routes.mainScreen,
+          arguments: MainScreenArgs(
+            mainScreenIndex: 0,
+            fromSignUp: false,
+            toggleDemoMode: true,
+          ),
+        ),
+      ).thenAnswer((_) async {});
 
       await model.selectLanguagePress();
-      verify(navigationService.pushScreen(Routes.mainScreen,
+      verify(
+        navigationService.pushScreen(
+          Routes.mainScreen,
           arguments: MainScreenArgs(
-              mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true)));
+            mainScreenIndex: 0,
+            fromSignUp: false,
+            toggleDemoMode: true,
+          ),
+        ),
+      );
 
       // consider if user is logged in.
       when(userConfig.loggedIn).thenReturn(true);

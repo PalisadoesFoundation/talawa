@@ -113,9 +113,14 @@ class AppLanguage extends BaseModel {
       dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
-      navigationService.pushScreen(Routes.mainScreen,
-          arguments: MainScreenArgs(
-              mainScreenIndex: 0, fromSignUp: false, toggleDemoMode: true));
+      navigationService.pushScreen(
+        Routes.mainScreen,
+        arguments: MainScreenArgs(
+          mainScreenIndex: 0,
+          fromSignUp: false,
+          toggleDemoMode: true,
+        ),
+      );
     }
   }
 

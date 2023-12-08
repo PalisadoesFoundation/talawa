@@ -65,18 +65,21 @@ class _MainScreenState extends State<MainScreen> {
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
                                         .strictTranslate(
-                                            'For complete access, please'),
+                                      'For complete access, please',
+                                    ),
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
                                         .strictTranslate(
-                                            '  join an organization.'),
+                                      '  join an organization.',
+                                    ),
                                     style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
                                   ),
                                 ],
                               ),

@@ -356,7 +356,8 @@ void main() {
 
     testWidgets('Test for setUrl route', (WidgetTester tester) async {
       final route = generateRoute(
-          const RouteSettings(name: Routes.setUrlScreen, arguments: ''));
+        const RouteSettings(name: Routes.setUrlScreen, arguments: ''),
+      );
       expect(route, isA<MaterialPageRoute>());
       if (route is MaterialPageRoute) {
         final builder = route.builder;
@@ -379,7 +380,8 @@ void main() {
     testWidgets('Test for demoExploreEventsScreen route',
         (WidgetTester tester) async {
       final route = generateRoute(
-          const RouteSettings(name: Routes.demoExploreEventsScreen));
+        const RouteSettings(name: Routes.demoExploreEventsScreen),
+      );
       expect(route, isA<MaterialPageRoute>());
       if (route is MaterialPageRoute) {
         final builder = route.builder;
