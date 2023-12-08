@@ -94,6 +94,7 @@ class UserConfig {
     return true;
   }
 
+  /// This function is used to logout the user.
   Future<bool> userLogOut() async {
     try {
       final result = await databaseFunctions.gqlAuthMutation(queries.logout())

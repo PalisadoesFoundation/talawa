@@ -22,7 +22,9 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 class ExploreEventsViewModel extends BaseModel {
   ExploreEventsViewModel({this.demoMode = false});
 
+  /// flag to check if the app is in demo mode.
   bool demoMode;
+
   final _eventService = locator<EventService>();
   late StreamSubscription _eventStreamSubscription;
 
