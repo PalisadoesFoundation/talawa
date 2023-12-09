@@ -1,17 +1,11 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:currency_picker/currency_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:social_share/social_share.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/custom_painters/telegram_logo.dart';
-import 'package:talawa/custom_painters/whatsapp_logo.dart';
+import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -20,13 +14,13 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// ProfilePageViewModel class helps to interact with model to serve data
-/// and react to user's input in Profile Page view.
+/// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
 /// Methods include:
 /// * `logout`
@@ -35,20 +29,50 @@ class ProfilePageViewModel extends BaseModel {
   final _userConfig = locator<UserConfig>();
   final _navigationService = locator<NavigationService>();
   final _appLanguageService = locator<AppLanguage>();
+
+  /// GlobalKey for scaffoldKey.
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// FocusNode for donationField.
   final FocusNode donationField = FocusNode();
+
+  /// Text Controller for donation Amount.
   TextEditingController donationAmount = TextEditingController();
+
+  /// Hive Box of user.
   late final Box<User> user;
+
+  /// Hive Box of url.
   late final Box<dynamic> url;
+
+  /// Hive Box of organisation.
   late final Box<OrgInfo> organisation;
+
+  /// Holds Current Organization.
   late OrgInfo currentOrg;
+
+  /// Holds Current user.
   late User currentUser;
+
+  /// Size of Bottom Sheet Height.
   double bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
+
+  /// donationCurrency.
   String donationCurrency = "USD";
+
+  /// Currency Symbol.
   String donationCurrencySymbol = "\$";
+
+  /// denomination.
   final List<String> denomination = ['1', '5', '10'];
 
-  // initializer
+  /// First function to initialize the viewmodel.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void initialize() {
     setState(ViewState.busy);
     currentOrg = _userConfig.currentOrg;
@@ -56,8 +80,13 @@ class ProfilePageViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  /// This method destroys the user's session or sign out the user from app.
-  /// The function asks for the confimation in Custom Alert Dialog.
+  /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
+  ///
+  /// **params**:
+  /// * `context`: BuildContext of the widget
+  ///
+  /// **returns**:
+  /// * `Future<void>`: Resolves when user logout
   Future<void> logout(BuildContext context) async {
     // push custom alert dialog with the confirmation message.
     navigationService.pushDialog(
@@ -111,7 +140,17 @@ class ProfilePageViewModel extends BaseModel {
   }
 
   /// This method changes the currency of the user for donation purpose.
-  void changeCurrency(BuildContext context, Function setter) {
+  ///
+  /// **params**:
+  /// * `context`: BuildContext of the widget
+  /// * `setter`: Setter Function
+  ///
+  /// **returns**:
+  ///   None
+  void changeCurrency(
+    BuildContext context,
+    void Function(void Function()) setter,
+  ) {
     showCurrencyPicker(
       context: context,
       currencyFilter: supportedCurrencies,
@@ -124,100 +163,69 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
-  /// This function generates the organization invitation link in a Dialog Box.
-  /// Dialog box contains the QR-code of organization invite link and social media sharing options.
+  /// This Function creates a QR Code for latest release .
+  ///
+  /// **params**:
+  /// * `context`: Build Context
+  ///
+  /// **returns**:
+  ///   None
   void invite(BuildContext context) {
     _appLanguageService.initialize();
-    // organization url
-    final String url =
-        'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
-    // QR
     final String qrData =
         '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-    print(url);
-    print(qrData);
-    showModalBottomSheet(
+
+    showDialog(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
       builder: (BuildContext context) {
-        return ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.75,
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            padding: const EdgeInsets.all(20),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.80,
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                QrImage(
+                iconButton(
+                  CustomPaint(
+                    size: const Size(48, 48 * 1),
+                    painter: AppLogo(),
+                  ),
+                  () {},
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  '${userConfig.currentOrg.name}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                QrImageView(
                   data: qrData,
                   version: QrVersions.auto,
                   size: 200.0,
-                  foregroundColor: Colors.black,
                 ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.08,
-                ),
+                const SizedBox(height: 20),
                 Text(
-                  'Scan the QR to join ${userConfig.currentOrg.name}',
-                  style: const TextStyle(color: Colors.black),
+                  AppLocalizations.of(context)!.strictTranslate('JOIN'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    iconButton(
-                      const FaIcon(
-                        FontAwesomeIcons.twitter,
-                        size: 35,
-                        color: Color(0xFF1DA1F2),
-                      ),
-                      () async => SocialShare.shareTwitter('Join us', url: url),
-                    ),
-                    iconButton(
-                      CustomPaint(
-                        size: const Size(
-                          50,
-                          50 * 1.004,
-                        ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                        painter: WhatsappLogo(),
-                      ),
-                      () async => SocialShare.shareWhatsapp(url),
-                    ),
-                    iconButton(
-                      CustomPaint(
-                        size: Size(
-                          45,
-                          (45 * 1).toDouble(),
-                        ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                        painter: TelegramLogo(),
-                      ),
-                      () async => SocialShare.shareTelegram(url),
-                    ),
-                    iconButton(
-                      const FaIcon(
-                        FontAwesomeIcons.shareNodes,
-                        size: 30,
-                        color: Color(0xff40c351),
-                      ),
-                      () async => SocialShare.shareOptions(url),
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 30),
               ],
             ),
           ),
@@ -228,10 +236,13 @@ class ProfilePageViewModel extends BaseModel {
 
   /// This widget returns the button for social media sharing option.
   ///
-  /// params:
-  /// * [icon] : This is `Widget` type with icon details.
-  /// * [onTap] : This is `Function`, which invoke on tap.
-  Widget iconButton(Widget icon, Function onTap) {
+  /// **params**:
+  /// * `icon`: This is Widget type with icon details.
+  /// * `onTap`: This is Function which invoke on tap.
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button
+  Widget iconButton(Widget icon, void Function() onTap) {
     return Stack(
       children: [
         IconButton(
@@ -247,13 +258,17 @@ class ProfilePageViewModel extends BaseModel {
 
   /// This widget returns button for domination.
   ///
-  /// params:
-  /// * [amount] : donation Amount.
-  /// * [setter] : `Function` type, which on tap set the amount to `donationAmount`.
+  /// **params**:
+  /// * `amount`: donation Amount.
+  /// * `context`: BuildContext.
+  /// * `setter`: `Function` type, which on tap set the amount to `donationAmount`.
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button
   Widget dominationButton(
     String amount,
     BuildContext context,
-    Function setter,
+    void Function(void Function()) setter,
   ) {
     return InkWell(
       onTap: () {
@@ -280,8 +295,14 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
-  // Listener on `donationField` widget focus.
-  void attachListener(Function setter) {
+  /// This widget returns button for domination.
+  ///
+  /// **params**:
+  /// * `setter`: SetState holder.
+  ///
+  /// **returns**:
+  ///   None
+  void attachListener(void Function(void Function()) setter) {
     donationField.addListener(() {
       if (donationField.hasFocus) {
         setter(() {
@@ -299,18 +320,36 @@ class ProfilePageViewModel extends BaseModel {
     });
   }
 
-  // pop the route from `navigationService`.
+  /// pop the route from `navigationService`.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void popBottomSheet() {
     _navigationService.pop();
   }
 
-  // to update the bottom sheet height.
+  /// to update the bottom sheet height.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void updateSheetHeight() {
     bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
     notifyListeners();
   }
 
-  // show message on Snack Bar.
+  /// show message on Snack Bar.
+  ///
+  /// **params**:
+  /// * `message`: String Message to show on snackbar
+  ///
+  /// **returns**:
+  ///   None
   void showSnackBar(String message) {
     _navigationService.showTalawaErrorDialog(message, MessageType.error);
   }
