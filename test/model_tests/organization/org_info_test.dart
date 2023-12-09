@@ -106,5 +106,70 @@ void main() {
         expect(result.admins![0].id, 'user_id');
       }
     });
+
+    test('Test fromJsonToList with nested structures', () {
+      final List<dynamic> nestedJson = [
+        [json1, json2], // Nested list with org information
+        json1, // Single org information
+      ];
+
+      final List<OrgInfo> res = OrgInfo().fromJsonToList(nestedJson);
+
+      expect(
+        res.length,
+        3,
+      ); // There are two orgs in the nested list and one in the single org information
+
+      expect(res[0].id, '123');
+      expect(res[0].image, 'image_url');
+      expect(res[0].name, 'Name');
+      expect(res[0].description, 'Description');
+      expect(res[0].isPublic, true);
+      expect(res[0].creatorInfo!.authToken, ' ');
+      expect(res[0].creatorInfo!.refreshToken, ' ');
+      expect(res[0].creatorInfo!.id, 'user_id');
+      expect(res[0].members!.length, 1);
+      expect(res[0].members![0].authToken, ' ');
+      expect(res[0].members![0].refreshToken, ' ');
+      expect(res[0].members![0].id, 'user_id');
+      expect(res[0].admins!.length, 1);
+      expect(res[0].admins![0].authToken, ' ');
+      expect(res[0].admins![0].refreshToken, ' ');
+      expect(res[0].admins![0].id, 'user_id');
+
+      expect(res[1].id, '321');
+      expect(res[1].image, 'image_url');
+      expect(res[1].name, 'Name');
+      expect(res[1].description, 'Description');
+      expect(res[1].isPublic, true);
+      expect(res[1].creatorInfo!.authToken, ' ');
+      expect(res[1].creatorInfo!.refreshToken, ' ');
+      expect(res[1].creatorInfo!.id, 'user_id');
+      expect(res[1].members!.length, 1);
+      expect(res[1].members![0].authToken, ' ');
+      expect(res[1].members![0].refreshToken, ' ');
+      expect(res[1].members![0].id, 'user_id');
+      expect(res[1].admins!.length, 1);
+      expect(res[1].admins![0].authToken, ' ');
+      expect(res[1].admins![0].refreshToken, ' ');
+      expect(res[1].admins![0].id, 'user_id');
+
+      expect(res[2].id, '123');
+      expect(res[2].image, 'image_url');
+      expect(res[2].name, 'Name');
+      expect(res[2].description, 'Description');
+      expect(res[2].isPublic, true);
+      expect(res[2].creatorInfo!.authToken, ' ');
+      expect(res[2].creatorInfo!.refreshToken, ' ');
+      expect(res[2].creatorInfo!.id, 'user_id');
+      expect(res[2].members!.length, 1);
+      expect(res[2].members![0].authToken, ' ');
+      expect(res[2].members![0].refreshToken, ' ');
+      expect(res[2].members![0].id, 'user_id');
+      expect(res[2].admins!.length, 1);
+      expect(res[2].admins![0].authToken, ' ');
+      expect(res[2].admins![0].refreshToken, ' ');
+      expect(res[2].admins![0].id, 'user_id');
+    });
   });
 }
