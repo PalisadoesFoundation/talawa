@@ -2,10 +2,14 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -58,7 +62,12 @@ void main() {
       model.initialize();
 
       model.showSnackBar("fake_message");
-      verify(navigationService.showSnackBar("fake_message"));
+      verify(
+        navigationService.showTalawaErrorDialog(
+          "fake_message",
+          MessageType.error,
+        ),
+      ).called(1);
 
       model.popBottomSheet();
       verify(navigationService.pop());
@@ -92,9 +101,18 @@ void main() {
       final model = ProfilePageViewModel();
       model.initialize();
       const String amt = "test_amt";
+
+      void mockSetter(void Function() innerFunction) {}
+
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(body: model.dominationButton(amt, mockContext, () {})),
+          home: Scaffold(
+            body: model.dominationButton(
+              amt,
+              mockContext,
+              mockSetter,
+            ),
+          ),
         ),
       );
       final containerFinder = find.byType(Container);
@@ -106,6 +124,42 @@ void main() {
           horizontal: SizeConfig.screenWidth! * 0.075,
         ),
       );
+    });
+    testWidgets("Test invite method", (WidgetTester tester) async {
+      // final mockContext = MockBuildContext();
+      final model = ProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                // Trigger the invite method on button press
+                return ElevatedButton(
+                  key: const Key('inviteButton'),
+                  onPressed: () => model.invite(context),
+                  child: const Text('Invoke Invite'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // model.invite(mockContext);
+
+      await tester.tap(find.byKey(const Key('inviteButton')));
+      await tester.pumpAndSettle(); // Wait for animations and UI changes
+
+      expect(find.byType(Dialog), findsOneWidget);
+      expect(find.byType(QrImageView), findsOneWidget);
     });
 
     testWidgets("Test logout function", (tester) async {

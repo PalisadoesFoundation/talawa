@@ -174,7 +174,6 @@ class ProfilePageViewModel extends BaseModel {
     _appLanguageService.initialize();
     final String qrData =
         '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -226,6 +225,7 @@ class ProfilePageViewModel extends BaseModel {
                   ),
                 ),
                 const SizedBox(height: 30),
+
               ],
             ),
           ),
