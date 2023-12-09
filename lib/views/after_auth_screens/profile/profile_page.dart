@@ -241,8 +241,7 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Events'),
                             const Tab(text: 'Tasks'),
                           ],
-                          views: [
-                            IndividualPostView(post: samplePost),
+                          views: [IndividualPostView(post: samplePost),
                             Container(
                               color: Theme.of(context).colorScheme.background,
                             ),
