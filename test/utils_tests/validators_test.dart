@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/validators.dart';
 
@@ -225,6 +226,16 @@ void main() {
             final result = Validator.validateEventForm('12345Name', 'label');
 
             expect(result, null);
+          });
+
+          test('Test validateEventTime for start time greater than end time',
+              () {
+            const startTime = TimeOfDay(hour: 14, minute: 30);
+            const endTime = TimeOfDay(hour: 12, minute: 30);
+
+            final result = Validator.validateEventTime(startTime, endTime);
+
+            expect(result, 'Start time must be before or equal to end time');
           });
         },
       );

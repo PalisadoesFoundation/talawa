@@ -39,7 +39,10 @@ class CreateEventViewModel extends BaseModel {
   TimeOfDay eventStartTime = TimeOfDay.now();
 
   /// Event End Time.
-  TimeOfDay eventEndTime = TimeOfDay.now();
+  TimeOfDay eventEndTime = TimeOfDay.now().replacing(
+    hour: (TimeOfDay.now().hour + (TimeOfDay.now().minute >= 30 ? 1 : 0)) % 24,
+    minute: (TimeOfDay.now().minute + 30) % 60,
+  );
 
   /// Event Start Date.
   DateTime eventStartDate = DateTime.now();
