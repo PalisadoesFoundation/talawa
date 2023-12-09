@@ -40,7 +40,8 @@ class ProfilePage extends StatelessWidget {
     sId: '123',
     description: 'This is a sample post description.',
     createdAt: DateTime.now().subtract(const Duration(days: 2)),
-    imageUrl: 'https://images.unsplash.com/photo-1701725313832-d8f7fadb3006?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8',
+    imageUrl:
+        'https://images.unsplash.com/photo-1701725313832-d8f7fadb3006?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8',
     base64String: 'base64encodedstring',
     videoUrl: 'https://example.com/sample_video.mp4',
     creator: User(
@@ -241,7 +242,8 @@ class ProfilePage extends StatelessWidget {
                             const Tab(text: 'Events'),
                             const Tab(text: 'Tasks'),
                           ],
-                          views: [IndividualPostView(post: samplePost),
+                          views: [
+                            IndividualPostView(post: samplePost),
                             Container(
                               color: Theme.of(context).colorScheme.background,
                             ),
