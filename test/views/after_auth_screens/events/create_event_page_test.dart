@@ -138,10 +138,12 @@ void main() {
       await tester.pump();
     });
     testWidgets('Test Add Button', (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       when(userConfig.loggedIn).thenReturn(true);

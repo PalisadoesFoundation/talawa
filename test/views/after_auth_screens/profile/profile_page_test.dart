@@ -30,10 +30,11 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-            body: ProfilePage(
-          key: const Key('Profile Page'),
-          homeModel: mainScreenViewModel,
-        )),
+          body: ProfilePage(
+            key: const Key('Profile Page'),
+            homeModel: mainScreenViewModel,
+          ),
+        ),
         navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
         theme: TalawaTheme.darkTheme,
@@ -62,8 +63,11 @@ void main() async {
     });
     testWidgets('check if profilePage shows up', (tester) async {
       // print();
-      await tester.pumpWidget(createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>()));
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
       await tester.pumpAndSettle();
     });
   });

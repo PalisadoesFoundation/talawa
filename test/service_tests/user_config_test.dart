@@ -47,9 +47,6 @@ void main() async {
   final urlBox = await Hive.openBox('url');
   final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
 
-  final model = UserConfig();
-  final testOrgs = [OrgInfo(id: '1')];
-
   group('Test UserConfig service', () {
     test('Test for User log out.', () async {
       databaseFunctions.init();

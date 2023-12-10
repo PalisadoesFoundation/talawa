@@ -204,7 +204,6 @@ class CreateEventViewModel extends BaseModel {
         await _eventService.getEvents();
       }
     }
-    print('hi');
   }
 
   /// This function is used to get the image from gallery.

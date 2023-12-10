@@ -23,8 +23,6 @@ class TalawaErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return SizedBox(
       width: screenWidth * 0.8, // Adjust the width based on screen size
       child: AlertDialog(

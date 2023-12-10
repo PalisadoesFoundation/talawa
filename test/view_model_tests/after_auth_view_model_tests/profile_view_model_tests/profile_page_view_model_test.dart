@@ -105,12 +105,8 @@ void main() {
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
 
-       
-
       await tester.tap(find.textContaining('Logout'));
       await tester.pumpAndSettle();
-
-     
 
       verify(navigationService.navigatorKey);
     });
@@ -141,11 +137,9 @@ void main() {
 
       await tester.pumpWidget(widget);
       await tester.pumpAndSettle();
-      
 
       await tester.tap(find.textContaining('Logout'));
       await tester.pumpAndSettle();
-
 
       verify(navigationService.navigatorKey);
     });
