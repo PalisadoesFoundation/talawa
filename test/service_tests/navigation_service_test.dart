@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_snackbar.dart';
@@ -232,6 +233,7 @@ class TalawaErrorWidget extends StatelessWidget {
 }
 
 void main() {
+  SizeConfig().test();
   group('Navigation Services Tests', () {
     late NavigationService navigationService;
     late GlobalKey<NavigatorState> mockKey;
