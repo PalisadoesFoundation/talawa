@@ -15,7 +15,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
   /// Duration the snack bar is visible.
   final Duration duration;
 
-  /// error message for the talawaDialogBox.
+  /// error message for the talawa Snack Bar.
   final String errorMessage;
 
   /// enum for the type of error message.
