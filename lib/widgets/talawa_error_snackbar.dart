@@ -9,13 +9,25 @@ import 'package:talawa/utils/app_localization.dart';
 class TalawaErrorSnackBar extends StatelessWidget {
   const TalawaErrorSnackBar({
     super.key,
+    required this.duration,
     required this.errorMessage,
     required this.messageType,
   });
+  final Duration duration;
   final String errorMessage;
   final MessageType messageType;
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: duration,
+        curve: Curves.linear,
+      );
+    });
+
     return Row(
       children: [
         Container(
@@ -59,6 +71,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
           flex: 1,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            controller: scrollController,
             child: Text(
               AppLocalizations.of(context)!.strictTranslate(errorMessage),
               style: const TextStyle(color: Colors.white),
