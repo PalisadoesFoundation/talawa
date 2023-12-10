@@ -18,6 +18,18 @@ import '../helpers/test_locator.dart';
 
 class MockBox<T> extends Mock implements Box<T> {}
 
+class MockUser extends Mock implements User {
+  @override
+  void updateJoinedOrg(List<OrgInfo> orgList) {
+    // TODO: implement updateJoinedOrg
+  }
+
+  @override
+  void updateMemberRequestOrg(List<OrgInfo> orgList) {
+    // TODO: implement updateMemberRequestOrg
+  }
+}
+
 void main() async {
   setUp(() {
     testSetupLocator();
@@ -28,11 +40,15 @@ void main() async {
 
   Hive
     ..init(dir.path)
-    ..registerAdapter(UserAdapter());
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(OrgInfoAdapter());
 
   final userBox = await Hive.openBox<User>('currentUser');
   final urlBox = await Hive.openBox('url');
   final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+
+  final model = UserConfig();
+  final testOrgs = [OrgInfo(id: '1')];
 
   group('Test UserConfig service', () {
     test('Test for User log out.', () async {

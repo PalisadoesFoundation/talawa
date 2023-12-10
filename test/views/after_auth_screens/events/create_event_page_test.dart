@@ -18,6 +18,7 @@ import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../widget_tests/after_auth_screens/events/create_event_form_test.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
@@ -135,6 +136,22 @@ void main() {
 
       await tester.tap(inkwellFinder.at(2));
       await tester.pump();
+    });
+    testWidgets('Test Add Button', (tester) async {
+      await tester.pumpWidget(createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ));
+      await tester.pumpAndSettle();
+
+      when(userConfig.loggedIn).thenReturn(true);
+
+      final addBtn = find.byKey(const Key('addButton'));
+
+      await tester.tap(addBtn);
+      await tester.pumpAndSettle();
+
+      expect(createEventViewModel.validate, AutovalidateMode.disabled);
     });
     testWidgets("Checking tap Inkwell for setDate 2 datetime", (tester) async {
       await tester.pumpWidget(

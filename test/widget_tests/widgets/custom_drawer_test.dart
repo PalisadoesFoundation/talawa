@@ -18,14 +18,43 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 // import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 // import 'package:talawa/widgets/custom_alert_dialog.dart';
 import '../../helpers/test_helpers.dart';
 // import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
+
+bool _switchOrgcalled = false;
+
+class MockCustomDrawerViewModel extends Mock implements CustomDrawerViewModel {
+  final _scrollController = ScrollController();
+  @override
+  ScrollController get controller => _scrollController;
+  @override
+  List<OrgInfo> get switchAbleOrg {
+    print("hi");
+    return [OrgInfo(id: 'test1', name: 'name')];
+  }
+
+  @override
+  OrgInfo get selectedOrg => OrgInfo(id: 'test1', name: 'name');
+  @override
+  void switchOrg(OrgInfo orginfo) {
+    _switchOrgcalled = true;
+  }
+}
+
+class MockScrollController extends Mock implements ScrollController {
+  @override
+  ScrollPosition get position => MockScrollPosition();
+}
+
+class MockScrollPosition extends Mock implements ScrollPosition {}
 
 Widget createHomePageScreen({required bool demoMode}) {
   return MaterialApp(
@@ -124,6 +153,46 @@ void main() async {
       );
     });
 
+    testWidgets('Test leave current Organization Button.', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // if user not logged in
+      when(userConfig.loggedIn).thenReturn(true);
+
+      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('Drawer')), findsOneWidget);
+
+      final buttonFinder = find.byKey(
+        MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+      );
+
+      final tmp = CustomAlertDialog(
+        key: const Key("Exit?"),
+        reverse: true,
+        dialogSubTitle: 'Are you sure you want to exit this organization?',
+        successText: 'Exit',
+        success: () {
+          //Exit org
+        },
+      );
+
+      when(
+        navigationService.pushDialog(tmp),
+      ).thenAnswer((realInvocation) async {});
+
+      await tester.ensureVisible(buttonFinder);
+      await tester.pumpAndSettle();
+
+      await tester.tap(buttonFinder);
+      await tester.pumpAndSettle();
+
+      verifyNever(navigationService.pushDialog(tmp)).called(0);
+      // expect(find.text('Exit'), findsOneWidget);
+    });
+
     testWidgets('Test Join Organization Button when user logged in.',
         (tester) async {
       await tester.pumpWidget(createHomePageScreen(demoMode: true));
@@ -153,6 +222,31 @@ void main() async {
           arguments: '-1',
         ),
       );
+    });
+
+    testWidgets('Test Switch org list.', (tester) async {
+      await tester.pumpWidget(createHomePageScreen(demoMode: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      locator.unregister<CustomDrawerViewModel>();
+
+      locator.registerSingleton<CustomDrawerViewModel>(
+        MockCustomDrawerViewModel(),
+      );
+
+      // if user not logged in
+      when(userConfig.loggedIn).thenReturn(false);
+
+      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('Switching Org')), findsOneWidget);
+
+      final buttonFinder = find.byKey(const Key('Org'));
+
+      await tester.tap(buttonFinder);
+
+      expect(_switchOrgcalled, true);
     });
   });
 

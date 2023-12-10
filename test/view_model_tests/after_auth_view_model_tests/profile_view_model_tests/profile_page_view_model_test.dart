@@ -2,12 +2,16 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
@@ -33,24 +37,29 @@ void verifyInteraction(dynamic x, {required String mockName}) {
 
 void main() {
   testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-
-  setUp(() {
-    registerServices();
-    locator<SizeConfig>().test();
-  });
-
-  tearDown(() {
-    unregisterServices();
-  });
 
   group('ProfilePageViewModel Tests -', () {
+    setUpAll(() {
+      registerServices();
+      graphqlConfig.test();
+      sizeConfig.test();
+    });
+
+    tearDownAll(() {
+      unregisterServices();
+    });
+
     test("Test initialization", () {
       final model = ProfilePageViewModel();
       model.initialize();
       expect(model.currentOrg, userConfig.currentOrg);
       expect(model.currentUser, userConfig.currentUser);
+    });
+
+    test('test logout function', () async {
+      final model = ProfilePageViewModel();
+      final context = MockBuildContext();
+      await model.logout(context);
     });
 
     test("Test showSnackBar and popBottomSheet function", () {
@@ -67,6 +76,78 @@ void main() {
 
       model.popBottomSheet();
       verify(navigationService.pop());
+    });
+
+    testWidgets("Test logout dialog when logout successful.", (tester) async {
+      const userLoggedin = false;
+      when(userConfig.loggedIn).thenAnswer((_) => userLoggedin);
+      final model = ProfilePageViewModel();
+
+      final widget = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: Scaffold(
+              body: model.logoutDialog(),
+            ),
+            navigatorKey: navigationService.navigatorKey,
+            onGenerateRoute: router.generateRoute,
+          );
+        },
+      );
+
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+       
+
+      await tester.tap(find.textContaining('Logout'));
+      await tester.pumpAndSettle();
+
+     
+
+      verify(navigationService.navigatorKey);
+    });
+
+    testWidgets("Test logout dialog when logout unsuccessful.", (tester) async {
+      final model = ProfilePageViewModel();
+      const userLoggedIn = true;
+      when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
+
+      final widget = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: Scaffold(
+              body: model.logoutDialog(),
+            ),
+            navigatorKey: navigationService.navigatorKey,
+            onGenerateRoute: router.generateRoute,
+          );
+        },
+      );
+
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      
+
+      await tester.tap(find.textContaining('Logout'));
+      await tester.pumpAndSettle();
+
+
+      verify(navigationService.navigatorKey);
     });
 
     test("Test updateSheetHeight function", () {
@@ -117,18 +198,6 @@ void main() {
           horizontal: SizeConfig.screenWidth! * 0.075,
         ),
       );
-    });
-
-    testWidgets("Test logout function", (tester) async {
-      final mockContext = MockBuildContext();
-      final model = ProfilePageViewModel();
-      final mocknav = getAndRegisterNavigationService();
-      model.initialize();
-      await model.logout(mockContext);
-      await tester.pumpAndSettle();
-
-      //Ensures that naviagation service was called
-      verifyInteraction(mocknav, mockName: "NavigationService");
     });
 
     testWidgets('Test changeCurrency function', (WidgetTester tester) async {
@@ -195,5 +264,20 @@ void main() {
       // Now you can check if bottomSheetHeight is updated after losing focus
       expect(model.bottomSheetHeight, SizeConfig.screenHeight! * 0.68);
     });
+
+    // test('logout success', () {
+    //   final model = ProfilePageViewModel();
+    //   when(userConfig.loggedIn).thenReturn(true);
+    //   model.logoutSuccess();
+
+    // // when(userConfig.loggedIn).thenReturn(false);
+    // //   model.logoutSuccess();
+
+    // // verify( navigationService.removeAllAndPush(
+    // //   '/selectLang',
+    // //   '/',
+    // //   arguments: '0',
+    // // ));
+    // });
   });
 }

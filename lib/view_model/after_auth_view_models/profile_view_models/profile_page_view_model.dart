@@ -84,31 +84,7 @@ class ProfilePageViewModel extends BaseModel {
   /// * `Future<void>`: Resolves when user logout
   Future<void> logout(BuildContext context) async {
     // push custom alert dialog with the confirmation message.
-    navigationService.pushDialog(
-      CustomAlertDialog(
-        reverse: true,
-        dialogSubTitle: 'Are you sure you want to logout?',
-        successText: 'Logout',
-        success: () async {
-          await userConfig.userLogOut();
-          navigationService.pop();
-          if (userConfig.loggedIn) {
-            navigationService.pushDialog(
-              const TalawaErrorDialog(
-                'Unable to logout, please try again.',
-                messageType: MessageType.error,
-              ),
-            );
-          } else {
-            navigationService.removeAllAndPush(
-              '/selectLang',
-              '/',
-              arguments: '0',
-            );
-          }
-        },
-      ),
-    );
+    navigationService.pushDialog(logoutDialog());
   }
 
   /// This method changes the currency of the user for donation purpose.
@@ -237,6 +213,33 @@ class ProfilePageViewModel extends BaseModel {
             ),
           ),
         );
+      },
+    );
+  }
+
+  Widget logoutDialog() {
+    return CustomAlertDialog(
+      reverse: true,
+      dialogSubTitle: 'Are you sure you want to logout?',
+      successText: 'Logout',
+      success: () async {
+        await userConfig.userLogOut();
+        navigationService.pop();
+        if (userConfig.loggedIn) {
+          navigationService.pushDialog(
+            const TalawaErrorDialog(
+              'Unable to logout, please try again.',
+              key: Key('TalawaError'),
+              messageType: MessageType.error,
+            ),
+          );
+        } else {
+          navigationService.removeAllAndPush(
+            '/selectLang',
+            '/',
+            arguments: '0',
+          );
+        }
       },
     );
   }

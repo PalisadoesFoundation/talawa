@@ -169,14 +169,16 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         });
                       },
                       setTime: () async {
+                        print(model.eventStartDate);
                         final time = await customTimePicker(
                           initialTime: model.eventStartTime,
                         );
-
+                        // print(model.eventStartTime);
                         final validationError = Validator.validateEventTime(
                           time,
                           model.eventEndTime,
                         );
+                        print('hi');
                         if (validationError != null) {
                           navigationService.showTalawaErrorSnackBar(
                             'Start time must be before end time',

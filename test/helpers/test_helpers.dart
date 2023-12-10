@@ -126,6 +126,7 @@ NavigationService getAndRegisterNavigationService() {
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
+  when(service.pushDialog(any)).thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -204,6 +205,9 @@ ChatService getAndRegisterChatService() {
 AppLanguage getAndRegisterAppLanguage() {
   _removeRegistrationIfExists<AppLanguage>();
   final service = MockAppLanguage();
+
+  when(service.appLocal).thenReturn(const Locale('en'));
+
   locator.registerSingleton<AppLanguage>(service);
   return service;
 }
@@ -312,6 +316,14 @@ UserConfig getAndRegisterUserConfig() {
 
   when(service.userLoggedIn()).thenAnswer(
     (realInvocation) => Future<bool>.value(false),
+  );
+
+  when(service.currentUser).thenReturn(
+    User(
+      id: 'id',
+      firstName: 'john',
+      lastName: 'snow',
+    ),
   );
 
   //Mock Data for current organizaiton.
@@ -565,7 +577,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     id: "fakeUser1",
     firstName: 'r',
     lastName: 'p',
-    image: 'www.image.com',
+    // image: 'www.image.com',
   );
 
   final mapType = {user1.id!: true};
@@ -584,6 +596,10 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedMembers).thenReturn([]);
+  });
+
+  when(cachedViewModel.createEvent()).thenAnswer((realInvocation) async {
+    print('called');
   });
 
   // when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))

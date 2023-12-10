@@ -198,7 +198,6 @@ class MainScreenViewModel extends BaseModel {
               tourHomeTargets();
             },
             secondaryButtonTap: () {
-              print("hi");
               tourComplete = false;
               tourSkipped = true;
               navigationService.pop();

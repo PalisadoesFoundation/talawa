@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
@@ -21,7 +24,35 @@ class DemoExploreEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = ExploreEventsViewModel(demoMode: true);
-    print(model.events);
+    List<Event> events = [
+      Event(
+    id: '1',
+    title: 'Meeting',
+    description: 'Team meeting to discuss project updates.',
+    attendees: 'John, Alice, Bob',
+    location: 'Conference Room A',
+    latitude: 40.7128,
+    longitude: -74.0060,
+    recurring: false,
+    allDay: false,
+    startDate: DateTime(2023, 12, 15).toIso8601String(),
+    endDate: DateTime(2023, 12, 15).toIso8601String(),
+    startTime: const TimeOfDay(hour: 9, minute: 0).toString(),
+    endTime: const TimeOfDay(hour: 10, minute: 30).toString(),
+    recurrence: 'Weekly',
+    isPublic: true,
+    isRegistered: true,
+    isRegisterable: false,
+    creator: User(id: 'Alice', firstName: 'Alice'),
+    organization: OrgInfo(id: 'XYZ Corp', name: 'XYZ Corp'),
+    admins: <User>[
+      User(id: 'user1', firstName: 'john'),
+    ],
+    registrants: <User>[
+      User(id: 'user2', firstName: 'Alice'),
+    ],
+  )
+    ];
     return Scaffold(
       appBar: AppBar(
         // AppBar returns widget for the header.
@@ -168,7 +199,7 @@ class DemoExploreEvents extends StatelessWidget {
                   ),
                   // if the events model is empty then renders a box with text as "Empty List"
                   // else renders lists of the all event tile.
-                  model.events.isEmpty
+                  events.isEmpty
                       ? SizedBox(
                           height: SizeConfig.screenHeight! * 0.5,
                           child: Center(
@@ -185,13 +216,13 @@ class DemoExploreEvents extends StatelessWidget {
                                 navigationService.pushScreen(
                                   "/eventInfo",
                                   arguments: {
-                                    "event": model.events[index],
+                                    "event": events[index],
                                     "exploreEventViewModel": model,
                                   },
                                 );
                               },
                               child: EventCard(
-                                event: model.events[index],
+                                event: events[index],
                                 isSearchItem: false,
                               ),
                             );

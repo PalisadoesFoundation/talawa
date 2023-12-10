@@ -52,6 +52,7 @@ class _MainScreenState extends State<MainScreen> {
                       left: 0,
                       right: 0,
                       child: InkWell(
+                        key: const Key('banner'),
                         onTap: () => navigationService
                             .pushScreen(Routes.setUrlScreen, arguments: ''),
                         child: Container(
