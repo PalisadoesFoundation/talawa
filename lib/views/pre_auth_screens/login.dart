@@ -44,6 +44,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           body: SingleChildScrollView(
+            physics: ,
             child: Container(
               margin: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth! * 0.06,
