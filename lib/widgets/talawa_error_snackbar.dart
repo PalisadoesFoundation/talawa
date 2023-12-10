@@ -1,21 +1,37 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 
 import 'package:talawa/utils/app_localization.dart';
 
+/// Common Error Snack Bar for the whole talawa app.
 class TalawaErrorSnackBar extends StatelessWidget {
   const TalawaErrorSnackBar({
     super.key,
+    required this.duration,
     required this.errorMessage,
     required this.messageType,
   });
+
+  /// Duration the snack bar is visible.
+  final Duration duration;
+
+  /// error message for the talawa Snack Bar.
   final String errorMessage;
+
+  /// enum for the type of error message.
   final MessageType messageType;
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: duration,
+        curve: Curves.linear,
+      );
+    });
+
     return Row(
       children: [
         Container(
@@ -59,6 +75,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
           flex: 1,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            controller: scrollController,
             child: Text(
               AppLocalizations.of(context)!.strictTranslate(errorMessage),
               style: const TextStyle(color: Colors.white),
