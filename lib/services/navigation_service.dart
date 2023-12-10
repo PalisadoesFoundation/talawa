@@ -131,6 +131,7 @@ class NavigationService {
           errorMessage: errorMessage,
         ),
         backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
+        duration: duration,
       ),
     );
   }
