@@ -1,11 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 
 import 'package:talawa/utils/app_localization.dart';
 
+/// Common Error Snack Bar for the whole talawa app.
 class TalawaErrorSnackBar extends StatelessWidget {
   const TalawaErrorSnackBar({
     super.key,
@@ -13,8 +11,14 @@ class TalawaErrorSnackBar extends StatelessWidget {
     required this.errorMessage,
     required this.messageType,
   });
+
+  /// Duration the snack bar is visible.
   final Duration duration;
+
+  /// error message for the talawaDialogBox.
   final String errorMessage;
+
+  /// enum for the type of error message.
   final MessageType messageType;
   @override
   Widget build(BuildContext context) {
