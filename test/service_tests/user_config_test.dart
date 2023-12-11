@@ -163,7 +163,9 @@ void main() async {
       const newRefreshToken = 'newRefreshToken';
 
       await model.updateAccessToken(
-          accessToken: newAuthToken, refreshToken: newRefreshToken);
+        accessToken: newAuthToken,
+        refreshToken: newRefreshToken,
+      );
 
       expect(mockUser.authToken, newAuthToken);
       expect(mockUser.refreshToken, newRefreshToken);
