@@ -143,7 +143,6 @@ void main() async {
       model.currentUser = mockUser;
       final expected = [...mockUser.membershipRequests!, ...mockOrgDetails];
       await model.updateUserMemberRequestOrg(mockOrgDetails);
-      print(mockUser.membershipRequests);
 
       expect(mockUser.membershipRequests, expected);
     });
@@ -151,7 +150,7 @@ void main() async {
     test('Test for updateUserAdminOrg', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
-      
+
       await model.updateUserAdminOrg(mockOrgDetails);
 
       expect(mockUser.adminFor, mockOrgDetails);
@@ -162,8 +161,9 @@ void main() async {
       model.currentUser = mockUser;
       const newAuthToken = 'newAccessToken';
       const newRefreshToken = 'newRefreshToken';
-      
-      await model.updateAccessToken(accessToken: newAuthToken, refreshToken: newRefreshToken);
+
+      await model.updateAccessToken(
+          accessToken: newAuthToken, refreshToken: newRefreshToken);
 
       expect(mockUser.authToken, newAuthToken);
       expect(mockUser.refreshToken, newRefreshToken);
