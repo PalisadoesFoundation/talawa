@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
@@ -21,8 +20,7 @@ class DemoExploreEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = ExploreEventsViewModel(demoMode: true);
-    final events = <Event>[];
+    final model = locator<ExploreEventsViewModel>();
     return Scaffold(
       appBar: AppBar(
         // AppBar returns widget for the header.
@@ -169,7 +167,7 @@ class DemoExploreEvents extends StatelessWidget {
                   ),
                   // if the events model is empty then renders a box with text as "Empty List"
                   // else renders lists of the all event tile.
-                  events.isEmpty
+                  model.events.isEmpty
                       ? SizedBox(
                           height: SizeConfig.screenHeight! * 0.5,
                           child: Center(
@@ -186,13 +184,13 @@ class DemoExploreEvents extends StatelessWidget {
                                 navigationService.pushScreen(
                                   "/eventInfo",
                                   arguments: {
-                                    "event": events[index],
+                                    "event": model.events[index],
                                     "exploreEventViewModel": model,
                                   },
                                 );
                               },
                               child: EventCard(
-                                event: events[index],
+                                event: model.events[index],
                                 isSearchItem: false,
                               ),
                             );

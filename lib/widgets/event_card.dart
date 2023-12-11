@@ -54,9 +54,7 @@ class EventCard extends StatelessWidget {
                       image: const DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.topCenter,
-                        image: NetworkImage(
-                          'https://picsum.photos/id/1022/200/300',
-                        ),
+                        image: AssetImage('assets/images/pfp2.png'),
                       ),
                     ),
                     child: ClipRRect(
@@ -117,9 +115,11 @@ class EventCard extends StatelessWidget {
                             size: 13,
                           ),
                           const Spacer(),
-                          Text(
-                            "${event.startDate!} - ${event.endDate!}",
-                            style: Theme.of(context).textTheme.bodySmall,
+                          Expanded(
+                            child: Text(
+                              "${event.startDate!} - ${event.endDate!}",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ),
                         ],
                       ),
