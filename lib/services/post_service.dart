@@ -31,7 +31,7 @@ class PostService {
       StreamController<List<Post>>();
   late Stream<List<Post>> _postStream;
 
-  //Stream for individul post update
+  //Stream for individual post update
   final StreamController<Post> _updatedPostStreamController =
       StreamController<Post>();
   late Stream<Post> _updatedPostStream;

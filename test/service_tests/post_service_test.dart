@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
@@ -189,5 +192,87 @@ void main() {
       //Testing if the post got a comment
       expect(commentedPost.comments!.length, 1);
     });
+    test('Test updatedPostStream Stream', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query = PostQueries().getPostsById(currentOrgID);
+      // Mocking GetPosts
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+            (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = PostService();
+      // Populating posts Stream
+      await service.getPosts();
+
+      // Listen to updatedPostStream and collect emitted values
+      final List<Post> updatedPosts = [];
+      final subscription = service.updatedPostStream.listen((post) {
+        updatedPosts.add(post);
+      });
+
+      // Trigger an event that should update the post
+      await service.addLike(postID);
+
+      // Wait for the stream to emit values
+      await Future.delayed(const Duration(seconds: 1)); // Adjust the delay as needed
+
+      // Verify that the correct post was emitted
+      expect(updatedPosts.length, 1);
+      expect(updatedPosts[0].sId, postID);
+      // Cancel the subscription to avoid memory leaks
+      await subscription.cancel();
+    });
+    test('Test setOrgStreamSubscription method after the organization is updated',()async{
+
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query = PostQueries().getPostsById(currentOrgID);
+      // Mocking GetPosts
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+            (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = PostService();
+      // Populating posts Stream
+      await service.getPosts();
+
+      // Set up mock for currentOrgInfoStream
+      final mockUserConfig = locator<UserConfig>();
+      final orgInfoStreamController = StreamController<OrgInfo>();
+      when(mockUserConfig.currentOrgInfoStream).thenAnswer((_) => orgInfoStreamController.stream);
+
+      // Call setOrgStreamSubscription
+      service.setOrgStreamSubscription();
+
+      // Trigger an event that should update the organization
+      orgInfoStreamController.add(OrgInfo(id: 'newOrgId'));
+
+      // Wait for the setOrgStreamSubscription logic to execute
+      await Future.delayed(const Duration(seconds: 1)); // Adjust the delay as needed
+
+      // Verify that getPosts was called after the organization update
+      verify(service.getPosts()).called(1);
+
+      // Close the stream controller to avoid memory leaks
+      await orgInfoStreamController.close();
+    });
+
   });
 }
