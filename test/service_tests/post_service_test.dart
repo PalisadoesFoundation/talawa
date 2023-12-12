@@ -202,7 +202,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-            (_) async => QueryResult(
+        (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -223,7 +223,8 @@ void main() {
       await service.addLike(postID);
 
       // Wait for the stream to emit values
-      await Future.delayed(const Duration(seconds: 1)); // Adjust the delay as needed
+      await Future.delayed(
+          const Duration(seconds: 1)); // Adjust the delay as needed
 
       // Verify that the correct post was emitted
       expect(updatedPosts.length, 1);
@@ -231,8 +232,9 @@ void main() {
       // Cancel the subscription to avoid memory leaks
       await subscription.cancel();
     });
-    test('Test setOrgStreamSubscription method after the organization is updated',()async{
-
+    test(
+        'Test setOrgStreamSubscription method after the organization is updated',
+        () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final query = PostQueries().getPostsById(currentOrgID);
@@ -242,7 +244,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-            (_) async => QueryResult(
+        (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -256,7 +258,8 @@ void main() {
       // Set up mock for currentOrgInfoStream
       final mockUserConfig = locator<UserConfig>();
       final orgInfoStreamController = StreamController<OrgInfo>();
-      when(mockUserConfig.currentOrgInfoStream).thenAnswer((_) => orgInfoStreamController.stream);
+      when(mockUserConfig.currentOrgInfoStream)
+          .thenAnswer((_) => orgInfoStreamController.stream);
 
       // Call setOrgStreamSubscription
       service.setOrgStreamSubscription();
@@ -265,7 +268,8 @@ void main() {
       orgInfoStreamController.add(OrgInfo(id: 'newOrgId'));
 
       // Wait for the setOrgStreamSubscription logic to execute
-      await Future.delayed(const Duration(seconds: 1)); // Adjust the delay as needed
+      await Future.delayed(
+          const Duration(seconds: 1)); // Adjust the delay as needed
 
       // Verify that getPosts was called after the organization update
       verify(service.getPosts()).called(1);
@@ -273,6 +277,5 @@ void main() {
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
     });
-
   });
 }
