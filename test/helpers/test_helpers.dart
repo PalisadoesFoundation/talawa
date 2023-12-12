@@ -53,6 +53,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -663,6 +664,14 @@ ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
   when(cachedViewModel.emptyListMessage).thenReturn(emptyListMessage);
 
   locator.registerSingleton<ExploreEventsViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
+MainScreenViewModel getAndRegisterMainViewModel() {
+  _removeRegistrationIfExists<MainScreenViewModel>();
+  final cachedViewModel = MockMainScreenViewModel();
+
+  locator.registerSingleton<MainScreenViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 

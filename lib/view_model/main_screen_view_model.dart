@@ -147,7 +147,11 @@ class MainScreenViewModel extends BaseModel {
   /// array of target.
   final List<TargetFocus> targets = [];
 
+  /// flag to represent if app is in demoMode.
   bool demoMode = false;
+
+  /// flag to represent if app is in testMode.
+  bool testMode = false;
 
   /// Initalizing function.
   ///
@@ -163,7 +167,9 @@ class MainScreenViewModel extends BaseModel {
     required bool fromSignUp,
     required int mainScreenIndex,
     bool demoMode = false,
+    bool testMode = false,
   }) {
+    this.testMode = testMode;
     this.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
@@ -183,27 +189,7 @@ class MainScreenViewModel extends BaseModel {
       Future.delayed(
         const Duration(seconds: 1),
         () => navigationService.pushDialog(
-          CustomAlertDialog(
-            dialogTitle: 'App Tour',
-            dialogSubTitle: 'Start app tour to know talawa functioning',
-            successText: 'Start',
-            secondaryButtonText: 'Skip',
-            success: () {
-              context = ctx;
-              navigationService.pop();
-              if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
-                  false) {
-                MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
-              }
-              tourHomeTargets();
-            },
-            secondaryButtonTap: () {
-              tourComplete = false;
-              tourSkipped = true;
-              navigationService.pop();
-              notifyListeners();
-            },
-          ),
+          appTourDialog(ctx),
         ),
       );
     }
@@ -296,7 +282,6 @@ class MainScreenViewModel extends BaseModel {
           homeModel: this,
         ),
       ];
-
       pluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
@@ -326,14 +311,15 @@ class MainScreenViewModel extends BaseModel {
       /// Causes the app check the plugins updates in every 300 sec
       ///
       /// updated and re-render the navbar
-      Timer.periodic(const Duration(seconds: 300), (timer) {
+      Timer.periodic(Duration(seconds: (testMode ? 1 : 300)), (timer) {
         FetchPluginList();
         final newPluginList =
             (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
         if (listEquals(pluginList, newPluginList)) {
-          notifyListeners();
+          // notifyListeners();
         }
+        if (testMode) timer.cancel();
       });
     } else {
       pages = [
@@ -358,49 +344,6 @@ class MainScreenViewModel extends BaseModel {
         ),
       ];
     }
-  }
-
-  void fetchAndAddDemoPlugins(BuildContext context) {
-    navBarItems = [
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.home,
-          key: keyBNDemoHome,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Home'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.event_note,
-          key: keyBNDemoEvents,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Events'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.add_box,
-          key: keyBNDemoPost,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Add'),
-      ),
-
-      /// Makes chat inaccessible for the user
-      //TODO: add chat functionality
-      // BottomNavigationBarItem(
-      //   icon: Icon(
-      //     Icons.chat_outlined,
-      //     key: keyBNChat,
-      //   ),
-      //   label: AppLocalizations.of(context)!.strictTranslate('Chat'),
-      // ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.account_circle,
-          key: keyBNDemoProfile,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Profile'),
-      ),
-    ];
   }
 
   /// var for current page in index.
@@ -455,6 +398,31 @@ class MainScreenViewModel extends BaseModel {
         onClickTarget(target);
       },
     )..show(context: context);
+  }
+
+  Widget appTourDialog(BuildContext ctx) {
+    return CustomAlertDialog(
+      dialogTitle: 'App Tour',
+      dialogSubTitle: 'Start app tour to know talawa functioning',
+      successText: 'Start',
+      secondaryButtonText: 'Skip',
+      success: () {
+        context = ctx;
+        navigationService.pop();
+        print(MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen);
+        if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
+            false) {
+          MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
+        }
+        tourHomeTargets();
+      },
+      secondaryButtonTap: () {
+        tourComplete = false;
+        tourSkipped = true;
+        navigationService.pop();
+        notifyListeners();
+      },
+    );
   }
 
   /// this functions starts the tour and info to be displayed is mentioned in this functions.
@@ -620,6 +588,7 @@ class MainScreenViewModel extends BaseModel {
         align: ContentAlign.top,
       ),
     );
+
     showTutorial(
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
@@ -709,6 +678,7 @@ class MainScreenViewModel extends BaseModel {
         nextCrossAlign: CrossAxisAlignment.start,
       ),
     );
+    // print(targets);
     targets.add(
       focusTarget(
         keySPAppSetting,
@@ -745,15 +715,18 @@ class MainScreenViewModel extends BaseModel {
         isEnd: true,
       ),
     );
-    showTutorial(
-      onFinish: () {
-        if (!tourComplete && !tourSkipped) {
-          tourComplete = true;
-          onTabTapped(0);
-        }
-      },
-      onClickTarget: (TargetFocus a) {},
-    );
+    if (!testMode) {
+      print('ok');
+      showTutorial(
+        onFinish: () {
+          if (!tourComplete && !tourSkipped) {
+            tourComplete = true;
+            onTabTapped(0);
+          }
+        },
+        onClickTarget: (TargetFocus a) {},
+      );
+    }
   }
 
   /// This returns a widget for a step in a tutorial.

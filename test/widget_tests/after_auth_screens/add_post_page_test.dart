@@ -44,13 +44,10 @@ class MockAddPostViewModel extends Mock implements AddPostViewModel {
   @override
   TextEditingController get titleController => _titleController;
 
-  @override
-  void removeImage() {
-    print(
-      'hello',
-    );
-    removeImageCalled = true;
-  }
+  // @override
+  // void removeImage() {
+  //   removeImageCalled = true;
+  // }
 }
 
 Widget createAddPostScreen({
@@ -97,10 +94,6 @@ void main() {
   });
 
   group('createAddPostScreen Test', () {
-    testWidgets('check if remove Image button works', (tester) async {
-      await tester.pumpWidget(createAddPostScreen());
-      await tester.pump();
-    });
     testWidgets('check if back button in app bar works', (tester) async {
       await tester.pumpWidget(createAddPostScreen());
       await tester.pump();
@@ -457,6 +450,24 @@ void main() {
 
       await tester.tap(finder);
       await tester.pump();
+    });
+
+    testWidgets('check if remove Image button works', (tester) async {
+      locator.unregister<AddPostViewModel>();
+      final mockModel =
+          locator.registerSingleton<AddPostViewModel>(MockAddPostViewModel());
+
+      when(mockModel.removeImage()).thenAnswer((_) {});
+
+      await tester.pumpWidget(createAddPostScreen());
+      await tester.pump();
+
+      final removeImageBtn =
+          tester.widget(find.byKey(const Key('remove_icon'))) as IconButton;
+
+      removeImageBtn.onPressed!();
+
+      verify(mockModel.removeImage());
     });
   });
 }

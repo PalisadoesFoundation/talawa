@@ -1,17 +1,59 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
+import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_drawer.dart';
+
 // import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../helpers/test_helpers.dart';
 // import '../helpers/test_helpers.mocks.dart';
 import '../helpers/test_locator.dart';
+
+Widget createAppTourDialog({bool demoMode = true}) => BaseView<AppLanguage>(
+      onModelReady: (model) => model.initialize(),
+      builder: (context, langModel, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: BaseView<MainScreenViewModel>(
+            onModelReady: (model2) => model2.initialise(
+              context,
+              fromSignUp: false,
+              mainScreenIndex: 0,
+              demoMode: demoMode,
+              testMode: true,
+            ),
+            builder: (context, model2, child) {
+              model2.fetchAndAddPlugins(context);
+              return Scaffold(
+                drawer: CustomDrawer(homeModel: model2),
+                key: MainScreenViewModel.scaffoldKey,
+                body: model2.appTourDialog(context),
+              );
+            },
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
+    );
 
 class MockCallBack extends Mock {
   void call();
@@ -37,14 +79,29 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() {
+void main() async {
+  // final Directory dir = Directory('test/fixtures/core');
+
+  // Hive
+  //   ..init(dir.path)
+  //   ..registerAdapter(UserAdapter())
+  //   ..registerAdapter(OrgInfoAdapter());
+
+  // final userBox = await Hive.openBox<User>('currentUser');
+  // final urlBox = await Hive.openBox('url');
+  // final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+  // final pluginBox = await Hive.openBox('pluginBox');
+
   // No need to change
-  setUp(() {
-    locator.registerFactory(() => SizeConfig());
+  setUpAll(() {
+    locator.registerFactory(() => CustomDrawerViewModel());
+    locator.registerFactory(() => MainScreenViewModel());
+    locator.registerFactory(() => AppTheme());
+    locator.registerSingleton(SizeConfig());
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     locator.unregister<SizeConfig>();
   });
 
@@ -133,6 +190,105 @@ void main() {
       // Ensures that navigation service was not called
       verifyZeroInteractions(mocknav);
     });
+
+    testWidgets('Test for apptour dialog skip action.', (tester) async {
+      await tester.pumpWidget(createAppTourDialog());
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.byType(CustomAlertDialog), findsOneWidget);
+
+      // await tester.pumpAndSettle();
+
+      final skipBtn = find.textContaining('Skip');
+
+      expect(skipBtn, findsOneWidget);
+
+      await tester.tap(skipBtn);
+      await tester.pumpAndSettle(
+        const Duration(seconds: 1),
+      );
+
+      verify(navigationService.pop());
+    });
+
+    testWidgets('Test for apptour dialog success action.', (tester) async {
+      await tester.pumpWidget(createAppTourDialog());
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+
+      expect(find.byType(CustomAlertDialog), findsOneWidget);
+
+      final startBtn = find.textContaining('Start').last;
+
+      expect(startBtn, findsOneWidget);
+
+      await tester.tap(startBtn);
+
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+    });
+
+    // testWidgets('Test for focustarget widget.', (tester) async {
+    //   late MainScreenViewModel mockModel = MainScreenViewModel();
+
+    // model.focusTarget( model.keyBNChat, 'not', 'ok').contents[]
+
+    // Widget app = BaseView<AppTheme>(
+    //   onModelReady: (model) => model.initialize(),
+    //   builder: (context, model, child) {
+    //   return MaterialApp(
+    //     locale: const Locale('en'),
+    //     localizationsDelegates: [
+    //       const AppLocalizationsDelegate(isTest: true),
+    //       GlobalMaterialLocalizations.delegate,
+    //       GlobalWidgetsLocalizations.delegate,
+    //     ],
+    //     theme: Provider.of<AppTheme>(context).isdarkTheme
+    //         ? TalawaTheme.darkTheme
+    //         : TalawaTheme.lightTheme,
+    //     home: BaseView<MainScreenViewModel>(
+    //       onModelReady: (model2) => model2.initialise(context, fromSignUp: false, mainScreenIndex: 0, testMode: true, demoMode: true),
+    //       builder: (context, model2, child) {
+    //         model2.context = context;
+    //         mockModel = model2;
+    //         return Scaffold(
+    //           body: TextButton(
+    //             child: const Text('press me'),
+    //             onPressed: () {
+    //               model2.tourProfile();
+    //               model2.showTutorial(onClickTarget: (targetFocus) {
+    //                 return TargetFocus();
+    //               }, onFinish: () {
+    //                 return TargetFocus();
+    //               });
+    //             },
+    //           ),
+    //         );
+    //       },
+    //     ),
+    //     navigatorKey: navigationService.navigatorKey,
+    //     onGenerateRoute: router.generateRoute,
+    //   );
+    // });
+
+    // await tester.pumpWidget(app);
+    // await tester.pumpAndSettle();
+
+    // expect(find.text('press me'), findsOneWidget);
+
+    // await tester.tap(find.text('press me'));
+    // await tester.pumpAndSettle();
+
+    // print(mockModel.targets);
+
+    // });
+
+    // testWidgets('Test for fetchAndAddPlugins.', (tester) async {
+
+    //   await tester.pumpWidget(createAppTourDialog(demoMode: false,));
+    //   await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    // });
 
     // test("When fromSignUp is true, App Tour dialog should be displayed",
     //     () async {
