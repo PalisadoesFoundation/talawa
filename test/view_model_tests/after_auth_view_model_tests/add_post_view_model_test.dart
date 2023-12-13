@@ -13,22 +13,22 @@ import '../../helpers/test_locator.dart';
 /// Mocks MockCallbackFunction.
 class MockCallbackFunction extends Mock {
   /// Mock Call Function.
-/// 
-/// **params**:
-///   None
-/// 
-/// **returns**:
-///   None
-void call();
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void call();
 }
 
 /// Contains All test for Add Post View Model .
-/// 
+///
 /// more_info_if_required
-/// 
+///
 /// **params**:
 ///   None
-/// 
+///
 /// **returns**:
 ///   None
 void main() {

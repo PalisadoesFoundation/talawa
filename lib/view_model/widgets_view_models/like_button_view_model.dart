@@ -30,10 +30,10 @@ class LikeButtonViewModel extends BaseModel {
 
   /// Getters of _isLiked.
   bool get isLiked => _isLiked;
-  
+
   /// Getters of _likedBy.
   List<LikedBy> get likedBy => _likedBy;
-  
+
   /// Getters of likescount.
   int get likesCount => _likedBy.length;
 

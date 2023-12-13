@@ -22,26 +22,27 @@ import '../../../helpers/test_locator.dart';
 /// Mocks CallBack Function.
 class MockCallbackFunction extends Mock {
   ///Mock Call FUnction.
-/// 
-/// **params**:
-///   None
-/// 
-/// **returns**:
-///   None
-void call();
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void call();
 }
 
 /// SetDateCallback.
 final setDateCallback = MockCallbackFunction();
+
 /// SetTimeCallback.
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates a EventScreen for tests.
-/// 
+///
 /// **params**:
 /// * `themeMode`: ThemeMode
 /// * `theme`: ThemeData of App
-/// 
+///
 /// **returns**:
 /// * `Widget`: Event Screen Widget
 Widget createEventScreen({
@@ -73,10 +74,10 @@ Widget createEventScreen({
     );
 
 /// Tests Create Event Page.
-/// 
+///
 /// **params**:
 ///   None
-/// 
+///
 /// **returns**:
 ///   None
 void main() {

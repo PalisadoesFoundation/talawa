@@ -16,8 +16,8 @@ import 'package:talawa/widgets/talawa_error_snackbar.dart';
 /// * `showTalawaErrorDialog`
 /// * `pop`
 class NavigationService {
-/// Key for Navigator State.
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  /// Key for Navigator State.
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   /// Pushes a Screen.
   ///
@@ -105,16 +105,15 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
     );
   }
 
-
-/// This is used for the quick alert of `duration: 2 seconds` with text message(passed).
-/// 
-/// **params**:
-/// * `message`: Message would be shown on snackbar
-/// * `duration`: Duration of Snackbar
-/// 
-/// **returns**:
-///   None
-void showSnackBar(
+  /// This is used for the quick alert of `duration: 2 seconds` with text message(passed).
+  ///
+  /// **params**:
+  /// * `message`: Message would be shown on snackbar
+  /// * `duration`: Duration of Snackbar
+  ///
+  /// **returns**:
+  ///   None
+  void showSnackBar(
     String message, {
     Duration duration = const Duration(seconds: 2),
   }) {
@@ -128,17 +127,17 @@ void showSnackBar(
   }
 
   /// This is used for the quick error of `duration: 2 seconds`.
-/// 
-/// more_info_if_required
-/// 
-/// **params**:
-/// * `errorMessage`: Error Message shown in snackbar
-/// * `messageType`: Type of Message
-/// * `duration`: Duration of snackbar
-/// 
-/// **returns**:
-///   None
-void showTalawaErrorSnackBar(
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `errorMessage`: Error Message shown in snackbar
+  /// * `messageType`: Type of Message
+  /// * `duration`: Duration of snackbar
+  ///
+  /// **returns**:
+  ///   None
+  void showTalawaErrorSnackBar(
     String errorMessage,
     MessageType messageType,
   ) {
@@ -157,15 +156,15 @@ void showTalawaErrorSnackBar(
     );
   }
 
-/// Shows an Error Dialog Box.
-/// 
-/// **params**:
-/// * `errorMessage`: Message shown in dialog
-/// * `messageType`: Type of Message
-/// 
-/// **returns**:
-///   None
-void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
+  /// Shows an Error Dialog Box.
+  ///
+  /// **params**:
+  /// * `errorMessage`: Message shown in dialog
+  /// * `messageType`: Type of Message
+  ///
+  /// **returns**:
+  ///   None
+  void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
@@ -179,15 +178,14 @@ void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
     );
   }
 
-
-/// This function pops the current state.
-/// 
-/// **params**:
-///   None
-/// 
-/// **returns**:
-///   None
-void pop() {
+  /// This function pops the current state.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void pop() {
     return navigatorKey.currentState!.pop();
   }
 }
