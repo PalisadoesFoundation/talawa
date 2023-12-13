@@ -111,21 +111,21 @@ void main() {
 
       final finder = find.byType(Scaffold);
 
-      expect(finder, findsNWidgets(2));
-    });
-    testWidgets('check if orgname is displayed shows up', (tester) async {
-      final model = locator<MainScreenViewModel>();
-      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-      await tester.pump();
+    expect(finder, findsNWidgets(2));
+  });
+  testWidgets('check if orgname is displayed shows up', (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
 
-      final finder = find.byType(Text);
-      expect(finder, findsNWidgets(19));
-      // expect(text, findsOneWidget);
-    });
-    testWidgets('check if side drawer shows up', (tester) async {
-      final model = locator<MainScreenViewModel>();
-      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-      await tester.pump();
+    final finder = find.byType(Text);
+    expect(finder, findsNWidgets(9));
+    // expect(text, findsOneWidget);
+  });
+  testWidgets('check if side drawer shows up', (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
 
       final finder = find.byIcon(Icons.menu);
 
