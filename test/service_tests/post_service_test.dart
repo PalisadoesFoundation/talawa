@@ -224,7 +224,8 @@ void main() {
 
       // Wait for the stream to emit values
       await Future.delayed(
-          const Duration(seconds: 1),); // Adjust the delay as needed
+        const Duration(seconds: 1),
+      ); // Adjust the delay as needed
 
       // Verify that the correct post was emitted
       expect(updatedPosts.length, 1);
@@ -269,7 +270,8 @@ void main() {
 
       // Wait for the setOrgStreamSubscription logic to execute
       await Future.delayed(
-          const Duration(seconds: 1),); // Adjust the delay as needed
+        const Duration(seconds: 1),
+      ); // Adjust the delay as needed
 
       // Verify that getPosts was called after the organization update
       verify(service.getPosts()).called(1);
