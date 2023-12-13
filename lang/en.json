@@ -165,5 +165,6 @@
   "Logout": "Logout",
   "Settings": "Settings",
   "Dark Theme": "Dark Theme",
-  "No organizations found Please contact your admin": "No organizations found ! Please contact your admin"
+  "No organizations found Please contact your admin": "No organizations found ! Please contact your admin",
+  "JOIN":"JOIN"
 }

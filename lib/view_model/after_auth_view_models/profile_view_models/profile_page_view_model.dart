@@ -91,6 +91,7 @@ class ProfilePageViewModel extends BaseModel {
     // push custom alert dialog with the confirmation message.
     navigationService.pushDialog(
       CustomAlertDialog(
+        key: const Key('customalertdialog'),
         reverse: true,
         dialogSubTitle: 'Are you sure you want to logout?',
         successText: 'Logout',
@@ -246,6 +247,7 @@ class ProfilePageViewModel extends BaseModel {
     return Stack(
       children: [
         IconButton(
+          key: const Key('iconbtn1'),
           onPressed: () {
             print('tapped');
             onTap();
@@ -271,6 +273,7 @@ class ProfilePageViewModel extends BaseModel {
     void Function(void Function()) setter,
   ) {
     return InkWell(
+      key: const Key('dombtn1'),
       onTap: () {
         setter(() {
           donationAmount.text = amount;

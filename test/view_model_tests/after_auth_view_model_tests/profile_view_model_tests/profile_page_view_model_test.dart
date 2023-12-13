@@ -19,8 +19,6 @@ class MockCallbackFunction extends Mock {
   void call();
 }
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
-
 class MockBuildContext extends Mock implements BuildContext {}
 
 void verifyInteraction(dynamic x, {required String mockName}) {
@@ -35,7 +33,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() {
+void main() async {
   testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
@@ -55,6 +53,34 @@ void main() {
       model.initialize();
       expect(model.currentOrg, userConfig.currentOrg);
       expect(model.currentUser, userConfig.currentUser);
+    });
+
+    testWidgets('changeCurrency test', (WidgetTester tester) async {
+      final model = ProfilePageViewModel();
+      model.initialize();
+      void mockSetter(void Function() innerFunction) {
+        innerFunction();
+      }
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return ElevatedButton(
+                key: const Key('btn1'),
+                onPressed: () {
+                  model.changeCurrency(context, mockSetter);
+                },
+                child: const Text('Change Currency'),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsOneWidget);
     });
 
     test("Test showSnackBar and popBottomSheet function", () {
@@ -83,14 +109,21 @@ void main() {
     testWidgets("Test iconButton function", (tester) async {
       final model = ProfilePageViewModel();
       model.initialize();
+      bool setterCalled = false;
+      void mockSetter() {
+        setterCalled = true;
+      }
+
       const Icon testIcon = Icon(Icons.cancel);
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: model.iconButton(testIcon, () {}),
+            body: model.iconButton(testIcon, mockSetter),
           ),
         ),
       );
+      await tester.tap(find.byKey(const Key('iconbtn1')));
+      expect(setterCalled, true);
       final iconButtonFinder = find.byType(IconButton);
       final iconButton = tester.firstWidget(iconButtonFinder);
       expect((iconButton as IconButton).icon, testIcon);
@@ -102,7 +135,11 @@ void main() {
       model.initialize();
       const String amt = "test_amt";
 
-      void mockSetter(void Function() innerFunction) {}
+      bool setterCalled = false;
+      void mockSetter(void Function() innerFunction) {
+        setterCalled = true;
+        innerFunction();
+      }
 
       await tester.pumpWidget(
         MaterialApp(
@@ -115,6 +152,8 @@ void main() {
           ),
         ),
       );
+      await tester.tap(find.byKey(const Key('dombtn1')));
+      expect(setterCalled, true);
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);
       expect(
@@ -126,7 +165,6 @@ void main() {
       );
     });
     testWidgets("Test invite method", (WidgetTester tester) async {
-      // final mockContext = MockBuildContext();
       final model = ProfilePageViewModel();
       model.initialize();
       await tester.pumpWidget(
@@ -157,6 +195,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('inviteButton')));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('iconbtn1')));
 
       expect(find.byType(Dialog), findsOneWidget);
       expect(find.byType(QrImageView), findsOneWidget);
@@ -172,6 +211,47 @@ void main() {
 
       //Ensures that naviagation service was called
       verifyInteraction(mocknav, mockName: "NavigationService");
+    });
+    testWidgets('attachListener test', (WidgetTester tester) async {
+      final model = ProfilePageViewModel();
+      model.initialize();
+      double bottomSheetHeight = 0;
+      final FocusNode focusNode = FocusNode();
+
+      void mockSetter(void Function() innerFunction) {
+        innerFunction();
+      }
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.attachListener(mockSetter),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('btn1')));
+      focusNode.requestFocus();
+      mockSetter(() {
+        bottomSheetHeight = SizeConfig.screenHeight! * 0.8725;
+      });
+      await tester.pump();
+      expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.8725);
+      focusNode.unfocus();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      mockSetter(() {
+        bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
+      });
+      expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.68);
     });
   });
 }
