@@ -493,7 +493,9 @@ void main() {
       final snackBarFinder = find.byType(SnackBar);
       final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
       expect(
-          snackBarWidget.duration, equals(const Duration(milliseconds: 1040)));
+        snackBarWidget.duration,
+        equals(const Duration(milliseconds: 1040)),
+      );
       expect(
         snackBarWidget.backgroundColor,
         const Color.fromRGBO(65, 65, 66, 1),
@@ -519,7 +521,9 @@ void main() {
       final snackBarFinder = find.byType(SnackBar);
       final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
       expect(
-          snackBarWidget.duration, equals(const Duration(milliseconds: 1040)));
+        snackBarWidget.duration,
+        equals(const Duration(milliseconds: 1040)),
+      );
       expect(
         snackBarWidget.backgroundColor,
         const Color.fromRGBO(65, 65, 66, 1),
