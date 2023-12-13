@@ -61,12 +61,14 @@ class PostService {
     // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
-    final result = await _dbFunctions.gqlAuthQuery(query) as Map<String, dynamic>;
+    final result =
+        await _dbFunctions.gqlAuthQuery(query) as Map<String, dynamic>;
 
     //Checking if the dbFunctions return the postJSON, if not return.
     if (result['postsByOrganization'] == null) return;
 
-    final List<dynamic> postsJson = result['postsByOrganization'] as List<dynamic>;
+    final List<dynamic> postsJson =
+        result['postsByOrganization'] as List<dynamic>;
 
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
