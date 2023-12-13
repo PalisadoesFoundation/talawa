@@ -354,7 +354,8 @@ class ExploreEvents extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         model.choseValueFromDropdown(
-                            filters.keys.toList()[index],);
+                          filters.keys.toList()[index],
+                        );
                         setState(() {});
                       },
                       child: Container(
@@ -370,34 +371,40 @@ class ExploreEvents extends StatelessWidget {
                         width: SizeConfig.screenWidth! - 60,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 4,),
+                            horizontal: 20.0,
+                            vertical: 4,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.strictTranslate(
-                                    filters.keys.toList()[index],),
+                                  filters.keys.toList()[index],
+                                ),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge!
                                     .copyWith(
-                                        color: model.chosenValue ==
-                                                filters.keys.toList()[index]
-                                            ? AppTheme.white
-                                            : AppTheme.blackPrimary,),
+                                      color: model.chosenValue ==
+                                              filters.keys.toList()[index]
+                                          ? AppTheme.white
+                                          : AppTheme.blackPrimary,
+                                    ),
                               ),
                               Text(
                                 AppLocalizations.of(context)!.strictTranslate(
-                                    filters.values.toList()[index],),
+                                  filters.values.toList()[index],
+                                ),
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall!
                                     .copyWith(
-                                        color: model.chosenValue ==
-                                                filters.keys.toList()[index]
-                                            ? AppTheme.white
-                                            : AppTheme.blackSecondary,),
+                                      color: model.chosenValue ==
+                                              filters.keys.toList()[index]
+                                          ? AppTheme.white
+                                          : AppTheme.blackSecondary,
+                                    ),
                               ),
                             ],
                           ),

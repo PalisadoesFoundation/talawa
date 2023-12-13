@@ -10,10 +10,27 @@ import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/ad
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+/// Mocks MockCallbackFunction.
 class MockCallbackFunction extends Mock {
-  void call();
+  /// Mock Call Function.
+/// 
+/// **params**:
+///   None
+/// 
+/// **returns**:
+///   None
+void call();
 }
 
+/// Contains All test for Add Post View Model .
+/// 
+/// more_info_if_required
+/// 
+/// **params**:
+///   None
+/// 
+/// **returns**:
+///   None
 void main() {
   setUp(() {
     registerServices();
