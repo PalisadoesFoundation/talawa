@@ -492,7 +492,8 @@ void main() {
       expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
       final snackBarFinder = find.byType(SnackBar);
       final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
-      expect(snackBarWidget.duration, equals(const Duration(seconds: 2)));
+      expect(
+          snackBarWidget.duration, equals(const Duration(milliseconds: 1040)));
       expect(
         snackBarWidget.backgroundColor,
         const Color.fromRGBO(65, 65, 66, 1),
@@ -507,7 +508,6 @@ void main() {
             navigationService.showTalawaErrorSnackBar(
               'Error Message',
               MessageType.error,
-              duration: const Duration(seconds: 3),
             );
           },
         ),
@@ -518,7 +518,8 @@ void main() {
       expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
       final snackBarFinder = find.byType(SnackBar);
       final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
-      expect(snackBarWidget.duration, equals(const Duration(seconds: 3)));
+      expect(
+          snackBarWidget.duration, equals(const Duration(milliseconds: 1040)));
       expect(
         snackBarWidget.backgroundColor,
         const Color.fromRGBO(65, 65, 66, 1),

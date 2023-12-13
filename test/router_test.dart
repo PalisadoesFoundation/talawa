@@ -36,14 +36,10 @@ import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
-import 'package:talawa/views/demo_screens/explore_events_demo.dart';
-import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
-import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 
@@ -360,7 +356,8 @@ void main() {
 
     testWidgets('Test for setUrl route', (WidgetTester tester) async {
       final route = generateRoute(
-          const RouteSettings(name: Routes.setUrlScreen, arguments: ''));
+        const RouteSettings(name: Routes.setUrlScreen, arguments: ''),
+      );
       expect(route, isA<MaterialPageRoute>());
       if (route is MaterialPageRoute) {
         final builder = route.builder;
@@ -383,7 +380,8 @@ void main() {
     testWidgets('Test for demoExploreEventsScreen route',
         (WidgetTester tester) async {
       final route = generateRoute(
-          const RouteSettings(name: Routes.demoExploreEventsScreen));
+        const RouteSettings(name: Routes.demoExploreEventsScreen),
+      );
       expect(route, isA<MaterialPageRoute>());
       if (route is MaterialPageRoute) {
         final builder = route.builder;
