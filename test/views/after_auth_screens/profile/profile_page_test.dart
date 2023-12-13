@@ -57,9 +57,17 @@ void main() async {
         ..registerAdapter(OrgInfoAdapter());
       await Hive.openBox<User>('currentUser');
       await Hive.openBox<OrgInfo>('currentOrg');
-      await Hive.openBox('pluginBox');
+      final pbox = await Hive.openBox('pluginBox');
+      print(pbox.get('plugins'));
       // locator.unregister<ProfilePageViewModel>();
       // locator.registerFactory<ProfilePageViewModel>(() => ProfilePageViewModel());
+    });
+
+    tearDownAll(() {
+      File('test/fixtures/core/currentorg.hive').delete();
+      File('test/fixtures/core/currentorg.lock').delete();
+      File('test/fixtures/core/currentuser.hive').delete();
+      File('test/fixtures/core/currentuser.lock').delete();
     });
     testWidgets('check if profilePage shows up', (tester) async {
       // print();

@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
@@ -142,10 +142,10 @@ class MainScreenViewModel extends BaseModel {
   late BuildContext context;
 
   /// tutorialCoachMark consist of coach used to give tutorial.
-  late TutorialCoachMark tutorialCoachMark;
+  late AppTour appTour = AppTour(model: this);
 
   /// array of target.
-  final List<TargetFocus> targets = [];
+  final List<FocusTarget> targets = [];
 
   /// flag to represent if app is in demoMode.
   bool demoMode = false;
@@ -173,6 +173,7 @@ class MainScreenViewModel extends BaseModel {
     this.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
+    context = ctx;
 
     pluginPrototypeData = {
       "Donation": {
@@ -285,6 +286,7 @@ class MainScreenViewModel extends BaseModel {
       pluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
+      print(pluginPrototypeData);
       pluginList.forEach((plugin) {
         if (pluginPrototypeData.containsKey(
               (plugin as Map<String, dynamic>)["pluginName"] as String,
@@ -361,45 +363,6 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function show tutorial to user.
-  ///
-  /// **params**:
-  /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
-  /// * `onFinish`: Its a function which is required to run desired tasks on finish
-  ///
-  ///
-  /// **returns**:
-  ///   None
-  void showTutorial({
-    required dynamic Function(TargetFocus) onClickTarget,
-    required dynamic Function() onFinish,
-  }) {
-    tutorialCoachMark = TutorialCoachMark(
-      targets: targets,
-      colorShadow: Theme.of(context).colorScheme.secondaryContainer,
-      textSkip: "SKIP",
-      textStyleSkip: TextStyle(
-        color: Theme.of(context).colorScheme.background,
-        fontSize: 20,
-      ),
-      paddingFocus: 10,
-      opacityShadow: 1.0,
-      onFinish: onFinish,
-      onClickTarget: onClickTarget,
-      onSkip: () {
-        if (scaffoldKey.currentState!.isDrawerOpen) {
-          navigationService.pop();
-        }
-        tourSkipped = true;
-        onTabTapped(0);
-        return true;
-      },
-      onClickOverlay: (target) {
-        onClickTarget(target);
-      },
-    )..show(context: context);
-  }
-
   Widget appTourDialog(BuildContext ctx) {
     return CustomAlertDialog(
       dialogTitle: 'App Tour',
@@ -407,7 +370,6 @@ class MainScreenViewModel extends BaseModel {
       successText: 'Start',
       secondaryButtonText: 'Skip',
       success: () {
-        context = ctx;
         navigationService.pop();
         print(MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen);
         if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
@@ -435,40 +397,50 @@ class MainScreenViewModel extends BaseModel {
   void tourHomeTargets() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keySHOrgName,
-        'keySHOrgName',
-        'Current selected Organization Name',
+      FocusTarget(
+        key: keySHOrgName,
+        keyName: 'keySHOrgName',
+        description: 'Current selected Organization Name',
+        appTour: appTour,
       ),
     );
     targets.add(
-      focusTarget(
-        keySHMenuIcon,
-        'keySHMenuIcon',
-        'Click this button to see options related to switching, joining and leaving organization(s)',
+      FocusTarget(
+        key: keySHMenuIcon,
+        keyName: 'keySHMenuIcon',
+        description:
+            'Click this button to see options related to switching, joining and leaving organization(s)',
         isCircle: true,
         next: () => scaffoldKey.currentState!.openDrawer(),
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerCurOrg,
-        'keyDrawerCurOrg',
-        "Current selected Organization's Name appears here",
+      FocusTarget(
+        key: keyDrawerCurOrg,
+        keyName: 'keyDrawerCurOrg',
+        description: "Current selected Organization's Name appears here",
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerSwitchableOrg,
-        'keyDrawerSwitchableOrg',
-        "All your joined organizations appear over here you can click on them to change the current organization",
+      FocusTarget(
+        key: keyDrawerSwitchableOrg,
+        keyName: 'keyDrawerSwitchableOrg',
+        description:
+            "All your joined organizations appear over here you can click on them to change the current organization",
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerJoinOrg,
-        'keyDrawerJoinOrg',
-        "From this button you can join other listed organizations",
+      FocusTarget(
+        key: keyDrawerJoinOrg,
+        keyName: 'keyDrawerJoinOrg',
+        description: "From this button you can join other listed organizations",
+        appTour: appTour,
         align: ContentAlign.top,
         next: () {
           if (!userConfig.loggedIn) {
@@ -477,51 +449,65 @@ class MainScreenViewModel extends BaseModel {
         },
       ),
     );
+
     if (userConfig.loggedIn) {
       targets.add(
-        focusTarget(
-          keyDrawerLeaveCurrentOrg,
-          'keyDrawerLeaveCurrentOrg',
-          "To leave the current organization you can use this option",
+        FocusTarget(
+          key: keyDrawerLeaveCurrentOrg,
+          keyName: 'keyDrawerLeaveCurrentOrg',
+          description:
+              "To leave the current organization you can use this option",
           align: ContentAlign.top,
           next: () => navigationService.pop(),
+          appTour: appTour,
         ),
       );
     }
+
     targets.add(
-      focusTarget(
-        keyBNHome,
-        'keyBNHome',
-        "This is the home tab here you can see the latest post from other members of the current organization",
+      FocusTarget(
+        key: keyBNHome,
+        keyName: 'keyBNHome',
+        description:
+            "This is the home tab here you can see the latest post from other members of the current organization",
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySHPinnedPost,
-        'keySHPinnedPost',
-        "This section displays all the important post set by the organization admin(s)",
+      FocusTarget(
+        key: keySHPinnedPost,
+        keyName: 'keySHPinnedPost',
+        description:
+            "This section displays all the important post set by the organization admin(s)",
         align: ContentAlign.bottom,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySHPost,
-        'keySHPost',
-        "This is the post card you can like and comment on the post from the options available",
+      FocusTarget(
+        key: keySHPost,
+        keyName: 'keySHPost',
+        description:
+            "This is the post card you can like and comment on the post from the options available",
         align: ContentAlign.bottom,
+        appTour: appTour,
       ),
     );
-    showTutorial(
-      onClickTarget: showHome,
-      onFinish: () {
-        onTabTapped(currentPageIndex + 1);
-        if (!tourComplete && !tourSkipped) {
-          tourEventTargets();
-        }
-      },
-    );
+    if (!testMode) {
+      appTour.showTutorial(
+        onClickTarget: showHome,
+        onFinish: () {
+          onTabTapped(currentPageIndex + 1);
+          if (!tourComplete && !tourSkipped) {
+            tourEventTargets();
+          }
+        },
+      );
+    }
   }
 
   /// This function shows the Home screen.
@@ -551,53 +537,66 @@ class MainScreenViewModel extends BaseModel {
   void tourEventTargets() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNEvents,
-        'keyBNEvents',
-        'This is the Events tab here you can see all event related information of the current selected organization',
+      FocusTarget(
+        key: keyBNEvents,
+        keyName: 'keyBNEvents',
+        description:
+            'This is the Events tab here you can see all event related information of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySECategoryMenu,
-        'keySECategoryMenu',
-        'Filter Events based on categories',
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySEDateFilter,
-        'keySEDateFilter',
-        'Filter Events between selected dates',
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySECard,
-        'keySECard',
-        'Description of event to see more details click on the card',
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySEAdd,
-        'keySEAdd',
-        'You can create a new event from here',
-        align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
 
-    showTutorial(
-      onFinish: () {
-        onTabTapped(currentPageIndex + 1);
-        if (!tourComplete && !tourSkipped) {
-          tourProfile();
-        }
-      },
-      onClickTarget: (TargetFocus a) {},
+    targets.add(
+      FocusTarget(
+        key: keySECategoryMenu,
+        keyName: 'keySECategoryMenu',
+        description: 'Filter Events based on categories',
+        appTour: appTour,
+      ),
     );
+
+    targets.add(
+      FocusTarget(
+        key: keySEDateFilter,
+        keyName: 'keySEDateFilter',
+        description: 'Filter Events between selected dates',
+        appTour: appTour,
+      ),
+    );
+
+    targets.add(
+      FocusTarget(
+        key: keySECard,
+        keyName: 'keySECard',
+        description:
+            'Description of event to see more details click on the card',
+        appTour: appTour,
+      ),
+    );
+
+    targets.add(
+      FocusTarget(
+        key: keySEAdd,
+        keyName: 'keySEAdd',
+        description: 'You can create a new event from here',
+        align: ContentAlign.top,
+        appTour: appTour,
+      ),
+    );
+
+    if (!testMode) {
+      appTour.showTutorial(
+        onFinish: () {
+          onTabTapped(currentPageIndex + 1);
+          if (!tourComplete && !tourSkipped) {
+            tourProfile();
+          }
+        },
+        onClickTarget: (TargetFocus a) {},
+      );
+    }
   }
 
   /// This function show the tutorial to add Post in the organization.
@@ -610,24 +609,28 @@ class MainScreenViewModel extends BaseModel {
   void tourAddPost() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNPost,
-        'keyBNPost',
-        'This is the Create post tab here you can add post to the current selected organization',
+      FocusTarget(
+        key: keyBNPost,
+        keyName: 'keyBNPost',
+        description:
+            'This is the Create post tab here you can add post to the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
-    showTutorial(
-      onFinish: () {
-        onTabTapped(currentPageIndex + 1);
-        if (!tourComplete && !tourSkipped) {
-          // tourChat();
-          tourProfile();
-        }
-      },
-      onClickTarget: (TargetFocus a) {},
-    );
+    if (!testMode) {
+      appTour.showTutorial(
+        onFinish: () {
+          onTabTapped(currentPageIndex + 1);
+          if (!tourComplete && !tourSkipped) {
+            // tourChat();
+            tourProfile();
+          }
+        },
+        onClickTarget: (TargetFocus a) {},
+      );
+    }
   }
 
   /// This function show the tour of chats.
@@ -640,23 +643,27 @@ class MainScreenViewModel extends BaseModel {
   void tourChat() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNChat,
-        'keyBNChat',
-        'This is the Chat tab here you can see all your messages of the current selected organization',
+      FocusTarget(
+        key: keyBNChat,
+        keyName: 'keyBNChat',
+        description:
+            'This is the Chat tab here you can see all your messages of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
-    showTutorial(
-      onFinish: () {
-        onTabTapped(currentPageIndex + 1);
-        if (!tourComplete && !tourSkipped) {
-          tourProfile();
-        }
-      },
-      onClickTarget: (TargetFocus a) {},
-    );
+    if (!testMode) {
+      appTour.showTutorial(
+        onFinish: () {
+          onTabTapped(currentPageIndex + 1);
+          if (!tourComplete && !tourSkipped) {
+            tourProfile();
+          }
+        },
+        onClickTarget: (TargetFocus a) {},
+      );
+    }
   }
 
   /// This function show the tutorial for the profile page.
@@ -669,55 +676,69 @@ class MainScreenViewModel extends BaseModel {
   void tourProfile() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNProfile,
-        'keyBNProfile',
-        'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
+      FocusTarget(
+        key: keyBNProfile,
+        keyName: 'keyBNProfile',
+        description:
+            'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
         isCircle: true,
         align: ContentAlign.top,
         nextCrossAlign: CrossAxisAlignment.start,
+        appTour: appTour,
       ),
     );
-    // print(targets);
+
     targets.add(
-      focusTarget(
-        keySPAppSetting,
-        'keySPAppSetting',
-        'You can edit application settings like language, theme etc from here',
+      FocusTarget(
+        key: keySPAppSetting,
+        keyName: 'keySPAppSetting',
+        description:
+            'You can edit application settings like language, theme etc from here',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySPHelp,
-        'keySPHelp',
-        'For any help we are always there. You can reach us from here',
+      FocusTarget(
+        key: keySPHelp,
+        keyName: 'keySPHelp',
+        description:
+            'For any help we are always there. You can reach us from here',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySPDonateUs,
-        'keySPDonateUs',
-        'To help your organization grow you can support them financially from here',
+      FocusTarget(
+        key: keySPDonateUs,
+        keyName: 'keySPDonateUs',
+        description:
+            'To help your organization grow you can support them financially from here',
+        appTour: appTour,
       ),
     );
-    // targets.add(
-    //   focusTarget(
-    //     keySPInvite,
-    //     'keySPInvite',
-    //     'Wanna invite colleague, invite them from here',
-    //   ),
-    // );
+
+// Uncomment the section below if you want to add the keySPInvite target
+// targets.add(
+//   FocusTarget(
+//     key: keySPInvite,
+//     keyName: 'keySPInvite',
+//     description: 'Wanna invite colleague, invite them from here',
+//   ),
+// );
+
     targets.add(
-      focusTarget(
-        keySPPalisadoes,
-        'keySPPalisadoes',
-        'You are all set to go lets get you in',
+      FocusTarget(
+        key: keySPPalisadoes,
+        keyName: 'keySPPalisadoes',
+        description: 'You are all set to go lets get you in',
         isEnd: true,
+        appTour: appTour,
       ),
     );
+
     if (!testMode) {
-      print('ok');
-      showTutorial(
+      appTour.showTutorial(
         onFinish: () {
           if (!tourComplete && !tourSkipped) {
             tourComplete = true;
@@ -727,97 +748,5 @@ class MainScreenViewModel extends BaseModel {
         onClickTarget: (TargetFocus a) {},
       );
     }
-  }
-
-  /// This returns a widget for a step in a tutorial.
-  ///
-  /// **params**:
-  /// * `key`: key of type GlobalKey.
-  /// * `keyName`: key where the widget shows.
-  /// * `description`: description of the step.
-  /// * `isCircle`: bool to specify if circle
-  /// * `align`: align of type ContentAlign to align button.
-  /// * `crossAlign`: Cross align axes
-  /// * `skipAlignment`: to give alignment of skip option
-  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
-  /// * `nextCrossAlign`: nextCrossAlign to give alignment of next option
-  /// * `isEnd`: true if last step of the tour.
-  /// * `tutorialCoachMark`: instance of tutorialCoachMark to which this focusTarget is linked.
-  ///
-  ///
-  /// **returns**:
-  /// * `TargetFocus`: This return widget foa a step in a tut
-  TargetFocus focusTarget(
-    GlobalKey key,
-    String keyName,
-    String description, {
-    bool isCircle = false,
-    ContentAlign align = ContentAlign.bottom,
-    CrossAxisAlignment crossAlign = CrossAxisAlignment.start,
-    Alignment skipAlignment = Alignment.topRight,
-    Function? next,
-    CrossAxisAlignment nextCrossAlign = CrossAxisAlignment.end,
-    bool isEnd = false,
-  }) {
-    return TargetFocus(
-      enableOverlayTab: true,
-      color: Colors.transparent,
-      identify: keyName,
-      keyTarget: key,
-      alignSkip: skipAlignment,
-      shape: isCircle ? ShapeLightFocus.Circle : ShapeLightFocus.RRect,
-      contents: [
-        TargetContent(
-          align: align,
-          builder: (context, controller) {
-            return Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: crossAlign,
-                children: <Widget>[
-                  Text(
-                    description,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        TargetContent(
-          align: ContentAlign.custom,
-          customPosition: CustomTargetContentPosition(
-            bottom: SizeConfig.screenHeight! * 0.025,
-          ),
-          builder: (context, controller) {
-            return GestureDetector(
-              onTap: () {
-                if (next != null) {
-                  // ignore: avoid_dynamic_calls
-                  next();
-                }
-                tutorialCoachMark.next();
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: nextCrossAlign,
-                children: <Widget>[
-                  Text(
-                    isEnd ? 'COMPLETE' : 'NEXT',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
-    );
   }
 }

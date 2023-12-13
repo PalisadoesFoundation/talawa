@@ -1,13 +1,17 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
@@ -15,6 +19,7 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
+import 'package:talawa/widgets/theme_switch.dart';
 
 // import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -41,6 +46,16 @@ Widget createAppTourDialog({bool demoMode = true}) => BaseView<AppLanguage>(
               testMode: true,
             ),
             builder: (context, model2, child) {
+              model2.context = context;
+              model2.pluginPrototypeData.putIfAbsent(
+                "Plugin1",
+                () => {
+                  "pluginName": "Plugin1",
+                  "pluginInstallStatus": true,
+                  'icon': Icons.abc,
+                  'class': const ChangeThemeTile(),
+                },
+              );
               model2.fetchAndAddPlugins(context);
               return Scaffold(
                 drawer: CustomDrawer(homeModel: model2),
@@ -80,17 +95,27 @@ void verifyInteraction(dynamic x, {required String mockName}) {
 }
 
 void main() async {
-  // final Directory dir = Directory('test/fixtures/core');
+  final Directory dir = Directory('test/fixtures/core');
 
-  // Hive
-  //   ..init(dir.path)
+  Hive.init(dir.path);
   //   ..registerAdapter(UserAdapter())
   //   ..registerAdapter(OrgInfoAdapter());
 
   // final userBox = await Hive.openBox<User>('currentUser');
   // final urlBox = await Hive.openBox('url');
   // final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
-  // final pluginBox = await Hive.openBox('pluginBox');
+  final pluginBox = await Hive.openBox('pluginBox');
+
+  final List<Map<String, dynamic>> samplePluginData = [
+    {
+      "pluginName": "Plugin1",
+      "pluginInstallStatus": true,
+    },
+    // Add more sample plugin data as needed
+  ];
+
+  // Store the sample data in the 'plugins' key of 'pluginBox'
+  pluginBox.put('plugins', samplePluginData);
 
   // No need to change
   setUpAll(() {
@@ -98,11 +123,18 @@ void main() async {
     locator.registerFactory(() => MainScreenViewModel());
     locator.registerFactory(() => AppTheme());
     locator.registerSingleton(SizeConfig());
+    locator.registerFactory(() => Queries());
     locator<SizeConfig>().test();
   });
 
   tearDownAll(() {
     locator.unregister<SizeConfig>();
+    File('test/fixtures/core/currentorg.hive').delete();
+    File('test/fixtures/core/currentorg.lock').delete();
+    File('test/fixtures/core/currentuser.hive').delete();
+    File('test/fixtures/core/currentuser.lock').delete();
+    File('test/fixtures/core/pluginbox.hive').delete();
+    File('test/fixtures/core/pluginbox.lock').delete();
   });
 
   group("MainScreen ViewModel Tests - ", () {
@@ -215,6 +247,9 @@ void main() async {
       await tester.pumpWidget(createAppTourDialog());
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
+      final mockUserConfig = getAndRegisterUserConfig();
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
       MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
 
       expect(find.byType(CustomAlertDialog), findsOneWidget);
@@ -226,6 +261,229 @@ void main() async {
       await tester.tap(startBtn);
 
       await tester.pumpAndSettle(const Duration(seconds: 2));
+    });
+
+    testWidgets('Test for fetchAndAddPlugins when not in demoMode',
+        (tester) async {
+      final app = createAppTourDialog(demoMode: false);
+
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+    });
+
+    testWidgets('Test for tourhomeTargets.', (tester) async {
+      final model = getAndRegisterUserConfig();
+      const val1 = true;
+      when(model.loggedIn).thenAnswer((_) => val1);
+
+      // locator.registerFactory(() => CustomDrawerViewModel());
+
+      late final MainScreenViewModel mainScreenModel;
+      final app = MaterialApp(
+        builder: (context, child) => BaseView<MainScreenViewModel>(
+          builder: (context, model2, child) {
+            model2.context = context;
+            model2.testMode = true;
+            mainScreenModel = model2;
+            model2.currentPageIndex = 0;
+            return Scaffold(
+              key: MainScreenViewModel.scaffoldKey,
+              drawer: CustomDrawer(homeModel: mainScreenModel),
+              body: TextButton(
+                onPressed: () {
+                  model2.tourHomeTargets();
+                },
+                child: const Text('tour home'),
+              ),
+            );
+          },
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.textContaining('tour home'), findsOneWidget);
+
+      await tester.tap(find.textContaining('tour home'));
+
+      // ignore: avoid_dynamic_calls
+      mainScreenModel.targets[1].next!();
+
+      // ignore: avoid_dynamic_calls
+      mainScreenModel.targets[5].next!();
+
+      verify(navigationService.pop());
+      // locator.unregister<UserConfig>();
+    });
+
+    // testWidgets('Test for tourhomeTargets.', (tester) async {
+    //   final model = getAndRegisterUserConfig();
+    //   bool val = false;
+    //   when(model.loggedIn).thenAnswer((_) => val);
+
+    //   // locator.registerFactory(() => CustomDrawerViewModel());
+
+    //   late final MainScreenViewModel mainScreenModel;
+    //   final app =BaseView<MainScreenViewModel>(
+    //         builder: (context, model2, child) {
+    //           model2.context = context;
+    //           model2.testMode = true;
+    //           mainScreenModel = model2;
+    //           model2.currentPageIndex = 0;
+    //           return MaterialApp(
+    //             builder:(context, child) => Scaffold(
+    //             body: Scaffold(
+    //               key: MainScreenViewModel.scaffoldKey,
+    //               drawer: CustomDrawer(homeModel: mainScreenModel),
+    //               body: TextButton(onPressed: () {
+    //             model2.tourHomeTargets();
+    //           }, child: const Text('tour home')),
+    //             ),
+    //           )
+    //           );
+    //         },
+
+    //   );
+
+    // await tester.pumpWidget(app);
+
+    // await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    // expect(find.textContaining('tour home'), findsOneWidget);
+
+    // await tester.tap(find.textContaining('tour home'));
+
+    // mainScreenModel.targets[4].next!();
+
+    // verify(navigationService.pop());
+    // });
+
+    testWidgets('Test for tourEventTargets.', (tester) async {
+      final model = getAndRegisterUserConfig();
+      when(model.loggedIn).thenAnswer((_) => true);
+
+      final app = BaseView<MainScreenViewModel>(
+        builder: (context, model2, child) {
+          model2.context = context;
+          model2.testMode = true;
+          model2.currentPageIndex = 1;
+          return MaterialApp(
+            builder: (context, child) => Scaffold(
+              body: TextButton(
+                onPressed: () {
+                  model2.tourEventTargets();
+                },
+                child: const Text('tour event targets'),
+              ),
+            ),
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.textContaining('tour event targets'), findsOneWidget);
+
+      await tester.tap(find.textContaining('tour event targets'));
+    });
+
+    testWidgets('Test for tourChats.', (tester) async {
+      final model = getAndRegisterUserConfig();
+      when(model.loggedIn).thenAnswer((_) => true);
+
+      final app = BaseView<MainScreenViewModel>(
+        builder: (context, model2, child) {
+          model2.context = context;
+          model2.testMode = true;
+          model2.currentPageIndex = 1;
+          return MaterialApp(
+            builder: (context, child) => Scaffold(
+              body: TextButton(
+                onPressed: () {
+                  model2.tourChat();
+                },
+                child: const Text('tour chat targets'),
+              ),
+            ),
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.textContaining('tour chat targets'), findsOneWidget);
+
+      await tester.tap(find.textContaining('tour chat targets'));
+    });
+
+    testWidgets('Test for addPost.', (tester) async {
+      final model = getAndRegisterUserConfig();
+      when(model.loggedIn).thenAnswer((_) => true);
+
+      final app = MaterialApp(
+        builder: (context, child) => BaseView<MainScreenViewModel>(
+          builder: (context, model2, child) {
+            model2.context = context;
+            model2.testMode = true;
+            model2.currentPageIndex = 1;
+            return Scaffold(
+              body: TextButton(
+                onPressed: () {
+                  model2.tourAddPost();
+                },
+                child: const Text('tour add post'),
+              ),
+            );
+          },
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.textContaining('tour add post'), findsOneWidget);
+
+      await tester.tap(find.textContaining('tour add post'));
+    });
+
+    testWidgets('Test for profile tour.', (tester) async {
+      final model = getAndRegisterUserConfig();
+      when(model.loggedIn).thenAnswer((_) => true);
+
+      final app = BaseView<MainScreenViewModel>(
+        builder: (context, model2, child) {
+          model2.context = context;
+          model2.testMode = true;
+          model2.currentPageIndex = 1;
+          return MaterialApp(
+            builder: (context, child) => Scaffold(
+              body: TextButton(
+                onPressed: () {
+                  model2.tourProfile();
+                },
+                child: const Text('tour profile'),
+              ),
+            ),
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.textContaining('tour profile'), findsOneWidget);
+
+      await tester.tap(find.textContaining('tour profile'));
+
+      // print(mockedModel.targets[5].);
     });
 
     // testWidgets('Test for focustarget widget.', (tester) async {
