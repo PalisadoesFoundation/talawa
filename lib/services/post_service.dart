@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:talawa/locator.dart';
@@ -59,8 +56,11 @@ class PostService {
     });
   }
 
-  /// This function used to get all posts of an organization.
-  /// The function reference the organization Id from `_currentOrg`.
+  /// Retrieves all posts of the organization.
+  ///
+  /// This method queries the organization ID from `_currentOrg` and fetches
+  /// posts using a GraphQL query. The retrieved posts are added to the internal
+  /// post stream
   Future<void> getPosts() async {
     // variables
     final String currentOrgID = _currentOrg.id!;
@@ -68,11 +68,13 @@ class PostService {
     final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
+    // ignore:avoid_dynamic_calls
     if (result == null || result.data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
 
+    // ignore:avoid_dynamic_calls
     final List postsJson = result.data!['postsByOrganization'] as List;
 
     postsJson.forEach((postJson) {
