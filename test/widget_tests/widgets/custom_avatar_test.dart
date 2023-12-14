@@ -130,11 +130,12 @@ void main() {
     final circleAvatarFinder = find.byType(CircleAvatar);
     final circleAvatarWidget = tester.widget<CircleAvatar>(circleAvatarFinder);
     expect(
-        circleAvatarWidget.backgroundColor,
-        Theme.of(tester.element(circleAvatarFinder))
-            .iconTheme
-            .color!
-            .withOpacity(0.2),);
+      circleAvatarWidget.backgroundColor,
+      Theme.of(tester.element(circleAvatarFinder))
+          .iconTheme
+          .color!
+          .withOpacity(0.2),
+    );
   });
 
   testWidgets(
@@ -232,7 +233,8 @@ void main() {
             widget.imageBuilder!(
               widgetTester.binding.rootElement!,
               const NetworkImage(
-                  'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+              ),
             ) is CircleAvatar,
       ),
       findsOneWidget,
@@ -264,16 +266,19 @@ void main() {
             widget.imageBuilder!(
               widgetTester.binding.rootElement!,
               const NetworkImage(
-                  'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+              ),
             ) is CircleAvatar &&
             (widget.imageBuilder!(
                   widgetTester.binding.rootElement!,
                   const NetworkImage(
-                      'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                    'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+                  ),
                 ) as CircleAvatar)
                     .backgroundImage ==
                 const NetworkImage(
-                    'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                  'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+                ),
       ),
       findsOneWidget,
     );
@@ -304,12 +309,14 @@ void main() {
             widget.imageBuilder!(
               widgetTester.binding.rootElement!,
               const NetworkImage(
-                  'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+              ),
             ) is CircleAvatar &&
             (widget.imageBuilder!(
                   widgetTester.binding.rootElement!,
                   const NetworkImage(
-                      'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',),
+                    'https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw',
+                  ),
                 ) as CircleAvatar)
                     .backgroundColor ==
                 Theme.of(widgetTester.binding.rootElement!)
