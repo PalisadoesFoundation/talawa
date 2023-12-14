@@ -28,12 +28,12 @@ class PostService {
   }
   // Stream for entire posts
   final StreamController<List<Post>> _postStreamController =
-  StreamController<List<Post>>();
+      StreamController<List<Post>>();
   late Stream<List<Post>> _postStream;
 
   //Stream for individual post update
   final StreamController<Post> _updatedPostStreamController =
-  StreamController<Post>();
+      StreamController<Post>();
   late Stream<Post> _updatedPostStream;
 
   final _userConfig = locator<UserConfig>();
@@ -126,7 +126,7 @@ class PostService {
     _posts.forEach((post) {
       if (post.sId == postID) {
         post.likedBy!.removeWhere(
-              (likeUser) => likeUser.sId == _userConfig.currentUser.id,
+          (likeUser) => likeUser.sId == _userConfig.currentUser.id,
         );
         _updatedPostStreamController.add(post);
       }
