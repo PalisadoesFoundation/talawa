@@ -40,23 +40,14 @@ class CommentService {
   /// * [postId] - Post id for which comments need to be fetched.
   Future getCommentsForPost(String postId) async {
     final String getCommmentQuery = PostQueries().getPostById(postId);
-    final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
-    final List comments = result.data["post"]["comments"] as List;
 
-    try {
-      if (result.data != null) {
-        if (comments.isNotEmpty) {
-          return comments;
-        } else {
-          return [];
-        }
-      } else {
-        return [];
-      }
-    } catch (e) {
-      print(e);
+    final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
+
+    if (result == null || result.data == null || result.data["post"] == null) {
       return [];
     }
 
+    final List comments = result.data["post"]["comments"] as List;
+    return comments;
   }
 }

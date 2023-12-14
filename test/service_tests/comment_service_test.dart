@@ -8,7 +8,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
-
+import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
@@ -48,63 +48,63 @@ void main() {
     });
     test('test for getCommentsForPost', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
+          PostQueries().getPostById('Ayush s postid');
+
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommmentQuery)),
           data: {
-            'commentsByPost': [
-              {
-                'creator': {
-                  '_id': '123',
-                  'firstName': 'John',
-                  'lastName': 'Doe',
-                  'email': 'test@test.com',
+            'post': {
+              'comments': [
+                {
+                  'creator': {
+                    '_id': '123',
+                    'firstName': 'John',
+                    'lastName': 'Doe',
+                    'email': 'test@test.com',
+                  },
+                  'createdAt': '123456',
+                  'text': 'test text',
+                  'post': 'test post',
+                  'likeCount': 'test count',
                 },
-                'createdAt': '123456',
-                'text': 'test text',
-                'post': 'test post',
-                'likeCount': 'test count',
-              },
-              {
-                'creator': {
-                  '_id': '123',
-                  'firstName': 'Ayush',
-                  'lastName': 'Doe',
-                  'email': 'test@test.com',
+                {
+                  'creator': {
+                    '_id': '123',
+                    'firstName': 'Ayush',
+                    'lastName': 'Doe',
+                    'email': 'test@test.com',
+                  },
+                  'createdAt': '123456',
+                  'text': 'test text',
+                  'post': 'test post',
+                  'likeCount': 'test count',
                 },
-                'createdAt': '123456',
-                'text': 'test text',
-                'post': 'test post',
-                'likeCount': 'test count',
-              },
-              {
-                'creator': {
-                  '_id': '123',
-                  'firstName': 'john',
-                  'lastName': 'chauhdary',
-                  'email': 'test@test.com',
-                },
-                'createdAt': '123456',
-                'text': 'test text',
-                'post': 'test post',
-                'likeCount': 'test count',
-              }
-            ],
+                {
+                  'creator': {
+                    '_id': '123',
+                    'firstName': 'john',
+                    'lastName': 'chauhdary',
+                    'email': 'test@test.com',
+                  },
+                  'createdAt': '123456',
+                  'text': 'test text',
+                  'post': 'test post',
+                  'likeCount': 'test count',
+                }
+              ],
+            },
           },
           source: QueryResultSource.network,
         ),
       );
 
       final service = CommentService();
-
       final result = await service.getCommentsForPost('Ayush s postid');
 
-      print(result);
       if (result.toString().contains('[{creator: '
           '{'
           '_id: 123, '
@@ -141,22 +141,76 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush');
+          PostQueries().getPostById('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommmentQuery)),
-          data: null,
+          data: {
+            'post': {
+              'comments': [],
+            },
+          },
           source: QueryResultSource.network,
         ),
       );
 
       final service = CommentService();
+      final result = await service.getCommentsForPost('Ayush postid');
 
-      final result = await service.getCommentsForPost('Ayush');
+      if (result.toString().contains('[{creator: '
+          '{'
+          '_id: 123, '
+          'firstName: John, '
+          'lastName: Doe, '
+          'email: test@test.com},'
+          ' createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: '
+          '{_id: 123, '
+          'firstName: Ayush, '
+          'lastName: Doe, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: {_id: 123,'
+          ' firstName: john, '
+          'lastName: chauhdary, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}]')) {
+        fail('the result is not maatching');
+      }
+      expect(result, isEmpty);
+    });
 
-      print(result);
+    test('test for zero comments on post', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final String getCommmentQuery =
+          PostQueries().getPostById('Ayush s postid');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(getCommmentQuery)),
+          data: {
+            'post': {'comments': []},
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = CommentService();
+      final result = await service.getCommentsForPost('Ayush postid');
+
       if (result.toString().contains('[{creator: '
           '{'
           '_id: 123, '
