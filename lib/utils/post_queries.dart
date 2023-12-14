@@ -40,6 +40,13 @@ class PostQueries {
 """;
   }
 
+   /// Getting Post by Post Id.
+  ///
+  /// **params**:
+  /// * `postId`: The post id
+  ///
+  /// **returns**:
+  /// * `String`: The query related to gettingPostsbyId
   String getPostById(String postId) {
     return """
       query {
