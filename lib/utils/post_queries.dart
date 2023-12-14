@@ -40,7 +40,7 @@ class PostQueries {
 """;
   }
 
-   /// Getting Post by Post Id.
+  /// Getting Post by Post Id.
   ///
   /// **params**:
   /// * `postId`: The post id
