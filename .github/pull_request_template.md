@@ -21,7 +21,7 @@ Thanks for submitting a pull request! Please provide enough information so that 
 
 **Issue Number:**
 
-Fixes #<!--Add related issue number here.-->
+Fixes #<!--Add related issue number here and delete this comment text block.-->
 
 **Did you add tests for your changes?**
 

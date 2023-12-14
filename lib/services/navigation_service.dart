@@ -120,13 +120,15 @@ class NavigationService {
 
   void showTalawaErrorSnackBar(
     String errorMessage,
-    MessageType messageType, {
-    Duration duration = const Duration(seconds: 2),
-  }) {
+    MessageType messageType,
+  ) {
+    final Duration duration = Duration(milliseconds: errorMessage.length * 80);
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         padding: EdgeInsets.zero,
+        duration: duration,
         content: TalawaErrorSnackBar(
+          duration: duration,
           messageType: messageType,
           errorMessage: errorMessage,
         ),
