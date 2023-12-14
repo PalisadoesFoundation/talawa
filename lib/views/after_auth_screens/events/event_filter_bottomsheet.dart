@@ -27,93 +27,95 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: StatefulBuilder(
         builder: (_, StateSetter setState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.strictTranslate("Filters"),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ],
-              ),
-              ...List.generate(filters.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      model.choseValueFromDropdown(
-                        filters.keys.toList()[index],
-                      );
-                      setState(() {});
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: model.chosenValue == filters.keys.toList()[index]
-                            ? Theme.of(context).colorScheme.secondary
-                            : AppTheme.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                      ),
-                      height: 48,
-                      width: SizeConfig.screenWidth! - 60,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 4,
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.strictTranslate("Filters"),
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                ...List.generate(filters.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        model.choseValueFromDropdown(
+                          filters.keys.toList()[index],
+                        );
+                        setState(() {});
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: model.chosenValue == filters.keys.toList()[index]
+                              ? Theme.of(context).colorScheme.secondary
+                              : AppTheme.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8)),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.strictTranslate(
-                                filters.keys.toList()[index],
+                        // height: 48,
+                        width: SizeConfig.screenWidth! - 60,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 4,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.strictTranslate(
+                                  filters.keys.toList()[index],
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                      color: model.chosenValue ==
+                                              filters.keys.toList()[index]
+                                          ? AppTheme.white
+                                          : AppTheme.blackPrimary,
+                                    ),
                               ),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(
-                                    color: model.chosenValue ==
-                                            filters.keys.toList()[index]
-                                        ? AppTheme.white
-                                        : AppTheme.blackPrimary,
-                                  ),
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.strictTranslate(
-                                filters.values.toList()[index],
+                              Text(
+                                AppLocalizations.of(context)!.strictTranslate(
+                                  filters.values.toList()[index],
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(
+                                      color: model.chosenValue ==
+                                              filters.keys.toList()[index]
+                                          ? AppTheme.white
+                                          : AppTheme.blackSecondary,
+                                    ),
                               ),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall!
-                                  .copyWith(
-                                    color: model.chosenValue ==
-                                            filters.keys.toList()[index]
-                                        ? AppTheme.white
-                                        : AppTheme.blackSecondary,
-                                  ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              }),
-            ],
+                  );
+                }),
+              ],
+            ),
           );
         },
       ),
