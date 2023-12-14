@@ -9,6 +9,7 @@ import 'package:talawa/widgets/custom_avatar.dart';
 /// **params**:
 ///   None
 ///
+///
 /// **returns**:
 ///   None
 void main() {
@@ -68,8 +69,7 @@ void main() {
     });
   });
 
-  testWidgets(
-      'CircularAvatar with error icon is shown when image fails to load',
+  testWidgets('CircleAvatar with error icon is shown when image fails to load',
       (widgetTester) async {
     await widgetTester.pumpWidget(
       const MaterialApp(
