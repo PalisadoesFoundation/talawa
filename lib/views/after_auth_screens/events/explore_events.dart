@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/apptheme.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/event_filter_bottomsheet.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
@@ -91,24 +91,6 @@ class ExploreEvents extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Expanded(
-                                  //   flex: 3,
-                                  //   child: Card(
-                                  //     color: Theme.of(context)
-                                  //         .colorScheme
-                                  //         .onPrimary,
-                                  //     elevation: 2,
-                                  //     child: Container(
-                                  //       padding: const EdgeInsets.symmetric(
-                                  //         horizontal: 20,
-                                  //       ),
-                                  //       //width: SizeConfig.screenWidth! * 0.45,
-                                  //       child: DropdownButtonHideUnderline(
-                                  //         child: dropDownList(model, context),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                   Expanded(
                                     flex: 2,
                                     child: GestureDetector(
@@ -119,15 +101,6 @@ class ExploreEvents extends StatelessWidget {
                                             return dropDownList(model, context);
                                           },
                                         );
-                                        // showDialog(
-                                        //   // on tap open the Explore Event Dialog.
-                                        //   context: context,
-                                        //   builder: (_) {
-                                        //     return const ExploreEventDialog(
-                                        //       key: Key('ExploreEvents'),
-                                        //     );
-                                        //   },
-                                        // );
                                       },
                                       child: Card(
                                         color: Theme.of(context)
@@ -137,7 +110,6 @@ class ExploreEvents extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                             vertical: 12,
                                           ),
-                                          // width: SizeConfig.screenWidth! * 0.30,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -300,124 +272,6 @@ class ExploreEvents extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  /// Shows a list of dropdown taken from  `model` and `context`.
-  ///
-  /// **params**:
-  /// * `model`: contains the events data
-  /// * `context`: the overall context of UI
-  ///
-  /// **returns**:
-  /// * `Widget`: the dropdown
-  Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
-    final Map<String, String> filters = {
-      'All Events': 'Show all events',
-      'My Events': 'Show all events created by you',
-      'Registered Events': 'Show all events you have registered',
-      'Public Events': 'Show events for all',
-      'Private Events': 'Show invite-only events',
-    };
-    return SizedBox(
-      height: SizeConfig.screenHeight,
-      width: SizeConfig.screenWidth,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: StatefulBuilder(
-          builder: (_, StateSetter setState) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.strictTranslate("Filters"),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.close),
-                    ),
-                  ],
-                ),
-                ...List.generate(filters.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        model.choseValueFromDropdown(
-                          filters.keys.toList()[index],
-                        );
-                        setState(() {});
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color:
-                              model.chosenValue == filters.keys.toList()[index]
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : AppTheme.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8)),
-                        ),
-                        height: 48,
-                        width: SizeConfig.screenWidth! - 60,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 4,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  filters.keys.toList()[index],
-                                ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                      color: model.chosenValue ==
-                                              filters.keys.toList()[index]
-                                          ? AppTheme.white
-                                          : AppTheme.blackPrimary,
-                                    ),
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  filters.values.toList()[index],
-                                ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .copyWith(
-                                      color: model.chosenValue ==
-                                              filters.keys.toList()[index]
-                                          ? AppTheme.white
-                                          : AppTheme.blackSecondary,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              ],
-            );
-          },
-        ),
-      ),
     );
   }
 }
