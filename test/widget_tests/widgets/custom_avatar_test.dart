@@ -130,11 +130,12 @@ void main() {
     final circleAvatarFinder = find.byType(CircleAvatar);
     final circleAvatarWidget = tester.widget<CircleAvatar>(circleAvatarFinder);
     expect(
-        circleAvatarWidget.backgroundColor,
-        Theme.of(tester.element(circleAvatarFinder))
-            .iconTheme
-            .color!
-            .withOpacity(0.2),);
+      circleAvatarWidget.backgroundColor,
+      Theme.of(tester.element(circleAvatarFinder))
+          .iconTheme
+          .color!
+          .withOpacity(0.2),
+    );
   });
 
   testWidgets(
