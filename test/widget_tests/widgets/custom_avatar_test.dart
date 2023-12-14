@@ -134,7 +134,7 @@ void main() {
         Theme.of(tester.element(circleAvatarFinder))
             .iconTheme
             .color!
-            .withOpacity(0.2));
+            .withOpacity(0.2),);
   });
 
   testWidgets(
