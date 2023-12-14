@@ -88,7 +88,6 @@ class ProfilePageViewModel extends BaseModel {
   Future<void> logout(BuildContext context) async {
     // push custom alert dialog with the confirmation message.
     navigationService.pushDialog(logoutDialog());
-
   }
 
   /// This method changes the currency of the user for donation purpose.

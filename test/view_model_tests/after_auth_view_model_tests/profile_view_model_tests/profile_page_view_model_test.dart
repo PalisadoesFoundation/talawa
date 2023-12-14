@@ -273,7 +273,6 @@ void main() async {
       expect(find.byType(QrImageView), findsOneWidget);
     });
 
-
     testWidgets('attachListener test', (WidgetTester tester) async {
       final model = ProfilePageViewModel();
       model.initialize();

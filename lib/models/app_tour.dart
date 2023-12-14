@@ -29,10 +29,10 @@ class AppTour {
   void showTutorial({
     required Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
+    required List<FocusTarget> targets,
   }) {
-    print('came');
     tutorialCoachMark = TutorialCoachMark(
-      targets: (model.targets.map((target) => target.focusWidget).toList()),
+      targets: targets.map((target) => target.focusWidget).toList(),
       colorShadow: Theme.of(model.context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
       textStyleSkip: TextStyle(
@@ -54,7 +54,8 @@ class AppTour {
       onClickOverlay: (target) {
         onClickTarget(target);
       },
-    )..show(context: model.context);
+    );
+    if (!model.testMode) tutorialCoachMark.show(context: model.context);
   }
 }
 

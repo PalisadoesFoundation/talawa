@@ -175,6 +175,8 @@ class MainScreenViewModel extends BaseModel {
     showAppTour = fromSignUp || demoMode;
     context = ctx;
 
+    print(ctx);
+    print(context);
     pluginPrototypeData = {
       "Donation": {
         "icon": Icons.attach_money_outlined,
@@ -497,17 +499,16 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
       ),
     );
-    if (!testMode) {
-      appTour.showTutorial(
-        onClickTarget: showHome,
-        onFinish: () {
-          onTabTapped(currentPageIndex + 1);
-          if (!tourComplete && !tourSkipped) {
-            tourEventTargets();
-          }
-        },
-      );
-    }
+    appTour.showTutorial(
+      onClickTarget: showHome,
+      onFinish: () {
+        onTabTapped(currentPageIndex + 1);
+        if (!tourComplete && !tourSkipped) {
+          tourEventTargets();
+        }
+      },
+      targets: targets,
+    );
   }
 
   /// This function shows the Home screen.
@@ -586,17 +587,16 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
 
-    if (!testMode) {
-      appTour.showTutorial(
-        onFinish: () {
-          onTabTapped(currentPageIndex + 1);
-          if (!tourComplete && !tourSkipped) {
-            tourProfile();
-          }
-        },
-        onClickTarget: (TargetFocus a) {},
-      );
-    }
+    appTour.showTutorial(
+      onFinish: () {
+        onTabTapped(currentPageIndex + 1);
+        if (!tourComplete && !tourSkipped) {
+          tourProfile();
+        }
+      },
+      onClickTarget: (TargetFocus a) {},
+      targets: targets,
+    );
   }
 
   /// This function show the tutorial to add Post in the organization.
@@ -619,18 +619,17 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
       ),
     );
-    if (!testMode) {
-      appTour.showTutorial(
-        onFinish: () {
-          onTabTapped(currentPageIndex + 1);
-          if (!tourComplete && !tourSkipped) {
-            // tourChat();
-            tourProfile();
-          }
-        },
-        onClickTarget: (TargetFocus a) {},
-      );
-    }
+    appTour.showTutorial(
+      onFinish: () {
+        onTabTapped(currentPageIndex + 1);
+        if (!tourComplete && !tourSkipped) {
+          // tourChat();
+          tourProfile();
+        }
+      },
+      onClickTarget: (TargetFocus a) {},
+      targets: targets,
+    );
   }
 
   /// This function show the tour of chats.
@@ -653,17 +652,16 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
       ),
     );
-    if (!testMode) {
-      appTour.showTutorial(
-        onFinish: () {
-          onTabTapped(currentPageIndex + 1);
-          if (!tourComplete && !tourSkipped) {
-            tourProfile();
-          }
-        },
-        onClickTarget: (TargetFocus a) {},
-      );
-    }
+    appTour.showTutorial(
+      onFinish: () {
+        onTabTapped(currentPageIndex + 1);
+        if (!tourComplete && !tourSkipped) {
+          tourProfile();
+        }
+      },
+      onClickTarget: (TargetFocus a) {},
+      targets: targets,
+    );
   }
 
   /// This function show the tutorial for the profile page.
@@ -737,16 +735,15 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
 
-    if (!testMode) {
-      appTour.showTutorial(
-        onFinish: () {
-          if (!tourComplete && !tourSkipped) {
-            tourComplete = true;
-            onTabTapped(0);
-          }
-        },
-        onClickTarget: (TargetFocus a) {},
-      );
-    }
+    appTour.showTutorial(
+      onFinish: () {
+        if (!tourComplete && !tourSkipped) {
+          tourComplete = true;
+          onTabTapped(0);
+        }
+      },
+      onClickTarget: (TargetFocus a) {},
+      targets: targets,
+    );
   }
 }
