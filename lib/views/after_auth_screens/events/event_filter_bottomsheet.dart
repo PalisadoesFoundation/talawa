@@ -62,13 +62,13 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: model.chosenValue == filters.keys.toList()[index]
-                              ? Theme.of(context).colorScheme.secondary
-                              : AppTheme.white,
+                          color:
+                              model.chosenValue == filters.keys.toList()[index]
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : AppTheme.white,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                         ),
-                        // height: 48,
                         width: SizeConfig.screenWidth! - 60,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

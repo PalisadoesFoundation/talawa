@@ -8,7 +8,13 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
-// This methods tries to cover all the cases which can be there in future!
+/// This methods tries to cover all the cases which can be there in future.
+///
+/// **params**:
+/// * `settings`: RouteSettings
+///
+/// **returns**:
+/// * `Route<dynamic>`: Returns Route Type
 Route<dynamic> _onGenerateTestRoute(RouteSettings settings) {
   if (settings.name == '/second-screen') {
     if (settings.arguments == null) {
@@ -71,13 +77,18 @@ Route<dynamic> _onGenerateTestRoute(RouteSettings settings) {
   );
 }
 
+/// HomeAppWidget.
 class HomeApp extends StatefulWidget {
   const HomeApp({
     super.key,
     required this.onClick,
     required this.navigateorKey,
   });
+
+  /// Navigator Key.
   final GlobalKey<NavigatorState> navigateorKey;
+
+  /// On Click Void FUnction.
   final VoidCallback onClick;
 
   @override
@@ -100,9 +111,14 @@ class _HomeAppState extends State<HomeApp> {
   }
 }
 
+/// TestScreen.
 class FirstTestScreen extends StatefulWidget {
   const FirstTestScreen({super.key, required this.onClick, this.arguments});
+
+  /// On Click Void Function.
   final VoidCallback onClick;
+
+  /// Arguments.
   final String? arguments;
 
   @override
@@ -133,9 +149,16 @@ class _FirstScrenState extends State<FirstTestScreen> {
   }
 }
 
+/// Test Screens.
 class SecondTestScreen extends StatefulWidget {
   const SecondTestScreen({super.key, this.arguments, this.onclick});
+
+  /// Arguements.
   final String? arguments;
+
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
   final VoidCallback? onclick;
 
   @override
@@ -166,8 +189,11 @@ class _SecondTestScreenState extends State<SecondTestScreen> {
   }
 }
 
+///Test Screen.
 class ThirdTestScreen extends StatefulWidget {
   const ThirdTestScreen({super.key, this.arguments});
+
+  ///arguements.
   final String? arguments;
 
   @override
@@ -190,13 +216,18 @@ class _ThirdTestScreenState extends State<ThirdTestScreen> {
   }
 }
 
+///Error Widget.
 class TalawaErrorWidget extends StatelessWidget {
   const TalawaErrorWidget({
     super.key,
     required this.navigationService,
     required this.onClick,
   });
+
+  ///Navigation Service.
   final NavigationService navigationService;
+
+  ///OnClick void Function.
   final VoidCallback onClick;
 
   @override
@@ -232,6 +263,14 @@ class TalawaErrorWidget extends StatelessWidget {
   }
 }
 
+///Tests Navigation Service.
+///
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void main() {
   SizeConfig().test();
   group('Navigation Services Tests', () {
@@ -357,6 +396,13 @@ void main() {
       expect(find.textContaining('First Screen'), findsOneWidget);
     });
     testWidgets('removeAllAndPush() test without arguments', (tester) async {
+      ///Function To test.
+      ///
+      /// **params**:
+      ///   None
+      ///
+      /// **returns**:
+      ///   None
       void functionToTest() {
         navigationService.removeAllAndPush(
           '/third-screen',
