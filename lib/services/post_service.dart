@@ -1,4 +1,8 @@
+// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:async';
+
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -24,12 +28,12 @@ class PostService {
   }
   // Stream for entire posts
   final StreamController<List<Post>> _postStreamController =
-      StreamController<List<Post>>();
+  StreamController<List<Post>>();
   late Stream<List<Post>> _postStream;
 
   //Stream for individual post update
   final StreamController<Post> _updatedPostStreamController =
-      StreamController<Post>();
+  StreamController<Post>();
   late Stream<Post> _updatedPostStream;
 
   final _userConfig = locator<UserConfig>();
@@ -61,14 +65,15 @@ class PostService {
     // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
-    final result =
-        await _dbFunctions.gqlAuthQuery(query) as Map<String, dynamic>;
+    final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
-    if (result['postsByOrganization'] == null) return;
+    if (result == null || result.data == null) {
+      // Handle the case where the result or result.data is null
+      return;
+    }
 
-    final List<dynamic> postsJson =
-        result['postsByOrganization'] as List<dynamic>;
+    final List postsJson = result.data!['postsByOrganization'] as List;
 
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
@@ -121,7 +126,7 @@ class PostService {
     _posts.forEach((post) {
       if (post.sId == postID) {
         post.likedBy!.removeWhere(
-          (likeUser) => likeUser.sId == _userConfig.currentUser.id,
+              (likeUser) => likeUser.sId == _userConfig.currentUser.id,
         );
         _updatedPostStreamController.add(post);
       }

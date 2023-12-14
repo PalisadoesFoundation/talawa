@@ -83,7 +83,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-        (_) async => QueryResult(
+            (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -108,7 +108,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-        (_) async => QueryResult(
+            (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -124,7 +124,7 @@ void main() {
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be Liked
       final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
+      posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got liked
       expect(likedPost.likedBy!.length, 1);
     });
@@ -139,7 +139,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-        (_) async => QueryResult(
+            (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -157,7 +157,7 @@ void main() {
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be Unliked
       final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
+      posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got unliked
       expect(likedPost.likedBy!.length, 0);
     });
@@ -172,7 +172,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-        (_) async => QueryResult(
+            (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -188,7 +188,7 @@ void main() {
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be commented
       final Post commentedPost =
-          posts.firstWhere((element) => element.sId == postID);
+      posts.firstWhere((element) => element.sId == postID);
       //Testing if the post got a comment
       expect(commentedPost.comments!.length, 1);
     });
@@ -202,7 +202,7 @@ void main() {
           query,
         ),
       ).thenAnswer(
-        (_) async => QueryResult(
+            (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: demoJson,
           source: QueryResultSource.network,
@@ -235,49 +235,49 @@ void main() {
     });
     test(
         'Test setOrgStreamSubscription method after the organization is updated',
-        () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+            () async {
+          final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
-      // Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
+          final query = PostQueries().getPostsById(currentOrgID);
+          // Mocking GetPosts
+          when(
+            dataBaseMutationFunctions.gqlAuthQuery(
+              query,
+            ),
+          ).thenAnswer(
+                (_) async => QueryResult(
+              options: QueryOptions(document: gql(query)),
+              data: demoJson,
+              source: QueryResultSource.network,
+            ),
+          );
 
-      final service = PostService();
-      // Populating posts Stream
-      await service.getPosts();
+          final service = PostService();
+          // Populating posts Stream
+          await service.getPosts();
 
-      // Set up mock for currentOrgInfoStream
-      final mockUserConfig = locator<UserConfig>();
-      final orgInfoStreamController = StreamController<OrgInfo>();
-      when(mockUserConfig.currentOrgInfoStream)
-          .thenAnswer((_) => orgInfoStreamController.stream);
+          // Set up mock for currentOrgInfoStream
+          final mockUserConfig = locator<UserConfig>();
+          final orgInfoStreamController = StreamController<OrgInfo>();
+          when(mockUserConfig.currentOrgInfoStream)
+              .thenAnswer((_) => orgInfoStreamController.stream);
 
-      // Call setOrgStreamSubscription
-      service.setOrgStreamSubscription();
+          // Call setOrgStreamSubscription
+          service.setOrgStreamSubscription();
 
-      // Trigger an event that should update the organization
-      orgInfoStreamController.add(OrgInfo(id: 'newOrgId'));
+          // Trigger an event that should update the organization
+          orgInfoStreamController.add(OrgInfo(id: 'newOrgId'));
 
-      // Wait for the setOrgStreamSubscription logic to execute
-      await Future.delayed(
-        const Duration(seconds: 1),
-      ); // Adjust the delay as needed
+          // Wait for the setOrgStreamSubscription logic to execute
+          await Future.delayed(
+            const Duration(seconds: 1),
+          ); // Adjust the delay as needed
 
-      // Verify that getPosts was called after the organization update
-      verify(service.getPosts()).called(1);
+          // Verify that getPosts was called after the organization update
+          verify(service.getPosts()).called(1);
 
-      // Close the stream controller to avoid memory leaks
-      await orgInfoStreamController.close();
-    });
+          // Close the stream controller to avoid memory leaks
+          await orgInfoStreamController.close();
+        });
   });
 }
