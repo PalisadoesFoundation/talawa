@@ -4,6 +4,7 @@
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
+import 'package:talawa/utils/post_queries.dart';
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///
@@ -22,7 +23,6 @@ class CommentService {
   /// * [postId] - Post id where comment need to be added.
   /// * [text] - content of the comment.
   Future<void> createComments(String postId, String text) async {
-    print("comment service called");
     final String createCommentQuery = CommentQueries().createComment();
     final result = await _dbFunctions.gqlAuthMutation(
       createCommentQuery,
@@ -31,8 +31,6 @@ class CommentService {
         'text': text,
       },
     );
-    print("comment added");
-    print(result);
     return result;
   }
 
@@ -41,11 +39,24 @@ class CommentService {
   /// parameters:
   /// * [postId] - Post id for which comments need to be fetched.
   Future getCommentsForPost(String postId) async {
-    final String getCommmentQuery = CommentQueries().getPostsComments(postId);
+    final String getCommmentQuery = PostQueries().getPostById(postId);
     final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
-    if (result.data != null) {
-      return result.data["commentsByPost"] as List;
+    final List comments = result.data["post"]["comments"] as List;
+
+    try {
+      if (result.data != null) {
+        if (comments.isNotEmpty) {
+          return comments;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
     }
-    return [];
+
   }
 }
