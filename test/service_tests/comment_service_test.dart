@@ -239,5 +239,107 @@ void main() {
       }
       expect(result, isEmpty);
     });
+
+    test('test when post is null', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final String getCommmentQuery =
+          PostQueries().getPostById('Ayush s postid');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(getCommmentQuery)),
+          data: {
+            'post': null,
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = CommentService();
+      final result = await service.getCommentsForPost('Ayush postid');
+
+      if (result.toString().contains('[{creator: '
+          '{'
+          '_id: 123, '
+          'firstName: John, '
+          'lastName: Doe, '
+          'email: test@test.com},'
+          ' createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: '
+          '{_id: 123, '
+          'firstName: Ayush, '
+          'lastName: Doe, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: {_id: 123,'
+          ' firstName: john, '
+          'lastName: chauhdary, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}]')) {
+        fail('the result is not maatching');
+      }
+      expect(result, isEmpty);
+    });
+
+    test('test when result is null', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final String getCommmentQuery =
+          PostQueries().getPostById('Ayush s postid');
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(getCommmentQuery)),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = CommentService();
+      final result = await service.getCommentsForPost('Ayush postid');
+
+      if (result.toString().contains('[{creator: '
+          '{'
+          '_id: 123, '
+          'firstName: John, '
+          'lastName: Doe, '
+          'email: test@test.com},'
+          ' createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: '
+          '{_id: 123, '
+          'firstName: Ayush, '
+          'lastName: Doe, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}, '
+          '{creator: {_id: 123,'
+          ' firstName: john, '
+          'lastName: chauhdary, '
+          'email: test@test.com}, '
+          'createdAt: 123456, '
+          'text: test text, '
+          'post: test post, '
+          'likeCount: test count}]')) {
+        fail('the result is not maatching');
+      }
+      expect(result, isEmpty);
+    });
   });
 }

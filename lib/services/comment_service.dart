@@ -1,3 +1,4 @@
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
@@ -16,9 +17,13 @@ class CommentService {
 
   /// This function is used to add comment on the post.
   ///
-  /// parameters:
-  /// * [postId] - Post id where comment need to be added.
-  /// * [text] - content of the comment.
+  /// To verify things are working, check out the native platform logs.
+  /// **params**:
+  /// * `postId`: The post id on which comment is to be added.
+  /// * `text`: The comment text.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
   Future<void> createComments(String postId, String text) async {
     final String createCommentQuery = CommentQueries().createComment();
     final result = await _dbFunctions.gqlAuthMutation(
@@ -31,20 +36,27 @@ class CommentService {
     return result;
   }
 
-  /// This function is used to fetch all comments on the post.
+  /// This function is used to get all comments on the post.
   ///
-  /// parameters:
-  /// * [postId] - Post id for which comments need to be fetched.
-  Future getCommentsForPost(String postId) async {
+  /// To verify things are working, check out the native platform logs.
+  /// **params**:
+  /// * `postId`: The post id for which comments are to be fetched.
+  ///
+  /// **returns**:
+  /// * `Future<List<dynamic>>`: promise that will be fulfilled with list of comments.
+  ///
+  Future<List<dynamic>> getCommentsForPost(String postId) async {
     final String getCommmentQuery = PostQueries().getPostById(postId);
 
-    final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
+    final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 
-    if (result == null || result.data == null || result.data["post"] == null) {
+    if (result == null) {
       return [];
     }
+    final resultData = (result as QueryResult<Object?>).data;
 
-    final List comments = result.data["post"]["comments"] as List;
-    return comments;
+    final resultDataPostComments = (resultData?['post']
+        as Map<String, dynamic>)['comments'] as List<dynamic>;
+    return resultDataPostComments;
   }
 }
