@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -434,7 +431,7 @@ void main() {
       await tester.pump();
     });
     group('setState Coverage completion', () {
-      testWidgets('Tap on DataTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -460,7 +457,9 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DataTimeTile time', (tester) async {
+      testWidgets('Tap on DateTimeTile time', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -477,11 +476,16 @@ void main() {
         await tester.tap(find.text('OK'));
         await tester.pump();
         expect(
-          find.text(DateFormat.jm().format(DateTime.now())),
-          findsNWidgets(2),
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
         );
       });
-      testWidgets('Tap on DataTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -506,7 +510,9 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DataTimeTile time', (tester) async {
+      testWidgets('Tap on DateTimeTile time', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -523,8 +529,13 @@ void main() {
         await tester.tap(find.text('OK'));
         await tester.pump();
         expect(
-          find.text(DateFormat.jm().format(DateTime.now())),
-          findsNWidgets(2),
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
         );
       });
     });

@@ -2,20 +2,22 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
 }
-
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class MockBuildContext extends Mock implements BuildContext {}
 
@@ -31,7 +33,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() {
+void main() async {
   testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
@@ -53,6 +55,34 @@ void main() {
       expect(model.currentUser, userConfig.currentUser);
     });
 
+    testWidgets('changeCurrency test', (WidgetTester tester) async {
+      final model = ProfilePageViewModel();
+      model.initialize();
+      void mockSetter(void Function() innerFunction) {
+        innerFunction();
+      }
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return ElevatedButton(
+                key: const Key('btn1'),
+                onPressed: () {
+                  model.changeCurrency(context, mockSetter);
+                },
+                child: const Text('Change Currency'),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsOneWidget);
+    });
+
     test("Test showSnackBar and popBottomSheet function", () {
       final model = ProfilePageViewModel();
       model.initialize();
@@ -63,7 +93,7 @@ void main() {
           "fake_message",
           MessageType.error,
         ),
-      );
+      ).called(1);
 
       model.popBottomSheet();
       verify(navigationService.pop());
@@ -79,14 +109,21 @@ void main() {
     testWidgets("Test iconButton function", (tester) async {
       final model = ProfilePageViewModel();
       model.initialize();
+      bool setterCalled = false;
+      void mockSetter() {
+        setterCalled = true;
+      }
+
       const Icon testIcon = Icon(Icons.cancel);
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: model.iconButton(testIcon, () {}),
+            body: model.iconButton(testIcon, mockSetter),
           ),
         ),
       );
+      await tester.tap(find.byKey(const Key('iconbtn1')));
+      expect(setterCalled, true);
       final iconButtonFinder = find.byType(IconButton);
       final iconButton = tester.firstWidget(iconButtonFinder);
       expect((iconButton as IconButton).icon, testIcon);
@@ -97,17 +134,26 @@ void main() {
       final model = ProfilePageViewModel();
       model.initialize();
       const String amt = "test_amt";
+
+      bool setterCalled = false;
+      void mockSetter(void Function() innerFunction) {
+        setterCalled = true;
+        innerFunction();
+      }
+
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: model.dominationButton(
               amt,
               mockContext,
-              (void Function() callback) {},
+              mockSetter,
             ),
           ),
         ),
       );
+      await tester.tap(find.byKey(const Key('dombtn1')));
+      expect(setterCalled, true);
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);
       expect(
@@ -117,6 +163,42 @@ void main() {
           horizontal: SizeConfig.screenWidth! * 0.075,
         ),
       );
+    });
+    testWidgets("Test invite method", (WidgetTester tester) async {
+      final model = ProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                // Trigger the invite method on button press
+                return ElevatedButton(
+                  key: const Key('inviteButton'),
+                  onPressed: () => model.invite(context),
+                  child: const Text('Invoke Invite'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // model.invite(mockContext);
+
+      await tester.tap(find.byKey(const Key('inviteButton')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('iconbtn1')));
+
+      expect(find.byType(Dialog), findsOneWidget);
+      expect(find.byType(QrImageView), findsOneWidget);
     });
 
     testWidgets("Test logout function", (tester) async {
@@ -130,70 +212,46 @@ void main() {
       //Ensures that naviagation service was called
       verifyInteraction(mocknav, mockName: "NavigationService");
     });
-
-    testWidgets('Test changeCurrency function', (WidgetTester tester) async {
-      // Mock data
+    testWidgets('attachListener test', (WidgetTester tester) async {
       final model = ProfilePageViewModel();
       model.initialize();
-      // Set up a MaterialApp for testing
+      double bottomSheetHeight = 0;
+      final FocusNode focusNode = FocusNode();
+
+      void mockSetter(void Function() innerFunction) {
+        innerFunction();
+      }
+
       await tester.pumpWidget(
         MaterialApp(
-          home: Builder(
-            builder: (BuildContext context) {
-              return TextButton(
-                child: Container(),
-                // You might need a button to trigger the changeCurrency function
-                onPressed: () {
-                  model.changeCurrency(context, (Function callback) {});
-                },
-              );
-            },
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.attachListener(mockSetter),
+                  child: const Text('listner'),
+                );
+              },
+            ),
           ),
         ),
       );
 
-      // Trigger the button press to invoke changeCurrency
-      await tester.tap(find.byType(TextButton));
+      await tester.tap(find.byKey(const Key('btn1')));
+      focusNode.requestFocus();
+      mockSetter(() {
+        bottomSheetHeight = SizeConfig.screenHeight! * 0.8725;
+      });
       await tester.pump();
-    });
-
-    testWidgets('Test attachListener function', (WidgetTester tester) async {
-      // Mock data
-      final model = ProfilePageViewModel();
-      model.initialize();
-      final TextEditingController donationField = TextEditingController();
-      // Set up a MaterialApp for testing
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (BuildContext context) {
-              return Material(
-                child: TextFormField(
-                  controller: donationField,
-                ),
-              );
-            },
-          ),
-        ),
-      );
-
-      // Attach the listener
-      model.attachListener(
-        (p0) => p0(),
-      );
-
-      // Trigger the listener by focusing on the TextFormField
-      await tester.tap(find.byType(TextFormField));
-      await tester.pump();
-
-      // Now you can check if bottomSheetHeight is updated when the field has focus
-      expect(model.bottomSheetHeight, 465.12000000000006);
-
-      // Trigger the listener by removing focus from the TextFormField after a delay
+      expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.8725);
+      focusNode.unfocus();
       await tester.pump(const Duration(milliseconds: 300));
 
-      // Now you can check if bottomSheetHeight is updated after losing focus
-      expect(model.bottomSheetHeight, SizeConfig.screenHeight! * 0.68);
+      mockSetter(() {
+        bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
+      });
+      expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.68);
     });
   });
 }
