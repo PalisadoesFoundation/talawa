@@ -109,9 +109,10 @@ void main() {
       final mockImageFile = File(
         'path/to/mockImage.png',
       );
-      viewModel.imageFile = mockImageFile;
+      viewModel.setImageFile(mockImageFile);
 
-      viewModel.imageInBase64 = await viewModel.convertToBase64(mockImageFile);
+      await viewModel.setImageInBase64(mockImageFile);
+
       viewModel.controller.text = "Some post content";
       viewModel.textHashTagController.text = "hashtag";
       viewModel.titleController.text = "Post Title";
@@ -151,9 +152,9 @@ void main() {
       final mockImageFile = File(
         'path/to/mockImage.png',
       );
-      viewModel.imageFile = mockImageFile;
+      viewModel.setImageFile(mockImageFile);
 
-      viewModel.imageInBase64 = await viewModel.convertToBase64(mockImageFile);
+      await viewModel.setImageInBase64(mockImageFile);
       viewModel.controller.text = "Some post content";
       viewModel.textHashTagController.text = "hashtag";
       viewModel.titleController.text = "Post Title";

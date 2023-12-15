@@ -23,12 +23,8 @@ class AddPostViewModel extends BaseModel {
   late NavigationService _navigationService;
 
   // ignore: unused_field
-
-  /// image to be posted.
-  late File? imageFile;
-
-  /// image in base64 format.
-  late String? imageInBase64;
+  late File? _imageFile;
+  late String? _imageInBase64;
   late User _currentUser;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
@@ -41,10 +37,36 @@ class AddPostViewModel extends BaseModel {
   /// None
   /// returns:
   /// * `File?`: The image file
-  // File? get imageFile => _imageFile;
+  File? get imageFile => _imageFile;
+
+  /// method to set image.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  ///   None
+  void setImageFile(File? file) {
+    _imageFile = file;
+    notifyListeners();
+  }
 
   /// Getter to access the base64 type.
-  // String? get imageInBase64 => _imageInBase64;
+  String? get imageInBase64 => _imageInBase64;
+
+  /// method to set Image in Bsse64.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  /// * `Future<void>`: define_the_return
+  Future<void> setImageInBase64(File file) async {
+    _imageInBase64 = await convertToBase64(file);
+    notifyListeners();
+  }
 
   /// The Username.
   ///
@@ -98,7 +120,7 @@ class AddPostViewModel extends BaseModel {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
     _selectedOrg = locator<UserConfig>().currentOrg;
-    imageFile = null;
+    _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
     _dbFunctions = locator<DataBaseMutationFunctions>();
   }
@@ -116,7 +138,7 @@ class AddPostViewModel extends BaseModel {
       final List<int> bytes = await file.readAsBytes();
       final String base64String = base64Encode(bytes);
       print(base64String);
-      imageInBase64 = base64String;
+      _imageInBase64 = base64String;
       return base64String;
     } catch (error) {
       return '';
@@ -137,9 +159,9 @@ class AddPostViewModel extends BaseModel {
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     // convertImageToBase64(image!.path);
     if (image != null) {
-      imageFile = image;
+      _imageFile = image;
       // convertImageToBase64(image.path);
-      await convertToBase64(image);
+      convertToBase64(image);
       // print(_imageInBase64);
       _navigationService.showTalawaErrorSnackBar(
         "Image is added",
@@ -158,7 +180,7 @@ class AddPostViewModel extends BaseModel {
   /// * `Future<void>`: Uploading post by contacting queries
   Future<void> uploadPost() async {
     // {TODO: Image not getting uploaded}
-    if (imageFile == null) {
+    if (_imageFile == null) {
       try {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
@@ -179,7 +201,7 @@ class AddPostViewModel extends BaseModel {
           MessageType.error,
         );
       }
-    } else if (imageInBase64 != null) {
+    } else {
       try {
         await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
@@ -187,7 +209,7 @@ class AddPostViewModel extends BaseModel {
             "text": _controller.text,
             "organizationId": _selectedOrg.id,
             "title": _titleController.text,
-            "file": 'data:image/png;base64,${imageInBase64!}',
+            "file": 'data:image/png;base64,${_imageInBase64!}',
           },
         );
         _navigationService.showTalawaErrorSnackBar(
@@ -215,7 +237,7 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void removeImage() {
-    imageFile = null;
+    _imageFile = null;
     notifyListeners();
   }
 }
