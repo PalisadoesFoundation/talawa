@@ -23,7 +23,6 @@ class AccessScreenViewModel extends BaseModel {
 
   /// initialization function.
   ///
-  ///
   /// **params**:
   /// * `org`: Org to send request to.
   ///
