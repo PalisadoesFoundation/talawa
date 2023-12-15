@@ -63,7 +63,7 @@ class OrganizationList extends StatelessWidget {
             if (!result.isLoading) {
               // print(result.data!['organizationsConnection']);
               model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'] as List,
+                result.data!['organizationsConnection'],
               );
             }
 

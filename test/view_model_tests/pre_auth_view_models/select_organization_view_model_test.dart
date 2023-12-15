@@ -441,7 +441,6 @@ void main() {
         navigationService.showTalawaErrorSnackBar(
           'Select one organization to continue',
           MessageType.warning,
-          duration: const Duration(milliseconds: 750),
         ),
       );
     });

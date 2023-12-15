@@ -62,6 +62,16 @@ void main() {
   });
 
   group('createAddPostScreen Test', () {
+    testWidgets('check if back button in app bar works', (tester) async {
+      await tester.pumpWidget(createAddPostScreen());
+      await tester.pump();
+      final backButtonFinder = find.byKey(const Key('add_post_icon_button1'));
+      expect(backButtonFinder, findsOneWidget);
+      await tester.tap(backButtonFinder);
+      await tester.pump();
+      verify(navigationService.pop()).called(1);
+    });
+
     testWidgets('check if createAddPostScreen shows up', (tester) async {
       await tester.pumpWidget(createAddPostScreen());
       await tester.pump();

@@ -15,6 +15,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
@@ -335,6 +336,17 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<SelectContact>());
+      }
+    });
+
+    testWidgets('Test for addPostpage route', (WidgetTester tester) async {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.addPostScreen));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<AddPost>());
       }
     });
 

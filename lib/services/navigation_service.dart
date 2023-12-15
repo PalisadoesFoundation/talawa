@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
@@ -21,11 +18,14 @@ import 'package:talawa/widgets/talawa_error_snackbar.dart';
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  /// This function push the route to the navigator.
+  /// Pushes a Screen.
   ///
-  /// params:
-  /// * [routeName]
-  /// * [arguments] : necessary data for the route
+  /// **params**:
+  /// * `routeName`: Name of the Route
+  /// * `arguments`: Set of arguments
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: resolves if the Screen was succesfully pushed.
   Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushNamed(routeName, arguments: arguments);
@@ -33,9 +33,12 @@ class NavigationService {
 
   /// This function pop the initial route and push the new route to the navigator.
   ///
-  /// params:
-  /// * [routeName]
-  /// * [arguments] : necessary data for the route
+  /// **params**:
+  /// * `routeName`: Name of the Route
+  /// * `arguments`: Set of arguments
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: resolves if the Screen was succesfully popAndPushed.
   Future<dynamic> popAndPushScreen(String routeName, {dynamic arguments}) {
     navigatorKey.currentState!.pop();
     return pushScreen(routeName, arguments: arguments);
@@ -43,28 +46,34 @@ class NavigationService {
 
   /// This function push the route and replace the screen.
   ///
-  /// params:
-  /// * [routeName]
-  /// * [arguments] : necessary data for the route
+  /// **params**:
+  /// * `routeName`: Name of the Route
+  /// * `arguments`: Set of arguments
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: resolves if the Screen was succesfully pushedReplacementScreen.
   Future<dynamic> pushReplacementScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushReplacementNamed(routeName, arguments: arguments);
   }
 
-  void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
-    int i = 0;
-    removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
-    for (i = 1; i < routeNames.length; i++) {
-      pushScreen('/${routeNames[i]}', arguments: arguments[i]);
-    }
-  }
+  // void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
+  //   int i = 0;
+  //   removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
+  //   for (i = 1; i < routeNames.length; i++) {
+  //     pushScreen('/${routeNames[i]}', arguments: arguments[i]);
+  //   }
+  // }
 
   /// This function remove all the routes till the particular route and add new route.
   ///
-  /// params:
-  /// * [routeName] : route that need to add
-  /// * [tillRoute] : remove all route until this route.
-  /// * [arguments] : necessary data for the route
+  /// **params**:
+  /// * `routeName`: Name of the Route
+  /// * `tillRoute`: Route till we want to remove
+  /// * `arguments`: Set of arguments
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: resolves if the Screen was succesfully removeAllAndPushed.
   Future<dynamic> removeAllAndPush(
     String routeName,
     String tillRoute, {
@@ -77,7 +86,13 @@ class NavigationService {
     );
   }
 
-  /// This function is used to show the custom Dialog.
+  /// This function remove all the routes till the particular route and add new route.
+  ///
+  /// **params**:
+  /// * `dialog`: Widget to show
+  ///
+  /// **returns**:
+  ///   None
   void pushDialog(Widget dialog) {
     showDialog(
       context: navigatorKey.currentContext!,
@@ -105,13 +120,15 @@ class NavigationService {
 
   void showTalawaErrorSnackBar(
     String errorMessage,
-    MessageType messageType, {
-    Duration duration = const Duration(seconds: 2),
-  }) {
+    MessageType messageType,
+  ) {
+    final Duration duration = Duration(milliseconds: errorMessage.length * 80);
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         padding: EdgeInsets.zero,
+        duration: duration,
         content: TalawaErrorSnackBar(
+          duration: duration,
           messageType: messageType,
           errorMessage: errorMessage,
         ),

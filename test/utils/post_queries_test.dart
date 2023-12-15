@@ -69,5 +69,17 @@ void main() {
       final fnData = PostQueries().removeLike();
       expect(fnData, data);
     });
+
+    test("Check if removePost works correctly", () {
+      const data = '''   
+    mutation RemovePost(\$id: ID!) {
+      removePost(id: \$id) {
+        _id
+      }
+    }
+    ''';
+      final fnData = PostQueries().removePost();
+      expect(fnData, data);
+    });
   });
 }

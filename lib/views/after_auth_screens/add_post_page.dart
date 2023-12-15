@@ -9,12 +9,17 @@ import 'package:talawa/views/base_view.dart';
 late AddPostViewModel model;
 
 /// AddPost returns a widget to add(upload) the post.
-class AddPost extends StatelessWidget {
+class AddPost extends StatefulWidget {
   const AddPost({super.key, this.drawerKey});
 
   /// DrawerKey.
   final GlobalKey<ScaffoldState>? drawerKey;
 
+  @override
+  State<AddPost> createState() => _AddPostState();
+}
+
+class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     // final Uint8List imageBytes = base64Decode(sampleBase64Image);
@@ -39,8 +44,13 @@ class AddPost extends StatelessWidget {
           //TODO: showing the null pointer exception
           key: const Key('add_post_icon_button1'),
           color: Theme.of(context).iconTheme.color,
-          icon: const Icon(Icons.menu),
-          onPressed: () => drawerKey!.currentState!.openDrawer(),
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 36,
+          ),
+          onPressed: () {
+            navigationService.pop();
+          },
         ),
         // button to upload the post.
         actions: [
@@ -48,6 +58,7 @@ class AddPost extends StatelessWidget {
             key: const Key('add_post_text_btn1'),
             onPressed: () {
               model.uploadPost();
+              navigationService.pop();
               // convertImageToBase64(sampleBase64Image);
             },
             child: Text(
@@ -94,15 +105,16 @@ class AddPost extends StatelessWidget {
                   // button to add hastags to the post.
                   TextButton(
                     key: const Key('add_post_text_btn2'),
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      final TextEditingController hashController =
+                          TextEditingController();
+                      hashController.text = model.textHashTagController.text;
+                      await showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text("Enter the Tag"),
-                            content: TextField(
-                              controller: model.textHashTagController,
-                            ),
+                            content: TextField(controller: hashController),
                             actions: [
                               TextButton(
                                 key: const Key("add_hashtag_button"),
@@ -126,11 +138,14 @@ class AddPost extends StatelessWidget {
                           );
                         },
                       );
+                      setState(() {
+                        model.textHashTagController.text = hashController.text;
+                      });
                     },
                     child: Text(
                       model.textHashTagController.text == ""
                           ? '# ${AppLocalizations.of(context)!.strictTranslate("Add tag")}'
-                          : model.textHashTagController.text,
+                          : '# ${model.textHashTagController.text}',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),

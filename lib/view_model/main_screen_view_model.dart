@@ -7,7 +7,6 @@ import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
@@ -232,13 +231,6 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Events'),
       ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.add_box,
-          key: keyBNPost,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Add'),
-      ),
 
       /// Makes chat inaccessible for the user
       //TODO: add chat functionality
@@ -267,13 +259,6 @@ class MainScreenViewModel extends BaseModel {
         key: const Key('ExploreEvents'),
         homeModel: this,
       ),
-      AddPost(
-        key: const Key('AddPost'),
-        drawerKey: MainScreenViewModel.scaffoldKey,
-      ),
-      // const ChatPage(
-      //   key: Key('Chats'),
-      // ),
       ProfilePage(
         key: keySPEditProfile,
         homeModel: this,
@@ -638,13 +623,13 @@ class MainScreenViewModel extends BaseModel {
         'To help your organization grow you can support them financially from here',
       ),
     );
-    targets.add(
-      focusTarget(
-        keySPInvite,
-        'keySPInvite',
-        'Wanna invite colleague, invite them from here',
-      ),
-    );
+    // targets.add(
+    //   focusTarget(
+    //     keySPInvite,
+    //     'keySPInvite',
+    //     'Wanna invite colleague, invite them from here',
+    //   ),
+    // );
     targets.add(
       focusTarget(
         keySPPalisadoes,
