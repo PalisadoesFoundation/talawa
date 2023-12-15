@@ -2558,7 +2558,8 @@ class MockCommentService extends _i2.Mock implements _i34.CommentService {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<List<dynamic>> getCommentsForPost(String? postId) => (super.noSuchMethod(
+  _i4.Future<List<dynamic>> getCommentsForPost(String? postId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getCommentsForPost,
           [postId],
