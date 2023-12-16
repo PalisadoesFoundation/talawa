@@ -7,6 +7,15 @@ import '../feed/individual_post_test.dart';
 
 // ... (other imports)
 
+/// a_line_ending_with_end_punctuation.
+///
+/// more_info_if_required
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void main() {
   SizeConfig().test();
   testSetupLocator();
@@ -27,7 +36,8 @@ void main() {
   });
 
   group('Test for IndividualPageLikeSection', () {
-    testWidgets('Check if the IndividualPageLikeSection shows up', (tester) async {
+    testWidgets('Check if the IndividualPageLikeSection shows up',
+        (tester) async {
       await tester.pumpWidget(createIndividualPageLikeSectionWidget());
       await tester.pump();
 
@@ -36,7 +46,9 @@ void main() {
       expect(findColumn, findsNWidgets(1));
     });
 
-    testWidgets('Check if the likedUserCircleAvatar in IndividualPageLikeSection shows up', (tester) async {
+    testWidgets(
+        'Check if the likedUserCircleAvatar in IndividualPageLikeSection shows up',
+        (tester) async {
       await tester.pumpWidget(createIndividualPageLikeSectionWidget());
       await tester.pump();
 
@@ -56,7 +68,8 @@ void main() {
       expect(findStack, findsNWidgets(1));
     });
 
-    testWidgets('Check if the name is displayed in CommentTemplate', (tester) async {
+    testWidgets('Check if the name is displayed in CommentTemplate',
+        (tester) async {
       await tester.pumpWidget(createCommentTemplateWidget());
       await tester.pump();
 
@@ -65,7 +78,8 @@ void main() {
       expect(findStack, findsNWidgets(1));
     });
 
-    testWidgets('Check if the comment text is displayed in CommentTemplate', (tester) async {
+    testWidgets('Check if the comment text is displayed in CommentTemplate',
+        (tester) async {
       await tester.pumpWidget(createCommentTemplateWidget());
       await tester.pump();
 
