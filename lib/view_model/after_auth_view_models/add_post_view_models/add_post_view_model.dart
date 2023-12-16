@@ -39,8 +39,34 @@ class AddPostViewModel extends BaseModel {
   /// * `File?`: The image file
   File? get imageFile => _imageFile;
 
+  /// method to set image.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  ///   None
+  void setImageFile(File? file) {
+    _imageFile = file;
+    notifyListeners();
+  }
+
   /// Getter to access the base64 type.
   String? get imageInBase64 => _imageInBase64;
+
+  /// method to set Image in Bsse64.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  /// * `Future<void>`: define_the_return
+  Future<void> setImageInBase64(File file) async {
+    _imageInBase64 = await convertToBase64(file);
+    notifyListeners();
+  }
 
   /// The Username.
   ///
