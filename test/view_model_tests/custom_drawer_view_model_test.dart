@@ -4,9 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
@@ -15,11 +17,14 @@ import '../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
+class MockNavigationService extends Mock implements NavigationService {}
+
 void main() {
   int testCount = 0;
   testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
+  locator<NavigationService>();
 
   setUp(() {
     registerServices();
@@ -101,6 +106,118 @@ void main() {
       testCount++;
     });
 
+    test('check if switchAbleOrg getter and setter are working', () {
+      final List<OrgInfo> mockOrgList = [
+        OrgInfo(
+          id: '1',
+          name: 'org 1',
+          isPublic: false,
+          creatorInfo: User(firstName: 'user', lastName: '1'),
+        ),
+        OrgInfo(
+          id: '2',
+          name: 'org 2',
+          isPublic: true,
+          creatorInfo: User(firstName: 'user', lastName: '2'),
+        ),
+      ];
+
+      model.switchAbleOrg = mockOrgList;
+
+      expect(model.switchAbleOrg, mockOrgList);
+    });
+
+    test('check if selectedOrg getter is working', () {
+      final OrgInfo mockOrg = OrgInfo(
+        id: '1',
+        name: 'org 1',
+        isPublic: false,
+        creatorInfo: User(firstName: 'user', lastName: '1'),
+      );
+
+      model.switchAbleOrg = [mockOrg];
+      model.setSelectedOrganizationName(mockOrg);
+
+      expect(model.selectedOrg, mockOrg);
+    });
+
+    test(
+        'check if switchOrg is working when selectedOrg is equal to switchToOrg and switchToOrg is present',
+        () {
+      final OrgInfo mockOrg = OrgInfo(
+        id: '1',
+        name: 'org 1',
+        isPublic: false,
+        creatorInfo: User(firstName: 'user', lastName: '1'),
+      );
+
+      model.switchAbleOrg = [mockOrg];
+      model.setSelectedOrganizationName(mockOrg);
+
+      
+    
+
+      model.switchOrg(mockOrg);
+
+      verify(navigationService.showTalawaErrorSnackBar(
+              '${mockOrg.name} already selected', MessageType.warning,),)
+          .called(1);
+      verify(navigationService.pop()).called(1);
+      expect(model.selectedOrg, mockOrg);
+    });
+
+    test(
+        'check if switchOrg is working when selectedOrg is not equal to switchToOrg',
+        () {
+      final OrgInfo mockOrg1 = OrgInfo(
+        id: '1',
+        name: 'org 1',
+        isPublic: false,
+        creatorInfo: User(firstName: 'user', lastName: '1'),
+      );
+
+      final OrgInfo mockOrg2 = OrgInfo(
+        id: '2',
+        name: 'org 2',
+        isPublic: true,
+        creatorInfo: User(firstName: 'user', lastName: '2'),
+      );
+
+      model.switchAbleOrg = [mockOrg1, mockOrg2];
+      model.setSelectedOrganizationName(mockOrg1);
+
+      
+    
+
+      model.switchOrg(mockOrg2);
+
+      verify(navigationService.showTalawaErrorSnackBar(
+              'Switched to ${mockOrg2.name}', MessageType.info,),)
+          .called(1);
+      verify(navigationService.pop()).called(1);
+      expect(model.selectedOrg, mockOrg2);
+    });
+
+    test('check if isPresentinSwitchableOrg is working correctly', () {
+      final OrgInfo mockOrg1 = OrgInfo(
+        id: '1',
+        name: 'org 1',
+        isPublic: false,
+        creatorInfo: User(firstName: 'user', lastName: '1'),
+      );
+
+      final OrgInfo mockOrg2 = OrgInfo(
+        id: '2',
+        name: 'org 2',
+        isPublic: true,
+        creatorInfo: User(firstName: 'user', lastName: '2'),
+      );
+
+      model.switchAbleOrg = [mockOrg1];
+
+      expect(model.isPresentinSwitchableOrg(mockOrg1), true);
+      expect(model.isPresentinSwitchableOrg(mockOrg2), false);
+    });
     // test('check if switchOrg is working with already joined mock orgs',
     //     () async {
     //   print("4");
