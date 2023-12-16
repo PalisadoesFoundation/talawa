@@ -154,14 +154,14 @@ void main() {
       model.switchAbleOrg = [mockOrg];
       model.setSelectedOrganizationName(mockOrg);
 
-      
-    
-
       model.switchOrg(mockOrg);
 
-      verify(navigationService.showTalawaErrorSnackBar(
-              '${mockOrg.name} already selected', MessageType.warning,),)
-          .called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          '${mockOrg.name} already selected',
+          MessageType.warning,
+        ),
+      ).called(1);
       verify(navigationService.pop()).called(1);
       expect(model.selectedOrg, mockOrg);
     });
@@ -186,14 +186,14 @@ void main() {
       model.switchAbleOrg = [mockOrg1, mockOrg2];
       model.setSelectedOrganizationName(mockOrg1);
 
-      
-    
-
       model.switchOrg(mockOrg2);
 
-      verify(navigationService.showTalawaErrorSnackBar(
-              'Switched to ${mockOrg2.name}', MessageType.info,),)
-          .called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Switched to ${mockOrg2.name}',
+          MessageType.info,
+        ),
+      ).called(1);
       verify(navigationService.pop()).called(1);
       expect(model.selectedOrg, mockOrg2);
     });
