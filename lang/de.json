@@ -21,7 +21,7 @@
   "Select": "Auswählen",
   "Selected Organization": "Ausgewählte Organisation",
   "Continue": "Weitermachen",
-  "Enter Organization URL": "Organisations-URL eingeben",
+  "Enter Community URL": "Geben Sie die Community-URL ein",
   "Verify": "Verifizieren",
   "Sign Up": "Anmeldung",
   "Change language": "Sprache ändern",
@@ -160,5 +160,7 @@
   "Dismiss": "afwijzen",
   "No organizations found Please contact your admin": "Geen organisaties gevonden! Neem contact op met uw beheerder",
   "Notification Feature is not installed": "Meddelelsesfunktionen er ikke installeret",
+  "For complete access, please": "Für vollständigen Zugriff bitte",
+  "  join an organization.": "  einer Organisation beitreten.",
   "JOIN":"BEITRETEN"
 }

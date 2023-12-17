@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 
@@ -17,6 +17,38 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 final homeModel = locator<MainScreenViewModel>();
+bool removeImageCalled = false;
+
+class MockAddPostViewModel extends Mock implements AddPostViewModel {
+  final _textHashTagController = TextEditingController(text: '');
+  final _controller = TextEditingController(text: '');
+  final _titleController = TextEditingController(text: '');
+
+  @override
+  File? get imageFile {
+    return File('example');
+  }
+
+  @override
+  String get userName => 'UserName';
+
+  @override
+  String get orgName => 'orgName';
+
+  @override
+  TextEditingController get textHashTagController => _textHashTagController;
+
+  @override
+  TextEditingController get controller => _controller;
+
+  @override
+  TextEditingController get titleController => _titleController;
+
+  // @override
+  // void removeImage() {
+  //   removeImageCalled = true;
+  // }
+}
 
 Widget createAddPostScreen({
   bool reverse = false,
@@ -53,7 +85,7 @@ Widget createAddPostScreen({
 }
 
 void main() {
-  SizeConfig().test();
+  // SizeConfig().test();
   testSetupLocator();
   // locator.registerSingleton(LikeButtonViewModel());
 
@@ -418,6 +450,24 @@ void main() {
 
       await tester.tap(finder);
       await tester.pump();
+    });
+
+    testWidgets('check if remove Image button works', (tester) async {
+      locator.unregister<AddPostViewModel>();
+      final mockModel =
+          locator.registerSingleton<AddPostViewModel>(MockAddPostViewModel());
+
+      when(mockModel.removeImage()).thenAnswer((_) {});
+
+      await tester.pumpWidget(createAddPostScreen());
+      await tester.pump();
+
+      final removeImageBtn =
+          tester.widget(find.byKey(const Key('remove_icon'))) as IconButton;
+
+      removeImageBtn.onPressed!();
+
+      verify(mockModel.removeImage());
     });
   });
 }

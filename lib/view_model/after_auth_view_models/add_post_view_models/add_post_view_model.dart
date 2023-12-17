@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -18,6 +17,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 /// to interact with the model to add a new post in the organization.
 class AddPostViewModel extends BaseModel {
+  AddPostViewModel({this.demoMode = false});
+
   //Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
@@ -25,11 +26,11 @@ class AddPostViewModel extends BaseModel {
   // ignore: unused_field
   late File? _imageFile;
   late String? _imageInBase64;
-  late User _currentUser;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _textHashTagController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
+  late bool demoMode;
 
   /// The image file that is to be uploaded.
   ///
@@ -74,7 +75,8 @@ class AddPostViewModel extends BaseModel {
   /// None
   /// returns:
   /// * `String`: The username of the currentUser
-  String get userName => _currentUser.firstName! + _currentUser.lastName!;
+  String get userName =>
+      userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 
   /// The organisation name.
   ///
@@ -117,12 +119,13 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void initialise() {
-    _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
-    _selectedOrg = locator<UserConfig>().currentOrg;
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
-    _dbFunctions = locator<DataBaseMutationFunctions>();
+    if (!demoMode) {
+      _dbFunctions = locator<DataBaseMutationFunctions>();
+      _selectedOrg = locator<UserConfig>().currentOrg;
+    }
   }
 
   /// to convert the image in base64.

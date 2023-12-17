@@ -1,7 +1,5 @@
 import 'package:currency_picker/currency_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/constants.dart';
@@ -18,7 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 /// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
@@ -89,55 +87,7 @@ class ProfilePageViewModel extends BaseModel {
   /// * `Future<void>`: Resolves when user logout
   Future<void> logout(BuildContext context) async {
     // push custom alert dialog with the confirmation message.
-    navigationService.pushDialog(
-      CustomAlertDialog(
-        key: const Key('customalertdialog'),
-        reverse: true,
-        dialogSubTitle: 'Are you sure you want to logout?',
-        successText: 'Logout',
-        success: () async {
-          try {
-            final result = await databaseFunctions
-                .gqlAuthMutation(queries.logout()) as QueryResult?;
-            if (result != null && result.data!['logout'] == true) {
-              navigationService.pop();
-              navigationService.pushDialog(
-                const CustomProgressDialog(
-                  key: Key('LogoutProgress'),
-                ),
-              );
-              Future.delayed(const Duration(seconds: 1)).then((value) {
-                user = Hive.box<User>('currentUser');
-                url = Hive.box('url');
-                final androidFirebaseOptionsBox =
-                    Hive.box('androidFirebaseOptions');
-                final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
-                organisation = Hive.box<OrgInfo>('currentOrg');
-                user.clear();
-                url.clear();
-                androidFirebaseOptionsBox.clear();
-                iosFirebaseOptionsBox.clear();
-                try {
-                  Firebase.app()
-                      .delete(); // Deleting app will stop all Firebase plugins
-                } catch (e) {
-                  debugPrint("ERROR: Unable to delete firebase app $e");
-                }
-                organisation.clear();
-                navigationService.pop();
-                navigationService.removeAllAndPush(
-                  '/selectLang',
-                  '/',
-                  arguments: '0',
-                );
-              });
-            }
-          } catch (e) {
-            print(e);
-          }
-        },
-      ),
-    );
+    navigationService.pushDialog(logoutDialog());
   }
 
   /// This method changes the currency of the user for donation purpose.
@@ -231,6 +181,33 @@ class ProfilePageViewModel extends BaseModel {
             ),
           ),
         );
+      },
+    );
+  }
+
+  Widget logoutDialog() {
+    return CustomAlertDialog(
+      reverse: true,
+      dialogSubTitle: 'Are you sure you want to logout?',
+      successText: 'Logout',
+      success: () async {
+        await userConfig.userLogOut();
+        navigationService.pop();
+        if (userConfig.loggedIn) {
+          navigationService.pushDialog(
+            const TalawaErrorDialog(
+              'Unable to logout, please try again.',
+              key: Key('TalawaError'),
+              messageType: MessageType.error,
+            ),
+          );
+        } else {
+          navigationService.removeAllAndPush(
+            '/selectLang',
+            '/',
+            arguments: '0',
+          );
+        }
       },
     );
   }

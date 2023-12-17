@@ -26,6 +26,7 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
+        print(model.pinnedPosts);
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             shape: const CircleBorder(side: BorderSide.none),
@@ -75,7 +76,10 @@ class OrganizationFeed extends StatelessWidget {
                     children: [
                       // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
                       model.pinnedPosts.isNotEmpty
-                          ? PinnedPost(pinnedPost: model.pinnedPosts)
+                          ? PinnedPost(
+                              pinnedPost: model.pinnedPosts,
+                              model: homeModel!,
+                            )
                           : Container(),
                       // If the organization has posts then renders PostListWidget widget else Container.
                       model.posts.isNotEmpty

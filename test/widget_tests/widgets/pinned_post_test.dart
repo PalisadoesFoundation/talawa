@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
 
 /// List of pinned posts.
 ///
@@ -74,7 +74,7 @@ List<Post> get pinnedPosts {
 ///   None
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  testSetupLocator();
   locator<SizeConfig>().test();
   setUp(() {
     registerServices();
@@ -88,7 +88,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -99,7 +102,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -109,7 +115,10 @@ void main() {
   testWidgets('Text widget displays the correct text', (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -119,7 +128,10 @@ void main() {
   testWidgets('Tapping on a post triggers navigation', (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -132,8 +144,8 @@ void main() {
 
   testWidgets('Container comes if list is empty', (widgetTester) async {
     await widgetTester.pumpWidget(
-      const MaterialApp(
-        home: PinnedPost(pinnedPost: []),
+      MaterialApp(
+        home: PinnedPost(pinnedPost: [], model: mainScreenViewModel),
       ),
     );
     await widgetTester.pump();
@@ -143,7 +155,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -160,7 +175,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
 
@@ -185,7 +203,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
@@ -204,7 +225,10 @@ void main() {
       (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: pinnedPosts),
+        home: PinnedPost(
+          pinnedPost: pinnedPosts,
+          model: mainScreenViewModel,
+        ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));

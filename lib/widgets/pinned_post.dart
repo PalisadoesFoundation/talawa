@@ -2,17 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 
 /// a_line_ending_with_end_punctuation.
 ///
 /// more_info_if_required
 class PinnedPost extends StatelessWidget {
-  const PinnedPost({super.key, required this.pinnedPost});
+  const PinnedPost({super.key, required this.pinnedPost, required this.model});
 
   /// contains the pinned post.
   ///
   final List<Post> pinnedPost;
+
+  /// gives access mainScreenViewModel's attributes.
+  final MainScreenViewModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class PinnedPost extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
+                  key: index == 0 ? model.keySHPinnedPost : const Key(''),
                   padding: const EdgeInsets.only(
                     left: 10,
                     top: 7,

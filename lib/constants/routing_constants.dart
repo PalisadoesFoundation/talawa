@@ -35,6 +35,9 @@ class Routes {
   static const String homeScreen = "/homeScreen";
 
   /// static variables.
+  static const String demoHomeScreen = "/demoHomeScreen";
+
+  /// static variables.
   static const String mainScreen = "/mainScreen";
 
   /// static variables.
@@ -50,6 +53,9 @@ class Routes {
   static const String exploreEventsScreen = "/exploreEvents";
 
   /// static variables.
+  static const String demoExploreEventsScreen = "/demoExploreEvents";
+
+  /// static variables.
   static const String eventInfoPage = "/eventInfo";
 
   /// static variables.
@@ -57,6 +63,9 @@ class Routes {
 
   /// static variables.
   static const String profilePage = "/profilePage";
+
+  /// static variables.
+  static const String demoProfilePage = "/demoProfilePage";
 
   /// static variables.
   static const String editProfilePage = "/editProfilePage";
