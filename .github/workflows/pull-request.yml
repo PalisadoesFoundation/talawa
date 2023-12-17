@@ -123,7 +123,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
             path: './coverage/lcov.info'
-            min_coverage: 81.0
+            min_coverage: 87.0
             
   Android-Build:
     name: Testing build for android
