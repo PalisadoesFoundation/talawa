@@ -22,7 +22,7 @@
   "Notification Feature is not installed": "अधिसूचना सुविधा स्थापित नहीं है",
   "Selected Organization": "चयनित संगठन",
   "Continue": "जारी रखें",
-  "Enter Organization URL": "संगठन URL दर्ज करें",
+  "Enter Community URL": "समुदाय URL दर्ज करें",
   "Verify": "सत्यापित करें",
   "Sign Up": "साइन अप करें",
   "Change language": "भाषा बदलें",
@@ -159,5 +159,7 @@
   "No account registered with this email": "सर्वर नहीं चल रहा/गलत url",
   "Dismiss": "नकार",
   "No organizations found Please contact your admin": "कोई संगठन नहीं मिला! कृपया अपने व्यवस्थापक से संपर्क करें",
+  "For complete access, please": "पूर्ण पहुंच के लिए, कृपया",
+  "  join an organization.": "  किसी संगठन से जुड़ें.",
   "JOIN":"जोड़ना"
 }

@@ -34,7 +34,7 @@ dependencies:
   file: ^7.0.0
   firebase_core: ^2.24.2
   firebase_core_platform_interface: ^5.0.0
-  firebase_messaging: ^14.7.6
+  firebase_messaging: ^14.7.9
   firebase_messaging_platform_interface: ^4.5.17
 
   flutter:
@@ -57,10 +57,10 @@ dependencies:
   hive: ^2.2.3
   http: 1.1.2
   image_cropper: ^5.0.1
-  image_picker: ^1.0.4
+  image_picker: ^1.0.5
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockito: ^5.4.3
+  mockito: ^5.4.4
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
   permission_handler: 11.1.0
