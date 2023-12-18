@@ -18,6 +18,20 @@ import '../helpers/test_locator.dart';
 /// more_info_if_required
 class MockBuildContext extends Mock implements BuildContext {}
 
+/// Checks if a given organization is present in a list of organizations.
+///
+/// more_info_if_required
+///
+/// **params**:
+/// * `org`: define_the_param
+/// * `orgList`: define_the_param
+///
+/// **returns**:
+/// * `bool`: define_the_return
+bool isPresentinSwitchableOrg(OrgInfo org, List<OrgInfo> orgList) {
+  return orgList.any((o) => o.id == org.id);
+}
+
 /// Main.
 ///
 /// more_info_if_required
@@ -99,108 +113,141 @@ void main() {
 
       verify(navigationService.pop());
     });
-  });
-  test('initialize should setup the model with userConfig values', () {
-    final homeModel = MainScreenViewModel();
-    final MockBuildContext mockContext = MockBuildContext();
-    final model = CustomDrawerViewModel();
-    final user = User(joinedOrganizations: [OrgInfo(name: 'Test Org')]);
 
-    when(userConfig.currentOrgInfoStream)
-        .thenAnswer((_) => Stream.value(OrgInfo()));
-    when(userConfig.currentUser).thenReturn(user);
-    when(userConfig.currentOrg).thenReturn(OrgInfo());
+    test('initialize should setup the model with userConfig values', () {
+      final homeModel = MainScreenViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      final model = CustomDrawerViewModel();
+      final user = User(joinedOrganizations: [OrgInfo(name: 'Test Org')]);
 
-    model.initialize(homeModel, mockContext);
+      when(userConfig.currentOrgInfoStream)
+          .thenAnswer((_) => Stream.value(OrgInfo()));
+      when(userConfig.currentUser).thenReturn(user);
+      when(userConfig.currentOrg).thenReturn(OrgInfo());
 
-    expect(model.switchAbleOrg, equals(user.joinedOrganizations));
-    expect(model.selectedOrg, equals(userConfig.currentOrg));
-  });
-  test(
-      'switchOrg should save new organization in userConfig if different organization',
-      () {
-    final model = CustomDrawerViewModel();
-    final orgInfo = OrgInfo(name: 'Test Org');
+      model.initialize(homeModel, mockContext);
 
-    when(userConfig.currentOrg).thenReturn(OrgInfo(name: 'Current Org'));
-    model.switchAbleOrg = [orgInfo];
+      expect(model.switchAbleOrg, equals(user.joinedOrganizations));
+      expect(model.selectedOrg, equals(userConfig.currentOrg));
+    });
+    test(
+        'switchOrg should save new organization in userConfig if different organization',
+        () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(name: 'Test Org');
 
-    model.switchOrg(orgInfo);
+      when(userConfig.currentOrg).thenReturn(OrgInfo(name: 'Current Org'));
+      model.switchAbleOrg = [orgInfo];
 
-    verify(userConfig.saveCurrentOrgInHive(orgInfo));
-    verify(
-      navigationService.showTalawaErrorSnackBar(
-        'Switched to ${orgInfo.name}',
-        MessageType.info,
-      ),
-    );
-  });
+      model.switchOrg(orgInfo);
 
-  test('check if switchOrg is working with zero switchable orgs', () {
-    final model = CustomDrawerViewModel();
-    model.setSelectedOrganizationName(userConfig.currentOrg);
+      verify(userConfig.saveCurrentOrgInHive(orgInfo));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Switched to ${orgInfo.name}',
+          MessageType.info,
+        ),
+      );
+    });
 
-    //No switchable org are present in the model
-    model.switchAbleOrg = [];
+    test('check if switchOrg is working with zero switchable orgs', () {
+      final model = CustomDrawerViewModel();
+      model.setSelectedOrganizationName(userConfig.currentOrg);
 
-    //Acess mock joined Organisation for the mock user
-    final OrgInfo mockJoinedOrg =
-        userConfig.currentUser.joinedOrganizations!.first;
+      //No switchable org are present in the model
+      model.switchAbleOrg = [];
 
-    //check if selected org is mocked joined org .Expectation-false.
-    expect(model.selectedOrg, isNot(mockJoinedOrg));
-  });
+      //Acess mock joined Organisation for the mock user
+      final OrgInfo mockJoinedOrg =
+          userConfig.currentUser.joinedOrganizations!.first;
 
-  test('check if switchOrg is working with wrong switchable org being passed',
-      () {
-    final model = CustomDrawerViewModel();
-    model.setSelectedOrganizationName(userConfig.currentOrg);
+      //check if selected org is mocked joined org .Expectation-false.
+      expect(model.selectedOrg, isNot(mockJoinedOrg));
+    });
 
-    //Mock switchable org are present in the model
-    model.switchAbleOrg = userConfig.currentUser.joinedOrganizations!;
+    test('check if switchOrg is working with wrong switchable org being passed',
+        () {
+      final model = CustomDrawerViewModel();
+      model.setSelectedOrganizationName(userConfig.currentOrg);
 
-    //Mock fake org which is not present in the mock switchableOrg
+      //Mock switchable org are present in the model
+      model.switchAbleOrg = userConfig.currentUser.joinedOrganizations!;
 
-    //Acess mock joined Organisation for the mock user
-    final OrgInfo fakeOrg = OrgInfo(
-      id: '5',
-      name: 'fake org 1',
-      isPublic: false,
-      creatorInfo: User(firstName: 'fake', lastName: 'user'),
-    );
-    //check if the mocked org is present or not
+      //Mock fake org which is not present in the mock switchableOrg
 
-    final isPresent = model.isPresentinSwitchableOrg(fakeOrg);
+      //Acess mock joined Organisation for the mock user
+      final OrgInfo fakeOrg = OrgInfo(
+        id: '5',
+        name: 'fake org 1',
+        isPublic: false,
+        creatorInfo: User(firstName: 'fake', lastName: 'user'),
+      );
+      //check if the mocked org is present or not
 
-    //expecting that the org is not present so will return false
-    expect(isPresent, false);
-    //check if selected org is changed or not. Expected-Not changing
-    expect(model.selectedOrg, isNot(fakeOrg));
-  });
+      final isPresent = model.isPresentinSwitchableOrg(fakeOrg);
 
-  test('check if switchOrg is working with mock joined orgs', () async {
-    final model = CustomDrawerViewModel();
-    final homeModel = MainScreenViewModel();
-    final MockBuildContext mockContext = MockBuildContext();
-    //Intializing a mock model with mockBuildContext
-    model.initialize(homeModel, mockContext);
-    //Storing the first switchable org in mockOrgInfo
-    final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      //expecting that the org is not present so will return false
+      expect(isPresent, false);
+      //check if selected org is changed or not. Expected-Not changing
+      expect(model.selectedOrg, isNot(fakeOrg));
+    });
 
-    //Calling the switchOrg function
-    model.switchOrg(mockChangeOrgTo);
+    test('check if switchOrg is working with mock joined orgs', () async {
+      final model = CustomDrawerViewModel();
+      final homeModel = MainScreenViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      //Intializing a mock model with mockBuildContext
+      model.initialize(homeModel, mockContext);
+      //Storing the first switchable org in mockOrgInfo
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
 
-    //expecting the selected org will be equal to the mockChangeOrgto returns true
-    expect(model.selectedOrg, mockChangeOrgTo);
-  });
+      //Calling the switchOrg function
+      model.switchOrg(mockChangeOrgTo);
 
-  test('setSelectedOrganizationName should update selectedOrg if different',
-      () {
-    final model = CustomDrawerViewModel();
-    final orgInfo = OrgInfo(name: 'Test Org');
+      //expecting the selected org will be equal to the mockChangeOrgto returns true
+      expect(model.selectedOrg, mockChangeOrgTo);
+    });
 
-    model.setSelectedOrganizationName(orgInfo);
+    test('setSelectedOrganizationName should update selectedOrg if different',
+        () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(name: 'Test Org');
 
-    expect(model.selectedOrg, equals(orgInfo));
+      model.setSelectedOrganizationName(orgInfo);
+
+      expect(model.selectedOrg, equals(orgInfo));
+    });
+
+    test('Check if OrgInfo is present in switchAbleOrg', () {
+      // Arrange
+      final switchAbleOrg = [
+        OrgInfo(id: '1'),
+        OrgInfo(id: '2'),
+        OrgInfo(id: '3'),
+      ];
+      final switchToOrg = OrgInfo(id: '2');
+
+      // Act
+      final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
+
+      // Assert
+      expect(result, true);
+    });
+
+    test('Check if OrgInfo is not present in switchAbleOrg', () {
+      // Arrange
+      final switchAbleOrg = [
+        OrgInfo(id: '1'),
+        OrgInfo(id: '2'),
+        OrgInfo(id: '3'),
+      ];
+      final switchToOrg = OrgInfo(id: '4');
+
+      // Act
+      final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
+
+      // Assert
+      expect(result, false);
+    });
   });
 }
