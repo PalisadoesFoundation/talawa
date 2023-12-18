@@ -14,17 +14,17 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 /// Mocked context.
-/// 
+///
 /// more_info_if_required
 class MockBuildContext extends Mock implements BuildContext {}
 
 /// Main.
-/// 
+///
 /// more_info_if_required
-/// 
+///
 /// **params**:
 ///   None
-/// 
+///
 /// **returns**:
 ///   None
 void main() {
@@ -178,23 +178,24 @@ void main() {
     expect(model.selectedOrg, isNot(fakeOrg));
   });
 
-   test('check if switchOrg is working with mock joined orgs', () async {
-       final model = CustomDrawerViewModel();
-        final homeModel = MainScreenViewModel();
+  test('check if switchOrg is working with mock joined orgs', () async {
+    final model = CustomDrawerViewModel();
+    final homeModel = MainScreenViewModel();
     final MockBuildContext mockContext = MockBuildContext();
-      //Intializing a mock model with mockBuildContext
-      model.initialize(homeModel, mockContext);
-      //Storing the first switchable org in mockOrgInfo
-      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+    //Intializing a mock model with mockBuildContext
+    model.initialize(homeModel, mockContext);
+    //Storing the first switchable org in mockOrgInfo
+    final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
 
-      //Calling the switchOrg function
-      model.switchOrg(mockChangeOrgTo);
+    //Calling the switchOrg function
+    model.switchOrg(mockChangeOrgTo);
 
-      //expecting the selected org will be equal to the mockChangeOrgto returns true
-      expect(model.selectedOrg, mockChangeOrgTo);
-    });
+    //expecting the selected org will be equal to the mockChangeOrgto returns true
+    expect(model.selectedOrg, mockChangeOrgTo);
+  });
 
-     test('setSelectedOrganizationName should update selectedOrg if different', () {
+  test('setSelectedOrganizationName should update selectedOrg if different',
+      () {
     final model = CustomDrawerViewModel();
     final orgInfo = OrgInfo(name: 'Test Org');
 
