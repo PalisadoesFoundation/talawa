@@ -18,6 +18,8 @@ import '../helpers/test_locator.dart';
 /// more_info_if_required
 class MockBuildContext extends Mock implements BuildContext {}
 
+class MockOrgInfo extends Mock implements OrgInfo {}
+
 /// Checks if a given organization is present in a list of organizations.
 ///
 /// more_info_if_required
@@ -258,6 +260,25 @@ void main() {
           MessageType.warning,
         ),
       ).called(1);
+    });
+
+    test(
+        'switchOrg should show warning message if same organization is selected',
+        () {
+      final model = CustomDrawerViewModel();
+      final orgInfo = OrgInfo(name: 'Test Org');
+
+      when(userConfig.currentOrg).thenReturn(orgInfo);
+      model.switchAbleOrg = [orgInfo];
+
+      model.switchOrg(orgInfo);
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Switched to ${orgInfo.name}',
+          MessageType.info,
+        ),
+      );
     });
   });
 }
