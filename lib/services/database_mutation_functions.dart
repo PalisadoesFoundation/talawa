@@ -191,18 +191,18 @@ class DataBaseMutationFunctions {
         }
         return false;
       }
-      if (exception.graphqlErrors[i].message ==
-          notifFeatureNotInstalled.message) {
-        if (showSnackBar) {
-          WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
-              "Notification Feature is not installed",
-              MessageType.error,
-            ),
-          );
-        }
-        return false;
-      }
+      // if (exception.graphqlErrors[i].message ==
+      //     notifFeatureNotInstalled.message) {
+      //   if (showSnackBar) {
+      //     WidgetsBinding.instance.addPostFrameCallback(
+      //       (_) => navigationService.showTalawaErrorDialog(
+      //         "Notification Feature is not installed",
+      //         MessageType.error,
+      //       ),
+      //     );
+      //   }
+      //   return false;
+      // }
     }
     // if the error is unknown
 

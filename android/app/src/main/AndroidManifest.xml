@@ -57,9 +57,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data
+        <!-- <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="high_importance_channel" />
+            android:value="high_importance_channel" /> -->
        <provider
            android:name="androidx.core.content.FileProvider"
            android:authorities="${applicationId}.com.shekarmudaliyar.social_share"
