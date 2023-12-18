@@ -57,7 +57,7 @@ dependencies:
   hive: ^2.2.3
   http: 1.1.2
   image_cropper: ^5.0.1
-  image_picker: ^1.0.4
+  image_picker: ^1.0.5
   intl: ^0.18.0
   json_annotation: ^4.7.0
   mockito: ^5.4.3
