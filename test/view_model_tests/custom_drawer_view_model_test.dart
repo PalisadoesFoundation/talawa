@@ -18,8 +18,6 @@ import '../helpers/test_locator.dart';
 /// more_info_if_required
 class MockBuildContext extends Mock implements BuildContext {}
 
-class MockOrgInfo extends Mock implements OrgInfo {}
-
 /// Checks if a given organization is present in a list of organizations.
 ///
 /// more_info_if_required
