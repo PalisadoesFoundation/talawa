@@ -219,7 +219,6 @@ void main() {
     });
 
     test('Check if OrgInfo is present in switchAbleOrg', () {
-      // Arrange
       final switchAbleOrg = [
         OrgInfo(id: '1'),
         OrgInfo(id: '2'),
@@ -227,15 +226,12 @@ void main() {
       ];
       final switchToOrg = OrgInfo(id: '2');
 
-      // Act
       final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
 
-      // Assert
       expect(result, true);
     });
 
     test('Check if OrgInfo is not present in switchAbleOrg', () {
-      // Arrange
       final switchAbleOrg = [
         OrgInfo(id: '1'),
         OrgInfo(id: '2'),
@@ -243,11 +239,25 @@ void main() {
       ];
       final switchToOrg = OrgInfo(id: '4');
 
-      // Act
       final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
 
-      // Assert
       expect(result, false);
+    });
+
+    test('should show warning snackbar when org is already selected', () {
+      final switchToOrg = OrgInfo(id: 'Test Org', name: 'Test Org');
+
+      navigationService.showTalawaErrorSnackBar(
+        '${switchToOrg.name} already selected',
+        MessageType.warning,
+      );
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          '${switchToOrg.name} already selected',
+          MessageType.warning,
+        ),
+      ).called(1);
     });
   });
 }
