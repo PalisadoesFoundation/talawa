@@ -55,13 +55,13 @@
 //     return null;
 //   });
 
-  // when(kMockMessagingPlatform.delegateFor(app: anyNamed('app')))
-  //     .thenReturn(kMockMessagingPlatform);
-  // when(
-  //   kMockMessagingPlatform.setInitialValues(
-  //     isAutoInitEnabled: anyNamed('isAutoInitEnabled'),
-  //   ),
-  // ).thenReturn(kMockMessagingPlatform);
+// when(kMockMessagingPlatform.delegateFor(app: anyNamed('app')))
+//     .thenReturn(kMockMessagingPlatform);
+// when(
+//   kMockMessagingPlatform.setInitialValues(
+//     isAutoInitEnabled: anyNamed('isAutoInitEnabled'),
+//   ),
+// ).thenReturn(kMockMessagingPlatform);
 // }
 
 // class MockFirebaseMessaging extends Mock with MockPlatformInterfaceMixin {
