@@ -258,10 +258,12 @@ void main() {
 
       expect(result, true);
       expect(model.selectedOrg, equals(switchToOrg));
-      verify(navigationService.showTalawaErrorSnackBar(
-        '${switchToOrg.name} already selected',
-        MessageType.warning,
-      ),).called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          '${switchToOrg.name} already selected',
+          MessageType.warning,
+        ),
+      ).called(1);
     });
   });
 }
