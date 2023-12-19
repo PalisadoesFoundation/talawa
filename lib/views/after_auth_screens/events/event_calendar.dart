@@ -56,6 +56,7 @@ class _EventCalendarState extends State<EventCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    print('hi');
     return Scaffold(
       // header of the page.
       appBar: AppBar(

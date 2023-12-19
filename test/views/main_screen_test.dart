@@ -12,6 +12,7 @@ import 'package:mockito/mockito.dart';
 // import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -21,6 +22,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 // import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 // import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
@@ -33,7 +35,7 @@ import 'package:talawa/views/main_screen.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-Widget createMainScreen() {
+Widget createMainScreen({bool demoMode = true}) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
     builder: (context, model, child) {
@@ -56,6 +58,7 @@ Widget createMainScreen() {
                 mainScreenArgs: MainScreenArgs(
                   fromSignUp: false,
                   mainScreenIndex: 0,
+                  toggleDemoMode: demoMode,
                 ),
               ),
             ),
@@ -66,6 +69,29 @@ Widget createMainScreen() {
       );
     },
   );
+}
+
+class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  @override
+  int get currentPageIndex => 0;
+
+  @override
+  List<StatelessWidget> get pages => [const Test(key: Key('key'))];
+
+  @override
+  List<BottomNavigationBarItem> get navBarItems => [
+        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label1'),
+        const BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'label2'),
+      ];
+}
+
+class Test extends StatelessWidget {
+  const Test({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
 }
 
 void main() async {
@@ -93,6 +119,9 @@ void main() async {
   setUp(() {
     registerServices();
     locator<SizeConfig>().test();
+    locator.unregister<MainScreenViewModel>();
+    locator
+        .registerFactory<MainScreenViewModel>(() => MockMainScreenViewModel());
 
     graphQLClient = locator<GraphQLClient>();
     when(
@@ -119,9 +148,21 @@ void main() async {
   });
 
   group("Test for main_screen.dart", () {
-    // testWidgets("Check if MainScreen shows up", (tester) async {
-    //   await tester.pumpWidget(createMainScreen());
-    //   await tester.pump();
+    testWidgets('Test join org banner.', (tester) async {
+      await tester.pumpWidget(createMainScreen());
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final bannerFinder = find.byKey(const Key('banner'));
+
+      await tester.tap(bannerFinder);
+
+      verify(navigationService.pushScreen(Routes.setUrlScreen, arguments: ''));
+    });
+
+    testWidgets("Test if Join Org banner not visible.", (tester) async {
+      await tester.pumpWidget(createMainScreen(demoMode: false));
+      await tester.pump();
+    });
     //
     //   // Don't call pumpAndSettle as the BottomNavigationBar
     //   // of this widget builds itself repeatedly, causing an infinite

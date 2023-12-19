@@ -22,12 +22,15 @@ class TalawaErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
+      width: screenWidth * 0.8, // Adjust the width based on screen size
       child: AlertDialog(
         content: SizedBox(
           width: SizeConfig.screenWidth! * 0.65,
           height: SizeConfig.screenWidth! * 0.38,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 messageType == MessageType.error
@@ -70,7 +73,8 @@ class TalawaErrorDialog extends StatelessWidget {
                           : messageType == MessageType.info
                               ? Colors.green
                               : Colors.red,
-                  fontSize: 20,
+                  fontSize: screenWidth *
+                      0.04, // Adjust the font size based on screen width
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -91,8 +95,6 @@ class TalawaErrorDialog extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          // Expanded(
-          //   child:
           TextButton(
             style: TextButton.styleFrom(
               backgroundColor: messageType == MessageType.error
@@ -118,7 +120,6 @@ class TalawaErrorDialog extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          // ),
         ],
       ),
     );

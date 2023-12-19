@@ -24,7 +24,7 @@
   "Select": "Sélectionner",
   "Selected Organization": "Organisation sélectionnée",
   "Continue": "Continuer",
-  "Enter Organization URL": "Saisissez l'URL de l'organisation",
+  "Enter Community URL": "Entrez l'URL de la communauté",
   "Verify": "Vérifier",
   "Sign Up": "S'inscrire",
   "Change language": "Changer de langue",
@@ -163,5 +163,7 @@
   "Settings": "Paramètres",
   "Dark Theme": "Thème sombre",
   "No organizations found Please contact your admin": "Aucune organisation trouvée ! Veuillez contacter votre administrateur",
+  "For complete access, please": "Pour un accès complet, veuillez",
+  "  join an organization.": "  rejoindre une organisation.",
   "JOIN":"REJOINDRE"
 }

@@ -33,10 +33,14 @@ import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
+import 'package:talawa/views/demo_screens/explore_events_demo.dart';
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
+import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -347,6 +351,53 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<AddPost>());
+      }
+    });
+
+    testWidgets('Test for setUrl route', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(name: Routes.setUrlScreen, arguments: ''),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<SetUrl>());
+      }
+    });
+
+    testWidgets('Test for demoProfilePage route', (WidgetTester tester) async {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.demoProfilePage));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<DemoProfilePage>());
+      }
+    });
+
+    testWidgets('Test for demoExploreEventsScreen route',
+        (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(name: Routes.demoExploreEventsScreen),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<DemoExploreEvents>());
+      }
+    });
+
+    testWidgets('Test for demoHomeScreen route', (WidgetTester tester) async {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.demoHomeScreen));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<DemoOrganizationFeed>());
       }
     });
 

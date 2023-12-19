@@ -218,8 +218,10 @@ class ProfilePage extends StatelessWidget {
                           children: [
                             RaisedRoundedButton(
                               key: homeModel!.keySPDonateUs,
-                              buttonLabel: AppLocalizations.of(context)!
-                                  .strictTranslate('Donate to the Community'),
+                              buttonLabel:
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                'Donate to the Community',
+                              ),
                               onTap: () => donate(context, model),
                               textColor: Theme.of(context)
                                   .inputDecorationTheme
