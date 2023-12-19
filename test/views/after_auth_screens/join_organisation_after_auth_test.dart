@@ -26,7 +26,7 @@ Widget createJoinOrgAfterAuth({
 }) {
   return BaseView<SelectOrganizationViewModel>(
     onModelReady: (model) => model.initialise(orgId),
-    builder: (context, langModel, child) {
+    builder: (context, model, child) {
       return MaterialApp(
         navigatorKey: navigationService.navigatorKey,
         locale: const Locale('en'),
@@ -170,13 +170,6 @@ void main() {
     /// Search is No-Longer is a feature, if it gets implemented in future use this test
     /// Really good test to learn from so not deleting
     testWidgets("Check if model related functions work", (tester) async {
-      // Registers a singleton, which means that every instance of
-      // SelectOrganizationViewModel will be the same.
-      locator.unregister<SelectOrganizationViewModel>();
-      locator.registerSingleton<SelectOrganizationViewModel>(
-        SelectOrganizationViewModel(),
-      );
-
       final orgOne = OrgInfo(
         name: "org_one",
         creatorInfo: User(
