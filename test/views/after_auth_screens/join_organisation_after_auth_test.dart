@@ -91,6 +91,66 @@ void main() {
       (tester.widget(find.byType(QRView)) as QRView)
           .onQRViewCreated(controller);
     });
+    testWidgets('QR Scan Test when url != GraphqlConfig.orgURI',
+        (WidgetTester tester) async {
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          '1' + '?orgid=6737904485008f171cf29924',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+      when(controller.stopCamera())
+          .thenAnswer((realInvocation) => Future.value());
+
+      await tester.pumpWidget(
+        createJoinOrgAfterAuth(),
+      );
+
+      await tester.pumpAndSettle(const Duration(seconds: 6));
+
+      await tester.tap(find.byIcon(Icons.qr_code_scanner));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is ClipRRect &&
+              widget.child is Container &&
+              (widget.child! as Container).child is Column,
+        ),
+        findsOneWidget,
+      );
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
+    testWidgets('Test _onQRViewCreated when throwing exception',
+        (WidgetTester tester) async {
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode(
+          ' ' + '?orgid=6737904485008f171cf29924',
+          BarcodeFormat.qrcode,
+          null,
+        );
+      });
+      when(controller.stopCamera())
+          .thenAnswer((realInvocation) => Future.value());
+
+      await tester.pumpWidget(
+        createJoinOrgAfterAuth(),
+      );
+      when(controller.stopCamera()).thenThrow(Exception("exception"));
+
+      await tester.pumpAndSettle(const Duration(seconds: 6));
+
+      await tester.tap(find.byIcon(Icons.qr_code_scanner));
+      await tester.pumpAndSettle();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
     testWidgets(
       "Check if JoinOrganizationsAfterAuth shows up",
       (tester) async {
