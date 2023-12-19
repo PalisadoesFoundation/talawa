@@ -9,6 +9,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -264,6 +265,20 @@ void main() {
           MessageType.warning,
         ),
       ).called(1);
+    });
+    test('controller should return ScrollController instance', () {
+      final model = CustomDrawerViewModel();
+      expect(model.controller, isA<ScrollController>());
+    });
+
+    test('targets should return List<TargetFocus> instance', () {
+      final model = CustomDrawerViewModel();
+      expect(model.targets, isA<List<TargetFocus>>());
+    });
+
+    test('selectedOrg should be initially null', () {
+      final model = CustomDrawerViewModel();
+      expect(model.selectedOrg, isNull);
     });
   });
 }
