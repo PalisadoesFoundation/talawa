@@ -18,20 +18,6 @@ import '../helpers/test_locator.dart';
 /// more_info_if_required
 class MockBuildContext extends Mock implements BuildContext {}
 
-/// Checks if a given organization is present in a list of organizations.
-///
-/// more_info_if_required
-///
-/// **params**:
-/// * `org`: define_the_param
-/// * `orgList`: define_the_param
-///
-/// **returns**:
-/// * `bool`: define_the_return
-bool isPresentinSwitchableOrg(OrgInfo org, List<OrgInfo> orgList) {
-  return orgList.any((o) => o.id == org.id);
-}
-
 /// Main.
 ///
 /// more_info_if_required
@@ -219,64 +205,63 @@ void main() {
     });
 
     test('Check if OrgInfo is present in switchAbleOrg', () {
-      final switchAbleOrg = [
+      final model = CustomDrawerViewModel();
+      model.switchAbleOrg = [
         OrgInfo(id: '1'),
         OrgInfo(id: '2'),
         OrgInfo(id: '3'),
       ];
       final switchToOrg = OrgInfo(id: '2');
 
-      final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
+      final result = model.isPresentinSwitchableOrg(switchToOrg);
 
       expect(result, true);
     });
 
     test('Check if OrgInfo is not present in switchAbleOrg', () {
-      final switchAbleOrg = [
+      final model = CustomDrawerViewModel();
+      model.switchAbleOrg = [
         OrgInfo(id: '1'),
         OrgInfo(id: '2'),
         OrgInfo(id: '3'),
       ];
       final switchToOrg = OrgInfo(id: '4');
 
-      final result = isPresentinSwitchableOrg(switchToOrg, switchAbleOrg);
+      final result = model.isPresentinSwitchableOrg(switchToOrg);
 
       expect(result, false);
     });
 
-    test('should show warning snackbar when org is already selected', () {
-      final switchToOrg = OrgInfo(id: 'Test Org', name: 'Test Org');
+    test(
+        'setSelectedOrganizationName should show error snackbar if org is same as selected',
+        () {
+      final homeModel = MainScreenViewModel();
+      final MockBuildContext mockContext = MockBuildContext();
+      final model = CustomDrawerViewModel();
+      final user =
+          User(joinedOrganizations: [OrgInfo(id: '1', name: 'Test Org1')]);
 
-      navigationService.showTalawaErrorSnackBar(
+      when(userConfig.currentOrgInfoStream)
+          .thenAnswer((_) => Stream.value(OrgInfo(id: '1', name: 'Test Org1')));
+      when(userConfig.currentUser).thenReturn(user);
+      when(userConfig.currentOrg)
+          .thenReturn(OrgInfo(id: '1', name: 'Test Org1'));
+      model.initialize(homeModel, mockContext);
+      final switchToOrg = OrgInfo(id: '1', name: 'Test Org1');
+      model.setSelectedOrganizationName(switchToOrg);
+      final result1 = model.isPresentinSwitchableOrg(switchToOrg);
+
+      expect(result1, true);
+      // expect(model.selectedOrg, equals(userConfig.currentOrg));
+      model.switchOrg(switchToOrg);
+      final result = model.isPresentinSwitchableOrg(switchToOrg);
+
+      expect(result, true);
+      expect(model.selectedOrg, equals(switchToOrg));
+      verify(navigationService.showTalawaErrorSnackBar(
         '${switchToOrg.name} already selected',
         MessageType.warning,
-      );
-
-      verify(
-        navigationService.showTalawaErrorSnackBar(
-          '${switchToOrg.name} already selected',
-          MessageType.warning,
-        ),
-      ).called(1);
-    });
-
-    test(
-        'switchOrg should show warning message if same organization is selected',
-        () {
-      final model = CustomDrawerViewModel();
-      final orgInfo = OrgInfo(name: 'Test Org');
-
-      when(userConfig.currentOrg).thenReturn(orgInfo);
-      model.switchAbleOrg = [orgInfo];
-
-      model.switchOrg(orgInfo);
-
-      verify(
-        navigationService.showTalawaErrorSnackBar(
-          'Switched to ${orgInfo.name}',
-          MessageType.info,
-        ),
-      );
+      ),).called(1);
     });
   });
 }

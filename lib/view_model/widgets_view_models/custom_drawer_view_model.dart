@@ -26,7 +26,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// Instance of TutorialCoachMark responsible for providing tutorial guidance.
   late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
-  late List<OrgInfo> _switchAbleOrg;
+  late List<OrgInfo> _switchAbleOrg = [];
   bool _disposed = false;
   OrgInfo? _selectedOrg;
   StreamSubscription? _currentOrganizationStreamSubscription;
@@ -75,7 +75,8 @@ class CustomDrawerViewModel extends BaseModel {
   ///   None
   void switchOrg(OrgInfo switchToOrg) {
     // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
-    if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
+    if ((selectedOrg == switchToOrg) &&
+        (isPresentinSwitchableOrg(switchToOrg))) {
       // _navigationService.pop();
       navigationService.showTalawaErrorSnackBar(
         '${switchToOrg.name} already selected',
