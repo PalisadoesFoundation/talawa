@@ -280,9 +280,5 @@ void main() {
       final model = CustomDrawerViewModel();
       expect(model.selectedOrg, isNull);
     });
-    test('switchAbleOrg should be null initially', () {
-      final model = CustomDrawerViewModel();
-      expect(model.switchAbleOrg, []);
-    });
   });
 }

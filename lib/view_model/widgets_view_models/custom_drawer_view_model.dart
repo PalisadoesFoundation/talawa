@@ -26,7 +26,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// Instance of TutorialCoachMark responsible for providing tutorial guidance.
   late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
-  late List<OrgInfo> _switchAbleOrg = [];
+  late List<OrgInfo> _switchAbleOrg;
   bool _disposed = false;
   OrgInfo? _selectedOrg;
   StreamSubscription? _currentOrganizationStreamSubscription;
