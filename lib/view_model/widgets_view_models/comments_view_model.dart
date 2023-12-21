@@ -61,8 +61,9 @@ class CommentsViewModel extends BaseModel {
   ///
   Future<void> getComments() async {
     setState(ViewState.busy);
-    final List commentsJSON = await _commentService.getCommentsForPost(_postID);
+    List commentsJSON = await _commentService.getCommentsForPost(_postID);
     print(commentsJSON);
+    commentsJSON = commentsJSON.reversed.toList();
     commentsJSON.forEach((commentJson) {
       _commentlist.add(Comment.fromJson(commentJson as Map<String, dynamic>));
     });
