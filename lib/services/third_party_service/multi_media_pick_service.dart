@@ -25,7 +25,7 @@ class MultiMediaPickerService {
   MultiMediaPickerService() {
     _picker = locator<ImagePicker>();
     _fileStream = _fileStreamController.stream.asBroadcastStream();
-    _imageService = locator<ImageService>();
+    _imageService = imageService;
   }
 
   //Local Variables

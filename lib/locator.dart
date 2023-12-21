@@ -71,14 +71,8 @@ final connectivity = locator<Connectivity>();
 ///creating GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
-///creating GetIt for ImagePicker.
-final imagePicker = locator<ImagePicker>();
-
 ///creating GetIt for ImageService.
 final imageService = locator<ImageService>();
-
-///creating GetIt for ImageCropper.
-final imageCropper = locator<ImageCropper>();
 
 /// This function registers the widgets/objects in "GetIt".
 ///
