@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -18,6 +17,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 /// to interact with the model to add a new post in the organization.
 class AddPostViewModel extends BaseModel {
+  AddPostViewModel({this.demoMode = false});
+
   //Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
@@ -25,11 +26,11 @@ class AddPostViewModel extends BaseModel {
   // ignore: unused_field
   late File? _imageFile;
   late String? _imageInBase64;
-  late User _currentUser;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _textHashTagController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
+  late bool demoMode;
 
   /// The image file that is to be uploaded.
   ///
@@ -39,8 +40,34 @@ class AddPostViewModel extends BaseModel {
   /// * `File?`: The image file
   File? get imageFile => _imageFile;
 
+  /// method to set image.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  ///   None
+  void setImageFile(File? file) {
+    _imageFile = file;
+    notifyListeners();
+  }
+
   /// Getter to access the base64 type.
   String? get imageInBase64 => _imageInBase64;
+
+  /// method to set Image in Bsse64.
+  ///
+  ///
+  /// **params**:
+  /// * `file`: define_the_param
+  ///
+  /// **returns**:
+  /// * `Future<void>`: define_the_return
+  Future<void> setImageInBase64(File file) async {
+    _imageInBase64 = await convertToBase64(file);
+    notifyListeners();
+  }
 
   /// The Username.
   ///
@@ -48,7 +75,8 @@ class AddPostViewModel extends BaseModel {
   /// None
   /// returns:
   /// * `String`: The username of the currentUser
-  String get userName => _currentUser.firstName! + _currentUser.lastName!;
+  String get userName =>
+      userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 
   /// The organisation name.
   ///
@@ -91,12 +119,13 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void initialise() {
-    _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
-    _selectedOrg = locator<UserConfig>().currentOrg;
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
-    _dbFunctions = locator<DataBaseMutationFunctions>();
+    if (!demoMode) {
+      _dbFunctions = locator<DataBaseMutationFunctions>();
+      _selectedOrg = locator<UserConfig>().currentOrg;
+    }
   }
 
   /// to convert the image in base64.

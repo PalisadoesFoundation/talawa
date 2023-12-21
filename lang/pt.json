@@ -24,7 +24,7 @@
   "Select": "Selecione",
   "Selected Organization": "Organização Selecionada",
   "Continue": "Prosseguir",
-  "Enter Organization URL": "Insira o URL da organização",
+  "Enter Community URL": "Insira o URL da sua comunidade",
   "Verify": "Verificar",
   "Sign Up": "Inscrever-se",
   "Change language": "Mudar idioma",
@@ -160,6 +160,8 @@
   "Information": "Informação",
   "No account registered with this email": "Servidor não está em execução/url errado",
   "Dismiss": "liberar",
-  "JOIN":"ENTRAR",
-  "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton"
+  "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton",
+  "For complete access, please": "Para acesso completo, por favor",
+  "  join an organization.": "  ingressar em uma organização.",
+  "JOIN":"ENTRAR"
 }

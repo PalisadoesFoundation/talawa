@@ -94,6 +94,7 @@ class NavigationService {
   /// **returns**:
   ///   None
   void pushDialog(Widget dialog) {
+    print('came');
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
