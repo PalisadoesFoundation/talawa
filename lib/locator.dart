@@ -8,6 +8,7 @@ import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -70,11 +71,14 @@ final connectivity = locator<Connectivity>();
 ///creating GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
-///creating GetIt for ImageCropper.
-final imageCropper = locator<ImageCropper>();
-
 ///creating GetIt for ImagePicker.
 final imagePicker = locator<ImagePicker>();
+
+///creating GetIt for ImageService.
+final imageService = locator<ImageService>();
+
+///creating GetIt for ImageCropper.
+final imageCropper = locator<ImageCropper>();
 
 /// This function registers the widgets/objects in "GetIt".
 ///
@@ -104,8 +108,9 @@ void setupLocator() {
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => Connectivity());
   locator.registerLazySingleton(() => ChatService());
-  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
+  locator.registerLazySingleton(() => ImageCropper());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

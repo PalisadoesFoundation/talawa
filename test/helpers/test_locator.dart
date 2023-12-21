@@ -9,6 +9,7 @@ import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -55,8 +56,9 @@ final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
-final imageCropper = locator<ImageCropper>();
+final imageService = locator<ImageService>();
 final imagePicker = locator<ImagePicker>();
+final imageCropper = locator<ImageCropper>();
 
 void testSetupLocator() {
   //services
@@ -74,8 +76,9 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
-  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
+  locator.registerLazySingleton(() => ImageCropper());
   locator.registerSingleton(() => OrganizationService());
 
   //graphql
