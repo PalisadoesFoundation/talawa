@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -24,8 +26,21 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
-        print(model.posts);
+        print(model.pinnedPosts);
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            shape: const CircleBorder(side: BorderSide.none),
+            key: const Key('floating_action_btn'),
+            backgroundColor: Colors.green,
+            onPressed: () {
+              navigationService.pushScreen('/addpostscreen');
+            },
+            child: Icon(
+              Icons.add,
+              size: SizeConfig.screenHeight! * 0.045,
+              color: Colors.white,
+            ),
+          ),
           appBar: AppBar(
             // AppBar returns a widget for the header of the page.
             backgroundColor: Colors.green,
@@ -61,7 +76,10 @@ class OrganizationFeed extends StatelessWidget {
                     children: [
                       // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
                       model.pinnedPosts.isNotEmpty
-                          ? PinnedPost(pinnedPost: model.pinnedPosts)
+                          ? PinnedPost(
+                              pinnedPost: model.pinnedPosts,
+                              model: homeModel!,
+                            )
                           : Container(),
                       // If the organization has posts then renders PostListWidget widget else Container.
                       model.posts.isNotEmpty

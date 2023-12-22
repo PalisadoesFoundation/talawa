@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -18,11 +15,19 @@ class EventCard extends StatelessWidget {
     this.eventTitleNormalText,
     required this.isSearchItem,
   });
-  // variables
+
+  /// instance of an event.
   final Event event;
+
+  /// Highlighted text of the event.
   final String? eventTitleHighlightedText;
+
+  /// Eventtile normal text.
   final String? eventTitleNormalText;
+
+  /// This flag indicates that if this event is searchable.
   final bool isSearchItem;
+
   @override
   Widget build(BuildContext context) {
     final bool isRegistered = event.isRegistered ?? false;
@@ -54,9 +59,7 @@ class EventCard extends StatelessWidget {
                       image: const DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.topCenter,
-                        image: NetworkImage(
-                          'https://picsum.photos/id/1022/200/300',
-                        ),
+                        image: AssetImage('assets/images/pfp2.png'),
                       ),
                     ),
                     child: ClipRRect(
@@ -117,9 +120,11 @@ class EventCard extends StatelessWidget {
                             size: 13,
                           ),
                           const Spacer(),
-                          Text(
-                            "${event.startDate!} - ${event.endDate!}",
-                            style: Theme.of(context).textTheme.bodySmall,
+                          Expanded(
+                            child: Text(
+                              "${event.startDate!} - ${event.endDate!}",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ),
                         ],
                       ),

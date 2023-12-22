@@ -23,7 +23,7 @@
   "Select": "選択する",
   "Selected Organization": "選択した組織",
   "Continue": "継続する",
-  "Enter Organization URL": "組織のURLを入力してください",
+  "Enter Community URL": "コミュニティの URL を入力してください",
   "Verify": "確認",
   "Sign Up": "サインアップ",
   "Change language": "言語を変更",
@@ -161,5 +161,8 @@
   "Information": "情報",
   "No account registered with this email": "サーバーが実行されていない/間違った URL",
   "Dismiss": "解散",
-  "No organizations found Please contact your admin": "組織が見つかりません!管理者に連絡してください"
+  "No organizations found Please contact your admin": "組織が見つかりません!管理者に連絡してください",
+  "For complete access, please": "完全にアクセスするには、",
+  "  join an organization.": "  組織に参加します。",
+  "JOIN": "参加する"
 }

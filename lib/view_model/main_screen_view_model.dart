@@ -3,15 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_screens/explore_events_demo.dart';
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
+import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -35,6 +37,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
+
+  /// static variables.
+  final GlobalKey keyBNDemoHome = GlobalKey(debugLabel: "DemoHomeTab");
 
   /// static variables.
   final GlobalKey keySHPinnedPost =
@@ -69,6 +74,9 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
 
   /// static variables.
+  final GlobalKey keyBNDemoEvents = GlobalKey(debugLabel: "DemoEventTab");
+
+  /// static variables.
   final GlobalKey keySECategoryMenu =
       GlobalKey(debugLabel: "EventScreenCategory");
 
@@ -86,10 +94,16 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
 
   /// static variables.
+  final GlobalKey keyBNDemoPost = GlobalKey(debugLabel: "DemoPostTab");
+
+  /// static variables.
   final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
 
   /// static variables.
   final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
+
+  /// static variables.
+  final GlobalKey keyBNDemoProfile = GlobalKey(debugLabel: "DemoProfileTab");
 
   /// static variables.
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
@@ -128,10 +142,16 @@ class MainScreenViewModel extends BaseModel {
   late BuildContext context;
 
   /// tutorialCoachMark consist of coach used to give tutorial.
-  late TutorialCoachMark tutorialCoachMark;
+  late AppTour appTour = AppTour(model: this);
 
   /// array of target.
-  final List<TargetFocus> targets = [];
+  final List<FocusTarget> targets = [];
+
+  /// flag to represent if app is in demoMode.
+  bool demoMode = false;
+
+  /// flag to represent if app is in testMode.
+  bool testMode = false;
 
   /// Initalizing function.
   ///
@@ -146,10 +166,17 @@ class MainScreenViewModel extends BaseModel {
     BuildContext ctx, {
     required bool fromSignUp,
     required int mainScreenIndex,
+    bool demoMode = false,
+    bool testMode = false,
   }) {
+    this.testMode = testMode;
+    this.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
-    showAppTour = fromSignUp;
+    showAppTour = fromSignUp || demoMode;
+    context = ctx;
 
+    print(ctx);
+    print(context);
     pluginPrototypeData = {
       "Donation": {
         "icon": Icons.attach_money_outlined,
@@ -165,22 +192,7 @@ class MainScreenViewModel extends BaseModel {
       Future.delayed(
         const Duration(seconds: 1),
         () => navigationService.pushDialog(
-          CustomAlertDialog(
-            dialogTitle: 'App Tour',
-            dialogSubTitle: 'Start app tour to know talawa functioning',
-            successText: 'Start',
-            secondaryButtonText: 'Skip',
-            success: () {
-              context = ctx;
-              navigationService.pop();
-              tourHomeTargets();
-            },
-            secondaryButtonTap: () {
-              tourComplete = false;
-              tourSkipped = true;
-              notifyListeners();
-            },
-          ),
+          appTourDialog(ctx),
         ),
       );
     }
@@ -232,13 +244,6 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Events'),
       ),
-      BottomNavigationBarItem(
-        icon: Icon(
-          Icons.add_box,
-          key: keyBNPost,
-        ),
-        label: AppLocalizations.of(context)!.strictTranslate('Add'),
-      ),
 
       /// Makes chat inaccessible for the user
       //TODO: add chat functionality
@@ -258,65 +263,91 @@ class MainScreenViewModel extends BaseModel {
       ),
     ];
 
-    pages = [
-      OrganizationFeed(
-        key: const Key("HomeView"),
-        homeModel: this,
-      ),
-      ExploreEvents(
-        key: const Key('ExploreEvents'),
-        homeModel: this,
-      ),
-      AddPost(
-        key: const Key('AddPost'),
-        drawerKey: MainScreenViewModel.scaffoldKey,
-      ),
-      // const ChatPage(
-      //   key: Key('Chats'),
-      // ),
-      ProfilePage(
-        key: keySPEditProfile,
-        homeModel: this,
-      ),
-    ];
-
-    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
-
-    pluginList.forEach((plugin) {
-      if (pluginPrototypeData.containsKey(
-            (plugin as Map<String, dynamic>)["pluginName"] as String,
-          ) &&
-          plugin["pluginInstallStatus"] as bool) {
-        navBarItems.add(
-          BottomNavigationBarItem(
-            icon: Icon(
-              (pluginPrototypeData[plugin["pluginName"]]
-                  as Map<String, dynamic>)["icon"] as IconData,
-            ),
-            label: AppLocalizations.of(context)!.strictTranslate(
-              plugin["pluginName"] as String,
-            ),
-          ),
-        );
-        pages.add(
-          (pluginPrototypeData[plugin["pluginName"]]
-              as Map<String, dynamic>)["class"] as StatelessWidget,
-        );
-      }
-    });
-
-    /// Causes the app check the plugins updates in every 300 sec
-    ///
-    /// updated and re-render the navbar
-    Timer.periodic(const Duration(seconds: 300), (timer) {
-      FetchPluginList();
-      final newPluginList =
+    if (!demoMode) {
+      pages = [
+        OrganizationFeed(
+          key: const Key("HomeView"),
+          homeModel: this,
+        ),
+        ExploreEvents(
+          key: const Key('ExploreEvents'),
+          homeModel: this,
+        ),
+        // AddPost(
+        //   key: const Key('AddPost'),
+        //   drawerKey: MainScreenViewModel.scaffoldKey,
+        // ),
+        // const ChatPage(
+        //   key: Key('Chats'),
+        // ),
+        ProfilePage(
+          key: keySPEditProfile,
+          homeModel: this,
+        ),
+      ];
+      pluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
-      if (listEquals(pluginList, newPluginList)) {
-        notifyListeners();
-      }
-    });
+      print(pluginPrototypeData);
+      pluginList.forEach((plugin) {
+        if (pluginPrototypeData.containsKey(
+              (plugin as Map<String, dynamic>)["pluginName"] as String,
+            ) &&
+            plugin["pluginInstallStatus"] as bool) {
+          navBarItems.add(
+            BottomNavigationBarItem(
+              icon: Icon(
+                (pluginPrototypeData[plugin["pluginName"]]
+                    as Map<String, dynamic>)["icon"] as IconData,
+              ),
+              label: AppLocalizations.of(context)!.strictTranslate(
+                plugin["pluginName"] as String,
+              ),
+            ),
+          );
+          pages.add(
+            (pluginPrototypeData[plugin["pluginName"]]
+                as Map<String, dynamic>)["class"] as StatelessWidget,
+          );
+        }
+      });
+
+      /// Causes the app check the plugins updates in every 300 sec
+      ///
+      /// updated and re-render the navbar
+      Timer.periodic(Duration(seconds: (testMode ? 1 : 300)), (timer) {
+        FetchPluginList();
+        final newPluginList =
+            (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+        if (listEquals(pluginList, newPluginList)) {
+          // notifyListeners();
+        }
+        if (testMode) timer.cancel();
+      });
+    } else {
+      pages = [
+        DemoOrganizationFeed(
+          key: const Key("DemoHomeView"),
+          homeModel: this,
+        ),
+        DemoExploreEvents(
+          key: const Key('DemoExploreEvents'),
+          homeModel: this,
+        ),
+        // DemoAddPost(
+        //   key: const Key('DemoAddPost'),
+        //   drawerKey: MainScreenViewModel.scaffoldKey,
+        // ),
+        // const ChatPage(
+        //   key: Key('Chats'),
+        // ),
+        DemoProfilePage(
+          key: const Key('DemoProfile'),
+          homeModel: this,
+        ),
+      ];
+    }
   }
 
   /// var for current page in index.
@@ -334,43 +365,28 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// This function show tutorial to user.
-  ///
-  /// **params**:
-  /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
-  /// * `onFinish`: Its a function which is required to run desired tasks on finish
-  ///
-  ///
-  /// **returns**:
-  ///   None
-  void showTutorial({
-    required dynamic Function(TargetFocus) onClickTarget,
-    required dynamic Function() onFinish,
-  }) {
-    tutorialCoachMark = TutorialCoachMark(
-      targets: targets,
-      colorShadow: Theme.of(context).colorScheme.secondaryContainer,
-      textSkip: "SKIP",
-      textStyleSkip: TextStyle(
-        color: Theme.of(context).colorScheme.background,
-        fontSize: 20,
-      ),
-      paddingFocus: 10,
-      opacityShadow: 1.0,
-      onFinish: onFinish,
-      onClickTarget: onClickTarget,
-      onSkip: () {
-        if (scaffoldKey.currentState!.isDrawerOpen) {
-          navigationService.pop();
+  Widget appTourDialog(BuildContext ctx) {
+    return CustomAlertDialog(
+      dialogTitle: 'App Tour',
+      dialogSubTitle: 'Start app tour to know talawa functioning',
+      successText: 'Start',
+      secondaryButtonText: 'Skip',
+      success: () {
+        navigationService.pop();
+        print(MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen);
+        if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
+            false) {
+          MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
         }
+        tourHomeTargets();
+      },
+      secondaryButtonTap: () {
+        tourComplete = false;
         tourSkipped = true;
-        onTabTapped(0);
-        return true;
+        navigationService.pop();
+        notifyListeners();
       },
-      onClickOverlay: (target) {
-        onClickTarget(target);
-      },
-    )..show(context: context);
+    );
   }
 
   /// this functions starts the tour and info to be displayed is mentioned in this functions.
@@ -383,78 +399,107 @@ class MainScreenViewModel extends BaseModel {
   void tourHomeTargets() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keySHOrgName,
-        'keySHOrgName',
-        'Current selected Organization Name',
+      FocusTarget(
+        key: keySHOrgName,
+        keyName: 'keySHOrgName',
+        description: 'Current selected Organization Name',
+        appTour: appTour,
       ),
     );
     targets.add(
-      focusTarget(
-        keySHMenuIcon,
-        'keySHMenuIcon',
-        'Click this button to see options related to switching, joining and leaving organization(s)',
+      FocusTarget(
+        key: keySHMenuIcon,
+        keyName: 'keySHMenuIcon',
+        description:
+            'Click this button to see options related to switching, joining and leaving organization(s)',
         isCircle: true,
         next: () => scaffoldKey.currentState!.openDrawer(),
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerCurOrg,
-        'keyDrawerCurOrg',
-        "Current selected Organization's Name appears here",
+      FocusTarget(
+        key: keyDrawerCurOrg,
+        keyName: 'keyDrawerCurOrg',
+        description: "Current selected Organization's Name appears here",
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerSwitchableOrg,
-        'keyDrawerSwitchableOrg',
-        "All your joined organizations appear over here you can click on them to change the current organization",
+      FocusTarget(
+        key: keyDrawerSwitchableOrg,
+        keyName: 'keyDrawerSwitchableOrg',
+        description:
+            "All your joined organizations appear over here you can click on them to change the current organization",
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keyDrawerJoinOrg,
-        'keyDrawerJoinOrg',
-        "From this button you can join other listed organizations",
+      FocusTarget(
+        key: keyDrawerJoinOrg,
+        keyName: 'keyDrawerJoinOrg',
+        description: "From this button you can join other listed organizations",
+        appTour: appTour,
         align: ContentAlign.top,
+        next: () {
+          if (!userConfig.loggedIn) {
+            navigationService.pop();
+          }
+        },
       ),
     );
+
+    if (userConfig.loggedIn) {
+      targets.add(
+        FocusTarget(
+          key: keyDrawerLeaveCurrentOrg,
+          keyName: 'keyDrawerLeaveCurrentOrg',
+          description:
+              "To leave the current organization you can use this option",
+          align: ContentAlign.top,
+          next: () => navigationService.pop(),
+          appTour: appTour,
+        ),
+      );
+    }
+
     targets.add(
-      focusTarget(
-        keyDrawerLeaveCurrentOrg,
-        'keyDrawerLeaveCurrentOrg',
-        "To leave the current organization you can use this option",
-        align: ContentAlign.top,
-        next: () => navigationService.pop(),
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keyBNHome,
-        'keyBNHome',
-        "This is the home tab here you can see the latest post from other members of the current organization",
+      FocusTarget(
+        key: keyBNHome,
+        keyName: 'keyBNHome',
+        description:
+            "This is the home tab here you can see the latest post from other members of the current organization",
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySHPinnedPost,
-        'keySHPinnedPost',
-        "This section displays all the important post set by the organization admin(s)",
+      FocusTarget(
+        key: keySHPinnedPost,
+        keyName: 'keySHPinnedPost',
+        description:
+            "This section displays all the important post set by the organization admin(s)",
         align: ContentAlign.bottom,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySHPost,
-        'keySHPost',
-        "This is the post card you can like and comment on the post from the options available",
+      FocusTarget(
+        key: keySHPost,
+        keyName: 'keySHPost',
+        description:
+            "This is the post card you can like and comment on the post from the options available",
         align: ContentAlign.bottom,
+        appTour: appTour,
       ),
     );
-    showTutorial(
+    appTour.showTutorial(
       onClickTarget: showHome,
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
@@ -462,6 +507,7 @@ class MainScreenViewModel extends BaseModel {
           tourEventTargets();
         }
       },
+      targets: targets,
     );
   }
 
@@ -492,51 +538,64 @@ class MainScreenViewModel extends BaseModel {
   void tourEventTargets() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNEvents,
-        'keyBNEvents',
-        'This is the Events tab here you can see all event related information of the current selected organization',
+      FocusTarget(
+        key: keyBNEvents,
+        keyName: 'keyBNEvents',
+        description:
+            'This is the Events tab here you can see all event related information of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySECategoryMenu,
-        'keySECategoryMenu',
-        'Filter Events based on categories',
+      FocusTarget(
+        key: keySECategoryMenu,
+        keyName: 'keySECategoryMenu',
+        description: 'Filter Events based on categories',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySEDateFilter,
-        'keySEDateFilter',
-        'Filter Events between selected dates',
+      FocusTarget(
+        key: keySEDateFilter,
+        keyName: 'keySEDateFilter',
+        description: 'Filter Events between selected dates',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySECard,
-        'keySECard',
-        'Description of event to see more details click on the card',
+      FocusTarget(
+        key: keySECard,
+        keyName: 'keySECard',
+        description:
+            'Description of event to see more details click on the card',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySEAdd,
-        'keySEAdd',
-        'You can create a new event from here',
+      FocusTarget(
+        key: keySEAdd,
+        keyName: 'keySEAdd',
+        description: 'You can create a new event from here',
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
-    showTutorial(
+
+    appTour.showTutorial(
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          tourAddPost();
+          tourProfile();
         }
       },
       onClickTarget: (TargetFocus a) {},
+      targets: targets,
     );
   }
 
@@ -550,22 +609,26 @@ class MainScreenViewModel extends BaseModel {
   void tourAddPost() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNPost,
-        'keyBNPost',
-        'This is the Create post tab here you can add post to the current selected organization',
+      FocusTarget(
+        key: keyBNPost,
+        keyName: 'keyBNPost',
+        description:
+            'This is the Create post tab here you can add post to the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
-    showTutorial(
+    appTour.showTutorial(
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          tourChat();
+          // tourChat();
+          tourProfile();
         }
       },
       onClickTarget: (TargetFocus a) {},
+      targets: targets,
     );
   }
 
@@ -579,15 +642,17 @@ class MainScreenViewModel extends BaseModel {
   void tourChat() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNChat,
-        'keyBNChat',
-        'This is the Chat tab here you can see all your messages of the current selected organization',
+      FocusTarget(
+        key: keyBNChat,
+        keyName: 'keyBNChat',
+        description:
+            'This is the Chat tab here you can see all your messages of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
+        appTour: appTour,
       ),
     );
-    showTutorial(
+    appTour.showTutorial(
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
@@ -595,6 +660,7 @@ class MainScreenViewModel extends BaseModel {
         }
       },
       onClickTarget: (TargetFocus a) {},
+      targets: targets,
     );
   }
 
@@ -608,52 +674,68 @@ class MainScreenViewModel extends BaseModel {
   void tourProfile() {
     targets.clear();
     targets.add(
-      focusTarget(
-        keyBNProfile,
-        'keyBNProfile',
-        'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
+      FocusTarget(
+        key: keyBNProfile,
+        keyName: 'keyBNProfile',
+        description:
+            'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
         isCircle: true,
         align: ContentAlign.top,
         nextCrossAlign: CrossAxisAlignment.start,
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySPAppSetting,
-        'keySPAppSetting',
-        'You can edit application settings like language, theme etc from here',
+      FocusTarget(
+        key: keySPAppSetting,
+        keyName: 'keySPAppSetting',
+        description:
+            'You can edit application settings like language, theme etc from here',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySPHelp,
-        'keySPHelp',
-        'For any help we are always there. You can reach us from here',
+      FocusTarget(
+        key: keySPHelp,
+        keyName: 'keySPHelp',
+        description:
+            'For any help we are always there. You can reach us from here',
+        appTour: appTour,
       ),
     );
+
     targets.add(
-      focusTarget(
-        keySPDonateUs,
-        'keySPDonateUs',
-        'To help your organization grow you can support them financially from here',
+      FocusTarget(
+        key: keySPDonateUs,
+        keyName: 'keySPDonateUs',
+        description:
+            'To help your organization grow you can support them financially from here',
+        appTour: appTour,
       ),
     );
+
+// Uncomment the section below if you want to add the keySPInvite target
+// targets.add(
+//   FocusTarget(
+//     key: keySPInvite,
+//     keyName: 'keySPInvite',
+//     description: 'Wanna invite colleague, invite them from here',
+//   ),
+// );
+
     targets.add(
-      focusTarget(
-        keySPInvite,
-        'keySPInvite',
-        'Wanna invite colleague, invite them from here',
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySPPalisadoes,
-        'keySPPalisadoes',
-        'You are all set to go lets get you in',
+      FocusTarget(
+        key: keySPPalisadoes,
+        keyName: 'keySPPalisadoes',
+        description: 'You are all set to go lets get you in',
         isEnd: true,
+        appTour: appTour,
       ),
     );
-    showTutorial(
+
+    appTour.showTutorial(
       onFinish: () {
         if (!tourComplete && !tourSkipped) {
           tourComplete = true;
@@ -661,97 +743,7 @@ class MainScreenViewModel extends BaseModel {
         }
       },
       onClickTarget: (TargetFocus a) {},
-    );
-  }
-
-  /// This returns a widget for a step in a tutorial.
-  ///
-  /// **params**:
-  /// * `key`: key of type GlobalKey.
-  /// * `keyName`: key where the widget shows.
-  /// * `description`: description of the step.
-  /// * `isCircle`: bool to specify if circle
-  /// * `align`: align of type ContentAlign to align button.
-  /// * `crossAlign`: Cross align axes
-  /// * `skipAlignment`: to give alignment of skip option
-  /// * `next`: Function` type, this show the next step or `key` to show the tour of.
-  /// * `nextCrossAlign`: nextCrossAlign to give alignment of next option
-  /// * `isEnd`: true if last step of the tour.
-  ///
-  ///
-  /// **returns**:
-  /// * `TargetFocus`: This return widget foa a step in a tut
-  TargetFocus focusTarget(
-    GlobalKey key,
-    String keyName,
-    String description, {
-    bool isCircle = false,
-    ContentAlign align = ContentAlign.bottom,
-    CrossAxisAlignment crossAlign = CrossAxisAlignment.start,
-    Alignment skipAlignment = Alignment.topRight,
-    Function? next,
-    CrossAxisAlignment nextCrossAlign = CrossAxisAlignment.end,
-    bool isEnd = false,
-  }) {
-    return TargetFocus(
-      enableOverlayTab: true,
-      color: Colors.transparent,
-      identify: keyName,
-      keyTarget: key,
-      alignSkip: skipAlignment,
-      shape: isCircle ? ShapeLightFocus.Circle : ShapeLightFocus.RRect,
-      contents: [
-        TargetContent(
-          align: align,
-          builder: (context, controller) {
-            return Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: crossAlign,
-                children: <Widget>[
-                  Text(
-                    description,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.background,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        TargetContent(
-          align: ContentAlign.custom,
-          customPosition: CustomTargetContentPosition(
-            bottom: SizeConfig.screenHeight! * 0.025,
-          ),
-          builder: (context, controller) {
-            return GestureDetector(
-              onTap: () {
-                if (next != null) {
-                  // ignore: avoid_dynamic_calls
-                  next();
-                }
-                tutorialCoachMark.next();
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: nextCrossAlign,
-                children: <Widget>[
-                  Text(
-                    isEnd ? 'COMPLETE' : 'NEXT',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.background,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
+      targets: targets,
     );
   }
 }

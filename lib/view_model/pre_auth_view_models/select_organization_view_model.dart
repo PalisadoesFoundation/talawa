@@ -171,7 +171,6 @@ class SelectOrganizationViewModel extends BaseModel {
       navigationService.showTalawaErrorSnackBar(
         'Select one organization to continue',
         MessageType.warning,
-        duration: const Duration(milliseconds: 750),
       );
     }
   }
@@ -258,10 +257,11 @@ class SelectOrganizationViewModel extends BaseModel {
         },
         updateQuery: (existingOrganizations, newOrganizations) {
           return {
-            'organizationsConnection': [
-              existingOrganizations!["organizationsConnection"],
-              newOrganizations!['organizationsConnection'],
-            ],
+            'organizationsConnection':
+                (existingOrganizations!["organizationsConnection"]
+                        as List<Map<String, dynamic>>) +
+                    (newOrganizations!['organizationsConnection']
+                        as List<Map<String, dynamic>>),
           };
         },
       ),

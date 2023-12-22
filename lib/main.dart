@@ -15,6 +15,7 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/firebase_options.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
@@ -105,11 +106,12 @@ Future<void> main() async {
   Hive
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
+    ..registerAdapter(OrgInfoAdapter())
+    ..registerAdapter(AsymetricKeysAdapter());
 
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
-
+  await Hive.openBox<AsymetricKeys>('user_keys');
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 

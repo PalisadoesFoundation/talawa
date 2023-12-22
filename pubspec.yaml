@@ -32,10 +32,10 @@ dependencies:
   # custom_lint_builder: ^0.4.0
   ################################
   file: ^7.0.0
-  firebase_core: ^2.23.0
+  firebase_core: ^2.24.2
   firebase_core_platform_interface: ^5.0.0
-  firebase_messaging: ^14.7.5
-  firebase_messaging_platform_interface: ^4.5.14
+  firebase_messaging: ^14.7.9
+  firebase_messaging_platform_interface: ^4.5.17
 
   flutter:
     sdk: flutter
@@ -52,38 +52,38 @@ dependencies:
   geolocator: ^10.1.0
   get_it: ^7.5.0
   google_maps_flutter: ^2.3.0
-  googleapis: any
+  googleapis: 12.0.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
-  http: ^1.1.0
+  http: 1.1.2
   image_cropper: ^5.0.1
-  image_picker: ^1.0.4
+  image_picker: ^1.0.5
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockito: ^5.4.3
+  mockito: ^5.4.4
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
-  permission_handler: ^11.1.0
+  permission_handler: 11.1.0
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
   provider: ^6.1.1
   qr_code_scanner: ^1.0.0
-  qr_flutter: 4.0.0
+  qr_flutter: 4.1.0
   quick_actions: ^1.0.6
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: 23.2.4
-  syncfusion_flutter_datepicker: 23.2.4
+  syncfusion_flutter_calendar: ^23.2.7
+  syncfusion_flutter_datepicker: any
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
-  vibration: ^1.8.3
+  vibration: ^1.8.4
   video_player: ^2.8.1
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
-  build_runner: ^2.4.6
+  build_runner: ^2.4.7
   custom_lint: 0.5.7
   flutter_test:
     sdk: flutter

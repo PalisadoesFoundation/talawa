@@ -102,70 +102,84 @@ void main() {
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  testWidgets('check if createOrganizationFeedScreen shows up', (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
+  group('tests for Organizaiton feed Screen', () {
+    testWidgets('check if createOrganizationFeedScreen shows up',
+        (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
 
-    final finder = find.byType(Scaffold);
+      final finder = find.byType(Scaffold);
 
-    expect(finder, findsNWidgets(2));
-  });
-  testWidgets('check if orgname is displayed shows up', (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
-
-    final finder = find.byType(Text);
-    expect(finder, findsNWidgets(19));
-    // expect(text, findsOneWidget);
-  });
-  testWidgets('check if side drawer shows up', (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
-
-    final finder = find.byIcon(Icons.menu);
-
-    await tester.tap(finder);
-    await tester.pump();
-  });
-  testWidgets('check if post shows up when  model.posts.isNotEmpty is true',
-      (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
-
-    final finder = find.byIcon(Icons.menu);
-
-    await tester.tap(finder);
-    await tester.pump();
-  });
-  testWidgets('check if refresh indicator is launched on dragging',
-      (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-    await tester.pump();
-    final postservice = locator<PostService>();
-    bool refreshed = false;
-
-    when(postservice.getPosts()).thenAnswer((_) async {
-      refreshed = true;
+      expect(finder, findsNWidgets(2));
     });
+    testWidgets('check if orgname is displayed shows up', (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
 
-    await tester.drag(
-      find.byType(RefreshIndicator),
-      const Offset(0, 200),
-    );
-    await tester.pumpAndSettle();
+      final finder = find.byType(Text);
+      expect(finder, findsNWidgets(9));
+      // expect(text, findsOneWidget);
+    });
+    testWidgets('check if side drawer shows up', (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
 
-    expect(refreshed, true);
-  });
-  testWidgets(
-      'check if post shows up when  model.posts.isNotEmpty is true and post',
-      (tester) async {
-    final model = locator<MainScreenViewModel>();
-    await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
+      final finder = find.byIcon(Icons.menu);
+
+      await tester.tap(finder);
+      await tester.pump();
+    });
+    testWidgets('check if post shows up when  model.posts.isNotEmpty is true',
+        (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
+
+      final finder = find.byIcon(Icons.menu);
+
+      await tester.tap(finder);
+      await tester.pump();
+    });
+    testWidgets('check if refresh indicator is launched on dragging',
+        (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
+      final postservice = locator<PostService>();
+      bool refreshed = false;
+
+      when(postservice.getPosts()).thenAnswer((_) async {
+        refreshed = true;
+      });
+
+      await tester.drag(
+        find.byType(RefreshIndicator),
+        const Offset(0, 200),
+      );
+      await tester.pumpAndSettle();
+
+      expect(refreshed, true);
+    });
+    testWidgets(
+        'check if post shows up when  model.posts.isNotEmpty is true and post',
+        (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+    });
+    testWidgets('check if floating action button is visible and functional',
+        (tester) async {
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
+      final fabFinder = find.byKey(const Key('floating_action_btn'));
+      expect(fabFinder, findsOneWidget);
+      await tester.tap(fabFinder);
+      await tester.pump();
+      verify(navigationService.pushScreen('/addpostscreen')).called(1);
+    });
   });
 }

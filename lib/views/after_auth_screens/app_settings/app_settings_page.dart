@@ -1,7 +1,5 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/lang_switch.dart';
 import 'package:talawa/widgets/theme_switch.dart';
@@ -37,6 +35,10 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => navigationService.pop(),
         ),
       ),
       // style of the AppBar.

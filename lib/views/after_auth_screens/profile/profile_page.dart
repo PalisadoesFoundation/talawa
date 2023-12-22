@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/options/options.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -11,6 +13,7 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/pro
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
@@ -75,29 +78,6 @@ class ProfilePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'App Setting',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: 'open-sans',
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  navigationService
-                                      .pushScreen(Routes.userTasks);
-                                },
-                                child: const Text(
-                                  'My tasks',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                    fontFamily: 'open-sans',
-                                  ),
-                                ),
-                              ),
                               TextButton(
                                 onPressed: () {
                                   navigationService
@@ -199,8 +179,10 @@ class ProfilePage extends StatelessWidget {
                           children: [
                             RaisedRoundedButton(
                               key: homeModel!.keySPDonateUs,
-                              buttonLabel: AppLocalizations.of(context)!
-                                  .strictTranslate('Donate to the Community'),
+                              buttonLabel:
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                'Donate to the Community',
+                              ),
                               onTap: () => donate(context, model),
                               textColor: Theme.of(context)
                                   .inputDecorationTheme
@@ -230,19 +212,25 @@ class ProfilePage extends StatelessWidget {
                                 mainAxisSpacing: 5,
                                 crossAxisCount: 3,
                                 children: [
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
-                                  Image.asset('assets/images/pfp2.jpeg'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
+                                  Image.asset('assets/images/pfp2.png'),
                                 ],
                               ),
                             ),
                             Container(
                               color: Theme.of(context).colorScheme.background,
                             ),
-                            Container(
+                            ColoredBox(
                               color: Theme.of(context).colorScheme.onPrimary,
+                              child: GestureDetector(
+                                onTap: () {
+                                  navigationService
+                                      .pushScreen(Routes.userTasks);
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -262,27 +250,27 @@ class ProfilePage extends StatelessWidget {
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
                             /// even if it's uninstalled by the admin (for development purposes)
                             //TODO: custom tile for Invitation.
-                            // CustomListTile(
-                            //   key: homeModel!.keySPInvite,
-                            //   index: 3,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: Icon(
-                            //       Icons.share,
-                            //       color:
-                            //           Theme.of(context).colorScheme.secondary,
-                            //       size: 30,
-                            //     ),
-                            //     // title
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('Invite'),
-                            //     // subtitle
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate('Invite to org'),
-                            //   ),
-                            //   // on tap call the invite function
-                            //   onTapOption: () => model.invite(context),
-                            // ),
+                            CustomListTile(
+                              key: homeModel!.keySPInvite,
+                              index: 3,
+                              type: TileType.option,
+                              option: Options(
+                                icon: Icon(
+                                  Icons.share,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  size: 30,
+                                ),
+                                // title
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('Invite'),
+                                // subtitle
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate('Invite to org'),
+                              ),
+                              // on tap call the invite function
+                              onTapOption: () => model.invite(context),
+                            ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
                             ),

@@ -1,30 +1,36 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// Common Error Dialog box for the whole talawa app.
 class TalawaErrorDialog extends StatelessWidget {
   const TalawaErrorDialog(
     this.errorMessage, {
     super.key,
     required this.messageType,
   });
+
+  /// error message for the talawaDialogBox.
   final String errorMessage;
+
+  /// enum to what is the type of error message.
   final MessageType messageType;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
+      width: screenWidth * 0.8, // Adjust the width based on screen size
       child: AlertDialog(
         content: SizedBox(
-          width: 200,
-          height: 135,
+          width: SizeConfig.screenWidth! * 0.65,
+          height: SizeConfig.screenWidth! * 0.38,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 messageType == MessageType.error
@@ -67,17 +73,20 @@ class TalawaErrorDialog extends StatelessWidget {
                           : messageType == MessageType.info
                               ? Colors.green
                               : Colors.red,
-                  fontSize: 20,
+                  fontSize: screenWidth *
+                      0.04, // Adjust the font size based on screen width
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
                 height: 5,
               ),
-              AutoSizeText(
-                AppLocalizations.of(context)!.strictTranslate(errorMessage),
-                style: const TextStyle(fontSize: 16),
-                maxLines: 3,
+              Expanded(
+                child: AutoSizeText(
+                  AppLocalizations.of(context)!.strictTranslate(errorMessage),
+                  style: const TextStyle(fontSize: 16),
+                  maxLines: 3,
+                ),
               ),
               const SizedBox(
                 height: 19,
@@ -86,8 +95,6 @@ class TalawaErrorDialog extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          // Expanded(
-          //   child:
           TextButton(
             style: TextButton.styleFrom(
               backgroundColor: messageType == MessageType.error
@@ -113,7 +120,6 @@ class TalawaErrorDialog extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          // ),
         ],
       ),
     );

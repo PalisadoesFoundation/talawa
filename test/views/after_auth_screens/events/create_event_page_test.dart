@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,6 +18,7 @@ import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../widget_tests/after_auth_screens/events/create_event_form_test.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
@@ -138,6 +136,24 @@ void main() {
 
       await tester.tap(inkwellFinder.at(2));
       await tester.pump();
+    });
+    testWidgets('Test Add Button', (tester) async {
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      when(userConfig.loggedIn).thenReturn(true);
+
+      final addBtn = find.byKey(const Key('addButton'));
+
+      await tester.tap(addBtn);
+      await tester.pumpAndSettle();
+
+      expect(createEventViewModel.validate, AutovalidateMode.disabled);
     });
     testWidgets("Checking tap Inkwell for setDate 2 datetime", (tester) async {
       await tester.pumpWidget(
@@ -434,7 +450,7 @@ void main() {
       await tester.pump();
     });
     group('setState Coverage completion', () {
-      testWidgets('Tap on DataTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -460,7 +476,9 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DataTimeTile time', (tester) async {
+      testWidgets('Tap on DateTimeTile time', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -477,11 +495,16 @@ void main() {
         await tester.tap(find.text('OK'));
         await tester.pump();
         expect(
-          find.text(DateFormat.jm().format(DateTime.now())),
-          findsNWidgets(2),
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
         );
       });
-      testWidgets('Tap on DataTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -506,7 +529,9 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DataTimeTile time', (tester) async {
+      testWidgets('Tap on DateTimeTile time', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -523,8 +548,13 @@ void main() {
         await tester.tap(find.text('OK'));
         await tester.pump();
         expect(
-          find.text(DateFormat.jm().format(DateTime.now())),
-          findsNWidgets(2),
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
         );
       });
     });

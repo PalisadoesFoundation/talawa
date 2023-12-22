@@ -23,7 +23,7 @@
   "Select": "选择",
   "Selected Organization": "选定组织",
   "Continue": "继续",
-  "Enter Organization URL": "输入组织 URL",
+  "Enter Community URL": "输入您的社区网址",
   "Verify": "验证一下",
   "Sign Up": "报名",
   "Change language": "改变语言",
@@ -159,5 +159,8 @@
   "Information": "信息",
   "No account registered with this email": "服务器未运行/网址错误",
   "Dismiss": "解雇",
-  "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton"
+  "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton",
+  "For complete access, please": "如需完整访问，请",
+  "  join an organization.": "  加入一个组织。",
+  "JOIN":"加入"
 }

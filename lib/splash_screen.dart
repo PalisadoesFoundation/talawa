@@ -1,27 +1,21 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:uni_links/uni_links.dart';
 
-/// This widget return the SplashScreen. Splash Screen is the first screen that
-/// we see when we run our application. It is also known as Launch Screen.
+/// This widget return the SplashScreen. Splash Screen is the first screen that we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key, this.mainScreenIndex = 0})
       : super(key: key);
+
+  /// This is required if url requires us to push different Screen to Home Screen.
   final int mainScreenIndex;
 
   @override
@@ -34,10 +28,18 @@ class _SplashScreenState extends State<SplashScreen> {
   Uri? _latestUri;
   late StreamSubscription _sub;
 
-  /// Flutter supports deep linking on iOS, Android, and web browsers.
-  /// Opening a URL displays that screen in your app.
-  /// `_handleInitialUri` is an async function that is used to hanlde
-  /// the initial uri of the application.
+  // / Flutter supports deep linking on iOS, Android, and web browsers.
+  // / Opening a URL displays that screen in your app.
+  // / `_handleInitialUri` is an async function that is used to hanlde
+  // / the initial uri of the application.
+
+  /// Opening a URL displays that screen in your app, `_handleInitialUri` is an async function that is used to handle the initial uri of the application.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: resolves when the check for userLoggedin is complete or not
   Future<void> _handleInitialUri() async {
     _sub = uriLinkStream.listen(
       (Uri? uri) {
@@ -56,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     try {
-      // Retrieving the initial URI from getIntitialUri function.
+      // Retrieving the initial URI from getInitialUri function.
       final uri = await getInitialUri();
       if (!mounted) return;
       setState(() => _initialUri = uri);
@@ -70,127 +72,136 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     final bool userLoggedIn = await userConfig.userLoggedIn();
+    _initialUri = null;
+    _latestUri = null;
     if (_latestUri == null && _initialUri == null) {
       _handleUserLogIn(userLoggedIn);
       return;
     }
 
-    if (_initialUri != null) {
-      await _handleDeepLinks(userLoggedIn);
-    }
+    // if (_initialUri != null) {
+    //   await _handleDeepLinks(userLoggedIn);
+    // }
   }
 
-  Future<void> _handleDeepLinks(bool userLoggedIn) async {
-    final keys = _initialUri!.queryParameters.keys;
-    final values = _initialUri!.queryParameters.values;
+  // Future<void> _handleDeepLinks(bool userLoggedIn) async {
+  //   final keys = _initialUri!.queryParameters.keys;
+  //   final values = _initialUri!.queryParameters.values;
 
-    final fromInviteLink = navigationService.fromInviteLink;
-    final showSnackBar = navigationService.showTalawaErrorSnackBar;
-    final pushReplacementScreen = navigationService.pushReplacementScreen;
+  //   final fromInviteLink = navigationService.fromInviteLink;
+  //   final showSnackBar = navigationService.showTalawaErrorSnackBar;
+  //   final pushReplacementScreen = navigationService.pushReplacementScreen;
 
-    final orgURI = GraphqlConfig.orgURI!;
-    final mainScreenArgs =
-        MainScreenArgs(mainScreenIndex: widget.mainScreenIndex);
+  //   final orgURI = GraphqlConfig.orgURI!;
+  //   final mainScreenArgs =
+  //       MainScreenArgs(mainScreenIndex: widget.mainScreenIndex);
 
-    if (_initialUri!.pathSegments[1] == 'invite') {
-      if (!userLoggedIn) {
-        fromInviteLink(
-          keys.toList(growable: false),
-          values.toList(growable: false),
-        );
-        return;
-      }
+  //   if (_initialUri!.pathSegments[1] == 'invite') {
+  //     if (!userLoggedIn) {
+  //       fromInviteLink(
+  //         keys.toList(growable: false),
+  //         values.toList(growable: false),
+  //       );
+  //       return;
+  //     }
 
-      final setUrl = values.toList(growable: false)[1];
-      if (setUrl.compareTo(orgURI) != 0) {
-        showSnackBar(
-          'Organisation on different server! Logout and open link again',
-          MessageType.error,
-        );
-        return;
-      }
+  //     final setUrl = values.toList(growable: false)[1];
+  //     if (setUrl.compareTo(orgURI) != 0) {
+  //       showSnackBar(
+  //         'Organisation on different server! Logout and open link again',
+  //         MessageType.error,
+  //       );
+  //       return;
+  //     }
 
-      if (keys.last.compareTo('selectOrg') != 0) {
-        showSnackBar('Invalid url', MessageType.error);
-        return;
-      }
+  //     if (keys.last.compareTo('selectOrg') != 0) {
+  //       showSnackBar('Invalid url', MessageType.error);
+  //       return;
+  //     }
 
-      final routeNames = [
-        Routes.mainScreen.split('/').last,
-        Routes.joinOrg.split('/').last,
-      ];
-      final arguments = [
-        mainScreenArgs,
-        values.last,
-      ];
-      fromInviteLink(routeNames, arguments);
-      return;
-    }
-    if (_initialUri!.pathSegments[1] == 'eventInvite') {
-      if (!userLoggedIn) {
-        pushReplacementScreen(
-          Routes.languageSelectionRoute,
-          arguments: 'en',
-        );
-        return;
-      }
+  //     final routeNames = [
+  //       Routes.mainScreen.split('/').last,
+  //       Routes.joinOrg.split('/').last,
+  //     ];
+  //     final arguments = [
+  //       mainScreenArgs,
+  //       values.last,
+  //     ];
+  //     fromInviteLink(routeNames, arguments);
+  //     return;
+  //   }
+  //   if (_initialUri!.pathSegments[1] == 'eventInvite') {
+  //     if (!userLoggedIn) {
+  //       pushReplacementScreen(
+  //         Routes.languageSelectionRoute,
+  //         arguments: 'en',
+  //       );
+  //       return;
+  //     }
 
-      final setUrl = values.toList(growable: false)[0];
-      if (setUrl.compareTo(orgURI) != 0) {
-        Clipboard.setData(ClipboardData(text: setUrl));
-        showSnackBar(
-          'Organisation on different server! Url copied to clipboard.',
-          MessageType.error,
-        );
-        pushReplacementScreen(
-          Routes.mainScreen,
-          arguments: mainScreenArgs,
-        );
-        return;
-      }
+  //     final setUrl = values.toList(growable: false)[0];
+  //     if (setUrl.compareTo(orgURI) != 0) {
+  //       Clipboard.setData(ClipboardData(text: setUrl));
+  //       showSnackBar(
+  //         'Organisation on different server! Url copied to clipboard.',
+  //         MessageType.error,
+  //       );
+  //       pushReplacementScreen(
+  //         Routes.mainScreen,
+  //         arguments: mainScreenArgs,
+  //       );
+  //       return;
+  //     }
 
-      final currentOrgId = userConfig.currentOrg.id!;
-      if (values.toList()[1].compareTo(currentOrgId) != 0) {
-        pushReplacementScreen(Routes.joinOrg, arguments: values.toList()[1]);
-        return;
-      }
+  //     final currentOrgId = userConfig.currentOrg.id!;
+  //     if (values.toList()[1].compareTo(currentOrgId) != 0) {
+  //       pushReplacementScreen(Routes.joinOrg, arguments: values.toList()[1]);
+  //       return;
+  //     }
 
-      final routeNames = [
-        Routes.mainScreen.split('/').last,
-        Routes.eventInfoPage.split('/').last,
-      ];
+  //     final routeNames = [
+  //       Routes.mainScreen.split('/').last,
+  //       Routes.eventInfoPage.split('/').last,
+  //     ];
 
-      final model = locator<ExploreEventsViewModel>();
-      await model.initialise();
+  //     final model = locator<ExploreEventsViewModel>();
+  //     await model.initialise();
 
-      await Future.delayed(Duration.zero);
-      Event? event;
-      for (final ele in model.events) {
-        if (ele.id == values.last) event = ele;
-      }
+  //     await Future.delayed(Duration.zero);
+  //     Event? event;
+  //     for (final ele in model.events) {
+  //       if (ele.id == values.last) event = ele;
+  //     }
 
-      if (event == null) {
-        showSnackBar('Event not found', MessageType.error);
-        pushReplacementScreen(
-          Routes.mainScreen,
-          arguments: mainScreenArgs,
-        );
-        return;
-      }
+  //     if (event == null) {
+  //       showSnackBar('Event not found', MessageType.error);
+  //       pushReplacementScreen(
+  //         Routes.mainScreen,
+  //         arguments: mainScreenArgs,
+  //       );
+  //       return;
+  //     }
 
-      final arguments = [
-        MainScreenArgs(mainScreenIndex: 1),
-        {
-          "event": event,
-          "exploreEventViewModel": model,
-        },
-      ];
+  //     final arguments = [
+  //       MainScreenArgs(mainScreenIndex: 1),
+  //       {
+  //         "event": event,
+  //         "exploreEventViewModel": model,
+  //       },
+  //     ];
 
-      fromInviteLink(routeNames, arguments);
-      return;
-    }
-  }
+  //     fromInviteLink(routeNames, arguments);
+  //     return;
+  //   }
+  // }
 
+  /// Handles User Login.
+  ///
+  /// **params**:
+  /// * `userLoggedIn`: Bool for if user is logged in already or not
+  ///
+  /// **returns**:
+  ///   None
   void _handleUserLogIn(bool userLoggedIn) {
     Future.delayed(const Duration(milliseconds: 750)).then((value) async {
       final pushReplacementScreen = navigationService.pushReplacementScreen;
@@ -230,9 +241,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-  /// Describes the part of the user interface represented by this widget.
-  /// BuildContext is a locator that is used to track each widget in a tree
-  /// and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);

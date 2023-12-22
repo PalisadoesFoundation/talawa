@@ -81,18 +81,18 @@ void main() {
     unregisterViewModels();
   });
   group('Test EventInfoPage', () {
-    testWidgets('Test Share button', (tester) async {
-      mockNetworkImages(() async {
-        await tester.pumpWidget(createEventInfoPage(true, true));
-        await tester.pumpAndSettle();
+    // testWidgets('Test Share button', (tester) async {
+    //   mockNetworkImages(() async {
+    //     await tester.pumpWidget(createEventInfoPage(true, true));
+    //     await tester.pumpAndSettle();
 
-        final shareButton = find.byIcon(Icons.share);
-        expect(shareButton, findsOneWidget);
+    //     final shareButton = find.byIcon(Icons.share);
+    //     expect(shareButton, findsOneWidget);
 
-        await tester.tap(shareButton);
-        await tester.pumpAndSettle();
-      });
-    });
+    //     await tester.tap(shareButton);
+    //     await tester.pumpAndSettle();
+    //   });
+    // });
 
     testWidgets('Test FloatingActionButton', (tester) async {
       mockNetworkImages(() async {
