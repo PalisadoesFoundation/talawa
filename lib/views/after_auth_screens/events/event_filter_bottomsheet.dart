@@ -43,6 +43,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     IconButton(
+                      key: const Key('close'),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -61,6 +62,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                         setState(() {});
                       },
                       child: Container(
+                        key: Key('${filters.keys.toList()[index]}test'),
                         decoration: BoxDecoration(
                           color:
                               model.chosenValue == filters.keys.toList()[index]

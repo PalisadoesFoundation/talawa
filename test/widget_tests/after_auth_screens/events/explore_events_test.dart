@@ -142,11 +142,11 @@ void main() {
 
         await tester.tap(find.bySemanticsLabel('Filters'));
         await tester.pumpAndSettle();
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('Public Eventstest')));
+        await tester.pumpAndSettle();
 
-        // await tester.tap(find.bySemanticsLabel('Registered Events'));
-        // await tester.pumpAndSettle();
-
-        // expect(model.chosenValue, 'Registered Events');
+        expect(model.chosenValue, 'Public Events');
       });
     });
     testWidgets("Testing if tapping on calendar works", (tester) async {
