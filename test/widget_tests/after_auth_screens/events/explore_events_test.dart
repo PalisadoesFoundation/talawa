@@ -145,7 +145,6 @@ void main() {
         await tester.pump();
         await tester.tap(find.byKey(const Key('Public Eventstest')));
         await tester.pumpAndSettle();
-
         expect(model.chosenValue, 'Public Events');
       });
     });
