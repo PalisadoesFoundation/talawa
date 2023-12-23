@@ -61,9 +61,8 @@ class CommentsViewModel extends BaseModel {
   ///
   Future<void> getComments() async {
     setState(ViewState.busy);
-    List commentsJSON = await _commentService.getCommentsForPost(_postID);
+    final List commentsJSON = await _commentService.getCommentsForPost(_postID);
     print(commentsJSON);
-    commentsJSON = commentsJSON.reversed.toList();
     commentsJSON.forEach((commentJson) {
       _commentlist.add(Comment.fromJson(commentJson as Map<String, dynamic>));
     });
@@ -99,7 +98,7 @@ class CommentsViewModel extends BaseModel {
       createdAt: DateTime.now().toString(),
       creator: creator,
     );
-    _commentlist.insert(0, localComment);
+    _commentlist.add(localComment);
     notifyListeners();
   }
 }

@@ -56,11 +56,11 @@ void main() {
       expect(model.postId, mockPost.sId);
 
       /// testing the get comments function
-      final commentJson2 = {
+      final commentJson1 = {
         "text": "first comment",
         "post": mockPost.sId,
       };
-      final commentJson1 = {
+      final commentJson2 = {
         "text": "second comment",
         "post": mockPost.sId,
       };
