@@ -1,9 +1,8 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
+import 'package:talawa/utils/post_queries.dart';
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///
@@ -18,11 +17,14 @@ class CommentService {
 
   /// This function is used to add comment on the post.
   ///
-  /// parameters:
-  /// * [postId] - Post id where comment need to be added.
-  /// * [text] - content of the comment.
+  /// To verify things are working, check out the native platform logs.
+  /// **params**:
+  /// * `postId`: The post id on which comment is to be added.
+  /// * `text`: The comment text.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
   Future<void> createComments(String postId, String text) async {
-    print("comment service called");
     final String createCommentQuery = CommentQueries().createComment();
     final result = await _dbFunctions.gqlAuthMutation(
       createCommentQuery,
@@ -31,21 +33,30 @@ class CommentService {
         'text': text,
       },
     );
-    print("comment added");
-    print(result);
     return result;
   }
 
-  /// This function is used to fetch all comments on the post.
+  /// This function is used to get all comments on the post.
   ///
-  /// parameters:
-  /// * [postId] - Post id for which comments need to be fetched.
-  Future getCommentsForPost(String postId) async {
-    final String getCommmentQuery = CommentQueries().getPostsComments(postId);
-    final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
-    if (result.data != null) {
-      return result.data["commentsByPost"] as List;
+  /// To verify things are working, check out the native platform logs.
+  /// **params**:
+  /// * `postId`: The post id for which comments are to be fetched.
+  ///
+  /// **returns**:
+  /// * `Future<List<dynamic>>`: promise that will be fulfilled with list of comments.
+  ///
+  Future<List<dynamic>> getCommentsForPost(String postId) async {
+    final String getCommmentQuery = PostQueries().getPostById(postId);
+
+    final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
+
+    if (result == null) {
+      return [];
     }
-    return [];
+    final resultData = (result as QueryResult<Object?>).data;
+
+    final resultDataPostComments = (resultData?['post']
+        as Map<String, dynamic>)['comments'] as List<dynamic>;
+    return resultDataPostComments;
   }
 }
