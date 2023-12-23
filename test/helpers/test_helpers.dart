@@ -243,6 +243,8 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
     );
   });
 
+  when(service.getToken()).thenAnswer((_) async => "sample_token");
+
   locator.registerSingleton<GraphqlConfig>(service);
   return service;
 }

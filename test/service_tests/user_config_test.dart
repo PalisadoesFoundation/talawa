@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -78,7 +79,81 @@ void main() async {
     setUpAll(() {
       registerServices();
     });
-    test('Test for User log out.', () async {
+
+    test('Test for getters & setters.', () {
+      final model = UserConfig();
+
+      // model.currentOrgInfoController
+      expect(model.currentOrgInfoController, isA<StreamController<OrgInfo>>());
+
+      // model.currentOrgName
+      expect(model.currentOrgName, isA<String>());
+
+      // model.currenOrg (setter)
+      model.currentOrg = OrgInfo(name: 'org');
+
+      // print(model.currentOrgInfoController);
+    });
+
+    test('Test for userLoggedIn method.', () async {
+      final model = UserConfig();
+      model.currentUser.id = 'fake_id';
+
+      userBox.put('user', User(id: 'fake', firstName: 'first'));
+
+      final Map<String, dynamic> data = {
+        'users': [
+          {
+            '_id': '1234567890',
+            'firstName': 'John',
+            'lastName': 'Doe',
+            'email': 'johndoe@example.com',
+            'image': 'https://example.com/profile.jpg',
+            'accessToken': 'exampleAccessToken',
+            'refreshToken': 'exampleRefreshToken',
+          }
+        ],
+      };
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.fetchUserInfo,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.fetchUserInfo)),
+        );
+      });
+
+      // if there is _currentUser.
+      bool loggedIn = await model.userLoggedIn();
+      expect(loggedIn, true);
+
+      userBox.delete('user');
+
+      // if there is no _currentUser.
+      loggedIn = await model.userLoggedIn();
+      expect(loggedIn, false);
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.fetchUserInfo,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer((_) async {
+        throw Exception('Simulated Exception.');
+      });
+
+      // show couldn't update errorsnackbar.
+      loggedIn = await model.userLoggedIn();
+      expect(loggedIn, true);
+      // print(model.currentUser);
+    });
+
+    test('Test for User log out method.', () async {
       databaseFunctions.init();
 
       when(databaseFunctions.gqlAuthMutation(queries.logout()))
@@ -120,7 +195,7 @@ void main() async {
       expect(loggedOut, false);
     });
 
-    test('Test for updateUserJoinedOrg', () async {
+    test('Test for updateUserJoinedOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
 
@@ -129,7 +204,7 @@ void main() async {
       expect(mockUser.joinedOrganizations, mockOrgDetails);
     });
 
-    test('Test for updateUserCreatedOrg', () async {
+    test('Test for updateUserCreatedOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
 
@@ -138,7 +213,7 @@ void main() async {
       expect(mockUser.createdOrganizations, mockOrgDetails);
     });
 
-    test('Test for updateUserMemberRequestOrg', () async {
+    test('Test for updateUserMemberRequestOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
       final expected = [...mockUser.membershipRequests!, ...mockOrgDetails];
@@ -147,7 +222,7 @@ void main() async {
       expect(mockUser.membershipRequests, expected);
     });
 
-    test('Test for updateUserAdminOrg', () async {
+    test('Test for updateUserAdminOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
 
@@ -156,7 +231,7 @@ void main() async {
       expect(mockUser.adminFor, mockOrgDetails);
     });
 
-    test('Test for updateAccessToken', () async {
+    test('Test for updateAccessToken method.', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
       const newAuthToken = 'newAccessToken';
@@ -169,6 +244,32 @@ void main() async {
 
       expect(mockUser.authToken, newAuthToken);
       expect(mockUser.refreshToken, newRefreshToken);
+    });
+
+    test('Test for saveCurrentOrgInHive method.', () async {
+      final model = UserConfig();
+      model.currentUser = mockUser;
+
+      // To test the box.get('org') != null condition.
+      orgBox.put('org', OrgInfo(id: 'fakeId', name: 'org'));
+      model.saveCurrentOrgInHive(mockOrgDetails[0]);
+
+      // To test the box.get('org') == null condition.
+      orgBox.delete('org');
+      model.saveCurrentOrgInHive(mockOrgDetails[0]);
+    });
+
+    test('Test for updateUser method.', () async {
+      final model = UserConfig();
+
+      when(databaseFunctions.init()).thenAnswer((_) {
+        throw Exception('simulated exception.');
+      });
+
+      final updated = await model.updateUser(User(id: 'sampleId'));
+
+      // user updation failed.
+      expect(!updated, true);
     });
   });
 }
