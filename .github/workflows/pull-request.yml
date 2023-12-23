@@ -157,4 +157,3 @@ jobs:
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign
-

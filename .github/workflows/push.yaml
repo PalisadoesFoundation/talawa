@@ -242,7 +242,7 @@ jobs:
       ## Package the app as an .ipa and create a release ##
       ########################################################
 
-      - name: Package .ipa file
+      - name: iOS-Build-and-Release
         run: |
           mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
@@ -252,7 +252,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           name: "Automated iOS Release"
-          artifacts: "app.ipa"
+          artifacts: "app-release.ipa"
           allowUpdates: "true"
           generateReleaseNotes: false
           tag: "automated"
