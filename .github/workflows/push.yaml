@@ -223,7 +223,7 @@ jobs:
             This may or may not be stable, so please have a look at the stable release(s).
 
   iOS-Build:
-    name: Testing build for iOS
+    name: iOS Build and Relaese
     runs-on: macos-latest
     needs: Flutter-Testing
     steps:
@@ -242,7 +242,7 @@ jobs:
       ## Package the app as an .ipa and create a release ##
       ########################################################
 
-      - name: iOS-Build-and-Release
+      - name: Releasing for iOS
         run: |
           mkdir Payload
           cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
