@@ -76,7 +76,10 @@ void main() async {
       );
       await tester.pumpAndSettle();
       await tester.fling(
-          find.byType(SingleChildScrollView), const Offset(0, 300), 1000);
+        find.byType(SingleChildScrollView),
+        const Offset(0, 300),
+        1000,
+      );
       await tester.pumpAndSettle();
     });
     testWidgets('check if invitebutton work', (tester) async {
