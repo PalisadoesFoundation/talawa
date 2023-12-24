@@ -27,6 +27,9 @@ import '../../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
+class MockEditProfilePageViewModel extends Mock
+    implements EditProfilePageViewModel {}
+
 class MockCallbackFunction extends Mock {
   void call();
 }
@@ -293,6 +296,32 @@ Future<void> main() async {
         );
         expect(imageAvatar, findsOneWidget);
         tester.tap(imageAvatar);
+      });
+    });
+    testWidgets("Testing Update butoon", (tester) async {
+      await mockNetworkImages(() async {
+        final mockctx = MockBuildContext();
+        userConfig.updateUser(User());
+        userConfig.updateUser(
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
+        await tester.pumpWidget(createChangePassScreenDark());
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('EditProfileScreenScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+        final updateButtonFinder = find.byKey(const Key('updatebtn'));
+        expect(updateButtonFinder, findsOneWidget);
+        await tester.tap(updateButtonFinder);
+        await tester.pumpAndSettle();
+        // verify(FocusScope.of(mockctx).unfocus()).called(1);
       });
     });
   });

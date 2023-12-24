@@ -230,6 +230,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const Divider(),
                 // button to update the profile.
                 TextButton(
+                  key: const Key('updatebtn'),
                   onPressed: () {
                     model.updateUserProfile(
                       firstName: model.firstNameTextController.text,
