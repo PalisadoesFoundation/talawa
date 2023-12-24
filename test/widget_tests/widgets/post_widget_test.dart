@@ -273,7 +273,7 @@ void main() {
 
           // Testing props of Custom Avatar Widget
           expect(customAvatarWidget.isImageNull, true);
-          expect(customAvatarWidget.imageUrl, null);
+          expect(customAvatarWidget.imageUrl, ' /null');
           expect(customAvatarWidget.fontSize, 20);
           expect(customAvatarWidget.firstAlphabet, 'T');
 

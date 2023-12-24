@@ -83,13 +83,13 @@ class _AddPostState extends State<AddPost> {
               children: <Widget>[
                 ListTile(
                   leading: CustomAvatar(
-                    // ignore: unnecessary_null_comparison
                     isImageNull: model.userPic == null,
-                    firstAlphabet: model.userName.substring(0, 1).toUpperCase(),
+                    firstAlphabet:
+                        model.userName!.substring(0, 1).toUpperCase(),
                     imageUrl: model.userPic,
                     fontSize: 20,
                   ),
-                  title: Text(model.userName),
+                  title: Text(model.userName!),
                   subtitle: Text(
                     AppLocalizations.of(context)!
                         .strictTranslate(model.orgName),
