@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -53,7 +54,8 @@ class NewsPost extends StatelessWidget {
                 isImageNull: post.creator!.image == null,
                 firstAlphabet:
                     post.creator!.firstName!.substring(0, 1).toUpperCase(),
-                imageUrl: post.creator!.image,
+                imageUrl:
+                    "${'${GraphqlConfig.orgURI}'.replaceFirst('/graphql', '')}/${post.creator!.image}",
                 fontSize: 20,
               ),
               title: Row(

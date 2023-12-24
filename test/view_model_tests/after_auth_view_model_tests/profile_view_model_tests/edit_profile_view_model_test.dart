@@ -3,67 +3,292 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/locator.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
 }
 
 void main() {
-  setUp(() {
+  testSetupLocator();
+  SizeConfig().test();
+  setUpAll(() {
     registerServices();
+    graphqlConfig.test();
+    sizeConfig.test();
+  });
+
+  tearDownAll(() {
+    unregisterServices();
   });
 
   group('EditProfilePageViewModel Test -', () {
     test("Check if it's initialized correctly", () {
       final model = EditProfilePageViewModel();
       model.initialize();
-
       expect(model.imageFile, null);
     });
+    test('Profile shoud be edited if new values are given', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      final Map<String, dynamic> mockData = {
+        'updateUserProfile': {
+          '_id': '64378abd85008f171cf2990d',
+        },
+      };
+      final String a = await model.convertToBase64(File('path/to/newImage'));
+      final Map<String, dynamic> data = {
+        'users': [
+          {
+            '_id': '1234567890',
+            'firstName': 'John',
+            'lastName': 'Doe',
+            'email': 'johndoe@example.com',
+            'image': 'https://example.com/profile.jpg',
+            'accessToken': 'exampleAccessToken',
+            'refreshToken': 'exampleRefreshToken',
+          }
+        ],
+      };
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateUserProfile(),
+          variables: {
+            'firstName': 'NewFirstName',
+            'lastName': 'NewLastName',
+            'newImage': 'data:image/png;base64,$a',
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: mockData,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql(queries.updateUserProfile())),
+        ),
+      );
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.fetchUserInfo,
+          variables: {'id': model.user.id},
+        ),
+      ).thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.fetchUserInfo)),
+        );
+      });
+      await model.updateUserProfile(
+        firstName: 'NewFirstName',
+        lastName: 'NewLastName',
+        newImage: File('path/to/newImage'),
+      );
 
-    test(
-        'Check if getImageFromGallery() is working fine when no image is return',
-        () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = EditProfilePageViewModel()
-        ..addListener(notifyListenerCallback);
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateUserProfile(),
+          variables: {
+            "firstName": "NewFirstName",
+            "lastName": "NewLastName",
+            "file": 'data:image/png;base64,$a',
+          },
+        ),
+      ).called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Profile updated successfully",
+          MessageType.info,
+        ),
+      );
+    });
 
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
+    test('Test UpdateUserProfile when throwing exception', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      final String b = await model.convertToBase64(File('path/to/newIma'));
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateUserProfile(),
+          variables: {
+            'firstName': 'NewFirstNa',
+            'lastName': 'NewLastNa',
+            'newImage': 'data:image/png;base64,$b',
+          },
+        ),
+      ).thenThrow(Exception());
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.fetchUserInfo,
+          variables: {'id': model.user.id},
+        ),
+      ).thenThrow(Exception());
+      await model.updateUserProfile(
+        firstName: 'NewFirstNa',
+        lastName: 'NewLastNa',
+        newImage: File('path/to/newIma'),
+      );
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        ),
+      );
+    });
+    testWidgets('Test if modal sheet appear if showimageicker method is called',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.showImagePickerIcons(context),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
+      expect(find.text('Gallery'), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      expect(find.byIcon(Icons.photo_library), findsOneWidget);
+    });
+
+    testWidgets('Test if image picker from camera works if image is returned',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.showImagePickerIcons(context),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
+      expect(find.text('Gallery'), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      expect(find.byIcon(Icons.photo_library), findsOneWidget);
+      final file = File('fakePath');
+      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
+          .thenAnswer((realInvocation) async {
+        return file;
+      });
+      await tester.tap(find.byIcon(Icons.camera_alt));
+      await tester.pumpAndSettle();
+      expect(model.imageFile, file);
+    });
+    testWidgets('Test if image picker from camera works if nul is returned',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.showImagePickerIcons(context),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
+      expect(find.text('Gallery'), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      expect(find.byIcon(Icons.photo_library), findsOneWidget);
+
+      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
           .thenAnswer((realInvocation) async {
         return null;
       });
-
-      model.initialize();
-      await model.getImageFromGallery();
-
+      await tester.tap(find.byIcon(Icons.camera_alt));
+      await tester.pumpAndSettle();
       expect(model.imageFile, null);
-      verifyNever(notifyListenerCallback());
     });
-
-    test('Check if getImageFromGallery() is working fine when iamge is return',
-        () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = EditProfilePageViewModel()
-        ..addListener(notifyListenerCallback);
-
+    testWidgets('Test if image picker from gallery works if image is returned',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.showImagePickerIcons(context),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(find.text('Camera'), findsOneWidget);
+      expect(find.text('Gallery'), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      expect(find.byIcon(Icons.photo_library), findsOneWidget);
       final file = File('fakePath');
       when(locator<MultiMediaPickerService>().getPhotoFromGallery())
           .thenAnswer((realInvocation) async {
         return file;
       });
-
-      model.initialize();
-      await model.getImageFromGallery();
-
+      await tester.tap(find.byIcon(Icons.photo_library));
+      await tester.pumpAndSettle();
       expect(model.imageFile, file);
-      verify(notifyListenerCallback()).called(1);
+    });
+
+    test('No update performed if inputs are the same as existing data',
+        () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await model.updateUserProfile(
+        firstName: model.user.firstName,
+        lastName: model.user.lastName,
+        newImage: null,
+      );
+      verifyNever(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateUserProfile(),
+          variables: {'id': 'xzy1'},
+        ),
+      );
     });
 
     test('Check if removeImage() is working fine', () async {

@@ -59,8 +59,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ? CircleAvatar(
                                   key: const Key('UserImageInDb'),
                                   radius: SizeConfig.screenHeight! * 0.082,
-                                  backgroundImage:
-                                      NetworkImage(model.user.image!),
+                                  backgroundImage: NetworkImage(
+                                    model.user.image!,
+                                  ),
                                 )
                               : CircleAvatar(
                                   key: const Key('UserImageNotInDb'),
@@ -88,7 +89,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // if image is null the function will be get getImageFromGallery()
                             // else removeImage()
                             model.imageFile == null
-                                ? model.getImageFromGallery(camera: true)
+                                ? model.showImagePickerIcons(context)
                                 : model.removeImage();
                           },
                           child: model.imageFile == null
@@ -229,7 +230,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const Divider(),
                 // button to update the profile.
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    model.updateUserProfile(
+                      firstName: model.firstNameTextController.text,
+                      newImage: model.imageFile,
+                      lastName: model.lastNameTextController.text,
+                    );
+                    FocusScope.of(context).unfocus();
+                  },
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),
