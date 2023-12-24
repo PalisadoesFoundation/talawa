@@ -131,9 +131,8 @@ class EditProfilePageViewModel extends BaseModel {
   Future<String> convertToBase64(File file) async {
     try {
       final List<int> bytes = await file.readAsBytes();
-      final String base64String = base64Encode(bytes);
-      print(base64String);
-      return base64String;
+      base64Image = base64Encode(bytes);
+      return base64Image!;
     } catch (error) {
       return '';
     }

@@ -291,6 +291,15 @@ void main() {
       );
     });
 
+    test('convertToBase64 converts file to base64 string', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      //using this asset as the test asset
+      final file = File('assets/images/Group 8948.png');
+      final fileString = await model.convertToBase64(file);
+      expect(model.base64Image, fileString);
+    });
+
     test('Check if removeImage() is working fine', () async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = EditProfilePageViewModel()
