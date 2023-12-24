@@ -82,7 +82,7 @@ void main() {
       );
       expect(
         printed[0],
-        "MultiMediaPickerService : Exception occurred while cropping Image",
+        "ImageService : Exception occurred while cropping Image",
       );
     });
   });
