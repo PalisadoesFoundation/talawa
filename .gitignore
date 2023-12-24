@@ -244,3 +244,12 @@ test/fixtures/core
 # Ignoring file that are generated during talawa testing and firebase initialization
 genhtml.perl
 test_img.png
+
+
+# Ignoring Node files that are generated if user uses any node command which is not required for the project
+node_modules/
+package.json
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log
