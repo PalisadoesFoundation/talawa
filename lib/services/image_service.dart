@@ -52,7 +52,7 @@ class ImageService {
       }
     } catch (e) {
       print(
-        "MultiMediaPickerService : Exception occurred while cropping Image",
+        "ImageService : Exception occurred while cropping Image",
       );
     }
     return null;
