@@ -1,6 +1,3 @@
-
-// ignore_for_file: avoid_dynamic_calls
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -71,7 +68,6 @@ class EditProfilePageViewModel extends BaseModel {
       notifyListeners();
     }
   }
-
 
   /// modal sheet to choose image.
   ///
