@@ -40,6 +40,52 @@ class PostQueries {
 """;
   }
 
+  /// Getting Post by Post Id.
+  ///
+  /// **params**:
+  /// * `postId`: The post id
+  ///
+  /// **returns**:
+  /// * `String`: The query related to gettingPostsbyId
+  String getPostById(String postId) {
+    return """
+      query {
+        post(id: "$postId")
+        { 
+          _id
+          text
+          createdAt
+          imageUrl
+          videoUrl
+          title
+          commentCount
+          likeCount
+          creator{
+            _id
+            firstName
+            lastName
+            image
+          }
+          organization{
+            _id
+          }
+          likedBy{
+            _id
+          }
+          comments{
+            _id,
+            text,
+             createdAt
+        creator{
+          firstName
+          lastName
+        }
+          }
+        }
+      }
+""";
+  }
+
   /// Add Like to a post.
   ///
   /// **params**:

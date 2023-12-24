@@ -84,6 +84,7 @@ class UserConfig {
     _currentOrgInfoController.add(_currentOrg!);
 
     _currentUser = boxUser.get('user');
+
     // if there is not currentUser then returns false.
     if (_currentUser == null) {
       _currentUser = User(id: 'null', authToken: 'null');
@@ -108,6 +109,7 @@ class UserConfig {
         _currentOrgInfoController.add(_currentOrg!);
 
         saveUserInHive();
+
         return true;
       } on Exception catch (e) {
         print(e);
