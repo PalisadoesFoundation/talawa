@@ -160,6 +160,7 @@ class ProfilePage extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: IconButton(
+                                key: const Key('inv1'),
                                 icon: Icon(
                                   Icons.share,
                                   color:
@@ -227,6 +228,7 @@ class ProfilePage extends StatelessWidget {
                               ColoredBox(
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 child: GestureDetector(
+                                  key: const Key('tastscrn'),
                                   onTap: () {
                                     navigationService
                                         .pushScreen(Routes.userTasks);

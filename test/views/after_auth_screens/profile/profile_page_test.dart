@@ -59,8 +59,6 @@ void main() async {
       await Hive.openBox<OrgInfo>('currentOrg');
       final pbox = await Hive.openBox('pluginBox');
       print(pbox.get('plugins'));
-      // locator.unregister<ProfilePageViewModel>();
-      // locator.registerFactory<ProfilePageViewModel>(() => ProfilePageViewModel());
     });
 
     tearDownAll(() {
@@ -69,13 +67,58 @@ void main() async {
       File('test/fixtures/core/currentuser.hive').delete();
       File('test/fixtures/core/currentuser.lock').delete();
     });
-    testWidgets('check if profilePage shows up', (tester) async {
-      // print();
+    testWidgets('check if profilePage shows up and refreshIndicator work',
+        (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
+      await tester.pumpAndSettle();
+      await tester.fling(
+          find.byType(SingleChildScrollView), const Offset(0, 300), 1000);
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if invitebutton work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('inv1')));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if Donate button work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Donate to the Community'));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if naviagte to task screen work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Tasks'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('tastscrn')));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if naviagte to task screen work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Invite'));
       await tester.pumpAndSettle();
     });
   });
