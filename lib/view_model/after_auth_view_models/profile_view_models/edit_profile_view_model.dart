@@ -142,9 +142,7 @@ class EditProfilePageViewModel extends BaseModel {
     }
   }
 
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+  /// Method to update user profile.
   ///
   /// **params**:
   /// * `firstName`: define_the_param
