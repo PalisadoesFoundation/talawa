@@ -300,7 +300,6 @@ Future<void> main() async {
     });
     testWidgets("Testing Update butoon", (tester) async {
       await mockNetworkImages(() async {
-        final mockctx = MockBuildContext();
         userConfig.updateUser(User());
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
@@ -321,7 +320,6 @@ Future<void> main() async {
         expect(updateButtonFinder, findsOneWidget);
         await tester.tap(updateButtonFinder);
         await tester.pumpAndSettle();
-        // verify(FocusScope.of(mockctx).unfocus()).called(1);
       });
     });
   });
