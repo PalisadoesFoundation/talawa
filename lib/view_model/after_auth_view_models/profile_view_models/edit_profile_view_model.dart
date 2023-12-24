@@ -182,7 +182,8 @@ class EditProfilePageViewModel extends BaseModel {
           variables: {'id': user.id},
         ) as QueryResult;
         final User userInfo = User.fromJson(
-          result1.data!['users'][0] as Map<String, dynamic>,
+          ((result1.data!['users'] as List<dynamic>)[0])
+              as Map<String, dynamic>,
           fromOrg: true,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
