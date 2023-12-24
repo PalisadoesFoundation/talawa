@@ -74,11 +74,11 @@ void main() async {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
-      await tester.fling(
-        find.byType(SingleChildScrollView),
+      await tester.pump();
+      expect(find.byType(RefreshIndicator), findsOneWidget);
+      await tester.drag(
+        find.byKey(const Key('profilepic')),
         const Offset(0, 300),
-        1000,
       );
       await tester.pumpAndSettle();
     });
@@ -114,13 +114,14 @@ void main() async {
       await tester.tap(find.byKey(const Key('tastscrn')));
       await tester.pumpAndSettle();
     });
-    testWidgets('check if naviagte to task screen work', (tester) async {
+    testWidgets('check if Invite customListTile work', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
       await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Invite'));
       await tester.tap(find.text('Invite'));
       await tester.pumpAndSettle();
     });

@@ -131,6 +131,7 @@ class ProfilePage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: CustomAvatar(
+                                  key: const Key('profilepic'),
                                   isImageNull: model.currentUser.image == null,
                                   firstAlphabet: model.currentUser.firstName!
                                       .substring(0, 1),
