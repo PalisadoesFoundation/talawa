@@ -74,7 +74,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `camera`: for true it will select from camera otherwise gallery
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  /// * `Future<void>`: none
   Future<void> selectImage({bool camera = false}) async {
     if (camera) {
       getImage(camera: true);
@@ -108,7 +108,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `newImage`: New profile picture that is to be updated.
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  /// * `Future<void>`: none
   Future<void> updateUserProfile({
     String? firstName,
     String? lastName,

@@ -340,8 +340,42 @@ Future<void> main() async {
 
         await tester.ensureVisible(find.byKey(const Key('selectcamera')));
         await tester.tap(find.byKey(const Key('selectcamera')));
+      });
+    });
+    testWidgets("Testing if image selection from gallery work fine",
+        (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(User());
+
+        userConfig.updateUser(
+          User(
+            firstName: 'Test',
+            lastName: 'Test',
+            email: 'test@test.com',
+            image: 'https://via.placeholder.com/150',
+          ),
+        );
+        await tester.pumpWidget(createChangePassScreenDark());
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('EditProfileScreenScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+        await tester.pumpAndSettle();
+        expect(find.text('Camera'), findsOneWidget);
+        expect(find.text('Gallery'), findsOneWidget);
+        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+        expect(find.byIcon(Icons.photo_library), findsOneWidget);
+
         await tester.ensureVisible(find.byKey(const Key('selectgallery')));
-        await tester.tap(find.byKey(const Key('selectgallery')));
+        await tester.tap(find.byIcon(Icons.photo_library));
       });
     });
     testWidgets("Testing if image selection and removal works", (tester) async {

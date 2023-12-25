@@ -26,6 +26,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: Text(
+              // Title of the app bar(header).
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
