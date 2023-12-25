@@ -22,15 +22,6 @@ class MockCallbackFunction extends Mock {
   void call();
 }
 
-/// Contains All test for Add Post View Model .
-///
-/// more_info_if_required
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
   setUp(() {
     registerServices();

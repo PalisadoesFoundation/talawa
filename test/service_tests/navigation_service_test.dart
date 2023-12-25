@@ -265,7 +265,6 @@ class TalawaErrorWidget extends StatelessWidget {
 
 ///Tests Navigation Service.
 ///
-///
 /// **params**:
 ///   None
 ///

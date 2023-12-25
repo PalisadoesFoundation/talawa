@@ -128,8 +128,6 @@ class NavigationService {
 
   /// This is used for the quick error of `duration: 2 seconds`.
   ///
-  /// more_info_if_required
-  ///
   /// **params**:
   /// * `errorMessage`: Error Message shown in snackbar
   /// * `messageType`: Type of Message
