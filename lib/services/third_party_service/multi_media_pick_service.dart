@@ -6,6 +6,7 @@ Service usage: "add_post_view_model.dart"
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -35,7 +36,7 @@ class MultiMediaPickerService {
   late ImageService _imageService;
   //Getters
 
-  /// This function returns the stream of files.
+  /// Returns the stream of files.
   ///
   /// params:
   /// None.
@@ -44,11 +45,11 @@ class MultiMediaPickerService {
   /// * `Stream<dynamic>`: Stream of files.
   Stream get fileStream => _fileStream;
 
-  /// This function is used to pick the image from gallery or to click the image from user's camera.
+  /// Picks the image from gallery or to click the image from user's camera.
   ///
-  /// The function first ask for the permission to access the camera, if denied then returns a message in.
+  /// First ask for the permission to access the camera, if denied then returns a message in.
   ///
-  /// custom Dialog Box. This function returns a File type for which `camera` variable is false by default.
+  /// custom Dialog Box. Returns a File type for which `camera` variable is false by default.
   ///
   /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
@@ -64,7 +65,9 @@ class MultiMediaPickerService {
       );
       // if image is selected or not null, call the cropImage function that provide service to crop the selected image.
       if (image != null) {
-        return await _imageService.cropImage(imageFile: File(image.path));
+        return await _imageService.cropImage(
+          imageFile: File(image.path),
+        );
       }
     } catch (e) {
       // if the permission denied or error occurs.
@@ -74,14 +77,15 @@ class MultiMediaPickerService {
           permissionDeniedDialog(),
         );
       }
-      print(
+      debugPrint(
         "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",
       );
     }
+
     return null;
   }
 
-  /// This function returns the permission denied dialog.
+  /// Returns the permission denied dialog.
   ///
   /// **params**:
   ///   None

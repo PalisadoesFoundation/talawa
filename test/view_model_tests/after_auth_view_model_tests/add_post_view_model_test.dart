@@ -23,6 +23,7 @@ void main() {
   testSetupLocator();
   setUp(() {
     registerServices();
+    getAndRegisterImageService();
   });
   group("AddPostViewModel Test - ", () {
     test("Check if it's initialized correctly", () {

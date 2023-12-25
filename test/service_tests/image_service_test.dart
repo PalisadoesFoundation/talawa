@@ -1,7 +1,6 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -59,7 +58,6 @@ void main() {
       final mockImageCropper = locator<ImageCropper>();
       const path = "test";
       final fakefile = File(path);
-      final printed = <String>[];
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
@@ -70,19 +68,9 @@ void main() {
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenThrow(Exception());
-      runZoned(
-        () async {
-          await imageService.cropImage(imageFile: fakefile);
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            printed.add(line);
-          },
-        ),
-      );
       expect(
-        printed[0],
-        "ImageService : Exception occurred while cropping Image",
+        imageService.cropImage(imageFile: fakefile),
+        throwsException,
       );
     });
   });
@@ -100,7 +88,7 @@ void main() {
         () async {
       final file = File('fakePath');
       final fileString = await imageService.convertToBase64(file);
-      expect('', fileString);
+      expect(null, fileString);
     });
   });
 }

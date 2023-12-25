@@ -11,18 +11,21 @@ import 'package:talawa/locator.dart';
 /// * `cropImage`
 /// * `convertToBase64`
 class ImageService {
-  /// instance of ImageCropper.
+  /// Global instance of ImageCropper.
   final ImageCropper _imageCropper = locator<ImageCropper>();
 
-  /// This function is used to crop the image selected by the user.
+  /// Crops the image selected by the user.
   ///
-  /// The function accepts a `File` type image and returns `File` type of cropped image.
+  /// Accepts a `File` type image and returns a `Future<File?>` of the cropped image.
   ///
   /// **params**:
   /// * `imageFile`: the image file to be cropped.
   ///
   /// **returns**:
   /// * `Future<File?>`: the image after been cropped.
+  ///
+  /// **throws**:
+  /// - `Exception`: If an error occurs during the image cropping process.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
@@ -47,32 +50,34 @@ class ImageService {
           ),
         ],
       );
+
       if (croppedImage != null) {
         return File(croppedImage.path);
       }
     } catch (e) {
-      print(
-        "ImageService : Exception occurred while cropping Image",
+      throw Exception(
+        "ImageService : Exception occurred while cropping Image.",
       );
     }
+
     return null;
   }
 
-  /// This function is used to convert the image into Base64 format.
+  /// Converts the image into Base64 format.
   ///
   /// **params**:
   /// * `file`:  Takes the image in format of file.
   ///
   /// **returns**:
-  /// * `Future<String>`: image in string format
-  Future<String> convertToBase64(File file) async {
+  /// * `Future<String?>`: image in string format
+  Future<String?> convertToBase64(File file) async {
     try {
       final List<int> bytes = await file.readAsBytes();
       final String base64String = base64Encode(bytes);
       print(base64String);
       return base64String;
     } catch (error) {
-      return '';
+      return null;
     }
   }
 }
