@@ -5,7 +5,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -60,7 +59,7 @@ class EditProfilePageViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `Future<void>`: None
-  Future<void> getImageFromGallery({bool camera = false}) async {
+  Future<void> getImage({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (image != null) {
@@ -69,56 +68,19 @@ class EditProfilePageViewModel extends BaseModel {
     }
   }
 
-  /// modal sheet to choose image.
-  ///
-  /// more_info_if_required
+  /// Method to select image from gallery or camera.
   ///
   /// **params**:
-  /// * `context`: define_the_param
+  /// * `camera`: for true it will select from camera otherwise gallery
   ///
   /// **returns**:
-  ///   None
-  void showImagePickerIcons(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          height: SizeConfig.screenHeight! * 0.135,
-          padding: const EdgeInsets.all(17),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  getImageFromGallery(camera: true);
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(Icons.camera_alt, size: 37),
-                    Text("Camera"),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  getImageFromGallery();
-                },
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(Icons.photo_library, size: 37),
-                    Text("Gallery"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  /// * `Future<void>`: define_the_return
+  Future<void> selectImage({bool camera = false}) async {
+    if (camera) {
+      getImage(camera: true);
+    } else {
+      getImage();
+    }
   }
 
   /// This function is used to convert the image into Base64 format.
@@ -141,9 +103,9 @@ class EditProfilePageViewModel extends BaseModel {
   /// Method to update user profile.
   ///
   /// **params**:
-  /// * `firstName`: define_the_param
-  /// * `lastName`: define_the_param
-  /// * `newImage`: define_the_param
+  /// * `firstName`: updated first name.
+  /// * `lastName`: updated last name.
+  /// * `newImage`: New profile picture that is to be updated.
   ///
   /// **returns**:
   /// * `Future<void>`: define_the_return

@@ -89,7 +89,54 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // if image is null the function will be get getImageFromGallery()
                             // else removeImage()
                             model.imageFile == null
-                                ? model.showImagePickerIcons(context)
+                                ? showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height:
+                                            SizeConfig.screenHeight! * 0.135,
+                                        padding: const EdgeInsets.all(17),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                                model.selectImage(camera: true);
+                                              },
+                                              child: const Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.camera_alt,
+                                                    size: 37,
+                                                  ),
+                                                  Text("Camera"),
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                                model.selectImage();
+                                              },
+                                              child: const Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.photo_library,
+                                                    size: 37,
+                                                  ),
+                                                  Text("Gallery"),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
                                 : model.removeImage();
                           },
                           child: model.imageFile == null
