@@ -144,7 +144,7 @@ void main() {
         ),
       );
     });
-    testWidgets('Test if modal sheet appear if showimageicker method is called',
+    testWidgets('Test if SelectImage from camera method works',
         (WidgetTester tester) async {
       final model = EditProfilePageViewModel();
       model.initialize();
@@ -155,7 +155,7 @@ void main() {
               builder: (BuildContext context) {
                 return ElevatedButton(
                   key: const Key('btn1'),
-                  onPressed: () => model.showImagePickerIcons(context),
+                  onPressed: () => model.selectImage(camera: true),
                   child: const Text('listner'),
                 );
               },
@@ -163,83 +163,19 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      expect(find.text('Camera'), findsOneWidget);
-      expect(find.text('Gallery'), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.photo_library), findsOneWidget);
-    });
-
-    testWidgets('Test if image picker from camera works if image is returned',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.showImagePickerIcons(context),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      expect(find.text('Camera'), findsOneWidget);
-      expect(find.text('Gallery'), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.photo_library), findsOneWidget);
       final file = File('fakePath');
       when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
           .thenAnswer((realInvocation) async {
         return file;
       });
-      await tester.tap(find.byIcon(Icons.camera_alt));
+      await tester.tap(find.byKey(const Key('btn1')));
       await tester.pumpAndSettle();
+      verify(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .called(1);
       expect(model.imageFile, file);
     });
-    testWidgets('Test if image picker from camera works if nul is returned',
-        (WidgetTester tester) async {
-      final model = EditProfilePageViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.showImagePickerIcons(context),
-                  child: const Text('listner'),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      expect(find.text('Camera'), findsOneWidget);
-      expect(find.text('Gallery'), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.photo_library), findsOneWidget);
 
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
-      await tester.tap(find.byIcon(Icons.camera_alt));
-      await tester.pumpAndSettle();
-      expect(model.imageFile, null);
-    });
-    testWidgets('Test if image picker from gallery works if image is returned',
+    testWidgets('Test if selectImage from gallery method works',
         (WidgetTester tester) async {
       final model = EditProfilePageViewModel();
       model.initialize();
@@ -250,7 +186,7 @@ void main() {
               builder: (BuildContext context) {
                 return ElevatedButton(
                   key: const Key('btn1'),
-                  onPressed: () => model.showImagePickerIcons(context),
+                  onPressed: () => model.selectImage(),
                   child: const Text('listner'),
                 );
               },
@@ -258,20 +194,73 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.byKey(const Key('btn1')));
-      await tester.pumpAndSettle();
-      expect(find.text('Camera'), findsOneWidget);
-      expect(find.text('Gallery'), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.photo_library), findsOneWidget);
       final file = File('fakePath');
       when(locator<MultiMediaPickerService>().getPhotoFromGallery())
           .thenAnswer((realInvocation) async {
         return file;
       });
-      await tester.tap(find.byIcon(Icons.photo_library));
+      await tester.tap(find.byKey(const Key('btn1')));
       await tester.pumpAndSettle();
+
       expect(model.imageFile, file);
+    });
+    testWidgets(
+        'Test if SelectImage from camera method works if null is returned',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.selectImage(camera: true),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      when(locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true))
+          .thenAnswer((realInvocation) async {
+        return null;
+      });
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      verify(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .called(1);
+      expect(model.imageFile, null);
+    });
+    testWidgets(
+        'Test if selectImage from gallery method works when null is returned',
+        (WidgetTester tester) async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  key: const Key('btn1'),
+                  onPressed: () => model.selectImage(),
+                  child: const Text('listner'),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
+          .thenAnswer((realInvocation) async {
+        return null;
+      });
+      await tester.tap(find.byKey(const Key('btn1')));
+      await tester.pumpAndSettle();
+      expect(model.imageFile, null);
     });
 
     test('No update performed if inputs are the same as existing data',

@@ -26,7 +26,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: Text(
-              // Title of the app bar(header).
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -101,34 +100,50 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             GestureDetector(
+                                              key: const Key('selectcamera'),
                                               onTap: () {
                                                 Navigator.of(context).pop();
                                                 model.selectImage(camera: true);
                                               },
-                                              child: const Column(
+                                              child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.camera_alt,
                                                     size: 37,
                                                   ),
-                                                  Text("Camera"),
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                      context,
+                                                    )!
+                                                        .strictTranslate(
+                                                      'Camera',
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
                                             GestureDetector(
+                                              key: const Key('selectgallery'),
                                               onTap: () {
                                                 Navigator.of(context).pop();
                                                 model.selectImage();
                                               },
-                                              child: const Column(
+                                              child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.photo_library,
                                                     size: 37,
                                                   ),
-                                                  Text("Gallery"),
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                      context,
+                                                    )!
+                                                        .strictTranslate(
+                                                      'Gallery',
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),

@@ -117,7 +117,6 @@ class EditProfilePageViewModel extends BaseModel {
     if (firstName == user.firstName &&
         newImage == null &&
         lastName == user.lastName) {
-      print("No updates to perform");
       return;
     }
     try {
@@ -163,8 +162,7 @@ class EditProfilePageViewModel extends BaseModel {
         );
         notifyListeners();
       }
-    } on Exception catch (e) {
-      print('error:$e');
+    } on Exception catch (_) {
       navigationService.showTalawaErrorSnackBar(
         "Something went wrong",
         MessageType.error,
