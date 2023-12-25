@@ -31,7 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenHeight! * 0.03,
                   ),
             ),
           ),
@@ -109,9 +109,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.camera_alt,
-                                                    size: 37,
+                                                    size: SizeConfig
+                                                            .screenHeight! *
+                                                        0.05,
                                                   ),
                                                   Text(
                                                     AppLocalizations.of(
@@ -133,9 +135,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.photo_library,
-                                                    size: 37,
+                                                    size: SizeConfig
+                                                            .screenHeight! *
+                                                        0.05,
                                                   ),
                                                   Text(
                                                     AppLocalizations.of(
