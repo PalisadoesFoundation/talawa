@@ -32,6 +32,9 @@ import 'package:talawa/views/after_auth_screens/tasks/edit_task_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
+import 'package:talawa/views/demo_screens/explore_events_demo.dart';
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
+import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
@@ -134,6 +137,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const OrganizationFeed(key: Key('HomeScreen')),
       );
 
+    // Returns the DemoOrganizationFeed Widget
+    case Routes.demoHomeScreen:
+      return MaterialPageRoute(
+        builder: (context) =>
+            const DemoOrganizationFeed(key: Key('DemoHomeScreen')),
+      );
+
     // Returns the MainScreen Widget
     case Routes.mainScreen:
       final MainScreenArgs mainScreenArgs =
@@ -169,6 +179,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const ExploreEvents(key: Key('ExploreEvents')),
       );
 
+    // Returns the DemoExploreEvents Widget
+    case Routes.demoExploreEventsScreen:
+      return MaterialPageRoute(
+        builder: (context) =>
+            const DemoExploreEvents(key: Key('DemoExploreEvents')),
+      );
+
     // Returns the EventInfoPage Widget
     case Routes.eventInfoPage:
       final Map<String, dynamic> args =
@@ -190,6 +207,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.profilePage:
       return MaterialPageRoute(
         builder: (context) => const ProfilePage(key: Key('Profile')),
+      );
+
+    // Return the DemoProfilePage Widget
+    case Routes.demoProfilePage:
+      return MaterialPageRoute(
+        builder: (context) => const DemoProfilePage(key: Key('DemoProfile')),
       );
 
     // Returns the EditProfilePage Widget
@@ -307,13 +330,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const SelectContact(key: Key('selectContact')),
       );
+
     case Routes.addPostScreen:
       return MaterialPageRoute(
         builder: (context) => const AddPost(
-          key: Key('addPostScreen'),
+          key: Key('AddPostPage'),
         ),
       );
-    // Returns the DemoPageView Widget by default
+
     default:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(

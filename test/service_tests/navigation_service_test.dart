@@ -518,14 +518,14 @@ void main() {
       expect(snackBarWidget.behavior, equals(SnackBarBehavior.floating));
       expect(snackBarWidget.duration, equals(const Duration(seconds: 3)));
     });
-    testWidgets('showTalawaErrorSnackBar() test', (tester) async {
-      const String errorMessage = 'Error Message';
+    testWidgets('showTalawaErrorSnackBar() test with default duration',
+        (tester) async {
       await tester.pumpWidget(
         TalawaErrorWidget(
           navigationService: navigationService,
           onClick: () {
             navigationService.showTalawaErrorSnackBar(
-              errorMessage,
+              'Error Message',
               MessageType.error,
             );
           },
@@ -539,7 +539,35 @@ void main() {
       final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
       expect(
         snackBarWidget.duration,
-        equals(const Duration(milliseconds: errorMessage.length * 80)),
+        equals(const Duration(milliseconds: 1040)),
+      );
+      expect(
+        snackBarWidget.backgroundColor,
+        const Color.fromRGBO(65, 65, 66, 1),
+      );
+    });
+    testWidgets('showTalawaErrorSnackBar() test with custom duration',
+        (tester) async {
+      await tester.pumpWidget(
+        TalawaErrorWidget(
+          navigationService: navigationService,
+          onClick: () {
+            navigationService.showTalawaErrorSnackBar(
+              'Error Message',
+              MessageType.error,
+            );
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(TextButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      final snackBarFinder = find.byType(SnackBar);
+      final snackBarWidget = tester.widget<SnackBar>(snackBarFinder);
+      expect(
+        snackBarWidget.duration,
+        equals(const Duration(milliseconds: 1040)),
       );
       expect(
         snackBarWidget.backgroundColor,

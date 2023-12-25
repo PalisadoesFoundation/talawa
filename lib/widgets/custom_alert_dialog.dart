@@ -1,5 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
+// ignore_for_file: avoid_dynamic_calls
 
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
@@ -7,11 +6,22 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
-/// This Class returns CustomAlertDialog widget. Custom Alert Dialog is a popup
+/// This Class returns CustomAlertDialog widget. Custom Alert Dialog is a popup.
+///
 /// that appeared in the screen showing Alert message along with the event buttons.
 /// This extends stateless widget that means it cannot change its state during the
 /// runtime of a application.
 class CustomAlertDialog extends StatelessWidget {
+  /// Constructs a [CustomAlertDialog] widget.
+  ///
+  /// [reverse] indicates whether the order of action buttons should be reversed.
+  /// [success] is the function triggered upon tapping the primary action button.
+  /// [secondaryButtonTap] is the function triggered upon tapping the secondary action button.
+  /// [successText] is the text displayed on the primary action button.
+  /// [dialogTitle] is the title displayed in the dialog (default value is 'Confirmation').
+  /// [dialogSubTitle] is the subtitle or message content of the dialog.
+  /// [secondaryButtonText] is the text displayed on the secondary action button (default value is 'Close').
+
   const CustomAlertDialog({
     super.key,
     this.successText,
@@ -22,12 +32,26 @@ class CustomAlertDialog extends StatelessWidget {
     required this.success,
     required this.dialogSubTitle,
   });
+
+  /// Indicates whether the order of action buttons should be reversed.
   final bool reverse;
+
+  /// Function triggered upon tapping the primary action button.
   final Function success;
+
+  /// Function triggered upon tapping the secondary action button.
   final Function? secondaryButtonTap;
+
+  /// Text displayed on the primary action button.
   final String? successText;
+
+  /// Title displayed in the dialog (default value is 'Confirmation').
   final String? dialogTitle;
+
+  /// Subtitle or message content of the dialog.
   final String dialogSubTitle;
+
+  /// Text displayed on the secondary action button (default value is 'Close').
   final String secondaryButtonText;
 
   @override
@@ -35,7 +59,11 @@ class CustomAlertDialog extends StatelessWidget {
     final List<Widget> actions = [
       RaisedRoundedButton(
         key: const Key('Close'),
-        onTap: () => secondaryButtonTap ?? navigationService.pop(),
+        onTap: () {
+          secondaryButtonTap != null
+              ? secondaryButtonTap!()
+              : navigationService.pop();
+        },
         buttonLabel:
             AppLocalizations.of(context)!.strictTranslate(secondaryButtonText),
         textColor: Colors.white,

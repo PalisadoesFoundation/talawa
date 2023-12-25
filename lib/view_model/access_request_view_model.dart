@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -22,7 +21,6 @@ class AccessScreenViewModel extends BaseModel {
   final optionalMessageController = TextEditingController();
 
   /// initialization function.
-  ///
   ///
   /// **params**:
   /// * `org`: Org to send request to.

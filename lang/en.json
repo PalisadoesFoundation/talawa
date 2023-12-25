@@ -23,7 +23,7 @@
   "Select": "Select",
   "Selected Organization": "Selected Organization",
   "Continue": "Continue",
-  "Enter Organization URL": "Enter Organization URL",
+  "Enter Community URL": "Enter Community URL",
   "Verify": "Verify",
   "Sign Up": "Sign Up",
   "Change language": "Change language",
@@ -174,5 +174,8 @@
   "Logout": "Logout",
   "Settings": "Settings",
   "Dark Theme": "Dark Theme",
-  "No organizations found Please contact your admin": "No organizations found ! Please contact your admin"
+  "No organizations found Please contact your admin": "No organizations found ! Please contact your admin",
+  "For complete access, please": "For complete access, please",
+  "  join an organization.": "  join an organization.",
+  "JOIN":"JOIN"
 }

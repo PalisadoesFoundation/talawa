@@ -53,6 +53,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -126,6 +127,7 @@ NavigationService getAndRegisterNavigationService() {
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
+  when(service.pushDialog(any)).thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -204,6 +206,9 @@ ChatService getAndRegisterChatService() {
 AppLanguage getAndRegisterAppLanguage() {
   _removeRegistrationIfExists<AppLanguage>();
   final service = MockAppLanguage();
+
+  when(service.appLocal).thenReturn(const Locale('en'));
+
   locator.registerSingleton<AppLanguage>(service);
   return service;
 }
@@ -237,6 +242,8 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
       link: finalAuthLink,
     );
   });
+
+  when(service.getToken()).thenAnswer((_) async => "sample_token");
 
   locator.registerSingleton<GraphqlConfig>(service);
   return service;
@@ -312,6 +319,14 @@ UserConfig getAndRegisterUserConfig() {
 
   when(service.userLoggedIn()).thenAnswer(
     (realInvocation) => Future<bool>.value(false),
+  );
+
+  when(service.currentUser).thenReturn(
+    User(
+      id: 'id',
+      firstName: 'john',
+      lastName: 'snow',
+    ),
   );
 
   //Mock Data for current organizaiton.
@@ -565,7 +580,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     id: "fakeUser1",
     firstName: 'r',
     lastName: 'p',
-    image: 'www.image.com',
+    // image: 'www.image.com',
   );
 
   final mapType = {user1.id!: true};
@@ -584,6 +599,10 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedMembers).thenReturn([]);
+  });
+
+  when(cachedViewModel.createEvent()).thenAnswer((realInvocation) async {
+    print('called');
   });
 
   // when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
@@ -630,6 +649,31 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   when(cachedViewModel.chatName("XYZ")).thenAnswer((realInvocation) {});
 
   locator.registerSingleton<DirectChatViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
+ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
+  _removeRegistrationIfExists<ExploreEventsViewModel>();
+  final cachedViewModel = MockExploreEventsViewModel();
+
+  const String chosenValue = 'All Events';
+  const String emptyListMessage = "Looks like there aren't any events.";
+
+  final EventService mockEventService = EventService();
+
+  when(cachedViewModel.eventService).thenReturn(mockEventService);
+  when(cachedViewModel.chosenValue).thenReturn(chosenValue);
+  when(cachedViewModel.emptyListMessage).thenReturn(emptyListMessage);
+
+  locator.registerSingleton<ExploreEventsViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
+MainScreenViewModel getAndRegisterMainViewModel() {
+  _removeRegistrationIfExists<MainScreenViewModel>();
+  final cachedViewModel = MockMainScreenViewModel();
+
+  locator.registerSingleton<MainScreenViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 

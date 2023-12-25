@@ -103,6 +103,18 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+
+      final backButton = find.byIcon(Icons.arrow_back);
+
+      await tester.tap(backButton);
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(
+          const Key('AppSettingScaffold'),
+        ),
+        findsNothing,
+      );
     });
     testWidgets(
         "Testing if Settings Screen shows up in dark mode with Theme selection tile",

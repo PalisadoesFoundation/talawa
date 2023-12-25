@@ -26,7 +26,7 @@ dependencies:
 
   crypto: ^3.0.3
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.19
+  currency_picker: ^2.0.20
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
@@ -34,7 +34,7 @@ dependencies:
   file: ^7.0.0
   firebase_core: ^2.24.2
   firebase_core_platform_interface: ^5.0.0
-  firebase_messaging: ^14.7.6
+  firebase_messaging: ^14.7.9
   firebase_messaging_platform_interface: ^4.5.17
 
   flutter:
@@ -57,10 +57,10 @@ dependencies:
   hive: ^2.2.3
   http: 1.1.2
   image_cropper: ^5.0.1
-  image_picker: ^1.0.4
+  image_picker: ^1.0.5
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockito: ^5.4.3
+  mockito: ^5.4.4
   network_image_mock: ^2.1.1
   path_provider: ^2.1.1
   permission_handler: 11.1.0
@@ -73,7 +73,7 @@ dependencies:
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^23.2.7
+  syncfusion_flutter_calendar: ^24.1.41
   syncfusion_flutter_datepicker: any
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
@@ -90,7 +90,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
 
   json_serializable: ^6.7.1
-  lint: ^2.2.0
+  lint: ^2.3.0
 
   mocktail_image_network: ^1.0.0
   talawa_lint:
