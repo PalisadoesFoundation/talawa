@@ -90,7 +90,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
 
   json_serializable: ^6.7.1
-  lint: ^2.2.0
+  lint: ^2.3.0
 
   mocktail_image_network: ^1.0.0
   talawa_lint:
