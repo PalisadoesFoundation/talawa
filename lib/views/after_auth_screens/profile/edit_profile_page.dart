@@ -36,7 +36,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           body: SingleChildScrollView(
-            // SingleChildScrollView is a box in which a single widget can be scrolled.
             child: Column(
               children: [
                 SizedBox(
@@ -100,57 +99,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            GestureDetector(
-                                              key: const Key('selectcamera'),
-                                              onTap: () {
+                                            _createModalSheetButton(
+                                              context,
+                                              Icons.camera_alt,
+                                              'Camera',
+                                              () {
                                                 Navigator.of(context).pop();
                                                 model.selectImage(camera: true);
                                               },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.camera_alt,
-                                                    size: SizeConfig
-                                                            .screenHeight! *
-                                                        0.05,
-                                                  ),
-                                                  Text(
-                                                    AppLocalizations.of(
-                                                      context,
-                                                    )!
-                                                        .strictTranslate(
-                                                      'Camera',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ),
-                                            GestureDetector(
-                                              key: const Key('selectgallery'),
-                                              onTap: () {
+                                            _createModalSheetButton(
+                                              context,
+                                              Icons.photo_library,
+                                              'Gallery',
+                                              () {
                                                 Navigator.of(context).pop();
                                                 model.selectImage();
                                               },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.photo_library,
-                                                    size: SizeConfig
-                                                            .screenHeight! *
-                                                        0.05,
-                                                  ),
-                                                  Text(
-                                                    AppLocalizations.of(
-                                                      context,
-                                                    )!
-                                                        .strictTranslate(
-                                                      'Gallery',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ),
                                           ],
                                         ),
@@ -315,6 +280,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         );
       },
+    );
+  }
+
+  /// Button for the different image selection methods.
+  ///
+  /// **params**:
+  /// * `context`:context for the sheet
+  /// * `icon`: icon for the method
+  /// * `label`: label for the method
+  /// * `onTap`: onTap funtionality for the method
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button for selecting different image selection method.
+  Widget _createModalSheetButton(
+      BuildContext context, IconData icon, String label, VoidCallback onTap) {
+    return GestureDetector(
+      key: Key('select$label'),
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(icon, size: SizeConfig.screenHeight! * 0.05),
+          Text(AppLocalizations.of(context)!.strictTranslate(label)),
+        ],
+      ),
     );
   }
 }
