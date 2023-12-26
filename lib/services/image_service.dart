@@ -64,7 +64,7 @@ class ImageService {
   /// Converts the image into Base64 format.
   ///
   /// **params**:
-  /// * `file`:Image as a File object.
+  /// * `file`: Image as a File object.
   ///
   /// **returns**:
   /// * `Future<String?>`: image in string format

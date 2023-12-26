@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -80,8 +81,13 @@ void main() {
     test('convertToBase64 converts file to base64 string', () async {
       //using this asset as the test asset
       final file = File('assets/images/Group 8948.png');
+      final List<int> encodedBytes = file.readAsBytesSync();
+
       final fileString = await imageService.convertToBase64(file);
-      expect(fileString, isA<String>());
+
+      final List<int> decodedBytes = base64Decode(fileString!);
+
+      expect(decodedBytes, equals(encodedBytes));
     });
 
     test(
