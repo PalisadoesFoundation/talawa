@@ -89,7 +89,7 @@ void main() async {
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('inv1')));
+      await tester.tap(find.byKey(const Key('inviteicon')));
       await tester.pumpAndSettle();
     });
     testWidgets('check if Donate button work', (tester) async {

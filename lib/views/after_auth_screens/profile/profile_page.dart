@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     // fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenHeight! * 0.03,
                     fontFamily: 'open-sans',
                     color: Colors.white,
                   ),
@@ -63,7 +63,7 @@ class ProfilePage extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: 150,
+                        height: SizeConfig.screenHeight! * 0.15,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.zero,
@@ -89,7 +89,10 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Divider(endIndent: 20, indent: 20),
+                              Divider(
+                                endIndent: SizeConfig.screenHeight! * 0.03,
+                                indent: SizeConfig.screenHeight! * 0.03,
+                              ),
                               TextButton(
                                 onPressed: () {
                                   model.logout(context);
@@ -140,7 +143,7 @@ class ProfilePage extends StatelessWidget {
                                       .textTheme
                                       .titleLarge!
                                       .fontSize,
-                                  maxRadius: 60,
+                                  maxRadius: SizeConfig.screenHeight! * 0.02,
                                 ),
                               ),
                             ),
@@ -150,9 +153,9 @@ class ProfilePage extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: SizeConfig.screenHeight! * 0.025,
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
@@ -161,7 +164,7 @@ class ProfilePage extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: IconButton(
-                                key: const Key('inv1'),
+                                key: const Key('inviteicon'),
                                 icon: Icon(
                                   Icons.share,
                                   color:
@@ -172,8 +175,8 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.02,
                         ),
                         TalawaPluginProvider(
                           pluginName: "Donation",
@@ -200,7 +203,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 600,
+                          height: SizeConfig.screenHeight! * 0.6,
                           width: double.infinity,
                           child: ContainedTabBarView(
                             tabs: [
@@ -263,7 +266,7 @@ class ProfilePage extends StatelessWidget {
                                     Icons.share,
                                     color:
                                         Theme.of(context).colorScheme.secondary,
-                                    size: 30,
+                                    size: SizeConfig.screenHeight! * 0.025,
                                   ),
                                   // title
                                   title: AppLocalizations.of(context)!
