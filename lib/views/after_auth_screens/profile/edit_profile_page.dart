@@ -292,7 +292,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(icon, size: SizeConfig.screenHeight! * 0.05),
+          Icon(
+            icon,
+            size: SizeConfig.screenHeight! * 0.05,
+          ),
           Text(AppLocalizations.of(context)!.strictTranslate(label)),
         ],
       ),
