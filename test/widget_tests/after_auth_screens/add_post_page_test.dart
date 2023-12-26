@@ -91,6 +91,7 @@ void main() {
   // SizeConfig().test();
   testSetupLocator();
   // locator.registerSingleton(LikeButtonViewModel());
+  sizeConfig.test();
 
   setUp(() {
     registerServices();

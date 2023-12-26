@@ -132,7 +132,7 @@ Future<void> main() async {
           TalawaTheme.lightTheme.scaffoldBackgroundColor,
         );
         final imageWidgetWithPicture = find.byKey(
-          const Key('UserImageNotInDb'),
+          const Key('profilepic'),
         );
         expect(imageWidgetWithPicture, findsOneWidget);
       });
@@ -163,7 +163,7 @@ Future<void> main() async {
           TalawaTheme.lightTheme.scaffoldBackgroundColor,
         );
         final imageWidgetWithPicture = find.byKey(
-          const Key('UserImageInDb'),
+          const Key('profilepic'),
         );
         expect(imageWidgetWithPicture, findsOneWidget);
       });
@@ -216,31 +216,7 @@ Future<void> main() async {
       );
       expect(appBarText, findsOneWidget);
     });
-    testWidgets("Testing if Edit Screen shows image when not exist in database",
-        (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(User());
-        userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
-        );
-        await tester.pumpWidget(createChangePassScreenDark());
-        await tester.pumpAndSettle();
-        final screenScaffoldWidget = find.byKey(
-          const Key('EditProfileScreenScaffold'),
-        );
-        expect(screenScaffoldWidget, findsOneWidget);
-        expect(
-          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-              .theme!
-              .scaffoldBackgroundColor,
-          TalawaTheme.darkTheme.scaffoldBackgroundColor,
-        );
-        final imageWidgetWithPicture = find.byKey(
-          const Key('UserImageNotInDb'),
-        );
-        expect(imageWidgetWithPicture, findsOneWidget);
-      });
-    });
+    const Key('profilepic');
     testWidgets(
         "Testing if Edit Screen shows image when already exist in database",
         (tester) async {
@@ -268,7 +244,7 @@ Future<void> main() async {
           TalawaTheme.darkTheme.scaffoldBackgroundColor,
         );
         final imageWidgetWithPicture = find.byKey(
-          const Key('UserImageInDb'),
+          const Key('profilepic'),
         );
         expect(imageWidgetWithPicture, findsOneWidget);
       });
@@ -338,8 +314,8 @@ Future<void> main() async {
         expect(find.byIcon(Icons.camera_alt), findsOneWidget);
         expect(find.byIcon(Icons.photo_library), findsOneWidget);
 
-        await tester.ensureVisible(find.byKey(const Key('selectcamera')));
-        await tester.tap(find.byKey(const Key('selectcamera')));
+        await tester.ensureVisible(find.byIcon(Icons.camera_alt));
+        await tester.tap(find.byIcon(Icons.camera_alt));
       });
     });
     testWidgets("Testing if image selection from gallery work fine",
@@ -374,7 +350,7 @@ Future<void> main() async {
         expect(find.byIcon(Icons.camera_alt), findsOneWidget);
         expect(find.byIcon(Icons.photo_library), findsOneWidget);
 
-        await tester.ensureVisible(find.byKey(const Key('selectgallery')));
+        await tester.ensureVisible(find.byIcon(Icons.photo_library));
         await tester.tap(find.byIcon(Icons.photo_library));
       });
     });

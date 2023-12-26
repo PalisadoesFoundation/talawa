@@ -45,6 +45,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       // if the profile pic is not empty then render Circle Avatar with image as background image
                       // else render Circle Avatar with grey background color.
                       CircleAvatar(
+                        key: const Key('profilepic'),
                         radius: SizeConfig.screenHeight! * 0.082,
                         backgroundImage: model.imageFile != null
                             ? Image.file(
