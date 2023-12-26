@@ -58,12 +58,14 @@ class ProfilePage extends StatelessWidget {
             ),
             actions: [
               IconButton(
+                key: const Key('settingIcon'),
                 onPressed: () {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: SizeConfig.screenHeight! * 0.15,
+                        key: const Key('sheetContainer'),
+                        height: SizeConfig.screenHeight! * 0.17,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.zero,

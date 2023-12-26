@@ -125,5 +125,17 @@ void main() async {
       await tester.tap(find.text('Invite'));
       await tester.pumpAndSettle();
     });
+    testWidgets('check if modal sheet for settings shows up', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('settingIcon')));
+      await tester.tap(find.byKey(const Key('settingIcon')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('sheetContainer')), findsOneWidget);
+    });
   });
 }
