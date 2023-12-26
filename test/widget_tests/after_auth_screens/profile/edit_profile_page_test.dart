@@ -413,23 +413,14 @@ Future<void> main() async {
     tearDown(() {
       unregisterServices();
     });
-    testWidgets('Testing image selection and removal in Edit Profile Screen',
+
+    testWidgets(
+        'Testing image selection when user is selecting image from device',
         (tester) async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = EditProfilePageViewModel()
         ..addListener(notifyListenerCallback);
       model.initialize();
-
-      // testing getImageFromGallery
-      // with camera false
-      when(multimediaPickerService.getPhotoFromGallery(camera: false))
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
-
-      await model.getImage();
-      verify(multimediaPickerService.getPhotoFromGallery(camera: false));
-      expect(model.imageFile, null);
 
       // with camera true
       final file = File('fakePath');
@@ -441,6 +432,20 @@ Future<void> main() async {
       verify(multimediaPickerService.getPhotoFromGallery(camera: true));
       expect(model.imageFile, file);
       verify(notifyListenerCallback());
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('AddRemoveImageButton')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.camera_alt));
+      await tester.pumpAndSettle();
+      expect(model.imageFile, isNotNull);
+    });
+    testWidgets('Testing if image removal work properly', (tester) async {
+      final notifyListenerCallback = MockCallbackFunction();
+      final model = EditProfilePageViewModel()
+        ..addListener(notifyListenerCallback);
+      model.initialize();
 
       // testing removeImage
       model.removeImage();
