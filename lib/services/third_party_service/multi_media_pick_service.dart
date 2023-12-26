@@ -29,14 +29,19 @@ class MultiMediaPickerService {
     _imageService = imageService;
   }
 
-  //Local Variables
+  /// Controller for handling the stream of selected files.
   final StreamController<File> _fileStreamController = StreamController();
-  late Stream<File> _fileStream;
-  late ImagePicker _picker;
-  late ImageService _imageService;
-  //Getters
 
-  /// Returns the stream of files.
+  /// Stream of selected files.
+  late Stream<File> _fileStream;
+
+  /// [ImagePicker] used for selecting images or videos.
+  late ImagePicker _picker;
+
+  /// [ImageService] for additional image-related operations.
+  late ImageService _imageService;
+
+  /// Provides a stream of selected multimedia files.
   ///
   /// params:
   /// None.
@@ -48,7 +53,6 @@ class MultiMediaPickerService {
   /// Picks the image from gallery or to click the image from user's camera.
   ///
   /// First ask for the permission to access the camera, if denied then returns a message in.
-  ///
   /// custom Dialog Box. Returns a File type for which `camera` variable is false by default.
   ///
   /// **params**:
@@ -85,7 +89,10 @@ class MultiMediaPickerService {
     return null;
   }
 
-  /// Returns the permission denied dialog.
+  /// Generates a custom alert dialog for permission denial.
+  ///
+  /// When called, it creates and returns a `CustomAlertDialog` widget with pre-defined settings.
+  /// This dialog prompts the user to grant camera permissions from the app settings.
   ///
   /// **params**:
   ///   None

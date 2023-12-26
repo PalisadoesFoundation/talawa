@@ -49,8 +49,9 @@ void main() {
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenAnswer((realInvocation) async => croppedFile);
+
       final file = await imageService.cropImage(imageFile: fakefile);
-      // verify(mockImageCropper.cropImage(sourcePath: fakefile.path));
+
       expect(file?.path, croppedFile.path);
     });
 
@@ -80,7 +81,7 @@ void main() {
       //using this asset as the test asset
       final file = File('assets/images/Group 8948.png');
       final fileString = await imageService.convertToBase64(file);
-      print(fileString);
+      expect(fileString, isA<String>());
     });
 
     test(

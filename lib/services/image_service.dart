@@ -16,8 +16,6 @@ class ImageService {
 
   /// Crops the image selected by the user.
   ///
-  /// Accepts a `File` type image and returns a `Future<File?>` of the cropped image.
-  ///
   /// **params**:
   /// * `imageFile`: the image file to be cropped.
   ///
@@ -56,7 +54,7 @@ class ImageService {
       }
     } catch (e) {
       throw Exception(
-        "ImageService : Exception occurred while cropping Image.",
+        "ImageService : $e.",
       );
     }
 
@@ -66,7 +64,7 @@ class ImageService {
   /// Converts the image into Base64 format.
   ///
   /// **params**:
-  /// * `file`:  Takes the image in format of file.
+  /// * `file`:Image as a File object.
   ///
   /// **returns**:
   /// * `Future<String?>`: image in string format
