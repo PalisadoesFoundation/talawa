@@ -17,7 +17,7 @@ def compare_translations(default_translation, other_translation, language):
 
 def check_translations():
     # Load default translation
-    with open("../../lang/en.json", "r", encoding="utf-8") as default_file:
+    with open("lang/en.json", "r", encoding="utf-8") as default_file:
         default_translation = json.load(default_file)
 
     # Load all other translations
@@ -26,7 +26,7 @@ def check_translations():
         if lang == "en":
             continue
 
-        with open(f"../../lang/{lang}.json", "r", encoding="utf-8") as other_file:
+        with open(f"lang/{lang}.json", "r", encoding="utf-8") as other_file:
             other_translation = json.load(other_file)
 
         # Compare translations
