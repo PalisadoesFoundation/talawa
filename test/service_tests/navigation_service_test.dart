@@ -143,11 +143,9 @@ class _FirstScrenState extends State<FirstTestScreen> {
   }
 }
 
-/// Test Screens.
 class SecondTestScreen extends StatefulWidget {
   const SecondTestScreen({super.key, this.arguments, this.onclick});
 
-  /// Arguements.
   final String? arguments;
   final VoidCallback? onclick;
 
@@ -179,11 +177,9 @@ class _SecondTestScreenState extends State<SecondTestScreen> {
   }
 }
 
-///Test Screen.
 class ThirdTestScreen extends StatefulWidget {
   const ThirdTestScreen({super.key, this.arguments});
 
-  ///arguements.
   final String? arguments;
 
   @override
@@ -206,7 +202,6 @@ class _ThirdTestScreenState extends State<ThirdTestScreen> {
   }
 }
 
-///Error Widget.
 class TalawaErrorWidget extends StatelessWidget {
   const TalawaErrorWidget({
     super.key,
@@ -214,10 +209,8 @@ class TalawaErrorWidget extends StatelessWidget {
     required this.onClick,
   });
 
-  ///Navigation Service.
   final NavigationService navigationService;
 
-  ///OnClick void Function.
   final VoidCallback onClick;
 
   @override
