@@ -22,21 +22,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return Scaffold(
           key: const Key('EditProfileScreenScaffold'),
           appBar: AppBar(
-            // returns a header for the page.
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: Text(
-              // Title of the app bar(header).
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenHeight! * 0.03,
                   ),
             ),
           ),
           body: SingleChildScrollView(
-            // SingleChildScrollView is a box in which a single widget can be scrolled.
             child: Column(
               children: [
                 SizedBox(
@@ -47,69 +44,93 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     children: [
                       // if the profile pic is not empty then render Circle Avatar with image as background image
                       // else render Circle Avatar with grey background color.
-                      model.imageFile != null
-                          ? CircleAvatar(
-                              radius: SizeConfig.screenHeight! * 0.082,
-                              backgroundImage: Image.file(
+                      CircleAvatar(
+                        key: const Key('profilepic'),
+                        radius: SizeConfig.screenHeight! * 0.082,
+                        backgroundImage: model.imageFile != null
+                            ? Image.file(
                                 model.imageFile!,
                                 fit: BoxFit.fitWidth,
-                              ).image,
-                            )
-                          : model.user.image != null
-                              ? CircleAvatar(
-                                  key: const Key('UserImageInDb'),
-                                  radius: SizeConfig.screenHeight! * 0.082,
-                                  backgroundImage:
-                                      NetworkImage(model.user.image!),
-                                )
-                              : CircleAvatar(
-                                  key: const Key('UserImageNotInDb'),
-                                  radius: SizeConfig.screenHeight! * 0.082,
-                                  backgroundColor: Colors.grey.withOpacity(0.2),
-                                  child: Text(
-                                    model.user.firstName!
-                                            .substring(0, 1)
-                                            .toUpperCase() +
-                                        model.user.lastName!
-                                            .substring(0, 1)
-                                            .toUpperCase(),
+                              ).image
+                            : model.user.image != null
+                                ? NetworkImage(model.user.image!)
+                                : null,
+                        backgroundColor:
+                            model.imageFile == null && model.user.image == null
+                                ? Colors.grey.withOpacity(0.2)
+                                : null,
+                        child: model.imageFile == null
+                            ? model.user.image == null
+                                ? Text(
+                                    '${model.user.firstName![0].toUpperCase()}${model.user.lastName![0].toUpperCase()}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineMedium,
-                                  ),
-                                ),
+                                  )
+                                : null
+                            : null,
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,
                         child: InkWell(
-                          // button to remove or set the profile image.
                           key: const Key('AddRemoveImageButton'),
                           onTap: () {
-                            // if image is null the function will be get getImageFromGallery()
-                            // else removeImage()
+                            // modal sheet for image selection from camera or gallery.
                             model.imageFile == null
-                                ? model.getImageFromGallery(camera: true)
+                                ? showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height:
+                                            SizeConfig.screenHeight! * 0.135,
+                                        padding: const EdgeInsets.all(17),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            _createModalSheetButton(
+                                              context,
+                                              Icons.camera_alt,
+                                              'Camera',
+                                              () {
+                                                Navigator.of(context).pop();
+                                                model.selectImage(
+                                                  camera: true,
+                                                );
+                                              },
+                                            ),
+                                            _createModalSheetButton(
+                                              context,
+                                              Icons.photo_library,
+                                              'Gallery',
+                                              () {
+                                                Navigator.of(context).pop();
+                                                model.selectImage();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )
                                 : model.removeImage();
                           },
-                          child: model.imageFile == null
-                              ? CircleAvatar(
-                                  radius: SizeConfig.screenHeight! * 0.034,
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  child: const Icon(
+                          child: CircleAvatar(
+                            radius: SizeConfig.screenHeight! * 0.034,
+                            backgroundColor: model.imageFile == null
+                                ? Theme.of(context).colorScheme.secondary
+                                : Theme.of(context).colorScheme.secondary,
+                            child: model.imageFile == null
+                                ? const Icon(
                                     Icons.photo_camera,
                                     color: Colors.white,
-                                  ),
-                                )
-                              : CircleAvatar(
-                                  radius: SizeConfig.screenHeight! * 0.02,
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  child: const Icon(
+                                  )
+                                : const Icon(
                                     Icons.close,
                                     color: Colors.white,
                                   ),
-                                ),
+                          ),
                         ),
                       ),
                     ],
@@ -227,9 +248,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const Divider(),
-                // button to update the profile.
                 TextButton(
-                  onPressed: () {},
+                  key: const Key('updatebtn'),
+                  onPressed: () {
+                    model.updateUserProfile(
+                      firstName: model.firstNameTextController.text,
+                      newImage: model.imageFile,
+                      lastName: model.lastNameTextController.text,
+                    );
+                    FocusScope.of(context).unfocus();
+                  },
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Update'),
                   ),
@@ -239,6 +267,38 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         );
       },
+    );
+  }
+
+  /// Button for the different image selection methods.
+  ///
+  /// **params**:
+  /// * `context`:context for the sheet
+  /// * `icon`: icon for the method
+  /// * `label`: label for the method
+  /// * `onTap`: onTap funtionality for the method
+  ///
+  /// **returns**:
+  /// * `Widget`: Icon Button for selecting different image selection method.
+  Widget _createModalSheetButton(
+    BuildContext context,
+    IconData icon,
+    String label,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      key: Key('select$label'),
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(
+            icon,
+            size: SizeConfig.screenHeight! * 0.05,
+          ),
+          Text(AppLocalizations.of(context)!.strictTranslate(label)),
+        ],
+      ),
     );
   }
 }

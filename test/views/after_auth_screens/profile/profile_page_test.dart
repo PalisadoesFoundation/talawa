@@ -59,8 +59,6 @@ void main() async {
       await Hive.openBox<OrgInfo>('currentOrg');
       final pbox = await Hive.openBox('pluginBox');
       print(pbox.get('plugins'));
-      // locator.unregister<ProfilePageViewModel>();
-      // locator.registerFactory<ProfilePageViewModel>(() => ProfilePageViewModel());
     });
 
     tearDownAll(() {
@@ -69,14 +67,75 @@ void main() async {
       File('test/fixtures/core/currentuser.hive').delete();
       File('test/fixtures/core/currentuser.lock').delete();
     });
-    testWidgets('check if profilePage shows up', (tester) async {
-      // print();
+    testWidgets('check if profilePage shows up and refreshIndicator work',
+        (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pump();
+      expect(find.byType(RefreshIndicator), findsOneWidget);
+      await tester.drag(
+        find.byKey(const Key('profilepic')),
+        const Offset(0, 300),
+      );
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if invitebutton work', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('inviteicon')));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if Donate button work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Donate to the Community'));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if naviagte to task screen work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Tasks'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('tastscrn')));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if Invite customListTile work', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Invite'));
+      await tester.tap(find.text('Invite'));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if modal sheet for settings shows up', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('settingIcon')));
+      await tester.tap(find.byKey(const Key('settingIcon')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('sheetContainer')), findsOneWidget);
     });
   });
 }

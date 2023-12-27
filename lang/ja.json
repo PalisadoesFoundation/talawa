@@ -164,5 +164,7 @@
   "No organizations found Please contact your admin": "組織が見つかりません!管理者に連絡してください",
   "For complete access, please": "完全にアクセスするには、",
   "  join an organization.": "  組織に参加します。",
-  "JOIN": "参加する"
+  "JOIN": "参加する",
+  "Camera": "カメラ",
+  "Gallery": "ギャラリー"
 }

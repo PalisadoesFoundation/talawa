@@ -127,8 +127,10 @@ jobs:
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "./coverage/lcov.info"
-          min_coverage: 87.0
+
+            path: './coverage/lcov.info'
+            min_coverage: 88.0
+            
 
   Android-Build:
     name: Testing build for android

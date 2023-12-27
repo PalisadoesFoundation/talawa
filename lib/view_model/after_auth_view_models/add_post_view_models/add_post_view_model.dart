@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -22,6 +22,7 @@ class AddPostViewModel extends BaseModel {
   //Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
+  late ImageService _imageService;
 
   // ignore: unused_field
   late File? _imageFile;
@@ -65,7 +66,7 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: define_the_return
   Future<void> setImageInBase64(File file) async {
-    _imageInBase64 = await convertToBase64(file);
+    _imageInBase64 = await _imageService.convertToBase64(file);
     notifyListeners();
   }
 
@@ -77,6 +78,9 @@ class AddPostViewModel extends BaseModel {
   /// * `String`: The username of the currentUser
   String get userName =>
       userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
+
+  /// User profile picture.
+  String? get userPic => userConfig.currentUser.image;
 
   /// The organisation name.
   ///
@@ -121,30 +125,12 @@ class AddPostViewModel extends BaseModel {
   void initialise() {
     _navigationService = locator<NavigationService>();
     _imageFile = null;
+    _imageInBase64 = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
+    _imageService = locator<ImageService>();
     if (!demoMode) {
       _dbFunctions = locator<DataBaseMutationFunctions>();
       _selectedOrg = locator<UserConfig>().currentOrg;
-    }
-  }
-
-  /// to convert the image in base64.
-  ///
-  ///
-  /// **params**:
-  /// * `file`: file of image clicked.
-  ///
-  /// **returns**:
-  /// * `Future<String>`: Future string containing the base 64 format image
-  Future<String> convertToBase64(File file) async {
-    try {
-      final List<int> bytes = await file.readAsBytes();
-      final String base64String = base64Encode(bytes);
-      print(base64String);
-      _imageInBase64 = base64String;
-      return base64String;
-    } catch (error) {
-      return '';
     }
   }
 
@@ -164,7 +150,7 @@ class AddPostViewModel extends BaseModel {
     if (image != null) {
       _imageFile = image;
       // convertImageToBase64(image.path);
-      convertToBase64(image);
+      _imageInBase64 = await _imageService.convertToBase64(image);
       // print(_imageInBase64);
       _navigationService.showTalawaErrorSnackBar(
         "Image is added",
