@@ -15,15 +15,7 @@ import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/ad
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-/// Mocks MockCallbackFunction.
 class MockCallbackFunction extends Mock {
-  /// Mock Call Function.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
   void call();
 }
 

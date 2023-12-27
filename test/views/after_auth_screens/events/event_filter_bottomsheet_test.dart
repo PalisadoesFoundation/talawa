@@ -15,22 +15,12 @@ import 'package:talawa/widgets/custom_drawer.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-/// Mocks CallBack Function.
 class MockCallbackFunction extends Mock {
-  ///Mock Call FUnction.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
   void call();
 }
 
-/// SetDateCallback.
 final setDateCallback = MockCallbackFunction();
 
-/// SetTimeCallback.
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates Explore Event Screen.
@@ -61,13 +51,6 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       onGenerateRoute: router.generateRoute,
     );
 
-/// Tests Create Event Page.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
   SizeConfig().test();
   testSetupLocator();

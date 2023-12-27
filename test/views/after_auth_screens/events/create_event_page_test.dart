@@ -20,22 +20,12 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 import '../../../widget_tests/after_auth_screens/events/create_event_form_test.dart';
 
-/// Mocks CallBack Function.
 class MockCallbackFunction extends Mock {
-  ///Mock Call FUnction.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
   void call();
 }
 
-/// SetDateCallback.
 final setDateCallback = MockCallbackFunction();
 
-/// SetTimeCallback.
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates a EventScreen for tests.
@@ -74,13 +64,6 @@ Widget createEventScreen({
       },
     );
 
-/// Tests Create Event Page.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
   SizeConfig().test();
   testSetupLocator();

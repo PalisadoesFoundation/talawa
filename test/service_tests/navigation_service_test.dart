@@ -77,7 +77,6 @@ Route<dynamic> _onGenerateTestRoute(RouteSettings settings) {
   );
 }
 
-/// HomeAppWidget.
 class HomeApp extends StatefulWidget {
   const HomeApp({
     super.key,
@@ -85,10 +84,8 @@ class HomeApp extends StatefulWidget {
     required this.navigateorKey,
   });
 
-  /// Navigator Key.
   final GlobalKey<NavigatorState> navigateorKey;
 
-  /// On Click Void FUnction.
   final VoidCallback onClick;
 
   @override
@@ -111,14 +108,11 @@ class _HomeAppState extends State<HomeApp> {
   }
 }
 
-/// TestScreen.
 class FirstTestScreen extends StatefulWidget {
   const FirstTestScreen({super.key, required this.onClick, this.arguments});
 
-  /// On Click Void Function.
   final VoidCallback onClick;
 
-  /// Arguments.
   final String? arguments;
 
   @override
@@ -155,10 +149,6 @@ class SecondTestScreen extends StatefulWidget {
 
   /// Arguements.
   final String? arguments;
-
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
   final VoidCallback? onclick;
 
   @override
@@ -263,13 +253,6 @@ class TalawaErrorWidget extends StatelessWidget {
   }
 }
 
-///Tests Navigation Service.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-///   None
 void main() {
   SizeConfig().test();
   group('Navigation Services Tests', () {
@@ -395,13 +378,6 @@ void main() {
       expect(find.textContaining('First Screen'), findsOneWidget);
     });
     testWidgets('removeAllAndPush() test without arguments', (tester) async {
-      ///Function To test.
-      ///
-      /// **params**:
-      ///   None
-      ///
-      /// **returns**:
-      ///   None
       void functionToTest() {
         navigationService.removeAllAndPush(
           '/third-screen',
