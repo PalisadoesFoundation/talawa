@@ -162,5 +162,7 @@
   "Notification Feature is not installed": "Meddelelsesfunktionen er ikke installeret",
   "For complete access, please": "Für vollständigen Zugriff bitte",
   "  join an organization.": "  einer Organisation beitreten.",
-  "JOIN":"BEITRETEN"
+  "JOIN":"BEITRETEN",
+  "Camera": "Kamera",
+  "Gallery": "Galerie"
 }

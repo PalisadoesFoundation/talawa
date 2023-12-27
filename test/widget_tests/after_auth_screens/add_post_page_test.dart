@@ -33,6 +33,9 @@ class MockAddPostViewModel extends Mock implements AddPostViewModel {
   String get userName => 'UserName';
 
   @override
+  String? get userPic => userConfig.currentUser.image;
+
+  @override
   String get orgName => 'orgName';
 
   @override
@@ -88,6 +91,7 @@ void main() {
   // SizeConfig().test();
   testSetupLocator();
   // locator.registerSingleton(LikeButtonViewModel());
+  sizeConfig.test();
 
   setUp(() {
     registerServices();

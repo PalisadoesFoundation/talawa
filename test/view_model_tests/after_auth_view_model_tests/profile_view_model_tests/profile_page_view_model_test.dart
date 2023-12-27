@@ -224,7 +224,7 @@ void main() async {
           ),
         ),
       );
-      await tester.tap(find.byKey(const Key('dombtn1')));
+      await tester.tap(find.byKey(const Key('domBtn_$amt')));
       expect(setterCalled, true);
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);

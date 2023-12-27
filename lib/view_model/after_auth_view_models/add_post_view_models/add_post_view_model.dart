@@ -78,6 +78,9 @@ class AddPostViewModel extends BaseModel {
   String get userName =>
       userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 
+  /// User profile picture.
+  String? get userPic => userConfig.currentUser.image;
+
   /// The organisation name.
   ///
   /// params:

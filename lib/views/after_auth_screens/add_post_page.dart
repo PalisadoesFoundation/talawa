@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
 
 /// Add Post View Model.
 late AddPostViewModel model;
@@ -81,7 +83,12 @@ class _AddPostState extends State<AddPost> {
             child: Column(
               children: <Widget>[
                 ListTile(
-                  leading: const CircleAvatar(radius: 25),
+                  leading: CustomAvatar(
+                    isImageNull: model.userPic == null,
+                    firstAlphabet: model.userName.substring(0, 1).toUpperCase(),
+                    imageUrl: model.userPic,
+                    fontSize: SizeConfig.screenHeight! * 0.018,
+                  ),
                   title: Text(model.userName),
                   subtitle: Text(
                     AppLocalizations.of(context)!
