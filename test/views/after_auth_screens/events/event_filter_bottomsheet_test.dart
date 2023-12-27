@@ -20,7 +20,6 @@ class MockCallbackFunction extends Mock {
 }
 
 final setDateCallback = MockCallbackFunction();
-
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates Explore Event Screen.
@@ -50,36 +49,25 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       navigatorKey: navigationService.navigatorKey,
       onGenerateRoute: router.generateRoute,
     );
-
 void main() {
   SizeConfig().test();
   testSetupLocator();
-  // locator.unregister<OrganizationService>();
   locator.unregister<MultiMediaPickerService>();
-  // locator.registerSingleton(OrganizationService());
-  // locator.registerSingleton(LikeButtonViewModel());
-
   setUp(() {
     registerServices();
   });
-
   tearDown(() {
     unregisterServices();
   });
-
   group('testing filters bottomsheet', () {
     testWidgets("Checking tap cross works", (tester) async {
       await mockNetworkImages(() async {
         locator.unregister<ExploreEventsViewModel>();
-
         final model = ExploreEventsViewModel();
         locator.registerSingleton(model);
-
         final homeModel = locator<MainScreenViewModel>();
-
         await tester.pumpWidget(createExploreEventsScreen(homeModel));
         await tester.pumpAndSettle();
-
         await tester.tap(find.bySemanticsLabel('Filters'));
         await tester.pumpAndSettle();
         final finder = find.byKey(const Key('close'));
@@ -89,19 +77,14 @@ void main() {
         expect(find.bySemanticsLabel('Filters'), findsAtLeast(1));
       });
     });
-
     testWidgets("Testing if Filter button works", (tester) async {
       await mockNetworkImages(() async {
         locator.unregister<ExploreEventsViewModel>();
-
         final model = ExploreEventsViewModel();
         locator.registerSingleton(model);
-
         final homeModel = locator<MainScreenViewModel>();
-
         await tester.pumpWidget(createExploreEventsScreen(homeModel));
         await tester.pumpAndSettle();
-
         await tester.tap(find.bySemanticsLabel('Filters'));
         await tester.pumpAndSettle();
         await tester.pump();
