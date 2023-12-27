@@ -83,9 +83,7 @@ class HomeApp extends StatefulWidget {
     required this.onClick,
     required this.navigateorKey,
   });
-
   final GlobalKey<NavigatorState> navigateorKey;
-
   final VoidCallback onClick;
 
   @override
@@ -110,9 +108,7 @@ class _HomeAppState extends State<HomeApp> {
 
 class FirstTestScreen extends StatefulWidget {
   const FirstTestScreen({super.key, required this.onClick, this.arguments});
-
   final VoidCallback onClick;
-
   final String? arguments;
 
   @override
@@ -145,7 +141,6 @@ class _FirstScrenState extends State<FirstTestScreen> {
 
 class SecondTestScreen extends StatefulWidget {
   const SecondTestScreen({super.key, this.arguments, this.onclick});
-
   final String? arguments;
   final VoidCallback? onclick;
 
@@ -179,9 +174,7 @@ class _SecondTestScreenState extends State<SecondTestScreen> {
 
 class ThirdTestScreen extends StatefulWidget {
   const ThirdTestScreen({super.key, this.arguments});
-
   final String? arguments;
-
   @override
   State<ThirdTestScreen> createState() => _ThirdTestScreenState();
 }
@@ -208,9 +201,7 @@ class TalawaErrorWidget extends StatelessWidget {
     required this.navigationService,
     required this.onClick,
   });
-
   final NavigationService navigationService;
-
   final VoidCallback onClick;
 
   @override

@@ -28,13 +28,9 @@ class LikeButtonViewModel extends BaseModel {
   // ignore: unused_field
   late StreamSubscription _updatePostSubscription;
 
-  /// Getters of _isLiked.
+  ///Getters.
   bool get isLiked => _isLiked;
-
-  /// Getters of _likedBy.
   List<LikedBy> get likedBy => _likedBy;
-
-  /// Getters of likescount.
   int get likesCount => _likedBy.length;
 
   /// First function to initialize the ViewModel.

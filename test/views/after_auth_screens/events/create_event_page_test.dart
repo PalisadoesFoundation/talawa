@@ -25,7 +25,6 @@ class MockCallbackFunction extends Mock {
 }
 
 final setDateCallback = MockCallbackFunction();
-
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates a EventScreen for tests.
