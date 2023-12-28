@@ -223,7 +223,7 @@ jobs:
             This may or may not be stable, so please have a look at the stable release(s).
 
   iOS-Build:
-    name: Testing build for iOS
+    name: iOS Build and Relaese
     runs-on: macos-latest
     needs: Flutter-Testing
     steps:
@@ -235,3 +235,27 @@ jobs:
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign
+        # '--no-codesign' is used for building without code signing.
+        # For actual distribution, proper code signing is required.
+
+      ########################################################
+      ## Package the app as an .ipa and create a release ##
+      ########################################################
+
+      - name: Releasing for iOS
+        run: |
+          mkdir Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
+          zip -r app.ipa Payload
+        # This packages the Runner.app into an .ipa file
+
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "Automated iOS Release"
+          artifacts: "app-release.ipa"
+          allowUpdates: "true"
+          generateReleaseNotes: false
+          tag: "automated"
+          body: |
+            This is an automated release, triggered by a recent push. 
+            This may or may not be stable, so please have a look at the stable release(s).
