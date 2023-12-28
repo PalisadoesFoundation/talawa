@@ -65,7 +65,10 @@ class ExploreEvents extends StatelessWidget {
                             ),
                           );
                         },
-                        icon:  Icon(Icons.search, size: SizeConfig.safeBlockHorizontal??4*5),
+                        icon: Icon(
+                          Icons.search,
+                          size: SizeConfig.safeBlockHorizontal ?? 4 * 5,
+                        ),
                       )
                     : const SizedBox(),
               ),
@@ -107,15 +110,19 @@ class ExploreEvents extends StatelessWidget {
                                             .colorScheme
                                             .onPrimary,
                                         child: Container(
-                                          padding:  EdgeInsets.symmetric(
-                                            vertical: (SizeConfig.safeBlockHorizontal??4)*3,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: (SizeConfig
+                                                        .safeBlockHorizontal ??
+                                                    4) *
+                                                3,
                                           ),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                               SizedBox(
-                                                width: SizeConfig.safeBlockHorizontal,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                               Text(
                                                 AppLocalizations.of(context)!
@@ -123,8 +130,9 @@ class ExploreEvents extends StatelessWidget {
                                                   "Filters",
                                                 ),
                                               ),
-                                               SizedBox(
-                                                width: SizeConfig.safeBlockHorizontal,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                             ],
                                           ),
@@ -152,23 +160,28 @@ class ExploreEvents extends StatelessWidget {
                                             .colorScheme
                                             .onPrimary,
                                         child: Container(
-                                          padding:  EdgeInsets.symmetric(
-                                            vertical: (SizeConfig.safeBlockHorizontal??4)*3,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: (SizeConfig
+                                                        .safeBlockHorizontal ??
+                                                    4) *
+                                                3,
                                           ),
                                           // width: SizeConfig.screenWidth! * 0.30,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                               SizedBox(
-                                               width: SizeConfig.safeBlockHorizontal,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                               const Icon(
                                                 Icons.calendar_today,
                                                 color: Color(0xff524F4F),
                                               ),
-                                               SizedBox(
-                                               width: SizeConfig.safeBlockHorizontal,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                               Text(
                                                 AppLocalizations.of(context)!
@@ -176,8 +189,9 @@ class ExploreEvents extends StatelessWidget {
                                                   "Filter by Date",
                                                 ),
                                               ),
-                                               SizedBox(
-                                                width: SizeConfig.safeBlockHorizontal,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                             ],
                                           ),
