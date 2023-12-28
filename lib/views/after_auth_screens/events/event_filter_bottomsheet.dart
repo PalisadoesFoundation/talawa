@@ -24,7 +24,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     height: SizeConfig.screenHeight,
     width: SizeConfig.screenWidth,
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding:  EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal!*10),
       child: StatefulBuilder(
         builder: (_, StateSetter setState) {
           return SingleChildScrollView(
@@ -32,8 +32,8 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 16,
+                 SizedBox(
+                  height: SizeConfig.safeBlockVertical,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +53,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                 ),
                 ...List.generate(filters.length, (index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding:  EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical!*2 ),
                     child: GestureDetector(
                       onTap: () {
                         model.choseValueFromDropdown(
@@ -73,9 +73,9 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                         ),
                         width: SizeConfig.screenWidth! - 60,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                            vertical: 4,
+                          padding:  EdgeInsets.symmetric(
+                            horizontal: SizeConfig.safeBlockHorizontal!*5,
+                            vertical: SizeConfig.safeBlockVertical!/2,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
