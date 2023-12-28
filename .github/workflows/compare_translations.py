@@ -8,7 +8,9 @@ Methodology:
     This module defines a function to compare two translations
     and print any missing keys in the other language's translation.
 Attributes:
+
     FileTranslation : Named tuple to represent a combination of file and missing translations.
+
         Fields:
             - file (str): The file name.
             - missing_translations (list): List of missing translations.
@@ -80,6 +82,7 @@ def load_translation(filepath):
     return translation
 
 
+
 def check_translations(directory):
     """Load default translation and compare with other translations."""
     default_translation = load_translation("lang/en.json")
@@ -129,4 +132,5 @@ if __name__ == "__main__":
     else:
         print("Please provide the directory using --directory option.")
         sys.exit(1)
+
     # Exit with a success status code
