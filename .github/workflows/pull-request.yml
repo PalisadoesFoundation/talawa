@@ -84,21 +84,21 @@ jobs:
             echo "$file was changed"
           done
 
-  #       - name: Echo the GitHub environment for troubleshooting
-  #         run: echo "$GITHUB_CONTEXT"
-  #       - name: Echo the GitHub context for troubleshooting
-  #         run: echo "${{ toJSON(github) }}"
-  #       - name: setup python
-  #         uses: actions/setup-python@v4
-  #       - name: Granting permission to documentationcheck.py
-  #         run: chmod +x ./.github/workflows/documentationcheck.py
-  #       - name: execute py script
-  #         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
-  #         # https://docs.github.com/en/actions/learn-github-actions/contexts
-  #         run: |
-  #           git branch
-  #           pip install GitPython
-  #           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+#       - name: Echo the GitHub environment for troubleshooting
+#         run: echo "$GITHUB_CONTEXT"
+#       - name: Echo the GitHub context for troubleshooting
+#         run: echo "${{ toJSON(github) }}"
+#       - name: setup python
+#         uses: actions/setup-python@v4
+#       - name: Granting permission to documentationcheck.py
+#         run: chmod +x ./.github/workflows/documentationcheck.py
+#       - name: execute py script
+#         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
+#         # https://docs.github.com/en/actions/learn-github-actions/contexts
+#         run: |
+#           git branch
+#           pip install GitPython
+#           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
 
   Flutter-Testing:
     name: Testing codebase

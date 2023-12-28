@@ -93,17 +93,12 @@ def check_translations():
             default_translation, other_translation
         )
         if missing_translations:
-            all_missing_translation.append(
-                (translation_file[:-5], missing_translations)
-            )
+            all_missing_translation.append((translation_file))
         # Print missing translations
 
-    for language, missing_translations in all_missing_translation:
+    for file, missing_translations in all_missing_translation:
         if missing_translations:
-            print(f"Missing translations in {language}:")
-
-        for key in missing_translations:
-            print(f" Translation for {key} is not present in {language}")
+            print(f"Missing translations in {translations_dir}/{file}:")
 
     if all_missing_translation:
         sys.exit(1)  # Exit with an error status code
