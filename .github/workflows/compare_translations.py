@@ -84,8 +84,8 @@ def check_translations():
 
     all_missing_translation = []
 
-    for translation_file in translations:
-        translation_path = os.path.join(translations_dir, translation_file)
+    for file in translations:
+        translation_path = os.path.join(translations_dir, file)
         other_translation = load_translation(translation_path)
 
         # Compare translations
@@ -93,12 +93,14 @@ def check_translations():
             default_translation, other_translation
         )
         if missing_translations:
-            all_missing_translation.append((translation_file))
+            all_missing_translation.append((file, missing_translations))
         # Print missing translations
 
     for file, missing_translations in all_missing_translation:
         if missing_translations:
-            print(f"Missing translations in {translations_dir}/{file}:")
+            print(f"Translations missing in {translations_dir}/{file} are")
+        for key in missing_translations:
+            print(f" {key}")
 
     if all_missing_translation:
         sys.exit(1)  # Exit with an error status code
