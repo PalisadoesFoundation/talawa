@@ -82,6 +82,8 @@ def check_translations():
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
+    all_missing_translation = []
+
     for translation_file in translations:
         translation_path = os.path.join(translations_dir, translation_file)
         other_translation = load_translation(translation_path)
@@ -90,18 +92,26 @@ def check_translations():
         missing_translations = compare_translations(
             default_translation, other_translation
         )
-
-        # Print missing translations
         if missing_translations:
-            print(f"Missing translations in {translation_file[:-5]}:")
-            for key in missing_translations:
-                print(f"  {key}")
-            print("\n")
-            sys.exit(1)  # Exit with an error status code
-        else:
-            print(f"All translations present in {translation_file[:-5]}.")
+            all_missing_translation.append(
+                (translation_file[:-5], missing_translations)
+            )
+        # Print missing translations
+
+    for language, missing_translations in all_missing_translation:
+        if missing_translations:
+            print(f"Missing translations in {language}:")
+
+        for key in missing_translations:
+            print(f" Translation for {key} is not present in {language}")
+
+    if all_missing_translation:
+        sys.exit(1)  # Exit with an error status code
+    else:
+        print("All translations are present")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
     check_translations()
-    sys.exit(0)  # Exit with a success status code
+    # Exit with a success status code
