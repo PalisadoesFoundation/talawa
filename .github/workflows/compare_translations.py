@@ -7,9 +7,14 @@ Methodology:
 
     This module defines a function to compare two translations
     and print any missing keys in the other language's translation.
+Attributes:
+    FileTranslation (namedtuple): Named tuple to represent a combination of file and missing translations.
+        Fields:
+            - file (str): The file name.
+            - missing_translations (list): List of missing translations.
 
 Functions:
-    compare_translations(default_translation, other_translation, language):
+    compare_translations(default_translation, other_translation):
         Compare two translations and print missing keys.
 
     check_translations():
@@ -35,6 +40,10 @@ NOTE:
 import json
 import os
 import sys
+from collections import namedtuple
+
+# Named tuple for file and missing translations combination
+FileTranslation = namedtuple("FileTranslation", ["file", "missing_translations"])
 
 
 def compare_translations(default_translation, other_translation):
@@ -44,11 +53,8 @@ def compare_translations(default_translation, other_translation):
         default_translation: The default translation
         other_translation: The other translation
 
-
     Returns:
         missing_translations: List of missing translations
-
-
     """
     missing_translations = []
 
@@ -67,8 +73,6 @@ def load_translation(filepath):
 
     Returns:
         translation: Loaded translation
-
-
     """
     with open(filepath, "r", encoding="utf-8") as file:
         translation = json.load(file)
@@ -82,10 +86,10 @@ def check_translations():
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
-    all_missing_translation = []
+    files_with_missing_translations = []
 
-    for file in translations:
-        translation_path = os.path.join(translations_dir, file)
+    for translation_file in translations:
+        translation_path = os.path.join(translations_dir, translation_file)
         other_translation = load_translation(translation_path)
 
         # Compare translations
@@ -93,16 +97,17 @@ def check_translations():
             default_translation, other_translation
         )
         if missing_translations:
-            all_missing_translation.append((file, missing_translations))
-        # Print missing translations
+            file_translation = FileTranslation(translation_file, missing_translations)
+            files_with_missing_translations.append(file_translation)
 
-    for file, missing_translations in all_missing_translation:
-        if missing_translations:
-            print(f"Translations missing in {translations_dir}/{file} are")
-        for key in missing_translations:
-            print(f" {key}")
+    for file_translation in files_with_missing_translations:
+        print(
+            f"File {translations_dir}/{file_translation.file} has missing translations for:"
+        )
+        for key in file_translation.missing_translations:
+            print(f" - {key}")
 
-    if all_missing_translation:
+    if files_with_missing_translations:
         sys.exit(1)  # Exit with an error status code
     else:
         print("All translations are present")
