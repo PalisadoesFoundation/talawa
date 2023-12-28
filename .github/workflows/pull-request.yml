@@ -127,7 +127,7 @@ jobs:
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "./coverage/lcov.info"
+          path: './coverage/lcov.info'
           min_coverage: 88.0
 
   Android-Build:
@@ -138,12 +138,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
-          distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.16.0"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          flutter-version: '3.16.0'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -157,8 +157,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.16.0"
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          flutter-version: '3.16.0'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign
