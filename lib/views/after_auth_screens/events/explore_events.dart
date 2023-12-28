@@ -67,7 +67,7 @@ class ExploreEvents extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.search,
-                          size: SizeConfig.safeBlockHorizontal ?? 4 * 5,
+                          size: (SizeConfig.safeBlockHorizontal ?? 4) * 5,
                         ),
                       )
                     : const SizedBox(),
