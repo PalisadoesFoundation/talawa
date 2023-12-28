@@ -8,7 +8,7 @@ Methodology:
     This module defines a function to compare two translations
     and print any missing keys in the other language's translation.
 Attributes:
-    FileTranslation (namedtuple): Named tuple to represent a combination of file and missing translations.
+    FileTranslation : Named tuple to represent a combination of file and missing translations.
         Fields:
             - file (str): The file name.
             - missing_translations (list): List of missing translations.
@@ -37,6 +37,7 @@ NOTE:
 
 """
 # standard imports
+import argparse
 import json
 import os
 import sys
@@ -79,10 +80,10 @@ def load_translation(filepath):
     return translation
 
 
-def check_translations():
+def check_translations(directory):
     """Load default translation and compare with other translations."""
     default_translation = load_translation("lang/en.json")
-    translations_dir = "lang"
+    translations_dir = directory
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
@@ -115,5 +116,17 @@ def check_translations():
 
 
 if __name__ == "__main__":
-    check_translations()
+    parser = argparse.ArgumentParser(
+        description="Check and print missing translations for all non-default languages."
+    )
+    parser.add_argument(
+        "--directory", type=str, help="Directory containing translation files."
+    )
+    args = parser.parse_args()
+
+    if args.directory:
+        check_translations(args.directory)
+    else:
+        print("Please provide the directory using --directory option.")
+        sys.exit(1)
     # Exit with a success status code
