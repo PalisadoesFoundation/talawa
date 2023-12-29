@@ -81,15 +81,16 @@ Widget dropDownList(
                         },
                         child: Container(
                           key: Key(
-                            '${filters.keys.toList()[index]}test',
+                            filters.keys.toList()[index],
                           ),
                           decoration: BoxDecoration(
                             color: model.chosenValue ==
                                     filters.keys.toList()[index]
                                 ? Theme.of(context).colorScheme.secondary
                                 : AppTheme.white,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                  SizeConfig.safeBlockHorizontal! * 2),
                             ),
                           ),
                           width: SizeConfig.screenWidth! - 60,
