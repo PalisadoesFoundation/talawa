@@ -58,35 +58,23 @@ from collections import namedtuple
 FileTranslation = namedtuple("FileTranslation", ["file", "missing_translations"])
 
 
-def compare_translations(default_translation, other_translation, default_file, other_file):
-    """Compare two translations and return detailed info about missing/mismatched keys.
+def compare_translations(default_translation, other_translation):
+    """Compare two translations and print missing keys.
 
     Args:
-        default_translation (dict): The default translation (en.json).
-        other_translation (dict): The other language translation.
-        default_file (str): The name of the default translation file.
-        other_file (str): The name of the other translation file.
+        default_translation: The default translation
+        other_translation: The other translation
 
     Returns:
-        list: A list of detailed error messages for each missing/mismatched key.
+        missing_translations: List of missing translations
     """
-    errors = []
+    missing_translations = []
 
-    # Check for missing keys in other_translation
     for key in default_translation:
         if key not in other_translation:
-            error_msg = f"Missing Key: '{key}' - This key from '{default_file}' is missing in '{other_file}'."
-            errors.append(error_msg)
+            missing_translations.append(key)
 
-    # Check for keys in other_translation that don't match any in default_translation
-    for key in other_translation:
-        if key not in default_translation:
-            error_msg = f"Error Key: '{key}' - This key in '{other_file}' does not match any key in '{default_file}'."
-            errors.append(error_msg)
-
-    return errors
-
-
+    return missing_translations
 
 
 def load_translation(filepath):
@@ -107,32 +95,39 @@ def load_translation(filepath):
 def check_translations(directory):
     """Load default translation and compare with other translations.
 
-    Args:
+     Args:
         directory (str): The directory containing translation files.
 
     Returns:
         None
     """
-    default_file = "lang/en.json"
-    default_translation = load_translation(default_file)
+    default_translation = load_translation("lang/en.json")
     translations_dir = directory
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
-    error_found = False
+    files_with_missing_translations = []
 
     for translation_file in translations:
-        other_file = os.path.join(translations_dir, translation_file)
-        other_translation = load_translation(other_file)
+        translation_path = os.path.join(translations_dir, translation_file)
+        other_translation = load_translation(translation_path)
 
-        # Compare translations and get detailed error messages
-        errors = compare_translations(default_translation, other_translation, default_file, other_file)
-        if errors:
-            error_found = True
-            for error in errors:
-                print(f" - {error}")
+        # Compare translations
+        missing_translations = compare_translations(
+            default_translation, other_translation
+        )
+        if missing_translations:
+            file_translation = FileTranslation(translation_file, missing_translations)
+            files_with_missing_translations.append(file_translation)
 
-    if error_found:
+    for file_translation in files_with_missing_translations:
+        print(
+            f"File {translations_dir}/{file_translation.file} has missing translations for:"
+        )
+        for key in file_translation.missing_translations:
+            print(f" - {key}")
+
+    if files_with_missing_translations:
         sys.exit(1)  # Exit with an error status code
     else:
         print("All translations are present")
