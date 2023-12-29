@@ -88,7 +88,7 @@ void main() {
         await tester.tap(find.bySemanticsLabel('Filters'));
         await tester.pumpAndSettle();
         await tester.pump();
-        await tester.tap(find.byKey(const Key('Public Eventstest')));
+        await tester.tap(find.byKey(const Key('Public Events')));
         await tester.pumpAndSettle();
         expect(model.chosenValue, 'Public Events');
       });
