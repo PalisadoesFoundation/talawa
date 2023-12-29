@@ -90,7 +90,8 @@ Widget dropDownList(
                                 : AppTheme.white,
                             borderRadius: BorderRadius.all(
                               Radius.circular(
-                                  SizeConfig.safeBlockHorizontal! * 2),
+                                SizeConfig.safeBlockHorizontal! * 2,
+                              ),
                             ),
                           ),
                           width: SizeConfig.screenWidth! - 60,
