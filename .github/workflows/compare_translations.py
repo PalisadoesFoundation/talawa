@@ -58,23 +58,35 @@ from collections import namedtuple
 FileTranslation = namedtuple("FileTranslation", ["file", "missing_translations"])
 
 
-def compare_translations(default_translation, other_translation):
-    """Compare two translations and print missing keys.
+def compare_translations(default_translation, other_translation, default_file, other_file):
+    """Compare two translations and return detailed info about missing/mismatched keys.
 
     Args:
-        default_translation: The default translation
-        other_translation: The other translation
+        default_translation (dict): The default translation (en.json).
+        other_translation (dict): The other language translation.
+        default_file (str): The name of the default translation file.
+        other_file (str): The name of the other translation file.
 
     Returns:
-        missing_translations: List of missing translations
+        list: A list of detailed error messages for each missing/mismatched key.
     """
-    missing_translations = []
+    errors = []
 
+    # Check for missing keys in other_translation
     for key in default_translation:
         if key not in other_translation:
-            missing_translations.append(key)
+            error_msg = f"Missing Key: '{key}' - This key from '{default_file}' is missing in '{other_file}'."
+            errors.append(error_msg)
 
-    return missing_translations
+    # Check for keys in other_translation that don't match any in default_translation
+    for key in other_translation:
+        if key not in default_translation:
+            error_msg = f"Error Key: '{key}' - This key in '{other_file}' does not match any key in '{default_file}'."
+            errors.append(error_msg)
+
+    return errors
+
+
 
 
 def load_translation(filepath):
