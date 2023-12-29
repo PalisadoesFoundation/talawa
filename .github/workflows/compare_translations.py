@@ -58,12 +58,14 @@ from collections import namedtuple
 FileTranslation = namedtuple("FileTranslation", ["file", "missing_translations"])
 
 
-def compare_translations(default_translation, other_translation):
+def compare_translations(default_translation, other_translation, default_file, other_file):
     """Compare two translations and return detailed info about missing/mismatched keys.
 
     Args:
-        default_translation (dict): The default translation.
-        other_translation (dict): The other translation.
+        default_translation (dict): The default translation (en.json).
+        other_translation (dict): The other language translation.
+        default_file (str): The name of the default translation file.
+        other_file (str): The name of the other translation file.
 
     Returns:
         list: A list of detailed error messages for each missing/mismatched key.
@@ -72,7 +74,13 @@ def compare_translations(default_translation, other_translation):
 
     for key in default_translation:
         if key not in other_translation:
-            error_msg = f"Missing/Mismatched Key: '{key}' - This key is missing in the non-default translation file."
+            error_msg = f"Missing Key in '{other_file}': '{key}' - This key from '{default_file}' is missing."
+            errors.append(error_msg)
+
+    # Check for keys in other_translation that don't match any in default_translation
+    for key in other_translation:
+        if key not in default_translation:
+            error_msg = f"Error Key in '{other_file}': '{key}' - This key does not match any key in '{default_file}'."
             errors.append(error_msg)
 
     return errors
@@ -103,7 +111,8 @@ def check_translations(directory):
     Returns:
         None
     """
-    default_translation = load_translation("lang/en.json")
+    default_file = "lang/en.json"
+    default_translation = load_translation(default_file)
     translations_dir = directory
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
@@ -111,14 +120,13 @@ def check_translations(directory):
     error_found = False
 
     for translation_file in translations:
-        translation_path = os.path.join(translations_dir, translation_file)
-        other_translation = load_translation(translation_path)
+        other_file = os.path.join(translations_dir, translation_file)
+        other_translation = load_translation(other_file)
 
         # Compare translations and get detailed error messages
-        errors = compare_translations(default_translation, other_translation)
+        errors = compare_translations(default_translation, other_translation, default_file, other_file)
         if errors:
             error_found = True
-            print(f"Error in file: {translation_path}")
             for error in errors:
                 print(f" - {error}")
 
