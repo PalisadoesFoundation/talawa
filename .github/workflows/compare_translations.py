@@ -113,23 +113,22 @@ def check_translations(directory):
     Returns:
         None
     """
-    default_file = "lang/en.json"
-    default_translation = load_translation(default_file)
-    translations_dir = directory
-    translations = os.listdir(translations_dir)
-    translations.remove("en.json")  # Exclude default translation
+    default_file = "en.json"
+    default_translation = load_translation(os.path.join(directory, default_file))
+    translations = os.listdir(directory)
+    translations.remove(default_file)  # Exclude default translation
 
     error_found = False
 
     for translation_file in translations:
-        other_file = os.path.join(translations_dir, translation_file)
+        other_file = os.path.join(directory, translation_file)
         other_translation = load_translation(other_file)
 
         # Compare translations and get detailed error messages
-        errors = compare_translations(default_translation, other_translation, default_file, other_file)
+        errors = compare_translations(default_translation, other_translation, default_file, translation_file)
         if errors:
             error_found = True
-            print(f"File {other_file} has missing translations for:")
+            print(f"File {translation_file} has missing translations for:")
             for error in errors:
                 print(f"  - {error}")
 
