@@ -30,12 +30,16 @@ class ExploreEvents extends StatelessWidget {
           appBar: AppBar(
             // AppBar returns widget for the header.
             backgroundColor: Theme.of(context).primaryColor,
-            key: const Key("ExploreEventsAppBar"),
+            key: const Key(
+              "ExploreEventsAppBar",
+            ),
             elevation: 0.0,
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: Text(
-              AppLocalizations.of(context)!.strictTranslate('Explore Events'),
+              AppLocalizations.of(context)!.strictTranslate(
+                'Explore Events',
+              ),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -43,8 +47,12 @@ class ExploreEvents extends StatelessWidget {
             ),
             leading: IconButton(
               // returns a button of menu icon to redirect to home.
-              color: Theme.of(context).iconTheme.color,
-              icon: const Icon(Icons.menu),
+              color: Theme.of(
+                context,
+              ).iconTheme.color,
+              icon: const Icon(
+                Icons.menu,
+              ),
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
@@ -77,7 +85,9 @@ class ExploreEvents extends StatelessWidget {
           // if the model is still fetching the events list then renders the Circular Progress Indicator
           // else render refresh icon along with the list of searched events for exploration.
           body: model.isBusy
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
               : RefreshIndicator(
                   onRefresh: () async => model.refreshEvents(),
                   child: Stack(
@@ -101,7 +111,10 @@ class ExploreEvents extends StatelessWidget {
                                         showModalBottomSheet(
                                           context: context,
                                           builder: (_) {
-                                            return dropDownList(model, context);
+                                            return dropDownList(
+                                              model,
+                                              context,
+                                            );
                                           },
                                         );
                                       },

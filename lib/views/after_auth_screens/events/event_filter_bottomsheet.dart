@@ -12,7 +12,10 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 ///
 /// **returns**:
 /// * `Widget`: the dropdown
-Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
+Widget dropDownList(
+  ExploreEventsViewModel model,
+  BuildContext context,
+) {
   final Map<String, String> filters = {
     'All Events': 'Show all events',
     'My Events': 'Show all events created by you',
@@ -41,85 +44,100 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.strictTranslate("Filters"),
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      AppLocalizations.of(
+                        context,
+                      )!
+                          .strictTranslate(
+                        "Filters",
+                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall,
                     ),
                     IconButton(
                       key: const Key('close'),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.close),
+                      icon: const Icon(
+                        Icons.close,
+                      ),
                     ),
                   ],
                 ),
-                ...List.generate(filters.length, (index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.safeBlockVertical! * 2,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        model.choseValueFromDropdown(
-                          filters.keys.toList()[index],
-                        );
-                        setState(() {});
-                      },
-                      child: Container(
-                        key: Key('${filters.keys.toList()[index]}test'),
-                        decoration: BoxDecoration(
-                          color:
-                              model.chosenValue == filters.keys.toList()[index]
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : AppTheme.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8)),
-                        ),
-                        width: SizeConfig.screenWidth! - 60,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.safeBlockHorizontal! * 5,
-                            vertical: SizeConfig.safeBlockVertical! / 2,
+                ...List.generate(
+                  filters.length,
+                  (index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.safeBlockVertical! * 2,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          model.choseValueFromDropdown(
+                            filters.keys.toList()[index],
+                          );
+                          setState(() {});
+                        },
+                        child: Container(
+                          key: Key(
+                            '${filters.keys.toList()[index]}test',
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  filters.keys.toList()[index],
+                          decoration: BoxDecoration(
+                            color: model.chosenValue ==
+                                    filters.keys.toList()[index]
+                                ? Theme.of(context).colorScheme.secondary
+                                : AppTheme.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                          ),
+                          width: SizeConfig.screenWidth! - 60,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.safeBlockHorizontal! * 5,
+                              vertical: SizeConfig.safeBlockVertical! / 2,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    filters.keys.toList()[index],
+                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                        color: model.chosenValue ==
+                                                filters.keys.toList()[index]
+                                            ? AppTheme.white
+                                            : AppTheme.blackPrimary,
+                                      ),
                                 ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                      color: model.chosenValue ==
-                                              filters.keys.toList()[index]
-                                          ? AppTheme.white
-                                          : AppTheme.blackPrimary,
-                                    ),
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.strictTranslate(
-                                  filters.values.toList()[index],
+                                Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    filters.values.toList()[index],
+                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .copyWith(
+                                        color: model.chosenValue ==
+                                                filters.keys.toList()[index]
+                                            ? AppTheme.white
+                                            : AppTheme.blackSecondary,
+                                      ),
                                 ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .copyWith(
-                                      color: model.chosenValue ==
-                                              filters.keys.toList()[index]
-                                          ? AppTheme.white
-                                          : AppTheme.blackSecondary,
-                                    ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  },
+                ),
               ],
             ),
           );
