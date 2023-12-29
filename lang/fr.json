@@ -7,10 +7,8 @@
   "Enter new password": "Entrez un nouveau mot de passe",
   "Re-Enter your password": "Entrez à nouveau votre mot de passe",
   "Change Password": "Changer le mot de passe",
-
   "Email Hint": "test@test.org",
   "Notification Feature is not installed": "La fonction de notification n'est pas installée",
-
   "Enter your registered Email": "Entrez votre email enregistré",
   "Enter your password": "Tapez votre mot de passe",
   "Forgot password": "Mot de passe oublié",
@@ -36,7 +34,6 @@
   "Next": "Suivante",
   "Request Sent to": "Demande envoyée à",
   "Log out": "Se déconnecter",
-
   "Join": "Rejoignez",
   "and": "et",
   "Collaborate": "collaborez",
@@ -61,7 +58,6 @@
   "Password must not contain spaces": "Le mot de passe ne doit pas contenir d'espaces",
   "Password does not match original": "Le mot de passe ne correspond pas à l'original",
   "Join Organisation": "Rejoindre l'organisation",
-
   "We're": "Nous sommes",
   "Glad": "heureux que vous",
   "you're": "soyez de",
