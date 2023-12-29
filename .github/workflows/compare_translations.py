@@ -8,7 +8,9 @@ Methodology:
     This module defines a function to compare two translations
     and print any missing keys in the other language's translation.
 Attributes:
-    FileTranslation (namedtuple): Named tuple to represent a combination of file and missing translations.
+
+    FileTranslation : Named tuple to represent a combination of file and missing translations.
+
         Fields:
             - file (str): The file name.
             - missing_translations (list): List of missing translations.
@@ -17,8 +19,17 @@ Functions:
     compare_translations(default_translation, other_translation):
         Compare two translations and print missing keys.
 
+     load_translation(filepath):
+        Load translation from a file.
+
     check_translations():
         Load the default translation and compare it with other translations.
+
+     main():
+        The main function to run the script.
+        Parses command-line arguments, checks for the existence of the specified directory,
+        and then calls check_translations with the provided or default directory.
+
 
 Usage:
     This script can be executed to check and print missing
@@ -37,6 +48,7 @@ NOTE:
 
 """
 # standard imports
+import argparse
 import json
 import os
 import sys
@@ -79,10 +91,18 @@ def load_translation(filepath):
     return translation
 
 
-def check_translations():
-    """Load default translation and compare with other translations."""
+
+def check_translations(directory):
+    """Load default translation and compare with other translations.
+
+     Args:
+        directory (str): The directory containing translation files.
+
+    Returns:
+        None
+    """
     default_translation = load_translation("lang/en.json")
-    translations_dir = "lang"
+    translations_dir = directory
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
@@ -114,6 +134,30 @@ def check_translations():
         sys.exit(0)
 
 
+def main():
+    """
+     Parse command-line arguments, check for the existence of the specified directory,
+    and call check_translations with the provided or default directory.
+
+    """
+    parser = argparse.ArgumentParser(
+        description="Check and print missing translations for all non-default languages."
+    )
+    parser.add_argument(
+        "--directory",
+        type=str,
+        nargs="?",
+        default=os.path.join(os.getcwd(), "lang"),
+        help="Directory containing translation files(relative to the root directory).",
+    )
+    args = parser.parse_args()
+
+    if not os.path.exists(args.directory):
+        print(f"Error: The specified directory '{args.directory}' does not exist.")
+        sys.exit(1)
+
+    check_translations(args.directory)
+
+
 if __name__ == "__main__":
-    check_translations()
-    # Exit with a success status code
+    main()
