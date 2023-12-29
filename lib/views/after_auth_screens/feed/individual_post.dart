@@ -25,6 +25,7 @@ class IndividualPostView extends StatefulWidget {
 /// includes to send the  comment on the post, shows list of all users liked and commented on the post.
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
+  bool _isCommentValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,29 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 key: const Key('indi_post_tf_key'),
                 controller: _controller,
                 textInputAction: TextInputAction.send,
+                onChanged: (msg) {
+                  print("in onChanged");
+                  // Avoiding unneccessary rebuilds.
+                  if (msg.isEmpty && _isCommentValid == true) {
+                    setState(() {
+                      _isCommentValid = false;
+                    });
+                  }
+                  if (msg.isEmpty == false && _isCommentValid == false) {
+                    setState(() {
+                      _isCommentValid = true;
+                    });
+                  }
+                },
                 onSubmitted: (msg) {
-                  _commentViewModel.createComment(msg);
-                  _controller.text = "";
+                  if (_isCommentValid) {
+                    _commentViewModel.createComment(msg);
+                    _controller.text = "";
+
+                    setState(() {
+                      _isCommentValid = false;
+                    });
+                  }
                 },
                 textAlign: TextAlign.start,
                 decoration: const InputDecoration(
@@ -60,10 +81,21 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             // Button to send the comment.
             TextButton(
               onPressed: () {
-                _commentViewModel.createComment(_controller.text);
-                _controller.text = "";
+                if (_isCommentValid) {
+                  _commentViewModel.createComment(_controller.text);
+                  _controller.text = "";
+
+                  setState(() {
+                    _isCommentValid = false;
+                  });
+                }
               },
-              child: const Text("Send"),
+              child: Text(
+                "Send",
+                style: !_isCommentValid
+                    ? const TextStyle(color: Colors.grey)
+                    : null,
+              ),
             ),
           ],
         ),
