@@ -19,8 +19,17 @@ Functions:
     compare_translations(default_translation, other_translation):
         Compare two translations and print missing keys.
 
+     load_translation(filepath):
+        Load translation from a file.
+
     check_translations():
         Load the default translation and compare it with other translations.
+
+     main():
+        The main function to run the script.
+        Parses command-line arguments, checks for the existence of the specified directory,
+        and then calls check_translations with the provided or default directory.
+
 
 Usage:
     This script can be executed to check and print missing
@@ -84,7 +93,14 @@ def load_translation(filepath):
 
 
 def check_translations(directory):
-    """Load default translation and compare with other translations."""
+    """Load default translation and compare with other translations.
+
+     Args:
+        directory (str): The directory containing translation files.
+
+    Returns:
+        None
+    """
     default_translation = load_translation("lang/en.json")
     translations_dir = directory
     translations = os.listdir(translations_dir)
@@ -118,19 +134,30 @@ def check_translations(directory):
         sys.exit(0)
 
 
-if __name__ == "__main__":
+def main():
+    """
+     Parse command-line arguments, check for the existence of the specified directory,
+    and call check_translations with the provided or default directory.
+
+    """
     parser = argparse.ArgumentParser(
         description="Check and print missing translations for all non-default languages."
     )
     parser.add_argument(
-        "--directory", type=str, help="Directory containing translation files."
+        "--directory",
+        type=str,
+        nargs="?",
+        default=os.path.join(os.getcwd(), "lang"),
+        help="Directory containing translation files(relative to the root directory).",
     )
     args = parser.parse_args()
 
-    if args.directory:
-        check_translations(args.directory)
-    else:
-        print("Please provide the directory using --directory option.")
-        sys.exit(1)
+    if not os.path.exists(args.directory):
+        print(f"Error: The specified directory '{args.directory}' does not exist.")
+        exit(1)
 
-    # Exit with a success status code
+    check_translations(args.directory)
+
+
+if __name__ == "__main__":
+    main()
