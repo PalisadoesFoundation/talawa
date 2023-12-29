@@ -12,7 +12,6 @@
   "Enter your password": "Enter your password",
   "Forgot password": "Forgot password",
   "Login": "Login",
-
   "Notification Feature is not installed": "Notification Feature is not installed",
   "Sit back relax, we'll": "Sit back relax, we'll",
   "Recover": "Recover",
@@ -35,7 +34,6 @@
   "Next": "Next",
   "Request Sent to": "Request Sent to",
   "Log out": "Log out",
-
   "Error": "Error",
   "Warning": "Warning",
   "Information": "Information",
@@ -46,7 +44,6 @@
   "Collaborate": "Collaborate",
   "with your": "with your",
   "Organizations": "Organizations",
-
   "Title from the viewMode GSoC branch": "Title from the viewMode GSoC branch",
   "Please verify URL first": "Please verify URL first",
   "Enter a valid URL": "Enter a valid URL",
@@ -61,20 +58,16 @@
   "Password must not contain spaces": "Password must not contain spaces",
   "Password does not match original": "Password does not match original",
   "Join Organisation": "Join Organisation",
-
   "We're": "We're",
   "Glad": "Glad",
   "you're": "you're",
   "Back": "Back",
-
   "Let's": "Let's",
   "get": "get",
   "you": "you",
   "SignUp": "SignUp",
-
   "Please wait": "Please wait",
   "for organisation(s) to accept your invitation.": "for organisation(s) to accept your invitation.",
-
   "Add Event Title": "Add Event Title",
   "Where is the event": "Where is the event",
   "Add Location": "Add Location",
