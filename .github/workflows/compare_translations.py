@@ -95,39 +95,33 @@ def load_translation(filepath):
 def check_translations(directory):
     """Load default translation and compare with other translations.
 
-     Args:
+    Args:
         directory (str): The directory containing translation files.
 
     Returns:
         None
     """
-    default_translation = load_translation("lang/en.json")
+    default_file = "lang/en.json"
+    default_translation = load_translation(default_file)
     translations_dir = directory
     translations = os.listdir(translations_dir)
     translations.remove("en.json")  # Exclude default translation
 
-    files_with_missing_translations = []
+    error_found = False
 
     for translation_file in translations:
-        translation_path = os.path.join(translations_dir, translation_file)
-        other_translation = load_translation(translation_path)
+        other_file = os.path.join(translations_dir, translation_file)
+        other_translation = load_translation(other_file)
 
-        # Compare translations
-        missing_translations = compare_translations(
-            default_translation, other_translation
-        )
-        if missing_translations:
-            file_translation = FileTranslation(translation_file, missing_translations)
-            files_with_missing_translations.append(file_translation)
+        # Compare translations and get detailed error messages
+        errors = compare_translations(default_translation, other_translation, default_file, other_file)
+        if errors:
+            error_found = True
+            print(f"File {other_file} has missing translations for:")
+            for error in errors:
+                print(f"  - {error}")
 
-    for file_translation in files_with_missing_translations:
-        print(
-            f"File {translations_dir}/{file_translation.file} has missing translations for:"
-        )
-        for key in file_translation.missing_translations:
-            print(f" - {key}")
-
-    if files_with_missing_translations:
+    if error_found:
         sys.exit(1)  # Exit with an error status code
     else:
         print("All translations are present")
