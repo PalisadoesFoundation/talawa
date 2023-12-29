@@ -80,6 +80,12 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             ),
             // Button to send the comment.
             TextButton(
+              style: _isCommentValid == false
+                  ? ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                    )
+                  : null,
               onPressed: () {
                 if (_isCommentValid) {
                   _commentViewModel.createComment(_controller.text);
