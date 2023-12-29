@@ -154,7 +154,7 @@ def main():
 
     if not os.path.exists(args.directory):
         print(f"Error: The specified directory '{args.directory}' does not exist.")
-        exit(1)
+        sys.exit(1)
 
     check_translations(args.directory)
 
