@@ -48,7 +48,7 @@ class SendAccessRequest extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 20,
-                      ),  
+                      ),
                       Container(
                         child: TextField(
                           style: const TextStyle(color: AppTheme.blackPrimary),
