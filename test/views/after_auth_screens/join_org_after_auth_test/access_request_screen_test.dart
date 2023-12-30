@@ -39,14 +39,13 @@ void main() {
 
       //Verify that appbar is present with transparent background color
       expect(find.byType(AppBar), findsOneWidget);
-      AppBar appBar = tester.firstWidget(find.byType(AppBar));
+      final AppBar appBar = tester.firstWidget(find.byType(AppBar));
       expect(appBar.backgroundColor, Colors.transparent);
 
       //Verify that the image is present
       expect(find.byType(Image), findsOneWidget);
       expect(find.text("You need access"), findsOneWidget);
-      expect(find.text("Request access, or switch to an account with access"),
-          findsOneWidget);
+      expect(find.text("Request access, or switch to an account with access"),findsOneWidget);
       expect(find.byType(TextField), findsOneWidget);
       //Verify that the send request button is present
       expect(find.text("Request Access"), findsOneWidget);
