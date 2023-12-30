@@ -14,9 +14,7 @@
   "Login": "Acceso",
   "Sit back relax, we'll": "Siéntese, ",
   "Recover": "",
-
   "Notification Feature is not installed": "La función de notificación no está instalada",
-
   "your password": "relájese, recuperaremos su contraseña",
   "Recover Password": "Recupera tu contraseña",
   "Select Language": "Seleccione el idioma",
@@ -163,5 +161,7 @@
   "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton",
   "For complete access, please": "Para acceso completo, por favor",
   "  join an organization.": "  unirse a una organización.",
-  "JOIN":"UNIRSE"
+  "JOIN":"UNIRSE",
+  "Camera": "Cámara",
+  "Gallery": "Galería"
 }

@@ -14,7 +14,6 @@
   "Login": "ログイン",
   "Sit back relax, we'll": "ゆったりとおくつろぎください。",
   "Recover": "回復",
-
   "Notification Feature is not installed": "通知機能がインストールされていません",
   "your password": "あなたのパスワード",
   "Recover Password": "パスワードを回復",
@@ -62,10 +61,8 @@
   "get": "得る",
   "you": "あなた",
   "SignUp": "サインアップ",
-
   "Please wait": "お待ちください",
   "for organisation(s) to accept your invitation.": "組織があなたの招待を受け入れるために。",
-
   "Add Event Title": "イベントタイトルを追加",
   "Where is the event": "イベントはどこですか",
   "Add Location": "場所を追加",
@@ -164,5 +161,7 @@
   "No organizations found Please contact your admin": "組織が見つかりません!管理者に連絡してください",
   "For complete access, please": "完全にアクセスするには、",
   "  join an organization.": "  組織に参加します。",
-  "JOIN": "参加する"
+  "JOIN": "参加する",
+  "Camera": "カメラ",
+  "Gallery": "ギャラリー"
 }

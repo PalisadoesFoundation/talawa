@@ -15,7 +15,6 @@
   "Sit back relax, we'll": "高枕无忧, ",
   "Recover": "",
   "Notification Feature is not installed": "未安装通知功能\n",
-
   "your password": "我们会找回您的密码",
   "Recover Password": "恢复你的密码",
   "Select Language": "选择语言",
@@ -162,5 +161,7 @@
   "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton",
   "For complete access, please": "如需完整访问，请",
   "  join an organization.": "  加入一个组织。",
-  "JOIN":"加入"
+  "JOIN":"加入",
+  "Camera": "相机",
+  "Gallery": "画廊"
 }

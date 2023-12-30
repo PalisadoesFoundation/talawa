@@ -13,9 +13,7 @@
   "Forgot password": "Esqueceu sua senha",
   "Login": "Conecte-se",
   "Sit back relax, we'll": "Sente-se relaxe, vamos",
-
   "Notification Feature is not installed": "O recurso de notificação não está instalado",
-
   "Recover": "Recuperar",
   "your password": "sua senha",
   "Recover Password": "Recuperar senha",
@@ -163,5 +161,7 @@
   "No organizations found Please contact your admin": "Neniuj organizoj trovitaj! Bonvolu kontakti vian administranton",
   "For complete access, please": "Para acesso completo, por favor",
   "  join an organization.": "  ingressar em uma organização.",
-  "JOIN":"ENTRAR"
+  "JOIN":"ENTRAR",
+  "Camera": "Câmera",
+  "Gallery": "Galeria"
 }
