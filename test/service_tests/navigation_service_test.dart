@@ -100,6 +100,41 @@ class _HomeAppState extends State<HomeApp> {
   }
 }
 
+class HomeApp2 extends StatefulWidget {
+  const HomeApp2({
+    super.key,
+    required this.onClick,
+    required this.navigateorKey,
+  });
+  final GlobalKey<NavigatorState> navigateorKey;
+  final VoidCallback onClick;
+
+  @override
+  State<HomeApp2> createState() => _HomeAppState2();
+}
+
+class _HomeAppState2 extends State<HomeApp2> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      locale: const Locale('en'),
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      navigatorKey: widget.navigateorKey,
+      initialRoute: '/',
+      onGenerateRoute: _onGenerateTestRoute,
+      home: FirstTestScreen(
+        onClick: () {
+          widget.onClick();
+        },
+      ),
+    );
+  }
+}
+
 class FirstTestScreen extends StatefulWidget {
   const FirstTestScreen({super.key, required this.onClick, this.arguments});
   final VoidCallback onClick;
@@ -436,7 +471,7 @@ void main() {
     });
     testWidgets('showSnackBar() test with default duration', (tester) async {
       await tester.pumpWidget(
-        HomeApp(
+        HomeApp2(
           navigateorKey: mockKey,
           onClick: () {
             navigationService.showSnackBar('Hello Talawa');
@@ -454,7 +489,7 @@ void main() {
     });
     testWidgets('showSnackBar() test with custom duration', (tester) async {
       await tester.pumpWidget(
-        HomeApp(
+        HomeApp2(
           navigateorKey: mockKey,
           onClick: () {
             navigationService.showSnackBar(

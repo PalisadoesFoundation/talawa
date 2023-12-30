@@ -33,7 +33,8 @@ class CreateEventForm extends StatelessWidget {
             validator: (value) => Validator.validateEventForm(value!, 'Title'),
             decoration: InputDecoration(
               // placeholder of the text field
-              labelText: 'Add Event Title',
+              labelText: AppLocalizations.of(context)!
+                  .strictTranslate('Add Event Title'),
               isDense: true,
               labelStyle: Theme.of(context).textTheme.titleMedium,
               focusedBorder: InputBorder.none,
@@ -65,8 +66,10 @@ class CreateEventForm extends StatelessWidget {
             validator: (value) =>
                 Validator.validateEventForm(value!, 'Location'),
             decoration: InputDecoration(
-              hintText: 'Where is the event?',
-              labelText: 'Add Location',
+              hintText: AppLocalizations.of(context)!
+                  .strictTranslate('Where is the event?'),
+              labelText:
+                  AppLocalizations.of(context)!.strictTranslate('Add Location'),
               labelStyle: Theme.of(context).textTheme.titleMedium,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -118,8 +121,10 @@ class CreateEventForm extends StatelessWidget {
             maxLines: 10,
             minLines: 1,
             decoration: InputDecoration(
-              hintText: 'Describe the event',
-              labelText: 'Add Description',
+              hintText: AppLocalizations.of(context)!
+                  .strictTranslate('Describe the event'),
+              labelText: AppLocalizations.of(context)!
+                  .strictTranslate('Add Description'),
               labelStyle: Theme.of(context).textTheme.titleMedium,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,

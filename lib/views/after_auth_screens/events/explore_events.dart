@@ -185,7 +185,12 @@ class ExploreEvents extends StatelessWidget {
                                   ? SizedBox(
                                       height: SizeConfig.screenHeight! * 0.5,
                                       child: Center(
-                                        child: Text(model.emptyListMessage),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .strictTranslate(
+                                            model.emptyListMessage,
+                                          ),
+                                        ),
                                       ),
                                     )
                                   : ListView.builder(

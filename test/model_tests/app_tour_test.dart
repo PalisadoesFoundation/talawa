@@ -10,8 +10,6 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-import '../router_test.dart';
-
 class CustomTutorialController extends TutorialCoachMarkController {
   @override
   void next() {}
@@ -61,31 +59,52 @@ void main() {
   // registerServices();
 
   group('Tests for FocusTarget', () {
-    test('Test for FocusTarget model.', () {
-      final model = MainScreenViewModel();
-      model.context = MockBuildContext();
-      final focusTarget = FocusTarget(
-        key: MainScreenViewModel.keyDrawerCurOrg,
-        keyName: 'keyName',
-        description: 'description',
-        appTour: MockAppTour(model: model),
-        next: () {},
-      );
+    testWidgets('Test for FocusTarget model.', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Localizations(
+              locale: const Locale('en'),
+              delegates: [
+                const AppLocalizationsDelegate(isTest: true),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              child: Builder(
+                builder: (BuildContext context) {
+                  final model = MainScreenViewModel();
+                  model.context = context;
 
-      focusTarget.focusWidget.contents![0].builder!(
-        model.context,
-        CustomTutorialController(),
-      );
+                  final focusTarget = FocusTarget(
+                    key: MainScreenViewModel.keyDrawerCurOrg,
+                    keyName: 'keyName',
+                    description: 'description',
+                    appTour: MockAppTour(model: model),
+                    next: () {},
+                  );
 
-      focusTarget.focusWidget.contents![1].builder!(
-        model.context,
-        CustomTutorialController(),
+                  focusTarget.focusWidget.contents![0].builder!(
+                    context,
+                    CustomTutorialController(),
+                  );
+
+                  focusTarget.focusWidget.contents![1].builder!(
+                    context,
+                    CustomTutorialController(),
+                  );
+                  return Container();
+                },
+              ),
+            ),
+          ),
+        ),
       );
     });
 
     testWidgets('Test for showTutorial method.', (tester) async {
       AppTour? mockAppTour;
       FocusTarget? mockFocusTarget;
+      BuildContext? capturedContext;
       final app = BaseView<AppLanguage>(
         onModelReady: (model) => model.initialize(),
         builder: (context, langModel, child) {
@@ -105,6 +124,7 @@ void main() {
                 testMode: true,
               ),
               builder: (context, model2, child) {
+                capturedContext = context;
                 mockAppTour = AppTour(model: model2);
                 mockFocusTarget = FocusTarget(
                   key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
@@ -151,6 +171,7 @@ void main() {
       expect(tutorialBtn, findsOneWidget);
 
       (tester.widget(tutorialBtn) as TextButton).onPressed!();
+      await tester.pumpAndSettle();
 
       mockAppTour!.tutorialCoachMark.onSkip!();
       mockAppTour!.tutorialCoachMark.onClickOverlay!(
@@ -161,7 +182,7 @@ void main() {
       );
 
       (mockFocusTarget!.focusWidget.contents![1].builder!(
-        MockBuildContext(),
+        capturedContext!,
         CustomTutorialController(),
       ) as GestureDetector)
           .onTap!();
