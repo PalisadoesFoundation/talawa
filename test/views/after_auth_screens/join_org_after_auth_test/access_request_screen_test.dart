@@ -45,7 +45,10 @@ void main() {
       //Verify that the image is present
       expect(find.byType(Image), findsOneWidget);
       expect(find.text("You need access"), findsOneWidget);
-      expect(find.text("Request access, or switch to an account with access"),findsOneWidget);
+      expect(
+        find.text("Request access, or switch to an account with access"),
+        findsOneWidget,
+      );
       expect(find.byType(TextField), findsOneWidget);
       //Verify that the send request button is present
       expect(find.text("Request Access"), findsOneWidget);
