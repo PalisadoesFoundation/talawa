@@ -100,6 +100,7 @@ The process of proposing a change to Talawa can be summarized as:
       1. Pull requests that don't meet the minimum test coverage levels will not be accepted. This may mean that you will have to create tests for code you did not write. You can decide which part of the code base needs additional tests if this happens to you.
    1. **_Testing_:**
       1. Test using the `flutter test` command.
+      1. Review [Flutter's official introduction to unit testing](https://docs.flutter.dev/cookbook/testing/unit/introduction)
       1. Here are some useful flutter test videos
           1. [State Management With Provider](https://www.raywenderlich.com/6373413-state-management-with-provider)
           1. [Unit Testing With Flutter: Getting Started](https://www.raywenderlich.com/6926998-unit-testing-with-flutter-getting-started)
