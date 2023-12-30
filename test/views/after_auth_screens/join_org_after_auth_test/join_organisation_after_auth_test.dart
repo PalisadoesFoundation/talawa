@@ -17,9 +17,9 @@ import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organis
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/organization_search_list.dart';
 
-import '../../helpers/test_helpers.dart';
-import '../../helpers/test_helpers.mocks.dart';
-import '../../helpers/test_locator.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
+import '../../../helpers/test_locator.dart';
 
 Widget createJoinOrgAfterAuth({
   String orgId = "fake_id",
