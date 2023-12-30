@@ -234,13 +234,14 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   });
 
   when(service.authClient()).thenAnswer((realInvocation) {
-    final AuthLink authLink =
-        AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
-    final Link finalAuthLink = authLink.concat(service.httpLink);
-    return GraphQLClient(
-      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: finalAuthLink,
-    );
+    // final AuthLink authLink =
+    //     AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
+    // final Link finalAuthLink = authLink.concat(service.httpLink);
+    // return GraphQLClient(
+    //   cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+    //   link: finalAuthLink,
+    // );
+    return locator<GraphQLClient>();
   });
 
   when(service.getToken()).thenAnswer((_) async => "sample_token");

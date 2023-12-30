@@ -395,8 +395,7 @@ class DataBaseMutationFunctions {
     } else if (result.data != null && result.isConcrete) {
       return OrgInfo.fromJson(
         // ignore: collection_methods_unrelated_type
-        (result.data!['organizations'] as Map<String, dynamic>)[0]
-            as Map<String, dynamic>,
+        result.data!['organizations'] as Map<String, dynamic>,
       );
     }
     return false;
