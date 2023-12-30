@@ -30,6 +30,9 @@ void main() async {
 
   const userNotAuthenticated =
       GraphQLError(message: 'User is not authenticated');
+
+  const userNotAuthenticatedrand =
+      GraphQLError(message: 'User is not authenticatedrand');
   const userNotFound = GraphQLError(message: 'User not found');
   const refreshAccessTokenExpiredException = GraphQLError(
     message:
@@ -47,9 +50,6 @@ void main() async {
     message:
         'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND',
   );
-
-  const userNotAuthenticatedrand =
-      GraphQLError(message: 'User is not authenticated random');
 
   const emailAccountPresent =
       GraphQLError(message: 'Email address already exists');
@@ -140,13 +140,15 @@ void main() async {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(queries.fetchOrgById('XYZ'))),
           data: {
-            'organizations': {
-              'id': 'XYZ',
-              'image': 'sampleimg',
-              'name': 'Sample1',
-              'isPublic': true,
-              'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
-            },
+            'organizations': [
+              {
+                'id': 'XYZ',
+                'image': 'sampleimg',
+                'name': 'Sample1',
+                'isPublic': true,
+                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
+              },
+            ],
           },
           source: QueryResultSource.network,
         ),
@@ -194,9 +196,11 @@ void main() async {
         }
       }
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(
+          MutationOptions(document: gql(query)),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query)),
           exception: exp2()['val'],
@@ -204,9 +208,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query2))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query2)),
           data: {
@@ -219,9 +223,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query3)),
           data: {
@@ -365,21 +369,24 @@ void main() async {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'organizations': {
-              'id': 'XYZ',
-              'image': 'sampleimg',
-              'name': 'Sample1',
-              'isPublic': true,
-              'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
-            },
+            'organizations': [
+              {
+                'id': 'XYZ',
+                'image': 'sampleimg',
+                'name': 'Sample1',
+                'isPublic': true,
+                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
+              },
+            ],
           },
           source: QueryResultSource.network,
         ),
       );
 
       final res = await functionsClass.gqlAuthQuery(query) as QueryResult;
-      final org =
-          OrgInfo.fromJson(res.data!['organizations'] as Map<String, dynamic>);
+      final org = OrgInfo.fromJson(
+        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
+      );
 
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
@@ -438,15 +445,17 @@ void main() async {
       }
 
       when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                exception: exp2()['val'],
-                source: QueryResultSource.network,
-              ));
-
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query2))))
           .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          exception: exp2()['val'],
+          source: QueryResultSource.network,
+        ),
+      );
+
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query2)),
           data: {
@@ -459,9 +468,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query3)),
           data: {
@@ -487,21 +496,24 @@ void main() async {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'organizations': {
-              'id': 'XYZ',
-              'image': 'sampleimg',
-              'name': 'Sample1',
-              'isPublic': true,
-              'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
-            },
+            'organizations': [
+              {
+                'id': 'XYZ',
+                'image': 'sampleimg',
+                'name': 'Sample1',
+                'isPublic': true,
+                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
+              },
+            ],
           },
           source: QueryResultSource.network,
         ),
       );
 
       final res = await functionsClass.gqlAuthMutation(query) as QueryResult;
-      final org =
-          OrgInfo.fromJson(res.data!['organizations'] as Map<String, dynamic>);
+      final org = OrgInfo.fromJson(
+        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
+      );
 
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
@@ -612,21 +624,24 @@ void main() async {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'organizations': {
-              'id': 'XYZ',
-              'image': 'sampleimg',
-              'name': 'Sample1',
-              'isPublic': true,
-              'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
-            },
+            'organizations': [
+              {
+                'id': 'XYZ',
+                'image': 'sampleimg',
+                'name': 'Sample1',
+                'isPublic': true,
+                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
+              },
+            ],
           },
           source: QueryResultSource.network,
         ),
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      final org =
-          OrgInfo.fromJson(res!.data!['organizations'] as Map<String, dynamic>);
+      final org = OrgInfo.fromJson(
+        (res!.data!['organizations'] as List<Map<String, dynamic>>)[0],
+      );
 
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
@@ -644,21 +659,24 @@ void main() async {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'organizations': {
-              'id': 'XYZ',
-              'image': 'sampleimg',
-              'name': 'Sample1',
-              'isPublic': true,
-              'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
-            },
+            'organizations': [
+              {
+                'id': 'XYZ',
+                'image': 'sampleimg',
+                'name': 'Sample1',
+                'isPublic': true,
+                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
+              },
+            ],
           },
           source: QueryResultSource.network,
         ),
       );
 
       final res = await functionsClass.gqlNonAuthMutation(query) as QueryResult;
-      final org =
-          OrgInfo.fromJson(res.data!['organizations'] as Map<String, dynamic>);
+      final org = OrgInfo.fromJson(
+        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
+      );
 
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
@@ -717,30 +735,34 @@ void main() async {
         }
       }
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query))))
-          .thenAnswer((_) async => QueryResult(
-                options: MutationOptions(document: gql(query)),
-                exception: exp2()['val'],
-                source: QueryResultSource.network,
-              ));
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(document: gql(query)),
+          exception: exp2()['val'],
+          source: QueryResultSource.network,
+        ),
+      );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query2))))
-          .thenAnswer((_) async => QueryResult(
-                options: MutationOptions(document: gql(query2)),
-                data: {
-                  'refreshToken': {
-                    'accessToken': 'testtoken',
-                    'refreshToken': 'testtoken',
-                  },
-                },
-                source: QueryResultSource.network,
-              ));
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(document: gql(query2)),
+          data: {
+            'refreshToken': {
+              'accessToken': 'testtoken',
+              'refreshToken': 'testtoken',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query3)),
           data: {
@@ -837,9 +859,9 @@ void main() async {
         }
       }
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query)),
           exception: exp2()['val'],
@@ -847,9 +869,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query2))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query2)),
           data: {
@@ -862,9 +884,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: MutationOptions(document: gql(query3)),
           data: {
@@ -945,9 +967,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query2))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query2)),
           data: {
@@ -960,9 +982,9 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query3)),
           data: {
@@ -1035,18 +1057,20 @@ void main() async {
         ),
       );
 
-      when(locator<GraphQLClient>()
-              .mutate(MutationOptions(document: gql(query3))))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query3)),
-                data: {
-                  'refreshToken': {
-                    'accessToken': 'testtoken',
-                    'refreshToken': 'testtoken',
-                  },
-                },
-                source: QueryResultSource.network,
-              ));
+      when(
+        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query3)),
+          data: {
+            'refreshToken': {
+              'accessToken': 'testtoken',
+              'refreshToken': 'testtoken',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
       expect(res, null);
