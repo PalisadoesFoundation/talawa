@@ -140,8 +140,8 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      final services = EventQueries();
-      services.fetchOrgEvents('OrgId');
+      final services = EventService();
+      services.getEvents();
     });
 
     test('Test dispose method', () {
