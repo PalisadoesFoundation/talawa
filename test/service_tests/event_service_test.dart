@@ -103,7 +103,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.eventTasks('eventId');
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(
+        dataBaseMutationFunctions.gqlAuthQuery(
           EventQueries().registrantsByEvent('eventId'),
         ),
       ).thenAnswer(
@@ -115,8 +115,8 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      final services = EventQueries();
-      services.registrantsByEvent('eventId');
+      final services = EventService();
+      services.fetchRegistrantsByEvent('eventId');
     });
 
     test('Test getEvents method', () async {
