@@ -142,5 +142,10 @@ void main() {
       final services = EventQueries();
       services.fetchOrgEvents('OrgId');
     });
+
+    test('Test dispose method', () {
+      final eventService = EventService();
+      eventService.dispose();
+    });
   });
 }
