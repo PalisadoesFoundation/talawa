@@ -61,49 +61,25 @@ void main() {
   // registerServices();
 
   group('Tests for FocusTarget', () {
-    testWidgets('Test for FocusTarget model.', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        BaseView<AppLanguage>(
-          onModelReady: (model) => model.initialize(),
-          builder: (context, langModel, child) {
-            return MaterialApp(
-              home: Scaffold(
-                body: Localizations(
-                  locale: const Locale('en'),
-                  delegates: [
-                    const AppLocalizationsDelegate(isTest: true),
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      final model = MainScreenViewModel();
-                      model.context = MockBuildContext();
-                      final focusTarget = FocusTarget(
-                        key: MainScreenViewModel.keyDrawerCurOrg,
-                        keyName: 'keyName',
-                        description: 'description',
-                        appTour: MockAppTour(model: model),
-                        next: () {},
-                      );
+    test('Test for FocusTarget model.', () {
+      final model = MainScreenViewModel();
+      model.context = MockBuildContext();
+      final focusTarget = FocusTarget(
+        key: MainScreenViewModel.keyDrawerCurOrg,
+        keyName: 'keyName',
+        description: 'description',
+        appTour: MockAppTour(model: model),
+        next: () {},
+      );
 
-                      focusTarget.focusWidget.contents![0].builder!(
-                        model.context,
-                        CustomTutorialController(),
-                      );
+      focusTarget.focusWidget.contents![0].builder!(
+        model.context,
+        CustomTutorialController(),
+      );
 
-                      focusTarget.focusWidget.contents![1].builder!(
-                        model.context,
-                        CustomTutorialController(),
-                      );
-                      return Container();
-                    },
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+      focusTarget.focusWidget.contents![1].builder!(
+        model.context,
+        CustomTutorialController(),
       );
     });
 

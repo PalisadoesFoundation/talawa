@@ -292,6 +292,12 @@ void main() async {
 
       late final MainScreenViewModel mainScreenModel;
       final app = MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         builder: (context, child) => BaseView<MainScreenViewModel>(
           builder: (context, model2, child) {
             model2.context = context;
@@ -415,23 +421,39 @@ void main() async {
       final model = getAndRegisterUserConfig();
       when(model.loggedIn).thenAnswer((_) => true);
 
-      final app = BaseView<MainScreenViewModel>(
-        builder: (context, model2, child) {
-          model2.context = context;
-          model2.testMode = true;
-          model2.appTour = MockAppTour(model: model2);
-          model2.currentPageIndex = 1;
-          return MaterialApp(
-            builder: (context, child) => Scaffold(
+      late final MainScreenViewModel mainScreenModel;
+      final app = MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        builder: (context, child) => BaseView<MainScreenViewModel>(
+          builder: (context, model2, child) {
+            model2.context = context;
+            model2.testMode = true;
+            mainScreenModel = model2;
+            model2.appTour = MockAppTour(model: model2);
+            model2.currentPageIndex = 0;
+            return Scaffold(
+              key: MainScreenViewModel.scaffoldKey,
+              drawer: CustomDrawer(homeModel: mainScreenModel),
               body: TextButton(
                 onPressed: () {
+                  model2.showHome(
+                    TargetFocus(
+                      identify: "keySHMenuIcon",
+                      keyTarget: model2.keySHMenuIcon,
+                    ),
+                  );
                   model2.tourChat();
                 },
                 child: const Text('tour chat targets'),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
 
       await tester.pumpWidget(app);
@@ -448,6 +470,12 @@ void main() async {
       when(model.loggedIn).thenAnswer((_) => true);
 
       final app = MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         builder: (context, child) => BaseView<MainScreenViewModel>(
           builder: (context, model2, child) {
             model2.context = context;

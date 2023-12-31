@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -106,7 +105,7 @@ class FocusTarget {
                 crossAxisAlignment: crossAlign,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context)!.strictTranslate(description),
+                    description,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
@@ -135,10 +134,7 @@ class FocusTarget {
                 crossAxisAlignment: nextCrossAlign,
                 children: <Widget>[
                   Text(
-                    isEnd
-                        ? AppLocalizations.of(context)!
-                            .strictTranslate('COMPLETE')
-                        : AppLocalizations.of(context)!.strictTranslate('NEXT'),
+                    isEnd ? 'COMPLETE' : 'NEXT',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20,
