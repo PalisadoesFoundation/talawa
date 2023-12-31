@@ -18,6 +18,11 @@ void main() {
     registerServices();
   });
   group('Test EventService', () {
+    test('Test for getters', () {
+      final model = EventService();
+      expect(model.eventStream, isA<Stream<Event>>());
+    });
+    
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.eventTasks('eventId');
