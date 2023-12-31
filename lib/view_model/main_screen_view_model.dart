@@ -402,8 +402,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySHOrgName,
         keyName: 'keySHOrgName',
-        description: AppLocalizations.of(context)!
-            .strictTranslate('Current selected Organization Name'),
+        description: 'Current selected Organization Name',
         appTour: appTour,
       ),
     );
@@ -411,9 +410,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySHMenuIcon,
         keyName: 'keySHMenuIcon',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'Click this button to see options related to switching, joining and leaving organization(s)',
-        ),
+        description:
+            'Click this button to see options related to switching, joining and leaving organization(s)',
         isCircle: true,
         next: () => scaffoldKey.currentState!.openDrawer(),
         appTour: appTour,
@@ -424,8 +422,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyDrawerCurOrg,
         keyName: 'keyDrawerCurOrg',
-        description: AppLocalizations.of(context)!.strictTranslate(
-            "Current selected Organization's Name appears here"),
+        description: "Current selected Organization's Name appears here",
         appTour: appTour,
       ),
     );
@@ -434,9 +431,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyDrawerSwitchableOrg,
         keyName: 'keyDrawerSwitchableOrg',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          "All your joined organizations appear over here you can click on them to change the current organization",
-        ),
+        description:
+            "All your joined organizations appear over here you can click on them to change the current organization",
         appTour: appTour,
       ),
     );
@@ -445,9 +441,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyDrawerJoinOrg,
         keyName: 'keyDrawerJoinOrg',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          "From this button you can join other listed organizations",
-        ),
+        description: "From this button you can join other listed organizations",
         appTour: appTour,
         align: ContentAlign.top,
         next: () {
@@ -463,9 +457,8 @@ class MainScreenViewModel extends BaseModel {
         FocusTarget(
           key: keyDrawerLeaveCurrentOrg,
           keyName: 'keyDrawerLeaveCurrentOrg',
-          description: AppLocalizations.of(context)!.strictTranslate(
-            "To leave the current organization you can use this option",
-          ),
+          description:
+              "To leave the current organization you can use this option",
           align: ContentAlign.top,
           next: () => navigationService.pop(),
           appTour: appTour,
@@ -477,9 +470,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyBNHome,
         keyName: 'keyBNHome',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          "This is the home tab here you can see the latest post from other members of the current organization",
-        ),
+        description:
+            "This is the home tab here you can see the latest post from other members of the current organization",
         isCircle: true,
         align: ContentAlign.top,
         appTour: appTour,
@@ -490,9 +482,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySHPinnedPost,
         keyName: 'keySHPinnedPost',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          "This section displays all the important post set by the organization admin(s)",
-        ),
+        description:
+            "This section displays all the important post set by the organization admin(s)",
         align: ContentAlign.bottom,
         appTour: appTour,
       ),
@@ -502,9 +493,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySHPost,
         keyName: 'keySHPost',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          "This is the post card you can like and comment on the post from the options available",
-        ),
+        description:
+            "This is the post card you can like and comment on the post from the options available",
         align: ContentAlign.bottom,
         appTour: appTour,
       ),
@@ -551,9 +541,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyBNEvents,
         keyName: 'keyBNEvents',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'This is the Events tab here you can see all event related information of the current selected organization',
-        ),
+        description:
+            'This is the Events tab here you can see all event related information of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
         appTour: appTour,
@@ -564,9 +553,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySECategoryMenu,
         keyName: 'keySECategoryMenu',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'Filter Events based on categories',
-        ),
+        description: 'Filter Events based on categories',
         appTour: appTour,
       ),
     );
@@ -575,9 +562,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySEDateFilter,
         keyName: 'keySEDateFilter',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'Filter Events between selected dates',
-        ),
+        description: 'Filter Events between selected dates',
         appTour: appTour,
       ),
     );
@@ -586,9 +571,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySECard,
         keyName: 'keySECard',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'Description of event to see more details click on the card',
-        ),
+        description:
+            'Description of event to see more details click on the card',
         appTour: appTour,
       ),
     );
@@ -597,9 +581,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySEAdd,
         keyName: 'keySEAdd',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'You can create a new event from here',
-        ),
+        description: 'You can create a new event from here',
         align: ContentAlign.top,
         appTour: appTour,
       ),
@@ -630,9 +612,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyBNPost,
         keyName: 'keyBNPost',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'This is the Create post tab here you can add post to the current selected organization',
-        ),
+        description:
+            'This is the Create post tab here you can add post to the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
         appTour: appTour,
@@ -664,9 +645,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyBNChat,
         keyName: 'keyBNChat',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'This is the Chat tab here you can see all your messages of the current selected organization',
-        ),
+        description:
+            'This is the Chat tab here you can see all your messages of the current selected organization',
         isCircle: true,
         align: ContentAlign.top,
         appTour: appTour,
@@ -697,9 +677,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keyBNProfile,
         keyName: 'keyBNProfile',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
-        ),
+        description:
+            'This is the Profile tab here you can see all options related to account, app setting, invitation, help etc',
         isCircle: true,
         align: ContentAlign.top,
         nextCrossAlign: CrossAxisAlignment.start,
@@ -711,9 +690,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySPAppSetting,
         keyName: 'keySPAppSetting',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'You can edit application settings like language, theme etc from here',
-        ),
+        description:
+            'You can edit application settings like language, theme etc from here',
         appTour: appTour,
       ),
     );
@@ -722,9 +700,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySPHelp,
         keyName: 'keySPHelp',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'For any help we are always there. You can reach us from here',
-        ),
+        description:
+            'For any help we are always there. You can reach us from here',
         appTour: appTour,
       ),
     );
@@ -733,9 +710,8 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySPDonateUs,
         keyName: 'keySPDonateUs',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'To help your organization grow you can support them financially from here',
-        ),
+        description:
+            'To help your organization grow you can support them financially from here',
         appTour: appTour,
       ),
     );
@@ -753,9 +729,7 @@ class MainScreenViewModel extends BaseModel {
       FocusTarget(
         key: keySPPalisadoes,
         keyName: 'keySPPalisadoes',
-        description: AppLocalizations.of(context)!.strictTranslate(
-          'You are all set to go lets get you in',
-        ),
+        description: 'You are all set to go lets get you in',
         isEnd: true,
         appTour: appTour,
       ),
