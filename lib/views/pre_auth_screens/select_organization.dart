@@ -37,12 +37,12 @@ class _SelectOrganizationState extends State<SelectOrganization> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 Padding(
-                  padding:const EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 18,
                   ),
                   child: Text(
-                     AppLocalizations.of(context)!
+                    AppLocalizations.of(context)!
                         .strictTranslate("Choose an Organization"),
                     style: const TextStyle(fontSize: 40),
                   ),
