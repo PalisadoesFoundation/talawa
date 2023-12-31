@@ -724,7 +724,6 @@ class MainScreenViewModel extends BaseModel {
 //     description: 'Wanna invite colleague, invite them from here',
 //   ),
 // );
-
     targets.add(
       FocusTarget(
         key: keySPPalisadoes,
