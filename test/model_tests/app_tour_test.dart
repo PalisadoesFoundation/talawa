@@ -10,6 +10,8 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+class MockBuildContext extends Mock implements BuildContext {}
+
 class CustomTutorialController extends TutorialCoachMarkController {
   @override
   void next() {}
@@ -76,8 +78,7 @@ void main() {
                   child: Builder(
                     builder: (BuildContext context) {
                       final model = MainScreenViewModel();
-                      model.context = context;
-
+                      model.context = MockBuildContext();
                       final focusTarget = FocusTarget(
                         key: MainScreenViewModel.keyDrawerCurOrg,
                         keyName: 'keyName',
