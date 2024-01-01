@@ -8,7 +8,13 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
-// This methods tries to cover all the cases which can be there in future!
+/// This methods tries to cover all the cases which can be there in future.
+///
+/// **params**:
+/// * `settings`: RouteSettings
+///
+/// **returns**:
+/// * `Route<dynamic>`: Returns Route Type
 Route<dynamic> _onGenerateTestRoute(RouteSettings settings) {
   if (settings.name == '/second-screen') {
     if (settings.arguments == null) {
@@ -169,7 +175,6 @@ class _SecondTestScreenState extends State<SecondTestScreen> {
 class ThirdTestScreen extends StatefulWidget {
   const ThirdTestScreen({super.key, this.arguments});
   final String? arguments;
-
   @override
   State<ThirdTestScreen> createState() => _ThirdTestScreenState();
 }
