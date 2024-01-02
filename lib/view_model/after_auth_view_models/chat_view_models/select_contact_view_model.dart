@@ -24,6 +24,7 @@ class SelectContactViewModel extends BaseModel {
     if (orgMembersList.isEmpty) {
       orgMembersList = await _organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
+      notifyListeners();
     }
 
     //return orgMembersList;

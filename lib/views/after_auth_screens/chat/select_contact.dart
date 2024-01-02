@@ -38,15 +38,16 @@ class _SelectContactState extends State<SelectContact> {
         ),
       ),
       body: BaseView<SelectContactViewModel>(
-        onModelReady: (model) {
+        onModelReady: (model) async {
           model.initialise();
-          model.getCurrentOrgUsersList();
+          await model.getCurrentOrgUsersList();
         },
         builder: (context, model, child) {
           return ListView.builder(
             itemCount: model.orgMembersList.length,
             itemBuilder: (context, index) {
               return GestureDetector(
+                key: Key('select_contact_gesture_$index'),
                 onTap: () {
                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatMessageScreen(chat: ChatListTileDataModel(ChatUser(model.orgMembersList[index].firstName,model.orgMembersList[index].id,model.orgMembersList[index].image),null,0))));
                 },
