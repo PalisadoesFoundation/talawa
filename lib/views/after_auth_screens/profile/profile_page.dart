@@ -60,7 +60,60 @@ class ProfilePage extends StatelessWidget {
               IconButton(
                 key: const Key('settingIcon'),
                 onPressed: () {
-                  navigationService.pushScreen(Routes.appSettings);
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        key: const Key('sheetContainer'),
+                        height: SizeConfig.screenHeight! * 0.17,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.zero,
+                            bottomRight: Radius.zero,
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  navigationService
+                                      .pushScreen("/editProfilePage");
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Edit Profile"),
+                                  style: const TextStyle(
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                              Divider(
+                                endIndent: SizeConfig.screenHeight! * 0.03,
+                                indent: SizeConfig.screenHeight! * 0.03,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  model.logout(context);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Log Out"),
+                                  style: const TextStyle(
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
                 icon: const Icon(Icons.settings),
               ),
