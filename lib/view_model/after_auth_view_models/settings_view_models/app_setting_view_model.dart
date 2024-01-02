@@ -44,7 +44,7 @@ class AppSettingViewModel extends BaseModel {
   ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   /// * `Widget`: A [Widget] representing the custom logout confirmation dialog.
   Widget logoutDialog() {

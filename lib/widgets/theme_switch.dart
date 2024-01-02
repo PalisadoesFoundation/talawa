@@ -18,7 +18,8 @@ class ChangeThemeTile extends StatelessWidget {
     return ListTile(
       key: const Key('ThemeSwitch'),
       contentPadding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.blockSizeHorizontal! * 1.5,),
+        horizontal: SizeConfig.blockSizeHorizontal! * 1.5,
+      ),
       title: Text(AppLocalizations.of(context)!.strictTranslate("Dark Theme")),
       trailing: Switch(
         key: const Key('ToggleTheme'),
