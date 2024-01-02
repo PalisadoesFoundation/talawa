@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/organization_list.dart';
@@ -36,13 +37,14 @@ class _SelectOrganizationState extends State<SelectOrganization> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 18,
                   ),
                   child: Text(
-                    "Choose an Organization",
-                    style: TextStyle(fontSize: 40),
+                    AppLocalizations.of(context)!
+                        .strictTranslate("Choose an Organization"),
+                    style: const TextStyle(fontSize: 40),
                   ),
                 ),
                 Expanded(child: OrganizationList(model: model)),

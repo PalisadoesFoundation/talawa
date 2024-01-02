@@ -3,6 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -103,7 +104,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.eventTasks('eventId');
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(
+        dataBaseMutationFunctions.gqlAuthQuery(
           EventQueries().registrantsByEvent('eventId'),
         ),
       ).thenAnswer(
@@ -115,8 +116,8 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      final services = EventQueries();
-      services.registrantsByEvent('eventId');
+      final services = EventService();
+      services.fetchRegistrantsByEvent('eventId');
     });
 
     test('Test getEvents method', () async {
@@ -139,8 +140,18 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      final services = EventQueries();
-      services.fetchOrgEvents('OrgId');
+      final services = EventService();
+      services.getEvents();
+    });
+
+    test('Test dispose method', () {
+      final eventService = EventService();
+      eventService.dispose();
+    });
+
+    test('Test for getters', () {
+      final model = EventService();
+      expect(model.eventStream, isA<Stream<Event>>());
     });
   });
 }

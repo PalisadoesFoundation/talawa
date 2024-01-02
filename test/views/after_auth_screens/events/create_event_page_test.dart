@@ -27,6 +27,14 @@ class MockCallbackFunction extends Mock {
 final setDateCallback = MockCallbackFunction();
 final setTimeCallback = MockCallbackFunction();
 
+/// Creates a EventScreen for tests.
+///
+/// **params**:
+/// * `themeMode`: ThemeMode
+/// * `theme`: ThemeData of App
+///
+/// **returns**:
+/// * `Widget`: Event Screen Widget
 Widget createEventScreen({
   ThemeMode themeMode = ThemeMode.light,
   required ThemeData theme,

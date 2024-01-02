@@ -5,6 +5,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/event_filter_bottomsheet.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
@@ -29,12 +30,16 @@ class ExploreEvents extends StatelessWidget {
           appBar: AppBar(
             // AppBar returns widget for the header.
             backgroundColor: Theme.of(context).primaryColor,
-            key: const Key("ExploreEventsAppBar"),
+            key: const Key(
+              "ExploreEventsAppBar",
+            ),
             elevation: 0.0,
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: Text(
-              AppLocalizations.of(context)!.strictTranslate('Explore Events'),
+              AppLocalizations.of(context)!.strictTranslate(
+                'Explore Events',
+              ),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -42,8 +47,12 @@ class ExploreEvents extends StatelessWidget {
             ),
             leading: IconButton(
               // returns a button of menu icon to redirect to home.
-              color: Theme.of(context).iconTheme.color,
-              icon: const Icon(Icons.menu),
+              color: Theme.of(
+                context,
+              ).iconTheme.color,
+              icon: const Icon(
+                Icons.menu,
+              ),
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
@@ -64,7 +73,10 @@ class ExploreEvents extends StatelessWidget {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.search, size: 20),
+                        icon: Icon(
+                          Icons.search,
+                          size: (SizeConfig.safeBlockHorizontal ?? 4) * 5,
+                        ),
                       )
                     : const SizedBox(),
               ),
@@ -73,7 +85,9 @@ class ExploreEvents extends StatelessWidget {
           // if the model is still fetching the events list then renders the Circular Progress Indicator
           // else render refresh icon along with the list of searched events for exploration.
           body: model.isBusy
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
               : RefreshIndicator(
                   onRefresh: () async => model.refreshEvents(),
                   child: Stack(
@@ -91,25 +105,56 @@ class ExploreEvents extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    flex: 3,
-                                    child: Card(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      elevation: 2,
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 20,
-                                        ),
-                                        //width: SizeConfig.screenWidth! * 0.45,
-                                        child: DropdownButtonHideUnderline(
-                                          child: dropDownList(model, context),
+                                    flex: 2,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          builder: (_) {
+                                            return dropDownList(
+                                              model,
+                                              context,
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: (SizeConfig
+                                                        .safeBlockHorizontal ??
+                                                    4) *
+                                                3,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .strictTranslate(
+                                                  "Filters",
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: GestureDetector(
                                       onTap: () {
                                         showDialog(
@@ -128,26 +173,38 @@ class ExploreEvents extends StatelessWidget {
                                             .colorScheme
                                             .onPrimary,
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 12,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: (SizeConfig
+                                                        .safeBlockHorizontal ??
+                                                    4) *
+                                                3,
                                           ),
                                           // width: SizeConfig.screenWidth! * 0.30,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
+                                              ),
                                               const Icon(
                                                 Icons.calendar_today,
                                                 color: Color(0xff524F4F),
                                               ),
-                                              const SizedBox(
-                                                width: 8,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                               Text(
                                                 AppLocalizations.of(context)!
                                                     .strictTranslate(
-                                                  "Add Date",
+                                                  "Filter by Date",
                                                 ),
+                                              ),
+                                              SizedBox(
+                                                width: SizeConfig
+                                                    .safeBlockHorizontal,
                                               ),
                                             ],
                                           ),
@@ -185,7 +242,12 @@ class ExploreEvents extends StatelessWidget {
                                   ? SizedBox(
                                       height: SizeConfig.screenHeight! * 0.5,
                                       child: Center(
-                                        child: Text(model.emptyListMessage),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .strictTranslate(
+                                            model.emptyListMessage,
+                                          ),
+                                        ),
                                       ),
                                     )
                                   : ListView.builder(
@@ -241,43 +303,6 @@ class ExploreEvents extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
-  }
-
-  /// Shows a list of dropdown taken from  `model` and `context`.
-  ///
-  /// **params**:
-  /// * `model`: contains the events data
-  /// * `context`: the overall context of UI
-  ///
-  /// **returns**:
-  /// * `Widget`: the dropdown
-  Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
-    return DropdownButton<String>(
-      key: homeModel?.keySECategoryMenu,
-      value: model.chosenValue,
-      isExpanded: true,
-      items: <String>[
-        'All Events',
-        'Created Events',
-        'Registered Events',
-        'Public Events',
-        'Private Events',
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(
-            AppLocalizations.of(context)!.strictTranslate(value),
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Theme.of(context).colorScheme.secondary),
-          ),
-        );
-      }).toList(),
-      onChanged: (value) {
-        model.choseValueFromDropdown(value!);
       },
     );
   }

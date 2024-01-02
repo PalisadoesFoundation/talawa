@@ -335,7 +335,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Add Members", style: subtitleTextStyle),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate("Add Members"),
+                            style: subtitleTextStyle,
+                          ),
                           Icon(
                             Icons.add,
                             color: Theme.of(context).colorScheme.secondary,
