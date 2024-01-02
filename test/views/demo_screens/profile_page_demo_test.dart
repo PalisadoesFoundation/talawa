@@ -41,13 +41,12 @@ Widget createProfileScreen({required bool demoMode}) {
 void main() async {
   testSetupLocator();
 
-  setUp(() {
-    registerServices();
-    locator<SizeConfig>().test();
-    locator<GraphqlConfig>().test();
-  });
-
   group('Profile Page tests', () {
+    setUpAll(() {
+      registerServices();
+      locator<SizeConfig>().test();
+      locator<GraphqlConfig>().test();
+    });
     testWidgets('Test for donate button.', (tester) async {
       await tester.pumpWidget(createProfileScreen(demoMode: true));
 
@@ -72,6 +71,18 @@ void main() async {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key("Drawer")), findsOneWidget);
+    });
+
+    testWidgets('check if settings page is opening up', (tester) async {
+      await tester.pumpWidget(
+        createProfileScreen(
+          demoMode: true,
+        ),
+      );
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      final settingsIcon = find.byKey(const Key('settingIcon'));
+      await tester.tap(settingsIcon);
+      verify(navigationService.pushScreen('/appSettingsPage'));
     });
   });
 }
