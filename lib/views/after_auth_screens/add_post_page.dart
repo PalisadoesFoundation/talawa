@@ -118,7 +118,10 @@ class _AddPostState extends State<AddPost> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text("Enter the Tag"),
+                              title: Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate("Enter the Tag"),
+                              ),
                               content: TextField(
                                 controller: model.textHashTagController,
                               ),
@@ -132,14 +135,20 @@ class _AddPostState extends State<AddPost> {
                                     );
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text("Add"),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate("Add"),
+                                  ),
                                 ),
                                 TextButton(
                                   key: const Key("cancel_hashtag_button"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text("Cancel"),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate("Cancel"),
+                                  ),
                                 ),
                               ],
                             );

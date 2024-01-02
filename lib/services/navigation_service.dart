@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
@@ -122,7 +123,10 @@ class NavigationService {
       SnackBar(
         behavior: SnackBarBehavior.floating,
         duration: duration,
-        content: Text(message),
+        content: Text(
+          AppLocalizations.of(navigatorKey.currentContext!)!
+              .strictTranslate(message),
+        ),
       ),
     );
   }
