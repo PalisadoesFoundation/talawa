@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -48,9 +45,11 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                   _controller.text = "";
                 },
                 textAlign: TextAlign.start,
-                decoration: const InputDecoration(
-                  hintText: "Write your comment here..",
-                  contentPadding: EdgeInsets.all(8.0),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.strictTranslate(
+                    "Write your comment here..",
+                  ),
+                  contentPadding: const EdgeInsets.all(8.0),
                   focusColor: Colors.black,
                   border: InputBorder.none,
                 ),
@@ -63,7 +62,11 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 _commentViewModel.createComment(_controller.text);
                 _controller.text = "";
               },
-              child: const Text("Send"),
+              child: Text(
+                AppLocalizations.of(context)!.strictTranslate(
+                  "Send",
+                ),
+              ),
             ),
           ],
         ),
@@ -124,7 +127,12 @@ class IndividualPageLikeSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildPadding(context, "Liked by"),
+        buildPadding(
+          context,
+          AppLocalizations.of(context)!.strictTranslate(
+            "Liked by",
+          ),
+        ),
         Row(
           children: [
             // Looping through the usersLiked list,
