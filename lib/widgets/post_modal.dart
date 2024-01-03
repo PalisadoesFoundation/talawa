@@ -44,6 +44,7 @@ class PostBottomModal extends StatelessWidget {
                 ),
               ),
               TextButton(
+                key: const Key('reportPost'),
                 onPressed: () {
                   navigationService.showTalawaErrorSnackBar(
                     'Your Report has been sent to the Admin',
@@ -74,6 +75,7 @@ class PostBottomModal extends StatelessWidget {
                 ),
               ),
               TextButton(
+                key: const Key('deletePost'),
                 onPressed: () {
                   deletePost != null
                       ? deletePost!(post)
@@ -89,6 +91,7 @@ class PostBottomModal extends StatelessWidget {
                         ),
                         actions: <Widget>[
                           TextButton(
+                            key: const Key('yes'),
                             onPressed: () {
                               navigationService.showTalawaErrorSnackBar(
                                 'Post was deleted if you had the rights!',
@@ -99,6 +102,7 @@ class PostBottomModal extends StatelessWidget {
                             child: const Text("Yes"),
                           ),
                           TextButton(
+                            key: const Key('no'),
                             onPressed: () {
                               Navigator.pop(context);
                             },
