@@ -313,7 +313,7 @@ class ProfilePage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 8.0),
                       // display title
                       child: Text(
-                        'Donating to \n${model.currentOrg.name}',
+                        '${AppLocalizations.of(context)!.strictTranslate('Donating to')}\n${model.currentOrg.name}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -349,7 +349,8 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         Text(
-                          'Please Select and amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Please Select any amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
@@ -377,7 +378,8 @@ class ProfilePage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
-                          'Input custom amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Input custom amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(

@@ -85,94 +85,95 @@ void main() {
     unregisterViewModels();
     unregisterServices();
   });
-
-  testWidgets("Test if create event form shows up",
-      (WidgetTester tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
-      expect(find.byType(TextFormField), findsNWidgets(3));
-      expect(
-        find.descendant(
-          of: find.byType(Form),
-          matching: find.byType(TextFormField),
-        ),
-        findsNWidgets(3),
-      );
+  group('Testing create event form', () {
+    testWidgets("Test if create event form shows up",
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
+        expect(find.byType(TextFormField), findsNWidgets(3));
+        expect(
+          find.descendant(
+            of: find.byType(Form),
+            matching: find.byType(TextFormField),
+          ),
+          findsNWidgets(3),
+        );
+      });
     });
-  });
 
-  testWidgets("Test if create event key are working",
-      (WidgetTester tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
-      expect(find.byKey(const Key('create_event_form_tff1')), findsOneWidget);
-      expect(find.byKey(const Key('create_event_form_tff2')), findsOneWidget);
-      expect(find.byKey(const Key('create_event_form_tff3')), findsOneWidget);
+    testWidgets("Test if create event key are working",
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
+        expect(find.byKey(const Key('create_event_form_tff1')), findsOneWidget);
+        expect(find.byKey(const Key('create_event_form_tff2')), findsOneWidget);
+        expect(find.byKey(const Key('create_event_form_tff3')), findsOneWidget);
+      });
     });
-  });
 
-  testWidgets("Test if gesture detector is working",
-      (WidgetTester tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
-      final gestureDetector = find.byKey(const Key('gesture_cef_test'));
-      await tester.tap(gestureDetector);
-      await tester.pump();
-      expect(find.byKey(const Key('gesture_cef_test')), findsOneWidget);
-      await tester.pumpAndSettle(const Duration(milliseconds: 1000));
+    testWidgets("Test if gesture detector is working",
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
+        final gestureDetector = find.byKey(const Key('gesture_cef_test'));
+        await tester.tap(gestureDetector);
+        await tester.pump();
+        expect(find.byKey(const Key('gesture_cef_test')), findsOneWidget);
+        await tester.pumpAndSettle(const Duration(milliseconds: 1000));
+      });
     });
-  });
 
 //---------------------------------------------------
-  testWidgets(
-      'Test if form of 1st TextField is submitted on pressing enter on mobile keyboard.',
-      (tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
+    testWidgets(
+        'Test if form of 1st TextField is submitted on pressing enter on mobile keyboard.',
+        (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
 
-      await tester.enterText(
-        find.byKey(const Key('create_event_form_tff1')),
-        'fakeEventTitle',
-      );
-      await tester.pump();
-      await tester.testTextInput.receiveAction(TextInputAction.next);
-      await tester.pump();
+        await tester.enterText(
+          find.byKey(const Key('create_event_form_tff1')),
+          'fakeEventTitle',
+        );
+        await tester.pump();
+        await tester.testTextInput.receiveAction(TextInputAction.next);
+        await tester.pump();
+      });
     });
-  });
-  testWidgets(
-      'Test if form of 2nd TextField is submitted on pressing enter on mobile keyboard.',
-      (tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
+    testWidgets(
+        'Test if form of 2nd TextField is submitted on pressing enter on mobile keyboard.',
+        (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
 
-      await tester.enterText(
-        find.byKey(const Key('create_event_form_tff2')),
-        'fakeEventTitle',
-      );
-      await tester.pump();
-      await tester.testTextInput.receiveAction(TextInputAction.next);
-      await tester.pump();
+        await tester.enterText(
+          find.byKey(const Key('create_event_form_tff2')),
+          'fakeEventTitle',
+        );
+        await tester.pump();
+        await tester.testTextInput.receiveAction(TextInputAction.next);
+        await tester.pump();
+      });
     });
-  });
-  testWidgets(
-      'Test if form of 3rd TextField is submitted on pressing enter on mobile keyboard.',
-      (tester) async {
-    await tester.runAsync(() async {
-      await tester.pumpWidget(createCreateEventForm());
-      await tester.pump();
+    testWidgets(
+        'Test if form of 3rd TextField is submitted on pressing enter on mobile keyboard.',
+        (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createCreateEventForm());
+        await tester.pump();
 
-      await tester.enterText(
-        find.byKey(const Key('create_event_form_tff3')),
-        'fakeEventTitle',
-      );
-      await tester.pump();
-      await tester.testTextInput.receiveAction(TextInputAction.next);
-      await tester.pump();
+        await tester.enterText(
+          find.byKey(const Key('create_event_form_tff3')),
+          'fakeEventTitle',
+        );
+        await tester.pump();
+        await tester.testTextInput.receiveAction(TextInputAction.next);
+        await tester.pump();
+      });
     });
   });
 }

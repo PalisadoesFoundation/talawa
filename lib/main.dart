@@ -252,6 +252,7 @@ class _MyAppState extends State<MyApp> {
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
               title: 'Talawa',
               theme: Provider.of<AppTheme>(context).isdarkTheme

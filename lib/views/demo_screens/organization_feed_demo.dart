@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 
@@ -95,7 +96,7 @@ class DemoOrganizationFeed extends StatelessWidget {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          "Organisation Name",
+          AppLocalizations.of(context)!.strictTranslate("Organisation Name"),
           key: homeModel?.keySHOrgName,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontSize: 20,
