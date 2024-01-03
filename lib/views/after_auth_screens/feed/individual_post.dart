@@ -97,7 +97,9 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 }
               },
               child: Text(
-                "Send",
+                AppLocalizations.of(context)!.strictTranslate(
+                  "Send",
+                ),
                 style: !_isCommentValid
                     ? const TextStyle(color: Colors.grey)
                     : null,
