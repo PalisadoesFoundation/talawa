@@ -173,7 +173,7 @@ class AppSettingsPage extends StatelessWidget {
   }) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.blockSizeHorizontal! * 1.5,
+        horizontal: SizeConfig.blockSizeHorizontal!,
       ),
       leading: leading,
       title: content,
@@ -226,7 +226,7 @@ class AppSettingsPage extends StatelessWidget {
     required String title,
   }) {
     return Padding(
-      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical! * 1),
+      padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical!),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -25,7 +25,7 @@ class LanguageTile extends StatelessWidget {
         return ListTile(
           key: const Key('LanguageTile'),
           contentPadding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.blockSizeHorizontal! * 1.5,
+            horizontal: SizeConfig.blockSizeHorizontal!,
           ),
           title:
               Text(AppLocalizations.of(context)!.strictTranslate("Language")),
