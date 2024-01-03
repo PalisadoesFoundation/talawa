@@ -259,9 +259,9 @@ class SelectOrganizationViewModel extends BaseModel {
           return {
             'organizationsConnection':
                 (existingOrganizations!["organizationsConnection"]
-                        as List<Map<String, dynamic>>) +
+                        as List<Object?>) +
                     (newOrganizations!['organizationsConnection']
-                        as List<Map<String, dynamic>>),
+                        as List<dynamic>),
           };
         },
       ),

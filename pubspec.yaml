@@ -20,13 +20,13 @@ dependencies:
   ################################
 
   auto_size_text: ^3.0.0
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.3.1
   connectivity_plus: ^5.0.2
   contained_tab_bar_view: ^0.8.0
 
   crypto: ^3.0.3
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.19
+  currency_picker: ^2.0.20
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
@@ -37,7 +37,7 @@ dependencies:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^16.2.0
+  flutter_local_notifications: ^16.3.0
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
@@ -69,8 +69,8 @@ dependencies:
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^23.2.7
-  syncfusion_flutter_datepicker: any
+  syncfusion_flutter_calendar: ^24.1.43
+  syncfusion_flutter_datepicker: 24.1.43
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
@@ -86,7 +86,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
 
   json_serializable: ^6.7.1
-  lint: ^2.2.0
+  lint: ^2.3.0
 
   mocktail_image_network: ^1.0.0
   talawa_lint:

@@ -25,6 +25,7 @@ import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -53,6 +54,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+import '../service_tests/image_service_test.dart';
 import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
 
@@ -234,14 +236,17 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   });
 
   when(service.authClient()).thenAnswer((realInvocation) {
-    final AuthLink authLink =
-        AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
-    final Link finalAuthLink = authLink.concat(service.httpLink);
-    return GraphQLClient(
-      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: finalAuthLink,
-    );
+    // final AuthLink authLink =
+    //     AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
+    // final Link finalAuthLink = authLink.concat(service.httpLink);
+    // return GraphQLClient(
+    //   cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+    //   link: finalAuthLink,
+    // );
+    return locator<GraphQLClient>();
   });
+
+  when(service.getToken()).thenAnswer((_) async => "sample_token");
 
   locator.registerSingleton<GraphqlConfig>(service);
   return service;
@@ -424,6 +429,13 @@ ImageCropper getAndRegisterImageCropper() {
   _removeRegistrationIfExists<ImageCropper>();
   final service = MockImageCropper();
   locator.registerLazySingleton<ImageCropper>(() => service);
+  return service;
+}
+
+ImageService getAndRegisterImageService() {
+  _removeRegistrationIfExists<ImageService>();
+  final service = MockImageService();
+  locator.registerLazySingleton<ImageService>(() => service);
   return service;
 }
 

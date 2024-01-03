@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -14,7 +15,6 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 
 import '../../helpers/test_helpers.dart';
-import '../../helpers/test_locator.dart';
 
 final homeModel = locator<MainScreenViewModel>();
 bool removeImageCalled = false;
@@ -31,6 +31,9 @@ class MockAddPostViewModel extends Mock implements AddPostViewModel {
 
   @override
   String get userName => 'UserName';
+
+  @override
+  String? get userPic => userConfig.currentUser.image;
 
   @override
   String get orgName => 'orgName';
@@ -72,6 +75,7 @@ Widget createAddPostScreen({
       const AppLocalizationsDelegate(isTest: true),
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
     ],
     home: Scaffold(
       /// MainScreenViewModel.scaffoldKey.currentState will return null
@@ -86,11 +90,13 @@ Widget createAddPostScreen({
 
 void main() {
   // SizeConfig().test();
-  testSetupLocator();
+  setupLocator();
   // locator.registerSingleton(LikeButtonViewModel());
+  sizeConfig.test();
 
   setUp(() {
     registerServices();
+    getAndRegisterImageService();
   });
 
   group('createAddPostScreen Test', () {
@@ -273,7 +279,7 @@ void main() {
         });
 
         await tester.tap(finder);
-        await tester.pump();
+        await tester.pumpAndSettle();
 
         await tester.tap(cancelBtn);
         await tester.pump();

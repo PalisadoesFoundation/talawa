@@ -140,13 +140,12 @@ void main() {
         await tester.pumpWidget(createExploreEventsScreen(homeModel));
         await tester.pumpAndSettle();
 
-        await tester.tap(find.byType(DropdownButtonHideUnderline));
+        await tester.tap(find.bySemanticsLabel('Filters'));
         await tester.pumpAndSettle();
-
-        await tester.tap(find.bySemanticsLabel('Created Events'));
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('Public Events')));
         await tester.pumpAndSettle();
-
-        expect(model.chosenValue, 'Created Events');
+        expect(model.chosenValue, 'Public Events');
       });
     });
     testWidgets("Testing if tapping on calendar works", (tester) async {
@@ -156,7 +155,7 @@ void main() {
         await tester.pumpWidget(createExploreEventsScreen(homeModel));
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text('Add Date'));
+        await tester.tap(find.text('Filter by Date'));
         await tester.pump();
 
         expect(find.byType(ExploreEventDialog), findsOneWidget);

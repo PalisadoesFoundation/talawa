@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+/// Reaction Button with multiple Emojis.
 class MultiReactButton extends StatefulWidget {
   const MultiReactButton({super.key, required this.toggle});
+
+  /// Toggle Function for react Button.
   final VoidCallback toggle;
 
   @override

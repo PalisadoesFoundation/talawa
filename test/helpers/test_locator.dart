@@ -9,6 +9,7 @@ import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -16,6 +17,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
@@ -55,8 +57,9 @@ final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
-final imageCropper = locator<ImageCropper>();
+final imageService = locator<ImageService>();
 final imagePicker = locator<ImagePicker>();
+final imageCropper = locator<ImageCropper>();
 
 void testSetupLocator() {
   //services
@@ -74,8 +77,9 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
-  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
+  locator.registerLazySingleton(() => ImageCropper());
   locator.registerSingleton(() => OrganizationService());
 
   //graphql
@@ -95,6 +99,7 @@ void testSetupLocator() {
   locator.registerFactory(() => LoginViewModel());
 
   locator.registerFactory(() => SelectOrganizationViewModel());
+  locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => ExploreEventsViewModel());

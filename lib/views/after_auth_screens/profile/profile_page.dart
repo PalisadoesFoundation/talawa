@@ -51,21 +51,22 @@ class ProfilePage extends StatelessWidget {
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     // fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenHeight! * 0.03,
                     fontFamily: 'open-sans',
                     color: Colors.white,
                   ),
             ),
             actions: [
               IconButton(
+                key: const Key('settingIcon'),
                 onPressed: () {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: 200,
+                        key: const Key('sheetContainer'),
+                        height: SizeConfig.screenHeight! * 0.17,
                         decoration: const BoxDecoration(
-                          color: Colors.white,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.zero,
                             bottomRight: Radius.zero,
@@ -83,22 +84,26 @@ class ProfilePage extends StatelessWidget {
                                   navigationService
                                       .pushScreen("/editProfilePage");
                                 },
-                                child: const Text(
-                                  "Edit Profile",
-                                  style: TextStyle(
-                                    color: Colors.black38,
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Edit Profile"),
+                                  style: const TextStyle(
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
+                              ),
+                              Divider(
+                                endIndent: SizeConfig.screenHeight! * 0.03,
+                                indent: SizeConfig.screenHeight! * 0.03,
                               ),
                               TextButton(
                                 onPressed: () {
                                   model.logout(context);
                                 },
-                                child: const Text(
-                                  "Log Out",
-                                  style: TextStyle(
-                                    color: Colors.black38,
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Log Out"),
+                                  style: const TextStyle(
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
@@ -118,191 +123,198 @@ class ProfilePage extends StatelessWidget {
           // else renders the widget.
           body: model.isBusy
               ? const CircularProgressIndicator()
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomAvatar(
-                                isImageNull: model.currentUser.image == null,
-                                firstAlphabet: model.currentUser.firstName!
-                                    .substring(0, 1),
-                                imageUrl: model.currentUser.image,
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .fontSize,
-                                maxRadius: 30,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontFamily: 'open-sans',
+              : RefreshIndicator(
+                  onRefresh: () async => model.initialize(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.01,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomAvatar(
+                                  key: const Key('profilepic'),
+                                  isImageNull: model.currentUser.image == null,
+                                  firstAlphabet: model.currentUser.firstName!
+                                      .substring(0, 1),
+                                  imageUrl: model.currentUser.image,
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .fontSize,
+                                  maxRadius: SizeConfig.screenHeight! * 0.02,
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.share,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                              onPressed: () => model.invite(context),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TalawaPluginProvider(
-                        pluginName: "Donation",
-                        visible: true,
-                        child: Column(
-                          children: [
-                            RaisedRoundedButton(
-                              key: homeModel!.keySPDonateUs,
-                              buttonLabel:
-                                  AppLocalizations.of(context)!.strictTranslate(
-                                'Donate to the Community',
-                              ),
-                              onTap: () => donate(context, model),
-                              textColor: Theme.of(context)
-                                  .inputDecorationTheme
-                                  .focusedBorder!
-                                  .borderSide
-                                  .color,
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .secondaryContainer,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 600,
-                        width: double.infinity,
-                        child: ContainedTabBarView(
-                          tabs: [
-                            const Tab(text: 'Posts'),
-                            const Tab(text: 'Events'),
-                            const Tab(text: 'Tasks'),
-                          ],
-                          views: [
-                            ColoredBox(
-                              color: Theme.of(context).colorScheme.background,
-                              child: GridView.count(
-                                mainAxisSpacing: 5,
-                                crossAxisCount: 3,
-                                children: [
-                                  Image.asset('assets/images/pfp2.png'),
-                                  Image.asset('assets/images/pfp2.png'),
-                                  Image.asset('assets/images/pfp2.png'),
-                                  Image.asset('assets/images/pfp2.png'),
-                                  Image.asset('assets/images/pfp2.png'),
-                                ],
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: SizeConfig.screenHeight! * 0.025,
+                                    fontFamily: 'open-sans',
+                                  ),
+                                ),
                               ),
                             ),
-                            Container(
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                            ColoredBox(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              child: GestureDetector(
-                                onTap: () {
-                                  navigationService
-                                      .pushScreen(Routes.userTasks);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.67,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.01,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
-                            ),
-
-                            /// `Donation` acts as plugin. If visible is true the it will be always visible.
-                            /// even if it's uninstalled by the admin (for development purposes)
-                            //TODO: custom tile for Invitation.
-                            CustomListTile(
-                              key: homeModel!.keySPInvite,
-                              index: 3,
-                              type: TileType.option,
-                              option: Options(
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                key: const Key('inviteicon'),
                                 icon: Icon(
                                   Icons.share,
                                   color:
                                       Theme.of(context).colorScheme.secondary,
-                                  size: 30,
                                 ),
-                                // title
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite'),
-                                // subtitle
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate('Invite to org'),
+                                onPressed: () => model.invite(context),
                               ),
-                              // on tap call the invite function
-                              onTapOption: () => model.invite(context),
                             ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
-                            ),
-                            // Custom tile for Logout option.
-                            //TODO: logout
-                            // CustomListTile(
-                            //   key: homeModel!.keySPLogout,
-                            //   index: 3,
-                            //   type: TileType.option,
-                            //   option: Options(
-                            //     icon: Icon(
-                            //       Icons.logout,
-                            //       color:
-                            //           Theme.of(context).colorScheme.secondary,
-                            //       size: 30,
-                            //     ),
-                            //     title: AppLocalizations.of(context)!
-                            //         .strictTranslate('Log out'),
-                            //     subtitle: AppLocalizations.of(context)!
-                            //         .strictTranslate('Log out from Talawa'),
-                            //   ),
-                            //   // on tap calls the logout function
-                            //   onTapOption: () => model.logout(context),
-                            // ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
-                            ),
-                            FromPalisadoes(key: homeModel!.keySPPalisadoes),
                           ],
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.02,
+                        ),
+                        TalawaPluginProvider(
+                          pluginName: "Donation",
+                          visible: true,
+                          child: Column(
+                            children: [
+                              RaisedRoundedButton(
+                                key: homeModel!.keySPDonateUs,
+                                buttonLabel: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Donate to the Community',
+                                ),
+                                onTap: () => donate(context, model),
+                                textColor: Theme.of(context)
+                                    .inputDecorationTheme
+                                    .focusedBorder!
+                                    .borderSide
+                                    .color,
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.6,
+                          width: double.infinity,
+                          child: ContainedTabBarView(
+                            tabs: [
+                              const Tab(text: 'Posts'),
+                              const Tab(text: 'Events'),
+                              const Tab(text: 'Tasks'),
+                            ],
+                            views: [
+                              ColoredBox(
+                                color: Theme.of(context).colorScheme.background,
+                                child: GridView.count(
+                                  mainAxisSpacing: 5,
+                                  crossAxisCount: 3,
+                                  children: [
+                                    Image.asset('assets/images/pfp2.png'),
+                                    Image.asset('assets/images/pfp2.png'),
+                                    Image.asset('assets/images/pfp2.png'),
+                                    Image.asset('assets/images/pfp2.png'),
+                                    Image.asset('assets/images/pfp2.png'),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                              ColoredBox(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                child: GestureDetector(
+                                  key: const Key('tastscrn'),
+                                  onTap: () {
+                                    navigationService
+                                        .pushScreen(Routes.userTasks);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.67,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.01,
+                              ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.05,
+                              ),
+
+                              /// `Donation` acts as plugin. If visible is true the it will be always visible.
+                              /// even if it's uninstalled by the admin (for development purposes)
+                              //TODO: custom tile for Invitation.
+                              CustomListTile(
+                                key: homeModel!.keySPInvite,
+                                index: 3,
+                                type: TileType.option,
+                                option: Options(
+                                  icon: Icon(
+                                    Icons.share,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    size: SizeConfig.screenHeight! * 0.025,
+                                  ),
+                                  // title
+                                  title: AppLocalizations.of(context)!
+                                      .strictTranslate('Invite'),
+                                  // subtitle
+                                  subtitle: AppLocalizations.of(context)!
+                                      .strictTranslate('Invite to org'),
+                                ),
+                                // on tap call the invite function
+                                onTapOption: () => model.invite(context),
+                              ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.05,
+                              ),
+                              // Custom tile for Logout option.
+                              //TODO: logout
+                              // CustomListTile(
+                              //   key: homeModel!.keySPLogout,
+                              //   index: 3,
+                              //   type: TileType.option,
+                              //   option: Options(
+                              //     icon: Icon(
+                              //       Icons.logout,
+                              //       color:
+                              //           Theme.of(context).colorScheme.secondary,
+                              //       size: 30,
+                              //     ),
+                              //     title: AppLocalizations.of(context)!
+                              //         .strictTranslate('Log out'),
+                              //     subtitle: AppLocalizations.of(context)!
+                              //         .strictTranslate('Log out from Talawa'),
+                              //   ),
+                              //   // on tap calls the logout function
+                              //   onTapOption: () => model.logout(context),
+                              // ),
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.05,
+                              ),
+                              FromPalisadoes(key: homeModel!.keySPPalisadoes),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
         );
@@ -354,7 +366,7 @@ class ProfilePage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 8.0),
                       // display title
                       child: Text(
-                        'Donating to \n${model.currentOrg.name}',
+                        '${AppLocalizations.of(context)!.strictTranslate('Donating to')}\n${model.currentOrg.name}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -390,7 +402,8 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         Text(
-                          'Please Select and amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Please Select any amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
@@ -418,7 +431,8 @@ class ProfilePage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
-                          'Input custom amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Input custom amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(

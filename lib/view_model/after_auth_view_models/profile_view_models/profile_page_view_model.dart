@@ -289,7 +289,7 @@ class ProfilePageViewModel extends BaseModel {
     void Function(void Function()) setter,
   ) {
     return InkWell(
-      key: const Key('dombtn1'),
+      key: Key('domBtn_$amount'),
       onTap: () {
         setter(() {
           donationAmount.text = amount;

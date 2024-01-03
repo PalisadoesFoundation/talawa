@@ -91,7 +91,9 @@ class CustomAlertDialog extends StatelessWidget {
             .headlineSmall!
             .copyWith(fontWeight: FontWeight.w800),
       ),
-      content: Text(dialogSubTitle),
+      content: Text(
+        AppLocalizations.of(context)!.strictTranslate(dialogSubTitle),
+      ),
       buttonPadding: EdgeInsets.symmetric(
         horizontal: SizeConfig.screenWidth! * 0.05,
         vertical: SizeConfig.screenHeight! * 0.05,

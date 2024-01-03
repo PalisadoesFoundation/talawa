@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
@@ -144,7 +141,8 @@ class TitleField extends StatelessWidget {
       maxLength: 100,
       validator: (value) => Validator.validateEventForm(value!, 'Title'),
       decoration: InputDecoration(
-        labelText: 'Add Task Title',
+        labelText:
+            AppLocalizations.of(context)!.strictTranslate('Add Task Title'),
         isDense: true,
         labelStyle: Theme.of(context).textTheme.titleMedium,
         focusedBorder: InputBorder.none,
@@ -182,8 +180,10 @@ class DescriptionField extends StatelessWidget {
       maxLines: 10,
       minLines: 1,
       decoration: InputDecoration(
-        hintText: 'Describe the task',
-        labelText: 'Add Description',
+        hintText:
+            AppLocalizations.of(context)!.strictTranslate('Describe the task'),
+        labelText:
+            AppLocalizations.of(context)!.strictTranslate('Add Description'),
         labelStyle: Theme.of(context).textTheme.titleMedium,
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
