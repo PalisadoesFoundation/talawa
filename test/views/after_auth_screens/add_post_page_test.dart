@@ -75,6 +75,7 @@ Widget createAddPostScreen({
       const AppLocalizationsDelegate(isTest: true),
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
     ],
     home: Scaffold(
       /// MainScreenViewModel.scaffoldKey.currentState will return null

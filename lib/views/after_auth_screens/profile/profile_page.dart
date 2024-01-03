@@ -84,9 +84,10 @@ class ProfilePage extends StatelessWidget {
                                   navigationService
                                       .pushScreen("/editProfilePage");
                                 },
-                                child: const Text(
-                                  "Edit Profile",
-                                  style: TextStyle(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Edit Profile"),
+                                  style: const TextStyle(
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
@@ -99,9 +100,10 @@ class ProfilePage extends StatelessWidget {
                                 onPressed: () {
                                   model.logout(context);
                                 },
-                                child: const Text(
-                                  "Log Out",
-                                  style: TextStyle(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Log Out"),
+                                  style: const TextStyle(
                                     fontFamily: 'open-sans',
                                   ),
                                 ),
@@ -364,7 +366,7 @@ class ProfilePage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 8.0),
                       // display title
                       child: Text(
-                        'Donating to \n${model.currentOrg.name}',
+                        '${AppLocalizations.of(context)!.strictTranslate('Donating to')}\n${model.currentOrg.name}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -400,7 +402,8 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         Text(
-                          'Please Select and amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Please Select any amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
@@ -428,7 +431,8 @@ class ProfilePage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
-                          'Input custom amount',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Input custom amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(

@@ -11,6 +11,9 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
+import 'package:talawa/widgets/post_list_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../helpers/test_helpers.dart';
 
@@ -44,14 +47,16 @@ void main() {
   });
 
   group('Tests for pinned post page', () {
-    // testWidgets('Check whether PinnedPostPage shows up', (tester) async {
-    //   VisibilityDetectorController.instance.updateInterval = Duration.zero;
-    //
-    //   await tester.pumpWidget(createPinnedPostPage());
-    //   await tester.pump();
-    //
-    //   expect(find.byType(PinnedPostPage), findsOneWidget);
-    //   expect(find.byType(PostListWidget), findsOneWidget);
-    // });
+    testWidgets('Check whether PinnedPostPage shows up', (tester) async {
+      VisibilityDetectorController.instance.updateInterval = Duration.zero;
+
+      await tester.pumpWidget(createPinnedPostPage());
+      await tester.pump();
+
+      expect(find.byType(PinnedPostPage), findsOneWidget);
+      expect(find.byType(PostListWidget), findsOneWidget);
+      expect(find.byType(NewsPost), findsOneWidget);
+      expect(find.textContaining('firstName1'), findsOneWidget);
+    });
   });
 }
