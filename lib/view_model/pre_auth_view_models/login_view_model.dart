@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:flutter/material.dart';
 // import 'package:hive/hive.dart';
 import 'package:talawa/constants/routing_constants.dart';
