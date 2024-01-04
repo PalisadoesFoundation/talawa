@@ -28,6 +28,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -112,6 +113,7 @@ void testSetupLocator() {
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ExploreTasksViewModel());
+  locator.registerFactory(() => AppSettingViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());

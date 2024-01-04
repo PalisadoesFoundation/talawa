@@ -1,11 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/language/language_model.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -26,7 +24,9 @@ class LanguageTile extends StatelessWidget {
         );
         return ListTile(
           key: const Key('LanguageTile'),
-          contentPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.blockSizeHorizontal!,
+          ),
           title:
               Text(AppLocalizations.of(context)!.strictTranslate("Language")),
           trailing: TextButton(
