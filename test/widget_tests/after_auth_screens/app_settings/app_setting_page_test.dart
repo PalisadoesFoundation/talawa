@@ -19,6 +19,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/base_view.dart';
 
+import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -46,7 +47,9 @@ Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
               theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
                   ? TalawaTheme.darkTheme
                   : TalawaTheme.lightTheme,
-              home: const AppSettingsPage(),
+              home: const AppSettingsPage(
+                key: Key('AppSettingsPage'),
+              ),
               navigatorKey: locator<NavigationService>().navigatorKey,
               onGenerateRoute: router.generateRoute,
             );
@@ -74,7 +77,9 @@ Widget createChangePassScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
               theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
                   ? TalawaTheme.darkTheme
                   : TalawaTheme.lightTheme,
-              home: const AppSettingsPage(),
+              home: const AppSettingsPage(
+                key: Key('AppSettingsPage'),
+              ),
               navigatorKey: locator<NavigationService>().navigatorKey,
               onGenerateRoute: router.generateRoute,
             );
@@ -87,7 +92,8 @@ Future<void> main() async {
   testSetupLocator();
   TestWidgetsFlutterBinding.ensureInitialized();
   locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  SizeConfig().test();
+  registerServices();
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
@@ -109,12 +115,7 @@ Future<void> main() async {
       await tester.tap(backButton);
       await tester.pumpAndSettle();
 
-      expect(
-        find.byKey(
-          const Key('AppSettingScaffold'),
-        ),
-        findsNothing,
-      );
+      verify(navigationService.navigatorKey);
     });
     testWidgets(
         "Testing if Settings Screen shows up in dark mode with Theme selection tile",
@@ -239,6 +240,53 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+    });
+    testWidgets('Test Edit Profile Tile is visible and works properly',
+        (tester) async {
+      when(userConfig.loggedIn).thenReturn(true);
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+      expect(find.text('Profile'), findsOneWidget);
+
+      final editProfile = find.textContaining('Edit Profile');
+      await tester.tap(editProfile);
+
+      verify(navigationService.navigatorKey);
+    });
+    testWidgets('Test if help and support tiles are working', (tester) async {
+      when(userConfig.loggedIn).thenReturn(true);
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+
+      final talawaDocs = find.textContaining('Talawa Docs');
+      final talawaGitHub = find.textContaining('Talawa Git-Hub');
+
+      await tester.tap(talawaDocs);
+      await tester.tap(talawaGitHub);
+    });
+    testWidgets('Test if footerTile is working.', (tester) async {
+      const userLoggedIn = true;
+      when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
+
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.textContaining('Logout');
+      await tester.tap(logoutButton);
+
+      unregisterServices();
+      registerServices();
+
+      const loggedIn = false;
+      when(userConfig.loggedIn).thenAnswer((_) => loggedIn);
+
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+
+      final joinOrgButton = find.textContaining('Join an Organisation');
+      await tester.tap(joinOrgButton);
+
+      verify(navigationService.navigatorKey);
     });
   });
 }

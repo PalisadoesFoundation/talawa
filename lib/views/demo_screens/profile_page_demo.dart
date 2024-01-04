@@ -1,5 +1,6 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -47,7 +48,14 @@ class DemoProfilePage extends StatelessWidget {
               ),
         ),
         actions: [
-          Container(),
+          IconButton(
+            key: const Key('settingIcon'),
+            onPressed: () {
+              print('came');
+              navigationService.pushScreen(Routes.appSettings);
+            },
+            icon: const Icon(Icons.settings),
+          ),
         ],
       ),
       // if data fetching is under process then renders Circular Progress Icon

@@ -74,6 +74,7 @@ dependencies:
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
+  url_launcher: ^6.2.2
   vibration: ^1.8.4
   video_player: ^2.8.1
   visibility_detector: ^0.4.0+2
@@ -91,6 +92,8 @@ dev_dependencies:
   mocktail_image_network: ^1.0.0
   talawa_lint:
     path: talawa_lint/
+
+  url_launcher_platform_interface: any
 
 flutter:
   uses-material-design: true

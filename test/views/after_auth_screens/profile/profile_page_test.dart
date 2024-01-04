@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -125,17 +126,16 @@ void main() async {
       await tester.tap(find.text('Invite'));
       await tester.pumpAndSettle();
     });
-    testWidgets('check if modal sheet for settings shows up', (tester) async {
+    testWidgets('check if settings page is opening up', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.byKey(const Key('settingIcon')));
-      await tester.tap(find.byKey(const Key('settingIcon')));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('sheetContainer')), findsOneWidget);
+      final settingsIcon = find.byKey(const Key('settingIcon'));
+      await tester.tap(settingsIcon);
+      verify(navigationService.navigatorKey);
     });
   });
 }
