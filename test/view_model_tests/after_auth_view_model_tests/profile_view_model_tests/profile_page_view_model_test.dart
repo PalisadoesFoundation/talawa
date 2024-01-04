@@ -7,12 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -103,72 +100,6 @@ void main() async {
 
       model.popBottomSheet();
       verify(navigationService.pop());
-    });
-
-    testWidgets("Test logout dialog when logout successful.", (tester) async {
-      const userLoggedin = false;
-      when(userConfig.loggedIn).thenAnswer((_) => userLoggedin);
-      final model = ProfilePageViewModel();
-
-      final widget = BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            home: Scaffold(
-              body: model.logoutDialog(),
-            ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        },
-      );
-
-      await tester.pumpWidget(widget);
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.textContaining('Logout'));
-      await tester.pumpAndSettle();
-
-      verify(navigationService.navigatorKey);
-    });
-
-    testWidgets("Test logout dialog when logout unsuccessful.", (tester) async {
-      final model = ProfilePageViewModel();
-      const userLoggedIn = true;
-      when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
-
-      final widget = BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            home: Scaffold(
-              body: model.logoutDialog(),
-            ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        },
-      );
-
-      await tester.pumpWidget(widget);
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.textContaining('Logout'));
-      await tester.pumpAndSettle();
-
-      verify(navigationService.navigatorKey);
     });
 
     test("Test updateSheetHeight function", () {

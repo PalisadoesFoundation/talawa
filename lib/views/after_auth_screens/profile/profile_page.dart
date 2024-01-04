@@ -12,10 +12,12 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
@@ -97,8 +99,38 @@ class ProfilePage extends StatelessWidget {
                                 indent: SizeConfig.screenHeight! * 0.03,
                               ),
                               TextButton(
+                                key: const Key('LogOutoption'),
                                 onPressed: () {
-                                  model.logout(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return CustomAlertDialog(
+                                        reverse: true,
+                                        dialogSubTitle:
+                                            'Are you sure you want to logout?',
+                                        successText: 'Logout',
+                                        success: () async {
+                                          await model.logout(context);
+                                          navigationService.pop();
+                                          if (userConfig.loggedIn) {
+                                            navigationService.pushDialog(
+                                              const TalawaErrorDialog(
+                                                'Unable to logout, please try again.',
+                                                key: Key('TalawaError'),
+                                                messageType: MessageType.error,
+                                              ),
+                                            );
+                                          } else {
+                                            navigationService.removeAllAndPush(
+                                              '/selectLang',
+                                              '/',
+                                              arguments: '0',
+                                            );
+                                          }
+                                        },
+                                      );
+                                    },
+                                  );
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)!
