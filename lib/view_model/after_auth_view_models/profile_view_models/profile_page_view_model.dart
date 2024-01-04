@@ -15,8 +15,6 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 /// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
@@ -76,18 +74,6 @@ class ProfilePageViewModel extends BaseModel {
     currentOrg = _userConfig.currentOrg;
     currentUser = _userConfig.currentUser;
     setState(ViewState.idle);
-  }
-
-  /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
-  ///
-  /// **params**:
-  /// * `context`: BuildContext of the widget
-  ///
-  /// **returns**:
-  /// * `Future<void>`: Resolves when user logout
-  Future<void> logout(BuildContext context) async {
-    // push custom alert dialog with the confirmation message.
-    navigationService.pushDialog(logoutDialog());
   }
 
   /// This method changes the currency of the user for donation purpose.
@@ -181,33 +167,6 @@ class ProfilePageViewModel extends BaseModel {
             ),
           ),
         );
-      },
-    );
-  }
-
-  Widget logoutDialog() {
-    return CustomAlertDialog(
-      reverse: true,
-      dialogSubTitle: 'Are you sure you want to logout?',
-      successText: 'Logout',
-      success: () async {
-        await userConfig.userLogOut();
-        navigationService.pop();
-        if (userConfig.loggedIn) {
-          navigationService.pushDialog(
-            const TalawaErrorDialog(
-              'Unable to logout, please try again.',
-              key: Key('TalawaError'),
-              messageType: MessageType.error,
-            ),
-          );
-        } else {
-          navigationService.removeAllAndPush(
-            '/selectLang',
-            '/',
-            arguments: '0',
-          );
-        }
       },
     );
   }

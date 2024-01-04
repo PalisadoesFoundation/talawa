@@ -57,5 +57,10 @@
         <true/>
         <key>NSCameraUsageDescription</key>
         <string>This app needs camera access to scan QR codes</string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+		<string>sms</string>
+		<string>tel</string>
+		</array>
 	</dict>
 </plist>
