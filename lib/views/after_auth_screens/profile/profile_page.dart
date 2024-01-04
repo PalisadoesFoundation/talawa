@@ -12,12 +12,10 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
-import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {

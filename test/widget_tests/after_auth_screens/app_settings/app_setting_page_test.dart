@@ -14,6 +14,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
@@ -287,6 +288,19 @@ Future<void> main() async {
       await tester.tap(joinOrgButton);
 
       verify(navigationService.navigatorKey);
+    });
+    testWidgets('Test if Logout is unsuccessful.', (tester) async {
+      final model = AppSettingViewModel();
+      when(model.logout()).thenThrow(Exception('Test error'));
+
+      const userLoggedIn = true;
+      when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
+
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.textContaining('Logout');
+      await tester.tap(logoutButton);
     });
   });
 }

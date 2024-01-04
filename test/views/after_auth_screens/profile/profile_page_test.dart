@@ -137,47 +137,5 @@ void main() async {
       await tester.tap(settingsIcon);
       verify(navigationService.navigatorKey);
     });
-    testWidgets('testing when logout is successful', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.ensureVisible(find.byIcon(Icons.settings));
-      await tester.tap(find.byIcon(Icons.settings));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('LogOutoption')));
-      await tester.pumpAndSettle();
-      expect(
-        find.textContaining('Are you sure you want to logout?'),
-        findsOneWidget,
-      );
-      await tester.tap(find.text('Logout'));
-      await tester.pumpAndSettle();
-      verify(navigationService.navigatorKey);
-    });
-    testWidgets('testing when logout is unsuccessful', (tester) async {
-      const userLoggedin = true;
-      when(userConfig.loggedIn).thenAnswer((_) => userLoggedin);
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.ensureVisible(find.byIcon(Icons.settings));
-      await tester.tap(find.byIcon(Icons.settings));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('LogOutoption')));
-      await tester.pumpAndSettle();
-      expect(
-        find.textContaining('Are you sure you want to logout?'),
-        findsOneWidget,
-      );
-      await tester.tap(find.text('Logout'));
-      await tester.pumpAndSettle();
-      verify(navigationService.navigatorKey);
-    });
   });
 }
