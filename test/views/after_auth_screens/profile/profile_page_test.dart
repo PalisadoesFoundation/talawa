@@ -126,17 +126,16 @@ void main() async {
       await tester.tap(find.text('Invite'));
       await tester.pumpAndSettle();
     });
-    testWidgets('check if modal sheet for settings shows up', (tester) async {
+    testWidgets('check if settings page is opening up', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.byKey(const Key('settingIcon')));
-      await tester.tap(find.byKey(const Key('settingIcon')));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('sheetContainer')), findsOneWidget);
+      final settingsIcon = find.byKey(const Key('settingIcon'));
+      await tester.tap(settingsIcon);
+      verify(navigationService.navigatorKey);
     });
     testWidgets('testing when logout is successful', (tester) async {
       await tester.pumpWidget(

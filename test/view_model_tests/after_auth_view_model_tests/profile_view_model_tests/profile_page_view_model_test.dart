@@ -52,12 +52,6 @@ void main() async {
       expect(model.currentOrg, userConfig.currentOrg);
       expect(model.currentUser, userConfig.currentUser);
     });
-
-    test('test logout function', () async {
-      final model = ProfilePageViewModel();
-      final context = MockBuildContext();
-      await model.logout(context);
-    });
     testWidgets('changeCurrency test', (WidgetTester tester) async {
       final model = ProfilePageViewModel();
       model.initialize();

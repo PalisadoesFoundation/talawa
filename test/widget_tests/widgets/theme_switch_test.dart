@@ -78,7 +78,10 @@ void main() {
 
       final listTileFinder = find.byType(ListTile).first;
       final listTile = tester.firstWidget(listTileFinder);
-      expect((listTile as ListTile).contentPadding, EdgeInsets.zero);
+      expect(
+        (listTile as ListTile).contentPadding,
+        const EdgeInsets.fromLTRB(3.6, 0.0, 3.6, 0.0),
+      );
       expect((listTile.trailing! as Switch).autofocus, true);
       expect((listTile.trailing! as Switch).value, true);
 

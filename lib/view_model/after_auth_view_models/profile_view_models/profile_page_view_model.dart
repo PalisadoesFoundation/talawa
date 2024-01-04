@@ -76,17 +76,6 @@ class ProfilePageViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
-  ///
-  /// **params**:
-  /// * `context`: BuildContext of the widget
-  ///
-  /// **returns**:
-  /// * `Future<void>`: Resolves when user logout
-  Future<void> logout(BuildContext context) async {
-    await userConfig.userLogOut();
-  }
-
   /// This method changes the currency of the user for donation purpose.
   ///
   /// **params**:
