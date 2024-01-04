@@ -265,6 +265,7 @@ class AppSettingsPage extends StatelessWidget {
       children: [
         customDivider(context: context),
         TextButton(
+          key: const Key('Logout'),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -298,7 +299,7 @@ class AppSettingsPage extends StatelessWidget {
                       return CustomAlertDialog(
                         reverse: true,
                         dialogSubTitle: 'Are you sure you want to logout?',
-                        successText: 'Logout',
+                        successText: 'LogOut',
                         success: () async {
                           try {
                             await model.logout();

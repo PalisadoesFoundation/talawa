@@ -272,7 +272,10 @@ Future<void> main() async {
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
 
-      final logoutButton = find.textContaining('Logout');
+      await tester.tap(find.byKey(const Key('Logout')));
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.textContaining('LogOut');
       await tester.tap(logoutButton);
 
       unregisterServices();
@@ -299,7 +302,10 @@ Future<void> main() async {
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
 
-      final logoutButton = find.textContaining('Logout');
+      await tester.tap(find.byKey(const Key('Logout')));
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.textContaining('LogOut');
       await tester.tap(logoutButton);
     });
   });
