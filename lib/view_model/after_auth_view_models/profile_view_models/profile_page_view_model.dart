@@ -17,7 +17,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
-
 /// ProfilePageViewModel class helps to interact with model to serve data and react to user's input in Profile Page view.
 ///
 /// Methods include:
@@ -77,6 +76,7 @@ class ProfilePageViewModel extends BaseModel {
     currentUser = _userConfig.currentUser;
     setState(ViewState.idle);
   }
+
   /// This method changes the currency of the user for donation purpose.
   ///
   /// **params**:
