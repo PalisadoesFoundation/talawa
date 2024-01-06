@@ -34,11 +34,6 @@ class EventQueries {
             firstName
             lastName
           }
-          registrants {
-            user {
-              _id
-            }
-          }
         }
       }
     """;

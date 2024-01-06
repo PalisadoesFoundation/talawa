@@ -36,11 +36,6 @@ void main() {
             firstName
             lastName
           }
-          registrants {
-            user {
-              _id
-            }
-          }
         }
       }
     """;
