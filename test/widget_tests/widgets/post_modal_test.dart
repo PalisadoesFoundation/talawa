@@ -143,9 +143,9 @@ void main() {
 
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(find.byKey(const Key("yes")), findsOneWidget);
-      expect(find.byKey(const Key('no')), findsOneWidget);
       expect(find.text("The post was deleted"), findsOneWidget);
 
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key("yes")));
       await tester.pumpAndSettle();
 
@@ -155,6 +155,22 @@ void main() {
           MessageType.info,
         ),
       ).called(1);
+    });
+    testWidgets("Testing no button of alertDialogBox",
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createPostBottomModal());
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key("deletePost")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("deletePost")));
+      await tester.pumpAndSettle();
+
+      verify(mockDeletePost.call(post)).called(1);
+
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(find.byKey(const Key('no')), findsOneWidget);
+      await tester.tap(find.byKey(const Key("no")));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsNothing);
     });
   });
 }
