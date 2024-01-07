@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
@@ -17,10 +14,15 @@ class PinnedPostCarousel extends StatelessWidget {
     required this.navigateToIndividualPostPage,
   });
 
-  // variables
+  /// List of 'Post' objects representing pinned posts.
   final List<Post> pinnedPosts;
+
+  /// Function that navigates to a page displaying pinned posts.
   final Function() navigateToPinnedPostPage;
+
+  /// Function that navigates to an individual post page.
   final Function navigateToIndividualPostPage;
+
 
   @override
   Widget build(BuildContext context) {
