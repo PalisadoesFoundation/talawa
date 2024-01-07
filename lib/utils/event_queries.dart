@@ -1,6 +1,5 @@
 ///This class creates queries related to the events.
 class EventQueries {
-
   /// Fetches events by organization ID.
   ///
   /// **params**:
