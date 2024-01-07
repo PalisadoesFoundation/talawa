@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -14,25 +11,45 @@ import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// LoginViewModel class helps to interact with model to serve data
-/// and react to user's input in Login View.
+/// LoginViewModel class helps to interact with model to serve data and react to user's input in Login View.
 ///
 /// Methods include:
 /// * `login`
 class LoginViewModel extends BaseModel {
-  // variables
+
+  /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
+
+  /// List of maps to store greetings, where each greeting is a map with String keys and dynamic values.
   late List<Map<String, dynamic>> greeting;
+
+  /// TextEditingController for handling password input field.
   TextEditingController password = TextEditingController();
+
+  /// TextEditingController for handling email input field.
   TextEditingController email = TextEditingController();
+
+  /// FocusNode to manage focus for the password input field.
   FocusNode passwordFocus = FocusNode();
+
+  /// FocusNode to manage focus for the email input field.
   FocusNode emailFocus = FocusNode();
+
+  /// AutovalidateMode to determine when to perform automatic validation of form fields.
   AutovalidateMode validate = AutovalidateMode.disabled;
+
+  /// Boolean to toggle password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
-  // initialiser
+
+  /// Initializes the greeting message.
+  ///
+  /// **params**:
+  ///   None
+  /// 
+  /// **returns**:
+  ///   None
   void initialize() {
-    // greating message
     greeting = [
       {
         'text': "We're ",
@@ -63,7 +80,29 @@ class LoginViewModel extends BaseModel {
     ];
   }
 
-  /// This function is used to sign-in the user into application.
+  /// This function performs the login operation.
+  /// 
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: a promise that indicates the completion of the login process.
+  ///
+  /// This function handles the login process by performing the following steps:
+  /// 1. Unfocusing the email and password text fields.
+  /// 2. Setting validation mode to `AutovalidateMode.always`.
+  /// 3. Validating the email and password fields using the form key.
+  /// 4. If validation is successful, disabling auto-validation mode and initiating the login process.
+  /// 5. Displaying a custom progress dialog during login.
+  /// 6. Initializing database functions.
+  /// 7. Performing a GraphQL mutation to login the user by providing the email and encrypted password.
+  /// 8. Handling the result of the login operation:
+  ///    - Updating the current user with the received data.
+  ///    - Redirecting the user based on their status in the application.
+  ///    - Handling Firebase options for Android and iOS if available.
+  ///    - Configuring Firebase and saving FCM token to the database.
+  ///
+  /// In case of any exceptions during the login process, this function catches and prints the error.
   Future<void> login() async {
     emailFocus.unfocus();
     passwordFocus.unfocus();
