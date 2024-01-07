@@ -189,10 +189,10 @@ void main() {
 
       // Verify the presence of AlertDialog and its no button
       expect(find.byType(AlertDialog), findsOneWidget);
-      expect(find.byKey(const Key('dialog_no_btn')), findsOneWidget);
+      expect(find.byKey(const Key('alert_dialog_no_btn')), findsOneWidget);
 
       // Tap the no button in AlertDialog and verify the behavior
-      await tester.tap(find.byKey(const Key('dialog_no_btn')));
+      await tester.tap(find.byKey(const Key('alert_dialog_no_btn')));
       await tester.pumpAndSettle();
 
       // Verify that AlertDialog is dismissed
