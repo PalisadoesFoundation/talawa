@@ -1,10 +1,8 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
 /// This widget returns a tile containing the name of the member.
+/// 
 /// Along with the name, there is a circle avatar which either contains
 /// the image uploaded by the user or the first character of his/her name in
 /// uppercase.
@@ -15,9 +13,15 @@ class MemberNameTile extends StatelessWidget {
     this.userImage,
     required this.onDelete,
   });
+  /// Represents the user's name.
   final String userName;
+
+  /// Function that triggers the deletion of the user.
   final Function() onDelete;
+
+  /// Represents the URL or path to the user's image.
   final String? userImage;
+
 
   @override
   Widget build(BuildContext context) {
