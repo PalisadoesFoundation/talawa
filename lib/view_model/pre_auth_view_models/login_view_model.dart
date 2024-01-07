@@ -143,37 +143,6 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
-          
-          final loginResult = result.data?['login'] as Map<String, dynamic>;
-          androidFirebaseOptions =
-              loginResult['androidFirebaseOptions'] as Map<String, dynamic>;
-          iosFirebaseOptions =
-              loginResult['iosFirebaseOptions'] as Map<String, dynamic>;
-          // if (androidFirebaseOptions['apiKey'] != null ||
-          //     iosFirebaseOptions['apiKey'] != null) {
-          //   await setUpFirebase();
-
-          //   final token = await FirebaseMessaging.instance.getToken();
-          //   await databaseFunctions.gqlAuthMutation(
-          //     queries.saveFcmToken(token),
-          //   );
-
-          //   await setUpFirebaseMessaging();
-
-          //   final androidFirebaseOptionsBox =
-          //       await Hive.openBox('androidFirebaseOptions');
-          //   androidFirebaseOptionsBox.put(
-          //     'androidFirebaseOptions',
-          //     androidFirebaseOptions,
-          //   );
-
-          //   final iosFirebaseOptionsBox =
-          //       await Hive.openBox('iosFirebaseOptions');
-          //   iosFirebaseOptionsBox.put(
-          //     'iosFirebaseOptions',
-          //     iosFirebaseOptions,
-          //   );
-          // }
         }
       } on Exception catch (e) {
         print('here');
