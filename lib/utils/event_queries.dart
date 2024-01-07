@@ -10,6 +10,7 @@ class EventQueries {
   ///
   /// This function generates a GraphQL query string to retrieve events
   /// based on the provided organization ID.
+
   String fetchOrgEvents(String orgId) {
     return """
       query {
