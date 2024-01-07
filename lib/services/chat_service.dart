@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -50,11 +47,14 @@ class ChatService {
   //   _cha
   // }
 
-  /// This function is used to send the message in the direct chats.
+  /// Sends a message to a direct chat.
   ///
-  /// parameters required:
-  /// * [chatId] - id of the direct chat where message need to be send.
-  /// * [messageContent] - the text that need to be send.
+  /// **params**:
+  /// * `chatId`: The ID of the chat where the message will be sent.
+  /// * `messageContent`: The content of the message to be sent.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled when the message is successfully sent.
   Future<void> sendMessageToDirectChat(
     String chatId,
     String messageContent,
@@ -75,10 +75,13 @@ class ChatService {
     debugPrint(result.data.toString());
   }
 
-  /// This function is used to get all the chats by the user.
+  /// Retrieves direct chats by user ID.
+  /// 
+  /// **params**:
+  ///   None
   ///
-  /// parameters required:
-  /// * [usedId] - current user id, to get all the direct chats associated with this id.
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled when the direct chats are successfully retrieved.
   Future<void> getDirectChatsByUserId() async {
     final userId = _userConfig.currentUser.id;
 
@@ -101,10 +104,13 @@ class ChatService {
     });
   }
 
-  /// This function is used to get all the chat messages of a particular chat by the user.
+  /// This function retrieves direct chat messages by chat ID.
   ///
-  /// parameters required:
-  /// * [chatId] - id of the direct chat.
+  /// **params**:
+  /// * `chatId`: The ID of the chat for which messages are to be retrieved.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled when the chat messages are successfully retrieved.
   Future<void> getDirectChatMessagesByChatId(chatId) async {
     // trigger graphQL query to get all the chat messages of a particular chat using [chatId].
     final String query =
