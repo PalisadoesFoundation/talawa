@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -18,10 +15,13 @@ class OrganizationService {
   }
   late DataBaseMutationFunctions _dbFunctions;
 
-  /// This function fetch and returns the list of organization members.
+  /// Retrieves a list of organization members.
   ///
-  /// params:
-  /// * [orgId] : id of the organization for which members list need be fetched.
+  /// **params**:
+  /// * `orgId`: The ID of the organization to fetch members from.
+  ///
+  /// **returns**:
+  /// * `Future<List<User>>`: A promise that will be fulfilled with the list of organization members.
   Future<List<User>> getOrgMembersList(String orgId) async {
     final String query = Queries().fetchOrgDetailsById(orgId);
     // fetching from database using graphQL mutations.
