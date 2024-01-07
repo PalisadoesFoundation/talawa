@@ -147,22 +147,7 @@ class Queries {
               }
             }
             refreshToken
-            androidFirebaseOptions {
-              apiKey
-              appId
-              messagingSenderId
-              projectId
-              storageBucket
-            }
-            iosFirebaseOptions {
-              apiKey
-              appId
-              messagingSenderId
-              projectId
-              storageBucket
-              iosClientId
-              iosBundleId
-            }
+            
           }
         }
     """;
@@ -190,21 +175,6 @@ class Queries {
         _id
         }
       }
-    """;
-  }
-
-  /// To save fcm token the backend fro notification.
-  ///
-  /// **params**:
-  /// * `token`: fcm token, read firebase docs for more info
-  ///
-  /// **returns**:
-  /// * `String`: return the mutation
-  String saveFcmToken(String? token) {
-    return """
-        mutation {
-          saveFcmToken(token: "$token")
-        }
     """;
   }
 

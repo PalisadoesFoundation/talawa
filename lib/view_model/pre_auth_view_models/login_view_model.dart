@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/main.dart';
+// import 'package:talawa/main.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/encryptor.dart';
@@ -142,6 +143,7 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
+          
           final loginResult = result.data?['login'] as Map<String, dynamic>;
           androidFirebaseOptions =
               loginResult['androidFirebaseOptions'] as Map<String, dynamic>;

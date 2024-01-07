@@ -1,8 +1,6 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart';
 // import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,7 +21,6 @@ import '../../helpers/test_helpers.dart';
 // import 'package:talawa/utils/queries.dart';
 // import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
-// import '../../helpers/setup_firebase_mocks.dart';
 // import '../../helpers/test_helpers.dart';
 
 final data = {
@@ -36,22 +33,6 @@ final data = {
     },
     'accessToken': 'testtoken',
     'refreshToken': 'testtoken',
-    'androidFirebaseOptions': {
-      'apiKey': 'test',
-      'appId': 'test',
-      'messagingSenderId': 'test',
-      'projectId': 'test',
-      'storageBucket': 'test',
-    },
-    'iosFirebaseOptions': {
-      'apiKey': 'test',
-      'appId': 'test',
-      'messagingSenderId': 'test',
-      'projectId': 'test',
-      'storageBucket': 'test',
-      'iosClientId': 'test',
-      'iosBundleId': 'test',
-    },
   },
 };
 
