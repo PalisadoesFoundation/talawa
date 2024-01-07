@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
