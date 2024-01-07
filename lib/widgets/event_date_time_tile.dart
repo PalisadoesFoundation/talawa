@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
@@ -13,11 +10,19 @@ class DateTimeTile extends StatelessWidget {
     required this.setDate,
     required this.setTime,
   });
-  // variables
+  
+  /// Represents a date in string format.
   final String date;
+
+  /// Represents a time in string format.
   final String time;
+
+  /// Function that sets the date.
   final Function() setDate;
+
+  /// Function that sets the time.
   final Function() setTime;
+
 
   @override
   Widget build(BuildContext context) {
