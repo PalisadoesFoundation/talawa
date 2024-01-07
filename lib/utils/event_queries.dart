@@ -1,9 +1,15 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 ///This class creates queries related to the events.
 class EventQueries {
   //Returns a query to fetch an organization's events
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `orgId`: the organisation ID for which the events need to be fetched
+  ///
+  /// **returns**:
+  /// * `String`: returns a query to fetch the events of a particular organisation
   String fetchOrgEvents(String orgId) {
     return """
       query {
