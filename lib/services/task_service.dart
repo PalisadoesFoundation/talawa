@@ -1,7 +1,8 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/painting.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/task/task_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -85,7 +86,8 @@ class TaskService {
 
     // if res is not null.
     if (res != null) {
-      final updatedtaskJson = res.data!['updateTask'] as Map<String, dynamic>;
+      final updatedtaskJson =
+          (res as QueryResult).data!['updateTask'] as Map<String, dynamic>;
       final index = _tasks.indexWhere((task) => task.id == taskId);
       if (index == -1) return false;
       final updatedtask = Task.fromJson(updatedtaskJson);
@@ -123,7 +125,8 @@ class TaskService {
     );
 
     if (res != null) {
-      final task = res.data!['createTask'] as Map<String, dynamic>;
+      final task =
+          (res as QueryResult).data!['createTask'] as Map<String, dynamic>;
       _tasks.add(Task.fromJson(task));
       callbackNotifyListeners();
       return true;

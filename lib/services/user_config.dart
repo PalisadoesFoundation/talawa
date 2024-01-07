@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 
 import 'dart:async';
 
@@ -98,8 +98,9 @@ class UserConfig {
           queries.fetchUserInfo,
           variables: {'id': currentUser.id},
         ) as QueryResult;
+        final List users = result.data!['users'] as List;
         final User userInfo = User.fromJson(
-          result.data!['users'][0] as Map<String, dynamic>,
+          users[0] as Map<String, dynamic>,
           fromOrg: true,
         );
         userInfo.authToken = userConfig.currentUser.authToken;

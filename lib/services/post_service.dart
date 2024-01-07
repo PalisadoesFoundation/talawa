@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -68,13 +69,11 @@ class PostService {
     final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
-    // ignore:avoid_dynamic_calls
-    if (result == null || result.data == null) {
+    if (result == null || (result as QueryResult).data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
 
-    // ignore:avoid_dynamic_calls
     final List postsJson = result.data!['postsByOrganization'] as List;
 
     postsJson.forEach((postJson) {

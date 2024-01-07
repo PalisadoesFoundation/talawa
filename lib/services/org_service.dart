@@ -1,6 +1,7 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -25,8 +26,10 @@ class OrganizationService {
     final String query = Queries().fetchOrgDetailsById(orgId);
     // fetching from database using graphQL mutations.
     final result = await _dbFunctions.gqlAuthMutation(query);
+    final organizations =
+        (result as QueryResult).data?['organizations'] as List;
     final List orgMembersResult =
-        result.data['organizations'][0]['members'] as List;
+        (organizations[0] as Map<String, dynamic>)['members'] as List;
     final List<User> orgMembersList = [];
     orgMembersResult.forEach((jsonElement) {
       final User member =

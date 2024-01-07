@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 // ignore_for_file: return_of_invalid_type
@@ -45,9 +45,10 @@ void setupFirebaseMocks() {
     }
 
     if (call.method == 'Firebase#initializeApp') {
+      final callArguments = call.arguments as Map<String, dynamic>;
       return {
-        'name': call.arguments['appName'],
-        'options': call.arguments['options'],
+        'name': callArguments['appName'],
+        'options': callArguments['options'],
         'pluginConstants': {},
       };
     }

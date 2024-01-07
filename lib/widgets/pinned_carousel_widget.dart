@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class PinnedPostCarousel extends StatelessWidget {
 
   // variables
   final List<Post> pinnedPosts;
-  final Function navigateToPinnedPostPage;
+  final Function() navigateToPinnedPostPage;
   final Function navigateToIndividualPostPage;
 
   @override

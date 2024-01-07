@@ -124,7 +124,6 @@ class FocusTarget {
           builder: (context, controller) {
             return GestureDetector(
               onTap: () {
-                // ignore: avoid_dynamic_calls
                 next?.call();
 
                 appTour.tutorialCoachMark.next();
@@ -174,7 +173,7 @@ class FocusTarget {
   AppTour appTour;
 
   /// next callback that is executed on pressing this target.
-  Function? next;
+  Function()? next;
 
   /// next target's crossAxisAlignment.
   CrossAxisAlignment nextCrossAlign;

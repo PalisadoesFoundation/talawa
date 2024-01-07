@@ -1,8 +1,9 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -86,8 +87,9 @@ class LoginViewModel extends BaseModel {
         navigationService.pop();
         // if user found.
         if (result != null) {
-          final User loggedInUser =
-              User.fromJson(result.data!['login'] as Map<String, dynamic>);
+          final User loggedInUser = User.fromJson(
+            (result as QueryResult).data!['login'] as Map<String, dynamic>,
+          );
           userConfig.updateUser(loggedInUser);
           // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
@@ -105,7 +107,7 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
-          final loginResult = result.data['login'] as Map<String, dynamic>;
+          final loginResult = result.data?['login'] as Map<String, dynamic>;
           androidFirebaseOptions =
               loginResult['androidFirebaseOptions'] as Map<String, dynamic>;
           iosFirebaseOptions =

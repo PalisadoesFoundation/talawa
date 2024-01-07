@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -16,8 +16,8 @@ class DateTimeTile extends StatelessWidget {
   // variables
   final String date;
   final String time;
-  final Function setDate;
-  final Function setTime;
+  final Function() setDate;
+  final Function() setTime;
 
   @override
   Widget build(BuildContext context) {

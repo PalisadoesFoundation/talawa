@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -90,8 +90,9 @@ class SignupDetailsViewModel extends BaseModel {
         );
         navigationService.pop();
         if (result != null) {
-          final User signedInUser =
-              User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
+          final User signedInUser = User.fromJson(
+            (result as QueryResult).data!['signUp'] as Map<String, dynamic>,
+          );
           final bool userSaved = await userConfig.updateUser(signedInUser);
           final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
           // if user successfully saved and access token is also generated.
@@ -104,9 +105,10 @@ class SignupDetailsViewModel extends BaseModel {
                   queries.joinOrgById(selectedOrganization.id!),
                 ) as QueryResult;
 
-                final List<OrgInfo>? joinedOrg = (result
-                            .data!['joinPublicOrganization']
-                        ['joinedOrganizations'] as List<dynamic>?)
+                final joinPublicOrganization = result
+                    .data!['joinPublicOrganization'] as Map<String, dynamic>;
+                final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
+                        'joinedOrganizations'] as List<dynamic>?)
                     ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
                     .toList();
                 userConfig.updateUserJoinedOrg(joinedOrg!);
@@ -133,9 +135,10 @@ class SignupDetailsViewModel extends BaseModel {
                   queries.sendMembershipRequest(selectedOrganization.id!),
                 ) as QueryResult;
 
+                final sendMembershipRequest = result
+                    .data!['sendMembershipRequest'] as Map<String, dynamic>;
                 final OrgInfo membershipRequest = OrgInfo.fromJson(
-                  result.data!['sendMembershipRequest']['organization']
-                      as Map<String, dynamic>,
+                  sendMembershipRequest['organization'] as Map<String, dynamic>,
                 );
                 userConfig.updateUserMemberRequestOrg([membershipRequest]);
                 navigationService.pop();

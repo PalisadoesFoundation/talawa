@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class MemberNameTile extends StatelessWidget {
     required this.onDelete,
   });
   final String userName;
-  final Function onDelete;
+  final Function() onDelete;
   final String? userImage;
 
   @override

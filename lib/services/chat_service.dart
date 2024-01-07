@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:async';
@@ -66,7 +66,8 @@ class ChatService {
     );
 
     final message = ChatMessage.fromJson(
-      result.data['sendMessageToDirectChat'] as Map<String, dynamic>,
+      (result as QueryResult).data?['sendMessageToDirectChat']
+          as Map<String, dynamic>,
     );
 
     _chatMessageController.add(message);
@@ -86,7 +87,8 @@ class ChatService {
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
-    final directMessageList = result.data['directChatsByUserID'] as List;
+    final directMessageList =
+        (result as QueryResult).data?['directChatsByUserID'] as List;
 
     // loop through the result [directMessageList] and append the element to the directChat.
     directMessageList.forEach((chat) {
@@ -110,7 +112,8 @@ class ChatService {
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
-    final messages = result.data['directChatsMessagesByChatID'] as List;
+    final messages =
+        (result as QueryResult).data?['directChatsMessagesByChatID'] as List;
 
     messages.forEach((message) {
       final chatMessage = ChatMessage.fromJson(message as Map<String, dynamic>);
