@@ -91,7 +91,7 @@ class PostBottomModal extends StatelessWidget {
                         ),
                         actions: <Widget>[
                           TextButton(
-                            key: const Key('yes'),
+                            key: const Key('alert_dialog_yes_btn'),
                             onPressed: () {
                               navigationService.showTalawaErrorSnackBar(
                                 'Post was deleted if you had the rights!',
@@ -102,7 +102,7 @@ class PostBottomModal extends StatelessWidget {
                             child: const Text("Yes"),
                           ),
                           TextButton(
-                            key: const Key('no'),
+                            key: const Key('alert-dialog_no_btn'),
                             onPressed: () {
                               Navigator.pop(context);
                             },
