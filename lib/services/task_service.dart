@@ -49,7 +49,7 @@ class TaskService {
   }
 
   /// Retrieves tasks associated with the current user.
-  /// 
+  ///
   /// **params**:
   ///   None
   ///

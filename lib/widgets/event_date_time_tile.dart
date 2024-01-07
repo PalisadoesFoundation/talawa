@@ -10,7 +10,7 @@ class DateTimeTile extends StatelessWidget {
     required this.setDate,
     required this.setTime,
   });
-  
+
   /// Represents a date in string format.
   final String date;
 
@@ -22,7 +22,6 @@ class DateTimeTile extends StatelessWidget {
 
   /// Function that sets the time.
   final Function() setTime;
-
 
   @override
   Widget build(BuildContext context) {

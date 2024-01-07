@@ -3,8 +3,8 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-/// PinnedPostCarousel class returns a widget for pinned posts in
-/// the slider/carousel on the top of the Home Screen.
+/// PinnedPostCarousel class returns a widget for pinned posts in the slider/carousel on the top of the Home Screen.
+///
 /// Tapping on a post will redirect you to the respective post screen.
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
@@ -22,7 +22,6 @@ class PinnedPostCarousel extends StatelessWidget {
 
   /// Function that navigates to an individual post page.
   final Function navigateToIndividualPostPage;
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +77,7 @@ class PinnedPostCarousel extends StatelessWidget {
   }
 }
 
+/// Class defining custom carousel.
 @visibleForTesting
 class CustomCarouselScroller extends StatefulWidget {
   const CustomCarouselScroller({
@@ -85,19 +85,23 @@ class CustomCarouselScroller extends StatefulWidget {
     required this.pinnedPosts,
     required this.navigateToIndividualPostPage,
   });
+
+  /// List of pinnedposts.
   final List<Post> pinnedPosts;
+
+  /// function to navigate to IndividualPostPage.
   final Function navigateToIndividualPostPage;
 
   @override
   CustomCarouselScrollerState createState() => CustomCarouselScrollerState();
 }
 
-/// CustomCarouselScrollerState class return a widget that is
-/// used to generate slider for pinned post on the top of the Home Screen.
 @visibleForTesting
 class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
-  // variables
+  /// pageController.
   final PageController controller = PageController(initialPage: 0);
+
+  /// pageIndex.
   int pindex = 0;
 
   @override

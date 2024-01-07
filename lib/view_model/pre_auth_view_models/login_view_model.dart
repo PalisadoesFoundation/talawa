@@ -16,7 +16,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// Methods include:
 /// * `login`
 class LoginViewModel extends BaseModel {
-
   /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
 
@@ -41,12 +40,11 @@ class LoginViewModel extends BaseModel {
   /// Boolean to toggle password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
-
   /// Initializes the greeting message.
   ///
   /// **params**:
   ///   None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void initialize() {
@@ -81,7 +79,7 @@ class LoginViewModel extends BaseModel {
   }
 
   /// This function performs the login operation.
-  /// 
+  ///
   /// **params**:
   ///   None
   ///

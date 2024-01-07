@@ -76,7 +76,7 @@ class ChatService {
   }
 
   /// Retrieves direct chats by user ID.
-  /// 
+  ///
   /// **params**:
   ///   None
   ///

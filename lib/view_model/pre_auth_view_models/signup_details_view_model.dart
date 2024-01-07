@@ -48,7 +48,6 @@ class SignupDetailsViewModel extends BaseModel {
   /// Boolean to toggle password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
-
   /// Initializes the greeting message for a selected organization.
   ///
   /// **params**:
@@ -89,7 +88,7 @@ class SignupDetailsViewModel extends BaseModel {
   }
 
   /// Initiates the sign-up process.
-  /// 
+  ///
   /// **params**:
   ///   None
   ///
