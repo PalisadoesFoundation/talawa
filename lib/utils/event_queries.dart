@@ -1,15 +1,17 @@
 ///This class creates queries related to the events.
 class EventQueries {
-  //Returns a query to fetch an organization's events
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+
+  /// Fetches events by organization ID.
   ///
   /// **params**:
-  /// * `orgId`: the organisation ID for which the events need to be fetched
+  /// * `orgId`: The ID of the organization to fetch events for.
   ///
   /// **returns**:
-  /// * `String`: returns a query to fetch the events of a particular organisation
+  /// * `String`: Returns a GraphQL query string to fetch events associated with the specified organization ID.
+  ///
+  /// This function generates a GraphQL query string to retrieve events
+  /// based on the provided organization ID.
+
   String fetchOrgEvents(String orgId) {
     return """
       query {
@@ -40,17 +42,21 @@ class EventQueries {
             firstName
             lastName
           }
-          registrants {
-            user {
-              _id
-            }
-          }
         }
       }
     """;
   }
 
-  //returns a query to get the registrants of a particular event.
+  /// Fetches registrants by event ID.
+  ///
+  /// **params**:
+  /// * `eventId`: The ID of the event to fetch registrants for.
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL query string to retrieve registrants associated with the specified event ID.
+  ///
+  /// This function generates a GraphQL query string to fetch registrants
+  /// based on the provided event ID.
   String registrantsByEvent(String eventId) {
     return '''
       query {
@@ -64,7 +70,15 @@ class EventQueries {
     ''';
   }
 
-  //returns a query to add an event.
+  /// Creates a GraphQL mutation for adding an event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to create an event.
+  ///
+  /// This function generates a GraphQL mutation string for creating an event.
   String addEvent() {
     return """
      mutation createEvent( \$organizationId: ID!,
@@ -104,7 +118,15 @@ class EventQueries {
   """;
   }
 
-  //returns a query to register for an event
+  /// Creates a GraphQL mutation for registering for an event.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to register for the specified event.
+  ///
+  /// This function generates a GraphQL mutation string for registering an individual for an event.
   String registerForEvent() {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
@@ -118,7 +140,16 @@ class EventQueries {
   """;
   }
 
-  //returns a query to delete an event
+  /// Creates a GraphQL mutation for deleting an event.
+  ///
+  /// **params**:
+  /// * `id`: The ID of the event to delete.
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete the specified event.
+  ///
+  /// This function generates a GraphQL mutation string for removing/deleting an event
+  /// based on the provided event ID.
   String deleteEvent(String id) {
     return """
       mutation {
@@ -131,7 +162,19 @@ class EventQueries {
     """;
   }
 
-  //returns a query to update an event
+  /// Creates a GraphQL mutation for updating an event.
+  ///
+  /// **params**:
+  /// * `eventId`: The ID of the event to update.
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update the specified event.
+  ///
+  /// This function generates a GraphQL mutation string for updating an event
+  /// based on the provided parameters. It takes the event ID along with updated
+  /// details.
+  /// The mutation updates the event details and returns the ID, title, and description
+  /// of the updated event.
   String updateEvent({
     eventId,
   }) {

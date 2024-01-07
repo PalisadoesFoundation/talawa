@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/lang_switch.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
 /// Widget representing the App Settings page.
@@ -262,6 +265,7 @@ class AppSettingsPage extends StatelessWidget {
       children: [
         customDivider(context: context),
         TextButton(
+          key: const Key('Logout'),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -289,7 +293,34 @@ class AppSettingsPage extends StatelessWidget {
           ),
           onPressed: () {
             userConfig.loggedIn
-                ? model.logout(context)
+                ? showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CustomAlertDialog(
+                        reverse: true,
+                        dialogSubTitle: 'Are you sure you want to logout?',
+                        successText: 'LogOut',
+                        success: () async {
+                          try {
+                            await model.logout();
+                            navigationService.pop();
+                            navigationService.removeAllAndPush(
+                              '/selectLang',
+                              '/',
+                            );
+                          } catch (e) {
+                            navigationService.pushDialog(
+                              const TalawaErrorDialog(
+                                'Unable to logout, please try again.',
+                                key: Key('TalawaError'),
+                                messageType: MessageType.error,
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  )
                 : navigationService.pushScreen(
                     Routes.setUrlScreen,
                     arguments: '',

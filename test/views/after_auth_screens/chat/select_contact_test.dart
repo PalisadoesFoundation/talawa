@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -78,8 +75,8 @@ void main() {
   registerViewModels();
   final model = SelectContactViewModel();
   model.initialise();
-  final User user1 = User(id: "fakeUser1");
-  final User user2 = User(id: "fakeUser2");
+  final User user1 = User(id: "fakeUser1", firstName: "Shivam");
+  final User user2 = User(id: "fakeUser2", firstName: "Talawa");
   final List<User> users = [user1, user2];
 
   when(organizationService.getOrgMembersList("XYZ"))
@@ -108,5 +105,34 @@ void main() {
     await tester.pump();
 
     expect(find.byType(Scaffold), findsOneWidget);
+  });
+
+  testWidgets("Test if list view is visible", (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      await tester.pumpWidget(createApp());
+      await tester.pump();
+      await tester.pumpAndSettle(const Duration(milliseconds: 4000));
+
+      expect(find.byType(ListView), findsOneWidget);
+      expect(
+        find.byKey(
+          const ValueKey('select_contact_gesture_0'),
+        ),
+        findsNWidgets(1),
+      );
+      expect(
+        find.byKey(
+          const ValueKey('select_contact_gesture_1'),
+        ),
+        findsNWidgets(1),
+      );
+      final gesturedetect = find.byKey(
+        const ValueKey('select_contact_gesture_1'),
+      );
+      await tester.tap(gesturedetect);
+
+      expect(find.text('Shivam'), findsOneWidget);
+      expect(find.text('Talawa'), findsOneWidget);
+    });
   });
 }
