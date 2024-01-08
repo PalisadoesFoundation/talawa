@@ -102,7 +102,7 @@ class PostBottomModal extends StatelessWidget {
                             child: const Text("Yes"),
                           ),
                           TextButton(
-                            key: const Key('alert_dialog_no_btn'),
+                            key: const Key('alert-dialog_no_btn'),
                             onPressed: () {
                               Navigator.pop(context);
                             },
