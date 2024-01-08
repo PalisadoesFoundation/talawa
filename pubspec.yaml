@@ -93,7 +93,7 @@ dev_dependencies:
   talawa_lint:
     path: talawa_lint/
 
-  url_launcher_platform_interface: any
+  url_launcher_platform_interface: 2.3.0
 
 flutter:
   uses-material-design: true
