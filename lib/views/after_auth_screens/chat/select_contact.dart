@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
@@ -38,15 +35,16 @@ class _SelectContactState extends State<SelectContact> {
         ),
       ),
       body: BaseView<SelectContactViewModel>(
-        onModelReady: (model) {
+        onModelReady: (model) async {
           model.initialise();
-          model.getCurrentOrgUsersList();
+          await model.getCurrentOrgUsersList();
         },
         builder: (context, model, child) {
           return ListView.builder(
             itemCount: model.orgMembersList.length,
             itemBuilder: (context, index) {
               return GestureDetector(
+                key: Key('select_contact_gesture_$index'),
                 onTap: () {
                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatMessageScreen(chat: ChatListTileDataModel(ChatUser(model.orgMembersList[index].firstName,model.orgMembersList[index].id,model.orgMembersList[index].image),null,0))));
                 },

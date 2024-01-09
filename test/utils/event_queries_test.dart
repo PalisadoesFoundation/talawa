@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/event_queries.dart';
 
@@ -35,11 +32,6 @@ void main() {
           admins {
             firstName
             lastName
-          }
-          registrants {
-            user {
-              _id
-            }
           }
         }
       }
