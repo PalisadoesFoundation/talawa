@@ -3,7 +3,7 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-/// PinnedPostCarousel class returns a widget for pinned posts in the slider/carousel on the top of the Home Screen.
+/// Generates carousel for pinned posts on the Home Screen's top.
 ///
 /// Tapping on a post will redirect you to the respective post screen.
 class PinnedPostCarousel extends StatelessWidget {

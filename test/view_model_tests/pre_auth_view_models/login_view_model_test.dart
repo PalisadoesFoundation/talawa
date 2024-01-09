@@ -77,9 +77,7 @@ Future<void> main() async {
           .thenAnswer((_) async => result);
 
       await model.login();
-
       expect(model.validate, AutovalidateMode.disabled);
-
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
     testWidgets('Check if login() is working fine when organisation empty',
@@ -106,9 +104,7 @@ Future<void> main() async {
           .thenAnswer((_) async => result);
 
       await model.login();
-
       expect(model.validate, AutovalidateMode.disabled);
-
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
     testWidgets('Check if login() is working fine when invalid credentials',
@@ -127,11 +123,8 @@ Future<void> main() async {
           .thenAnswer((_) async => null);
 
       await model.login();
-
       expect(model.validate, AutovalidateMode.disabled);
-
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
-
       verifyNever(
         navigationService.removeAllAndPush(
           Routes.waitingScreen,
@@ -154,9 +147,7 @@ Future<void> main() async {
           .thenThrow(Exception());
 
       await model.login();
-
       expect(model.validate, AutovalidateMode.disabled);
-
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
   });
