@@ -89,13 +89,7 @@ class SignupDetailsViewModel extends BaseModel {
 
   /// Initiates the sign-up process.
   ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `Future<void>`: a promise that indicates the completion of the sign-up process.
-  ///
-  /// This function handles the sign-up process by performing the following steps:
+  /// Handles the sign-up process by performing the following steps:
   /// 1. Unfocusing the current focus scope.
   /// 2. Setting the view state to `ViewState.busy`.
   /// 3. Setting validation mode to `AutovalidateMode.always`.
@@ -112,6 +106,12 @@ class SignupDetailsViewModel extends BaseModel {
   ///
   /// In case of any exceptions during the sign-up process, this function catches and prints the error
   /// and displays a Talawa error snackbar with a corresponding message.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: a promise that indicates the completion of the sign-up process.
   Future<void> signUp() async {
     FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
     setState(ViewState.busy);

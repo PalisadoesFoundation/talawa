@@ -77,15 +77,9 @@ class LoginViewModel extends BaseModel {
     ];
   }
 
-  /// This function performs the login operation.
+  /// Performs the login operation.
   ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `Future<void>`: a promise that indicates the completion of the login process.
-  ///
-  /// This function handles the login process by performing the following steps:
+  /// Handles the login process by performing the following steps:
   /// 1. Unfocusing the email and password text fields.
   /// 2. Setting validation mode to `AutovalidateMode.always`.
   /// 3. Validating the email and password fields using the form key.
@@ -100,6 +94,12 @@ class LoginViewModel extends BaseModel {
   ///    - Configuring Firebase and saving FCM token to the database.
   ///
   /// In case of any exceptions during the login process, this function catches and prints the error.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: a promise that indicates the completion of the login process.
   Future<void> login() async {
     emailFocus.unfocus();
     passwordFocus.unfocus();
