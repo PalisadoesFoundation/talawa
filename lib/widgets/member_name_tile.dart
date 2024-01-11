@@ -1,13 +1,11 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
 /// This widget returns a tile containing the name of the member.
-/// Along with the name, there is a circle avatar which either contains
-/// the image uploaded by the user or the first character of his/her name in
-/// uppercase.
+///
+/// Along with the name, there is a circle avatar which
+/// either contains the image uploaded by the user or the
+/// first character of his/her name in uppercase.
 class MemberNameTile extends StatelessWidget {
   const MemberNameTile({
     super.key,
@@ -15,8 +13,14 @@ class MemberNameTile extends StatelessWidget {
     this.userImage,
     required this.onDelete,
   });
+
+  /// Represents the user's name.
   final String userName;
-  final Function onDelete;
+
+  /// Triggers the deletion of the user.
+  final Function() onDelete;
+
+  /// Represents the URL or path to the user's image.
   final String? userImage;
 
   @override
@@ -40,8 +44,10 @@ class MemberNameTile extends StatelessWidget {
                     radius: SizeConfig.screenHeight! * 0.0201,
                     backgroundImage: NetworkImage(userImage!),
                   )
-                // If the user has not uploaded his/her image, then a circle avatar is created.
-                // It has the first character of the user's name in uppercase and the default background color.
+                // If the user has not uploaded his/her image,
+                // then a circle avatar is created.
+                // It has the first character of the user's name
+                //in uppercase and the default background color.
                 : CircleAvatar(
                     radius: SizeConfig.screenHeight! * 0.0201,
                     backgroundColor: Theme.of(context).colorScheme.secondary,

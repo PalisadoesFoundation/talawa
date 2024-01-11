@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -11,13 +9,14 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// UserConfig class provides different services in the context of the User.
+/// Provides different services in the context of the User.
 ///
 /// Services include:
 /// * `userLoggedIn` : helps to make user logged in to the application.
 /// * `updateUserJoinedOrg` : helps to update the user joined organization.
 /// * `updateUserCreatedOrg` : helps to update the user created organization.
-/// * `updateUserMemberRequestOrg` : helps to update the User membership request for the organization.
+/// * `updateUserMemberRequestOrg` : helps to update the User membership
+/// request for the organization.
 /// * `updateUserAdminOrg` : helps to update the Admin of the Organization.
 /// * `updateAccessToken` : helps to update the access token of an user.
 /// * `updateUser` : helps to update the user.
@@ -29,29 +28,29 @@ class UserConfig {
   final StreamController<OrgInfo> _currentOrgInfoController =
       StreamController<OrgInfo>.broadcast();
 
-  /// Getter method to retrieve the stream of current organization information.
+  /// Retrieves the stream of current organization information.
   Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
 
-  /// Getter method to retrieve the stream controller for current organization information.
+  /// Retrieves the stream controller for current organization information.
   StreamController<OrgInfo> get currentOrgInfoController =>
       _currentOrgInfoController;
 
-  /// Getter method to retrieve the current organization information.
+  /// Retrieves the current organization information.
   OrgInfo get currentOrg => _currentOrg!;
 
-  /// Getter method to retrieve the name of the current organization.
+  /// Retrieves the name of the current organization.
   String get currentOrgName => _currentOrg!.name!;
 
-  /// Getter method to check if a user is logged in.
+  /// Checks if a user is logged in.
   bool get loggedIn => _currentUser?.id != 'null';
 
-  /// Setter method to update the current organization information.
+  /// Updates the current organization information.
   set currentOrg(OrgInfo org) => _currentOrg = org;
 
-  /// Getter method to retrieve the current user.
+  /// Retrieves the current user.
   User get currentUser => _currentUser!;
 
-  /// Setter method to update the current user.
+  /// Updates the current user.
   set currentUser(User user) {
     _currentUser = user;
   }
@@ -98,8 +97,9 @@ class UserConfig {
           queries.fetchUserInfo,
           variables: {'id': currentUser.id},
         ) as QueryResult;
+        final List users = result.data!['users'] as List;
         final User userInfo = User.fromJson(
-          result.data!['users'][0] as Map<String, dynamic>,
+          users[0] as Map<String, dynamic>,
           fromOrg: true,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
@@ -122,7 +122,7 @@ class UserConfig {
     return true;
   }
 
-  /// This function logs out the current user.
+  /// Logs out the current user.
   ///
   /// **params**:
   ///   None
@@ -166,7 +166,7 @@ class UserConfig {
     return true;
   }
 
-  /// This function is used to update the user joined organization.
+  /// Updates the user joined organization.
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
@@ -178,7 +178,7 @@ class UserConfig {
     saveUserInHive();
   }
 
-  /// This function is used to update the user created organization.
+  /// Updates the user created organization.
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
@@ -190,7 +190,7 @@ class UserConfig {
     saveUserInHive();
   }
 
-  /// This function is used to update the user request to join the organization.
+  /// Updates the user request to join the organization.
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
@@ -202,7 +202,7 @@ class UserConfig {
     saveUserInHive();
   }
 
-  /// This function is used to update the organization admin.
+  /// Updates the organization admin.
   ///
   /// **params**:
   /// * `orgDetails`: details of the organization that user joined.
@@ -214,7 +214,7 @@ class UserConfig {
     saveUserInHive();
   }
 
-  /// This function is used to updated the access token of the user.
+  /// Updates the access token of the user.
   ///
   /// **params**:
   /// * `accessToken`: current user's accesstoken.
@@ -231,10 +231,11 @@ class UserConfig {
     saveUserInHive();
   }
 
-  /// This function is used to update the user details.
+  /// Updates the user details.
   ///
   /// **params**:
-  /// * `updatedUserDetails`: `User` type variable containing all the details of an user need to be updated.
+  /// * `updatedUserDetails`: `User` type variable containing
+  ///  all the details of an user need to be updated.
   ///
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.

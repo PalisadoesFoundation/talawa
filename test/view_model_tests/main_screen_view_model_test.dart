@@ -327,10 +327,8 @@ void main() async {
 
       await tester.tap(find.textContaining('tour home'));
 
-      // // ignore: avoid_dynamic_calls
       // print(mainScreenModel.targets[1].description);
 
-      // // ignore: avoid_dynamic_calls
       // mainScreenModel.targets[5].next!();
 
       // verify(navigationService.pop());

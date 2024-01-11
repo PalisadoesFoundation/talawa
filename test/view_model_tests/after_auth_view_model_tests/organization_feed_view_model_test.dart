@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter_test/flutter_test.dart';
@@ -88,7 +88,7 @@ void main() {
         ),
       ).captured;
 
-      expect(captured[0].length, 4);
+      expect((captured[0] as List).length, 4);
     });
 
     test('Test addNewPost function', () {
