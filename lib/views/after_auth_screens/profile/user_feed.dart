@@ -5,6 +5,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
+/// User Feed to shows posts by user in current organisation.
 class UserFeed extends StatefulWidget {
   const UserFeed({
     required Key key,

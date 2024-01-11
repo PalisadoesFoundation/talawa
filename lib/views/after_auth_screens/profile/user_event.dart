@@ -5,9 +5,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
 
-/// a_line_ending_with_end_punctuation.
-///
-/// more_info_if_required
+///UserEvents to show events created by user in cureent organisation .
 class UserEvents extends StatefulWidget {
   const UserEvents({
     required Key key,
