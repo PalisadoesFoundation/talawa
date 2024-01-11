@@ -6,7 +6,7 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/task_queries.dart';
 
-/// PostService class provides functions in the context of a Task.
+/// Provides functions in the context of a Task.
 ///
 /// Services include:
 /// * `getTasksForEvent` : to get the task for the event.
@@ -29,10 +29,12 @@ class TaskService {
   /// Retrieves tasks for a specific event.
   ///
   /// **params**:
-  /// * `eventId`: The ID of the event for which tasks are to be retrieved.
+  /// * `eventId`: The ID of the event for which tasks 
+  /// are to be retrieved.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled after tasks for the event are retrieved.
+  /// * `Future<void>`: A promise that will be fulfilled after
+  /// tasks for the event are retrieved.
   Future<void> getTasksForEvent(String eventId) async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -54,7 +56,8 @@ class TaskService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled after the user's tasks are retrieved.
+  /// * `Future<void>`: A promise that will be fulfilled after
+  /// the user's tasks are retrieved.
   Future<void> getTasksByUser() async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -79,7 +82,9 @@ class TaskService {
   /// * `taskId`: The ID of the task to be edited.
   ///
   /// **returns**:
-  /// * `Future<bool>`: A promise that will be fulfilled with a boolean value indicating whether the task was successfully edited.
+  /// * `Future<bool>`: A promise that will be fulfilled 
+  /// with a boolean value indicating whether the task
+  /// was successfully edited.
   Future<bool> editTask({
     required String title,
     required String description,
@@ -119,10 +124,13 @@ class TaskService {
   /// * `title`: The title for the new task.
   /// * `description`: The description for the new task.
   /// * `deadline`: The deadline for the new task.
-  /// * `eventId`: The ID of the event associated with the new task.
+  /// * `eventId`: The ID of the event associated with
+  /// the new task.
   ///
   /// **returns**:
-  /// * `Future<bool>`: A promise that will be fulfilled with a boolean value indicating whether the task was successfully created.
+  /// * `Future<bool>`: A promise that will be fulfilled 
+  /// with a boolean value indicating whether the task 
+  /// was successfully created.
   Future<bool> createTask({
     required String title,
     required String description,
@@ -157,7 +165,8 @@ class TaskService {
   /// * `creatorId`: The ID of the task's creator.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled after the task deletion process completes.
+  /// * `Future<void>`: A promise that will be fulfilled
+  ///  after the task deletion process completes.
   Future<void> deleteTask(String taskId, String creatorId) async {
     if (creatorId == _userConfig.currentUser.id) {
       await _databaseMutationFunctions

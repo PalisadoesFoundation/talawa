@@ -10,7 +10,9 @@ import 'package:talawa/utils/encryptor.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// LoginViewModel class helps to interact with model to serve data and react to user's input in Login View.
+/// LoginViewModel class helps to interact with model to serve data.
+/// 
+/// Reacts to user's input in Login View.
 ///
 /// Methods include:
 /// * `login`
@@ -18,7 +20,7 @@ class LoginViewModel extends BaseModel {
   /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
 
-  /// List of maps to store greetings, where each greeting is a map with String keys and dynamic values.
+  /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
 
   /// TextEditingController for handling password input field.
@@ -33,10 +35,10 @@ class LoginViewModel extends BaseModel {
   /// FocusNode to manage focus for the email input field.
   FocusNode emailFocus = FocusNode();
 
-  /// AutovalidateMode to determine when to perform automatic validation of form fields.
+  /// Determines when to perform automatic validation of form fields.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  /// Boolean to toggle password visibility (true for hidden, false for visible).
+  /// Toggles password visibility (true for hidden, false for visible).
   bool hidePassword = true;
 
   /// Initializes the greeting message.
@@ -83,23 +85,27 @@ class LoginViewModel extends BaseModel {
   /// 1. Unfocusing the email and password text fields.
   /// 2. Setting validation mode to `AutovalidateMode.always`.
   /// 3. Validating the email and password fields using the form key.
-  /// 4. If validation is successful, disabling auto-validation mode and initiating the login process.
+  /// 4. If validation is successful, disabling auto-validation mode 
+  ///    and initiating the login process.
   /// 5. Displaying a custom progress dialog during login.
   /// 6. Initializing database functions.
-  /// 7. Performing a GraphQL mutation to login the user by providing the email and encrypted password.
+  /// 7. Performing a GraphQL mutation to login the user by providing 
+  ///    the email and encrypted password.
   /// 8. Handling the result of the login operation:
   ///    - Updating the current user with the received data.
   ///    - Redirecting the user based on their status in the application.
   ///    - Handling Firebase options for Android and iOS if available.
   ///    - Configuring Firebase and saving FCM token to the database.
   ///
-  /// In case of any exceptions during the login process, this function catches and prints the error.
+  /// In case of any exceptions during the login process, 
+  /// this function catches and prints the error.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: a promise that indicates the completion of the login process.
+  /// * `Future<void>`: a promise that indicates the completion 
+  /// of the login process.
   Future<void> login() async {
     emailFocus.unfocus();
     passwordFocus.unfocus();
@@ -111,7 +117,8 @@ class LoginViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
-        // run the graph QL query to login the user, passing `email` and `password`.
+        // run the graph QL query to login the user, 
+        // passing `email` and `password`.
         final result = await databaseFunctions.gqlNonAuthMutation(
           queries.loginUser(
             email.text,

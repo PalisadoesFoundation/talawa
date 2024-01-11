@@ -37,9 +37,12 @@ class PinnedPostCarousel extends StatelessWidget {
             navigateToIndividualPostPage: navigateToIndividualPostPage,
           ),
         ),
-        // Gesture Detector in Flutter is used to detect the user's gestures on the application.
-        // It is a non-visual widget. Inside the gesture detector, another widget is placed and
-        // the gesture detector will capture all these events (gestures) and execute the tasks accordingly.
+        // Gesture Detector in Flutter is used to detect 
+        // the user's gestures on the application.
+        // It is a non-visual widget. Inside the gesture detector,
+        // another widget is placed and
+        // the gesture detector will capture all these 
+        // events (gestures) and execute the tasks accordingly.
         GestureDetector(
           onTap: () => navigateToPinnedPostPage(),
           child: Container(
@@ -106,7 +109,8 @@ class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
 
   @override
   Widget build(BuildContext context) {
-    // Stack is a widget that positions its children relative to the edges of its box.
+    // Stack is a widget that positions its
+    // children relative to the edges of its box.
     return Stack(
       children: [
         Padding(
