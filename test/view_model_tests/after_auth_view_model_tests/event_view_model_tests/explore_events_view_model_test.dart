@@ -162,7 +162,7 @@ void main() {
       await model.choseValueFromDropdown('All Events');
       expect(model.emptyListMessage, "Looks like there aren't any events.");
 
-      await model.choseValueFromDropdown("Created Events");
+      await model.choseValueFromDropdown("My Events");
       bool allCreated = true;
       final userConfig = getAndRegisterUserConfig();
       for (int i = 0; i < model.events.length; i++) {

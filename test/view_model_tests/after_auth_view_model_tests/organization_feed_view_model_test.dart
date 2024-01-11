@@ -4,7 +4,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -15,12 +14,14 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
+import '../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
 }
 
 void main() {
+  testSetupLocator();
   late OrganizationFeedViewModel model;
   final notifyListenerCallback = MockCallbackFunction();
 
@@ -47,21 +48,24 @@ void main() {
     test('Test setCurrentOrganizationName function', () {
       model.setCurrentOrganizationName('Updated Organization Name');
       expect(model.posts.length, 0);
+      expect(model.userPosts.length, 0);
       expect(model.currentOrgName, 'Updated Organization Name');
     });
 
     test('Test fetchNewPosts function', () {
       model.fetchNewPosts();
-      verify(locator<PostService>().getPosts());
+      verify(locator<PostService>().refreshFeed());
     });
 
     test('Test buildNewPosts function', () {
+      when(userConfig.currentUser).thenReturn(User(id: 'a'));
       model.buildNewPosts([
-        Post(sId: '1', creator: User()),
-        Post(sId: '2', creator: User()),
+        Post(sId: '1', creator: User(id: 'a')),
+        Post(sId: '2', creator: User(id: 'a')),
       ]);
 
       expect(model.posts.length, 2);
+      expect(model.userPosts.length, 2);
       verify(notifyListenerCallback());
     });
 

@@ -26,7 +26,6 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
-        print(model.pinnedPosts);
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             shape: const CircleBorder(side: BorderSide.none),
@@ -67,21 +66,21 @@ class OrganizationFeed extends StatelessWidget {
             ),
           ),
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
-          body: model.isBusy
-              ? const CircularProgressIndicator()
+          body: model.isFetchingPosts || model.isBusy
+              ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: () async => model.fetchNewPosts(),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
-                      model.pinnedPosts.isNotEmpty
-                          ? PinnedPost(
-                              pinnedPost: model.pinnedPosts,
-                              model: homeModel!,
-                            )
-                          : Container(),
-                      // If the organization has posts then renders PostListWidget widget else Container.
+                      // Always show PinnedPost if available
+                      if (model.pinnedPosts.isNotEmpty)
+                        PinnedPost(
+                          key: const Key('pinnedPosts'),
+                          pinnedPost: model.pinnedPosts,
+                          model: homeModel!,
+                        ),
+                      // Show PostListWidget if there are posts, otherwise show the 'no posts' message
                       model.posts.isNotEmpty
                           ? PostListWidget(
                               key: homeModel?.keySHPost,
@@ -89,7 +88,30 @@ class OrganizationFeed extends StatelessWidget {
                               function: model.navigateToIndividualPage,
                               deletePost: model.removePost,
                             )
-                          : Container(),
+                          : Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: SizeConfig.screenHeight! * 0.21,
+                                  ),
+                                  child: Text(
+                                    'There are no posts in this organisation',
+                                    style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.screenHeight! * 0.0275,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen('/addpostscreen');
+                                  },
+                                  child: const Text('Create your first post'),
+                                ),
+                              ],
+                            ),
                     ],
                   ),
                 ),
