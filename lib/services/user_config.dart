@@ -15,7 +15,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// * `userLoggedIn` : helps to make user logged in to the application.
 /// * `updateUserJoinedOrg` : helps to update the user joined organization.
 /// * `updateUserCreatedOrg` : helps to update the user created organization.
-/// * `updateUserMemberRequestOrg` : helps to update the User membership 
+/// * `updateUserMemberRequestOrg` : helps to update the User membership
 /// request for the organization.
 /// * `updateUserAdminOrg` : helps to update the Admin of the Organization.
 /// * `updateAccessToken` : helps to update the access token of an user.

@@ -3,7 +3,7 @@ import 'package:talawa/services/size_config.dart';
 
 /// This widget returns a tile containing the name of the member.
 ///
-/// Along with the name, there is a circle avatar which 
+/// Along with the name, there is a circle avatar which
 /// either contains the image uploaded by the user or the
 /// first character of his/her name in uppercase.
 class MemberNameTile extends StatelessWidget {
@@ -44,9 +44,9 @@ class MemberNameTile extends StatelessWidget {
                     radius: SizeConfig.screenHeight! * 0.0201,
                     backgroundImage: NetworkImage(userImage!),
                   )
-                // If the user has not uploaded his/her image, 
+                // If the user has not uploaded his/her image,
                 // then a circle avatar is created.
-                // It has the first character of the user's name 
+                // It has the first character of the user's name
                 //in uppercase and the default background color.
                 : CircleAvatar(
                     radius: SizeConfig.screenHeight! * 0.0201,

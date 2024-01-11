@@ -68,7 +68,7 @@ class ChatService {
   /// * `messageContent`: The content of the message to be sent.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled 
+  /// * `Future<void>`: A promise that will be fulfilled
   /// when the message is successfully sent.
   Future<void> sendMessageToDirectChat(
     String chatId,
@@ -96,12 +96,12 @@ class ChatService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled 
+  /// * `Future<void>`: A promise that will be fulfilled
   /// when the direct chats are successfully retrieved.
   Future<void> getDirectChatsByUserId() async {
     final userId = _userConfig.currentUser.id;
 
-    // trigger graphQL query to get all the chats 
+    // trigger graphQL query to get all the chats
     // of the user using [userId].
     final String query = ChatQueries().fetchDirectChatsByUserId(userId!);
 
@@ -110,7 +110,7 @@ class ChatService {
     final directMessageList =
         (result as QueryResult).data?['directChatsByUserID'] as List;
 
-    // loop through the result [directMessageList] 
+    // loop through the result [directMessageList]
     // and append the element to the directChat.
     directMessageList.forEach((chat) {
       final directChat =
@@ -125,11 +125,11 @@ class ChatService {
   /// This function retrieves direct chat messages by chat ID.
   ///
   /// **params**:
-  /// * `chatId`: The ID of the chat for which messages 
+  /// * `chatId`: The ID of the chat for which messages
   /// are to be retrieved.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled 
+  /// * `Future<void>`: A promise that will be fulfilled
   /// when the chat messages are successfully retrieved.
   Future<void> getDirectChatMessagesByChatId(chatId) async {
     // trigger graphQL query to get all the chat messages

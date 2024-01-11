@@ -29,7 +29,7 @@ class TaskService {
   /// Retrieves tasks for a specific event.
   ///
   /// **params**:
-  /// * `eventId`: The ID of the event for which tasks 
+  /// * `eventId`: The ID of the event for which tasks
   /// are to be retrieved.
   ///
   /// **returns**:
@@ -82,7 +82,7 @@ class TaskService {
   /// * `taskId`: The ID of the task to be edited.
   ///
   /// **returns**:
-  /// * `Future<bool>`: A promise that will be fulfilled 
+  /// * `Future<bool>`: A promise that will be fulfilled
   /// with a boolean value indicating whether the task
   /// was successfully edited.
   Future<bool> editTask({
@@ -128,8 +128,8 @@ class TaskService {
   /// the new task.
   ///
   /// **returns**:
-  /// * `Future<bool>`: A promise that will be fulfilled 
-  /// with a boolean value indicating whether the task 
+  /// * `Future<bool>`: A promise that will be fulfilled
+  /// with a boolean value indicating whether the task
   /// was successfully created.
   Future<bool> createTask({
     required String title,
