@@ -19,7 +19,7 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
-Widget UserEventsScreen({
+Widget userEventsScreen({
   bool reverse = false,
   String? dialogTitle,
   bool passSecondaryFunc = true,
@@ -73,7 +73,7 @@ void main() {
       when(mockViewModel.isBusy).thenReturn(true);
       when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.events).thenReturn([]);
-      await tester.pumpWidget(UserEventsScreen(isTest: true));
+      await tester.pumpWidget(userEventsScreen(isTest: true));
       await tester.pump();
 
       final finder = find.byKey(const Key('test_key'));
@@ -85,7 +85,7 @@ void main() {
       when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.events).thenReturn([]);
 
-      await tester.pumpWidget(UserEventsScreen(isTest: false));
+      await tester.pumpWidget(userEventsScreen(isTest: false));
 
       await tester.pump();
 
@@ -97,7 +97,7 @@ void main() {
       when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.events).thenReturn([]);
 
-      await tester.pumpWidget(UserEventsScreen(isTest: true));
+      await tester.pumpWidget(userEventsScreen(isTest: true));
 
       await tester.pump();
 
@@ -114,7 +114,7 @@ void main() {
       when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.events).thenReturn([]);
 
-      await tester.pumpWidget(UserEventsScreen(isTest: true));
+      await tester.pumpWidget(userEventsScreen(isTest: true));
 
       await tester.pump();
 
@@ -159,7 +159,7 @@ void main() {
         ),
       ]);
 
-      await tester.pumpWidget(UserEventsScreen(isTest: true));
+      await tester.pumpWidget(userEventsScreen(isTest: true));
 
       await tester.pump();
 

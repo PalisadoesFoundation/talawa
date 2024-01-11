@@ -21,7 +21,7 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
-Widget UserFeedScreen({
+Widget userFeedScreen({
   bool reverse = false,
   String? dialogTitle,
   bool passSecondaryFunc = true,
@@ -55,7 +55,7 @@ Widget UserFeedScreen({
   );
 }
 
-Widget UserFeedScreen1({
+Widget userFeedScreen1({
   bool reverse = false,
   String? dialogTitle,
   bool passSecondaryFunc = true,
@@ -124,7 +124,7 @@ void main() {
       when(mockViewModel.isFetchingPosts).thenReturn(true);
       when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
-      await tester.pumpWidget(UserFeedScreen(isTest: true));
+      await tester.pumpWidget(userFeedScreen(isTest: true));
       await tester.pump();
 
       final finder = find.byKey(const Key('test_key'));
@@ -137,7 +137,7 @@ void main() {
       when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
-      await tester.pumpWidget(UserFeedScreen(isTest: false));
+      await tester.pumpWidget(userFeedScreen(isTest: false));
 
       await tester.pump();
 
@@ -149,7 +149,7 @@ void main() {
       when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
-      await tester.pumpWidget(UserFeedScreen(isTest: true));
+      await tester.pumpWidget(userFeedScreen(isTest: true));
 
       await tester.pump();
 
@@ -166,7 +166,7 @@ void main() {
       when(mockViewModel.initialise()).thenReturn(null);
       when(mockViewModel.userPosts).thenReturn([]);
 
-      await tester.pumpWidget(UserFeedScreen(isTest: true));
+      await tester.pumpWidget(userFeedScreen(isTest: true));
 
       await tester.pump();
 
@@ -194,7 +194,7 @@ void main() {
 
       when(mockViewModel.initialise()).thenReturn(null);
 
-      await tester.pumpWidget(UserFeedScreen1(isTest: true));
+      await tester.pumpWidget(userFeedScreen1(isTest: true));
       await tester.pumpAndSettle();
 
       final finder = find.byType(CircularProgressIndicator);

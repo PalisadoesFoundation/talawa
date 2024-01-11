@@ -18,8 +18,8 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_locator.dart';
 import '../../../helpers/test_helpers.mocks.dart';
+import '../../../helpers/test_locator.dart';
 
 Widget createOrganizationFeedScreen({
   bool reverse = false,
