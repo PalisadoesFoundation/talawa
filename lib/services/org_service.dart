@@ -4,7 +4,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/queries.dart';
 
-/// Provides the in the context of organizations.
+/// Provides the Services in the context of organizations.
 ///
 /// Services include:
 /// * `getOrgMembersList` : to get all organizations members
