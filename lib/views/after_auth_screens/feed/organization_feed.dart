@@ -88,7 +88,8 @@ class OrganizationFeed extends StatelessWidget {
                               function: model.navigateToIndividualPage,
                               deletePost: model.removePost,
                             )
-                          : Column(
+                          : // if there is no post in an organisation then show text button to create a post.
+                          Column(
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(

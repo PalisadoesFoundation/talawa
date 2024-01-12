@@ -12,6 +12,7 @@ class UserFeed extends StatefulWidget {
     this.forTest = false,
   }) : super(key: key);
 
+  /// for testing.
   final bool forTest;
 
   @override
