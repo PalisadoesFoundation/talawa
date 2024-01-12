@@ -33,7 +33,6 @@ class OrganizationFeedViewModel extends BaseModel {
       pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
-  late String _currentUserId = "";
 
   // Importing services.
   final NavigationService _navigationService = locator<NavigationService>();
@@ -187,11 +186,11 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
-    _currentUserId = _userConfig.currentUser.id!;
+    final currentUserId = _userConfig.currentUser.id!;
     _userPosts.clear();
     for (final post in newPosts) {
       if (!_userPosts.any((element) => element.sId == post.sId) &&
-          post.creator!.id == _currentUserId) {
+          post.creator!.id == currentUserId) {
         _userPosts.insert(0, post);
       }
     }

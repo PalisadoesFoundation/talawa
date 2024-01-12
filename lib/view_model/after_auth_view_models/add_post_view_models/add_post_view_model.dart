@@ -35,7 +35,7 @@ class AddPostViewModel extends BaseModel {
   final TextEditingController _textHashTagController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
 
-  /// to check if in.
+  /// to check if in demo mode.
   late bool demoMode;
 
   /// The image file that is to be uploaded.

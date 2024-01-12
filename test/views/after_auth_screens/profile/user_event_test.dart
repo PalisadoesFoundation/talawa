@@ -14,6 +14,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_event.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/event_card.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -125,6 +126,19 @@ void main() {
         find.text('Create your first event'),
         findsOneWidget,
       );
+      await tester.tap(find.text('Create your first event'));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('check if User Event screen shows up', (tester) async {
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.events).thenReturn([]);
+
+      await tester.pumpWidget(userEventsScreen(isTest: true));
+
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('test_key')), findsOneWidget);
     });
     testWidgets('check if User Events shows up if not null', (tester) async {
       when(mockViewModel.isBusy).thenReturn(false);
@@ -172,6 +186,9 @@ void main() {
 
       final finder1 = find.byType(SingleChildScrollView);
       expect(finder1, findsOneWidget);
+      expect(find.byType(EventCard), findsOneWidget);
+      await tester.tap(find.byType(GestureDetector));
+      await tester.pumpAndSettle();
     });
   });
 }

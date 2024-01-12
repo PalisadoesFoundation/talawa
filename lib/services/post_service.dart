@@ -69,7 +69,7 @@ class PostService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  /// * `Future<void>`: returns future void
   Future<void> getPosts() async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     _dbFunctions.init();
@@ -103,7 +103,7 @@ class PostService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  /// * `Future<void>`: returns future void
   Future<void> refreshFeed() async {
     _posts.clear();
     _renderedPostID.clear();
@@ -113,7 +113,7 @@ class PostService {
   ///Method to add newly created post at the very top of the feed.
   ///
   /// **params**:
-  /// * `newPost`: define_the_param
+  /// * `newPost`: new post made by user to add in feed
   ///
   /// **returns**:
   ///   None
@@ -130,7 +130,7 @@ class PostService {
   /// in database.
   ///
   /// **params**:
-  /// * `postID`: define_the_param
+  /// * `postID`: ID of the post to add like in database
   ///
   /// **returns**:
   /// * `Future<void>`: define_the_return
@@ -148,7 +148,7 @@ class PostService {
   /// Locally add like on a Post and updates it using updated Post Stream.
   ///
   /// **params**:
-  /// * `postID`: define_the_param
+  /// * `postID`: ID of the post to add like locally
   ///
   /// **returns**:
   ///   None
@@ -167,10 +167,10 @@ class PostService {
   /// and removes the like of a user in database.
   ///
   /// **params**:
-  /// * `postID`: define_the_param
+  /// * `postID`: ID of the post to remove like in database.
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  /// * `Future<void>`: nothing
   Future<void> removeLike(String postID) async {
     _removeLocal(postID);
     final String mutation = PostQueries().removeLike();
@@ -183,7 +183,7 @@ class PostService {
   /// Locally removes the like of a user and update the Post UI.
   ///
   /// **params**:
-  /// * `postID`: define_the_param
+  /// * `postID`: ID of the post to remove like locally
   ///
   /// **returns**:
   ///   None
@@ -201,7 +201,7 @@ class PostService {
   ///Method to add comment of a user and update comments using updated Post Stream.
   ///
   /// **params**:
-  /// * `postID`: define_the_param
+  /// * `postID`: ID of the post to add comment locally
   ///
   /// **returns**:
   ///   None

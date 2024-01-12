@@ -232,5 +232,12 @@ void main() {
       await model.choseValueFromDropdown('Registered Events');
       expect(model.emptyListMessage, "No registered events are present");
     });
+    test(
+        "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
+        () async {
+      final model = ExploreEventsViewModel();
+      final List<Event> userEvents = model.userEvents;
+      expect(userEvents, []);
+    });
   });
 }

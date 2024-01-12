@@ -16,6 +16,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -177,6 +178,8 @@ void main() {
         find.text('Create your first post'),
         findsOneWidget,
       );
+      await tester.tap(find.text('Create your first post'));
+      await tester.pumpAndSettle();
     });
     testWidgets('check if PostListWIdget shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
@@ -202,6 +205,7 @@ void main() {
 
       final finder1 = find.byType(PostListWidget);
       expect(finder1, findsOneWidget);
+      expect(find.byType(NewsPost), findsOneWidget);
     });
   });
 }

@@ -59,11 +59,12 @@ class _UserEventsState extends State<UserEvents>
                         itemCount: model.userEvents.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
+                            key: Key('event$index'),
                             onTap: () {
                               navigationService.pushScreen(
                                 "/eventInfo",
                                 arguments: {
-                                  "event": model.events[index],
+                                  "event": model.userEvents[index],
                                   "exploreEventViewModel": model,
                                 },
                               );

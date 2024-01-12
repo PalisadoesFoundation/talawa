@@ -249,6 +249,8 @@ void main() {
 
       final finder = find.text('Create your first post');
       expect(finder, findsOneWidget);
+      await tester.tap(finder);
+      await tester.pumpAndSettle();
     });
   });
 }
