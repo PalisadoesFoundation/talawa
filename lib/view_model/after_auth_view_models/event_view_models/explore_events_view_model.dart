@@ -145,21 +145,21 @@ class ExploreEventsViewModel extends BaseModel {
       newEvent.endTime = DateFormat('HH:mm:ss').format(DateTime.now());
     }
 
-    try {
+    if (RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.startDate!) &&
+        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.startTime!) &&
+        RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.endDate!) &&
+        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.endTime!)) {
       final startMoment =
-          DateTime.parse('${newEvent.startDate!} ${newEvent.startTime!}')
+          DateTime.parse('${newEvent.startDate} ${newEvent.startTime}')
               .toLocal();
       final endMoment =
-          DateTime.parse('${newEvent.endDate!} ${newEvent.endTime!}').toLocal();
+          DateTime.parse('${newEvent.endDate} ${newEvent.endTime}').toLocal();
 
       newEvent.startDate = DateFormat('yMd').format(startMoment);
       newEvent.endDate = DateFormat('yMd').format(endMoment);
-      newEvent.startTime = DateFormat.jm().format(startMoment);
-      newEvent.endTime = DateFormat.jm().format(endMoment);
-    } catch (e) {
-      print('Error parsing event date/time: $e');
+      newEvent.startTime = DateFormat('h:mm a').format(startMoment);
+      newEvent.endTime = DateFormat('h:mm a').format(endMoment);
     }
-
     _events.insert(0, newEvent);
   }
 
