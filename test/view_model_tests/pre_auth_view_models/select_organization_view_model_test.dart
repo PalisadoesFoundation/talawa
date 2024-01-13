@@ -79,7 +79,7 @@ void main() {
     org = OrgInfo(
       id: '3',
       name: 'test org 3',
-      isPublic: true,
+      userRegistrationRequired: false,
       creatorInfo: User(firstName: 'test', lastName: '1'),
     );
     locator.registerSingleton(Queries());
@@ -272,7 +272,8 @@ void main() {
 
       expect(selectOrganizationViewModel.selectedOrganization, org);
     });
-    testWidgets('Test for successful selectOrg function when org is private',
+    testWidgets(
+        'Test for successful selectOrg function when org requires userRegistration',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -282,7 +283,7 @@ void main() {
           qrKey: selectOrganizationViewModel.qrKey,
         ),
       );
-      org.isPublic = false;
+      org.userRegistrationRequired = true;
       selectOrganizationViewModel.selectedOrganization = org;
 
       when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
@@ -537,7 +538,7 @@ void main() {
     });
 
     /// we no longer have the tap button to join a org
-    // testWidgets('Test for successful onTapJoin function when isPublic is false',
+    // testWidgets('Test for successful onTapJoin function when userRegistrationRequired is false',
     //     (WidgetTester tester) async {
     //   locator.registerSingleton<UserConfig>(_MockUserConfig());
     //   final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -548,7 +549,7 @@ void main() {
     //     ),
     //   );
     //
-    //   org.isPublic = false;
+    //   org.userRegistrationRequired = false;
     //   selectOrganizationViewModel.selectedOrganization = org;
     //   _user = User(joinedOrganizations: []);
     //
@@ -583,7 +584,7 @@ void main() {
     //   );
     // });
     // testWidgets(
-    //     'Test for successful onTapJoin function when isPublic is false and joined orgnazation is not empty',
+    //     'Test for successful onTapJoin function when userRegistrationRequired is false and joined orgnazation is not empty',
     //     (WidgetTester tester) async {
     //   locator.registerSingleton<UserConfig>(_MockUserConfig());
     //   final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -594,7 +595,7 @@ void main() {
     //     ),
     //   );
     //
-    //   org.isPublic = false;
+    //   org.userRegistrationRequired = false;
     //   selectOrganizationViewModel.selectedOrganization = org;
     //   _user = User(joinedOrganizations: [org]);
     //
@@ -630,7 +631,7 @@ void main() {
     //   );
     // });
     // testWidgets(
-    //     'Test for successful onTapJoin function when isPublic is false and result is null',
+    //     'Test for successful onTapJoin function when userRegistrationRequired is false and result is null',
     //     (WidgetTester tester) async {
     //   locator.registerSingleton<UserConfig>(_MockUserConfig());
     //   final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -641,7 +642,7 @@ void main() {
     //     ),
     //   );
     //
-    //   org.isPublic = false;
+    //   org.userRegistrationRequired = false;
     //   selectOrganizationViewModel.selectedOrganization = org;
     //
     //   when(
@@ -672,7 +673,7 @@ void main() {
     //   );
     // });
     testWidgets(
-        'Test for successful onTapJoin function when isPublic is true and throws exception',
+        'Test for successful onTapJoin function when userRegistrationRequired is false and throws exception',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -699,7 +700,7 @@ void main() {
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
     });
     // testWidgets(
-    //     'Test for successful onTapJoin function when isPublic is false and throws exception',
+    //     'Test for successful onTapJoin function when userRegistrationRequired is false and throws exception',
     //     (WidgetTester tester) async {
     //   locator.registerSingleton<UserConfig>(_MockUserConfig());
     //   final selectOrganizationViewModel = SelectOrganizationViewModel();
@@ -709,7 +710,7 @@ void main() {
     //       qrKey: selectOrganizationViewModel.qrKey,
     //     ),
     //   );
-    //   org.isPublic = false;
+    //   org.userRegistrationRequired = false;
     //
     //   selectOrganizationViewModel.selectedOrganization = org;
     //

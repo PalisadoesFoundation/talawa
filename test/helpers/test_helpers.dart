@@ -111,7 +111,7 @@ final fakeOrgInfo = OrgInfo(
     firstName: "ravidi",
     lastName: "shaikh",
   ),
-  isPublic: false,
+  userRegistrationRequired: true,
 );
 
 void _removeRegistrationIfExists<T extends Object>() {
@@ -363,13 +363,13 @@ UserConfig getAndRegisterUserConfig() {
         OrgInfo(
           id: '3',
           name: 'test org 3',
-          isPublic: true,
+          userRegistrationRequired: false,
           creatorInfo: User(firstName: 'test', lastName: '1'),
         ),
         OrgInfo(
           id: '4',
           name: 'test org 4',
-          isPublic: false,
+          userRegistrationRequired: true,
           creatorInfo: User(firstName: 'test', lastName: '2'),
         ),
         OrgInfo(
@@ -381,13 +381,13 @@ UserConfig getAndRegisterUserConfig() {
         OrgInfo(
           id: '1',
           name: 'test org',
-          isPublic: false,
+          userRegistrationRequired: true,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
         OrgInfo(
           id: '2',
           name: 'test org',
-          isPublic: false,
+          userRegistrationRequired: true,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
       ],

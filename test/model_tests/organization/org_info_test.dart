@@ -16,7 +16,7 @@ void main() {
       'image': 'image_url',
       'name': 'Name',
       'description': 'Description',
-      'isPublic': true,
+      'userRegistrationRequired': false,
       'creator': userJson,
       'members': [userJson],
       'admins': [userJson],
@@ -26,7 +26,7 @@ void main() {
       'image': 'image_url',
       'name': 'Name',
       'description': 'Description',
-      'isPublic': true,
+      'userRegistrationRequired': false,
       'creator': userJson,
       'members': [userJson],
       'admins': [userJson],
@@ -39,7 +39,7 @@ void main() {
       expect(result.image, 'image_url');
       expect(result.name, 'Name');
       expect(result.description, 'Description');
-      expect(result.isPublic, true);
+      expect(result.userRegistrationRequired, false);
       expect(result.creatorInfo!.authToken, ' ');
       expect(result.creatorInfo!.refreshToken, ' ');
       expect(result.creatorInfo!.id, 'user_id');
@@ -64,7 +64,7 @@ void main() {
       expect(result.image, 'image_url');
       expect(result.name, 'Name');
       expect(result.description, 'Description');
-      expect(result.isPublic, true);
+      expect(result.userRegistrationRequired, false);
       expect(result.creatorInfo!.authToken, ' ');
       expect(result.creatorInfo!.refreshToken, ' ');
       expect(result.creatorInfo!.id, 'user_id');
@@ -92,7 +92,7 @@ void main() {
         expect(result.image, 'image_url');
         expect(result.name, 'Name');
         expect(result.description, 'Description');
-        expect(result.isPublic, true);
+        expect(result.userRegistrationRequired, false);
         expect(result.creatorInfo!.authToken, ' ');
         expect(result.creatorInfo!.refreshToken, ' ');
         expect(result.creatorInfo!.id, 'user_id');
@@ -124,7 +124,7 @@ void main() {
       expect(res[0].image, 'image_url');
       expect(res[0].name, 'Name');
       expect(res[0].description, 'Description');
-      expect(res[0].isPublic, true);
+      expect(res[0].userRegistrationRequired, false);
       expect(res[0].creatorInfo!.authToken, ' ');
       expect(res[0].creatorInfo!.refreshToken, ' ');
       expect(res[0].creatorInfo!.id, 'user_id');
@@ -141,7 +141,7 @@ void main() {
       expect(res[1].image, 'image_url');
       expect(res[1].name, 'Name');
       expect(res[1].description, 'Description');
-      expect(res[1].isPublic, true);
+      expect(res[1].userRegistrationRequired, false);
       expect(res[1].creatorInfo!.authToken, ' ');
       expect(res[1].creatorInfo!.refreshToken, ' ');
       expect(res[1].creatorInfo!.id, 'user_id');
@@ -158,7 +158,7 @@ void main() {
       expect(res[2].image, 'image_url');
       expect(res[2].name, 'Name');
       expect(res[2].description, 'Description');
-      expect(res[2].isPublic, true);
+      expect(res[2].userRegistrationRequired, false);
       expect(res[2].creatorInfo!.authToken, ' ');
       expect(res[2].creatorInfo!.refreshToken, ' ');
       expect(res[2].creatorInfo!.id, 'user_id');

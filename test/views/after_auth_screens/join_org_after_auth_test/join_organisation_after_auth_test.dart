@@ -236,7 +236,7 @@ void main() {
           firstName: "ravidi",
           lastName: "shaikh",
         ),
-        isPublic: false,
+        userRegistrationRequired: true,
       );
       final orgTwo = OrgInfo(
         name: "org_two",
@@ -244,7 +244,7 @@ void main() {
           firstName: "ravidi",
           lastName: "shaikh",
         ),
-        isPublic: false,
+        userRegistrationRequired: true,
       );
 
       final selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
