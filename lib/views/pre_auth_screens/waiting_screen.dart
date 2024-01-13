@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
@@ -12,7 +9,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
-/// This class returns a widget which shows the request sent by the user to join a userRegistrationRequired organization.
+/// Displays a screen instructing the user to wait for approval.
 class WaitingPage extends StatelessWidget {
   const WaitingPage({super.key});
 
