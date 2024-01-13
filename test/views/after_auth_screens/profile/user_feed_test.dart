@@ -127,9 +127,7 @@ void main() {
       when(mockViewModel.userPosts).thenReturn([]);
       await tester.pumpWidget(userFeedScreen(isTest: true));
       await tester.pump();
-
       final finder = find.byKey(const Key('test_key'));
-
       expect(finder, findsOneWidget);
     });
 
@@ -139,9 +137,7 @@ void main() {
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: false));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsOneWidget);
     });
@@ -151,12 +147,9 @@ void main() {
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
-
       expect(
         find.text('You have no post in this organization'),
         findsOneWidget,
@@ -168,12 +161,9 @@ void main() {
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
-
       expect(
         find.text('Create your first post'),
         findsOneWidget,
@@ -194,15 +184,12 @@ void main() {
           organization: userConfig.currentOrg,
         ),
       ]);
-
       when(mockViewModel.initialise()).thenReturn(null);
 
       await tester.pumpWidget(userFeedScreen1(isTest: true));
       await tester.pumpAndSettle();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
-
       final finder1 = find.byType(PostListWidget);
       expect(finder1, findsOneWidget);
       expect(find.byType(NewsPost), findsOneWidget);

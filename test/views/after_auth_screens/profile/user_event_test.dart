@@ -74,11 +74,10 @@ void main() {
       when(mockViewModel.isBusy).thenReturn(true);
       when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.events).thenReturn([]);
+
       await tester.pumpWidget(userEventsScreen(isTest: true));
       await tester.pump();
-
       final finder = find.byKey(const Key('test_key'));
-
       expect(finder, findsOneWidget);
     });
     testWidgets('check if CircularIndicator Shows up', (tester) async {
@@ -87,9 +86,7 @@ void main() {
       when(mockViewModel.events).thenReturn([]);
 
       await tester.pumpWidget(userEventsScreen(isTest: false));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsOneWidget);
     });
@@ -99,12 +96,9 @@ void main() {
       when(mockViewModel.events).thenReturn([]);
 
       await tester.pumpWidget(userEventsScreen(isTest: true));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
-
       expect(
         find.text('You have no event in this organization'),
         findsOneWidget,
@@ -116,12 +110,10 @@ void main() {
       when(mockViewModel.events).thenReturn([]);
 
       await tester.pumpWidget(userEventsScreen(isTest: true));
-
       await tester.pump();
 
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
-
       expect(
         find.text('Create your first event'),
         findsOneWidget,
@@ -135,9 +127,7 @@ void main() {
       when(mockViewModel.events).thenReturn([]);
 
       await tester.pumpWidget(userEventsScreen(isTest: true));
-
       await tester.pumpAndSettle();
-
       expect(find.byKey(const Key('test_key')), findsOneWidget);
     });
     testWidgets('check if User Events shows up if not null', (tester) async {
@@ -174,16 +164,13 @@ void main() {
       ]);
 
       await tester.pumpWidget(userEventsScreen(isTest: true));
-
       await tester.pump();
-
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsNothing);
       expect(
         find.text('Create your first event'),
         findsNothing,
       );
-
       final finder1 = find.byType(SingleChildScrollView);
       expect(finder1, findsOneWidget);
       expect(find.byType(EventCard), findsOneWidget);
