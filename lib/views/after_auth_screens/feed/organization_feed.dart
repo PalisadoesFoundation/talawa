@@ -99,7 +99,7 @@ class OrganizationFeed extends StatelessWidget {
                                   child: Text(
                                     AppLocalizations.of(context)!
                                         .strictTranslate(
-                                      'There are no posts in this organisation',
+                                      'There are no posts in this organization',
                                     ),
                                     style: TextStyle(
                                       fontSize:
