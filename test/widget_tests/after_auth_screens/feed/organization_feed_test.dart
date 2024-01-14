@@ -230,7 +230,7 @@ void main() {
       await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
       await tester.pumpAndSettle();
 
-      final finder = find.text('There are no posts in this organisation');
+      final finder = find.text('There are no posts in this organization');
       expect(finder, findsOneWidget);
     });
     testWidgets(
