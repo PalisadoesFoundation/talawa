@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
@@ -35,9 +36,11 @@ class _UserEventsState extends State<UserEvents>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'You have no event in this organization',
+                            AppLocalizations.of(context)!.strictTranslate(
+                              'You have no event in this organization',
+                            ),
                             style: TextStyle(
-                              fontSize: SizeConfig.screenHeight! * 0.0275,
+                              fontSize: SizeConfig.screenHeight! * 0.026,
                             ),
                           ),
                           TextButton(
@@ -46,7 +49,11 @@ class _UserEventsState extends State<UserEvents>
                                 "/createEventPage",
                               );
                             },
-                            child: const Text('Create your first event'),
+                            child: Text(
+                              AppLocalizations.of(context)!.strictTranslate(
+                                'Create your first event',
+                              ),
+                            ),
                           ),
                         ],
                       ),

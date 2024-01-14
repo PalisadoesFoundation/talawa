@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -96,10 +97,13 @@ class OrganizationFeed extends StatelessWidget {
                                     top: SizeConfig.screenHeight! * 0.21,
                                   ),
                                   child: Text(
-                                    'There are no posts in this organisation',
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'There are no posts in this organisation',
+                                    ),
                                     style: TextStyle(
                                       fontSize:
-                                          SizeConfig.screenHeight! * 0.0275,
+                                          SizeConfig.screenHeight! * 0.026,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -109,7 +113,12 @@ class OrganizationFeed extends StatelessWidget {
                                     navigationService
                                         .pushScreen('/addpostscreen');
                                   },
-                                  child: const Text('Create your first post'),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'Create your first post',
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

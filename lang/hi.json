@@ -92,10 +92,8 @@
   "Explore Events": "घटनाओं का अन्वेषण करें",
   "Filters": "फ़िल्टर",
   "Filter by Date": "तारीख़ से फ़िल्टर करें",
-  "All Events": "सभी घटनाएँ",
   "Show all events": "सभी घटनाएँ दिखाएं",
   "Show all events created by you": "आपके द्वारा बनाई गई सभी घटनाएँ दिखाएं",
-  "Registered Events": "रजिस्टर की गई घटनाएँ",
   "Show all events you have registered": "आपने जिन घटनाओं में पंजीकृत हुए हैं, उन सभी घटनाएँ दिखाएं",
   "Show events for all": "सभी के लिए घटनाएँ दिखाएं",
   "Show invite-only events": "आमंत्रित लोगों के लिए घटनाएँ दिखाएं",
@@ -233,5 +231,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "यह यहाँ से तैयार करें पोस्ट टैब है जहाँ आप वर्तमान चयनित संगठन में पोस्ट जोड़ सकते हैं।",
   "This is the Chat tab here you can see all your messages of the current selected organization": "यहाँ चैट टैब है जहाँ आप वर्तमान चयनित संगठन के सभी संदेश देख सकते हैं।",
   "To help your organization grow you can support them financially from here": "अपने संगठन को बढ़ावा देने के लिए आप उन्हें यहाँ से वित्तपोषण दे सकते हैं।",
-  "You are all set to go let's get you in": "आप तैयार हैं जाने के लिए, चलो आपको एंटर करते हैं।"
+  "You are all set to go let's get you in": "आप तैयार हैं जाने के लिए, चलो आपको एंटर करते हैं।",
+  "You have no event in this organization": "इस संगठन में आपका कोई इवेंट नहीं है",
+  "Create your first event": "अपना पहला इवेंट बनाएं",
+  "There are no posts in this organization": "इस संगठन में कोई पोस्ट नहीं है",
+  "Create your first post": "अपनी पहली पोस्ट बनाएं",
+  "You have no post in this organization": "इस संगठन में आपका कोई पोस्ट नहीं है"
 }
