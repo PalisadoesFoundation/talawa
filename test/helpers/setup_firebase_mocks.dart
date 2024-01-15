@@ -1,11 +1,10 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 // ignore_for_file: return_of_invalid_type
 
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-// import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart';
 // import 'package:flutter/services.dart';
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:mockito/mockito.dart';
@@ -45,9 +44,10 @@
 //     }
 
 //     if (call.method == 'Firebase#initializeApp') {
+//       final callArguments = call.arguments as Map<String, dynamic>;
 //       return {
-//         'name': call.arguments['appName'],
-//         'options': call.arguments['options'],
+//         'name': callArguments['appName'],
+//         'options': callArguments['options'],
 //         'pluginConstants': {},
 //       };
 //     }
@@ -55,18 +55,20 @@
 //     return null;
 //   });
 
-// when(kMockMessagingPlatform.delegateFor(app: anyNamed('app')))
-//     .thenReturn(kMockMessagingPlatform);
-// when(
-//   kMockMessagingPlatform.setInitialValues(
-//     isAutoInitEnabled: anyNamed('isAutoInitEnabled'),
-//   ),
-// ).thenReturn(kMockMessagingPlatform);
+//   when(kMockMessagingPlatform.delegateFor(app: anyNamed('app')))
+//       .thenReturn(kMockMessagingPlatform);
+//   when(
+//     kMockMessagingPlatform.setInitialValues(
+//       isAutoInitEnabled: anyNamed('isAutoInitEnabled'),
+//     ),
+//   ).thenReturn(kMockMessagingPlatform);
 // }
 
-// class MockFirebaseMessaging extends Mock with MockPlatformInterfaceMixin {
+// class MockFirebaseMessaging extends Mock
+//     with MockPlatformInterfaceMixin
+//     implements FirebaseMessagingPlatform {
 //   MockFirebaseMessaging() {
-//     // TestFirebaseMessagingPlatform();
+//     TestFirebaseMessagingPlatform();
 //   }
 
 //   @override
@@ -78,36 +80,36 @@
 //     );
 //   }
 
-//   // @override
-//   // FirebaseMessagingPlatform delegateFor({FirebaseApp? app}) {
-//   //   return super.noSuchMethod(
-//   //     Invocation.method(#delegateFor, [], {#app: app}),
-//   //     returnValue: TestFirebaseMessagingPlatform(),
-//   //     returnValueForMissingStub: TestFirebaseMessagingPlatform(),
-//   //   );
-//   // }
+//   @override
+//   FirebaseMessagingPlatform delegateFor({FirebaseApp? app}) {
+//     return super.noSuchMethod(
+//       Invocation.method(#delegateFor, [], {#app: app}),
+//       returnValue: TestFirebaseMessagingPlatform(),
+//       returnValueForMissingStub: TestFirebaseMessagingPlatform(),
+//     );
+//   }
 
-//   // @override
-//   // FirebaseMessagingPlatform setInitialValues({bool? isAutoInitEnabled}) {
-//   //   return super.noSuchMethod(
-//   //     Invocation.method(
-//   //       #setInitialValues,
-//   //       [],
-//   //       {#isAutoInitEnabled: isAutoInitEnabled},
-//   //     ),
-//   //     returnValue: TestFirebaseMessagingPlatform(),
-//   //     returnValueForMissingStub: TestFirebaseMessagingPlatform(),
-//   //   );
-//   // }
+//   @override
+//   FirebaseMessagingPlatform setInitialValues({bool? isAutoInitEnabled}) {
+//     return super.noSuchMethod(
+//       Invocation.method(
+//         #setInitialValues,
+//         [],
+//         {#isAutoInitEnabled: isAutoInitEnabled},
+//       ),
+//       returnValue: TestFirebaseMessagingPlatform(),
+//       returnValueForMissingStub: TestFirebaseMessagingPlatform(),
+//     );
+//   }
 
-//   // @override
-//   // Future<RemoteMessage?> getInitialMessage() {
-//   //   return super.noSuchMethod(
-//   //     Invocation.method(#getInitialMessage, []),
-//   //     returnValue: neverEndingFuture<RemoteMessage>(),
-//   //     returnValueForMissingStub: neverEndingFuture<RemoteMessage>(),
-//   //   );
-//   // }
+//   @override
+//   Future<RemoteMessage?> getInitialMessage() {
+//     return super.noSuchMethod(
+//       Invocation.method(#getInitialMessage, []),
+//       returnValue: neverEndingFuture<RemoteMessage>(),
+//       returnValueForMissingStub: neverEndingFuture<RemoteMessage>(),
+//     );
+//   }
 
 //   @override
 //   Future<void> deleteToken() {
@@ -154,33 +156,33 @@
 //     );
 //   }
 
-// // Comment out the notification logic for the MVP
-// // TODO: Re-enable notifications when needed for the final release.
+// Comment out the notification logic for the MVP
+// TODO: Re-enable notifications when needed for the final release.
 
-//   // @override
-//   // Future<NotificationSettings> requestPermission({
-//   //   bool? alert = true,
-//   //   bool? announcement = false,
-//   //   bool? badge = true,
-//   //   bool? carPlay = false,
-//   //   bool? criticalAlert = false,
-//   //   bool? provisional = false,
-//   //   bool? sound = true,
-//   // }) {
-//   //   return super.noSuchMethod(
-//   //     Invocation.method(#requestPermission, [], {
-//   //       #alert: alert,
-//   //       #announcement: announcement,
-//   //       #badge: badge,
-//   //       #carPlay: carPlay,
-//   //       #criticalAlert: criticalAlert,
-//   //       #provisional: provisional,
-//   //       #sound: sound,
-//   //     }),
-//   //     returnValue: neverEndingFuture<NotificationSettings>(),
-//   //     returnValueForMissingStub: neverEndingFuture<NotificationSettings>(),
-//   //   );
-//   // }
+// @override
+// Future<NotificationSettings> requestPermission({
+//   bool? alert = true,
+//   bool? announcement = false,
+//   bool? badge = true,
+//   bool? carPlay = false,
+//   bool? criticalAlert = false,
+//   bool? provisional = false,
+//   bool? sound = true,
+// }) {
+//   return super.noSuchMethod(
+//     Invocation.method(#requestPermission, [], {
+//       #alert: alert,
+//       #announcement: announcement,
+//       #badge: badge,
+//       #carPlay: carPlay,
+//       #criticalAlert: criticalAlert,
+//       #provisional: provisional,
+//       #sound: sound,
+//     }),
+//     returnValue: neverEndingFuture<NotificationSettings>(),
+//     returnValueForMissingStub: neverEndingFuture<NotificationSettings>(),
+//   );
+// }
 
 //   @override
 //   Future<void> subscribeToTopic(String? topic) {
@@ -201,6 +203,6 @@
 //   }
 // }
 
-// // class TestFirebaseMessagingPlatform extends FirebaseMessagingPlatform {
-// //   TestFirebaseMessagingPlatform() : super();
-// // }
+// class TestFirebaseMessagingPlatform extends FirebaseMessagingPlatform {
+//   TestFirebaseMessagingPlatform() : super();
+// }

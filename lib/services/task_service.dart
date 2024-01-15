@@ -1,14 +1,12 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/painting.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/task/task_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/task_queries.dart';
 
-/// PostService class provides functions in the context of a Task.
+/// Provides functions in the context of a Task.
 ///
 /// Services include:
 /// * `getTasksForEvent` : to get the task for the event.
@@ -19,15 +17,24 @@ import 'package:talawa/utils/task_queries.dart';
 class TaskService {
   final _databaseMutationFunctions = locator<DataBaseMutationFunctions>();
   final _userConfig = locator<UserConfig>();
+
+  /// callBack to NotifyListeners.
   late VoidCallback callbackNotifyListeners;
 
   final _tasks = <Task>[];
+
+  /// List of Tasks.
   List<Task> get tasks => _tasks;
 
-  /// This function is used to get all the tasks for the event.
+  /// Retrieves tasks for a specific event.
   ///
-  /// params:
-  /// * [eventId] : id of an event for which tasks need to fetched,
+  /// **params**:
+  /// * `eventId`: The ID of the event for which tasks
+  /// are to be retrieved.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled after
+  /// tasks for the event are retrieved.
   Future<void> getTasksForEvent(String eventId) async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -43,7 +50,14 @@ class TaskService {
     }
   }
 
-  /// This function is used to fetch and return all tasks added by the current user.
+  /// Retrieves tasks associated with the current user.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled after
+  /// the user's tasks are retrieved.
   Future<void> getTasksByUser() async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -59,13 +73,18 @@ class TaskService {
     }
   }
 
-  /// This function is used to edit the task created by the user.
+  /// Edits a task with the provided details.
   ///
-  /// params:
-  /// * [title] : task title.
-  /// * [description] : task description.
-  /// * [deadline] : task deadline.
-  /// * [taskId] : task Id.
+  /// **params**:
+  /// * `title`: The new title for the task.
+  /// * `description`: The new description for the task.
+  /// * `deadline`: The new deadline for the task.
+  /// * `taskId`: The ID of the task to be edited.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: A promise that will be fulfilled
+  /// with a boolean value indicating whether the task
+  /// was successfully edited.
   Future<bool> editTask({
     required String title,
     required String description,
@@ -85,7 +104,8 @@ class TaskService {
 
     // if res is not null.
     if (res != null) {
-      final updatedtaskJson = res.data!['updateTask'] as Map<String, dynamic>;
+      final updatedtaskJson =
+          (res as QueryResult).data!['updateTask'] as Map<String, dynamic>;
       final index = _tasks.indexWhere((task) => task.id == taskId);
       if (index == -1) return false;
       final updatedtask = Task.fromJson(updatedtaskJson);
@@ -98,13 +118,19 @@ class TaskService {
     return false;
   }
 
-  /// This function is used to create a new task for the event.
+  /// Creates a new task with the provided details.
   ///
-  /// params:
-  /// * [title] : task title.
-  /// * [description] : task description.
-  /// * [deadline] : task deadline.
-  /// * [eventId] : Event for which task need to be create.
+  /// **params**:
+  /// * `title`: The title for the new task.
+  /// * `description`: The description for the new task.
+  /// * `deadline`: The deadline for the new task.
+  /// * `eventId`: The ID of the event associated with
+  /// the new task.
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: A promise that will be fulfilled
+  /// with a boolean value indicating whether the task
+  /// was successfully created.
   Future<bool> createTask({
     required String title,
     required String description,
@@ -123,7 +149,8 @@ class TaskService {
     );
 
     if (res != null) {
-      final task = res.data!['createTask'] as Map<String, dynamic>;
+      final task =
+          (res as QueryResult).data!['createTask'] as Map<String, dynamic>;
       _tasks.add(Task.fromJson(task));
       callbackNotifyListeners();
       return true;
@@ -131,11 +158,15 @@ class TaskService {
     return false;
   }
 
-  /// This function is used to delete a task.
+  /// Deletes a task given its ID and the creator's ID.
   ///
-  /// params:
-  /// * [taskId] : id of a task need to be deleted.
-  /// * [creatorId] : id of the task creator.
+  /// **params**:
+  /// * `taskId`: The ID of the task to be deleted.
+  /// * `creatorId`: The ID of the task's creator.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: A promise that will be fulfilled
+  ///  after the task deletion process completes.
   Future<void> deleteTask(String taskId, String creatorId) async {
     if (creatorId == _userConfig.currentUser.id) {
       await _databaseMutationFunctions

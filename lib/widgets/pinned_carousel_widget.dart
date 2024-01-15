@@ -1,13 +1,10 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-/// PinnedPostCarousel class returns a widget for pinned posts in
-/// the slider/carousel on the top of the Home Screen.
+/// Generates carousel for pinned posts on the Home Screen's top.
+///
 /// Tapping on a post will redirect you to the respective post screen.
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
@@ -17,9 +14,13 @@ class PinnedPostCarousel extends StatelessWidget {
     required this.navigateToIndividualPostPage,
   });
 
-  // variables
+  /// List of 'Post' objects representing pinned posts.
   final List<Post> pinnedPosts;
-  final Function navigateToPinnedPostPage;
+
+  /// Function that navigates to a page displaying pinned posts.
+  final Function() navigateToPinnedPostPage;
+
+  /// Function that navigates to an individual post page.
   final Function navigateToIndividualPostPage;
 
   @override
@@ -36,9 +37,12 @@ class PinnedPostCarousel extends StatelessWidget {
             navigateToIndividualPostPage: navigateToIndividualPostPage,
           ),
         ),
-        // Gesture Detector in Flutter is used to detect the user's gestures on the application.
-        // It is a non-visual widget. Inside the gesture detector, another widget is placed and
-        // the gesture detector will capture all these events (gestures) and execute the tasks accordingly.
+        // Gesture Detector in Flutter is used to detect
+        // the user's gestures on the application.
+        // It is a non-visual widget. Inside the gesture detector,
+        // another widget is placed and
+        // the gesture detector will capture all these
+        // events (gestures) and execute the tasks accordingly.
         GestureDetector(
           onTap: () => navigateToPinnedPostPage(),
           child: Container(
@@ -76,6 +80,7 @@ class PinnedPostCarousel extends StatelessWidget {
   }
 }
 
+/// Class defining custom carousel.
 @visibleForTesting
 class CustomCarouselScroller extends StatefulWidget {
   const CustomCarouselScroller({
@@ -83,24 +88,29 @@ class CustomCarouselScroller extends StatefulWidget {
     required this.pinnedPosts,
     required this.navigateToIndividualPostPage,
   });
+
+  /// List of pinnedposts.
   final List<Post> pinnedPosts;
+
+  /// function to navigate to IndividualPostPage.
   final Function navigateToIndividualPostPage;
 
   @override
   CustomCarouselScrollerState createState() => CustomCarouselScrollerState();
 }
 
-/// CustomCarouselScrollerState class return a widget that is
-/// used to generate slider for pinned post on the top of the Home Screen.
 @visibleForTesting
 class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
-  // variables
+  /// pageController.
   final PageController controller = PageController(initialPage: 0);
+
+  /// pageIndex.
   int pindex = 0;
 
   @override
   Widget build(BuildContext context) {
-    // Stack is a widget that positions its children relative to the edges of its box.
+    // Stack is a widget that positions its
+    // children relative to the edges of its box.
     return Stack(
       children: [
         Padding(

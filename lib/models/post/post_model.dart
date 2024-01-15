@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -40,13 +38,13 @@ class Post {
         : null;
     if (json['likedBy'] != null) {
       likedBy = <LikedBy>[];
-      json['likedBy'].forEach((v) {
+      (json['likedBy'] as List).forEach((v) {
         likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
       });
     }
     if (json['comments'] != null) {
       comments = <Comments>[];
-      json['comments'].forEach((v) {
+      (json['comments'] as List).forEach((v) {
         comments?.add(Comments.fromJson(v as Map<String, dynamic>));
       });
     }

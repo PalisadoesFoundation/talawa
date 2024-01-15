@@ -617,10 +617,10 @@ packages:
     dependency: "direct main"
     description:
       name: get_it
-      sha256: f79870884de16d689cf9a7d15eedf31ed61d750e813c538a6efb92660fea83c3
+      sha256: d0b88dc35a7f97fd91fec0cf8f165abd97a57977968d8fc02ba0bc92e14ba07e
       url: "https://pub.dev"
     source: hosted
-    version: "7.6.4"
+    version: "7.6.6"
   glob:
     dependency: transitive
     description:
@@ -641,10 +641,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_maps_flutter
-      sha256: c98817e21fcdc8e02db0c77e2411374293641d41f5b4d056dd28ee1ef6982f68
+      sha256: ae66fef3e71261d7df2eff29b2a119e190b2884325ecaa55321b1e17b5504066
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.3"
   google_maps_flutter_android:
     dependency: transitive
     description:
@@ -1097,10 +1097,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
+      sha256: b27217933eeeba8ff24845c34003b003b2b22151de3c908d0e679e8fe1aa078b
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   path_provider_android:
     dependency: transitive
     description:
@@ -1502,18 +1502,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "083d4a0ddb25435d267328a30c3938d09599f7578f5f0d28fbd9fd5424c1cd51"
+      sha256: "4afb43254d436e1d41a2ee2761908650ce3ad3453f5bebd283dfe3185d5026a2"
       url: "https://pub.dev"
     source: hosted
-    version: "24.1.44"
+    version: "24.1.45"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: "3bad2603b77d5a65e1a324b09480865531ae8026b95e63b1b253b93c26204f0a"
+      sha256: "22e9845e3389a7554f5ccf683032ba4ce4cf9a19f656f5e811a075df31f78c9e"
       url: "https://pub.dev"
     source: hosted
-    version: "24.1.44"
+    version: "24.1.45"
   synchronized:
     dependency: transitive
     description:
@@ -1653,10 +1653,10 @@ packages:
     dependency: "direct dev"
     description:
       name: url_launcher_platform_interface
-      sha256: "4aca1e060978e19b2998ee28503f40b5ba6226819c2b5e3e4d1821e8ccd92198"
+      sha256: a932c3a8082e118f80a475ce692fde89dc20fddb24c57360b96bc56f7035de1f
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.1"
   url_launcher_web:
     dependency: transitive
     description:
