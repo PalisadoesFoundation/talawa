@@ -27,7 +27,7 @@ Widget createApp() {
         final OrgInfo org = OrgInfo(
           id: '2',
           name: 'test org',
-          isPublic: true,
+          userRegistrationRequired: false,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         );
 

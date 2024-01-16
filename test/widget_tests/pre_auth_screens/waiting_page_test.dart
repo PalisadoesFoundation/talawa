@@ -16,7 +16,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
+import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 

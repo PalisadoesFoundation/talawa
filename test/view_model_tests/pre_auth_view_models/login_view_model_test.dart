@@ -162,7 +162,7 @@ class MockUserConfig extends Mock implements UserConfig {
                 OrgInfo(
                   id: '3',
                   name: 'test org 3',
-                  isPublic: true,
+                  userRegistrationRequired: false,
                   creatorInfo: User(firstName: 'test', lastName: '1'),
                 ),
               ],

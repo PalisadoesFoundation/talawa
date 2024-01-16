@@ -11,14 +11,14 @@ import 'package:talawa/models/user/user_info.dart';
 final encodedOrg = {
   "name": 'test_org',
   "image": 'https://testimg.com',
-  "isPublic": false,
+  "userRegistrationRequired": true,
 };
 
 /// Updated Organization.
 final updatedOrg = OrgInfo.fromJson({
   "name": 'test_org_updated',
   "image": 'https://testimg_updated.com',
-  "isPublic": true,
+  "userRegistrationRequired": false,
 });
 
 /// Membership Request Organization.
@@ -136,7 +136,7 @@ void main() {
       expect(userInfo.joinedOrganizations!.length, 2);
       expect(userInfo.joinedOrganizations![0].name, 'test_org');
       expect(userInfo.joinedOrganizations![0].image, 'https://testimg.com');
-      expect(userInfo.joinedOrganizations![0].isPublic, false);
+      expect(userInfo.joinedOrganizations![0].userRegistrationRequired, true);
 
       userInfo.updateJoinedOrg([updatedOrg, updatedOrg, updatedOrg]);
 
@@ -146,7 +146,7 @@ void main() {
         userInfo.joinedOrganizations![0].image,
         'https://testimg_updated.com',
       );
-      expect(userInfo.joinedOrganizations![0].isPublic, true);
+      expect(userInfo.joinedOrganizations![0].userRegistrationRequired, false);
     });
 
     test('Check if the method updateCreatedOrg works', () async {
@@ -155,7 +155,7 @@ void main() {
       expect(userInfo.createdOrganizations!.length, 2);
       expect(userInfo.createdOrganizations![0].name, 'test_org');
       expect(userInfo.createdOrganizations![0].image, 'https://testimg.com');
-      expect(userInfo.createdOrganizations![0].isPublic, false);
+      expect(userInfo.createdOrganizations![0].userRegistrationRequired, true);
 
       userInfo.updateCreatedOrg([updatedOrg, updatedOrg, updatedOrg]);
 
@@ -165,7 +165,7 @@ void main() {
         userInfo.createdOrganizations![0].image,
         'https://testimg_updated.com',
       );
-      expect(userInfo.createdOrganizations![0].isPublic, true);
+      expect(userInfo.createdOrganizations![0].userRegistrationRequired, false);
     });
 
     test('Check if the method updateMemberRequestOrg works', () async {
@@ -174,7 +174,7 @@ void main() {
       expect(userInfo.membershipRequests!.length, 2);
       expect(userInfo.membershipRequests![0].name, 'test_org');
       expect(userInfo.membershipRequests![0].image, 'https://testimg.com');
-      expect(userInfo.membershipRequests![0].isPublic, false);
+      expect(userInfo.membershipRequests![0].userRegistrationRequired, true);
 
       userInfo.updateMemberRequestOrg([updatedOrg, updatedOrg, updatedOrg]);
 
@@ -184,7 +184,7 @@ void main() {
         userInfo.membershipRequests![3].image,
         'https://testimg_updated.com',
       );
-      expect(userInfo.membershipRequests![3].isPublic, true);
+      expect(userInfo.membershipRequests![3].userRegistrationRequired, false);
     });
 
     test('Check if the method updateAdminFor works', () async {
@@ -193,14 +193,14 @@ void main() {
       expect(userInfo.adminFor!.length, 2);
       expect(userInfo.adminFor![0].name, 'test_org');
       expect(userInfo.adminFor![0].image, 'https://testimg.com');
-      expect(userInfo.adminFor![0].isPublic, false);
+      expect(userInfo.adminFor![0].userRegistrationRequired, true);
 
       userInfo.updateAdminFor([updatedOrg, updatedOrg, updatedOrg]);
 
       expect(userInfo.adminFor!.length, 3);
       expect(userInfo.adminFor![0].name, 'test_org_updated');
       expect(userInfo.adminFor![0].image, 'https://testimg_updated.com');
-      expect(userInfo.adminFor![0].isPublic, true);
+      expect(userInfo.adminFor![0].userRegistrationRequired, false);
     });
 
     test('Check if Hive storage works', () async {

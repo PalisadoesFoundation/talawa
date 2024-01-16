@@ -55,7 +55,6 @@ Widget createOrganizationFeedScreen({
 // late OrganizationFeedViewModel _organizationFeedViewModel;
 
 Widget createOrganizationFeedScreen2({
-  bool isPublic = true,
   bool viewOnMap = true,
   required MainScreenViewModel homeModel,
 }) {

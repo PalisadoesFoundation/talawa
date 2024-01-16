@@ -90,7 +90,7 @@ void main() {
       bool executed = false;
       _orgInfo = OrgInfo(
         name: 'Test Name',
-        isPublic: true,
+        userRegistrationRequired: false,
         creatorInfo: User(
           firstName: 'Test firstname',
           lastName: 'Test lastname',
@@ -144,7 +144,7 @@ void main() {
         (WidgetTester tester) async {
       _orgInfo = OrgInfo(
         name: 'Test Name',
-        isPublic: false,
+        userRegistrationRequired: true,
         creatorInfo: User(
           firstName: 'Test firstname',
           lastName: 'Test lastname',
@@ -237,7 +237,7 @@ void main() {
 
       // expect(userSizedBoxFallback, findsOneWidget);
 
-      // Testing SizedBox for users fallback for isPublic info
+      // Testing SizedBox for users fallback for userRegistrationRequired info
       // final userSizedBoxFallback1 = find
       //     .descendant(
       //       of: find.byType(Expanded).at(1),
