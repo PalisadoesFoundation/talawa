@@ -31,7 +31,7 @@ void main() {
           _id
         }
         description
-        isPublic
+        userRegistrationRequired
         creator{
           _id
           firstName

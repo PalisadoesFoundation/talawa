@@ -53,7 +53,7 @@ void main() {
                   'name': 'Organization Name',
                   'image': null,
                   'description': null,
-                  'isPublic': false,
+                  'userRegistrationRequired': true,
                   'creator': {
                     'firstName': 'ravidi',
                     'lastName': 'shaikh',
@@ -106,7 +106,7 @@ void main() {
                   'name': 'Organization Name',
                   'image': null,
                   'description': null,
-                  'isPublic': false,
+                  'userRegistrationRequired': true,
                   'creator': {
                     'firstName': 'ravidi',
                     'lastName': 'shaikh',

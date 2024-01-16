@@ -35,7 +35,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -48,7 +48,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -62,7 +62,7 @@ class Queries {
                     name
                     image
                     description
-                    isPublic
+                    userRegistrationRequired
                     creator{
                       _id
                       firstName
@@ -106,7 +106,7 @@ class Queries {
                 name
                 image
                 description
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -119,7 +119,7 @@ class Queries {
                 name
                 image
                 description
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -133,7 +133,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -207,7 +207,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -229,7 +229,7 @@ class Queries {
         where:{
           name_starts_with: \$nameStartsWith,
           visibleInSearch: true,
-          isPublic: true,
+          userRegistrationRequired: true,
         }
         first: \$first,
         skip: \$skip,
@@ -239,7 +239,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -266,7 +266,7 @@ class Queries {
             name
             image
             description
-            isPublic
+            userRegistrationRequired
             creator{
               _id
               firstName
@@ -297,7 +297,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -324,7 +324,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -338,7 +338,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -351,7 +351,7 @@ class Queries {
                 _id
                 name
                 image
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -420,7 +420,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -480,7 +480,7 @@ class Queries {
           _id
         }
         description
-        isPublic
+        userRegistrationRequired
         creator{
           _id
           firstName

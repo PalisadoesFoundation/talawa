@@ -142,8 +142,8 @@ class SignupDetailsViewModel extends BaseModel {
           final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
           // if user successfully saved and access token is also generated.
           if (userSaved && tokenRefreshed) {
-            // if the selected organization is public.
-            if (selectedOrganization.isPublic!) {
+            // if the selected organization userRegistration not required.
+            if (!selectedOrganization.userRegistrationRequired!) {
               try {
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(

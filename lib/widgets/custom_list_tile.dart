@@ -110,8 +110,10 @@ class CustomListTile extends StatelessWidget {
                 child: type != TileType.user
                     ? type == TileType.org
                         ? Icon(
-                            orgInfo!.isPublic! ? Icons.lock_open : Icons.lock,
-                            color: orgInfo!.isPublic!
+                            !orgInfo!.userRegistrationRequired!
+                                ? Icons.lock_open
+                                : Icons.lock,
+                            color: !orgInfo!.userRegistrationRequired!
                                 ? const Color(0xFF34AD64)
                                 : const Color(0xffFABC57),
                           )

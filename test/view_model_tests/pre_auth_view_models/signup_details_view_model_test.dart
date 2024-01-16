@@ -18,7 +18,7 @@ import '../../helpers/test_helpers.dart';
 
 bool empty = true;
 bool userSaved = true;
-bool isPublic = true;
+bool userRegistrationRequired = false;
 final data = {
   'signUp': {
     'user': {
@@ -51,7 +51,7 @@ class SignUpMock extends StatelessWidget {
 OrgInfo get org => OrgInfo(
       id: '3',
       name: 'test org 3',
-      isPublic: isPublic,
+      userRegistrationRequired: userRegistrationRequired,
       creatorInfo: User(firstName: 'test', lastName: '1'),
     );
 
@@ -62,7 +62,7 @@ void main() {
     await locator.unregister<UserConfig>();
     userSaved = true;
     empty = true;
-    isPublic = true;
+    userRegistrationRequired = false;
   });
   tearDown(() async {
     await locator.unregister<Queries>();
@@ -286,9 +286,9 @@ void main() {
       );
     });
     testWidgets(
-        'Check if signup() is working fine when selected organization is not public',
+        'Check if signup() is working fine when selected organization requires userRegistration',
         (tester) async {
-      isPublic = false;
+      userRegistrationRequired = true;
       locator.registerSingleton<UserConfig>(MockUserConfig());
 
       final model = SignupDetailsViewModel();
@@ -465,7 +465,7 @@ void main() {
     testWidgets(
         'Check if signup() is working fine when process of send membership request throws exception',
         (tester) async {
-      isPublic = false;
+      userRegistrationRequired = true;
       locator.registerSingleton<UserConfig>(MockUserConfig());
 
       final model = SignupDetailsViewModel();

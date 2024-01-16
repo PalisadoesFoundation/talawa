@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'org_info.dart';
@@ -26,7 +23,7 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       description: fields[5] as String?,
       id: fields[1] as String?,
       image: fields[0] as String?,
-      isPublic: fields[6] as bool?,
+      userRegistrationRequired: fields[6] as bool?,
       name: fields[2] as String?,
     );
   }
@@ -48,7 +45,7 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       ..writeByte(5)
       ..write(obj.description)
       ..writeByte(6)
-      ..write(obj.isPublic)
+      ..write(obj.userRegistrationRequired)
       ..writeByte(7)
       ..write(obj.creatorInfo);
   }
