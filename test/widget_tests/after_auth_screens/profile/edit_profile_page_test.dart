@@ -452,5 +452,51 @@ Future<void> main() async {
       expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
+    // Testing removeImage method
+    testWidgets("Testing if removeImage method is called properly",
+        (tester) async {
+      await mockNetworkImages(() async {
+        userConfig.updateUser(User());
+        userConfig.updateUser(
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
+        await tester.pumpWidget(createChangePassScreenDark());
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
+        await tester.pumpAndSettle();
+        verify(MockEditProfilePageViewModel().removeImage());
+      });
+    });
+
+    // Testing onPressed for firstName
+    testWidgets("Testing if firstName text field gets focus", (tester) async {
+      userConfig.updateUser(
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('FirstNameFocusButton')));
+      await tester.pumpAndSettle();
+      expect(
+          FocusScope.of(tester.element(find.byType(EditProfilePage)))
+              .focusedChild,
+          MockEditProfilePageViewModel().firstNameFocus);
+    });
+
+    // Testing onPressed for lastName
+    testWidgets("Testing if lastName text field gets focus", (tester) async {
+      userConfig.updateUser(
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('LastNameFocusButton')));
+      await tester.pumpAndSettle();
+
+      expect(
+          FocusScope.of(tester.element(find.byType(EditProfilePage)))
+              .focusedChild,
+          MockEditProfilePageViewModel().lastNameFocus);
+    });
   });
 }
