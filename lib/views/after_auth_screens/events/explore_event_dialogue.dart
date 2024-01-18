@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -97,6 +94,17 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
     );
   }
 
+  /// Creates a column with a date picker.
+  ///
+  /// **params**:
+  /// * `context`: A `BuildContext` representing the build context.
+  /// * `title`: A `String` representing the title of the date picker.
+  /// * `onTap`: A `void Function()` callback triggered when the date picker is tapped.
+  /// * `date`: A `DateTime` representing the selected date for the date picker.
+  /// * `key`: A `Key` to identify and differentiate the date picker widget.
+  ///
+  /// **returns**:
+  /// * `Column`: Returns a `Column` widget containing the date picker elements.
   Column datePicker(
     BuildContext context, {
     required String title,
