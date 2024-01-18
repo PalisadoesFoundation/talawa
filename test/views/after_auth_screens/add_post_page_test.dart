@@ -281,7 +281,8 @@ void main() {
         await tester.tap(finder);
         await tester.pumpAndSettle();
 
-        await tester.tap(cancelBtn);
+        final offSet = tester.getCenter(cancelBtn);
+        await tester.tapAt(offSet);
         await tester.pump();
       });
     });

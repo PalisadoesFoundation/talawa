@@ -22,26 +22,23 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(
-        SizeConfig.screenWidth! * 0.027,
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(26),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      insetPadding:
+          EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.15),
+      content: SizedBox(
+        height: SizeConfig.screenHeight! * 0.33,
+        // width: SizeConfig.screenWidth! * 0.3,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Column(
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.strictTranslate('Start Date'),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  GestureDetector(
+                  datePicker(
+                    context,
                     key: const Key('StartDateSelector'),
+                    title: 'Start Date',
+                    date: _startDate,
                     onTap: () async {
                       final date =
                           await customDatePicker(initialDate: _startDate);
@@ -49,47 +46,12 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         _startDate = date;
                       });
                     },
-                    child: SizedBox(
-                      // SizedBox is a box with a specified size.
-                      height: SizeConfig.screenHeight! * 0.07,
-                      width: SizeConfig.screenWidth! * 0.36,
-                      child: Card(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Icon(
-                                Icons.calendar_today,
-                                size: 19,
-                              ),
-                            ),
-                            Expanded(
-                              // shows the start date of the event
-                              child: Text(
-                                "${_startDate.toLocal()}".split(' ')[0],
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.strictTranslate('End Date'),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  GestureDetector(
+                  datePicker(
+                    context,
                     key: const Key('EndDateSelector'),
+                    title: 'End Date',
+                    date: _endDate,
                     onTap: () async {
                       final date =
                           await customDatePicker(initialDate: _endDate);
@@ -97,77 +59,86 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         _endDate = date;
                       });
                     },
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight! * 0.07,
-                      width: SizeConfig.screenWidth! * 0.36,
-                      child: Card(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Icon(
-                                Icons.calendar_today,
-                                size: 20,
-                              ),
-                            ),
-                            Expanded(
-                              // shows the end date of the event
-                              child: Text(
-                                "${_endDate.toLocal()}".split(' ')[0],
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            right: SizeConfig.screenWidth! * 0.072,
-          ),
-          child: SizedBox(
-            width: SizeConfig.screenWidth! * 0.36,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Expanded(
-                  // returns a button to cancel the event dialog
-                  child: TextButton(
-                    key: const Key('CancelButton'),
-                    onPressed: () {
-                      navigationService.pop();
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                TextButton(
+                  key: const Key('CancelButton'),
+                  onPressed: () {
+                    navigationService.pop();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate('Cancel'),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                Expanded(
-                  // returns a button to mark the event dialog as done.
-                  child: TextButton(
-                    key: const Key('DoneButton'),
-                    onPressed: () {
-                      navigationService.pop();
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.strictTranslate('Done'),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Color(0xff4285F4),
-                      ),
+                TextButton(
+                  key: const Key('DoneButton'),
+                  onPressed: () {
+                    navigationService.pop();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate('Done'),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xff4285F4),
                     ),
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column datePicker(
+    BuildContext context, {
+    required String title,
+    required void Function()? onTap,
+    required DateTime date,
+    required Key key,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppLocalizations.of(context)!.strictTranslate(title),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        GestureDetector(
+          key: key,
+          onTap: onTap,
+          child: SizedBox(
+            height: SizeConfig.screenHeight! * 0.08,
+            child: Card(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
+                      Icons.calendar_today,
+                      size: 20,
+                    ),
+                  ),
+                  Expanded(
+                    // shows the end date of the event
+                    child: Text(
+                      "${date.toLocal()}".split(' ')[0],
+                      // maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

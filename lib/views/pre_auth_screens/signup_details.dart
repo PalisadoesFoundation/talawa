@@ -48,6 +48,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
           body: Padding(
             padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
             child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
