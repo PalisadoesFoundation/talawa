@@ -22,10 +22,13 @@ class TalawaApiDocVisitor extends SimpleAstVisitor {
     // for it
     final extendsState = (node is ClassDeclaration) &&
         node.extendsClause?.superclass.element?.name == "State";
+    final isMain =
+        (node is FunctionDeclaration) && node.declaredElement?.name == "main";
 
     if (node.documentationComment == null &&
         !isOverridingMember(node) &&
-        !extendsState) {
+        !extendsState &&
+        !isMain) {
       final errorNode = getNodeToAnnotate(node);
 
       reporter.reportErrorForOffset(

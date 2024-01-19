@@ -18,7 +18,7 @@ class FetchPluginList {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: it returns Future of void
+  ///   None
   Future<void> fetchList() async {
     late final GraphQLClient client = graphqlConfig.clientToQuery();
     final QueryResult result = await client.query(

@@ -33,13 +33,15 @@ class _SplashScreenState extends State<SplashScreen> {
   // / `_handleInitialUri` is an async function that is used to hanlde
   // / the initial uri of the application.
 
-  /// Opening a URL displays that screen in your app, `_handleInitialUri` is an async function that is used to handle the initial uri of the application.
+  /// Opening a URL displays that screen in your app.
+  /// 
+  /// Used to handle the initial uri of the application.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: resolves when the check for userLoggedin is complete or not
+  ///   None
   Future<void> _handleInitialUri() async {
     _sub = uriLinkStream.listen(
       (Uri? uri) {

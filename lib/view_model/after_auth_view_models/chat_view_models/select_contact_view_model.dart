@@ -32,7 +32,7 @@ class SelectContactViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
   Future<void> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await _organizationService

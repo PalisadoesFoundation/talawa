@@ -95,23 +95,27 @@ class SignupDetailsViewModel extends BaseModel {
   /// 3. Setting validation mode to `AutovalidateMode.always`.
   /// 4. Setting the view state to `ViewState.idle`.
   /// 5. Validating the form using the form key.
-  /// 6. If validation is successful, disabling auto-validation mode and initiating the sign-up.
+  /// 6. If validation is successful, disabling auto-validation mode and
+  ///    initiating the sign-up.
   /// 7. Displaying a custom progress dialog during sign-up.
   /// 8. Initializing database functions.
-  /// 9. Performing a GraphQL mutation to register the user with provided details (first name, last name, email, password).
+  /// 9. Performing a GraphQL mutation to register the user with provided
+  ///    details (first name, last name, email, password).
   /// 10. Handling the result of the sign-up operation:
   ///     - Updating the current user with the received data.
   ///     - Refreshing the access token.
-  ///     - Joining a public organization or sending a membership request based on the selected organization.
+  ///     - Joining a public organization or sending a membership request
+  ///       based on the selected organization.
   ///
-  /// In case of any exceptions during the sign-up process, this function catches and prints the error
+  /// In case of any exceptions during the sign-up process, this function
+  /// catches and prints the error
   /// and displays a Talawa error snackbar with a corresponding message.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: a promise that indicates the completion of the sign-up process.
+  ///   None
   Future<void> signUp() async {
     FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
     setState(ViewState.busy);

@@ -13,24 +13,26 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// AddPostViewModel class have different functions that are used.
+/// AddPostViewModel class have different functions.
 ///
-/// to interact with the model to add a new post in the organization.
+/// They are used to interact with the model to add a new post in the
+///  organization.
 class AddPostViewModel extends BaseModel {
   AddPostViewModel({this.demoMode = false});
 
-  //Services
+  // Services
   late MultiMediaPickerService _multiMediaPickerService;
   late NavigationService _navigationService;
   late ImageService _imageService;
 
-  // ignore: unused_field
   late File? _imageFile;
   late String? _imageInBase64;
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _textHashTagController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
+
+  /// Whether the app is running in Demo Mode.
   late bool demoMode;
 
   /// The image file that is to be uploaded.
@@ -41,11 +43,11 @@ class AddPostViewModel extends BaseModel {
   /// * `File?`: The image file
   File? get imageFile => _imageFile;
 
-  /// method to set image.
+  /// Method to set image.
   ///
   ///
   /// **params**:
-  /// * `file`: define_the_param
+  /// * `file`: The file to set
   ///
   /// **returns**:
   ///   None
@@ -57,25 +59,19 @@ class AddPostViewModel extends BaseModel {
   /// Getter to access the base64 type.
   String? get imageInBase64 => _imageInBase64;
 
-  /// method to set Image in Bsse64.
-  ///
+  /// Method to set Image in Bsse64.
   ///
   /// **params**:
-  /// * `file`: define_the_param
+  /// * `file`: The file to convert.
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  ///   None
   Future<void> setImageInBase64(File file) async {
     _imageInBase64 = await _imageService.convertToBase64(file);
     notifyListeners();
   }
 
-  /// The Username.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `String`: The username of the currentUser
+  /// The username of the currentUser.
   String get userName =>
       userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 
@@ -83,35 +79,15 @@ class AddPostViewModel extends BaseModel {
   String? get userPic => userConfig.currentUser.image;
 
   /// The organisation name.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `String`: The organisation name
   String get orgName => _selectedOrg.name!;
 
-  /// Post body text controller.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `TextEditingController`: The main text controller of the post body
+  /// The main text controller of the post body.
   TextEditingController get controller => _controller;
 
-  /// hashtag text controller.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `TextEditingController`: The main text controller of the hashtag
+  /// The main text controller of the hashtag.
   TextEditingController get textHashTagController => _textHashTagController;
 
-  /// Post title text controller.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `TextEditingController`: The text controller of the title body
+  /// The text controller of the title body.
   TextEditingController get titleController => _titleController;
   late DataBaseMutationFunctions _dbFunctions;
 
@@ -142,7 +118,7 @@ class AddPostViewModel extends BaseModel {
   /// * `camera`: if true then open camera for image, else open gallery to select image.
   ///
   /// **returns**:
-  /// * `Future<void>`: Getting image from gallery returns future
+  ///   None
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -166,7 +142,7 @@ class AddPostViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: Uploading post by contacting queries
+  ///   None
   Future<void> uploadPost() async {
     // {TODO: Image not getting uploaded}
     if (_imageFile == null) {

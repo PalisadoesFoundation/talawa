@@ -140,7 +140,7 @@ class CreateEventViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: Asynchronous function for creating event
+  ///   None
   Future<void> createEvent() async {
     titleFocus.unfocus();
     locationFocus.unfocus();
@@ -214,7 +214,7 @@ class CreateEventViewModel extends BaseModel {
   /// * `camera`: if true then open camera for image, else open gallery to select image.
   ///
   /// **returns**:
-  /// * `Future<void>`: Asynchronous function for getting image from gallery
+  ///   None
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);

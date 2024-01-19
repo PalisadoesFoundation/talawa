@@ -243,7 +243,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// * `post`: post object
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
   Future<void> removePost(Post post) async {
     await _dbFunctions.gqlAuthMutation(
       PostQueries().removePost(),

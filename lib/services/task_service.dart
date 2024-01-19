@@ -33,8 +33,7 @@ class TaskService {
   /// are to be retrieved.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled after
-  /// tasks for the event are retrieved.
+  ///   None
   Future<void> getTasksForEvent(String eventId) async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -56,8 +55,7 @@ class TaskService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled after
-  /// the user's tasks are retrieved.
+  ///   None
   Future<void> getTasksByUser() async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -165,8 +163,7 @@ class TaskService {
   /// * `creatorId`: The ID of the task's creator.
   ///
   /// **returns**:
-  /// * `Future<void>`: A promise that will be fulfilled
-  ///  after the task deletion process completes.
+  ///   None
   Future<void> deleteTask(String taskId, String creatorId) async {
     if (creatorId == _userConfig.currentUser.id) {
       await _databaseMutationFunctions

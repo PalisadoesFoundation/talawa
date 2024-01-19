@@ -1,3 +1,4 @@
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/talawa_good_doc/talawa_good_doc_visitor.dart';
@@ -13,6 +14,7 @@ class TalawaGoodDocComments extends DartLintRule {
     correctionMessage:
         'Use "/// ..." for public api and "// ..." for other cases.',
     url: "https://docs.talawa.io/docs/developers/talawa/talawa-lint/",
+    errorSeverity: ErrorSeverity.WARNING,
   );
 
   @override
@@ -26,6 +28,11 @@ class TalawaGoodDocComments extends DartLintRule {
       context,
       reporter,
     );
+
+    if (reporter.source.fullName.contains(RegExp('.*/test/.*/.*test.dart')) ||
+        reporter.source.fullName.contains(RegExp('.*/.*g.dart'))) {
+      return;
+    }
 
     context.registry.addClassDeclaration(
       (node) => node.visitChildren(visitor),

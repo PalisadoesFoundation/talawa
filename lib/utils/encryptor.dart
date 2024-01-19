@@ -66,23 +66,24 @@ class Encryptor {
   ///
   /// **params**:
   /// * `keyPair`: [AsymmetricKeyPair] to save.
+  /// * `hive`: The [HiveInterface] to store keys in.
   ///
   /// **returns**:
-  /// * `Future<void>`: None
+  ///   None
   Future<void> saveKeyPair(
     AsymmetricKeyPair<PublicKey, PrivateKey> keyPair,
-    HiveInterface hiveInterface,
+    HiveInterface hive,
   ) async {
     // TODO: Implement secure storage here
     final Box<AsymetricKeys> keysBox =
-        await hiveInterface.openBox<AsymetricKeys>('user_keys');
+        await hive.openBox<AsymetricKeys>('user_keys');
     keysBox.put('key_pair', AsymetricKeys(keyPair: keyPair));
   }
 
   /// Loads secret keys from the Hive db.
   ///
   /// **params**:
-  ///   None
+  /// * `hive`: The [HiveInterface] to load keys from.
   ///
   /// **returns**:
   /// * `Future<AsymmetricKeyPair<PublicKey, PrivateKey>>`: The public and
@@ -127,6 +128,8 @@ class Encryptor {
     return String.fromCharCodes(decryptedBytes);
   }
 
+  // TODO: Use this somewhere
+  
   /// Helper function to decrypt the message.
   ///
   /// Internally uses the [loadKeyPair] function to get private key and
@@ -135,10 +138,10 @@ class Encryptor {
   /// **params**:
   /// * `message`: Message object containing a field named [encryptedMessage]
   /// which is supposed to contained user's message in encrypted format.
+  /// * `hive`: The [HiveInterface] to store things in.
   ///
   /// **returns**:
-  /// * `Future<void>`: None
-  /// TODO: Use this somewhere
+  ///   None
   Future<void> receiveMessage(
     Map<String, dynamic> message,
     HiveInterface hive,
