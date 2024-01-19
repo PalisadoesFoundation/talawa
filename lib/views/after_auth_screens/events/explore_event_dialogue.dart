@@ -19,8 +19,9 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding:
-          EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.15,),
+      insetPadding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.screenWidth! * 0.15,
+      ),
       content: SizedBox(
         height: SizeConfig.screenHeight! * 0.33,
         // width: SizeConfig.screenWidth! * 0.3,
