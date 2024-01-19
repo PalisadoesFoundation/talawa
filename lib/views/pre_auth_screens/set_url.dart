@@ -199,7 +199,7 @@ class _SetUrlState extends State<SetUrl> {
                                 size: Size(
                                   SizeConfig.screenWidth! * 0.125,
                                   SizeConfig.screenWidth! * 0.125 * 0.5,
-                                ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                                ),
                                 painter: LanguageIcon(),
                               ),
                               const SizedBox(
