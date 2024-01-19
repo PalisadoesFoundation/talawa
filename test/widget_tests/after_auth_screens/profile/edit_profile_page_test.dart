@@ -478,9 +478,10 @@ Future<void> main() async {
       await tester.tap(find.byKey(const Key('FirstNameFocusButton')));
       await tester.pumpAndSettle();
       expect(
-          FocusScope.of(tester.element(find.byType(EditProfilePage)))
-              .focusedChild,
-          MockEditProfilePageViewModel().firstNameFocus);
+        FocusScope.of(tester.element(find.byType(EditProfilePage)))
+            .focusedChild,
+        MockEditProfilePageViewModel().firstNameFocus,
+      );
     });
 
     // Testing onPressed for lastName
@@ -494,9 +495,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       expect(
-          FocusScope.of(tester.element(find.byType(EditProfilePage)))
-              .focusedChild,
-          MockEditProfilePageViewModel().lastNameFocus);
+        FocusScope.of(tester.element(find.byType(EditProfilePage)))
+            .focusedChild,
+        MockEditProfilePageViewModel().lastNameFocus,
+      );
     });
   });
 }
