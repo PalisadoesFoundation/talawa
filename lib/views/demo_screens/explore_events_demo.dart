@@ -71,6 +71,10 @@ class DemoExploreEvents extends StatelessWidget {
       // else render refresh icon along with the list of searched events for exploration.
       body: Stack(
         children: [
+          SizedBox(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight,
+          ),
           SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
@@ -200,29 +204,33 @@ class DemoExploreEvents extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            bottom: SizeConfig.screenHeight! * 0.05,
+            right: SizeConfig.screenWidth! * 0.02,
+            child: FloatingActionButton.extended(
+              elevation: 10,
+              key: homeModel?.keySEAdd,
+              heroTag: "AddEventFab",
+              backgroundColor: Theme.of(context).colorScheme.background,
+              onPressed: () {
+                navigationService.pushScreen(
+                  "/createEventPage",
+                );
+              },
+              icon: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              label: Text(
+                AppLocalizations.of(context)!.strictTranslate("Event"),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
+              ),
+            ),
+          ),
         ],
-      ),
-
-      floatingActionButton: FloatingActionButton.extended(
-        key: homeModel?.keySEAdd,
-        heroTag: "AddEventFab",
-        backgroundColor: Theme.of(context).colorScheme.background,
-        onPressed: () {
-          navigationService.pushScreen(
-            "/createEventPage",
-          );
-        },
-        icon: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        label: Text(
-          AppLocalizations.of(context)!.strictTranslate("Event"),
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .copyWith(color: Theme.of(context).colorScheme.secondary),
-        ),
       ),
     );
   }

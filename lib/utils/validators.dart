@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -147,7 +149,8 @@ class Validator {
   /// * `Future<bool?>`: true if URL exists, false otherwise.
   Future<bool?> validateUrlExistence(String url) async {
     try {
-      await http.get(Uri.parse(url));
+      final res = await http.get(Uri.parse(url));
+      log(res.body.toString());
       return true;
     } on Exception catch (e) {
       debugPrint(e.toString());
