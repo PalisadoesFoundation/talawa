@@ -129,7 +129,7 @@ class Encryptor {
   }
 
   // TODO: Use this somewhere
-  
+
   /// Helper function to decrypt the message.
   ///
   /// Internally uses the [loadKeyPair] function to get private key and

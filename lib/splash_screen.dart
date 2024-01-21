@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   // / the initial uri of the application.
 
   /// Opening a URL displays that screen in your app.
-  /// 
+  ///
   /// Used to handle the initial uri of the application.
   ///
   /// **params**:

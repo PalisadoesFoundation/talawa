@@ -127,7 +127,7 @@ class AppLanguage extends BaseModel {
   }
 
   /// Navigates the user after choosing lthe anguage.
-  /// 
+  ///
   /// This function navigate user to `/appSettingsPage` route if the user
   /// is authenticated else navigate to `demoMode - /MainScreenPage` route.
   ///
@@ -170,7 +170,7 @@ class AppLanguage extends BaseModel {
   }
 
   /// Queries the app language.
-  /// 
+  ///
   /// Performs graphQL query to check the app language.
   /// The function uses `gqlAuthQuery` method provided by Database
   /// Functions Services.
