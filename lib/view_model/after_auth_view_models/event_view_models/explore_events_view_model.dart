@@ -28,12 +28,16 @@ class ExploreEventsViewModel extends BaseModel {
   String _chosenValue = 'All Events';
   String _emptyListMessage = "Looks like there aren't any events.";
   List<Event> _events = [];
+  final List<Event> _userEvents = [];
   final Set<String> _uniqueEventIds = {};
   late StreamSubscription _currentOrganizationStreamSubscription;
   late final List<Event> _bufferEvents;
 
   /// Getter method to retrieve the list of events.
   List<Event> get events => _events;
+
+  /// Getter method to retrieve the list of User events.
+  List<Event> get userEvents => _userEvents;
 
   /// Getter method to retrieve the EventService instance.
   EventService get eventService => _eventService;
@@ -72,6 +76,7 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> refreshEvents() async {
     setState(ViewState.busy);
     _events.clear();
+    _userEvents.clear();
     _uniqueEventIds.clear();
     await _eventService.getEvents();
     setState(ViewState.idle);
@@ -108,13 +113,17 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
-    // checking if the `newEvent.id` is unique and not exist already.
-    if ((!_uniqueEventIds.contains(newEvent.id)) &&
-        (newEvent.organization!.id == userConfig.currentOrg.id)) {
+    // Check if the event is unique and belongs to the current organization
+    if (!_uniqueEventIds.contains(newEvent.id) &&
+        newEvent.organization!.id == userConfig.currentOrg.id) {
       _uniqueEventIds.add(newEvent.id!);
       _parseEventDateTime(newEvent);
-      notifyListeners();
     }
+    if (!_userEvents.any((event) => event.id == newEvent.id) &&
+        newEvent.creator!.id == userConfig.currentUser.id) {
+      _userEvents.insert(0, newEvent);
+    }
+    notifyListeners();
   }
 
   /// The helper function that used to parse the date and time.
@@ -136,19 +145,21 @@ class ExploreEventsViewModel extends BaseModel {
       newEvent.endTime = DateFormat('HH:mm:ss').format(DateTime.now());
     }
 
-    final startMoment = DateTime.parse(
-      '${newEvent.startDate!} ${newEvent.startTime!}',
-    ).toLocal();
+    if (RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.startDate!) &&
+        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.startTime!) &&
+        RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.endDate!) &&
+        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.endTime!)) {
+      final startMoment =
+          DateTime.parse('${newEvent.startDate} ${newEvent.startTime}')
+              .toLocal();
+      final endMoment =
+          DateTime.parse('${newEvent.endDate} ${newEvent.endTime}').toLocal();
 
-    final endMoment = DateTime.parse(
-      '${newEvent.endDate!} ${newEvent.endTime!}',
-    ).toLocal();
-
-    newEvent.startDate = DateFormat('yMd').format(startMoment);
-    newEvent.endDate = DateFormat('yMd').format(endMoment);
-    newEvent.startTime = DateFormat.jm().format(startMoment);
-    newEvent.endTime = DateFormat.jm().format(endMoment);
-
+      newEvent.startDate = DateFormat('yMd').format(startMoment);
+      newEvent.endDate = DateFormat('yMd').format(endMoment);
+      newEvent.startTime = DateFormat('h:mm a').format(startMoment);
+      newEvent.endTime = DateFormat('h:mm a').format(endMoment);
+    }
     _events.insert(0, newEvent);
   }
 
@@ -176,6 +187,7 @@ class ExploreEventsViewModel extends BaseModel {
                 print(result);
                 _uniqueEventIds.remove(eventId);
                 _events.removeWhere((element) => element.id == eventId);
+                _userEvents.removeWhere((element) => element.id == eventId);
                 await Future.delayed(const Duration(milliseconds: 500));
                 setState(ViewState.idle);
               }
@@ -211,7 +223,7 @@ class ExploreEventsViewModel extends BaseModel {
           }
           break;
         // if `_chosenValue` is "created event".
-        case 'Created Events':
+        case 'My Events':
           {
             // loop through the `_events` list and check
             // for the creator id matched the current user id.

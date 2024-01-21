@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
@@ -147,7 +150,7 @@ class AddPostViewModel extends BaseModel {
     // {TODO: Image not getting uploaded}
     if (_imageFile == null) {
       try {
-        await _dbFunctions.gqlAuthMutation(
+        final result = await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
             "text": "${_controller.text} #${_textHashTagController.text}",
@@ -155,6 +158,10 @@ class AddPostViewModel extends BaseModel {
             "title": _titleController.text,
           },
         );
+        final Post newPost = Post.fromJson(
+          (result as QueryResult).data!['createPost'] as Map<String, dynamic>,
+        );
+        locator<PostService>().addNewpost(newPost);
         _navigationService.showTalawaErrorSnackBar(
           "Post is uploaded",
           MessageType.info,
@@ -168,7 +175,7 @@ class AddPostViewModel extends BaseModel {
       }
     } else {
       try {
-        await _dbFunctions.gqlAuthMutation(
+        final result = await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
             "text": _controller.text,
@@ -177,6 +184,10 @@ class AddPostViewModel extends BaseModel {
             "file": 'data:image/png;base64,${_imageInBase64!}',
           },
         );
+        final Post newPost = Post.fromJson(
+          (result as QueryResult).data!['createPost'] as Map<String, dynamic>,
+        );
+        locator<PostService>().addNewpost(newPost);
         _navigationService.showTalawaErrorSnackBar(
           "Post is uploaded",
           MessageType.info,

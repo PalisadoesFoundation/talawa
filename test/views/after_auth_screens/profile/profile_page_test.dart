@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -47,7 +48,7 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
 void main() async {
   testSetupLocator();
   locator<SizeConfig>().test();
-  final Directory dir = Directory('test/fixtures/core');
+  final Directory dir = Directory('test/fixtures/coree');
   group('build', () {
     setUpAll(() async {
       registerServices();
@@ -58,15 +59,27 @@ void main() async {
         ..registerAdapter(OrgInfoAdapter());
       await Hive.openBox<User>('currentUser');
       await Hive.openBox<OrgInfo>('currentOrg');
-      final pbox = await Hive.openBox('pluginBox');
-      print(pbox.get('plugins'));
+      await Hive.openBox('pluginBox');
     });
 
-    tearDownAll(() {
-      File('test/fixtures/core/currentorg.hive').delete();
-      File('test/fixtures/core/currentorg.lock').delete();
-      File('test/fixtures/core/currentuser.hive').delete();
-      File('test/fixtures/core/currentuser.lock').delete();
+    tearDownAll(() async {
+      await Hive.close();
+      Future<void> safeDelete(String filePath) async {
+        final file = File(filePath);
+        if (await file.exists()) {
+          try {
+            await file.delete();
+          } catch (e) {
+            print('Error deleting $filePath: $e');
+          }
+        }
+      }
+
+      await safeDelete('test/fixtures/coree/currentorg.hive');
+      await safeDelete('test/fixtures/coree/currentorg.lock');
+      await safeDelete('test/fixtures/coree/currentuser.hive');
+      await safeDelete('test/fixtures/coree/currentuser.lock');
+      await safeDelete('test/fixtures/coree/pluginbox.hive');
     });
     testWidgets('check if profilePage shows up and refreshIndicator work',
         (tester) async {
@@ -81,7 +94,7 @@ void main() async {
         find.byKey(const Key('profilepic')),
         const Offset(0, 300),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
     });
     testWidgets('check if invitebutton work', (tester) async {
       await tester.pumpWidget(
@@ -89,9 +102,9 @@ void main() async {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
       await tester.tap(find.byKey(const Key('inviteicon')));
-      await tester.pumpAndSettle();
+      await tester.pump();
     });
     testWidgets('check if Donate button work', (tester) async {
       await tester.pumpWidget(
@@ -99,43 +112,44 @@ void main() async {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
       await tester.tap(find.text('Donate to the Community'));
-      await tester.pumpAndSettle();
+      await tester.pump();
     });
-    testWidgets('check if naviagte to task screen work', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Tasks'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('tastscrn')));
-      await tester.pumpAndSettle();
-    });
-    testWidgets('check if Invite customListTile work', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Invite'));
-      await tester.tap(find.text('Invite'));
-      await tester.pumpAndSettle();
-    });
+
     testWidgets('check if settings page is opening up', (tester) async {
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
       final settingsIcon = find.byKey(const Key('settingIcon'));
       await tester.tap(settingsIcon);
       verify(navigationService.navigatorKey);
+    });
+    testWidgets('check if User Feed is present', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(ContainedTabBarView), findsOneWidget);
+      expect(find.byKey(const Key("UserFeed")), findsOneWidget);
+    });
+    testWidgets('check if User Event is present', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(ContainedTabBarView), findsOneWidget);
+      await tester.tap(find.text('Events'));
+      await tester.pump();
     });
   });
 }

@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
@@ -405,7 +407,8 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void tourHomeTargets() {
+  void tourHomeTargets([UserConfig? givenUserConfig]) {
+    final UserConfig localUserConfig = givenUserConfig ?? userConfig;
     targets.clear();
     targets.add(
       FocusTarget(
@@ -454,14 +457,14 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
         align: ContentAlign.top,
         next: () {
-          if (!userConfig.loggedIn) {
+          if (!localUserConfig.loggedIn) {
             navigationService.pop();
           }
         },
       ),
     );
 
-    if (userConfig.loggedIn) {
+    if (localUserConfig.loggedIn) {
       targets.add(
         FocusTarget(
           key: keyDrawerLeaveCurrentOrg,
