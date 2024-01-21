@@ -84,6 +84,9 @@ import 'test_helpers.mocks.dart';
     MockSpec<ExploreEventsViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
+    MockSpec<OrganizationFeedViewModel>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),

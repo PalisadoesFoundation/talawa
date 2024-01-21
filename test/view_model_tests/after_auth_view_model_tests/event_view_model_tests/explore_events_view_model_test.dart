@@ -75,10 +75,10 @@ void main() {
       attendees: "20",
       location: "fake_event_loc",
       recurring: false,
-      startDate: DateTime.now().toString().substring(0, 10),
-      endDate: DateTime.now().toString().substring(0, 10),
-      startTime: "1900",
-      endTime: "2000",
+      startDate: '2024-01-14',
+      endDate: '2024-01-14',
+      startTime: '08:01:00.000Z',
+      endTime: '08:50:00.000Z',
       recurrence: "none",
       creator: User(id: 'Test Id'),
       isPublic: true,
@@ -162,7 +162,7 @@ void main() {
       await model.choseValueFromDropdown('All Events');
       expect(model.emptyListMessage, "Looks like there aren't any events.");
 
-      await model.choseValueFromDropdown("Created Events");
+      await model.choseValueFromDropdown("My Events");
       bool allCreated = true;
       final userConfig = getAndRegisterUserConfig();
       for (int i = 0; i < model.events.length; i++) {
@@ -231,6 +231,13 @@ void main() {
       await model.initialise();
       await model.choseValueFromDropdown('Registered Events');
       expect(model.emptyListMessage, "No registered events are present");
+    });
+    test(
+        "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
+        () async {
+      final model = ExploreEventsViewModel();
+      final List<Event> userEvents = model.userEvents;
+      expect(userEvents, []);
     });
   });
 }

@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -74,6 +75,37 @@ void main() {
   const postID = '1';
 
   group('Test PostService', () {
+    test('Test refreshFeed method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final service = PostService();
+      // Populating refreshing feed
+      await service.refreshFeed();
+      verify(dataBaseMutationFunctions.refreshAccessToken('testtoken'))
+          .called(2);
+    });
+
+    test('Test addNewPost method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = PostQueries().getPostsById(currentOrgID);
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = PostService();
+      await service.getPosts();
+      service.addNewpost(Post(sId: '1', creator: User()));
+
+      final List<Post> posts = await service.postStream.first;
+      expect(posts.length, 3);
+    });
     test('Test getPosts Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       //Setting up Demo data to be returned
@@ -273,8 +305,9 @@ void main() {
         const Duration(seconds: 1),
       ); // Adjust the delay as needed
 
-      // Verify that getPosts was called after the organization update
-      verify(service.getPosts()).called(1);
+      // Verify that refresh token was called to check getPost method was called correctly.
+      verify(dataBaseMutationFunctions.refreshAccessToken('testtoken'))
+          .called(3);
 
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
