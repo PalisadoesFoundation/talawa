@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';

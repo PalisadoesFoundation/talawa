@@ -23,7 +23,7 @@ class CommentService {
   /// * `text`: The comment text.
   ///
   /// **returns**:
-  /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
+  ///   None
   Future<void> createComments(String postId, String text) async {
     final String createCommentQuery = CommentQueries().createComment();
     final result = await _dbFunctions.gqlAuthMutation(

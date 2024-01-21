@@ -56,7 +56,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> fetchNewEvents() async {
     setState(ViewState.busy);
     notifyListeners();
@@ -72,7 +72,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> refreshEvents() async {
     setState(ViewState.busy);
     _events.clear();
@@ -89,7 +89,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> initialise() async {
     setState(ViewState.busy);
     if (!demoMode) {
@@ -111,7 +111,7 @@ class ExploreEventsViewModel extends BaseModel {
   /// * `newEvent`: `Event` type variable containing data to create a new event.
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
     // Check if the event is unique and belongs to the current organization
     if (!_uniqueEventIds.contains(newEvent.id) &&
@@ -169,7 +169,7 @@ class ExploreEventsViewModel extends BaseModel {
   /// * `eventId`: id of the event that need to be delete.
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> deleteEvent({required String eventId}) async {
     // push the custom alert dialog to ask for confirmation.
     navigationService.pushDialog(
@@ -205,7 +205,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   ///
   /// **returns**:
-  /// * `Future<void>`: return future void.
+  ///   None
   Future<void> choseValueFromDropdown(String value) async {
     _chosenValue = value;
     notifyListeners();

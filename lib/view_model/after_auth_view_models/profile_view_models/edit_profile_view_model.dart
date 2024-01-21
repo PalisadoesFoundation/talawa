@@ -58,7 +58,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `camera`: if true then open camera for image, else open gallery to select image.
   ///
   /// **returns**:
-  /// * `Future<void>`: None
+  ///   None
   Future<void> getImage({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -74,7 +74,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `camera`: for true it will select from camera otherwise gallery
   ///
   /// **returns**:
-  /// * `Future<void>`: none
+  ///   None
   Future<void> selectImage({bool camera = false}) async {
     if (camera) {
       getImage(camera: true);
@@ -108,7 +108,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `newImage`: New profile picture that is to be updated.
   ///
   /// **returns**:
-  /// * `Future<void>`: none
+  ///   None
   Future<void> updateUserProfile({
     String? firstName,
     String? lastName,

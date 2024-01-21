@@ -161,6 +161,8 @@ class MainScreenViewModel extends BaseModel {
   /// * `ctx`: BuildContext, contain parent info
   /// * `fromSignUp`: Bool to find user entry
   /// * `mainScreenIndex`: Index to find tab on mainScreen
+  /// * `demoMode`: Whether the app is in demo mode
+  /// * `testMode`: Whether the app is in test mode
   ///
   /// **returns**:
   ///   None
@@ -367,6 +369,13 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
+  /// Builds and returns an AppTourDialog.
+  ///
+  /// **params**:
+  /// * `ctx`: The build context to work with.
+  ///
+  /// **returns**:
+  /// * `Widget`: The built [Dialog]
   Widget appTourDialog(BuildContext ctx) {
     return CustomAlertDialog(
       dialogTitle: 'App Tour',
