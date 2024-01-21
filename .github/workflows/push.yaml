@@ -179,6 +179,7 @@ jobs:
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
