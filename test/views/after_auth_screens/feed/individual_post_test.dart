@@ -186,7 +186,27 @@ void main() {
   });
 
   group("testing Individual Post View ", () {
-    testWidgets("test IndividualPostWidget", (WidgetTester tester) async {
+    testWidgets("Check if Send button is disabled",
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createIndividualPostViewWidget(post));
+      await tester.pumpAndSettle();
+
+      final textFieldFinder = find.byKey(const Key('indi_post_tf_key'));
+      final textButtonFinder = find.byKey(const Key('sendButton'));
+      expect(tester.widget<TextButton>(textButtonFinder).enabled, isFalse);
+
+      // Clear the text field
+      await tester.enterText(textFieldFinder, '');
+      await tester.pumpAndSettle();
+      // The button should be disabled after clearing the text
+      expect(tester.widget<TextButton>(textButtonFinder).enabled, isFalse);
+
+      expect(find.byType(NewsPost), findsOneWidget);
+      expect(find.byType(IndividualPageLikeSection), findsOneWidget);
+      expect(find.byType(IndividualPostCommentSection), findsOneWidget);
+    });
+    testWidgets("Check if Send button is enabled and working",
+        (WidgetTester tester) async {
       await tester.pumpWidget(createIndividualPostViewWidget(post));
       await tester.pumpAndSettle();
 
