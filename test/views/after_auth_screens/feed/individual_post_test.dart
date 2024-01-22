@@ -190,18 +190,27 @@ void main() {
       await tester.pumpWidget(createIndividualPostViewWidget(post));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('indi_post_tf_key')), findsOneWidget);
-      await tester.enterText(
-        find.byKey(const Key('indi_post_tf_key')),
-        'Test Comment',
-      );
-      await tester.pumpAndSettle();
+      final textFieldFinder = find.byKey(const Key('indi_post_tf_key'));
+      final textButtonFinder = find.byKey(const Key('sendButton'));
+      expect(tester.widget<TextButton>(textButtonFinder).enabled, isFalse);
 
-      //verify that the text is entered in the text field
+      // Clear the text field
+      await tester.enterText(textFieldFinder, '');
+      await tester.pumpAndSettle();
+      // The button should be disabled after clearing the text
+      expect(tester.widget<TextButton>(textButtonFinder).enabled, isFalse);
+
+      // Enter non-empty text
+      await tester.enterText(textFieldFinder, 'Test Comment');
+      await tester.pumpAndSettle();
+      // The button should now be enabled
+      expect(tester.widget<TextButton>(textButtonFinder).enabled, isTrue);
+
+      // Verify that the text field is cleared
       expect(find.text('Test Comment'), findsOneWidget);
 
-      // Tap the send button.
-      await tester.tap(find.byType(TextButton));
+      //  Tap the send button
+      await tester.tap(textButtonFinder);
       await tester.pumpAndSettle();
 
       expect(find.byType(NewsPost), findsOneWidget);

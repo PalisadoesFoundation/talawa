@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -8,21 +7,24 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
 // Global State, should be removed in next few iterations
+
+/// Comment view model.
 late CommentsViewModel _commentViewModel;
 
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
   const IndividualPostView({super.key, required this.post});
+
+  /// Individual Post.
   final Post post;
 
   @override
   _IndividualPostViewState createState() => _IndividualPostViewState();
 }
 
-/// _IndividualPostViewState returns a widget to show Individual Post View state. This widget
-/// includes to send the  comment on the post, shows list of all users liked and commented on the post.
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
+  bool _isCommentValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,28 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 key: const Key('indi_post_tf_key'),
                 controller: _controller,
                 textInputAction: TextInputAction.send,
+                onChanged: (msg) {
+                  // Avoiding unneccessary rebuilds.
+                  if (msg.isEmpty && _isCommentValid == true) {
+                    setState(() {
+                      _isCommentValid = false;
+                    });
+                  }
+                  if (msg.isEmpty == false && _isCommentValid == false) {
+                    setState(() {
+                      _isCommentValid = true;
+                    });
+                  }
+                },
                 onSubmitted: (msg) {
-                  _commentViewModel.createComment(msg);
-                  _controller.text = "";
+                  if (_isCommentValid) {
+                    _commentViewModel.createComment(msg);
+                    _controller.text = "";
+
+                    setState(() {
+                      _isCommentValid = false;
+                    });
+                  }
                 },
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -59,14 +80,30 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             ),
             // Button to send the comment.
             TextButton(
-              onPressed: () {
-                _commentViewModel.createComment(_controller.text);
-                _controller.text = "";
-              },
+              key: const Key('sendButton'),
+              style: _isCommentValid == false
+                  ? ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                    )
+                  : null,
+              onPressed: _isCommentValid
+                  ? () {
+                      _commentViewModel.createComment(_controller.text);
+                      _controller.text = "";
+
+                      setState(() {
+                        _isCommentValid = false;
+                      });
+                    }
+                  : null,
               child: Text(
                 AppLocalizations.of(context)!.strictTranslate(
                   "Send",
                 ),
+                style: !_isCommentValid
+                    ? const TextStyle(color: Colors.grey)
+                    : null,
               ),
             ),
           ],
@@ -104,6 +141,14 @@ class _IndividualPostViewState extends State<IndividualPostView> {
   }
 }
 
+/// MEthod to apply padding around text.
+///
+/// **params**:
+/// * `context`: Context for padding method
+/// * `text`: text on which padding should be applied
+///
+/// **returns**:
+/// * `Padding`: padding for the text
 Padding buildPadding(BuildContext context, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -121,6 +166,7 @@ class IndividualPageLikeSection extends StatelessWidget {
     required this.usersLiked,
   });
 
+  /// List of user who liked the post.
   final List<LikedBy> usersLiked;
 
   @override
@@ -154,7 +200,11 @@ class IndividualPostCommentSection extends StatelessWidget {
     required this.comments,
     required this.postID,
   });
+
+  /// LIst of comments on a post.
   final List<Comments> comments;
+
+  /// ID of individual post.
   final String postID;
 
   @override
@@ -186,6 +236,7 @@ class CommentTemplate extends StatelessWidget {
     required this.comment,
   });
 
+  /// Instance of comment.
   final Comment comment;
 
   @override
@@ -228,7 +279,13 @@ class CommentTemplate extends StatelessWidget {
   }
 }
 
-/// likedUserCircleAvatar returns a widget of the individual user liked the post.
+/// Circle avatar of users who have liked the post.
+///
+/// **params**:
+/// * `user`: User who liked the post
+///
+/// **returns**:
+/// * `Widget`: returns the circle avatar of the likedBy user who liked the post
 Widget likedUserCircleAvatar(LikedBy user) {
   return const Padding(
     padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
