@@ -37,7 +37,7 @@ dependencies:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^16.3.0
+  flutter_local_notifications: ^16.3.1+1
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
