@@ -1,12 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
-import 'package:talawa/views/after_auth_screens/chat/event_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
-/// ChatPage returns a stateless widget for current user Chat Page which renders
+/// ChatPage returns a stateless widget for current user Chat Page which renders.
+///
 /// the list of all the users that the current user has chat with.
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -32,9 +29,6 @@ class ChatPage extends StatelessWidget {
               Tab(
                 text: "Direct",
               ),
-              Tab(
-                text: "Events",
-              ),
             ],
           ),
         ),
@@ -42,7 +36,6 @@ class ChatPage extends StatelessWidget {
         body: const TabBarView(
           children: [
             DirectChats(),
-            EventChats(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
