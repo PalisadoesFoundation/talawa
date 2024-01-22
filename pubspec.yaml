@@ -59,7 +59,7 @@ dependencies:
   mockito: ^5.4.4
   network_image_mock: ^2.1.1
   path_provider: ^2.1.2
-  permission_handler: 11.1.0
+  permission_handler: 11.2.0
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
   provider: ^6.1.1
