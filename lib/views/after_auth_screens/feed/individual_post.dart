@@ -56,16 +56,6 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                     });
                   }
                 },
-                onSubmitted: (msg) {
-                  if (_isCommentValid) {
-                    _commentViewModel.createComment(msg);
-                    _controller.text = "";
-
-                    setState(() {
-                      _isCommentValid = false;
-                    });
-                  }
-                },
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.strictTranslate(
