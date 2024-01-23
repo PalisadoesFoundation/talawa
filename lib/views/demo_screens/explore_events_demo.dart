@@ -71,10 +71,7 @@ class DemoExploreEvents extends StatelessWidget {
       // else render refresh icon along with the list of searched events for exploration.
       body: Stack(
         children: [
-          SizedBox(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-          ),
+          const Flex(direction: Axis.vertical),
           SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
