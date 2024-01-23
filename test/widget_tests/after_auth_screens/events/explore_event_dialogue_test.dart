@@ -64,8 +64,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key('TextButtonKey')));
     final date = customDatePicker(initialDate: startDate);
-
     await tester.pumpAndSettle();
+
+    final okButton = find.text('OK');
+
+    await tester.tap(okButton);
+    await tester.pumpAndSettle();
+
     expect(find.text(startDate.toString().split(' ')[0]), findsOneWidget);
     await tester.ensureVisible(find.byKey(const Key('StartDateSelector')));
     await tester.tap(find.byKey(const Key('StartDateSelector')));
@@ -96,9 +101,8 @@ void main() {
     });
     testWidgets('Testing the Cancel button', (tester) async {
       await prepareDatePicker(tester, (date) async {
-        final cancelBtnFinder = find.byKey(const ValueKey('CancelButton'));
+        final cancelBtnFinder = find.text('Cancel').last;
         expect(cancelBtnFinder, findsOneWidget);
-        await tester.ensureVisible(cancelBtnFinder);
         await tester.tap(cancelBtnFinder);
         await tester.pumpAndSettle();
         expect(
@@ -111,11 +115,19 @@ void main() {
     });
 
     testWidgets('Changing Date test', (tester) async {
-      await prepareDatePicker(tester, (date) async {
+      await prepareDatePicker(tester, (val) async {
+        expect(find.text('OK'), findsOneWidget);
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+
+        final date = customDatePicker(initialDate: startDate);
+        await tester.pumpAndSettle();
+
         await tester.tap(find.text('10'));
         await tester.pumpAndSettle(const Duration(seconds: 1));
         await tester.tap(find.text('OK'));
         await tester.pumpAndSettle(const Duration(seconds: 1));
+
         expect(
           (await date).toString().split(' ')[0],
           DateTime(DateTime.now().year, DateTime.now().month, 10)
@@ -136,6 +148,37 @@ void main() {
 
   group('Tests for Explore Event Dialogue', () {
     locator.registerSingleton(SizeConfig());
+
+    testWidgets('Tap on StartDateSelector', (tester) async {
+      await tester.pumpWidget(createExploreEventDialog());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
+      await tester.tap(find.byKey(const Key('StartDateSelector')));
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('16'));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+    });
+    testWidgets('Tap on EndDateSelector', (tester) async {
+      await tester.pumpWidget(createExploreEventDialog());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
+      await tester.tap(find.byKey(const Key('EndDateSelector')));
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('16'));
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+    });
 
     testWidgets('Testing Explore Event dialog layout', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
@@ -229,36 +272,6 @@ void main() {
 
       await tester.tap(x);
       expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
-    });
-    testWidgets('Tap on StartDateSelector', (tester) async {
-      await tester.pumpWidget(createExploreEventDialog());
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('TextButtonKey')));
-      await tester.pump();
-
-      await tester.tap(find.byKey(const Key('StartDateSelector')));
-      await tester.pump();
-
-      expect(find.byType(CalendarDatePicker), findsOneWidget);
-
-      await tester.tap(find.text('16'));
-      await tester.tap(find.text('OK'));
-      await tester.pumpAndSettle();
-    });
-    testWidgets('Tap on EndDateSelector', (tester) async {
-      await tester.pumpWidget(createExploreEventDialog());
-      await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('TextButtonKey')));
-      await tester.pump();
-
-      await tester.tap(find.byKey(const Key('EndDateSelector')));
-      await tester.pump();
-
-      expect(find.byType(CalendarDatePicker), findsOneWidget);
-
-      await tester.tap(find.text('16'));
-      await tester.tap(find.text('OK'));
-      await tester.pump();
     });
   });
 }
