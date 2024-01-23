@@ -32,10 +32,10 @@ class PostListWidget extends StatelessWidget {
       shrinkWrap: true,
       itemCount: posts.length,
       itemBuilder: (BuildContext context, int index) {
-        print(posts[index].imageUrl);
         return Column(
           children: [
             NewsPost(
+              key: ValueKey(posts[index].sId),
               post: posts[index],
               function: function,
               deletePost: deletePost,

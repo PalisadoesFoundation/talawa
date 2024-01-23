@@ -134,6 +134,28 @@ class PostQueries {
       file: \$file
     ) {
       _id
+      text
+      createdAt
+      imageUrl
+      videoUrl
+      title
+      commentCount
+      likeCount
+      creator{
+        _id
+        firstName
+        lastName
+        image
+      }
+      organization{
+        _id
+      }
+      likedBy{
+        _id
+      }
+      comments{
+        _id
+          }
     }
   }
     ''';

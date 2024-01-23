@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -26,7 +27,6 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
-        print(model.pinnedPosts);
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             shape: const CircleBorder(side: BorderSide.none),
@@ -67,21 +67,21 @@ class OrganizationFeed extends StatelessWidget {
             ),
           ),
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
-          body: model.isBusy
-              ? const CircularProgressIndicator()
+          body: model.isFetchingPosts || model.isBusy
+              ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: () async => model.fetchNewPosts(),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
-                      model.pinnedPosts.isNotEmpty
-                          ? PinnedPost(
-                              pinnedPost: model.pinnedPosts,
-                              model: homeModel!,
-                            )
-                          : Container(),
-                      // If the organization has posts then renders PostListWidget widget else Container.
+                      // Always show PinnedPost if available
+                      if (model.pinnedPosts.isNotEmpty)
+                        PinnedPost(
+                          key: const Key('pinnedPosts'),
+                          pinnedPost: model.pinnedPosts,
+                          model: homeModel!,
+                        ),
+                      // Show PostListWidget if there are posts, otherwise show the 'no posts' message
                       model.posts.isNotEmpty
                           ? PostListWidget(
                               key: homeModel?.keySHPost,
@@ -89,7 +89,39 @@ class OrganizationFeed extends StatelessWidget {
                               function: model.navigateToIndividualPage,
                               deletePost: model.removePost,
                             )
-                          : Container(),
+                          : // if there is no post in an organisation then show text button to create a post.
+                          Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: SizeConfig.screenHeight! * 0.21,
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'There are no posts in this organization',
+                                    ),
+                                    style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.screenHeight! * 0.026,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen('/addpostscreen');
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                      'Create your first post',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                     ],
                   ),
                 ),

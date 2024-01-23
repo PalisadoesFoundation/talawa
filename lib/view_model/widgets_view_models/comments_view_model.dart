@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/comment/comment_model.dart';
@@ -38,8 +39,7 @@ class CommentsViewModel extends BaseModel {
   /// * `postID`: The post id for which comments are to be fetched.
   ///
   /// **returns**:
-  /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
-  ///
+  ///   None
   Future<void> initialise(String postID) async {
     _commentlist = [];
     _postID = postID;
@@ -57,8 +57,7 @@ class CommentsViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: promise that will be fulfilled when comments are fetched.
-  ///
+  ///   None
   Future<void> getComments() async {
     setState(ViewState.busy);
     final List commentsJSON = await _commentService.getCommentsForPost(_postID);
@@ -75,8 +74,7 @@ class CommentsViewModel extends BaseModel {
   /// * `msg`: The comment text.
   ///
   /// **returns**:
-  /// * `Future<void>`: promise that will be fulfilled when comment is added.
-  ///
+  ///   None
   Future<void> createComment(String msg) async {
     print("comment viewModel called");
     await _commentService.createComments(_postID, msg);

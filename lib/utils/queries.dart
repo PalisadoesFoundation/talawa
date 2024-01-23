@@ -35,7 +35,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -48,7 +48,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -62,7 +62,7 @@ class Queries {
                     name
                     image
                     description
-                    isPublic
+                    userRegistrationRequired
                     creator{
                       _id
                       firstName
@@ -106,7 +106,7 @@ class Queries {
                 name
                 image
                 description
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -119,7 +119,7 @@ class Queries {
                 name
                 image
                 description
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -133,7 +133,7 @@ class Queries {
                   name
                   image
                   description
-                  isPublic
+                  userRegistrationRequired
                   creator{
                     _id
                     firstName
@@ -147,22 +147,7 @@ class Queries {
               }
             }
             refreshToken
-            androidFirebaseOptions {
-              apiKey
-              appId
-              messagingSenderId
-              projectId
-              storageBucket
-            }
-            iosFirebaseOptions {
-              apiKey
-              appId
-              messagingSenderId
-              projectId
-              storageBucket
-              iosClientId
-              iosBundleId
-            }
+            
           }
         }
     """;
@@ -190,21 +175,6 @@ class Queries {
         _id
         }
       }
-    """;
-  }
-
-  /// To save fcm token the backend fro notification.
-  ///
-  /// **params**:
-  /// * `token`: fcm token, read firebase docs for more info
-  ///
-  /// **returns**:
-  /// * `String`: return the mutation
-  String saveFcmToken(String? token) {
-    return """
-        mutation {
-          saveFcmToken(token: "$token")
-        }
     """;
   }
 
@@ -237,7 +207,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -259,7 +229,7 @@ class Queries {
         where:{
           name_starts_with: \$nameStartsWith,
           visibleInSearch: true,
-          isPublic: true,
+          userRegistrationRequired: true,
         }
         first: \$first,
         skip: \$skip,
@@ -269,7 +239,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -296,7 +266,7 @@ class Queries {
             name
             image
             description
-            isPublic
+            userRegistrationRequired
             creator{
               _id
               firstName
@@ -327,7 +297,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -354,7 +324,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -368,7 +338,7 @@ class Queries {
               name
               image
               description
-              isPublic
+              userRegistrationRequired
               creator{
                 _id
                 firstName
@@ -381,7 +351,7 @@ class Queries {
                 _id
                 name
                 image
-                isPublic
+                userRegistrationRequired
                 creator{
                   _id
                   firstName
@@ -450,7 +420,7 @@ class Queries {
         _id
         name
         image
-        isPublic
+        userRegistrationRequired
         creator{
           firstName
           lastName
@@ -510,7 +480,7 @@ class Queries {
           _id
         }
         description
-        isPublic
+        userRegistrationRequired
         creator{
           _id
           firstName

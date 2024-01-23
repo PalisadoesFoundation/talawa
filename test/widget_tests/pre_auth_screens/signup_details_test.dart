@@ -27,7 +27,7 @@ Widget createApp() {
         final OrgInfo org = OrgInfo(
           id: '2',
           name: 'test org',
-          isPublic: true,
+          userRegistrationRequired: false,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         );
 
@@ -231,6 +231,7 @@ void main() {
     //inputting a invalid password text in the field
     await tester.enterText(passwordInputFieldWidget, 'test');
     //submitting the field with invalid password input
+    await tester.ensureVisible(findSignUpButton);
     await tester.tap(findSignUpButton);
     await tester.pumpAndSettle(const Duration(milliseconds: 500));
     //testing the invalidPasswordSubmission widget appears
@@ -239,6 +240,7 @@ void main() {
     //without inputting text in the field
     await tester.enterText(passwordInputFieldWidget, '');
     //submitting the field without input
+    await tester.ensureVisible(findSignUpButton);
     await tester.tap(findSignUpButton);
     await tester.pumpAndSettle(const Duration(milliseconds: 500));
     //testing the nullPasswordSubmission widget appears
@@ -247,6 +249,7 @@ void main() {
     //inputting a password with spaces in the field
     await tester.enterText(passwordInputFieldWidget, 'testing spaces');
     //submitting the field with spaces input
+    await tester.ensureVisible(findSignUpButton);
     await tester.tap(findSignUpButton);
     await tester.pumpAndSettle(const Duration(milliseconds: 500));
     //testing the spacePasswordSubmission widget appears

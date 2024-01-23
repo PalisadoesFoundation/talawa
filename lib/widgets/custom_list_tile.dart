@@ -38,7 +38,7 @@ class CustomListTile extends StatelessWidget {
   final Options? option;
 
   /// Object containing all the necessary info regarding the onTapOption.
-  final Function? onTapOption;
+  final Function()? onTapOption;
 
   /// Function to handle the tap on user info.
   final Function()? onTapUserInfo;
@@ -57,7 +57,6 @@ class CustomListTile extends StatelessWidget {
           ? onTapOrgInfo!(orgInfo!)
           : type == TileType.user
               ? onTapUserInfo!()
-              // ignore: avoid_dynamic_calls
               : onTapOption!(),
       child: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -111,8 +110,10 @@ class CustomListTile extends StatelessWidget {
                 child: type != TileType.user
                     ? type == TileType.org
                         ? Icon(
-                            orgInfo!.isPublic! ? Icons.lock_open : Icons.lock,
-                            color: orgInfo!.isPublic!
+                            !orgInfo!.userRegistrationRequired!
+                                ? Icons.lock_open
+                                : Icons.lock,
+                            color: !orgInfo!.userRegistrationRequired!
                                 ? const Color(0xFF34AD64)
                                 : const Color(0xffFABC57),
                           )

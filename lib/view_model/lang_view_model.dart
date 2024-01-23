@@ -41,7 +41,7 @@ class AppLanguage extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> initialize() async {
     _appLocale = const Locale('en');
     await fetchLocale();
@@ -53,7 +53,7 @@ class AppLanguage extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final String langCode = prefs.getString('language_code') ?? 'en';
@@ -68,7 +68,7 @@ class AppLanguage extends BaseModel {
   /// * `type`: `Locale` type, the language need to be updated with.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> changeLanguage(Locale type) async {
     // if the app language is of same [type].
     if (_appLocale == type) {
@@ -126,13 +126,16 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
-  /// This function navigate user to `/appSettingsPage` route if the user is authenticated else navigate to `demoMode - /MainScreenPage` route.
+  /// Navigates the user after choosing lthe anguage.
+  ///
+  /// This function navigate user to `/appSettingsPage` route if the user
+  /// is authenticated else navigate to `demoMode - /MainScreenPage` route.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> selectLanguagePress() async {
     if (userConfig.loggedIn) {
       dbLanguageUpdate();
@@ -155,7 +158,7 @@ class AppLanguage extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> dbLanguageUpdate() async {
     try {
       await databaseFunctions
@@ -166,13 +169,17 @@ class AppLanguage extends BaseModel {
     }
   }
 
-  /// This function perform graphQL query to check the app language.The function uses `gqlAuthQuery` method provided by Database Functions Services.
+  /// Queries the app language.
+  ///
+  /// Performs graphQL query to check the app language.
+  /// The function uses `gqlAuthQuery` method provided by Database
+  /// Functions Services.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> appLanguageQuery() async {
     try {
       await databaseFunctions.gqlAuthQuery(queries.userLanguage());
@@ -189,7 +196,7 @@ class AppLanguage extends BaseModel {
   /// * `userId`: user for which language need to be fetch.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns a future of void type.
+  ///   None
   Future<void> userLanguageQuery(String userId) async {
     try {
       await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));

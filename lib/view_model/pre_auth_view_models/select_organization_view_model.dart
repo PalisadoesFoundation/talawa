@@ -123,9 +123,8 @@ class SelectOrganizationViewModel extends BaseModel {
         selectedOrganization = item;
         notifyListeners();
         onTapJoin();
-        // print(selectedOrganization.isPublic);
 
-        if (!selectedOrganization.isPublic!) {
+        if (selectedOrganization.userRegistrationRequired!) {
           navigationService.pushScreen(
             Routes.requestAccess,
             arguments: selectedOrganization,
@@ -186,8 +185,8 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
-    // if `selectedOrganization` is public.
-    if (selectedOrganization.isPublic == true) {
+    // if `selectedOrganization` registrations is not required.
+    if (selectedOrganization.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(

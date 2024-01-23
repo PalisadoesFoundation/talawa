@@ -58,7 +58,7 @@ void main() async {
     'image': 'sampleimg',
     'id': 'XYZ',
     'name': 'Sample1',
-    'isPublic': true,
+    'userRegistrationRequired': false,
     'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
   });
 
@@ -145,7 +145,7 @@ void main() async {
                 'id': 'XYZ',
                 'image': 'sampleimg',
                 'name': 'Sample1',
-                'isPublic': true,
+                'userRegistrationRequired': false,
                 'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
@@ -159,7 +159,7 @@ void main() async {
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
-      expect(org.isPublic, testOrg.isPublic);
+      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
       expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
@@ -374,7 +374,7 @@ void main() async {
                 'id': 'XYZ',
                 'image': 'sampleimg',
                 'name': 'Sample1',
-                'isPublic': true,
+                'userRegistrationRequired': false,
                 'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
@@ -391,7 +391,7 @@ void main() async {
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
-      expect(org.isPublic, testOrg.isPublic);
+      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
       expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
@@ -501,7 +501,7 @@ void main() async {
                 'id': 'XYZ',
                 'image': 'sampleimg',
                 'name': 'Sample1',
-                'isPublic': true,
+                'userRegistrationRequired': false,
                 'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
@@ -518,7 +518,7 @@ void main() async {
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
-      expect(org.isPublic, testOrg.isPublic);
+      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
       expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
@@ -629,7 +629,7 @@ void main() async {
                 'id': 'XYZ',
                 'image': 'sampleimg',
                 'name': 'Sample1',
-                'isPublic': true,
+                'userRegistrationRequired': false,
                 'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
@@ -646,7 +646,7 @@ void main() async {
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
-      expect(org.isPublic, testOrg.isPublic);
+      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
       expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
@@ -664,7 +664,7 @@ void main() async {
                 'id': 'XYZ',
                 'image': 'sampleimg',
                 'name': 'Sample1',
-                'isPublic': true,
+                'userRegistrationRequired': false,
                 'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
@@ -681,7 +681,7 @@ void main() async {
       expect(org.id, testOrg.id);
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
-      expect(org.isPublic, testOrg.isPublic);
+      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
       expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 

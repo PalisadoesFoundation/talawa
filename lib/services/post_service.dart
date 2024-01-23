@@ -1,5 +1,7 @@
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'dart:async';
 
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -40,15 +42,22 @@ class PostService {
   // ignore: prefer_final_fields
   List<Post> _posts = [];
 
-  //Getters
+  /// Getter for Stream of posts.
   Stream<List<Post>> get postStream => _postStream;
+
+  /// Getter for Stream of update in any post.
   Stream<Post> get updatedPostStream => _updatedPostStream;
 
-  //Setters
+  ///This method sets up a stream that constantly listens to change in current org.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void setOrgStreamSubscription() {
     _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       if (updatedOrganization != _currentOrg) {
-        print("org changes from post service");
         _renderedPostID.clear();
         _currentOrg = updatedOrganization;
         getPosts();
@@ -56,27 +65,28 @@ class PostService {
     });
   }
 
-  /// Retrieves all posts of the organization.
+  /// Method used to fetch all posts of the current organisation.
   ///
-  /// This method queries the organization ID from `_currentOrg` and fetches
-  /// posts using a GraphQL query. The retrieved posts are added to the internal
-  /// post stream
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: returns future void
   Future<void> getPosts() async {
+    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
+    _dbFunctions.init();
     // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
     final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
-    // ignore:avoid_dynamic_calls
-    if (result == null || result.data == null) {
+    if (result == null || (result as QueryResult).data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
 
-    // ignore:avoid_dynamic_calls
     final List postsJson = result.data!['postsByOrganization'] as List;
-
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
       if (!_renderedPostID.contains(post.sId)) {
@@ -87,10 +97,43 @@ class PostService {
     _postStreamController.add(_posts);
   }
 
-  /// This function is used to add Like to the Post.
+  /// Method to refresh feed of current selected organisation.
   ///
-  /// params:
-  /// * [postId] : id of the post where like need to be added.
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<void>`: returns future void
+  Future<void> refreshFeed() async {
+    _posts.clear();
+    _renderedPostID.clear();
+    await getPosts();
+  }
+
+  ///Method to add newly created post at the very top of the feed.
+  ///
+  /// **params**:
+  /// * `newPost`: new post made by user to add in feed
+  ///
+  /// **returns**:
+  ///   None
+  void addNewpost(Post newPost) {
+    if (!_posts.contains(newPost)) {
+      _posts.insert(0, newPost);
+    }
+    _postStreamController.add(_posts);
+  }
+
+  ///Method to add like on a Post.
+  ///
+  /// This method basically update likedBy list of a Post
+  /// in database.
+  ///
+  /// **params**:
+  /// * `postID`: ID of the post to add like in database
+  ///
+  /// **returns**:
+  /// * `Future<void>`: define_the_return
   Future<void> addLike(String postID) async {
     _localAddLike(postID);
     final String mutation = PostQueries().addLike();
@@ -102,6 +145,13 @@ class PostService {
     return result;
   }
 
+  /// Locally add like on a Post and updates it using updated Post Stream.
+  ///
+  /// **params**:
+  /// * `postID`: ID of the post to add like locally
+  ///
+  /// **returns**:
+  ///   None
   void _localAddLike(String postID) {
     _posts.forEach((post) {
       if (post.sId == postID) {
@@ -111,10 +161,16 @@ class PostService {
     });
   }
 
-  /// This function is used to remove like from the Post.
+  /// Method to remove like in a Post.
   ///
-  /// params:
-  /// * [postId] : id of the post where like need to be removed.
+  /// This method basically update likedBy list of a Post
+  /// and removes the like of a user in database.
+  ///
+  /// **params**:
+  /// * `postID`: ID of the post to remove like in database.
+  ///
+  /// **returns**:
+  /// * `Future<void>`: nothing
   Future<void> removeLike(String postID) async {
     _removeLocal(postID);
     final String mutation = PostQueries().removeLike();
@@ -124,6 +180,13 @@ class PostService {
     return result;
   }
 
+  /// Locally removes the like of a user and update the Post UI.
+  ///
+  /// **params**:
+  /// * `postID`: ID of the post to remove like locally
+  ///
+  /// **returns**:
+  ///   None
   void _removeLocal(String postID) {
     _posts.forEach((post) {
       if (post.sId == postID) {
@@ -135,7 +198,13 @@ class PostService {
     });
   }
 
-  // Functions related to comments
+  ///Method to add comment of a user and update comments using updated Post Stream.
+  ///
+  /// **params**:
+  /// * `postID`: ID of the post to add comment locally
+  ///
+  /// **returns**:
+  ///   None
   void addCommentLocally(String postID) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == postID) {

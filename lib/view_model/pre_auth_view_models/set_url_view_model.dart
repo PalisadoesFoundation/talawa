@@ -120,7 +120,7 @@ class SetUrlViewModel extends BaseModel {
   /// * `argument`: message
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
 
   Future<void> checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
@@ -158,7 +158,7 @@ class SetUrlViewModel extends BaseModel {
   /// * `argument`: message
   ///
   /// **returns**:
-  /// * `Future<void>`: sdf
+  ///   None
 
   Future<void> checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();

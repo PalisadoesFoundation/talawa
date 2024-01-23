@@ -1,9 +1,10 @@
-// ignore_for_file: talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -18,6 +19,30 @@ import '../../helpers/test_locator.dart';
 class MockCallbackFunction extends Mock {
   void call();
 }
+
+final demoJson = {
+  'createPost': {
+    '__typename': 'Post',
+    '_id': '1',
+    'text': 'text #hastag',
+    'createdAt': '2023-11-13T19:28:21.095Z',
+    'imageUrl': 'https://imageurl',
+    'videoUrl': 'https://videoUrl',
+    'title': 'demo title',
+    'commentCount': 0,
+    'likeCount': 0,
+    'creator': {
+      '__typename': 'User',
+      '_id': '1',
+      'firstName': 'Ayush',
+      'lastName': 'Raghuwanshi',
+      'image': 'https://imageUrl',
+    },
+    'organization': {'__typename': 'Organization', '_id': '1'},
+    'likedBy': [],
+    'comments': [],
+  },
+};
 
 void main() {
   testSetupLocator();
@@ -86,9 +111,26 @@ void main() {
       verify(notifyListenerCallback());
     });
     test("Check if upload post works correctly", () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final notifyListenerCallback = MockCallbackFunction();
       final model = AddPostViewModel()..addListener(notifyListenerCallback);
       model.initialise();
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().uploadPost(),
+          variables: {
+            "text": " #",
+            "organizationId": 'XYZ',
+            "title": '',
+          },
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(PostQueries().uploadPost())),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
 
       await model.uploadPost();
       verify(
@@ -112,6 +154,7 @@ void main() {
     });
     test('uploadPost with _imageFile != null and throws no exception',
         () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final viewModel = AddPostViewModel();
       viewModel.initialise();
       final mockImageFile = File(
@@ -124,6 +167,23 @@ void main() {
       viewModel.controller.text = "Some post content";
       viewModel.textHashTagController.text = "hashtag";
       viewModel.titleController.text = "Post Title";
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().uploadPost(),
+          variables: {
+            "text": 'Some post content',
+            "organizationId": 'XYZ',
+            "title": 'Post Title',
+            "file": 'data:image/png;base64,',
+          },
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(PostQueries().uploadPost())),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
 
       await viewModel.uploadPost();
       verify(

@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';

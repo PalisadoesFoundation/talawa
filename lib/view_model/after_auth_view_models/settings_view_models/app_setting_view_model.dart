@@ -11,10 +11,10 @@ class AppSettingViewModel extends BaseModel {
   /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
   ///
   /// **params**:
-  /// * `context`: BuildContext of the widget
+  ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: Resolves when user logout
+  ///   None
   Future<void> logout() async {
     // push custom alert dialog with the confirmation message.
     await userConfig.userLogOut();
