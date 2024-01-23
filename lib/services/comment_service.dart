@@ -46,7 +46,7 @@ class CommentService {
   /// * `Future<List<dynamic>>`: promise that will be fulfilled with list of comments.
   ///
   Future<List<dynamic>> getCommentsForPost(String postId) async {
-    final String getCommmentQuery = PostQueries().getPostById(postId);
+    final String getCommmentQuery = PostQueries().getPostCommentsById(postId);
 
     final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 

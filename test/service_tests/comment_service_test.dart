@@ -46,7 +46,7 @@ void main() {
     test('test for getCommentsForPost', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          PostQueries().getPostCommentsById('Ayush s postid');
 
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
@@ -138,7 +138,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          PostQueries().getPostCommentsById('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -192,7 +192,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          PostQueries().getPostCommentsById('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -244,7 +244,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          PostQueries().getPostCommentsById('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -296,7 +296,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          PostQueries().getPostCommentsById('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
