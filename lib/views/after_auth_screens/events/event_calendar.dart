@@ -154,12 +154,11 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   return _AppointmentDataSource(appointments);
 }
 
-//function to parse time based on the format.
 /// a_line_ending_with_end_punctuation.
-/// 
+///
 /// **params**:
 /// * `time`: define_the_param
-/// 
+///
 /// **returns**:
 /// * `DateTime`: define_the_return
 DateTime _parseTime(String time) {
