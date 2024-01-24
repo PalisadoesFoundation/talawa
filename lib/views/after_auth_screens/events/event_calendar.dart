@@ -131,11 +131,11 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
     final startDate = DateFormat('yMd').parse(event.startDate!);
     print("${event.startTime!}##############################");
     final startTime =
-        DateFormat('Hms', 'en_US').parse(event.startTime ?? '14:23:01');
+        DateFormat('h:mm a', 'en_US').parse(event.startTime ?? '14:23:01');
     // .parse(event.startTime!);
     final endDate = DateFormat('yMd').parse(event.endDate!);
     final endTime =
-        DateFormat('Hms', 'en_US').parse(event.endTime ?? '14:23:01');
+        DateFormat('h:mm a', 'en_US').parse(event.endTime ?? '14:23:01');
 
     // adding appointments on the calender for event[index] date time.
     appointments.add(
