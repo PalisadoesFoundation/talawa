@@ -30,18 +30,6 @@ You'll need to set up the IDE and mobile device emulator on your local system an
 1. **API Environment**: This part is very important.
     1. Make sure Talawa-API is up and running.
     1. You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment. The Talawa-API INSTALLATION.md will provide that information.
-1. **Google APIs** (Optional): The app uses Google Maps API for venue selection. You will need to sign up for it if you want to test these features.
-    1. **Maps API Setup**: Follow these steps:
-        1. Go to [Google Developers Console](https://console.cloud.google.com).
-        1. Create a new project that you want to enable Google Maps on.
-        1. Search `credentials` in the search bar and select `Credentials` in APIs & Services. Click on `Create credentials` and select `API key`. Copy the key and replace it as said before.
-        1. Search `maps sdk for android` and select the `Google Maps SDK for Android` in Marketplace. You can also search `maps sdk for ios` and select the `Google Maps SDK for iOS` in Marketplace for iOS devices.
-        1. Click `Enable`.
-    1. **Mobile App Setup**: Enter your API key in the:
-        1. `android/app/src/main/AndroidManifest.xml` file for Android.
-        1. `ios/Runner/AppDelegate.swift` file for iOS.
-            1. Replace YOUR_KEY_HERE with your API key.
-        1. **Remember** to remove the key before committing changes and replace again with YOUR_KEY_HERE.
 
 # Installation
 
