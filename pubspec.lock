@@ -1025,10 +1025,10 @@ packages:
     dependency: "direct dev"
     description:
       name: mocktail_image_network
-      sha256: "83e6b9fa3c6b0952636719f0444752d94c0ef7caa4172ca467d9c1b682aeddbb"
+      sha256: "498726e24dd0aaf84329e6acf027549b292e9b782126f78406c25eeee70a0b9b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   nested:
     dependency: transitive
     description:
