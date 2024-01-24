@@ -130,12 +130,10 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   eventsList.forEach((event) {
     final startDate = DateFormat('yMd').parse(event.startDate!);
     print("${event.startTime!}##############################");
-    final startTime =
-        DateFormat('h:mm a', 'en_US').parse(event.startTime ?? '14:23:01');
+    final startTime = _parseTime(event.startTime ?? '14:23:01');
     // .parse(event.startTime!);
     final endDate = DateFormat('yMd').parse(event.endDate!);
-    final endTime =
-        DateFormat('h:mm a', 'en_US').parse(event.endTime ?? '14:23:01');
+    final endTime = _parseTime(event.endTime ?? '21:23:01');
 
     // adding appointments on the calender for event[index] date time.
     appointments.add(
@@ -154,6 +152,22 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   });
 
   return _AppointmentDataSource(appointments);
+}
+
+//function to parse time based on the format.
+/// a_line_ending_with_end_punctuation.
+/// 
+/// **params**:
+/// * `time`: define_the_param
+/// 
+/// **returns**:
+/// * `DateTime`: define_the_return
+DateTime _parseTime(String time) {
+  try {
+    return DateFormat('h:mm a', 'en_US').parse(time);
+  } catch (e) {
+    return DateFormat('Hms', 'en_US').parse(time);
+  }
 }
 
 /// class for handling the data source.
