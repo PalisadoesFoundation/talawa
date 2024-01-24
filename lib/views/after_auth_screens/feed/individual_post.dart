@@ -77,6 +77,8 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                           MaterialStateProperty.all(Colors.transparent),
                     )
                   : null,
+
+              ///check if button is enabled when comment is valid
               onPressed: _isCommentValid
                   ? () {
                       _commentViewModel.createComment(_controller.text);
