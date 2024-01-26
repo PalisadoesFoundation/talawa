@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -78,7 +79,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                     )
                   : null,
 
-              ///check if button is enabled when comment is valid
+              //check if button is enabled when comment is valid
               onPressed: _isCommentValid
                   ? () {
                       _commentViewModel.createComment(_controller.text);
@@ -108,7 +109,9 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             post: widget.post,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.screenHeight! * 0.04,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -143,7 +146,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
 /// * `Padding`: padding for the text
 Padding buildPadding(BuildContext context, String text) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.02),
     child: Text(
       AppLocalizations.of(context)!.strictTranslate(text),
       style: Theme.of(context).textTheme.titleLarge,
@@ -158,7 +161,7 @@ class IndividualPageLikeSection extends StatelessWidget {
     required this.usersLiked,
   });
 
-  /// List of user who liked the post.
+  /// List of users who liked the post.
   final List<LikedBy> usersLiked;
 
   @override
@@ -193,7 +196,7 @@ class IndividualPostCommentSection extends StatelessWidget {
     required this.postID,
   });
 
-  /// LIst of comments on a post.
+  /// List of comments on a post.
   final List<Comments> comments;
 
   /// ID of individual post.
@@ -277,7 +280,7 @@ class CommentTemplate extends StatelessWidget {
 /// * `user`: User who liked the post
 ///
 /// **returns**:
-/// * `Widget`: returns the circle avatar of the likedBy user who liked the post
+/// * `Widget`: Circle avatar of the likedBy user who liked the post
 Widget likedUserCircleAvatar(LikedBy user) {
   return const Padding(
     padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
