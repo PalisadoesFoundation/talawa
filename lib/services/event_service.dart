@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -70,7 +69,7 @@ class EventService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
   Future<void> getEvents() async {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -83,7 +82,8 @@ class EventService {
     final result = await _dbFunctions.gqlAuthMutation(mutation);
 
     if (result == null) return;
-    final List eventsJson = result.data!["eventsByOrganization"] as List;
+    final List eventsJson =
+        (result as QueryResult).data!["eventsByOrganization"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.registrants?.any(
@@ -156,7 +156,7 @@ class EventService {
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
   ///
   /// **returns**:
-  /// * `Future<void>`: void return
+  ///   None
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,

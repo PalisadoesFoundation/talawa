@@ -14,7 +14,7 @@ class OrgInfo {
     this.description,
     this.id,
     this.image,
-    this.isPublic,
+    this.userRegistrationRequired,
     this.name,
   });
 
@@ -34,7 +34,9 @@ class OrgInfo {
       name: json['name'] != null ? json['name'] as String? : null,
       description:
           json['description'] != null ? json['description'] as String? : null,
-      isPublic: json['isPublic'] != null ? json['isPublic'] as bool? : null,
+      userRegistrationRequired: json['userRegistrationRequired'] != null
+          ? json['userRegistrationRequired'] as bool?
+          : null,
       creatorInfo: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,
@@ -112,9 +114,9 @@ class OrgInfo {
   @HiveField(5)
   String? description;
 
-  /// The org visibility.
+  /// The org registration is required.
   @HiveField(6)
-  bool? isPublic;
+  bool? userRegistrationRequired;
 
   /// The org creatorInfo.
   @HiveField(7)

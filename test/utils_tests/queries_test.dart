@@ -27,16 +27,6 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("Check if saveFcmToken works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().saveFcmToken('token123');
-      if (fnData.contains('token123')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if logout works correctly", () {
       const mutation = false;
       expect(mutation, false);

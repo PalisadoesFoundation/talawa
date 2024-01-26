@@ -3,7 +3,6 @@
 
 // ignore_for_file: unused_import
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,7 +21,6 @@ import 'package:talawa/views/after_auth_screens/events/edit_events_form.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 
-import '../../../helpers/setup_firebase_mocks.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 
@@ -74,9 +72,6 @@ void main() {
   SizeConfig().test();
   setupLocator();
   graphqlConfig.test();
-
-  setupFirebaseMocks();
-  // await Firebase.initializeApp();
 
   group("Edit Event Screen Widget Test in dark mode", () {
     testWidgets("Testing if dark mode is applied", (tester) async {

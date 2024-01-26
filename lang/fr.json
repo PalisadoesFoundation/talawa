@@ -97,10 +97,8 @@
   "Explore Events": "Explorer les événements",
   "Filters": "Filtres",
   "Filter by Date": "Filtrer par date",
-  "All Events": "Tous les événements",
   "Show all events": "Afficher tous les événements",
   "Show all events created by you": "Afficher tous les événements créés par vous",
-  "Registered Events": "Événements enregistrés",
   "Show all events you have registered": "Afficher tous les événements auxquels vous êtes inscrit",
   "Show events for all": "Afficher les événements pour tous",
   "Show invite-only events": "Afficher les événements sur invitation uniquement",
@@ -233,5 +231,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "Ceci est l'onglet Créer une publication, ici vous pouvez ajouter une publication à l'organisation actuellement sélectionnée",
   "This is the Chat tab here you can see all your messages of the current selected organization": "Ceci est l'onglet Chat, ici vous pouvez voir tous vos messages de l'organisation actuellement sélectionnée",
   "To help your organization grow you can support them financially from here": "Pour aider votre organisation à se développer, vous pouvez les soutenir financièrement depuis ici.",
-  "You are all set to go let's get you in": "Vous êtes prêt à partir, laissez-nous vous aider."
+  "You are all set to go let's get you in": "Vous êtes prêt à partir, laissez-nous vous aider.",
+  "You have no event in this organization": "Vous n'avez aucun événement dans cette organisation",
+  "Create your first event": "Créez votre premier événement",
+  "There are no posts in this organization": "Il n'y a aucun article dans cette organisation",
+  "Create your first post": "Créez votre premier article",
+  "You have no post in this organization": "Vous n'avez aucun article dans cette organisation"
 }

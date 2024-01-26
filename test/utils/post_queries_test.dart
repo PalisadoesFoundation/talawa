@@ -81,5 +81,54 @@ void main() {
       final fnData = PostQueries().removePost();
       expect(fnData, data);
     });
+    test("Check if uploadPost works correctly", () {
+      const data = '''
+    mutation CreatePost(
+    \$text: String!
+    \$title: String!
+    \$imageUrl: URL
+    \$videoUrl: URL
+    \$organizationId: ID!
+    \$file: String
+  ) {
+    createPost(
+      data: {
+        text: \$text
+        title: \$title
+        imageUrl: \$imageUrl
+        videoUrl: \$videoUrl
+        organizationId: \$organizationId
+      }
+      file: \$file
+    ) {
+      _id
+      text
+      createdAt
+      imageUrl
+      videoUrl
+      title
+      commentCount
+      likeCount
+      creator{
+        _id
+        firstName
+        lastName
+        image
+      }
+      organization{
+        _id
+      }
+      likedBy{
+        _id
+      }
+      comments{
+        _id
+          }
+    }
+  }
+    ''';
+      final fnData = PostQueries().uploadPost();
+      expect(fnData, data);
+    });
   });
 }

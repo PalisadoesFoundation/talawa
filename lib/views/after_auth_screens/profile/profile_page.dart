@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/options/options.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/profile/user_event.dart';
+import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
-import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 /// ProfilePage returns a widget that renders a page of user's profile.
@@ -154,109 +152,22 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: SizeConfig.screenHeight! * 0.6,
+                          height: SizeConfig.screenHeight! * 0.68,
                           width: double.infinity,
                           child: ContainedTabBarView(
                             tabs: [
-                              const Tab(text: 'Posts'),
-                              const Tab(text: 'Events'),
-                              const Tab(text: 'Tasks'),
+                              const Tab(
+                                text: 'Posts',
+                                key: Key('UserpostTab'),
+                              ),
+                              const Tab(
+                                text: 'Events',
+                                key: Key('UserEventsTab'),
+                              ),
                             ],
                             views: [
-                              ColoredBox(
-                                color: Theme.of(context).colorScheme.background,
-                                child: GridView.count(
-                                  mainAxisSpacing: 5,
-                                  crossAxisCount: 3,
-                                  children: [
-                                    Image.asset('assets/images/pfp2.png'),
-                                    Image.asset('assets/images/pfp2.png'),
-                                    Image.asset('assets/images/pfp2.png'),
-                                    Image.asset('assets/images/pfp2.png'),
-                                    Image.asset('assets/images/pfp2.png'),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              ColoredBox(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                child: GestureDetector(
-                                  key: const Key('tastscrn'),
-                                  onTap: () {
-                                    navigationService
-                                        .pushScreen(Routes.userTasks);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.67,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.01,
-                              ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.05,
-                              ),
-
-                              /// `Donation` acts as plugin. If visible is true the it will be always visible.
-                              /// even if it's uninstalled by the admin (for development purposes)
-                              //TODO: custom tile for Invitation.
-                              CustomListTile(
-                                key: homeModel!.keySPInvite,
-                                index: 3,
-                                type: TileType.option,
-                                option: Options(
-                                  icon: Icon(
-                                    Icons.share,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    size: SizeConfig.screenHeight! * 0.025,
-                                  ),
-                                  // title
-                                  title: AppLocalizations.of(context)!
-                                      .strictTranslate('Invite'),
-                                  // subtitle
-                                  subtitle: AppLocalizations.of(context)!
-                                      .strictTranslate('Invite to org'),
-                                ),
-                                // on tap call the invite function
-                                onTapOption: () => model.invite(context),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.05,
-                              ),
-                              // Custom tile for Logout option.
-                              //TODO: logout
-                              // CustomListTile(
-                              //   key: homeModel!.keySPLogout,
-                              //   index: 3,
-                              //   type: TileType.option,
-                              //   option: Options(
-                              //     icon: Icon(
-                              //       Icons.logout,
-                              //       color:
-                              //           Theme.of(context).colorScheme.secondary,
-                              //       size: 30,
-                              //     ),
-                              //     title: AppLocalizations.of(context)!
-                              //         .strictTranslate('Log out'),
-                              //     subtitle: AppLocalizations.of(context)!
-                              //         .strictTranslate('Log out from Talawa'),
-                              //   ),
-                              //   // on tap calls the logout function
-                              //   onTapOption: () => model.logout(context),
-                              // ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * 0.05,
-                              ),
-                              FromPalisadoes(key: homeModel!.keySPPalisadoes),
+                              const UserFeed(key: Key("UserFeed")),
+                              const UserEvents(key: Key("UserEvents")),
                             ],
                           ),
                         ),
