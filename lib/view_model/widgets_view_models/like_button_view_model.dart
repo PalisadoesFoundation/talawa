@@ -22,6 +22,7 @@ class LikeButtonViewModel extends BaseModel {
   // Local Variables for session caching
   bool _isLiked = false;
   late User _user;
+  late User _likedByUser;
   List<LikedBy> _likedBy = [];
   late String _postID;
 
@@ -32,6 +33,7 @@ class LikeButtonViewModel extends BaseModel {
   bool get isLiked => _isLiked;
   List<LikedBy> get likedBy => _likedBy;
   int get likesCount => _likedBy.length;
+  User get likedByUser => _likedByUser;
 
   /// First function to initialize the ViewModel.
   ///
@@ -62,6 +64,10 @@ class LikeButtonViewModel extends BaseModel {
     if (!_isLiked) {
       _postService.addLike(_postID);
     }
+  }
+
+  Future<void> fetchLikedByUser(String userId) async {
+    _likedByUser = await _postService.fetchUserInfoById(userId);
   }
 
   /// function to set isLiked boolean.

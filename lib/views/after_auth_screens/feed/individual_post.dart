@@ -3,6 +3,7 @@ import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
@@ -192,7 +193,8 @@ class CommentTemplate extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CircleAvatar(),
+        CircleAvatar(
+            backgroundImage: NetworkImage(comment.creator?.image ?? "")),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
@@ -229,28 +231,33 @@ class CommentTemplate extends StatelessWidget {
 
 /// likedUserCircleAvatar returns a widget of the individual user liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
-  return const Padding(
-    padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
-    child: Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        CircleAvatar(
-          backgroundColor: Color(0xfff2f2f2),
-          radius: 20,
-        ),
-        Positioned(
-          top: 30,
-          right: 0,
-          bottom: 20,
-          left: 20,
-          child: Icon(
-            Icons.thumb_up,
-            color: Colors.blue,
-            size: 20,
-          ),
-        ),
-      ],
-    ),
-  );
+  return BaseView<LikeButtonViewModel>(
+      onModelReady: (model) async {
+        await model.fetchLikedByUser(user.sId ?? "");
+      },
+      builder: (context, model, child) => Padding(
+            padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(model.likedByUser.image ?? ""),
+                  backgroundColor: const Color(0xfff2f2f2),
+                  radius: 20,
+                ),
+                const Positioned(
+                  top: 30,
+                  right: 0,
+                  bottom: 20,
+                  left: 20,
+                  child: Icon(
+                    Icons.thumb_up,
+                    color: Colors.blue,
+                    size: 20,
+                  ),
+                ),
+              ],
+            ),
+          ));
 }

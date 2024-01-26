@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
@@ -100,6 +102,18 @@ class PostService {
     print(result);
     // return result
     return result;
+  }
+
+  Future<User> fetchUserInfoById(String userId) async {
+    final QueryResult result1 = await databaseFunctions.gqlAuthQuery(
+      queries.fetchUserInfo,
+      variables: {'id': userId},
+    ) as QueryResult;
+    final User userInfo = User.fromJson(
+      ((result1.data!['users'] as List<dynamic>)[0]) as Map<String, dynamic>,
+      fromOrg: true,
+    );
+    return userInfo;
   }
 
   void _localAddLike(String postID) {
