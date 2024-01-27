@@ -1,9 +1,12 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 ///This class creates the queries dealing with comments.
 class CommentQueries {
-  //Returns a query for creating a comment
+  /// Creating a comment.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The query for creating a comment
   String createComment() {
     return """
      mutation createComment(\$postId: ID!, \$text: String!) { 
@@ -18,7 +21,13 @@ class CommentQueries {
   """;
   }
 
-  //Returns a query to get the comments of a post
+  /// Get all comments for a post.
+  ///
+  /// **params**:
+  /// * `postId`: The id of the post to get comments for.
+  ///
+  /// **returns**:
+  /// * `String`: The query for getting all comments for a post.
   String getPostsComments(String postId) {
     return """
      query {
