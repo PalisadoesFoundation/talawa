@@ -159,7 +159,7 @@ class IndividualPageLikeSection extends StatelessWidget {
     required this.usersLiked,
   });
 
-  /// List of users who liked the post.
+  /// Represents a list of users who have liked a post.
   final List<LikedBy> usersLiked;
 
   @override
@@ -186,7 +186,9 @@ class IndividualPageLikeSection extends StatelessWidget {
   }
 }
 
-/// IndividualPostCommentSection returns a widget that show the list of all the users commented on the post.
+/// Widget representing the comment section of an individual post.
+///
+/// The `IndividualPostCommentSection` widget displays a list of comments on a post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
     super.key,
