@@ -110,7 +110,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenHeight! * 0.04,
+              horizontal: SizeConfig.screenHeight! * 0.010,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +146,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
 /// * `Padding`: padding for the text
 Padding buildPadding(BuildContext context, String text) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.02),
+    padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.006),
     child: Text(
       AppLocalizations.of(context)!.strictTranslate(text),
       style: Theme.of(context).textTheme.titleLarge,
