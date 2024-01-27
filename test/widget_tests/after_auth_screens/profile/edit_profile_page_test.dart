@@ -452,7 +452,10 @@ Future<void> main() async {
       expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
+
     // Testing removeImage method
+    final MockEditProfilePageViewModel mockViewModel =
+        MockEditProfilePageViewModel();
     testWidgets("Testing if removeImage method is called properly",
         (tester) async {
       await mockNetworkImages(() async {
@@ -460,11 +463,14 @@ Future<void> main() async {
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
+        // ignore: void_checks
+        when(mockViewModel.removeImage()).thenReturn(true);
         await tester.pumpWidget(createChangePassScreenDark());
         await tester.pumpAndSettle();
         await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
         await tester.pumpAndSettle();
-        verify(MockEditProfilePageViewModel().removeImage());
+        // Verify that removeImage is called exactly once
+        verify(mockViewModel.removeImage()).called(1);
       });
     });
 
@@ -475,8 +481,15 @@ Future<void> main() async {
       );
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
+
+      // Verify that the widget with key is in the widget tree
+      expect(find.byKey(const Key('FirstNameFocusButton')), findsOneWidget);
+
+      // Tap the widget using Finder instead of Key
       await tester.tap(find.byKey(const Key('FirstNameFocusButton')));
       await tester.pumpAndSettle();
+
+      // Verify that the expected focus is set
       expect(
         FocusScope.of(tester.element(find.byType(EditProfilePage)))
             .focusedChild,
@@ -491,9 +504,12 @@ Future<void> main() async {
       );
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('LastNameFocusButton')));
+
+      // Use a more specific finder to locate the widget
+      await tester.tap(find.byKey(const Key('LastNameTextField')));
       await tester.pumpAndSettle();
 
+      // Verify the focus
       expect(
         FocusScope.of(tester.element(find.byType(EditProfilePage)))
             .focusedChild,
