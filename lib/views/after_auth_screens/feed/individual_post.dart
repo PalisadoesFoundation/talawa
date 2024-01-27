@@ -45,7 +45,6 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 controller: _controller,
                 textInputAction: TextInputAction.send,
                 onChanged: (msg) {
-                  // Avoiding unneccessary rebuilds.
                   if (msg.isEmpty && _isCommentValid == true) {
                     setState(() {
                       _isCommentValid = false;
@@ -78,7 +77,6 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                           MaterialStateProperty.all(Colors.transparent),
                     )
                   : null,
-
               //check if button is enabled when comment is valid
               onPressed: _isCommentValid
                   ? () {
@@ -136,14 +134,14 @@ class _IndividualPostViewState extends State<IndividualPostView> {
   }
 }
 
-/// MEthod to apply padding around text.
+/// Generates a `Padding` widget with customizable vertical padding around a text element.
 ///
 /// **params**:
-/// * `context`: Context for padding method
-/// * `text`: text on which padding should be applied
+/// * `context`: The build context in which the padding method is called.
+/// * `text`: The text on which padding should be applied.
 ///
 /// **returns**:
-/// * `Padding`: padding for the text
+/// * `Padding`: Padding widget with vertical padding applied to the provided text.
 Padding buildPadding(BuildContext context, String text) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.006),
@@ -199,7 +197,7 @@ class IndividualPostCommentSection extends StatelessWidget {
   /// List of comments on a post.
   final List<Comments> comments;
 
-  /// ID of individual post.
+  /// ID of a post with associated comments.
   final String postID;
 
   @override
@@ -274,13 +272,13 @@ class CommentTemplate extends StatelessWidget {
   }
 }
 
-/// Circle avatar of users who have liked the post.
+/// Generates a Circle Avatar representing a user who liked the post.
 ///
 /// **params**:
-/// * `user`: User who liked the post
+/// * `user`: The user who liked the post, represented by the `LikedBy` class.
 ///
 /// **returns**:
-/// * `Widget`: Circle avatar of the likedBy user who liked the post
+/// * `Widget`: Circle Avatar of the user who liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
   return const Padding(
     padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
