@@ -21,17 +21,20 @@ class CommentQueries {
   //Returns a query to get the comments of a post
   String getPostsComments(String postId) {
     return """
-    query{
-      commentsByPost(id: "$postId"){
-        _id
-        text
-        createdAt
+     query {
+        post(id: "$postId")
+        {  _id,
+          comments{
+             _id,
+            text,
+             createdAt
         creator{
           firstName
           lastName
         }
+          }
+        }
       }
-    }
-    """;
+""";
   }
 }

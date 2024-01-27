@@ -5,7 +5,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
-import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
@@ -46,7 +45,7 @@ void main() {
     test('test for getCommentsForPost', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final String getCommmentQuery =
-          PostQueries().getPostCommentsById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
 
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
@@ -138,7 +137,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostCommentsById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -192,7 +191,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostCommentsById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -244,7 +243,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostCommentsById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -296,7 +295,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostCommentsById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(

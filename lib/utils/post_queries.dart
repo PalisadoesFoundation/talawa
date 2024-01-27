@@ -47,14 +47,33 @@ class PostQueries {
   ///
   /// **returns**:
   /// * `String`: The query related to gettingPostsbyId
-  String getPostCommentsById(String postId) {
+  String getPostById(String postId) {
     return """
       query {
         post(id: "$postId")
         { 
-          _id,
+          _id
+          text
+          createdAt
+          imageUrl
+          videoUrl
+          title
+          commentCount
+          likeCount
+          creator{
+            _id
+            firstName
+            lastName
+            image
+          }
+          organization{
+            _id
+          }
+          likedBy{
+            _id
+          }
           comments{
-            _id,
+           _id,
             text,
              createdAt
         creator{
