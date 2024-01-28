@@ -166,10 +166,12 @@ DateTime parseTime(String time) {
     return DateFormat('h:mm a', 'en_US').parse(time);
   } on FormatException {
     print('Caught FormatException: $time');
-    return DateFormat('Hms').parse(time);
-  } catch (e) {
-    print('Caught error: $e');
-    throw Exception('Invalid time format: $time');
+    try {
+      return DateFormat('Hms').parse(time);
+    } catch(e) {
+      print('Caught error: $e');
+      throw Exception('Invalid time format: $time');
+    }
   }
 }
 
