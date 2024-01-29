@@ -10,7 +10,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) to ensure that you are following our guidelines for contributing and creating PR."
-  
+
   Linter:
     name: Checking if code formatting is done correctly
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: "beta"
       - run: flutter format --set-exit-if-changed .
 
   Count-lines-of-code:
@@ -50,10 +50,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Sets up a Flutter environment 
+      - name: Sets up a Flutter environment
         uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: "beta"
       - name: Generates LCOV file
         run: flutter test --coverage
       - name: Report code coverage
@@ -61,5 +61,13 @@ jobs:
         with:
           path: "./coverage/lcov.info"
           min_coverage: 30
-  
 
+  Branch-check:
+    name: "Base branch check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check if base branch is develop"
+        if: github.event.pull_request.base.ref != 'develop'
+        run: |
+          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+          exit 1
