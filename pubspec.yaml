@@ -74,7 +74,7 @@ dependencies:
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
-  url_launcher: ^6.2.2
+  url_launcher: ^6.2.4
   vibration: ^1.8.4
   video_player: ^2.8.2
   visibility_detector: ^0.4.0+2
