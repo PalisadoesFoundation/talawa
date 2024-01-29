@@ -43,7 +43,7 @@ dependencies:
   flutter_reaction_button: ^3.0.0+3
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.9
-  font_awesome_flutter: ^10.6.0
+  font_awesome_flutter: ^10.7.0
   geocoding: ^2.1.1
   geolocator: ^10.1.0
   get_it: ^7.6.6
