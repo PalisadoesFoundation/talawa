@@ -39,6 +39,19 @@ class DataBaseMutationFunctions {
     _query = Queries();
   }
 
+  /// initializes [clientNonAuth] function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void initClientNonAuth() {
+    graphqlConfig.getOrgUrl();
+    clientNonAuth = graphqlConfig.clientToQuery();
+    _query = Queries();
+  }
+
   /// Graphql error for handling.
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
 

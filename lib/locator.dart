@@ -12,6 +12,7 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/task_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -75,6 +76,9 @@ final organizationService = locator<OrganizationService>();
 ///creating GetIt for ImageService.
 final imageService = locator<ImageService>();
 
+///creating GetIt for SessionManager.
+final sessionManager = locator<SessionManager>();
+
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
@@ -93,6 +97,9 @@ void setupLocator() {
 
   //userConfig
   locator.registerSingleton(UserConfig());
+
+  //sessionManager
+  locator.registerSingleton(SessionManager());
 
   //Services
   locator.registerLazySingleton(() => PostService());

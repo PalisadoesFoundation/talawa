@@ -71,10 +71,6 @@ class EventService {
   /// **returns**:
   ///   None
   Future<void> getEvents() async {
-    // refresh user's access token
-    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
-    _dbFunctions.init();
-
     // get current organization id
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
@@ -102,7 +98,6 @@ class EventService {
   /// **returns**:
   /// * `Future<dynamic>`: Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
-    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final result = await _dbFunctions.gqlAuthQuery(
       EventQueries().registrantsByEvent(eventId),
     );
@@ -117,9 +112,6 @@ class EventService {
   /// **returns**:
   /// * `Future<dynamic>`: Information about the event registration.
   Future<dynamic> registerForAnEvent(String eventId) async {
-    final tokenResult = await _dbFunctions
-        .refreshAccessToken(userConfig.currentUser.refreshToken!);
-    debugPrint(tokenResult.toString());
     final Map<String, dynamic> variables = {'eventId': eventId};
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().registerForEvent(),
@@ -139,9 +131,6 @@ class EventService {
     navigationService.pushDialog(
       const CustomProgressDialog(key: Key('DeleteEventProgress')),
     );
-    final tokenResult = await _dbFunctions
-        .refreshAccessToken(userConfig.currentUser.refreshToken!);
-    debugPrint(tokenResult.toString());
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteEvent(eventId),
     );
@@ -166,9 +155,6 @@ class EventService {
         key: Key('EditEventProgress'),
       ),
     );
-    final tokenResult = await _dbFunctions
-        .refreshAccessToken(userConfig.currentUser.refreshToken!);
-    debugPrint(tokenResult.toString());
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateEvent(eventId: eventId),
       variables: variables,

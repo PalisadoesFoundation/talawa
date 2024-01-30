@@ -35,8 +35,6 @@ class TaskService {
   /// **returns**:
   ///   None
   Future<void> getTasksForEvent(String eventId) async {
-    await _databaseMutationFunctions
-        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
     final res = await _databaseMutationFunctions
         .gqlNonAuthQuery(TaskQueries.eventTasks(eventId));
 
@@ -57,8 +55,6 @@ class TaskService {
   /// **returns**:
   ///   None
   Future<void> getTasksByUser() async {
-    await _databaseMutationFunctions
-        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
     final res = await _databaseMutationFunctions
         .gqlNonAuthQuery(TaskQueries.userTasks(_userConfig.currentUser.id!));
 
@@ -89,8 +85,6 @@ class TaskService {
     required String deadline,
     required String taskId,
   }) async {
-    _databaseMutationFunctions
-        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
     final res = await _databaseMutationFunctions.gqlAuthMutation(
       TaskQueries.editTask(
         title: title,
@@ -135,8 +129,6 @@ class TaskService {
     required String deadline,
     required String eventId,
   }) async {
-    _databaseMutationFunctions
-        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
     final res = await _databaseMutationFunctions.gqlAuthMutation(
       TaskQueries.addTask(
         title: title,
@@ -166,8 +158,6 @@ class TaskService {
   ///   None
   Future<void> deleteTask(String taskId, String creatorId) async {
     if (creatorId == _userConfig.currentUser.id) {
-      await _databaseMutationFunctions
-          .refreshAccessToken(_userConfig.currentUser.refreshToken!);
       final res = await _databaseMutationFunctions
           .gqlAuthMutation(TaskQueries.deleteTask(taskId));
       if (res != null) _tasks.removeWhere((task) => task.id == taskId);

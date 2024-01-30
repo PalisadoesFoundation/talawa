@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
       setState(() => _initialUri = null);
     }
 
-    final bool userLoggedIn = await userConfig.userLoggedIn();
+    final bool userLoggedIn = userConfig.loggedIn;
     _initialUri = null;
     _latestUri = null;
     if (_latestUri == null && _initialUri == null) {

@@ -39,8 +39,6 @@ class GraphqlConfig {
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
-    clientToQuery();
-    authClient();
   }
 
   GraphQLClient clientToQuery() {
