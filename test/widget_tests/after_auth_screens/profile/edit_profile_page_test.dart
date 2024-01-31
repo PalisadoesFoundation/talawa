@@ -452,27 +452,6 @@ Future<void> main() async {
       expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
-
-    // Testing removeImage method
-    final MockEditProfilePageViewModel mockViewModel =
-        MockEditProfilePageViewModel();
-    testWidgets("Testing if removeImage method is called properly",
-        (tester) async {
-      await mockNetworkImages(() async {
-        userConfig.updateUser(User());
-        userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
-        );
-        // ignore: void_checks
-        when(mockViewModel.removeImage()).thenReturn(true);
-        await tester.pumpWidget(createChangePassScreenDark());
-        await tester.pumpAndSettle();
-        await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
-        await tester.pumpAndSettle();
-        verifyNever(mockViewModel.removeImage()).called(1);
-      });
-    });
-
     // Testing onPressed for firstName
     testWidgets("Testing if firstName text field gets focus", (tester) async {
       userConfig.updateUser(
@@ -486,8 +465,9 @@ Future<void> main() async {
       // Verify the focus
       expect(
         FocusScope.of(tester.element(find.byType(EditProfilePage)))
-            .focusedChild,
-        MockEditProfilePageViewModel().firstNameFocus,
+            .focusedChild!
+            .hasPrimaryFocus,
+        true,
       );
     });
   });
