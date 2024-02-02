@@ -1,28 +1,31 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
 // Global State, should be removed in next few iterations
+
+/// Comment view model.
 late CommentsViewModel _commentViewModel;
 
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
   const IndividualPostView({super.key, required this.post});
+
+  /// Individual Post.
   final Post post;
 
   @override
   _IndividualPostViewState createState() => _IndividualPostViewState();
 }
 
-/// _IndividualPostViewState returns a widget to show Individual Post View state. This widget
-/// includes to send the  comment on the post, shows list of all users liked and commented on the post.
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
+  bool _isCommentValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +44,17 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 key: const Key('indi_post_tf_key'),
                 controller: _controller,
                 textInputAction: TextInputAction.send,
-                onSubmitted: (msg) {
-                  _commentViewModel.createComment(msg);
-                  _controller.text = "";
+                onChanged: (msg) {
+                  if (msg.isEmpty && _isCommentValid == true) {
+                    setState(() {
+                      _isCommentValid = false;
+                    });
+                  }
+                  if (msg.isEmpty == false && _isCommentValid == false) {
+                    setState(() {
+                      _isCommentValid = true;
+                    });
+                  }
                 },
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -59,14 +70,31 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             ),
             // Button to send the comment.
             TextButton(
-              onPressed: () {
-                _commentViewModel.createComment(_controller.text);
-                _controller.text = "";
-              },
+              key: const Key('sendButton'),
+              style: _isCommentValid == false
+                  ? ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                    )
+                  : null,
+              //check if button is enabled when comment is valid
+              onPressed: _isCommentValid
+                  ? () {
+                      _commentViewModel.createComment(_controller.text);
+                      _controller.text = "";
+
+                      setState(() {
+                        _isCommentValid = false;
+                      });
+                    }
+                  : null,
               child: Text(
                 AppLocalizations.of(context)!.strictTranslate(
                   "Send",
                 ),
+                style: !_isCommentValid
+                    ? const TextStyle(color: Colors.grey)
+                    : null,
               ),
             ),
           ],
@@ -79,7 +107,9 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             post: widget.post,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.screenHeight! * 0.010,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,9 +134,17 @@ class _IndividualPostViewState extends State<IndividualPostView> {
   }
 }
 
+/// Generates a `Padding` widget with customizable vertical padding around a text element.
+///
+/// **params**:
+/// * `context`: The build context in which the padding method is called.
+/// * `text`: The text on which padding should be applied.
+///
+/// **returns**:
+/// * `Padding`: Padding widget with vertical padding applied to the provided text.
 Padding buildPadding(BuildContext context, String text) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.006),
     child: Text(
       AppLocalizations.of(context)!.strictTranslate(text),
       style: Theme.of(context).textTheme.titleLarge,
@@ -121,6 +159,7 @@ class IndividualPageLikeSection extends StatelessWidget {
     required this.usersLiked,
   });
 
+  /// Represents a list of users who have liked a post.
   final List<LikedBy> usersLiked;
 
   @override
@@ -147,14 +186,20 @@ class IndividualPageLikeSection extends StatelessWidget {
   }
 }
 
-/// IndividualPostCommentSection returns a widget that show the list of all the users commented on the post.
+/// Widget representing the comment section of an individual post.
+///
+/// The `IndividualPostCommentSection` widget displays a list of comments on a post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
     super.key,
     required this.comments,
     required this.postID,
   });
+
+  /// List of comments on a post.
   final List<Comments> comments;
+
+  /// ID of a post with associated comments.
   final String postID;
 
   @override
@@ -186,6 +231,7 @@ class CommentTemplate extends StatelessWidget {
     required this.comment,
   });
 
+  /// Instance of comment.
   final Comment comment;
 
   @override
@@ -228,7 +274,13 @@ class CommentTemplate extends StatelessWidget {
   }
 }
 
-/// likedUserCircleAvatar returns a widget of the individual user liked the post.
+/// Generates a Circle Avatar representing a user who liked the post.
+///
+/// **params**:
+/// * `user`: The user who liked the post, represented by the `LikedBy` class.
+///
+/// **returns**:
+/// * `Widget`: Circle Avatar of the user who liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
   return const Padding(
     padding: EdgeInsets.only(right: 10.0, bottom: 16.0),

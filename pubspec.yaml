@@ -37,13 +37,13 @@ dependencies:
     sdk: flutter
   flutter_braintree: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^16.3.0
+  flutter_local_notifications: ^16.3.2
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.9
-  font_awesome_flutter: ^10.6.0
+  font_awesome_flutter: ^10.7.0
   geocoding: ^2.1.1
   geolocator: ^10.1.0
   get_it: ^7.6.6
@@ -70,11 +70,11 @@ dependencies:
   shimmer: ^3.0.0
   social_share: ^2.2.1
   syncfusion_flutter_calendar: ^24.1.43
-  syncfusion_flutter_datepicker: 24.1.45
+  syncfusion_flutter_datepicker: 24.1.47
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
-  url_launcher: ^6.2.2
+  url_launcher: ^6.2.4
   vibration: ^1.8.4
   video_player: ^2.8.2
   visibility_detector: ^0.4.0+2
