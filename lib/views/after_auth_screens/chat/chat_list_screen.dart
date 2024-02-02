@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
-/// A stateless widget for the current user's Chat Page, rendering the list of users with whom the current user has chatted.
+/// Renders the list of users with whom the current user has chatted.
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
 
