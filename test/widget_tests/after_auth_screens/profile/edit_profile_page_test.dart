@@ -453,12 +453,14 @@ Future<void> main() async {
       verify(notifyListenerCallback());
     });
     // Testing onPressed for firstName
+
     testWidgets("Testing if firstName text field gets focus", (tester) async {
       userConfig.updateUser(
         User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
       );
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('FirstNameTextField')));
       await tester.tap(find.byKey(const Key('FirstNameTextField')));
       await tester.pumpAndSettle();
 
