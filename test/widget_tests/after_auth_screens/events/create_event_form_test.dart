@@ -112,21 +112,6 @@ void main() {
         expect(find.byKey(const Key('create_event_form_tff3')), findsOneWidget);
       });
     });
-
-    testWidgets("Test if gesture detector is working",
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        await tester.pumpWidget(createCreateEventForm());
-        await tester.pump();
-        final gestureDetector = find.byKey(const Key('gesture_cef_test'));
-        await tester.tap(gestureDetector);
-        await tester.pump();
-        expect(find.byKey(const Key('gesture_cef_test')), findsOneWidget);
-        await tester.pumpAndSettle(const Duration(milliseconds: 1000));
-      });
-    });
-
-//---------------------------------------------------
     testWidgets(
         'Test if form of 1st TextField is submitted on pressing enter on mobile keyboard.',
         (tester) async {

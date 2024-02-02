@@ -9,7 +9,6 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/task/task_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
@@ -31,7 +30,6 @@ import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/edit_task_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
-import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
@@ -275,20 +273,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
 
-    // Returns the MapScreen Widget
-    case Routes.mapScreen:
-      final arguments = settings.arguments! as Map<String, dynamic>;
-      final model = arguments['model'] as CreateEventViewModel?;
-      final latitude = arguments['latitude'] as double;
-      final longitude = arguments['longitude'] as double;
-      return MaterialPageRoute(
-        builder: (context) => MapScreen(
-          model,
-          latitude,
-          longitude,
-          key: const Key('MapScreen'),
-        ),
-      );
     case Routes.calendar:
       return MaterialPageRoute(
         builder: (context) => EventCalendar(
