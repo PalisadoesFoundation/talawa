@@ -452,8 +452,8 @@ Future<void> main() async {
       expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
-    // Testing onPressed for firstName
 
+    // Testing onPressed for firstName
     testWidgets("Testing if firstName text field gets focus", (tester) async {
       userConfig.updateUser(
         User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
