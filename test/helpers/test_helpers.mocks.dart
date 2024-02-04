@@ -3208,8 +3208,6 @@ class MockAppTheme extends _i2.Mock implements _i38.AppTheme {
       );
 }
 
-
-
 /// A class which mocks [CreateEventViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.

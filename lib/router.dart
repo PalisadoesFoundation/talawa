@@ -275,7 +275,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           key: const Key('Calendar'),
         ),
       );
-   
+
     case Routes.selectContact:
       return MaterialPageRoute(
         builder: (context) => const SelectContact(key: Key('selectContact')),

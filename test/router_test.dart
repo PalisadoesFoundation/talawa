@@ -291,8 +291,6 @@ void main() {
       }
     });
 
-
-
     testWidgets('Test for selectContact route', (WidgetTester tester) async {
       final route =
           generateRoute(const RouteSettings(name: Routes.selectContact));
