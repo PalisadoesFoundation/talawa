@@ -1,8 +1,9 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/comment_queries.dart';
-import 'package:talawa/utils/post_queries.dart';
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///
@@ -12,8 +13,10 @@ import 'package:talawa/utils/post_queries.dart';
 class CommentService {
   CommentService() {
     _dbFunctions = locator<DataBaseMutationFunctions>();
+    _navigationService = locator<NavigationService>();
   }
   late DataBaseMutationFunctions _dbFunctions;
+  late NavigationService _navigationService;
 
   /// This function is used to add comment on the post.
   ///
@@ -23,17 +26,29 @@ class CommentService {
   /// * `text`: The comment text.
   ///
   /// **returns**:
-  /// * `Future<void>`: promise that will be fulfilled message background activities are successful.
+  ///   None
   Future<void> createComments(String postId, String text) async {
     final String createCommentQuery = CommentQueries().createComment();
-    final result = await _dbFunctions.gqlAuthMutation(
-      createCommentQuery,
-      variables: {
-        'postId': postId, //Add your variables here
-        'text': text,
-      },
-    );
-    return result;
+
+    try {
+      await _dbFunctions.gqlAuthMutation(
+        createCommentQuery,
+        variables: {
+          'postId': postId, //Add your variables here
+          'text': text,
+        },
+      );
+
+      _navigationService.showTalawaErrorSnackBar(
+        "Comment sent",
+        MessageType.info,
+      );
+    } on Exception catch (_) {
+      _navigationService.showTalawaErrorSnackBar(
+        "Something went wrong",
+        MessageType.error,
+      );
+    }
   }
 
   /// This function is used to get all comments on the post.
@@ -46,7 +61,7 @@ class CommentService {
   /// * `Future<List<dynamic>>`: promise that will be fulfilled with list of comments.
   ///
   Future<List<dynamic>> getCommentsForPost(String postId) async {
-    final String getCommmentQuery = PostQueries().getPostById(postId);
+    final String getCommmentQuery = CommentQueries().getPostsComments(postId);
 
     final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 

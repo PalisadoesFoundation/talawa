@@ -92,11 +92,9 @@
   "Explore Events": "探索事件",
   "Filters": "过滤器",
   "Filter by Date": "按日期过滤",
-  "All Events": "所有活动",
   "Show all events": "显示所有活动",
   "My Events": "我的活动",
   "Show all events created by you": "显示由您创建的所有活动",
-  "Registered Events": "已注册活动",
   "Show all events you have registered": "显示您已注册的所有活动",
   "Public Events": "公共活动",
   "Show events for all": "显示所有人的活动",
@@ -180,7 +178,6 @@
   "Add tag": "添加标签",
   "Enter the Tag": "输入标签",
   "Title": "标题",
-  "Choose on map": "在地图上选择",
   "Where is the event?": "事件在哪里？",
   "Add Members": "添加成员",
   "All Events": "所有活动",
@@ -233,5 +230,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "这是创建帖子选项卡，您可以在此处向当前选择的组织添加帖子。",
   "This is the Chat tab here you can see all your messages of the current selected organization": "这是聊天选项卡，您可以在此处查看当前选择组织的所有消息。",
   "To help your organization grow you can support them financially from here": "要帮助您的组织成长，您可以从这里提供财务支持。",
-  "You are all set to go let's get you in": "您已经准备好了，让我们开始吧。"
+  "You are all set to go let's get you in": "您已经准备好了，让我们开始吧。",
+  "You have no event in this organization": "您在此组织中没有活动",
+  "Create your first event": "创建您的第一个活动",
+  "There are no posts in this organization": "此组织中没有帖子",
+  "Create your first post": "创建您的第一篇帖子",
+  "You have no post in this organization": "您在此组织中没有帖子"
 }

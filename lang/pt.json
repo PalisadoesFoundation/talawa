@@ -92,10 +92,8 @@
   "Explore Events": "Explorar eventos",
   "Filters": "Filtros",
   "Filter by Date": "Filtrar por data",
-  "All Events": "Todos os eventos",
   "Show all events": "Mostrar todos os eventos",
   "Show all events created by you": "Mostrar todos os eventos criados por você",
-  "Registered Events": "Eventos registrados",
   "Show all events you have registered": "Mostrar todos os eventos em que você se registrou",
   "Show events for all": "Mostrar eventos para todos",
   "Show invite-only events": "Mostrar apenas eventos com convite",
@@ -180,7 +178,6 @@
   "Add tag": "Adicionar tag",
   "Enter the Tag": "Digite a Tag",
   "Title": "Título",
-  "Choose on map": "Escolher no mapa",
   "Where is the event?": "Onde é o evento?",
   "Add Members": "Adicionar membros",
   "All Events": "Todos os eventos",
@@ -233,5 +230,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "Esta é a aba de Criar postagem; aqui você pode adicionar uma postagem à organização atualmente selecionada",
   "This is the Chat tab here you can see all your messages of the current selected organization": "Esta é a aba de Chat; aqui você pode ver todas as suas mensagens da organização atualmente selecionada",
   "To help your organization grow you can support them financially from here": "Para ajudar sua organização a crescer, você pode apoiá-la financeiramente a partir daqui",
-  "You are all set to go let's get you in": "Você está pronto para ir; vamos começar"
+  "You are all set to go let's get you in": "Você está pronto para ir; vamos começar",
+  "You have no event in this organization": "Você não tem nenhum evento nesta organização",
+  "Create your first event": "Crie seu primeiro evento",
+  "There are no posts in this organization": "Não há posts nesta organização",
+  "Create your first post": "Crie sua primeira postagem",
+  "You have no post in this organization": "Você não tem nenhuma postagem nesta organização"
 }

@@ -92,10 +92,8 @@
   "Explore Events": "イベントを探索する",
   "Filters": "フィルター",
   "Filter by Date": "日付で絞り込む",
-  "All Events": "すべてのイベント",
   "Show all events": "すべてのイベントを表示",
   "Show all events created by you": "あなたが作成したすべてのイベントを表示",
-  "Registered Events": "登録済みイベント",
   "Show all events you have registered": "あなたが登録したすべてのイベントを表示",
   "Show events for all": "すべてのイベントを表示",
   "Show invite-only events": "招待限定イベントを表示",
@@ -180,7 +178,6 @@
   "Add tag": "タグを追加する",
   "Enter the Tag": "タグを入力してください",
   "Title": "タイトル",
-  "Choose on map": "地図上で選択する",
   "Where is the event?": "イベントはどこですか？",
   "Add Members": "メンバーを追加する",
   "All Events": "すべてのイベント",
@@ -233,5 +230,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "これは投稿を作成するタブです。ここでは、現在選択されている組織に投稿を追加できます。",
   "This is the Chat tab here you can see all your messages of the current selected organization": "これはチャットタブです。ここでは、現在選択されている組織のすべてのメッセージを見ることができます。",
   "To help your organization grow you can support them financially from here": "組織の成長をサポートするためには、ここから経済的にサポートできます。",
-  "You are all set to go let's get you in": "準備が整いました。さあ、始めましょう。"
+  "You are all set to go let's get you in": "準備が整いました。さあ、始めましょう。",
+  "You have no event in this organization": "この組織にはイベントがありません",
+  "Create your first event": "最初のイベントを作成してください",
+  "There are no posts in this organization": "この組織には投稿がありません",
+  "Create your first post": "最初の投稿を作成してください",
+  "You have no post in this organization": "この組織には投稿がありません"
 }

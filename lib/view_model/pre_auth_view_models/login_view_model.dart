@@ -104,8 +104,7 @@ class LoginViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: a promise that indicates the completion
-  /// of the login process.
+  ///   None
   Future<void> login() async {
     emailFocus.unfocus();
     passwordFocus.unfocus();

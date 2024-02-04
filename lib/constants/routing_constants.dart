@@ -86,9 +86,6 @@ class Routes {
   static const String chatMessageScreen = '/chatMessageScreen';
 
   /// static variables.
-  static const String mapScreen = '/mapScreen';
-
-  /// static variables.
   static const String calendar = '/calendar';
 
   /// static variables.

@@ -69,7 +69,7 @@ class EventService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
   Future<void> getEvents() async {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -156,7 +156,7 @@ class EventService {
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
   ///
   /// **returns**:
-  /// * `Future<void>`: void return
+  ///   None
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,

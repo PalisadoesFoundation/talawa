@@ -20,24 +20,24 @@ class AccessScreenViewModel extends BaseModel {
   /// text controller for optional message during the request.
   final optionalMessageController = TextEditingController();
 
-  /// initialization function.
+  /// Initialization function.
   ///
   /// **params**:
   /// * `org`: Org to send request to.
   ///
   /// **returns**:
-  /// * `Future<void>`: None
+  ///   None
   Future<void> initialise(OrgInfo org) async {
     selectedOrganization = org;
   }
 
-  /// sending member ship request function.
+  /// Sending member ship request function.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: define_the_return
+  ///   None
   Future<void> sendMembershipRequest() async {
     //TODO: Implement Message arg for below function
     final result = await databaseFunctions.gqlAuthMutation(
