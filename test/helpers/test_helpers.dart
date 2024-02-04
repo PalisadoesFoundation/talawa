@@ -30,7 +30,6 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/task_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -43,8 +42,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
@@ -54,6 +51,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+
 import '../service_tests/image_service_test.dart';
 import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
@@ -91,7 +89,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<TaskService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
@@ -449,34 +446,6 @@ ImagePicker getAndRegisterImagePicker() {
   return service;
 }
 
-TaskService getAndRegisterTaskService() {
-  _removeRegistrationIfExists<TaskService>();
-  final service = MockTaskService();
-
-  when(service.tasks).thenReturn([]);
-
-  when(
-    service.createTask(
-      title: anyNamed('title'),
-      description: anyNamed('description'),
-      deadline: anyNamed('deadline'),
-      eventId: anyNamed('eventId'),
-    ),
-  ).thenAnswer((realInvocation) async => true);
-
-  when(
-    service.editTask(
-      title: anyNamed('title'),
-      description: anyNamed('description'),
-      deadline: anyNamed('deadline'),
-      taskId: anyNamed('taskId'),
-    ),
-  ).thenAnswer((realInvocation) async => true);
-
-  locator.registerSingleton<TaskService>(service);
-  return service;
-}
-
 EventService getAndRegisterEventService() {
   _removeRegistrationIfExists<EventService>();
   final service = MockEventService();
@@ -698,7 +667,6 @@ void registerServices() {
   getAndRegisterUserConfig();
   getAndRegisterPostService();
   getAndRegisterEventService();
-  getAndRegisterTaskService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
@@ -739,8 +707,6 @@ void registerViewModels() {
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
-  locator.registerFactory(() => CreateTaskViewModel());
-  locator.registerFactory(() => ExploreTasksViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
   locator.registerFactory(() => SelectContactViewModel());
 }
@@ -759,8 +725,6 @@ void unregisterViewModels() {
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
-  locator.unregister<CreateTaskViewModel>();
-  locator.unregister<ExploreTasksViewModel>();
   locator.unregister<CustomDrawerViewModel>();
   locator.unregister<SelectContactViewModel>();
 }

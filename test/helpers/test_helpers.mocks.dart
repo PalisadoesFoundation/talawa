@@ -28,7 +28,6 @@ import 'package:talawa/models/chats/chat_message.dart' as _i25;
 import 'package:talawa/models/events/event_model.dart' as _i22;
 import 'package:talawa/models/organization/org_info.dart' as _i6;
 import 'package:talawa/models/post/post_model.dart' as _i15;
-import 'package:talawa/models/task/task_model.dart' as _i40;
 import 'package:talawa/models/user/user_info.dart' as _i7;
 import 'package:talawa/services/chat_service.dart' as _i23;
 import 'package:talawa/services/comment_service.dart' as _i37;
@@ -38,7 +37,6 @@ import 'package:talawa/services/graphql_config.dart' as _i18;
 import 'package:talawa/services/navigation_service.dart' as _i8;
 import 'package:talawa/services/org_service.dart' as _i31;
 import 'package:talawa/services/post_service.dart' as _i19;
-import 'package:talawa/services/task_service.dart' as _i39;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i20;
 import 'package:talawa/services/user_config.dart' as _i26;
@@ -3210,115 +3208,7 @@ class MockAppTheme extends _i2.Mock implements _i38.AppTheme {
       );
 }
 
-/// A class which mocks [TaskService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockTaskService extends _i2.Mock implements _i39.TaskService {
-  @override
-  _i10.VoidCallback get callbackNotifyListeners => (super.noSuchMethod(
-        Invocation.getter(#callbackNotifyListeners),
-        returnValue: () {},
-        returnValueForMissingStub: () {},
-      ) as _i10.VoidCallback);
 
-  @override
-  set callbackNotifyListeners(_i10.VoidCallback? _callbackNotifyListeners) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #callbackNotifyListeners,
-          _callbackNotifyListeners,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<_i40.Task> get tasks => (super.noSuchMethod(
-        Invocation.getter(#tasks),
-        returnValue: <_i40.Task>[],
-        returnValueForMissingStub: <_i40.Task>[],
-      ) as List<_i40.Task>);
-
-  @override
-  _i5.Future<void> getTasksForEvent(String? eventId) => (super.noSuchMethod(
-        Invocation.method(
-          #getTasksForEvent,
-          [eventId],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> getTasksByUser() => (super.noSuchMethod(
-        Invocation.method(
-          #getTasksByUser,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<bool> editTask({
-    required String? title,
-    required String? description,
-    required String? deadline,
-    required String? taskId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #editTask,
-          [],
-          {
-            #title: title,
-            #description: description,
-            #deadline: deadline,
-            #taskId: taskId,
-          },
-        ),
-        returnValue: _i5.Future<bool>.value(false),
-        returnValueForMissingStub: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
-
-  @override
-  _i5.Future<bool> createTask({
-    required String? title,
-    required String? description,
-    required String? deadline,
-    required String? eventId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #createTask,
-          [],
-          {
-            #title: title,
-            #description: description,
-            #deadline: deadline,
-            #eventId: eventId,
-          },
-        ),
-        returnValue: _i5.Future<bool>.value(false),
-        returnValueForMissingStub: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
-
-  @override
-  _i5.Future<void> deleteTask(
-    String? taskId,
-    String? creatorId,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteTask,
-          [
-            taskId,
-            creatorId,
-          ],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-}
 
 /// A class which mocks [CreateEventViewModel].
 ///

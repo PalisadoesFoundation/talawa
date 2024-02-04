@@ -293,8 +293,5 @@ Future<void> main() async {
       expect(findAppNameWidget, findsNothing);
     });
   });
-  File('test/fixtures/core/currentorg.hive').delete();
-  File('test/fixtures/core/currentorg.lock').delete();
-  File('test/fixtures/core/currentuser.hive').delete();
-  File('test/fixtures/core/currentuser.lock').delete();
+
 }
