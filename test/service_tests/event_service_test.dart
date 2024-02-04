@@ -21,7 +21,7 @@ void main() {
   group('Test EventService', () {
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = '';
+      const query = '';
       final Map<String, dynamic> variables = <String, dynamic>{};
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
@@ -55,7 +55,7 @@ void main() {
 
     test('Test deleteEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = '';
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().deleteEvent('eventId'),
@@ -79,7 +79,7 @@ void main() {
 
     test('Test registerForAnEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = '';
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().registerForEvent(),
@@ -102,7 +102,7 @@ void main() {
 
     test('Test fetchRegistrantsByEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = '';
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           EventQueries().registrantsByEvent('eventId'),
@@ -122,7 +122,7 @@ void main() {
 
     test('Test getEvents method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = '';
+      const query = '';
       userConfig.currentOrg = OrgInfo(name: 'org', id: 'id');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
