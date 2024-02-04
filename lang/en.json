@@ -97,10 +97,8 @@
   "Explore Events": "Explore Events",
   "Filters": "Filters",
   "Filter by Date": "Filter by Date",
-  "All Events": "All Events",
   "Show all events": "Show all events",
   "Show all events created by you": "Show all events created by you",
-  "Registered Events": "Registered Events",
   "Show all events you have registered": "Show all events you have registered",
   "Show events for all": "Show events for all",
   "Show invite-only events": "Show invite-only events",
@@ -180,7 +178,6 @@
   "Add tag": "Add tag",
   "Enter the Tag": "Enter the Tag",
   "Title": "Title",
-  "Choose on map": "Choose on map",
   "Where is the event?": "Where is the event?",
   "Add Members": "Add Members",
   "All Events": "All Events",
@@ -233,5 +230,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "This is the Create post tab here you can add post to the current selected organization.",
   "This is the Chat tab here you can see all your messages of the current selected organization": "This is the Chat tab here you can see all your messages of the current selected organization.",
   "To help your organization grow you can support them financially from here": "To help your organization grow you can support them financially from here.",
-  "You are all set to go let's get you in": "You are all set to go let's get you in."
+  "You are all set to go let's get you in": "You are all set to go let's get you in.",
+  "You have no event in this organization": "You have no event in this organization",
+  "Create your first event": "Create your first event",
+  "There are no posts in this organization": "There are no posts in this organization",
+  "Create your first post": "Create your first post",
+  "You have no post in this organization": "You have no post in this organization"
 }

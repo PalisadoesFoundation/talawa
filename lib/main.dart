@@ -21,13 +21,6 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-/// First function to initialize the application, invoked automatically.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-/// * `Future<void>`: resolves if the application was successfully initialized.
 Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();

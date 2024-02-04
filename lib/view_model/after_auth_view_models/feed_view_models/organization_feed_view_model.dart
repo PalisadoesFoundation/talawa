@@ -24,6 +24,7 @@ class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
   // ignore: prefer_final_fields
   List<Post> _posts = [];
+  final List<Post> _userPosts = [];
 
   /// flag for the test.
   ///
@@ -55,6 +56,11 @@ class OrganizationFeedViewModel extends BaseModel {
     return _posts;
   }
 
+  /// Getter for User Posts.
+  List<Post> get userPosts {
+    return _userPosts;
+  }
+
   /// getter for the pinned post.
   ///
   List<Post> get pinnedPosts {
@@ -69,6 +75,11 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   String get currentOrgName => _currentOrgName;
 
+  bool _isFetchingPosts = false;
+
+  /// getter for isFetchingPosts to show loading indicator.
+  bool get isFetchingPosts => _isFetchingPosts;
+
   /// This function sets the organization name after update.
   ///
   /// more_info_if_required
@@ -81,6 +92,9 @@ class OrganizationFeedViewModel extends BaseModel {
   void setCurrentOrganizationName(String updatedOrganization) {
     // if `updatedOrganization` is not same to `_currentOrgName`.
     if (updatedOrganization != _currentOrgName) {
+      _isFetchingPosts = true;
+      notifyListeners();
+      _userPosts.clear();
       _posts.clear();
       _renderedPostID.clear();
       _currentOrgName = updatedOrganization;
@@ -97,7 +111,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void fetchNewPosts() {
-    _postService.getPosts();
+    _postService.refreshFeed();
   }
 
   /// To initialize the view model.
@@ -114,6 +128,8 @@ class OrganizationFeedViewModel extends BaseModel {
       {
     bool isTest = false,
   }) {
+    _isFetchingPosts = true;
+
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
     // ------
@@ -123,6 +139,7 @@ class OrganizationFeedViewModel extends BaseModel {
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
+
     _postsSubscription = _postService.postStream.listen((newPosts) {
       return buildNewPosts(newPosts);
     });
@@ -169,6 +186,15 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
+    final currentUserId = _userConfig.currentUser.id!;
+    _userPosts.clear();
+    for (final post in newPosts) {
+      if (!_userPosts.any((element) => element.sId == post.sId) &&
+          post.creator!.id == currentUserId) {
+        _userPosts.insert(0, post);
+      }
+    }
+    _isFetchingPosts = false;
     notifyListeners();
   }
 
@@ -243,7 +269,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// * `post`: post object
   ///
   /// **returns**:
-  /// * `Future<void>`: void
+  ///   None
   Future<void> removePost(Post post) async {
     await _dbFunctions.gqlAuthMutation(
       PostQueries().removePost(),

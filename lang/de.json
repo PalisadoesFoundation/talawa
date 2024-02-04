@@ -91,14 +91,11 @@
   "Explore Events": "Veranstaltungen erkunden",
   "Filters": "Filter",
   "Filter by Date": "Filtern nach Datum",
-  "All Events": "Alle Veranstaltungen",
   "Show all events": "Alle Veranstaltungen anzeigen",
   "Show all events created by you": "Alle Veranstaltungen anzeigen, die von Ihnen erstellt wurden",
-  "Registered Events": "Registrierte Veranstaltungen",
   "Show all events you have registered": "Alle Veranstaltungen anzeigen, für die Sie sich registriert haben",
   "Show events for all": "Alle Veranstaltungen anzeigen",
   "Show invite-only events": "Nur Einladungsveranstaltungen anzeigen",
-
   "Add Date": "Datum hinzufügen",
   "Event": "Vorfall",
   "My Events": "Meine Veranstaltungen",
@@ -181,7 +178,6 @@
   "Add tag": "Tag hinzufügen",
   "Enter the Tag": "Geben Sie das Tag ein",
   "Title": "Titel",
-  "Choose on map": "Auf der Karte wählen",
   "Where is the event?": "Wo ist das Ereignis?",
   "Add Members": "Mitglieder hinzufügen",
   "All Events": "Alle Veranstaltungen",
@@ -234,5 +230,10 @@
   "This is the Create post tab here you can add post to the current selected organization": "Dies ist der Tab 'Beitrag erstellen', hier können Sie der aktuell ausgewählten Organisation einen Beitrag hinzufügen",
   "This is the Chat tab here you can see all your messages of the current selected organization": "Dies ist der Chat-Tab, hier können Sie alle Ihre Nachrichten der aktuell ausgewählten Organisation sehen",
   "To help your organization grow you can support them financially from here": "Um Ihre Organisation zu unterstützen, können Sie sie finanziell von hier aus unterstützen.",
-  "You are all set to go let's get you in": "Sie sind bereit zu gehen, lassen Sie uns Ihnen helfen."
+  "You have no event in this organization": "Sie haben keine Veranstaltung in dieser Organisation",
+  "Create your first event": "Erstellen Sie Ihr erstes Event",
+  "You are all set to go let's get you in": "Sie sind bereit zu gehen, lassen Sie uns Ihnen helfen.",
+  "There are no posts in this organization": "Es gibt keine Beiträge in dieser Organisation",
+  "Create your first post": "Erstellen Sie Ihren ersten Beitrag",
+  "You have no post in this organization": "Sie haben keinen Beitrag in dieser Organisation"
 }

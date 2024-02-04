@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
@@ -159,6 +161,8 @@ class MainScreenViewModel extends BaseModel {
   /// * `ctx`: BuildContext, contain parent info
   /// * `fromSignUp`: Bool to find user entry
   /// * `mainScreenIndex`: Index to find tab on mainScreen
+  /// * `demoMode`: Whether the app is in demo mode
+  /// * `testMode`: Whether the app is in test mode
   ///
   /// **returns**:
   ///   None
@@ -365,6 +369,13 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
+  /// Builds and returns an AppTourDialog.
+  ///
+  /// **params**:
+  /// * `ctx`: The build context to work with.
+  ///
+  /// **returns**:
+  /// * `Widget`: The built [Dialog]
   Widget appTourDialog(BuildContext ctx) {
     return CustomAlertDialog(
       dialogTitle: 'App Tour',
@@ -389,14 +400,15 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
-  /// this functions starts the tour and info to be displayed is mentioned in this functions.
+  /// Starts the tour and info to be displayed is mentioned in this functions.
   ///
   /// **params**:
-  ///   None
+  /// * `givenUserConfig`: Mock user config that helps in testing.
   ///
   /// **returns**:
   ///   None
-  void tourHomeTargets() {
+  void tourHomeTargets([UserConfig? givenUserConfig]) {
+    final UserConfig localUserConfig = givenUserConfig ?? userConfig;
     targets.clear();
     targets.add(
       FocusTarget(
@@ -445,14 +457,14 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
         align: ContentAlign.top,
         next: () {
-          if (!userConfig.loggedIn) {
+          if (!localUserConfig.loggedIn) {
             navigationService.pop();
           }
         },
       ),
     );
 
-    if (userConfig.loggedIn) {
+    if (localUserConfig.loggedIn) {
       targets.add(
         FocusTarget(
           key: keyDrawerLeaveCurrentOrg,

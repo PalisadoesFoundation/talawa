@@ -6,10 +6,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
@@ -88,6 +91,30 @@ Widget createAddPostScreen({
   );
 }
 
+final demoJson = {
+  'createPost': {
+    '__typename': 'Post',
+    '_id': '1',
+    'text': 'text #hastag',
+    'createdAt': '2023-11-13T19:28:21.095Z',
+    'imageUrl': 'https://imageurl',
+    'videoUrl': 'https://videoUrl',
+    'title': 'demo title',
+    'commentCount': 0,
+    'likeCount': 0,
+    'creator': {
+      '__typename': 'User',
+      '_id': '1',
+      'firstName': 'Ayush',
+      'lastName': 'Raghuwanshi',
+      'image': 'https://imageUrl',
+    },
+    'organization': {'__typename': 'Organization', '_id': '1'},
+    'likedBy': [],
+    'comments': [],
+  },
+};
+
 void main() {
   // SizeConfig().test();
   setupLocator();
@@ -122,6 +149,23 @@ void main() {
     group('checks if the upload post button is working properly', () {
       testWidgets('checks if the upload post button is pressable',
           (tester) async {
+        final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+        when(
+          dataBaseMutationFunctions.gqlAuthMutation(
+            PostQueries().uploadPost(),
+            variables: {
+              "text": " #",
+              "organizationId": 'XYZ',
+              "title": '',
+            },
+          ),
+        ).thenAnswer(
+          (realInvocation) async => QueryResult(
+            options: QueryOptions(document: gql(PostQueries().uploadPost())),
+            data: demoJson,
+            source: QueryResultSource.network,
+          ),
+        );
         await tester.pumpWidget(createAddPostScreen());
         await tester.pump();
 
@@ -281,7 +325,8 @@ void main() {
         await tester.tap(finder);
         await tester.pumpAndSettle();
 
-        await tester.tap(cancelBtn);
+        final offSet = tester.getCenter(cancelBtn);
+        await tester.tapAt(offSet);
         await tester.pump();
       });
     });

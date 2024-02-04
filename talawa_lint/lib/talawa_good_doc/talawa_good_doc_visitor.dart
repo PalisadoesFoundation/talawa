@@ -1,4 +1,4 @@
-// ignore_for_file: implementation_imports
+// ignore_for_file: implementation_imports, depend_on_referenced_packages
 
 import 'package:_fe_analyzer_shared/src/scanner/token.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -254,6 +254,15 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
 
         // TODO: RegExp.hasMatch() doesn't work for some reason.
         if (!line.lexeme.startsWith(paramRegex.pattern)) {
+          if (line.lexeme.trim() == '/// **returns**:') {
+            reporter.reportErrorForToken(
+              TalawaGoodDocLintRules.allParamsNotDocumented,
+              line,
+            );
+
+            return false;
+          }
+
           reporter.reportErrorForToken(
             TalawaGoodDocLintRules.startShouldFollowParam,
             line,
@@ -282,6 +291,8 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
         TalawaGoodDocLintRules.allParamsNotDocumented,
         node,
       );
+
+      return false;
     }
 
     return true;

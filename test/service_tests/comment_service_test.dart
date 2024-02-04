@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/utils/comment_queries.dart';
-import 'package:talawa/utils/post_queries.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
@@ -43,10 +43,38 @@ void main() {
         'hey Ayush here!',
       );
     });
+    test('test for createComments when throws exception', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query = CommentQueries().createComment();
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          query,
+          variables: {
+            'postId': 'ayush post',
+            'text': 'hey Ayush here!',
+          },
+        ),
+      ).thenThrow(Exception('Your error message here'));
+
+      final service = CommentService();
+
+      await service.createComments(
+        'ayush post',
+        'hey Ayush here!',
+      );
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        ),
+      ).called(1);
+    });
     test('test for getCommentsForPost', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
 
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
@@ -138,7 +166,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -192,7 +220,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -244,7 +272,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -296,7 +324,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          PostQueries().getPostById('Ayush s postid');
+          CommentQueries().getPostsComments('Ayush s postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
