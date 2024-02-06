@@ -24,7 +24,9 @@ import 'package:uni_links_platform_interface/uni_links_platform_interface.dart';
 // Define a mock class for the Uri class
 class MockUri extends Mock implements Uri {}
 
-class MockUniLinksPlatform extends Mock with MockPlatformInterfaceMixin implements UniLinksPlatform {
+class MockUniLinksPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements UniLinksPlatform {
   @override
   Future<String?> getInitialLink() async {
     // TODO: implement getInitialLink
@@ -86,7 +88,7 @@ Future<void> main() async {
   setupLocator();
   graphqlConfig.test();
 
-  UniLinksPlatform.instance = MockUniLinksPlatform(); 
+  UniLinksPlatform.instance = MockUniLinksPlatform();
 
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
