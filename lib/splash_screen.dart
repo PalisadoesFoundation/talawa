@@ -28,10 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Uri? _latestUri;
   late StreamSubscription _sub;
 
-  // / Flutter supports deep linking on iOS, Android, and web browsers.
-  // / Opening a URL displays that screen in your app.
-  // / `_handleInitialUri` is an async function that is used to hanlde
-  // / the initial uri of the application.
+  // Flutter supports deep linking on iOS, Android, and web browsers.
+  // Opening a URL displays that screen in your app.
+  // `_handleInitialUri` is an async function that is used to hanlde
+  // the initial uri of the application.
 
   /// Opening a URL displays that screen in your app.
   ///
@@ -72,7 +72,6 @@ class _SplashScreenState extends State<SplashScreen> {
       if (!mounted) return;
       setState(() => _initialUri = null);
     }
-
     final bool userLoggedIn = userConfig.loggedIn;
     _initialUri = null;
     _latestUri = null;
