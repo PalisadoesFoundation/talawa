@@ -73,7 +73,7 @@ class PostQueries {
             _id
           }
           comments{
-            _id,
+           _id,
             text,
              createdAt
         creator{

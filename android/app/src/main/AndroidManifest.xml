@@ -13,8 +13,6 @@
     </intent>
     </queries>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="talawa"
         android:icon="@mipmap/ic_launcher"
@@ -74,8 +72,6 @@
                android:name="android.support.FILE_PROVIDER_PATHS"
                android:resource="@xml/filepaths" />
        </provider>
-        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="YOUR_KEY_HERE"/>
        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
            android:launchMode="singleTask">
            <intent-filter>
