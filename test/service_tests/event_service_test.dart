@@ -11,6 +11,7 @@ import 'package:talawa/utils/event_queries.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
+import '../model_tests/user/user_info_test.dart';
 
 void main() {
   testSetupLocator();
@@ -161,6 +162,9 @@ void main() {
                   "name": "Organization Name",
                   "description": "Sample organization description.",
                 },
+                "registrants": [
+                  testDataNotFromOrg,
+                ],
               }
             ],
           },

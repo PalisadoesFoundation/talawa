@@ -29,6 +29,7 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -53,6 +54,7 @@ import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dar
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 import '../service_tests/image_service_test.dart';
+import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
 
@@ -169,6 +171,13 @@ CommentService getAndRegisterCommentService() {
   _removeRegistrationIfExists<CommentService>();
   final service = MockCommentService();
   locator.registerSingleton<CommentService>(service);
+  return service;
+}
+
+SessionManager getAndRegisterSessionManager() {
+  _removeRegistrationIfExists<SessionManager>();
+  final service = MockSessionManger();
+  locator.registerSingleton<SessionManager>(service);
   return service;
 }
 

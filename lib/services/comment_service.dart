@@ -4,7 +4,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/comment_queries.dart';
-import 'package:talawa/utils/post_queries.dart';
 
 /// CommentService class have different member functions which provides service in the context of commenting.
 ///
@@ -62,7 +61,7 @@ class CommentService {
   /// * `Future<List<dynamic>>`: promise that will be fulfilled with list of comments.
   ///
   Future<List<dynamic>> getCommentsForPost(String postId) async {
-    final String getCommmentQuery = PostQueries().getPostById(postId);
+    final String getCommmentQuery = CommentQueries().getPostsComments(postId);
 
     final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 

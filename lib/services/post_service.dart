@@ -73,8 +73,6 @@ class PostService {
   /// **returns**:
   /// * `Future<void>`: returns future void
   Future<void> getPosts() async {
-    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
-    _dbFunctions.init();
     // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);

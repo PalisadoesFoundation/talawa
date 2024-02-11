@@ -38,6 +38,7 @@ jobs:
 
             ### Reviewers
 
+            Do not assign reviewers. Our Queue Monitors will review your PR and assign them. 
             When your PR has been assigned reviewers contact them to get your code reviewed and approved via:
 
             1. comments in this PR or
