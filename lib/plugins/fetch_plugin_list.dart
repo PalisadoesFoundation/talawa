@@ -27,6 +27,6 @@ class FetchPluginList {
       ),
     );
     box = Hive.box('pluginBox');
-    box.put('plugins', result.data!["getPlugins"]);
+    box.put('plugins', result.data?["getPlugins"]);
   }
 }

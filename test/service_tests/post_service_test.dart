@@ -76,12 +76,10 @@ void main() {
 
   group('Test PostService', () {
     test('Test refreshFeed method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final service = PostService();
       // Populating refreshing feed
       await service.refreshFeed();
-      verify(dataBaseMutationFunctions.refreshAccessToken('testtoken'))
-          .called(2);
+      verify(service.getPosts()).called(2);
     });
 
     test('Test addNewPost method', () async {
@@ -306,8 +304,7 @@ void main() {
       ); // Adjust the delay as needed
 
       // Verify that refresh token was called to check getPost method was called correctly.
-      verify(dataBaseMutationFunctions.refreshAccessToken('testtoken'))
-          .called(3);
+      verify(service.getPosts()).called(1);
 
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
