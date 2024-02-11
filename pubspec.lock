@@ -338,7 +338,7 @@ packages:
     source: hosted
     version: "7.0.0"
   fake_async:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: fake_async
       sha256: "511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78"
@@ -1522,7 +1522,7 @@ packages:
     source: hosted
     version: "0.5.1"
   uni_links_platform_interface:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uni_links_platform_interface
       sha256: "929cf1a71b59e3b7c2d8a2605a9cf7e0b125b13bc858e55083d88c62722d4507"

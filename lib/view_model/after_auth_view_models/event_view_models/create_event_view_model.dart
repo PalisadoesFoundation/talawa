@@ -188,9 +188,6 @@ class CreateEventViewModel extends BaseModel {
       navigationService.pushDialog(
         const CustomProgressDialog(key: Key('EventCreationProgress')),
       );
-      final tokenResult = await databaseFunctions
-          .refreshAccessToken(userConfig.currentUser.refreshToken!);
-      print(tokenResult);
       // invoke the `gqlAuthMutation` function of `databaseFunctions`
       // service along with the mutation query and variable map.
       final result = await databaseFunctions.gqlAuthMutation(

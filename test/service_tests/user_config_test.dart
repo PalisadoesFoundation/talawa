@@ -11,6 +11,7 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -31,6 +32,14 @@ class MockBox<T> extends Mock implements Box<T> {}
 //   }
 // }
 
+class MockSessionManger extends Mock implements SessionManager {
+  @override
+  Future<bool> refreshSession() {
+    // TODO: implement refreshSession
+    return Future.value(true);
+  }
+}
+
 void main() async {
   testSetupLocator();
 
@@ -44,6 +53,8 @@ void main() async {
   final userBox = await Hive.openBox<User>('currentUser');
   final urlBox = await Hive.openBox('url');
   final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+
+  getAndRegisterSessionManager();
 
   final mockUser = User(
     adminFor: <OrgInfo>[
@@ -138,6 +149,12 @@ void main() async {
       loggedIn = await model.userLoggedIn();
       expect(loggedIn, false);
 
+      // print(model.currentUser);
+    });
+
+    test('test user loggedin when result throws an exception', () async {
+      final model = UserConfig();
+
       when(
         databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
@@ -148,9 +165,8 @@ void main() async {
       });
 
       // show couldn't update errorsnackbar.
-      loggedIn = await model.userLoggedIn();
+      final loggedIn = await model.userLoggedIn();
       expect(loggedIn, true);
-      // print(model.currentUser);
     });
 
     test('Test for User log out method.', () async {

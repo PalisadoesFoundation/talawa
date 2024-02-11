@@ -12,6 +12,7 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/task_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -44,36 +45,39 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-// Creating an instance of GetIt and storing it in a global variable
+// Instance of GetIt and storing it in a global variable
 /// Intializaing the locator.
 GetIt locator = GetIt.instance;
 
-///creating GetIt for UserConfig.
+///GetIt for UserConfig.
 final userConfig = locator<UserConfig>();
 
-///creating GetIt for NavigationService.
+///GetIt for NavigationService.
 final navigationService = locator<NavigationService>();
 
-///creating GetIt for DataBaseMutationFunctions.
+///GetIt for DataBaseMutationFunctions.
 final databaseFunctions = locator<DataBaseMutationFunctions>();
 
-///creating GetIt for GraphqlConfig.
+///GetIt for GraphqlConfig.
 final graphqlConfig = locator<GraphqlConfig>();
 
-///creating GetIt for SizeConfig.
+///GetIt for SizeConfig.
 final sizeConfig = locator<SizeConfig>();
 
-///creating GetIt for Queries.
+///GetIt for Queries.
 final queries = locator<Queries>();
 
-///creating GetIt for Connectivity.
+///GetIt for Connectivity.
 final connectivity = locator<Connectivity>();
 
-///creating GetIt for OrganizationService.
+///GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
-///creating GetIt for ImageService.
+///GetIt for ImageService.
 final imageService = locator<ImageService>();
+
+///GetIt for SessionManager.
+final sessionManager = locator<SessionManager>();
 
 /// This function registers the widgets/objects in "GetIt".
 ///
@@ -93,6 +97,9 @@ void setupLocator() {
 
   //userConfig
   locator.registerSingleton(UserConfig());
+
+  //sessionManager
+  locator.registerSingleton(SessionManager());
 
   //Services
   locator.registerLazySingleton(() => PostService());
