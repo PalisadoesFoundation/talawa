@@ -14,7 +14,6 @@ import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/task_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
@@ -30,8 +29,6 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -104,7 +101,6 @@ void setupLocator() {
   //Services
   locator.registerLazySingleton(() => PostService());
   locator.registerLazySingleton(() => EventService());
-  locator.registerLazySingleton(() => TaskService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => OrganizationService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
@@ -134,8 +130,6 @@ void setupLocator() {
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => ExploreEventsViewModel());
-  locator.registerFactory(() => ExploreTasksViewModel());
-  locator.registerFactory(() => CreateTaskViewModel());
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
