@@ -1430,18 +1430,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: c0693d88cbdef2af5da286c605e5e8f33216c8f6cb3bc92a88a51decfb62bace
+      sha256: e8580e201c7197feac830b501889e877796a9fabbe20dcdbe90a981603939101
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.3"
+    version: "24.2.4"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: "8ed5aa0217fafe1788d815766d98ece641d1cf067b47ca3d71da81e7605b0d5c"
+      sha256: "7d1ce5501c96ba1df68b833436f21e8ab46b7be5de0a99d7d8017fd3932cc0f5"
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.3"
+    version: "24.2.4"
   synchronized:
     dependency: transitive
     description:
