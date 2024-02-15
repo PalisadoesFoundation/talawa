@@ -460,7 +460,6 @@ Future<void> main() async {
       );
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.byKey(const Key('FirstNameTextField')));
       await tester.tap(find.byKey(const Key('FirstNameTextField')));
       await tester.pumpAndSettle();
 
