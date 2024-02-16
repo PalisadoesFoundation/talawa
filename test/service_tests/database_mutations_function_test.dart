@@ -66,6 +66,7 @@ void main() async {
     registerServices();
     functionsClass = DataBaseMutationFunctions();
     functionsClass.init();
+    functionsClass.initClientNonAuth();
   });
 
   group('Database Mutation Functions Tests', () {

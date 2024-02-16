@@ -29,8 +29,6 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -108,11 +106,9 @@ void testSetupLocator() {
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
   locator.registerFactory(() => CreateEventViewModel());
-  locator.registerFactory(() => CreateTaskViewModel());
   locator.registerFactory(() => EditEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => EventInfoViewModel());
-  locator.registerFactory(() => ExploreTasksViewModel());
   locator.registerFactory(() => AppSettingViewModel());
 
   //Widgets viewModels

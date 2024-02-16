@@ -8,10 +8,10 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/utils/task_queries.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
+import '../model_tests/user/user_info_test.dart';
 
 void main() {
   testSetupLocator();
@@ -22,7 +22,7 @@ void main() {
   group('Test EventService', () {
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = TaskQueries.eventTasks('eventId');
+      const query = '';
       final Map<String, dynamic> variables = <String, dynamic>{};
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
@@ -56,7 +56,7 @@ void main() {
 
     test('Test deleteEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = TaskQueries.eventTasks('eventId');
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().deleteEvent('eventId'),
@@ -80,7 +80,7 @@ void main() {
 
     test('Test registerForAnEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = TaskQueries.eventTasks('eventId');
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().registerForEvent(),
@@ -103,7 +103,7 @@ void main() {
 
     test('Test fetchRegistrantsByEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = TaskQueries.eventTasks('eventId');
+      const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           EventQueries().registrantsByEvent('eventId'),
@@ -123,7 +123,7 @@ void main() {
 
     test('Test getEvents method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = TaskQueries.eventTasks('eventId');
+      const query = '';
       userConfig.currentOrg = OrgInfo(name: 'org', id: 'id');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
@@ -162,6 +162,9 @@ void main() {
                   "name": "Organization Name",
                   "description": "Sample organization description.",
                 },
+                "registrants": [
+                  testDataNotFromOrg,
+                ],
               }
             ],
           },
