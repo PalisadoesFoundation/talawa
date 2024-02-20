@@ -12,6 +12,7 @@ import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
+import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
@@ -194,6 +195,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.createEventPage:
       return MaterialPageRoute(
         builder: (context) => const CreateEventPage(key: Key('CreateEvent')),
+      );
+
+    // Returns the CreateEventPage Widget
+    case Routes.customRecurrencePage:
+      return MaterialPageRoute(
+        builder: (context) =>
+            CustomRecurrencePage(key: const Key('CreateEvent')),
       );
 
     // Returns the ProfilePage Widget
