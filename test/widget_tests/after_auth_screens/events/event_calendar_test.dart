@@ -114,6 +114,7 @@ void main() {
     test("dateRangePickerController getter", () async {
       final EventCalendarViewModel model = EventCalendarViewModel();
       expect(model.dateRangePickerController, isA<DateRangePickerController>());
+      expect(model.eventList, isA<List<Event>>());
     });
   });
 }

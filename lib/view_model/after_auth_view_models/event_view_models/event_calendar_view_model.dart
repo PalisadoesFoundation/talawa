@@ -9,7 +9,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 /// This ViewModel handles operations related to events and calendar views.
 class EventCalendarViewModel extends BaseModel {
   /// List of events managed by the ViewModel.
-  late List<Event> _eventList;
+  late List<Event> _eventList = [];
 
   /// Controller for managing the calendar.
   final CalendarController _calendarController = CalendarController();
