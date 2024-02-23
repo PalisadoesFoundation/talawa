@@ -1,3 +1,5 @@
+// ignore_for_file: use_setters_to_change_properties
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
