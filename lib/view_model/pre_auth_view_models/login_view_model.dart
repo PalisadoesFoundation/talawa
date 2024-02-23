@@ -133,6 +133,7 @@ class LoginViewModel extends BaseModel {
             (result as QueryResult).data!['login'] as Map<String, dynamic>,
           );
           userConfig.updateUser(loggedInUser);
+          print('joing org: ${userConfig.currentUser.joinedOrganizations![0]}');
           // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(

@@ -23,15 +23,19 @@ class User extends HiveObject {
     this.authToken,
     this.refreshToken,
     this.membershipRequests,
+    this.isSuperAdmin,
   });
 
   factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
     Map<String, dynamic> json;
+    Map<String, dynamic>? appUserProfile;
     if (fromOrg) {
       json = json1;
     } else {
       json = json1['user'] as Map<String, dynamic>;
+      appUserProfile = json1['appUserProfile'] as Map<String, dynamic>?;
     }
+
     return User(
       authToken: fromOrg ? ' ' : json1['accessToken'] as String?,
       refreshToken: fromOrg ? ' ' : json1['refreshToken'] as String?,
@@ -41,24 +45,24 @@ class User extends HiveObject {
       lastName: json['lastName'] != null ? json['lastName'] as String? : null,
       email: json['email'] != null ? json['email'] as String? : null,
       image: json['image'] != null ? json['image'] as String? : null,
-      adminFor: json['adminFor'] != null
-          ? (json['adminFor'] as List<dynamic>?)
-              ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+      adminFor: appUserProfile?['adminFor'] != null
+          ? (appUserProfile!['adminFor'] as List<dynamic>)
+              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
               .toList()
           : null,
-      createdOrganizations: json['createdOrganizations'] != null
-          ? (json['createdOrganizations'] as List<dynamic>?)
-              ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+      createdOrganizations: appUserProfile?['createdOrganizations'] != null
+          ? (appUserProfile!['createdOrganizations'] as List<dynamic>)
+              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
               .toList()
           : null,
       joinedOrganizations: json['joinedOrganizations'] != null
-          ? (json['joinedOrganizations'] as List<dynamic>?)
-              ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+          ? (json['joinedOrganizations'] as List<dynamic>)
+              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
               .toList()
           : null,
       membershipRequests: json['membershipRequests'] != null
-          ? (json['membershipRequests'] as List<dynamic>?)
-              ?.map(
+          ? (json['membershipRequests'] as List<dynamic>)
+              .map(
                 (e) => OrgInfo.fromJson(
                   e as Map<String, dynamic>,
                   memberRequest: true,
@@ -66,8 +70,12 @@ class User extends HiveObject {
               )
               .toList()
           : null,
+      isSuperAdmin: appUserProfile?['isSuperAdmin'] != null
+          ? appUserProfile!['isSuperAdmin'] as bool?
+          : null,
     );
   }
+
   //Method to print the User details.
   void print() {
     debugPrint('authToken: ${this.authToken}');
@@ -81,6 +89,7 @@ class User extends HiveObject {
     debugPrint('adminFor: ${this.adminFor}');
     debugPrint('createdOrganizations: ${this.createdOrganizations}');
     debugPrint('membershipRequests: ${this.membershipRequests}');
+    debugPrint('isSuperAdmin: ${this.isSuperAdmin}');
   }
 
   @HiveField(0)
@@ -105,6 +114,8 @@ class User extends HiveObject {
   List<OrgInfo>? adminFor = [];
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
+  @HiveField(11)
+  bool? isSuperAdmin;
 
   void updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
@@ -134,5 +145,6 @@ class User extends HiveObject {
     this.createdOrganizations = details.createdOrganizations;
     this.membershipRequests = details.membershipRequests;
     this.adminFor = details.adminFor;
+    this.isSuperAdmin = details.isSuperAdmin;
   }
 }
