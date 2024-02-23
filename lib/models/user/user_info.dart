@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc, use_setters_to_change_properties
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -76,7 +73,13 @@ class User extends HiveObject {
     );
   }
 
-  //Method to print the User details.
+  /// Method to print the User details.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void print() {
     debugPrint('authToken: ${this.authToken}');
     debugPrint('refreshToken: ${this.refreshToken}');
@@ -92,48 +95,105 @@ class User extends HiveObject {
     debugPrint('isSuperAdmin: ${this.isSuperAdmin}');
   }
 
+  /// HiveField for authToken.
   @HiveField(0)
   String? authToken;
+
+  /// HiveField for refreshToken.
   @HiveField(1)
   String? refreshToken;
+
+  /// HiveField for userID.
   @HiveField(2)
   String? id;
+
+  /// HiveField for user's first name.
   @HiveField(3)
   String? firstName;
+
+  /// HiveField for user's last name.
   @HiveField(4)
   String? lastName;
+
+  /// HiveField for user's Email.
   @HiveField(5)
   String? email;
+
+  /// HiveField for user's avatar.
   @HiveField(6)
   String? image;
+
+  /// /// HiveField for all organisations joined by user.
   @HiveField(7)
   List<OrgInfo>? joinedOrganizations = [];
+
+  /// HiveField for all organisations created by user.
   @HiveField(8)
   List<OrgInfo>? createdOrganizations = [];
+
+  /// HiveField for all organisations user is admin of.
   @HiveField(9)
   List<OrgInfo>? adminFor = [];
+
+  /// HiveField for all organisations user has sent membership request.
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
+
+  /// HiveField to determine if user is super admin.
   @HiveField(11)
   bool? isSuperAdmin;
 
+  /// Method to updated joinedOrganisation list.
+  ///
+  /// **params**:
+  /// * `orgList`: List of organsaitions user has joined.
+  ///
+  /// **returns**:
+  ///   None
   void updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
   }
 
+  /// Method to updated createdOrganisation list.
+  ///
+  /// **params**:
+  /// * `orgList`: List of organsaitions user has created.
+  ///
+  /// **returns**:
+  ///   None
   void updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
   }
 
+  /// Method to update membershipRequests List.
+  ///
+  /// **params**:
+  /// * `orgList`: List of organisations user have sent membership request.
+  ///
+  /// **returns**:
+  ///   None
   void updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
 
+  /// Method to update adminFor List.
+  ///
+  /// **params**:
+  /// * `orgList`: List of organisations user is admin of.
+  ///
+  /// **returns**:
+  ///   None
   void updateAdminFor(List<OrgInfo> orgList) {
     this.adminFor = orgList;
   }
 
-  //Method to update the user details.
+  /// Method to update the user details.
+  ///
+  /// **params**:
+  /// * `details`: updated user Info/details
+  ///
+  /// **returns**:
+  ///   None
   void update(User details) {
     this.firstName = details.firstName;
     this.lastName = details.lastName;
