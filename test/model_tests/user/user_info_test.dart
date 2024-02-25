@@ -69,11 +69,13 @@ final testDataNotFromOrg = {
     "accessToken": "randomAccessToken",
     "authToken": "randomAuthToken",
     "refreshToken": "randomRefreshToken",
-    "adminFor": testOrgList,
-    'createdOrganizations': testOrgList,
     'joinedOrganizations': testOrgList,
     'membershipRequests': membershipRequestOrgList,
   },
+  'appUserProfile': {
+    'createdOrganizations': testOrgList,
+    "adminFor": testOrgList,
+  }
 };
 
 void main() {

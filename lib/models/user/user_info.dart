@@ -29,6 +29,7 @@ class User extends HiveObject {
     Map<String, dynamic>? appUserProfile;
     if (fromOrg) {
       json = json1;
+      appUserProfile = json1;
     } else {
       json = json1['user'] as Map<String, dynamic>;
       appUserProfile = json1['appUserProfile'] as Map<String, dynamic>?;
