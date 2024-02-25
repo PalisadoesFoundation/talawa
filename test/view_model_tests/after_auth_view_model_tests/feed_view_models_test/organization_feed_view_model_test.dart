@@ -12,9 +12,9 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 
-import '../../helpers/test_helpers.dart';
-import '../../helpers/test_helpers.mocks.dart';
-import '../../helpers/test_locator.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
+import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
   void call();
@@ -29,6 +29,9 @@ void main() {
     registerServices();
     model = OrganizationFeedViewModel()..addListener(notifyListenerCallback);
   });
+  tearDown(() {
+    unregisterServices();
+  });
 
   group('OrganizationFeedViewModel Tests:', () {
     test('Test initialise function', () {
@@ -42,7 +45,7 @@ void main() {
 
       expect(model.posts.length, 0);
 
-      model.initializeWithDemoData();
+      // model.initializeWithDemoData();
     });
 
     test('Test setCurrentOrganizationName function', () {
@@ -118,5 +121,15 @@ void main() {
       expect(model.posts[0], updatedPost);
       verify(notifyListenerCallback()).called(2);
     });
+  });
+
+  test('Test removePost function', () async {
+    final post = Post(sId: '1', creator: User());
+    model.addNewPost(post);
+    model.initialise();
+
+    await model.removePost(post);
+
+    expect(model.posts.isEmpty, true);
   });
 }
