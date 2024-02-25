@@ -75,7 +75,7 @@ final testDataNotFromOrg = {
   'appUserProfile': {
     'createdOrganizations': testOrgList,
     "adminFor": testOrgList,
-  }
+  },
 };
 
 void main() {
