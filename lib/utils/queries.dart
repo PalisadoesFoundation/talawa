@@ -41,7 +41,6 @@ class Queries {
                   image
                 } 
               }
-              isSuperAdmin
             }
             user{
                 _id
@@ -116,7 +115,6 @@ class Queries {
                   image
                 } 
               }
-              isSuperAdmin
             }
             user{
               _id
@@ -339,7 +337,6 @@ class Queries {
                   image
                 } 
               }
-              isSuperAdmin
             }
             user{
               _id

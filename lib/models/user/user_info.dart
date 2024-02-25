@@ -22,7 +22,6 @@ class User extends HiveObject {
     this.authToken,
     this.refreshToken,
     this.membershipRequests,
-    this.isSuperAdmin,
   });
 
   factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
@@ -69,9 +68,6 @@ class User extends HiveObject {
               )
               .toList()
           : null,
-      isSuperAdmin: appUserProfile?['isSuperAdmin'] != null
-          ? appUserProfile!['isSuperAdmin'] as bool?
-          : null,
     );
   }
 
@@ -94,7 +90,6 @@ class User extends HiveObject {
     debugPrint('adminFor: ${this.adminFor}');
     debugPrint('createdOrganizations: ${this.createdOrganizations}');
     debugPrint('membershipRequests: ${this.membershipRequests}');
-    debugPrint('isSuperAdmin: ${this.isSuperAdmin}');
   }
 
   /// HiveField for authToken.
@@ -140,10 +135,6 @@ class User extends HiveObject {
   /// HiveField for all organisations user has sent membership request.
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
-
-  /// HiveField to determine if user is super admin.
-  @HiveField(11)
-  bool? isSuperAdmin;
 
   /// Method to updated joinedOrganisation list.
   ///
@@ -207,6 +198,5 @@ class User extends HiveObject {
     this.createdOrganizations = details.createdOrganizations;
     this.membershipRequests = details.membershipRequests;
     this.adminFor = details.adminFor;
-    this.isSuperAdmin = details.isSuperAdmin;
   }
 }
