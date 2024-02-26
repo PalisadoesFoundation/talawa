@@ -123,8 +123,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise(
-      {
+  void initialise({
     bool isTest = false,
   }) {
     _isFetchingPosts = true;
