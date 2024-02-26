@@ -88,7 +88,7 @@ void main() {
       );
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
-      expect(inkwellFinder, findsNWidgets(7));
+      expect(inkwellFinder, findsNWidgets(8));
       // tester.allElements.forEach((element) {
       //   print(element);
       // });
@@ -123,7 +123,7 @@ void main() {
       );
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
-      expect(inkwellFinder, findsNWidgets(7));
+      expect(inkwellFinder, findsNWidgets(8));
 
       ///returning the file variable to the
       ///result of function multimediaPickerService.getPhotoFromGallery
@@ -163,6 +163,38 @@ void main() {
 
       expect(createEventViewModel.validate, AutovalidateMode.disabled);
     });
+
+    testWidgets('recurrence button', (tester) async {
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.restore));
+      await tester.pumpAndSettle();
+
+      const List<String> frequencies = [
+        "Does not repeat",
+        "Every day",
+        "Every week",
+        "Every month",
+        "Every year",
+        "Custom...",
+      ];
+
+      final customButtonFinder = find.text("Custom...");
+
+      await tester.tap(customButtonFinder);
+      await tester.pumpAndSettle();
+
+      for (final frequency in frequencies) {
+        expect(find.text(frequency), findsAny);
+      }
+    });
+
     testWidgets("Checking tap Inkwell for setDate 2 datetime", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
@@ -172,7 +204,7 @@ void main() {
       );
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
-      expect(inkwellFinder, findsNWidgets(7));
+      expect(inkwellFinder, findsNWidgets(8));
 
       ///returning the file variable to the
       ///result of function multimediaPickerService.getPhotoFromGallery
@@ -204,7 +236,7 @@ void main() {
       );
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
-      expect(inkwellFinder, findsNWidgets(7));
+      expect(inkwellFinder, findsNWidgets(8));
       // tester.allElements.forEach((element) {
       //   print(element);
       // });
@@ -437,7 +469,7 @@ void main() {
       );
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
-      expect(inkwellFinder, findsNWidgets(7));
+      expect(inkwellFinder, findsNWidgets(8));
 
       await tester.ensureVisible(find.byKey(const Key('inwell_cep2')));
       await tester.pump();
