@@ -276,5 +276,7 @@ class OrganizationFeedViewModel extends BaseModel {
         "id": post.sId,
       },
     );
+    _posts.remove(post);
+    notifyListeners();
   }
 }
