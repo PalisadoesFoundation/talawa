@@ -673,10 +673,10 @@ packages:
     dependency: transitive
     description:
       name: hotreloader
-      sha256: ed56fdc1f3a8ac924e717257621d09e9ec20e308ab6352a73a50a1d7a4d9158e
+      sha256: "94ee21a60ea2836500799f3af035dc3212b1562027f1e0031c14e087f0231449"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.1.0"
   html:
     dependency: transitive
     description:
