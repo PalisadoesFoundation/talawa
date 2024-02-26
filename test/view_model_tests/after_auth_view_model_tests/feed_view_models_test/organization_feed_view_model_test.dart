@@ -36,7 +36,7 @@ void main() {
   group('OrganizationFeedViewModel Tests:', () {
     test('Test initialise function', () {
       expect(model.currentOrgName, '');
-      model.initialise();
+      model.initialise(isTest: true);
       expect(model.currentOrgName, 'Organization Name');
 
       locator<UserConfig>()
@@ -44,8 +44,24 @@ void main() {
           .add(OrgInfo(name: 'Updated Organization Name'));
 
       expect(model.posts.length, 0);
+    });
 
-      // model.initializeWithDemoData();
+    test('Test pinnedPosts getter when istest is true', () {
+      model.istest = true;
+
+      final pinnedPosts = model.pinnedPosts;
+
+      expect(pinnedPosts, isEmpty);
+    });
+
+    test('Test pinnedPosts getter when istest is false', () {
+      model.istest = false;
+
+      final pinnedPosts = model.pinnedPosts;
+
+      expect(pinnedPosts.length, 4);
+
+      expect(pinnedPosts[0].sId, '1');
     });
 
     test('Test setCurrentOrganizationName function', () {
