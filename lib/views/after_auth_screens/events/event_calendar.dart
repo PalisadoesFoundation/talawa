@@ -1,107 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 
 /// EventCalendar returns a widget that has mutable state _EventCalendarState.
-class EventCalendar extends StatefulWidget {
+class EventCalendar extends StatelessWidget {
   const EventCalendar(this.eventList, {super.key});
 
   /// List of events that needs to bge passed when the calling this widget.
   final List<Event> eventList;
 
   @override
-  State<EventCalendar> createState() => _EventCalendarState();
-}
-
-/// _EventCalendarState returns a widget for Event Calender.
-class _EventCalendarState extends State<EventCalendar> {
-  final CalendarController _calendarController = CalendarController();
-  final DateRangePickerController _dateRangePickerController =
-      DateRangePickerController();
-
-  /// The function to triggered when the view is changed.
-  ///
-  ///
-  /// **params**:
-  /// * `viewChangedDetails`: The dates that visible on the view changes in SfCalendar. type is ViewChangedDetails
-  ///
-  /// **returns**:
-  ///   None
-  void viewChanged(ViewChangedDetails viewChangedDetails) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _dateRangePickerController.selectedDate =
-          viewChangedDetails.visibleDates[0];
-      _dateRangePickerController.displayDate =
-          viewChangedDetails.visibleDates[0];
-    });
-  }
-
-  /// function to be triggered when selection is changed.
-  ///
-  ///
-  /// **params**:
-  /// * `args`: Object of type DateRangePickerSelectionChangedArgs, The selected dates or ranges changes in the SfDateRangePicker.
-  ///
-  /// **returns**:
-  ///   None
-  void selectionChanged(DateRangePickerSelectionChangedArgs args) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _calendarController.displayDate = args.value as DateTime?;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print('hi');
-    return Scaffold(
-      // header of the page.
-      appBar: AppBar(
-        title: const Text('Event Calendar'),
-        actions: [
-          IconButton(
-            // button to select the date and time of an event.
-            onPressed: () async {
-              // initially pickedDate is initialised with current time.
-              final pickedDate =
-                  await customDatePicker(initialDate: DateTime.now());
-              selectionChanged(DateRangePickerSelectionChangedArgs(pickedDate));
-            },
-            icon: const Icon(Icons.date_range),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 100,
-            // The SfDateRangePicker widget provides four different types of views to display.
-            //It can be assigned to the widget constructor by using the view property.
-            child: SfDateRangePicker(
-              controller: _dateRangePickerController,
-              showNavigationArrow: true,
-              allowViewNavigation: false,
-              monthViewSettings: const DateRangePickerMonthViewSettings(
-                numberOfWeeksInView: 1,
-                dayFormat: 'EEE',
+    return BaseView<EventCalendarViewModel>(
+      onModelReady: (model) => model.initialize(eventList),
+      builder: (context, model, child) {
+        print(model.calendarView);
+        return Scaffold(
+          // header of the page.
+          appBar: AppBar(
+            title: const Text('Event Calendar'),
+            actions: [
+              IconButton(
+                // button to select the date and time of an event.
+                onPressed: () async {
+                  // initially pickedDate is initialised with current time.
+                  final pickedDate =
+                      await customDatePicker(initialDate: DateTime.now());
+                  model.selectionChanged(
+                    DateRangePickerSelectionChangedArgs(pickedDate),
+                  );
+                },
+                icon: const Icon(Icons.date_range),
               ),
-              onSelectionChanged: selectionChanged,
-            ),
+              calendarViewSelection(model),
+            ],
           ),
-          Expanded(
-            child: SfCalendar(
-              headerHeight: 0,
-              viewHeaderHeight: 0,
-              controller: _calendarController,
-              dataSource: _getCalendarDataSource(widget.eventList),
-              onViewChanged: viewChanged,
-            ),
+          body: Column(
+            children: [
+              // SizedBox(
+              //   height: 100,
+              //   // The SfDateRangePicker widget provides four different types of views to display.
+              //   //It can be assigned to the widget constructor by using the view property.
+              //   child: SfDateRangePicker(
+              //     view: DateRangePickerView.month,
+              //     controller: model.dateRangePickerController,
+              //     showNavigationArrow: true,
+              //     allowViewNavigation: false,
+              //     monthViewSettings: const DateRangePickerMonthViewSettings(
+              //       numberOfWeeksInView: 1,
+              //       dayFormat: 'EEE',
+              //     ),
+              //     onSelectionChanged: model.selectionChanged,
+              //   ),
+              // ),
+              Expanded(
+                child: SfCalendar(
+                  view: model.calendarView,
+                  headerHeight: 60,
+                  viewHeaderHeight: 60,
+                  controller: model.calendarController,
+                  dataSource: _getCalendarDataSource(eventList),
+                  onViewChanged: model.viewChanged,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
+    );
+  }
+
+  /// Popupmenu Button to select calendar view.
+  ///
+  /// **params**:
+  /// * `model`: EventCalendarViewModel.
+  ///
+  /// **returns**:
+  /// * `PopupMenuButton<String>`: custom PopupMenuButton..
+  PopupMenuButton<String> calendarViewSelection(EventCalendarViewModel model) {
+    final List<String> views = ["Day", "Month", "Schedule"];
+    return PopupMenuButton<String>(
+      itemBuilder: (context) {
+        return <PopupMenuEntry<String>>[
+          for (final view in views)
+            PopupMenuItem(
+              value: view,
+              child: Text(view),
+            ),
+        ];
+      },
+      onSelected: (value) {
+        model.changeView(value);
+      },
     );
   }
 }

@@ -19,6 +19,7 @@ import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
+import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
@@ -182,6 +183,18 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<CreateEventPage>());
+      }
+    });
+
+    testWidgets('Test createCustomRecurringEvent route',
+        (WidgetTester tester) async {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.customRecurrencePage));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<CustomRecurrencePage>());
       }
     });
 
