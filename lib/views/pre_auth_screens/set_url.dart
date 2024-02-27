@@ -188,7 +188,7 @@ class _SetUrlState extends State<SetUrl> {
                         key: const Key('ChangeLanguage'),
                         onTap: () {
                           navigationService
-                                          .pushScreen(Routes.languageSelectionRoute);
+                              .pushScreen(Routes.languageSelectionRoute);
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
