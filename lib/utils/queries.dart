@@ -23,7 +23,25 @@ class Queries {
         mutation{
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
           {
-            accessToken
+            appUserProfile{
+              adminFor{
+                _id
+                name
+              }
+              createdOrganizations{
+                _id
+                name
+                image
+                description
+                userRegistrationRequired
+                creator{
+                  _id
+                  firstName
+                  lastName
+                  image
+                } 
+              }
+            }
             user{
                 _id
                 firstName
@@ -31,19 +49,6 @@ class Queries {
                 email
                 image
                 joinedOrganizations{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
-                }
-                createdOrganizations{
                   _id
                   name
                   image
@@ -71,11 +76,9 @@ class Queries {
                     } 
                   }
                 }
-                adminFor{
-                  _id
-                }
               }
               refreshToken
+              accessToken
             }
         }
     """;
@@ -94,14 +97,12 @@ class Queries {
     return """
         mutation {
           login(data: {email: "$email", password: "$password"}){
-            accessToken
-            user{
-              _id
-              firstName
-              lastName
-              email
-              image
-              joinedOrganizations{
+            appUserProfile{
+              adminFor{
+                _id
+                name
+              }
+              createdOrganizations{
                 _id
                 name
                 image
@@ -114,7 +115,14 @@ class Queries {
                   image
                 } 
               }
-              createdOrganizations{
+            }
+            user{
+              _id
+              firstName
+              lastName
+              email
+              image
+              joinedOrganizations{
                 _id
                 name
                 image
@@ -142,12 +150,9 @@ class Queries {
                   } 
                 }
               }
-              adminFor{
-                _id
-              }
             }
             refreshToken
-            
+            accessToken
           }
         }
     """;
@@ -314,54 +319,59 @@ class Queries {
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
           users(where: { id: \$id }) {
-            _id
-            firstName
-            lastName
-            email
-            image
-            joinedOrganizations{
-              _id
-              name
-              image
-              description
-              userRegistrationRequired
-              creator{
+            appUserProfile{
+              adminFor{
                 _id
-                firstName
-                lastName
-                image
-              } 
-              
-            }
-            createdOrganizations{
-              _id
-              name
-              image
-              description
-              userRegistrationRequired
-              creator{
-                _id
-                firstName
-                lastName
-                image
-              } 
-            }
-            membershipRequests{
-              organization{
+                name
+              }
+              createdOrganizations{
                 _id
                 name
                 image
+                description
                 userRegistrationRequired
                 creator{
                   _id
                   firstName
                   lastName
                   image
-                }
+                } 
               }
             }
-            adminFor{
-             _id
+            user{
+              _id
+              firstName
+              lastName
+              email
+              image
+              joinedOrganizations{
+                _id
+                name
+                image
+                description
+                userRegistrationRequired
+                creator{
+                  _id
+                  firstName
+                  lastName
+                  image
+                } 
+              }
+              membershipRequests{
+                organization{
+                  _id
+                  name
+                  image
+                  description
+                  userRegistrationRequired
+                  creator{
+                    _id
+                    firstName
+                    lastName
+                    image
+                  } 
+                }
+              }
             }
           }
         }

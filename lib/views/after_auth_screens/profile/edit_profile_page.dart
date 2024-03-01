@@ -150,6 +150,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's first name.
                             child: TextFormField(
+                              key: const Key('FirstNameTextField'),
                               controller: model.firstNameTextController
                                 ..text = model.user.firstName!,
                               focusNode: model.firstNameFocus,
