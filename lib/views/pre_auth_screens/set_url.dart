@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
@@ -186,7 +187,8 @@ class _SetUrlState extends State<SetUrl> {
                       GestureDetector(
                         key: const Key('ChangeLanguage'),
                         onTap: () {
-                          navigationService.pop();
+                          navigationService
+                              .pushScreen(Routes.languageSelectionRoute);
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
