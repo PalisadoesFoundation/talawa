@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
-
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -52,92 +51,91 @@ void main() {
 
       expect(expectTime, parsedTime);
     });
-   
-  group('Tests for EventCalendar', () {
-    setUp(() => locator.registerSingleton(EventCalendarViewModel()));
-    tearDown(() => locator.unregister<EventCalendarViewModel>());
-    testWidgets('Testing if EventCalendar shows up', (tester) async {
-      await tester.pumpWidget(createEventCalendar());
-      await tester.pump();
 
-      expect(find.byType(EventCalendar), findsOneWidget);
+    group('Tests for EventCalendar', () {
+      setUp(() => locator.registerSingleton(EventCalendarViewModel()));
+      tearDown(() => locator.unregister<EventCalendarViewModel>());
+      testWidgets('Testing if EventCalendar shows up', (tester) async {
+        await tester.pumpWidget(createEventCalendar());
+        await tester.pump();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
+      });
+      testWidgets('Testing if tapping on date_range shows datePicker',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendar());
+        await tester.pump();
+
+        await tester.tap(find.byIcon(Icons.date_range));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(CalendarDatePicker), findsOneWidget);
+
+        await tester.tap(find.text('16'));
+        await tester.tap(find.text('OK'));
+        await tester.pump();
+      });
+
+      testWidgets('calendarViewSelection', (tester) async {
+        await tester.pumpWidget(
+          createEventCalendar(),
+        );
+
+        await tester.pump();
+
+        final popupButtonFinder = find.byType(PopupMenuButton<String>);
+
+        await tester.tap(popupButtonFinder);
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text("Day"));
+        await tester.pumpAndSettle();
+
+        await tester.tap(popupButtonFinder);
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text("Month"));
+        await tester.pumpAndSettle();
+
+        await tester.tap(popupButtonFinder);
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text("Schedule"));
+        await tester.pumpAndSettle();
+
+        await tester.tap(popupButtonFinder);
+        await tester.pumpAndSettle();
+
+        expect(find.text("Day"), findsOne);
+        expect(find.text("Month"), findsOne);
+        expect(find.text("Schedule"), findsOne);
+      });
+      testWidgets('Testing if Event model parses dates correctly',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendar());
+        await tester.pump();
+
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+        final event = eventCalendar.eventList[0];
+
+        DateTime startDate;
+        DateTime endDate;
+        if (event.startDate!.contains('/')) {
+          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
+        } else {
+          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
+        }
+        if (event.endDate!.contains('/')) {
+          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
+        } else {
+          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
+        }
+
+        expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+        expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+      });
     });
-    testWidgets('Testing if tapping on date_range shows datePicker',
-        (tester) async {
-      await tester.pumpWidget(createEventCalendar());
-      await tester.pump();
-
-      await tester.tap(find.byIcon(Icons.date_range));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(CalendarDatePicker), findsOneWidget);
-
-      await tester.tap(find.text('16'));
-      await tester.tap(find.text('OK'));
-      await tester.pump();
-    });
-
-    testWidgets('calendarViewSelection', (tester) async {
-      await tester.pumpWidget(
-        createEventCalendar(),
-      );
-
-      await tester.pump();
-
-      final popupButtonFinder = find.byType(PopupMenuButton<String>);
-
-      await tester.tap(popupButtonFinder);
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text("Day"));
-      await tester.pumpAndSettle();
-
-      await tester.tap(popupButtonFinder);
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text("Month"));
-      await tester.pumpAndSettle();
-
-      await tester.tap(popupButtonFinder);
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text("Schedule"));
-      await tester.pumpAndSettle();
-
-      await tester.tap(popupButtonFinder);
-      await tester.pumpAndSettle();
-
-      expect(find.text("Day"), findsOne);
-      expect(find.text("Month"), findsOne);
-      expect(find.text("Schedule"), findsOne);
-    });
-     testWidgets('Testing if Event model parses dates correctly',
-        (tester) async {
-          
-      await tester.pumpWidget(createEventCalendar());
-      await tester.pump();
-
-      final eventCalendar =
-          tester.widget<EventCalendar>(find.byType(EventCalendar));
-      final event = eventCalendar.eventList[0];
-
-      DateTime startDate;
-      DateTime endDate;
-      if (event.startDate!.contains('/')) {
-        startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-      } else {
-        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-      }
-      if (event.endDate!.contains('/')) {
-        endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-      } else {
-        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-      }
-
-      expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-      expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-    });
-  });
 
     test("dateRangePickerController getter", () async {
       final EventCalendarViewModel model = EventCalendarViewModel();
