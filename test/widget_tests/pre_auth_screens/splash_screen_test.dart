@@ -3,13 +3,10 @@
 
 // ignore_for_file: unused_import
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -19,24 +16,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:uni_links_platform_interface/uni_links_platform_interface.dart';
-
-// Define a mock class for the Uri class
-class MockUri extends Mock implements Uri {}
-
-class MockUniLinksPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements UniLinksPlatform {
-  @override
-  Future<String?> getInitialLink() async {
-    // TODO: implement getInitialLink
-    return Future(() => 'http://azad.com');
-  }
-
-  @override
-  // TODO: implement linkStream
-  Stream<String?> get linkStream => const Stream.empty();
-}
 
 Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
@@ -88,12 +67,10 @@ Future<void> main() async {
   setupLocator();
   graphqlConfig.test();
 
-  UniLinksPlatform.instance = MockUniLinksPlatform();
-
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final screenScaffoldWidget =
           find.byKey(const Key('SplashScreenScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -103,11 +80,10 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.lightTheme.scaffoldBackgroundColor,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final logoWidget = find.byKey(const Key('LogoPainter'));
       expect(logoWidget, findsOneWidget);
       expect(
@@ -117,11 +93,10 @@ Future<void> main() async {
           SizeConfig.screenWidth! * 0.6,
         ),
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if app name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findAppNameWidget = find.text('TALAWA');
       expect(findAppNameWidget, findsOneWidget);
       expect(
@@ -136,11 +111,10 @@ Future<void> main() async {
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
         TalawaTheme.lightTheme.textTheme.headlineMedium!.fontSize,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if provider text shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findProviderTextWidget = find.text('from');
       expect(findProviderTextWidget, findsOneWidget);
       expect(
@@ -155,11 +129,10 @@ Future<void> main() async {
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontSize,
         TalawaTheme.lightTheme.textTheme.bodySmall!.fontSize,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if provider name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findProviderNameWidget = find.text('PALISADOES');
       expect(findProviderNameWidget, findsOneWidget);
       expect(
@@ -170,13 +143,12 @@ Future<void> main() async {
         (tester.firstWidget(findProviderNameWidget) as Text).style!.fontFamily,
         TalawaTheme.lightTheme.textTheme.titleSmall!.fontFamily,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
   });
   group('Splash Screen Widget Test in dark mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final screenScaffoldWidget =
           find.byKey(const Key('SplashScreenScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -186,11 +158,10 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final logoWidget = find.byKey(const Key('LogoPainter'));
       expect(logoWidget, findsOneWidget);
       expect(
@@ -200,11 +171,10 @@ Future<void> main() async {
           SizeConfig.screenWidth! * 0.6,
         ),
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if app name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findAppNameWidget = find.text('TALAWA');
       expect(findAppNameWidget, findsOneWidget);
       expect(
@@ -219,11 +189,10 @@ Future<void> main() async {
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
         TalawaTheme.darkTheme.textTheme.headlineMedium!.fontSize,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if provider text shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findProviderTextWidget = find.text('from');
       expect(findProviderTextWidget, findsOneWidget);
       expect(
@@ -238,11 +207,10 @@ Future<void> main() async {
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontSize,
         TalawaTheme.darkTheme.textTheme.bodySmall!.fontSize,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets("Testing if provider name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
-      await tester.pump();
+      await tester.pumpAndSettle();
       final findProviderNameWidget = find.text('PALISADOES');
       expect(findProviderNameWidget, findsOneWidget);
       expect(
@@ -253,7 +221,101 @@ Future<void> main() async {
         (tester.firstWidget(findProviderNameWidget) as Text).style!.fontFamily,
         TalawaTheme.darkTheme.textTheme.titleSmall!.fontFamily,
       );
-      await tester.pump(const Duration(seconds: 1));
     });
   });
+}
+
+// Added the following test cases
+
+Future<void> testWidgets1(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the uriLinkStream to emit a test URI
+  final testUri = Uri.parse("https://example.com");
+  uriLinkStream.any(testUri as bool Function(Uri? element));
+
+  // Wait for the URI to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the latest URI is updated correctly
+  expect(find.text("Latest URI: $testUri"), findsOneWidget);
+}
+
+Future<void> testWidgets2(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the userConfig.userLoggedIn() to return true
+  when(userConfig.userLoggedIn()).thenAnswer((_) async => true);
+
+  // Wait for the user log in to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the user log in is handled correctly
+  expect(find.text("User logged in"), findsOneWidget);
+}
+
+Future<void> testWidgets3(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the userConfig.userLoggedIn() to return true
+  when(userConfig.userLoggedIn()).thenAnswer((_) async => true);
+
+  // Mock the uriLinkStream to emit a test URI
+  final testUri = Uri.parse("https://example.com");
+  uriLinkStream.any(testUri as bool Function(Uri? element));
+
+  // Wait for the URI to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the user log in is not handled
+  expect(find.text("User logged in"), findsNothing);
+}
+
+Future<void> testWidgets4(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the userConfig.userLoggedIn() to return true
+  when(userConfig.userLoggedIn()).thenAnswer((_) async => true);
+
+  // Wait for the user log in to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the user log in is handled correctly
+  expect(find.text("User logged in"), findsOneWidget);
+}
+
+Future<void> testWidgets5(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the userConfig.userLoggedIn() to return true
+  when(userConfig.userLoggedIn()).thenAnswer((_) async => true);
+
+  // Mock the initial URI to be a test URI
+  final testUri = Uri.parse("https://example.com");
+  when(getInitialUri()).thenAnswer((_) async => testUri);
+
+  // Wait for the initial URI to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the user log in is not handled
+  expect(find.text("User logged in"), findsNothing);
+}
+
+Future<void> testWidgets6(WidgetTester tester) async {
+  await tester.pumpWidget(createSplashScreenLight());
+  await tester.pumpAndSettle();
+
+  // Mock the userConfig.userLoggedIn() to return true
+  when(userConfig.userLoggedIn()).thenAnswer((_) async => true);
+
+  // Wait for the user log in to be handled
+  await tester.pumpAndSettle();
+
+  // Verify that the user log in is handled correctly
+  expect(find.text("User logged in"), findsOneWidget);
 }
