@@ -52,32 +52,7 @@ void main() {
 
       expect(expectTime, parsedTime);
     });
-    testWidgets('Testing if Event model parses dates correctly',
-        (tester) async {
-      await tester.pumpWidget(createEventCalendar());
-      await tester.pump();
-
-      final eventCalendar =
-          tester.widget<EventCalendar>(find.byType(EventCalendar));
-      final event = eventCalendar.eventList[0];
-
-      DateTime startDate;
-      DateTime endDate;
-      if (event.startDate!.contains('/')) {
-        startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-      } else {
-        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-      }
-      if (event.endDate!.contains('/')) {
-        endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-      } else {
-        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-      }
-
-      expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-      expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-    });
-  });
+   
   group('Tests for EventCalendar', () {
     setUp(() => locator.registerSingleton(EventCalendarViewModel()));
     tearDown(() => locator.unregister<EventCalendarViewModel>());
@@ -136,6 +111,33 @@ void main() {
       expect(find.text("Month"), findsOne);
       expect(find.text("Schedule"), findsOne);
     });
+     testWidgets('Testing if Event model parses dates correctly',
+        (tester) async {
+          
+      await tester.pumpWidget(createEventCalendar());
+      await tester.pump();
+
+      final eventCalendar =
+          tester.widget<EventCalendar>(find.byType(EventCalendar));
+      final event = eventCalendar.eventList[0];
+
+      DateTime startDate;
+      DateTime endDate;
+      if (event.startDate!.contains('/')) {
+        startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
+      } else {
+        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
+      }
+      if (event.endDate!.contains('/')) {
+        endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
+      } else {
+        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
+      }
+
+      expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+      expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+    });
+  });
 
     test("dateRangePickerController getter", () async {
       final EventCalendarViewModel model = EventCalendarViewModel();
