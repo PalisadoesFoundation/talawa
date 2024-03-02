@@ -26,6 +26,21 @@ Widget createEventCalendar() {
     ]),
   );
 }
+Widget createEventCalender2(){
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: EventCalendar([
+      Event(
+        title: 'Test2',
+        startDate: '2022-07-14',
+        startTime: '14:23:01',
+        endDate: '2022-07-14',
+        endTime: '21:23:01',
+      ),
+    ]),
+  );
+
+}
 
 void main() {
   setUp(() {
@@ -135,8 +150,33 @@ void main() {
         expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
         expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
       });
-    });
+    testWidgets("Testing if EventCalendar shows up", (tester) async {
+      await tester.pumpWidget(createEventCalender2());
+      await tester.pump();
 
+      expect(find.byType(EventCalendar), findsOneWidget);
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+        final event = eventCalendar.eventList[0];
+        
+
+        DateTime startDate;
+        DateTime endDate;
+        if (event.startDate!.contains('/')) {
+          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
+        } else {
+          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
+        }
+        if (event.endDate!.contains('/')) {
+          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
+        } else {
+          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
+        }
+
+        expect(startDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
+        expect(endDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
+    });
+    });
     test("dateRangePickerController getter", () async {
       final EventCalendarViewModel model = EventCalendarViewModel();
       expect(model.dateRangePickerController, isA<DateRangePickerController>());
