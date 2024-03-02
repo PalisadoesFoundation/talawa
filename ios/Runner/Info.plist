@@ -62,5 +62,7 @@
 		<string>sms</string>
 		<string>tel</string>
 		</array>
-	</dict>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Allow access to photo library</string>
+</dict>
 </plist>

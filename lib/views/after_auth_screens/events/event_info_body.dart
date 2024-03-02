@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -164,27 +163,6 @@ class EventInfoBody extends StatelessWidget {
                   maxLines: 3,
                 ),
                 const Spacer(),
-                // If the event location is not null then display the location
-                //on the map with the reference of latitude and longitude provided for the event.
-                if (event.latitude != null && event.longitude != null)
-                  GestureDetector(
-                    onTap: () => navigationService.pushScreen(
-                      Routes.mapScreen,
-                      arguments: {
-                        "latitude": event.latitude,
-                        "longitude": event.longitude,
-                      },
-                    ),
-                    child: Text(
-                      'View on map',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      maxLines: 3,
-                    ),
-                  ),
               ],
             ),
             const Divider(),

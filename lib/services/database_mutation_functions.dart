@@ -26,7 +26,7 @@ class DataBaseMutationFunctions {
   /// Query passed by fucntion calling this function.
   late Queries _query;
 
-  /// initialization function.
+  /// Initialization function.
   ///
   /// **params**:
   ///   None
@@ -36,6 +36,19 @@ class DataBaseMutationFunctions {
   void init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
+    _query = Queries();
+  }
+
+  /// Initializes [clientNonAuth] function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void initClientNonAuth() {
+    graphqlConfig.getOrgUrl();
+    clientNonAuth = graphqlConfig.clientToQuery();
     _query = Queries();
   }
 
@@ -86,7 +99,7 @@ class DataBaseMutationFunctions {
     OperationException exception, {
     bool showSnackBar = true,
   }) {
-    // if server link is wrong.
+    // If server link is wrong.
     if (exception.linkException != null) {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
@@ -100,7 +113,7 @@ class DataBaseMutationFunctions {
       return false;
     }
 
-    /// looping through graphQL errors.
+    /// Looping through graphQL errors.
     debugPrint(exception.graphqlErrors.toString());
     for (int i = 0; i < exception.graphqlErrors.length; i++) {
       // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
@@ -116,7 +129,7 @@ class DataBaseMutationFunctions {
         return true;
       }
 
-      /// if the error message is "User is not authenticated"
+      /// If the error message is "User is not authenticated"
       if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
         print('client refreshed');
         refreshAccessToken(userConfig.currentUser.refreshToken!).then(
@@ -127,7 +140,7 @@ class DataBaseMutationFunctions {
         return true;
       }
 
-      /// if the error message is "User not found"
+      /// If the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -140,7 +153,7 @@ class DataBaseMutationFunctions {
         return false;
       }
 
-      /// if the error message is "Membership Request already exists"
+      /// If the error message is "Membership Request already exists"
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -153,7 +166,7 @@ class DataBaseMutationFunctions {
         return false;
       }
 
-      /// if the error message is "Invalid credentials"
+      /// If the error message is "Invalid credentials"
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -166,7 +179,7 @@ class DataBaseMutationFunctions {
         return false;
       }
 
-      /// if the error message is "Organization not found"
+      /// If the error message is "Organization not found"
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -179,7 +192,7 @@ class DataBaseMutationFunctions {
         return false;
       }
 
-      /// if the error message is "Email address already exists"
+      /// If the error message is "Email address already exists"
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -192,7 +205,7 @@ class DataBaseMutationFunctions {
         return false;
       }
     }
-    // if the error is unknown
+    // If the error is unknown
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => navigationService.showTalawaErrorDialog(
@@ -250,7 +263,7 @@ class DataBaseMutationFunctions {
         variables: variables ?? <String, dynamic>{},
       ),
     );
-    // if there is an error or exception in [result]
+    // If there is an error or exception in [result]
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {

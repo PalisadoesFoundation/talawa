@@ -13,6 +13,7 @@ import 'package:talawa/widgets/add_members_bottom_sheet.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
+import 'package:talawa/widgets/recurrence_dialog.dart';
 
 /// CreateEventPage returns a widget that has mutable state _CreateEventPageState.
 class CreateEventPage extends StatefulWidget {
@@ -250,18 +251,28 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.026,
                     ),
-                    Row(
-                      children: [
-                        const Icon(Icons.restore),
-                        SizedBox(
-                          width: SizeConfig.screenWidth! * 0.045,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate('Does not repeat'),
-                          style: subtitleTextStyle,
-                        ),
-                      ],
+                    InkWell(
+                      child: Row(
+                        children: [
+                          const Icon(Icons.restore),
+                          SizedBox(
+                            width: SizeConfig.screenWidth! * 0.045,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Does not repeat'),
+                            style: subtitleTextStyle,
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const ShowRecurrenceDialog();
+                          },
+                        );
+                      },
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),

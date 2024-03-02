@@ -62,6 +62,9 @@ class Routes {
   static const String createEventPage = "/createEventPage";
 
   /// static variables.
+  static const String customRecurrencePage = "/customRecurrencePage";
+
+  /// static variables.
   static const String profilePage = "/profilePage";
 
   /// static variables.
@@ -84,9 +87,6 @@ class Routes {
 
   /// static variables.
   static const String chatMessageScreen = '/chatMessageScreen';
-
-  /// static variables.
-  static const String mapScreen = '/mapScreen';
 
   /// static variables.
   static const String calendar = '/calendar';

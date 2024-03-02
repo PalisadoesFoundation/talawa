@@ -452,5 +452,24 @@ Future<void> main() async {
       expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
+
+    // Testing onPressed for firstName
+    testWidgets("Testing if firstName text field gets focus", (tester) async {
+      userConfig.updateUser(
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('FirstNameTextField')));
+      await tester.pumpAndSettle();
+
+      // Verify the focus
+      expect(
+        FocusScope.of(tester.element(find.byType(EditProfilePage)))
+            .focusedChild!
+            .hasPrimaryFocus,
+        true,
+      );
+    });
   });
 }

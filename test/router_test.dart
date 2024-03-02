@@ -19,6 +19,7 @@ import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
+import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
@@ -30,9 +31,6 @@ import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_reque
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
-import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
-import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
-import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
@@ -188,6 +186,18 @@ void main() {
       }
     });
 
+    testWidgets('Test createCustomRecurringEvent route',
+        (WidgetTester tester) async {
+      final route =
+          generateRoute(const RouteSettings(name: Routes.customRecurrencePage));
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<CustomRecurrencePage>());
+      }
+    });
+
     testWidgets('Test ProfilePage route', (WidgetTester tester) async {
       final route =
           generateRoute(const RouteSettings(name: Routes.profilePage));
@@ -291,44 +301,6 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<EventCalendar>());
-      }
-    });
-
-    testWidgets('Test for eventTasks route', (WidgetTester tester) async {
-      const String eventId = '123';
-      final route = generateRoute(
-        const RouteSettings(name: Routes.eventTasks, arguments: eventId),
-      );
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<EventTasksPage>());
-      }
-    });
-
-    testWidgets('Test for userTasks route', (WidgetTester tester) async {
-      final route = generateRoute(
-        const RouteSettings(name: Routes.userTasks),
-      );
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<UserTasksPage>());
-      }
-    });
-
-    testWidgets('Test for addTask route', (WidgetTester tester) async {
-      const String eventId = '123';
-      final route = generateRoute(
-        const RouteSettings(name: Routes.addTask, arguments: eventId),
-      );
-      expect(route, isA<MaterialPageRoute>());
-      if (route is MaterialPageRoute) {
-        final builder = route.builder;
-        final widget = builder(MockBuildContext());
-        expect(widget, isA<CreateTaskPage>());
       }
     });
 

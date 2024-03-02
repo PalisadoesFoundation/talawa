@@ -15,7 +15,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
-import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -146,7 +145,6 @@ void main() {
       expect(find.text("00/00/0000 - 12/12/9999"), findsOneWidget);
       expect(find.text("00:00 - 24:00"), findsOneWidget);
       expect(find.text("iitbhu, varanasi"), findsOneWidget);
-      expect(find.text("View on map"), findsOneWidget);
       expect(find.text("test_event_description"), findsOneWidget);
       expect(find.text("ravidi_admin_one shaikh_admin_one"), findsOneWidget);
       expect(find.text("Test User"), findsOneWidget); // Registrants
@@ -170,13 +168,7 @@ void main() {
       await tester.tap(find.byKey(const Key("Attendee0")));
       await tester.tap(find.byKey(const Key("Admins0")));
 
-      // View on map
-      expect(find.byType(MapScreen), findsNothing);
-
-      await tester.tap(find.textContaining("View on map"));
       await tester.pumpAndSettle();
-
-      // expect(find.byType(MapScreen), findsOneWidget);
     });
 
     testWidgets("Check if edit button appears for creator", (tester) async {
@@ -214,40 +206,6 @@ void main() {
 
       expect(find.text("public"), findsOneWidget);
       expect(find.byIcon(Icons.lock_open), findsOneWidget);
-    });
-
-    testWidgets("Show View on map", (tester) async {
-      // Show view on map
-
-      await tester.pumpWidget(createEventInfoBody());
-      await tester.pumpAndSettle();
-
-      expect(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget is GestureDetector &&
-              widget.child is Text &&
-              (widget.child! as Text).data == "View on map",
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets("Hide View on map", (tester) async {
-      // Don't show view on map
-
-      await tester.pumpWidget(createEventInfoBody(viewOnMap: false));
-      await tester.pumpAndSettle();
-
-      expect(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget is GestureDetector &&
-              widget.child is Text &&
-              (widget.child! as Text).data == "View on map",
-        ),
-        findsNothing,
-      );
     });
 
     testWidgets("Loading indicator", (tester) async {

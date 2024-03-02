@@ -6,9 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -113,23 +111,6 @@ void main() {
         expect(find.byType(FloatingActionButton), findsOneWidget);
 
         await tester.tap(find.byType(FloatingActionButton));
-      });
-    });
-
-    testWidgets('Test EventInfoPage', (tester) async {
-      mockNetworkImages(() async {
-        await tester.pumpWidget(createEventInfoPage(false, true));
-        await tester.pumpAndSettle();
-
-        expect(find.byIcon(Icons.lock), findsOneWidget);
-
-        await tester.tap(find.text('View on map'));
-        verify(
-          navigationService.pushScreen(
-            Routes.mapScreen,
-            arguments: {'latitude': 23.45, 'longitude': -23.45},
-          ),
-        );
       });
     });
   });

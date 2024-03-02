@@ -4,8 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_calendar_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -75,8 +78,9 @@ void main() {
       expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
     });
   });
-
   group('Tests for EventCalendar', () {
+    setUp(() => locator.registerSingleton(EventCalendarViewModel()));
+    tearDown(() => locator.unregister<EventCalendarViewModel>());
     testWidgets('Testing if EventCalendar shows up', (tester) async {
       await tester.pumpWidget(createEventCalendar());
       await tester.pump();
@@ -96,6 +100,47 @@ void main() {
       await tester.tap(find.text('16'));
       await tester.tap(find.text('OK'));
       await tester.pump();
+    });
+
+    testWidgets('calendarViewSelection', (tester) async {
+      await tester.pumpWidget(
+        createEventCalendar(),
+      );
+
+      await tester.pump();
+
+      final popupButtonFinder = find.byType(PopupMenuButton<String>);
+
+      await tester.tap(popupButtonFinder);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text("Day"));
+      await tester.pumpAndSettle();
+
+      await tester.tap(popupButtonFinder);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text("Month"));
+      await tester.pumpAndSettle();
+
+      await tester.tap(popupButtonFinder);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text("Schedule"));
+      await tester.pumpAndSettle();
+
+      await tester.tap(popupButtonFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.text("Day"), findsOne);
+      expect(find.text("Month"), findsOne);
+      expect(find.text("Schedule"), findsOne);
+    });
+
+    test("dateRangePickerController getter", () async {
+      final EventCalendarViewModel model = EventCalendarViewModel();
+      expect(model.dateRangePickerController, isA<DateRangePickerController>());
+      expect(model.eventList, isA<List<Event>>());
     });
   });
 }
