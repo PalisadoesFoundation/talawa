@@ -225,9 +225,9 @@ Future<void> main() async {
   });
 }
 
-// Add the following test cases
+// Added the following test cases
 
-testWidgets1(tester) async {
+Future<void> testWidgets1(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
@@ -242,7 +242,7 @@ testWidgets1(tester) async {
   expect(find.text("Latest URI: $testUri"), findsOneWidget);
 }
 
-testWidgets2(tester) async {
+Future<void> testWidgets2(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
@@ -256,7 +256,7 @@ testWidgets2(tester) async {
   expect(find.text("User logged in"), findsOneWidget);
 }
 
-testWidgets3(tester) async {
+Future<void> testWidgets3(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
@@ -274,7 +274,7 @@ testWidgets3(tester) async {
   expect(find.text("User logged in"), findsNothing);
 }
 
-testWidgets4(tester) async {
+Future<void> testWidgets4(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
@@ -288,7 +288,7 @@ testWidgets4(tester) async {
   expect(find.text("User logged in"), findsOneWidget);
 }
 
-testWidgets5(tester) async {
+Future<void> testWidgets5(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
@@ -306,7 +306,7 @@ testWidgets5(tester) async {
   expect(find.text("User logged in"), findsNothing);
 }
 
-testWidgets6( tester)async  {
+Future<void> testWidgets6(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
