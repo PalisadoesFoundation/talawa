@@ -26,7 +26,8 @@ Widget createEventCalendar() {
     ]),
   );
 }
-Widget createEventCalender2(){
+
+Widget createEventCalender2() {
   return MaterialApp(
     navigatorKey: navigationService.navigatorKey,
     home: EventCalendar([
@@ -39,7 +40,6 @@ Widget createEventCalender2(){
       ),
     ]),
   );
-
 }
 
 void main() {
@@ -150,15 +150,14 @@ void main() {
         expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
         expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
       });
-    testWidgets("Testing if EventCalendar shows up", (tester) async {
-      await tester.pumpWidget(createEventCalender2());
-      await tester.pump();
+      testWidgets("Testing if EventCalendar shows up", (tester) async {
+        await tester.pumpWidget(createEventCalender2());
+        await tester.pump();
 
-      expect(find.byType(EventCalendar), findsOneWidget);
+        expect(find.byType(EventCalendar), findsOneWidget);
         final eventCalendar =
             tester.widget<EventCalendar>(find.byType(EventCalendar));
         final event = eventCalendar.eventList[0];
-        
 
         DateTime startDate;
         DateTime endDate;
@@ -175,7 +174,7 @@ void main() {
 
         expect(startDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
         expect(endDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
-    });
+      });
     });
     test("dateRangePickerController getter", () async {
       final EventCalendarViewModel model = EventCalendarViewModel();
