@@ -410,10 +410,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_braintree
-      sha256: d364251cf57c028e8481869222d571c90df819ae234d9fb349713c4ffa25ba96
+      sha256: d58a91212c21f97aa1e8fcbcbb394744eb5997c7ba929274daf3cf903ceef8db
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   flutter_cache_manager:
     dependency: "direct main"
     description:
