@@ -277,10 +277,10 @@ packages:
     dependency: "direct main"
     description:
       name: currency_picker
-      sha256: eb75deb7bc92e3f31e1b8ad4efacf71371e8e49d7a0eebd1c1a8e9fae58cc23d
+      sha256: c9ab5c0da8ae4dcc6421064dccde072b44f5b44914691b967ea4cf45a266a658
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.20"
+    version: "2.0.21"
   custom_lint:
     dependency: "direct dev"
     description:
@@ -525,38 +525,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  geocoding:
-    dependency: "direct main"
-    description:
-      name: geocoding
-      sha256: e1dc0ac56666d9ed1d5a9ae5543ce9eb5986db6209cc7600103487d09192059c
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
-  geocoding_android:
-    dependency: transitive
-    description:
-      name: geocoding_android
-      sha256: "609db1d71bc364dd9d0616f72a41c01e0c74f3a3807efb85e0d5a67e57baf50f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
-  geocoding_ios:
-    dependency: transitive
-    description:
-      name: geocoding_ios
-      sha256: "8f79e380abb640ef4d88baee8bb65390058c802601158d0813dc990b36b189d2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
-  geocoding_platform_interface:
-    dependency: transitive
-    description:
-      name: geocoding_platform_interface
-      sha256: "8848605d307d844d89937cdb4b8ad7dfa880552078f310fa24d8a460f6dddab4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   get_it:
     dependency: "direct main"
     description:
