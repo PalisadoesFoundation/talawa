@@ -26,7 +26,7 @@ dependencies:
 
   crypto: ^3.0.3
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.20
+  currency_picker: ^2.0.21
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
