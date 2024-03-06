@@ -26,7 +26,7 @@ dependencies:
 
   crypto: ^3.0.3
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.20
+  currency_picker: ^2.0.21
   ############## Remove ##########
 
   # custom_lint_builder: ^0.4.0
@@ -35,7 +35,7 @@ dependencies:
 
   flutter:
     sdk: flutter
-  flutter_braintree: ^3.0.0
+  flutter_braintree: ^4.0.0
   flutter_cache_manager: ^3.3.1
   flutter_local_notifications: ^16.3.2
   flutter_localizations:
@@ -58,7 +58,7 @@ dependencies:
   permission_handler: 11.3.0
   plugin_platform_interface: ^2.1.7
   pointycastle: ^3.7.3
-  provider: ^6.1.1
+  provider: ^6.1.2
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.1.0
   quick_actions: ^1.0.6
