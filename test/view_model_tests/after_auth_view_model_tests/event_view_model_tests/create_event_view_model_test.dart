@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -126,9 +127,9 @@ void main() {
         model.eventStartTime.minute,
       );
       final DateTime endMoment = DateTime(
-        model.eventEndDate.year,
-        model.eventEndDate.month,
-        model.eventEndDate.day,
+        model.eventEndDate!.year,
+        model.eventEndDate!.month,
+        model.eventEndDate!.day,
         model.eventEndTime.hour,
         model.eventEndTime.minute,
       );
@@ -159,18 +160,25 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
-            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
-            'organizationId': "XYZ",
-            'title': model.eventTitleTextController.text,
-            'description': model.eventDescriptionTextController.text,
-            'location': model.eventLocationTextController.text,
-            'isPublic': model.isPublicSwitch,
-            'isRegisterable': model.isRegisterableSwitch,
-            'recurring': false,
-            'allDay': false,
-            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': true,
+              'recurrance': 'WEEKLY',
+              'allDay': true,
+              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            'recurrenceRuleData': {
+              'frequency': 'WEEKLY',
+              'weekDays': ['TU'],
+            },
           },
         ),
       ).thenAnswer((_) async {
@@ -183,18 +191,25 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
-            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
-            'organizationId': "XYZ",
-            'title': model.eventTitleTextController.text,
-            'description': model.eventDescriptionTextController.text,
-            'location': model.eventLocationTextController.text,
-            'isPublic': model.isPublicSwitch,
-            'isRegisterable': model.isRegisterableSwitch,
-            'recurring': false,
-            'allDay': false,
-            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': true,
+              'recurrance': 'WEEKLY',
+              'allDay': true,
+              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            'recurrenceRuleData': {
+              'frequency': 'WEEKLY',
+              'weekDays': ['TU'],
+            },
           },
         ),
       );
@@ -296,6 +311,14 @@ void main() {
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
+    });
+
+    test('getRecurrence method', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+      expect(model.getRecurrance(Recurrance.monthly), 'MONTHLY');
+      expect(model.getRecurrance(Recurrance.yearly), 'YEARLY');
+      expect(model.getRecurrance(Recurrance.once), null);
     });
   });
 }
