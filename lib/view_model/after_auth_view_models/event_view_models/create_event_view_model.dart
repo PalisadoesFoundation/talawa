@@ -185,19 +185,17 @@ class CreateEventViewModel extends BaseModel {
       validate = AutovalidateMode.disabled;
 
       // variables initialisation
-      final DateTime startDate = eventStartDate;
-      final DateTime? endDate = eventEndDate;
       final DateTime startTime = DateTime(
-        startDate.year,
-        startDate.month,
-        startDate.day,
+        eventStartDate.year,
+        eventStartDate.month,
+        eventStartDate.day,
         eventStartTime.hour,
         eventStartTime.minute,
       );
       final DateTime endTime = DateTime(
-        endDate?.year ?? DateTime.now().year,
-        endDate?.month ?? DateTime.now().month,
-        endDate?.day ?? DateTime.now().day,
+        eventEndDate?.year ?? DateTime.now().year,
+        eventEndDate?.month ?? DateTime.now().month,
+        eventEndDate?.day ?? DateTime.now().day,
         eventEndTime.hour,
         eventEndTime.minute,
       );
@@ -207,9 +205,9 @@ class CreateEventViewModel extends BaseModel {
       // all required data for creating an event
       final Map<String, dynamic> variables = {
         "data": {
-          'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
           if (eventEndDate != null)
-            'endDate': DateFormat('yyyy-MM-dd').format(endDate!),
+            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
           'organizationId': _currentOrg.id,
           'title': eventTitleTextController.text,
           'description': eventDescriptionTextController.text,
