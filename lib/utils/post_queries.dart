@@ -4,6 +4,10 @@ class PostQueries {
   ///
   /// **params**:
   /// * `orgId`: The organisation id
+  /// * `after`: The cursor after which the posts are to be fetched
+  /// * `before`: The cursor before which the posts are to be fetched
+  /// * `first`: The number of posts to be fetched from the start
+  /// * `last`: The number of posts to be fetched from the end
   ///
   /// **returns**:
   /// * `String`: The query related to gettingPostsbyId
