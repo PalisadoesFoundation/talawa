@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -25,6 +26,8 @@ class CreateEventPage extends StatefulWidget {
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
+  /// Recurrence label of recurrence selection button.
+  String recurrenceLabel = Recurrance.once;
   @override
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
@@ -33,6 +36,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
+        print(model.recurrance);
         return Scaffold(
           // AppBar is the header of the page
           appBar: AppBar(
@@ -94,7 +98,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         ),
                         TextButton(
                           key: const Key('txt_btn_cep'),
-                          onPressed: () => model.getImageFromGallery(),
+                          onPressed: () {
+                            model.getImageFromGallery();
+                          },
                           child: Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate("Add Image"),
@@ -208,11 +214,12 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     DateTimeTile(
                       key: const Key('key for test cep'),
-                      date: "${model.eventEndDate.toLocal()}".split(' ')[0],
+                      date: "${model.eventEndDate?.toLocal() ?? DateTime.now()}"
+                          .split(' ')[0],
                       time: model.eventEndTime.format(context),
                       setDate: () async {
                         final date = await customDatePicker(
-                          initialDate: model.eventEndDate,
+                          initialDate: model.eventEndDate ?? DateTime.now(),
                         );
                         final startDate = model.eventStartDate;
                         if (startDate.compareTo(date) < 0) {
@@ -260,18 +267,25 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           ),
                           Text(
                             AppLocalizations.of(context)!
-                                .strictTranslate('Does not repeat'),
+                                .strictTranslate(recurrenceLabel),
                             style: subtitleTextStyle,
                           ),
                         ],
                       ),
-                      onTap: () {
-                        showDialog(
+                      onTap: () async {
+                        final String? selectedReccurence;
+                        selectedReccurence = await showDialog(
                           context: context,
                           builder: (context) {
-                            return const ShowRecurrenceDialog();
+                            return ShowRecurrenceDialog(
+                              model: model,
+                              initialRecurrence: recurrenceLabel,
+                            );
                           },
                         );
+                        setState(() {
+                          recurrenceLabel = selectedReccurence!;
+                        });
                       },
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
@@ -281,6 +295,55 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       child: Wrap(
                         alignment: WrapAlignment.spaceBetween,
                         children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Keep Registerable'),
+                                style: subtitleTextStyle,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.005,
+                              ),
+                              Switch(
+                                value: model.isRegisterableSwitch,
+                                onChanged: (value) {
+                                  setState(() {
+                                    model.isRegisterableSwitch = value;
+                                    print(model.isRegisterableSwitch);
+                                  });
+                                },
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('All day'),
+                                style: subtitleTextStyle,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.005,
+                              ),
+                              Switch(
+                                // Switch to select the visibility of the event.
+                                value: model.isAllDay,
+                                onChanged: (value) {
+                                  setState(() {
+                                    model.isAllDay = value;
+                                    print(model.isAllDay);
+                                  });
+                                },
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -299,30 +362,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                   setState(() {
                                     model.isPublicSwitch = value;
                                     print(model.isPublicSwitch);
-                                  });
-                                },
-                                activeColor:
-                                    Theme.of(context).colorScheme.primary,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Keep Registerable'),
-                                style: subtitleTextStyle,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth! * 0.005,
-                              ),
-                              Switch(
-                                value: model.isRegisterableSwitch,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.isRegisterableSwitch = value;
-                                    print(model.isRegisterableSwitch);
                                   });
                                 },
                                 activeColor:

@@ -59,35 +59,8 @@ void main() {
 
     test("Check if addEvent works correctly", () {
       const data = """
-     mutation createEvent( \$organizationId: ID!,
-        \$title:String!,
-        \$description: String!,
-        \$startTime: Time,
-        \$endTime: Time,
-        \$allDay: Boolean!,
-        \$recurring: Boolean!,
-        \$isPublic: Boolean!,
-        \$isRegisterable: Boolean!,
-        \$location: String,
-        \$startDate : Date!,
-        \$endDate : Date!,
-      ) { 
-      createEvent(
-        data:{
-          organizationId: \$organizationId,
-           title: \$title,
-           description: \$description,
-           isPublic: \$isPublic,
-           isRegisterable: \$isRegisterable,
-           recurring: \$recurring,
-           allDay: \$allDay,
-           startTime: \$startTime,
-           endTime: \$endTime,
-           startDate: \$startDate,
-           endDate: \$endDate,
-           location: \$location,
-        }
-      ){
+    mutation Mutation(\$data: EventInput!, \$recurrenceRuleData: RecurrenceRuleInput) {
+      createEvent(data: \$data, recurrenceRuleData: \$recurrenceRuleData) {
         _id
         title
         description
