@@ -15,8 +15,8 @@ class PostQueries {
     int? last,
   ) {
     print(after);
-    String? afterValue = after != null ? '"$after"' : null;
-    String? beforeValue = before != null ? '"$before"' : null;
+    final String? afterValue = after != null ? '"$after"' : null;
+    final String? beforeValue = before != null ? '"$before"' : null;
 
     return """
       query {
