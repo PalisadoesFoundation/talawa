@@ -278,4 +278,26 @@ class OrganizationFeedViewModel extends BaseModel {
     _posts.remove(post);
     notifyListeners();
   }
+
+  /// Method to fetch next posts.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void nextPage() {
+    _postService.nextPage();
+  }
+
+  /// Method to fetch previous posts.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void previousPage() {
+    _postService.previousPage();
+  }
 }

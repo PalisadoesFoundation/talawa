@@ -122,6 +122,39 @@ class OrganizationFeed extends StatelessWidget {
                                 ),
                               ],
                             ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            onPressed: () {
+                              model.previousPage();
+                            },
+                            child: const Text(
+                              "Previous Page",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          ElevatedButton(
+                            key: const Key('nextPageButton'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                            ),
+                            onPressed: () {
+                              model.nextPage();
+                            },
+                            child: const Text(
+                              "Next Page",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

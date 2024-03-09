@@ -148,4 +148,12 @@ void main() {
 
     expect(model.posts.isEmpty, true);
   });
+  test("test nextpage", () {
+    model.nextPage();
+    expect(model.posts.isEmpty, true);
+  });
+  test("test previousPage", () {
+    model.previousPage();
+    expect(model.posts.isEmpty, true);
+  });
 }

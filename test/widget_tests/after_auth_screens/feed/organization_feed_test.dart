@@ -251,5 +251,58 @@ void main() {
       await tester.tap(finder);
       await tester.pumpAndSettle();
     });
+    testWidgets('check if tapping Next Page button calls nextPage()',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.posts).thenReturn([post]);
+      when(mockViewModel.pinnedPosts).thenReturn([post]);
+      when(mockViewModel.nextPage()).thenReturn(null);
+      // Create the widget
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
+      await tester.pumpAndSettle();
+
+      // Find the Next Page button
+      final nextButton = find.byKey(const Key("nextPageButton"));
+      expect(nextButton, findsOneWidget);
+
+      // Tap the Next Page button
+      await tester.tap(nextButton);
+      await tester.pump();
+
+      // // Verify that nextPage() is called
+      verify(mockViewModel.nextPage()).called(1);
+    });
+
+    testWidgets('check if tapping Previous Page button calls previousPage()',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.posts).thenReturn([post]);
+      when(mockViewModel.pinnedPosts).thenReturn([post]);
+      when(mockViewModel.nextPage()).thenReturn(null);
+      when(mockViewModel.previousPage()).thenReturn(null);
+
+      // Create the widget
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pump();
+
+      // Find the Previous Page button
+      final previousButton = find.text('Previous Page');
+      expect(previousButton, findsOneWidget);
+
+      // Tap the Previous Page button
+      await tester.tap(previousButton);
+      await tester.pump();
+
+      // Verify that previousPage() is called
+      verify(mockViewModel.previousPage()).called(1);
+    });
   });
 }

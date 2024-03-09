@@ -7,37 +7,50 @@ import 'package:talawa/utils/post_queries.dart';
 void main() {
   group("Tests for post_queries.dart", () {
     test("Check if getPostsById works correctly", () {
+      const first = 5;
+      const last = 5;
       const data = """
       query {
-        postsByOrganization(id: "sampleID",orderBy: createdAt_DESC )
-        { 
-          _id
-          text
-          createdAt
-          imageUrl
-          videoUrl
-          title
-          commentCount
-          likeCount
-          creator{
+        organizations(id: "sampleID") {
+          posts(first: $first, last:$last,after:  "1", before: "2") { 
+          edges {
+          node {
             _id
-            firstName
-            lastName
-            image
-          }
-          organization{
-            _id
-          }
-          likedBy{
+            title
+            text
+            imageUrl
+            videoUrl
+            creator {
+              _id
+              firstName
+              lastName
+              email
+            }
+            createdAt
+            likeCount
+            commentCount
+              likedBy{
             _id
           }
           comments{
             _id
           }
+            pinned
+          }
+          cursor
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
+        totalCount
+          }
         }
       }
 """;
-      final fnData = PostQueries().getPostsById("sampleID");
+      final fnData = PostQueries().getPostsById("sampleID", "1", "2", 5, 5);
       expect(fnData, data);
     });
 
@@ -112,7 +125,7 @@ void main() {
     });
 
     test("Check if removePost works correctly", () {
-      const data = '''   
+      const data = '''
     mutation RemovePost(\$id: ID!) {
       removePost(id: \$id) {
         _id

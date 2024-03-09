@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc, avoid_dynamic_calls
 import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -42,6 +42,12 @@ class PostService {
   // ignore: prefer_final_fields
   List<Post> _posts = [];
 
+  dynamic postInfo;
+  String? after;
+  String? before;
+  int? first = 5;
+  int? last;
+
   /// Getter for Stream of posts.
   Stream<List<Post>> get postStream => _postStream;
 
@@ -75,18 +81,22 @@ class PostService {
   Future<void> getPosts() async {
     // variables
     final String currentOrgID = _currentOrg.id!;
-    final String query = PostQueries().getPostsById(currentOrgID);
+    final String query =
+        PostQueries().getPostsById(currentOrgID, after, before, first, last);
     final result = await _dbFunctions.gqlAuthQuery(query);
-
+    // print(result.data);
     //Checking if the dbFunctions return the postJSON, if not return.
     if (result == null || (result as QueryResult).data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
 
-    final List postsJson = result.data!['postsByOrganization'] as List;
+    final List postsJson =
+        result.data!['organizations'][0]['posts']['edges'] as List;
+    postInfo = result.data!['organizations'][0]['posts']['pageInfo'];
+    print(postInfo);
     postsJson.forEach((postJson) {
-      final Post post = Post.fromJson(postJson as Map<String, dynamic>);
+      final Post post = Post.fromJson(postJson['node'] as Map<String, dynamic>);
       if (!_renderedPostID.contains(post.sId)) {
         _posts.insert(0, post);
         _renderedPostID.add(post.sId);
@@ -209,6 +219,44 @@ class PostService {
         _posts[i].comments!.add(Comments(sId: postID));
         _updatedPostStreamController.add(_posts[i]);
       }
+    }
+  }
+
+  /// Method to handle pagination by fetching next page of posts.
+  ///
+  /// **params**:
+  ///  None
+  ///
+  /// **returns**:
+  /// None
+  void nextPage() {
+    if (postInfo['hasNextPage'] == true) {
+      _posts.clear();
+      _renderedPostID.clear();
+      after = postInfo['endCursor'] as String;
+      before = null;
+      first = 5;
+      last = null;
+      getPosts();
+    }
+  }
+
+  /// Method to handle pagination by fetching previous page of posts.
+  ///
+  /// **params**:
+  /// None
+  ///
+  /// **returns**:
+  /// None
+  void previousPage() {
+    if (postInfo['hasPreviousPage'] == true) {
+      _posts.clear();
+      _renderedPostID.clear();
+      before = postInfo['startCursor'] as String;
+      after = null;
+      last = 5;
+      first = null;
+      getPosts();
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -10,6 +11,7 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
+
 import '../helpers/test_helpers.dart';
 
 /// Tests post_service.dart.
@@ -24,55 +26,81 @@ void main() {
     registerServices();
   });
   final demoJson = {
-    'postsByOrganization': [
+    '__typename': 'Query',
+    'organizations': [
       {
-        '__typename': 'Post',
-        '_id': '1',
-        'text': 'text #hastag',
-        'createdAt': '2023-11-13T19:28:21.095Z',
-        'imageUrl': 'https://imageurl',
-        'videoUrl': 'https://videoUrl',
-        'title': 'demo title',
-        'commentCount': 0,
-        'likeCount': 0,
-        'creator': {
-          '__typename': 'User',
-          '_id': '1',
-          'firstName': 'Ayush',
-          'lastName': 'Raghuwanshi',
-          'image': 'https://imageUrl',
+        '__typename': 'Organization',
+        'posts': {
+          '__typename': 'PostsConnection',
+          'edges': [
+            {
+              '__typename': 'PostEdge',
+              'node': {
+                '__typename': 'Post',
+                '_id': '65e1aac38836aa003e4b8318',
+                'title': 'testing',
+                'text': 'test post',
+                'imageUrl':
+                    'http://10.0.2.2:4000/images/5vFxR-8xE2GD-5Tu3E1QYimage.png',
+                'videoUrl': null,
+                'creator': {
+                  '__typename': 'User',
+                  '_id': '65378abd85008f171cf2990d',
+                  'firstName': 'Vyvyan',
+                  'lastName': 'Kerry',
+                  'email': 'testadmin1@example.com',
+                },
+                'createdAt': '2024-03-01T10:15:31.168Z',
+                'likeCount': 0,
+                'commentCount': 0,
+                'likedBy': [],
+                'comments': [],
+                'pinned': true,
+              },
+              'cursor': '65e1aac38836aa003e4b8318',
+            },
+            {
+              '__typename': 'PostEdge',
+              'node': {
+                '__typename': 'Post',
+                '_id': '6589bdd92caa9d8d69087515',
+                'title': 'Winter Wonderland: Ice Skating Extravaganza',
+                'text':
+                    'Gliding gracefully on frozen lakes, surrounded by enchanting winter landscape—ice skating extravaganza, a dance in a winter wonderland.',
+                'imageUrl': null,
+                'videoUrl': null,
+                'creator': {
+                  '__typename': 'User',
+                  '_id': '658938ba2caa9d8d6908748a',
+                  'firstName': 'Peggy',
+                  'lastName': 'Bowers',
+                  'email': 'testuser11@example.com',
+                },
+                'createdAt': '2024-03-01T10:15:31.168Z',
+                'likeCount': 0,
+                'commentCount': 0,
+                'likedBy': [],
+                'comments': [],
+              },
+              'cursor': '6589bdd92caa9d8d69087515',
+            }
+          ],
+          'postInfo': {
+            '__typename': 'DefaultConnectionPageInfo',
+            'startCursor': '65e1aac38836aa003e4b8318',
+            'endCursor': '6589bd9b2caa9d8d6908750f',
+            'hasNextPage': true,
+            'hasPreviousPage': false,
+          },
         },
-        'organization': {'__typename': 'Organization', '_id': '1'},
-        'likedBy': [],
-        'comments': [],
-      },
-      {
-        '__typename': 'Post',
-        '_id': '2',
-        'text': 'text #hastag',
-        'createdAt': '2023-11-13T19:28:21.095Z',
-        'imageUrl': 'https://imageurl',
-        'videoUrl': 'https://videoUrl',
-        'title': 'demo title',
-        'commentCount': 0,
-        'likeCount': 0,
-        'creator': {
-          '__typename': 'User',
-          '_id': '1',
-          'firstName': 'Ayush',
-          'lastName': 'Raghuwanshi',
-          'image': 'https://imageUrl',
-        },
-        'organization': {'__typename': 'Organization', '_id': '1'},
-        'likedBy': [],
-        'comments': [],
       }
     ],
   };
+
   //Fake CurrentOrgID
   const currentOrgID = 'XYZ';
   //Fake PostID
-  const postID = '1';
+  const postID = '65e1aac38836aa003e4b8318';
 
   group('Test PostService', () {
     test('Test refreshFeed method', () async {
@@ -84,7 +112,19 @@ void main() {
 
     test('Test addNewPost method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
@@ -107,7 +147,8 @@ void main() {
     test('Test getPosts Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       //Setting up Demo data to be returned
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
@@ -131,7 +172,8 @@ void main() {
     test('Test addLike Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       //Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -162,7 +204,8 @@ void main() {
     test('Test removeLike Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       //Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -195,7 +238,8 @@ void main() {
     test('Test addCommentLocally Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       //Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -225,7 +269,8 @@ void main() {
     test('Test updatedPostStream Stream', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -268,7 +313,8 @@ void main() {
         () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query = PostQueries().getPostsById(currentOrgID);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -309,5 +355,7 @@ void main() {
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
     });
+
+   
   });
 }
