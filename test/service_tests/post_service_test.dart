@@ -355,7 +355,5 @@ void main() {
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
     });
-
-   
   });
 }
