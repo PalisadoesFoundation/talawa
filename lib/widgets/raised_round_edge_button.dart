@@ -45,14 +45,6 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: widget.backgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).dividerColor,
-              offset: const Offset(0, 1),
-              blurRadius: 4.0,
-              spreadRadius: 0,
-            ),
-          ],
         ),
         // If the widget.showArrow is true then show Row wrapper else FittedBox wrapper.
         // By default it is false. The showArrow are true for some buttons like login & Sign up button in
