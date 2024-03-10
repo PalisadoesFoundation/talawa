@@ -131,7 +131,6 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
       startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
     }
 
-
     if (event.endDate!.contains('/')) {
       endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
     } else {
