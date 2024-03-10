@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/create_recurring_event_helper_widgets.dart';
 import 'package:talawa/widgets/custom_weekday_selector.dart';
 
+import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
 /// Creates a EventScreen for tests.
@@ -24,6 +27,7 @@ import '../../../helpers/test_locator.dart';
 Widget createCustomRecurrenceScreen({
   ThemeMode themeMode = ThemeMode.light,
   required ThemeData theme,
+  CreateEventViewModel? model,
 }) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
@@ -39,7 +43,9 @@ Widget createCustomRecurrenceScreen({
           themeMode: themeMode,
           theme: theme,
           home: Scaffold(
-            body: CustomRecurrencePage(),
+            body: CustomRecurrencePage(
+              model: model ?? CreateEventViewModel(),
+            ),
           ),
           navigatorKey: navigationService.navigatorKey,
           onGenerateRoute: router.generateRoute,
@@ -50,6 +56,7 @@ Widget createCustomRecurrenceScreen({
 void main() {
   SizeConfig().test();
   testSetupLocator();
+  getAndRegisterNavigationService();
 
   // setUp(() {
   //   registerServices();
@@ -74,9 +81,6 @@ void main() {
 
       // Verify if the AppBar renders with the correct title
       expect(find.text('Custom recurrence'), findsOneWidget);
-
-      await tester.tap(find.text('Done'));
-      await tester.pumpAndSettle();
 
       // Verify if the Done button is present
       expect(find.text('Done'), findsOneWidget);
@@ -163,6 +167,21 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("month"), findsOne);
+
+      // check if monthly recurrence dropdown shows up.
+      await tester.tap(find.text('Monthly on day 3'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Monthly on day 3').last);
+      await tester.pumpAndSettle();
+
+      // check if interval UI's middle part dissappears
+      // when clicked on day/year.
+      await tester.tap(find.text('month'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('year'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Monthly on day 3'), findsNothing);
     });
 
     testWidgets('CustomWeekDaySelector', (tester) async {
@@ -189,8 +208,10 @@ void main() {
     });
 
     testWidgets('EventEndOptions', (tester) async {
+      final CreateEventViewModel model = CreateEventViewModel();
       final widget = createCustomRecurrenceScreen(
         theme: TalawaTheme.darkTheme,
+        model: model,
       );
       await tester.pumpWidget(widget);
       await tester.pump();
@@ -228,6 +249,55 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(DatePickerDialog), findsNothing);
+
+      await tester.tap(find.text('Never'));
+      await tester.pumpAndSettle();
+
+      expect(model.eventEndType, EventEndTypes.never);
+      expect(model.eventEndDate, null);
+
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+
+      expect(model.eventEndType, EventEndTypes.on);
+    });
+
+    testWidgets('Done button', (tester) async {
+      final CreateEventViewModel model = CreateEventViewModel();
+      final widget = createCustomRecurrenceScreen(
+        theme: TalawaTheme.darkTheme,
+        model: model,
+      );
+      await tester.pumpWidget(widget);
+      await tester.pump();
+
+      await tester.tap(find.text('Done'));
+      await tester.pumpAndSettle();
+
+      expect(model.eventEndDate, null);
+
+      await tester.tap(find.text('On'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Done'));
+      await tester.pumpAndSettle();
+
+      expect(model.eventEndDate, model.eventEndOnEndDate);
+
+      await tester.tap(find.text('After'));
+      await tester.pumpAndSettle();
+
+      final afterTextField = find.byType(CustomTextField).last;
+
+      await tester.tap(afterTextField);
+      await tester.pumpAndSettle();
+
+      await tester.enterText(afterTextField, '2');
+
+      await tester.tap(find.text('Done'));
+      await tester.pumpAndSettle();
+
+      expect(model.endOccurenceController.text, '2');
     });
   });
 }
