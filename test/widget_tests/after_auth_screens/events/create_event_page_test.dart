@@ -358,7 +358,7 @@ void main() {
           matching: find.byType(Switch),
         );
         expect(keepPublicText, findsOneWidget);
-        expect(switches, findsNWidgets(2));
+        expect(switches, findsNWidgets(3));
         expect(
           (tester.widget(keepPublicText) as Text?)?.style!.fontSize,
           16,
@@ -390,7 +390,7 @@ void main() {
           matching: find.byType(Switch),
         );
         expect(keepRegisterableText, findsOneWidget);
-        expect(switches, findsNWidgets(2));
+        expect(switches, findsNWidgets(3));
         expect(
           (tester.widget(keepRegisterableText) as Text?)?.style!.fontSize,
           16,
