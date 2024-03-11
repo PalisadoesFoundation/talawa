@@ -302,7 +302,11 @@ class AppSettingsPage extends StatelessWidget {
                         successText: 'LogOut',
                         success: () async {
                           try {
-                            await model.logout();
+                            final bool isLogoutSuccessful =
+                                await model.logout();
+                            if (!isLogoutSuccessful) {
+                              throw Error(); //checks whether the logout was successful or not.
+                            }
                             navigationService.pop();
                             navigationService.removeAllAndPush(
                               '/selectLang',

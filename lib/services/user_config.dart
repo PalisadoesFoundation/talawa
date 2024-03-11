@@ -132,11 +132,11 @@ class UserConfig {
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.
   Future<bool> userLogOut() async {
+    bool isLogOutSuccessful = false;
     try {
       final result = await databaseFunctions.gqlAuthMutation(queries.logout())
           as QueryResult?;
       if (result != null && result.data!['logout'] == true) {
-        navigationService.pop();
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('LogoutProgress'),
@@ -161,11 +161,12 @@ class UserConfig {
         // }
         await organisation.clear();
         _currentUser = User(id: 'null', authToken: 'null');
+        isLogOutSuccessful = true;
       }
     } catch (e) {
-      return false;
+      isLogOutSuccessful = false;
     }
-    return true;
+    return isLogOutSuccessful;
   }
 
   /// Updates the user joined organization.
