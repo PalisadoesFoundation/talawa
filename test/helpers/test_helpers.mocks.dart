@@ -1058,6 +1058,26 @@ class MockPostService extends _i2.Mock implements _i16.PostService {
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  _i5.Future<void> nextPage() => super.noSuchMethod(
+        Invocation.method(
+          #nextPage,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      );
+
+  @override
+  _i5.Future<void> previousPage() => super.noSuchMethod(
+        Invocation.method(
+          #previousPage,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      );
 }
 
 /// A class which mocks [MultiMediaPickerService].
