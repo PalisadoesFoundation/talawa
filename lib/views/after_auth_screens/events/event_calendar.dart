@@ -123,28 +123,21 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   int index = 0;
   // looping through all the events created in the organization.
   eventsList.forEach((event) {
-    DateTime? startDate;
-    DateTime? endDate;
-
-    /// change made here, code related to the fix.
+    DateTime startDate;
+    DateTime endDate;
     if (event.startDate!.contains('/')) {
       startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
     } else {
       startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
     }
 
-    /// change made here, code related to the fix.
     if (event.endDate!.contains('/')) {
       endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
     } else {
       endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
     }
-
-    // final startDate = DateFormat('yMd').parse(event.startDate!);
     print("${event.startTime!}##############################");
     final startTime = parseTime(event.startTime ?? '14:23:01');
-    // .parse(event.startTime!);
-    // final endDate = DateFormat('yMd').parse(event.endDate!);
     final endTime = parseTime(event.endTime ?? '21:23:01');
 
     // adding appointments on the calender for event[index] date time.
