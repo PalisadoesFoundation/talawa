@@ -94,7 +94,6 @@ class PostService {
     final List postsJson =
         result.data!['organizations'][0]['posts']['edges'] as List;
     postInfo = result.data!['organizations'][0]['posts']['pageInfo'];
-    print(postInfo);
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson['node'] as Map<String, dynamic>);
       if (!_renderedPostID.contains(post.sId)) {
@@ -229,7 +228,7 @@ class PostService {
   ///
   /// **returns**:
   /// None
-  void nextPage() {
+  Future<void> nextPage() async {
     if (postInfo['hasNextPage'] == true) {
       _posts.clear();
       _renderedPostID.clear();
@@ -237,7 +236,7 @@ class PostService {
       before = null;
       first = 5;
       last = null;
-      getPosts();
+      await getPosts();
     }
   }
 
@@ -248,7 +247,7 @@ class PostService {
   ///
   /// **returns**:
   /// None
-  void previousPage() {
+  Future<void> previousPage() async {
     if (postInfo['hasPreviousPage'] == true) {
       _posts.clear();
       _renderedPostID.clear();
@@ -256,7 +255,7 @@ class PostService {
       after = null;
       last = 5;
       first = null;
-      getPosts();
+      await getPosts();
     }
   }
 }

@@ -85,12 +85,90 @@ void main() {
               'cursor': '6589bdd92caa9d8d69087515',
             }
           ],
-          'postInfo': {
+          'pageInfo': {
             '__typename': 'DefaultConnectionPageInfo',
             'startCursor': '65e1aac38836aa003e4b8318',
             'endCursor': '6589bd9b2caa9d8d6908750f',
             'hasNextPage': true,
             'hasPreviousPage': false,
+          },
+        },
+      }
+    ],
+  };
+  final demoJsonPage2 = {
+    '__typename': 'Query',
+    'organizations': [
+      {
+        '__typename': 'Organization',
+        'posts': {
+          '__typename': 'PostsConnection',
+          'edges': [
+            {
+              '__typename': 'PostEdge',
+              'node': {
+                '__typename': 'Post',
+                '_id': '65e1aac38836aa003e4b8319',
+                'title': 'Second Page Post 1',
+                'text': 'This is the first post on the second page',
+                'imageUrl': 'http://example.com/image2.jpg',
+                'videoUrl': null,
+                'creator': {
+                  '__typename': 'User',
+                  '_id': 'user_id_2',
+                  'firstName': 'John',
+                  'lastName': 'Doe',
+                  'email': 'john.doe@example.com',
+                },
+                'createdAt': '2024-03-02T10:15:31.168Z',
+                'likeCount': 5,
+                'commentCount': 2,
+                'likedBy': [],
+                'comments': [
+                  {'commentId': 'comment_id_1', 'text': 'Comment 1'},
+                  {'commentId': 'comment_id_2', 'text': 'Comment 2'},
+                ],
+                'pinned': false,
+              },
+              'cursor': '65e1aac38836aa003e4b8319',
+            },
+            {
+              '__typename': 'PostEdge',
+              'node': {
+                '__typename': 'Post',
+                '_id': '65e1aac38836aa003e4b8320',
+                'title': 'Second Page Post 2',
+                'text': 'This is the second post on the second page',
+                'imageUrl': 'http://example.com/image3.jpg',
+                'videoUrl': null,
+                'creator': {
+                  '__typename': 'User',
+                  '_id': 'user_id_3',
+                  'firstName': 'Jane',
+                  'lastName': 'Doe',
+                  'email': 'jane.doe@example.com',
+                },
+                'createdAt': '2024-03-02T10:30:00.000Z',
+                'likeCount': 10,
+                'commentCount': 3,
+                'likedBy': [],
+                'comments': [
+                  {'commentId': 'comment_id_3', 'text': 'Comment 3'},
+                  {'commentId': 'comment_id_4', 'text': 'Comment 4'},
+                  {'commentId': 'comment_id_5', 'text': 'Comment 5'},
+                ],
+                'pinned': false,
+              },
+              'cursor': '65e1aac38836aa003e4b8320',
+            },
+            // Add more posts as needed
+          ],
+          'pageInfo': {
+            '__typename': 'DefaultConnectionPageInfo',
+            'startCursor': '65e1aac38836aa003e4b8319',
+            'endCursor': '65e1aac38836aa003e4b8320',
+            'hasNextPage': false,
+            'hasPreviousPage': true,
           },
         },
       }
@@ -354,6 +432,60 @@ void main() {
 
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
+    });
+    test("Test the nextPage  and previous page funcitonality", () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      // Mocking GetPosts
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+      final query2 = PostQueries().getPostsById(
+        currentOrgID,
+        "6589bd9b2caa9d8d6908750f",
+        null,
+        5,
+        null,
+      );
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query2,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query2)),
+          data: demoJsonPage2,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = PostService();
+      // Populating posts Stream
+      await service.getPosts();
+      //Fetching next posts
+      await service.nextPage();
+      expect(service.after, "6589bd9b2caa9d8d6908750f");
+      expect(service.first, 5);
+      expect(service.before, null);
+      expect(service.last, null);
+      verify(service.getPosts()).called(1);
+
+      await service.previousPage();
+      expect(service.after, null);
+      expect(service.last, 5);
+      expect(service.before, "65e1aac38836aa003e4b8319");
+      expect(service.first, null);
+      verify(service.getPosts()).called(1);
     });
   });
 }
