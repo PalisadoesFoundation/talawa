@@ -194,8 +194,16 @@ void main() {
               widgetTester.binding.rootElement!,
               '',
               Exception(),
-            ) is CircularProgressIndicator,
+            ) is Center,
       ),
+      findsOneWidget,
+    );
+
+    await widgetTester
+        .pumpWidget(const Center(child: CircularProgressIndicator()));
+
+    expect(
+      find.byType(CircularProgressIndicator),
       findsOneWidget,
     );
   });

@@ -189,7 +189,7 @@ class PostQueries {
   /// **returns**:
   /// * `String`: query is returned
   String removePost() {
-    return '''   
+    return '''
     mutation RemovePost(\$id: ID!) {
       removePost(id: \$id) {
         _id
