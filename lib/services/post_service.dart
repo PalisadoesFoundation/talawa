@@ -90,7 +90,6 @@ class PostService {
       return;
     }
 
-  
     final organizations = result.data!['organizations'] as List;
     final posts = (organizations[0] as Map<String, dynamic>)['posts'];
     final List postsJson = (posts as Map<String, dynamic>)['edges'] as List;
