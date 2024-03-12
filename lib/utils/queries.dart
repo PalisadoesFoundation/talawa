@@ -161,7 +161,7 @@ class Queries {
   /// **returns**:
   /// * `String`: return a mutation
   String updateUserProfile() {
-    return """  
+    return """
       mutation UpdateUserProfile(
         \$firstName: String
         \$lastName: String
@@ -311,7 +311,7 @@ class Queries {
   }
 
   /// mutation in string form, to be passed on to graphql client..
-  String fetchUserInfo = ''' 
+  String fetchUserInfo = '''
        query Users(\$id: ID!){
           users(where: { id: \$id }) {
             _id
