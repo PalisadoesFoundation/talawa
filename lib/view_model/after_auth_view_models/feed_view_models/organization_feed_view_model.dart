@@ -123,9 +123,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise(
-      // bool forTest,
-      {
+  void initialise({
     bool isTest = false,
   }) {
     _isFetchingPosts = true;
@@ -153,27 +151,27 @@ class OrganizationFeedViewModel extends BaseModel {
     }
   }
 
-  /// initializing the demo data.
-  ///
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void initializeWithDemoData() {
-    // final postJsonResult = postsDemoData;
-    //
-    // ------
-    // // Calling function to ge the post for the only 1st time.
-    // _postService.getPosts();
-    //
-    // //fetching pinnedPosts
-    // final pinnedPostJsonResult = pinnedPostsDemoData;
-    // pinnedPostJsonResult.forEach((pinnedPostJsonData) {
-    //   _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
-    // });
-  }
+  // /// initializing the demo data.
+  // ///
+  // ///
+  // /// **params**:
+  // ///   None
+  // ///
+  // /// **returns**:
+  // ///   None
+  // void initializeWithDemoData() {
+  //   // final postJsonResult = postsDemoData;
+  //   //
+  //   // ------
+  //   // // Calling function to ge the post for the only 1st time.
+  //   // _postService.getPosts();
+  //   //
+  //   // //fetching pinnedPosts
+  //   // final pinnedPostJsonResult = pinnedPostsDemoData;
+  //   // pinnedPostJsonResult.forEach((pinnedPostJsonData) {
+  //   //   _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
+  //   // });
+  // }
 
   /// This function initialise `_posts` with `newPosts`.
   ///
@@ -277,5 +275,7 @@ class OrganizationFeedViewModel extends BaseModel {
         "id": post.sId,
       },
     );
+    _posts.remove(post);
+    notifyListeners();
   }
 }
