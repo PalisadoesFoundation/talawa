@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc, avoid_dynamic_calls
+// ignore_for_file: talawa_good_doc_comments, talawa_api_doc,
 import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -42,7 +42,7 @@ class PostService {
   // ignore: prefer_final_fields
   List<Post> _posts = [];
 
-  dynamic postInfo;
+  Map<String, dynamic>? postInfo;
   String? after;
   String? before;
   int? first = 5;
@@ -84,18 +84,21 @@ class PostService {
     final String query =
         PostQueries().getPostsById(currentOrgID, after, before, first, last);
     final result = await _dbFunctions.gqlAuthQuery(query);
-    // print(result.data);
     //Checking if the dbFunctions return the postJSON, if not return.
     if (result == null || (result as QueryResult).data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
 
-    final List postsJson =
-        result.data!['organizations'][0]['posts']['edges'] as List;
-    postInfo = result.data!['organizations'][0]['posts']['pageInfo'];
+  
+    final organizations = result.data!['organizations'] as List;
+    final posts = (organizations[0] as Map<String, dynamic>)['posts'];
+    final List postsJson = (posts as Map<String, dynamic>)['edges'] as List;
+    postInfo = posts['pageInfo'] as Map<String, dynamic>;
     postsJson.forEach((postJson) {
-      final Post post = Post.fromJson(postJson['node'] as Map<String, dynamic>);
+      final Post post = Post.fromJson(
+        (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
+      );
       if (!_renderedPostID.contains(post.sId)) {
         _posts.insert(0, post);
         _renderedPostID.add(post.sId);
@@ -229,10 +232,10 @@ class PostService {
   /// **returns**:
   /// None
   Future<void> nextPage() async {
-    if (postInfo['hasNextPage'] == true) {
+    if (postInfo!['hasNextPage'] == true) {
       _posts.clear();
       _renderedPostID.clear();
-      after = postInfo['endCursor'] as String;
+      after = postInfo!['endCursor'] as String;
       before = null;
       first = 5;
       last = null;
@@ -248,10 +251,10 @@ class PostService {
   /// **returns**:
   /// None
   Future<void> previousPage() async {
-    if (postInfo['hasPreviousPage'] == true) {
+    if (postInfo!['hasPreviousPage'] == true) {
       _posts.clear();
       _renderedPostID.clear();
-      before = postInfo['startCursor'] as String;
+      before = postInfo!['startCursor'] as String;
       after = null;
       last = 5;
       first = null;
