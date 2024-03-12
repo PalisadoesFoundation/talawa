@@ -308,5 +308,27 @@ Future<void> main() async {
       final logoutButton = find.textContaining('LogOut');
       await tester.tap(logoutButton);
     });
+
+    testWidgets('Test if Logout is successful', (tester) async {
+      final model = AppSettingViewModel();
+      when(model.logout()).thenAnswer((_) async => true);
+
+      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('Logout')));
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.textContaining('LogOut');
+      await tester.tap(logoutButton);
+
+      verify(navigationService.pop());
+      verify(
+        navigationService.removeAllAndPush(
+          '/selectLang',
+          '/',
+        ),
+      );
+    });
   });
 }
