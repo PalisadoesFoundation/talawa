@@ -117,7 +117,6 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                       }
                       // Reset counters if scrolling occurs anywhere other than at the edge
                       if (!notification.metrics.atEdge) {
-                    
                         firstDownScroll = 0;
                         firstUpScroll = 0;
                       }
