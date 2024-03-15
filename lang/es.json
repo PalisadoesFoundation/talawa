@@ -233,5 +233,10 @@
   "Create your first event": "Crea tu primer evento",
   "There are no posts in this organization": "No hay publicaciones en esta organización",
   "Create your first post": "Crea tu primera publicación",
-  "You have no post in this organization": "No tienes ninguna publicación en esta organización"
+  "You have no post in this organization": "No tienes ninguna publicación en esta organización",
+  "You can create a new event from here": "Puede crear un nuevo evento desde aquí",
+  "You are all set to go lets get you in": "Ya estás listo para irte, vamos a meterte",
+  "App Tour": "Tour de la aplicación",
+  "Start": "Comenzar",
+  "Skip": "Saltar"
 }

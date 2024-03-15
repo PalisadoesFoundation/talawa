@@ -233,5 +233,10 @@
   "Create your first event": "最初のイベントを作成してください",
   "There are no posts in this organization": "この組織には投稿がありません",
   "Create your first post": "最初の投稿を作成してください",
-  "You have no post in this organization": "この組織には投稿がありません"
+  "You have no post in this organization": "この組織には投稿がありません",
+  "You can create a new event from here": "ここから新しいイベントを作成できます",
+  "You are all set to go lets get you in": "あなたは完全に準備が整いました。入れてあげましょう。",
+  "App Tour": "アプリトール",
+  "Start": "開始",
+  "Skip": "スキップ"
 }

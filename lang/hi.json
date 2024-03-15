@@ -233,5 +233,10 @@
   "Create your first event": "अपना पहला इवेंट बनाएं",
   "There are no posts in this organization": "इस संगठन में कोई पोस्ट नहीं है",
   "Create your first post": "अपनी पहली पोस्ट बनाएं",
-  "You have no post in this organization": "इस संगठन में आपका कोई पोस्ट नहीं है"
+  "You have no post in this organization": "इस संगठन में आपका कोई पोस्ट नहीं है",
+  "You can create a new event from here": "यहां से आप एक नया इवेंट बना सकते हैं",
+  "You are all set to go lets get you in": "आप सभी सेट हैं जाने के लिए, चलो आपको भेजते हैं",
+  "App Tour": "ऐप टूर",
+  "Start": "शुरू करें",
+  "Skip": "छोड़ दें"
 }

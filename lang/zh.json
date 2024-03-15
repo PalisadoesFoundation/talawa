@@ -233,5 +233,10 @@
   "Create your first event": "创建您的第一个活动",
   "There are no posts in this organization": "此组织中没有帖子",
   "Create your first post": "创建您的第一篇帖子",
-  "You have no post in this organization": "您在此组织中没有帖子"
+  "You have no post in this organization": "您在此组织中没有帖子",
+  "You can create a new event from here": "您可以从这里创建一个新活动",
+  "You are all set to go lets get you in": "您已经准备好出发了，让我们带您进去",
+  "App Tour": "应用导览",
+  "Start": "开始",
+  "Skip": "跳过"
 }
