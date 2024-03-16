@@ -693,7 +693,7 @@ void main() {
 
       verify(
         navigationService.showTalawaErrorSnackBar(
-          'SomeThing went wrong',
+          'Something went wrong',
           MessageType.error,
         ),
       );
