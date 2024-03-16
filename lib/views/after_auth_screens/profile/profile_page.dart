@@ -156,13 +156,19 @@ class ProfilePage extends StatelessWidget {
                           width: double.infinity,
                           child: ContainedTabBarView(
                             tabs: [
-                              const Tab(
-                                text: 'Posts',
-                                key: Key('UserpostTab'),
+                              Tab(
+                                text: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Posts',
+                                ),
+                                key: const Key('UserpostTab'),
                               ),
-                              const Tab(
-                                text: 'Events',
-                                key: Key('UserEventsTab'),
+                              Tab(
+                                text: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Events',
+                                ),
+                                key: const Key('UserEventsTab'),
                               ),
                             ],
                             views: [
@@ -261,7 +267,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Text(
                           AppLocalizations.of(context)!
-                              .strictTranslate('Please Select any amount'),
+                              .strictTranslate('Please select any amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
@@ -285,7 +291,9 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         Text(
-                          'Or',
+                          AppLocalizations.of(context)!.strictTranslate(
+                            'Or',
+                          ),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
@@ -444,7 +452,9 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'DONATE',
+                            AppLocalizations.of(context)!.strictTranslate(
+                              'DONATE',
+                            ),
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),

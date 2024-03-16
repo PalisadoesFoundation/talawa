@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_events_form.dart';
 import 'package:talawa/views/base_view.dart';
@@ -57,7 +58,7 @@ class _EditEventPageState extends State<EditEventPage> {
                   model.updateEvent();
                 },
                 child: Text(
-                  'Done',
+                  AppLocalizations.of(context)!.strictTranslate('Done'),
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.secondary,

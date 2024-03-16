@@ -238,5 +238,22 @@
   "You are all set to go lets get you in": "あなたは完全に準備が整いました。入れてあげましょう。",
   "App Tour": "アプリトール",
   "Start": "開始",
-  "Skip": "スキップ"
+  "Skip": "スキップ",
+  "Posts": "投稿",
+  "Tasks": "タスク",
+  "Or": "または",
+  "Please select any amount": "金額を選択してください",
+  "Registered": "登録済み",
+  "Not Registrable": "登録不可",
+  "Enter the title of your post": "投稿タイトルを入力してください",
+  "General": "一般",
+  "Help & Support": "ヘルプとサポート",
+  "Talawa Docs": "Talawa ドキュメント",
+  "All day": "1日中",
+  "Join an Organisation": "団体に参加する",
+  "DONATE": "寄付する",
+  "Permission Denied": "許可が拒否されました",
+  "Camera permission is required, to use this feature, give permission from app settings": "この機能を使用するには、カメラの許可が必要です。アプリの設定から許可を与えてください。",
+  "SETTINGS": "設定",
+  "LogOut": "ログアウト"
 }

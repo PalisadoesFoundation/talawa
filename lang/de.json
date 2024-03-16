@@ -238,5 +238,22 @@
   "You are all set to go lets get you in": "Sie sind bereit zu gehen, lassen Sie uns Sie hereinbringen",
   "App Tour": "App-Tour",
   "Start": "Starten",
-  "Skip": "Überspringen"
+  "Skip": "Überspringen",
+  "Posts": "Beiträge",
+  "Tasks": "Aufgaben",
+  "Or": "Oder",
+  "Please select any amount": "Bitte wählen Sie einen Betrag aus",
+  "Registered": "Registriert",
+  "Not Registrable": "Nicht registrierbar",
+  "Enter the title of your post": "Gib den Titel deines Beitrags ein",
+  "General": "Allgemein",
+  "Help & Support": "Hilfe & Support",
+  "Talawa Docs": "Talawa Dokumentation",
+  "All day": "Den ganzen Tag",
+  "Join an Organisation": "Einer Organisation beitreten",
+  "DONATE": "SPENDEN",
+  "Permission Denied": "Berechtigung verweigert",
+  "Camera permission is required, to use this feature, give permission from app settings": "Die Kamera-Berechtigung ist erforderlich, um diese Funktion zu verwenden. Erteilen Sie die Berechtigung über die App-Einstellungen.",
+  "SETTINGS": "EINSTELLUNGEN",
+  "LogOut": "Ausloggen"
 }

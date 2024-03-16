@@ -238,5 +238,22 @@
   "You are all set to go lets get you in": "You are all set to go lets get you in",
   "App Tour": "App Tour",
   "Start": "Start",
-  "Skip": "Skip"
+  "Skip": "Skip",
+  "Posts": "Posts",
+  "Tasks": "Tasks",
+  "Or": "Or",
+  "Please select any amount": "Please select any amount",
+  "Registered": "Registered",
+  "Not Registrable": "Not Registrable",
+  "Enter the title of your post": "Enter the title of your post",
+  "General": "General",
+  "Help & Support": "Help & Support",
+  "Talawa Docs": "Talawa Docs",
+  "All day": "All day",
+  "Join an Organisation": "Join an Organisation",
+  "DONATE": "DONATE",
+  "Permission Denied": "Permission Denied",
+  "Camera permission is required, to use this feature, give permission from app settings": "Camera permission is required, to use this feature, give permission from app settings",
+  "SETTINGS": "SETTINGS",
+  "LogOut": "LogOut"
 }

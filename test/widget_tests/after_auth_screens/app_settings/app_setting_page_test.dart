@@ -260,7 +260,7 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       final talawaDocs = find.textContaining('Talawa Docs');
-      final talawaGitHub = find.textContaining('Talawa Git-Hub');
+      final talawaGitHub = find.textContaining('Talawa GitHub');
 
       await tester.tap(talawaDocs);
       await tester.tap(talawaGitHub);

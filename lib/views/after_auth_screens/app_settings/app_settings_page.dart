@@ -117,7 +117,7 @@ class AppSettingsPage extends StatelessWidget {
                               leading: const Icon(Icons.code),
                               content: Text(
                                 AppLocalizations.of(context)!
-                                    .strictTranslate('Talawa Git-Hub'),
+                                    .strictTranslate('Talawa GitHub'),
                               ),
                               trailing: chevronButton(
                                 context: context,

@@ -238,5 +238,22 @@
   "You are all set to go lets get you in": "您已经准备好出发了，让我们带您进去",
   "App Tour": "应用导览",
   "Start": "开始",
-  "Skip": "跳过"
+  "Skip": "跳过",
+  "Posts": "帖子",
+  "Tasks": "任务",
+  "Or": "或者",
+  "Please select any amount": "请选择任何金额",
+  "Registered": "已注册",
+  "Not Registrable": "不可注册",
+  "Enter the title of your post": "请输入您的帖子标题",
+  "General": "普通",
+  "Help & Support": "帮助和支持",
+  "Talawa Docs": "Talawa 文档",
+  "All day": "一整天",
+  "Join an Organisation": "加入一个组织",
+  "DONATE": "捐赠",
+  "Permission Denied": "权限被拒绝",
+  "Camera permission is required, to use this feature, give permission from app settings": "使用此功能需要摄像头权限。请从应用设置中授予权限。",
+  "SETTINGS": "设置",
+  "LogOut": "登出"
 }

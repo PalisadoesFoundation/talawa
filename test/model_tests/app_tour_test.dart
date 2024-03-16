@@ -55,15 +55,36 @@ class MockAppTour extends Mock implements AppTour {
   MainScreenViewModel model;
 }
 
+/// Creates a MaterialApp widget with the given home widget and common localizations.
+///
+/// **params**:
+/// * `home`: The home widget of the MaterialApp.
+///
+/// **returns**:
+/// * `MaterialApp`: The MaterialApp widget.
+///
+MaterialApp createMaterialApp({required Widget home}) {
+  return MaterialApp(
+    home: home,
+    localizationsDelegates: const [
+      AppLocalizationsDelegate(),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    supportedLocales: const [
+      Locale('en', ''),
+    ],
+  );
+}
+
 void main() {
   setupLocator();
   sizeConfig.test();
   // registerServices();
 
   group('Tests for FocusTarget', () {
-    test('Test for FocusTarget model.', () {
+    testWidgets("Test for FocusTarget model.", (tester) async {
       final model = MainScreenViewModel();
-      model.context = MockBuildContext();
       final focusTarget = FocusTarget(
         key: MainScreenViewModel.keyDrawerCurOrg,
         keyName: 'keyName',
@@ -72,15 +93,35 @@ void main() {
         next: () {},
       );
 
-      focusTarget.focusWidget.contents![0].builder!(
-        model.context,
-        CustomTutorialController(),
-      );
+      final builder = focusTarget.focusWidget.contents![0].builder;
+      final controller = CustomTutorialController();
 
-      focusTarget.focusWidget.contents![1].builder!(
-        model.context,
-        CustomTutorialController(),
-      );
+      await tester.runAsync(() async {
+        await tester.pumpWidget(
+          createMaterialApp(
+            home: Builder(
+              builder: (BuildContext context) {
+                return builder!(context, controller);
+              },
+            ),
+          ),
+        );
+      });
+
+      final builder1 = focusTarget.focusWidget.contents![1].builder;
+      final controller1 = CustomTutorialController();
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(
+          createMaterialApp(
+            home: Builder(
+              builder: (BuildContext context) {
+                return builder1!(context, controller1);
+              },
+            ),
+          ),
+        );
+      });
     });
 
     testWidgets('Test for showTutorial method.', (tester) async {
