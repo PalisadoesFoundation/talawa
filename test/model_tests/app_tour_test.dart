@@ -67,7 +67,7 @@ MaterialApp createMaterialApp({required Widget home}) {
   return MaterialApp(
     home: home,
     localizationsDelegates: const [
-      AppLocalizationsDelegate(),
+      AppLocalizationsDelegate(isTest: true),
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
     ],
@@ -83,45 +83,86 @@ void main() {
   // registerServices();
 
   group('Tests for FocusTarget', () {
-    testWidgets("Test for FocusTarget model.", (tester) async {
-      final model = MainScreenViewModel();
-      final focusTarget = FocusTarget(
-        key: MainScreenViewModel.keyDrawerCurOrg,
-        keyName: 'keyName',
-        description: 'description',
-        appTour: MockAppTour(model: model),
-        next: () {},
+    testWidgets('Test for first TargetContent builder in FocusTarget model.',
+        (tester) async {
+      AppTour? mockAppTour;
+      FocusTarget? mockFocusTarget;
+      BuildContext? capturedContext;
+      final app = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: BaseView<MainScreenViewModel>(
+              onModelReady: (model2) => model2.initialise(
+                context,
+                fromSignUp: false,
+                mainScreenIndex: 0,
+                demoMode: true,
+                testMode: true,
+              ),
+              builder: (context, model2, child) {
+                capturedContext = context;
+                mockAppTour = AppTour(model: model2);
+                mockFocusTarget = FocusTarget(
+                  key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                  keyName: 'keyDrawerLeaveCurrentOrg',
+                  description: 'description',
+                  next: () {},
+                  appTour: mockAppTour!,
+                );
+                // SizeConfig().init(context);
+                model2.context = context;
+                return Scaffold(
+                  drawer: const Drawer(),
+                  key: MainScreenViewModel.scaffoldKey,
+                  body: TextButton(
+                    key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                    child: const Text('tutorial'),
+                    onPressed: () {
+                      MainScreenViewModel.scaffoldKey.currentState!
+                          .openDrawer();
+                      mockAppTour!.showTutorial(
+                        onClickTarget: (x) {},
+                        onFinish: () {},
+                        targets: <FocusTarget>[
+                          mockFocusTarget!,
+                        ],
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            navigatorKey: navigationService.navigatorKey,
+            // onGenerateRoute: router.generateRoute,
+          );
+        },
       );
 
-      final builder = focusTarget.focusWidget.contents![0].builder;
-      final controller = CustomTutorialController();
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      await tester.runAsync(() async {
-        await tester.pumpWidget(
-          createMaterialApp(
-            home: Builder(
-              builder: (BuildContext context) {
-                return builder!(context, controller);
-              },
-            ),
-          ),
-        );
-      });
+      final tutorialBtn =
+          find.byKey(MainScreenViewModel.keyDrawerLeaveCurrentOrg);
 
-      final builder1 = focusTarget.focusWidget.contents![1].builder;
-      final controller1 = CustomTutorialController();
+      expect(tutorialBtn, findsOneWidget);
 
-      await tester.runAsync(() async {
-        await tester.pumpWidget(
-          createMaterialApp(
-            home: Builder(
-              builder: (BuildContext context) {
-                return builder1!(context, controller1);
-              },
-            ),
-          ),
-        );
-      });
+      (tester.widget(tutorialBtn) as TextButton).onPressed!();
+      await tester.pumpAndSettle();
+
+      expect(
+        mockFocusTarget!.focusWidget.contents![0].builder!(
+          capturedContext!,
+          CustomTutorialController(),
+        ) as Container,
+        isA<Container>(),
+      );
     });
 
     testWidgets('Test for showTutorial method.', (tester) async {
