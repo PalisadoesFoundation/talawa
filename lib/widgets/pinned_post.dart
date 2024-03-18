@@ -58,7 +58,21 @@ class PinnedPost extends StatelessWidget {
                                       ? 'placeHolderUrl'
                                       : pinnedPost[index].imageUrl!,
                               errorWidget: (context, url, error) {
-                                return const CircularProgressIndicator();
+                                return Center(
+                                  child: Container(
+                                    width: SizeConfig.safeBlockHorizontal! * 8,
+                                    // Adjust the width to change the size of the circular indicator
+                                    height: SizeConfig.safeBlockVertical! * 4,
+                                    // Adjust the height to change the size of the circular indicator
+                                    child: AspectRatio(
+                                      aspectRatio: 1.0,
+                                      // Maintain a 1:1 aspect ratio for a circular shape
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2.0,
+                                      ),
+                                    ),
+                                  ),
+                                );
                               },
                               height: SizeConfig.screenHeight! * 0.15,
                               fit: BoxFit.cover,
