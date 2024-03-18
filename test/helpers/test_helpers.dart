@@ -587,6 +587,18 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
 
   when(cachedViewModel.memberCheckedMap).thenReturn(mapType);
 
+  when(cachedViewModel.isAllDay).thenReturn(true);
+
+  when(cachedViewModel.eventStartTime).thenReturn(TimeOfDay.now());
+
+  when(cachedViewModel.eventEndTime).thenReturn(
+    TimeOfDay.now().replacing(
+      hour:
+          (TimeOfDay.now().hour + (TimeOfDay.now().minute >= 30 ? 1 : 0)) % 24,
+      minute: (TimeOfDay.now().minute + 30) % 60,
+    ),
+  );
+
   when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedMembers).thenReturn([]);

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -35,6 +36,13 @@ class CreateEventViewModel extends BaseModel {
   TextEditingController eventDescriptionTextController =
       TextEditingController();
 
+  /// Repeats Every count controller.
+  TextEditingController repeatsEveryCountController =
+      TextEditingController(text: '1');
+
+  /// Event ends After n occurences controller.
+  TextEditingController endOccurenceController = TextEditingController();
+
   /// Event Start Time.
   TimeOfDay eventStartTime = TimeOfDay.now();
 
@@ -48,7 +56,7 @@ class CreateEventViewModel extends BaseModel {
   DateTime eventStartDate = DateTime.now();
 
   /// Event End Date.
-  DateTime eventEndDate = DateTime.now();
+  DateTime? eventEndDate = DateTime.now();
 
   /// Public Event or Not.
   bool isPublicSwitch = true;
@@ -70,6 +78,33 @@ class CreateEventViewModel extends BaseModel {
 
   /// Longitude store.
   double? longitude;
+
+  /// is an allday event.
+  bool isAllDay = true;
+
+  /// Is a recurring event.
+  bool isRecurring = false;
+
+  /// recurrence count.
+  int recurranceCount = 1;
+
+  /// recurrence.
+  String? recurrance;
+
+  /// RecurranceRuleData frequency.
+  String recurranceFrequency = Recurrance.weekly;
+
+  /// Monthly recurrence.
+  String monthlyRecurrence = 'Monthly on day 3';
+
+  /// weekdays.
+  Set<String> weekdays = {Recurrance.weekdayTuesday};
+
+  /// Event end type.
+  String eventEndType = EventEndTypes.never;
+
+  /// Custom recurrance event end date.
+  DateTime? eventEndOnEndDate = DateTime.now();
 
   //late OrganizationService _organizationService;
   late final Map<String, bool> _memberCheckedMap = {};
@@ -150,39 +185,50 @@ class CreateEventViewModel extends BaseModel {
       validate = AutovalidateMode.disabled;
 
       // variables initialisation
-      final DateTime startDate = eventStartDate;
-      final DateTime endDate = eventEndDate;
       final DateTime startTime = DateTime(
-        startDate.year,
-        startDate.month,
-        startDate.day,
+        eventStartDate.year,
+        eventStartDate.month,
+        eventStartDate.day,
         eventStartTime.hour,
         eventStartTime.minute,
       );
       final DateTime endTime = DateTime(
-        endDate.year,
-        endDate.month,
-        endDate.day,
+        eventEndDate?.year ?? DateTime.now().year,
+        eventEndDate?.month ?? DateTime.now().month,
+        eventEndDate?.day ?? DateTime.now().day,
         eventEndTime.hour,
         eventEndTime.minute,
       );
 
+      final String? frequency = getRecurrance(recurranceFrequency);
+
       // all required data for creating an event
       final Map<String, dynamic> variables = {
-        'startDate': DateFormat('yyyy-MM-dd').format(startDate),
-        'endDate': DateFormat('yyyy-MM-dd').format(endDate),
-        'organizationId': _currentOrg.id,
-        'title': eventTitleTextController.text,
-        'description': eventDescriptionTextController.text,
-        'location': eventLocationTextController.text,
-        'isPublic': isPublicSwitch,
-        'isRegisterable': isRegisterableSwitch,
-        'recurring': false,
-        'allDay': false,
-        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
-        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
-        if (latitude != null) 'latitude': latitude,
-        if (longitude != null) 'longitude': longitude,
+        "data": {
+          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+          if (eventEndDate != null)
+            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
+          'organizationId': _currentOrg.id,
+          'title': eventTitleTextController.text,
+          'description': eventDescriptionTextController.text,
+          'location': eventLocationTextController.text,
+          'isPublic': isPublicSwitch,
+          'isRegisterable': isRegisterableSwitch,
+          'recurring': isRecurring,
+          'recurrance': recurrance ?? frequency,
+          'allDay': isAllDay,
+          'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+          if (eventEndDate != null)
+            'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
+          if (latitude != null) 'latitude': latitude,
+          if (longitude != null) 'longitude': longitude,
+        },
+        if (recurrance == null)
+          'recurrenceRuleData': {
+            if (eventEndType != EventEndTypes.never) 'count': recurranceCount,
+            'frequency': frequency,
+            if (frequency == 'WEEKLY') 'weekDays': List.from(weekdays),
+          },
       };
 
       navigationService.pushDialog(
@@ -194,6 +240,7 @@ class CreateEventViewModel extends BaseModel {
         EventQueries().addEvent(),
         variables: variables,
       );
+      print(result);
       navigationService.pop();
       if (result != null) {
         navigationService.pop();
@@ -287,5 +334,42 @@ class CreateEventViewModel extends BaseModel {
     _memberCheckedMap[userId] = false;
 
     notifyListeners();
+  }
+
+  /// Updates the event end date to selected event end date.
+  ///
+  /// **params**:
+  /// * `selectedEndDate`: new event end date selected by user.
+  ///
+  /// **returns**:
+  ///   None
+  void setEventEndDate(DateTime? selectedEndDate) {
+    eventEndDate = selectedEndDate;
+    notifyListeners();
+  }
+
+  /// Returns corresponding recurrence value based on frequency.
+  ///
+  /// **params**:
+  /// * `frequency`: Recurrence frequency selected by user.
+  ///
+  /// **returns**:
+  /// * `String?`: Recurrence value.
+  String? getRecurrance(String frequency) {
+    isRecurring = true;
+    if (frequency == Recurrance.daily || frequency == 'Every day') {
+      return 'DAILY';
+    } else if (frequency == Recurrance.weekly || frequency == 'Every week') {
+      return 'WEEKLY';
+    } else if (frequency == Recurrance.monthly || frequency == 'Every month') {
+      return 'MONTHLY';
+    } else if (frequency == Recurrance.yearly || frequency == 'Every year') {
+      return 'YEARLY';
+    } else if (frequency == Recurrance.once) {
+      isRecurring = false;
+      return null;
+    } else {
+      return null;
+    }
   }
 }

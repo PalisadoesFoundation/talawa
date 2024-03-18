@@ -112,7 +112,7 @@ void main() {
     });
 
     test("Check if removePost works correctly", () {
-      const data = '''   
+      const data = '''
     mutation RemovePost(\$id: ID!) {
       removePost(id: \$id) {
         _id
