@@ -309,8 +309,9 @@ class AppSettingsPage extends StatelessWidget {
                             }
                             navigationService.pop();
                             navigationService.removeAllAndPush(
-                              '/selectLang',
-                              '/',
+                              Routes.setUrlScreen,
+                              Routes.splashScreen,
+                              arguments: '',
                             );
                           } catch (e) {
                             navigationService.pushDialog(
