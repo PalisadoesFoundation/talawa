@@ -63,20 +63,20 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
               imageUrl: widget.post['imageUrl']!,
               errorWidget: (context, url, error) {
                 return Center(
-                    child: Container(
-                      width: SizeConfig.safeBlockHorizontal! * 16,
-                      // Adjust the width to change the size of the circular indicator
-                      height: SizeConfig.safeBlockVertical! * 8,
-                      // Adjust the height to change the size of the circular indicator
-                      child: AspectRatio(
-                        aspectRatio: 1.0,
-                        // Maintain a 1:1 aspect ratio for a circular shape
-                        child: CircularProgressIndicator(
-                          strokeWidth: 4.0,
-                        ),
+                  child: Container(
+                    width: SizeConfig.safeBlockHorizontal! * 16,
+                    // Adjust the width to change the size of the circular indicator
+                    height: SizeConfig.safeBlockVertical! * 8,
+                    // Adjust the height to change the size of the circular indicator
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      // Maintain a 1:1 aspect ratio for a circular shape
+                      child: CircularProgressIndicator(
+                        strokeWidth: 4.0,
                       ),
                     ),
-                  );
+                  ),
+                );
               },
               height: SizeConfig.screenHeight! * .75,
               fit: BoxFit.cover,
