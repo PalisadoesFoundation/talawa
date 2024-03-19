@@ -185,33 +185,36 @@ void main() {
     await widgetTester.pump(const Duration(seconds: 5));
 
     expect(
-      find.byWidgetPredicate(
-        (widget) =>
-        widget is CachedNetworkImage &&
-            widget.errorWidget != null &&
-            widget.errorWidget is Function &&
-            widget.errorWidget!(
-              widgetTester.binding.rootElement!,
-              '',
-              Exception(),
-            ) is Center &&
-            (widget.errorWidget!(
-              widgetTester.binding.rootElement!,
-              '',
-              Exception(),
-            ) as Center).child is Container &&
-            ((widget.errorWidget!(
-              widgetTester.binding.rootElement!,
-              '',
-              Exception(),
-            ) as Center).child as Container).child is AspectRatio &&
-            (((widget.errorWidget!(
-              widgetTester.binding.rootElement!,
-              '',
-              Exception(),
-            ) as Center).child as Container).child as AspectRatio).child is CircularProgressIndicator
-
-      ),
+      find.byWidgetPredicate((widget) =>
+          widget is CachedNetworkImage &&
+          widget.errorWidget != null &&
+          widget.errorWidget is Function &&
+          widget.errorWidget!(
+            widgetTester.binding.rootElement!,
+            '',
+            Exception(),
+          ) is Center &&
+          (widget.errorWidget!(
+            widgetTester.binding.rootElement!,
+            '',
+            Exception(),
+          ) as Center)
+              .child is Container &&
+          ((widget.errorWidget!(
+            widgetTester.binding.rootElement!,
+            '',
+            Exception(),
+          ) as Center)
+                  .child as Container)
+              .child is AspectRatio &&
+          (((widget.errorWidget!(
+            widgetTester.binding.rootElement!,
+            '',
+            Exception(),
+          ) as Center)
+                      .child as Container)
+                  .child as AspectRatio)
+              .child is CircularProgressIndicator),
       findsOneWidget,
     );
   });
