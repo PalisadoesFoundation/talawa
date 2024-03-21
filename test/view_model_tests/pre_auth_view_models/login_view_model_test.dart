@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 // import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -55,118 +56,182 @@ Future<void> main() async {
   group('LoginViewModel Test -', () {
     testWidgets(
         'Check if login() is working fine when organisation is not empty',
-        (tester) async {
-      locator.registerSingleton<UserConfig>(MockUserConfig());
+            (tester) async {
+          locator.registerSingleton<UserConfig>(MockUserConfig());
 
-      final model = LoginViewModel();
+          final model = LoginViewModel();
 
-      await tester.pumpWidget(
-        Form(
-          key: model.formKey,
-          child: Container(),
-        ),
-      );
+          await tester.pumpWidget(
+            Form(
+              key: model.formKey,
+              child: Container(),
+            ),
+          );
 
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(document: gql(queries.loginUser('', ''))),
-      );
+          final result = QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.loginUser('', ''))),
+          );
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenAnswer((_) async => result);
+          when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+              .thenAnswer((_) async => result);
 
-      await model.login();
-      expect(model.validate, AutovalidateMode.disabled);
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
-    });
+          await model.login();
+          expect(model.validate, AutovalidateMode.disabled);
+          verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+        });
     testWidgets('Check if login() is working fine when organisation empty',
-        (tester) async {
-      empty = true;
-      locator.registerSingleton<UserConfig>(MockUserConfig());
+            (tester) async {
+          empty = true;
+          locator.registerSingleton<UserConfig>(MockUserConfig());
 
-      final model = LoginViewModel();
+          final model = LoginViewModel();
 
-      await tester.pumpWidget(
-        Form(
-          key: model.formKey,
-          child: Container(),
-        ),
-      );
+          await tester.pumpWidget(
+            Form(
+              key: model.formKey,
+              child: Container(),
+            ),
+          );
 
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(document: gql(queries.loginUser('', ''))),
-      );
+          final result = QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.loginUser('', ''))),
+          );
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenAnswer((_) async => result);
+          when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+              .thenAnswer((_) async => result);
 
-      await model.login();
-      expect(model.validate, AutovalidateMode.disabled);
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
-    });
+          await model.login();
+          expect(model.validate, AutovalidateMode.disabled);
+          verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+        });
     testWidgets('Check if login() is working fine when invalid credentials',
-        (tester) async {
-      reset(navigationService);
-      final model = LoginViewModel();
+            (tester) async {
+          reset(navigationService);
+          final model = LoginViewModel();
 
-      await tester.pumpWidget(
-        Form(
-          key: model.formKey,
-          child: Container(),
-        ),
-      );
+          await tester.pumpWidget(
+            Form(
+              key: model.formKey,
+              child: Container(),
+            ),
+          );
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenAnswer((_) async => null);
+          when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+              .thenAnswer((_) async => null);
 
-      await model.login();
-      expect(model.validate, AutovalidateMode.disabled);
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-    });
+          await model.login();
+          expect(model.validate, AutovalidateMode.disabled);
+          verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+          verifyNever(
+            navigationService.removeAllAndPush(
+              Routes.waitingScreen,
+              Routes.splashScreen,
+            ),
+          );
+        });
     testWidgets('Check if login() is working fine when throws error',
-        (tester) async {
+            (tester) async {
+          final model = LoginViewModel();
+
+          await tester.pumpWidget(
+            Form(
+              key: model.formKey,
+              child: Container(),
+            ),
+          );
+
+          when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+              .thenThrow(Exception());
+
+          await model.login();
+          expect(model.validate, AutovalidateMode.disabled);
+          verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+        });
+
+    // **NEW TESTS**
+
+    // test for validation for empty email and password
+    testWidgets('Check form validation for empty email and password',
+            (tester) async {
+          final model = LoginViewModel();
+
+          await tester.pumpWidget(
+            Form(
+              key: model.formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: model.email,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Email is required';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: model.password,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Password is required';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+
+          // Submit form without entering any values
+          await model.login();
+
+          expect(model.validate, AutovalidateMode.always);
+        });
+
+    // Test for initializing greeting message
+    test('Initialize greeting message', () {
       final model = LoginViewModel();
+      model.initialize();
 
-      await tester.pumpWidget(
-        Form(
-          key: model.formKey,
-          child: Container(),
-        ),
-      );
-
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenThrow(Exception());
-
-      await model.login();
-      expect(model.validate, AutovalidateMode.disabled);
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+      expect(model.greeting.length, 4);
     });
+
+    // Test for unfocusing text fields
+    testWidgets('Unfocus text fields after login', (tester) async {
+      final model = LoginViewModel();
+      model.emailFocus.requestFocus();
+      model.passwordFocus.requestFocus();
+
+      // Simulate successful login
+      await model.login();
+
+      expect(model.emailFocus.hasFocus, false);
+      expect(model.passwordFocus.hasFocus, false);
+    });
+
+
   });
 }
 
 class MockUserConfig extends Mock implements UserConfig {
   @override
   User get currentUser => User(
-        joinedOrganizations: empty
-            ? []
-            : [
-                OrgInfo(
-                  id: '3',
-                  name: 'test org 3',
-                  userRegistrationRequired: false,
-                  creatorInfo: User(firstName: 'test', lastName: '1'),
-                ),
-              ],
-      );
+    joinedOrganizations: empty
+        ? []
+        : [
+      OrgInfo(
+        id: '3',
+        name: 'test org 3',
+        userRegistrationRequired: false,
+        creatorInfo: User(firstName: 'test', lastName: '1'),
+      ),
+    ],
+  );
 
   @override
   Future<bool> updateUser(User user) async => true;
