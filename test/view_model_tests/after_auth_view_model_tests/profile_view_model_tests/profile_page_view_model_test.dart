@@ -77,6 +77,7 @@ void main() async {
 
       await tester.tap(find.byKey(const Key('btn1')));
       await tester.pumpAndSettle();
+      await tester.tap(find.text('USD'));
       expect(find.byType(BottomSheet), findsOneWidget);
     });
 
@@ -131,6 +132,7 @@ void main() async {
       final model = ProfilePageViewModel();
       model.initialize();
       const String amt = "test_amt";
+      model.donationAmount.text = amt;
 
       bool setterCalled = false;
       void mockSetter(void Function() innerFunction) {
@@ -150,6 +152,8 @@ void main() async {
         ),
       );
       await tester.tap(find.byKey(const Key('domBtn_$amt')));
+      await tester.pump();
+      await tester.pumpAndSettle();
       expect(setterCalled, true);
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);
@@ -199,10 +203,12 @@ void main() async {
     });
 
     testWidgets('attachListener test', (WidgetTester tester) async {
-      final model = ProfilePageViewModel();
-      model.initialize();
+      final viewModel = ProfilePageViewModel();
+      viewModel.initialize();
       double bottomSheetHeight = 0;
-      final FocusNode focusNode = FocusNode();
+      final FocusNode focusNode = viewModel.donationField;
+      const testFocus = Key('testFocus');
+      const testFocus1 = Key('testFocus1');
 
       void mockSetter(void Function() innerFunction) {
         innerFunction();
@@ -213,10 +219,20 @@ void main() async {
           home: Scaffold(
             body: Builder(
               builder: (BuildContext context) {
-                return ElevatedButton(
-                  key: const Key('btn1'),
-                  onPressed: () => model.attachListener(mockSetter),
-                  child: const Text('listner'),
+                return Scaffold(
+                  body: Container(
+                      child: Column(
+                    children: [
+                      TextField(
+                        key: testFocus,
+                        focusNode: focusNode,
+                      ),
+                      TextField(
+                        key: testFocus1,
+                        focusNode: FocusNode(),
+                      )
+                    ],
+                  )),
                 );
               },
             ),
@@ -224,14 +240,16 @@ void main() async {
         ),
       );
 
-      await tester.tap(find.byKey(const Key('btn1')));
-      focusNode.requestFocus();
+      viewModel.attachListener(mockSetter);
+      await tester.enterText(find.byKey(testFocus), 'test attach listener');
       mockSetter(() {
         bottomSheetHeight = SizeConfig.screenHeight! * 0.8725;
       });
       await tester.pump();
       expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.8725);
-      focusNode.unfocus();
+      await tester.enterText(
+          find.byKey(testFocus1), 'viewmodel.dontaionField out of focus');
+
       await tester.pump(const Duration(milliseconds: 300));
 
       mockSetter(() {
