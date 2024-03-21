@@ -221,18 +221,19 @@ void main() async {
               builder: (BuildContext context) {
                 return Scaffold(
                   body: Container(
-                      child: Column(
-                    children: [
-                      TextField(
-                        key: testFocus,
-                        focusNode: focusNode,
-                      ),
-                      TextField(
-                        key: testFocus1,
-                        focusNode: FocusNode(),
-                      )
-                    ],
-                  )),
+                    child: Column(
+                      children: [
+                        TextField(
+                          key: testFocus,
+                          focusNode: focusNode,
+                        ),
+                        TextField(
+                          key: testFocus1,
+                          focusNode: FocusNode(),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
@@ -248,7 +249,9 @@ void main() async {
       await tester.pump();
       expect(bottomSheetHeight, SizeConfig.screenHeight! * 0.8725);
       await tester.enterText(
-          find.byKey(testFocus1), 'viewmodel.dontaionField out of focus');
+        find.byKey(testFocus1),
+        'viewmodel.dontaionField out of focus',
+      );
 
       await tester.pump(const Duration(milliseconds: 300));
 
