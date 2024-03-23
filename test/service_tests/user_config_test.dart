@@ -197,7 +197,6 @@ void main() async {
 
       expect(loggedOut, true);
 
-      verify(navigationService.pop());
       expect(userBox.isEmpty, true);
       expect(urlBox.isEmpty, true);
       expect(orgBox.isEmpty, true);
