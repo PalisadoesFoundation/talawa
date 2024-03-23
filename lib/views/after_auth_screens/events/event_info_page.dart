@@ -64,7 +64,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
                         model.registerForEvent();
                       },
                       label: Text(
-                        model.fabTitle,
+                        AppLocalizations.of(context)!
+                            .strictTranslate(model.fabTitle),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     )

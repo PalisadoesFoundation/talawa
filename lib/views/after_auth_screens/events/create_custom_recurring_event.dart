@@ -53,7 +53,7 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
               }
               navigationService.pop();
             },
-            child: const Text('Done'),
+            child: Text(AppLocalizations.of(context)!.strictTranslate('Done')),
           ),
         ],
       ),

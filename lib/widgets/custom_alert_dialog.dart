@@ -22,8 +22,8 @@ class CustomAlertDialog extends StatelessWidget {
 
   const CustomAlertDialog({
     super.key,
-    this.successText,
-    this.dialogTitle,
+    this.successText = 'Confirm',
+    this.dialogTitle = 'Confirmation',
     this.reverse = false,
     this.secondaryButtonText = 'Close',
     this.secondaryButtonTap,
@@ -41,10 +41,10 @@ class CustomAlertDialog extends StatelessWidget {
   final Function()? secondaryButtonTap;
 
   /// Text displayed on the primary action button.
-  final String? successText;
+  final String successText;
 
   /// Title displayed in the dialog (default value is 'Confirmation').
-  final String? dialogTitle;
+  final String dialogTitle;
 
   /// Subtitle or message content of the dialog.
   final String dialogSubTitle;
@@ -56,7 +56,7 @@ class CustomAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> actions = [
       RaisedRoundedButton(
-        key: const Key('Close'),
+        key: Key(secondaryButtonText),
         onTap: () {
           secondaryButtonTap != null
               ? secondaryButtonTap!()
@@ -70,10 +70,9 @@ class CustomAlertDialog extends StatelessWidget {
         height: SizeConfig.screenHeight! * 0.06,
       ),
       RaisedRoundedButton(
-        key: Key(successText ?? 'Confirm'),
+        key: Key(successText),
         onTap: () => success(),
-        buttonLabel: successText ??
-            AppLocalizations.of(context)!.strictTranslate('Confirm'),
+        buttonLabel: AppLocalizations.of(context)!.strictTranslate(successText),
         textColor: const Color(0xFF008A37),
         backgroundColor: Colors.white,
         width: SizeConfig.screenWidth! * 0.2,
@@ -82,8 +81,7 @@ class CustomAlertDialog extends StatelessWidget {
     ];
     return AlertDialog(
       title: Text(
-        dialogTitle ??
-            AppLocalizations.of(context)!.strictTranslate('Confirmation'),
+        AppLocalizations.of(context)!.strictTranslate(dialogTitle),
         style: Theme.of(context)
             .textTheme
             .headlineSmall!

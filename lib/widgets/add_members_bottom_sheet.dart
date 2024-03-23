@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
 /// Adds members to an event.
@@ -45,9 +46,10 @@ class EventBottomSheet {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
-                      const Text(
-                        "Add Members",
-                        style: TextStyle(fontSize: 16),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate("Add Members"),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       TextButton(
                         key: const Key('text_btn_ambs1'),
@@ -55,7 +57,9 @@ class EventBottomSheet {
                           model.buildUserList();
                           Navigator.pop(context);
                         },
-                        child: const Text("Done"),
+                        child: Text(
+                          AppLocalizations.of(context)!.strictTranslate('Done'),
+                        ),
                       ),
                       const Divider(),
                       FutureBuilder(
