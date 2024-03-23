@@ -32,6 +32,7 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
+          key: MainScreenViewModel.scaffoldKey,
           body: ProfilePage(
             key: const Key('Profile Page'),
             homeModel: mainScreenViewModel,
@@ -88,13 +89,13 @@ void main() async {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
       expect(find.byType(RefreshIndicator), findsOneWidget);
       await tester.drag(
         find.byKey(const Key('profilepic')),
         const Offset(0, 300),
       );
-      await tester.pump();
+      await tester.pumpAndSettle();
     });
     testWidgets('check if invitebutton work', (tester) async {
       await tester.pumpWidget(
@@ -105,6 +106,16 @@ void main() async {
       await tester.pump();
       await tester.tap(find.byKey(const Key('inviteicon')));
       await tester.pump();
+    });
+    testWidgets('check if left drawer works', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
     });
     testWidgets('check if Donate button work', (tester) async {
       await tester.pumpWidget(
@@ -150,6 +161,33 @@ void main() async {
       expect(find.byType(ContainedTabBarView), findsOneWidget);
       await tester.tap(find.text('Events'));
       await tester.pump();
+    });
+    testWidgets('Test donate bottom sheet', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ContainedTabBarView), findsOneWidget);
+      final orgDonateBtn = find.text('Donate to the Community');
+      expect(orgDonateBtn, findsOneWidget);
+      await tester.tap(orgDonateBtn);
+      await tester.pumpAndSettle();
+
+      final txtfield = find.byKey(const Key('custom_amt'));
+      await tester.enterText(txtfield, '25');
+      await tester.pump();
+
+      final donateBtn = find.byKey(const Key('DONATE'));
+      await tester.ensureVisible(donateBtn);
+      await tester.pumpAndSettle();
+      await tester.tap(donateBtn);
+
+      final currencyBtn = find.byKey(const Key('currency_btn'));
+      await tester.tap(currencyBtn);
+      await tester.pumpAndSettle();
     });
   });
 }
