@@ -149,6 +149,7 @@ class OrganizationFeedViewModel extends BaseModel {
     if (isTest) {
       istest = true;
     }
+    _isFetchingPosts = false;
   }
 
   // /// initializing the demo data.
