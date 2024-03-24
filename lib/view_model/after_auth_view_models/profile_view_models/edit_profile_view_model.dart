@@ -17,13 +17,6 @@ class EditProfilePageViewModel extends BaseModel {
   final user = userConfig.currentUser;
   late MultiMediaPickerService _multiMediaPickerService;
 
-  MultiMediaPickerService get multiMediaPickerService =>
-      _multiMediaPickerService;
-
-  set multiMediaPickerService(MultiMediaPickerService value) {
-    _multiMediaPickerService = value;
-  }
-
   /// profile image.
   late File? imageFile;
 
