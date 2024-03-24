@@ -1,2 +1,3 @@
-/.github/ @palisadoes
-CODEOWNERS @palisadoes
+* @palisadoes @noman2002
+# /.github/ @palisadoes
+# CODEOWNERS @palisadoes
