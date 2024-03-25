@@ -33,7 +33,7 @@ class PostService {
   //Stream for individual post update
   final StreamController<Post> _updatedPostStreamController =
       StreamController<Post>();
-  late Stream<Post> _updatedPostStream; 
+  late Stream<Post> _updatedPostStream;
 
   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
