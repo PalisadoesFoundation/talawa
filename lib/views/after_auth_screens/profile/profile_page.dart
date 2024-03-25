@@ -1,7 +1,7 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:flutter_braintree/flutter_braintree.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
@@ -156,13 +156,19 @@ class ProfilePage extends StatelessWidget {
                           width: double.infinity,
                           child: ContainedTabBarView(
                             tabs: [
-                              const Tab(
-                                text: 'Posts',
-                                key: Key('UserpostTab'),
+                              Tab(
+                                text: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Posts',
+                                ),
+                                key: const Key('UserpostTab'),
                               ),
-                              const Tab(
-                                text: 'Events',
-                                key: Key('UserEventsTab'),
+                              Tab(
+                                text: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Events',
+                                ),
+                                key: const Key('UserEventsTab'),
                               ),
                             ],
                             views: [
@@ -261,7 +267,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Text(
                           AppLocalizations.of(context)!
-                              .strictTranslate('Please Select any amount'),
+                              .strictTranslate('Please select any amount'),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
@@ -285,7 +291,9 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         Text(
-                          'Or',
+                          AppLocalizations.of(context)!.strictTranslate(
+                            'Or',
+                          ),
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
@@ -302,6 +310,7 @@ class ProfilePage extends StatelessWidget {
                             horizontal: SizeConfig.screenWidth! * 0.05,
                           ),
                           child: TextField(
+                            key: const Key('custom_amt'),
                             controller: model.donationAmount,
                             focusNode: model.donationField,
                             textInputAction: TextInputAction.next,
@@ -320,6 +329,7 @@ class ProfilePage extends StatelessWidget {
                               labelStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               prefixIcon: GestureDetector(
+                                key: const Key('currency_btn'),
                                 onTap: () {
                                   model.changeCurrency(context, setState);
                                 },
@@ -370,69 +380,70 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         ElevatedButton(
+                          key: const Key('DONATE'),
                           onPressed: () async {
                             ///required fields for donation transaction
-                            late final String userId;
-                            late final String orgId;
-                            late final String nameOfOrg;
-                            late final String nameOfUser;
-                            late final String payPalId;
-                            late final double amount;
-                            orgId = model.currentOrg.id!;
-                            userId = model.currentUser.id!;
-                            nameOfUser =
-                                "${model.currentUser.firstName!} ${model.currentUser.lastName!}";
-                            nameOfOrg = model.currentOrg.name!;
+                            // late final String userId;
+                            // late final String orgId;
+                            // late final String nameOfOrg;
+                            // late final String nameOfUser;
+                            // late final String payPalId;
+                            // late final double amount;
+                            // orgId = model.currentOrg.id!;
+                            // userId = model.currentUser.id!;
+                            // nameOfUser =
+                            //     "${model.currentUser.firstName!} ${model.currentUser.lastName!}";
+                            // nameOfOrg = model.currentOrg.name!;
 
-                            amount = double.parse(model.donationAmount.text);
-                            final request = BraintreeDropInRequest(
-                              tokenizationKey:
-                                  '<YOUR_BRAINTREE_SANDBOX_API_KEY>',
-                              collectDeviceData: true,
-                              paypalRequest: BraintreePayPalRequest(
-                                amount: model.donationAmount.text,
-                                displayName: "Talawa",
-                              ),
-                              cardEnabled: true,
-                            );
+                            // amount = double.parse(model.donationAmount.text);
+                            // final request = BraintreeDropInRequest(
+                            //   tokenizationKey:
+                            //       '<YOUR_BRAINTREE_SANDBOX_API_KEY>',
+                            //   collectDeviceData: true,
+                            //   paypalRequest: BraintreePayPalRequest(
+                            //     amount: model.donationAmount.text,
+                            //     displayName: "Talawa",
+                            //   ),
+                            //   cardEnabled: true,
+                            // );
 
-                            final BraintreeDropInResult? result =
-                                await BraintreeDropIn.start(request);
-                            if (result != null) {
-                              ///saving the donation in server
-                              late final GraphQLClient client =
-                                  graphqlConfig.clientToQuery();
+                            // final BraintreeDropInResult? result =
+                            //     await BraintreeDropIn.start(request);
+                            // if (result != null) {
+                            //   ///saving the donation in server
+                            //   late final GraphQLClient client =
+                            //       graphqlConfig.clientToQuery();
 
-                              ///getting transaction id from `brainTree` API
-                              payPalId = result.paymentMethodNonce.nonce;
+                            //   ///getting transaction id from `brainTree` API
+                            //   payPalId = result.paymentMethodNonce.nonce;
 
-                              final QueryResult donationResult =
-                                  await client.mutate(
-                                MutationOptions(
-                                  document: gql(
-                                    queries.createDonation(
-                                      userId,
-                                      orgId,
-                                      nameOfOrg,
-                                      nameOfUser,
-                                      payPalId,
-                                      amount,
-                                    ),
-                                  ),
-                                ),
-                              );
-                              if (donationResult.hasException) {
-                                model.showSnackBar(
-                                  "Error occurred while making a donation",
-                                );
-                              }
+                            //   final QueryResult donationResult =
+                            //       await client.mutate(
+                            //     MutationOptions(
+                            //       document: gql(
+                            //         queries.createDonation(
+                            //           userId,
+                            //           orgId,
+                            //           nameOfOrg,
+                            //           nameOfUser,
+                            //           payPalId,
+                            //           amount,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   );
+                            //   if (donationResult.hasException) {
+                            //     model.showSnackBar(
+                            //       "Error occurred while making a donation",
+                            //     );
+                            //   }
 
-                              /// hiding the donation UI once it is successful
-                              model.popBottomSheet();
-                              model.showSnackBar(
-                                'Donation Successful,Thanks for the support !',
-                              );
-                            }
+                            //   /// hiding the donation UI once it is successful
+                            //   model.popBottomSheet();
+                            //   model.showSnackBar(
+                            //     'Donation Successful,Thanks for the support !',
+                            //   );
+                            // }
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -444,7 +455,9 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'DONATE',
+                            AppLocalizations.of(context)!.strictTranslate(
+                              'DONATE',
+                            ),
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),

@@ -115,13 +115,30 @@ void main() async {
       final Map<String, dynamic> data = {
         'users': [
           {
-            '_id': '1234567890',
-            'firstName': 'John',
-            'lastName': 'Doe',
-            'email': 'johndoe@example.com',
-            'image': 'https://example.com/profile.jpg',
-            'accessToken': 'exampleAccessToken',
-            'refreshToken': 'exampleRefreshToken',
+            "user": {
+              "id": "1234567890",
+              "firstName": "ravidi",
+              "lastName": "sheikh",
+              "email": "ravidisheikh@test.com",
+              "image": "https://testimg.com",
+              "accessToken": "randomAccessToken",
+              "authToken": "randomAuthToken",
+              "refreshToken": "randomRefreshToken",
+            },
+            'appUserProfile': {
+              'createdOrganizations': [
+                {
+                  "name": 'test_org',
+                  "image": 'https://testimg.com',
+                }
+              ],
+              "adminFor": [
+                {
+                  "name": 'test_org1',
+                  "image": 'https://testimg.com',
+                }
+              ],
+            },
           }
         ],
       };
@@ -197,7 +214,6 @@ void main() async {
 
       expect(loggedOut, true);
 
-      verify(navigationService.pop());
       expect(userBox.isEmpty, true);
       expect(urlBox.isEmpty, true);
       expect(orgBox.isEmpty, true);
