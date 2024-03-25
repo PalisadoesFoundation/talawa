@@ -89,7 +89,6 @@ class UserConfig {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
-
     databaseFunctions.initClientNonAuth();
     await sessionManager.refreshSession();
     // generate access token
@@ -102,16 +101,14 @@ class UserConfig {
         final List users = result.data!['users'] as List;
         final User userInfo = User.fromJson(
           users[0] as Map<String, dynamic>,
-          fromOrg: true,
+          fromOrg: false,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
         userConfig.updateUser(userInfo);
         _currentOrg ??= _currentUser!.joinedOrganizations![0];
         _currentOrgInfoController.add(_currentOrg!);
-
         saveUserInHive();
-
         return true;
       } on Exception catch (e) {
         print(e);
@@ -132,11 +129,11 @@ class UserConfig {
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.
   Future<bool> userLogOut() async {
+    bool isLogOutSuccessful = false;
     try {
       final result = await databaseFunctions.gqlAuthMutation(queries.logout())
           as QueryResult?;
       if (result != null && result.data!['logout'] == true) {
-        navigationService.pop();
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('LogoutProgress'),
@@ -161,11 +158,12 @@ class UserConfig {
         // }
         await organisation.clear();
         _currentUser = User(id: 'null', authToken: 'null');
+        isLogOutSuccessful = true;
       }
     } catch (e) {
-      return false;
+      isLogOutSuccessful = false;
     }
-    return true;
+    return isLogOutSuccessful;
   }
 
   /// Updates the user joined organization.

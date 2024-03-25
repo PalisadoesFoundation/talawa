@@ -143,9 +143,15 @@ class DemoProfilePage extends StatelessWidget {
             width: double.infinity,
             child: ContainedTabBarView(
               tabs: [
-                const Tab(text: 'Posts'),
-                const Tab(text: 'Events'),
-                const Tab(text: 'Tasks'),
+                Tab(
+                  text: AppLocalizations.of(context)!.strictTranslate('Posts'),
+                ),
+                Tab(
+                  text: AppLocalizations.of(context)!.strictTranslate('Events'),
+                ),
+                Tab(
+                  text: AppLocalizations.of(context)!.strictTranslate('Tasks'),
+                ),
               ],
               views: [
                 ColoredBox(
