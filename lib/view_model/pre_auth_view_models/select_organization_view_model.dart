@@ -220,7 +220,7 @@ class SelectOrganizationViewModel extends BaseModel {
       } on Exception catch (e) {
         print(e);
         navigationService.showTalawaErrorSnackBar(
-          'SomeThing went wrong',
+          'Something went wrong',
           MessageType.error,
         );
       }

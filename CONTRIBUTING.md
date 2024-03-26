@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to Talawa. Regardless of the size of the contribution you make, all contributions are welcome and are appreciated.
 
-If you are new to contributing to open source, please read the Open Source Guides on [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
+If you are new to contributing to open source, please read the Open Source Guides on [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/). 
 
 ## Table of Contents
 
@@ -27,7 +27,7 @@ If you are new to contributing to open source, please read the Open Source Guide
 
 A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
 
-No one should fear voicing their opinion. Respones must be respectful.
+No one should fear voicing their opinion. Respones must be respectful to help them.
 
 ## Ways to Contribute
 

@@ -15,6 +15,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/recurrence_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -173,9 +174,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byIcon(Icons.restore));
-      await tester.pumpAndSettle();
-
       const List<String> frequencies = [
         "Does not repeat",
         "Every day",
@@ -185,14 +183,25 @@ void main() {
         "Custom...",
       ];
 
-      final customButtonFinder = find.text("Custom...");
+      String prev = frequencies[0];
+      for (int i = 1; i < 5; i++) {
+        expect(find.text(prev), findsAny);
+        await tester.tap(find.text(prev));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text(frequencies[i]).last);
+        await tester.pumpAndSettle();
+        expect(find.byType(ShowRecurrenceDialog), findsNothing);
+        expect(find.text(frequencies[i]), findsOneWidget);
+        prev = frequencies[i];
+      }
 
-      await tester.tap(customButtonFinder);
+      expect(find.text(prev), findsAny);
+      await tester.tap(find.text(prev));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(frequencies[5]));
       await tester.pumpAndSettle();
 
-      for (final frequency in frequencies) {
-        expect(find.text(frequency), findsAny);
-      }
+      expect(find.byType(ShowRecurrenceDialog), findsNothing);
     });
 
     testWidgets("Checking tap Inkwell for setDate 2 datetime", (tester) async {
@@ -346,7 +355,7 @@ void main() {
       await tester.pump();
     });
 
-    testWidgets("Testing Keep public section", (tester) async {
+    testWidgets("Testing All day section", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
           theme: TalawaTheme.lightTheme,
@@ -356,27 +365,27 @@ void main() {
       final appLocalization = AppLocalizations.of(
         navigationService.navigatorKey.currentContext!,
       );
-      final keepPublicText = find.descendant(
+      final allDayText = find.descendant(
         of: find.byType(Row),
         matching: find.text(
-          appLocalization!.strictTranslate('Keep Public'),
+          appLocalization!.strictTranslate('All day'),
         ),
       );
       final switches = find.descendant(
         of: find.byType(Row),
         matching: find.byType(Switch),
       );
-      expect(keepPublicText, findsOneWidget);
-      expect(switches, findsNWidgets(2));
+      expect(allDayText, findsOneWidget);
+      expect(switches, findsNWidgets(3));
       expect(
-        (tester.widget(keepPublicText) as Text?)?.style!.fontSize,
+        (tester.widget(allDayText) as Text?)?.style!.fontSize,
         16,
       );
-      expect((tester.firstWidget(switches) as Switch).value, true);
-      await tester.ensureVisible(switches.first);
-      await tester.tap(switches.first);
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(0));
       await tester.pumpAndSettle();
-      expect((tester.firstWidget(switches) as Switch).value, false);
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, false);
     });
 
     testWidgets("Testing Keep Registerable section", (tester) async {
@@ -400,7 +409,7 @@ void main() {
         matching: find.byType(Switch),
       );
       expect(keepRegisterableText, findsOneWidget);
-      expect(switches, findsNWidgets(2));
+      expect(switches, findsNWidgets(3));
       expect(
         (tester.widget(keepRegisterableText) as Text?)?.style!.fontSize,
         16,
@@ -410,6 +419,39 @@ void main() {
       await tester.tap(switches.at(1));
       await tester.pumpAndSettle();
       expect((tester.widgetList(switches).toList()[1] as Switch).value, false);
+    });
+
+    testWidgets("Testing Keep public section", (tester) async {
+      await tester.pumpWidget(
+        createEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+      final appLocalization = AppLocalizations.of(
+        navigationService.navigatorKey.currentContext!,
+      );
+      final keepPublicText = find.descendant(
+        of: find.byType(Row),
+        matching: find.text(
+          appLocalization!.strictTranslate('Keep Public'),
+        ),
+      );
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(keepPublicText, findsOneWidget);
+      expect(switches, findsNWidgets(3));
+      expect(
+        (tester.widget(keepPublicText) as Text?)?.style!.fontSize,
+        16,
+      );
+      expect((tester.widgetList(switches).toList()[2] as Switch).value, true);
+      await tester.ensureVisible(switches.at(2));
+      await tester.tap(switches.at(2));
+      await tester.pumpAndSettle();
+      expect((tester.widgetList(switches).toList()[2] as Switch).value, false);
     });
 
     // testWidgets("Checking tap Inkwell work for admin list", (tester) async {
