@@ -14,8 +14,8 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edi
 
 import '../../../helpers/test_helpers.dart';
 
-class MockMultiMediaPickerService extends Mock
-    implements MultiMediaPickerService {}
+// class MockMultiMediaPickerService extends Mock
+//     implements MultiMediaPickerService {}
 
 void main() {
   setupLocator();
@@ -27,12 +27,13 @@ void main() {
   //     () => DataBaseMutationFunctions());
   group('EditProfilePageViewModel Tests', () {
     late EditProfilePageViewModel viewModel;
-    late MockMultiMediaPickerService mockMultiMediaPickerService;
+    // late MockMultiMediaPickerService mockMultiMediaPickerService;
+    locator<MultiMediaPickerService>();
 
     setUp(() {
-      mockMultiMediaPickerService = MockMultiMediaPickerService();
+      // mockMultiMediaPickerService = MockMultiMediaPickerService();
       viewModel = EditProfilePageViewModel();
-      viewModel.multiMediaPickerService = mockMultiMediaPickerService;
+      // viewModel.multiMediaPickerService = mockMultiMediaPickerService;
     });
 
     test('Initialization Test', () {
