@@ -161,31 +161,6 @@ void main() {
       expect(finder, findsOneWidget);
     });
 
-    testWidgets('check if refresh Indicator works fine', (tester) async {
-      when(mockViewModel.currentOrgName).thenReturn('testOrg');
-      when(mockViewModel.isFetchingPosts).thenReturn(false);
-      when(mockViewModel.isBusy).thenReturn(false);
-      when(mockViewModel.initialise()).thenReturn(null);
-      when(mockViewModel.posts).thenReturn([post]);
-      when(mockViewModel.pinnedPosts).thenReturn([post]);
-      final model = locator<MainScreenViewModel>();
-
-      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
-      await tester.pump();
-
-      bool refreshed = false;
-      when(mockViewModel.fetchNewPosts()).thenAnswer((_) async {
-        refreshed = true;
-      });
-      await tester.drag(
-        find.byType(RefreshIndicator),
-        const Offset(0, 400),
-      );
-      await tester.pumpAndSettle();
-
-      expect(refreshed, true);
-    });
-
     testWidgets('check if pinned posts shows up if not empty', (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);

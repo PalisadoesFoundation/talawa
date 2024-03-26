@@ -205,7 +205,7 @@ class MainScreenViewModel extends BaseModel {
   /// Contains the Widgets to be rendered for corresponding navbar items.
   ///
   /// Features that should be implemented as plugins should be kept here.
-  List<StatelessWidget> pages = [];
+  List<Widget> pages = [];
 
   /// Actual [BottomNavigationBarItem]s that show up on the screen.
   List<BottomNavigationBarItem> navBarItems = [];
