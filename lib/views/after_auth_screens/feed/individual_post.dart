@@ -11,7 +11,7 @@ import 'package:talawa/widgets/post_widget.dart';
 // Global State, should be removed in next few iterations
 
 /// Comment view model.
-late CommentsViewModel _commentViewModel;
+CommentsViewModel _commentViewModel = CommentsViewModel();
 
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
@@ -284,35 +284,38 @@ class CommentTemplate extends StatelessWidget {
 /// * `Widget`: Circle Avatar of the user who liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
   return BaseView<LikeButtonViewModel>(
-    onModelReady: (model) async {
-      await model.fetchLikedByUser(user.sId ?? "");
+    builder: (context, model, child) {
+      final String imgUrl = model.likedByUser.image ?? "";
+      return Padding(
+        padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            CircleAvatar(
+              backgroundImage: imgUrl.isNotEmpty
+                  ? NetworkImage(
+                      imgUrl,
+                    )
+                  : const AssetImage("assets/images/userImg.jpg")
+                      as ImageProvider,
+              backgroundColor: const Color(0xfff2f2f2),
+              radius: 20,
+            ),
+            const Positioned(
+              top: 30,
+              right: 0,
+              bottom: 20,
+              left: 20,
+              child: Icon(
+                Icons.thumb_up,
+                color: Colors.blue,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
+      );
     },
-    builder: (context, model, child) => Padding(
-      padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              model.likedByUser.image ?? "assets/images/userImg.jpg",
-            ),
-            backgroundColor: const Color(0xfff2f2f2),
-            radius: 20,
-          ),
-          const Positioned(
-            top: 30,
-            right: 0,
-            bottom: 20,
-            left: 20,
-            child: Icon(
-              Icons.thumb_up,
-              color: Colors.blue,
-              size: 20,
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }

@@ -23,12 +23,12 @@ class LikeButtonViewModel extends BaseModel {
   // Local Variables for session caching
   bool _isLiked = false;
   late User _user;
-  late User _likedByUser;
+  User _likedByUser = User();
   List<LikedBy> _likedBy = [];
   late String _postID;
 
   // ignore: unused_field
-  late StreamSubscription _updatePostSubscription;
+  StreamSubscription? _updatePostSubscription;
 
   ///Getters.
   bool get isLiked => _isLiked;
@@ -116,6 +116,6 @@ class LikeButtonViewModel extends BaseModel {
   @override
   // ignore: must_call_super
   void dispose() {
-    _updatePostSubscription.cancel();
+    _updatePostSubscription?.cancel();
   }
 }
