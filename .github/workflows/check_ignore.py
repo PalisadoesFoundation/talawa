@@ -175,17 +175,17 @@ def main():
             err.append(filepath)
 
     # If no changed/modified contains ignore directive for any custom lint rule
-    # if len(err) == 0:
-    #     print(
-    #         '''🚀 {} Hurrah! No ignore directive found in any modified/added file(s)'''.format('\033[92m'))
-    #     sys.exit(0)
-    # else:
-    #     print(
-    #         '''🔍 {}Ignore directive for custom lint rule found. Please remove them and add valid documentation.'''.format(
-    #             '\033[91m'))
-    #     for failing_file in err:
-    #         print('''>>> File name: {}\n'''.format(failing_file))
-    #     sys.exit(1)
+    if len(err) == 0:
+        print(
+            '''🚀 {} Hurrah! No ignore directive found in any modified/added file(s)'''.format('\033[92m'))
+        sys.exit(0)
+    else:
+        print(
+            '''🔍 {}Ignore directive for custom lint rule found. Please remove them and add valid documentation.'''.format(
+                '\033[91m'))
+        for failing_file in err:
+            print('''>>> File name: {}\n'''.format(failing_file))
+        sys.exit(1)
 
 
 if __name__ == '__main__':
