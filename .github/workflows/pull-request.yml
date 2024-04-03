@@ -181,3 +181,68 @@ jobs:
         run: |
           echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
           exit 1
+
+  Check-Unauthorized-Changes:
+    name: Checks if no unauthorized files are changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Changed Unauthorized files
+        id: changed-unauth-files
+        uses: tj-actions/changed-files@v40
+        with:
+          files: |
+            .github/**
+            env.example
+            .node-version
+            .husky/**
+            scripts/**
+            package.json
+            tsconfig.json
+            .gitignore
+            .eslintrc.json
+            .eslintignore
+            vite.config.ts
+            docker-compose.yaml
+            Dockerfile
+            CODEOWNERS
+            LICENSE
+            setup.ts
+      - name: List all changed unauthorized files
+        if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
+        env:
+          CHANGED_UNAUTH_FILES: ${{ steps.changed-unauth-files.outputs.all_changed_files }}
+        run: |
+          for file in ${CHANGED_UNAUTH_FILES}; do
+            echo "$file is unauthorized to change/delete"
+          done
+          exit 1
+
+  Count-Changed-Files:
+    name: Checks if number of files changed is acceptable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+
+      - name: Echo number of changed files
+        env:
+          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
+        run: |
+          echo "Number of files changed: $CHANGED_FILES_COUNT"
+      - name: Check if the number of changed files is less than 100
+        if: steps.changed-files.outputs.all_changed_files_count > 100
+        env:
+          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
+        run: |
+          echo "Error: Too many files (greater than 100) changed in the pull request."
+          echo "Possible issues:"
+          echo "- Contributor may be merging into an incorrect branch."
+          echo "- Source branch may be incorrect please use develop as source branch."
+          exit 1
