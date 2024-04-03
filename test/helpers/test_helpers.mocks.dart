@@ -2831,7 +2831,23 @@ class MockOrganizationFeedViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  void nextPage() => super.noSuchMethod(
+        Invocation.method(
+          #nextPage,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 
+  @override
+  void previousPage() => super.noSuchMethod(
+        Invocation.method(
+          #previousPage,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
   @override
   void initialise({bool? isTest = false}) => super.noSuchMethod(
         Invocation.method(

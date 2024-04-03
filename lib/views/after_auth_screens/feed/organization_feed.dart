@@ -91,13 +91,10 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                   onRefresh: () async => model.fetchNewPosts(),
                   child: NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
-                      final maxScroll =
-                          _scrollController.position.maxScrollExtent;
                       final currentScroll = _scrollController.position.pixels;
 
                       if (notification is ScrollEndNotification &&
-                          notification.metrics.atEdge &&
-                          currentScroll >= maxScroll) {
+                          notification.metrics.atEdge) {
                         if (firstDownScroll > 0) {
                           model.nextPage();
                           firstDownScroll = 0;
@@ -121,10 +118,11 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                         firstUpScroll = 0;
                       }
 
-                      return true;
+                      return false;
                     },
                     child: ListView(
                       controller: _scrollController,
+                      key: const Key('listView'),
                       shrinkWrap: true,
                       children: [
                         // Always show PinnedPost if available
