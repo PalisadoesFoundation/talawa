@@ -273,7 +273,7 @@ void main() {
         find.byKey(const Key('listView')),
         const Offset(0, 10),
       );
-    
+
       await tester.drag(
         find.byKey(const Key('listView')),
         const Offset(10, 20),
