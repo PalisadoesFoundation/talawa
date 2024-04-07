@@ -160,13 +160,13 @@ void main() {
       final finder = find.byType(CircularProgressIndicator);
       expect(finder, findsOneWidget);
     });
-
-    testWidgets('check if refresh Indicator works fine', (tester) async {
+    testWidgets("check if the refresh indicator works fine", (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.isBusy).thenReturn(false);
       when(mockViewModel.initialise()).thenReturn(null);
-      when(mockViewModel.posts).thenReturn([post]);
+      when(mockViewModel.posts)
+          .thenReturn([post, post, post, post, post, post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
       final model = locator<MainScreenViewModel>();
 
@@ -185,7 +185,6 @@ void main() {
 
       expect(refreshed, true);
     });
-
     testWidgets('check if pinned posts shows up if not empty', (tester) async {
       when(mockViewModel.currentOrgName).thenReturn('testOrg');
       when(mockViewModel.isFetchingPosts).thenReturn(false);
@@ -250,6 +249,40 @@ void main() {
       expect(finder, findsOneWidget);
       await tester.tap(finder);
       await tester.pumpAndSettle();
+    });
+    testWidgets(
+        'check if nextPage function is called when scrolled to the bottom edge',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.posts)
+          .thenReturn([post, post, post, post, post, post]);
+      when(mockViewModel.pinnedPosts).thenReturn([post]);
+      bool nextPageCalled = false;
+      when(mockViewModel.nextPage()).thenAnswer((_) async {
+        nextPageCalled = true;
+      });
+
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pumpAndSettle();
+
+      await tester.drag(
+        find.byKey(const Key('listView')),
+        const Offset(0, 10),
+      );
+
+      await tester.drag(
+        find.byKey(const Key('listView')),
+        const Offset(10, 20),
+      );
+      print(nextPageCalled);
+      // Verify that nextPage function is called
+      expect(nextPageCalled, true);
+      verify(mockViewModel.nextPage()).called(1);
+      verify(mockViewModel.previousPage()).called(1);
     });
   });
 }
