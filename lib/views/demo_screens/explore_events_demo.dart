@@ -200,30 +200,57 @@ class DemoExploreEvents extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: const Alignment(0.9, 0.9),
+            child: Container(
+              child: FloatingActionButton.extended(
+                key: homeModel?.keySEAdd,
+                heroTag: "AddEventFab",
+                backgroundColor: Theme.of(context).colorScheme.background,
+                onPressed: () {
+                  navigationService.pushScreen(
+                    "/createEventPage",
+                  );
+                },
+                icon: Icon(
+                  Icons.add,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                label: Text(
+                  AppLocalizations.of(context)!.strictTranslate("Event"),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.secondary),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
 
-      floatingActionButton: FloatingActionButton.extended(
-        key: homeModel?.keySEAdd,
-        heroTag: "AddEventFab",
-        backgroundColor: Theme.of(context).colorScheme.background,
-        onPressed: () {
-          navigationService.pushScreen(
-            "/createEventPage",
-          );
-        },
-        icon: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        label: Text(
-          AppLocalizations.of(context)!.strictTranslate("Event"),
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .copyWith(color: Theme.of(context).colorScheme.secondary),
-        ),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   key: homeModel?.keySEAdd,
+      //   heroTag: "AddEventFab",
+      //   backgroundColor: Theme.of(context).colorScheme.background,
+      //   onPressed: () {
+      //     navigationService.pushScreen(
+      //       "/createEventPage",
+      //     );
+      //   },
+      //   icon: Icon(
+      //     Icons.add,
+      //     color: Theme.of(context).colorScheme.secondary,
+      //   ),
+      //   label: Text(
+      //     AppLocalizations.of(context)!.strictTranslate("Event"),
+      //     style: Theme.of(context)
+      //         .textTheme
+      //         .headlineSmall!
+      //         .copyWith(color: Theme.of(context).colorScheme.secondary),
+      //   ),
+      // ),
     );
   }
 
