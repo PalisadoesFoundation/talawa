@@ -137,8 +137,8 @@ def _check_for_ignore_directive(filePath):
                  or (content[0] == 'ignore_for_file:' and content[1] == 'talawa_good_doc_comments')
                     or (content[0] == 'ignore:' and content[1] == 'talawa_good_doc_comments')))):
 
-                # print(("Ignore directive found at line {}, which suppresses a custom lint rule.\n"
-                #     "Please remove this suppression and add valid documentation for the respective field(s).").format(index))
+                print(("Ignore directive found at line {}, which suppresses a custom lint rule.\n"
+                    "Please remove this suppression and add valid documentation for the respective field(s).").format(index))
 
                 return True
 

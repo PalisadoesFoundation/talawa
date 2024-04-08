@@ -137,7 +137,7 @@ class AppLanguage extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> selectLanguagePress() async {
-    if (userConfig.loggedIn) {
+    if (userConfig.currentUser.id != 'null') {
       dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {

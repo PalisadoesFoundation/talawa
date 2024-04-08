@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
                                         .strictTranslate(
-                                      '  join an organization.',
+                                      'join an organization.',
                                     ),
                                     style: TextStyle(
                                       color: Theme.of(context)

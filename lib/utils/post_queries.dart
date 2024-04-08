@@ -4,36 +4,61 @@ class PostQueries {
   ///
   /// **params**:
   /// * `orgId`: The organisation id
+  /// * `after`: The cursor after which the posts are to be fetched
+  /// * `before`: The cursor before which the posts are to be fetched
+  /// * `first`: The number of posts to be fetched from the start
+  /// * `last`: The number of posts to be fetched from the end
   ///
   /// **returns**:
   /// * `String`: The query related to gettingPostsbyId
-  String getPostsById(String orgId) {
+  String getPostsById(
+    String orgId,
+    String? after,
+    String? before,
+    int? first,
+    int? last,
+  ) {
+    print(after);
+    final String? afterValue = after != null ? '"$after"' : null;
+    final String? beforeValue = before != null ? '"$before"' : null;
+
     return """
       query {
-        postsByOrganization(id: "$orgId",orderBy: createdAt_DESC )
-        { 
-          _id
-          text
-          createdAt
-          imageUrl
-          videoUrl
-          title
-          commentCount
-          likeCount
-          creator{
+        organizations(id: "$orgId") {
+          posts(first: $first, last:$last,after:  $afterValue, before: $beforeValue) { 
+          edges {
+          node {
             _id
-            firstName
-            lastName
-            image
-          }
-          organization{
-            _id
-          }
-          likedBy{
+            title
+            text
+            imageUrl
+            videoUrl
+            creator {
+              _id
+              firstName
+              lastName
+              email
+            }
+            createdAt
+            likeCount
+            commentCount
+              likedBy{
             _id
           }
           comments{
             _id
+          }
+            pinned
+          }
+          cursor
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
+        totalCount
           }
         }
       }
@@ -189,7 +214,7 @@ class PostQueries {
   /// **returns**:
   /// * `String`: query is returned
   String removePost() {
-    return '''   
+    return '''
     mutation RemovePost(\$id: ID!) {
       removePost(id: \$id) {
         _id

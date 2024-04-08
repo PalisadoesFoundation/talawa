@@ -7,6 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -100,7 +101,7 @@ void main() {
       await model.initialize();
 
       // consider if user is not logged in.
-      when(userConfig.loggedIn).thenReturn(false);
+      when(userConfig.currentUser).thenReturn(User(id: 'null'));
 
       when(
         navigationService.pushScreen(
@@ -126,7 +127,7 @@ void main() {
       );
 
       // consider if user is logged in.
-      when(userConfig.loggedIn).thenReturn(true);
+      when(userConfig.currentUser).thenReturn(User(id: 'xyz1'));
 
       when(
         navigationService.popAndPushScreen(
