@@ -17,7 +17,6 @@ void main() {
           isPublic
           isRegisterable
           recurring
-          recurrance
           startDate
           endDate
           allDay

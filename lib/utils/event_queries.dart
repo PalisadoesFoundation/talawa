@@ -25,7 +25,6 @@ class EventQueries {
           isPublic
           isRegisterable
           recurring
-          recurrance
           startDate
           endDate
           allDay
