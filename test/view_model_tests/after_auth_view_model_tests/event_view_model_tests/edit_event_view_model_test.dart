@@ -14,10 +14,10 @@ import '../../../helpers/test_helpers.dart';
 final testEvent = Event(
   id: '1',
   title: 'test',
-  startDate: '01/30/2022', // mm/dd/yyyy
-  endDate: '01/30/2022',
-  startTime: '06:40 PM',
-  endTime: '07:40 PM',
+  startDate: '2024-01-30', // yyyy-MM-dd
+  endDate: '2024-01-30',
+  startTime: '06:40:00',
+  endTime: '06:40:00',
   location: 'ABC',
   description: 'test',
   creator: User(
@@ -47,15 +47,18 @@ void main() {
       expect(model.eventDescriptionTextController.text, 'test');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
-      expect(model.eventStartDate, DateFormat().add_yMd().parse('01/30/2022'));
-      expect(model.eventEndDate, DateFormat().add_yMd().parse('01/30/2022'));
+      expect(
+        model.eventStartDate,
+        DateFormat('yyyy-MM-dd').parse('2024-01-30'),
+      );
+      expect(model.eventEndDate, DateFormat('yyyy-MM-dd').parse('2024-01-30'));
       expect(
         model.eventStartTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('06:40 PM')),
+        TimeOfDay.fromDateTime(DateFormat("HH:mm:ss").parse("06:40:00")),
       );
       expect(
         model.eventEndTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('07:40 PM')),
+        TimeOfDay.fromDateTime(DateFormat("HH:mm:ss").parse("06:40:00")),
       );
     });
     testWidgets('Check if updateEvent() is working fine', (tester) async {

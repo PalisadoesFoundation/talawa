@@ -46,14 +46,14 @@ Widget editEventScreen({
             event: Event(
               id: '1',
               admins: [],
-              startDate: DateFormat('yMd').format(
+              startDate: DateFormat('yyyy-MM-dd').format(
                 DateTime(2021, 1, 1),
               ),
-              endDate: DateFormat('yMd').format(
+              endDate: DateFormat('yyyy-MM-dd').format(
                 DateTime(2022, 1, 1),
               ),
-              startTime: DateFormat('h:mm a').format(DateTime(2021, 1, 1)),
-              endTime: DateFormat('h:mm a').format(DateTime(2022, 1, 1)),
+              startTime: DateFormat('HH:mm:ss').format(DateTime(2021, 1, 1)),
+              endTime: DateFormat('HH:mm:ss').format(DateTime(2022, 1, 1)),
               isRegisterable: true,
               isPublic: true,
               isRegistered: true,
