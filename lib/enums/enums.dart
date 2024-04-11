@@ -1,25 +1,71 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-///This file contains different enums.
-///The enum keyword is used to define an enumeration type in Dart.
-/// The use case of enumeration is to store finite data members under the same type definition.
-
-/// Represents the state of the view
+/// Represents the state of the view.
 enum ViewState {
+  /// The view is not doing anything.
   idle,
+
+  /// The view is loading something.
   busy,
 }
 
-/// Represents the state of the chat
-enum ChatState { initial, loading, complete }
+/// Represents the state of the chat.
+enum ChatState {
+  /// The chat is at initial state.
+  initial,
 
-/// Represents the type of the tile
-enum TileType { user, org, option }
+  /// The chat is loading something.
+  loading,
 
-/// Represents the type of the Message
-enum MessageType { error, warning, info, random }
+  /// The chat state is complete.
+  complete
+}
 
-enum CallFor { login, signup, joinPublicOrg }
+/// Represents the type of the tile.
+enum TileType {
+  /// Represents the tile of the user.
+  user,
 
-enum ModalSheet { donation, invite }
+  /// Represents the tile of the attendee.
+  attendee,
+
+  /// Represents the tile of the organization.
+  org,
+
+  /// Represents the tile of the option.
+  option
+}
+
+/// Represents the type of the Message.
+enum MessageType {
+  /// Represents error message.
+  error,
+
+  /// Represents warning message.
+  warning,
+
+  /// Represents info message.
+  info,
+
+  /// Represents random message.
+  random
+}
+
+/// Represents the type of CallFor.
+enum CallFor {
+  /// Represents the call for login.
+  login,
+
+  /// Represents the call for signup.
+  signup,
+
+  /// Represents the call for joining Public organization.
+  joinPublicOrg
+}
+
+/// Represents the type of ModalSheet.
+enum ModalSheet {
+  /// Represents the modal sheet for donation.
+  donation,
+
+  /// Represents the modal sheet for invite.
+  invite
+}

@@ -244,9 +244,9 @@ class EventInfoBody extends StatelessWidget {
                       '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
                     ),
                     index: index,
-                    type: TileType.user,
-                    userInfo: model.attendees[index],
-                    onTapUserInfo: () {},
+                    type: TileType.attendee,
+                    attendeeInfo: model.attendees[index],
+                    onTapAttendeeInfo: () {},
                   );
                 },
               ),
