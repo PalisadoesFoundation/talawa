@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,7 +22,7 @@ Event getEvent({bool? isRegistered, bool isPublic = false}) {
     endTime: "08:15PM",
     isPublic: isPublic,
     isRegistered: isRegistered,
-    attendees: "96",
+    attendees: [Attendee(id: "attendee1")],
     creator: User(id: "ravidi"),
   );
 }
@@ -194,7 +191,7 @@ void main() {
           find.text("Testing for the Event Card Widget"),
           findsOneWidget,
         ); // event description
-        expect(find.text("96"), findsOneWidget);
+        expect(find.text("1"), findsOneWidget);
       });
     });
   });

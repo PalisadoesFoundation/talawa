@@ -1,6 +1,6 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -15,11 +15,13 @@ class CustomListTile extends StatelessWidget {
     required this.type,
     this.showIcon = false,
     this.orgInfo,
-    this.onTapOrgInfo,
     this.userInfo,
-    this.onTapUserInfo,
-    this.onTapOption,
+    this.attendeeInfo,
     this.option,
+    this.onTapOrgInfo,
+    this.onTapUserInfo,
+    this.onTapAttendeeInfo,
+    this.onTapOption,
   }) : super(key: key);
 
   /// Index int of tiles.
@@ -34,6 +36,9 @@ class CustomListTile extends StatelessWidget {
   /// Object containing all the necessary info regarding the user.
   final User? userInfo;
 
+  /// Object containing all the necessary info regarding the Attendee.
+  final Attendee? attendeeInfo;
+
   /// Object containing all the necessary info regarding the options.
   final Options? option;
 
@@ -43,6 +48,9 @@ class CustomListTile extends StatelessWidget {
   /// Function to handle the tap on user info.
   final Function()? onTapUserInfo;
 
+  /// Function to handle the tap on attendee info.
+  final Function()? onTapAttendeeInfo;
+
   /// Function to handle the tap on org info.
   final Function(OrgInfo)? onTapOrgInfo;
 
@@ -51,13 +59,31 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String text = '';
+    Function()? onTap;
+
+    switch (type) {
+      case TileType.org:
+        text = orgInfo!.name!;
+        onTap = () => onTapOrgInfo!(orgInfo!);
+        break;
+      case TileType.user:
+        text = '${userInfo!.firstName!} ${userInfo!.lastName!}';
+        onTap = onTapUserInfo;
+        break;
+      case TileType.attendee:
+        text = '${attendeeInfo!.firstName!} ${attendeeInfo!.lastName!}';
+        onTap = onTapAttendeeInfo;
+        break;
+      default:
+        text = option!.title;
+        onTap = onTapOption;
+        break;
+    }
+
     return InkWell(
       // checking whether the tapped tile is of user or org.
-      onTap: () => type == TileType.org
-          ? onTapOrgInfo!(orgInfo!)
-          : type == TileType.user
-              ? onTapUserInfo!()
-              : onTapOption!(),
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
@@ -75,17 +101,13 @@ class CustomListTile extends StatelessWidget {
                     horizontal: 25,
                   ),
                   child: Text(
-                    type == TileType.org
-                        ? orgInfo!.name!
-                        : type == TileType.user
-                            ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
-                            : option!.title,
+                    text,
                     style: type == TileType.org
                         ? Theme.of(context)
                             .textTheme
                             .headlineSmall!
                             .copyWith(fontSize: 18, color: Colors.black)
-                        : type == TileType.user
+                        : type == TileType.user || type == TileType.attendee
                             ? Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -107,7 +129,7 @@ class CustomListTile extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: type != TileType.user
+                child: type != TileType.user && type != TileType.attendee
                     ? type == TileType.org
                         ? Icon(
                             !orgInfo!.userRegistrationRequired!
