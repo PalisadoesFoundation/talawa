@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
@@ -8,39 +5,81 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// EditEventViewModel class have methods to interact with model in
-/// the context of editing the event in the organization.
+/// `EditEventViewModel` is a class that extends `BaseModel`.
 ///
-/// Methods include:
-/// * `updateEvent` : to update an event.
+/// It provides methods and properties to manage the state and behavior of the Edit Event view.
+/// This includes text controllers for event details, focus nodes for form fields, and methods to initialize and update events.
+///
+/// The class uses the `EventService` to perform operations related to events.
 class EditEventViewModel extends BaseModel {
   late Event _event;
+
+  /// Controller for the title of the event.
   TextEditingController eventTitleTextController = TextEditingController();
+
+  /// Controller for the location of the event.
   TextEditingController eventLocationTextController = TextEditingController();
+
+  /// Controller for the description of the event.
   TextEditingController eventDescriptionTextController =
       TextEditingController();
+
+  /// Start time of the event.
   TimeOfDay eventStartTime = TimeOfDay.now();
+
+  /// End time of the event.
   TimeOfDay eventEndTime = TimeOfDay.now();
+
+  /// Start date of the event.
   DateTime eventStartDate = DateTime.now();
+
+  /// End date of the event.
   DateTime eventEndDate = DateTime.now();
+
+  /// Switch to toggle the event's public status.
   bool isPublicSwitch = true;
+
+  /// Switch to toggle the event's registerable status.
   bool isRegisterableSwitch = false;
+
+  /// Focus node for the title of the event.
   FocusNode titleFocus = FocusNode();
+
+  /// Focus node for the location of the event.
   FocusNode locationFocus = FocusNode();
+
+  /// Focus node for the description of the event.
   FocusNode descriptionFocus = FocusNode();
 
+  /// Key for the form.
   final formKey = GlobalKey<FormState>();
 
   final _eventService = locator<EventService>();
+
+  /// Autovalidate mode for the form.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  // initialiser, invoke `_fillEditForm` function.
+  /// This function initializes the controller with the data.
+  ///
+  /// **params**:
+  /// * `event`: The event to initialize the controller with.
+  ///
+  /// **returns**:
+  ///   None
+
   void initialize(Event event) {
     _event = event;
     _fillEditForm();
   }
 
-  /// This function initialises the controller with the data.
+  /// This function fills the edit form with the event details.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+
   void _fillEditForm() {
     eventTitleTextController.text = _event.title!;
     eventLocationTextController.text = _event.location!;
@@ -55,8 +94,14 @@ class EditEventViewModel extends BaseModel {
         TimeOfDay.fromDateTime(DateFormat("HH:mm:ss").parse(_event.endTime!));
   }
 
-  /// This function is used to update an event.
-  /// The function uses `editEvent` function provided by `eventService` service.
+  /// This function updates the event with the new data.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+
   Future<void> updateEvent() async {
     titleFocus.unfocus();
     locationFocus.unfocus();
