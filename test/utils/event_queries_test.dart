@@ -6,33 +6,44 @@ void main() {
     test("Check if fetchOrgEvents works correctly", () {
       const data = """
       query {
-        eventsByOrganization(id: "sampleID"){ 
-          _id
-          organization {
-            _id
-            image
-          }
-          title
-          description
-          isPublic
-          isRegisterable
-          recurring
-          startDate
-          endDate
-          allDay
-          startTime
-          endTime
-          location
-          creator{
-            _id
-            firstName
-            lastName
-          }
-          admins {
-            firstName
-            lastName
-          }
-        }
+        eventsByOrganizationConnection(
+      where: {
+        organization_id: "sampleID"
+      }
+    ) {
+      _id
+      organization {
+        _id
+        image
+      }
+      title
+      description
+      isPublic
+      isRegisterable
+      recurring
+      startDate
+      endDate
+      allDay
+      startTime
+      endTime
+      location
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      admins {
+        _id
+        firstName
+        lastName
+      } 
+      attendees {
+        _id
+        firstName
+        lastName
+        image
+      }
+    }
       }
     """;
 
@@ -40,19 +51,21 @@ void main() {
       expect(fnData, data);
     });
 
-    test("Check if registrantsByEvents works correctly", () {
+    test("Check if attendeesByEvent works correctly", () {
       const data = '''
       query {
-        registrantsByEvent(id: "sampleID") {
-          _id
-          firstName
-          lastName
-          image
+        getEventAttendeesByEventId(eventId: "sampleID") {
+          eventId
+          userId
+          isRegistered
+          isInvited
+          isCheckedIn
+          isCheckedOut
         }
       }
     ''';
 
-      final fnData = EventQueries().registrantsByEvent("sampleID");
+      final fnData = EventQueries().attendeesByEvent("sampleID");
       expect(fnData, data);
     });
 

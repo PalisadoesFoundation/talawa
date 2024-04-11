@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 
 /// Returns a widget for rendering Customized tiles.
 ///
@@ -32,7 +30,7 @@ class CustomListTile extends StatelessWidget {
   final OrgInfo? orgInfo;
 
   /// Object containing all the necessary info regarding the user.
-  final User? userInfo;
+  final dynamic userInfo;
 
   /// Object containing all the necessary info regarding the options.
   final Options? option;

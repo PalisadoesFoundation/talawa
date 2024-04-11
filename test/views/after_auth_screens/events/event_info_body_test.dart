@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,8 +49,9 @@ Event getTestEvent({
         lastName: "shaikh_admin_two",
       ),
     ],
-    registrants: [
-      User(
+    attendees: [
+      Attendee(
+        id: "1",
         firstName: "Test",
         lastName: "User",
       ),

@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -72,7 +68,7 @@ void main() {
       id: "1",
       title: "fake_event_title",
       description: "fake_event_desc",
-      attendees: "20",
+      attendees: [Attendee(id: 'Test Id')],
       location: "fake_event_loc",
       recurring: false,
       startDate: '2024-01-14',

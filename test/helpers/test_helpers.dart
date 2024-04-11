@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -97,13 +93,26 @@ import 'test_helpers.mocks.dart';
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
+
+/// member1 represents a member of the organization.
 final User member1 = User(id: "testMem1");
+
+/// member2 represents a member of the organization.
 final User member2 = User(id: "testMem2");
+
+/// admin1 represents an admin of the organization.
 final User admin1 = User(id: "testAdmin1");
+
+/// admin2 represents an admin of the organization.
 final User admin2 = User(id: "testAdmin2");
+
+/// members represents a list of members of the organization.
 final List<User> members = [member1, member2];
+
+/// admins represents a list of admins of the organization.
 final List<User> admins = [admin1, admin2];
 
+/// fakeOrgInfo represents a mock organization.
 final fakeOrgInfo = OrgInfo(
   id: "XYZ",
   name: "Organization Name",
@@ -116,12 +125,26 @@ final fakeOrgInfo = OrgInfo(
   userRegistrationRequired: true,
 );
 
+/// `removeRegistrationIfExists` removes the registration of a service if it is already registered.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
   }
 }
 
+///  `getAndRegisterNavigationService` returns a mock instance of the `NavigationService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `NavigationService`: A mock instance of the `NavigationService` class.
 NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
@@ -136,6 +159,13 @@ NavigationService getAndRegisterNavigationService() {
   return service;
 }
 
+/// `getAndRegisterOrganizationService` returns a mock instance of the `OrganizationService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `OrganizationService`: A mock instance of the `OrganizationService` class.
 OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
@@ -160,6 +190,13 @@ OrganizationService getAndRegisterOrganizationService() {
   return service;
 }
 
+/// `getAndRegisterAppTheme` returns a mock instance of the `AppTheme` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `AppTheme`: A mock instance of the `AppTheme` class.
 AppTheme getAndRegisterAppTheme() {
   _removeRegistrationIfExists<AppTheme>();
   final service = MockAppTheme();
@@ -167,6 +204,13 @@ AppTheme getAndRegisterAppTheme() {
   return service;
 }
 
+/// `getAndRegisterCommentService` returns a mock instance of the `CommentService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `CommentService`: A mock instance of the `CommentService` class.
 CommentService getAndRegisterCommentService() {
   _removeRegistrationIfExists<CommentService>();
   final service = MockCommentService();
@@ -174,6 +218,13 @@ CommentService getAndRegisterCommentService() {
   return service;
 }
 
+/// `getAndRegisterSessionManager` returns a mock instance of the `SessionManager` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `SessionManager`: A mock instance of the `SessionManager` class.
 SessionManager getAndRegisterSessionManager() {
   _removeRegistrationIfExists<SessionManager>();
   final service = MockSessionManger();
@@ -181,6 +232,13 @@ SessionManager getAndRegisterSessionManager() {
   return service;
 }
 
+/// `getAndRegisterChatService` returns a mock instance of the `ChatService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ChatService`: A mock instance of the `ChatService` class.
 ChatService getAndRegisterChatService() {
   _removeRegistrationIfExists<ChatService>();
   final service = MockChatService();
@@ -214,6 +272,13 @@ ChatService getAndRegisterChatService() {
   return service;
 }
 
+/// `getAndRegisterAppLanguage` returns a mock instance of the `AppLanguage` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `AppLanguage`: A mock instance of the `AppLanguage` class.
 AppLanguage getAndRegisterAppLanguage() {
   _removeRegistrationIfExists<AppLanguage>();
   final service = MockAppLanguage();
@@ -224,6 +289,13 @@ AppLanguage getAndRegisterAppLanguage() {
   return service;
 }
 
+/// `getAndRegisterGraphqlConfig` returns a mock instance of the `GraphqlConfig` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GraphqlConfig`: A mock instance of the `GraphqlConfig` class.
 GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
@@ -261,6 +333,13 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   return service;
 }
 
+/// `getAndRegisterGraphQLClient` returns a mock instance of the `GraphQLClient` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GraphQLClient`: A mock instance of the `GraphQLClient` class.
 GraphQLClient getAndRegisterGraphQLClient() {
   _removeRegistrationIfExists<GraphQLClient>();
 
@@ -312,6 +391,13 @@ GraphQLClient getAndRegisterGraphQLClient() {
   return service;
 }
 
+/// `getAndRegisterDatabaseMutationFunctions` returns a mock instance of the `DataBaseMutationFunctions` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `DataBaseMutationFunctions`: A mock instance of the `DataBaseMutationFunctions` class.
 DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   _removeRegistrationIfExists<DataBaseMutationFunctions>();
   final service = MockDataBaseMutationFunctions();
@@ -325,6 +411,13 @@ DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   return service;
 }
 
+/// `getAndRegisterUserConfig` returns a mock instance of the `UserConfig` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserConfig`: A mock instance of the `UserConfig` class.
 UserConfig getAndRegisterUserConfig() {
   _removeRegistrationIfExists<UserConfig>();
   final service = MockUserConfig();
@@ -408,6 +501,13 @@ UserConfig getAndRegisterUserConfig() {
   return service;
 }
 
+/// `getAndRegisterPostService` returns a mock instance of the `PostService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `PostService`: A mock instance of the `PostService` class.
 PostService getAndRegisterPostService() {
   _removeRegistrationIfExists<PostService>();
   final service = MockPostService();
@@ -427,6 +527,13 @@ PostService getAndRegisterPostService() {
   return service;
 }
 
+/// `getAndRegisterMultiMediaPickerService` returns a mock instance of the `MultiMediaPickerService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MultiMediaPickerService`: A mock instance of the `MultiMediaPickerService` class.
 MultiMediaPickerService getAndRegisterMultiMediaPickerService() {
   _removeRegistrationIfExists<MultiMediaPickerService>();
   final service = MockMultiMediaPickerService();
@@ -434,6 +541,13 @@ MultiMediaPickerService getAndRegisterMultiMediaPickerService() {
   return service;
 }
 
+/// `getAndRegisterImageCropper` returns a mock instance of the `ImageCropper` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ImageCropper`: A mock instance of the `ImageCropper` class.
 ImageCropper getAndRegisterImageCropper() {
   _removeRegistrationIfExists<ImageCropper>();
   final service = MockImageCropper();
@@ -441,6 +555,13 @@ ImageCropper getAndRegisterImageCropper() {
   return service;
 }
 
+/// `getAndRegisterImageService` returns a mock instance of the `ImageService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ImageService`: A mock instance of the `ImageService` class.
 ImageService getAndRegisterImageService() {
   _removeRegistrationIfExists<ImageService>();
   final service = MockImageService();
@@ -448,6 +569,13 @@ ImageService getAndRegisterImageService() {
   return service;
 }
 
+/// `getAndRegisterImagePicker` returns a mock instance of the `ImagePicker` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ImagePicker`: A mock instance of the `ImagePicker` class.
 ImagePicker getAndRegisterImagePicker() {
   _removeRegistrationIfExists<ImagePicker>();
   final service = MockImagePicker();
@@ -455,6 +583,13 @@ ImagePicker getAndRegisterImagePicker() {
   return service;
 }
 
+/// `getAndRegisterEventService` returns a mock instance of the `EventService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `EventService`: A mock instance of the `EventService` class.
 EventService getAndRegisterEventService() {
   _removeRegistrationIfExists<EventService>();
   final service = MockEventService();
@@ -493,21 +628,19 @@ EventService getAndRegisterEventService() {
     ),
   );
   const data = {
-    'registrantsByEvent': [
+    'getEventAttendeesByEventId': [
       {
-        '_id': 'xzy1',
-        'firstName': 'Test',
-        'lastName': 'User',
+        'userId': 'xzy1',
       }
     ],
   };
-  when(service.fetchRegistrantsByEvent('1')).thenAnswer(
+  when(service.fetchAttendeesByEvent('1')).thenAnswer(
     (realInvocation) async => QueryResult(
       source: QueryResultSource.network,
       data: data,
       options: QueryOptions(
         document: gql(
-          EventQueries().registrantsByEvent('1'),
+          EventQueries().attendeesByEvent('1'),
         ),
       ),
     ),
@@ -517,6 +650,13 @@ EventService getAndRegisterEventService() {
   return service;
 }
 
+/// `getAndRegisterConnectivityService` returns a mock instance of the `Connectivity` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `Connectivity`: A mock instance of the `Connectivity` class.
 Connectivity getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<Connectivity>();
   final service = MockConnectivity();
@@ -524,6 +664,15 @@ Connectivity getAndRegisterConnectivityService() {
   return service;
 }
 
+/// `getPostMockModel` returns a mock instance of the `Post` class.
+///
+/// **params**:
+/// * `sId`: represent the post id.
+/// * `description`: represent the post description.
+/// * `duration`: represent the post duration.
+///
+/// **returns**:
+/// * `Post`: A mock instance of the `Post` class.
 Post getPostMockModel({
   String sId = "PostID",
   String description = "TestDescription",
@@ -542,6 +691,13 @@ Post getPostMockModel({
   return postMock;
 }
 
+/// `getAndRegisterCreateEventModel` returns a mock instance of the `CreateEventViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `CreateEventViewModel`: A mock instance of the `CreateEventViewModel` class.
 CreateEventViewModel getAndRegisterCreateEventModel() {
   _removeRegistrationIfExists<CreateEventViewModel>();
   final cachedViewModel = MockCreateEventViewModel();
@@ -571,7 +727,6 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     id: "fakeUser1",
     firstName: 'r',
     lastName: 'p',
-    // image: 'www.image.com',
   );
 
   final mapType = {user1.id!: true};
@@ -581,14 +736,10 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     return [user1];
   });
 
-  //when(cachedViewModel.selectedAdmins).thenReturn([user2]);
   when(cachedViewModel.selectedMembers).thenReturn([user1]);
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
-
   when(cachedViewModel.memberCheckedMap).thenReturn(mapType);
-
   when(cachedViewModel.isAllDay).thenReturn(true);
-
   when(cachedViewModel.eventStartTime).thenReturn(TimeOfDay.now());
 
   when(cachedViewModel.eventEndTime).thenReturn(
@@ -608,15 +759,17 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     print('called');
   });
 
-  // when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
-  //     .thenAnswer((realInvocation) async {
-  //   when(cachedViewModel.selectedAdmins).thenReturn([]);
-  // });
-
   locator.registerSingleton<CreateEventViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 
+/// `getAndRegisterDirectChatViewModel` returns a mock instance of the `DirectChatViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `DirectChatViewModel`: A mock instance of the `DirectChatViewModel` class.
 DirectChatViewModel getAndRegisterDirectChatViewModel() {
   _removeRegistrationIfExists<DirectChatViewModel>();
   final cachedViewModel = MockDirectChatViewModel();
@@ -641,7 +794,6 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   when(cachedViewModel.name).thenReturn("XYZ");
   when(cachedViewModel.chats).thenReturn([chatListTileDataModel1]);
   when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
-
   when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
   when(cachedViewModel.sendMessageToDirectChat("XYZ", "Something"))
       .thenAnswer((realInvocation) async {
@@ -655,6 +807,13 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   return cachedViewModel;
 }
 
+/// `getAndRegisterExploreEventsViewModel` returns a mock instance of the `ExploreEventsViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ExploreEventsViewModel`: A mock instance of the `ExploreEventsViewModel` class.
 ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
   _removeRegistrationIfExists<ExploreEventsViewModel>();
   final cachedViewModel = MockExploreEventsViewModel();
@@ -672,6 +831,13 @@ ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
   return cachedViewModel;
 }
 
+/// `getAndRegisterMainViewModel` returns a mock instance of the `MainScreenViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `MainScreenViewModel`: A mock instance of the `MainScreenViewModel` class.
 MainScreenViewModel getAndRegisterMainViewModel() {
   _removeRegistrationIfExists<MainScreenViewModel>();
   final cachedViewModel = MockMainScreenViewModel();
@@ -680,6 +846,13 @@ MainScreenViewModel getAndRegisterMainViewModel() {
   return cachedViewModel;
 }
 
+/// `registerServices` registers all the services required for the test.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterAppLanguage();
@@ -698,6 +871,13 @@ void registerServices() {
   getAndRegisterImagePicker();
 }
 
+/// `unregisterServices` unregisters all the services required for the test.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void unregisterServices() {
   locator.unregister<NavigationService>();
   locator.unregister<GraphqlConfig>();
@@ -713,6 +893,13 @@ void unregisterServices() {
   locator.unregister<ImagePicker>();
 }
 
+/// registerViewModels registers all the view models required for the test.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void registerViewModels() {
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
@@ -732,6 +919,13 @@ void registerViewModels() {
   locator.registerFactory(() => SelectContactViewModel());
 }
 
+/// `unregisterViewModels` unregisters all the view models required for the test.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void unregisterViewModels() {
   locator.unregister<MainScreenViewModel>();
   locator.unregister<OrganizationFeedViewModel>();
