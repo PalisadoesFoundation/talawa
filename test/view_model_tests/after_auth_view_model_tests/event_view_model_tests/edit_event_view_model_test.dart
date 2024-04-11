@@ -8,10 +8,26 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 
 import '../../../helpers/test_helpers.dart';
 
+/// [testEvent] is a mock event used for testing the `EditEventViewModel`.
+///
+/// It represents a typical event with the following properties:
+/// * `id`: A unique identifier for the event.
+/// * `title`: The title of the event.
+/// * `startDate` and `endDate`: The start and end dates of the event, in 'yyyy-MM-dd' format.
+/// * `startTime` and `endTime`: The start and end times of the event, in 'HH:mm:ss' format.
+/// * `location`: The location of the event.
+/// * `description`: A description of the event.
+/// * `creator`: The user who created the event.
+/// * `isPublic`: A boolean indicating whether the event is public.
+/// * `isRegisterable`: A boolean indicating whether users can register for the event.
+/// * `organization`: The organization that the event belongs to.
+///
+/// This mock event is used in the `EditEventViewModel Test` group to test the initialization and updating of events.
+
 final testEvent = Event(
   id: '1',
   title: 'test',
-  startDate: '2024-01-30', // yyyy-MM-dd
+  startDate: '2024-01-30',
   endDate: '2024-01-30',
   startTime: '06:40:00',
   endTime: '06:40:00',
@@ -30,6 +46,15 @@ final testEvent = Event(
   organization: OrgInfo(id: 'XYZ'),
 );
 
+/// Main.
+///
+/// more_info_if_required
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void main() {
   setUp(() {
     registerServices();
