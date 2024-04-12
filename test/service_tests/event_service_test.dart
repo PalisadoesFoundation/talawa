@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -91,7 +89,6 @@ void main() {
           data: {
             'register for an event': {
               '_id': 'eventId',
-              'name': 'name',
             },
           },
           source: QueryResultSource.network,

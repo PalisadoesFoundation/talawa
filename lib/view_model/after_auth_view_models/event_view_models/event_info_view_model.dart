@@ -61,19 +61,20 @@ class EventInfoViewModel extends BaseModel {
           await locator<EventService>().registerForAnEvent(event.id!);
       if (registerResult != null) {
         event.isRegistered = true;
+        final userConfig = locator<UserConfig>();
         attendees.add(
           Attendee(
-            id: UserConfig().currentUser.id,
-            firstName: UserConfig().currentUser.firstName,
-            lastName: UserConfig().currentUser.lastName,
-            image: UserConfig().currentUser.image,
+            id: userConfig.currentUser.id,
+            firstName: userConfig.currentUser.firstName,
+            lastName: userConfig.currentUser.lastName,
+            image: userConfig.currentUser.image,
           ),
         );
       }
-      print(registerResult);
       fabTitle = getFabTitle();
       navigationService.pop();
       notifyListeners();
+      await locator<EventService>().getEvents();
     }
   }
 

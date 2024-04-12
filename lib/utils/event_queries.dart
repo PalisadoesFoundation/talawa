@@ -114,14 +114,11 @@ class EventQueries {
   String registerForEvent() {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
-      registerForEvent(id: \$eventId)
-        {
+      registerForEvent(id: \$eventId) {
         _id
-        title
-        description
       }
-    }
-  """;
+     }
+    """;
   }
 
   /// Creates a GraphQL mutation for deleting an event.
