@@ -80,7 +80,6 @@ class EventService {
 
     final List eventsJson =
         (result as QueryResult).data!["eventsByOrganizationConnection"] as List;
-    debugPrint('Events: $eventsJson');
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.attendees?.any(

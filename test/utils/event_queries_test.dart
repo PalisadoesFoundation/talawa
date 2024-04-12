@@ -87,14 +87,11 @@ void main() {
     test("Check if registerForEvent works correctly", () {
       const data = """
      mutation registerForEvent(\$eventId: ID!) { 
-      registerForEvent(id: \$eventId)
-        {
+      registerForEvent(id: \$eventId) {
         _id
-        title
-        description
       }
-    }
-  """;
+     }
+    """;
 
       final fnData = EventQueries().registerForEvent();
       expect(fnData, data);
