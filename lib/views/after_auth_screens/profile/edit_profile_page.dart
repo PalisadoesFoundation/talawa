@@ -151,8 +151,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // Text field for first name with value text of user's first name.
                             child: TextFormField(
                               key: const Key('FirstNameTextField'),
-                              controller: model.firstNameTextController
-                                ..text = model.user.firstName!,
+                              controller: model.firstNameTextController,
                               focusNode: model.firstNameFocus,
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
@@ -181,10 +180,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's last name.
                             child: TextFormField(
-                              controller: model.lastNameTextController
-                                ..text = model.user.lastName!,
+                              controller: model.lastNameTextController,
                               focusNode: model.lastNameFocus,
                               keyboardType: TextInputType.name,
+                              onChanged: (value) =>
+                                  model.lastNameTextController.text = value,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('Last Name'),
