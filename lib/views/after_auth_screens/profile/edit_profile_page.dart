@@ -183,8 +183,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               controller: model.lastNameTextController,
                               focusNode: model.lastNameFocus,
                               keyboardType: TextInputType.name,
-                              onChanged: (value) =>
-                                  model.lastNameTextController.text = value,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('Last Name'),
