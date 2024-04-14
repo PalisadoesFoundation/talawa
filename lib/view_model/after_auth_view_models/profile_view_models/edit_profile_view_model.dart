@@ -24,10 +24,10 @@ class EditProfilePageViewModel extends BaseModel {
   String? base64Image;
 
   /// first name controller.
-  TextEditingController firstNameTextController = TextEditingController();
+  late TextEditingController firstNameTextController;
 
   /// last name controller.
-  TextEditingController lastNameTextController = TextEditingController();
+  late TextEditingController lastNameTextController;
 
   /// Focus node tpo control focus.
   FocusNode firstNameFocus = FocusNode();
@@ -48,6 +48,8 @@ class EditProfilePageViewModel extends BaseModel {
   void initialize() {
     imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
+    firstNameTextController = TextEditingController(text: user.firstName);
+    lastNameTextController = TextEditingController(text: user.lastName);
   }
 
   /// This function is used to get the image from gallery.
@@ -59,27 +61,12 @@ class EditProfilePageViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> getImage({bool camera = false}) async {
+  Future<void> selectImage({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (image != null) {
       imageFile = image;
       notifyListeners();
-    }
-  }
-
-  /// Method to select image from gallery or camera.
-  ///
-  /// **params**:
-  /// * `camera`: for true it will select from camera otherwise gallery
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> selectImage({bool camera = false}) async {
-    if (camera) {
-      getImage(camera: true);
-    } else {
-      getImage();
     }
   }
 
@@ -137,18 +124,21 @@ class EditProfilePageViewModel extends BaseModel {
           variables: variables,
         );
         // Fetch updated user info from the database and save it in hivebox.
-        final QueryResult result1 = await databaseFunctions.gqlAuthQuery(
+        final QueryResult result = await databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
           variables: {'id': user.id},
         ) as QueryResult;
+
+        final List users = result.data!['users'] as List;
+
         final User userInfo = User.fromJson(
-          ((result1.data!['users'] as List<dynamic>)[0])
-              as Map<String, dynamic>,
-          fromOrg: true,
+          users[0] as Map<String, dynamic>,
+          fromOrg: false,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
-        userConfig.updateUser(userInfo);
+
+        await userConfig.updateUser(userInfo);
         notifyListeners();
 
         user.firstName = firstName ?? user.firstName;
