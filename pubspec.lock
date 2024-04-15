@@ -529,10 +529,10 @@ packages:
     dependency: "direct main"
     description:
       name: get_it
-      sha256: "36524bfb3f0b4ec952c3202466fdd69ad1f7ac1dd9b0a7564177707e45bfaeb9"
+      sha256: ae30b28cc73053f79fd46b15f430db16cae22a0554e6cd25333c840b310b0270
       url: "https://pub.dev"
     source: hosted
-    version: "7.6.8"
+    version: "7.6.9"
   glob:
     dependency: transitive
     description:
