@@ -135,6 +135,7 @@ class SignupDetailsViewModel extends BaseModel {
             Encryptor.encryptString(
               password.text,
             ),
+            selectedOrganization.id,
           ),
         );
         navigationService.pop();
