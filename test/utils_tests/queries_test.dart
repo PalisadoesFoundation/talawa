@@ -11,7 +11,12 @@ void main() {
       expect(mutation, false);
 
       final fnData = Queries().registerUser(
-          'Ayush', 'Chaudhary', 'ayush@gmail.com', 'password', 'orgId123');
+        'Ayush',
+        'Chaudhary',
+        'ayush@gmail.com',
+        'password',
+        'orgId123',
+      );
       if (fnData.contains('Ayush')) {
         mutation = true;
       }
