@@ -10,7 +10,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
-import 'package:talawa/widgets/custom_avatar.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';

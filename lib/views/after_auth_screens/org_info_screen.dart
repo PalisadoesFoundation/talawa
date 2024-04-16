@@ -8,10 +8,8 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/custom_avatar.dart';
 
 class OrganisationInfoScreen extends StatelessWidget {
+  const OrganisationInfoScreen({super.key, required this.orgInfo});
   final OrgInfo orgInfo;
-
-  const OrganisationInfoScreen({Key? key, required this.orgInfo})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

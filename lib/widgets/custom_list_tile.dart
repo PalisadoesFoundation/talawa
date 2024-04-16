@@ -59,24 +59,19 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String text = '';
     Function()? onTap;
 
     switch (type) {
       case TileType.org:
-        text = orgInfo!.name!;
         onTap = () => onTapOrgInfo!(orgInfo!);
         break;
       case TileType.user:
-        text = '${userInfo!.firstName!} ${userInfo!.lastName!}';
         onTap = onTapUserInfo;
         break;
       case TileType.attendee:
-        text = '${attendeeInfo!.firstName!} ${attendeeInfo!.lastName!}';
         onTap = onTapAttendeeInfo;
         break;
       default:
-        text = option!.title;
         onTap = onTapOption;
         break;
     }
@@ -112,7 +107,7 @@ class CustomListTile extends StatelessWidget {
                       ? RichText(
                           key: const Key('OrgNamewithOrgAddress'),
                           text: TextSpan(
-                            text: orgInfo!.name!,
+                            text: orgInfo!.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
