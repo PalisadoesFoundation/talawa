@@ -49,7 +49,7 @@ class SignUpMock extends StatelessWidget {
 }
 
 OrgInfo get org => OrgInfo(
-      id: '3',
+      id: '',
       name: 'test org 3',
       userRegistrationRequired: userRegistrationRequired,
       creatorInfo: User(firstName: 'test', lastName: '1'),
@@ -143,7 +143,7 @@ void main() {
       locator.registerSingleton<UserConfig>(MockUserConfig());
 
       final model = SignupDetailsViewModel();
-
+      model.selectedOrganization = OrgInfo(id: "");
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
 
       when(
