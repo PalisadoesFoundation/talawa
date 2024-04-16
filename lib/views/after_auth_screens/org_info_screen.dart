@@ -7,8 +7,11 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
+/// A screen widget to display detailed information about an organization.
 class OrganisationInfoScreen extends StatelessWidget {
   const OrganisationInfoScreen({super.key, required this.orgInfo});
+
+  /// The organization information to be displayed on the screen.
   final OrgInfo orgInfo;
 
   @override
@@ -258,6 +261,17 @@ class OrganisationInfoScreen extends StatelessWidget {
     );
   }
 
+  /// Builds a section title widget.
+  ///
+  /// **params**:
+  /// * `context`: The build context.
+  /// * `title`: The title of the section.
+  /// * `users`:  The list of users
+  /// * `onSeeAllTap`:  Callback when "See all" is tapped.
+  /// * `maxUsers`: The maximum number of users to display.
+  ///
+  /// **returns**:
+  /// * `Widget`:  Returns a section title widget.
   Widget _buildSectionTitle(
     BuildContext context,
     String title,
@@ -290,6 +304,15 @@ class OrganisationInfoScreen extends StatelessWidget {
     );
   }
 
+  /// Builds a list of users widget.
+  ///
+  /// **params**:
+  /// * `context`:  The build context.
+  /// * `users`: The list of users
+  /// * `maxDisplay`: The maximum number of users to display.
+  ///
+  /// **returns**:
+  /// * `Widget`: Returns a list of users widget.
   Widget _buildUserList(
     BuildContext context,
     List<User>? users,
@@ -361,6 +384,15 @@ class OrganisationInfoScreen extends StatelessWidget {
     );
   }
 
+  ///  Shows a bottom sheet with all members.
+  ///
+  /// **params**:
+  /// * `context`: The build context.
+  /// * `users`: The list of users.
+  /// * `title`: The title of the bottom sheet.
+  ///
+  /// **returns**:
+  ///   None
   void _showAllMembersBottomSheet(
     BuildContext context,
     List<User> users,
