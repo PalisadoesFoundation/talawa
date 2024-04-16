@@ -25,6 +25,7 @@ import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
@@ -297,6 +298,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const AddPost(
           key: Key('AddPostPage'),
+        ),
+      );
+
+    case Routes.orgInfoScreen:
+      final OrgInfo orgInfo = settings.arguments! as OrgInfo;
+      return MaterialPageRoute(
+        builder: (context) => OrganisationInfoScreen(
+          orgInfo: orgInfo,
+          key: const Key('orginfoscreen'),
         ),
       );
 

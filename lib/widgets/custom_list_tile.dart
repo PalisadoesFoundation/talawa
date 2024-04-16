@@ -64,45 +64,87 @@ class CustomListTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
           height: 70,
           child: Row(
             children: [
               Expanded(
-                flex: 3,
+                flex: 6,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
                   ),
-                  child: Text(
-                    type == TileType.org
-                        ? orgInfo!.name!
-                        : type == TileType.user
-                            ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
-                            : option!.title,
-                    style: type == TileType.org
-                        ? Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontSize: 18, color: Colors.black)
-                        : type == TileType.user
-                            ? Theme.of(context)
+                  child: type == TileType.org
+                      ? RichText(
+                          key: const Key('OrgNamewithOrgAddress'),
+                          text: TextSpan(
+                            text: '${orgInfo!.name!}',
+                            style: Theme.of(context)
                                 .textTheme
-                                .titleLarge!
-                                .copyWith(fontSize: 18, color: Colors.black)
-                            : option!.trailingIconButton == null
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: 18, color: Colors.black)
-                                : Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                  ),
+                                .headlineSmall!
+                                .copyWith(
+                                  fontSize: 19,
+                                  color: Colors.black,
+                                ),
+                            children: <TextSpan>[
+                              if (orgInfo!.address != null) ...[
+                                const TextSpan(text: ' '),
+                                TextSpan(
+                                  text:
+                                      '(${orgInfo!.address!.city}, ${orgInfo!.address!.countryCode})',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 14,
+                                        color: const Color.fromARGB(
+                                          255,
+                                          112,
+                                          112,
+                                          112,
+                                        ),
+                                      ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        )
+                      : Text(
+                          type == TileType.user
+                              ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
+                              : option!.title,
+                          style: type == TileType.user
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  )
+                              : option!.trailingIconButton == null
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      )
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      ),
+                        ),
                 ),
               ),
               Expanded(

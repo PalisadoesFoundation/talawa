@@ -114,8 +114,8 @@ void main() {
       // test to check that there is no icon
       expect(find.byIcon(Icons.add), findsNothing);
 
-      // Testing Text for that contains org's name
-      final orgName = find.text('Test Name');
+      // Testing Rich Text for org name and address shows up
+      final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
 
       expect(orgName, findsOneWidget);
 

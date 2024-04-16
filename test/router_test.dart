@@ -30,6 +30,7 @@ import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
@@ -388,6 +389,19 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<DemoPageView>());
+      }
+    });
+
+    testWidgets('Test for default orgInfoScreen route',
+        (WidgetTester tester) async {
+      final route = generateRoute(
+        RouteSettings(name: Routes.orgInfoScreen, arguments: OrgInfo()),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<OrganisationInfoScreen>());
       }
     });
   });

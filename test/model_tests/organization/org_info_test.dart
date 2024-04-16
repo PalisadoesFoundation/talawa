@@ -2,9 +2,18 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 
+import '../../helpers/test_helpers.dart';
+
 void main() {
+  setupLocator();
+  sizeConfig.test();
+  setUp(() {
+    registerServices();
+  });
+
   group('Test OrgInfo model', () {
     final Map<String, dynamic> userJson = {
       'accessToken': ' ',
@@ -20,6 +29,16 @@ void main() {
       'creator': userJson,
       'members': [userJson],
       'admins': [userJson],
+      'address': {
+        "city": "Delhi",
+        "countryCode": "IN",
+        "dependentLocality": "Some Dependent Locality",
+        "line1": "123 Random Street",
+        "line2": "Apartment 456",
+        "postalCode": "110001",
+        "sortingCode": "ABC-123",
+        "state": "Delhi",
+      },
     };
     final Map<String, dynamic> json2 = {
       '_id': '321',
@@ -30,6 +49,16 @@ void main() {
       'creator': userJson,
       'members': [userJson],
       'admins': [userJson],
+      'address': {
+        "city": "Delhi",
+        "countryCode": "IN",
+        "dependentLocality": "Some Dependent Locality",
+        "line1": "123 Random Street",
+        "line2": "Apartment 456",
+        "postalCode": "110001",
+        "sortingCode": "ABC-123",
+        "state": "Delhi",
+      },
     };
 
     test('Test fromJson function with memberRequest false', () {
@@ -51,6 +80,9 @@ void main() {
       expect(result.admins![0].authToken, ' ');
       expect(result.admins![0].refreshToken, ' ');
       expect(result.admins![0].id, 'user_id');
+      expect(result.address!.city, 'Delhi');
+      expect(result.address!.countryCode, "IN");
+      expect(result.address!.state, 'Delhi');
     });
 
     test('Test fromJson function with memberRequest true', () {
@@ -76,6 +108,9 @@ void main() {
       expect(result.admins![0].authToken, ' ');
       expect(result.admins![0].refreshToken, ' ');
       expect(result.admins![0].id, 'user_id');
+      expect(result.address!.city, 'Delhi');
+      expect(result.address!.countryCode, "IN");
+      expect(result.address!.state, 'Delhi');
     });
 
     test('Test fromJsonToList', () {
@@ -104,6 +139,9 @@ void main() {
         expect(result.admins![0].authToken, ' ');
         expect(result.admins![0].refreshToken, ' ');
         expect(result.admins![0].id, 'user_id');
+        expect(result.address!.city, 'Delhi');
+        expect(result.address!.countryCode, "IN");
+        expect(result.address!.state, 'Delhi');
       }
     });
 
