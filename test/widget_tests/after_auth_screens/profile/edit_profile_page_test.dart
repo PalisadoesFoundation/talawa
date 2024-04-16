@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,16 +21,33 @@ import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+/// MockBuildContext class helps to mock the BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
 
+/// MockEditProfilePageViewModel class helps to mock the EditProfilePageViewModel class.
 class MockEditProfilePageViewModel extends Mock
     implements EditProfilePageViewModel {}
 
+/// MockCallbackFunction class helps to mock the callback function.
 class MockCallbackFunction extends Mock {
+  /// call function helps to mock the call function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
-Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
+/// 'createEditProfilePage' is used to create the EditProfilePage widget in light mode.
+///
+/// **params**:
+/// * `themeMode`: Represents the theme mode of the widget.
+///
+/// **returns**:
+/// * `Widget`: Returns the EditProfilePage widget.
+Widget createEditProfilePage({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -47,35 +60,15 @@ Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
           ],
           key: const Key('Root'),
           themeMode: themeMode,
-          theme: TalawaTheme.lightTheme,
+          theme: themeMode == ThemeMode.light
+              ? TalawaTheme.lightTheme
+              : TalawaTheme.darkTheme,
           home: const EditProfilePage(),
           navigatorKey: locator<NavigationService>().navigatorKey,
           onGenerateRoute: router.generateRoute,
         );
       },
     );
-
-Widget createChangePassScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          key: const Key('Root'),
-          themeMode: themeMode,
-          theme: TalawaTheme.darkTheme,
-          home: const EditProfilePage(),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      },
-    );
-
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   testSetupLocator();
@@ -95,7 +88,8 @@ Future<void> main() async {
       userConfig.updateUser(
         User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
       );
-      await tester.pumpWidget(createChangePassScreenLight());
+      await tester
+          .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('EditProfileScreenScaffold'),
@@ -119,7 +113,8 @@ Future<void> main() async {
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
-        await tester.pumpWidget(createChangePassScreenLight());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -150,7 +145,8 @@ Future<void> main() async {
             image: 'https://via.placeholder.com/150',
           ),
         );
-        await tester.pumpWidget(createChangePassScreenLight());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -174,7 +170,8 @@ Future<void> main() async {
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
-        await tester.pumpWidget(createChangePassScreenLight());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -199,7 +196,7 @@ Future<void> main() async {
       userConfig.updateUser(
         User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
       );
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('EditProfileScreenScaffold'),
@@ -231,7 +228,8 @@ Future<void> main() async {
             image: 'https://via.placeholder.com/150',
           ),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -262,7 +260,8 @@ Future<void> main() async {
             image: 'https://via.placeholder.com/150',
           ),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -295,7 +294,8 @@ Future<void> main() async {
             image: 'https://via.placeholder.com/150',
           ),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -331,7 +331,8 @@ Future<void> main() async {
             image: 'https://via.placeholder.com/150',
           ),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -360,7 +361,8 @@ Future<void> main() async {
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -385,7 +387,8 @@ Future<void> main() async {
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
-        await tester.pumpWidget(createChangePassScreenDark());
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
           const Key('EditProfileScreenScaffold'),
@@ -428,11 +431,11 @@ Future<void> main() async {
           .thenAnswer((_) async {
         return file;
       });
-      await model.getImage(camera: true);
+      await model.selectImage(camera: true);
       verify(multimediaPickerService.getPhotoFromGallery(camera: true));
       expect(model.imageFile, file);
       verify(notifyListenerCallback());
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('AddRemoveImageButton')), findsOneWidget);
       await tester.tap(find.byKey(const Key('AddRemoveImageButton')));
@@ -458,7 +461,7 @@ Future<void> main() async {
       userConfig.updateUser(
         User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
       );
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('FirstNameTextField')));
       await tester.pumpAndSettle();

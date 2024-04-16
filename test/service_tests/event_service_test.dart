@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -91,7 +89,6 @@ void main() {
           data: {
             'register for an event': {
               '_id': 'eventId',
-              'name': 'name',
             },
           },
           source: QueryResultSource.network,
@@ -101,24 +98,24 @@ void main() {
       await services.registerForAnEvent('eventId');
     });
 
-    test('Test fetchRegistrantsByEvent method', () async {
+    test('Test fetchAttendeesByEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
-          EventQueries().registrantsByEvent('eventId'),
+          EventQueries().attendeesByEvent('eventId'),
         ),
       ).thenAnswer(
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'registrant': {'_id': 'registrantId', 'name': 'name'},
+            'getEventAttendeesByEventId': {'userId': 'userId'},
           },
           source: QueryResultSource.network,
         ),
       );
       final services = EventService();
-      services.fetchRegistrantsByEvent('eventId');
+      services.fetchAttendeesByEvent('eventId');
     });
 
     test('Test getEvents method', () async {
@@ -133,12 +130,11 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'eventsByOrganization': [
+            'eventsByOrganizationConnection': [
               {
                 "_id": "1234567890",
                 "title": "Sample Event",
                 "description": "This is a sample event description.",
-                "attendees": "John Doe, Jane Smith",
                 "location": "Sample Location",
                 "longitude": -73.935242,
                 "latitude": 40.73061,
@@ -162,7 +158,7 @@ void main() {
                   "name": "Organization Name",
                   "description": "Sample organization description.",
                 },
-                "registrants": [
+                "attendees": [
                   testDataNotFromOrg,
                 ],
               }

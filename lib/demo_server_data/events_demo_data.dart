@@ -1,14 +1,29 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
+/// 'eventsDemoData' is a list of events that are used to display the events in the app.
+///
+/// Each event has the following properties:
+/// - title: The title of the event.
+/// - description: The description of the event.
+/// - location: The location of the event.
+/// - recurring: Whether the event is recurring or not.
+/// - allDay: Whether the event is an all-day event or not.
+/// - startDate: The start date of the event.
+/// - endDate: The end date of the event.
+/// - startTime: The start time of the event.
+/// - endTime: The end time of the event.
+/// - recurrence: The recurrence of the event.
+/// - isPublic: Whether the event is public or not.
+/// - isSubscribed: Whether the user is subscribed to the event or not.
+/// - isRegisterable: Whether the event is registerable or not.
+/// - creator: The creator of the event.
+/// - attendees: The attendees of the event.
+/// - admins: The admins of the event.
+/// - organization: The organization of the event.
 
-///This file contains demo data. It contains a list of type Map<String, Object>
-/// and sample data of events.
 const eventsDemoData = [
   {
     "title": "Calculus",
     "description":
         "This course introduces calculus using analytic geometry functions. Topics include limits and continuity, derivatives, optimization, related rates, graphing and other applications of derivatives, definite and indefinite integrals, and numerical integration.",
-    "attendees": "50",
     "location": "Lostilos",
     "recurring": "false",
     "allDay": "true",
@@ -25,17 +40,21 @@ const eventsDemoData = [
       "lastName": "Shendge",
       "_id": "asdasdasd",
     },
-    "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+    "attendees": [
+      {"id": "attendee1", "firstName": "firstName1", "lastName": "lastName1"},
+      {"id": "attendee2", "firstName": "firstName2", "lastName": "lastName2"},
+      {"id": "attendee3", "firstName": "firstName3", "lastName": "lastName3"},
+      {"id": "attendee4", "firstName": "firstName4", "lastName": "lastName4"},
+      {"id": "attendee5", "firstName": "firstName5", "lastName": "lastName5"},
+      {"id": "attendee6", "firstName": "firstName6", "lastName": "lastName6"},
+      {"id": "attendee7", "firstName": "firstName7", "lastName": "lastName7"},
+      {"id": "attendee8", "firstName": "firstName8", "lastName": "lastName8"},
+      {"id": "attendee9", "firstName": "firstName9", "lastName": "lastName9"},
+      {
+        "id": "attendee10",
+        "firstName": "firstName10",
+        "lastName": "lastName10",
+      },
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -55,7 +74,6 @@ const eventsDemoData = [
     "title": "UI/UX",
     "description":
         "UX design refers to the term “user experience design”, while UI stands for “user interface design”. Both elements are crucial to a product and work closely together.",
-    "attendees": "80",
     "location": "Tokyo, Japan",
     "recurring": "false",
     "allDay": "true",
@@ -72,17 +90,21 @@ const eventsDemoData = [
       "lastName": "Chandla",
       "_id": "asdasdasd",
     },
-    "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+    "attendees": [
+      {"id": "attendee1", "firstName": "firstName1", "lastName": "lastName1"},
+      {"id": "attendee2", "firstName": "firstName2", "lastName": "lastName2"},
+      {"id": "attendee3", "firstName": "firstName3", "lastName": "lastName3"},
+      {"id": "attendee4", "firstName": "firstName4", "lastName": "lastName4"},
+      {"id": "attendee5", "firstName": "firstName5", "lastName": "lastName5"},
+      {"id": "attendee6", "firstName": "firstName6", "lastName": "lastName6"},
+      {"id": "attendee7", "firstName": "firstName7", "lastName": "lastName7"},
+      {"id": "attendee8", "firstName": "firstName8", "lastName": "lastName8"},
+      {"id": "attendee9", "firstName": "firstName9", "lastName": "lastName9"},
+      {
+        "id": "attendee10",
+        "firstName": "firstName10",
+        "lastName": "lastName10",
+      },
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -102,7 +124,6 @@ const eventsDemoData = [
     "title": "System Design",
     "description":
         "Systems design is the process of defining the architecture, product design, modules, interfaces, and data for a system to satisfy specified requirements. Systems design could be seen as the application of systems theory to product development.",
-    "attendees": "29",
     "location": "Shimla, India",
     "recurring": "false",
     "allDay": "true",
@@ -119,17 +140,21 @@ const eventsDemoData = [
       "lastName": "Srivastav",
       "_id": "asdasdasd",
     },
-    "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+    "attendees": [
+      {"id": "attendee1", "firstName": "firstName1", "lastName": "lastName1"},
+      {"id": "attendee2", "firstName": "firstName2", "lastName": "lastName2"},
+      {"id": "attendee3", "firstName": "firstName3", "lastName": "lastName3"},
+      {"id": "attendee4", "firstName": "firstName4", "lastName": "lastName4"},
+      {"id": "attendee5", "firstName": "firstName5", "lastName": "lastName5"},
+      {"id": "attendee6", "firstName": "firstName6", "lastName": "lastName6"},
+      {"id": "attendee7", "firstName": "firstName7", "lastName": "lastName7"},
+      {"id": "attendee8", "firstName": "firstName8", "lastName": "lastName8"},
+      {"id": "attendee9", "firstName": "firstName9", "lastName": "lastName9"},
+      {
+        "id": "attendee10",
+        "firstName": "firstName10",
+        "lastName": "lastName10",
+      },
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
@@ -147,11 +172,8 @@ const eventsDemoData = [
   },
   {
     "title": "Gaming",
-    // ignore: missing_whitespace_between_adjacent_strings
     "description":
         "Cyberpunk 2077 is a 2020 action role-playing v_ideo game developed and published by CD Projekt. The story takes place in Night City, an open world set in the Cyberpunk universe.",
-
-    "attendees": "5k+",
     "location": "Nagpur, India",
     "recurring": "false",
     "allDay": "true",
@@ -163,23 +185,26 @@ const eventsDemoData = [
     "isPublic": "true",
     "isSubscribed": "true",
     "isRegisterable": "true",
-
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
       "_id": "asdasdasd",
     },
-    "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+    "attendees": [
+      {"id": "attendee1", "firstName": "firstName1", "lastName": "lastName1"},
+      {"id": "attendee2", "firstName": "firstName2", "lastName": "lastName2"},
+      {"id": "attendee3", "firstName": "firstName3", "lastName": "lastName3"},
+      {"id": "attendee4", "firstName": "firstName4", "lastName": "lastName4"},
+      {"id": "attendee5", "firstName": "firstName5", "lastName": "lastName5"},
+      {"id": "attendee6", "firstName": "firstName6", "lastName": "lastName6"},
+      {"id": "attendee7", "firstName": "firstName7", "lastName": "lastName7"},
+      {"id": "attendee8", "firstName": "firstName8", "lastName": "lastName8"},
+      {"id": "attendee9", "firstName": "firstName9", "lastName": "lastName9"},
+      {
+        "id": "attendee10",
+        "firstName": "firstName10",
+        "lastName": "lastName10",
+      },
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
