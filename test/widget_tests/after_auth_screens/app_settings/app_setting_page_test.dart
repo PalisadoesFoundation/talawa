@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,43 +21,29 @@ import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+/// MockBuildContext class helps to mock the BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
 
+/// MockCallbackFunction class helps to mock the callback function.
 class MockCallbackFunction extends Mock {
+  /// call function helps to mock the call function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
-Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return BaseView<AppTheme>(
-          onModelReady: (model) => model.initialize(),
-          builder: (context, themeModel, child) {
-            return MaterialApp(
-              locale: const Locale('en'),
-              localizationsDelegates: [
-                const AppLocalizationsDelegate(isTest: true),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              key: const Key('Root'),
-              themeMode: themeMode,
-              theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
-                  ? TalawaTheme.darkTheme
-                  : TalawaTheme.lightTheme,
-              home: const AppSettingsPage(
-                key: Key('AppSettingsPage'),
-              ),
-              navigatorKey: locator<NavigationService>().navigatorKey,
-              onGenerateRoute: router.generateRoute,
-            );
-          },
-        );
-      },
-    );
-
-Widget createChangePassScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
+/// 'createAppSettingScreen' is used to create the AppSettingPage widget in light mode.
+///
+/// **params**:
+/// * `themeMode`: Represents the theme mode of the widget.
+///
+/// **returns**:
+/// * `Widget`: Returns the AppSettingPage widget.
+Widget createAppSettingScreen({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -99,7 +82,8 @@ Future<void> main() async {
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('AppSettingScaffold'),
@@ -122,7 +106,8 @@ Future<void> main() async {
     testWidgets(
         "Testing if Settings Screen shows up in dark mode with Theme selection tile",
         (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('AppSettingScaffold'),
@@ -143,7 +128,8 @@ Future<void> main() async {
     testWidgets(
         "Testing if Settings Screen shows up in dark mode with language selection tile",
         (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('AppSettingScaffold'),
@@ -178,7 +164,8 @@ Future<void> main() async {
     });
     testWidgets("Testing if theme changes from dark mode to light mode",
         (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('AppSettingScaffold'),
@@ -207,7 +194,8 @@ Future<void> main() async {
     testWidgets(
         "Testing if theme changes from dark mode to light mode then again back to dark mode",
         (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
         const Key('AppSettingScaffold'),
@@ -246,7 +234,8 @@ Future<void> main() async {
     testWidgets('Test Edit Profile Tile is visible and works properly',
         (tester) async {
       when(userConfig.loggedIn).thenReturn(true);
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       expect(find.text('Profile'), findsOneWidget);
 
@@ -257,7 +246,8 @@ Future<void> main() async {
     });
     testWidgets('Test if help and support tiles are working', (tester) async {
       when(userConfig.loggedIn).thenReturn(true);
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       final talawaDocs = find.textContaining('Talawa Docs');
@@ -270,7 +260,8 @@ Future<void> main() async {
       const userLoggedIn = true;
       when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
 
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('Logout')));
@@ -285,7 +276,8 @@ Future<void> main() async {
       const loggedIn = false;
       when(userConfig.loggedIn).thenAnswer((_) => loggedIn);
 
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       final joinOrgButton = find.textContaining('Join an Organisation');
@@ -300,7 +292,8 @@ Future<void> main() async {
       const userLoggedIn = true;
       when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
 
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('Logout')));
@@ -314,7 +307,8 @@ Future<void> main() async {
       final model = AppSettingViewModel();
       when(model.logout()).thenAnswer((_) async => true);
 
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('Logout')));

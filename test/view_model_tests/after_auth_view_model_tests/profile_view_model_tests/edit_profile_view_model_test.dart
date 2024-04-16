@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -15,7 +11,15 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edi
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+/// MockCallbackFunction class is used to mock callback function.
 class MockCallbackFunction extends Mock {
+  /// `call` function is a placeholder function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
@@ -50,13 +54,39 @@ void main() {
       final Map<String, dynamic> data = {
         'users': [
           {
-            '_id': '1234567890',
-            'firstName': 'John',
-            'lastName': 'Doe',
-            'email': 'johndoe@example.com',
-            'image': 'https://example.com/profile.jpg',
-            'accessToken': 'exampleAccessToken',
-            'refreshToken': 'exampleRefreshToken',
+            '__typename': 'UserData',
+            'appUserProfile': {
+              '__typename': 'AppUserProfile',
+              'adminFor': [],
+              'createdOrganizations': [],
+            },
+            'user': {
+              '__typename': 'User',
+              '_id': '1234567890',
+              'firstName': 'John',
+              'lastName': 'Doe',
+              'email': 'johndoe@example.com',
+              'image': 'https://example.com/profile.jpg',
+              'joinedOrganizations': [
+                {
+                  '__typename': 'Organization',
+                  '_id': '6537904485008f171cf29924',
+                  'name': 'Unity Foundation',
+                  'image': null,
+                  'description':
+                      'We are aimed at improving the education spaces for the under privileged girl child.',
+                  'userRegistrationRequired': false,
+                  'creator': {
+                    '__typename': 'User',
+                    '_id': '64378abd85008f171cf2990d',
+                    'firstName': 'Wilt',
+                    'lastName': 'Shepherd',
+                    'image': null,
+                  },
+                }
+              ],
+              'membershipRequests': [],
+            },
           }
         ],
       };

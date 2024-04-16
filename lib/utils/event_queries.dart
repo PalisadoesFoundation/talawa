@@ -14,39 +14,49 @@ class EventQueries {
   String fetchOrgEvents(String orgId) {
     return """
       query {
-        eventsByOrganization(id: "$orgId"){ 
-          _id
-          organization {
-            _id
-            image
-          }
-          title
-          description
-          isPublic
-          isRegisterable
-          recurring
-          recurrance
-          startDate
-          endDate
-          allDay
-          startTime
-          endTime
-          location
-          creator{
-            _id
-            firstName
-            lastName
-          }
-          admins {
-            firstName
-            lastName
-          }
-        }
+        eventsByOrganizationConnection(
+      where: {
+        organization_id: "$orgId"
+      }
+    ) {
+      _id
+      organization {
+        _id
+        image
+      }
+      title
+      description
+      isPublic
+      isRegisterable
+      recurring
+      startDate
+      endDate
+      allDay
+      startTime
+      endTime
+      location
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      admins {
+        _id
+        firstName
+        lastName
+      } 
+      attendees {
+        _id
+        firstName
+        lastName
+        image
+      }
+    }
       }
     """;
   }
 
-  /// Fetches registrants by event ID.
+  /// Fetches attendees by event ID.
   ///
   /// **params**:
   /// * `eventId`: The ID of the event to fetch registrants for.
@@ -56,14 +66,16 @@ class EventQueries {
   ///
   /// This function generates a GraphQL query string to fetch registrants
   /// based on the provided event ID.
-  String registrantsByEvent(String eventId) {
+  String attendeesByEvent(String eventId) {
     return '''
       query {
-        registrantsByEvent(id: "$eventId") {
-          _id
-          firstName
-          lastName
-          image
+        getEventAttendeesByEventId(eventId: "$eventId") {
+          eventId
+          userId
+          isRegistered
+          isInvited
+          isCheckedIn
+          isCheckedOut
         }
       }
     ''';
@@ -102,14 +114,11 @@ class EventQueries {
   String registerForEvent() {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
-      registerForEvent(id: \$eventId)
-        {
+      registerForEvent(id: \$eventId) {
         _id
-        title
-        description
       }
-    }
-  """;
+     }
+    """;
   }
 
   /// Creates a GraphQL mutation for deleting an event.

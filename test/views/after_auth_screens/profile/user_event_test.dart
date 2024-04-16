@@ -138,7 +138,6 @@ void main() {
           id: 'a',
           title: 'Sample Event',
           description: 'This is a fake event description.',
-          attendees: 'John Doe, Jane Doe',
           location: 'City Park',
           latitude: 40.7128,
           longitude: -74.0060,
@@ -157,8 +156,8 @@ void main() {
           admins: [
             User(id: 'admin'),
           ],
-          registrants: [
-            User(id: 'registrant'),
+          attendees: [
+            Attendee(id: 'attendee1'),
           ],
         ),
       ]);

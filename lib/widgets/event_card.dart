@@ -247,15 +247,10 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-                          event.attendees != null
-                              ? Text(
-                                  event.attendees!,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                )
-                              : Text(
-                                  (event.registrants?.length ?? 0).toString(),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
+                          Text(
+                            (event.attendees?.length ?? 0).toString(),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
                         ],
                       ),
                     ],

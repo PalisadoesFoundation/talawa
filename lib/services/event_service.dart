@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -17,7 +16,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// Services include:
 /// * `setOrgStreamSubscription` : to set organization stream subscription for user.
 /// * `getEvents` : to get all events of the organization.
-/// * `fetchRegistrantsByEvent` : to fetch all registrants of an event.
+/// * `fetchAttendeesByEvent` : to fetch all attendees of an event.
 /// * `registerForAnEvent` : to register for an event.
 /// * `deleteEvent` : to delete an event.
 /// * `editEvent` : to edit the event.
@@ -78,12 +77,13 @@ class EventService {
     final result = await _dbFunctions.gqlAuthMutation(mutation);
 
     if (result == null) return;
+
     final List eventsJson =
-        (result as QueryResult).data!["eventsByOrganization"] as List;
+        (result as QueryResult).data!["eventsByOrganizationConnection"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.registrants?.any(
-            (registrant) => registrant.id == _userConfig.currentUser.id,
+      event.isRegistered = event.attendees?.any(
+            (attendee) => attendee.id == _userConfig.currentUser.id,
           ) ??
           false;
       _eventStreamController.add(event);
@@ -97,9 +97,9 @@ class EventService {
   ///
   /// **returns**:
   /// * `Future<dynamic>`: Information about event registrants.
-  Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
+  Future<dynamic> fetchAttendeesByEvent(String eventId) async {
     final result = await _dbFunctions.gqlAuthQuery(
-      EventQueries().registrantsByEvent(eventId),
+      EventQueries().attendeesByEvent(eventId),
     );
     return result;
   }

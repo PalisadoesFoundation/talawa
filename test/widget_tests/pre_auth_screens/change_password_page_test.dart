@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +14,14 @@ import 'package:talawa/widgets/rich_text.dart';
 
 import '../../helpers/test_locator.dart';
 
-Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
+/// 'createChangePassScreen' is used to create the EditProfilePage widget in light mode.
+///
+/// **params**:
+/// * `themeMode`: Represents the theme mode of the widget.
+///
+/// **returns**:
+/// * `Widget`: Returns the ChangePass widget.
+Widget createChangePassScreen({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -30,28 +34,9 @@ Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
           ],
           key: const Key('Root'),
           themeMode: themeMode,
-          theme: TalawaTheme.lightTheme,
-          home: const ChangePass(key: Key('ChangePass')),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      },
-    );
-
-Widget createChangePassScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          key: const Key('Root'),
-          themeMode: themeMode,
-          theme: TalawaTheme.darkTheme,
+          theme: themeMode == ThemeMode.light
+              ? TalawaTheme.lightTheme
+              : TalawaTheme.darkTheme,
           home: const ChangePass(key: Key('ChangePass')),
           navigatorKey: locator<NavigationService>().navigatorKey,
           onGenerateRoute: router.generateRoute,
@@ -65,7 +50,8 @@ void main() {
   locator<SizeConfig>().test();
   group('Change Password Screen Widget Test in light mode', () {
     testWidgets("Testing if Change Password Screen shows up", (tester) async {
-      await tester.pumpWidget(createChangePassScreenLight());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.light));
       await tester.pumpAndSettle();
       final iconButton = find.byIcon(Icons.arrow_back);
 
@@ -85,7 +71,8 @@ void main() {
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing recover screen
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
@@ -137,7 +124,8 @@ void main() {
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       //initializing the pass input field widget Finder
@@ -194,7 +182,8 @@ void main() {
   });
   group('Change Password Screen Widget Test in dark mode', () {
     testWidgets("Testing if Change Password Screen shows up", (tester) async {
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
       // finding scaffold is present
       final screenScaffoldWidget = find.byKey(
@@ -210,7 +199,8 @@ void main() {
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing recover screen
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
@@ -262,7 +252,8 @@ void main() {
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen
-      await tester.pumpWidget(createChangePassScreenDark());
+      await tester
+          .pumpWidget(createChangePassScreen(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
       //initializing the pass input field widget Finder

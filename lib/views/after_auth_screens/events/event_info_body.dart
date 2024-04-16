@@ -237,16 +237,16 @@ class EventInfoBody extends StatelessWidget {
               ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
-                itemCount: model.registrants.length,
+                itemCount: model.attendees.length,
                 itemBuilder: (BuildContext context, int index) {
                   return CustomListTile(
                     key: Key(
                       '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
                     ),
                     index: index,
-                    type: TileType.user,
-                    userInfo: model.registrants[index],
-                    onTapUserInfo: () {},
+                    type: TileType.attendee,
+                    attendeeInfo: model.attendees[index],
+                    onTapAttendeeInfo: () {},
                   );
                 },
               ),

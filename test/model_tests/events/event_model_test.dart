@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -23,7 +20,6 @@ void main() {
         id: '12',
         title: 'for test only',
         description: 'for test only',
-        attendees: 'for test only',
         location: 'for test only',
         latitude: 1233,
         longitude: 123,
@@ -39,7 +35,14 @@ void main() {
         isRegisterable: true,
         organization: OrgInfo(admins: users),
         admins: users,
-        registrants: users,
+        attendees: [
+          Attendee(
+            id: "attendee1",
+            firstName: "firstName1",
+            lastName: "lastName1",
+            image: null,
+          ),
+        ],
       );
 
       final eventJson = {
@@ -52,7 +55,6 @@ void main() {
         '_id': '12',
         'title': 'for test only',
         'description': 'for test only',
-        'attendees': 'for test only',
         'location': 'for test only',
         'latitude': 1233.00,
         'longitude': 123.00,
@@ -88,23 +90,13 @@ void main() {
             'email': 'test@test.com',
           },
         ],
-        'registrants': [
-          <String, dynamic>{
-            'user': {
-              'id': '123',
-              'firstName': 'Ayush',
-              'lastName': 'Chaudhary',
-              'email': 'test@test.com',
-            },
-          },
-          <String, dynamic>{
-            'user': {
-              'id': '123',
-              'firstName': 'Aykkush',
-              'lastName': 'Chaudhary',
-              'email': 'test@test.com',
-            },
-          },
+        'attendees': [
+          Attendee(
+            id: "attendee1",
+            firstName: "firstName1",
+            lastName: "lastName1",
+            image: null,
+          ).toJson(),
         ],
       };
       final eventFromJson = Event.fromJson(eventJson);
@@ -116,7 +108,16 @@ void main() {
       expect(event.title, eventFromJson.title);
       expect(event.id, eventFromJson.id);
       expect(event.description, eventFromJson.description);
-      expect(event.attendees, eventFromJson.attendees);
+      expect(event.attendees?[0].id, eventFromJson.attendees?[0].id);
+      expect(
+        event.attendees?[0].firstName,
+        eventFromJson.attendees?[0].firstName,
+      );
+      expect(
+        event.attendees?[0].lastName,
+        eventFromJson.attendees?[0].lastName,
+      );
+      expect(event.attendees?[0].image, eventFromJson.attendees?[0].image);
       expect(event.location, eventFromJson.location);
       expect(event.latitude, eventFromJson.latitude);
       expect(event.longitude, eventFromJson.longitude);

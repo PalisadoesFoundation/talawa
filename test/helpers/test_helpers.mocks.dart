@@ -1158,10 +1158,10 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<dynamic> fetchRegistrantsByEvent(String? eventId) =>
+  _i5.Future<dynamic> fetchAttendeesByEvent(String? eventId) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchRegistrantsByEvent,
+          #fetchAttendeesByEvent,
           [eventId],
         ),
         returnValue: _i5.Future<dynamic>.value(),
