@@ -127,6 +127,7 @@ class OrgInfo {
   @HiveField(7)
   User? creatorInfo;
 
+  /// Address of the Organisation.
   @HiveField(8)
   Address? address;
 }
