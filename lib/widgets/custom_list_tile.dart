@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
@@ -86,7 +85,7 @@ class CustomListTile extends StatelessWidget {
                       ? RichText(
                           key: const Key('OrgNamewithOrgAddress'),
                           text: TextSpan(
-                            text: '${orgInfo!.name!}',
+                            text: orgInfo!.name!,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
