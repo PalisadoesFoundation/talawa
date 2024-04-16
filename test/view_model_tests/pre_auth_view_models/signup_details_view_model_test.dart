@@ -49,7 +49,7 @@ class SignUpMock extends StatelessWidget {
 }
 
 OrgInfo get org => OrgInfo(
-      id: '3',
+      id: '',
       name: 'test org 3',
       userRegistrationRequired: userRegistrationRequired,
       creatorInfo: User(firstName: 'test', lastName: '1'),
@@ -84,13 +84,13 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '')),
+          document: gql(queries.registerUser('', '', '', '', '')),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
       when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
@@ -116,7 +116,7 @@ void main() {
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       );
       verify(
@@ -143,12 +143,12 @@ void main() {
       locator.registerSingleton<UserConfig>(MockUserConfig());
 
       final model = SignupDetailsViewModel();
-
+      model.selectedOrganization = OrgInfo(id: "");
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
 
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => null);
 
@@ -194,13 +194,13 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '')),
+          document: gql(queries.registerUser('', '', '', '', '')),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => false);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
 
@@ -301,13 +301,13 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '')),
+          document: gql(queries.registerUser('', '', '', '', '')),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
       when(
@@ -340,7 +340,7 @@ void main() {
       );
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       );
       verify(
@@ -364,7 +364,7 @@ void main() {
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenThrow(Exception());
 
@@ -374,7 +374,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       );
       verifyNever(
@@ -416,13 +416,15 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '')),
+          document: gql(
+            queries.registerUser('', '', '', '', ''),
+          ),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
       when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
@@ -435,7 +437,7 @@ void main() {
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       );
       verifyNever(
@@ -478,13 +480,15 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '')),
+          document: gql(
+            queries.registerUser('', '', '', '', ''),
+          ),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
       when(
@@ -503,7 +507,7 @@ void main() {
       );
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', ''),
+          queries.registerUser('', '', '', '', ''),
         ),
       );
       verifyNever(
