@@ -41,7 +41,8 @@ class CreateEventViewModel extends BaseModel {
       TextEditingController(text: '1');
 
   /// Event ends After n occurences controller.
-  TextEditingController endOccurenceController = TextEditingController();
+  TextEditingController endOccurenceController =
+      TextEditingController(text: '1');
 
   /// Event Start Time.
   TimeOfDay eventStartTime = TimeOfDay.now();
@@ -73,12 +74,6 @@ class CreateEventViewModel extends BaseModel {
   /// DescriptionFocus FocusNode.
   FocusNode descriptionFocus = FocusNode();
 
-  /// Latitude store.
-  double? latitude;
-
-  /// Longitude store.
-  double? longitude;
-
   /// is an allday event.
   bool isAllDay = true;
 
@@ -88,23 +83,37 @@ class CreateEventViewModel extends BaseModel {
   /// recurrence count.
   int recurranceCount = 1;
 
-  /// recurrence.
-  String? recurrance;
-
   /// RecurranceRuleData frequency.
-  String recurranceFrequency = Recurrance.weekly;
+  String recurrenceInterval = EventIntervals.weekly;
 
   /// Monthly recurrence.
   String monthlyRecurrence = 'Monthly on day 3';
-
-  /// weekdays.
-  Set<String> weekdays = {Recurrance.weekdayTuesday};
 
   /// Event end type.
   String eventEndType = EventEndTypes.never;
 
   /// Custom recurrance event end date.
   DateTime? eventEndOnEndDate = DateTime.now();
+
+  /// represents the frequency of the event.
+  String frequency = Frequency.weekly;
+
+  /// represents the week days of the event.
+  Set<String>? weekDays = {
+    days[DateTime.now().weekday],
+  };
+
+  /// represents the interval of the event.
+  int interval = 1;
+
+  /// represents the count of the event.
+  int? count;
+
+  /// represents the week day occurence in Month.
+  int? weekDayOccurenceInMonth;
+
+  /// represents the recurrence label.
+  String recurrenceLabel = 'Does not repeat';
 
   //late OrganizationService _organizationService;
   late final Map<String, bool> _memberCheckedMap = {};
@@ -200,34 +209,31 @@ class CreateEventViewModel extends BaseModel {
         eventEndTime.minute,
       );
 
-      final String? frequency = getRecurrance(recurranceFrequency);
-
       // all required data for creating an event
       final Map<String, dynamic> variables = {
         "data": {
-          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
-          if (eventEndDate != null)
-            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
-          'organizationId': _currentOrg.id,
           'title': eventTitleTextController.text,
           'description': eventDescriptionTextController.text,
           'location': eventLocationTextController.text,
           'isPublic': isPublicSwitch,
           'isRegisterable': isRegisterableSwitch,
           'recurring': isRecurring,
-          'recurrance': recurrance ?? frequency,
           'allDay': isAllDay,
+          'organizationId': _currentOrg.id,
+          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+          if (eventEndDate != null)
+            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
           'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
           if (eventEndDate != null)
             'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
-          if (latitude != null) 'latitude': latitude,
-          if (longitude != null) 'longitude': longitude,
         },
-        if (recurrance == null)
+        if (isRecurring)
           'recurrenceRuleData': {
-            if (eventEndType != EventEndTypes.never) 'count': recurranceCount,
             'frequency': frequency,
-            if (frequency == 'WEEKLY') 'weekDays': List.from(weekdays),
+            'weekDays': weekDays,
+            'interval': interval,
+            'count': count,
+            'weekDayOccurenceInMonth': weekDayOccurenceInMonth,
           },
       };
 

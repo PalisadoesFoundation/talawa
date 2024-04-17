@@ -9,6 +9,7 @@ class DateTimeTile extends StatelessWidget {
     required this.time,
     required this.setDate,
     required this.setTime,
+    required this.isAllDay,
   });
 
   /// Represents a date in string format.
@@ -16,6 +17,9 @@ class DateTimeTile extends StatelessWidget {
 
   /// Represents a time in string format.
   final String time;
+
+  /// Represents a boolean value indicating if the event is all day.
+  final bool isAllDay;
 
   /// Function that sets the date.
   final Function() setDate;
@@ -52,25 +56,27 @@ class DateTimeTile extends StatelessWidget {
                 style: const TextStyle(fontSize: 16),
               ),
             ),
-            const Spacer(),
-            const Icon(
-              Icons.schedule,
-              color: Color(0xff524F4F),
-              size: 19,
-            ),
-            SizedBox(
-              width: SizeConfig.screenWidth! * 0.045,
-            ),
-            InkWell(
-              key: const Key('EventDateTimeTileTime'),
-              onTap: () async {
-                setTime();
-              },
-              child: Text(
-                time,
-                style: const TextStyle(fontSize: 16),
+            if (!isAllDay) ...[
+              const Spacer(),
+              const Icon(
+                Icons.schedule,
+                color: Color(0xff524F4F),
+                size: 19,
               ),
-            ),
+              SizedBox(
+                width: SizeConfig.screenWidth! * 0.045,
+              ),
+              InkWell(
+                key: const Key('EventDateTimeTileTime'),
+                onTap: () async {
+                  setTime();
+                },
+                child: Text(
+                  time,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
           ],
         ),
       ),

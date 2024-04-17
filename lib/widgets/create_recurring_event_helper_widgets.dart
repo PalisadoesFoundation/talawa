@@ -134,12 +134,17 @@ class _RecurrenceFrequencyDropdownState
                 },
                 onSelected: widget.onSelected,
                 tooltip: 'Select option',
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(widget.selectedOption),
-                    const Icon(Icons.arrow_drop_down),
-                  ],
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.selectedOption,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -184,9 +189,6 @@ class _EventEndOptionsState extends State<EventEndOptions> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.model.eventEndType);
-    print(widget.model.recurrance);
-    print(widget.model.recurranceFrequency);
     return Column(
       children: [
         radioButton(
@@ -196,6 +198,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           inputAction: () {
             widget.model.setEventEndDate(null);
             setState(() {
+              widget.model.count = null;
               widget.model.eventEndType = EventEndTypes.never;
             });
           },
@@ -216,17 +219,16 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                     onPressed: () async {
                       // initially pickedDate is initialised with current end time.
                       final pickedDate = await customDatePicker(
-                        initialDate:
-                            widget.model.eventEndOnEndDate ?? DateTime.now(),
+                        initialDate: DateTime.now(),
                       );
                       setState(() {
-                        widget.model.eventEndOnEndDate = pickedDate;
+                        widget.model.eventEndDate = pickedDate;
                         widget.model.eventEndType = EventEndTypes.on;
                       });
                     },
                     icon: Text(
                       formatDate(
-                        widget.model.eventEndOnEndDate.toString().split(" ")[0],
+                        DateTime.now().toString().split(" ")[0],
                       ),
                       style: widget.model.eventEndType == EventEndTypes.on
                           ? TextStyle(color: Theme.of(context).dividerColor)
@@ -244,7 +246,9 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           index: 1,
           inputAction: () {
             setState(() {
+              widget.model.eventEndDate = DateTime.now();
               widget.model.eventEndType = EventEndTypes.on;
+              widget.model.count = null;
             });
           },
         ),
@@ -266,6 +270,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           index: 2,
           inputAction: () {
             setState(() {
+              widget.model.eventEndDate = null;
               widget.model.eventEndType = EventEndTypes.after;
             });
           },

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -9,78 +11,181 @@ class ShowRecurrenceDialog extends StatefulWidget {
   const ShowRecurrenceDialog({
     super.key,
     required this.model,
-    required this.initialRecurrence,
   });
 
+  /// Instance of create event view model.
   final CreateEventViewModel model;
-  final String initialRecurrence;
 
   @override
   State<ShowRecurrenceDialog> createState() => _ShowRecurrenceDialogState();
 }
 
 class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
-  static const donotRepeat = "Does not repeat";
-  static const dialy = "Every day";
-  static const weekly = "Every week";
-  static const monthly = "Every month";
-  static const yearly = "Every year";
-  static const custom = "Custom...";
-
-  static const List<String> _frequencies = [
-    donotRepeat,
-    dialy,
-    weekly,
-    monthly,
-    yearly,
-    custom,
-  ];
-
-  late String _frequency;
   @override
   Widget build(BuildContext context) {
-    _frequency = widget.initialRecurrence;
-    print('widget built');
     return Dialog(
       child: SizedBox(
-        height: SizeConfig.screenHeight! * 0.5,
+        height: SizeConfig.screenHeight! * 0.6,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            radioButton(_frequencies[0]),
-            radioButton(_frequencies[1]),
-            radioButton(_frequencies[2]),
-            radioButton(_frequencies[3]),
-            radioButton(_frequencies[4]),
-            radioButton(_frequencies[5]),
+            radioButtonFixText(
+              "Does not repeat",
+              (value) => updateModel(value!, false, null, null, null),
+            ),
+            radioButton(
+              Frequency.daily,
+              widget.model.interval,
+              widget.model.count,
+              null,
+              null,
+            ),
+            radioButton(Frequency.weekly, widget.model.interval,
+                widget.model.count, null, [
+              RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+            ]),
+            if (RecurrenceUtils.getWeekDayOccurenceInMonth(
+                  widget.model.eventStartDate,
+                ) !=
+                5)
+              radioButton(
+                  Frequency.monthly,
+                  widget.model.interval,
+                  widget.model.count,
+                  RecurrenceUtils.getWeekDayOccurenceInMonth(
+                    widget.model.eventStartDate,
+                  ),
+                  [
+                    RecurrenceUtils
+                        .weekDays[widget.model.eventStartDate.weekday],
+                  ]),
+            if (RecurrenceUtils.isLastOccurenceOfWeekDay(
+              widget.model.eventStartDate,
+            ))
+              radioButton(Frequency.monthly, widget.model.interval,
+                  widget.model.count, -1, [
+                RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+              ]),
+            radioButton(
+              Frequency.yearly,
+              widget.model.interval,
+              widget.model.count,
+              null,
+              null,
+            ),
+            radioButtonFixText(
+              'Monday to Friday ${widget.model.eventEndDate != null ? "until ${DateFormat('MMMM d, y').format(widget.model.eventEndDate!)}" : ""}',
+              (value) => updateModel(value!, true, Frequency.weekly, null, {
+                'MONDAY',
+                'TUESDAY',
+                'WEDNESDAY',
+                'THURSDAY',
+                'FRIDAY',
+              }),
+            ),
+            radioButtonFixText("Custom...", (value) async {
+              await navigationService.pushScreen(
+                Routes.customRecurrencePage,
+                arguments: widget.model,
+              );
+              setState(() {
+                Navigator.pop(context, value);
+              });
+            }),
           ],
         ),
       ),
     );
   }
 
-  // custom radio list tile.
+  /// custom radio list tile.
+  ///
+  /// **params**:
+  /// * `frequency`: represent the frequency of the event.
+  /// * `interval`: represent the interval of the event.
+  /// * `count`: represent the count of the event.
+  /// * `weekDayOccurenceInMonth`: represent the week day occurence in month.
+  /// * `weekDays`: represent the list of week days.
+  ///
+  /// **returns**:
+  /// * `RadioListTile<String>`: returns radio list tile.
   RadioListTile<String> radioButton(
     String frequency,
+    int? interval,
+    int? count,
+    int? weekDayOccurenceInMonth,
+    List<String>? weekDays,
+  ) {
+    final String text = RecurrenceUtils.getRecurrenceRuleText(
+      frequency,
+      weekDays?.toSet(),
+      interval,
+      count,
+      weekDayOccurenceInMonth,
+      widget.model.eventStartDate,
+      widget.model.eventEndDate,
+    );
+    return RadioListTile<String>(
+      title: Text(text),
+      value: text,
+      groupValue: widget.model.recurrenceLabel,
+      onChanged: (value) => updateModel(
+        value!,
+        true,
+        frequency,
+        weekDayOccurenceInMonth,
+        weekDays?.map((day) => day.toUpperCase()).toSet(),
+      ),
+    );
+  }
+
+  /// custom radio list tile with fixed the text.
+  ///
+  /// **params**:
+  /// * `text`: represents the text of the radio button.
+  /// * `onChanged`: represents the function to be called when the radio button is pressed.
+  ///
+  /// **returns**:
+  /// * `RadioListTile<String>`: returns radio list tile.
+  RadioListTile<String> radioButtonFixText(
+    String text,
+    Function(String?)? onChanged,
   ) {
     return RadioListTile<String>(
-      title: Text(frequency),
-      value: frequency,
-      groupValue: _frequency,
-      onChanged: (value) async {
-        // navigate to custom recurrence page when pressed custom... button.
-        widget.model.recurrance = widget.model.getRecurrance(value!);
-        if (value == _frequencies[5]) {
-          await navigationService.pushScreen(
-            Routes.customRecurrencePage,
-            arguments: widget.model,
-          );
-        }
-        setState(() {
-          _frequency = value;
-          Navigator.pop(context, _frequency);
-        });
-      },
+      title: Text(text),
+      value: text,
+      groupValue: widget.model.recurrenceLabel,
+      onChanged: onChanged,
     );
+  }
+
+  /// Returns the updated model with the selected recurrence options.
+  ///
+  /// **params**:
+  /// * `value`: represents text of the selected recurrence option.
+  /// * `isRecurring`: represent whether the event is recurring or not.
+  /// * `frequency`: represent the frequency of the event.
+  /// * `weekDayOccurenceInMonth`: represent the week day occurence in month.
+  /// * `weekDays`: represent the list of week days.
+  ///
+  /// **returns**:
+  ///   None
+  void updateModel(
+    String value,
+    bool isRecurring,
+    String? frequency,
+    int? weekDayOccurenceInMonth,
+    Set<String>? weekDays,
+  ) {
+    setState(() {
+      widget.model.isRecurring = isRecurring;
+      widget.model.recurrenceLabel = value;
+      widget.model.weekDays = weekDays;
+      widget.model.weekDayOccurenceInMonth = weekDayOccurenceInMonth;
+      if (frequency != null) {
+        widget.model.frequency = frequency;
+      }
+      Navigator.pop(context, value);
+    });
   }
 }

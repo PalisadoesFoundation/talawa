@@ -21,6 +21,7 @@ Widget createWidget() {
   return MaterialApp(
     home: Scaffold(
       body: DateTimeTile(
+        isAllDay: false,
         date: "fakeDate",
         time: "fakeTime",
         setDate: setDateCallback,

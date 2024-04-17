@@ -26,8 +26,6 @@ class CreateEventPage extends StatefulWidget {
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
-  /// Recurrence label of recurrence selection button.
-  String recurrenceLabel = Recurrance.once;
   @override
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
@@ -36,7 +34,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
-        print(model.recurrance);
+        print(
+          "${model.frequency}, ${model.interval}, ${model.count}, ${model.weekDayOccurenceInMonth}, ${model.eventStartDate}, ${model.eventEndDate}, ${model.weekDays} ${model.eventEndDate?.weekday}",
+        );
         return Scaffold(
           // AppBar is the header of the page
           appBar: AppBar(
@@ -143,10 +143,94 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       // This widget is exported from `lib/views/after_auth_screens/events/create_event_form.dart`.
                       model: model,
                     ),
+                    SizedBox(height: SizeConfig.screenHeight! * 0.013),
+                    const Divider(),
+                    SizedBox(
+                      width: SizeConfig.screenWidth,
+                      child: Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Keep Registerable'),
+                                style: subtitleTextStyle,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.005,
+                              ),
+                              Switch(
+                                value: model.isRegisterableSwitch,
+                                onChanged: (value) {
+                                  setState(() {
+                                    model.isRegisterableSwitch = value;
+                                  });
+                                },
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('All day'),
+                                style: subtitleTextStyle,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.005,
+                              ),
+                              Switch(
+                                // Switch to select the visibility of the event.
+                                value: model.isAllDay,
+                                onChanged: (value) {
+                                  setState(() {
+                                    model.isAllDay = value;
+                                  });
+                                },
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Keep Public'),
+                                style: subtitleTextStyle,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.005,
+                              ),
+                              Switch(
+                                // Switch to select the visibility of the event.
+                                value: model.isPublicSwitch,
+                                onChanged: (value) {
+                                  setState(() {
+                                    model.isPublicSwitch = value;
+                                  });
+                                },
+                                activeColor:
+                                    Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     const Divider(),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
                     Text(
                       // translation of the text to app language.
                       AppLocalizations.of(context)!
@@ -160,6 +244,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                     DateTimeTile(
                       // variables and member functions initialisation.
+                      isAllDay: model.isAllDay,
                       date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                       time: model.eventStartTime.format(context),
                       setDate: () async {
@@ -172,20 +257,24 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           );
                         }
                         setState(() {
-                          model.eventStartDate = date;
+                          if (model.eventStartDate != date) {
+                            model.eventStartDate = date;
+                            model.recurrenceLabel = 'Does not repeat';
+                            model.isRecurring = false;
+                            model.frequency = Frequency.weekly;
+                            model.weekDays = null;
+                            model.weekDayOccurenceInMonth = null;
+                          }
                         });
                       },
                       setTime: () async {
-                        print(model.eventStartDate);
                         final time = await customTimePicker(
                           initialTime: model.eventStartTime,
                         );
-                        // print(model.eventStartTime);
                         final validationError = Validator.validateEventTime(
                           time,
                           model.eventEndTime,
                         );
-                        print('hi');
                         if (validationError != null) {
                           navigationService.showTalawaErrorSnackBar(
                             'Start time must be before end time',
@@ -214,6 +303,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     DateTimeTile(
                       key: const Key('key for test cep'),
+                      isAllDay: model.isAllDay,
                       date: "${model.eventEndDate?.toLocal() ?? DateTime.now()}"
                           .split(' ')[0],
                       time: model.eventEndTime.format(context),
@@ -224,10 +314,16 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final startDate = model.eventStartDate;
                         if (startDate.compareTo(date) < 0) {
                           setState(() {
-                            model.eventEndDate = date;
+                            if (model.eventEndDate != date) {
+                              model.eventEndDate = date;
+                              model.recurrenceLabel = 'Does not repeat';
+                              model.isRecurring = false;
+                              model.frequency = Frequency.weekly;
+                              model.weekDays = null;
+                              model.weekDayOccurenceInMonth = null;
+                            }
                           });
                         } else {
-                          // ignore: undefined_method
                           navigationServiceLocal.showSnackBar(
                             "End Date cannot be after start date ",
                           );
@@ -265,10 +361,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.045,
                           ),
-                          Text(
-                            AppLocalizations.of(context)!
-                                .strictTranslate(recurrenceLabel),
-                            style: subtitleTextStyle,
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(model.recurrenceLabel),
+                              style: subtitleTextStyle,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),
@@ -279,98 +378,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           builder: (context) {
                             return ShowRecurrenceDialog(
                               model: model,
-                              initialRecurrence: recurrenceLabel,
                             );
                           },
                         );
                         setState(() {
-                          recurrenceLabel = selectedReccurence!;
+                          model.recurrenceLabel = selectedReccurence!;
                         });
                       },
-                    ),
-                    SizedBox(height: SizeConfig.screenHeight! * 0.026),
-                    const Divider(),
-                    SizedBox(
-                      width: SizeConfig.screenWidth,
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Keep Registerable'),
-                                style: subtitleTextStyle,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth! * 0.005,
-                              ),
-                              Switch(
-                                value: model.isRegisterableSwitch,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.isRegisterableSwitch = value;
-                                    print(model.isRegisterableSwitch);
-                                  });
-                                },
-                                activeColor:
-                                    Theme.of(context).colorScheme.primary,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('All day'),
-                                style: subtitleTextStyle,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth! * 0.005,
-                              ),
-                              Switch(
-                                // Switch to select the visibility of the event.
-                                value: model.isAllDay,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.isAllDay = value;
-                                    print(model.isAllDay);
-                                  });
-                                },
-                                activeColor:
-                                    Theme.of(context).colorScheme.primary,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Keep Public'),
-                                style: subtitleTextStyle,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth! * 0.005,
-                              ),
-                              Switch(
-                                // Switch to select the visibility of the event.
-                                value: model.isPublicSwitch,
-                                onChanged: (value) {
-                                  setState(() {
-                                    model.isPublicSwitch = value;
-                                    print(model.isPublicSwitch);
-                                  });
-                                },
-                                activeColor:
-                                    Theme.of(context).colorScheme.primary,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),

@@ -105,6 +105,7 @@ class _EditEventPageState extends State<EditEventPage> {
                   // DateTimeTile is custom widget that returns a tile to select date and time.
                   // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                   DateTimeTile(
+                    isAllDay: false,
                     // variables and member functions initialisation.
                     date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                     time: model.eventStartTime.format(context),
@@ -140,6 +141,7 @@ class _EditEventPageState extends State<EditEventPage> {
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
                   DateTimeTile(
+                    isAllDay: false,
                     date: "${model.eventEndDate.toLocal()}".split(' ')[0],
                     time: model.eventEndTime.format(context),
                     setDate: () async {
