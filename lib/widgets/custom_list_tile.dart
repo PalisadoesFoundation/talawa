@@ -141,30 +141,33 @@ class CustomListTile extends StatelessWidget {
                       : Text(
                           type == TileType.user
                               ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
-                              : option!.title,
-                          style: type == TileType.user
-                              ? Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  )
-                              : option!.trailingIconButton == null
+                              : type == TileType.attendee
+                                  ? '${attendeeInfo!.firstName!} ${attendeeInfo!.lastName!}'
+                                  : option!.title,
+                          style:
+                              type == TileType.user || type == TileType.attendee
                                   ? Theme.of(context)
                                       .textTheme
-                                      .bodyMedium!
+                                      .titleLarge!
                                       .copyWith(
                                         fontSize: 18,
                                         color: Colors.black,
                                       )
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                      ),
+                                  : option!.trailingIconButton == null
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          )
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          ),
                         ),
                 ),
               ),

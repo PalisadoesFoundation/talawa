@@ -67,7 +67,7 @@ final OrgInfo mockOrgInfo = OrgInfo.fromJson(
 
 final OrgInfo mockOrgInfo2 = OrgInfo.fromJson(
   {
-    '_id': '123',
+    '_id': '1234',
     'image': '',
     'name': 'Org_Name',
     'description': 'aabbcc',
@@ -183,6 +183,17 @@ void main() {
     registerServices();
   });
   group('OrganisationInfoScreen Tests', () {
+    testWidgets('Leave button shows when organization is joined',
+        (WidgetTester tester) async {
+      mockNetworkImagesFor(() async {
+        userConfig.currentUser.joinedOrganizations!.add(mockOrgInfo);
+
+        await tester.pumpWidget(createOrgInfoScreen1());
+        await tester.pumpAndSettle();
+
+        expect(find.text('Leave'), findsOneWidget);
+      });
+    });
     testWidgets('Displays the correct organization info',
         (WidgetTester tester) async {
       mockNetworkImagesFor(() async {
@@ -214,7 +225,7 @@ void main() {
       mockNetworkImagesFor(() async {
         final viewModel = SelectOrganizationViewModel();
 
-        await tester.pumpWidget(createOrgInfoScreen1());
+        await tester.pumpWidget(createOrgInfoScreen2());
         await tester.pumpAndSettle();
 
         expect(find.text('Join'), findsOneWidget);
@@ -224,17 +235,7 @@ void main() {
         verify(viewModel.selectOrg(mockOrgInfo)).called(1);
       });
     });
-    testWidgets('Leave button shows when organization is joined',
-        (WidgetTester tester) async {
-      mockNetworkImagesFor(() async {
-        userConfig.currentUser.joinedOrganizations!.add(mockOrgInfo);
 
-        await tester.pumpWidget(createOrgInfoScreen1());
-        await tester.pumpAndSettle();
-
-        expect(find.text('Leave'), findsOneWidget);
-      });
-    });
     testWidgets('Displays the default image when orgInfo.image is null',
         (WidgetTester tester) async {
       mockNetworkImagesFor(() async {

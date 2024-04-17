@@ -241,7 +241,7 @@ class EventInfoBody extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return CustomListTile(
                     key: Key(
-                      '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
+                      'Attendee$index',
                     ),
                     index: index,
                     type: TileType.attendee,
