@@ -90,7 +90,7 @@ class OrganisationInfoScreen extends StatelessWidget {
                               bottomRight: Radius.circular(20.0),
                             ),
                             child: Image.asset(
-                              'assets/images/talawaorg.png',
+                              'assets/images/Organisation_Default_Image.jpeg',
                               height: imageHeight,
                               width: double.infinity,
                               fit: BoxFit.cover,
@@ -140,13 +140,14 @@ class OrganisationInfoScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 28,
+                  bottom: 24,
                   left: 16,
                   child: Text(
                     'Created by: ${orgInfo.creatorInfo?.firstName ?? 'User name'} ${orgInfo.creatorInfo?.lastName ?? ''}',
                     style: const TextStyle(
                       fontSize: 16.0,
                       color: Color.fromARGB(255, 255, 255, 255),
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
