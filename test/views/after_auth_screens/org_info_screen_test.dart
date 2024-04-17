@@ -68,7 +68,7 @@ final OrgInfo mockOrgInfo = OrgInfo.fromJson(
 final OrgInfo mockOrgInfo2 = OrgInfo.fromJson(
   {
     '_id': '1234',
-    'image': '',
+    'image': null,
     'name': 'Org_Name',
     'description': 'aabbcc',
     'userRegistrationRequired': true,
@@ -192,6 +192,12 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('Leave'), findsOneWidget);
+        await tester.tap(find.text('Leave'));
+        await tester.pumpAndSettle();
+
+        expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.arrow_back));
+        await tester.pumpAndSettle();
       });
     });
     testWidgets('Displays the correct organization info',
@@ -260,6 +266,10 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('Parag 3'), findsOneWidget);
+
+        expect(find.byKey(const Key('modalSheetbackBtn')), findsOneWidget);
+        await tester.tap(find.byKey(const Key('modalSheetbackBtn')));
+        await tester.pumpAndSettle();
       });
     });
     testWidgets('DropDown list for members more than 4',

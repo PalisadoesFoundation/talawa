@@ -408,6 +408,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               AppBar(
                 title: Text(title),
                 leading: IconButton(
+                  key: const Key('modalSheetbackBtn'),
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.of(bc).pop(),
                 ),
