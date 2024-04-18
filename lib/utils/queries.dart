@@ -214,11 +214,27 @@ class Queries {
         _id
         name
         image
+        description
+        address{
+        city
+        countryCode
+        state
+      }
         userRegistrationRequired
         creator{
           firstName
           lastName
         }
+        members{
+              firstName
+              lastName
+              image
+              }
+              admins{
+              firstName
+              lastName
+              image
+              }
       }
     }
 """;

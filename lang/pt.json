@@ -275,5 +275,6 @@
   "The tag was added": "A tag foi adicionada",
   "Start time must be before end time": "O horário de início deve ser anterior ao horário de término",
   "Organisation on different server, logout and scan qr again": "Organização em servidor diferente, faça logout e escaneie o QR novamente",
-  "Post was deleted if you had the rights!": "A postagem foi excluída se você tiver os direitos!"
+  "Post was deleted if you had the rights!": "A postagem foi excluída se você tiver os direitos!",
+  "Members": "Membros"
 }

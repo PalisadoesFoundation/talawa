@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:talawa/models/organization/org_info_address.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 part 'org_info.g.dart';
@@ -16,6 +17,7 @@ class OrgInfo {
     this.image,
     this.userRegistrationRequired,
     this.name,
+    this.address,
   });
 
   factory OrgInfo.fromJson(
@@ -56,6 +58,9 @@ class OrgInfo {
                 (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
               )
               .toList()
+          : null,
+      address: json['address'] != null
+          ? Address.fromJson(json['address'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -121,4 +126,8 @@ class OrgInfo {
   /// The org creatorInfo.
   @HiveField(7)
   User? creatorInfo;
+
+  /// Address of the Organisation.
+  @HiveField(8)
+  Address? address;
 }

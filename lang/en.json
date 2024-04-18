@@ -275,5 +275,6 @@
   "The tag was added": "The tag was added",
   "Start time must be before end time": "Start time must be before end time",
   "Organisation on different server, logout and scan qr again": "Organisation on different server, logout and scan qr again",
-  "Post was deleted if you had the rights!": "Post was deleted if you had the rights!"
+  "Post was deleted if you had the rights!": "Post was deleted if you had the rights!",
+  "Members": "Members"
 }

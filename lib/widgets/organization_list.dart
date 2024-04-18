@@ -116,7 +116,11 @@ class OrganizationList extends StatelessWidget {
                         index: index,
                         type: TileType.org,
                         orgInfo: model.organizations[index],
-                        onTapOrgInfo: (item) => model.selectOrg(item),
+                        onTapOrgInfo: (item) => Navigator.pushNamed(
+                          context,
+                          '/OrganisationInfoScreen',
+                          arguments: model.organizations[index],
+                        ),
                         key: Key('OrgSelItem$index'),
                       ),
                     );
@@ -126,7 +130,11 @@ class OrganizationList extends StatelessWidget {
                     index: index,
                     type: TileType.org,
                     orgInfo: model.organizations[index],
-                    onTapOrgInfo: (item) => model.selectOrg(item),
+                    onTapOrgInfo: (item) => Navigator.pushNamed(
+                      context,
+                      '/OrganisationInfoScreen',
+                      arguments: model.organizations[index],
+                    ),
                     key: Key('OrgSelItem$index'),
                   );
                 },

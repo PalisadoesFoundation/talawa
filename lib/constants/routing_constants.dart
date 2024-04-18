@@ -111,4 +111,7 @@ class Routes {
 
   /// static variable to access addPostScreen.
   static const String addPostScreen = '/addpostscreen';
+
+  /// static variable to access org info screen.
+  static const String orgInfoScreen = '/OrganisationInfoScreen';
 }

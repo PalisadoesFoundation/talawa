@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/organization/org_info_address.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -95,6 +96,10 @@ void main() {
           firstName: 'Test firstname',
           lastName: 'Test lastname',
         ),
+        address: Address(
+          city: 'Test City',
+          countryCode: 'TC',
+        ),
       );
       _onTapOrgInfo = (OrgInfo orgInfo) {
         executed = true;
@@ -114,8 +119,8 @@ void main() {
       // test to check that there is no icon
       expect(find.byIcon(Icons.add), findsNothing);
 
-      // Testing Text for that contains org's name
-      final orgName = find.text('Test Name');
+      // Testing Rich Text for org name and address shows up
+      final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
 
       expect(orgName, findsOneWidget);
 
