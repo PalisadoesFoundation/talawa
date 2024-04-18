@@ -134,17 +134,15 @@ class _RecurrenceFrequencyDropdownState
                 },
                 onSelected: widget.onSelected,
                 tooltip: 'Select option',
-                child: Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.selectedOption,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const Icon(Icons.arrow_drop_down),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.selectedOption,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const Icon(Icons.arrow_drop_down),
+                  ],
                 ),
               ),
             ],

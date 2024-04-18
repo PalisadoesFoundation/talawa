@@ -34,9 +34,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
-        print(
-          "${model.frequency}, ${model.interval}, ${model.count}, ${model.weekDayOccurenceInMonth}, ${model.eventStartDate}, ${model.eventEndDate}, ${model.weekDays} ${model.eventEndDate?.weekday}",
-        );
         return Scaffold(
           // AppBar is the header of the page
           appBar: AppBar(
@@ -241,9 +238,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     // DateTimeTile is custom widget that returns a tile to select date and time.
-                    // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                     DateTimeTile(
-                      // variables and member functions initialisation.
                       isAllDay: model.isAllDay,
                       date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                       time: model.eventStartTime.format(context),
@@ -355,6 +350,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.026,
                     ),
                     InkWell(
+                      key: const Key('inkwell_recurrLabel'),
                       child: Row(
                         children: [
                           const Icon(Icons.restore),

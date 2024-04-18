@@ -246,11 +246,9 @@ class CreateEventViewModel extends BaseModel {
         EventQueries().addEvent(),
         variables: variables,
       );
-      print(result);
       navigationService.pop();
       if (result != null) {
         navigationService.pop();
-
         await _eventService.getEvents();
       }
     }

@@ -23,10 +23,10 @@ void main() {
     );
 
     final Map<String, dynamic> json = {
-      '_id': '123',
+      'id': '123',
       'users': List.generate(listLength, (index) {
         return {
-          '_id': '$index',
+          'id': '$index',
           'firstName': 'First$index',
           'image': 'Image$index',
         };
@@ -65,7 +65,7 @@ void main() {
     test('Test toJson', () {
       final Map<String, dynamic> json = chatListTileDataModel.toJson();
 
-      expect(json['_id'], chatListTileDataModel.id);
+      expect(json['id'], chatListTileDataModel.id);
       checkUsers(json['users'] as List<ChatUser>, chatListTileDataModel.users);
     });
   });

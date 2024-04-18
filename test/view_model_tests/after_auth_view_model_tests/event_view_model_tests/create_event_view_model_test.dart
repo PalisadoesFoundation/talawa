@@ -169,16 +169,19 @@ void main() {
               'location': model.eventLocationTextController.text,
               'isPublic': model.isPublicSwitch,
               'isRegisterable': model.isRegisterableSwitch,
-              'recurring': true,
-              'recurrance': 'WEEKLY',
+              'recurring': model.isRecurring,
               'allDay': true,
               'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
               'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
-            'recurrenceRuleData': {
-              'frequency': 'WEEKLY',
-              'weekDays': ['TU'],
-            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'frequency': 'WEEKLY',
+                'weekDays': ['TUESDAY'],
+                'interval': 1,
+                'count': 1,
+                'weekDayOccurenceInMonth': 1,
+              },
           },
         ),
       ).thenAnswer((_) async {
@@ -200,16 +203,19 @@ void main() {
               'location': model.eventLocationTextController.text,
               'isPublic': model.isPublicSwitch,
               'isRegisterable': model.isRegisterableSwitch,
-              'recurring': true,
-              'recurrance': 'WEEKLY',
+              'recurring': model.isRecurring,
               'allDay': true,
               'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
               'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
-            'recurrenceRuleData': {
-              'frequency': 'WEEKLY',
-              'weekDays': ['TU'],
-            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'frequency': 'WEEKLY',
+                'weekDays': ['TUESDAY'],
+                'interval': 1,
+                'count': 1,
+                'weekDayOccurenceInMonth': 1,
+              },
           },
         ),
       );

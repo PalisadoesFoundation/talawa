@@ -81,9 +81,6 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
                   viewModel.eventEndDate,
                 );
               });
-              print(
-                "Frequency - ${viewModel.frequency}, Weekdays - ${viewModel.weekDays}, Interval - ${viewModel.interval}, Count - ${viewModel.count}, WeekDayOccurenceInMonth - ${viewModel.weekDayOccurenceInMonth}, End Date - ${viewModel.eventEndDate}, Start Date - ${viewModel.eventStartDate}, Recurrence Label - ${viewModel.recurrenceLabel}",
-              );
               navigationService.pop();
             },
             child: Text(AppLocalizations.of(context)!.strictTranslate('Done')),

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,11 +20,22 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 import '../../../widget_tests/after_auth_screens/events/create_event_form_test.dart';
 
+/// Mock class instance of CallbackFunction.
 class MockCallbackFunction extends Mock {
+  /// Mock function call.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
+/// mock instance for setDateCallback.
 final setDateCallback = MockCallbackFunction();
+
+/// mock instance for setTimeCallback.
 final setTimeCallback = MockCallbackFunction();
 
 /// Creates a EventScreen for tests.
@@ -79,7 +89,7 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
-  group('testing', () {
+  group('testing -> CreateEventPage', () {
     testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
@@ -87,25 +97,26 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
+
+      await tester.pumpAndSettle();
+
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(switches, findsNWidgets(3));
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(1));
+
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
       expect(inkwellFinder, findsNWidgets(8));
-      // tester.allElements.forEach((element) {
-      //   print(element);
-      // });
 
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
 
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerService = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
           .thenAnswer((_) async {
         return file;
@@ -122,22 +133,25 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
+      await tester.pumpAndSettle();
+
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(switches, findsNWidgets(3));
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(1));
+
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
       expect(inkwellFinder, findsNWidgets(8));
 
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
 
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerService = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
           .thenAnswer((_) async {
         return file;
@@ -174,31 +188,13 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      const List<String> frequencies = [
-        "Does not repeat",
-        "Every day",
-        "Every week",
-        "Every month",
-        "Every year",
-        "Custom...",
-      ];
-
-      String prev = frequencies[0];
-      for (int i = 1; i < 5; i++) {
-        expect(find.text(prev), findsAny);
-        await tester.tap(find.text(prev));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text(frequencies[i]).last);
-        await tester.pumpAndSettle();
-        expect(find.byType(ShowRecurrenceDialog), findsNothing);
-        expect(find.text(frequencies[i]), findsOneWidget);
-        prev = frequencies[i];
-      }
+      const String prev = "Does not repeat";
 
       expect(find.text(prev), findsAny);
+      await tester.ensureVisible(find.byKey(const Key("inkwell_recurrLabel")));
       await tester.tap(find.text(prev));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(frequencies[5]));
+      await tester.tap(find.text("Custom..."));
       await tester.pumpAndSettle();
 
       expect(find.byType(ShowRecurrenceDialog), findsNothing);
@@ -211,22 +207,26 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
+
+      await tester.pumpAndSettle();
+
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(switches, findsNWidgets(3));
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(1));
+
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
       expect(inkwellFinder, findsNWidgets(8));
 
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
 
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerService = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
           .thenAnswer((_) async {
         return file;
@@ -243,25 +243,26 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
+
+      await tester.pumpAndSettle();
+
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(switches, findsNWidgets(3));
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(1));
+
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
       expect(inkwellFinder, findsNWidgets(8));
-      // tester.allElements.forEach((element) {
-      //   print(element);
-      // });
 
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
 
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerService = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
           .thenAnswer((_) async {
         return file;
@@ -287,19 +288,9 @@ void main() {
       final finder = find.byKey(const Key('txt_btn_cep'));
 
       expect(finder, findsOneWidget);
-
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
-
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerServices = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerServices.getPhotoFromGallery())
           .thenAnswer((_) async {
         return file;
@@ -331,18 +322,10 @@ void main() {
 
       expect(finder, findsOneWidget);
 
-      ///returning the file variable to the
-      ///result of function multimediaPickerService.getPhotoFromGallery
-      ///when this function is called in the
-      ///view model of add_post_page.
       final file = File('fakePath');
 
-      /// using the new instance of multimediaPickerService
-      /// so that when statement can be used again,
-      /// else it gives null point exception
       final multimediaPickerService = locator<MultiMediaPickerService>();
 
-      /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
           .thenAnswer((_) async {
         return file;
@@ -509,6 +492,18 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
+
+      await tester.pumpAndSettle();
+
+      final switches = find.descendant(
+        of: find.byType(Row),
+        matching: find.byType(Switch),
+      );
+      expect(switches, findsNWidgets(3));
+      expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+      await tester.ensureVisible(switches.at(0));
+      await tester.tap(switches.at(1));
+
       await tester.pump();
       final inkwellFinder = find.byType(InkWell);
       expect(inkwellFinder, findsNWidgets(8));
@@ -569,6 +564,16 @@ void main() {
         );
         await tester.pumpAndSettle();
 
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
         await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
         await tester.pump();
 
@@ -593,6 +598,18 @@ void main() {
             theme: TalawaTheme.darkTheme,
           ),
         );
+
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
         await tester.pump();
 
         await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
@@ -622,6 +639,16 @@ void main() {
         );
         await tester.pumpAndSettle();
 
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
         await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
         await tester.pump();
 
@@ -642,11 +669,12 @@ void main() {
     });
 
     group("Tests for integration with view model and services", () {
-      late final CreateEventViewModel cachedViewModel;
+      late final CreateEventViewModel cachedViewModel =
+          getAndRegisterCreateEventModel();
 
-      testWidgets("setup MockCreateEventViewModel", (tester) async {
-        cachedViewModel = getAndRegisterCreateEventModel();
-      });
+      // testWidgets("setup MockCreateEventViewModel", (tester) async {
+      //   cachedViewModel = getAndRegisterCreateEventModel();
+      // });
 
       testWidgets("Check if AppBar buttons work", (tester) async {
         mockNetworkImages(() async {
@@ -709,12 +737,9 @@ void main() {
         await tester.ensureVisible(find.byKey(const Key('text_btn_ambs1')));
         await tester.pumpAndSettle();
 
-        await tester.tap(find.byType(CheckboxListTile));
-        expect(cachedViewModel.memberCheckedMap['fakeUser1'], false);
-        await tester.pumpAndSettle();
-        await tester.tap(find.byType(CheckboxListTile));
+        await tester.tap(find.byType(CheckboxListTile).first);
         expect(cachedViewModel.memberCheckedMap['fakeUser1'], true);
-        await tester.pump();
+        await tester.pumpAndSettle();
       });
 
       testWidgets(

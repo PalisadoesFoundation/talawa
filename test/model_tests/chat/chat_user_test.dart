@@ -13,7 +13,7 @@ void main() {
     );
     final chatUserJson = {
       'firstName': 'Ayush',
-      '_id': null,
+      'id': null,
       'image': 'random image url',
     };
     test('Test json to model', () {
