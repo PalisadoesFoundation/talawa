@@ -5,14 +5,11 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 
-/// a_line_ending_with_end_punctuation.
-///
-/// more_info_if_required
+/// PinnedPost returns a widget that shows the pinned post.
 class PinnedPost extends StatelessWidget {
   const PinnedPost({super.key, required this.pinnedPost, required this.model});
 
   /// contains the pinned post.
-  ///
   final List<Post> pinnedPost;
 
   /// gives access mainScreenViewModel's attributes.
@@ -58,7 +55,12 @@ class PinnedPost extends StatelessWidget {
                                       ? 'placeHolderUrl'
                                       : pinnedPost[index].imageUrl!,
                               errorWidget: (context, url, error) {
-                                return const CircularProgressIndicator();
+                                print(error);
+                                return const SizedBox(
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
                               },
                               height: SizeConfig.screenHeight! * 0.15,
                               fit: BoxFit.cover,
@@ -104,9 +106,7 @@ class PinnedPost extends StatelessWidget {
     );
   }
 
-  /// converts date time to hrs.
-  ///
-  /// more_info_if_required
+  /// Function returns the time difference in hours.
   ///
   /// **params**:
   /// * `createdAtString`: the time from post
@@ -122,8 +122,6 @@ class PinnedPost extends StatelessWidget {
   }
 
   /// converts post to mapped string.
-  ///
-  /// more_info_if_required
   ///
   /// **params**:
   /// * `index`: current index

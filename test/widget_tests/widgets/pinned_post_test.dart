@@ -194,7 +194,7 @@ void main() {
               widgetTester.binding.rootElement!,
               '',
               Exception(),
-            ) is CircularProgressIndicator,
+            ) is SizedBox,
       ),
       findsOneWidget,
     );
