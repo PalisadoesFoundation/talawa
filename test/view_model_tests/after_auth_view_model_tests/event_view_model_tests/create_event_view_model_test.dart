@@ -20,10 +20,30 @@ import '../../../helpers/test_locator.dart';
 /// `MockBuildContext` class represents mock instance of Build context.
 class MockBuildContext extends Mock implements BuildContext {}
 
+/// Instance of callback function.
 class MockCallbackFunction extends Mock {
+  /// Callback function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
+/// a_line_ending_with_end_punctuation.
+///
+/// more_info_if_required
+///
+/// **params**:
+/// * `formKey`: define_the_param
+/// * `eventTitleTextController`: define_the_param
+/// * `eventLocationTextController`: define_the_param
+/// * `eventDescriptionTextController`: define_the_param
+///
+/// **returns**:
+/// * `Widget`: define_the_return
 Widget createApp(
   GlobalKey<FormState> formKey,
   TextEditingController eventTitleTextController,
