@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -19,9 +18,7 @@ class DemoOrganizationFeed extends StatelessWidget {
   /// To implement the test.
   final bool forTest;
 
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+  /// List of dummy pinned posts.
   static const List<Map<String, String>> pinnedPosts = [
     {
       'text': 'Church Meeting',
@@ -88,6 +85,13 @@ class DemoOrganizationFeed extends StatelessWidget {
     },
   ];
 
+  /// function returns a widget that shows the feed of the organization.
+  ///
+  /// **params**:
+  /// * `context`: build context of the widget.
+  ///
+  /// **returns**:
+  /// * `Widget`: returns a widget that shows the feed of the organization.
   Widget demoOrganisationFeedPage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
