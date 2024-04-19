@@ -80,20 +80,11 @@ class CreateEventViewModel extends BaseModel {
   /// Is a recurring event.
   bool isRecurring = false;
 
-  /// recurrence count.
-  int recurranceCount = 1;
-
-  /// RecurranceRuleData frequency.
+  /// RecurrenceRuleData frequency.
   String recurrenceInterval = EventIntervals.weekly;
-
-  /// Monthly recurrence.
-  String monthlyRecurrence = 'Monthly on day 3';
 
   /// Event end type.
   String eventEndType = EventEndTypes.never;
-
-  /// Custom recurrance event end date.
-  DateTime? eventEndOnEndDate = DateTime.now();
 
   /// represents the frequency of the event.
   String frequency = Frequency.weekly;
@@ -350,30 +341,5 @@ class CreateEventViewModel extends BaseModel {
   void setEventEndDate(DateTime? selectedEndDate) {
     eventEndDate = selectedEndDate;
     notifyListeners();
-  }
-
-  /// Returns corresponding recurrence value based on frequency.
-  ///
-  /// **params**:
-  /// * `frequency`: Recurrence frequency selected by user.
-  ///
-  /// **returns**:
-  /// * `String?`: Recurrence value.
-  String? getRecurrance(String frequency) {
-    isRecurring = true;
-    if (frequency == Recurrance.daily || frequency == 'Every day') {
-      return 'DAILY';
-    } else if (frequency == Recurrance.weekly || frequency == 'Every week') {
-      return 'WEEKLY';
-    } else if (frequency == Recurrance.monthly || frequency == 'Every month') {
-      return 'MONTHLY';
-    } else if (frequency == Recurrance.yearly || frequency == 'Every year') {
-      return 'YEARLY';
-    } else if (frequency == Recurrance.once) {
-      isRecurring = false;
-      return null;
-    } else {
-      return null;
-    }
   }
 }

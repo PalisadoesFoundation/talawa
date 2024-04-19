@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -21,6 +17,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+/// `MockBuildContext` class represents mock instance of Build context.
 class MockBuildContext extends Mock implements BuildContext {}
 
 class MockCallbackFunction extends Mock {
@@ -317,14 +314,6 @@ void main() {
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
-    });
-
-    test('getRecurrence method', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-      expect(model.getRecurrance(Recurrance.monthly), 'MONTHLY');
-      expect(model.getRecurrance(Recurrance.yearly), 'YEARLY');
-      expect(model.getRecurrance(Recurrance.once), null);
     });
   });
 }

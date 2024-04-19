@@ -48,7 +48,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
               child: const Icon(Icons.close),
             ),
             title: Text(
-              // text translation to the app language.
               AppLocalizations.of(context)!.strictTranslate('Add Event'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
@@ -106,10 +105,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         ),
                       ],
                     ),
-                    // If the image for the event is selected or not null.
                     model.imageFile != null
                         ? Container(
-                            // Container for rendering the selected image
                             height: 300,
                             padding: const EdgeInsets.all(8.0),
                             child: Stack(
@@ -136,8 +133,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         : Container(),
                     const Divider(),
                     CreateEventForm(
-                      // CreateEventForm returns a widget of a Form for creating events.
-                      // This widget is exported from `lib/views/after_auth_screens/events/create_event_form.dart`.
                       model: model,
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.013),
@@ -229,7 +224,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     Text(
-                      // translation of the text to app language.
                       AppLocalizations.of(context)!
                           .strictTranslate('Select Start Date and Time'),
                       style: subtitleTextStyle,

@@ -3634,22 +3634,6 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  int get recurranceCount => (super.noSuchMethod(
-        Invocation.getter(#recurranceCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  set recurranceCount(int? _recurranceCount) => super.noSuchMethod(
-        Invocation.setter(
-          #recurranceCount,
-          _recurranceCount,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   String get recurrenceInterval => (super.noSuchMethod(
         Invocation.getter(#recurrenceInterval),
         returnValue: _i25.dummyValue<String>(
@@ -3672,28 +3656,6 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  String get monthlyRecurrence => (super.noSuchMethod(
-        Invocation.getter(#monthlyRecurrence),
-        returnValue: _i25.dummyValue<String>(
-          this,
-          Invocation.getter(#monthlyRecurrence),
-        ),
-        returnValueForMissingStub: _i25.dummyValue<String>(
-          this,
-          Invocation.getter(#monthlyRecurrence),
-        ),
-      ) as String);
-
-  @override
-  set monthlyRecurrence(String? _monthlyRecurrence) => super.noSuchMethod(
-        Invocation.setter(
-          #monthlyRecurrence,
-          _monthlyRecurrence,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   String get eventEndType => (super.noSuchMethod(
         Invocation.getter(#eventEndType),
         returnValue: _i25.dummyValue<String>(
@@ -3711,15 +3673,6 @@ class MockCreateEventViewModel extends _i2.Mock
         Invocation.setter(
           #eventEndType,
           _eventEndType,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set eventEndOnEndDate(DateTime? _eventEndOnEndDate) => super.noSuchMethod(
-        Invocation.setter(
-          #eventEndOnEndDate,
-          _eventEndOnEndDate,
         ),
         returnValueForMissingStub: null,
       );
@@ -3970,15 +3923,6 @@ class MockCreateEventViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  String? getRecurrance(String? frequency) => (super.noSuchMethod(
-        Invocation.method(
-          #getRecurrance,
-          [frequency],
-        ),
-        returnValueForMissingStub: null,
-      ) as String?);
 
   @override
   void setState(_i14.ViewState? viewState) => super.noSuchMethod(

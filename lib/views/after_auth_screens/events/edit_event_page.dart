@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -15,14 +12,15 @@ import 'package:talawa/widgets/event_date_time_tile.dart';
 /// EditEventPage returns a widget that has mutable state _EditEventPageState.
 class EditEventPage extends StatefulWidget {
   const EditEventPage({super.key, required this.event});
+
+  /// Represents event instance to be edited.
   final Event event;
 
   @override
   _EditEventPageState createState() => _EditEventPageState();
 }
 
-/// _EditEventPageState returns a widget to edit the
-/// event that is being posted by the current user.
+/// _EditEventPageState returns a widget to edit the event that is being posted by the current user.
 class _EditEventPageState extends State<EditEventPage> {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,6 @@ class _EditEventPageState extends State<EditEventPage> {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            // returns a header for the page.
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 1,
             centerTitle: true,
@@ -90,8 +87,6 @@ class _EditEventPageState extends State<EditEventPage> {
                   ),
                   const Divider(),
                   EditEventForm(
-                    // EditEventForm returns a widget of a Form for editing the event.
-                    // This widget is exported from `lib/views/after_auth_screens/events/edit_events_form.dart`.
                     model: model,
                   ),
                   SizedBox(
@@ -102,8 +97,6 @@ class _EditEventPageState extends State<EditEventPage> {
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
-                  // DateTimeTile is custom widget that returns a tile to select date and time.
-                  // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                   DateTimeTile(
                     isAllDay: false,
                     // variables and member functions initialisation.
@@ -121,7 +114,6 @@ class _EditEventPageState extends State<EditEventPage> {
                       final time = await customTimePicker(
                         initialTime: model.eventStartTime,
                       );
-
                       setState(() {
                         model.eventStartTime = time;
                       });
@@ -195,7 +187,6 @@ class _EditEventPageState extends State<EditEventPage> {
                               onChanged: (value) {
                                 setState(() {
                                   model.isPublicSwitch = value;
-                                  print(model.isPublicSwitch);
                                 });
                               },
                               activeColor:
@@ -218,7 +209,6 @@ class _EditEventPageState extends State<EditEventPage> {
                               onChanged: (value) {
                                 setState(() {
                                   model.isRegisterableSwitch = value;
-                                  print(model.isRegisterableSwitch);
                                 });
                               },
                               activeColor:
