@@ -26,25 +26,6 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
   late CreateEventViewModel viewModel;
 
   @override
-  void initState() {
-    super.initState();
-    viewModel = widget.model;
-    viewModel.endOccurenceController.addListener(() {
-      if (viewModel.endOccurenceController.text.isNotEmpty) {
-        setState(() {});
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    viewModel.endOccurenceController.removeListener(() {
-      setState(() {});
-    });
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
