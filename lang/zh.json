@@ -277,5 +277,6 @@
   "The tag was added": "已添加标签",
   "Start time must be before end time": "开始时间必须在结束时间之前",
   "Organisation on different server, logout and scan qr again": "组织在不同的服务器上，请注销并重新扫描二维码",
-  "Post was deleted if you had the rights!": "如果您有权限，则已删除帖子！"
+  "Post was deleted if you had the rights!": "如果您有权限，则已删除帖子！",
+  "Members": "成员"
 }

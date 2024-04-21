@@ -277,5 +277,6 @@
   "The tag was added": "La balise a été ajoutée",
   "Start time must be before end time": "L'heure de début doit être antérieure à l'heure de fin",
   "Organisation on different server, logout and scan qr again": "Organisation sur un serveur différent, déconnectez-vous et scannez à nouveau le code QR",
-  "Post was deleted if you had the rights!": "Le message a été supprimé si vous aviez les droits !"
+  "Post was deleted if you had the rights!": "Le message a été supprimé si vous aviez les droits !",
+  "Members": " Membres"
 }

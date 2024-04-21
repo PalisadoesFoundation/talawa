@@ -10,6 +10,7 @@ class Queries {
   /// * `lastName`: user's data.
   /// * `email`: user's data.
   /// * `password`: user's data.
+  /// * `selectedOrganization`: ID of the selected organization.
   ///
   /// **returns**:
   /// * `String`: Return the mutation in string type to be passed to graphql client.
@@ -18,10 +19,11 @@ class Queries {
     String lastName,
     String email,
     String password,
+    String? selectedOrganization,
   ) {
     return """
         mutation{
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password", selectedOrganization: "$selectedOrganization"})
           {
             appUserProfile{
               adminFor{
@@ -212,11 +214,27 @@ class Queries {
         _id
         name
         image
+        description
+        address{
+        city
+        countryCode
+        state
+      }
         userRegistrationRequired
         creator{
           firstName
           lastName
         }
+        members{
+              firstName
+              lastName
+              image
+              }
+              admins{
+              firstName
+              lastName
+              image
+              }
       }
     }
 """;

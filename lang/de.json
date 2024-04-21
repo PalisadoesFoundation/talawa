@@ -277,5 +277,6 @@
   "The tag was added": "Der Tag wurde hinzugefügt",
   "Start time must be before end time": "Die Startzeit muss vor der Endzeit liegen",
   "Organisation on different server, logout and scan qr again": "Organisation auf einem anderen Server, ausloggen und QR-Code erneut scannen",
-  "Post was deleted if you had the rights!": "Der Beitrag wurde gelöscht, wenn Sie die Berechtigungen hatten!"
+  "Post was deleted if you had the rights!": "Der Beitrag wurde gelöscht, wenn Sie die Berechtigungen hatten!",
+  "Members": "Mitglieder"
 }

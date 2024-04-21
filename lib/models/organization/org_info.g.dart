@@ -25,13 +25,14 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       image: fields[0] as String?,
       userRegistrationRequired: fields[6] as bool?,
       name: fields[2] as String?,
+      address: fields[8] as Address?,
     );
   }
 
   @override
   void write(BinaryWriter writer, OrgInfo obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       ..writeByte(6)
       ..write(obj.userRegistrationRequired)
       ..writeByte(7)
-      ..write(obj.creatorInfo);
+      ..write(obj.creatorInfo)
+      ..writeByte(8)
+      ..write(obj.address);
   }
 
   @override
