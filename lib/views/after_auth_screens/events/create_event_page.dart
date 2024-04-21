@@ -220,9 +220,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     Text(
                       AppLocalizations.of(context)!.strictTranslate(
-                          model.isAllDay
-                              ? 'Select Start Date'
-                              : 'Select Start Date and Time'),
+                        model.isAllDay
+                            ? 'Select Start Date'
+                            : 'Select Start Date and Time',
+                      ),
                       style: subtitleTextStyle,
                     ),
                     SizedBox(
