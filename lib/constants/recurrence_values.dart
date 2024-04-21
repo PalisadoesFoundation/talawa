@@ -218,8 +218,9 @@ class RecurrenceUtils {
   /// **returns**:
   /// * `String`: returns string for weekDays.
   static String getWeekDaysString(List<String> weekDays) {
-    final fullDayNames =
-        weekDays.map((day) => weekDays[weekDays.indexOf(day)]).toList();
+    final fullDayNames = weekDays
+        .map((day) => RecurrenceUtils.weekDays[weekDays.indexOf(day)])
+        .toList();
 
     String weekDaysString = fullDayNames.join(', ');
 
