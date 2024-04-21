@@ -152,11 +152,12 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
             ],
           ),
         ),
-        recurrenceisDailyorYearly()
-            ? buildCustomDivider(context)
+        (viewModel.recurrenceInterval == EventIntervals.daily ||
+                viewModel.recurrenceInterval == EventIntervals.yearly)
+            ? Divider(color: Theme.of(context).hintColor)
             : Column(
                 children: [
-                  buildCustomDivider(context),
+                  Divider(color: Theme.of(context).hintColor),
                   Container(
                     padding: EdgeInsets.fromLTRB(
                       _sectionPadding,
@@ -230,7 +231,7 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
                             ],
                           ),
                   ),
-                  buildCustomDivider(context),
+                  Divider(color: Theme.of(context).hintColor),
                 ],
               ),
         Column(
@@ -322,32 +323,6 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
           ],
         ),
       );
-
-  /// Divider with custom properties.
-  ///
-  /// **params**:
-  /// * `context`: BuildContext of the widget.
-  ///
-  /// **returns**:
-  /// * `Divider`: Custom divider.
-  Divider buildCustomDivider(BuildContext context) {
-    return Divider(
-      color: Theme.of(context).hintColor,
-    );
-  }
-
-  /// Determines whether the recurrence frequency is daily or yearly.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `bool`: A boolean value indicating whether the recurrence frequency is daily or yearly.
-  bool recurrenceisDailyorYearly() {
-    final widgetModel = viewModel;
-    return widgetModel.recurrenceInterval == EventIntervals.daily ||
-        widgetModel.recurrenceInterval == EventIntervals.yearly;
-  }
 
   /// Returns the updated model with the selected recurrence options.
   ///
