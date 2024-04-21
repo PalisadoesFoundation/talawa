@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,6 +13,14 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
 
+/// Creates an instance of CreateEventScreen with the given parameters.
+///
+/// **params**:
+/// * `themeMode`: ThemeMode of the app
+/// * `theme`: ThemeData of the app
+///
+/// **returns**:
+/// * `Widget`: return the CreateEventScreen widget
 Widget createEventScreen({
   ThemeMode themeMode = ThemeMode.light,
   required ThemeData theme,
