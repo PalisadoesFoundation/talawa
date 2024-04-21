@@ -180,7 +180,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
   @override
   void initState() {
     if (widget.model.eventEndType == EventEndTypes.never) {
-      widget.model.eventEndDate = null;
+      widget.model.recurrenceEndDate = null;
     }
     super.initState();
   }
@@ -194,9 +194,9 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           child: const Text(EventEndTypes.never),
           index: 0,
           inputAction: () {
-            widget.model.setEventEndDate(null);
             setState(() {
               widget.model.count = null;
+              widget.model.recurrenceEndDate = null;
               widget.model.eventEndType = EventEndTypes.never;
             });
           },
@@ -220,13 +220,15 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                         initialDate: DateTime.now(),
                       );
                       setState(() {
-                        widget.model.eventEndDate = pickedDate;
+                        widget.model.recurrenceEndDate = pickedDate;
                         widget.model.eventEndType = EventEndTypes.on;
                       });
                     },
                     icon: Text(
                       formatDate(
-                        DateTime.now().toString().split(" ")[0],
+                        (widget.model.recurrenceEndDate ?? DateTime.now())
+                            .toString()
+                            .split(" ")[0],
                       ),
                       style: widget.model.eventEndType == EventEndTypes.on
                           ? TextStyle(color: Theme.of(context).dividerColor)
@@ -244,7 +246,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           index: 1,
           inputAction: () {
             setState(() {
-              widget.model.eventEndDate = DateTime.now();
+              widget.model.recurrenceEndDate = DateTime.now();
               widget.model.eventEndType = EventEndTypes.on;
               widget.model.count = null;
             });
@@ -268,7 +270,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
           index: 2,
           inputAction: () {
             setState(() {
-              widget.model.eventEndDate = null;
+              widget.model.recurrenceEndDate = null;
               widget.model.eventEndType = EventEndTypes.after;
             });
           },

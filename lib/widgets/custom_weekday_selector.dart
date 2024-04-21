@@ -16,7 +16,7 @@ class CustomWeekDaySelector extends StatefulWidget {
 class _CustomWeekDaySelectorState extends State<CustomWeekDaySelector> {
   @override
   Widget build(BuildContext context) {
-    final Set<String> weekdays = widget.model.weekDays ?? {};
+    final Set<String> weekdays = widget.model.weekDays;
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

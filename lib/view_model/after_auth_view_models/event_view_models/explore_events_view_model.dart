@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:intl/intl.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -117,50 +115,13 @@ class ExploreEventsViewModel extends BaseModel {
     if (!_uniqueEventIds.contains(newEvent.id) &&
         newEvent.organization!.id == userConfig.currentOrg.id) {
       _uniqueEventIds.add(newEvent.id!);
-      _parseEventDateTime(newEvent);
+      _events.insert(0, newEvent);
     }
     if (!_userEvents.any((event) => event.id == newEvent.id) &&
         newEvent.creator!.id == userConfig.currentUser.id) {
       _userEvents.insert(0, newEvent);
     }
     notifyListeners();
-  }
-
-  /// The helper function that used to parse the date and time.
-  ///
-  /// **params**:
-  /// * `newEvent`: `Event` type variable containing data to create a new event.
-  ///
-  /// **returns**:
-  ///   None
-  void _parseEventDateTime(Event newEvent) {
-    // Maybe needed for the tests. Can be further discussed.
-    if (newEvent.startDate == null ||
-        newEvent.endDate == null ||
-        newEvent.startTime == null ||
-        newEvent.endTime == null) {
-      newEvent.startDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-      newEvent.endDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-      newEvent.startTime = DateFormat('HH:mm:ss').format(DateTime.now());
-      newEvent.endTime = DateFormat('HH:mm:ss').format(DateTime.now());
-    }
-
-    if (RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.startDate!) &&
-        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.startTime!) &&
-        RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(newEvent.endDate!) &&
-        RegExp(r'^\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(newEvent.endTime!)) {
-      final startMoment =
-          DateTime.parse('${newEvent.startDate} ${newEvent.startTime}')
-              .toLocal();
-      final endMoment =
-          DateTime.parse('${newEvent.endDate} ${newEvent.endTime}').toLocal();
-
-      newEvent.startDate = DateFormat('yMd').format(startMoment);
-      newEvent.endDate = DateFormat('yMd').format(endMoment);
-      newEvent.startTime = DateFormat('h:mm a').format(startMoment);
-      newEvent.endTime = DateFormat('h:mm a').format(endMoment);
-    }
-    _events.insert(0, newEvent);
   }
 
   /// This function deletes the event.
@@ -184,7 +145,6 @@ class ExploreEventsViewModel extends BaseModel {
               if (result != null) {
                 navigationService.pop();
                 setState(ViewState.busy);
-                print(result);
                 _uniqueEventIds.remove(eventId);
                 _events.removeWhere((element) => element.id == eventId);
                 _userEvents.removeWhere((element) => element.id == eventId);

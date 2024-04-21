@@ -63,7 +63,7 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
             onPressed: () {
               setState(() {
                 if (viewModel.eventEndType == EventEndTypes.never) {
-                  viewModel.setEventEndDate(null);
+                  viewModel.recurrenceEndDate = null;
                 } else if (viewModel.eventEndType == EventEndTypes.after) {
                   viewModel.count =
                       int.parse(viewModel.endOccurenceController.text);
@@ -77,8 +77,8 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
                   viewModel.interval,
                   viewModel.count,
                   viewModel.weekDayOccurenceInMonth,
-                  viewModel.eventStartDate,
-                  viewModel.eventEndDate,
+                  viewModel.recurrenceStartDate,
+                  viewModel.recurrenceEndDate,
                 );
               });
               navigationService.pop();
@@ -109,32 +109,34 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
         int.parse(viewModel.repeatsEveryCountController.text),
         int.parse(viewModel.endOccurenceController.text),
         null,
-        viewModel.eventStartDate,
-        viewModel.eventEndDate,
+        viewModel.recurrenceStartDate,
+        viewModel.recurrenceEndDate,
       ),
       RecurrenceUtils.getRecurrenceRuleText(
         Frequency.monthly,
         {
-          RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+          RecurrenceUtils
+              .weekDays[widget.model.recurrenceStartDate.weekday - 1],
         },
         int.parse(viewModel.repeatsEveryCountController.text),
         int.parse(viewModel.endOccurenceController.text),
         RecurrenceUtils.getWeekDayOccurenceInMonth(
-          widget.model.eventStartDate,
+          widget.model.recurrenceStartDate,
         ),
-        viewModel.eventStartDate,
-        viewModel.eventEndDate,
+        viewModel.recurrenceStartDate,
+        viewModel.recurrenceEndDate,
       ),
       RecurrenceUtils.getRecurrenceRuleText(
         Frequency.monthly,
         {
-          RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+          RecurrenceUtils
+              .weekDays[widget.model.recurrenceStartDate.weekday - 1],
         },
         int.parse(viewModel.repeatsEveryCountController.text),
         int.parse(viewModel.endOccurenceController.text),
         -1,
-        viewModel.eventStartDate,
-        viewModel.eventEndDate,
+        viewModel.recurrenceStartDate,
+        viewModel.recurrenceEndDate,
       ),
     ];
     return Column(
@@ -172,36 +174,38 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
                                   monthlyOptions[0],
                                   if (RecurrenceUtils
                                           .getWeekDayOccurenceInMonth(
-                                        widget.model.eventStartDate,
+                                        widget.model.recurrenceStartDate,
                                       ) !=
                                       5)
                                     monthlyOptions[1],
                                   if (RecurrenceUtils.isLastOccurenceOfWeekDay(
-                                    widget.model.eventStartDate,
+                                    widget.model.recurrenceStartDate,
                                   ))
                                     monthlyOptions[2],
                                 ],
                                 selectedOption: monthlyOptions[0],
                                 onSelected: (String value) {
-                                  Set<String>? tempWeekDays;
+                                  Set<String> tempWeekDays;
                                   int? tempWeekDayOccurenceInMonth;
                                   if (value == monthlyOptions[0]) {
-                                    tempWeekDays = null;
+                                    tempWeekDays = {};
                                     tempWeekDayOccurenceInMonth = null;
                                   } else if (value == monthlyOptions[1]) {
                                     tempWeekDays = {
-                                      RecurrenceUtils.weekDays[
-                                          widget.model.eventStartDate.weekday],
+                                      RecurrenceUtils.weekDays[widget.model
+                                              .recurrenceStartDate.weekday -
+                                          1],
                                     };
                                     tempWeekDayOccurenceInMonth =
                                         RecurrenceUtils
                                             .getWeekDayOccurenceInMonth(
-                                      widget.model.eventStartDate,
+                                      widget.model.recurrenceStartDate,
                                     );
                                   } else {
                                     tempWeekDays = {
-                                      RecurrenceUtils.weekDays[
-                                          widget.model.eventStartDate.weekday],
+                                      RecurrenceUtils.weekDays[widget.model
+                                              .recurrenceStartDate.weekday -
+                                          1],
                                     };
                                     tempWeekDayOccurenceInMonth = -1;
                                   }
@@ -365,7 +369,7 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
       widget.model.frequency = frequency;
       widget.model.recurrenceInterval = value;
       widget.model.weekDayOccurenceInMonth = weekDayOccurenceInMonth;
-      widget.model.weekDays = weekDays;
+      widget.model.weekDays = weekDays ?? {};
     });
   }
 }

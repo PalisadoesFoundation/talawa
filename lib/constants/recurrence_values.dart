@@ -81,13 +81,13 @@ class RecurringEventMutationType {
 
 /// represents all the days in a week.
 List<String> days = [
-  WeekDays.sunday,
   WeekDays.monday,
   WeekDays.tuesday,
   WeekDays.wednesday,
   WeekDays.thursday,
   WeekDays.friday,
   WeekDays.saturday,
+  WeekDays.sunday,
 ];
 
 /// conatins all neccessary utils.
@@ -119,13 +119,13 @@ class RecurrenceUtils {
 
   /// represents all the week days.
   static const List<String> weekDays = [
-    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
+    'Sunday',
   ];
 
   /// 'getRecurrenceRuleText' return text for various recurrence rules.
@@ -181,11 +181,8 @@ class RecurrenceUtils {
         if (weekDayOccurenceInMonth != null) {
           final getOccurence =
               weekDayOccurenceInMonth != -1 ? weekDayOccurenceInMonth - 1 : 4;
-          print(
-            startDate.weekday,
-          );
           recurrenceRuleText +=
-              '${weekDayOccurences[getOccurence]} ${RecurrenceUtils.weekDays[startDate.weekday]}';
+              '${weekDayOccurences[getOccurence]} ${RecurrenceUtils.weekDays[startDate.weekday - 1]}';
         } else {
           recurrenceRuleText += 'Day ${startDate.day}';
         }

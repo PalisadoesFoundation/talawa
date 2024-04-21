@@ -41,10 +41,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
-              onTap: () {
-                // ignore: undefined_method
-                navigationServiceLocal.pop();
-              },
+              onTap: () => navigationServiceLocal.pop(),
               child: const Icon(Icons.close),
             ),
             title: Text(
@@ -78,7 +75,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
           body: Scrollbar(
             thickness: 2,
             child: SingleChildScrollView(
-              // SingleChildScrollView is a box in which a single widget can be scrolled.
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -201,7 +197,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 width: SizeConfig.screenWidth! * 0.005,
                               ),
                               Switch(
-                                // Switch to select the visibility of the event.
                                 value: model.isPublicSwitch,
                                 onChanged: (value) {
                                   setState(() {
@@ -224,8 +219,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     Text(
-                      AppLocalizations.of(context)!
-                          .strictTranslate('Select Start Date and Time'),
+                      AppLocalizations.of(context)!.strictTranslate(
+                          model.isAllDay
+                              ? 'Select Start Date'
+                              : 'Select Start Date and Time'),
                       style: subtitleTextStyle,
                     ),
                     SizedBox(
@@ -248,10 +245,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         setState(() {
                           if (model.eventStartDate != date) {
                             model.eventStartDate = date;
+                            model.recurrenceStartDate = date;
                             model.recurrenceLabel = 'Does not repeat';
                             model.isRecurring = false;
                             model.frequency = Frequency.weekly;
-                            model.weekDays = null;
+                            model.weekDays = {};
                             model.weekDayOccurenceInMonth = null;
                           }
                         });
@@ -280,8 +278,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.026,
                     ),
                     Text(
-                      AppLocalizations.of(context)!
-                          .strictTranslate('Select End Date and Time'),
+                      AppLocalizations.of(context)!.strictTranslate(
+                        model.isAllDay
+                            ? 'Select End Date'
+                            : 'Select End Date and Time',
+                      ),
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!
@@ -293,12 +294,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     DateTimeTile(
                       key: const Key('key for test cep'),
                       isAllDay: model.isAllDay,
-                      date: "${model.eventEndDate?.toLocal() ?? DateTime.now()}"
-                          .split(' ')[0],
+                      date: "${model.eventEndDate.toLocal()}".split(' ')[0],
                       time: model.eventEndTime.format(context),
                       setDate: () async {
                         final date = await customDatePicker(
-                          initialDate: model.eventEndDate ?? DateTime.now(),
+                          initialDate: model.eventEndDate,
                         );
                         final startDate = model.eventStartDate;
                         if (startDate.compareTo(date) < 0) {
@@ -306,9 +306,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             if (model.eventEndDate != date) {
                               model.eventEndDate = date;
                               model.recurrenceLabel = 'Does not repeat';
+                              model.recurrenceEndDate = null;
                               model.isRecurring = false;
                               model.frequency = Frequency.weekly;
-                              model.weekDays = null;
+                              model.weekDays = {};
                               model.weekDayOccurenceInMonth = null;
                             }
                           });
@@ -372,7 +373,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           },
                         );
                         setState(() {
-                          model.recurrenceLabel = selectedReccurence!;
+                          if (selectedReccurence != null) {
+                            model.recurrenceLabel = selectedReccurence;
+                          }
                         });
                       },
                     ),

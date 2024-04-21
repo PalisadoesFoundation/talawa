@@ -57,7 +57,13 @@ class CreateEventViewModel extends BaseModel {
   DateTime eventStartDate = DateTime.now();
 
   /// Event End Date.
-  DateTime? eventEndDate = DateTime.now();
+  DateTime eventEndDate = DateTime.now();
+
+  /// Event Start Date for recurrence.
+  DateTime recurrenceStartDate = DateTime.now();
+
+  /// Event End Date for recurrence.
+  DateTime? recurrenceEndDate;
 
   /// Public Event or Not.
   bool isPublicSwitch = true;
@@ -90,8 +96,8 @@ class CreateEventViewModel extends BaseModel {
   String frequency = Frequency.weekly;
 
   /// represents the week days of the event.
-  Set<String>? weekDays = {
-    days[DateTime.now().weekday],
+  Set<String> weekDays = {
+    days[DateTime.now().weekday - 1],
   };
 
   /// represents the interval of the event.
@@ -193,13 +199,12 @@ class CreateEventViewModel extends BaseModel {
         eventStartTime.minute,
       );
       final DateTime endTime = DateTime(
-        eventEndDate?.year ?? DateTime.now().year,
-        eventEndDate?.month ?? DateTime.now().month,
-        eventEndDate?.day ?? DateTime.now().day,
+        eventEndDate.year,
+        eventEndDate.month,
+        eventEndDate.day,
         eventEndTime.hour,
         eventEndTime.minute,
       );
-
       // all required data for creating an event
       final Map<String, dynamic> variables = {
         "data": {
@@ -212,16 +217,26 @@ class CreateEventViewModel extends BaseModel {
           'allDay': isAllDay,
           'organizationId': _currentOrg.id,
           'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
-          if (eventEndDate != null)
-            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
-          'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
-          if (eventEndDate != null)
-            'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
+          'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
+          'startTime':
+              isAllDay ? null : '${DateFormat('HH:mm:ss').format(startTime)}Z',
+          'endTime':
+              isAllDay ? null : '${DateFormat('HH:mm:ss').format(endTime)}Z',
         },
         if (isRecurring)
           'recurrenceRuleData': {
+            'recurrenceStartDate': DateFormat('yyyy-MM-dd').format(
+              recurrenceStartDate,
+            ),
+            'recurrenceEndDate': recurrenceEndDate != null
+                ? DateFormat('yyyy-MM-dd').format(recurrenceEndDate!)
+                : null,
             'frequency': frequency,
-            'weekDays': weekDays,
+            'weekDays': (frequency == Frequency.weekly ||
+                    (frequency == Frequency.monthly &&
+                        weekDayOccurenceInMonth != null))
+                ? weekDays.toList()
+                : null,
             'interval': interval,
             'count': count,
             'weekDayOccurenceInMonth': weekDayOccurenceInMonth,
@@ -338,7 +353,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void setEventEndDate(DateTime? selectedEndDate) {
+  void setEventEndDate(DateTime selectedEndDate) {
     eventEndDate = selectedEndDate;
     notifyListeners();
   }

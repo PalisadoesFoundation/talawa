@@ -25,7 +25,7 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: SizeConfig.screenHeight! * 0.6,
+        height: SizeConfig.screenHeight! * 0.65,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -42,10 +42,18 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
             ),
             radioButton(Frequency.weekly, widget.model.interval,
                 widget.model.count, null, [
-              RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+              RecurrenceUtils
+                  .weekDays[widget.model.recurrenceStartDate.weekday - 1],
             ]),
+            radioButton(
+              Frequency.monthly,
+              widget.model.interval,
+              widget.model.count,
+              null,
+              null,
+            ),
             if (RecurrenceUtils.getWeekDayOccurenceInMonth(
-                  widget.model.eventStartDate,
+                  widget.model.recurrenceStartDate,
                 ) !=
                 5)
               radioButton(
@@ -53,18 +61,19 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
                   widget.model.interval,
                   widget.model.count,
                   RecurrenceUtils.getWeekDayOccurenceInMonth(
-                    widget.model.eventStartDate,
+                    widget.model.recurrenceStartDate,
                   ),
                   [
                     RecurrenceUtils
-                        .weekDays[widget.model.eventStartDate.weekday],
+                        .weekDays[widget.model.recurrenceStartDate.weekday - 1],
                   ]),
             if (RecurrenceUtils.isLastOccurenceOfWeekDay(
-              widget.model.eventStartDate,
+              widget.model.recurrenceStartDate,
             ))
               radioButton(Frequency.monthly, widget.model.interval,
                   widget.model.count, -1, [
-                RecurrenceUtils.weekDays[widget.model.eventStartDate.weekday],
+                RecurrenceUtils
+                    .weekDays[widget.model.recurrenceStartDate.weekday],
               ]),
             radioButton(
               Frequency.yearly,
@@ -74,7 +83,7 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
               null,
             ),
             radioButtonFixText(
-              'Monday to Friday ${widget.model.eventEndDate != null ? "until ${DateFormat('MMMM d, y').format(widget.model.eventEndDate!)}" : ""}',
+              'Monday to Friday ${widget.model.recurrenceEndDate != null ? "until ${DateFormat('MMMM d, y').format(widget.model.recurrenceEndDate!)}" : ""}',
               (value) => updateModel(value!, true, Frequency.weekly, null, {
                 'MONDAY',
                 'TUESDAY',
@@ -84,12 +93,13 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
               }),
             ),
             radioButtonFixText("Custom...", (value) async {
+              widget.model.isRecurring = true;
               await navigationService.pushScreen(
                 Routes.customRecurrencePage,
                 arguments: widget.model,
               );
               setState(() {
-                Navigator.pop(context, value);
+                Navigator.pop(context, widget.model.recurrenceLabel);
               });
             }),
           ],
@@ -122,8 +132,8 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
       interval,
       count,
       weekDayOccurenceInMonth,
-      widget.model.eventStartDate,
-      widget.model.eventEndDate,
+      widget.model.recurrenceStartDate,
+      widget.model.recurrenceEndDate,
     );
     return RadioListTile<String>(
       title: Text(text),
@@ -180,11 +190,9 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
     setState(() {
       widget.model.isRecurring = isRecurring;
       widget.model.recurrenceLabel = value;
-      widget.model.weekDays = weekDays;
+      widget.model.weekDays = weekDays ?? {};
       widget.model.weekDayOccurenceInMonth = weekDayOccurenceInMonth;
-      if (frequency != null) {
-        widget.model.frequency = frequency;
-      }
+      widget.model.frequency = frequency ?? Frequency.weekly;
       Navigator.pop(context, value);
     });
   }
