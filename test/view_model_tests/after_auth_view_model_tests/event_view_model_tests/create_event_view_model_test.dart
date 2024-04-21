@@ -144,9 +144,9 @@ void main() {
         model.eventStartTime.minute,
       );
       final DateTime endMoment = DateTime(
-        model.eventEndDate!.year,
-        model.eventEndDate!.month,
-        model.eventEndDate!.day,
+        model.eventEndDate.year,
+        model.eventEndDate.month,
+        model.eventEndDate.day,
         model.eventEndTime.hour,
         model.eventEndTime.minute,
       );
@@ -188,16 +188,25 @@ void main() {
               'isRegisterable': model.isRegisterableSwitch,
               'recurring': model.isRecurring,
               'allDay': true,
-              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
             if (model.isRecurring)
               'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
                 'frequency': 'WEEKLY',
                 'weekDays': ['TUESDAY'],
                 'interval': 1,
-                'count': 1,
-                'weekDayOccurenceInMonth': 1,
+                'count': null,
+                'weekDayOccurenceInMonth': null,
               },
           },
         ),
@@ -222,16 +231,25 @@ void main() {
               'isRegisterable': model.isRegisterableSwitch,
               'recurring': model.isRecurring,
               'allDay': true,
-              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
             if (model.isRecurring)
               'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
                 'frequency': 'WEEKLY',
                 'weekDays': ['TUESDAY'],
                 'interval': 1,
-                'count': 1,
-                'weekDayOccurenceInMonth': 1,
+                'count': null,
+                'weekDayOccurenceInMonth': null,
               },
           },
         ),

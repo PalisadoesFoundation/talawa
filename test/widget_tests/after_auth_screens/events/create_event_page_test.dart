@@ -277,7 +277,7 @@ void main() {
           navigationService.navigatorKey.currentContext!,
         );
         final textDesc = find.text(
-          appLocalization!.strictTranslate('Select Start Date and Time'),
+          appLocalization!.strictTranslate('Select Start Date'),
         );
         final dateTimeTiles = find.byType(DateTimeTile);
         expect(textDesc, findsOneWidget);
@@ -299,7 +299,7 @@ void main() {
           navigationService.navigatorKey.currentContext!,
         );
         final textDesc = find.text(
-          appLocalization!.strictTranslate('Select End Date and Time'),
+          appLocalization!.strictTranslate('Select End Date'),
         );
         final dateTimeTiles = find.byType(DateTimeTile);
         expect(textDesc, findsOneWidget);

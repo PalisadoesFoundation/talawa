@@ -21,15 +21,12 @@ void main() {
         title: 'for test only',
         description: 'for test only',
         location: 'for test only',
-        latitude: 1233,
-        longitude: 123,
         recurring: false,
         allDay: false,
         startDate: 'for test only',
         endDate: 'for test only',
         startTime: 'for test only',
         endTime: 'for test only',
-        recurrence: 'for test only',
         isPublic: true,
         isRegistered: true,
         isRegisterable: true,
@@ -56,15 +53,12 @@ void main() {
         'title': 'for test only',
         'description': 'for test only',
         'location': 'for test only',
-        'latitude': 1233.00,
-        'longitude': 123.00,
         'recurring': false,
         'allDay': false,
         'startDate': 'for test only',
         'endDate': 'for test only',
         'startTime': 'for test only',
         'endTime': 'for test only',
-        'recurrence': 'for test only',
         'isPublic': true,
         'isRegistered': true,
         'isRegisterable': true,
@@ -119,14 +113,11 @@ void main() {
       );
       expect(event.attendees?[0].image, eventFromJson.attendees?[0].image);
       expect(event.location, eventFromJson.location);
-      expect(event.latitude, eventFromJson.latitude);
-      expect(event.longitude, eventFromJson.longitude);
       expect(event.recurring, eventFromJson.recurring);
       expect(event.allDay, eventFromJson.allDay);
       expect(event.startDate, eventFromJson.startDate);
       expect(event.startTime, eventFromJson.startTime);
       expect(event.endTime, eventFromJson.endTime);
-      expect(event.recurrence, eventFromJson.recurrence);
       expect(event.isPublic, eventFromJson.isPublic);
       expect(event.isRegistered, eventFromJson.isRegistered);
       expect(event.isRegisterable, eventFromJson.isRegisterable);

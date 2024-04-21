@@ -75,7 +75,6 @@ void main() {
       endDate: '2024-01-14',
       startTime: '08:01:00.000Z',
       endTime: '08:50:00.000Z',
-      recurrence: "none",
       creator: User(id: 'Test Id'),
       isPublic: true,
       isRegistered: true,

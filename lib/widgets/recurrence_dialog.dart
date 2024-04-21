@@ -25,7 +25,7 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: SizeConfig.screenHeight! * 0.65,
+        height: SizeConfig.screenHeight! * 0.68,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

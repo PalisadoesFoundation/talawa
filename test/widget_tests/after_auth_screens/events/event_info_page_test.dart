@@ -37,8 +37,6 @@ Event getEvent(bool isPublic, bool isCreator) {
     ),
     startDate: '10000',
     endDate: '20000',
-    latitude: 23.45,
-    longitude: -23.45,
     admins: [
       User(
         id: isCreator ? "xzy1" : "abc1",

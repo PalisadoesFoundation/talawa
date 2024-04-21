@@ -89,7 +89,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 Text(
                   // Display start and end date of the Event.
-                  "${event.startDate!} - ${event.endDate!}",
+                  "${event.startDate} - ${event.endDate}",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Spacer(),

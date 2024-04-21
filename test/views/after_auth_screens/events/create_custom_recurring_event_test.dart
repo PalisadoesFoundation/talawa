@@ -238,7 +238,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(model.eventEndType, EventEndTypes.never);
-      expect(model.eventEndDate, null);
+      expect(model.recurrenceEndDate, null);
 
       await tester.tap(find.text('on'));
       await tester.pumpAndSettle();
@@ -258,7 +258,7 @@ void main() {
       await tester.tap(find.text('Done'));
       await tester.pumpAndSettle();
 
-      expect(model.eventEndDate, null);
+      expect(model.recurrenceEndDate, null);
 
       await tester.tap(find.text('on'));
       await tester.pumpAndSettle();

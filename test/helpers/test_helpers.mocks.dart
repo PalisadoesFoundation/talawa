@@ -3495,10 +3495,54 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
+  DateTime get eventEndDate => (super.noSuchMethod(
+        Invocation.getter(#eventEndDate),
+        returnValue: _FakeDateTime_23(
+          this,
+          Invocation.getter(#eventEndDate),
+        ),
+        returnValueForMissingStub: _FakeDateTime_23(
+          this,
+          Invocation.getter(#eventEndDate),
+        ),
+      ) as DateTime);
+
+  @override
   set eventEndDate(DateTime? _eventEndDate) => super.noSuchMethod(
         Invocation.setter(
           #eventEndDate,
           _eventEndDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  DateTime get recurrenceStartDate => (super.noSuchMethod(
+        Invocation.getter(#recurrenceStartDate),
+        returnValue: _FakeDateTime_23(
+          this,
+          Invocation.getter(#recurrenceStartDate),
+        ),
+        returnValueForMissingStub: _FakeDateTime_23(
+          this,
+          Invocation.getter(#recurrenceStartDate),
+        ),
+      ) as DateTime);
+
+  @override
+  set recurrenceStartDate(DateTime? _recurrenceStartDate) => super.noSuchMethod(
+        Invocation.setter(
+          #recurrenceStartDate,
+          _recurrenceStartDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set recurrenceEndDate(DateTime? _recurrenceEndDate) => super.noSuchMethod(
+        Invocation.setter(
+          #recurrenceEndDate,
+          _recurrenceEndDate,
         ),
         returnValueForMissingStub: null,
       );
@@ -3698,6 +3742,13 @@ class MockCreateEventViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  Set<String> get weekDays => (super.noSuchMethod(
+        Invocation.getter(#weekDays),
+        returnValue: <String>{},
+        returnValueForMissingStub: <String>{},
+      ) as Set<String>);
 
   @override
   set weekDays(Set<String>? _weekDays) => super.noSuchMethod(

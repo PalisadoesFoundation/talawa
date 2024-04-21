@@ -122,7 +122,7 @@ class EventCard extends StatelessWidget {
                           const Spacer(),
                           Expanded(
                             child: Text(
-                              "${event.startDate!} - ${event.endDate!}",
+                              "${event.startDate} - ${event.endDate}",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ),
