@@ -226,13 +226,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate('Email'),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                    ),
                           ),
                           // Text for first name with value text of user's first name.
                           Text(

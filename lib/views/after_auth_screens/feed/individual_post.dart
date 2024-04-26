@@ -73,7 +73,8 @@ class _IndividualPostViewState extends State<IndividualPostView> {
               key: const Key('sendButton'),
               style: _isCommentValid == false
                   ? ButtonStyle(
-                      overlayColor: WidgetStateProperty.all(Colors.transparent),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
                     )
                   : null,
               //check if button is enabled when comment is valid

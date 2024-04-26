@@ -232,7 +232,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               2,
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onBackground,
               thickness: 1,
               endIndent: 16,
               indent: 16,
@@ -250,7 +250,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               4,
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onBackground,
               thickness: 1,
               endIndent: 16,
               indent: 16,
