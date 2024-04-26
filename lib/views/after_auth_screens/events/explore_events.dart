@@ -284,7 +284,7 @@ class ExploreEvents extends StatelessWidget {
           floatingActionButton: FloatingActionButton.extended(
             key: homeModel?.keySEAdd,
             heroTag: "AddEventFab",
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Theme.of(context).colorScheme.background,
             onPressed: () {
               navigationService.pushScreen(
                 "/createEventPage",

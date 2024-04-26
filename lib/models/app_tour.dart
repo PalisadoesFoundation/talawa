@@ -37,7 +37,7 @@ class AppTour {
       colorShadow: Theme.of(model.context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
       textStyleSkip: TextStyle(
-        color: Theme.of(model.context).colorScheme.surface,
+        color: Theme.of(model.context).colorScheme.background,
         fontSize: 20,
       ),
       paddingFocus: 10,
