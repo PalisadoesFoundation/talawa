@@ -216,7 +216,7 @@ class _SetUrlState extends State<SetUrl> {
                                     .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground
+                                          .onSurface
                                           .withOpacity(0.8),
                                     ),
                               ),
