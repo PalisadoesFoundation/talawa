@@ -1,0 +1,24 @@
+
+
+
+# ChatQueries constructor
+
+
+
+
+
+
+
+ChatQueries()
+
+
+
+
+
+
+
+
+
+
+
+

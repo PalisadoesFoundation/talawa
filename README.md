@@ -1,12 +1,18 @@
 # Talawa
-[![Build Status](https://travis-ci.org/PalisadoesFoundation/talawa.svg?branch=master)](http://www.palisadoes.org/) 
+
+[💬 Join the community on Slack](https://github.com/PalisadoesFoundation/)
+
+![talawa-logo-lite-200x200](https://github.com/PalisadoesFoundation/talawa-admin/assets/16875803/26291ec5-d3c1-4135-8bc7-80885dff613d)
+
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![GitHub stars](https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&label=Star&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
 [![GitHub forks](https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
+[![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
 
-[![N|Solid](images/talawa-logo-lite-200x200.png)](https://github.com/PalisadoesFoundation/talawa)
+**Talawa** is a comprehensive platform that aims to revolutionize the way organizations manage and interact with their data and content. Talawa empowers administrators to access and manage content with ease through the Talawa Admin interface, ensuring that information remains up-to-date and accessible to the platform's members. 
 
-Talawa is a modular open source project to manage group activities of both non-profit organizations and businesses.
+With the Talawa API facilitating smooth communication between all parts of the platform, Talawa offers a cohesive and exceptional user experience for both administrators and members, making it a powerful tool for data management and content delivery seamlessly. Talawa is a modular open source project to manage group activities of both non-profit organizations and businesses. 
 
 Core features include:
 
@@ -28,36 +34,17 @@ Core features include:
 1. **talawa-docs**: [The online documentation website](https://github.com/PalisadoesFoundation/talawa-docs)
 
 # Documentation
- - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
- - Want to contribute? Look at [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) to get started.
- - Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
- 
-# Installation for Developers
 
-You can test talawa in your own development environment. This section shows you how.
+1. You can install the software for this repository using the steps in our [INSTALLATION.md](INSTALLATION.md) file.
+1. Do you want to contribute to our code base? Look at our [CONTRIBUTING.md](CONTRIBUTING.md) file to get started. There you'll also find links to:
+    1. Our code of conduct documentation in the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) file.
+    1. How we handle the processing of new and existing issues in our [ISSUE_GUIDELINES.md](ISSUE_GUIDELINES.md) file.
+    1. The methodologies we use to manage our pull requests in our [PR_GUIDELINES.md](PR_GUIDELINES.md) file.
+1. The `talawa` documentation can be found at our [docs.talawa.io](https://docs.talawa.io) site.
+    1. It is automatically generated from the markdown files stored in our [Talawa-Docs GitHub repository](https://github.com/PalisadoesFoundation/talawa-docs). This makes it easy for you to update our documenation.
 
-## Prerequisites
+# Videos
 
-You'll need to setup the IDE and mobile device emulator on your local system, and have access to a system running the Talawa API which the mobile needs to access to operate properly.
+1. Visit our [YouTube Channel playlists](https://www.youtube.com/@PalisadoesOrganization/playlists) for more insights
+   1. The "Getting Started - Developers" videos are extremely helpful for new open source contributors.
 
-1. **Development Environment**: You'll need to have the following installed:
-    1. [Flutter SDK](https://flutter.dev/docs/get-started/install)
-    1. [Android Studio](https://developer.android.com/studio)
-1. **API Environment**: You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment.
-    1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
-    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to setup or customize your own API server.This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
-
-## Command Line Steps
-
-We have tried to make the process simple. Here's what you need to do.
-
-1. Clone and change into the project.
-    ```sh
-    $ git clone https://github.com/PalisadoesFoundation/talawa.git
-    $ cd talawa
-    ```
-1. Install packages
-    ```sh
-    $ flutter pub get
-    ```
-1. Start developing!

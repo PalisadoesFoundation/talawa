@@ -1,21 +1,17 @@
-//the flutter material package is called
-import 'package:flutter/material.dart';
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 
-//Pages are imported here
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
   const BaseView({
-    @required this.builder,
+    required this.builder,
     this.onModelReady,
   });
-  final Widget Function(
-    BuildContext context,
-    T value,
-    Widget child,
-  ) builder;
-  final Function(T) onModelReady;
+  final Function(T)? onModelReady;
+  final Widget Function(BuildContext, T, Widget?) builder;
 
   @override
   _BaseViewState<T> createState() => _BaseViewState<T>();
@@ -26,11 +22,7 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
 
   @override
   void initState() {
-    if (widget.onModelReady != null) {
-      widget.onModelReady(
-        model,
-      );
-    }
+    widget.onModelReady?.call(model);
     super.initState();
   }
 

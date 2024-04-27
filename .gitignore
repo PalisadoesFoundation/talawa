@@ -9,26 +9,79 @@
 .history
 .svn/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# Ignore Google services configuration files
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
+# Sphinx documentation
+docs/_build/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
+
+###############################################################################
+# Generic JetBrains Exclusions (Provided by GitHub)
+#
+# Created by https://www.gitignore.io/api/intellij which redirects to:
+# Created by https://www.toptal.com/developers/gitignore/api/intellij
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij
+###############################################################################
+
+### Intellij ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# All idea files
+.idea/
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+*.iml
+*.ipr
+
+# CMake
+cmake-build-*/
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+###############################################################################
+# Generic Flutter Exclusions (Provided by GitHub)
+#
+# Created by https://www.gitignore.io/api/flutter which redirects to:
+# Created by https://www.toptal.com/developers/gitignore/api/flutter
+# Edit at https://www.toptal.com/developers/gitignore?templates=flutter
+###############################################################################
 
 # Flutter/Dart/Pub related
-**/doc/api/
 .dart_tool/
 .flutter-plugins
+.flutter-plugins-dependencies
+.fvm/
 .packages
 .pub-cache/
 .pub/
-/build/
-.flutter-plugins-dependencies
+temporaryPath/
+build/
+coverage/
+lib/generated_plugin_registrant.dart
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -72,8 +125,6 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-# Sphinx documentation
-docs/_build/
 
 
 ###############################################################################
@@ -142,7 +193,6 @@ coverage.xml
 .scrapy
 
 # Sphinx documentation
-docs/_build/
 
 # PyBuilder
 target/
@@ -186,6 +236,20 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Hive database files
+test/fixtures/core
+
 # End of https://www.gitignore.io/api/python
-.flutter-plugins-dependencies
-pubspec.lock
+
+# Ignoring file that are generated during talawa testing and firebase initialization
+genhtml.perl
+test_img.png
+
+
+# Ignoring Node files that are generated if user uses any node command which is not required for the project
+node_modules/
+package.json
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log

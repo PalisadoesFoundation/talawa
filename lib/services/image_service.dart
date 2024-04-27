@@ -1,52 +1,79 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/locator.dart';
 
+/// ImageService class provides different functions as service in the context of Images.
+///
+/// Services include:
+/// * `cropImage`
+/// * `convertToBase64`
 class ImageService {
-  static Future<File> fetchImageFromCamera() async {
-    try {
-      final PickedFile selectedImage =
-          await ImagePicker().getImage(source: ImageSource.camera);
-      if (selectedImage != null) {
-        return File(selectedImage.path);
-      }
-      return null;
-    } catch (exception) {
-      print('Error getting Camera Image, exception: $exception');
-      return null;
-    }
-  }
+  /// Global instance of ImageCropper.
+  final ImageCropper _imageCropper = locator<ImageCropper>();
 
-  static Future<File> fetchImageFromGallery() async {
+  /// Crops the image selected by the user.
+  ///
+  /// **params**:
+  /// * `imageFile`: the image file to be cropped.
+  ///
+  /// **returns**:
+  /// * `Future<File?>`: the image after been cropped.
+  ///
+  /// **throws**:
+  /// - `Exception`: If an error occurs during the image cropping process.
+  Future<File?> cropImage({required File imageFile}) async {
+    // try, to crop the image and returns a File with cropped image path.
     try {
-      final PickedFile selectedImage =
-          await ImagePicker().getImage(source: ImageSource.gallery);
-      if (selectedImage != null) {
-        return File(selectedImage.path);
-      }
-      return null;
-    } catch (exception) {
-      print('Error getting Image from gallery, exception: $exception');
-      return null;
-    }
-  }
-
-  static Future<File> cropImage(File image) async {
-    try {
-      final File croppedImage = await ImageCropper.cropImage(
-        sourcePath: image.path,
-        androidUiSettings: const AndroidUiSettings(
-          toolbarColor: UIData.primaryColor,
-        ),
+      final CroppedFile? croppedImage = await _imageCropper.cropImage(
+        sourcePath: imageFile.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.original,
+        ],
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop Image',
+            toolbarColor: const Color(0xff18191A),
+            toolbarWidgetColor: Colors.white,
+            backgroundColor: Colors.black,
+            cropGridColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          ),
+        ],
       );
+
       if (croppedImage != null) {
         return File(croppedImage.path);
       }
-      return null;
-    } catch (exception) {
-      print('Error cropping Image, exception: $exception');
+    } catch (e) {
+      throw Exception(
+        "ImageService : $e.",
+      );
+    }
+
+    return null;
+  }
+
+  /// Converts the image into Base64 format.
+  ///
+  /// **params**:
+  /// * `file`: Image as a File object.
+  ///
+  /// **returns**:
+  /// * `Future<String?>`: image in string format
+  Future<String?> convertToBase64(File file) async {
+    try {
+      final List<int> bytes = await file.readAsBytes();
+      final String base64String = base64Encode(bytes);
+      return base64String;
+    } catch (error) {
       return null;
     }
   }
