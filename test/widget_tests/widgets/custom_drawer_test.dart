@@ -100,23 +100,29 @@ void main() async {
   await Hive.openBox('url');
 
   group('Exit Button', () {
-    /* testWidgets("Tapping Tests for Exit", (tester) async {
-      await tester.pumpWidget(createHomePageScreen());
-      await tester.pumpAndSettle();
-      tester.binding.window.physicalSizeTestValue = const Size(4000, 4000);
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
-      await tester.pumpAndSettle();
-      final leaveOrg = find.byKey(MainScreenViewModel.keyDrawerLeaveCurrentOrg);
-      await tester.tap(leaveOrg);
-      await tester.pumpAndSettle();
-      final dialogPopUP = verify(
-              (locator<NavigationService>() as MockNavigationService)
-                  .pushDialog(captureAny))
-          .captured;
-      expect(dialogPopUP[0], isA<CustomAlertDialog>());
-      // calling success() to have complete code coverage.
-      dialogPopUP[0].success();
-    });*/
+    testWidgets("Tapping Tests for Exit", (tester) async {
+      final customDrawerViewModel = CustomDrawerViewModel();
+
+      final Widget buildAlertDialog = MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        themeMode: ThemeMode.light,
+        theme: TalawaTheme.lightTheme,
+        home: customDrawerViewModel.exitAlertDialog(),
+      );
+
+      await tester.pumpWidget(buildAlertDialog);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final exitDialog = find.byKey(const Key("Exit?"));
+      await tester.tap(find.text('Exit'));
+
+      expect(exitDialog, findsOneWidget);
+    });
   });
 
   group('Test Organization action Buttons', () {

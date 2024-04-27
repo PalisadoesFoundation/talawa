@@ -6,6 +6,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// CustomDrawerViewModel class helps to serve the data and to react to user's input for Custom Dialog Widget.
@@ -115,6 +116,23 @@ class CustomDrawerViewModel extends BaseModel {
     if (!_disposed) {
       super.notifyListeners();
     }
+  }
+
+  /// returns an exit alert dialog.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `CustomAlertDialog`: returns customAlertDialogBox.
+  CustomAlertDialog exitAlertDialog() {
+    return CustomAlertDialog(
+      key: const Key("Exit?"),
+      reverse: true,
+      dialogSubTitle: 'Are you sure you want to exit this organization?',
+      successText: 'Exit',
+      success: () {},
+    );
   }
 
   /// This function switches the current organization to new organization.
