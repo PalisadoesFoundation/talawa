@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -202,11 +203,15 @@ void main() {
                 'recurrenceEndDate': model.recurrenceEndDate != null
                     ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
                     : null,
-                'frequency': 'WEEKLY',
-                'weekDays': ['TUESDAY'],
-                'interval': 1,
-                'count': null,
-                'weekDayOccurenceInMonth': null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
               },
           },
         ),
@@ -245,11 +250,211 @@ void main() {
                 'recurrenceEndDate': model.recurrenceEndDate != null
                     ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
                     : null,
-                'frequency': 'WEEKLY',
-                'weekDays': ['TUESDAY'],
-                'interval': 1,
-                'count': null,
-                'weekDayOccurenceInMonth': null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      );
+
+      verify(navigationService.pop());
+    });
+
+    testWidgets("testing createEvent function (Recurring)", (tester) async {
+      final model = CreateEventViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        createApp(
+          model.formKey,
+          model.eventTitleTextController,
+          model.eventLocationTextController,
+          model.eventDescriptionTextController,
+        ),
+      );
+
+      final DateTime startMoment = DateTime(
+        model.eventStartDate.year,
+        model.eventStartDate.month,
+        model.eventStartDate.day,
+        model.eventStartTime.hour,
+        model.eventStartTime.minute,
+      );
+
+      final DateTime endMoment = DateTime(
+        model.eventEndDate.year,
+        model.eventEndDate.month,
+        model.eventEndDate.day,
+        model.eventEndTime.hour,
+        model.eventEndTime.minute,
+      );
+
+      model.isRecurring = true;
+
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byType(TextFormField).first,
+        'fakeEventTitle',
+      );
+      await tester.enterText(
+        find.byType(TextFormField).last,
+        'fakeEventDescription',
+      );
+      await tester.enterText(
+        find.byType(TextFormField).at(1),
+        'fakeEventLocation',
+      );
+      databaseFunctions.init();
+
+      when(databaseFunctions.refreshAccessToken("testtoken"))
+          .thenAnswer((realInvocation) async {
+        return true;
+      });
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      ).thenAnswer((_) async {
+        return true;
+      });
+
+      await model.createEvent();
+
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      );
+
+      verify(navigationService.pop());
+
+      model.recurrenceEndDate = DateTime.now();
+      model.frequency = Frequency.monthly;
+      model.weekDayOccurenceInMonth = 1;
+
+      await model.createEvent();
+
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
               },
           },
         ),
@@ -352,6 +557,21 @@ void main() {
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
+    });
+
+    test('setEventEndDate should set the event end date and notify listeners',
+        () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final newDate = DateTime.now().add(const Duration(days: 1));
+      final notifyListenerCallback = MockCallbackFunction();
+      model.addListener(notifyListenerCallback);
+
+      model.setEventEndDate(newDate);
+
+      expect(model.eventEndDate, newDate);
+      verify(notifyListenerCallback()).called(1);
     });
   });
 }

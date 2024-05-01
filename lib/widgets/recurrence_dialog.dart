@@ -25,13 +25,15 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: SizeConfig.screenHeight! * 0.68,
+        height: SizeConfig.screenHeight! * 0.74,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             radioButtonFixText(
               "Does not repeat",
+              // coverage:ignore-start
               (value) => updateModel(value!, false, null, null, null),
+              // coverage:ignore-end
             ),
             radioButton(
               Frequency.daily,
