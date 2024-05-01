@@ -6,7 +6,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
@@ -154,7 +153,8 @@ class CustomDrawer extends StatelessWidget {
                               ? ListTile(
                                   key: MainScreenViewModel
                                       .keyDrawerLeaveCurrentOrg,
-                                  onTap: () => exitButton(),
+                                  onTap: () => navigationService
+                                      .pushDialog(model.exitAlertDialog()),
                                   leading: const Icon(Icons.logout, size: 30),
                                   title: Text(
                                     AppLocalizations.of(context)!
@@ -183,28 +183,6 @@ class CustomDrawer extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  /// Button to exit the organization.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-
-  void exitButton() {
-    return navigationService.pushDialog(
-      CustomAlertDialog(
-        key: const Key("Exit?"),
-        reverse: true,
-        dialogSubTitle: 'Are you sure you want to exit this organization?',
-        successText: 'Exit',
-        success: () {
-          //Exit org
-        },
-      ),
     );
   }
 }
