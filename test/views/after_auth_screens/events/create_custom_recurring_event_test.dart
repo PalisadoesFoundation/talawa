@@ -239,10 +239,12 @@ void main() {
       expect(customTextFieldFinder, findsNWidgets(2));
     });
 
-    testWidgets('section1InputFields', (tester) async {
+    testWidgets('Check functionality of Interval Frequency', (tester) async {
+      final model = CreateEventViewModel();
       await tester.pumpWidget(
         createCustomRecurrenceScreen(
           theme: TalawaTheme.darkTheme,
+          model: model,
         ),
       );
       await tester.pump();
@@ -265,7 +267,7 @@ void main() {
       // Test RecurrenceFrequencyDropdown
       expect(find.text("week"), findsOne);
 
-      final popupMenuButton = find.byType(PopupMenuButton<String>);
+      final popupMenuButton = find.byType(PopupMenuButton<String>).first;
 
       await tester.tap(popupMenuButton);
       await tester.pumpAndSettle();
@@ -274,19 +276,138 @@ void main() {
       expect(find.text("month"), findsOne);
       expect(find.text("year"), findsOne);
 
-      // Test dropdown selection working.
+      // check functionality of interval frequency day
+      await tester.tap(find.text(EventIntervals.daily));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.daily);
+      expect(model.recurrenceInterval, EventIntervals.daily);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency week
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.weekly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.weekly);
+      expect(model.recurrenceInterval, EventIntervals.weekly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency week
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.monthly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceInterval, EventIntervals.monthly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency year
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.yearly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.yearly);
+      expect(model.recurrenceInterval, EventIntervals.yearly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+    });
+
+    testWidgets("Dropdown for Monthly frequency", (tester) async {
+      final model = CreateEventViewModel();
+      model.recurrenceStartDate = DateTime(2023, 02, 28);
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pump();
+
+      final frequencyDropdown = find.byType(PopupMenuButton<String>).first;
+      await tester.tap(frequencyDropdown);
+      await tester.pumpAndSettle();
+
+      expect(find.text("day"), findsOne);
+      expect(find.text("month"), findsOne);
+      expect(find.text("year"), findsOne);
+
+      // select interval frequency as month
       await tester.tap(find.text("month"));
       await tester.pumpAndSettle();
 
-      expect(find.text("month"), findsOne);
-
-      // when clicked on day/year.
-      await tester.tap(find.text('month'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('year'));
+      await tester.tap(find.byType(PopupMenuButton<String>).last);
       await tester.pumpAndSettle();
 
-      // expect(find.text('Monthly on day 3'), findsNothing);
+      // check all the functionality of dropdown option shown on isLastDayOccurence is true (monthlyOption[2])
+      final monthlyRecurrenceLabel1 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        {
+          RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+        },
+        int.parse(model.repeatsEveryCountController.text),
+        int.parse(model.endOccurenceController.text),
+        -1,
+        model.recurrenceStartDate,
+        model.recurrenceEndDate,
+      );
+      expect(
+        find.text(monthlyRecurrenceLabel1),
+        findsOne,
+      );
+
+      await tester.tap(find.text(monthlyRecurrenceLabel1));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceLabel, monthlyRecurrenceLabel1);
+      expect(model.weekDayOccurenceInMonth, -1);
+      expect(model.weekDays, {
+        RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+      });
+
+      // check all the functionality of dropdown option shown when weekDayOccurence~=5 (monthlyOption[1])
+      await tester.tap(find.byType(PopupMenuButton<String>).last);
+      await tester.pumpAndSettle();
+
+      final monthlyRecurrenceLabel2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        {
+          RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+        },
+        int.parse(model.repeatsEveryCountController.text),
+        int.parse(model.endOccurenceController.text),
+        RecurrenceUtils.getWeekDayOccurenceInMonth(
+          model.recurrenceStartDate,
+        ),
+        model.recurrenceStartDate,
+        model.recurrenceEndDate,
+      );
+      expect(
+        find.text(monthlyRecurrenceLabel2),
+        findsOne,
+      );
+
+      await tester.tap(find.text(monthlyRecurrenceLabel2));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceLabel, monthlyRecurrenceLabel2);
+      expect(
+        model.weekDayOccurenceInMonth,
+        RecurrenceUtils.getWeekDayOccurenceInMonth(
+          model.recurrenceStartDate,
+        ),
+      );
+      expect(model.weekDays, {
+        RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+      });
     });
 
     testWidgets('CustomWeekDaySelector', (tester) async {

@@ -280,9 +280,6 @@ class _CustomRecurrencePageState extends State<CustomRecurrencePage> {
               case EventIntervals.yearly:
                 updateModel(Frequency.yearly, value, null, null);
                 break;
-              default:
-                updateModel(Frequency.weekly, value, null, null);
-                break;
             }
           },
         ),
