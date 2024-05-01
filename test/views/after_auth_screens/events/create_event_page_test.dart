@@ -282,9 +282,6 @@ void main() {
       );
       await tester.pump();
 
-      /// using the key of icon button
-      /// because their are many icon button
-
       final finder = find.byKey(const Key('txt_btn_cep'));
 
       expect(finder, findsOneWidget);
@@ -553,6 +550,36 @@ void main() {
           findsNWidgets(2),
         );
       });
+
+      testWidgets('Test end date selection', (tester) async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
+
+        await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
+        await tester.pump();
+
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+        expect(find.text('Does not repeat'), findsOneWidget);
+      });
+
       testWidgets('Tap on DateTimeTile time', (tester) async {
         final currentTime = DateTime.now();
         final futureTime = currentTime.add(const Duration(minutes: 30));

@@ -66,6 +66,125 @@ void main() {
   // tearDown(() {
   //   unregisterServices();
   // });
+
+  group("RecurrenceUtils", () {
+    test("getRecurrenceRuleText for Frequency Daily", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.daily,
+        null,
+        2,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 days');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.daily,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Daily');
+    });
+
+    test("getRecurrenceRuleText for Frequency Weekly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.weekly,
+        {'MONDAY'},
+        2,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 weeks on Monday');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.weekly,
+        {'MONDAY'},
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Weekly on Monday');
+    });
+
+    test("getRecurrenceRuleText for Frequency Monthly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        null,
+        2,
+        null,
+        2,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 months on Second Monday');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Monthly on Day 1');
+    });
+
+    test("getRecurrenceRuleText for Frequency Yearly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.yearly,
+        null,
+        3,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 3 years on January 1');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.yearly,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Annually on January 1');
+    });
+
+    test('getWeekDaysString formats string correctly', () {
+      final weekDaysString = RecurrenceUtils.getWeekDaysString([
+        WeekDays.monday,
+        WeekDays.tuesday,
+        WeekDays.wednesday,
+      ]);
+      expect(weekDaysString, 'Monday, Tuesday & Wednesday');
+    });
+
+    test('isLastOccurenceOfWeekDay returns true for last occurrence', () {
+      final date = DateTime(2022, 1, 31); // Last Monday of January 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true);
+    });
+
+    test('isLastOccurenceOfWeekDay returns false for not last occurrence', () {
+      final date = DateTime(2022, 1, 24); // Not the last Monday of January 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, false);
+    });
+  });
   group('Test custom recurrence page.', () {
     testWidgets('Appbar is being rendered as expected.', (tester) async {
       await tester.pumpWidget(
