@@ -28,8 +28,10 @@ import '../../helpers/test_helpers.dart';
 ///
 /// **returns**:
 /// * `Widget`: SetUrlScreen widget.
-Widget createSetUrlScreen(
-        {ThemeMode themeMode = ThemeMode.light, ThemeData? theme}) =>
+Widget createSetUrlScreen({
+  ThemeMode themeMode = ThemeMode.light,
+  ThemeData? theme,
+}) =>
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppLanguage>(
