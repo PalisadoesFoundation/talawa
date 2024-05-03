@@ -41,7 +41,8 @@ class CreateEventViewModel extends BaseModel {
       TextEditingController(text: '1');
 
   /// Event ends After n occurences controller.
-  TextEditingController endOccurenceController = TextEditingController();
+  TextEditingController endOccurenceController =
+      TextEditingController(text: '1');
 
   /// Event Start Time.
   TimeOfDay eventStartTime = TimeOfDay.now();
@@ -56,7 +57,13 @@ class CreateEventViewModel extends BaseModel {
   DateTime eventStartDate = DateTime.now();
 
   /// Event End Date.
-  DateTime? eventEndDate = DateTime.now();
+  DateTime eventEndDate = DateTime.now();
+
+  /// Event Start Date for recurrence.
+  DateTime recurrenceStartDate = DateTime.now();
+
+  /// Event End Date for recurrence.
+  DateTime? recurrenceEndDate;
 
   /// Public Event or Not.
   bool isPublicSwitch = true;
@@ -73,38 +80,37 @@ class CreateEventViewModel extends BaseModel {
   /// DescriptionFocus FocusNode.
   FocusNode descriptionFocus = FocusNode();
 
-  /// Latitude store.
-  double? latitude;
-
-  /// Longitude store.
-  double? longitude;
-
   /// is an allday event.
   bool isAllDay = true;
 
   /// Is a recurring event.
   bool isRecurring = false;
 
-  /// recurrence count.
-  int recurranceCount = 1;
-
-  /// recurrence.
-  String? recurrance;
-
-  /// RecurranceRuleData frequency.
-  String recurranceFrequency = Recurrance.weekly;
-
-  /// Monthly recurrence.
-  String monthlyRecurrence = 'Monthly on day 3';
-
-  /// weekdays.
-  Set<String> weekdays = {Recurrance.weekdayTuesday};
+  /// RecurrenceRuleData frequency.
+  String recurrenceInterval = EventIntervals.weekly;
 
   /// Event end type.
   String eventEndType = EventEndTypes.never;
 
-  /// Custom recurrance event end date.
-  DateTime? eventEndOnEndDate = DateTime.now();
+  /// represents the frequency of the event.
+  String frequency = Frequency.weekly;
+
+  /// represents the week days of the event.
+  Set<String> weekDays = {
+    days[DateTime.now().weekday - 1],
+  };
+
+  /// represents the interval of the event.
+  int interval = 1;
+
+  /// represents the count of the event.
+  int? count;
+
+  /// represents the week day occurence in Month.
+  int? weekDayOccurenceInMonth;
+
+  /// represents the recurrence label.
+  String recurrenceLabel = 'Does not repeat';
 
   //late OrganizationService _organizationService;
   late final Map<String, bool> _memberCheckedMap = {};
@@ -193,41 +199,47 @@ class CreateEventViewModel extends BaseModel {
         eventStartTime.minute,
       );
       final DateTime endTime = DateTime(
-        eventEndDate?.year ?? DateTime.now().year,
-        eventEndDate?.month ?? DateTime.now().month,
-        eventEndDate?.day ?? DateTime.now().day,
+        eventEndDate.year,
+        eventEndDate.month,
+        eventEndDate.day,
         eventEndTime.hour,
         eventEndTime.minute,
       );
-
-      final String? frequency = getRecurrance(recurranceFrequency);
-
       // all required data for creating an event
       final Map<String, dynamic> variables = {
         "data": {
-          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
-          if (eventEndDate != null)
-            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate!),
-          'organizationId': _currentOrg.id,
           'title': eventTitleTextController.text,
           'description': eventDescriptionTextController.text,
           'location': eventLocationTextController.text,
           'isPublic': isPublicSwitch,
           'isRegisterable': isRegisterableSwitch,
           'recurring': isRecurring,
-          'recurrance': recurrance ?? frequency,
           'allDay': isAllDay,
-          'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
-          if (eventEndDate != null)
-            'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
-          if (latitude != null) 'latitude': latitude,
-          if (longitude != null) 'longitude': longitude,
+          'organizationId': _currentOrg.id,
+          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+          'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
+          'startTime':
+              isAllDay ? null : '${DateFormat('HH:mm:ss').format(startTime)}Z',
+          'endTime':
+              isAllDay ? null : '${DateFormat('HH:mm:ss').format(endTime)}Z',
         },
-        if (recurrance == null)
+        if (isRecurring)
           'recurrenceRuleData': {
-            if (eventEndType != EventEndTypes.never) 'count': recurranceCount,
+            'recurrenceStartDate': DateFormat('yyyy-MM-dd').format(
+              recurrenceStartDate,
+            ),
+            'recurrenceEndDate': recurrenceEndDate != null
+                ? DateFormat('yyyy-MM-dd').format(recurrenceEndDate!)
+                : null,
             'frequency': frequency,
-            if (frequency == 'WEEKLY') 'weekDays': List.from(weekdays),
+            'weekDays': (frequency == Frequency.weekly ||
+                    (frequency == Frequency.monthly &&
+                        weekDayOccurenceInMonth != null))
+                ? weekDays.toList()
+                : null,
+            'interval': interval,
+            'count': count,
+            'weekDayOccurenceInMonth': weekDayOccurenceInMonth,
           },
       };
 
@@ -240,11 +252,9 @@ class CreateEventViewModel extends BaseModel {
         EventQueries().addEvent(),
         variables: variables,
       );
-      print(result);
       navigationService.pop();
       if (result != null) {
         navigationService.pop();
-
         await _eventService.getEvents();
       }
     }
@@ -343,33 +353,8 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void setEventEndDate(DateTime? selectedEndDate) {
+  void setEventEndDate(DateTime selectedEndDate) {
     eventEndDate = selectedEndDate;
     notifyListeners();
-  }
-
-  /// Returns corresponding recurrence value based on frequency.
-  ///
-  /// **params**:
-  /// * `frequency`: Recurrence frequency selected by user.
-  ///
-  /// **returns**:
-  /// * `String?`: Recurrence value.
-  String? getRecurrance(String frequency) {
-    isRecurring = true;
-    if (frequency == Recurrance.daily || frequency == 'Every day') {
-      return 'DAILY';
-    } else if (frequency == Recurrance.weekly || frequency == 'Every week') {
-      return 'WEEKLY';
-    } else if (frequency == Recurrance.monthly || frequency == 'Every month') {
-      return 'MONTHLY';
-    } else if (frequency == Recurrance.yearly || frequency == 'Every year') {
-      return 'YEARLY';
-    } else if (frequency == Recurrance.once) {
-      isRecurring = false;
-      return null;
-    } else {
-      return null;
-    }
   }
 }

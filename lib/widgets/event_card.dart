@@ -123,7 +123,7 @@ class EventCard extends StatelessWidget {
                           const Spacer(),
                           Expanded(
                             child: Text(
-                              "${event.startDate!} - ${event.endDate!}",
+                              "${event.startDate} - ${event.endDate}",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ),
@@ -132,35 +132,36 @@ class EventCard extends StatelessWidget {
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.006,
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.schedule,
-                            size: 12,
-                          ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth! * 0.015,
-                          ),
-                          Text(
-                            "${event.startTime!} - ${event.endTime!}",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.place,
-                            size: 12,
-                          ),
-                          SizedBox(
-                            child: Text(
-                              event.location!.substring(
-                                0,
-                                min(event.location!.length, 20),
-                              ),
+                      if (event.startTime != null && event.endTime != null)
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.schedule,
+                              size: 12,
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.015,
+                            ),
+                            Text(
+                              "${event.startTime} - ${event.endTime!}",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                          ),
-                        ],
-                      ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.place,
+                              size: 12,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                event.location!.substring(
+                                  0,
+                                  min(event.location!.length, 20),
+                                ),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          ],
+                        ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.013,
                       ),

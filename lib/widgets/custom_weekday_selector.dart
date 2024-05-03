@@ -16,7 +16,7 @@ class CustomWeekDaySelector extends StatefulWidget {
 class _CustomWeekDaySelectorState extends State<CustomWeekDaySelector> {
   @override
   Widget build(BuildContext context) {
-    final Set<String> weekdays = widget.model.weekdays;
+    final Set<String> weekdays = widget.model.weekDays;
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,6 +30,7 @@ class _CustomWeekDaySelectorState extends State<CustomWeekDaySelector> {
                 } else {
                   weekdays.add(weekday);
                 }
+                widget.model.weekDays = weekdays;
               });
             },
             child: Container(
@@ -73,19 +74,19 @@ class _CustomWeekDaySelectorState extends State<CustomWeekDaySelector> {
   String _getWeekdayAbbreviation(int index) {
     switch (index) {
       case 0:
-        return Recurrance.weekdaySunday;
+        return WeekDays.sunday;
       case 1:
-        return Recurrance.weekdayMonday;
+        return WeekDays.monday;
       case 2:
-        return Recurrance.weekdayTuesday;
+        return WeekDays.tuesday;
       case 3:
-        return Recurrance.weekdayWednesday;
+        return WeekDays.wednesday;
       case 4:
-        return Recurrance.weekdayThursday;
+        return WeekDays.thursday;
       case 5:
-        return Recurrance.weekdayFriday;
+        return WeekDays.friday;
       case 6:
-        return Recurrance.weekdaySaturday;
+        return WeekDays.saturday;
       default:
         return '';
     }

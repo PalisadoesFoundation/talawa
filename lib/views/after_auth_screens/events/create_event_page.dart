@@ -26,8 +26,6 @@ class CreateEventPage extends StatefulWidget {
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
-  /// Recurrence label of recurrence selection button.
-  String recurrenceLabel = Recurrance.once;
   @override
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
@@ -36,7 +34,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
-        print(model.recurrance);
         return Scaffold(
           // AppBar is the header of the page
           appBar: AppBar(
@@ -44,14 +41,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
-              onTap: () {
-                // ignore: undefined_method
-                navigationServiceLocal.pop();
-              },
+              onTap: () => navigationServiceLocal.pop(),
               child: const Icon(Icons.close),
             ),
             title: Text(
-              // text translation to the app language.
               AppLocalizations.of(context)!.strictTranslate('Add Event'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
@@ -82,7 +75,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
           body: Scrollbar(
             thickness: 2,
             child: SingleChildScrollView(
-              // SingleChildScrollView is a box in which a single widget can be scrolled.
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -109,10 +101,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         ),
                       ],
                     ),
-                    // If the image for the event is selected or not null.
                     model.imageFile != null
                         ? Container(
-                            // Container for rendering the selected image
                             height: 300,
                             padding: const EdgeInsets.all(8.0),
                             child: Stack(
@@ -139,156 +129,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         : Container(),
                     const Divider(),
                     CreateEventForm(
-                      // CreateEventForm returns a widget of a Form for creating events.
-                      // This widget is exported from `lib/views/after_auth_screens/events/create_event_form.dart`.
                       model: model,
                     ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.013,
-                    ),
-                    const Divider(),
-                    Text(
-                      // translation of the text to app language.
-                      AppLocalizations.of(context)!
-                          .strictTranslate('Select Start Date and Time'),
-                      style: subtitleTextStyle,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.013,
-                    ),
-                    // DateTimeTile is custom widget that returns a tile to select date and time.
-                    // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
-                    DateTimeTile(
-                      // variables and member functions initialisation.
-                      date: "${model.eventStartDate.toLocal()}".split(' ')[0],
-                      time: model.eventStartTime.format(context),
-                      setDate: () async {
-                        final date = await customDatePicker(
-                          initialDate: model.eventStartDate,
-                        );
-                        if (date.isBefore(DateTime.now())) {
-                          navigationServiceLocal.showSnackBar(
-                            "Cannot create events having date prior than today ",
-                          );
-                        }
-                        setState(() {
-                          model.eventStartDate = date;
-                        });
-                      },
-                      setTime: () async {
-                        print(model.eventStartDate);
-                        final time = await customTimePicker(
-                          initialTime: model.eventStartTime,
-                        );
-                        // print(model.eventStartTime);
-                        final validationError = Validator.validateEventTime(
-                          time,
-                          model.eventEndTime,
-                        );
-                        print('hi');
-                        if (validationError != null) {
-                          navigationService.showTalawaErrorSnackBar(
-                            'Start time must be before end time',
-                            MessageType.error,
-                          );
-                        } else {
-                          setState(() {
-                            model.eventStartTime = time;
-                          });
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.026,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!
-                          .strictTranslate('Select End Date and Time'),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.013,
-                    ),
-                    DateTimeTile(
-                      key: const Key('key for test cep'),
-                      date: "${model.eventEndDate?.toLocal() ?? DateTime.now()}"
-                          .split(' ')[0],
-                      time: model.eventEndTime.format(context),
-                      setDate: () async {
-                        final date = await customDatePicker(
-                          initialDate: model.eventEndDate ?? DateTime.now(),
-                        );
-                        final startDate = model.eventStartDate;
-                        if (startDate.compareTo(date) < 0) {
-                          setState(() {
-                            model.eventEndDate = date;
-                          });
-                        } else {
-                          // ignore: undefined_method
-                          navigationServiceLocal.showSnackBar(
-                            "End Date cannot be after start date ",
-                          );
-                        }
-                      },
-                      setTime: () async {
-                        final time = await customTimePicker(
-                          initialTime: model.eventEndTime,
-                        );
-                        final validationError = Validator.validateEventTime(
-                          model.eventStartTime,
-                          time,
-                        );
-                        final showSnackBar =
-                            navigationService.showTalawaErrorSnackBar;
-                        if (validationError != null) {
-                          showSnackBar(
-                            'Start time must be before end time',
-                            MessageType.error,
-                          );
-                        } else {
-                          setState(() {
-                            model.eventEndTime = time;
-                          });
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.026,
-                    ),
-                    InkWell(
-                      child: Row(
-                        children: [
-                          const Icon(Icons.restore),
-                          SizedBox(
-                            width: SizeConfig.screenWidth! * 0.045,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!
-                                .strictTranslate(recurrenceLabel),
-                            style: subtitleTextStyle,
-                          ),
-                        ],
-                      ),
-                      onTap: () async {
-                        final String? selectedReccurence;
-                        selectedReccurence = await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ShowRecurrenceDialog(
-                              model: model,
-                              initialRecurrence: recurrenceLabel,
-                            );
-                          },
-                        );
-                        setState(() {
-                          recurrenceLabel = selectedReccurence!;
-                        });
-                      },
-                    ),
-                    SizedBox(height: SizeConfig.screenHeight! * 0.026),
+                    SizedBox(height: SizeConfig.screenHeight! * 0.013),
                     const Divider(),
                     SizedBox(
                       width: SizeConfig.screenWidth,
@@ -311,7 +154,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     model.isRegisterableSwitch = value;
-                                    print(model.isRegisterableSwitch);
                                   });
                                 },
                                 activeColor:
@@ -336,7 +178,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     model.isAllDay = value;
-                                    print(model.isAllDay);
                                   });
                                 },
                                 activeColor:
@@ -356,12 +197,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 width: SizeConfig.screenWidth! * 0.005,
                               ),
                               Switch(
-                                // Switch to select the visibility of the event.
                                 value: model.isPublicSwitch,
                                 onChanged: (value) {
                                   setState(() {
                                     model.isPublicSwitch = value;
-                                    print(model.isPublicSwitch);
                                   });
                                 },
                                 activeColor:
@@ -371,6 +210,181 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
+                    const Divider(),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.strictTranslate(
+                        model.isAllDay
+                            ? 'Select Start Date'
+                            : 'Select Start Date and Time',
+                      ),
+                      style: subtitleTextStyle,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
+                    // DateTimeTile is custom widget that returns a tile to select date and time.
+                    DateTimeTile(
+                      isAllDay: model.isAllDay,
+                      date: "${model.eventStartDate.toLocal()}".split(' ')[0],
+                      time: model.eventStartTime.format(context),
+                      setDate: () async {
+                        final date = await customDatePicker(
+                          initialDate: model.eventStartDate,
+                        );
+                        if (date.isBefore(DateTime.now())) {
+                          navigationServiceLocal.showSnackBar(
+                            "Cannot create events having date prior than today ",
+                          );
+                        }
+                        setState(() {
+                          if (model.eventStartDate != date) {
+                            model.eventStartDate = date;
+                            model.recurrenceStartDate = date;
+                            model.recurrenceLabel = 'Does not repeat';
+                            model.isRecurring = false;
+                            model.frequency = Frequency.weekly;
+                            model.weekDays = {};
+                            model.weekDayOccurenceInMonth = null;
+                          }
+                        });
+                      },
+                      setTime: () async {
+                        final time = await customTimePicker(
+                          initialTime: model.eventStartTime,
+                        );
+                        final validationError = Validator.validateEventTime(
+                          time,
+                          model.eventEndTime,
+                        );
+                        if (validationError != null) {
+                          // coverage:ignore-start
+                          navigationService.showTalawaErrorSnackBar(
+                            'Start time must be before end time',
+                            MessageType.error,
+                          );
+                          // coverage:ignore-end
+                        } else {
+                          setState(() {
+                            model.eventStartTime = time;
+                          });
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.026,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.strictTranslate(
+                        model.isAllDay
+                            ? 'Select End Date'
+                            : 'Select End Date and Time',
+                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.013,
+                    ),
+                    DateTimeTile(
+                      key: const Key('key for test cep'),
+                      isAllDay: model.isAllDay,
+                      date: "${model.eventEndDate.toLocal()}".split(' ')[0],
+                      time: model.eventEndTime.format(context),
+                      setDate: () async {
+                        final date = await customDatePicker(
+                          initialDate: model.eventEndDate,
+                        );
+                        final startDate = model.eventStartDate;
+                        // coverage:ignore-start
+                        if (startDate.compareTo(date) < 0) {
+                          setState(() {
+                            if (model.eventEndDate != date) {
+                              model.eventEndDate = date;
+                              model.recurrenceLabel = 'Does not repeat';
+                              model.recurrenceEndDate = null;
+                              model.isRecurring = false;
+                              model.frequency = Frequency.weekly;
+                              model.weekDays = {};
+                              model.weekDayOccurenceInMonth = null;
+                            }
+                          });
+                          // coverage:ignore-end
+                        } else {
+                          navigationServiceLocal.showSnackBar(
+                            "End Date cannot be after start date ",
+                          );
+                        }
+                      },
+                      setTime: () async {
+                        final time = await customTimePicker(
+                          initialTime: model.eventEndTime,
+                        );
+                        final validationError = Validator.validateEventTime(
+                          model.eventStartTime,
+                          time,
+                        );
+                        final showSnackBar =
+                            navigationService.showTalawaErrorSnackBar;
+                        if (validationError != null) {
+                          // coverage:ignore-start
+                          showSnackBar(
+                            'Start time must be before end time',
+                            MessageType.error,
+                          );
+                          // coverage:ignore-end
+                        } else {
+                          setState(() {
+                            model.eventEndTime = time;
+                          });
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * 0.026,
+                    ),
+                    InkWell(
+                      key: const Key('inkwell_recurrLabel'),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.restore),
+                          SizedBox(
+                            width: SizeConfig.screenWidth! * 0.045,
+                          ),
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(model.recurrenceLabel),
+                              style: subtitleTextStyle,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onTap: () async {
+                        final String? selectedReccurence;
+                        selectedReccurence = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ShowRecurrenceDialog(
+                              model: model,
+                            );
+                          },
+                        );
+                        setState(() {
+                          if (selectedReccurence != null) {
+                            model.recurrenceLabel = selectedReccurence;
+                          }
+                        });
+                      },
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
