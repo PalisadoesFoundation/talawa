@@ -1,15 +1,8 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// import 'dart:io';
-
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
-// import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/custom_theme.dart';
@@ -27,7 +20,16 @@ import 'package:talawa/widgets/rich_text.dart';
 
 import '../../helpers/test_helpers.dart';
 
-Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
+/// Returns the SetUrlScreen widget.
+///
+/// **params**:
+/// * `themeMode`: ThemeMode of the app.
+/// * `theme`: ThemeData of the app.
+///
+/// **returns**:
+/// * `Widget`: SetUrlScreen widget.
+Widget createSetUrlScreen(
+        {ThemeMode themeMode = ThemeMode.light, ThemeData? theme}) =>
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppLanguage>(
@@ -42,31 +44,7 @@ Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
         ],
         key: const Key('Root'),
         themeMode: themeMode,
-        theme: TalawaTheme.lightTheme,
-        home: const SetUrl(
-          key: Key('SetUrl'),
-          uri: 'null',
-        ),
-        navigatorKey: navigationService.navigatorKey,
-        onGenerateRoute: router.generateRoute,
-      ),
-    );
-
-Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AppLanguage>(
-          create: (_) => AppLanguage(isTest: true),
-        ),
-      ],
-      child: MaterialApp(
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        key: const Key('Root'),
-        themeMode: themeMode,
+        theme: theme ?? TalawaTheme.lightTheme,
         darkTheme: TalawaTheme.darkTheme,
         home: const SetUrl(
           key: Key('SetUrl'),
@@ -101,7 +79,12 @@ Future<void> main() async {
   group('Select Language Screen Widget Test in light mode', () {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the screenScaffold Finder
@@ -121,7 +104,12 @@ Future<void> main() async {
 
     testWidgets("Testing if icon button shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the logo Finder
@@ -141,7 +129,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the logo Finder
@@ -161,7 +154,12 @@ Future<void> main() async {
 
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
@@ -214,7 +212,12 @@ Future<void> main() async {
     });
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the url input field widget Finder
@@ -260,7 +263,12 @@ Future<void> main() async {
     });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the change language widget Finder
@@ -283,7 +291,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the login button Finder
@@ -295,7 +308,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .backgroundColor,
-        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
+        TalawaTheme.lightTheme.colorScheme.tertiary,
       );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
@@ -315,7 +328,12 @@ Future<void> main() async {
 
     testWidgets("Check navigation to Login page when Login button is pressed.",
         (tester) async {
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pump();
       expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
 
@@ -332,7 +350,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the signup button Finder
@@ -364,7 +387,12 @@ Future<void> main() async {
         "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
         (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final formFinder = find.ancestor(
@@ -382,7 +410,12 @@ Future<void> main() async {
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final btnFinder = find.byKey(const Key('SignUpButton'));
@@ -398,7 +431,12 @@ Future<void> main() async {
     testWidgets("Testing onTap in Change Language Gesture Detector",
         (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final gestureDetectorFinder = find.byKey(const Key('ChangeLanguage'));
@@ -425,7 +463,12 @@ Future<void> main() async {
   group('Select Language Screen Widget Test in dark mode', () {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the screenScaffold Finder
@@ -445,7 +488,12 @@ Future<void> main() async {
 
     testWidgets("Testing if icon button shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the logo Finder
@@ -465,7 +513,12 @@ Future<void> main() async {
     });
     testWidgets("Check if QR button works", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final iconButton = find.byIcon(Icons.qr_code_scanner);
@@ -479,7 +532,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the logo Finder
@@ -498,7 +556,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
@@ -551,7 +614,12 @@ Future<void> main() async {
     });
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the url input field widget Finder
@@ -597,7 +665,12 @@ Future<void> main() async {
     });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the change language widget Finder
@@ -620,7 +693,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the login button Finder
@@ -632,7 +710,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .backgroundColor,
-        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
+        TalawaTheme.darkTheme.colorScheme.tertiary,
       );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
@@ -652,7 +730,12 @@ Future<void> main() async {
     });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       //initializing the signup button Finder
@@ -684,7 +767,12 @@ Future<void> main() async {
         "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
         (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final formFinder = find.ancestor(
@@ -702,7 +790,12 @@ Future<void> main() async {
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final btnFinder = find.byKey(const Key('SignUpButton'));
@@ -718,7 +811,12 @@ Future<void> main() async {
     testWidgets("Testing onTap in Change Language Gesture Detector",
         (tester) async {
       //pushing setUrlScreen
-      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpWidget(
+        createSetUrlScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       final gestureDetectorFinder = find.byKey(const Key('ChangeLanguage'));

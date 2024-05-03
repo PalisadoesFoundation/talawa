@@ -156,8 +156,7 @@ class _SetUrlState extends State<SetUrl> {
                             .focusedBorder!
                             .borderSide
                             .color,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.0215,

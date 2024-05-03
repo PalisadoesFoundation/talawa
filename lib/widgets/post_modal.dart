@@ -4,8 +4,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 
 /// To add options to the bottom nav bar, increase the height too.
-///
-///
 class PostBottomModal extends StatelessWidget {
   const PostBottomModal({
     super.key,
@@ -15,18 +13,12 @@ class PostBottomModal extends StatelessWidget {
   });
 
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
-  ///
-  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
-  /// To delete the post if user can.
-  ///
-  /// only work if the post is made by the user
+  /// To delete the post if user can (only work if the post is made by the user).
   final Function(Post)? deletePost;
 
   /// Post object containing all the data related to the post.
-  ///
-  /// see the post model to get more information regarding this
   final Post post;
 
   @override
@@ -36,11 +28,11 @@ class PostBottomModal extends StatelessWidget {
         Center(
           child: Row(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Icon(
                   Icons.report_gmailerrorred_outlined,
-                  color: Colors.black38,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
               TextButton(
@@ -52,13 +44,9 @@ class PostBottomModal extends StatelessWidget {
                   );
                   Navigator.pop(context);
                 },
-                child: const Text(
+                child: Text(
                   'Report the post to the Admin',
-                  style: TextStyle(
-                    color: Colors.black38,
-                    fontSize: 20,
-                    fontFamily: 'open-sans',
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],
@@ -67,20 +55,17 @@ class PostBottomModal extends StatelessWidget {
         Center(
           child: Row(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Icon(
                   Icons.delete,
-                  color: Colors.black38,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
               TextButton(
                 key: const Key('deletePost'),
                 onPressed: () {
-                  deletePost != null
-                      ? deletePost!(post)
-                      // ignore: unnecessary_statements
-                      : {};
+                  deletePost?.call(post);
                   showDialog(
                     context: context,
                     builder: (BuildContext builder) {
@@ -113,13 +98,9 @@ class PostBottomModal extends StatelessWidget {
                     },
                   );
                 },
-                child: const Text(
+                child: Text(
                   'The post was deleted',
-                  style: TextStyle(
-                    color: Colors.black38,
-                    fontSize: 20,
-                    fontFamily: 'open-sans',
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ],

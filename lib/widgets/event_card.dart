@@ -36,6 +36,7 @@ class EventCard extends StatelessWidget {
       child: Stack(
         children: [
           Card(
+            surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
             shape: RoundedRectangleBorder(
               side:
                   isRegistered && userConfig.currentUser.id != event.creator!.id

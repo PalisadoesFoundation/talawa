@@ -11,17 +11,13 @@ class PostListWidget extends StatelessWidget {
     this.deletePost,
   });
 
-  /// lis of all the post.
-  ///
+  /// list of all the post.
   final List<Post> posts;
 
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
-  ///
-  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
   /// Function the deleting the post.
-  ///
   final Function(Post)? deletePost;
 
   @override

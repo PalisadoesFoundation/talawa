@@ -29,7 +29,7 @@ class ExploreEvents extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             // AppBar returns widget for the header.
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
             key: const Key(
               "ExploreEventsAppBar",
             ),
@@ -43,13 +43,11 @@ class ExploreEvents extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    color: Colors.white,
                   ),
             ),
             leading: IconButton(
-              // returns a button of menu icon to redirect to home.
-              color: Theme.of(
-                context,
-              ).iconTheme.color,
+              color: Colors.white,
               icon: const Icon(
                 Icons.menu,
               ),
@@ -73,9 +71,9 @@ class ExploreEvents extends StatelessWidget {
                             ),
                           );
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
-                          size: (SizeConfig.safeBlockHorizontal ?? 4) * 5,
+                          color: Colors.white,
                         ),
                       )
                     : const SizedBox(),
@@ -100,6 +98,9 @@ class ExploreEvents extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.013,
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -109,6 +110,7 @@ class ExploreEvents extends StatelessWidget {
                                     child: GestureDetector(
                                       onTap: () {
                                         showModalBottomSheet(
+                                          backgroundColor: Colors.white,
                                           context: context,
                                           builder: (_) {
                                             return dropDownList(
@@ -119,6 +121,9 @@ class ExploreEvents extends StatelessWidget {
                                         );
                                       },
                                       child: Card(
+                                        surfaceTintColor: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
@@ -168,6 +173,9 @@ class ExploreEvents extends StatelessWidget {
                                         );
                                       },
                                       child: Card(
+                                        surfaceTintColor: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
                                         key: homeModel?.keySEDateFilter,
                                         color: Theme.of(context)
                                             .colorScheme
@@ -215,6 +223,9 @@ class ExploreEvents extends StatelessWidget {
                                   Expanded(
                                     flex: 1,
                                     child: Card(
+                                      surfaceTintColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
@@ -234,7 +245,7 @@ class ExploreEvents extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: SizeConfig.screenHeight! * 0.027,
+                                height: SizeConfig.screenHeight! * 0.020,
                               ),
                               // if the events model is empty then renders a box with text as "Empty List"
                               // else renders lists of the all event tile.

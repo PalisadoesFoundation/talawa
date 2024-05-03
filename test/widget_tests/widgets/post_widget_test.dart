@@ -1,8 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,9 +20,20 @@ import 'package:talawa/widgets/post_widget.dart';
 
 import '../../helpers/test_helpers.dart';
 
+/// Key for NewsPost widget.
 const Key newsPostKey = Key("newsPostKey");
+
+/// Key for PostContainer widget.
 const Key postContainerKey = Key("postContainerKey");
 
+/// [createNewsPostWidget] is a method that returns a NewsPost widget.
+///
+/// **params**:
+/// * `function`: Function(Post)? - function to be called when the post comment is clicked.
+/// * `post`: Post object containing all the data related to the post.
+///
+/// **returns**:
+/// * `Widget`: NewsPost widget.
 Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
   return MaterialApp(
     locale: const Locale('en'),
@@ -48,6 +54,13 @@ Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
   );
 }
 
+/// [createPostContainerWidget] is a method that returns a PostContainer widget.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `Widget`: PostContainer widget.
 Widget createPostContainerWidget() {
   return MaterialApp(
     locale: const Locale('en'),
@@ -133,11 +146,9 @@ void main() {
       testWidgets("Test if onTap is functional", (WidgetTester tester) async {
         await tester.runAsync(() async {
           int clicked = 0;
-          void func(Post post) {
-            clicked++;
-          }
 
-          await tester.pumpWidget(createNewsPostWidget(func));
+          await tester
+              .pumpWidget(createNewsPostWidget((Post post) => clicked++));
           await tester.pump();
 
           final postFinder = find.byKey(newsPostKey);
@@ -278,7 +289,7 @@ void main() {
           expect(customAvatarWidget.firstAlphabet, 'T');
 
           // Tests if leading of list tile is custom avatar
-          expect(listTileWidget.title.runtimeType, Row);
+          expect(listTileWidget.title.runtimeType, Text);
 
           final textsOfListTileFinder = find.descendant(
             of: listTileFinder.first,

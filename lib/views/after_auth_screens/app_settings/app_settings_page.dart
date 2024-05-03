@@ -22,10 +22,6 @@ class AppSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold implements the basic Material Design visual layout structure.
-    //Learn more about Scaffold class
-    //[here](https://api.flutter.dev/flutter/material/Scaffold-class.html).
-    // const String _talawaWebsite = '';
     const String talawaDocs = 'https://docs.talawa.io';
     const String talawaGithub =
         'https://github.com/PalisadoesFoundation/talawa';
@@ -59,10 +55,6 @@ class AppSettingsPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // SizedBox(
-                //   height: SizeConfig.screenHeight! * 0.77,
-                //   child:
-                // ),
                 Flexible(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
@@ -299,7 +291,7 @@ class AppSettingsPage extends StatelessWidget {
                       return CustomAlertDialog(
                         reverse: true,
                         dialogSubTitle: 'Are you sure you want to logout?',
-                        successText: 'LogOut',
+                        successText: 'Logout',
                         success: () async {
                           try {
                             final bool isLogoutSuccessful =
