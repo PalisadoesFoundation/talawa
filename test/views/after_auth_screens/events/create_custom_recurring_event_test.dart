@@ -21,6 +21,7 @@ import '../../../helpers/test_locator.dart';
 /// **params**:
 /// * `themeMode`: ThemeMode
 /// * `theme`: ThemeData of App
+/// * `model`: CreateEventViewModel
 ///
 /// **returns**:
 /// * `Widget`: Event Screen Widget
@@ -65,6 +66,125 @@ void main() {
   // tearDown(() {
   //   unregisterServices();
   // });
+
+  group("RecurrenceUtils", () {
+    test("getRecurrenceRuleText for Frequency Daily", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.daily,
+        null,
+        2,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 days');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.daily,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Daily');
+    });
+
+    test("getRecurrenceRuleText for Frequency Weekly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.weekly,
+        {'MONDAY'},
+        2,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 weeks on Monday');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.weekly,
+        {'MONDAY'},
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Weekly on Monday');
+    });
+
+    test("getRecurrenceRuleText for Frequency Monthly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        null,
+        2,
+        null,
+        2,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 2 months on Second Monday');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Monthly on Day 1');
+    });
+
+    test("getRecurrenceRuleText for Frequency Yearly", () {
+      final ruleText = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.yearly,
+        null,
+        3,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText, 'Every 3 years on January 1');
+
+      final ruleText2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.yearly,
+        null,
+        1,
+        null,
+        null,
+        DateTime(2024, 1, 1),
+        null,
+      );
+      expect(ruleText2, 'Annually on January 1');
+    });
+
+    test('getWeekDaysString formats string correctly', () {
+      final weekDaysString = RecurrenceUtils.getWeekDaysString([
+        WeekDays.monday,
+        WeekDays.tuesday,
+        WeekDays.wednesday,
+      ]);
+      expect(weekDaysString, 'Monday, Tuesday & Wednesday');
+    });
+
+    test('isLastOccurenceOfWeekDay returns true for last occurrence', () {
+      final date = DateTime(2022, 1, 31); // Last Monday of January 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true);
+    });
+
+    test('isLastOccurenceOfWeekDay returns false for not last occurrence', () {
+      final date = DateTime(2022, 1, 24); // Not the last Monday of January 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, false);
+    });
+  });
   group('Test custom recurrence page.', () {
     testWidgets('Appbar is being rendered as expected.', (tester) async {
       await tester.pumpWidget(
@@ -72,17 +192,11 @@ void main() {
           theme: TalawaTheme.darkTheme,
         ),
       );
-      await tester.pump();
-
+      await tester.pumpAndSettle();
       final appBarFinder = find.byType(AppBar);
 
-      // verify if AppBar renders.
       expect(appBarFinder, findsOne);
-
-      // Verify if the AppBar renders with the correct title
       expect(find.text('Custom recurrence'), findsOneWidget);
-
-      // Verify if the Done button is present
       expect(find.text('Done'), findsOneWidget);
     });
 
@@ -93,9 +207,7 @@ void main() {
         ),
       );
       await tester.pump();
-
       final customDividerFinder = find.byType(Divider);
-
       expect(customDividerFinder, findsNWidgets(2));
     });
 
@@ -127,10 +239,12 @@ void main() {
       expect(customTextFieldFinder, findsNWidgets(2));
     });
 
-    testWidgets('section1InputFields', (tester) async {
+    testWidgets('Check functionality of Interval Frequency', (tester) async {
+      final model = CreateEventViewModel();
       await tester.pumpWidget(
         createCustomRecurrenceScreen(
           theme: TalawaTheme.darkTheme,
+          model: model,
         ),
       );
       await tester.pump();
@@ -153,7 +267,7 @@ void main() {
       // Test RecurrenceFrequencyDropdown
       expect(find.text("week"), findsOne);
 
-      final popupMenuButton = find.byType(PopupMenuButton<String>);
+      final popupMenuButton = find.byType(PopupMenuButton<String>).first;
 
       await tester.tap(popupMenuButton);
       await tester.pumpAndSettle();
@@ -162,26 +276,138 @@ void main() {
       expect(find.text("month"), findsOne);
       expect(find.text("year"), findsOne);
 
-      // Test dropdown selection working.
+      // check functionality of interval frequency day
+      await tester.tap(find.text(EventIntervals.daily));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.daily);
+      expect(model.recurrenceInterval, EventIntervals.daily);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency week
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.weekly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.weekly);
+      expect(model.recurrenceInterval, EventIntervals.weekly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency week
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.monthly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceInterval, EventIntervals.monthly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+
+      // check functionality of interval frequency year
+      await tester.tap(popupMenuButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(EventIntervals.yearly));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.yearly);
+      expect(model.recurrenceInterval, EventIntervals.yearly);
+      expect(model.weekDayOccurenceInMonth, null);
+      expect(model.weekDays, []);
+    });
+
+    testWidgets("Dropdown for Monthly frequency", (tester) async {
+      final model = CreateEventViewModel();
+      model.recurrenceStartDate = DateTime(2023, 02, 28);
+      await tester.pumpWidget(
+        createCustomRecurrenceScreen(
+          theme: TalawaTheme.darkTheme,
+          model: model,
+        ),
+      );
+      await tester.pump();
+
+      final frequencyDropdown = find.byType(PopupMenuButton<String>).first;
+      await tester.tap(frequencyDropdown);
+      await tester.pumpAndSettle();
+
+      expect(find.text("day"), findsOne);
+      expect(find.text("month"), findsOne);
+      expect(find.text("year"), findsOne);
+
+      // select interval frequency as month
       await tester.tap(find.text("month"));
       await tester.pumpAndSettle();
 
-      expect(find.text("month"), findsOne);
-
-      // check if monthly recurrence dropdown shows up.
-      await tester.tap(find.text('Monthly on day 3'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Monthly on day 3').last);
+      await tester.tap(find.byType(PopupMenuButton<String>).last);
       await tester.pumpAndSettle();
 
-      // check if interval UI's middle part dissappears
-      // when clicked on day/year.
-      await tester.tap(find.text('month'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('year'));
+      // check all the functionality of dropdown option shown on isLastDayOccurence is true (monthlyOption[2])
+      final monthlyRecurrenceLabel1 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        {
+          RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+        },
+        int.parse(model.repeatsEveryCountController.text),
+        int.parse(model.endOccurenceController.text),
+        -1,
+        model.recurrenceStartDate,
+        model.recurrenceEndDate,
+      );
+      expect(
+        find.text(monthlyRecurrenceLabel1),
+        findsOne,
+      );
+
+      await tester.tap(find.text(monthlyRecurrenceLabel1));
       await tester.pumpAndSettle();
 
-      expect(find.text('Monthly on day 3'), findsNothing);
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceLabel, monthlyRecurrenceLabel1);
+      expect(model.weekDayOccurenceInMonth, -1);
+      expect(model.weekDays, {
+        RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+      });
+
+      // check all the functionality of dropdown option shown when weekDayOccurence~=5 (monthlyOption[1])
+      await tester.tap(find.byType(PopupMenuButton<String>).last);
+      await tester.pumpAndSettle();
+
+      final monthlyRecurrenceLabel2 = RecurrenceUtils.getRecurrenceRuleText(
+        Frequency.monthly,
+        {
+          RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+        },
+        int.parse(model.repeatsEveryCountController.text),
+        int.parse(model.endOccurenceController.text),
+        RecurrenceUtils.getWeekDayOccurenceInMonth(
+          model.recurrenceStartDate,
+        ),
+        model.recurrenceStartDate,
+        model.recurrenceEndDate,
+      );
+      expect(
+        find.text(monthlyRecurrenceLabel2),
+        findsOne,
+      );
+
+      await tester.tap(find.text(monthlyRecurrenceLabel2));
+      await tester.pumpAndSettle();
+
+      expect(model.frequency, Frequency.monthly);
+      expect(model.recurrenceLabel, monthlyRecurrenceLabel2);
+      expect(
+        model.weekDayOccurenceInMonth,
+        RecurrenceUtils.getWeekDayOccurenceInMonth(
+          model.recurrenceStartDate,
+        ),
+      );
+      expect(model.weekDays, {
+        RecurrenceUtils.weekDays[model.recurrenceStartDate.weekday - 1],
+      });
     });
 
     testWidgets('CustomWeekDaySelector', (tester) async {
@@ -191,10 +417,8 @@ void main() {
       await tester.pumpWidget(widget);
       await tester.pump();
 
-      // Test widget rendering.
       expect(find.byType(CustomWeekDaySelector), findsOne);
 
-      // Test widget functionality.
       await tester.tap(find.text("M"));
       await tester.pumpAndSettle();
       await tester.tap(find.text("W"));
@@ -250,13 +474,13 @@ void main() {
 
       expect(find.byType(DatePickerDialog), findsNothing);
 
-      await tester.tap(find.text('Never'));
+      await tester.tap(find.text('never'));
       await tester.pumpAndSettle();
 
       expect(model.eventEndType, EventEndTypes.never);
-      expect(model.eventEndDate, null);
+      expect(model.recurrenceEndDate, null);
 
-      await tester.tap(find.text('On'));
+      await tester.tap(find.text('on'));
       await tester.pumpAndSettle();
 
       expect(model.eventEndType, EventEndTypes.on);
@@ -274,17 +498,15 @@ void main() {
       await tester.tap(find.text('Done'));
       await tester.pumpAndSettle();
 
-      expect(model.eventEndDate, null);
+      expect(model.recurrenceEndDate, null);
 
-      await tester.tap(find.text('On'));
+      await tester.tap(find.text('on'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Done'));
       await tester.pumpAndSettle();
 
-      expect(model.eventEndDate, model.eventEndOnEndDate);
-
-      await tester.tap(find.text('After'));
+      await tester.tap(find.text('after'));
       await tester.pumpAndSettle();
 
       final afterTextField = find.byType(CustomTextField).last;

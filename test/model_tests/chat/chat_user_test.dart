@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 
@@ -13,7 +10,7 @@ void main() {
     );
     final chatUserJson = {
       'firstName': 'Ayush',
-      '_id': null,
+      'id': null,
       'image': 'random image url',
     };
     test('Test json to model', () {

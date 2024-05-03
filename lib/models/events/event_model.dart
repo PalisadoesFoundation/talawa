@@ -9,15 +9,12 @@ class Event {
     this.description,
     this.attendees,
     this.location,
-    this.latitude,
-    this.longitude,
     this.recurring,
     this.allDay,
     this.startDate,
     this.endDate,
     this.startTime,
     this.endTime,
-    this.recurrence,
     this.isPublic,
     this.isRegistered,
     this.isRegisterable,
@@ -34,15 +31,12 @@ class Event {
       title: json['title'] as String?,
       description: json['description'] as String?,
       location: json['location'] as String?,
-      longitude: json['longitude'] as double?,
-      latitude: json['latitude'] as double?,
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
       startDate: json['startDate'] as String?,
       endDate: json['endDate'] as String?,
       startTime: json['startTime'] as String?,
       endTime: json['endTime'] as String?,
-      recurrence: json['recurrence'] as String?,
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,
@@ -84,12 +78,6 @@ class Event {
   /// The location of the event.
   String? location;
 
-  /// The latitude of the event.
-  double? latitude;
-
-  /// The longitude of the event.
-  double? longitude;
-
   /// A boolean value that indicates if the event is recurring.
   bool? recurring;
 
@@ -107,9 +95,6 @@ class Event {
 
   /// The end time of the event.
   String? endTime;
-
-  /// The recurrence of the event.
-  String? recurrence;
 
   /// A boolean value that indicates if the event is public.
   bool? isPublic;

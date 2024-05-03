@@ -36,8 +36,6 @@ Event getTestEvent({
     startTime: "00:00",
     endTime: "24:00",
     location: "iitbhu, varanasi",
-    latitude: viewOnMap ? 40.730610 : null,
-    longitude: viewOnMap ? -73.935242 : null,
     description: "test_event_description",
     admins: [
       User(
@@ -57,7 +55,6 @@ Event getTestEvent({
       ),
     ],
     isRegisterable: true,
-    isRegistered: false,
   );
 }
 

@@ -71,6 +71,8 @@
   "Add Event": "イベントを追加",
   "Add": "追加",
   "Add Image": "画像を追加",
+  "Select Start Date": "開始日を選択",
+  "Select End Date": "終了日を選択",
   "Select Start Date and Time": "開始日時を選択します",
   "Select End Date and Time": "終了日時を選択します",
   "Does not repeat": "繰り返さない",

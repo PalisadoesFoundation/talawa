@@ -979,6 +979,51 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
 /// See the documentation for Mockito's code generation for more information.
 class MockPostService extends _i2.Mock implements _i16.PostService {
   @override
+  set postInfo(Map<String, dynamic>? _postInfo) => super.noSuchMethod(
+        Invocation.setter(
+          #postInfo,
+          _postInfo,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set after(String? _after) => super.noSuchMethod(
+        Invocation.setter(
+          #after,
+          _after,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set before(String? _before) => super.noSuchMethod(
+        Invocation.setter(
+          #before,
+          _before,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set first(int? _first) => super.noSuchMethod(
+        Invocation.setter(
+          #first,
+          _first,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set last(int? _last) => super.noSuchMethod(
+        Invocation.setter(
+          #last,
+          _last,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i5.Stream<List<_i17.Post>> get postStream => (super.noSuchMethod(
         Invocation.getter(#postStream),
         returnValue: _i5.Stream<List<_i17.Post>>.empty(),
@@ -1060,24 +1105,24 @@ class MockPostService extends _i2.Mock implements _i16.PostService {
       );
 
   @override
-  _i5.Future<void> nextPage() => super.noSuchMethod(
+  _i5.Future<void> nextPage() => (super.noSuchMethod(
         Invocation.method(
           #nextPage,
           [],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
-      );
+      ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> previousPage() => super.noSuchMethod(
+  _i5.Future<void> previousPage() => (super.noSuchMethod(
         Invocation.method(
           #previousPage,
           [],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
-      );
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [MultiMediaPickerService].
@@ -2831,23 +2876,7 @@ class MockOrganizationFeedViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
-  @override
-  void nextPage() => super.noSuchMethod(
-        Invocation.method(
-          #nextPage,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 
-  @override
-  void previousPage() => super.noSuchMethod(
-        Invocation.method(
-          #previousPage,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   void initialise({bool? isTest = false}) => super.noSuchMethod(
         Invocation.method(
@@ -2921,6 +2950,24 @@ class MockOrganizationFeedViewModel extends _i2.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  void nextPage() => super.noSuchMethod(
+        Invocation.method(
+          #nextPage,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void previousPage() => super.noSuchMethod(
+        Invocation.method(
+          #previousPage,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void setState(_i14.ViewState? viewState) => super.noSuchMethod(
@@ -3448,10 +3495,54 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
+  DateTime get eventEndDate => (super.noSuchMethod(
+        Invocation.getter(#eventEndDate),
+        returnValue: _FakeDateTime_23(
+          this,
+          Invocation.getter(#eventEndDate),
+        ),
+        returnValueForMissingStub: _FakeDateTime_23(
+          this,
+          Invocation.getter(#eventEndDate),
+        ),
+      ) as DateTime);
+
+  @override
   set eventEndDate(DateTime? _eventEndDate) => super.noSuchMethod(
         Invocation.setter(
           #eventEndDate,
           _eventEndDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  DateTime get recurrenceStartDate => (super.noSuchMethod(
+        Invocation.getter(#recurrenceStartDate),
+        returnValue: _FakeDateTime_23(
+          this,
+          Invocation.getter(#recurrenceStartDate),
+        ),
+        returnValueForMissingStub: _FakeDateTime_23(
+          this,
+          Invocation.getter(#recurrenceStartDate),
+        ),
+      ) as DateTime);
+
+  @override
+  set recurrenceStartDate(DateTime? _recurrenceStartDate) => super.noSuchMethod(
+        Invocation.setter(
+          #recurrenceStartDate,
+          _recurrenceStartDate,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set recurrenceEndDate(DateTime? _recurrenceEndDate) => super.noSuchMethod(
+        Invocation.setter(
+          #recurrenceEndDate,
+          _recurrenceEndDate,
         ),
         returnValueForMissingStub: null,
       );
@@ -3555,24 +3646,6 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  set latitude(double? _latitude) => super.noSuchMethod(
-        Invocation.setter(
-          #latitude,
-          _latitude,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set longitude(double? _longitude) => super.noSuchMethod(
-        Invocation.setter(
-          #longitude,
-          _longitude,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   bool get isAllDay => (super.noSuchMethod(
         Invocation.getter(#isAllDay),
         returnValue: false,
@@ -3605,86 +3678,23 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  int get recurranceCount => (super.noSuchMethod(
-        Invocation.getter(#recurranceCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  set recurranceCount(int? _recurranceCount) => super.noSuchMethod(
-        Invocation.setter(
-          #recurranceCount,
-          _recurranceCount,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set recurrance(String? _recurrance) => super.noSuchMethod(
-        Invocation.setter(
-          #recurrance,
-          _recurrance,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get recurranceFrequency => (super.noSuchMethod(
-        Invocation.getter(#recurranceFrequency),
+  String get recurrenceInterval => (super.noSuchMethod(
+        Invocation.getter(#recurrenceInterval),
         returnValue: _i25.dummyValue<String>(
           this,
-          Invocation.getter(#recurranceFrequency),
+          Invocation.getter(#recurrenceInterval),
         ),
         returnValueForMissingStub: _i25.dummyValue<String>(
           this,
-          Invocation.getter(#recurranceFrequency),
+          Invocation.getter(#recurrenceInterval),
         ),
       ) as String);
 
   @override
-  set recurranceFrequency(String? _recurranceFrequency) => super.noSuchMethod(
+  set recurrenceInterval(String? _recurrenceInterval) => super.noSuchMethod(
         Invocation.setter(
-          #recurranceFrequency,
-          _recurranceFrequency,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get monthlyRecurrence => (super.noSuchMethod(
-        Invocation.getter(#monthlyRecurrence),
-        returnValue: _i25.dummyValue<String>(
-          this,
-          Invocation.getter(#monthlyRecurrence),
-        ),
-        returnValueForMissingStub: _i25.dummyValue<String>(
-          this,
-          Invocation.getter(#monthlyRecurrence),
-        ),
-      ) as String);
-
-  @override
-  set monthlyRecurrence(String? _monthlyRecurrence) => super.noSuchMethod(
-        Invocation.setter(
-          #monthlyRecurrence,
-          _monthlyRecurrence,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  Set<String> get weekdays => (super.noSuchMethod(
-        Invocation.getter(#weekdays),
-        returnValue: <String>{},
-        returnValueForMissingStub: <String>{},
-      ) as Set<String>);
-
-  @override
-  set weekdays(Set<String>? _weekdays) => super.noSuchMethod(
-        Invocation.setter(
-          #weekdays,
-          _weekdays,
+          #recurrenceInterval,
+          _recurrenceInterval,
         ),
         returnValueForMissingStub: null,
       );
@@ -3712,10 +3722,96 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  set eventEndOnEndDate(DateTime? _eventEndOnEndDate) => super.noSuchMethod(
+  String get frequency => (super.noSuchMethod(
+        Invocation.getter(#frequency),
+        returnValue: _i25.dummyValue<String>(
+          this,
+          Invocation.getter(#frequency),
+        ),
+        returnValueForMissingStub: _i25.dummyValue<String>(
+          this,
+          Invocation.getter(#frequency),
+        ),
+      ) as String);
+
+  @override
+  set frequency(String? _frequency) => super.noSuchMethod(
         Invocation.setter(
-          #eventEndOnEndDate,
-          _eventEndOnEndDate,
+          #frequency,
+          _frequency,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Set<String> get weekDays => (super.noSuchMethod(
+        Invocation.getter(#weekDays),
+        returnValue: <String>{},
+        returnValueForMissingStub: <String>{},
+      ) as Set<String>);
+
+  @override
+  set weekDays(Set<String>? _weekDays) => super.noSuchMethod(
+        Invocation.setter(
+          #weekDays,
+          _weekDays,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get interval => (super.noSuchMethod(
+        Invocation.getter(#interval),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set interval(int? _interval) => super.noSuchMethod(
+        Invocation.setter(
+          #interval,
+          _interval,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set count(int? _count) => super.noSuchMethod(
+        Invocation.setter(
+          #count,
+          _count,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set weekDayOccurenceInMonth(int? _weekDayOccurenceInMonth) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #weekDayOccurenceInMonth,
+          _weekDayOccurenceInMonth,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get recurrenceLabel => (super.noSuchMethod(
+        Invocation.getter(#recurrenceLabel),
+        returnValue: _i25.dummyValue<String>(
+          this,
+          Invocation.getter(#recurrenceLabel),
+        ),
+        returnValueForMissingStub: _i25.dummyValue<String>(
+          this,
+          Invocation.getter(#recurrenceLabel),
+        ),
+      ) as String);
+
+  @override
+  set recurrenceLabel(String? _recurrenceLabel) => super.noSuchMethod(
+        Invocation.setter(
+          #recurrenceLabel,
+          _recurrenceLabel,
         ),
         returnValueForMissingStub: null,
       );
@@ -3878,15 +3974,6 @@ class MockCreateEventViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  String? getRecurrance(String? frequency) => (super.noSuchMethod(
-        Invocation.method(
-          #getRecurrance,
-          [frequency],
-        ),
-        returnValueForMissingStub: null,
-      ) as String?);
 
   @override
   void setState(_i14.ViewState? viewState) => super.noSuchMethod(
