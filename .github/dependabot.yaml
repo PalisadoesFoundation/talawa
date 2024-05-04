@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # Enable version updates for flutter's pub package manager
+  - package-ecosystem: "pub"
+    # Look for `pubspec.yaml` and `pubspec.lock` files in the `root` directory
+    directory: "/"
+    # Check the pub.dev registry for updates every day (weekdays)
+    schedule:
+      interval: "weekly"
+    target-branch: "develop"
+    # # Add default reviewers
+    # reviewers:
+    #   - "palisadoes"
+    #   - "randomUserName"
+    

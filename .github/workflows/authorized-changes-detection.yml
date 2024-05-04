@@ -1,0 +1,31 @@
+##############################################################################
+##############################################################################
+#
+# NOTE!
+#
+# Please read the README.md file in this directory that defines what should 
+# be placed in this file
+#
+##############################################################################
+##############################################################################
+
+name: Checking workflow files
+on:
+  pull_request:
+    paths:
+      - '.github/**'
+      - 'analysis_options.yaml'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'lib/main.dart'
+      - 'CODEOWNERS'
+      - 'LICENSE'
+
+jobs:
+  Checking-for-unauthorized-file-changes:
+    name: Checking for unauthorized file changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Unauthorized file modification in PR
+        run: exit 1
