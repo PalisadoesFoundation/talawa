@@ -420,8 +420,9 @@ void main() {
               expect(postParentContainer, findsOneWidget);
               final postContainer = find
                   .descendant(
-                      of: postParentContainer,
-                      matching: find.byType(PostContainer))
+                    of: postParentContainer,
+                    matching: find.byType(PostContainer),
+                  )
                   .first;
 
               expect(postContainer, findsOneWidget);
