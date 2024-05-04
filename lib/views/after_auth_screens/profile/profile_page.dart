@@ -22,8 +22,7 @@ class ProfilePage extends StatelessWidget {
     this.homeModel,
   }) : super(key: key);
 
-  /// MainScreenViewModel.
-  ///
+  /// represents MainScreenViewModel.
   final MainScreenViewModel? homeModel;
 
   @override
@@ -35,11 +34,10 @@ class ProfilePage extends StatelessWidget {
           key: model.scaffoldKey,
           appBar: AppBar(
             backgroundColor: Colors.green,
-            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             leading: IconButton(
-              color: Theme.of(context).iconTheme.color,
+              color: Colors.white,
               icon: const Icon(Icons.menu),
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
@@ -48,9 +46,8 @@ class ProfilePage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    // fontWeight: FontWeight.w600,
-                    fontSize: SizeConfig.screenHeight! * 0.03,
-                    fontFamily: 'open-sans',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
                     color: Colors.white,
                   ),
             ),
@@ -60,7 +57,10 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   navigationService.pushScreen(Routes.appSettings);
                 },
-                icon: const Icon(Icons.settings),
+                icon: const Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -103,9 +103,7 @@ class ProfilePage extends StatelessWidget {
                                 child: Text(
                                   '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
                                   style: TextStyle(
-                                    color: Colors.white,
                                     fontSize: SizeConfig.screenHeight! * 0.025,
-                                    fontFamily: 'open-sans',
                                   ),
                                 ),
                               ),
@@ -144,9 +142,8 @@ class ProfilePage extends StatelessWidget {
                                     .focusedBorder!
                                     .borderSide
                                     .color,
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.tertiary,
                               ),
                             ],
                           ),

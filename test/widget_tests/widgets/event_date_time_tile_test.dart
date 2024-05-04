@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -10,17 +7,36 @@ import 'package:talawa/widgets/event_date_time_tile.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+/// Instance of callback function.
 class MockCallbackFunction extends Mock {
+  /// Callback function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
+/// A callback function to set date.
 final setDateCallback = MockCallbackFunction();
+
+/// A callback function to set time.
 final setTimeCallback = MockCallbackFunction();
 
+/// Creates a widget for testing.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `Widget`: Returns mocked Material App Widget
 Widget createWidget() {
   return MaterialApp(
     home: Scaffold(
       body: DateTimeTile(
+        isAllDay: false,
         date: "fakeDate",
         time: "fakeTime",
         setDate: setDateCallback,

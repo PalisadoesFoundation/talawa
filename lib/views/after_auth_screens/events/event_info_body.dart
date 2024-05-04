@@ -89,7 +89,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 Text(
                   // Display start and end date of the Event.
-                  "${event.startDate!} - ${event.endDate!}",
+                  "${event.startDate} - ${event.endDate}",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Spacer(),
@@ -125,23 +125,24 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // display schedule icon with the start and end date of the time.
-                const Icon(
-                  Icons.schedule,
-                  size: 12,
-                ),
-                SizedBox(
-                  width: SizeConfig.screenWidth! * 0.025,
-                ),
-                Text(
-                  "${event.startTime!} - ${event.endTime!}",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
+            if (event.startTime != null && event.endTime != null)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // display schedule icon with the start and end date of the time.
+                  const Icon(
+                    Icons.schedule,
+                    size: 12,
+                  ),
+                  SizedBox(
+                    width: SizeConfig.screenWidth! * 0.025,
+                  ),
+                  Text(
+                    "${event.startTime} - ${event.endTime}",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),

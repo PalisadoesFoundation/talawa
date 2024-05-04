@@ -74,12 +74,13 @@ class CustomAlertDialog extends StatelessWidget {
         onTap: () => success(),
         buttonLabel: AppLocalizations.of(context)!.strictTranslate(successText),
         textColor: const Color(0xFF008A37),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
         width: SizeConfig.screenWidth! * 0.2,
         height: SizeConfig.screenHeight! * 0.06,
       ),
     ];
     return AlertDialog(
+      surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
       title: Text(
         AppLocalizations.of(context)!.strictTranslate(dialogTitle),
         style: Theme.of(context)

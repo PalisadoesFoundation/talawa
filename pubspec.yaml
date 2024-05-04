@@ -25,7 +25,7 @@ dependencies:
   contained_tab_bar_view: ^0.8.0
 
   crypto: ^3.0.3
-  cupertino_icons: ^1.0.3
+  cupertino_icons: ^1.0.8
   currency_picker: ^2.0.21
   ############## Remove ##########
 
@@ -36,7 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_braintree: ^4.0.0
-  flutter_cache_manager: ^3.3.1
+  flutter_cache_manager: ^3.3.2
   flutter_local_notifications: ^17.1.0
   flutter_localizations:
     sdk: flutter
@@ -49,7 +49,7 @@ dependencies:
   hive: ^2.2.3
   http: ^1.2.1
   image_cropper: ^5.0.1
-  image_picker: ^1.0.6
+  image_picker: ^1.1.0
   intl: ^0.18.1
   json_annotation: ^4.7.0
   mockito: ^5.4.4
@@ -65,7 +65,7 @@ dependencies:
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^25.1.40
+  syncfusion_flutter_calendar: ^25.1.41
   syncfusion_flutter_datepicker: ^25.1.39
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
@@ -84,7 +84,7 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^2.0.1
 
-  json_serializable: ^6.7.1
+  json_serializable: ^6.8.0
   lint: ^2.3.0
 
   mocktail_image_network: ^1.1.0

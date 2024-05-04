@@ -1,8 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// ignore_for_file: avoid_positional_boolean_parameters
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,6 +14,14 @@ import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
 
 import '../../../helpers/test_helpers.dart';
 
+/// Creates an instance of Event with the given parameters.
+///
+/// **params**:
+/// * `isPublic`: event is public or not
+/// * `isCreator`: user is creator of the event or not
+///
+/// **returns**:
+/// * `Event`: return the Event instance
 Event getEvent(bool isPublic, bool isCreator) {
   return Event(
     id: '1',
@@ -37,8 +40,6 @@ Event getEvent(bool isPublic, bool isCreator) {
     ),
     startDate: '10000',
     endDate: '20000',
-    latitude: 23.45,
-    longitude: -23.45,
     admins: [
       User(
         id: isCreator ? "xzy1" : "abc1",
@@ -51,6 +52,14 @@ Event getEvent(bool isPublic, bool isCreator) {
   );
 }
 
+/// Creates an instance of EventInfoPage with the given parameters.
+///
+/// **params**:
+/// * `isPublic`: whether the event is public or not
+/// * `isCreator`: whether the user is the creator of the event or not
+///
+/// **returns**:
+/// * `Widget`: return the EventInfoPage widget
 Widget createEventInfoPage(bool isPublic, bool isCreator) {
   return MaterialApp(
     localizationsDelegates: [

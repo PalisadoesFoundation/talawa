@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,12 +18,33 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+/// `MockBuildContext` class represents mock instance of Build context.
 class MockBuildContext extends Mock implements BuildContext {}
 
+/// Instance of callback function.
 class MockCallbackFunction extends Mock {
+  /// Callback function.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void call();
 }
 
+/// a_line_ending_with_end_punctuation.
+///
+/// more_info_if_required
+///
+/// **params**:
+/// * `formKey`: define_the_param
+/// * `eventTitleTextController`: define_the_param
+/// * `eventLocationTextController`: define_the_param
+/// * `eventDescriptionTextController`: define_the_param
+///
+/// **returns**:
+/// * `Widget`: define_the_return
 Widget createApp(
   GlobalKey<FormState> formKey,
   TextEditingController eventTitleTextController,
@@ -127,9 +145,9 @@ void main() {
         model.eventStartTime.minute,
       );
       final DateTime endMoment = DateTime(
-        model.eventEndDate!.year,
-        model.eventEndDate!.month,
-        model.eventEndDate!.day,
+        model.eventEndDate.year,
+        model.eventEndDate.month,
+        model.eventEndDate.day,
         model.eventEndTime.hour,
         model.eventEndTime.minute,
       );
@@ -169,16 +187,32 @@ void main() {
               'location': model.eventLocationTextController.text,
               'isPublic': model.isPublicSwitch,
               'isRegisterable': model.isRegisterableSwitch,
-              'recurring': true,
-              'recurrance': 'WEEKLY',
+              'recurring': model.isRecurring,
               'allDay': true,
-              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
-            'recurrenceRuleData': {
-              'frequency': 'WEEKLY',
-              'weekDays': ['TU'],
-            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
           },
         ),
       ).thenAnswer((_) async {
@@ -200,16 +234,228 @@ void main() {
               'location': model.eventLocationTextController.text,
               'isPublic': model.isPublicSwitch,
               'isRegisterable': model.isRegisterableSwitch,
-              'recurring': true,
-              'recurrance': 'WEEKLY',
+              'recurring': model.isRecurring,
               'allDay': true,
-              'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-              'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
-            'recurrenceRuleData': {
-              'frequency': 'WEEKLY',
-              'weekDays': ['TU'],
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      );
+
+      verify(navigationService.pop());
+    });
+
+    testWidgets("testing createEvent function (Recurring)", (tester) async {
+      final model = CreateEventViewModel();
+      model.initialize();
+      await tester.pumpWidget(
+        createApp(
+          model.formKey,
+          model.eventTitleTextController,
+          model.eventLocationTextController,
+          model.eventDescriptionTextController,
+        ),
+      );
+
+      final DateTime startMoment = DateTime(
+        model.eventStartDate.year,
+        model.eventStartDate.month,
+        model.eventStartDate.day,
+        model.eventStartTime.hour,
+        model.eventStartTime.minute,
+      );
+
+      final DateTime endMoment = DateTime(
+        model.eventEndDate.year,
+        model.eventEndDate.month,
+        model.eventEndDate.day,
+        model.eventEndTime.hour,
+        model.eventEndTime.minute,
+      );
+
+      model.isRecurring = true;
+
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byType(TextFormField).first,
+        'fakeEventTitle',
+      );
+      await tester.enterText(
+        find.byType(TextFormField).last,
+        'fakeEventDescription',
+      );
+      await tester.enterText(
+        find.byType(TextFormField).at(1),
+        'fakeEventLocation',
+      );
+      databaseFunctions.init();
+
+      when(databaseFunctions.refreshAccessToken("testtoken"))
+          .thenAnswer((realInvocation) async {
+        return true;
+      });
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
             },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      ).thenAnswer((_) async {
+        return true;
+      });
+
+      await model.createEvent();
+
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
+          },
+        ),
+      );
+
+      verify(navigationService.pop());
+
+      model.recurrenceEndDate = DateTime.now();
+      model.frequency = Frequency.monthly;
+      model.weekDayOccurenceInMonth = 1;
+
+      await model.createEvent();
+
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'data': {
+              'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+              'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
+              'organizationId': 'XYZ',
+              'title': model.eventTitleTextController.text,
+              'description': model.eventDescriptionTextController.text,
+              'location': model.eventLocationTextController.text,
+              'isPublic': model.isPublicSwitch,
+              'isRegisterable': model.isRegisterableSwitch,
+              'recurring': model.isRecurring,
+              'allDay': true,
+              'startTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+              'endTime': model.isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
+            },
+            if (model.isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate':
+                    DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
+                'recurrenceEndDate': model.recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
+                    : null,
+                'frequency': model.frequency,
+                'weekDays': (model.frequency == Frequency.weekly ||
+                        (model.frequency == Frequency.monthly &&
+                            model.weekDayOccurenceInMonth != null))
+                    ? model.weekDays.toList()
+                    : null,
+                'interval': model.interval,
+                'count': model.count,
+                'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
+              },
           },
         ),
       );
@@ -313,12 +559,19 @@ void main() {
       expect(isMemberFound, false);
     });
 
-    test('getRecurrence method', () {
+    test('setEventEndDate should set the event end date and notify listeners',
+        () {
       final model = CreateEventViewModel();
       model.initialize();
-      expect(model.getRecurrance(Recurrance.monthly), 'MONTHLY');
-      expect(model.getRecurrance(Recurrance.yearly), 'YEARLY');
-      expect(model.getRecurrance(Recurrance.once), null);
+
+      final newDate = DateTime.now().add(const Duration(days: 1));
+      final notifyListenerCallback = MockCallbackFunction();
+      model.addListener(notifyListenerCallback);
+
+      model.setEventEndDate(newDate);
+
+      expect(model.eventEndDate, newDate);
+      verify(notifyListenerCallback()).called(1);
     });
   });
 }

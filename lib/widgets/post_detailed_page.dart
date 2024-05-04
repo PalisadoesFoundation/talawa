@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 
@@ -11,7 +10,6 @@ class DescriptionTextWidget extends StatefulWidget {
   const DescriptionTextWidget({required this.text});
 
   /// actual description to be displayed.
-  ///
   final String text;
 
   @override
@@ -20,23 +18,15 @@ class DescriptionTextWidget extends StatefulWidget {
 
 class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   /// before clicking show more.
-  ///
-  ///
   late String firstHalf;
 
   /// After the show more.
-  ///
-  ///
   late String secondHalf;
 
   /// tags in the post.
-  ///
   late String tag;
 
-  //setting the flag to true initially
-  /// is show more turned on.
-  ///
-  ///
+  /// setting the flag to true initially (is show more turned on).
   bool flag = true;
 
   @override
@@ -65,23 +55,24 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
       child: secondHalf.isEmpty
           ? Column(
               children: [
                 Text(
                   firstHalf,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontFamily: 'open-sans', color: Colors.black38),
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontFamily: 'open-sans',
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                 ),
                 tag != ""
                     ? Text(
                         "# $tag",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontFamily: 'open-sans',
-                              color: Colors.black38,
+                              color: Theme.of(context).colorScheme.onSecondary,
                             ),
                       )
                     : Container(),
@@ -93,10 +84,11 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                   // If the flag is true, we only display the firstHalf.
                   // If it is false, we display the entire text.
                   flag ? ("$firstHalf...") : (firstHalf + secondHalf),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontFamily: 'open-sans'),
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontFamily: 'open-sans',
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
