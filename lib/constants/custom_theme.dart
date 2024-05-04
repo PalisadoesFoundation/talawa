@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 
 ///This file contains various custom themes.
+///
 ///For instance, lightTheme, darkTheme, _lightTextTheme, _darkTextTheme, etc.
 ///These are imported to other files/widgets to apply the required themes.
 class TalawaTheme {
@@ -25,6 +23,7 @@ class TalawaTheme {
   static const Color _darkInWhite = Color(0xffffffff);
   static const Color _darkColorSchemePrimary = Color(0xfffabc57);
 
+  /// Theme for light mode.
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: _lightScaffoldColor,
     textSelectionTheme: const TextSelectionThemeData(
@@ -41,10 +40,14 @@ class TalawaTheme {
       primaryContainer: _lightPrimaryVariantColor,
       primary: _lightColorSchemePrimary,
       secondary: Color(0xffF5F5F5),
+      onSecondary: Colors.black,
       secondaryContainer: _darkScaffoldColor,
+      tertiary: Colors.black26,
+      tertiaryContainer: Color.fromARGB(255, 231, 231, 231),
     ).copyWith(secondary: _lightAccentColor),
   );
 
+  /// Theme for dark mode.
   static final darkTheme = ThemeData(
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: _darkCursorColor,
@@ -61,7 +64,10 @@ class TalawaTheme {
       primaryContainer: _darkPrimaryVariantColor,
       primary: _darkColorSchemePrimary,
       secondary: Colors.black,
+      onSecondary: Colors.white,
       secondaryContainer: _lightScaffoldColor,
+      tertiary: Colors.white70,
+      tertiaryContainer: Color.fromARGB(255, 61, 61, 61),
     ).copyWith(secondary: _darkAccentColor),
   );
 
@@ -78,12 +84,8 @@ class TalawaTheme {
       fontSize: 16,
       color: Color(0xFF737373),
     ),
-    bodyLarge: TextStyle(
-      fontSize: 14,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: 14,
-    ),
+    bodyLarge: TextStyle(fontSize: 14, color: Color(0xFF737373)),
+    bodyMedium: TextStyle(fontSize: 14),
     bodySmall: TextStyle(
       fontWeight: FontWeight.w400,
       color: Color(0xFF737373),

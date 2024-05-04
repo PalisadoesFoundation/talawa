@@ -267,7 +267,7 @@ Future<void> main() async {
       await tester.tap(find.byKey(const Key('Logout')));
       await tester.pumpAndSettle();
 
-      final logoutButton = find.textContaining('LogOut');
+      final logoutButton = find.textContaining('Logout').last;
       await tester.tap(logoutButton);
 
       unregisterServices();
@@ -299,7 +299,7 @@ Future<void> main() async {
       await tester.tap(find.byKey(const Key('Logout')));
       await tester.pumpAndSettle();
 
-      final logoutButton = find.textContaining('LogOut');
+      final logoutButton = find.textContaining('Logout').last;
       await tester.tap(logoutButton);
     });
 
@@ -314,7 +314,7 @@ Future<void> main() async {
       await tester.tap(find.byKey(const Key('Logout')));
       await tester.pumpAndSettle();
 
-      final logoutButton = find.textContaining('LogOut');
+      final logoutButton = find.textContaining('Logout').last;
       await tester.tap(logoutButton);
 
       verify(navigationService.pop());

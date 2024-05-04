@@ -60,24 +60,23 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
             ),
           ),
           appBar: AppBar(
-            // AppBar returns a widget for the header of the page.
             backgroundColor: Colors.green,
-            // Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
             title: Text(
               model.currentOrgName,
               key: widget.homeModel?.keySHOrgName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.w600,
                     fontSize: 20,
                     color: Colors.white,
                   ),
             ),
             leading: IconButton(
               key: widget.homeModel?.keySHMenuIcon,
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
-                color: Theme.of(context).iconTheme.color,
+                color: Colors.white,
               ),
               onPressed: () {
                 MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
@@ -132,7 +131,9 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                             pinnedPost: model.pinnedPosts,
                             model: widget.homeModel!,
                           ),
-                        // Show PostListWidget if there are posts, otherwise show the 'no posts' message
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.01,
+                        ),
                         model.posts.isNotEmpty
                             ? PostListWidget(
                                 key: widget.homeModel?.keySHPost,

@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -48,10 +47,10 @@ class CustomAvatar extends StatelessWidget {
             child: Center(
               child: Text(
                 firstAlphabet!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(fontSize: fontSize),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: fontSize,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
               ),
             ),
           )

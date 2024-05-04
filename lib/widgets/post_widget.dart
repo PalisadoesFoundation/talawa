@@ -12,8 +12,6 @@ import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/post_modal.dart';
 
 /// Stateless class to show the fetched post.
-///
-/// entirely ui based widget
 class NewsPost extends StatelessWidget {
   const NewsPost({
     super.key,
@@ -23,29 +21,25 @@ class NewsPost extends StatelessWidget {
   });
 
   /// Post object containing all the data related to the post.
-  ///
-  /// see the post model to get more information regarding this
   final Post post;
 
   /// This function is passed for the handling the action to be performed when the comment button is clicked.
-  ///
-  /// to see the function check the place where the widget is called.
   final Function(Post)? function;
 
-  /// To delete the post if user can.
-  ///
-  /// only work if the post is made by the user
+  /// To delete the post if user can (only work if the post is made by the user).
   final Function(Post)? deletePost;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
+        surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,58 +52,49 @@ class NewsPost extends StatelessWidget {
                     "${'${GraphqlConfig.orgURI}'.replaceFirst('/graphql', '')}/${post.creator!.image}",
                 fontSize: 20,
               ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${post.creator!.firstName} ${post.creator!.lastName}",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black38,
+              title: Text(
+                "${post.creator!.firstName} ${post.creator!.lastName}",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
+              trailing: IconButton(
+                key: const Key('reportButton'),
+                onPressed: () => showModalBottomSheet<void>(
+                  context: context,
+                  builder: (BuildContext context1) => Container(
+                    key: const Key('reportPost'),
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        topLeft: Radius.circular(16),
+                      ),
+                    ),
+                    child: PostBottomModal(
+                      post: post,
+                      deletePost: deletePost,
+                      function: function,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context1) {
-                          return Container(
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                topLeft: Radius.circular(16),
-                              ),
-                            ),
-                            child: PostBottomModal(
-                              post: post,
-                              deletePost: deletePost,
-                              function: function,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.report_gmailerrorred_outlined,
-                      color: Colors.black38,
-                    ),
-                  ),
-                ],
+                ),
+                icon: Icon(
+                  Icons.report_gmailerrorred_outlined,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
             ),
-            post.imageUrl == null
-                ? DescriptionTextWidget(text: post.description!)
-                : Container(),
             post.imageUrl != null
                 ? Container(
-                    height: 380,
+                    key: const Key('postParentContainer'),
+                    height: 340,
                     color: Colors.white,
                     child: PostContainer(photoUrl: post.imageUrl),
                   )
-                : Container(),
+                : DescriptionTextWidget(text: post.description!),
             BaseView<LikeButtonViewModel>(
               onModelReady: (model) {
                 model.initialize(post.likedBy ?? [], post.sId);
@@ -126,29 +111,25 @@ class NewsPost extends StatelessWidget {
                           child: Column(
                             children: [
                               MultiReactButton(
-                                toggle: () {
-                                  model.toggleIsLiked();
-                                },
+                                toggle: () => model.toggleIsLiked(),
                               ),
                               Text(
                                 "${model.likedBy.length}",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'open-sans',
-                                  color: Colors.black38,
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
                         Container(
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () =>
-                                    function != null ? function!(post) : {},
+                                key: const Key('commentButton'),
+                                onTap: () => function?.call(post),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
@@ -166,8 +147,9 @@ class NewsPost extends StatelessWidget {
                               ),
                               Text(
                                 "${post.comments!.length}",
-                                style: const TextStyle(
-                                  color: Colors.black38,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
                                 ),
                               ),
                             ],
@@ -177,8 +159,8 @@ class NewsPost extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(120, 0, 0, 0),
                           child: Text(
                             '    ${post.getPostCreatedDuration()}',
-                            style: const TextStyle(
-                              color: Colors.black38,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
                               fontSize: 12,
                             ),
                           ),
@@ -195,13 +177,12 @@ class NewsPost extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () => function != null ? function!(post) : {},
+                          onTap: () => function?.call(post),
                           child: Text(
-                            //TODO: Currently the Liked Model contain on SID of USER who liked the post, thus my name here
                             "${AppLocalizations.of(context)!.strictTranslate("Liked")} by ...",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'open-sans',
-                              color: Colors.black38,
+                              color: Theme.of(context).colorScheme.onSecondary,
                             ),
                           ),
                         ),
@@ -216,9 +197,8 @@ class NewsPost extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        post.imageUrl != null
-                            ? DescriptionTextWidget(text: post.description!)
-                            : Container(),
+                        if (post.imageUrl != null)
+                          DescriptionTextWidget(text: post.description!),
                       ],
                     ),
                   ),

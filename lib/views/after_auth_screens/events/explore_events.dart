@@ -18,7 +18,7 @@ class ExploreEvents extends StatelessWidget {
     this.homeModel,
   }) : super(key: key);
 
-  /// [homeModal] is a type of [MainScreenViewModel] which provides methods to handle the data for this component.
+  /// Represents the view model for the home screen.
   final MainScreenViewModel? homeModel;
 
   @override
@@ -28,8 +28,7 @@ class ExploreEvents extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            // AppBar returns widget for the header.
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.green,
             key: const Key(
               "ExploreEventsAppBar",
             ),
@@ -43,13 +42,11 @@ class ExploreEvents extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
+                    color: Colors.white,
                   ),
             ),
             leading: IconButton(
-              // returns a button of menu icon to redirect to home.
-              color: Theme.of(
-                context,
-              ).iconTheme.color,
+              color: Colors.white,
               icon: const Icon(
                 Icons.menu,
               ),
@@ -61,7 +58,6 @@ class ExploreEvents extends StatelessWidget {
                 padding: EdgeInsets.only(
                   right: SizeConfig.screenWidth! * 0.027,
                 ),
-                // if the events is not empty then renders button for searching the events else renders just a box.
                 child: model.events.isNotEmpty
                     ? IconButton(
                         onPressed: () {
@@ -73,17 +69,15 @@ class ExploreEvents extends StatelessWidget {
                             ),
                           );
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
-                          size: (SizeConfig.safeBlockHorizontal ?? 4) * 5,
+                          color: Colors.white,
                         ),
                       )
                     : const SizedBox(),
               ),
             ],
           ),
-          // if the model is still fetching the events list then renders the Circular Progress Indicator
-          // else render refresh icon along with the list of searched events for exploration.
           body: model.isBusy
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -100,6 +94,9 @@ class ExploreEvents extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
+                              SizedBox(
+                                height: SizeConfig.screenHeight! * 0.013,
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -107,27 +104,24 @@ class ExploreEvents extends StatelessWidget {
                                   Expanded(
                                     flex: 2,
                                     child: GestureDetector(
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (_) {
-                                            return dropDownList(
-                                              model,
-                                              context,
-                                            );
-                                          },
-                                        );
-                                      },
+                                      onTap: () => showModalBottomSheet(
+                                        backgroundColor: Colors.white,
+                                        context: context,
+                                        builder: (_) => dropDownList(
+                                          model,
+                                          context,
+                                        ),
+                                      ),
                                       child: Card(
+                                        surfaceTintColor: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: (SizeConfig
-                                                        .safeBlockHorizontal ??
-                                                    4) *
-                                                3,
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
                                           ),
                                           child: Row(
                                             mainAxisAlignment:
@@ -156,30 +150,25 @@ class ExploreEvents extends StatelessWidget {
                                   Expanded(
                                     flex: 3,
                                     child: GestureDetector(
-                                      onTap: () {
-                                        showDialog(
-                                          // on tap open the Explore Event Dialog.
-                                          context: context,
-                                          builder: (_) {
-                                            return const ExploreEventDialog(
-                                              key: Key('ExploreEvents'),
-                                            );
-                                          },
-                                        );
-                                      },
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (_) =>
+                                            const ExploreEventDialog(
+                                          key: Key('ExploreEvents'),
+                                        ),
+                                      ),
                                       child: Card(
+                                        surfaceTintColor: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
                                         key: homeModel?.keySEDateFilter,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: (SizeConfig
-                                                        .safeBlockHorizontal ??
-                                                    4) *
-                                                3,
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 12,
                                           ),
-                                          // width: SizeConfig.screenWidth! * 0.30,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -215,6 +204,9 @@ class ExploreEvents extends StatelessWidget {
                                   Expanded(
                                     flex: 1,
                                     child: Card(
+                                      surfaceTintColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
@@ -234,10 +226,8 @@ class ExploreEvents extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: SizeConfig.screenHeight! * 0.027,
+                                height: SizeConfig.screenHeight! * 0.020,
                               ),
-                              // if the events model is empty then renders a box with text as "Empty List"
-                              // else renders lists of the all event tile.
                               model.events.isEmpty
                                   ? SizedBox(
                                       height: SizeConfig.screenHeight! * 0.5,
@@ -285,11 +275,7 @@ class ExploreEvents extends StatelessWidget {
             key: homeModel?.keySEAdd,
             heroTag: "AddEventFab",
             backgroundColor: Theme.of(context).colorScheme.background,
-            onPressed: () {
-              navigationService.pushScreen(
-                "/createEventPage",
-              );
-            },
+            onPressed: () => navigationService.pushScreen("/createEventPage"),
             icon: Icon(
               Icons.add,
               color: Theme.of(context).colorScheme.secondary,

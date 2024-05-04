@@ -183,7 +183,7 @@ class _LoginState extends State<Login> {
                       onTap: () => model.login(),
                       textColor: const Color(0xFF008A37),
                       key: const Key('LoginButton'),
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.tertiary,
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.0215),
                   ],
