@@ -1,0 +1,133 @@
+import 'package:hive/hive.dart';
+import 'package:talawa/models/organization/org_info_address.dart';
+import 'package:talawa/models/user/user_info.dart';
+
+part 'org_info.g.dart';
+
+@HiveType(typeId: 2)
+
+///This class creates an organization-information model and returns an OrgInfo instance.
+class OrgInfo {
+  OrgInfo({
+    this.admins,
+    this.members,
+    this.creatorInfo,
+    this.description,
+    this.id,
+    this.image,
+    this.userRegistrationRequired,
+    this.name,
+    this.address,
+  });
+
+  factory OrgInfo.fromJson(
+    Map<String, dynamic> json1, {
+    bool memberRequest = false,
+  }) {
+    Map<String, dynamic> json;
+    if (memberRequest) {
+      json = json1['organization'] as Map<String, dynamic>;
+    } else {
+      json = json1;
+    }
+    return OrgInfo(
+      id: json['_id'] != null ? json['_id'] as String : null,
+      image: json['image'] != null ? json['image'] as String? : null,
+      name: json['name'] != null ? json['name'] as String? : null,
+      description:
+          json['description'] != null ? json['description'] as String? : null,
+      userRegistrationRequired: json['userRegistrationRequired'] != null
+          ? json['userRegistrationRequired'] as bool?
+          : null,
+      creatorInfo: json['creator'] != null
+          ? User.fromJson(
+              json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
+            )
+          : null,
+      members: json['members'] != null
+          ? (json['members'] as List<dynamic>?)
+              ?.map(
+                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+              )
+              .toList()
+          : null,
+      admins: json['admins'] != null
+          ? (json['admins'] as List<dynamic>?)
+              ?.map(
+                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+              )
+              .toList()
+          : null,
+      address: json['address'] != null
+          ? Address.fromJson(json['address'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  /// The conventional function to parse json, check flutter docs to know more.
+  ///
+  ///
+  /// **params**:
+  /// * `json`: Passing the json to be parsed.
+  ///
+  /// **returns**:
+  /// * `List<OrgInfo>`: returning the OrgInfo object containing the json data
+  List<OrgInfo> fromJsonToList(dynamic json) {
+    final List<OrgInfo> orgList = [];
+
+    if (json is List) {
+      for (final dynamic outerElement in json) {
+        if (outerElement is List) {
+          for (final dynamic innerElement in outerElement) {
+            if (innerElement is Map<String, dynamic>) {
+              final OrgInfo org = OrgInfo.fromJson(innerElement);
+              orgList.add(org);
+            }
+          }
+        } else if (outerElement is Map<String, dynamic>) {
+          final OrgInfo org = OrgInfo.fromJson(outerElement);
+          orgList.add(org);
+        }
+      }
+    }
+
+    return orgList;
+  }
+
+  /// contains the Image url.
+  @HiveField(0)
+  String? image;
+
+  /// The org id.
+  @HiveField(1)
+  String? id;
+
+  /// The org name.
+  @HiveField(2)
+  String? name;
+
+  /// The org admins.
+  @HiveField(3)
+  List<User>? admins;
+
+  /// The org name.
+  @HiveField(4)
+  List<User>? members;
+
+  /// The org descriptions.
+  @HiveField(5)
+  String? description;
+
+  /// The org registration is required.
+  @HiveField(6)
+  bool? userRegistrationRequired;
+
+  /// The org creatorInfo.
+  @HiveField(7)
+  User? creatorInfo;
+
+  /// Address of the Organisation.
+  @HiveField(8)
+  Address? address;
+}
