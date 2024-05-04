@@ -1,0 +1,24 @@
+
+
+
+# EventInfoViewModel constructor
+
+
+
+
+
+
+
+EventInfoViewModel()
+
+
+
+
+
+
+
+
+
+
+
+
