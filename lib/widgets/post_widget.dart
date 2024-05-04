@@ -61,44 +61,40 @@ class NewsPost extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context1) {
-                      return Container(
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            topLeft: Radius.circular(16),
-                          ),
-                        ),
-                        child: PostBottomModal(
-                          post: post,
-                          deletePost: deletePost,
-                          function: function,
-                        ),
-                      );
-                    },
-                  );
-                },
+                key: const Key('reportButton'),
+                onPressed: () => showModalBottomSheet<void>(
+                  context: context,
+                  builder: (BuildContext context1) => Container(
+                    key: const Key('reportPost'),
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        topLeft: Radius.circular(16),
+                      ),
+                    ),
+                    child: PostBottomModal(
+                      post: post,
+                      deletePost: deletePost,
+                      function: function,
+                    ),
+                  ),
+                ),
                 icon: Icon(
                   Icons.report_gmailerrorred_outlined,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
             ),
-            post.imageUrl == null
-                ? DescriptionTextWidget(text: post.description!)
-                : Container(),
             post.imageUrl != null
                 ? Container(
-                    height: 380,
+                    key: const Key('postParentContainer'),
+                    height: 340,
                     color: Colors.white,
                     child: PostContainer(photoUrl: post.imageUrl),
                   )
-                : Container(),
+                : DescriptionTextWidget(text: post.description!),
             BaseView<LikeButtonViewModel>(
               onModelReady: (model) {
                 model.initialize(post.likedBy ?? [], post.sId);
@@ -115,9 +111,7 @@ class NewsPost extends StatelessWidget {
                           child: Column(
                             children: [
                               MultiReactButton(
-                                toggle: () {
-                                  model.toggleIsLiked();
-                                },
+                                toggle: () => model.toggleIsLiked(),
                               ),
                               Text(
                                 "${model.likedBy.length}",
@@ -134,8 +128,8 @@ class NewsPost extends StatelessWidget {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () =>
-                                    function != null ? function!(post) : {},
+                                key: const Key('commentButton'),
+                                onTap: () => function?.call(post),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
@@ -183,9 +177,8 @@ class NewsPost extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () => function != null ? function!(post) : {},
+                          onTap: () => function?.call(post),
                           child: Text(
-                            //TODO: Currently the Liked Model contain on SID of USER who liked the post, thus my name here
                             "${AppLocalizations.of(context)!.strictTranslate("Liked")} by ...",
                             style: TextStyle(
                               fontFamily: 'open-sans',
@@ -204,9 +197,8 @@ class NewsPost extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        post.imageUrl != null
-                            ? DescriptionTextWidget(text: post.description!)
-                            : Container(),
+                        if (post.imageUrl != null)
+                          DescriptionTextWidget(text: post.description!),
                       ],
                     ),
                   ),
