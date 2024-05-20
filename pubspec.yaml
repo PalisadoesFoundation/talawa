@@ -50,7 +50,7 @@ dependencies:
   http: ^1.2.1
   image_cropper: ^5.0.1
   image_picker: ^1.1.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   json_annotation: ^4.7.0
   mockito: ^5.4.4
   network_image_mock: ^2.1.1
