@@ -37,19 +37,19 @@ dependencies:
     sdk: flutter
   flutter_braintree: ^4.0.0
   flutter_cache_manager: ^3.3.2
-  flutter_local_notifications: ^17.1.0
+  flutter_local_notifications: ^17.1.2
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
-  get_it: ^7.6.9
+  get_it: ^7.7.0
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^1.2.1
   image_cropper: ^5.0.1
-  image_picker: ^1.1.0
+  image_picker: ^1.1.1
   intl: ^0.18.1
   json_annotation: ^4.7.0
   mockito: ^5.4.4
@@ -57,7 +57,7 @@ dependencies:
   path_provider: ^2.1.3
   permission_handler: 11.3.1
   plugin_platform_interface: ^2.1.7
-  pointycastle: ^3.9.0
+  pointycastle: ^3.9.1
   provider: ^6.1.2
   qr_code_scanner: ^1.0.0
   qr_flutter: 4.1.0
@@ -65,8 +65,8 @@ dependencies:
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^25.1.41
-  syncfusion_flutter_datepicker: ^25.1.39
+  syncfusion_flutter_calendar: ^25.2.3
+  syncfusion_flutter_datepicker: ^25.2.3
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
