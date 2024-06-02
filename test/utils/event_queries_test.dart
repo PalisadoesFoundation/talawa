@@ -1,0 +1,151 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/utils/event_queries.dart';
+
+void main() {
+  group("Tests for event_queries.dart", () {
+    test("Check if fetchOrgEvents works correctly", () {
+      const data = """
+      query {
+        eventsByOrganizationConnection(
+      where: {
+        organization_id: "sampleID"
+      }
+    ) {
+      _id
+      organization {
+        _id
+        image
+      }
+      title
+      description
+      isPublic
+      isRegisterable
+      recurring
+      startDate
+      endDate
+      allDay
+      startTime
+      endTime
+      location
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      admins {
+        _id
+        firstName
+        lastName
+      } 
+      attendees {
+        _id
+        firstName
+        lastName
+        image
+      }
+    }
+      }
+    """;
+
+      final fnData = EventQueries().fetchOrgEvents("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if attendeesByEvent works correctly", () {
+      const data = '''
+      query {
+        getEventAttendeesByEventId(eventId: "sampleID") {
+          eventId
+          userId
+          isRegistered
+          isInvited
+          isCheckedIn
+          isCheckedOut
+        }
+      }
+    ''';
+
+      final fnData = EventQueries().attendeesByEvent("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if addEvent works correctly", () {
+      const data = """
+    mutation Mutation(\$data: EventInput!, \$recurrenceRuleData: RecurrenceRuleInput) {
+      createEvent(data: \$data, recurrenceRuleData: \$recurrenceRuleData) {
+        _id
+        title
+        description
+      }
+    }
+  """;
+
+      final fnData = EventQueries().addEvent();
+      expect(fnData, data);
+    });
+
+    test("Check if registerForEvent works correctly", () {
+      const data = """
+     mutation registerForEvent(\$eventId: ID!) { 
+      registerForEvent(id: \$eventId) {
+        _id
+      }
+     }
+    """;
+
+      final fnData = EventQueries().registerForEvent();
+      expect(fnData, data);
+    });
+
+    test("Check if deleteEvent works correctly", () {
+      const data = """
+      mutation {
+        removeEvent(
+          id: "sampleID",
+          ){
+            _id
+          }
+        }
+    """;
+
+      final fnData = EventQueries().deleteEvent("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if updateEvent works correctly", () {
+      const data = """mutation updateEvent( 
+        \$title:String!,
+        \$description: String!,
+        \$startTime: Time,
+        \$endTime: Time,
+        \$allDay: Boolean!,
+        \$recurring: Boolean!,
+        \$isPublic: Boolean!,
+        \$isRegisterable: Boolean!,
+        \$location: String,
+      ) {
+      updateEvent(
+         id: "sampleID"
+         data:{
+           title: \$title,
+           description: \$description,
+           isPublic: \$isPublic,
+           isRegisterable: \$isRegisterable,
+           recurring: \$recurring,
+           allDay: \$allDay,
+           startTime: \$startTime
+           endTime: \$endTime
+           location: \$location
+         }
+         ){
+            _id
+            title
+            description
+          }
+      }""";
+
+      final fnData = EventQueries().updateEvent(eventId: "sampleID");
+      expect(fnData, data);
+    });
+  });
+}
