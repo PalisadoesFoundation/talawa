@@ -64,8 +64,10 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  setupLocator();
-  graphqlConfig.test();
+  setUpAll(() {
+    setupLocator();
+    graphqlConfig.test();
+  });
 
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {

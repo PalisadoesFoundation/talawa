@@ -43,10 +43,15 @@ import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 
+import 'helpers/test_helpers.dart';
+
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
-  setupLocator();
+  setUpAll(() {
+    setupLocator();
+    getAndRegisterConnectivity();
+  });
 
   group('Tests for router', () {
     testWidgets('Test SplashScreen route', (WidgetTester tester) async {

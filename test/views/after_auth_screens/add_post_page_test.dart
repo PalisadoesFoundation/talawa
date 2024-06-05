@@ -116,14 +116,11 @@ final demoJson = {
 };
 
 void main() {
-  // SizeConfig().test();
-  setupLocator();
-  // locator.registerSingleton(LikeButtonViewModel());
-  sizeConfig.test();
-
-  setUp(() {
+  setUpAll(() {
+    setupLocator();
     registerServices();
     getAndRegisterImageService();
+    sizeConfig.test();
   });
 
   group('createAddPostScreen Test', () {

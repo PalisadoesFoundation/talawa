@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
@@ -14,6 +15,7 @@ import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
@@ -68,6 +70,8 @@ final queries = locator<Queries>();
 ///GetIt for Connectivity.
 final connectivity = locator<Connectivity>();
 
+final connectivityService = locator<ConnectivityService>();
+
 ///GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
@@ -110,6 +114,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
+
+  locator.registerSingleton(ConnectivityService(client: http.Client()));
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

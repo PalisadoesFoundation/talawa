@@ -8,7 +8,12 @@ import 'package:talawa/services/session_manager.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  setupLocator();
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    setupLocator();
+  });
+
   group('Test Session Manger', () {
     setUpAll(() {
       getAndRegisterDatabaseMutationFunctions();

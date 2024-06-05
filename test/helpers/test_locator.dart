@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,6 +55,7 @@ final multimediaPickerService = locator<MultiMediaPickerService>();
 final organizationService = locator<OrganizationService>();
 final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
+final connectivity = locator<Connectivity>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
 final imageService = locator<ImageService>();
@@ -75,6 +77,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => PostService());
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
+  locator.registerLazySingleton(() => Connectivity());
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => ImageService());
   locator.registerLazySingleton(() => ImagePicker());

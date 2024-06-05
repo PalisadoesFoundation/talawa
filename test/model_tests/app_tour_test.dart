@@ -78,9 +78,10 @@ MaterialApp createMaterialApp({required Widget home}) {
 }
 
 void main() {
-  setupLocator();
-  sizeConfig.test();
-  // registerServices();
+  setUpAll(() {
+    setupLocator();
+    sizeConfig.test();
+  });
 
   group('Tests for FocusTarget', () {
     testWidgets('Test for first TargetContent builder in FocusTarget model.',
