@@ -70,6 +70,7 @@ final queries = locator<Queries>();
 ///GetIt for Connectivity.
 final connectivity = locator<Connectivity>();
 
+///GetIt for ConnectivityService.
 final connectivityService = locator<ConnectivityService>();
 
 ///GetIt for OrganizationService.

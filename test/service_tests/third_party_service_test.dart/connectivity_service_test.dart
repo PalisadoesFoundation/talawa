@@ -6,10 +6,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 
 import '../../helpers/test_helpers.dart';
-import '../../helpers/test_locator.dart';
+import '../../helpers/test_locator.dart' as testgetit;
 
 ConnectivityResult? connectivityStatus = ConnectivityResult.mobile;
 
@@ -46,14 +47,16 @@ class MockClient extends Mock implements http.Client {
 }
 
 void main() {
-  testSetupLocator();
+  testgetit.testSetupLocator();
   final mockClient = MockClient();
   getAndRegisterConnectivity();
   connectivityStatus = ConnectivityResult.mobile;
   final service = ConnectivityService(client: mockClient);
+  locator.registerSingleton(service);
 
   group('connectivity', () {
     test('connectionStream getter', () async {
+      expect(connectivityService, isA<ConnectivityService>());
       expect(service.connectionStream, isA<Stream<ConnectivityResult>>());
     });
 
@@ -63,7 +66,7 @@ void main() {
     });
 
     test('listener', () async {
-      final mockConnectivity = connectivity as MockConnectivity;
+      final mockConnectivity = testgetit.connectivity as MockConnectivity;
       mockConnectivity.connectivityController.add(ConnectivityResult.mobile);
 
       mockConnectivity.connectivityController

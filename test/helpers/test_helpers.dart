@@ -651,7 +651,7 @@ EventService getAndRegisterEventService() {
   return service;
 }
 
-/// `getAndRegisterConnectivityService` returns a mock instance of the `Connectivity` class.
+/// `getAndRegisterConnectivity` returns a mock instance of the `Connectivity` class.
 ///
 /// **params**:
 ///   None
@@ -665,6 +665,13 @@ Connectivity getAndRegisterConnectivity() {
   return service;
 }
 
+/// `getAndRegisterConnectivityService` returns a mock instance of the `ConnectivityService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ConnectivityService`: A mock instance of the `ConnectivityService` class.
 ConnectivityService getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<ConnectivityService>();
   final service = MockConnectivityService();
