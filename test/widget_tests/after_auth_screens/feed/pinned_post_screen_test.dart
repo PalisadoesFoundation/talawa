@@ -51,9 +51,12 @@ Widget createApp() {
 }
 
 void main() {
-  SizeConfig().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
 
-  testSetupLocator();
+    testSetupLocator();
+  });
 
   group('description', () {
     testWidgets('Check if SignUp screen shows up', (tester) async {

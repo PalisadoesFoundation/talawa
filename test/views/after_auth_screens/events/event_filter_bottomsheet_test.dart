@@ -50,13 +50,14 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       onGenerateRoute: router.generateRoute,
     );
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-  locator.unregister<MultiMediaPickerService>();
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+    locator.unregister<MultiMediaPickerService>();
     registerServices();
   });
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
   group('testing filters bottomsheet', () {

@@ -69,13 +69,13 @@ Future<void> main() async {
   await Hive.openBox('url');
   //setting up MVVM
   setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
     setupLocator();
+    registerServices();
+
     //initializing test functions
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
-  });
-  setUp(() async {
-    registerServices();
   });
 
   //Testing in light mode/normal mode

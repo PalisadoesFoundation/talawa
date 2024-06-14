@@ -68,7 +68,6 @@ Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
   //initializing Hive
   const testMockStorage = 'test/fixtures/core';
   Hive
@@ -80,9 +79,13 @@ Future<void> main() async {
   await Hive.openBox<OrgInfo>('currentOrg');
   // await Hive.openBox('url');
 
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
+  });
 
   group('Select Language Screen Widget Test in light mode', () {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {

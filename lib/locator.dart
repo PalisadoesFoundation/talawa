@@ -32,6 +32,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -126,6 +127,8 @@ void setupLocator() {
 
   //queries
   locator.registerSingleton(Queries());
+
+  locator.registerFactory(() => AppConnectivity());
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
