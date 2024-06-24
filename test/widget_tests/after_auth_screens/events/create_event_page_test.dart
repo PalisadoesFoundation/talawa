@@ -48,9 +48,11 @@ Widget createEventScreen({
     );
 
 void main() {
-  SizeConfig().test();
-  setupLocator();
-  graphqlConfig.test();
+  setUpAll(() {
+    SizeConfig().test();
+    setupLocator();
+    graphqlConfig.test();
+  });
   group("Create Event Screen Widget Test in dark mode", () {
     group('Check if the validator of the create_event_form is working', () {
       testWidgets("Testing if text field validator are working",

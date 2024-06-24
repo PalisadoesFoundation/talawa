@@ -5,13 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 
-import '../../helpers/test_helpers.dart';
-
 void main() {
-  setupLocator();
-  sizeConfig.test();
-  setUp(() {
-    registerServices();
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    setupLocator();
+    sizeConfig.test();
   });
 
   group('Test OrgInfo model', () {

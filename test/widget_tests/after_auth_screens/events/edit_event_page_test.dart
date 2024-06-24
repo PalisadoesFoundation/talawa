@@ -69,9 +69,11 @@ Widget editEventScreen({
     );
 
 void main() {
-  SizeConfig().test();
-  setupLocator();
-  graphqlConfig.test();
+  setUpAll(() {
+    SizeConfig().test();
+    setupLocator();
+    graphqlConfig.test();
+  });
 
   group("Edit Event Screen Widget Test in dark mode", () {
     testWidgets("Testing if dark mode is applied", (tester) async {
