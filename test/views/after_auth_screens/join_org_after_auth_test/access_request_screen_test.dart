@@ -28,7 +28,10 @@ Widget accessRequestScreen() {
 }
 
 void main() {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+  });
   setUp(() => registerServices());
   tearDown(() => unregisterServices());
   group("SendRequestAccess Screen test", () {

@@ -55,9 +55,12 @@ Widget createCustomRecurrenceScreen({
     );
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-  getAndRegisterNavigationService();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+    getAndRegisterNavigationService();
+  });
 
   // setUp(() {
   //   registerServices();

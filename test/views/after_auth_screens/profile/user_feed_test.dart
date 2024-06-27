@@ -105,21 +105,22 @@ final post = Post(
 );
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
   late MockOrganizationFeedViewModel mockViewModel;
 
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
     mockViewModel = MockOrganizationFeedViewModel();
     locator.unregister<OrganizationFeedViewModel>();
     locator.registerSingleton<OrganizationFeedViewModel>(mockViewModel);
   });
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 
-  TestWidgetsFlutterBinding.ensureInitialized();
   group('tests for User feed Screen', () {
     testWidgets('check if UserFeedScreen shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(true);

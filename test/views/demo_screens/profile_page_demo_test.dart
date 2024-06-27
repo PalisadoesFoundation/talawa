@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
+// import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -14,6 +15,7 @@ import 'package:talawa/views/main_screen.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
+// import '../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
@@ -39,14 +41,24 @@ Widget createProfileScreen({required bool demoMode}) {
 }
 
 void main() async {
-  testSetupLocator();
+  // setUpAll(() {
+  //   TestWidgetsFlutterBinding.ensureInitialized();
+  //   testSetupLocator();
+  // });
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    registerServices();
+    locator<SizeConfig>().test();
+    locator<GraphqlConfig>().test();
+    getAndRegisterNavigationService();
+  });
+
+  tearDownAll(() {
+    unregisterServices();
+  });
 
   group('Profile Page tests', () {
-    setUpAll(() {
-      registerServices();
-      locator<SizeConfig>().test();
-      locator<GraphqlConfig>().test();
-    });
     testWidgets('Test for donate button.', (tester) async {
       await tester.pumpWidget(createProfileScreen(demoMode: true));
 

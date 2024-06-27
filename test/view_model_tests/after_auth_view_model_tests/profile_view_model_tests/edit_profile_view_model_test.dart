@@ -24,9 +24,9 @@ class MockCallbackFunction extends Mock {
 }
 
 void main() {
-  testSetupLocator();
-  SizeConfig().test();
   setUpAll(() {
+    testSetupLocator();
+    SizeConfig().test();
     registerServices();
     graphqlConfig.test();
     sizeConfig.test();

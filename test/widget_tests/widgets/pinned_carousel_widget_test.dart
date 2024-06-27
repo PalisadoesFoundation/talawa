@@ -54,8 +54,11 @@ Widget createPinnedCarouselWidget() {
 }
 
 void main() {
-  testSetupLocator();
-  SizeConfig().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    SizeConfig().test();
+  });
   group('Test for PinnedPostCarousel', () {
     testWidgets('Check if the widget shows up', (tester) async {
       await tester.pumpWidget(createPinnedCarouselWidget());

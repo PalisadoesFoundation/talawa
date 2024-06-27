@@ -44,16 +44,16 @@ Widget createJoinOrgAfterAuth({
 }
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
     registerServices();
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

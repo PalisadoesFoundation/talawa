@@ -48,9 +48,12 @@ Future<void> showSignUpScreen(WidgetTester tester) async {
 }
 
 void main() {
-  SizeConfig().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
 
-  testSetupLocator();
+    testSetupLocator();
+  });
 
   group('Test For SignUp Screen', () {
     testWidgets('Check if SignUp screen shows up', (tester) async {

@@ -57,16 +57,16 @@ Widget userEventsScreen({
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
   late MockExploreEventsViewModel mockViewModel;
-  setUp(() {
+  setUpAll(() {
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
     mockViewModel = MockExploreEventsViewModel();
     locator.unregister<ExploreEventsViewModel>();
     locator.registerSingleton<ExploreEventsViewModel>(mockViewModel);
   });
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
   group('tests for UserEvents Screen', () {

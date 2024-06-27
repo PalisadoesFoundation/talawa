@@ -44,8 +44,11 @@ class LocalizationsInj extends StatelessWidget {
 }
 
 void main() {
-  testSetupLocator();
-  locator<SizeConfig>().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<SizeConfig>().test();
+  });
 
   setUp(() {
     registerServices();

@@ -73,14 +73,14 @@ List<Post> get pinnedPosts {
 /// **returns**:
 ///   None
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  testSetupLocator();
-  locator<SizeConfig>().test();
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<SizeConfig>().test();
     registerServices();
     locator<SizeConfig>().test();
   });
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

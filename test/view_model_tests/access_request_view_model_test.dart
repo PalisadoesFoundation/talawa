@@ -13,9 +13,9 @@ class MockCallbackFunction extends Mock {
 }
 
 void main() {
-  testSetupLocator();
-
   setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
     registerServices();
   });
 

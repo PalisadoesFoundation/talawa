@@ -33,8 +33,11 @@ Widget createLanguageTile() {
 }
 
 void main() {
-  testSetupLocator();
-  sizeConfig.test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    sizeConfig.test();
+  });
   group('Test for LanguageTile', () {
     testWidgets('Check if LanguageTile widget shows up', (tester) async {
       await tester.pumpWidget(createLanguageTile());

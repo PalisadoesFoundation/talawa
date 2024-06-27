@@ -19,8 +19,11 @@ import '../helpers/test_locator.dart';
 /// **returns**:
 ///   None
 void main() {
-  testSetupLocator();
-  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    testSetupLocator();
+  });
   late Box box;
 
   final OrgInfo org = OrgInfo(

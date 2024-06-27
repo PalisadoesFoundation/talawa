@@ -15,16 +15,15 @@ import '../../../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-
-  setUp(() {
-    registerServices();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
+    registerServices();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

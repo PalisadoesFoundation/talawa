@@ -47,41 +47,46 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
 }
 
 void main() async {
-  testSetupLocator();
-  locator<SizeConfig>().test();
-  final Directory dir = Directory('test/fixtures/coree');
-  group('build', () {
-    setUpAll(() async {
-      registerServices();
-      getAndRegisterAppTheme();
-      Hive
-        ..init(dir.path)
-        ..registerAdapter(UserAdapter())
-        ..registerAdapter(OrgInfoAdapter());
-      await Hive.openBox<User>('currentUser');
-      await Hive.openBox<OrgInfo>('currentOrg');
-      await Hive.openBox('pluginBox');
-    });
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<SizeConfig>().test();
+    registerServices();
+    getAndRegisterAppTheme();
+  });
 
-    tearDownAll(() async {
-      await Hive.close();
-      Future<void> safeDelete(String filePath) async {
-        final file = File(filePath);
-        if (await file.exists()) {
-          try {
-            await file.delete();
-          } catch (e) {
-            print('Error deleting $filePath: $e');
-          }
+  tearDownAll(() async {
+    await Hive.close();
+    Future<void> safeDelete(String filePath) async {
+      final file = File(filePath);
+      if (await file.exists()) {
+        try {
+          await file.delete();
+        } catch (e) {
+          print('Error deleting $filePath: $e');
         }
       }
+    }
 
-      await safeDelete('test/fixtures/coree/currentorg.hive');
-      await safeDelete('test/fixtures/coree/currentorg.lock');
-      await safeDelete('test/fixtures/coree/currentuser.hive');
-      await safeDelete('test/fixtures/coree/currentuser.lock');
-      await safeDelete('test/fixtures/coree/pluginbox.hive');
-    });
+    await safeDelete('test/fixtures/coree/currentorg.hive');
+    await safeDelete('test/fixtures/coree/currentorg.lock');
+    await safeDelete('test/fixtures/coree/currentuser.hive');
+    await safeDelete('test/fixtures/coree/currentuser.lock');
+    await safeDelete('test/fixtures/coree/pluginbox.hive');
+  });
+
+  late final Directory dir;
+
+  dir = Directory('test/fixtures/coree');
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(OrgInfoAdapter());
+  await Hive.openBox<User>('currentUser');
+  await Hive.openBox<OrgInfo>('currentOrg');
+  await Hive.openBox('pluginBox');
+
+  group('build', () {
     testWidgets('check if profilePage shows up and refreshIndicator work',
         (tester) async {
       await tester.pumpWidget(

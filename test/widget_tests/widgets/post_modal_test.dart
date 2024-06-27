@@ -115,14 +115,14 @@ Widget createPostBottomModal() {
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
   });
 
-  tearDown(() => unregisterServices());
+  tearDownAll(() => unregisterServices());
 
   group('PostBottomModalTest -', () {
     testWidgets('has a post widget', (tester) async {

@@ -13,10 +13,36 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart' as testgetit;
 
 ConnectivityResult? connectivityStatus = ConnectivityResult.mobile;
+bool internetAccessible = true;
 
 class MockConnectivityService extends Mock
     with MockPlatformInterfaceMixin
-    implements ConnectivityService {}
+    implements ConnectivityService {
+  final controller = StreamController<ConnectivityResult>();
+
+  @override
+  // TODO: implement connectionStatusController
+  StreamController<ConnectivityResult> get connectionStatusController =>
+      controller;
+
+  @override
+  Future<void> initConnectivity() {
+    return Future(() => null);
+  }
+
+  @override
+  Stream<ConnectivityResult> get connectionStream => controller.stream;
+
+  @override
+  Future<ConnectivityResult> getConnectionType() {
+    return Future.value(connectivityStatus);
+  }
+
+  @override
+  Future<bool> isReachable({http.Client? client, String? uriString}) {
+    return Future.value(internetAccessible);
+  }
+}
 
 class MockConnectivity extends Mock implements Connectivity {
   final controller = StreamController<ConnectivityResult>();
@@ -47,12 +73,16 @@ class MockClient extends Mock implements http.Client {
 }
 
 void main() {
-  testgetit.testSetupLocator();
-  final mockClient = MockClient();
-  getAndRegisterConnectivity();
-  connectivityStatus = ConnectivityResult.mobile;
-  final service = ConnectivityService(client: mockClient);
-  locator.registerSingleton(service);
+  late MockClient mockClient;
+  late ConnectivityService service;
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    mockClient = MockClient();
+    getAndRegisterConnectivity();
+    connectivityStatus = ConnectivityResult.mobile;
+    service = ConnectivityService(client: mockClient);
+    locator.registerSingleton<ConnectivityService>(service);
+  });
 
   group('connectivity', () {
     test('connectionStream getter', () async {
@@ -60,9 +90,9 @@ void main() {
       expect(service.connectionStream, isA<Stream<ConnectivityResult>>());
     });
 
-    test('check initialConneciton', () async {
+    test('check initConnectivity', () async {
       connectivityStatus = null;
-      service.checkInitialConnection();
+      service.initConnectivity();
     });
 
     test('listener', () async {
@@ -82,7 +112,8 @@ void main() {
     });
 
     test('isReachable', () async {
-      final reached = await service.isReachable();
+      final reached =
+          await service.isReachable(uriString: 'https://google.com');
       expect(reached, true);
     });
 

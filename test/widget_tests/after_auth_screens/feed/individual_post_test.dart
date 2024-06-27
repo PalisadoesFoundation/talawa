@@ -247,11 +247,11 @@ Widget createIndividualPostViewWidget({
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
   // locator.registerSingleton(LikeButtonViewModel());
 
-  setUp(() {
+  setUpAll(() {
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
   });
 

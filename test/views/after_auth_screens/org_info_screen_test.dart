@@ -176,10 +176,10 @@ Widget createOrgInfoScreen2() {
 }
 
 void main() {
-  testSetupLocator();
-  SizeConfig().test();
-  GraphqlConfig().test();
-  setUp(() {
+  setUpAll(() {
+    testSetupLocator();
+    SizeConfig().test();
+    GraphqlConfig().test();
     registerServices();
   });
   group('OrganisationInfoScreen Tests', () {

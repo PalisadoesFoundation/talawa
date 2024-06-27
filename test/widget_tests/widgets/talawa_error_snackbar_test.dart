@@ -127,8 +127,11 @@ Widget createTalawaErrorWidget3({
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
   group('Test for TalawaErrorWidget', () {
     testWidgets('Check if the Snackbar shows up in warning form',
         (tester) async {

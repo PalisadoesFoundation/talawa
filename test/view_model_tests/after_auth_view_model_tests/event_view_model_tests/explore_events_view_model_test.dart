@@ -54,12 +54,12 @@ class _MockNavigationService extends Mock implements NavigationService {
 }
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-
   late Event newEvent;
-  setUp(() async {
+
+  setUpAll(() async {
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
     registerServices();
     await locator.unregister<NavigationService>();
     locator.registerSingleton<NavigationService>(_MockNavigationService());
@@ -83,7 +83,7 @@ void main() {
     );
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

@@ -109,16 +109,17 @@ Widget createEventInfoBody({
 }
 
 void main() {
-  testSetupLocator();
   // locator<GraphqlConfig>().test();
-  TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
+    testSetupLocator();
     registerServices();
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

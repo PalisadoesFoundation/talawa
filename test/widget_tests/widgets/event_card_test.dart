@@ -59,10 +59,11 @@ Widget createCustomEventCard(
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
 
   group("Test for EventCard widget", () {
     testWidgets('Check if Event Card shows up', (tester) async {

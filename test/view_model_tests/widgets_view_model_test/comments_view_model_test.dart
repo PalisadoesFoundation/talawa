@@ -19,27 +19,27 @@ class MockCallbackFunction extends Mock {
 }
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-
-  setUp(() {
+  late Post mockPost;
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
     registerServices();
+    mockPost = Post(
+      sId: "1",
+      creator: userConfig.currentUser,
+      description: "mock post",
+      imageUrl: "mockImageUrl",
+      videoUrl: "mockVideoUrl",
+      organization: userConfig.currentOrg,
+      createdAt: DateTime.now(),
+      comments: [],
+    );
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
-
-  final Post mockPost = Post(
-    sId: "1",
-    creator: userConfig.currentUser,
-    description: "mock post",
-    imageUrl: "mockImageUrl",
-    videoUrl: "mockVideoUrl",
-    organization: userConfig.currentOrg,
-    createdAt: DateTime.now(),
-    comments: [],
-  );
 
   group('Comments View Model Tests', () {
     test("Testing the functions", () async {

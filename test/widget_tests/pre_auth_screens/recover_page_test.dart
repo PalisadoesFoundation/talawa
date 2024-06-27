@@ -60,9 +60,12 @@ Widget createRecoverScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
+  });
   group('Select Language Screen Widget Test in light mode', () {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       await tester.pumpWidget(createRecoverScreenLight());

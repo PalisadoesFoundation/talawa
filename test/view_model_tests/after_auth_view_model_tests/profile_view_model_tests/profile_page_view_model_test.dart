@@ -33,7 +33,10 @@ void verifyInteraction(dynamic x, {required String mockName}) {
 }
 
 void main() async {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+  });
 
   group('ProfilePageViewModel Tests -', () {
     setUpAll(() {

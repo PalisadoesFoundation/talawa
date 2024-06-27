@@ -20,9 +20,9 @@ class MockImageService extends Mock implements ImageService {
 }
 
 void main() {
-  testSetupLocator();
-
   setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
     registerServices();
   });
 

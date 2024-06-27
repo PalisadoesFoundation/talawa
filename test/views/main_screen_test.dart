@@ -95,12 +95,7 @@ class Test extends StatelessWidget {
 }
 
 void main() async {
-  testSetupLocator();
-  registerServices();
-
-  TestWidgetsFlutterBinding.ensureInitialized();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  late GraphQLClient graphQLClient;
 
   final Directory dir = Directory('temporaryPath');
   Hive
@@ -114,11 +109,14 @@ void main() async {
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 
-  late GraphQLClient graphQLClient;
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
+    testSetupLocator();
     registerServices();
+    locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
+
     locator.unregister<MainScreenViewModel>();
     locator
         .registerFactory<MainScreenViewModel>(() => MockMainScreenViewModel());
@@ -143,12 +141,13 @@ void main() async {
     );
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 
   group("Test for main_screen.dart", () {
     testWidgets('Test join org banner.', (tester) async {
+      MainScreenViewModel.demoMode = true;
       await tester.pumpWidget(createMainScreen());
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
@@ -160,8 +159,10 @@ void main() async {
     });
 
     testWidgets("Test if Join Org banner not visible.", (tester) async {
-      await tester.pumpWidget(createMainScreen(demoMode: false));
-      await tester.pump();
+      MainScreenViewModel.demoMode = false;
+      await tester
+          .pumpWidget(createMainScreen(demoMode: MainScreenViewModel.demoMode));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
     });
     //
     //   // Don't call pumpAndSettle as the BottomNavigationBar

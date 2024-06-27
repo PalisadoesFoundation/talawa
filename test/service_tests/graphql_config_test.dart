@@ -5,9 +5,10 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
-  testSetupLocator();
-
   setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+
     registerServices();
   });
   group('Testing Graphql Config', () {

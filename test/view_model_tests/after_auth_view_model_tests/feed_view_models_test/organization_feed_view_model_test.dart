@@ -21,7 +21,10 @@ class MockCallbackFunction extends Mock {
 }
 
 void main() {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+  });
   late OrganizationFeedViewModel model;
   final notifyListenerCallback = MockCallbackFunction();
 
