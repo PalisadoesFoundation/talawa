@@ -209,4 +209,17 @@ void main() {
       expect(res[2].admins![0].id, 'user_id');
     });
   });
+
+  group('Hive adapter test', () {
+    test('OrgInfoAdapter equality operator', () {
+      final adapter1 = OrgInfoAdapter();
+      final adapter2 = OrgInfoAdapter();
+
+      // Test equality
+      expect(adapter1 == adapter2, isTrue,
+          reason: 'Two instances of OrgInfoAdapter should be equal');
+      expect(adapter1.hashCode == adapter2.hashCode, isTrue,
+          reason: 'Hash codes should be equal');
+    });
+  });
 }
