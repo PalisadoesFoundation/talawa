@@ -217,9 +217,9 @@ void main() {
 
       // Test equality
       expect(adapter1 == adapter2, isTrue,
-          reason: 'Two instances of OrgInfoAdapter should be equal');
+          reason: 'Two instances of OrgInfoAdapter should be equal',);
       expect(adapter1.hashCode == adapter2.hashCode, isTrue,
-          reason: 'Hash codes should be equal');
+          reason: 'Hash codes should be equal',);
     });
   });
 }
