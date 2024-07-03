@@ -216,10 +216,16 @@ void main() {
       final adapter2 = OrgInfoAdapter();
 
       // Test equality
-      expect(adapter1 == adapter2, isTrue,
-          reason: 'Two instances of OrgInfoAdapter should be equal',);
-      expect(adapter1.hashCode == adapter2.hashCode, isTrue,
-          reason: 'Hash codes should be equal',);
+      expect(
+        adapter1 == adapter2,
+        isTrue,
+        reason: 'Two instances of OrgInfoAdapter should be equal',
+      );
+      expect(
+        adapter1.hashCode == adapter2.hashCode,
+        isTrue,
+        reason: 'Hash codes should be equal',
+      );
     });
   });
 }
