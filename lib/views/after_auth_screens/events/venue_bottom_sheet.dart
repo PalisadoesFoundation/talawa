@@ -24,7 +24,7 @@ class _VenueBottomSheetState extends State<VenueBottomSheet> {
   /// Whether the search field is currently active.
   bool isSearching = false;
 
-  /// The venue that is currently selected.
+  /// The venue that is currently selected by the user.
   Venue? selectedVenue;
 
   @override
