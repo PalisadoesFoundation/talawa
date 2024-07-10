@@ -590,3 +590,27 @@ query  {
       ''';
   }
 }
+
+/// Query to get the list of Venues in an organisation.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `String`: Query in string form, to be passed to graphql client.
+String venueListQuery() {
+  return """
+    query GetVenueByOrgId(\$orgId: ID!, \$first: Int, \$orderBy: VenueOrderByInput, \$where: VenueWhereInput) {
+      getVenueByOrgId(orgId: \$orgId, first: \$first, orderBy: \$orderBy, where: \$where) {
+        _id
+        capacity
+        name
+        description
+        imageUrl
+        organization {
+          _id
+        }
+      }
+    }
+  """;
+}
