@@ -33,7 +33,7 @@ void main() async {
     await Hive.openBox('url');
     await Hive.openBox<OrgInfo>('currentOrg');
   });
-  
+
   testWidgets('MyApp', (tester) async {
     when(userConfig.userLoggedIn()).thenAnswer((_) => Future.value(false));
 
