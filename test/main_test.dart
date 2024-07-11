@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/main.dart' as mainpage;
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -12,11 +11,13 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+import 'helpers/test_locator.dart';
+
 void main() async {
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
 
-    setupLocator();
+    testSetupLocator();
 
     final Directory dir = Directory('test/fixtures/core');
 

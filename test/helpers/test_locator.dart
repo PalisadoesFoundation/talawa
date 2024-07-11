@@ -14,6 +14,7 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -64,6 +65,8 @@ final mainScreenViewModel = locator<MainScreenViewModel>();
 final imageService = locator<ImageService>();
 final imagePicker = locator<ImagePicker>();
 final imageCropper = locator<ImageCropper>();
+final sessionManager = locator<SessionManager>();
+
 
 void testSetupLocator() {
   //services
@@ -74,6 +77,9 @@ void testSetupLocator() {
 
   //userConfig
   locator.registerSingleton(UserConfig());
+
+    locator.registerSingleton(SessionManager());
+
 
   //Services
   locator.registerLazySingleton(() => OrganizationService());
