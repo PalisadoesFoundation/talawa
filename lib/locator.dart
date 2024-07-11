@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
@@ -90,7 +89,7 @@ final sessionManager = locator<SessionManager>();
 ///
 /// **returns**:
 ///   None
-void setupLocator() {
+Future<void> setupLocator() async {
   //services
   locator.registerSingleton(NavigationService());
 
@@ -117,13 +116,13 @@ void setupLocator() {
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
 
-  locator.registerSingleton(ConnectivityService(client: http.Client()));
-
   //graphql
   locator.registerSingleton(GraphqlConfig());
 
   //databaseMutationFunction
   locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton(ConnectivityService());
 
   //queries
   locator.registerSingleton(Queries());

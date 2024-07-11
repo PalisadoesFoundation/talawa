@@ -35,8 +35,10 @@ class DataBaseMutationFunctions {
   /// **returns**:
   ///   None
   void init() {
+    graphqlConfig.getOrgUrl();
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
+    print('ajkjkdjkjkdjieiejie');
     _query = Queries();
   }
 

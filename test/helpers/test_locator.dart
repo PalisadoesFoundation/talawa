@@ -3,7 +3,6 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
@@ -94,7 +93,7 @@ void testSetupLocator() {
   //databaseMutationFunction
   locator.registerSingleton(DataBaseMutationFunctions());
 
-  locator.registerSingleton(ConnectivityService(client: http.Client()));
+  locator.registerSingleton(ConnectivityService());
 
   //queries
   locator.registerSingleton(Queries());

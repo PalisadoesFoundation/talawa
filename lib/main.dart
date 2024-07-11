@@ -17,6 +17,7 @@ import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -38,7 +39,7 @@ Future<void> main() async {
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 
-  setupLocator();
+  await setupLocator();
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }
@@ -118,55 +119,61 @@ class _MyAppState extends State<MyApp> {
         return BaseView<AppTheme>(
           onModelReady: (model) => model.initialize(),
           builder: (context, model, child) {
-            return MaterialApp(
-              locale: langModel.appLocal,
-              supportedLocales: [
-                const Locale('en', 'US'),
-                const Locale('es', 'ES'),
-                const Locale('fr', 'FR'),
-                const Locale('hi', 'IN'),
-                const Locale('zh', 'CN'),
-                const Locale('de', 'DE'),
-                const Locale('ja', 'JP'),
-                const Locale('pt', 'PT'),
-              ],
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              title: 'Talawa',
-              theme: Provider.of<AppTheme>(context).isdarkTheme
-                  ? TalawaTheme.darkTheme
-                  : TalawaTheme.lightTheme,
-              debugShowCheckedModeBanner: false,
-              navigatorKey: navigationService.navigatorKey,
-              onGenerateRoute: router.generateRoute,
-              localeResolutionCallback:
-                  (Locale? locale, Iterable<Locale> supportedLocales) {
-                if (locale == null) {
-                  debugPrint("*language locale is null!!!");
-                  return supportedLocales.first;
-                }
-                for (final Locale supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale.languageCode ||
-                      supportedLocale.countryCode == locale.countryCode) {
-                    return supportedLocale;
-                  }
-                }
-                return supportedLocales.first;
-              },
-              initialRoute: '/',
-              onGenerateInitialRoutes: (String initialRouteName) {
-                return [
-                  router.generateRoute(
-                    RouteSettings(
-                      name: '/',
-                      arguments: mainScreenQuickActionindex,
-                    ),
-                  ),
-                ];
+            return BaseView<AppConnectivity>(
+              onModelReady: (connectivityModel) =>
+                  connectivityModel.initialise(),
+              builder: (context, connectivityModel, child) {
+                return MaterialApp(
+                  locale: langModel.appLocal,
+                  supportedLocales: [
+                    const Locale('en', 'US'),
+                    const Locale('es', 'ES'),
+                    const Locale('fr', 'FR'),
+                    const Locale('hi', 'IN'),
+                    const Locale('zh', 'CN'),
+                    const Locale('de', 'DE'),
+                    const Locale('ja', 'JP'),
+                    const Locale('pt', 'PT'),
+                  ],
+                  localizationsDelegates: [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  title: 'Talawa',
+                  theme: Provider.of<AppTheme>(context).isdarkTheme
+                      ? TalawaTheme.darkTheme
+                      : TalawaTheme.lightTheme,
+                  debugShowCheckedModeBanner: false,
+                  navigatorKey: navigationService.navigatorKey,
+                  onGenerateRoute: router.generateRoute,
+                  localeResolutionCallback:
+                      (Locale? locale, Iterable<Locale> supportedLocales) {
+                    if (locale == null) {
+                      debugPrint("*language locale is null!!!");
+                      return supportedLocales.first;
+                    }
+                    for (final Locale supportedLocale in supportedLocales) {
+                      if (supportedLocale.languageCode == locale.languageCode ||
+                          supportedLocale.countryCode == locale.countryCode) {
+                        return supportedLocale;
+                      }
+                    }
+                    return supportedLocales.first;
+                  },
+                  initialRoute: '/',
+                  onGenerateInitialRoutes: (String initialRouteName) {
+                    return [
+                      router.generateRoute(
+                        RouteSettings(
+                          name: '/',
+                          arguments: mainScreenQuickActionindex,
+                        ),
+                      ),
+                    ];
+                  },
+                );
               },
             );
           },

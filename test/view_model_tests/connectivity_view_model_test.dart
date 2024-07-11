@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/router.dart' as router;
@@ -24,27 +25,32 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
       return BaseView<AppTheme>(
         onModelReady: (model) => model.initialize(),
         builder: (context, themeModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            key: const Key('Root'),
-            theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
-                ? TalawaTheme.darkTheme
-                : TalawaTheme.lightTheme,
-            home: Scaffold(
-              body: TextButton(
-                child: const Text('click me'),
-                onPressed: () {
-                  AppConnectivity.showSnackbar(isOnline: isOnline!);
-                },
-              ),
-            ),
-            navigatorKey: locator<NavigationService>().navigatorKey,
-            onGenerateRoute: router.generateRoute,
+          return BaseView<AppConnectivity>(
+            onModelReady: (connectivityModel) => connectivityModel.initialise(),
+            builder: (context, connectivityModel, child) {
+              return MaterialApp(
+                locale: const Locale('en'),
+                localizationsDelegates: [
+                  const AppLocalizationsDelegate(isTest: true),
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                key: const Key('Root'),
+                theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
+                    ? TalawaTheme.darkTheme
+                    : TalawaTheme.lightTheme,
+                home: Scaffold(
+                  body: TextButton(
+                    child: const Text('click me'),
+                    onPressed: () {
+                      AppConnectivity.showSnackbar(isOnline: isOnline!);
+                    },
+                  ),
+                ),
+                navigatorKey: locator<NavigationService>().navigatorKey,
+                onGenerateRoute: router.generateRoute,
+              );
+            },
           );
         },
       );
@@ -58,7 +64,10 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
+    connectivityService.initConnectivity(client: http.Client());
+
     model = locator<AppConnectivity>();
+    model.initialise();
   });
   test('handleConnection when demoMode', () {
     MainScreenViewModel.demoMode = true;
@@ -90,8 +99,10 @@ void main() {
   });
 
   test('check enableSubscription body', () {
-    connectivityService.connectionStatusController
-        .add(ConnectivityResult.mobile);
+    connectivityService.connectionStatusController.add(ConnectivityResult.none);
+  });
+
+  test('enableSubscirption exception', () async {
     model.enableSubscription();
   });
 }

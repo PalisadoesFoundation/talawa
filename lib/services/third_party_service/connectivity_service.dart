@@ -9,23 +9,11 @@ import 'package:talawa/locator.dart';
 /// It includes methods for:
 /// * Initializing the network service - [initConnectivity]
 /// * Monitoring connectivity changes - [enableSubscription]
-/// * Handling online and offline states - [_handleOnline], [handleOffline]
+/// * Handling online and offline states - [handleOnline], [handleOffline]
 /// * Checking reachability of a given URI - [isReachable]
 /// * Handling the device's connectivity status - [handleConnection]
 /// * Checking if the device has any type of network connection - [hasConnection]
 class ConnectivityService {
-  /// This function is used to initialize the network service.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  ConnectivityService({required http.Client client}) {
-    _client = client;
-    connectionStatusController = StreamController<ConnectivityResult>();
-  }
-
   /// Stream controller for network status changes.
   late StreamController<ConnectivityResult> connectionStatusController;
 
@@ -51,11 +39,14 @@ class ConnectivityService {
   /// This function initializes connectivity monitoring.
   ///
   /// **params**:
-  ///   None
+  /// * `client`: An instance of `http.Client` to make the HTTP request.
   ///
   /// **returns**:
   ///   None
-  Future<void> initConnectivity() async {
+  Future<void> initConnectivity({required http.Client client}) async {
+    _client = client;
+    connectionStatusController = StreamController<ConnectivityResult>();
+
     /// Listen for future changes in connectivity
     enableSubscription();
   }
@@ -99,7 +90,7 @@ class ConnectivityService {
       client ??= _client;
       await client
           .get(Uri.parse(uriString ?? graphqlConfig.httpLink.uri.toString()))
-          .timeout(const Duration(seconds: 5));
+          .timeout(const Duration(seconds: 30));
       return true;
     } catch (e) {
       print('Timeout while checking reachability: $e');

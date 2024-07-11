@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
@@ -17,17 +18,6 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 /// * Handle the device's overall connectivity status: [handleConnection]
 /// * Triggers the snackbar UI to show online status.: [showSnackbar]
 class AppConnectivity extends BaseModel {
-  AppConnectivity() {
-    connectivityStream = connectivityService.connectionStream;
-    if (!isDemo) {
-      connectivityService.initConnectivity();
-      enableSubscription();
-    }
-  }
-
-  /// flag to represent demo mode.
-  bool get isDemo => MainScreenViewModel.demoMode;
-
   /// Stream from [ConnectivityService].
   late final Stream<ConnectivityResult> connectivityStream;
 
@@ -37,16 +27,14 @@ class AppConnectivity extends BaseModel {
   /// Initializes the [AppConnectivity].
   ///
   /// **params**:
-  /// * `mainScreenViewModel`: an instance of [MainScreenViewModel].
+  ///   None
   ///
   /// **returns**:
   ///   None
-  Future<void> initialise({
-    required MainScreenViewModel mainScreenViewModel,
-  }) async {
-    if (isDemo) {
-      handleConnection(await connectivityService.getConnectionType());
-    }
+  Future<void> initialise() async {
+    await connectivityService.initConnectivity(client: http.Client());
+    connectivityStream = connectivityService.connectionStream;
+    enableSubscription();
   }
 
   /// Subscribes to [connectivityStream] of [ConnectivityService].
@@ -95,6 +83,7 @@ class AppConnectivity extends BaseModel {
   ///   None
   Future<void> handleOnline() async {
     showSnackbar(isOnline: true);
+    databaseFunctions.init();
   }
 
   /// This function handles the actions to be taken when the device is offline.
@@ -106,6 +95,7 @@ class AppConnectivity extends BaseModel {
   ///   None
   Future<void> handleOffline() async {
     showSnackbar(isOnline: false);
+    databaseFunctions.init();
   }
 
   /// Triggers the snackbar UI to show online status.

@@ -21,7 +21,7 @@ class ExploreEventsViewModel extends BaseModel {
   bool demoMode;
 
   final _eventService = locator<EventService>();
-  late StreamSubscription _eventStreamSubscription;
+  late StreamSubscription? _eventStreamSubscription;
 
   String _chosenValue = 'All Events';
   String _emptyListMessage = "Looks like there aren't any events.";
@@ -91,6 +91,7 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> initialise() async {
     setState(ViewState.busy);
     if (!demoMode) {
+      print(demoMode);
       _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
           .listen((updatedOrganization) => refreshEvents());
       await _eventService.getEvents();
@@ -249,7 +250,7 @@ class ExploreEventsViewModel extends BaseModel {
 
   @override
   void dispose() {
-    _eventStreamSubscription.cancel();
+    _eventStreamSubscription?.cancel();
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();
   }

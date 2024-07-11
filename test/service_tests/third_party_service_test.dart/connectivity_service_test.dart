@@ -26,7 +26,8 @@ class MockConnectivityService extends Mock
       controller;
 
   @override
-  Future<void> initConnectivity() {
+  Future<void> initConnectivity({required http.Client client}) {
+    // TODO: implement initConnectivity
     return Future(() => null);
   }
 
@@ -80,20 +81,22 @@ void main() {
     mockClient = MockClient();
     getAndRegisterConnectivity();
     connectivityStatus = ConnectivityResult.mobile;
-    service = ConnectivityService(client: mockClient);
+    service = ConnectivityService();
     locator.registerSingleton<ConnectivityService>(service);
+    connectivityService.initConnectivity(client: http.Client());
   });
 
   group('connectivity', () {
-    test('connectionStream getter', () async {
-      expect(connectivityService, isA<ConnectivityService>());
-      expect(service.connectionStream, isA<Stream<ConnectivityResult>>());
-    });
-
-    test('check initConnectivity', () async {
-      connectivityStatus = null;
-      service.initConnectivity();
-    });
+    test(
+      'connectionStream getter',
+      () async {
+        expect(connectivityService, isA<ConnectivityService>());
+        expect(
+          connectivityService.connectionStream,
+          isA<Stream<ConnectivityResult>>(),
+        );
+      },
+    );
 
     test('listener', () async {
       final mockConnectivity = testgetit.connectivity as MockConnectivity;

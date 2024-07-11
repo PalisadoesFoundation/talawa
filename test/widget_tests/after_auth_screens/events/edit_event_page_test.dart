@@ -3,14 +3,19 @@
 
 // ignore_for_file: unused_import
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/size_config.dart';
@@ -69,7 +74,15 @@ Widget editEventScreen({
     );
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    final Directory dir = Directory('temporaryPath');
+    Hive
+      ..init(dir.path)
+      ..registerAdapter(UserAdapter())
+      ..registerAdapter(OrgInfoAdapter());
+    await Hive.openBox<User>('currentUser');
+    await Hive.openBox<OrgInfo>('currentOrg');
+    await Hive.openBox('url');
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();
