@@ -67,7 +67,6 @@ final imagePicker = locator<ImagePicker>();
 final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 
-
 void testSetupLocator() {
   //services
   locator.registerSingleton(NavigationService());
@@ -78,8 +77,7 @@ void testSetupLocator() {
   //userConfig
   locator.registerSingleton(UserConfig());
 
-    locator.registerSingleton(SessionManager());
-
+  locator.registerSingleton(SessionManager());
 
   //Services
   locator.registerLazySingleton(() => OrganizationService());
