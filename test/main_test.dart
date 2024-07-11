@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/main.dart' as mainpage;
+import 'package:talawa/main.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -30,7 +30,7 @@ void main() async {
     await Hive.openBox<OrgInfo>('currentOrg');
   });
   testWidgets('MyApp', (tester) async {
-    await tester.pumpWidget(mainpage.MyApp());
+    await tester.pumpWidget(MyApp());
 
     final model = locator<AppTheme>();
 
