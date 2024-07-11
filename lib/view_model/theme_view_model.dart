@@ -1,7 +1,9 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// AppTheme class is a type of View Model to serve data from modal to views in the context of App Themes.
@@ -14,6 +16,8 @@ class AppTheme extends BaseModel {
   late SharedPreferences _pref;
   late bool _isDarkMode;
   bool get isdarkTheme => _isDarkMode;
+  ThemeData get theme =>
+      isdarkTheme ? TalawaTheme.darkTheme : TalawaTheme.lightTheme;
 
   // initializer
   void initialize() {

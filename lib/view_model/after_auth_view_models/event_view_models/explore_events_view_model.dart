@@ -21,7 +21,7 @@ class ExploreEventsViewModel extends BaseModel {
   bool demoMode;
 
   final _eventService = locator<EventService>();
-  late StreamSubscription? _eventStreamSubscription;
+  StreamSubscription? _eventStreamSubscription;
 
   String _chosenValue = 'All Events';
   String _emptyListMessage = "Looks like there aren't any events.";

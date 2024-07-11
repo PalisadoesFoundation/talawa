@@ -7,7 +7,6 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
@@ -39,7 +38,8 @@ Future<void> main() async {
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 
-  await setupLocator();
+  setupLocator();
+
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }
@@ -142,26 +142,11 @@ class _MyAppState extends State<MyApp> {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   title: 'Talawa',
-                  theme: Provider.of<AppTheme>(context).isdarkTheme
-                      ? TalawaTheme.darkTheme
-                      : TalawaTheme.lightTheme,
+                  theme: Provider.of<AppTheme>(context).theme,
                   debugShowCheckedModeBanner: false,
                   navigatorKey: navigationService.navigatorKey,
                   onGenerateRoute: router.generateRoute,
-                  localeResolutionCallback:
-                      (Locale? locale, Iterable<Locale> supportedLocales) {
-                    if (locale == null) {
-                      debugPrint("*language locale is null!!!");
-                      return supportedLocales.first;
-                    }
-                    for (final Locale supportedLocale in supportedLocales) {
-                      if (supportedLocale.languageCode == locale.languageCode ||
-                          supportedLocale.countryCode == locale.countryCode) {
-                        return supportedLocale;
-                      }
-                    }
-                    return supportedLocales.first;
-                  },
+                  localeResolutionCallback: langModel.localeResoultion,
                   initialRoute: '/',
                   onGenerateInitialRoutes: (String initialRouteName) {
                     return [
