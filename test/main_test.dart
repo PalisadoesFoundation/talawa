@@ -14,17 +14,21 @@ import 'package:talawa/views/base_view.dart';
 import 'helpers/test_locator.dart';
 
 void main() async {
-  testSetupLocator();
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
 
-  final Directory dir = Directory('test/fixtures/core');
+    testSetupLocator();
 
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox('url');
-  await Hive.openBox<OrgInfo>('currentOrg');
+    final Directory dir = Directory('test/fixtures/core');
+
+    Hive
+      ..init(dir.path)
+      ..registerAdapter(UserAdapter())
+      ..registerAdapter(OrgInfoAdapter());
+    await Hive.openBox<User>('currentUser');
+    await Hive.openBox('url');
+    await Hive.openBox<OrgInfo>('currentOrg');
+  });
   testWidgets('MyApp', (tester) async {
     await tester.pumpWidget(mainpage.MyApp());
 
