@@ -70,10 +70,12 @@ Widget createEditProfilePage({ThemeMode themeMode = ThemeMode.light}) =>
       },
     );
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
+  });
 
   final Directory dir = Directory('temporaryPath');
   Hive

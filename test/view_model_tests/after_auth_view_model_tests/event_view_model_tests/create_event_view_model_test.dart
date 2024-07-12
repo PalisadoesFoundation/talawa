@@ -84,16 +84,16 @@ Widget createApp(
 }
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
     registerServices();
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 

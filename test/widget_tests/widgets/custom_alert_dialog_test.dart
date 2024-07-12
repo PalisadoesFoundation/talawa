@@ -66,8 +66,11 @@ Widget createCustomAlertDialog({
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
   group('Test for CustomAlertDialog', () {
     testWidgets('Check if the AlertDialog shows up', (tester) async {
       await tester.pumpWidget(createCustomAlertDialog());

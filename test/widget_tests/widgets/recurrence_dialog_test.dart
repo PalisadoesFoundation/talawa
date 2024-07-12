@@ -10,11 +10,14 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 void main() {
+  late CreateEventViewModel model;
+
   group('ShowRecurrenceDialog', () {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
-    locator<SizeConfig>().test();
-    late CreateEventViewModel model;
+    setUpAll(() {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      testSetupLocator();
+      locator<SizeConfig>().test();
+    });
 
     setUp(() {
       locator<SizeConfig>().test();

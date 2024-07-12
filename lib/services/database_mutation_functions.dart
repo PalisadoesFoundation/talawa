@@ -5,6 +5,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.
 ///
@@ -34,8 +35,10 @@ class DataBaseMutationFunctions {
   /// **returns**:
   ///   None
   void init() {
+    graphqlConfig.getOrgUrl();
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
+    print('ajkjkdjkjkdjieiejie');
     _query = Queries();
   }
 
@@ -104,10 +107,7 @@ class DataBaseMutationFunctions {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
-          (_) => navigationService.showTalawaErrorSnackBar(
-            "Server not running/wrong url",
-            MessageType.info,
-          ),
+          (_) => AppConnectivity.showSnackbar(isOnline: false),
         );
       }
       return false;

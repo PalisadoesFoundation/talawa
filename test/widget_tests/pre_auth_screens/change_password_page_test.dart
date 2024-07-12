@@ -45,9 +45,12 @@ Widget createChangePassScreen({ThemeMode themeMode = ThemeMode.light}) =>
     );
 
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
+  });
   group('Change Password Screen Widget Test in light mode', () {
     testWidgets("Testing if Change Password Screen shows up", (tester) async {
       await tester

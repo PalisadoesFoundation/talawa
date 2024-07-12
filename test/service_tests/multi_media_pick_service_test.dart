@@ -17,14 +17,17 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+  });
   setUp(() {
     registerServices();
+    SizeConfig().test();
   });
   tearDown(() {
     unregisterServices();
   });
-  SizeConfig().test();
   group('MultiMediaPickerService test', () {
     test("test get photo from gallery method if camera option is false",
         () async {

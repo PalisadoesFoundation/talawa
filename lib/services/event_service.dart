@@ -24,6 +24,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 class EventService {
   EventService() {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
+    print(_eventStream);
     _currentOrg = _userConfig.currentOrg;
     _userConfig.initialiseStream();
     setOrgStreamSubscription();

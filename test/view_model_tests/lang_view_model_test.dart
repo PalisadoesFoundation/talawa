@@ -125,7 +125,6 @@ void main() {
           ),
         ),
       );
-
       // consider if user is logged in.
       when(userConfig.currentUser).thenReturn(User(id: 'xyz1'));
 
@@ -188,6 +187,50 @@ void main() {
         ),
       ).thenThrow(Error());
       await model.dbLanguageUpdate();
+    });
+  });
+
+  group('Locale Resolution Tests', () {
+    final model = AppLanguage(isTest: true);
+    model.initialize();
+    const supportedLocales = [
+      Locale('en', 'US'),
+      Locale('es', 'ES'),
+      Locale('fr', 'FR'),
+      Locale('hi', 'IN'),
+      Locale('zh', 'CN'),
+      Locale('de', 'DE'),
+      Locale('ja', 'JP'),
+      Locale('pt', 'PT'),
+    ];
+
+    test('Returns first supported locale when locale is null', () {
+      final result = model.localeResoultion(null, supportedLocales);
+      expect(result, supportedLocales.first);
+    });
+
+    test('Returns matching language code locale', () {
+      const locale = Locale('es', 'MX');
+      final result = model.localeResoultion(locale, supportedLocales);
+      expect(result, const Locale('es', 'ES'));
+    });
+
+    test('Returns matching country code locale', () {
+      const locale = Locale('fr', 'CA');
+      final result = model.localeResoultion(locale, supportedLocales);
+      expect(result, const Locale('fr', 'FR'));
+    });
+
+    test('Returns first supported locale when no match is found', () {
+      const locale = Locale('it', 'IT');
+      final result = model.localeResoultion(locale, supportedLocales);
+      expect(result, supportedLocales.first);
+    });
+
+    test('Returns correct locale when exact match is found', () {
+      const locale = Locale('en', 'US');
+      final result = model.localeResoultion(locale, supportedLocales);
+      expect(result, locale);
     });
   });
 }
