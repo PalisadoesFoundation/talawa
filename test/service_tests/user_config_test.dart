@@ -41,7 +41,12 @@ class MockSessionManger extends Mock implements SessionManager {
 }
 
 void main() async {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    getAndRegisterSessionManager();
+    registerServices();
+  });
 
   final Directory dir = Directory('test/fixtures/core');
 
@@ -53,8 +58,6 @@ void main() async {
   final userBox = await Hive.openBox<User>('currentUser');
   final urlBox = await Hive.openBox('url');
   final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
-
-  getAndRegisterSessionManager();
 
   final mockUser = User(
     adminFor: <OrgInfo>[
@@ -87,10 +90,6 @@ void main() async {
   ];
 
   group('Test UserConfig service', () {
-    setUpAll(() {
-      registerServices();
-    });
-
     test('Test for getters & setters.', () {
       final model = UserConfig();
 

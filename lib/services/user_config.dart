@@ -89,7 +89,7 @@ class UserConfig {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
-    databaseFunctions.initClientNonAuth();
+    databaseFunctions.init();
     await sessionManager.refreshSession();
     // generate access token
     graphqlConfig.getToken().then((value) async {

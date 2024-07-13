@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
@@ -32,6 +31,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -89,7 +89,7 @@ final sessionManager = locator<SessionManager>();
 ///
 /// **returns**:
 ///   None
-void setupLocator() {
+Future<void> setupLocator() async {
   //services
   locator.registerSingleton(NavigationService());
 
@@ -116,16 +116,18 @@ void setupLocator() {
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
 
-  locator.registerSingleton(ConnectivityService(client: http.Client()));
-
   //graphql
   locator.registerSingleton(GraphqlConfig());
 
   //databaseMutationFunction
   locator.registerSingleton(DataBaseMutationFunctions());
 
+  locator.registerSingleton(ConnectivityService());
+
   //queries
   locator.registerSingleton(Queries());
+
+  locator.registerFactory(() => AppConnectivity());
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());

@@ -14,7 +14,9 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
@@ -30,6 +32,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -56,11 +59,13 @@ final organizationService = locator<OrganizationService>();
 final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final connectivity = locator<Connectivity>();
+final connectivityService = locator<ConnectivityService>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
 final imageService = locator<ImageService>();
 final imagePicker = locator<ImagePicker>();
 final imageCropper = locator<ImageCropper>();
+final sessionManager = locator<SessionManager>();
 
 void testSetupLocator() {
   //services
@@ -71,6 +76,8 @@ void testSetupLocator() {
 
   //userConfig
   locator.registerSingleton(UserConfig());
+
+  locator.registerSingleton(SessionManager());
 
   //Services
   locator.registerLazySingleton(() => OrganizationService());
@@ -90,8 +97,12 @@ void testSetupLocator() {
   //databaseMutationFunction
   locator.registerSingleton(DataBaseMutationFunctions());
 
+  locator.registerSingleton(ConnectivityService());
+
   //queries
   locator.registerSingleton(Queries());
+
+  locator.registerFactory(() => AppConnectivity());
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());

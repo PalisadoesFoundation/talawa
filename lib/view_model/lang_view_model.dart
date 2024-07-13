@@ -62,6 +62,29 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
+  /// This function fetches the appropriate locale for the user's app based on the provided locale and supported locales.
+  ///
+  /// **params**:
+  /// * `locale`: (`Locale?`): The locale to be resolved. Can be null.
+  /// * `supportedLocales`: (`Iterable<Locale>`): The list of supported locales in the app.
+  ///
+  /// **returns**:
+  /// * `Locale`: The resolved locale that matches either the language code or the country code of the provided locale.
+  ///              If no match is found or the provided locale is null, the first supported locale is returned.
+  Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) {
+    if (locale == null) {
+      debugPrint("*language locale is null!!!");
+      return supportedLocales.first;
+    }
+    for (final Locale supportedLocale in supportedLocales) {
+      if (supportedLocale.languageCode == locale.languageCode ||
+          supportedLocale.countryCode == locale.countryCode) {
+        return supportedLocale;
+      }
+    }
+    return supportedLocales.first;
+  }
+
   /// This function change the app default language.
   ///
   /// **params**:
