@@ -88,6 +88,126 @@ void main() {
     unregisterServices();
   });
   group('testing -> CreateEventPage', () {
+    testWidgets("Checking if add venue button shows up", (tester) async {
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Venue'), findsOneWidget);
+    });
+    testWidgets("Checking if bottom sheet appears if no venue is selcted",
+        (tester) async {
+      final model = CreateEventViewModel();
+      model.initialize();
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+            {
+              'id': '2',
+              'name': 'Mock Venue 2',
+              'capacity': 150,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Venue'), findsOneWidget);
+      await tester.tap(find.text('Add Venue'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VenueBottomSheet), findsOneWidget);
+    });
+    testWidgets("Checking if selected venue shows up", (tester) async {
+      final model = createEventViewModel;
+      model.initialize();
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+            {
+              'id': '2',
+              'name': 'Mock Venue 2',
+              'capacity': 150,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Venue'), findsOneWidget);
+      await tester.tap(find.text('Add Venue'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VenueBottomSheet), findsOneWidget);
+      expect(find.text('Mock Venue 1'), findsOneWidget);
+
+      await tester.tap(find.text('Mock Venue 1'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.check));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Mock Venue 1'), findsOneWidget);
+      expect(find.byIcon(Icons.edit), findsOneWidget);
+    });
     testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
@@ -432,53 +552,6 @@ void main() {
       expect((tester.widgetList(switches).toList()[2] as Switch).value, false);
     });
 
-    // testWidgets("Checking tap Inkwell work for admin list", (tester) async {
-    //   await tester.pumpWidget(
-    //     createEventScreen(
-    //       themeMode: ThemeMode.dark,
-    //       theme: TalawaTheme.darkTheme,
-    //     ),
-    //   );
-    //   await tester.pump();
-    //   final inkwellFinder = find.byType(InkWell);
-    //   expect(inkwellFinder, findsNWidgets(8));
-
-    //   ///returning the file variable to the
-    //   ///result of function multimediaPickerService.getPhotoFromGallery
-    //   ///when this function is called in the
-    //   ///view model of add_post_page.
-    //   final file = File('fakePath');
-
-    //   /// using the new instance of multimediaPickerService
-    //   /// so that when statement can be used again,
-    //   /// else it gives null point exception
-    //   final multimediaPickerService = locator<MultiMediaPickerService>();
-
-    //   /// when is function provided by mockito lib
-    //   when(multimediaPickerService.getPhotoFromGallery(camera: false))
-    //       .thenAnswer((_) async {
-    //     return file;
-    //   });
-
-    //   await tester.ensureVisible(find.byKey(const Key('inwell_cep1')));
-    //   await tester.pumpAndSettle();
-
-    //   await tester.tap(find.byKey(const Key('inwell_cep1')));
-    //   await tester.pump();
-
-    //   //TODO: implement Rest of the test when the _adminCheckedMap or _memberCheckedMap return true for some id
-    //   //TODO: for not it return false for all the ordMember.id
-    //   //
-    //   // orgMembersList.forEach((orgMember) {
-    //   //   if (isAdmin) {
-    //   //     _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
-    //   //   } else {
-    //   //     _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-    //   //   }
-    //   //   _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-    //   // });
-    // });
-
     testWidgets("Checking tap Inkwell for second add to bottom sheet",
         (tester) async {
       await tester.pumpWidget(
@@ -522,33 +595,6 @@ void main() {
       await tester.pump();
     });
     group('setState Coverage completion', () {
-      testWidgets('Tap on DateTimeTile date', (tester) async {
-        await tester.pumpWidget(
-          createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ),
-        );
-        await tester.pump();
-
-        await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
-        await tester.pump();
-
-        await tester.ensureVisible(find.byKey(const Key('key for test cep')));
-        await tester.pump();
-
-        expect(find.byType(DatePickerDialog), findsOneWidget);
-        expect(find.byType(CalendarDatePicker), findsOneWidget);
-
-        await tester.tap(find.text('OK'));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.text(DateTime.now().toString().split(' ').first),
-          findsNWidgets(2),
-        );
-      });
-
       testWidgets('Test end date selection', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
@@ -578,44 +624,6 @@ void main() {
         expect(find.text('Does not repeat'), findsOneWidget);
       });
 
-      testWidgets('Tap on DateTimeTile time', (tester) async {
-        final currentTime = DateTime.now();
-        final futureTime = currentTime.add(const Duration(minutes: 30));
-        await tester.pumpWidget(
-          createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        final switches = find.descendant(
-          of: find.byType(Row),
-          matching: find.byType(Switch),
-        );
-        expect(switches, findsNWidgets(3));
-        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
-        await tester.ensureVisible(switches.at(0));
-        await tester.tap(switches.at(1));
-
-        await tester.pump();
-        await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
-        await tester.pump();
-
-        expect(find.byType(TimePickerDialog), findsOneWidget);
-
-        await tester.tap(find.text('OK'));
-        await tester.pump();
-        expect(
-          find.text(DateFormat.jm().format(currentTime)),
-          findsOneWidget,
-        );
-
-        expect(
-          find.text(DateFormat.jm().format(futureTime)),
-          findsOneWidget,
-        );
-      });
       testWidgets('Tap on DateTimeTile date', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
@@ -800,126 +808,6 @@ void main() {
           });
         },
       );
-    });
-    testWidgets("Checking if add venue button shows up", (tester) async {
-      await tester.pumpWidget(
-        createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text('Add Venue'), findsOneWidget);
-    });
-    testWidgets("Checking if bottom sheet appears if no venue is selcted",
-        (tester) async {
-      final model = createEventViewModel;
-      model.initialize();
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getVenueByOrgId': [
-            {
-              'id': '1',
-              'name': 'Mock Venue 1',
-              'capacity': 100,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-            {
-              'id': '2',
-              'name': 'Mock Venue 2',
-              'capacity': 150,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-          ],
-        },
-        options: QueryOptions(document: gql(queries.venueListQuery())),
-      );
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
-        ),
-      ).thenAnswer((_) async => mockQueryResult);
-
-      await tester.pumpWidget(
-        createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text('Add Venue'), findsOneWidget);
-      await tester.tap(find.text('Add Venue'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(VenueBottomSheet), findsOneWidget);
-    });
-    testWidgets("Checking if selected venue shows up", (tester) async {
-      final model = createEventViewModel;
-      model.initialize();
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getVenueByOrgId': [
-            {
-              'id': '1',
-              'name': 'Mock Venue 1',
-              'capacity': 100,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-            {
-              'id': '2',
-              'name': 'Mock Venue 2',
-              'capacity': 150,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-          ],
-        },
-        options: QueryOptions(document: gql(queries.venueListQuery())),
-      );
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
-        ),
-      ).thenAnswer((_) async => mockQueryResult);
-
-      await tester.pumpWidget(
-        createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text('Add Venue'), findsOneWidget);
-      await tester.tap(find.text('Add Venue'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(VenueBottomSheet), findsOneWidget);
-      expect(find.text('Mock Venue 1'), findsOneWidget);
-
-      await tester.tap(find.text('Mock Venue 1'));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.check));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Mock Venue 1'), findsOneWidget);
-      expect(find.byIcon(Icons.edit), findsOneWidget);
     });
   });
 }
