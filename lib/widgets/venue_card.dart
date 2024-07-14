@@ -43,6 +43,7 @@ class VenueCard extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 2.5,
                   child: Container(
+                    key: const Key('image_container'),
                     height: SizeConfig.screenHeight! * 0.11,
                     width: double.infinity,
                     decoration: BoxDecoration(

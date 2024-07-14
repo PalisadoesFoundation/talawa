@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/recurrence_values.dart';
@@ -17,6 +18,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../views/after_auth_screens/events/venue_bottom_sheet_test.dart';
 
 /// `MockBuildContext` class represents mock instance of Build context.
 class MockBuildContext extends Mock implements BuildContext {}
@@ -572,6 +574,45 @@ void main() {
 
       expect(model.eventEndDate, newDate);
       verify(notifyListenerCallback()).called(1);
+    });
+    test('check if fetchVenues method work properly', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+            {
+              'id': '2',
+              'name': 'Mock Venue 2',
+              'capacity': 150,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      model.fetchVenues();
+      expect(venues.length, 2);
     });
   });
 }

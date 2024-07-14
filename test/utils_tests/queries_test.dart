@@ -221,5 +221,17 @@ void main() {
       }
       expect(mutation, true);
     });
+    test("Check if venueListQuery works correctly", () {
+      var mutation = false;
+      expect(mutation, false);
+
+      final fnData = Queries().venueListQuery();
+
+      if (fnData.contains('GetVenueByOrgId') &&
+          fnData.contains('GetVenueByOrgId')) {
+        mutation = true;
+      }
+      expect(mutation, true);
+    });
   });
 }

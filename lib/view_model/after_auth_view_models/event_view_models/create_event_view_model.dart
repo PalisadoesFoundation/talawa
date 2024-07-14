@@ -11,7 +11,6 @@ import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -369,11 +368,11 @@ class CreateEventViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<List<Venue>>`: Returns the list of venues in an organisation.
   Future<List<Venue>> fetchVenues() async {
-    final String query = venueListQuery();
+    final String query = queries.venueListQuery();
     final QueryResult result = await databaseFunctions.gqlAuthQuery(
       query,
       variables: {
-        "orgId": userConfig.currentOrg.id,
+        "orgId": _currentOrg.id,
       },
     ) as QueryResult<Object?>;
 

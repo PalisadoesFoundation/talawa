@@ -29,8 +29,7 @@ class CreateEventPage extends StatefulWidget {
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
-  /// a_line_ending_with_end_punctuation.
-
+  /// venue selected by the user.
   Venue? selectedVenue;
 
   @override
@@ -143,6 +142,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     GestureDetector(
                       onTap: () async {
                         final List<Venue> venues = await model.fetchVenues();
+                        if (!context.mounted) return;
                         final Venue? selected =
                             await showModalBottomSheet<Venue>(
                           context: context,

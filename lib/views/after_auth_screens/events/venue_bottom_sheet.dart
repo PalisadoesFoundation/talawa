@@ -129,7 +129,9 @@ class _VenueBottomSheetState extends State<VenueBottomSheet> {
               ],
             ),
             const SizedBox(height: 16.0),
-            if (filteredVenues.isEmpty)
+            if (widget.venues.isEmpty)
+              const Center(child: Text('No Venues added yet'))
+            else if (filteredVenues.isEmpty)
               const Center(child: Text('No venues available'))
             else
               Expanded(
