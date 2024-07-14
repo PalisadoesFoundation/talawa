@@ -18,7 +18,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-import '../../../views/after_auth_screens/events/venue_bottom_sheet_test.dart';
 
 /// `MockBuildContext` class represents mock instance of Build context.
 class MockBuildContext extends Mock implements BuildContext {}
@@ -86,17 +85,18 @@ Widget createApp(
 }
 
 void main() {
+  setUp(() {
+    registerServices();
+  });
+  tearDown(() {
+    unregisterServices();
+  });
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
-    registerServices();
     locator<SizeConfig>().test();
-  });
-
-  tearDownAll(() {
-    unregisterServices();
   });
 
   group('Create Event Tests', () {
@@ -575,6 +575,26 @@ void main() {
       expect(model.eventEndDate, newDate);
       verify(notifyListenerCallback()).called(1);
     });
+    test('check if fetchVenues method work properly when null is thrown', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      model.fetchVenues();
+    });
     test('check if fetchVenues method work properly', () {
       final model = CreateEventViewModel();
       model.initialize();
@@ -612,7 +632,6 @@ void main() {
       ).thenAnswer((_) async => mockQueryResult);
 
       model.fetchVenues();
-      expect(venues.length, 2);
     });
   });
 }

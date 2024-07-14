@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
@@ -111,7 +112,7 @@ void main() {
               'id': '1',
               'name': 'Mock Venue 1',
               'capacity': 100,
-              'imageUrl': '',
+              'imageUrl': 'xyz',
               'description': 'aaa',
             },
             {
@@ -135,19 +136,21 @@ void main() {
         ),
       ).thenAnswer((_) async => mockQueryResult);
 
-      await tester.pumpWidget(
-        createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.text('Add Venue'), findsOneWidget);
-      await tester.tap(find.text('Add Venue'));
-      await tester.pumpAndSettle();
+        expect(find.text('Add Venue'), findsOneWidget);
+        await tester.tap(find.text('Add Venue'));
+        await tester.pumpAndSettle();
 
-      expect(find.byType(VenueBottomSheet), findsOneWidget);
+        expect(find.byType(VenueBottomSheet), findsOneWidget);
+      });
     });
     testWidgets("Checking if selected venue shows up", (tester) async {
       final model = createEventViewModel;
@@ -184,29 +187,31 @@ void main() {
         ),
       ).thenAnswer((_) async => mockQueryResult);
 
-      await tester.pumpWidget(
-        createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.text('Add Venue'), findsOneWidget);
-      await tester.tap(find.text('Add Venue'));
-      await tester.pumpAndSettle();
+        expect(find.text('Add Venue'), findsOneWidget);
+        await tester.tap(find.text('Add Venue'));
+        await tester.pumpAndSettle();
 
-      expect(find.byType(VenueBottomSheet), findsOneWidget);
-      expect(find.text('Mock Venue 1'), findsOneWidget);
+        expect(find.byType(VenueBottomSheet), findsOneWidget);
+        expect(find.text('Mock Venue 1'), findsOneWidget);
 
-      await tester.tap(find.text('Mock Venue 1'));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text('Mock Venue 1'));
+        await tester.pumpAndSettle();
 
-      await tester.tap(find.byIcon(Icons.check));
-      await tester.pumpAndSettle();
+        await tester.tap(find.byIcon(Icons.check));
+        await tester.pumpAndSettle();
 
-      expect(find.text('Mock Venue 1'), findsOneWidget);
-      expect(find.byIcon(Icons.edit), findsOneWidget);
+        expect(find.text('Mock Venue 1'), findsOneWidget);
+        expect(find.byIcon(Icons.edit), findsOneWidget);
+      });
     });
     testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
       await tester.pumpWidget(
