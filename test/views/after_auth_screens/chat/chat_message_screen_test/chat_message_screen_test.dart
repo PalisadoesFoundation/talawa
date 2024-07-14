@@ -45,9 +45,12 @@ Future<void> showChatMessageScreen(WidgetTester tester) async {
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-  registerServices();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+    registerServices();
+  });
 
   testWidgets('Check if Chat Message Screen page shows up', (tester) async {
     await showChatMessageScreen(tester);

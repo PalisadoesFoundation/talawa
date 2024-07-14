@@ -19,15 +19,16 @@ import '../helpers/test_locator.dart';
 /// **returns**:
 ///   None
 void main() async {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
   late FetchPluginList fetchPluginList;
 
   final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
   Hive.init(dir.path);
   await Hive.openBox('pluginBox');
 
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
     registerServices();
     locator.allowReassignment = true;
 

@@ -39,9 +39,9 @@ Widget createHomeScreen({required bool demoMode}) {
 }
 
 void main() async {
-  testSetupLocator();
-
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
     registerServices();
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();

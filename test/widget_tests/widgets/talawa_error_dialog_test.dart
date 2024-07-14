@@ -166,8 +166,11 @@ Widget createTalawaErrorWidget4({
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
   group('Test for TalawaErrorWidget', () {
     testWidgets('Check if the Error Widget shows up(error)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget1());

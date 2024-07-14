@@ -29,17 +29,17 @@ class MockBuildContext extends Mock implements BuildContext {}
 /// **returns**:
 ///   None
 void main() {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-  locator<NavigationService>();
-
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
+    locator<NavigationService>();
     registerServices();
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
   group('CustomDrawerViewModel Tests', () {

@@ -178,10 +178,9 @@ Widget createCommentTemplateWidget(Comment comment) {
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-
-  setUp(() {
+  setUpAll(() {
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
   });
 

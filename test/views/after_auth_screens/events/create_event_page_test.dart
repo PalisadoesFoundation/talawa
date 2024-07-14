@@ -80,18 +80,14 @@ Widget createEventScreen({
     );
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-  // locator.unregister<OrganizationService>();
-  locator.unregister<MultiMediaPickerService>();
-  // locator.registerSingleton(OrganizationService());
-  // locator.registerSingleton(LikeButtonViewModel());
-
-  setUp(() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
     registerServices();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
   group('testing -> CreateEventPage', () {

@@ -43,8 +43,11 @@ Future<void> showLoginScreen(WidgetTester tester) async {
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
   group('Test for Login screen', () {
     testWidgets('Check if Login screen shows up', (tester) async {
       await tester.pumpWidget(createApp());
