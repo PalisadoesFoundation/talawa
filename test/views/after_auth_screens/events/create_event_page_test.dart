@@ -163,7 +163,7 @@ void main() {
               'id': '1',
               'name': 'Mock Venue 1',
               'capacity': 100,
-              'imageUrl': '',
+              'imageUrl': '/image/test',
               'description': 'aaa',
             },
             {
@@ -211,6 +211,12 @@ void main() {
 
         expect(find.text('Mock Venue 1'), findsOneWidget);
         expect(find.byIcon(Icons.edit), findsOneWidget);
+
+        expect(find.byIcon(Icons.cancel), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.cancel));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Mock Venue 1'), findsNothing);
       });
     });
     testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
