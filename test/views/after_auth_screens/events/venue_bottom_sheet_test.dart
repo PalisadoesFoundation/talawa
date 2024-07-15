@@ -72,6 +72,10 @@ void main() {
         expect(find.byType(VenueCard), findsNWidgets(venues.length));
         expect(find.text('Main Hall'), findsOneWidget);
         expect(find.text('Conference Room'), findsOneWidget);
+
+        expect(find.byKey(const Key('gestureDetector1')), findsOneWidget);
+        await tester.tap(find.byKey(const Key('gestureDetector1')));
+        await tester.pumpAndSettle();
       });
     });
 

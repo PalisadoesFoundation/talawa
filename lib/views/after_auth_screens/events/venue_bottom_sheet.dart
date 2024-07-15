@@ -83,6 +83,7 @@ class _VenueBottomSheetState extends State<VenueBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: const Key('gestureDetector1'),
       onTap: () {
         FocusScope.of(context).unfocus();
       },
