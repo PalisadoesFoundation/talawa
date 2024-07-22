@@ -190,10 +190,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                       ),
                                     )
                                   else
-                                    const Image(
-                                      image: AssetImage(
-                                        'assets/images/defaultImg.png',
-                                      ),
+                                    Image.asset(
+                                      'assets/images/defaultImg.png',
                                       width: 50,
                                       height: 50,
                                       fit: BoxFit.cover,
