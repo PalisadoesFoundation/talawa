@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -123,38 +124,43 @@ class SignupDetailsViewModel extends BaseModel {
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
-      databaseFunctions.init();
-      try {
-        final result = await databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser(
-            firstName.text,
-            lastName.text,
-            email.text,
-            Encryptor.encryptString(
-              password.text,
+      actionHandlerService.performAction(
+        actionType: ActionType.critical,
+        criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToSignUp,
+        action: () async {
+          navigationService.pushDialog(
+              const CustomProgressDialog(key: Key('SignUpProgress')));
+          databaseFunctions.init();
+          print(firstName.text);
+          final result = await databaseFunctions.gqlNonAuthMutation(
+            queries.registerUser(
+              firstName.text,
+              lastName.text,
+              email.text,
+              Encryptor.encryptString(
+                password.text,
+              ),
+              selectedOrganization.id,
             ),
-            selectedOrganization.id,
-          ),
-        );
-        navigationService.pop();
-        if (result != null) {
-          final User signedInUser = User.fromJson(
-            (result as QueryResult).data!['signUp'] as Map<String, dynamic>,
           );
-          final bool userSaved = await userConfig.updateUser(signedInUser);
-          final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-          // if user successfully saved and access token is also generated.
-          if (userSaved && tokenRefreshed) {
-            // if the selected organization userRegistration not required.
-            if (!selectedOrganization.userRegistrationRequired!) {
-              try {
+          navigationService.pop();
+          return result;
+        },
+        onValidResult: (result) async {
+          if (result.data != null) {
+            final User signedInUser = User.fromJson(
+              result.data!['signUp'] as Map<String, dynamic>,
+            );
+            final bool userSaved = await userConfig.updateUser(signedInUser);
+            final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+            // if user successfully saved and access token is also generated.
+            if (userSaved && tokenRefreshed) {
+              // if the selected organization userRegistration not required.
+              if (!selectedOrganization.userRegistrationRequired!) {
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(
                   queries.joinOrgById(selectedOrganization.id!),
-                ) as QueryResult;
-
+                );
                 final joinPublicOrganization = result
                     .data!['joinPublicOrganization'] as Map<String, dynamic>;
                 final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
@@ -171,48 +177,34 @@ class SignupDetailsViewModel extends BaseModel {
                   arguments:
                       MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
                 );
-              } on Exception catch (e) {
-                print(e);
-                navigationService.showTalawaErrorSnackBar(
-                  'Something went wrong',
-                  MessageType.error,
-                );
               }
             } else {
-              try {
-                final QueryResult result =
-                    await databaseFunctions.gqlAuthMutation(
-                  queries.sendMembershipRequest(selectedOrganization.id!),
-                ) as QueryResult;
-
-                final sendMembershipRequest = result
-                    .data!['sendMembershipRequest'] as Map<String, dynamic>;
-                final OrgInfo membershipRequest = OrgInfo.fromJson(
-                  sendMembershipRequest['organization'] as Map<String, dynamic>,
-                );
-                userConfig.updateUserMemberRequestOrg([membershipRequest]);
-                navigationService.pop();
-                navigationService.removeAllAndPush(
-                  Routes.waitingScreen,
-                  Routes.splashScreen,
-                );
-              } on Exception catch (e) {
-                print(e);
-                navigationService.showTalawaErrorSnackBar(
-                  'Something went wrong',
-                  MessageType.error,
-                );
-              }
+              final QueryResult result =
+                  await databaseFunctions.gqlAuthMutation(
+                queries.sendMembershipRequest(selectedOrganization.id!),
+              );
+              final sendMembershipRequest =
+                  result.data!['sendMembershipRequest'] as Map<String, dynamic>;
+              final OrgInfo membershipRequest = OrgInfo.fromJson(
+                sendMembershipRequest['organization'] as Map<String, dynamic>,
+              );
+              userConfig.updateUserMemberRequestOrg([membershipRequest]);
+              navigationService.pop();
+              navigationService.removeAllAndPush(
+                Routes.waitingScreen,
+                Routes.splashScreen,
+              );
             }
           }
-        }
-      } on Exception catch (e) {
-        print(e);
-        navigationService.showTalawaErrorSnackBar(
-          'Something went wrong',
-          MessageType.error,
-        );
-      }
+        },
+        onActionException: (e) async {
+          print(e);
+          navigationService.showTalawaErrorSnackBar(
+            'Something went wrong',
+            MessageType.error,
+          );
+        },
+      );
     }
   }
 }

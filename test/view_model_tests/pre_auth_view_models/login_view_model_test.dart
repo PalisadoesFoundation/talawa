@@ -8,16 +8,18 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/locator.dart';
+// import 'package:talawa/locator.dart';
 // import 'package:talawa/constants/routing_constants.dart';
 // import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
 // import 'package:talawa/utils/queries.dart';
 // import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
@@ -43,20 +45,14 @@ Future<void> main() async {
   // await Firebase.initializeApp();
   // FirebaseMessagingPlatform.instance = kMockMessagingPlatform;
 
-  setUp(() async {
-    locator.registerSingleton(Queries());
-    registerServices();
-    await locator.unregister<UserConfig>();
-  });
-  tearDown(() async {
-    await locator.unregister<Queries>();
-  });
+  testSetupLocator();
+  registerServices();
 
   group('LoginViewModel Test -', () {
     testWidgets(
         'Check if login() is working fine when organisation is not empty',
         (tester) async {
-      locator.registerSingleton<UserConfig>(MockUserConfig());
+      getAndRegisterUserConfig();
 
       final model = LoginViewModel();
 
@@ -83,7 +79,7 @@ Future<void> main() async {
     testWidgets('Check if login() is working fine when organisation empty',
         (tester) async {
       empty = true;
-      locator.registerSingleton<UserConfig>(MockUserConfig());
+      getAndRegisterUserConfig();
 
       final model = LoginViewModel();
 
@@ -120,7 +116,15 @@ Future<void> main() async {
       );
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenAnswer((_) async => null);
+          .thenAnswer((_) async => QueryResult(
+                options: QueryOptions(
+                  document: gql(
+                    PostQueries().addLike(),
+                  ),
+                ),
+                data: null,
+                source: QueryResultSource.network,
+              ));
 
       await model.login();
       expect(model.validate, AutovalidateMode.disabled);

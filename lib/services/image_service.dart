@@ -67,14 +67,16 @@ class ImageService {
   /// * `file`: Image as a File object.
   ///
   /// **returns**:
-  /// * `Future<String?>`: image in string format
-  Future<String?> convertToBase64(File file) async {
+  /// * `Future<String>`: image in string format
+  Future<String> convertToBase64(File file) async {
     try {
+
       final List<int> bytes = await file.readAsBytes();
       final String base64String = base64Encode(bytes);
+      print(base64String);
       return base64String;
     } catch (error) {
-      return null;
+      return '';
     }
   }
 }

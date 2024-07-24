@@ -63,12 +63,12 @@ class CommentService {
   Future<List<dynamic>> getCommentsForPost(String postId) async {
     final String getCommmentQuery = CommentQueries().getPostsComments(postId);
 
-    final dynamic result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
+    final QueryResult<Object?> result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 
-    if (result == null) {
+    if (result.data == null) {
       return [];
     }
-    final resultData = (result as QueryResult<Object?>).data;
+    final resultData = result.data;
 
     final resultDataPostComments = (resultData?['post']
         as Map<String, dynamic>)['comments'] as List<dynamic>;

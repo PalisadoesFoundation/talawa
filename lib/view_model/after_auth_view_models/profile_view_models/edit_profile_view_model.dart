@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// EditProfilePageViewModel class helps to interact with model to serve data to edit profile views.
@@ -37,6 +38,8 @@ class EditProfilePageViewModel extends BaseModel {
 
   /// Graphql client.
   final databaseService = databaseFunctions;
+
+  final userProfileService = locator<UserProfileService>();
 
   /// initialization function.
   ///
@@ -83,6 +86,7 @@ class EditProfilePageViewModel extends BaseModel {
       base64Image = base64Encode(bytes);
       return base64Image!;
     } catch (error) {
+      print(error);
       return '';
     }
   }
@@ -106,29 +110,32 @@ class EditProfilePageViewModel extends BaseModel {
         lastName == user.lastName) {
       return;
     }
-    try {
-      final Map<String, dynamic> variables = {};
-      if (firstName != null) {
-        variables["firstName"] = firstName;
-      }
-      if (lastName != null) {
-        variables["lastName"] = lastName;
-      }
-      if (newImage != null) {
-        final String imageAsString = await convertToBase64(newImage);
-        variables["file"] = 'data:image/png;base64,$imageAsString';
-      }
-      if (variables.isNotEmpty) {
-        await databaseService.gqlAuthMutation(
-          queries.updateUserProfile(),
-          variables: variables,
-        );
-        // Fetch updated user info from the database and save it in hivebox.
-        final QueryResult result = await databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
-          variables: {'id': user.id},
-        ) as QueryResult;
+    actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.userProfileUpdateFailed,
+      action: () async {
+        final Map<String, dynamic> variables = {};
+        if (firstName != null) {
+          variables["firstName"] = firstName;
+        }
+        if (lastName != null) {
+          variables["lastName"] = lastName;
+        }
+        if (newImage != null) {
+          final String imageAsString = await convertToBase64(newImage);
+          variables["file"] = 'data:image/png;base64,$imageAsString';
+        }
+        if (variables.isNotEmpty) {
+          await userProfileService.updateUserProfile(variables);
+          // Fetch updated user info from the database and save it in hivebox.
 
+          final result = await userProfileService.getUserProfileInfo(user);
+
+          return result;
+        }
+        return databaseFunctions.noData;
+      },
+      onValidResult: (result) async {
         final List users = result.data!['users'] as List;
 
         final User userInfo = User.fromJson(
@@ -139,25 +146,26 @@ class EditProfilePageViewModel extends BaseModel {
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
 
         await userConfig.updateUser(userInfo);
-        notifyListeners();
-
         user.firstName = firstName ?? user.firstName;
         user.lastName = lastName ?? user.lastName;
         firstNameTextController.text = user.firstName!;
         lastNameTextController.text = user.lastName!;
-
+      },
+      apiCallSuccessUpdateUI: () {
+        notifyListeners();
         navigationService.showTalawaErrorSnackBar(
           "Profile updated successfully",
           MessageType.info,
         );
         notifyListeners();
-      }
-    } on Exception catch (_) {
-      navigationService.showTalawaErrorSnackBar(
-        "Something went wrong",
-        MessageType.error,
-      );
-    }
+      },
+      onActionException: (_) async {
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        );
+      },
+    );
   }
 
   /// This function remove the selected image.

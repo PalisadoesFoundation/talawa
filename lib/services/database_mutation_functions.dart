@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/exceptions/critical_action_exception.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.
 ///
@@ -35,10 +37,8 @@ class DataBaseMutationFunctions {
   /// **returns**:
   ///   None
   void init() {
-    graphqlConfig.getOrgUrl();
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
-    print('ajkjkdjkjkdjieiejie');
     _query = Queries();
   }
 
@@ -56,38 +56,47 @@ class DataBaseMutationFunctions {
   }
 
   /// Graphql error for handling.
-  GraphQLError userNotFound = const GraphQLError(message: 'User not found');
+  GraphQLError userNotFound =
+      const GraphQLError(message: TalawaErrors.userNotFound);
 
   /// Graphql error for handling.
   GraphQLError userNotAuthenticated =
-      const GraphQLError(message: 'User is not authenticated');
+      const GraphQLError(message: TalawaErrors.userNotAuthenticated);
 
   /// Graphql error for handling.
   GraphQLError emailAccountPresent =
-      const GraphQLError(message: 'Email address already exists');
+      const GraphQLError(message: TalawaErrors.emailAccountPresent);
 
   /// Graphql error for handling.
   GraphQLError wrongCredentials =
-      const GraphQLError(message: 'Invalid credentials');
+      const GraphQLError(message: TalawaErrors.wrongCredentials);
 
   /// Graphql error for handling.
   GraphQLError organizationNotFound =
-      const GraphQLError(message: 'Organization not found');
+      const GraphQLError(message: TalawaErrors.organizationNotFound);
 
   /// Graphql error for handling.
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
-    message:
-        'Access Token has expired. Please refresh session.: Undefined location',
+    message: TalawaErrors.refreshAccessTokenExpiredException,
   );
 
   /// Graphql error for handling.
   GraphQLError memberRequestExist =
-      const GraphQLError(message: 'Membership Request already exists');
+      const GraphQLError(message: TalawaErrors.memberRequestExist);
 
   /// Graphql error for handling.
   GraphQLError notifFeatureNotInstalled = const GraphQLError(
-    message:
-        'Failed to determine project ID: Error while making request: getaddrinfo ENOTFOUND metadata.google.internal. Error code: ENOTFOUND',
+    message: TalawaErrors.failedToDetermineProject,
+  );
+
+  QueryResult noData = QueryResult(
+    options: QueryOptions(
+      document: gql(
+        PostQueries().addLike(),
+      ),
+    ),
+    data: null,
+    source: QueryResultSource.network,
   );
 
   /// This function is used to check if any exceptions or error encountered. The return type is [boolean].
@@ -102,13 +111,25 @@ class DataBaseMutationFunctions {
     OperationException exception, {
     bool showSnackBar = true,
   }) {
+    print('came');
     // If server link is wrong.
     if (exception.linkException != null) {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
-          (_) => AppConnectivity.showSnackbar(isOnline: false),
+          (_) => navigationService.showTalawaErrorSnackBar(
+            "Server not running/wrong url",
+            MessageType.info,
+          ),
         );
+      }
+      return false;
+    }
+
+    if (exception is CriticalActionException) {
+      debugPrint(exception.toString());
+      if (showSnackBar) {
+        navigationService.showCustomToast(exception.actionError);
       }
       return false;
     }
@@ -206,7 +227,6 @@ class DataBaseMutationFunctions {
       }
     }
     // If the error is unknown
-
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => navigationService.showTalawaErrorDialog(
         "Something went wrong!",
@@ -223,8 +243,8 @@ class DataBaseMutationFunctions {
   /// * `variables`: variables to be passed with query
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: it returns Future of dynamic
-  Future<dynamic> gqlAuthQuery(
+  /// * `Future<QueryResult<Object?>>`: it returns Future of dynamic
+  Future<QueryResult<Object?>> gqlAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
   }) async {
@@ -232,17 +252,25 @@ class DataBaseMutationFunctions {
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
     );
-    final QueryResult result = await clientAuth.query(options);
-    // if there is an error or exception in [result]
-    if (result.hasException) {
-      final exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        gqlAuthQuery(query, variables: variables);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return result;
-    }
-    return null;
+    final response = await cacheService.executeOrCacheOperation(
+      operation: query,
+      variables: variables,
+      operationType: CachedOperationType.gqlAuthQuery,
+      whenOnline: () async {
+        final QueryResult result = await clientAuth.query(options);
+        // if there is an error or exception in [result]
+        if (result.hasException) {
+          final exception = encounteredExceptionOrError(result.exception!);
+          if (exception!) {
+            return await gqlAuthQuery(query, variables: variables);
+          }
+        } else if (result.data != null && result.isConcrete) {
+          return result;
+        }
+        return noData;
+      },
+    );
+    return response;
   }
 
   /// This function is used to run the graph-ql mutation for authenticated user.
@@ -252,27 +280,31 @@ class DataBaseMutationFunctions {
   /// * `variables`: variables to be passed with mutation
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: it returns Future of dynamic
-  Future<dynamic> gqlAuthMutation(
+  /// * `Future<QueryResult<Object?>>`: it returns Future of dynamic
+  Future<QueryResult<Object?>> gqlAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
   }) async {
-    final QueryResult result = await clientAuth.mutate(
-      MutationOptions(
-        document: gql(mutation),
-        variables: variables ?? <String, dynamic>{},
-      ),
+    final MutationOptions options = MutationOptions(
+      document: gql(mutation),
+      variables: variables ?? <String, dynamic>{},
     );
-    // If there is an error or exception in [result]
-    if (result.hasException) {
-      final exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        gqlAuthMutation(mutation, variables: variables);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return result;
-    }
-    return null;
+    final response = await cacheService.executeOrCacheOperation(
+      operation: mutation,
+      variables: variables,
+      operationType: CachedOperationType.gqlAuthMutation,
+      whenOnline: () async {
+        final QueryResult result = await clientAuth.mutate(options);
+        // If there is an error or exception in [result]
+        if (result.hasException) {
+          encounteredExceptionOrError(result.exception!);
+        } else if (result.data != null && result.isConcrete) {
+          return result;
+        }
+        return noData;
+      },
+    );
+    return response;
   }
 
   /// This function is used to run the graph-ql mutation to authenticate the non signed-in user.
@@ -284,28 +316,32 @@ class DataBaseMutationFunctions {
   /// * `reCall`: when not first fetch call
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: it returns Future of dynamic
-  Future<dynamic> gqlNonAuthMutation(
+  /// * `Future<QueryResult<Object?>>`: it returns Future of dynamic
+  Future<QueryResult<Object?>> gqlNonAuthMutation(
     String mutation, {
     Map<String, dynamic>? variables,
     bool reCall = true,
   }) async {
-    final QueryResult result = await clientNonAuth.mutate(
-      MutationOptions(
-        document: gql(mutation),
-        variables: variables ?? <String, dynamic>{},
-      ),
+    final MutationOptions options = MutationOptions(
+      document: gql(mutation),
+      variables: variables ?? <String, dynamic>{},
     );
-    // if there is an error or exception in [result]
-    if (result.hasException) {
-      final exception = encounteredExceptionOrError(result.exception!);
-      if (exception! && reCall) {
-        gqlNonAuthMutation(mutation, variables: variables);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return result;
-    }
-    return null;
+    final response = await cacheService.executeOrCacheOperation(
+      operation: mutation,
+      variables: variables,
+      operationType: CachedOperationType.gqlNonAuthMutation,
+      whenOnline: () async {
+        final QueryResult result = await clientNonAuth.mutate(options);
+        // if there is an error or exception in [result]
+        if (result.hasException) {
+          encounteredExceptionOrError(result.exception!);
+        } else if (result.data != null && result.isConcrete) {
+          return result;
+        }
+        return noData;
+      },
+    );
+    return response;
   }
 
   /// This function is used to run the graph-ql query for the non signed-in user.
@@ -315,8 +351,8 @@ class DataBaseMutationFunctions {
   /// * `variables`: variables to be passed with query
   ///
   /// **returns**:
-  /// * `Future<QueryResult<Object?>?>`: it returns Future of QueryResult, contains all data
-  Future<QueryResult<Object?>?> gqlNonAuthQuery(
+  /// * `Future<QueryResult<Object?>>`: it returns Future of QueryResult, contains all data
+  Future<QueryResult<Object?>> gqlNonAuthQuery(
     String query, {
     Map<String, dynamic>? variables,
   }) async {
@@ -324,18 +360,22 @@ class DataBaseMutationFunctions {
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
     );
-    final result = await clientNonAuth.query(queryOptions);
-    QueryResult? finalRes;
-    // if there is an error or exception in [result]
-    if (result.hasException) {
-      final exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        finalRes = await gqlNonAuthQuery(query, variables: variables);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return result;
-    }
-    return finalRes;
+    final response = await cacheService.executeOrCacheOperation(
+      operation: query,
+      variables: variables,
+      operationType: CachedOperationType.gqlAuthQuery,
+      whenOnline: () async {
+        final result = await clientNonAuth.query(queryOptions);
+        // if there is an error or exception in [result]
+        if (result.hasException) {
+          encounteredExceptionOrError(result.exception!);
+        } else if (result.data != null && result.isConcrete) {
+          return result;
+        }
+        return noData;
+      },
+    );
+    return response;
   }
 
   /// This function is used to refresh the Authenication token to access the application.
@@ -385,6 +425,7 @@ class DataBaseMutationFunctions {
   /// **returns**:
   /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> fetchOrgById(String id) async {
+    print(id);
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
     // if there is an error or exception in [result]

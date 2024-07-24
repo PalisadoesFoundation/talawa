@@ -30,6 +30,7 @@ void main() {
     registerServices();
     graphqlConfig.test();
     sizeConfig.test();
+    getAndRegisterImageService();
   });
 
   tearDownAll(() {
@@ -50,7 +51,7 @@ void main() {
           '_id': '64378abd85008f171cf2990d',
         },
       };
-      final String a = await model.convertToBase64(File('path/to/newImage'));
+      final String a = await model.convertToBase64(File('path/to/newImage.png'));
       final Map<String, dynamic> data = {
         'users': [
           {
@@ -145,13 +146,14 @@ void main() {
     test('Test UpdateUserProfile when throwing exception', () async {
       final model = EditProfilePageViewModel();
       model.initialize();
-      final String b = await model.convertToBase64(File('path/to/newIma'));
+      final mockedFile = File('path/to/newImage.png');
+      final String b = await model.convertToBase64(mockedFile);
       when(
         databaseFunctions.gqlAuthMutation(
           queries.updateUserProfile(),
           variables: {
-            'firstName': 'NewFirstNa',
-            'lastName': 'NewLastNa',
+            'firstName': 'NewFirstName',
+            'lastName': 'NewLastName',
             'newImage': 'data:image/png;base64,$b',
           },
         ),
@@ -165,7 +167,7 @@ void main() {
       await model.updateUserProfile(
         firstName: 'NewFirstNa',
         lastName: 'NewLastNa',
-        newImage: File('path/to/newIma'),
+        newImage: File('path/to/newImage.png'),
       );
       verify(
         navigationService.showTalawaErrorSnackBar(

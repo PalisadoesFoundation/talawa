@@ -72,7 +72,7 @@ class SelectOrganizationViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `Future<void>`: None
-  Future<void> initialise(String initialData) async {
+  Future<void> initialise(String initialData) async {    
     searchFocus.addListener(searchActive);
     if (!initialData.contains('-1')) {
       databaseFunctions.init();
@@ -100,12 +100,10 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> selectOrg(OrgInfo item) async {
-    print(item.id);
     bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
-    final bool userLoggedIn = await userConfig.userLoggedIn();
     // if user session not expirec
-    if (userLoggedIn) {
+    if (userConfig.loggedIn) {
       // check if user has already joined the selected organization.
       userConfig.currentUser.joinedOrganizations!.forEach((element) {
         if (element.id! == item.id) {
@@ -191,7 +189,7 @@ class SelectOrganizationViewModel extends BaseModel {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
           queries.joinOrgById(selectedOrganization.id!),
-        ) as QueryResult;
+        );
 
         final List<OrgInfo>? joinedOrg =
             ((result.data!['joinPublicOrganization']

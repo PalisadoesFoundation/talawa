@@ -1,14 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
@@ -139,6 +141,7 @@ class OrganizationFeedViewModel extends BaseModel {
     );
 
     _postsSubscription = _postService.postStream.listen((newPosts) {
+      print(newPosts);
       return buildNewPosts(newPosts);
     });
 
@@ -146,6 +149,7 @@ class OrganizationFeedViewModel extends BaseModel {
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
     _dbFunctions = locator<DataBaseMutationFunctions>();
+    _postService.refreshFeed();
     if (isTest) {
       istest = true;
     }
@@ -270,14 +274,26 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> removePost(Post post) async {
-    await _dbFunctions.gqlAuthMutation(
-      PostQueries().removePost(),
-      variables: {
-        "id": post.sId,
+    actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
+      action: () async {
+        final result = await _postService.deletePost(post);
+        print(result);
+        return result;
+      },
+      onValidResult: (result) async {
+        _posts.remove(post);
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
+          'Post was deleted if you had the rights!',
+          MessageType.info,
+        );
+        notifyListeners();
       },
     );
-    _posts.remove(post);
-    notifyListeners();
   }
 
   /// Method to fetch next posts.

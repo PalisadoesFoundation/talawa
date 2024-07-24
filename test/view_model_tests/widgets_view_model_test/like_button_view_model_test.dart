@@ -61,6 +61,7 @@ void main() {
       );
       when(postService.addLike(post.sId)).thenAnswer((realInvocation) async {
         model.likedBy.add(likedBy);
+        return true;
       });
       model.toggleIsLiked();
       expect(model.likesCount, 3);
@@ -68,6 +69,7 @@ void main() {
       when(postService.removeLike(post.sId)).thenAnswer((realInvocation) async {
         model.likedBy
             .removeWhere((element) => element.sId == userConfig.currentUser.id);
+        return true;
       });
       model.toggleIsLiked();
       // expect(model.likesCount, 2);

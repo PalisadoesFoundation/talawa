@@ -76,9 +76,17 @@ class CommentsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createComment(String msg) async {
-    print("comment viewModel called");
-    await _commentService.createComments(_postID, msg);
-    addCommentLocally(msg);
+    actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        await _commentService.createComments(_postID, msg);
+        return null;
+      },
+      onValidResult: (result) async {},
+      updateUI: () {
+        addCommentLocally(msg);
+      },
+    );
   }
 
   /// This function add comment locally.

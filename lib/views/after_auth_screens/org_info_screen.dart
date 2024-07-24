@@ -16,13 +16,11 @@ class OrganisationInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(
-      context,
-    );
     final double imageHeight = SizeConfig.screenHeight! * 0.38;
     final SelectOrganizationViewModel model = SelectOrganizationViewModel();
     final Map<String, OrgInfo> joinedOrgsMap = {};
-    for (final org in userConfig.currentUser.joinedOrganizations!) {
+    for (final org
+        in userConfig.currentUser.joinedOrganizations ?? <OrgInfo>[]) {
       joinedOrgsMap[org.id!] = org;
     }
 

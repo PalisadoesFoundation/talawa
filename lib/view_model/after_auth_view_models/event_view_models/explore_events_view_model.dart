@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// ExploreEventsViewModel class helps to interact with model to serve data to view for event explore section.
 ///
@@ -133,25 +137,36 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> deleteEvent({required String eventId}) async {
-    // push the custom alert dialog to ask for confirmation.
     navigationService.pushDialog(
       CustomAlertDialog(
         reverse: true,
         dialogSubTitle: 'Are you sure you want to delete this event?',
         successText: 'Delete',
-        success: () {
+        success: () async {
           navigationService.pop();
-          _eventService.deleteEvent(eventId).then(
-            (result) async {
-              if (result != null) {
-                navigationService.pop();
-                setState(ViewState.busy);
-                _uniqueEventIds.remove(eventId);
-                _events.removeWhere((element) => element.id == eventId);
-                _userEvents.removeWhere((element) => element.id == eventId);
-                await Future.delayed(const Duration(milliseconds: 500));
-                setState(ViewState.idle);
-              }
+          navigationService.pushDialog(
+            const CustomProgressDialog(key: Key('DeleteEventProgress')),
+          );
+          actionHandlerService.performAction(
+            actionType: ActionType.critical,
+            criticalActionFailureMessage: TalawaErrors.eventDeletionFailed,
+            action: () async {
+              // push the custom alert dialog to ask for confirmation.
+              Future<QueryResult<Object?>>? result;
+              result = _eventService.deleteEvent(eventId);
+              return result;
+            },
+            onValidResult: (result) async {
+              setState(ViewState.busy);
+              _uniqueEventIds.remove(eventId);
+              _events.removeWhere((element) => element.id == eventId);
+              _userEvents.removeWhere((element) => element.id == eventId);
+              await Future.delayed(const Duration(milliseconds: 500));
+              navigationService.pop();
+              setState(ViewState.idle);
+            },
+            updateUI: () async {
+              navigationService.pop();
             },
           );
         },

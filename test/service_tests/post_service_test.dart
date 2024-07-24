@@ -13,6 +13,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 
 import '../helpers/test_helpers.dart';
+import '../helpers/test_helpers.mocks.dart';
 
 /// Tests post_service.dart.
 ///
@@ -182,6 +183,23 @@ void main() {
 
   group('Test PostService', () {
     test('Test refreshFeed method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      //Mocking GetPosts
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+
       final service = PostService();
       // Populating refreshing feed
       await service.refreshFeed();
@@ -265,6 +283,21 @@ void main() {
         ),
       );
 
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().addLike(),
+          variables: {"postID": postID},
+        ),
+      ).thenAnswer((realInvocation) async => QueryResult(
+            options: QueryOptions(
+              document: gql(
+                PostQueries().addLike(),
+              ),
+            ),
+            data: null,
+            source: QueryResultSource.network,
+          ));
+
       final service = PostService();
       //Populating posts Stream
       await service.getPosts();
@@ -296,6 +329,36 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
+
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().addLike(),
+          variables: {"postID": postID},
+        ),
+      ).thenAnswer((realInvocation) async => QueryResult(
+            options: QueryOptions(
+              document: gql(
+                PostQueries().addLike(),
+              ),
+            ),
+            data: null,
+            source: QueryResultSource.network,
+          ));
+
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().removeLike(),
+          variables: {"postID": postID},
+        ),
+      ).thenAnswer((realInvocation) async => QueryResult(
+            options: QueryOptions(
+              document: gql(
+                PostQueries().addLike(),
+              ),
+            ),
+            data: null,
+            source: QueryResultSource.network,
+          ));
 
       final service = PostService();
       //Populating posts Stream
@@ -362,6 +425,21 @@ void main() {
         ),
       );
 
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().addLike(),
+          variables: {"postID": postID},
+        ),
+      ).thenAnswer((realInvocation) async => QueryResult(
+            options: QueryOptions(
+              document: gql(
+                PostQueries().addLike(),
+              ),
+            ),
+            data: null,
+            source: QueryResultSource.network,
+          ));
+
       final service = PostService();
       // Populating posts Stream
       await service.getPosts();
@@ -391,12 +469,26 @@ void main() {
         () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final queryNewOrg =
+          PostQueries().getPostsById("newOrgId", null, null, 5, null);
+
+      final query = PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          queryNewOrg,
         ),
       ).thenAnswer(
         (_) async => QueryResult(

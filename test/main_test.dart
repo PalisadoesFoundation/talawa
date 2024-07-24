@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/main.dart';
@@ -30,12 +31,14 @@ void main() async {
       ..registerAdapter(UserAdapter())
       ..registerAdapter(OrgInfoAdapter());
     await Hive.openBox<User>('currentUser');
-    await Hive.openBox('url');
     await Hive.openBox<OrgInfo>('currentOrg');
+    await Hive.openBox('pluginBox');
+    await Hive.openBox('url');
   });
 
   testWidgets('MyApp', (tester) async {
     when(userConfig.userLoggedIn()).thenAnswer((_) => Future.value(false));
+    graphqlConfig.httpLink = HttpLink('test/link');
 
     await tester.pumpWidget(MyApp());
 

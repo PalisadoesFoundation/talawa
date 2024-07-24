@@ -1,4 +1,6 @@
 // ignore_for_file: implementation_imports, depend_on_referenced_packages
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 
 import 'package:_fe_analyzer_shared/src/scanner/token.dart';
 import 'package:analyzer/dart/ast/ast.dart';

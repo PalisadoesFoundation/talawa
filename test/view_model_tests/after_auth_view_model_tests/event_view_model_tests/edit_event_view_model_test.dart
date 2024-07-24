@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_locator.dart';
 
 final testEvent = Event(
   id: '1',
@@ -34,7 +36,8 @@ final testEvent = Event(
 );
 
 void main() {
-  setUp(() {
+  setUpAll(() {
+    locator.registerSingleton(ActionHandlerService());
     registerServices();
   });
   group('EditEventViewModel Test -', () {

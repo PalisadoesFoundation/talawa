@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/recurrence_values.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -183,81 +186,92 @@ class CreateEventViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createEvent() async {
-    titleFocus.unfocus();
-    locationFocus.unfocus();
-    descriptionFocus.unfocus();
-    validate = AutovalidateMode.always;
-    if (formKey.currentState!.validate()) {
-      validate = AutovalidateMode.disabled;
+    actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.eventCreationFailed,
+      action: () async {
+        titleFocus.unfocus();
+        locationFocus.unfocus();
+        descriptionFocus.unfocus();
+        validate = AutovalidateMode.always;
+        if (formKey.currentState!.validate()) {
+          validate = AutovalidateMode.disabled;
 
-      // variables initialisation
-      final DateTime startTime = DateTime(
-        eventStartDate.year,
-        eventStartDate.month,
-        eventStartDate.day,
-        eventStartTime.hour,
-        eventStartTime.minute,
-      );
-      final DateTime endTime = DateTime(
-        eventEndDate.year,
-        eventEndDate.month,
-        eventEndDate.day,
-        eventEndTime.hour,
-        eventEndTime.minute,
-      );
-      // all required data for creating an event
-      final Map<String, dynamic> variables = {
-        "data": {
-          'title': eventTitleTextController.text,
-          'description': eventDescriptionTextController.text,
-          'location': eventLocationTextController.text,
-          'isPublic': isPublicSwitch,
-          'isRegisterable': isRegisterableSwitch,
-          'recurring': isRecurring,
-          'allDay': isAllDay,
-          'organizationId': _currentOrg.id,
-          'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
-          'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
-          'startTime':
-              isAllDay ? null : '${DateFormat('HH:mm:ss').format(startTime)}Z',
-          'endTime':
-              isAllDay ? null : '${DateFormat('HH:mm:ss').format(endTime)}Z',
-        },
-        if (isRecurring)
-          'recurrenceRuleData': {
-            'recurrenceStartDate': DateFormat('yyyy-MM-dd').format(
-              recurrenceStartDate,
-            ),
-            'recurrenceEndDate': recurrenceEndDate != null
-                ? DateFormat('yyyy-MM-dd').format(recurrenceEndDate!)
-                : null,
-            'frequency': frequency,
-            'weekDays': (frequency == Frequency.weekly ||
-                    (frequency == Frequency.monthly &&
-                        weekDayOccurenceInMonth != null))
-                ? weekDays.toList()
-                : null,
-            'interval': interval,
-            'count': count,
-            'weekDayOccurenceInMonth': weekDayOccurenceInMonth,
-          },
-      };
+          // variables initialisation
+          final DateTime startTime = DateTime(
+            eventStartDate.year,
+            eventStartDate.month,
+            eventStartDate.day,
+            eventStartTime.hour,
+            eventStartTime.minute,
+          );
+          final DateTime endTime = DateTime(
+            eventEndDate.year,
+            eventEndDate.month,
+            eventEndDate.day,
+            eventEndTime.hour,
+            eventEndTime.minute,
+          );
+          // all required data for creating an event
+          final Map<String, dynamic> variables = {
+            "data": {
+              'title': eventTitleTextController.text,
+              'description': eventDescriptionTextController.text,
+              'location': eventLocationTextController.text,
+              'isPublic': isPublicSwitch,
+              'isRegisterable': isRegisterableSwitch,
+              'recurring': isRecurring,
+              'allDay': isAllDay,
+              'organizationId': _currentOrg.id,
+              'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+              'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
+              'startTime': isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(startTime)}Z',
+              'endTime': isAllDay
+                  ? null
+                  : '${DateFormat('HH:mm:ss').format(endTime)}Z',
+            },
+            if (isRecurring)
+              'recurrenceRuleData': {
+                'recurrenceStartDate': DateFormat('yyyy-MM-dd').format(
+                  recurrenceStartDate,
+                ),
+                'recurrenceEndDate': recurrenceEndDate != null
+                    ? DateFormat('yyyy-MM-dd').format(recurrenceEndDate!)
+                    : null,
+                'frequency': frequency,
+                'weekDays': (frequency == Frequency.weekly ||
+                        (frequency == Frequency.monthly &&
+                            weekDayOccurenceInMonth != null))
+                    ? weekDays.toList()
+                    : null,
+                'interval': interval,
+                'count': count,
+                'weekDayOccurenceInMonth': weekDayOccurenceInMonth,
+              },
+          };
 
-      navigationService.pushDialog(
-        const CustomProgressDialog(key: Key('EventCreationProgress')),
-      );
-      // invoke the `gqlAuthMutation` function of `databaseFunctions`
-      // service along with the mutation query and variable map.
-      final result = await databaseFunctions.gqlAuthMutation(
-        EventQueries().addEvent(),
-        variables: variables,
-      );
-      navigationService.pop();
-      if (result != null) {
-        navigationService.pop();
+          navigationService.pushDialog(
+            const CustomProgressDialog(key: Key('EventCreationProgress')),
+          );
+          // invoke the `gqlAuthMutation` function of `databaseFunctions`
+          // service along with the mutation query and variable map.
+          final result = await _eventService.createEvent(variables: variables);
+          return result;
+        }
+        return databaseFunctions.noData;
+      },
+      onValidResult: (result) async {
         await _eventService.getEvents();
-      }
-    }
+      },
+      updateUI: () {
+        navigationService.pop();
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.pop();
+      },
+    );
   }
 
   /// This function is used to get the image from gallery.

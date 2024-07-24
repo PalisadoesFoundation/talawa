@@ -49,6 +49,8 @@ class SelectOrganizationViewModelWidget extends StatelessWidget {
   }
 }
 
+User _user =  User(joinedOrganizations: <OrgInfo>[], );
+bool _userLoggedIn = true;
 const initialiseString = "Org Id";
 late OrgInfo org;
 
@@ -61,6 +63,9 @@ class _MockUserConfig extends Mock implements UserConfig {
   User get currentUser => _user;
 
   @override
+  bool get loggedIn => true;
+
+  @override
   Future<bool> userLoggedIn() async => _userLoggedIn;
 
   @override
@@ -70,8 +75,6 @@ class _MockUserConfig extends Mock implements UserConfig {
   int saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) => 1;
 }
 
-User _user = User();
-bool _userLoggedIn = true;
 
 void main() {
   SizeConfig().test();
@@ -85,8 +88,6 @@ void main() {
     locator.registerSingleton(Queries());
     registerServices();
     locator.unregister<UserConfig>();
-    _user = User();
-    _userLoggedIn = true;
   });
 
   tearDown(() async {
@@ -203,8 +204,20 @@ void main() {
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
-      _user = User(refreshToken: 'testtoken');
       _userLoggedIn = false;
+      _user = User(
+        refreshToken: '',
+        joinedOrganizations: [
+          OrgInfo(
+            id: '1',
+          ),
+        ],
+        membershipRequests: [
+          OrgInfo(
+            id: '1',
+          ),
+        ],
+      );
 
       await tester.pumpWidget(
         SelectOrganizationViewModelWidget(
@@ -212,12 +225,16 @@ void main() {
         ),
       );
 
+      print(initialiseString);
+
       when(databaseFunctions.fetchOrgById(initialiseString))
-          .thenAnswer((realInvocation) async => org);
+          .thenAnswer((realInvocation) async {
+            return org;
+          });
 
       await selectOrganizationViewModel.initialise(initialiseString);
 
-      verifyNever(
+      verify(
         navigationService.pushScreen(
           Routes.signupDetailScreen,
           arguments: org,
@@ -323,6 +340,8 @@ void main() {
     testWidgets('Test for selectOrg function when userLoggedIn is false',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
+            print(locator<UserConfig>().currentUser.joinedOrganizations);
+
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
       await tester.pumpWidget(
@@ -331,6 +350,19 @@ void main() {
         ),
       );
       _userLoggedIn = false;
+      _user = User(
+        refreshToken: 'testtoken',
+        joinedOrganizations: [
+          OrgInfo(
+            id: '1',
+          ),
+        ],
+        membershipRequests: [
+          OrgInfo(
+            id: '1',
+          ),
+        ],
+      );
 
       await selectOrganizationViewModel.selectOrg(org);
 

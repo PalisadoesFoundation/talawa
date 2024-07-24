@@ -63,6 +63,15 @@ class EventService {
     });
   }
 
+  Future<QueryResult<Object?>> createEvent(
+      {required Map<String, dynamic> variables,}) async {
+    final result = await databaseFunctions.gqlAuthMutation(
+      EventQueries().addEvent(),
+      variables: variables,
+    );
+    return result;
+  }
+
   /// This function is used to fetch all the events of an organization.
   ///
   /// **params**:
@@ -77,10 +86,10 @@ class EventService {
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
 
-    if (result == null) return;
+    if (result.data == null) return;
 
     final List eventsJson =
-        (result as QueryResult).data!["eventsByOrganizationConnection"] as List;
+        result.data!["eventsByOrganizationConnection"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.attendees?.any(
@@ -128,14 +137,10 @@ class EventService {
   ///
   /// **returns**:
   /// * `Future<dynamic>`: Information about the event deletion
-  Future<dynamic> deleteEvent(String eventId) async {
-    navigationService.pushDialog(
-      const CustomProgressDialog(key: Key('DeleteEventProgress')),
-    );
+  Future<QueryResult<Object?>> deleteEvent(String eventId) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteEvent(eventId),
     );
-    navigationService.pop();
     return result;
   }
 
@@ -147,27 +152,16 @@ class EventService {
   ///
   /// **returns**:
   ///   None
-  Future<void> editEvent({
+  Future<QueryResult<Object?>> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
   }) async {
-    navigationService.pushDialog(
-      const CustomProgressDialog(
-        key: Key('EditEventProgress'),
-      ),
-    );
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateEvent(eventId: eventId),
       variables: variables,
     );
-    navigationService.pop();
-    if (result != null) {
-      navigationService.removeAllAndPush(
-        Routes.exploreEventsScreen,
-        Routes.mainScreen,
-        arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
-      );
-    }
+
+    return result;
   }
 
   /// This function is used to cancel the stream subscription of an organization.

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 
 /// This class provides services related to network connectivity monitoring and handling.
 ///
@@ -24,6 +23,9 @@ class AppConnectivity extends BaseModel {
   /// Subscription of the [connectivityStream]
   StreamSubscription? _subscription;
 
+  /// flag to handle online status.
+  static late bool isOnline;
+
   /// Initializes the [AppConnectivity].
   ///
   /// **params**:
@@ -35,6 +37,7 @@ class AppConnectivity extends BaseModel {
     await connectivityService.initConnectivity(client: http.Client());
     connectivityStream = connectivityService.connectionStream;
     enableSubscription();
+    handleConnection(await connectivityService.getConnectionType());
   }
 
   /// Subscribes to [connectivityStream] of [ConnectivityService].
@@ -62,12 +65,8 @@ class AppConnectivity extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> handleConnection(ConnectivityResult result) async {
-    if (MainScreenViewModel.demoMode) {
-      handleOffline();
-      return;
-    }
-    if (result != ConnectivityResult.none &&
-        await connectivityService.isReachable()) {
+    if (![ConnectivityResult.none, ConnectivityResult.bluetooth]
+        .contains(result)) {
       handleOnline();
     } else {
       handleOffline();
@@ -82,8 +81,12 @@ class AppConnectivity extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> handleOnline() async {
+    isOnline = true;
     showSnackbar(isOnline: true);
     databaseFunctions.init();
+    cacheService.offlineActionQueue.getActions().forEach((action) {
+      action.execute();
+    });
   }
 
   /// This function handles the actions to be taken when the device is offline.
@@ -94,6 +97,7 @@ class AppConnectivity extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> handleOffline() async {
+    isOnline = false;
     showSnackbar(isOnline: false);
     databaseFunctions.init();
   }

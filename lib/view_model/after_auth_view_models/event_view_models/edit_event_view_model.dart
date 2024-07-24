@@ -3,10 +3,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EditEventViewModel class have methods to interact with model in
 /// the context of editing the event in the organization.
@@ -55,44 +60,69 @@ class EditEventViewModel extends BaseModel {
         TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
   }
 
-  /// This function is used to update an event.
-  /// The function uses `editEvent` function provided by `eventService` service.
+  
   Future<void> updateEvent() async {
-    titleFocus.unfocus();
-    locationFocus.unfocus();
-    descriptionFocus.unfocus();
-    validate = AutovalidateMode.always;
-    if (formKey.currentState!.validate()) {
-      validate = AutovalidateMode.disabled;
-      final DateTime startTime = DateTime(
-        eventStartDate.year,
-        eventStartDate.month,
-        eventStartDate.day,
-        eventStartTime.hour,
-        eventStartTime.minute,
-      );
-      final DateTime endTime = DateTime(
-        eventEndDate.year,
-        eventEndDate.month,
-        eventEndDate.day,
-        eventEndTime.hour,
-        eventEndTime.minute,
-      );
-      // map for the required data to update an event.
-      final Map<String, dynamic> variables = {
-        'title': eventTitleTextController.text,
-        'description': eventDescriptionTextController.text,
-        'location': eventLocationTextController.text,
-        'isPublic': isPublicSwitch,
-        'isRegisterable': isRegisterableSwitch,
-        'recurring': false,
-        'allDay': false,
-        'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
-        'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
-        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
-        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
-      };
-      _eventService.editEvent(eventId: _event.id!, variables: variables);
-    }
+    actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.eventUpdateFailed,
+      action: () async {
+        titleFocus.unfocus();
+        locationFocus.unfocus();
+        descriptionFocus.unfocus();
+        validate = AutovalidateMode.always;
+        if (formKey.currentState!.validate()) {
+          validate = AutovalidateMode.disabled;
+          final DateTime startTime = DateTime(
+            eventStartDate.year,
+            eventStartDate.month,
+            eventStartDate.day,
+            eventStartTime.hour,
+            eventStartTime.minute,
+          );
+          final DateTime endTime = DateTime(
+            eventEndDate.year,
+            eventEndDate.month,
+            eventEndDate.day,
+            eventEndTime.hour,
+            eventEndTime.minute,
+          );
+          // map for the required data to update an event.
+          final Map<String, dynamic> variables = {
+            'title': eventTitleTextController.text,
+            'description': eventDescriptionTextController.text,
+            'location': eventLocationTextController.text,
+            'isPublic': isPublicSwitch,
+            'isRegisterable': isRegisterableSwitch,
+            'recurring': false,
+            'allDay': false,
+            'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+            'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
+            'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+            'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
+          };
+          navigationService.pushDialog(
+            const CustomProgressDialog(
+              key: Key('EditEventProgress'),
+            ),
+          );
+          final result = _eventService.editEvent(
+            eventId: _event.id!,
+            variables: variables,
+          );
+          return result;
+        }
+        return databaseFunctions.noData;
+      },
+      onValidResult: (result) async {
+        navigationService.removeAllAndPush(
+          Routes.exploreEventsScreen,
+          Routes.mainScreen,
+          arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+        );
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.pop();
+      },
+    );
   }
 }

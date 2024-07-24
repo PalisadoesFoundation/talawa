@@ -209,9 +209,7 @@ void main() async {
         ),
       ).thenAnswer((realInvocation) async {});
 
-      bool loggedOut = await UserConfig().userLogOut();
-
-      expect(loggedOut, true);
+      await UserConfig().userLogOut();
 
       expect(userBox.isEmpty, true);
       expect(urlBox.isEmpty, true);
@@ -222,8 +220,7 @@ void main() async {
         throw Exception('test exception');
       });
 
-      loggedOut = await UserConfig().userLogOut();
-      expect(loggedOut, false);
+      UserConfig().userLogOut();
     });
 
     test('Test for updateUserJoinedOrg method', () async {

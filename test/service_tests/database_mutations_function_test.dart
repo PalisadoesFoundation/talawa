@@ -8,6 +8,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -68,6 +69,7 @@ void main() async {
     functionsClass = DataBaseMutationFunctions();
     functionsClass.init();
     functionsClass.initClientNonAuth();
+    AppConnectivity.isOnline = true;
   });
 
   group('Database Mutation Functions Tests', () {
@@ -385,7 +387,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlAuthQuery(query) as QueryResult;
+      final res = await functionsClass.gqlAuthQuery(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -410,7 +412,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Testing gqlAuthQuery with true exception', () async {
@@ -486,7 +488,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql auth mutation', () async {
@@ -512,7 +514,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlAuthMutation(query) as QueryResult;
+      final res = await functionsClass.gqlAuthMutation(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -538,7 +540,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql auth mutation with true exception', () async {
@@ -615,7 +617,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth query', () async {
@@ -642,7 +644,7 @@ void main() async {
 
       final res = await functionsClass.gqlNonAuthQuery(query);
       final org = OrgInfo.fromJson(
-        (res!.data!['organizations'] as List<Map<String, dynamic>>)[0],
+        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
 
       expect(org.id, testOrg.id);
@@ -675,7 +677,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlNonAuthMutation(query) as QueryResult;
+      final res = await functionsClass.gqlNonAuthMutation(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -701,7 +703,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth mutation with true exception', () async {
@@ -778,7 +780,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for refresh access token', () async {
@@ -924,7 +926,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth query with true exception', () async {
@@ -1000,7 +1002,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
     test('Test for gql non auth query with false exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
@@ -1075,7 +1077,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
   });
 }

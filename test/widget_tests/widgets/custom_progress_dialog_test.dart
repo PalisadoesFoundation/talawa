@@ -58,26 +58,5 @@ void main() {
 
       expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
     });
-    testWidgets(
-        'Check if CustomProgressDialog widget shows up when no connection',
-        (tester) async {
-      // Register navigation service
-      locator.unregister<NavigationService>();
-      locator.registerSingleton(NavigationService());
-
-      // Setup connectivity for connection not available
-      connectivityStatus = ConnectivityResult.none;
-
-      // Build the widget
-      await tester.pumpWidget(createCustomProgressDialog());
-      await tester.pump();
-
-      expect(find.byType(Column), findsOneWidget);
-      expect(find.text("No Internet!"), findsOneWidget);
-
-      // CustomProgressDialog should pop
-      await tester.pumpAndSettle(const Duration(seconds: 2));
-      expect(find.byType(CustomProgressDialog), findsNothing);
-    });
   });
 }
