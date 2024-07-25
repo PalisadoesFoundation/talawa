@@ -129,7 +129,8 @@ class DataBaseMutationFunctions {
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
-              result.exception!,);
+            result.exception!,
+          );
         } else if (result.data != null && result.isConcrete) {
           return result;
         }
@@ -167,7 +168,8 @@ class DataBaseMutationFunctions {
         // if there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
-              result.exception!,);
+            result.exception!,
+          );
         } else if (result.data != null && result.isConcrete) {
           return result;
         }
@@ -202,7 +204,8 @@ class DataBaseMutationFunctions {
         // if there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
-              result.exception!,);
+            result.exception!,
+          );
         } else if (result.data != null && result.isConcrete) {
           return result;
         }
@@ -231,7 +234,8 @@ class DataBaseMutationFunctions {
     // if there is an error or exception in [result]
     if (result.hasException) {
       final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
-          result.exception!,);
+        result.exception!,
+      );
       if (exception!) {
         refreshAccessToken(refreshToken);
       } else {
@@ -266,7 +270,8 @@ class DataBaseMutationFunctions {
     // if there is an error or exception in [result]
     if (result.hasException) {
       final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
-          result.exception!,);
+        result.exception!,
+      );
       if (exception!) {
         fetchOrgById(id);
       }
