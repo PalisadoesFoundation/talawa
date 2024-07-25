@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/comment/comment_model.dart';
@@ -28,8 +27,10 @@ class CommentsViewModel extends BaseModel {
   /// UserConfig instance.
   late UserConfig _userConfig;
 
-  // Getters
+  /// comment list getter.
   List<Comment> get commentList => _commentlist;
+  
+  /// Id of current post.
   String get postId => _postID;
 
   /// This function is used to initialise the CommentViewModel.
