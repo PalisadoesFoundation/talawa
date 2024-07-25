@@ -46,10 +46,6 @@ void main() {
         eventId: 'eventId',
         variables: variables,
       );
-
-      verify(
-        navigationService.pop(),
-      );
     });
 
     test('Test deleteEvent method', () async {

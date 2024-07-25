@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EventService class provides different services in the context of Event.
 ///
@@ -63,8 +59,16 @@ class EventService {
     });
   }
 
-  Future<QueryResult<Object?>> createEvent(
-      {required Map<String, dynamic> variables,}) async {
+  /// This function is used to create an event using a GraphQL mutation.
+  ///
+  /// **params**:
+  /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: which contains the result of the GraphQL mutation.
+  Future<QueryResult<Object?>> createEvent({
+    required Map<String, dynamic> variables,
+  }) async {
     final result = await databaseFunctions.gqlAuthMutation(
       EventQueries().addEvent(),
       variables: variables,
@@ -136,7 +140,7 @@ class EventService {
   /// * `eventId`: id of an event
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the event deletion
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion
   Future<QueryResult<Object?>> deleteEvent(String eventId) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteEvent(eventId),
@@ -151,7 +155,7 @@ class EventService {
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
   ///
   /// **returns**:
-  ///   None
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion.
   Future<QueryResult<Object?>> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,

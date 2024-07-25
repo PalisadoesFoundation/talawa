@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/app_strings.dart';
@@ -39,6 +38,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// Graphql client.
   final databaseService = databaseFunctions;
 
+  /// GetIt of user profile service.
   final userProfileService = locator<UserProfileService>();
 
   /// initialization function.
@@ -82,8 +82,7 @@ class EditProfilePageViewModel extends BaseModel {
   /// * `Future<String>`: image in string format
   Future<String> convertToBase64(File file) async {
     try {
-      final List<int> bytes = await file.readAsBytes();
-      base64Image = base64Encode(bytes);
+      base64Image = await imageService.convertToBase64(file);
       return base64Image!;
     } catch (error) {
       print(error);
@@ -110,7 +109,7 @@ class EditProfilePageViewModel extends BaseModel {
         lastName == user.lastName) {
       return;
     }
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.userProfileUpdateFailed,
       action: () async {
@@ -123,6 +122,7 @@ class EditProfilePageViewModel extends BaseModel {
         }
         if (newImage != null) {
           final String imageAsString = await convertToBase64(newImage);
+          print('data:image/png;base64,$imageAsString');
           variables["file"] = 'data:image/png;base64,$imageAsString';
         }
         if (variables.isNotEmpty) {
@@ -157,7 +157,7 @@ class EditProfilePageViewModel extends BaseModel {
           "Profile updated successfully",
           MessageType.info,
         );
-        notifyListeners();
+        print('cccccccccccccccccccccccccccccccccccccccc');
       },
       onActionException: (_) async {
         navigationService.showTalawaErrorSnackBar(

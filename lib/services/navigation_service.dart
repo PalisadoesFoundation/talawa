@@ -182,6 +182,13 @@ class NavigationService {
     );
   }
 
+  /// Shows an Custom Toast.
+  ///
+  /// **params**:
+  /// * `msg`: Message shown in Toast
+  ///
+  /// **returns**:
+  ///   None
   void showCustomToast(String msg) {
     DelightToastBar(
       builder: (context) {
@@ -216,14 +223,22 @@ class NavigationService {
     }
   }
 
+  /// This function prints current navigation state.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void printNavigatorState() {
     final navigatorState = navigatorKey.currentState;
     if (navigatorState != null) {
       print('Can pop: ${navigatorState.canPop()}');
       print('Current Route: ${navigatorState.widget}');
-      print('Navigator Stack: ${navigatorState.widget.toString()}');
+      print('Navigator Stack: ${navigatorState.widget}');
       print(
-          'Route History: ${navigatorState.widget.pages.map((page) => page.toString()).toList()}');
+        'Route History: ${navigatorState.widget.pages.map((page) => page.toString()).toList()}',
+      );
     } else {
       print('Navigator state is null.');
     }

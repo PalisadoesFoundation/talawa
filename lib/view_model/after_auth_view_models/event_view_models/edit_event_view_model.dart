@@ -60,9 +60,8 @@ class EditEventViewModel extends BaseModel {
         TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
   }
 
-  
   Future<void> updateEvent() async {
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.eventUpdateFailed,
       action: () async {

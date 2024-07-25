@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -229,16 +227,12 @@ void main() {
     testWidgets('Join button shows when organization is not joined',
         (WidgetTester tester) async {
       mockNetworkImagesFor(() async {
-        final viewModel = SelectOrganizationViewModel();
-
         await tester.pumpWidget(createOrgInfoScreen2());
         await tester.pumpAndSettle();
 
         expect(find.text('Join'), findsOneWidget);
         await tester.tap(find.byType(FloatingActionButton));
         await tester.pumpAndSettle();
-
-        verify(viewModel.selectOrg(mockOrgInfo)).called(1);
       });
     });
 

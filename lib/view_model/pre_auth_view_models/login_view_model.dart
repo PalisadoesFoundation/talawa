@@ -113,7 +113,7 @@ class LoginViewModel extends BaseModel {
     // if the email and password are not empty.
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      actionHandlerService.performAction(
+      await actionHandlerService.performAction(
         actionType: ActionType.critical,
         criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogin,
         action: () async {

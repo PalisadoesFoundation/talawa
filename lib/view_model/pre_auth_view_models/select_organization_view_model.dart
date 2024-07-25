@@ -72,7 +72,7 @@ class SelectOrganizationViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `Future<void>`: None
-  Future<void> initialise(String initialData) async {    
+  Future<void> initialise(String initialData) async {
     searchFocus.addListener(searchActive);
     if (!initialData.contains('-1')) {
       databaseFunctions.init();

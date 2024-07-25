@@ -15,7 +15,6 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
-import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -116,15 +115,17 @@ Future<void> main() async {
       );
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(
-                  document: gql(
-                    PostQueries().addLike(),
-                  ),
-                ),
-                data: null,
-                source: QueryResultSource.network,
-              ));
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
+            ),
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       await model.login();
       expect(model.validate, AutovalidateMode.disabled);

@@ -110,8 +110,13 @@ enum CachedOperationType {
   gqlNonAuthMutation,
 }
 
+/// Enum representing the types of actions that can be performed.
 enum ActionType {
+  /// A critical action that requires immediate attention and cannot be delayed.
   critical,
+
+  /// An optimistic action that can be performed with the assumption that it will succeed.
+  ///
+  /// even if the result is not immediately confirmed.
   optimistic,
 }
-

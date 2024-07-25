@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -148,7 +147,7 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> uploadPost() async {
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postCreationFailed,
       action: () async {
@@ -164,7 +163,7 @@ class AddPostViewModel extends BaseModel {
           PostQueries().uploadPost(),
           variables: variables,
         );
-        
+
         return result;
       },
       onValidResult: (result) async {

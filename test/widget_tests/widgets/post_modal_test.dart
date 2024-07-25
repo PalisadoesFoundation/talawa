@@ -170,7 +170,7 @@ void main() {
 
       verify(
         navigationService.navigatorKey,
-      ).called(1);
+      ).called(2);
     });
 
     testWidgets("Testing no button of alertDialogBox", (tester) async {

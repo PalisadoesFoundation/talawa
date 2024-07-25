@@ -9,11 +9,11 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 
 import '../helpers/test_helpers.dart';
-import '../helpers/test_helpers.mocks.dart';
 
 /// Tests post_service.dart.
 ///
@@ -25,6 +25,10 @@ import '../helpers/test_helpers.mocks.dart';
 void main() {
   setUp(() {
     registerServices();
+    locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
+  });
+  tearDown(() {
+    locator.unregister<ActionHandlerService>();
   });
   final demoJson = {
     '__typename': 'Query',
@@ -203,7 +207,11 @@ void main() {
       final service = PostService();
       // Populating refreshing feed
       await service.refreshFeed();
-      verify(service.getPosts()).called(2);
+      verify(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).called(2);
     });
 
     test('Test addNewPost method', () async {
@@ -288,15 +296,17 @@ void main() {
           PostQueries().addLike(),
           variables: {"postID": postID},
         ),
-      ).thenAnswer((realInvocation) async => QueryResult(
-            options: QueryOptions(
-              document: gql(
-                PostQueries().addLike(),
-              ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
             ),
-            data: null,
-            source: QueryResultSource.network,
-          ));
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = PostService();
       //Populating posts Stream
@@ -335,30 +345,34 @@ void main() {
           PostQueries().addLike(),
           variables: {"postID": postID},
         ),
-      ).thenAnswer((realInvocation) async => QueryResult(
-            options: QueryOptions(
-              document: gql(
-                PostQueries().addLike(),
-              ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
             ),
-            data: null,
-            source: QueryResultSource.network,
-          ));
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           PostQueries().removeLike(),
           variables: {"postID": postID},
         ),
-      ).thenAnswer((realInvocation) async => QueryResult(
-            options: QueryOptions(
-              document: gql(
-                PostQueries().addLike(),
-              ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
             ),
-            data: null,
-            source: QueryResultSource.network,
-          ));
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = PostService();
       //Populating posts Stream
@@ -430,15 +444,17 @@ void main() {
           PostQueries().addLike(),
           variables: {"postID": postID},
         ),
-      ).thenAnswer((realInvocation) async => QueryResult(
-            options: QueryOptions(
-              document: gql(
-                PostQueries().addLike(),
-              ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
             ),
-            data: null,
-            source: QueryResultSource.network,
-          ));
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = PostService();
       // Populating posts Stream
@@ -472,7 +488,8 @@ void main() {
       final queryNewOrg =
           PostQueries().getPostsById("newOrgId", null, null, 5, null);
 
-      final query = PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
@@ -520,7 +537,11 @@ void main() {
       ); // Adjust the delay as needed
 
       // Verify that refresh token was called to check getPost method was called correctly.
-      verify(service.getPosts()).called(1);
+      verify(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          queryNewOrg,
+        ),
+      ).called(1);
 
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();
@@ -570,14 +591,41 @@ void main() {
       expect(service.first, 5);
       expect(service.before, null);
       expect(service.last, null);
-      verify(service.getPosts()).called(1);
+      verify(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      );
+
+      final query3 = PostQueries().getPostsById(
+        currentOrgID,
+        null,
+        "65e1aac38836aa003e4b8319",
+        null,
+        5,
+      );
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query3,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query2)),
+          data: demoJsonPage2,
+          source: QueryResultSource.network,
+        ),
+      );
 
       await service.previousPage();
       expect(service.after, null);
       expect(service.last, 5);
       expect(service.before, "65e1aac38836aa003e4b8319");
       expect(service.first, null);
-      verify(service.getPosts()).called(1);
+      verify(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query3,
+        ),
+      );
     });
   });
 }

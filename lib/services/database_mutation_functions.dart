@@ -89,6 +89,7 @@ class DataBaseMutationFunctions {
     message: TalawaErrors.failedToDetermineProject,
   );
 
+  /// when result has no data and null.
   QueryResult noData = QueryResult(
     options: QueryOptions(
       document: gql(

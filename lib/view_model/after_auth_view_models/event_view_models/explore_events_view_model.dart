@@ -143,15 +143,14 @@ class ExploreEventsViewModel extends BaseModel {
         dialogSubTitle: 'Are you sure you want to delete this event?',
         successText: 'Delete',
         success: () async {
-          navigationService.pop();
+          navigationService.pop(); // Close the confirmation dialog
           navigationService.pushDialog(
             const CustomProgressDialog(key: Key('DeleteEventProgress')),
           );
-          actionHandlerService.performAction(
+          await actionHandlerService.performAction(
             actionType: ActionType.critical,
             criticalActionFailureMessage: TalawaErrors.eventDeletionFailed,
             action: () async {
-              // push the custom alert dialog to ask for confirmation.
               Future<QueryResult<Object?>>? result;
               result = _eventService.deleteEvent(eventId);
               return result;
@@ -162,11 +161,12 @@ class ExploreEventsViewModel extends BaseModel {
               _events.removeWhere((element) => element.id == eventId);
               _userEvents.removeWhere((element) => element.id == eventId);
               await Future.delayed(const Duration(milliseconds: 500));
-              navigationService.pop();
+              navigationService.pop(); // Dismiss progress dialog
               setState(ViewState.idle);
             },
             updateUI: () async {
-              navigationService.pop();
+              navigationService
+                  .pop(); // Ensure progress dialog is popped in case of error
             },
           );
         },

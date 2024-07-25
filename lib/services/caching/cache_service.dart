@@ -20,14 +20,16 @@ class CacheService {
   /// Queue for storing user actions to be executed offline.
   late final OfflineActionQueue offlineActionQueue;
 
+  /// static graphql result when device is offline.
   static final QueryResult offlineResult = QueryResult(
-      options: QueryOptions(
-        document: gql(PostQueries().addLike()),
-      ),
-      data: {
-        'cached': true,
-      },
-      source: QueryResultSource.cache,);
+    options: QueryOptions(
+      document: gql(PostQueries().addLike()),
+    ),
+    data: {
+      'cached': true,
+    },
+    source: QueryResultSource.cache,
+  );
 
   /// Executes a GraphQL operation or caches it for offline execution.
   ///

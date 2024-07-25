@@ -15,7 +15,7 @@ import '../helpers/test_locator.dart';
 class MockImageService extends Mock implements ImageService {
   @override
   Future<String> convertToBase64(File file) async {
-    return "";
+    return "base64";
   }
 }
 
@@ -85,7 +85,7 @@ void main() {
 
       final fileString = await imageService.convertToBase64(file);
 
-      final List<int> decodedBytes = base64Decode(fileString!);
+      final List<int> decodedBytes = base64Decode(fileString);
 
       expect(decodedBytes, equals(encodedBytes));
     });
@@ -95,7 +95,7 @@ void main() {
         () async {
       final file = File('fakePath');
       final fileString = await imageService.convertToBase64(file);
-      expect(null, fileString);
+      expect('', fileString);
     });
   });
 }

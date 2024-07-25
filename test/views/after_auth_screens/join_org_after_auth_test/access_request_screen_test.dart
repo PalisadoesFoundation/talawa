@@ -40,17 +40,21 @@ void main() {
   group("SendRequestAccess Screen test", () {
     testWidgets("SendRequestAccess screen is build correctly",
         (WidgetTester tester) async {
-      when(databaseFunctions.gqlAuthMutation(
-        queries.sendMembershipRequest("XYZ"),
-      )).thenAnswer((realInvocation) async => QueryResult(
-            options: QueryOptions(
-              document: gql(
-                PostQueries().addLike(),
-              ),
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.sendMembershipRequest("XYZ"),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
             ),
-            data: null,
-            source: QueryResultSource.network,
-          ));
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
 
       await tester.pumpWidget(accessRequestScreen());
       await tester.pumpAndSettle();

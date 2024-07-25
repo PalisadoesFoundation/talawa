@@ -129,7 +129,7 @@ class SetUrlViewModel extends BaseModel {
 
     /// if the url is valid.
     if (formKey.currentState!.validate()) {
-      actionHandlerService.performAction(
+      await actionHandlerService.performAction(
         actionType: ActionType.critical,
         criticalActionFailureMessage: navigateTo == '/login'
             ? TalawaErrors.youAreOfflineUnableToLogin

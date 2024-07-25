@@ -49,7 +49,9 @@ class SelectOrganizationViewModelWidget extends StatelessWidget {
   }
 }
 
-User _user =  User(joinedOrganizations: <OrgInfo>[], );
+User _user = User(
+  joinedOrganizations: <OrgInfo>[],
+);
 bool _userLoggedIn = true;
 const initialiseString = "Org Id";
 late OrgInfo org;
@@ -74,7 +76,6 @@ class _MockUserConfig extends Mock implements UserConfig {
   @override
   int saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) => 1;
 }
-
 
 void main() {
   SizeConfig().test();
@@ -229,8 +230,8 @@ void main() {
 
       when(databaseFunctions.fetchOrgById(initialiseString))
           .thenAnswer((realInvocation) async {
-            return org;
-          });
+        return org;
+      });
 
       await selectOrganizationViewModel.initialise(initialiseString);
 
@@ -340,7 +341,7 @@ void main() {
     testWidgets('Test for selectOrg function when userLoggedIn is false',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
-            print(locator<UserConfig>().currentUser.joinedOrganizations);
+      print(locator<UserConfig>().currentUser.joinedOrganizations);
 
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 

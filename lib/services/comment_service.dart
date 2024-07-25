@@ -63,7 +63,8 @@ class CommentService {
   Future<List<dynamic>> getCommentsForPost(String postId) async {
     final String getCommmentQuery = CommentQueries().getPostsComments(postId);
 
-    final QueryResult<Object?> result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
+    final QueryResult<Object?> result =
+        await _dbFunctions.gqlAuthMutation(getCommmentQuery);
 
     if (result.data == null) {
       return [];

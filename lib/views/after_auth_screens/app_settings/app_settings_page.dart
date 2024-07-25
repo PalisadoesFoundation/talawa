@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -9,7 +7,6 @@ import 'package:talawa/view_model/after_auth_view_models/settings_view_models/ap
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/lang_switch.dart';
-import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
 /// Widget representing the App Settings page.

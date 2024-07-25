@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -40,7 +38,6 @@ class OrganizationFeedViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserConfig _userConfig = locator<UserConfig>();
   final PostService _postService = locator<PostService>();
-  late DataBaseMutationFunctions _dbFunctions;
 
   // Stream variables
   late StreamSubscription _currentOrganizationStreamSubscription;
@@ -148,7 +145,6 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _dbFunctions = locator<DataBaseMutationFunctions>();
     _postService.refreshFeed();
     if (isTest) {
       istest = true;
@@ -274,12 +270,11 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> removePost(Post post) async {
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
       action: () async {
         final result = await _postService.deletePost(post);
-        print(result);
         return result;
       },
       onValidResult: (result) async {

@@ -155,21 +155,22 @@ class PostService {
   /// * `Future<void>`: define_the_return
   Future<bool> addLike(String postID) async {
     bool isLiked = false;
-    actionHandlerService.performAction(
-        actionType: ActionType.optimistic,
-        action: () async {
-          final String mutation = PostQueries().addLike();
-          // run the graphQl mutation.
-          return await _dbFunctions
-              .gqlAuthMutation(mutation, variables: {"postID": postID});
-          // return result
-        },
-        onValidResult: (result) async {
-          isLiked = (result.data?["_id"] != null);
-        },
-        updateUI: () {
-          _localAddLike(postID);
-        });
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        final String mutation = PostQueries().addLike();
+        // run the graphQl mutation.
+        return await _dbFunctions
+            .gqlAuthMutation(mutation, variables: {"postID": postID});
+        // return result
+      },
+      onValidResult: (result) async {
+        isLiked = (result.data?["_id"] != null);
+      },
+      updateUI: () {
+        _localAddLike(postID);
+      },
+    );
     return isLiked;
   }
 
@@ -201,7 +202,7 @@ class PostService {
   /// * `Future<void>`: nothing
   Future<bool> removeLike(String postID) async {
     bool isLiked = false;
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.optimistic,
       action: () async {
         final String mutation = PostQueries().removeLike();

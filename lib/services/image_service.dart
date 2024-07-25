@@ -70,7 +70,6 @@ class ImageService {
   /// * `Future<String>`: image in string format
   Future<String> convertToBase64(File file) async {
     try {
-
       final List<int> bytes = await file.readAsBytes();
       final String base64String = base64Encode(bytes);
       print(base64String);

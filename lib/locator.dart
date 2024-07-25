@@ -88,6 +88,7 @@ final imageService = locator<ImageService>();
 ///GetIt for SessionManager.
 final sessionManager = locator<SessionManager>();
 
+///GetIt for ActonHandlerService.
 final actionHandlerService = locator<ActionHandlerService>();
 
 /// This function registers the widgets/objects in "GetIt".
@@ -99,7 +100,7 @@ final actionHandlerService = locator<ActionHandlerService>();
 ///   None
 Future<void> setupLocator() async {
   locator.registerSingleton(DataBaseMutationFunctions());
-  
+
   locator.registerSingleton(GraphqlConfig());
   //services
   locator.registerSingleton(NavigationService());

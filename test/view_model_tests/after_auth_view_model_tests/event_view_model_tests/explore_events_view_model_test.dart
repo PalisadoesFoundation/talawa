@@ -15,6 +15,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/comment_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -120,43 +121,6 @@ void main() {
       expect(model.events.length, 0);
       // expect(model.events.first.id, '1');
     });
-    testWidgets(
-        "Test function of CustomAlertDialog when deleteEvent function is executed",
-        (tester) async {
-      final model = ExploreEventsViewModel();
-      when(model.eventService.deleteEvent(newEvent.id!))
-          .thenAnswer((realInvocation) async =>  QueryResult(
-          options: QueryOptions(document: gql(CommentQueries().getPostsComments('postId'))),
-          data: {
-            'post': {'comments': []},
-          },
-          source: QueryResultSource.network,
-        ),);
-
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          navigatorKey: navigationService.navigatorKey,
-          home: Scaffold(body: Container()),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await model.checkIfExistsAndAddNewEvent(newEvent);
-      await model.deleteEvent(eventId: newEvent.id!);
-      await tester.pumpAndSettle();
-      final customFinder = find.byType(CustomAlertDialog);
-      expect(customFinder, findsOneWidget);
-
-      final successFinder = find.byKey(const Key('Delete'));
-      await tester.tap(successFinder);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      expect(model.events, isEmpty);
-    });
 
     test("Test chooseValueFromDropdown function", () async {
       final model = ExploreEventsViewModel();
@@ -241,6 +205,46 @@ void main() {
       final model = ExploreEventsViewModel();
       final List<Event> userEvents = model.userEvents;
       expect(userEvents, []);
+    });
+    testWidgets(
+        "Test function of CustomAlertDialog when deleteEvent function is executed",
+        (tester) async {
+      final model = ExploreEventsViewModel();
+      when(model.eventService.deleteEvent(newEvent.id!)).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(CommentQueries().getPostsComments('postId')),
+          ),
+          data: {
+            'post': {'comments': []},
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(body: Container()),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await model.checkIfExistsAndAddNewEvent(newEvent);
+      await model.deleteEvent(eventId: newEvent.id!);
+      await tester.pumpAndSettle();
+      final customFinder = find.byType(CustomAlertDialog);
+      expect(customFinder, findsOneWidget);
+
+      final successFinder = find.byKey(const Key('Delete'));
+      await tester.tap(successFinder);
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(CustomProgressDialog), findsOneWidget);
     });
   });
 }

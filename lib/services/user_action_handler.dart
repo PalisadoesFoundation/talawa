@@ -7,8 +7,20 @@ import 'package:talawa/exceptions/critical_action_exception.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
+/// A service class to handle different types of actions, including API calls.
+///
+/// with proper error handling and UI updates based on the action type.
 class ActionHandlerService {
-  // Method to execute an API action
+  /// Method to execute an API action.
+  ///
+  /// **params**:
+  /// * `action`: A function that performs the API call and returns a `Future<QueryResult<Object?>?>`.
+  /// * `onValidResult`: A function to handle the result when the API call is successful.
+  /// * `onActionException`: A function to handle exceptions that occur during the API call.
+  /// * `onActionFinally`: A function to execute regardless of the success or failure of the API call.
+  ///
+  /// **returns**:
+  /// * `Future<bool?>`: that indicates the success (`true`), failure (`false`), or null if the result is invalid.
   Future<bool?> executeApiCall({
     required Future<QueryResult<Object?>?> Function() action,
     required Future<void> Function(QueryResult<Object?>) onValidResult,
@@ -17,17 +29,18 @@ class ActionHandlerService {
   }) async {
     try {
       final result = await action();
-      if (result == null || result.data == null) return null;
-      if (result.isConcrete && result.source != QueryResultSource.cache) {
       print(result);
-        onValidResult(result);
+      if (result == null || result.data == null) return null;
+
+      if (result.isConcrete && result.source != QueryResultSource.cache) {
+        await onValidResult(result);
       }
       return true;
     } catch (e) {
-      onActionException?.call(e as Exception);
+      await onActionException?.call(e as Exception);
       return false;
     } finally {
-      onActionFinally?.call();
+      await onActionFinally?.call();
     }
   }
 
@@ -35,9 +48,13 @@ class ActionHandlerService {
   ///
   /// **params**:
   /// * `actionType`: Specifies whether the action is optimistic or critical.
-  /// * `action`: The action to perform, which returns a Future.
-  /// * `apiCallSuccessUpdateUI`: Function to update the UI upon success.
-  /// * `onFailure`: Function to handle failure scenarios.
+  /// * `action`: The action to perform, which returns a `Future<QueryResult<Object?>?>`.
+  /// * `onValidResult`: A function to handle the result when the action is successful.
+  /// * `onActionException`: A function to handle exceptions that occur during the action.
+  /// * `updateUI`: A function to update the UI immediately for optimistic actions or after API call for critical actions.
+  /// * `apiCallSuccessUpdateUI`: A function to update the UI upon successful API call.
+  /// * `criticalActionFailureMessage`: The error message to use when a critical action fails.
+  /// * `onActionFinally`: A function to execute regardless of the success or failure of the action.
   ///
   /// **returns**:
   ///   None

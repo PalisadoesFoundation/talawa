@@ -100,6 +100,8 @@ Future<void> main() async {
 
   late SetUrlViewModel model;
 
+  locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
+
   setUp(() async {
     registerServices();
     registerViewModels();

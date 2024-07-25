@@ -124,25 +124,26 @@ class SignupDetailsViewModel extends BaseModel {
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      actionHandlerService.performAction(
+      await actionHandlerService.performAction(
         actionType: ActionType.critical,
         criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToSignUp,
         action: () async {
           navigationService.pushDialog(
-              const CustomProgressDialog(key: Key('SignUpProgress')));
-          databaseFunctions.init();
-          print(firstName.text);
-          final result = await databaseFunctions.gqlNonAuthMutation(
-            queries.registerUser(
-              firstName.text,
-              lastName.text,
-              email.text,
-              Encryptor.encryptString(
-                password.text,
-              ),
-              selectedOrganization.id,
+            const CustomProgressDialog(
+              key: Key('SignUpProgress'),
             ),
           );
+          databaseFunctions.init();
+          final query = queries.registerUser(
+            firstName.text,
+            lastName.text,
+            email.text,
+            Encryptor.encryptString(
+              password.text,
+            ),
+            selectedOrganization.id,
+          );
+          final result = await databaseFunctions.gqlNonAuthMutation(query);
           navigationService.pop();
           return result;
         },
@@ -153,13 +154,16 @@ class SignupDetailsViewModel extends BaseModel {
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+
             // if user successfully saved and access token is also generated.
             if (userSaved && tokenRefreshed) {
               // if the selected organization userRegistration not required.
               if (!selectedOrganization.userRegistrationRequired!) {
+                final query = queries.joinOrgById(selectedOrganization.id!);
+                print(query);
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(
-                  queries.joinOrgById(selectedOrganization.id!),
+                  query,
                 );
                 final joinPublicOrganization = result
                     .data!['joinPublicOrganization'] as Map<String, dynamic>;
@@ -167,7 +171,7 @@ class SignupDetailsViewModel extends BaseModel {
                         'joinedOrganizations'] as List<dynamic>?)
                     ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
                     .toList();
-                userConfig.updateUserJoinedOrg(joinedOrg!);
+                await userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
                   userConfig.currentUser.joinedOrganizations![0],
                 );
@@ -177,23 +181,23 @@ class SignupDetailsViewModel extends BaseModel {
                   arguments:
                       MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
                 );
+              } else {
+                final QueryResult result =
+                    await databaseFunctions.gqlAuthMutation(
+                  queries.sendMembershipRequest(selectedOrganization.id!),
+                );
+                final sendMembershipRequest = result
+                    .data!['sendMembershipRequest'] as Map<String, dynamic>;
+                final OrgInfo membershipRequest = OrgInfo.fromJson(
+                  sendMembershipRequest['organization'] as Map<String, dynamic>,
+                );
+                userConfig.updateUserMemberRequestOrg([membershipRequest]);
+                navigationService.pop();
+                navigationService.removeAllAndPush(
+                  Routes.waitingScreen,
+                  Routes.splashScreen,
+                );
               }
-            } else {
-              final QueryResult result =
-                  await databaseFunctions.gqlAuthMutation(
-                queries.sendMembershipRequest(selectedOrganization.id!),
-              );
-              final sendMembershipRequest =
-                  result.data!['sendMembershipRequest'] as Map<String, dynamic>;
-              final OrgInfo membershipRequest = OrgInfo.fromJson(
-                sendMembershipRequest['organization'] as Map<String, dynamic>,
-              );
-              userConfig.updateUserMemberRequestOrg([membershipRequest]);
-              navigationService.pop();
-              navigationService.removeAllAndPush(
-                Routes.waitingScreen,
-                Routes.splashScreen,
-              );
             }
           }
         },

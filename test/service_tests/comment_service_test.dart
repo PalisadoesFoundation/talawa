@@ -280,7 +280,7 @@ void main() {
           options: QueryOptions(document: gql(getCommmentQuery)),
           data: {
             'post': {
-              'comments': []
+              'comments': [],
             },
           },
           source: QueryResultSource.network,

@@ -151,11 +151,12 @@ class UserConfig {
 
           final user = Hive.box<User>('currentUser');
           final url = Hive.box('url');
+          final organisation = Hive.box<OrgInfo>('currentOrg');
           // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
           // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
-          final organisation = Hive.box<OrgInfo>('currentOrg');
           await user.clear();
           await url.clear();
+          await organisation.clear();
           // androidFirebaseOptionsBox.clear();
           // iosFirebaseOptionsBox.clear();
           // try {
@@ -164,7 +165,6 @@ class UserConfig {
           // } catch (e) {
           //   debugPrint("ERROR: Unable to delete firebase app $e");
           // }
-          await organisation.clear();
           _currentUser = User(id: 'null', authToken: 'null');
           navigationService.pop();
           navigationService.removeAllAndPush(
@@ -172,7 +172,6 @@ class UserConfig {
             Routes.splashScreen,
             arguments: '',
           );
-          print('ccccccccccccccccccccccccccccccccccccccccc');
         }
       },
       onActionException: (e) async {

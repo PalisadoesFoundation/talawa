@@ -176,7 +176,7 @@ void main() {
             "text": 'Some post content #hashtag',
             "organizationId": 'XYZ',
             "title": 'Post Title',
-            "file": 'data:image/png;base64,',
+            "file": 'data:image/png;base64,${viewModel.imageInBase64}',
           },
         ),
       ).thenAnswer(

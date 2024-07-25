@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/recurrence_values.dart';
@@ -11,7 +10,6 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
@@ -186,7 +184,7 @@ class CreateEventViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createEvent() async {
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.eventCreationFailed,
       action: () async {

@@ -76,7 +76,7 @@ class CommentsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createComment(String msg) async {
-    actionHandlerService.performAction(
+    await actionHandlerService.performAction(
       actionType: ActionType.optimistic,
       action: () async {
         await _commentService.createComments(_postID, msg);

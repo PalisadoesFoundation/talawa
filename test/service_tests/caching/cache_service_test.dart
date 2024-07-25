@@ -27,6 +27,6 @@ void main() {
         );
       },
     );
-    expect(result.data, {'cached':true});
+    expect(result.data, {'cached': true});
   });
 }
