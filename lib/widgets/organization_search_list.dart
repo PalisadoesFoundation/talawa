@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/size_config.dart';
@@ -19,6 +20,8 @@ class OrganizationSearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int noOfRefetch = 0;
+    const int maxRefetch = 10;
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
       child: Query(
@@ -38,14 +41,18 @@ class OrganizationSearchList extends StatelessWidget {
         }) {
           // checking for any errors, if true fetch again!
           if (result.hasException) {
-            final isException = databaseFunctions.encounteredExceptionOrError(
+            final isException =
+                GraphqlExceptionResolver.encounteredExceptionOrError(
               result.exception!,
-              showSnackBar: false,
             );
-            if (isException!) {
-              refetch!();
-            } else {
-              refetch!();
+            if (noOfRefetch <= maxRefetch) {
+              if (isException!) {
+                noOfRefetch++;
+                refetch!();
+              } else {
+                noOfRefetch++;
+                refetch!();
+              }
             }
           } else {
             // If the result is still loading!

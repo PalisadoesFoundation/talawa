@@ -4,7 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/critical_action_exception.dart';
-import 'package:talawa/locator.dart';
+import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 /// A service class to handle different types of actions, including API calls.
@@ -94,7 +94,7 @@ class ActionHandlerService {
         }
       } else {
         updateUI?.call();
-        databaseFunctions.encounteredExceptionOrError(
+        GraphqlExceptionResolver.encounteredExceptionOrError(
           CriticalActionException(criticalActionFailureMessage!),
         );
       }
