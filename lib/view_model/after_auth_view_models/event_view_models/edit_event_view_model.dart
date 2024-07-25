@@ -27,7 +27,8 @@ class EditEventViewModel extends BaseModel {
   TextEditingController eventLocationTextController = TextEditingController();
 
   /// TextEditingController to handle the text input for the event description.
-  TextEditingController eventDescriptionTextController = TextEditingController();
+  TextEditingController eventDescriptionTextController =
+      TextEditingController();
 
   /// TimeOfDay to store the selected start time for the event.
   TimeOfDay eventStartTime = TimeOfDay.now();
@@ -100,7 +101,6 @@ class EditEventViewModel extends BaseModel {
     eventEndTime =
         TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
   }
-
 
   /// Updates an existing event with the data from the form.
   ///

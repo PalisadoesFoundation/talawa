@@ -29,7 +29,7 @@ class CommentsViewModel extends BaseModel {
 
   /// comment list getter.
   List<Comment> get commentList => _commentlist;
-  
+
   /// Id of current post.
   String get postId => _postID;
 
