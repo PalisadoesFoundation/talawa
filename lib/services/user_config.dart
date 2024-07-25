@@ -166,12 +166,6 @@ class UserConfig {
           //   debugPrint("ERROR: Unable to delete firebase app $e");
           // }
           _currentUser = User(id: 'null', authToken: 'null');
-          navigationService.pop();
-          navigationService.removeAllAndPush(
-            Routes.setUrlScreen,
-            Routes.splashScreen,
-            arguments: '',
-          );
         }
       },
       onActionException: (e) async {
@@ -181,6 +175,16 @@ class UserConfig {
             key: Key('TalawaError'),
             messageType: MessageType.error,
           ),
+        );
+      },
+      updateUI: () {
+        navigationService.pop();
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.removeAllAndPush(
+          Routes.setUrlScreen,
+          Routes.splashScreen,
+          arguments: '',
         );
       },
     );
