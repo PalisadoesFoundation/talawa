@@ -33,6 +33,7 @@ dependencies:
   ################################
   file: ^7.0.0
 
+  delightful_toast: ^1.1.0
   flutter:
     sdk: flutter
   flutter_braintree: ^4.0.0
