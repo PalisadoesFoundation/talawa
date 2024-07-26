@@ -37,8 +37,9 @@ void main() {
     );
   }
 
-  Widget organizationSearchList(
-      {required SelectOrganizationViewModel orgViewModel,}) {
+  Widget organizationSearchList({
+    required SelectOrganizationViewModel orgViewModel,
+  }) {
     return MaterialApp(
       locale: const Locale('en'),
       localizationsDelegates: [
