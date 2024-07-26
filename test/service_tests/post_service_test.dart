@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -186,6 +185,39 @@ void main() {
   const postID = '65e1aac38836aa003e4b8318';
 
   group('Test PostService', () {
+    test('deletePost', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query =
+          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          PostQueries().removePost(),
+          variables: {
+            'id': 'azad',
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(PostQueries().removePost())),
+          data: demoJson,
+          source: QueryResultSource.network,
+        ),
+      );
+      final service = PostService();
+      final post = Post(sId: 'id', creator: User(id: 'azad'));
+      service.deletePost(post);
+    });
     test('Test refreshFeed method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
@@ -352,7 +384,9 @@ void main() {
               PostQueries().addLike(),
             ),
           ),
-          data: null,
+          data: {
+            '_id': 'azad',
+          },
           source: QueryResultSource.network,
         ),
       );
@@ -369,7 +403,9 @@ void main() {
               PostQueries().addLike(),
             ),
           ),
-          data: null,
+          data: {
+            '_id': 'azad',
+          },
           source: QueryResultSource.network,
         ),
       );

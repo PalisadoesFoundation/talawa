@@ -11,7 +11,17 @@ class CacheService {
   /// Initializes the cache service and the offline action queue.
   CacheService() {
     offlineActionQueue = OfflineActionQueue();
-    offlineActionQueue.initialize();
+  }
+
+  /// Initializes the cache service.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> initialise() async {
+    await offlineActionQueue.initialize();
   }
 
   /// Duration for which cached operations are considered valid.

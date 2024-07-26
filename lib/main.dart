@@ -40,6 +40,8 @@ Future<void> main() async {
 
   setupLocator();
 
+  await cacheService.initialise();
+
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }

@@ -83,7 +83,6 @@ class CommentsViewModel extends BaseModel {
         await _commentService.createComments(_postID, msg);
         return null;
       },
-      onValidResult: (result) async {},
       updateUI: () {
         addCommentLocally(msg);
       },

@@ -23,7 +23,7 @@ class ActionHandlerService {
   /// * `Future<bool?>`: that indicates the success (`true`), failure (`false`), or null if the result is invalid.
   Future<bool?> executeApiCall({
     required Future<QueryResult<Object?>?> Function() action,
-    required Future<void> Function(QueryResult<Object?>) onValidResult,
+    Future<void> Function(QueryResult<Object?>)? onValidResult,
     Future<void> Function(Exception e)? onActionException,
     Future<void> Function()? onActionFinally,
   }) async {
@@ -33,7 +33,7 @@ class ActionHandlerService {
       if (result == null || result.data == null) return null;
 
       if (result.isConcrete && result.source != QueryResultSource.cache) {
-        await onValidResult(result);
+        await onValidResult!(result);
       }
       return true;
     } catch (e) {
@@ -61,7 +61,7 @@ class ActionHandlerService {
   Future<void> performAction({
     required ActionType actionType,
     required Future<QueryResult<Object?>?> Function() action,
-    required Future<void> Function(QueryResult<Object?> result) onValidResult,
+    Future<void> Function(QueryResult<Object?> result)? onValidResult,
     Future<void> Function(Exception e)? onActionException,
     void Function()? updateUI,
     void Function()? apiCallSuccessUpdateUI,

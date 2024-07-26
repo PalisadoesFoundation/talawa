@@ -73,11 +73,12 @@ final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
 
 void testSetupLocator() {
+  locator.registerSingleton(CacheService());
+
   locator.registerSingleton(DataBaseMutationFunctions());
 
   locator.registerSingleton(GraphqlConfig());
 
-  locator.registerSingleton(CacheService());
   //services
   locator.registerSingleton(NavigationService());
 

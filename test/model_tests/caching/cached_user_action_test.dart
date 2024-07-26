@@ -1,15 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
+import 'package:talawa/services/caching/offline_action_queue.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 void main() {
+  late final Box<CachedUserAction> cacheBox;
   setUpAll(() async {
     testSetupLocator();
     getAndRegisterDatabaseMutationFunctions();
+    final offlineActionQueue = OfflineActionQueue();
+    offlineActionQueue.registerAdapters();
+    cacheBox = await Hive.openBox<CachedUserAction>(OfflineActionQueue.boxName);
   });
 
   group('CachedUserAction', () {
@@ -142,6 +148,96 @@ void main() {
         operationType: CachedOperationType.gqlAuthQuery,
       )
     ''');
+    });
+
+    group('Enums test', () {
+      test('CachedUserAction Status', () {
+        CachedUserAction resultAction;
+
+        final action = CachedUserAction(
+          id: '123',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.completed,
+          operationType: CachedOperationType.gqlAuthQuery,
+          variables: {'key': 'value'},
+          metaData: {'info': 'metadata'},
+        );
+        cacheBox.put(action.id, action);
+        resultAction = cacheBox.get(action.id)!;
+        resultAction.execute();
+      });
+
+      test('CachedUserAction Operation Type', () {
+        CachedUserAction resultAction;
+        final action1 = CachedUserAction(
+          id: '124',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.completed,
+          operationType: CachedOperationType.gqlAuthMutation,
+          variables: {'key': 'value'},
+          metaData: {'info': 'metadata'},
+        );
+        cacheBox.put(action1.id, action1);
+        resultAction = cacheBox.get(action1.id)!;
+
+        final action2 = CachedUserAction(
+          id: '125',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.completed,
+          operationType: CachedOperationType.gqlNonAuthQuery,
+          variables: {'key': 'value'},
+          metaData: {'info': 'metadata'},
+        );
+        cacheBox.put(action2.id, action2);
+        resultAction = cacheBox.get(action2.id)!;
+
+        final action3 = CachedUserAction(
+          id: '126',
+          operation: 'testOperation',
+          timeStamp: DateTime.parse('2024-07-12T12:34:56Z'),
+          expiry: DateTime.parse('2024-07-13T12:34:56Z'),
+          status: CachedUserActionStatus.completed,
+          operationType: CachedOperationType.gqlNonAuthMutation,
+          variables: {'key': 'value'},
+          metaData: {'info': 'metadata'},
+        );
+        cacheBox.put(action3.id, action3);
+        resultAction = cacheBox.get(action3.id)!;
+
+        resultAction.execute();
+      });
+    });
+
+    group('Test Adapters', () {
+      test('equality works correctly CachedUserActionStatusAdapter', () {
+        final adapter1 = CachedUserActionStatusAdapter();
+        final adapter2 = CachedUserActionStatusAdapter();
+
+        expect(adapter1, equals(adapter2));
+        expect(adapter1.hashCode, equals(adapter2.hashCode));
+      });
+
+      test('equality works correctly CachedOperationTypeAdapter', () {
+        final adapter1 = CachedOperationTypeAdapter();
+        final adapter2 = CachedOperationTypeAdapter();
+
+        expect(adapter1, equals(adapter2));
+        expect(adapter1.hashCode, equals(adapter2.hashCode));
+      });
+
+      test('equality works correctly CachedUserActionAdapter', () {
+        final adapter1 = CachedUserActionAdapter();
+        final adapter2 = CachedUserActionAdapter();
+
+        expect(adapter1, equals(adapter2));
+        expect(adapter1.hashCode, equals(adapter2.hashCode));
+      });
     });
   });
 }

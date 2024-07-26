@@ -160,7 +160,6 @@ class SetUrlViewModel extends BaseModel {
           }
           return null;
         },
-        onValidResult: (result) async {},
       );
     }
   }

@@ -239,8 +239,6 @@ class NavigationService {
       print(
         'Route History: ${navigatorState.widget.pages.map((page) => page.toString()).toList()}',
       );
-    } else {
-      print('Navigator state is null.');
     }
   }
 }

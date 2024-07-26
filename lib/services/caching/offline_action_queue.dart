@@ -52,6 +52,7 @@ class OfflineActionQueue {
   ///   None
   Future<void> openQueue() async {
     _actionsBox = await Hive.openBox<CachedUserAction>(boxName);
+    print('initialised');
   }
 
   /// Adds an action to the queue with a TTL.

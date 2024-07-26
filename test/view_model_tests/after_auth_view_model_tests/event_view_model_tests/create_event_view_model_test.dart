@@ -16,6 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -241,6 +242,117 @@ void main() {
       verify(navigationService.pop());
     });
 
+    test("test getImageFromGallery and removeImage functions", () async {
+      final notifyListenerCallback = MockCallbackFunction();
+      final model = CreateEventViewModel()..addListener(notifyListenerCallback);
+      model.initialize();
+
+      // testing getImageFromGallery
+      // with camera false
+      when(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((realInvocation) async {
+        return null;
+      });
+
+      await model.getImageFromGallery();
+      verify(multimediaPickerService.getPhotoFromGallery(camera: false));
+      expect(model.imageFile, null);
+
+      // with camera true
+      final file = File('fakePath');
+      when(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .thenAnswer((_) async {
+        return file;
+      });
+      await model.getImageFromGallery(camera: true);
+      verify(multimediaPickerService.getPhotoFromGallery(camera: true));
+      expect(model.imageFile, file);
+      verify(notifyListenerCallback());
+
+      // testing removeImage
+      model.removeImage();
+      expect(model.imageFile, null);
+      verify(notifyListenerCallback());
+    });
+
+    test('check that empty values are not accepted for required fields', () {
+      final String? emptyTitle = Validator.validateEventForm("", "Title");
+      expect(emptyTitle, "Title must not be left blank.");
+
+      final String? emptyLocation = Validator.validateEventForm("", "Location");
+      expect(emptyLocation, "Location must not be left blank.");
+
+      final String? emptyDescription =
+          Validator.validateEventForm("", "Description");
+      expect(emptyDescription, "Description must not be left blank.");
+    });
+
+    test('Check validators return null for valid values', () {
+      final String? validTitle =
+          Validator.validateEventForm("Test Title", "Title");
+      expect(validTitle, null);
+
+      final String? validLocation =
+          Validator.validateEventForm("Test Location", "Location");
+      expect(validLocation, null);
+
+      final String? validDescription =
+          Validator.validateEventForm("Test Description", "Description");
+      expect(validDescription, null);
+    });
+
+    test('Check addition of members', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final List<User> allMembers =
+          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
+      model.orgMembersList = allMembers;
+
+      // non admins (normal members)
+      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
+      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
+      model.buildUserList();
+      final bool isMemberFound =
+          model.selectedMembers.contains(usersInCurrentOrg.first);
+      expect(isMemberFound, true);
+    });
+
+    test('Removing of members from event', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+      final List<User> allMembers =
+          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
+      model.orgMembersList = allMembers;
+
+      // non admins (normal members)
+      // to remove, first we need to add a member
+      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
+      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
+      model.buildUserList();
+      model.removeUserFromList(
+        userId: usersInCurrentOrg.first.id!,
+      );
+      final bool isMemberFound =
+          model.selectedMembers.contains(usersInCurrentOrg.first);
+      expect(isMemberFound, false);
+    });
+
+    test('setEventEndDate should set the event end date and notify listeners',
+        () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final newDate = DateTime.now().add(const Duration(days: 1));
+      final notifyListenerCallback = MockCallbackFunction();
+      model.addListener(notifyListenerCallback);
+
+      model.setEventEndDate(newDate);
+
+      expect(model.eventEndDate, newDate);
+      verify(notifyListenerCallback()).called(1);
+    });
+
     testWidgets("testing createEvent function (Recurring)", (tester) async {
       final model = CreateEventViewModel();
       model.initialize();
@@ -375,117 +487,12 @@ void main() {
       );
 
       verify(navigationService.pop());
-    });
 
-    test("test getImageFromGallery and removeImage functions", () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = CreateEventViewModel()..addListener(notifyListenerCallback);
-      model.initialize();
+      model.isAllDay = false;
 
-      // testing getImageFromGallery
-      // with camera false
-      when(multimediaPickerService.getPhotoFromGallery(camera: false))
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
+      AppConnectivity.isOnline = false;
 
-      await model.getImageFromGallery();
-      verify(multimediaPickerService.getPhotoFromGallery(camera: false));
-      expect(model.imageFile, null);
-
-      // with camera true
-      final file = File('fakePath');
-      when(multimediaPickerService.getPhotoFromGallery(camera: true))
-          .thenAnswer((_) async {
-        return file;
-      });
-      await model.getImageFromGallery(camera: true);
-      verify(multimediaPickerService.getPhotoFromGallery(camera: true));
-      expect(model.imageFile, file);
-      verify(notifyListenerCallback());
-
-      // testing removeImage
-      model.removeImage();
-      expect(model.imageFile, null);
-      verify(notifyListenerCallback());
-    });
-
-    test('check that empty values are not accepted for required fields', () {
-      final String? emptyTitle = Validator.validateEventForm("", "Title");
-      expect(emptyTitle, "Title must not be left blank.");
-
-      final String? emptyLocation = Validator.validateEventForm("", "Location");
-      expect(emptyLocation, "Location must not be left blank.");
-
-      final String? emptyDescription =
-          Validator.validateEventForm("", "Description");
-      expect(emptyDescription, "Description must not be left blank.");
-    });
-
-    test('Check validators return null for valid values', () {
-      final String? validTitle =
-          Validator.validateEventForm("Test Title", "Title");
-      expect(validTitle, null);
-
-      final String? validLocation =
-          Validator.validateEventForm("Test Location", "Location");
-      expect(validLocation, null);
-
-      final String? validDescription =
-          Validator.validateEventForm("Test Description", "Description");
-      expect(validDescription, null);
-    });
-
-    test('Check addition of members', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final List<User> allMembers =
-          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.orgMembersList = allMembers;
-
-      // non admins (normal members)
-      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
-      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList();
-      final bool isMemberFound =
-          model.selectedMembers.contains(usersInCurrentOrg.first);
-      expect(isMemberFound, true);
-    });
-
-    test('Removing of members from event', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-      final List<User> allMembers =
-          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.orgMembersList = allMembers;
-
-      // non admins (normal members)
-      // to remove, first we need to add a member
-      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
-      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList();
-      model.removeUserFromList(
-        userId: usersInCurrentOrg.first.id!,
-      );
-      final bool isMemberFound =
-          model.selectedMembers.contains(usersInCurrentOrg.first);
-      expect(isMemberFound, false);
-    });
-
-    test('setEventEndDate should set the event end date and notify listeners',
-        () {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final newDate = DateTime.now().add(const Duration(days: 1));
-      final notifyListenerCallback = MockCallbackFunction();
-      model.addListener(notifyListenerCallback);
-
-      model.setEventEndDate(newDate);
-
-      expect(model.eventEndDate, newDate);
-      verify(notifyListenerCallback()).called(1);
+      await model.createEvent();
     });
   });
 }
