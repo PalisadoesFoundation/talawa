@@ -13,8 +13,10 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 class MockImageService extends Mock implements ImageService {
+  static const throwException = 'throw Exception';
   @override
   Future<String> convertToBase64(File file) async {
+    if (file.path == throwException) throw Exception('fake exception');
     return "base64";
   }
 }

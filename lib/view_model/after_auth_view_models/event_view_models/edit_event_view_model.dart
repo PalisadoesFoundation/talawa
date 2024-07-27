@@ -127,7 +127,7 @@ class EditEventViewModel extends BaseModel {
         locationFocus.unfocus();
         descriptionFocus.unfocus();
         validate = AutovalidateMode.always;
-        if (formKey.currentState!.validate()) {
+        if (formKey.currentState?.validate() ?? false) {
           validate = AutovalidateMode.disabled;
           final DateTime startTime = DateTime(
             eventStartDate.year,
@@ -166,7 +166,6 @@ class EditEventViewModel extends BaseModel {
             eventId: _event.id!,
             variables: variables,
           );
-          print(result.isConcrete);
           return result;
         }
         return databaseFunctions.noData;

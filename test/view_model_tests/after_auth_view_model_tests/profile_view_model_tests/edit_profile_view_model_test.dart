@@ -5,10 +5,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../service_tests/image_service_test.dart';
 import '../../../widget_tests/widgets/post_modal_test.dart';
 
 /// MockCallbackFunction class is used to mock callback function.
@@ -307,6 +309,27 @@ void main() {
       );
     });
 
+    test('No update performed if all three inputs are null', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      when(databaseFunctions.noData).thenReturn(
+        QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
+            ),
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+      await model.updateUserProfile(
+        firstName: null,
+        lastName: null,
+        newImage: null,
+      );
+    });
+
     test('convertToBase64 converts file to base64 string', () async {
       final model = EditProfilePageViewModel();
       model.initialize();
@@ -314,6 +337,16 @@ void main() {
       final file = File('assets/images/Group 8948.png');
       final fileString = await model.convertToBase64(file);
       expect(model.base64Image, fileString);
+    });
+
+    test('convertToBase64 converts file to base64 string throws exception',
+        () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+      //using this asset as the test asset
+      final file = File(MockImageService.throwException);
+      await model.convertToBase64(file);
+      expect(model.base64Image, null);
     });
 
     test('Check if removeImage() is working fine', () async {

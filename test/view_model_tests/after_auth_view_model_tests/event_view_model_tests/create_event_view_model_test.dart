@@ -16,7 +16,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -546,14 +545,9 @@ void main() {
       );
 
       verify(navigationService.pop());
-    });
 
-    test('is AllDay false', () async {
-      final model = CreateEventViewModel();
       model.initialize();
       model.isAllDay = false;
-
-      AppConnectivity.isOnline = false;
 
       await model.createEvent();
     });

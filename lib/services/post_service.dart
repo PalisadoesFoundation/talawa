@@ -104,6 +104,7 @@ class PostService {
         _renderedPostID.add(post.sId);
       }
     });
+    print(_postStreamController.hasListener);
     _postStreamController.add(_posts);
   }
 

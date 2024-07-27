@@ -252,6 +252,8 @@ class CreateEventViewModel extends BaseModel {
               },
           };
 
+          print(variables);
+
           navigationService.pushDialog(
             const CustomProgressDialog(key: Key('EventCreationProgress')),
           );
