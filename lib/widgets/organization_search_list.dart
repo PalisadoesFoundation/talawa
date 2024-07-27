@@ -45,14 +45,10 @@ class OrganizationSearchList extends StatelessWidget {
                 GraphqlExceptionResolver.encounteredExceptionOrError(
               result.exception!,
             );
+            print(isException);
             if (noOfRefetch <= maxRefetch) {
-              if (isException!) {
-                noOfRefetch++;
-                refetch!();
-              } else {
-                noOfRefetch++;
-                refetch!();
-              }
+              noOfRefetch++;
+              refetch!();
             }
           } else {
             // If the result is still loading!
