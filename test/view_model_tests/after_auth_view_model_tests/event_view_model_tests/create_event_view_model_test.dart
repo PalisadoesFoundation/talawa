@@ -553,7 +553,6 @@ void main() {
       await model.createEvent();
     });
 
-
     testWidgets("testing createEvent function (Recurring)", (tester) async {
       final model = CreateEventViewModel();
       AppConnectivity.isOnline = false;
