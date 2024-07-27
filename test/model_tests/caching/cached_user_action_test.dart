@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
@@ -9,10 +11,14 @@ import 'package:talawa/services/caching/offline_action_queue.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+class MockBinaryReader extends Mock implements BinaryReader {}
+
 void main() {
   late final Box<CachedUserAction> cacheBox;
   setUpAll(() async {
     testSetupLocator();
+    final Directory dir = Directory('test/fixtures/core');
+    Hive.init(dir.path);
     getAndRegisterDatabaseMutationFunctions();
     final offlineActionQueue = OfflineActionQueue();
     offlineActionQueue.registerAdapters();
@@ -152,7 +158,7 @@ void main() {
     });
 
     group('Enums test', () {
-      test('CachedUserAction Status', () {
+      test('CachedUserAction Status', () async {
         CachedUserAction resultAction;
 
         final action = CachedUserAction(
@@ -165,12 +171,12 @@ void main() {
           variables: {'key': 'value'},
           metaData: {'info': 'metadata'},
         );
-        cacheBox.put(action.id, action);
+        await cacheBox.put(action.id, action);
         resultAction = cacheBox.get(action.id)!;
         resultAction.execute();
       });
 
-      test('CachedUserAction Operation Type', () {
+      test('CachedUserAction Operation Type', () async {
         CachedUserAction resultAction;
         final action1 = CachedUserAction(
           id: '124',
@@ -182,7 +188,7 @@ void main() {
           variables: {'key': 'value'},
           metaData: {'info': 'metadata'},
         );
-        cacheBox.put(action1.id, action1);
+        await cacheBox.put(action1.id, action1);
         resultAction = cacheBox.get(action1.id)!;
 
         final action2 = CachedUserAction(
@@ -195,7 +201,7 @@ void main() {
           variables: {'key': 'value'},
           metaData: {'info': 'metadata'},
         );
-        cacheBox.put(action2.id, action2);
+        await cacheBox.put(action2.id, action2);
         resultAction = cacheBox.get(action2.id)!;
 
         final action3 = CachedUserAction(
@@ -208,9 +214,9 @@ void main() {
           variables: {'key': 'value'},
           metaData: {'info': 'metadata'},
         );
-        cacheBox.put(action3.id, action3);
+        await cacheBox.put(action3.id, action3);
         resultAction = cacheBox.get(action3.id)!;
-
+        print(resultAction);
         resultAction.execute();
       });
     });
