@@ -9,9 +9,9 @@ import 'dart:ui' as _i10;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i39;
+import 'package:image_cropper/src/cropper.dart' as _i40;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i40;
+    as _i41;
 import 'package:image_picker/image_picker.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i25;
@@ -23,6 +23,7 @@ import 'package:talawa/enums/enums.dart' as _i14;
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i22;
 import 'package:talawa/models/chats/chat_message.dart' as _i23;
 import 'package:talawa/models/events/event_model.dart' as _i20;
+import 'package:talawa/models/events/event_venue.dart' as _i38;
 import 'package:talawa/models/organization/org_info.dart' as _i6;
 import 'package:talawa/models/post/post_model.dart' as _i17;
 import 'package:talawa/models/user/user_info.dart' as _i7;
@@ -39,7 +40,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart' as _i24;
 import 'package:talawa/utils/validators.dart' as _i31;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
-    as _i38;
+    as _i39;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
     as _i37;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
@@ -4000,6 +4001,17 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
+  _i5.Future<List<_i38.Venue>> fetchVenues() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchVenues,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i38.Venue>>.value(<_i38.Venue>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i38.Venue>>.value(<_i38.Venue>[]),
+      ) as _i5.Future<List<_i38.Venue>>);
+
+  @override
   void setState(_i14.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
@@ -4049,7 +4061,7 @@ class MockCreateEventViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDirectChatViewModel extends _i2.Mock
-    implements _i38.DirectChatViewModel {
+    implements _i39.DirectChatViewModel {
   @override
   _i1.GlobalKey<_i1.AnimatedListState> get listKey => (super.noSuchMethod(
         Invocation.getter(#listKey),
@@ -4228,24 +4240,24 @@ class MockDirectChatViewModel extends _i2.Mock
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i39.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i40.ImageCropper {
   @override
-  _i5.Future<_i40.CroppedFile?> cropImage({
+  _i5.Future<_i41.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i40.CropAspectRatio? aspectRatio,
-    List<_i40.CropAspectRatioPreset>? aspectRatioPresets = const [
-      _i40.CropAspectRatioPreset.original,
-      _i40.CropAspectRatioPreset.square,
-      _i40.CropAspectRatioPreset.ratio3x2,
-      _i40.CropAspectRatioPreset.ratio4x3,
-      _i40.CropAspectRatioPreset.ratio16x9,
+    _i41.CropAspectRatio? aspectRatio,
+    List<_i41.CropAspectRatioPreset>? aspectRatioPresets = const [
+      _i41.CropAspectRatioPreset.original,
+      _i41.CropAspectRatioPreset.square,
+      _i41.CropAspectRatioPreset.ratio3x2,
+      _i41.CropAspectRatioPreset.ratio4x3,
+      _i41.CropAspectRatioPreset.ratio16x9,
     ],
-    _i40.CropStyle? cropStyle = _i40.CropStyle.rectangle,
-    _i40.ImageCompressFormat? compressFormat = _i40.ImageCompressFormat.jpg,
+    _i41.CropStyle? cropStyle = _i41.CropStyle.rectangle,
+    _i41.ImageCompressFormat? compressFormat = _i41.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i40.PlatformUiSettings>? uiSettings,
+    List<_i41.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -4263,19 +4275,19 @@ class MockImageCropper extends _i2.Mock implements _i39.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i5.Future<_i40.CroppedFile?>.value(),
-        returnValueForMissingStub: _i5.Future<_i40.CroppedFile?>.value(),
-      ) as _i5.Future<_i40.CroppedFile?>);
+        returnValue: _i5.Future<_i41.CroppedFile?>.value(),
+        returnValueForMissingStub: _i5.Future<_i41.CroppedFile?>.value(),
+      ) as _i5.Future<_i41.CroppedFile?>);
 
   @override
-  _i5.Future<_i40.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i5.Future<_i41.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i5.Future<_i40.CroppedFile?>.value(),
-        returnValueForMissingStub: _i5.Future<_i40.CroppedFile?>.value(),
-      ) as _i5.Future<_i40.CroppedFile?>);
+        returnValue: _i5.Future<_i41.CroppedFile?>.value(),
+        returnValueForMissingStub: _i5.Future<_i41.CroppedFile?>.value(),
+      ) as _i5.Future<_i41.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].
