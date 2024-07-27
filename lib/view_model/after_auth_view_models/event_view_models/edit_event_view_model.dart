@@ -162,10 +162,11 @@ class EditEventViewModel extends BaseModel {
               key: Key('EditEventProgress'),
             ),
           );
-          final result = _eventService.editEvent(
+          final result = await _eventService.editEvent(
             eventId: _event.id!,
             variables: variables,
           );
+          print(result.isConcrete);
           return result;
         }
         return databaseFunctions.noData;

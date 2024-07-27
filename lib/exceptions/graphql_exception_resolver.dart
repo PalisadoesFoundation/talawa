@@ -108,6 +108,7 @@ class GraphqlExceptionResolver {
 
       /// If the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
+        print(showSnackBar);
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(

@@ -103,6 +103,64 @@ void main() {
   });
 
   group('Create Event Tests', () {
+    test('check if fetchVenues method work properly when null is thrown', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      model.fetchVenues();
+    });
+    test('check if fetchVenues method work properly', () {
+      final model = CreateEventViewModel();
+      model.initialize();
+
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+            {
+              'id': '2',
+              'name': 'Mock Venue 2',
+              'capacity': 150,
+              'imageUrl': '',
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queries.venueListQuery(),
+          variables: {
+            "orgId": 'XYZ',
+          },
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      model.fetchVenues();
+    });
     test("test getCurrentOrgUsersList with isAdmin false", () async {
       final model = CreateEventViewModel();
       model.initialize();
@@ -488,70 +546,16 @@ void main() {
       );
 
       verify(navigationService.pop());
+    });
 
+    test('is AllDay false', () async {
+      final model = CreateEventViewModel();
+      model.initialize();
       model.isAllDay = false;
 
       AppConnectivity.isOnline = false;
 
       await model.createEvent();
-    });
-    test('check if fetchVenues method work properly when null is thrown', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: null,
-        options: QueryOptions(document: gql(queries.venueListQuery())),
-      );
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
-        ),
-      ).thenAnswer((_) async => mockQueryResult);
-
-      model.fetchVenues();
-    });
-    test('check if fetchVenues method work properly', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final mockQueryResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'getVenueByOrgId': [
-            {
-              'id': '1',
-              'name': 'Mock Venue 1',
-              'capacity': 100,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-            {
-              'id': '2',
-              'name': 'Mock Venue 2',
-              'capacity': 150,
-              'imageUrl': '',
-              'description': 'aaa',
-            },
-          ],
-        },
-        options: QueryOptions(document: gql(queries.venueListQuery())),
-      );
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
-        ),
-      ).thenAnswer((_) async => mockQueryResult);
-
-      model.fetchVenues();
     });
   });
 }

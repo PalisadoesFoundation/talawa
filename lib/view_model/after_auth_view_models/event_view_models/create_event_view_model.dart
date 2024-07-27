@@ -386,7 +386,7 @@ class CreateEventViewModel extends BaseModel {
       variables: {
         "orgId": _currentOrg.id,
       },
-    ) as QueryResult<Object?>;
+    );
 
     if (result.data == null) {
       return [];

@@ -3,11 +3,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/user_action_handler.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -39,6 +42,7 @@ void main() {
   setUpAll(() {
     locator.registerSingleton(ActionHandlerService());
     registerServices();
+    locator.registerSingleton<Queries>(Queries());
   });
   group('EditEventViewModel Test -', () {
     test("Check if it's initialized correctly", () {
@@ -70,6 +74,46 @@ void main() {
           child: Container(),
         ),
       );
+
+      final DateTime startTime = DateTime(
+        model.eventStartDate.month,
+        model.eventStartDate.day,
+        model.eventStartDate.year,
+        model.eventStartTime.hour,
+        model.eventStartTime.minute,
+      );
+      final DateTime endTime = DateTime(
+        model.eventEndDate.year,
+        model.eventEndDate.month,
+        model.eventEndDate.day,
+        model.eventEndTime.hour,
+        model.eventEndTime.minute,
+      );
+
+      final variables = {
+        'title': model.eventTitleTextController.text,
+        'description': model.eventDescriptionTextController.text,
+        'location': model.eventLocationTextController.text,
+        'isPublic': model.isPublicSwitch,
+        'isRegisterable': model.isRegisterableSwitch,
+        'recurring': false,
+        'allDay': false,
+        'startDate': DateFormat('yyyy-MM-dd').format(model.eventStartDate),
+        'endDate': DateFormat('yyyy-MM-dd').format(model.eventEndDate),
+        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
+      };
+
+      when(eventService.editEvent(eventId: testEvent.id!, variables: variables))
+          .thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'test': true,
+          },
+          options: QueryOptions(document: gql(queries.joinOrgById('id'))),
+        );
+      });
 
       await model.updateEvent();
 
