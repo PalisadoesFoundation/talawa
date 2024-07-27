@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_venue.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -9,6 +11,7 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
+import 'package:talawa/views/after_auth_screens/events/venue_bottom_sheet.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_members_bottom_sheet.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
@@ -26,6 +29,9 @@ class CreateEventPage extends StatefulWidget {
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
+  /// venue selected by the user.
+  Venue? selectedVenue;
+
   @override
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
@@ -132,6 +138,104 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       model: model,
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.013),
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () async {
+                        final List<Venue> venues = await model.fetchVenues();
+                        if (!context.mounted) return;
+                        final Venue? selected =
+                            await showModalBottomSheet<Venue>(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return VenueBottomSheet(venues: venues);
+                          },
+                        );
+                        if (selected != null) {
+                          setState(() {
+                            selectedVenue = selected;
+                          });
+                        }
+                      },
+                      child: selectedVenue == null
+                          ? Container(
+                              height: 50.0,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.add_location),
+                                  const SizedBox(width: 10.0),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .strictTranslate('Add Venue'),
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              height: 100.0,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                children: [
+                                  if (selectedVenue!.imageUrl!.isNotEmpty)
+                                    Image.network(
+                                      selectedVenue!.imageUrl!.replaceAll(
+                                        'http://localhost:4000',
+                                        GraphqlConfig.orgURI!
+                                            .replaceFirst('/graphql', ''),
+                                      ),
+                                    )
+                                  else
+                                    Image.asset(
+                                      'assets/images/defaultImg.png',
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  const SizedBox(width: 10.0),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          selectedVenue!.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        Text(
+                                          'Capacity: ${selectedVenue!.capacity}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            selectedVenue = null;
+                                          });
+                                        },
+                                        icon: const Icon(Icons.cancel),
+                                      ),
+                                      const Icon(Icons.edit),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ),
                     const Divider(),
                     SizedBox(
                       width: SizeConfig.screenWidth,

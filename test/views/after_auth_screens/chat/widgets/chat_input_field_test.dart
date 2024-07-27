@@ -52,9 +52,12 @@ Widget createChatInputField() {
 }
 
 void main() {
-  SizeConfig().test();
-  testSetupLocator();
-  registerServices();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+    registerServices();
+  });
   testWidgets("Check if chat input field shows up", (tester) async {
     await tester.pumpWidget(createChatInputField());
     await tester.pumpAndSettle();

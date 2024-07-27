@@ -74,11 +74,13 @@ Widget createAppSettingScreen({ThemeMode themeMode = ThemeMode.light}) =>
     );
 
 Future<void> main() async {
-  testSetupLocator();
-  TestWidgetsFlutterBinding.ensureInitialized();
-  locator<GraphqlConfig>().test();
-  SizeConfig().test();
-  registerServices();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
+    SizeConfig().test();
+    registerServices();
+  });
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {

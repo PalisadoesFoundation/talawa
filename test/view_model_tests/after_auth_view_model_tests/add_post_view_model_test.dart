@@ -45,7 +45,6 @@ final demoJson = {
 };
 
 void main() {
-  testSetupLocator();
   setUp(() {
     registerServices();
     getAndRegisterImageService();

@@ -150,7 +150,7 @@ class MainScreenViewModel extends BaseModel {
   final List<FocusTarget> targets = [];
 
   /// flag to represent if app is in demoMode.
-  bool demoMode = false;
+  static bool demoMode = false;
 
   /// flag to represent if app is in testMode.
   bool testMode = false;
@@ -174,7 +174,7 @@ class MainScreenViewModel extends BaseModel {
     bool testMode = false,
   }) {
     this.testMode = testMode;
-    this.demoMode = demoMode;
+    MainScreenViewModel.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;

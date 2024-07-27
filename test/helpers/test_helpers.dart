@@ -27,6 +27,7 @@ import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -50,6 +51,7 @@ import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dar
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 import '../service_tests/image_service_test.dart';
+import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 import '../service_tests/user_config_test.dart';
 import '../views/main_screen_test.dart';
 import 'test_helpers.mocks.dart';
@@ -68,7 +70,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<Connectivity>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SignupDetailsViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
@@ -650,17 +651,32 @@ EventService getAndRegisterEventService() {
   return service;
 }
 
-/// `getAndRegisterConnectivityService` returns a mock instance of the `Connectivity` class.
+/// `getAndRegisterConnectivity` returns a mock instance of the `Connectivity` class.
 ///
 /// **params**:
 ///   None
 ///
 /// **returns**:
 /// * `Connectivity`: A mock instance of the `Connectivity` class.
-Connectivity getAndRegisterConnectivityService() {
+Connectivity getAndRegisterConnectivity() {
   _removeRegistrationIfExists<Connectivity>();
   final service = MockConnectivity();
   locator.registerSingleton<Connectivity>(service);
+  return service;
+}
+
+/// `getAndRegisterConnectivityService` returns a mock instance of the `ConnectivityService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `ConnectivityService`: A mock instance of the `ConnectivityService` class.
+ConnectivityService getAndRegisterConnectivityService() {
+  _removeRegistrationIfExists<ConnectivityService>();
+  final service = MockConnectivityService();
+  locator.registerSingleton<ConnectivityService>(service);
+  // when(service.)
   return service;
 }
 
@@ -862,6 +878,7 @@ void registerServices() {
   getAndRegisterPostService();
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
+  getAndRegisterConnectivity();
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
   getAndRegisterOrganizationService();
@@ -886,6 +903,7 @@ void unregisterServices() {
   locator.unregister<EventService>();
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
+  locator.unregister<ConnectivityService>();
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
   locator.unregister<CommentService>();

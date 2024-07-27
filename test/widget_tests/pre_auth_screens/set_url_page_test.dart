@@ -58,7 +58,6 @@ Widget createSetUrlScreen({
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
   const testMockStorage = 'test/fixtures/core';
   Hive
     ..init(testMockStorage)
@@ -69,12 +68,14 @@ Future<void> main() async {
   // await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
   //setting up MVVM
-  setupLocator();
-  //initializing test functions
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
-  setUp(() async {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
     registerServices();
+
+    //initializing test functions
+    locator<GraphqlConfig>().test();
+    locator<SizeConfig>().test();
   });
 
   //Testing in light mode/normal mode

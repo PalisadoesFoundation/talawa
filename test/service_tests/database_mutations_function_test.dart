@@ -21,8 +21,6 @@ import '../helpers/test_locator.dart';
 /// **returns**:
 ///   None
 void main() async {
-  testSetupLocator();
-  locator<GraphqlConfig>().test();
   late DataBaseMutationFunctions functionsClass;
   final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
   Hive.init(dir.path);
@@ -63,6 +61,9 @@ void main() async {
   });
 
   setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    locator<GraphqlConfig>().test();
     registerServices();
     functionsClass = DataBaseMutationFunctions();
     functionsClass.init();

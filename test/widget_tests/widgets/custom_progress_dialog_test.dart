@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
@@ -15,6 +14,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 
 Widget createCustomProgressDialog() {
   return MaterialApp(
@@ -51,10 +51,6 @@ void main() {
     testWidgets(
         'Check if CustomProgressDialog widget shows up when connection available',
         (tester) async {
-      // Setup connectivity for connection available
-      when(connectivity.checkConnectivity())
-          .thenAnswer((_) async => ConnectivityResult.wifi);
-
       // Build the widget
       await tester.pumpWidget(createCustomProgressDialog());
       await tester.pump();
@@ -70,8 +66,7 @@ void main() {
       locator.registerSingleton(NavigationService());
 
       // Setup connectivity for connection not available
-      when(connectivity.checkConnectivity())
-          .thenAnswer((_) async => ConnectivityResult.none);
+      connectivityStatus = ConnectivityResult.none;
 
       // Build the widget
       await tester.pumpWidget(createCustomProgressDialog());

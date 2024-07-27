@@ -26,8 +26,11 @@ class MockUrlLauncher extends Mock
 }
 
 void main() async {
-  SizeConfig().test();
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SizeConfig().test();
+    testSetupLocator();
+  });
 
   final Directory dir = Directory('test/fixtures/core1');
 

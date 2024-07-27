@@ -17,6 +17,7 @@
         android:label="talawa"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
+        android:enableOnBackInvokedCallback="true"
        tools:replace="android:label">
         <activity
             android:name=".MainActivity"

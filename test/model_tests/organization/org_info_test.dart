@@ -5,13 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 
-import '../../helpers/test_helpers.dart';
-
 void main() {
-  setupLocator();
-  sizeConfig.test();
-  setUp(() {
-    registerServices();
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    setupLocator();
+    sizeConfig.test();
   });
 
   group('Test OrgInfo model', () {
@@ -208,6 +207,25 @@ void main() {
       expect(res[2].admins![0].authToken, ' ');
       expect(res[2].admins![0].refreshToken, ' ');
       expect(res[2].admins![0].id, 'user_id');
+    });
+  });
+
+  group('Hive adapter test', () {
+    test('OrgInfoAdapter equality operator', () {
+      final adapter1 = OrgInfoAdapter();
+      final adapter2 = OrgInfoAdapter();
+
+      // Test equality
+      expect(
+        adapter1 == adapter2,
+        isTrue,
+        reason: 'Two instances of OrgInfoAdapter should be equal',
+      );
+      expect(
+        adapter1.hashCode == adapter2.hashCode,
+        isTrue,
+        reason: 'Hash codes should be equal',
+      );
     });
   });
 }

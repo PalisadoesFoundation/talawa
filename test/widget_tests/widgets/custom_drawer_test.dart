@@ -78,12 +78,13 @@ Widget createHomePageScreen({required bool demoMode}) {
 }
 
 void main() async {
-  testSetupLocator();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
 
-  setUp(() {
-    registerServices();
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();
+    registerServices();
   });
 
   final Directory dir = Directory('test/fixtures/core');
@@ -98,6 +99,13 @@ void main() async {
 
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
+
+  // setUp(() {
+  // });
+
+  tearDownAll(() {
+    unregisterServices();
+  });
 
   group('Exit Button', () {
     testWidgets("Tapping Tests for Exit", (tester) async {
@@ -309,9 +317,5 @@ void main() async {
       await tester.tap(joinOrg);
       // await tester.pumpAndSettle();
     });*/
-  });
-
-  tearDown(() {
-    unregisterServices();
   });
 }

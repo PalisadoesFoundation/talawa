@@ -7,20 +7,17 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 import '../helpers/test_helpers.dart';
+import '../service_tests/third_party_service_test.dart/connectivity_service_test.dart';
 
 void main() {
   group('ProgressDialogViewModelTest -', () {
     group('initialise -', () {
-      final mockConnectivity = getAndRegisterConnectivityService();
+      getAndRegisterConnectivity();
       final model = ProgressDialogViewModel();
 
       test(
           'When called and connectivity is present, connectivityPresent must be set to true',
           () async {
-        when(mockConnectivity.checkConnectivity()).thenAnswer(
-          (_) async => ConnectivityResult.mobile,
-        );
-
         await model.initialise();
 
         expect(model.connectivityPresent, true);
@@ -31,8 +28,7 @@ void main() {
         () async {
           final mockNavigation = getAndRegisterNavigationService();
 
-          when(mockConnectivity.checkConnectivity())
-              .thenAnswer((_) async => ConnectivityResult.none);
+          connectivityStatus = ConnectivityResult.none;
 
           await model.initialise();
 
