@@ -443,7 +443,7 @@ class ProfilePage extends StatelessWidget {
                             // }
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                               // if the donation amount entered or selected is empty then renders grey color
                               // else render primary color
                               model.donationAmount.text.isEmpty

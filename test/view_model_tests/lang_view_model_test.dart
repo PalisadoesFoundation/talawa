@@ -3,12 +3,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
 import '../helpers/test_helpers.dart';
@@ -141,7 +143,13 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           queries.updateLanguage(model.appLocal.languageCode),
         ),
-      ).thenAnswer((_) async {});
+      ).thenAnswer((_) async {
+        return QueryResult(
+          options: QueryOptions(document: gql(PostQueries().addLike())),
+          exception: OperationException(graphqlErrors: []),
+          source: QueryResultSource.network,
+        );
+      });
 
       await model.selectLanguagePress();
 
@@ -160,13 +168,25 @@ void main() {
       // testing userLanguageQuery function
       const userId = "xyz1";
       when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return QueryResult(
+          options: QueryOptions(document: gql(PostQueries().addLike())),
+          exception: OperationException(graphqlErrors: []),
+          source: QueryResultSource.network,
+        );
+      });
       await model.userLanguageQuery(userId);
       verify(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)));
 
       //testing appLanguageQueryFunction
       when(databaseFunctions.gqlAuthQuery(queries.userLanguage()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return QueryResult(
+          options: QueryOptions(document: gql(PostQueries().addLike())),
+          exception: OperationException(graphqlErrors: []),
+          source: QueryResultSource.network,
+        );
+      });
       await model.appLanguageQuery();
       verify(databaseFunctions.gqlAuthQuery(queries.userLanguage()));
 

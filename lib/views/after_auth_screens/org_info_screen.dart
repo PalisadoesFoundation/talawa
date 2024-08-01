@@ -16,13 +16,11 @@ class OrganisationInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(
-      context,
-    );
     final double imageHeight = SizeConfig.screenHeight! * 0.38;
     final SelectOrganizationViewModel model = SelectOrganizationViewModel();
     final Map<String, OrgInfo> joinedOrgsMap = {};
-    for (final org in userConfig.currentUser.joinedOrganizations!) {
+    for (final org
+        in userConfig.currentUser.joinedOrganizations ?? <OrgInfo>[]) {
       joinedOrgsMap[org.id!] = org;
     }
 
@@ -232,7 +230,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               2,
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               thickness: 1,
               endIndent: 16,
               indent: 16,
@@ -250,7 +248,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               4,
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               thickness: 1,
               endIndent: 16,
               indent: 16,

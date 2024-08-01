@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/base_view.dart';
@@ -37,6 +40,22 @@ void main() {
   group("SendRequestAccess Screen test", () {
     testWidgets("SendRequestAccess screen is build correctly",
         (WidgetTester tester) async {
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.sendMembershipRequest("XYZ"),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(
+              PostQueries().addLike(),
+            ),
+          ),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+
       await tester.pumpWidget(accessRequestScreen());
       await tester.pumpAndSettle();
 

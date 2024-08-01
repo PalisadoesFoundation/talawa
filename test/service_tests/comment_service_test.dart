@@ -166,7 +166,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
+          CommentQueries().getPostsComments('Ayushs postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -182,7 +182,7 @@ void main() {
       );
 
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayush postid');
+      final result = await service.getCommentsForPost('Ayushs postid');
 
       if (result.toString().contains('[{creator: '
           '{'
@@ -220,7 +220,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
+          CommentQueries().getPostsComments('Ayushs postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -234,7 +234,7 @@ void main() {
       );
 
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayush postid');
+      final result = await service.getCommentsForPost('Ayushs postid');
 
       if (result.toString().contains('[{creator: '
           '{'
@@ -272,21 +272,23 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
+          CommentQueries().getPostsComments('Ayushs postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommmentQuery)),
           data: {
-            'post': null,
+            'post': {
+              'comments': [],
+            },
           },
           source: QueryResultSource.network,
         ),
       );
 
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayush postid');
+      final result = await service.getCommentsForPost('Ayushs postid');
 
       if (result.toString().contains('[{creator: '
           '{'
@@ -324,7 +326,7 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery =
-          CommentQueries().getPostsComments('Ayush s postid');
+          CommentQueries().getPostsComments('Ayushs postid');
       when(
         dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery),
       ).thenAnswer(
@@ -336,7 +338,7 @@ void main() {
       );
 
       final service = CommentService();
-      final result = await service.getCommentsForPost('Ayush postid');
+      final result = await service.getCommentsForPost('Ayushs postid');
 
       if (result.toString().contains('[{creator: '
           '{'

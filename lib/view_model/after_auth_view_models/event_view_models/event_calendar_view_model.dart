@@ -54,7 +54,6 @@ class EventCalendarViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void viewChanged(ViewChangedDetails viewChangedDetails) {
-    print("came");
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _dateRangePickerController.selectedDate =
           viewChangedDetails.visibleDates[0];

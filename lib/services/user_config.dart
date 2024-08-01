@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/constants/app_strings.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 /// Provides different services in the context of the User.
 ///
@@ -89,15 +92,16 @@ class UserConfig {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
-    databaseFunctions.init();
-    await sessionManager.refreshSession();
     // generate access token
     graphqlConfig.getToken().then((value) async {
       try {
+        databaseFunctions.init();
+        await sessionManager.refreshSession();
+        databaseFunctions.init();
         final QueryResult result = await databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
           variables: {'id': currentUser.id},
-        ) as QueryResult;
+        );
         final List users = result.data!['users'] as List;
         final User userInfo = User.fromJson(
           users[0] as Map<String, dynamic>,
@@ -128,42 +132,62 @@ class UserConfig {
   ///
   /// **returns**:
   /// * `Future<bool>`: returns future of bool type.
-  Future<bool> userLogOut() async {
-    bool isLogOutSuccessful = false;
-    try {
-      final result = await databaseFunctions.gqlAuthMutation(queries.logout())
-          as QueryResult?;
-      if (result != null && result.data!['logout'] == true) {
+  Future<void> userLogOut() async {
+    await actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
+      action: () async {
+        navigationService.pop();
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('LogoutProgress'),
           ),
         );
-        // throw StateError('error');
+        return await databaseFunctions.gqlAuthMutation(queries.logout());
+      },
+      onValidResult: (result) async {
+        if (result.data != null && result.data!['logout'] == true) {
+          // throw StateError('error');
 
-        final user = Hive.box<User>('currentUser');
-        final url = Hive.box('url');
-        // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
-        // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
-        final organisation = Hive.box<OrgInfo>('currentOrg');
-        await user.clear();
-        await url.clear();
-        // androidFirebaseOptionsBox.clear();
-        // iosFirebaseOptionsBox.clear();
-        // try {
-        //   Firebase.app()
-        //       .delete(); // Deleting app will stop all Firebase plugins
-        // } catch (e) {
-        //   debugPrint("ERROR: Unable to delete firebase app $e");
-        // }
-        await organisation.clear();
-        _currentUser = User(id: 'null', authToken: 'null');
-        isLogOutSuccessful = true;
-      }
-    } catch (e) {
-      isLogOutSuccessful = false;
-    }
-    return isLogOutSuccessful;
+          final user = Hive.box<User>('currentUser');
+          final url = Hive.box('url');
+          final organisation = Hive.box<OrgInfo>('currentOrg');
+          // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
+          // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
+          await user.clear();
+          await url.clear();
+          await organisation.clear();
+          // androidFirebaseOptionsBox.clear();
+          // iosFirebaseOptionsBox.clear();
+          // try {
+          //   Firebase.app()
+          //       .delete(); // Deleting app will stop all Firebase plugins
+          // } catch (e) {
+          //   debugPrint("ERROR: Unable to delete firebase app $e");
+          // }
+          _currentUser = User(id: 'null', authToken: 'null');
+        }
+      },
+      onActionException: (e) async {
+        navigationService.pushDialog(
+          const TalawaErrorDialog(
+            'Unable to logout, please try again.',
+            key: Key('TalawaError'),
+            messageType: MessageType.error,
+          ),
+        );
+      },
+      updateUI: () {
+        navigationService.pop();
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.removeAllAndPush(
+          Routes.setUrlScreen,
+          Routes.splashScreen,
+          arguments: '',
+        );
+      },
+    );
   }
 
   /// Updates the user joined organization.

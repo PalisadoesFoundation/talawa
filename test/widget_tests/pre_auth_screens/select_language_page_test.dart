@@ -69,7 +69,10 @@ Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
 
 Future<void> main() async {
   //initializing Hive
-  const testMockStorage = 'test/fixtures/core';
+
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  const testMockStorage = 'test/fixtures/core3';
   Hive
     ..init(testMockStorage)
     ..registerAdapter(UserAdapter())
@@ -79,225 +82,224 @@ Future<void> main() async {
   await Hive.openBox<OrgInfo>('currentOrg');
   // await Hive.openBox('url');
 
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
+  testSetupLocator();
+  locator<GraphqlConfig>().test();
+  locator<SizeConfig>().test();
 
-    testSetupLocator();
-    locator<GraphqlConfig>().test();
-    locator<SizeConfig>().test();
+  group('test both light and dark modes', () {
+    group('Select Language Screen Widget Test in light mode', () {
+      testWidgets("Testing if Select Language Screen shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('SelectLanguageScreenScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.lightTheme.scaffoldBackgroundColor,
+        );
+      });
+      testWidgets("Testing if screen title shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('Select Language'));
+        expect(findAppNameWidget, findsOneWidget);
+
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+          TalawaTheme.lightTheme.textTheme.headlineSmall!.color,
+        );
+
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
+          TalawaTheme.lightTheme.textTheme.headlineSmall!.fontFamily,
+        );
+
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+          TalawaTheme.lightTheme.textTheme.headlineSmall!.fontSize,
+        );
+      });
+      //This will be added once we implement the search box
+      // testWidgets("Testing if search box shows up", (tester) async {
+      //   await tester.pumpWidget(createSelectLanguageScreenLight());
+      //   await tester.pumpAndSettle();
+      //   final findAppNameWidget = find.byKey(const Key('SearchField'));
+      //   expect(findAppNameWidget, findsOneWidget);
+      // });
+      testWidgets("Testing if languages list shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('LanguagesList'));
+        expect(findAppNameWidget, findsOneWidget);
+      });
+      testWidgets("Testing if all languages are shown", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('LanguageItem'));
+        expect(findAppNameWidget, findsNWidgets(languages.length));
+      });
+      testWidgets("Testing if only one language is selected", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('Selected'));
+        expect(findAppNameWidget, findsOneWidget);
+      });
+      testWidgets("Testing unselected language items", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('NotSelected'));
+        expect(findAppNameWidget, findsNWidgets(languages.length - 1));
+      });
+      testWidgets("Testing to change language items", (tester) async {
+        final int randomNumber = Random().nextInt(languages.length);
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+
+        final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle();
+
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Container).decoration,
+          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
+        );
+      });
+      testWidgets("Testing to navigate to MainScreen", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+
+        final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
+
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle(const Duration(seconds: 3));
+
+        expect(findAppNameWidget, findsNothing);
+      });
+      testWidgets("Testing to select and navigate button appears",
+          (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenLight());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
+        expect(findAppNameWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+          18,
+        );
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+          const Color(0xFF008A37),
+        );
+      });
+    });
+    group('Select Language Screen Widget Test in dark mode', () {
+      testWidgets("Testing if Select Language Screen shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget =
+            find.byKey(const Key('SelectLanguageScreenScaffold'));
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .darkTheme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+      });
+      testWidgets("Testing if screen title shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.text('Select Language');
+        expect(findAppNameWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+          TalawaTheme.darkTheme.textTheme.headlineSmall!.color,
+        );
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
+          TalawaTheme.darkTheme.textTheme.headlineSmall!.fontFamily,
+        );
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+          TalawaTheme.darkTheme.textTheme.headlineSmall!.fontSize,
+        );
+      });
+      // This is not needed now will be added when required
+      // testWidgets("Testing if search box shows up", (tester) async {
+      //   await tester.pumpWidget(createSelectLanguageScreenDark());
+      //   await tester.pumpAndSettle();
+      //   final findAppNameWidget = find.byKey(const Key('SearchField'));
+      //   expect(findAppNameWidget, findsOneWidget);
+      // });
+      testWidgets("Testing if languages list shows up", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('LanguagesList'));
+        expect(findAppNameWidget, findsOneWidget);
+      });
+      testWidgets("Testing if all languages are shown", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('LanguageItem'));
+        expect(findAppNameWidget, findsNWidgets(languages.length));
+      });
+      testWidgets("Testing if only one language is selected", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('Selected'));
+        expect(findAppNameWidget, findsOneWidget);
+      });
+      testWidgets("Testing unselected language items", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('NotSelected'));
+        expect(findAppNameWidget, findsNWidgets(languages.length - 1));
+      });
+      testWidgets("Testing to change language items", (tester) async {
+        final int randomNumber = Random().nextInt(languages.length);
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+
+        final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle();
+
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Container).decoration,
+          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
+        );
+      });
+      testWidgets("Testing to select and navigate button appears",
+          (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
+        expect(findAppNameWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+          18,
+        );
+        expect(
+          (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+          const Color(0xFF008A37),
+        );
+      });
+      testWidgets("Testing to navigate to url page", (tester) async {
+        await tester.pumpWidget(createSelectLanguageScreenDark());
+        await tester.pumpAndSettle();
+        final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
+        await tester.tap(findAppNameWidget);
+        await tester.pumpAndSettle(const Duration(seconds: 3));
+        expect(findAppNameWidget, findsNothing);
+      });
+    });
   });
 
-  group('Select Language Screen Widget Test in light mode', () {
-    testWidgets("Testing if Select Language Screen shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('SelectLanguageScreenScaffold'),
-      );
-      expect(screenScaffoldWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.lightTheme.scaffoldBackgroundColor,
-      );
-    });
-    testWidgets("Testing if screen title shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('Select Language'));
-      expect(findAppNameWidget, findsOneWidget);
-
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.lightTheme.textTheme.headlineSmall!.color,
-      );
-
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.lightTheme.textTheme.headlineSmall!.fontFamily,
-      );
-
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.lightTheme.textTheme.headlineSmall!.fontSize,
-      );
-    });
-    //This will be added once we implement the search box
-    // testWidgets("Testing if search box shows up", (tester) async {
-    //   await tester.pumpWidget(createSelectLanguageScreenLight());
-    //   await tester.pumpAndSettle();
-    //   final findAppNameWidget = find.byKey(const Key('SearchField'));
-    //   expect(findAppNameWidget, findsOneWidget);
-    // });
-    testWidgets("Testing if languages list shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('LanguagesList'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
-    testWidgets("Testing if all languages are shown", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('LanguageItem'));
-      expect(findAppNameWidget, findsNWidgets(languages.length));
-    });
-    testWidgets("Testing if only one language is selected", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('Selected'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
-    testWidgets("Testing unselected language items", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('NotSelected'));
-      expect(findAppNameWidget, findsNWidgets(languages.length - 1));
-    });
-    testWidgets("Testing to change language items", (tester) async {
-      final int randomNumber = Random().nextInt(languages.length);
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-
-      final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
-      await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle();
-
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Container).decoration,
-        BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
-      );
-    });
-    testWidgets("Testing to navigate to MainScreen", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-
-      final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
-
-      await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle(const Duration(seconds: 3));
-
-      expect(findAppNameWidget, findsNothing);
-    });
-    testWidgets("Testing to select and navigate button appears",
-        (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
-      expect(findAppNameWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        18,
-      );
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        const Color(0xFF008A37),
-      );
-    });
-  });
-  group('Select Language Screen Widget Test in dark mode', () {
-    testWidgets("Testing if Select Language Screen shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget =
-          find.byKey(const Key('SelectLanguageScreenScaffold'));
-      expect(screenScaffoldWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .darkTheme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.darkTheme.scaffoldBackgroundColor,
-      );
-    });
-    testWidgets("Testing if screen title shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.text('Select Language');
-      expect(findAppNameWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.darkTheme.textTheme.headlineSmall!.color,
-      );
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.darkTheme.textTheme.headlineSmall!.fontFamily,
-      );
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.darkTheme.textTheme.headlineSmall!.fontSize,
-      );
-    });
-    // This is not needed now will be added when required
-    // testWidgets("Testing if search box shows up", (tester) async {
-    //   await tester.pumpWidget(createSelectLanguageScreenDark());
-    //   await tester.pumpAndSettle();
-    //   final findAppNameWidget = find.byKey(const Key('SearchField'));
-    //   expect(findAppNameWidget, findsOneWidget);
-    // });
-    testWidgets("Testing if languages list shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('LanguagesList'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
-    testWidgets("Testing if all languages are shown", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('LanguageItem'));
-      expect(findAppNameWidget, findsNWidgets(languages.length));
-    });
-    testWidgets("Testing if only one language is selected", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('Selected'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
-    testWidgets("Testing unselected language items", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('NotSelected'));
-      expect(findAppNameWidget, findsNWidgets(languages.length - 1));
-    });
-    testWidgets("Testing to change language items", (tester) async {
-      final int randomNumber = Random().nextInt(languages.length);
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-
-      final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
-      await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle();
-
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Container).decoration,
-        BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
-      );
-    });
-    testWidgets("Testing to select and navigate button appears",
-        (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
-      expect(findAppNameWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        18,
-      );
-      expect(
-        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        const Color(0xFF008A37),
-      );
-    });
-    testWidgets("Testing to navigate to url page", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('NavigateToMainScreen'));
-      await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle(const Duration(seconds: 3));
-      expect(findAppNameWidget, findsNothing);
-    });
-  });
-  File('test/fixtures/core/currentorg.hive').delete();
-  File('test/fixtures/core/currentorg.lock').delete();
-  File('test/fixtures/core/currentuser.hive').delete();
-  File('test/fixtures/core/currentuser.lock').delete();
+  File('test/fixtures/core3/currentorg.hive').delete();
+  File('test/fixtures/core3/currentorg.lock').delete();
+  File('test/fixtures/core3/currentuser.hive').delete();
+  File('test/fixtures/core3/currentuser.lock').delete();
 }

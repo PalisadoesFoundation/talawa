@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -147,62 +147,51 @@ class AddPostViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> uploadPost() async {
-    // {TODO: Image not getting uploaded}
-    if (_imageFile == null) {
-      try {
+    await actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.postCreationFailed,
+      action: () async {
+        final variables = {
+          "text": "${_controller.text} #${_textHashTagController.text}",
+          "organizationId": _selectedOrg.id,
+          "title": _titleController.text,
+          if (_imageFile != null)
+            "file": 'data:image/png;base64,${_imageInBase64!}',
+        };
+
         final result = await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
-          variables: {
-            "text": "${_controller.text} #${_textHashTagController.text}",
-            "organizationId": _selectedOrg.id,
-            "title": _titleController.text,
-          },
+          variables: variables,
         );
+
+        return result;
+      },
+      onValidResult: (result) async {
         final Post newPost = Post.fromJson(
-          (result as QueryResult).data!['createPost'] as Map<String, dynamic>,
+          result.data!['createPost'] as Map<String, dynamic>,
         );
         locator<PostService>().addNewpost(newPost);
+      },
+      apiCallSuccessUpdateUI: () {
         _navigationService.showTalawaErrorSnackBar(
           "Post is uploaded",
           MessageType.info,
         );
-      } on Exception catch (e) {
+      },
+      onActionException: (e) async {
         print(e);
         _navigationService.showTalawaErrorSnackBar(
           "Something went wrong",
           MessageType.error,
         );
-      }
-    } else {
-      try {
-        final result = await _dbFunctions.gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: {
-            "text": _controller.text,
-            "organizationId": _selectedOrg.id,
-            "title": _titleController.text,
-            "file": 'data:image/png;base64,${_imageInBase64!}',
-          },
-        );
-        final Post newPost = Post.fromJson(
-          (result as QueryResult).data!['createPost'] as Map<String, dynamic>,
-        );
-        locator<PostService>().addNewpost(newPost);
-        _navigationService.showTalawaErrorSnackBar(
-          "Post is uploaded",
-          MessageType.info,
-        );
-      } on Exception catch (_) {
-        _navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
-          MessageType.error,
-        );
-      }
-    }
-    removeImage();
-    _controller.text = "";
-    _titleController.text = "";
-    notifyListeners();
+      },
+      onActionFinally: () async {
+        removeImage();
+        _controller.text = "";
+        _titleController.text = "";
+        notifyListeners();
+      },
+    );
   }
 
   /// This function removes the image selected.

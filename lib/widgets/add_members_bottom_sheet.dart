@@ -89,7 +89,7 @@ class EventBottomSheet {
                                         return CheckboxListTile(
                                           checkColor: Theme.of(context)
                                               .colorScheme
-                                              .background,
+                                              .surface,
                                           activeColor: Theme.of(context)
                                               .colorScheme
                                               .primary,

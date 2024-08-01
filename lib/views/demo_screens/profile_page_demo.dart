@@ -155,7 +155,7 @@ class DemoProfilePage extends StatelessWidget {
               ],
               views: [
                 ColoredBox(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   child: GridView.count(
                     mainAxisSpacing: 5,
                     crossAxisCount: 3,
@@ -169,7 +169,7 @@ class DemoProfilePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 Container(
                   color: Theme.of(context).colorScheme.onPrimary,

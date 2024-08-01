@@ -75,7 +75,7 @@ class _ShowRecurrenceDialogState extends State<ShowRecurrenceDialog> {
               radioButton(Frequency.monthly, widget.model.interval,
                   widget.model.count, -1, [
                 RecurrenceUtils
-                    .weekDays[widget.model.recurrenceStartDate.weekday],
+                    .weekDays[widget.model.recurrenceStartDate.weekday - 1],
               ]),
             radioButton(
               Frequency.yearly,

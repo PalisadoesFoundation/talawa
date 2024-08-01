@@ -192,7 +192,7 @@ class EventInfoBody extends StatelessWidget {
                   .copyWith(fontSize: 16),
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
             ListView.builder(
@@ -223,7 +223,7 @@ class EventInfoBody extends StatelessWidget {
                   .copyWith(fontSize: 16),
             ),
             Divider(
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
             if (model.isBusy)

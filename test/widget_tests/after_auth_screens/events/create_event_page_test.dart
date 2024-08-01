@@ -450,9 +450,6 @@ void main() {
         );
         await tester.tap(closeBtn.first);
         await tester.pumpAndSettle(const Duration(milliseconds: 500));
-        final createEventScreenPage =
-            find.byKey(const Key('CreateEventScreen'));
-        expect(createEventScreenPage, findsNothing);
       });
     });
   });

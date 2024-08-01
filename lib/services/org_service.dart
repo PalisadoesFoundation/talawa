@@ -1,4 +1,3 @@
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -27,8 +26,7 @@ class OrganizationService {
     final String query = Queries().fetchOrgDetailsById(orgId);
     // fetching from database using graphQL mutations.
     final result = await _dbFunctions.gqlAuthMutation(query);
-    final organizations =
-        (result as QueryResult).data?['organizations'] as List;
+    final organizations = result.data?['organizations'] as List;
     final List orgMembersResult =
         (organizations[0] as Map<String, dynamic>)['members'] as List;
     final List<User> orgMembersList = [];

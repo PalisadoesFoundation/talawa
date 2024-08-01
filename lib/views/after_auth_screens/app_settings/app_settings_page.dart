@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -8,7 +7,6 @@ import 'package:talawa/view_model/after_auth_view_models/settings_view_models/ap
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/lang_switch.dart';
-import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
 /// Widget representing the App Settings page.
@@ -293,27 +291,7 @@ class AppSettingsPage extends StatelessWidget {
                         dialogSubTitle: 'Are you sure you want to logout?',
                         successText: 'Logout',
                         success: () async {
-                          try {
-                            final bool isLogoutSuccessful =
-                                await model.logout();
-                            if (!isLogoutSuccessful) {
-                              throw Error(); //checks whether the logout was successful or not.
-                            }
-                            navigationService.pop();
-                            navigationService.removeAllAndPush(
-                              Routes.setUrlScreen,
-                              Routes.splashScreen,
-                              arguments: '',
-                            );
-                          } catch (e) {
-                            navigationService.pushDialog(
-                              const TalawaErrorDialog(
-                                'Unable to logout, please try again.',
-                                key: Key('TalawaError'),
-                                messageType: MessageType.error,
-                              ),
-                            );
-                          }
+                          await model.logout();
                         },
                       );
                     },

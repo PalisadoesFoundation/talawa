@@ -41,13 +41,6 @@ class MockSessionManger extends Mock implements SessionManager {
 }
 
 void main() async {
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
-    getAndRegisterSessionManager();
-    registerServices();
-  });
-
   final Directory dir = Directory('test/fixtures/core');
 
   Hive
@@ -58,6 +51,12 @@ void main() async {
   final userBox = await Hive.openBox<User>('currentUser');
   final urlBox = await Hive.openBox('url');
   final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    testSetupLocator();
+    getAndRegisterSessionManager();
+    registerServices();
+  });
 
   final mockUser = User(
     adminFor: <OrgInfo>[
@@ -90,6 +89,43 @@ void main() async {
   ];
 
   group('Test UserConfig service', () {
+    test('Test for User log out method.', () async {
+      databaseFunctions.init();
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        final data = {
+          'logout': true,
+        };
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.logout())),
+        );
+      });
+
+      when(navigationService.pop()).thenAnswer((_) async {});
+      when(
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('LogoutProgress'),
+          ),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      await UserConfig().userLogOut();
+
+      expect(userBox.isEmpty, true);
+      expect(urlBox.isEmpty, true);
+      expect(orgBox.isEmpty, true);
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        throw Exception('test exception');
+      });
+
+      UserConfig().userLogOut();
+    });
     test('Test for getters & setters.', () {
       final model = UserConfig();
 
@@ -183,47 +219,6 @@ void main() async {
       // show couldn't update errorsnackbar.
       final loggedIn = await model.userLoggedIn();
       expect(loggedIn, true);
-    });
-
-    test('Test for User log out method.', () async {
-      databaseFunctions.init();
-
-      when(databaseFunctions.gqlAuthMutation(queries.logout()))
-          .thenAnswer((realInvocation) async {
-        final data = {
-          'logout': true,
-        };
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(document: gql(queries.logout())),
-        );
-      });
-
-      when(navigationService.pop()).thenAnswer((_) async {});
-      when(
-        navigationService.pushDialog(
-          const CustomProgressDialog(
-            key: Key('LogoutProgress'),
-          ),
-        ),
-      ).thenAnswer((realInvocation) async {});
-
-      bool loggedOut = await UserConfig().userLogOut();
-
-      expect(loggedOut, true);
-
-      expect(userBox.isEmpty, true);
-      expect(urlBox.isEmpty, true);
-      expect(orgBox.isEmpty, true);
-
-      when(databaseFunctions.gqlAuthMutation(queries.logout()))
-          .thenAnswer((realInvocation) async {
-        throw Exception('test exception');
-      });
-
-      loggedOut = await UserConfig().userLogOut();
-      expect(loggedOut, false);
     });
 
     test('Test for updateUserJoinedOrg method', () async {

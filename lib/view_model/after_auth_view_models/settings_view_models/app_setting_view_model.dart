@@ -14,11 +14,10 @@ class AppSettingViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<bool>`: Logs the user out and returns the logout status as a [bool].
-  Future<bool> logout() async {
+  ///   None
+  Future<void> logout() async {
     // push custom alert dialog with the confirmation message.
-    final bool isloggedOut = await userConfig.userLogOut();
-    return isloggedOut;
+    userConfig.userLogOut();
   }
 
   /// Launches a website using the provided URL.

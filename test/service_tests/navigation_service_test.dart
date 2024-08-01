@@ -296,6 +296,21 @@ void main() {
       expect(find.textContaining('Second Screen'), findsOneWidget);
       expect(find.textContaining('null'), findsOneWidget);
     });
+
+    testWidgets('showCustomToast', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        HomeApp(
+          navigateorKey: mockKey,
+          onClick: () async {
+            navigationService.showCustomToast('/second-screen');
+            navigationService.printNavigatorState();
+          },
+        ),
+      );
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('/second-screen'), findsOneWidget);
+    });
     testWidgets('pushScreen() test with arguments', (tester) async {
       await tester.pumpWidget(
         HomeApp(

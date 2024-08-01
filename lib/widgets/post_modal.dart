@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// To add options to the bottom nav bar, increase the height too.
 class PostBottomModal extends StatelessWidget {
@@ -65,7 +66,6 @@ class PostBottomModal extends StatelessWidget {
               TextButton(
                 key: const Key('deletePost'),
                 onPressed: () {
-                  deletePost?.call(post);
                   showDialog(
                     context: context,
                     builder: (BuildContext builder) {
@@ -78,11 +78,14 @@ class PostBottomModal extends StatelessWidget {
                           TextButton(
                             key: const Key('alert_dialog_yes_btn'),
                             onPressed: () {
-                              navigationService.showTalawaErrorSnackBar(
-                                'Post was deleted if you had the rights!',
-                                MessageType.info,
+                              navigationService.pop();
+                              deletePost?.call(post);
+                              navigationService.pop();
+                              navigationService.pushDialog(
+                                const CustomProgressDialog(
+                                  key: Key('deletePost'),
+                                ),
                               );
-                              Navigator.pop(context);
                             },
                             child: const Text("Yes"),
                           ),
