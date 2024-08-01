@@ -1,4 +1,5 @@
 /// This class provides functionalities for caching GraphQL operations.
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
@@ -79,6 +80,7 @@ class CacheService {
         expiry: expiry,
       );
       await offlineActionQueue.addAction(cachedAction);
+      debugPrint('cached');
       return offlineResult;
     }
   }

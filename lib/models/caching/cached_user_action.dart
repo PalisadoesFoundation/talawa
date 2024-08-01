@@ -1,3 +1,4 @@
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -85,26 +86,31 @@ class CachedUserAction extends HiveObject {
   ///   None
   ///
   /// **returns**:
-  ///   None
-  void execute() {
+  /// * `Future<QueryResult<Object?>>`: result.
+  Future<QueryResult<Object?>> execute() async {
     switch (operationType) {
       case CachedOperationType.gqlAuthQuery:
-        databaseFunctions.gqlAuthQuery(operation, variables: this.variables);
-        break;
-      case CachedOperationType.gqlAuthMutation:
-        databaseFunctions.gqlAuthMutation(operation, variables: this.variables);
-        break;
-      case CachedOperationType.gqlNonAuthQuery:
-        databaseFunctions.gqlNonAuthQuery(operation, variables: this.variables);
-        break;
-      case CachedOperationType.gqlNonAuthMutation:
-        databaseFunctions.gqlNonAuthMutation(
+        return await databaseFunctions.gqlAuthQuery(
           operation,
           variables: this.variables,
         );
-        break;
+      case CachedOperationType.gqlAuthMutation:
+        return await databaseFunctions.gqlAuthMutation(
+          operation,
+          variables: this.variables,
+        );
+      case CachedOperationType.gqlNonAuthQuery:
+        return await databaseFunctions.gqlNonAuthQuery(
+          operation,
+          variables: this.variables,
+        );
+      case CachedOperationType.gqlNonAuthMutation:
+        return await databaseFunctions.gqlNonAuthMutation(
+          operation,
+          variables: this.variables,
+        );
       default:
-        break;
+        return databaseFunctions.noData;
     }
   }
 
