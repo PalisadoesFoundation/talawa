@@ -29,6 +29,11 @@ A safe environment is required for everyone to contribute. Read our [Code of Con
 
 No one should fear voicing their opinion. Respones must be respectful to help them.
 
+## Videos
+
+1. Visit our [YouTube Channel playlists](https://www.youtube.com/@PalisadoesOrganization/playlists) for more insights
+   1. The "[Getting Started - Developers](https://www.youtube.com/watch?v=YpBUoHxEeyg&list=PLv50qHwThlJUIzscg9a80a9-HmAlmUdCF&index=1)" videos are extremely helpful for new open source contributors.
+
 ## Ways to Contribute
 
 If you are ready to start contributing code right away, get ready!
