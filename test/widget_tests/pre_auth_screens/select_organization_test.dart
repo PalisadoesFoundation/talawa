@@ -6,10 +6,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
+import 'package:talawa/widgets/organization_search_list.dart';
 
 import '../../helpers/test_helpers.dart';
 
@@ -29,6 +33,24 @@ void main() {
       home: SelectOrganization(
         key: selectOrgKey,
         selectedOrgId: customorgID ?? orgID,
+      ),
+    );
+  }
+
+  Widget organizationSearchList({
+    required SelectOrganizationViewModel orgViewModel,
+  }) {
+    return MaterialApp(
+      locale: const Locale('en'),
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      themeMode: ThemeMode.light,
+      theme: TalawaTheme.lightTheme,
+      home: Scaffold(
+        body: OrganizationSearchList(model: orgViewModel),
       ),
     );
   }
@@ -56,6 +78,35 @@ void main() {
         final selectOrgFinder = find.byKey(selectOrgKey);
         expect(selectOrgFinder, findsOneWidget);
       });
+    });
+
+    testWidgets('test organization search list', (tester) async {
+      final orgViewModel = SelectOrganizationViewModel();
+      orgViewModel.organizations = [];
+      for (var i = 0; i < 6; i++) {
+        orgViewModel.organizations.add(
+          OrgInfo(
+            admins: [],
+            members: [],
+            creatorInfo: User(id: 'azad'),
+            id: i.toString(),
+            description: 'description',
+            name: 'azads org',
+            userRegistrationRequired: true,
+          ),
+        );
+      }
+      await tester
+          .pumpWidget(organizationSearchList(orgViewModel: orgViewModel));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('test organization search list', (tester) async {
+      final orgViewModel = SelectOrganizationViewModel();
+
+      await tester
+          .pumpWidget(organizationSearchList(orgViewModel: orgViewModel));
+      await tester.pumpAndSettle();
     });
 
     testWidgets("Test if back-arrow is present", (WidgetTester tester) async {

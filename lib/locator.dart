@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -16,7 +17,9 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
@@ -73,6 +76,9 @@ final connectivity = locator<Connectivity>();
 ///GetIt for ConnectivityService.
 final connectivityService = locator<ConnectivityService>();
 
+///GetIt for CacheService.
+final cacheService = locator<CacheService>();
+
 ///GetIt for OrganizationService.
 final organizationService = locator<OrganizationService>();
 
@@ -82,6 +88,9 @@ final imageService = locator<ImageService>();
 ///GetIt for SessionManager.
 final sessionManager = locator<SessionManager>();
 
+///GetIt for ActonHandlerService.
+final actionHandlerService = locator<ActionHandlerService>();
+
 /// This function registers the widgets/objects in "GetIt".
 ///
 /// **params**:
@@ -90,6 +99,9 @@ final sessionManager = locator<SessionManager>();
 /// **returns**:
 ///   None
 Future<void> setupLocator() async {
+  locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton(GraphqlConfig());
   //services
   locator.registerSingleton(NavigationService());
 
@@ -104,6 +116,8 @@ Future<void> setupLocator() async {
   //sessionManager
   locator.registerSingleton(SessionManager());
 
+  locator.registerSingleton(CacheService());
+
   //Services
   locator.registerLazySingleton(() => PostService());
   locator.registerLazySingleton(() => EventService());
@@ -117,15 +131,15 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => ImageCropper());
 
   //graphql
-  locator.registerSingleton(GraphqlConfig());
 
   //databaseMutationFunction
-  locator.registerSingleton(DataBaseMutationFunctions());
 
   locator.registerSingleton(ConnectivityService());
 
   //queries
   locator.registerSingleton(Queries());
+
+  locator.registerSingleton(ActionHandlerService());
 
   locator.registerFactory(() => AppConnectivity());
 
@@ -159,4 +173,5 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
+  locator.registerFactory(() => UserProfileService());
 }

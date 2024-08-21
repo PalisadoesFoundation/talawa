@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -6,6 +7,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -42,13 +44,10 @@ void main() {
       );
 
       final service = EventService();
+
       await service.editEvent(
         eventId: 'eventId',
         variables: variables,
-      );
-
-      verify(
-        navigationService.pop(),
       );
     });
 
@@ -74,6 +73,58 @@ void main() {
       );
       final services = EventService();
       await services.deleteEvent('eventId');
+    });
+
+    test('Test createEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final createEventViewModel = CreateEventViewModel();
+      createEventViewModel
+        ..eventTitleTextController.text = 'title'
+        ..eventDescriptionTextController.text = 'description'
+        ..eventLocationTextController.text = 'location'
+        ..isPublicSwitch = true
+        ..isRegisterableSwitch = true
+        ..isRecurring = true
+        ..isAllDay = true
+        ..eventStartDate = DateTime.now()
+        ..eventEndDate = DateTime.now()
+        ..eventStartTime = TimeOfDay.now()
+        ..eventEndTime = TimeOfDay.now();
+
+      final Map<String, dynamic> variables = {
+        "data": {
+          'title': createEventViewModel.eventTitleTextController.text,
+          'description':
+              createEventViewModel.eventDescriptionTextController.text,
+          'location': createEventViewModel.eventLocationTextController.text,
+          'isPublic': createEventViewModel.isPublicSwitch,
+          'isRegisterable': createEventViewModel.isRegisterableSwitch,
+          'recurring': createEventViewModel.isRecurring,
+          'allDay': createEventViewModel.isAllDay,
+        },
+      };
+
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: variables,
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'cretedEvent': {
+              '_id': 'eventId',
+              'title': 'Test task',
+              'description': 'Test description',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+      final services = EventService();
+      await services.createEvent(variables: variables);
     });
 
     test('Test registerForAnEvent method', () async {

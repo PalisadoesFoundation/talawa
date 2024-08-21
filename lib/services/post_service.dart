@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -85,7 +86,7 @@ class PostService {
         PostQueries().getPostsById(currentOrgID, after, before, first, last);
     final result = await _dbFunctions.gqlAuthQuery(query);
     //Checking if the dbFunctions return the postJSON, if not return.
-    if (result == null || (result as QueryResult).data == null) {
+    if (result.data == null) {
       // Handle the case where the result or result.data is null
       return;
     }
@@ -103,6 +104,7 @@ class PostService {
         _renderedPostID.add(post.sId);
       }
     });
+    print(_postStreamController.hasListener);
     _postStreamController.add(_posts);
   }
 
@@ -133,6 +135,15 @@ class PostService {
     _postStreamController.add(_posts);
   }
 
+  Future<QueryResult<Object?>> deletePost(Post post) async {
+    return await _dbFunctions.gqlAuthMutation(
+      PostQueries().removePost(),
+      variables: {
+        "id": post.sId,
+      },
+    );
+  }
+
   ///Method to add like on a Post.
   ///
   /// This method basically update likedBy list of a Post
@@ -143,15 +154,25 @@ class PostService {
   ///
   /// **returns**:
   /// * `Future<void>`: define_the_return
-  Future<void> addLike(String postID) async {
-    _localAddLike(postID);
-    final String mutation = PostQueries().addLike();
-    // run the graphQl mutation.
-    final result = await _dbFunctions
-        .gqlAuthMutation(mutation, variables: {"postID": postID});
-    print(result);
-    // return result
-    return result;
+  Future<bool> addLike(String postID) async {
+    bool isLiked = false;
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        final String mutation = PostQueries().addLike();
+        // run the graphQl mutation.
+        return await _dbFunctions
+            .gqlAuthMutation(mutation, variables: {"postID": postID});
+        // return result
+      },
+      onValidResult: (result) async {
+        isLiked = (result.data?["_id"] != null);
+      },
+      updateUI: () {
+        _localAddLike(postID);
+      },
+    );
+    return isLiked;
   }
 
   /// Locally add like on a Post and updates it using updated Post Stream.
@@ -180,13 +201,23 @@ class PostService {
   ///
   /// **returns**:
   /// * `Future<void>`: nothing
-  Future<void> removeLike(String postID) async {
-    _removeLocal(postID);
-    final String mutation = PostQueries().removeLike();
-    final result = await _dbFunctions
-        .gqlAuthMutation(mutation, variables: {"postID": postID});
-    print(result);
-    return result;
+  Future<bool> removeLike(String postID) async {
+    bool isLiked = false;
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        final String mutation = PostQueries().removeLike();
+        return await _dbFunctions
+            .gqlAuthMutation(mutation, variables: {"postID": postID});
+      },
+      onValidResult: (result) async {
+        isLiked = (result.data?["_id"] != null);
+      },
+      updateUI: () {
+        _removeLocal(postID);
+      },
+    );
+    return isLiked;
   }
 
   /// Locally removes the like of a user and update the Post UI.

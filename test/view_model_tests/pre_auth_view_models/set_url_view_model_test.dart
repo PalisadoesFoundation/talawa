@@ -14,6 +14,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -98,6 +99,8 @@ Future<void> main() async {
   await Hive.openBox('url');
 
   late SetUrlViewModel model;
+
+  locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
   setUp(() async {
     registerServices();

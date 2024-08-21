@@ -1,3 +1,5 @@
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -180,6 +182,34 @@ class NavigationService {
     );
   }
 
+  /// Shows an Custom Toast.
+  ///
+  /// **params**:
+  /// * `msg`: Message shown in Toast
+  ///
+  /// **returns**:
+  ///   None
+  void showCustomToast(String msg) {
+    DelightToastBar(
+      builder: (context) {
+        return ToastCard(
+          title: Text(
+            msg,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
+          ),
+          leading: const Icon(
+            Icons.error_outline,
+            color: Colors.redAccent,
+          ),
+          color: Colors.black.withOpacity(0.8),
+        );
+      },
+    ).show(navigatorKey.currentContext!);
+  }
+
   /// This function pops the current state.
   ///
   /// **params**:
@@ -188,6 +218,27 @@ class NavigationService {
   /// **returns**:
   ///   None
   void pop() {
-    return navigatorKey.currentState!.pop();
+    if (navigatorKey.currentState?.canPop() ?? false) {
+      return navigatorKey.currentState!.pop();
+    }
+  }
+
+  /// This function prints current navigation state.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void printNavigatorState() {
+    final navigatorState = navigatorKey.currentState;
+    if (navigatorState != null) {
+      print('Can pop: ${navigatorState.canPop()}');
+      print('Current Route: ${navigatorState.widget}');
+      print('Navigator Stack: ${navigatorState.widget}');
+      print(
+        'Route History: ${navigatorState.widget.pages.map((page) => page.toString()).toList()}',
+      );
+    }
   }
 }

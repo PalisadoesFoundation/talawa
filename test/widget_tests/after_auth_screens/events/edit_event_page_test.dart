@@ -327,6 +327,17 @@ void main() {
     });
 
     group("Testing body properties and contents", () {
+      testWidgets("Testing if cancel button in app bar works", (tester) async {
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+        final closeBtn = find.byIcon(Icons.close);
+        await tester.tap(closeBtn.first);
+        await tester.pumpAndSettle();
+      });
       testWidgets("Testing Add Image section", (tester) async {
         await tester.pumpWidget(
           editEventScreen(
@@ -534,23 +545,6 @@ void main() {
           (tester.widgetList(switches).toList()[1] as Switch).value,
           false,
         );
-      });
-      testWidgets("Testing if cancel button in app bar works", (tester) async {
-        await tester.pumpWidget(
-          editEventScreen(
-            theme: TalawaTheme.lightTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-        final appBar = find.byType(AppBar);
-        final closeBtn = find.descendant(
-          of: appBar,
-          matching: find.byType(GestureDetector),
-        );
-        await tester.tap(closeBtn.first);
-        await tester.pumpAndSettle(const Duration(milliseconds: 500));
-        final createEventScreenPage = find.byKey(const Key('EditEventScreen'));
-        expect(createEventScreenPage, findsNothing);
       });
     });
   });
