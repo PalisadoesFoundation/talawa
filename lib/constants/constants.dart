@@ -1,9 +1,14 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:talawa/models/language/language_model.dart';
 
-/// This file contains the prototypes of all the languages available and supported currencies.
+/// This file contains the prototypes of all the supported languages and currencies used in the application.
+///
+/// A list of [Language] objects representing the languages supported by the application.
+///
+/// Each [Language] object contains the following properties:
+/// * `countryCode`: The country code associated with the language.
+/// * `langCode`: The language code representing the language.
+/// * `langName`: The name of the language in its native script.
+/// * `langSample`: A sample text phrase in the language, used for display purposes.
 List<Language> languages = [
   Language(
     countryCode: 'US',
@@ -55,6 +60,10 @@ List<Language> languages = [
   ),
 ];
 
+/// A list of supported currency codes used in the application.
+///
+/// Each currency code is represented as a string in the list. This list is used to ensure that the application
+/// supports various currencies for transactions, conversions, or displays.
 List<String> supportedCurrencies = [
   'AED',
   'ALL',
@@ -151,13 +160,32 @@ List<String> supportedCurrencies = [
   'ZAR',
 ];
 
+/// A class containing static constants representing the keys used to identify Hive boxes in the application.
+///
+/// These keys are used to open or access specific Hive boxes, which store various types of data such as user information,
+/// organization details, and cached actions.
 class HiveKeys {
+  /// The key used to identify the Hive box that stores the current user information.
   static const userBoxKey = 'currentUser';
+
+  /// The key used to identify the Hive box that stores the current organization's information.
   static const orgBoxKey = 'currentOrg';
+
+  /// The key used to identify the Hive box that stores asymmetric keys for the user.
   static const asymetricKeyBoxKey = 'user_keys';
+
+  /// The key used to identify the Hive box that stores plugin-related data.
   static const pluginBoxKey = 'pluginBox';
+
+  /// The key used to identify the Hive box that stores URLs.
   static const urlBoxKey = 'url';
+
+  /// The key used to identify the Hive box that stores the post feed data.
   static const postFeedKey = 'post_feed_key';
+
+  /// The key used to identify the Hive box that stores the event feed data.
   static const eventFeedKey = 'event_feed_key';
+
+  /// The key used to identify the Hive box that stores the offline action queue.
   static const offlineActionQueueKey = 'offline_action_queue';
 }
