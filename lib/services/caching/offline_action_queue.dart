@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:talawa/enums/enums.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 
 /// OfflineActionQueue class manages a queue for offline actions.
@@ -14,8 +14,12 @@ import 'package:talawa/models/caching/cached_user_action.dart';
 /// * `clearActions` : clears all actions from the queue.
 /// * `removeExpiredActions` : removes expired actions from the queue.
 class OfflineActionQueue {
+  OfflineActionQueue() {
+    initialize();
+  }
+
   ///Offline Action Queue box name.
-  static const String boxName = 'offline_action_queue';
+  static const String boxName = HiveKeys.offlineActionQueueKey;
   late final Box<CachedUserAction> _actionsBox;
 
   /// Initializes the queue by registering adapters and opening the queue.
@@ -25,23 +29,20 @@ class OfflineActionQueue {
   ///
   /// **returns**:
   ///   None
-  Future<void> initialize() async {
-    registerAdapters();
-    await openQueue();
+  void initialize() {
+    openQueue();
   }
 
-  /// Registers the required Hive adapters.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void registerAdapters() {
-    Hive.registerAdapter(CachedUserActionAdapter());
-    Hive.registerAdapter(CachedOperationTypeAdapter());
-    Hive.registerAdapter(CachedUserActionStatusAdapter());
-  }
+  // /// Registers the required Hive adapters.
+  // ///
+  // /// **params**:
+  // ///   None
+  // ///
+  // /// **returns**:
+  // ///   None
+  // void registerAdapters() {
+
+  // }
 
   /// Opens the Hive box for the offline action queue.
   ///
@@ -50,9 +51,8 @@ class OfflineActionQueue {
   ///
   /// **returns**:
   ///   None
-  Future<void> openQueue() async {
-    _actionsBox = await Hive.openBox<CachedUserAction>(boxName);
-    print('initialised');
+  void openQueue() {
+    _actionsBox = Hive.box<CachedUserAction>(boxName);
   }
 
   /// Adds an action to the queue with a TTL.

@@ -240,6 +240,21 @@ void main() {
       final service = PostService();
       // Populating refreshing feed
       await service.refreshFeed();
+
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await service.refreshFeed();
+
       verify(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,

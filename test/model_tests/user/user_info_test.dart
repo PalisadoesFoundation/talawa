@@ -1,7 +1,5 @@
 // ignore_for_file: talawa_api_doc
 
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -207,11 +205,6 @@ void main() {
     });
 
     test('Check if Hive storage works', () async {
-      Hive
-        ..init("./temporaryPath")
-        ..registerAdapter(UserAdapter())
-        ..registerAdapter(OrgInfoAdapter());
-
       final userBox = await Hive.openBox('userInfo');
       expect(userBox.isOpen, true);
 
@@ -226,9 +219,6 @@ void main() {
       expect(loadedUserInfo.email, "ravidisheikh@test.com");
       expect(loadedUserInfo.image, "https://testimg.com");
       expect(loadedUserInfo.authToken, " ");
-
-      File('temporaryPath/userinfo.hive').delete();
-      File('temporaryPath/userinfo.lock').delete();
     });
 
     test('Test hashCode', () {

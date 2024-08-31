@@ -150,3 +150,14 @@ List<String> supportedCurrencies = [
   'YER',
   'ZAR',
 ];
+
+class HiveKeys {
+  static const userBoxKey = 'currentUser';
+  static const orgBoxKey = 'currentOrg';
+  static const asymetricKeyBoxKey = 'user_keys';
+  static const pluginBoxKey = 'pluginBox';
+  static const urlBoxKey = 'url';
+  static const postFeedKey = 'post_feed_key';
+  static const eventFeedKey = 'event_feed_key';
+  static const offlineActionQueueKey = 'offline_action_queue';
+}

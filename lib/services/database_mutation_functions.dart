@@ -126,6 +126,7 @@ class DataBaseMutationFunctions {
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
         final QueryResult result = await clientAuth.mutate(options);
+        print(result);
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(

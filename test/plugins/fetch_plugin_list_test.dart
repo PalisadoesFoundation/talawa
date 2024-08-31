@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -20,11 +18,6 @@ import '../helpers/test_locator.dart';
 ///   None
 void main() async {
   late FetchPluginList fetchPluginList;
-
-  final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
-  Hive.init(dir.path);
-  await Hive.openBox('pluginBox');
-
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();

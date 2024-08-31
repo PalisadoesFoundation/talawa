@@ -2,8 +2,6 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -41,16 +39,9 @@ class MockSessionManger extends Mock implements SessionManager {
 }
 
 void main() async {
-  final Directory dir = Directory('test/fixtures/core');
-
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-
-  final userBox = await Hive.openBox<User>('currentUser');
-  final urlBox = await Hive.openBox('url');
-  final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+  final userBox = Hive.box<User>('currentUser');
+  final urlBox = Hive.box('url');
+  final orgBox = Hive.box<OrgInfo>('currentOrg');
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();

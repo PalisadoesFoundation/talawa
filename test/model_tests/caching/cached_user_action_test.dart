@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
@@ -17,12 +15,8 @@ void main() {
   late final Box<CachedUserAction> cacheBox;
   setUpAll(() async {
     testSetupLocator();
-    final Directory dir = Directory('test/fixtures/core');
-    Hive.init(dir.path);
     getAndRegisterDatabaseMutationFunctions();
-    final offlineActionQueue = OfflineActionQueue();
-    offlineActionQueue.registerAdapters();
-    cacheBox = await Hive.openBox<CachedUserAction>(OfflineActionQueue.boxName);
+    cacheBox = Hive.box<CachedUserAction>(OfflineActionQueue.boxName);
   });
 
   group('CachedUserAction', () {

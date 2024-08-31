@@ -12,8 +12,6 @@ void main() async {
   getAndRegisterDatabaseMutationFunctions();
 
   queue = OfflineActionQueue();
-  await queue.initialize();
-
   group('OfflineActionQueue', () {
     final CachedUserAction action = CachedUserAction(
       id: '123',

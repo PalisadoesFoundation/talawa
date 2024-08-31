@@ -136,7 +136,6 @@ class OrganizationFeedViewModel extends BaseModel {
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
-
     _postsSubscription = _postService.postStream.listen((newPosts) {
       return buildNewPosts(newPosts);
     });
@@ -144,7 +143,8 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _postService.refreshFeed();
+    _postService.fetchPostsInitial();
+    // _postService.refreshFeed();
     if (isTest) {
       istest = true;
     }

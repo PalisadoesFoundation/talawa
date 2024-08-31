@@ -15,6 +15,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// AddPostViewModel class have different functions.
 ///
@@ -158,12 +159,15 @@ class AddPostViewModel extends BaseModel {
           if (_imageFile != null)
             "file": 'data:image/png;base64,${_imageInBase64!}',
         };
-
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('addPostProgress'),
+          ),
+        );
         final result = await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: variables,
         );
-
         return result;
       },
       onValidResult: (result) async {
@@ -171,6 +175,7 @@ class AddPostViewModel extends BaseModel {
           result.data!['createPost'] as Map<String, dynamic>,
         );
         locator<PostService>().addNewpost(newPost);
+        navigationService.pop();
       },
       apiCallSuccessUpdateUI: () {
         _navigationService.showTalawaErrorSnackBar(

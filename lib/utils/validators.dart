@@ -147,7 +147,10 @@ class Validator {
   /// * `Future<bool?>`: true if URL exists, false otherwise.
   Future<bool?> validateUrlExistence(String url) async {
     try {
-      await http.get(Uri.parse(url));
+      final r = await http.get(Uri.parse(url));
+      debugPrint(r.body);
+      debugPrint(r.headers.toString());
+      debugPrint(r.statusCode.toString());
       return true;
     } on Exception catch (e) {
       debugPrint(e.toString());

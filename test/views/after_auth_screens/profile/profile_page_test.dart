@@ -1,14 +1,9 @@
-import 'dart:io';
-
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -54,38 +49,6 @@ void main() async {
     registerServices();
     getAndRegisterAppTheme();
   });
-
-  tearDownAll(() async {
-    await Hive.close();
-    Future<void> safeDelete(String filePath) async {
-      final file = File(filePath);
-      if (await file.exists()) {
-        try {
-          await file.delete();
-        } catch (e) {
-          print('Error deleting $filePath: $e');
-        }
-      }
-    }
-
-    await safeDelete('test/fixtures/coree/currentorg.hive');
-    await safeDelete('test/fixtures/coree/currentorg.lock');
-    await safeDelete('test/fixtures/coree/currentuser.hive');
-    await safeDelete('test/fixtures/coree/currentuser.lock');
-    await safeDelete('test/fixtures/coree/pluginbox.hive');
-  });
-
-  late final Directory dir;
-
-  dir = Directory('test/fixtures/coree');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('pluginBox');
-
   group('build', () {
     testWidgets('check if profilePage shows up and refreshIndicator work',
         (tester) async {

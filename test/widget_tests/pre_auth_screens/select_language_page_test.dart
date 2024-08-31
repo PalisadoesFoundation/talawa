@@ -1,18 +1,13 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
-
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -71,15 +66,6 @@ Future<void> main() async {
   //initializing Hive
 
   TestWidgetsFlutterBinding.ensureInitialized();
-
-  const testMockStorage = 'test/fixtures/core3';
-  Hive
-    ..init(testMockStorage)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  //opening Hive Boxes
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
   // await Hive.openBox('url');
 
   testSetupLocator();
@@ -297,9 +283,4 @@ Future<void> main() async {
       });
     });
   });
-
-  File('test/fixtures/core3/currentorg.hive').delete();
-  File('test/fixtures/core3/currentorg.lock').delete();
-  File('test/fixtures/core3/currentuser.hive').delete();
-  File('test/fixtures/core3/currentuser.lock').delete();
 }

@@ -11,27 +11,6 @@ class UserAdapter extends TypeAdapter<User> {
   final int typeId = 1;
 
   @override
-  User read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return User(
-      adminFor: (fields[9] as List?)?.cast<OrgInfo>(),
-      createdOrganizations: (fields[8] as List?)?.cast<OrgInfo>(),
-      email: fields[5] as String?,
-      firstName: fields[3] as String?,
-      id: fields[2] as String?,
-      image: fields[6] as String?,
-      joinedOrganizations: (fields[7] as List?)?.cast<OrgInfo>(),
-      lastName: fields[4] as String?,
-      authToken: fields[0] as String?,
-      refreshToken: fields[1] as String?,
-      membershipRequests: (fields[10] as List?)?.cast<OrgInfo>(),
-    );
-  }
-
-  @override
   void write(BinaryWriter writer, User obj) {
     writer
       ..writeByte(11)
@@ -57,6 +36,27 @@ class UserAdapter extends TypeAdapter<User> {
       ..write(obj.adminFor)
       ..writeByte(10)
       ..write(obj.membershipRequests);
+  }
+
+  @override
+  User read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return User(
+      adminFor: (fields[9] as List?)?.cast<OrgInfo>(),
+      createdOrganizations: (fields[8] as List?)?.cast<OrgInfo>(),
+      email: fields[5] as String?,
+      firstName: fields[3] as String?,
+      id: fields[2] as String?,
+      image: fields[6] as String?,
+      joinedOrganizations: (fields[7] as List?)?.cast<OrgInfo>(),
+      lastName: fields[4] as String?,
+      authToken: fields[0] as String?,
+      refreshToken: fields[1] as String?,
+      membershipRequests: (fields[10] as List?)?.cast<OrgInfo>(),
+    );
   }
 
   @override
