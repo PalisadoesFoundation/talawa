@@ -1,5 +1,6 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -66,7 +67,6 @@ Future<void> main() async {
   //initializing Hive
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  // await Hive.openBox('url');
 
   testSetupLocator();
   locator<GraphqlConfig>().test();

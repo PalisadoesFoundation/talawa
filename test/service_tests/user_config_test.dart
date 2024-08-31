@@ -117,6 +117,43 @@ void main() async {
 
       UserConfig().userLogOut();
     });
+    test('Test for User log out method.', () async {
+      databaseFunctions.init();
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        final data = {
+          'logout': true,
+        };
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.logout())),
+        );
+      });
+
+      when(navigationService.pop()).thenAnswer((_) async {});
+      when(
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('LogoutProgress'),
+          ),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      await UserConfig().userLogOut();
+
+      expect(userBox.isEmpty, true);
+      expect(urlBox.isEmpty, true);
+      expect(orgBox.isEmpty, true);
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        throw Exception('test exception');
+      });
+
+      UserConfig().userLogOut();
+    });
     test('Test for getters & setters.', () {
       final model = UserConfig();
 

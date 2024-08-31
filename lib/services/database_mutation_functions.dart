@@ -266,6 +266,7 @@ class DataBaseMutationFunctions {
   /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> fetchOrgById(String id) async {
     print(id);
+    print(id);
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
     // if there is an error or exception in [result]

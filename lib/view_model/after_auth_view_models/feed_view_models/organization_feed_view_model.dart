@@ -288,6 +288,25 @@ class OrganizationFeedViewModel extends BaseModel {
         notifyListeners();
       },
     );
+    await actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
+      action: () async {
+        final result = await _postService.deletePost(post);
+        return result;
+      },
+      onValidResult: (result) async {
+        _posts.remove(post);
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
+          'Post was deleted if you had the rights!',
+          MessageType.info,
+        );
+        notifyListeners();
+      },
+    );
   }
 
   /// Method to fetch next posts.
