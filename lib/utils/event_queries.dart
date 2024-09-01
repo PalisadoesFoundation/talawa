@@ -190,4 +190,155 @@ class EventQueries {
           }
       }""";
   }
+
+  /// Creates a GraphQL mutation for creating an event volunteer group.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to create an event volunteer group.
+  ///
+  /// This function generates a GraphQL mutation string for creating an event volunteer group.
+  String createVolunteerGroup() {
+    return '''
+  mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
+    createEventVolunteerGroup(data: \$data) {
+      _id
+      name
+      volunteers{
+      _id
+      }
+      createdAt
+      volunteersRequired
+      creator{
+      _id
+      }
+    }
+  }
+  ''';
+  }
+
+  /// Creates a GraphQL mutation for removing an event volunteer group.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to remove an event volunteer group.
+  ///
+  /// This function generates a GraphQL mutation string for removing an event volunteer group.
+  String removeEventVolunteerGroup() {
+    return '''
+  mutation RemoveEventVolunteerGroup(\$id: ID!) {
+    removeEventVolunteerGroup(id: \$id) {
+    _id
+    name
+    }
+  }
+  ''';
+  }
+
+  /// Creates a GraphQL mutation for adding a volunteer to a group.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to add a volunteer to a group.
+  ///
+  /// This function generates a GraphQL mutation string for adding a volunteer to a group.
+  String addVolunteerToGroup() {
+    return '''
+    mutation CreateEventVolunteer(\$data: EventVolunteerInput!) {
+      createEventVolunteer(data: \$data) {
+        _id
+        isAssigned
+        response
+        creator{
+        _id
+        }
+        group{
+        _id
+        name
+        }
+        isInvited
+        user{
+        _id
+        firstName
+        lastName
+        }
+      }
+    }
+    ''';
+  }
+
+  /// Creates a GraphQL mutation for deleting a volunteer to a group.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete a volunteer to a group.
+  ///
+  /// This function generates a GraphQL mutation string for deleting a volunteer to a group.
+  String removeVolunteerMutation() {
+    return '''
+  mutation RemoveEventVolunteer(\$id: ID!) {
+    removeEventVolunteer(id: \$id) {
+      _id
+    }
+  }
+  ''';
+  }
+
+  /// a_line_ending_with_end_punctuation.
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: define_the_return
+  String updateVolunteerGroupMutation() {
+    return '''
+      mutation UpdateEventVolunteerGroup(\$id: ID!, \$data: UpdateEventVolunteerGroupInput!) {
+        updateEventVolunteerGroup(id: \$id, data: \$data) {
+          _id
+          name
+          volunteersRequired
+        }
+      }
+    ''';
+  }
+
+  /// Fetches event volunteer groups based on criteria such as event ID.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL query string to fetch event volunteer groups that match the provided criteria.
+  String fetchVolunteerGroups() {
+    return '''
+      query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput) {
+        getEventVolunteerGroups(where: \$where) {
+          _id
+          name
+          volunteersRequired
+          createdAt
+          volunteers{
+          _id
+          response
+          user{
+          _id
+          firstName
+          lastName
+          }
+          }
+        }
+      }
+    ''';
+  }
 }
