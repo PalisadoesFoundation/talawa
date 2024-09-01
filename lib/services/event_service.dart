@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+
+import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -16,6 +18,9 @@ import 'package:talawa/utils/event_queries.dart';
 /// * `registerForAnEvent` : to register for an event.
 /// * `deleteEvent` : to delete an event.
 /// * `editEvent` : to edit the event.
+/// * `fetchEventVolunteers` : to fetch all volunteers of an event.
+/// * `createVolunteerGroup` : to create a volunteer group.
+/// * `addVolunteerToGroup` : to add a volunteer to a group.
 /// * `dispose` : to cancel the stream subscription of an organization.
 class EventService {
   EventService() {
@@ -166,6 +171,118 @@ class EventService {
     );
 
     return result;
+  }
+
+  /// This function is used to create a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain all the volunteer group details need to be created.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the created volunteer group.
+  Future<dynamic> createVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().createVolunteerGroup(),
+      variables: {'data': variables},
+    );
+    return result;
+  }
+
+  /// This function is used to remove a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: This will be a `map` type and contain the ID of the volunteer group to be deleted.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the removed volunteer group.
+  Future<dynamic> removeVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().removeEventVolunteerGroup(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to add a volunteer to a group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain all the details needed to add a volunteer to a group.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the added volunteer.
+  Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().addVolunteerToGroup(),
+      variables: {'data': variables},
+    );
+    return result;
+  }
+
+  /// This function is used to remove a volunteer from a group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain the ID of the volunteer to be removed.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the removed volunteer.
+  Future<dynamic> removeVolunteerFromGroup(
+    Map<String, dynamic> variables,
+  ) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().removeVolunteerMutation(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to update the information of a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: This is a `Map<String, dynamic>` type that contains the ID of the volunteer group to be updated and the fields to be updated.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the updated volunteer group.
+  Future<dynamic> updateVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().updateVolunteerGroupMutation(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to fetch all volunteer groups for an event.
+  ///
+  /// **params**:
+  /// * `eventId`: Id of the event to fetch volunteer groups.
+  ///
+  /// **returns**:
+  /// * `Future<List<EventVolunteerGroup>>`: returns the list of volunteer groups
+  Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
+    String eventId,
+  ) async {
+    try {
+      final variables = {
+        "where": {"eventId": eventId},
+      };
+      print(1);
+      final result = await _dbFunctions.gqlAuthQuery(
+        EventQueries().fetchVolunteerGroups(),
+        variables: variables,
+      );
+      print(2);
+      final List groupsJson =
+          (result as QueryResult).data!['getEventVolunteerGroups'] as List;
+
+      return groupsJson
+          .map(
+            (groupJson) =>
+                EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      print('Error fetching volunteer groups: $e');
+      rethrow;
+    }
   }
 
   /// This function is used to cancel the stream subscription of an organization.

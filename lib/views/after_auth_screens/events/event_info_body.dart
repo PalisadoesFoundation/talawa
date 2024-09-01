@@ -25,45 +25,47 @@ class EventInfoBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
+            Row(
               children: [
-                Container(
-                  padding: EdgeInsets.only(
-                    right: SizeConfig.safeBlockHorizontal! * 15,
+                Flexible(
+                  child: Text(
+                    event.title!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(fontSize: 26),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          // event title
-                          event.title!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: 26),
-                        ),
+                ),
+                SizedBox(
+                  width: SizeConfig.screenWidth! * 0.5,
+                ),
+                if (model.event.creator!.id == userConfig.currentUser.id) ...[
+                  IconButton(
+                    onPressed: () => navigationService.pushScreen(
+                      "/editEventPage",
+                      arguments: model.event,
+                    ),
+                    icon: const Icon(Icons.edit),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      navigationService.pushScreen(
+                        "/volunteerScreen",
+                        arguments: [event, model],
+                      );
+                    },
+                    child: const Chip(
+                      label: Text(
+                        'Volunteers',
+                        style: TextStyle(fontSize: 12),
                       ),
-                    ],
+                      avatar: Icon(Icons.person_add_alt_1, color: Colors.white),
+                      backgroundColor: Colors.blue,
+                      labelStyle: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-                Positioned(
-                  right: SizeConfig.screenWidth! * 0.002,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      (model.event.creator!.id == userConfig.currentUser.id)
-                          ? IconButton(
-                              onPressed: () => navigationService.pushScreen(
-                                "/editEventPage",
-                                arguments: model.event,
-                              ),
-                              icon: const Icon(Icons.edit),
-                            )
-                          : Container(),
-                      const Icon(Icons.chat_bubble_outline),
-                    ],
-                  ),
-                ),
+                ],
               ],
             ),
             Text(
