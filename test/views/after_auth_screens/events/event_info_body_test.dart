@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -175,6 +176,15 @@ void main() {
       await tester.tap(find.byType(IconButton));
       // verify(navigationService.pushScreen("/editEventPage",
       //     arguments: getTestEvent()),);
+    });
+
+    testWidgets("Check if manage volunteers button appears for creator",
+        (tester) async {
+      await tester.pumpWidget(createEventInfoBody(asAdmin: true));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Chip), findsOneWidget);
+      await tester.tap(find.byType(Chip));
     });
 
     testWidgets("Check if edit button doesn't appear for non creator",
