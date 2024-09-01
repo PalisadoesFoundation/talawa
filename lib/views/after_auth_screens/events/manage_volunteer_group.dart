@@ -480,9 +480,8 @@ class ManageGroupScreen extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return CheckboxListTile(
                                       key: Key("checkBox$index"),
-                                      checkColor: Theme.of(context)
-                                          .colorScheme
-                                          .background,
+                                      checkColor:
+                                          Theme.of(context).colorScheme.surface,
                                       activeColor:
                                           Theme.of(context).colorScheme.primary,
                                       title: Text(

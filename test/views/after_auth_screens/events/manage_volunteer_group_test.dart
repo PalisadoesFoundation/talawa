@@ -16,7 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
