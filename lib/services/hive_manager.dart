@@ -25,14 +25,9 @@ class HiveManager {
   /// **returns**:
   ///   None
   static Future<void> initializeHive({required Directory dir}) async {
-    try {
-      _initHive(dir);
-      await _registerAdapters();
-      await _openBoxes();
-    } catch (e) {
-      // Handle initialization error
-      print('Hive initialization failed: $e');
-    }
+    _initHive(dir);
+    await registerAdapters();
+    await _openBoxes();
   }
 
   /// Initializes Hive with the specified directory path.
@@ -46,6 +41,51 @@ class HiveManager {
     Hive.init(dir.path);
   }
 
+  /// Registers the [adapter] named adapter.
+  ///
+  /// **params**:
+  /// * `adapter`: Adapter to register.
+  ///
+  /// **returns**:
+  ///   None
+  static Future<void> registerAdapter<T>(TypeAdapter<T> adapter) async {
+    try {
+      Hive.registerAdapter<T>(adapter);
+    } catch (e) {
+      print('Failed to register Hive adapters: $e');
+    }
+  }
+
+  /// Opens the [boxName] named box.
+  ///
+  /// **params**:
+  /// * `boxName`: Name of the box.
+  ///
+  /// **returns**:
+  ///   None
+  static Future<void> openBox<T>(String boxName) async {
+    try {
+      await Hive.openBox<T>(boxName);
+    } catch (e) {
+      print('Failed to open box $boxName');
+    }
+  }
+
+  /// Closes the [boxName] named box.
+  ///
+  /// **params**:
+  /// * `boxName`: Name of the box.
+  ///
+  /// **returns**:
+  ///   None
+  static Future<void> closeBox<T>(String boxName) async {
+    try {
+      await Hive.box<T>(boxName).close();
+    } catch (e) {
+      print('Failed to close the box $boxName');
+    }
+  }
+
   /// Registers the necessary Hive adapters for the models used in the application.
   ///
   /// **params**:
@@ -53,26 +93,19 @@ class HiveManager {
   ///
   /// **returns**:
   ///   None
-  static Future<void> _registerAdapters() async {
-    try {
-      Hive
-        ..registerAdapter<User>(UserAdapter())
-        ..registerAdapter<OrgInfo>(OrgInfoAdapter())
-        ..registerAdapter<AsymetricKeys>(AsymetricKeysAdapter())
-        ..registerAdapter<CachedUserAction>(CachedUserActionAdapter())
-        ..registerAdapter<CachedOperationType>(CachedOperationTypeAdapter())
-        ..registerAdapter<CachedUserActionStatus>(
-          CachedUserActionStatusAdapter(),
-        )
-        ..registerAdapter<Post>(PostAdapter())
-        ..registerAdapter<Event>(EventAdapter())
-        ..registerAdapter<LikedBy>(LikedByAdapter())
-        ..registerAdapter<Attendee>(AttendeeAdapter())
-        ..registerAdapter<Comment>(CommentAdapter())
-        ..registerAdapter<Comments>(CommentsAdapter());
-    } catch (e) {
-      print('Failed to register Hive adapters: $e');
-    }
+  static Future<void> registerAdapters() async {
+    registerAdapter<User>(UserAdapter());
+    registerAdapter<OrgInfo>(OrgInfoAdapter());
+    registerAdapter<AsymetricKeys>(AsymetricKeysAdapter());
+    registerAdapter<CachedUserAction>(CachedUserActionAdapter());
+    registerAdapter<CachedOperationType>(CachedOperationTypeAdapter());
+    registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
+    registerAdapter<Post>(PostAdapter());
+    registerAdapter<Event>(EventAdapter());
+    registerAdapter<LikedBy>(LikedByAdapter());
+    registerAdapter<Attendee>(AttendeeAdapter());
+    registerAdapter<Comment>(CommentAdapter());
+    registerAdapter<Comments>(CommentsAdapter());
   }
 
   /// Opens the necessary Hive boxes for storing various types of data.
@@ -83,18 +116,14 @@ class HiveManager {
   /// **returns**:
   ///   None
   static Future<void> _openBoxes() async {
-    try {
-      await Hive.openBox<User>(HiveKeys.userBoxKey);
-      await Hive.openBox<OrgInfo>(HiveKeys.orgBoxKey);
-      await Hive.openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
-      await Hive.openBox(HiveKeys.pluginBoxKey);
-      await Hive.openBox(HiveKeys.urlBoxKey);
-      await Hive.openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
-      await Hive.openBox<Post>(HiveKeys.postFeedKey);
-      await Hive.openBox<Event>(HiveKeys.eventFeedKey);
-    } catch (e) {
-      print('Failed to open Hive boxes: $e');
-    }
+    await openBox<User>(HiveKeys.userBoxKey);
+    await openBox<OrgInfo>(HiveKeys.orgBoxKey);
+    await openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+    await openBox(HiveKeys.pluginBoxKey);
+    await openBox(HiveKeys.urlBoxKey);
+    await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
+    await openBox<Post>(HiveKeys.postFeedKey);
+    await openBox<Event>(HiveKeys.eventFeedKey);
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -108,12 +137,8 @@ class HiveManager {
   /// **returns**:
   ///   None
   static Future<void> teardownHive() async {
-    try {
-      await _closeBoxes();
-      await Hive.close();
-    } catch (e) {
-      print('Failed to close Hive: $e');
-    }
+    await _closeBoxes();
+    await Hive.close();
   }
 
   /// Closes all opened Hive boxes.
@@ -124,17 +149,13 @@ class HiveManager {
   /// **returns**:
   ///   None
   static Future<void> _closeBoxes() async {
-    try {
-      await Hive.box<User>(HiveKeys.userBoxKey).close();
-      await Hive.box<OrgInfo>(HiveKeys.orgBoxKey).close();
-      await Hive.box<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey).close();
-      await Hive.box(HiveKeys.pluginBoxKey).close();
-      await Hive.box(HiveKeys.urlBoxKey).close();
-      await Hive.box<CachedUserAction>(HiveKeys.offlineActionQueueKey).close();
-      await Hive.box<Post>(HiveKeys.postFeedKey).close();
-      await Hive.box<Event>(HiveKeys.eventFeedKey).close();
-    } catch (e) {
-      print('Failed to close a Hive box: $e');
-    }
+    await closeBox<User>(HiveKeys.userBoxKey);
+    await closeBox<OrgInfo>(HiveKeys.orgBoxKey);
+    await closeBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
+    await closeBox(HiveKeys.pluginBoxKey);
+    await closeBox(HiveKeys.urlBoxKey);
+    await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
+    await closeBox<Post>(HiveKeys.postFeedKey);
+    await closeBox<Event>(HiveKeys.eventFeedKey);
   }
 }

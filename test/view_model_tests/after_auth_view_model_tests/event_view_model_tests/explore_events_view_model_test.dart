@@ -78,7 +78,7 @@ void main() {
       endDate: '2024-01-14',
       startTime: '08:01:00.000Z',
       endTime: '08:50:00.000Z',
-      creator: User(id: 'Test Id'),
+      creator: User(id: 'xzy1'),
       isPublic: true,
       isRegistered: true,
       isRegisterable: true,
