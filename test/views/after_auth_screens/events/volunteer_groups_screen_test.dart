@@ -198,6 +198,36 @@ void main() {
         findsNothing,
       );
     });
+    testWidgets("Check if edit group icon show up", (tester) async {
+      final mockEventService = locator<EventService>();
+      final mockGroups = [
+        EventVolunteerGroup(
+          name: "Group 1",
+          createdAt: "2027-09-08",
+          volunteersRequired: 5,
+        ),
+        EventVolunteerGroup(
+          name: "Group 2",
+          createdAt: "2027-09-09",
+          volunteersRequired: 5,
+        ),
+      ];
+
+      when(mockEventService.fetchVolunteerGroupsByEvent("1"))
+          .thenAnswer((_) async => mockGroups);
+
+      await tester.pumpWidget(volunteerGroupsScreen());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+      expect(find.text("There aren't any volunteer groups"), findsNothing);
+      expect(find.byKey(const Key("group_data")), findsNWidgets(2));
+
+      expect(find.byIcon(Icons.edit), findsNWidgets(2));
+
+      await tester.tap(find.byIcon(Icons.edit).first);
+      await tester.pumpAndSettle();
+    });
     testWidgets("Check if no groups show up", (tester) async {
       final mockEventService = locator<EventService>();
 
@@ -241,6 +271,14 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key("add_grp_dialogue")), findsOneWidget);
+      expect(find.text("Cancel"), findsOneWidget);
+
+      await tester.tap(find.text("Cancel"));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key("add_grp_dialogue")), findsNothing);
+      await tester.tap(find.byKey(const Key("add_group_btn")));
+      await tester.pumpAndSettle();
 
       await tester.enterText(
         find.byKey(const Key("group_name_field")),

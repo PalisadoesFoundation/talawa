@@ -198,7 +198,7 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
                                   navigationService.pushScreen(
                                     "/manageVolunteerScreen",
                                     arguments: [
-                                      widget.model.event,
+                                      widget.event,
                                       widget.model.volunteerGroups[index],
                                     ],
                                   );

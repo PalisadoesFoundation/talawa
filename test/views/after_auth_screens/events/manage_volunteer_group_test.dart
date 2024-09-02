@@ -202,6 +202,16 @@ void main() {
 
         expect(find.byType(AlertDialog), findsOneWidget);
 
+        await tester.tap(find.text("Cancel"));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AlertDialog), findsNothing);
+
+        await tester.tap(find.text("Edit Group"));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AlertDialog), findsOneWidget);
+
         await tester.enterText(
           find.byKey(const Key('groupNameField')),
           'Updated Group',
