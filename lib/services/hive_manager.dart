@@ -62,7 +62,8 @@ class HiveManager {
         ..registerAdapter<CachedUserAction>(CachedUserActionAdapter())
         ..registerAdapter<CachedOperationType>(CachedOperationTypeAdapter())
         ..registerAdapter<CachedUserActionStatus>(
-            CachedUserActionStatusAdapter())
+          CachedUserActionStatusAdapter(),
+        )
         ..registerAdapter<Post>(PostAdapter())
         ..registerAdapter<Event>(EventAdapter())
         ..registerAdapter<LikedBy>(LikedByAdapter())
