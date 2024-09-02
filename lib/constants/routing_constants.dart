@@ -114,4 +114,10 @@ class Routes {
 
   /// static variable to access org info screen.
   static const String orgInfoScreen = '/OrganisationInfoScreen';
+
+  ///static variable to access volunteer groups screen.
+  static const String volunteerGroupScreen = '/volunteerScreen';
+
+  ///static variable to access Manage volunteer group screen.
+  static const String manageVolunteerGroup = '/manageVolunteerScreen';
 }

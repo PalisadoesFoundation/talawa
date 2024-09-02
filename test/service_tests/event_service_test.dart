@@ -1,8 +1,11 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
@@ -227,6 +230,208 @@ void main() {
     test('Test for getters', () {
       final model = EventService();
       expect(model.eventStream, isA<Stream<Event>>());
+    });
+
+    test('Test createVolunteerGroup method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final Map<String, dynamic> variables = {
+        'name': 'Volunteer Group 1',
+        'eventId': 'eventId1',
+      };
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().createVolunteerGroup(),
+          variables: {'data': variables},
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createVolunteerGroup': {
+              '_id': 'groupId1',
+              'name': 'Volunteer Group 1',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.createVolunteerGroup(variables);
+
+      expect(result, isNotNull);
+      expect(
+        (result as QueryResult).data!['createVolunteerGroup']['_id'],
+        'groupId1',
+      );
+      expect(
+        result.data!['createVolunteerGroup']['name'],
+        'Volunteer Group 1',
+      );
+    });
+
+    test('Test removeVolunteerGroup method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final variables = {'groupId': 'groupId123'};
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().removeEventVolunteerGroup(),
+          variables: variables,
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'removeVolunteerGroup': {
+              '_id': 'groupId123',
+              'name': 'Volunteer Group 1',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.removeVolunteerGroup(variables);
+      expect(result, isA<QueryResult>());
+      expect(result.data!['removeVolunteerGroup']['_id'], 'groupId123');
+    });
+
+    test('Test addVolunteerToGroup method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final variables = {
+        'groupId': 'groupId123',
+        'volunteerId': 'volunteerId123',
+      };
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().addVolunteerToGroup(),
+          variables: {'data': variables},
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'addVolunteerToGroup': {
+              '_id': 'volunteerId123',
+              'name': 'Volunteer Name',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.addVolunteerToGroup(variables);
+      expect(result, isA<QueryResult>());
+      expect(result.data!['addVolunteerToGroup']['_id'], 'volunteerId123');
+    });
+
+    test('Test removeVolunteerFromGroup method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final variables = {'volunteerId': 'volunteerId123'};
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().removeVolunteerMutation(),
+          variables: variables,
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'removeVolunteer': {
+              '_id': 'volunteerId123',
+              'name': 'Volunteer Name',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.removeVolunteerFromGroup(variables);
+      expect(result, isA<QueryResult>());
+      expect(result.data!['removeVolunteer']['_id'], 'volunteerId123');
+    });
+
+    test('Test updateVolunteerGroup method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      final variables = {
+        'groupId': 'groupId123',
+        'name': 'Updated Volunteer Group Name',
+      };
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().updateVolunteerGroupMutation(),
+          variables: variables,
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'updateVolunteerGroup': {
+              '_id': 'groupId123',
+              'name': 'Updated Volunteer Group Name',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.updateVolunteerGroup(variables);
+      expect(result, isA<QueryResult>());
+      expect(result.data!['updateVolunteerGroup']['_id'], 'groupId123');
+      expect(
+        result.data!['updateVolunteerGroup']['name'],
+        'Updated Volunteer Group Name',
+      );
+    });
+
+    test('Test fetchVolunteerGroupsByEvent method', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const query = '';
+      const eventId = 'eventId123';
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          EventQueries().fetchVolunteerGroups(),
+          variables: {
+            "where": {"eventId": eventId},
+          },
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'getEventVolunteerGroups': [
+              {
+                '_id': 'groupId1',
+                'name': 'Volunteer Group 1',
+                'eventId': eventId,
+              },
+              {
+                '_id': 'groupId2',
+                'name': 'Volunteer Group 2',
+                'eventId': eventId,
+              },
+            ],
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      final result = await service.fetchVolunteerGroupsByEvent(eventId);
+
+      expect(result, isA<List<EventVolunteerGroup>>());
+      expect(result.length, 2);
+      expect(result[0].id, 'groupId1');
+      expect(result[1].id, 'groupId2');
     });
   });
 }
