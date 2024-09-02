@@ -129,29 +129,37 @@ void main() {
   group('Test Caching part', () {
     late final Box<Event> eventBox;
     setUpAll(() async {
-      eventBox = await Hive.openBox<Event>('event_box');
+      try {
+        eventBox = await Hive.openBox<Event>('event_box');
+      } catch (e) {
+        fail('Failed to open Hive box: $e');
+      }
     });
     test('get and put', () async {
-      await eventBox.put('key', event);
-      final Event fetchedEvent = eventBox.get('key')!;
+      try {
+        await eventBox.put('key', event);
+        final Event fetchedEvent = eventBox.get('key')!;
 
-      expect(
-        fetchedEvent,
-        isNotNull,
-      ); // Check that the fetched event is not null
-      expect(fetchedEvent.id, event.id);
-      expect(fetchedEvent.title, event.title);
-      expect(fetchedEvent.description, event.description);
-      expect(fetchedEvent.location, event.location);
-      expect(fetchedEvent.recurring, event.recurring);
-      expect(fetchedEvent.allDay, event.allDay);
-      expect(fetchedEvent.startDate, event.startDate);
-      expect(fetchedEvent.endDate, event.endDate);
-      expect(fetchedEvent.startTime, event.startTime);
-      expect(fetchedEvent.endTime, event.endTime);
-      expect(fetchedEvent.isPublic, event.isPublic);
-      expect(fetchedEvent.isRegistered, event.isRegistered);
-      expect(fetchedEvent.isRegisterable, event.isRegisterable);
+        expect(
+          fetchedEvent,
+          isNotNull,
+        ); // Check that the fetched event is not null
+        expect(fetchedEvent.id, event.id);
+        expect(fetchedEvent.title, event.title);
+        expect(fetchedEvent.description, event.description);
+        expect(fetchedEvent.location, event.location);
+        expect(fetchedEvent.recurring, event.recurring);
+        expect(fetchedEvent.allDay, event.allDay);
+        expect(fetchedEvent.startDate, event.startDate);
+        expect(fetchedEvent.endDate, event.endDate);
+        expect(fetchedEvent.startTime, event.startTime);
+        expect(fetchedEvent.endTime, event.endTime);
+        expect(fetchedEvent.isPublic, event.isPublic);
+        expect(fetchedEvent.isRegistered, event.isRegistered);
+        expect(fetchedEvent.isRegisterable, event.isRegisterable);
+      } catch (e) {
+        fail('Failed to perform get or put operation: $e');
+      }
     });
 
     test('test adapter', () {

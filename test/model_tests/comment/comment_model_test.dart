@@ -6,33 +6,32 @@ import 'package:hive/hive.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-final comment = Comment(
-  creator: User(
-    id: '123',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@test.com',
-  ),
-  createdAt: '123456',
-  text: 'test text',
-  post: 'test post',
-  likeCount: 'test count',
-);
-
-final commentJson = {
-  'creator': {
-    '_id': '123',
-    'firstName': 'John',
-    'lastName': 'Doe',
-    'email': 'test@test.com',
-  },
-  'createdAt': '123456',
-  'text': 'test text',
-  'post': 'test post',
-  'likeCount': 'test count',
-};
-
 void main() {
+  final comment = Comment(
+    creator: User(
+      id: '123',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'test@test.com',
+    ),
+    createdAt: '123456',
+    text: 'test text',
+    post: 'test post',
+    likeCount: 'test count',
+  );
+
+  final commentJson = {
+    'creator': {
+      '_id': '123',
+      'firstName': 'John',
+      'lastName': 'Doe',
+      'email': 'test@test.com',
+    },
+    'createdAt': '123456',
+    'text': 'test text',
+    'post': 'test post',
+    'likeCount': 'test count',
+  };
   group('Test Comment model', () {
     test('Test task json', () {
       final commentFromJson = Comment.fromJson(commentJson);
@@ -51,6 +50,9 @@ void main() {
     late final Box<Comment> commentBox;
     setUpAll(() async {
       commentBox = await Hive.openBox<Comment>('comment_box');
+    });
+    tearDownAll(() async {
+      await commentBox.close();
     });
     test('put and get', () async {
       commentBox.put('key', comment);

@@ -144,7 +144,6 @@ class OrganizationFeedViewModel extends BaseModel {
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
     _postService.fetchPostsInitial();
-    // _postService.refreshFeed();
     if (isTest) {
       istest = true;
     }

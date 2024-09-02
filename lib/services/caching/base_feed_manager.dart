@@ -94,6 +94,7 @@ abstract class BaseFeedManager<T> {
         await saveDataToCache(data);
         return data;
       } catch (e) {
+        debugPrint(e.toString());
         return loadCachedData();
       }
     } else {

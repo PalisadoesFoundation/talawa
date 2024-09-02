@@ -197,7 +197,8 @@ void main() {
         expect(find.byType(ExploreEventDialog), findsOneWidget);
       });
     });
-    testWidgets("Testing if tapping on calendar works", (tester) async {
+    testWidgets("Testing if tapping on calendar works when no events",
+        (tester) async {
       await mockNetworkImages(() async {
         locator.unregister<EventService>();
 

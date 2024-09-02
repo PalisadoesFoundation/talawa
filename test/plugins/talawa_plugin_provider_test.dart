@@ -35,7 +35,8 @@ void main() {
     box = Hive.box('pluginBox');
   });
 
-  tearDownAll(() {
+  tearDownAll(() async {
+    Hive.box('pluginBox').clear();
     unregisterServices();
   });
 

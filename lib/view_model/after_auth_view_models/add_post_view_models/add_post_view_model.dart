@@ -186,7 +186,7 @@ class AddPostViewModel extends BaseModel {
       onActionException: (e) async {
         print(e);
         _navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Upload failed: $e",
           MessageType.error,
         );
       },

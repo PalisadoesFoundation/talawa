@@ -187,6 +187,8 @@ void main() {
   });
 
   tearDownAll(() {
+    final eventsBox = Hive.box<Event>(HiveKeys.eventFeedKey);
+    eventsBox.clear();
     unregisterViewModels();
     unregisterServices();
   });
