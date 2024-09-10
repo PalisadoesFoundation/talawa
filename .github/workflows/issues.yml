@@ -19,7 +19,7 @@ jobs:
     name: Adding Issue Label
     runs-on: ubuntu-latest
     steps:
-      - uses: Renato66/auto-label@v2.3.0
+      - uses: Renato66/auto-label@v3.1.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           ignore-comments: true
@@ -27,27 +27,21 @@ jobs:
 
           # Configure auto-labeling based on keywords
           autoLabel:
-            - label: dependencies
-              terms:
-                - "dependabot"
-                - "dependency"
-                - "dependencies"
-              additional-labels:
-                - "security"
-                - "good first issue"
-            - label: security
-              terms:
-                - "security"
-              additional-labels:
-                - "good first issue"
-            - label: ui/ux
-              terms:
-                - "layout"
-                - "screen"
-                - "design"
-                - "figma"
-              additional-labels:
-                - "good first issue"
+          labelsSynonyms:
+          dependencies: ["dependencies", "dependabot", "dependency"]
+          security: ["security", "dependencies", "dependabot", "dependency"]
+          good first issue:
+            [
+              "security",
+              "dependencies",
+              "dependabot",
+              "dependency",
+              "layout",
+              "screen",
+              "design",
+              "figma",
+            ]
+          ui/ux: ["layout", "screen", "design", "figma"]
 
   Issue-Greeting:
     name: Greeting Message to User
