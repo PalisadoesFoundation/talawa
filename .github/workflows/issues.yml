@@ -27,7 +27,7 @@ jobs:
 
           # Configure auto-labeling based on keywords
           autoLabel:
-            - label: "dependencies"
+            - label: dependencies
               terms:
                 - "dependabot"
                 - "dependency"
@@ -35,12 +35,12 @@ jobs:
               additional-labels:
                 - "security"
                 - "good first issue"
-            - label: "security"
+            - label: security
               terms:
                 - "security"
               additional-labels:
                 - "good first issue"
-            - label: "ui/ux"
+            - label: ui/ux
               terms:
                 - "layout"
                 - "screen"
