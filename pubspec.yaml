@@ -37,8 +37,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_braintree: ^4.0.0
-  flutter_cache_manager: ^3.3.2
-  flutter_local_notifications: ^17.1.2
+  flutter_cache_manager: ^3.4.1
+  flutter_local_notifications: ^17.2.2
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
@@ -66,15 +66,15 @@ dependencies:
   shared_preferences: ^2.3.2
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^25.2.7+1
-  syncfusion_flutter_datepicker: ^25.2.7
+  syncfusion_flutter_calendar: ^26.2.11
+  syncfusion_flutter_datepicker: ^26.2.13
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.11
   uni_links: ^0.5.1
   uni_links_platform_interface: ^1.0.0
   url_launcher: ^6.2.6
   vibration: ^2.0.0
-  video_player: ^2.8.6
+  video_player: ^2.9.1
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
