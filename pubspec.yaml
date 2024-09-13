@@ -50,7 +50,7 @@ dependencies:
   http: ^1.2.1
   image_cropper: ^8.0.2
   image_picker: ^1.1.1
-  intl: ^0.19.0
+  intl: ^0.18.1
   json_annotation: ^4.7.0
   mockito: ^5.4.4
   network_image_mock: ^2.1.1
@@ -92,6 +92,9 @@ dev_dependencies:
     path: talawa_lint/
 
   url_launcher_platform_interface: 2.3.2
+
+dependency_overrides:
+  intl: ^0.18.1
 
 flutter:
   uses-material-design: true

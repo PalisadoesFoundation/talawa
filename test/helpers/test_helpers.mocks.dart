@@ -4203,8 +4203,6 @@ class MockImageCropper extends _i2.Mock implements _i39.ImageCropper {
             #maxWidth: maxWidth,
             #maxHeight: maxHeight,
             #aspectRatio: aspectRatio,
-            #aspectRatioPresets: aspectRatioPresets,
-            #cropStyle: cropStyle,
             #compressFormat: compressFormat,
             #compressQuality: compressQuality,
             #uiSettings: uiSettings,

@@ -43,10 +43,6 @@ void main() {
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          // aspectRatioPresets: [
-          //   CropAspectRatioPreset.square,
-          //   CropAspectRatioPreset.original,
-          // ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenAnswer((realInvocation) async => croppedFile);
@@ -63,10 +59,6 @@ void main() {
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          // aspectRatioPresets: [
-          //   CropAspectRatioPreset.square,
-          //   CropAspectRatioPreset.original,
-          // ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenThrow(Exception());
