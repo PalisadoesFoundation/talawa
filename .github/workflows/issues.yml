@@ -13,35 +13,16 @@ name: Issues Workflow
 on:
   issues:
     types: ["opened"]
-
 jobs:
   Opened-issue-label:
     name: Adding Issue Label
     runs-on: ubuntu-latest
     steps:
-      - uses: Renato66/auto-label@v3.1.0
+      - uses: Renato66/auto-label@v2.3.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           ignore-comments: true
           default-labels: '["unapproved"]'
-
-          # Configure auto-labeling based on keywords
-          autoLabel:
-          labelsSynonyms:
-          dependencies: ["dependencies", "dependabot", "dependency"]
-          security: ["security", "dependencies", "dependabot", "dependency"]
-          good first issue:
-            [
-              "security",
-              "dependencies",
-              "dependabot",
-              "dependency",
-              "layout",
-              "screen",
-              "design",
-              "figma",
-            ]
-          ui/ux: ["layout", "screen", "design", "figma"]
 
   Issue-Greeting:
     name: Greeting Message to User
