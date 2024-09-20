@@ -273,7 +273,7 @@ class EventQueries {
     ''';
   }
 
-  /// Creates a GraphQL mutation for deleting a volunteer to a group.
+  /// Creates a GraphQL mutation for deleting a volunteer from a group.
   ///
   /// **params**:
   ///   None
@@ -292,15 +292,13 @@ class EventQueries {
   ''';
   }
 
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+  /// Mutation to update volunteer group insatnce.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `String`: define_the_return
+  /// * `String`: Returns a GraphQL mutation string to update a volunteer group
   String updateVolunteerGroupMutation() {
     return '''
       mutation UpdateEventVolunteerGroup(\$id: ID!, \$data: UpdateEventVolunteerGroupInput!) {

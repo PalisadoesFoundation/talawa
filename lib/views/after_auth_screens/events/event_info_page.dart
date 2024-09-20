@@ -43,7 +43,6 @@ class _EventInfoPageState extends State<EventInfoPage>
 
   @override
   Widget build(BuildContext context) {
-    print(_tabController.index);
     return BaseView<EventInfoViewModel>(
       onModelReady: (model) => model.initialize(args: widget.args),
       builder: (context, model, child) {
@@ -81,30 +80,33 @@ class _EventInfoPageState extends State<EventInfoPage>
                     const EventInfoBody(),
                   ],
                 ),
-                floatingActionButton: _showFloatingActionButton &&
-                        model.event.creator!.id != userConfig.currentUser.id
-                    ? FloatingActionButton.extended(
-                        key: const Key("registerEventFloatingbtn"),
-                        onPressed: () {
-                          model.registerForEvent();
-                        },
-                        label: Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate(model.fabTitle),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      )
-                    : FloatingActionButton(
-                        onPressed: () {
-                          (widget.args["exploreEventViewModel"]
-                                  as ExploreEventsViewModel)
-                              .deleteEvent(eventId: model.event.id!);
-                        },
-                        foregroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: const Icon(Icons.delete),
-                      ),
+                floatingActionButton: _showFloatingActionButton
+                    ? (model.event.creator != null &&
+                            model.event.creator!.id !=
+                                userConfig.currentUser.id)
+                        ? FloatingActionButton.extended(
+                            key: const Key("registerEventFloatingbtn"),
+                            onPressed: () {
+                              model.registerForEvent();
+                            },
+                            label: Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(model.fabTitle),
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          )
+                        : FloatingActionButton(
+                            onPressed: () {
+                              (widget.args["exploreEventViewModel"]
+                                      as ExploreEventsViewModel)
+                                  .deleteEvent(eventId: model.event.id!);
+                            },
+                            foregroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            child: const Icon(Icons.delete),
+                          )
+                    : null,
               ),
               VolunteerGroupsScreen(event: model.event, model: model),
             ],

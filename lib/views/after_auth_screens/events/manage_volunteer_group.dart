@@ -30,7 +30,7 @@ class ManageGroupScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text(
               group.name!,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -379,7 +379,7 @@ class ManageGroupScreen extends StatelessWidget {
               onPressed: () async {
                 final String newName = nameController.text.trim();
                 final int newVolunteersRequired =
-                    int.parse(volunteersRequiredController.text.trim());
+                    int.tryParse(volunteersRequiredController.text.trim())!;
 
                 if (newName.isNotEmpty && newVolunteersRequired > 0) {
                   await model.updateVolunteerGroup(
@@ -415,99 +415,103 @@ class ManageGroupScreen extends StatelessWidget {
     ManageVolunteerGroupViewModel model,
   ) {
     model.getCurrentOrgUsersList().then((members) {
-      showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+      if (context.mounted) {
+        showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
           ),
-        ),
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                child: Container(
-                  key: const Key("bottomSheetContainer"),
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Add Volunteers',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            for (final member
-                                in model.memberCheckedMap.entries) {
-                              if (member.value) {
-                                await model.addVolunteerToGroup(
-                                  member.key,
-                                  event.id!,
-                                  group.id!,
-                                );
+                  child: Container(
+                    key: const Key("bottomSheetContainer"),
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Add Volunteers',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              for (final member
+                                  in model.memberCheckedMap.entries) {
+                                if (member.value) {
+                                  await model.addVolunteerToGroup(
+                                    member.key,
+                                    event.id!,
+                                    group.id!,
+                                  );
+                                }
                               }
-                            }
-                            if (context.mounted) {
-                              model.memberCheckedMap.clear();
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: const Text('Done'),
-                        ),
-                        const Divider(),
-                        members.isEmpty
-                            ? const Center(
-                                child: Text(
-                                  "There aren't any members in this organization.",
+                              if (context.mounted) {
+                                model.memberCheckedMap.clear();
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: const Text('Done'),
+                          ),
+                          const Divider(),
+                          members.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                    "There aren't any members in this organization.",
+                                  ),
+                                )
+                              : Flexible(
+                                  child: ListView.builder(
+                                    key: const Key("members_list_key"),
+                                    shrinkWrap: true,
+                                    itemCount: members.length,
+                                    itemBuilder: (context, index) {
+                                      return CheckboxListTile(
+                                        key: Key("checkBox$index"),
+                                        checkColor: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        activeColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        title: Text(
+                                          "${members[index].firstName!} ${members[index].lastName!}",
+                                        ),
+                                        value: model.memberCheckedMap[
+                                            members[index].id],
+                                        onChanged: (val) {
+                                          setState(() {
+                                            model.memberCheckedMap[
+                                                members[index].id!] = val!;
+                                          });
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
-                              )
-                            : Flexible(
-                                child: ListView.builder(
-                                  key: const Key("members_list_key"),
-                                  shrinkWrap: true,
-                                  itemCount: members.length,
-                                  itemBuilder: (context, index) {
-                                    return CheckboxListTile(
-                                      key: Key("checkBox$index"),
-                                      checkColor:
-                                          Theme.of(context).colorScheme.surface,
-                                      activeColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      title: Text(
-                                        "${members[index].firstName!} ${members[index].lastName!}",
-                                      ),
-                                      value: model
-                                          .memberCheckedMap[members[index].id],
-                                      onChanged: (val) {
-                                        setState(() {
-                                          model.memberCheckedMap[
-                                              members[index].id!] = val!;
-                                        });
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        },
-      );
+                );
+              },
+            );
+          },
+        );
+      }
     });
   }
 }

@@ -63,7 +63,6 @@ Event getTestEvent({
   );
 }
 
-late EventInfoViewModel _eventInfoViewModel;
 Widget volunteerGroupsScreen({
   bool isPublic = true,
   bool viewOnMap = true,
@@ -80,7 +79,6 @@ Widget volunteerGroupsScreen({
               "exploreEventViewModel": ExploreEventsViewModel(),
             },
           );
-          _eventInfoViewModel = model;
         },
         builder: (context, model, child) {
           return MaterialApp(
@@ -127,7 +125,9 @@ void main() {
       expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
     });
 
-    testWidgets("Check if no groups show up", (tester) async {
+    testWidgets(
+        "Check if no groups are displayed when there are no volunteer groups",
+        (tester) async {
       await tester.pumpWidget(volunteerGroupsScreen());
       await tester.pumpAndSettle();
 

@@ -43,6 +43,24 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _fetchVolunteerGroupsAndDisplay();
+  }
+
+  /// method to fetch all volunteer groups.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> _fetchVolunteerGroupsAndDisplay() async {
+    await widget.model.fetchVolunteerGroups(widget.event.id!);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

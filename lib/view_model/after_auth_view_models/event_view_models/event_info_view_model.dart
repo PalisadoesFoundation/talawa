@@ -42,9 +42,7 @@ class EventInfoViewModel extends BaseModel {
         args["exploreEventViewModel"] as ExploreEventsViewModel;
     fabTitle = getFabTitle();
     setState(ViewState.busy);
-
     attendees = event.attendees ?? [];
-    fetchVolunteerGroups(event.id!);
     setState(ViewState.idle);
   }
 
