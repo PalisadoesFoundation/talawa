@@ -57,7 +57,12 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
   ///   None
   Future<void> _fetchVolunteerGroupsAndDisplay() async {
     await widget.model.fetchVolunteerGroups(widget.event.id!);
-    setState(() {});
+    // Ensure setState is called after the widget is built
+    if (mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {});
+      });
+    }
   }
 
   @override

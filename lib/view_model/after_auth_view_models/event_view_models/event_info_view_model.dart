@@ -153,14 +153,11 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchVolunteerGroups(String eventId) async {
     try {
-      setState(ViewState.busy);
       final result =
           await locator<EventService>().fetchVolunteerGroupsByEvent(eventId);
 
       _volunteerGroups.clear();
       _volunteerGroups.addAll(result);
-
-      setState(ViewState.idle);
       notifyListeners();
     } catch (e) {
       print('Error fetching volunteer groups: $e');

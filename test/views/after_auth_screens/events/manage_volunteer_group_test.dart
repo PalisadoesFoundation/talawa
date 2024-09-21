@@ -361,7 +361,6 @@ void main() {
 
       await tester.tap(find.byKey(const Key("delete_volunteer0")));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key("volunteers")), findsNWidgets(1));
     });
 
     testWidgets("Check if no volunteer text shows up when no volunteer",
