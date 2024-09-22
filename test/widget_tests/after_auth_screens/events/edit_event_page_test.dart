@@ -73,16 +73,16 @@ Widget editEventScreen({
       },
     );
 
-void main() {
-  setUpAll(() async {
-    final Directory dir = Directory('temporaryPath');
-    Hive
-      ..init(dir.path)
-      ..registerAdapter(UserAdapter())
-      ..registerAdapter(OrgInfoAdapter());
-    await Hive.openBox<User>('currentUser');
-    await Hive.openBox<OrgInfo>('currentOrg');
-    await Hive.openBox('url');
+void main() async {
+  final Directory dir = Directory('temporaryPath');
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(OrgInfoAdapter());
+  await Hive.openBox<User>('currentUser');
+  await Hive.openBox<OrgInfo>('currentOrg');
+  await Hive.openBox('url');
+  setUpAll(() {
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();
