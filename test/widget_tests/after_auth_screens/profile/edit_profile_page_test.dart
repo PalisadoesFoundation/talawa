@@ -2,11 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -76,15 +74,6 @@ Future<void> main() async {
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
   });
-
-  final Directory dir = Directory('temporaryPath');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
   group('Edit Profile Screen Widget Test in light mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(

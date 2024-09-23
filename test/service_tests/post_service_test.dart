@@ -244,7 +244,7 @@ void main() {
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
         ),
-      ).called(2);
+      ).called(1);
     });
 
     test('Test addNewPost method', () async {
@@ -580,12 +580,26 @@ void main() {
         const Duration(seconds: 1),
       ); // Adjust the delay as needed
 
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          queryNewOrg,
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await service.getPosts();
+
       // Verify that refresh token was called to check getPost method was called correctly.
       verify(
         dataBaseMutationFunctions.gqlAuthQuery(
           queryNewOrg,
         ),
-      ).called(1);
+      ).called(2);
 
       // Close the stream controller to avoid memory leaks
       await orgInfoStreamController.close();

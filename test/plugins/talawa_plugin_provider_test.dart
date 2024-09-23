@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -31,18 +30,14 @@ void main() {
     name: 'test org 3',
   );
 
-  setUpAll(() async {
+  setUpAll(() {
     registerServices();
-    final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
-    Hive.init(dir.path);
-    box = await Hive.openBox('pluginBox');
+    box = Hive.box('pluginBox');
   });
 
-  tearDownAll(() {
+  tearDownAll(() async {
+    Hive.box('pluginBox').clear();
     unregisterServices();
-    box.close();
-    Hive.deleteBoxFromDisk('pluginBox');
-    Hive.close();
   });
 
   group('TalawaPluginProvider Tests', () {

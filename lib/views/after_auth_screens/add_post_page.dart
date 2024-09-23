@@ -57,8 +57,8 @@ class _AddPostState extends State<AddPost> {
         actions: [
           TextButton(
             key: const Key('add_post_text_btn1'),
-            onPressed: () {
-              model.uploadPost();
+            onPressed: () async {
+              await model.uploadPost();
               navigationService.pop();
               // convertImageToBase64(sampleBase64Image);
             },

@@ -158,27 +158,6 @@ void main() {
           });
         },
       );
-
-      group(
-        'Test validateUrlExistence',
-        () {
-          test('Test validateUrlExistence when url is not present', () async {
-            final result = await Validator()
-                .validateUrlExistence('https://nnnoootttaaasssiiittteee.com');
-
-            expect(result, false);
-          });
-
-          test('Test validateUrlExistence when url is not present', () async {
-            final result = await Validator().validateUrlExistence(
-              'https://www.google.com',
-            );
-
-            expect(result, true);
-          });
-        },
-      );
-
       group(
         'Test validatePasswordConfirm',
         () {
@@ -202,6 +181,25 @@ void main() {
             );
 
             expect(result, null);
+          });
+        },
+      );
+
+      group(
+        'Test validateUrlExistence',
+        () {
+          test('Test validateUrlExistence when url is not present', () async {
+            final result = await Validator().validateUrlExistence(
+              'https://www.google.com',
+            );
+
+            expect(result, true);
+          });
+          test('Test validateUrlExistence when url is not present', () async {
+            final result = await Validator()
+                .validateUrlExistence('https://nnnoootttaaasssiiittteee.com');
+
+            expect(result, false);
           });
         },
       );

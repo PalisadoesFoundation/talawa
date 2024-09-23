@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+part 'post_model.g.dart';
+
 ///This class creates a Post model.
+
+@HiveType(typeId: 6)
 class Post {
   Post({
     required this.sId,
@@ -51,33 +56,43 @@ class Post {
   }
 
   /// unique identifier for post.
+  @HiveField(0)
   late String sId;
 
-  /// description for post.
+  /// Description of the post.
+  @HiveField(1)
   String? description;
 
-  /// createdAt for post.
+  /// Creation timestamp of the post.
+  @HiveField(2)
   DateTime? createdAt;
 
-  /// imageUrl for post.
+  /// URL of the image attached to the post.
+  @HiveField(3)
   String? imageUrl;
 
-  /// base64String for Image.
+  /// Base64 encoded string of an image attached to the post.
+  @HiveField(4)
   String? base64String;
 
-  /// videoUrl for post.
+  /// URL of a video attached to the post.
+  @HiveField(5)
   String? videoUrl;
 
-  /// creator for post.
+  /// User who created the post.
+  @HiveField(6)
   User? creator;
 
-  /// organization for post.
+  /// Organization associated with the post.
+  @HiveField(7)
   OrgInfo? organization;
 
-  /// likedBy for post.
+  /// List of users who liked the post.
+  @HiveField(8)
   List<LikedBy>? likedBy;
 
-  /// comments for post.
+  /// List of comments on the post.
+  @HiveField(9)
   List<Comments>? comments;
 
   /// this is to get duration of post.
@@ -105,6 +120,7 @@ class Post {
 }
 
 /// This class convert between json and object for likedby.
+@HiveType(typeId: 8)
 class LikedBy {
   LikedBy({this.sId});
 
@@ -117,6 +133,7 @@ class LikedBy {
   ///
   /// params:
   /// * `sId` : unique identifier for post
+  @HiveField(0)
   String? sId;
 
   /// Convert dart object to json.
@@ -134,6 +151,7 @@ class LikedBy {
 }
 
 /// This class convert between json and object for comments.
+@HiveType(typeId: 9)
 class Comments {
   Comments({this.sId});
 
@@ -151,6 +169,7 @@ class Comments {
   ///
   /// params:
   /// * `sId` : unique identifier for post
+  @HiveField(0)
   String? sId;
 
   /// Convert dart object to json.
