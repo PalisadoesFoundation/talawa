@@ -2,8 +2,6 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -41,16 +39,9 @@ class MockSessionManger extends Mock implements SessionManager {
 }
 
 void main() async {
-  final Directory dir = Directory('test/fixtures/core');
-
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-
-  final userBox = await Hive.openBox<User>('currentUser');
-  final urlBox = await Hive.openBox('url');
-  final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
+  final userBox = Hive.box<User>('currentUser');
+  final urlBox = Hive.box('url');
+  final orgBox = Hive.box<OrgInfo>('currentOrg');
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -89,6 +80,43 @@ void main() async {
   ];
 
   group('Test UserConfig service', () {
+    test('Test for User log out method.', () async {
+      databaseFunctions.init();
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        final data = {
+          'logout': true,
+        };
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.logout())),
+        );
+      });
+
+      when(navigationService.pop()).thenAnswer((_) async {});
+      when(
+        navigationService.pushDialog(
+          const CustomProgressDialog(
+            key: Key('LogoutProgress'),
+          ),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      await UserConfig().userLogOut();
+
+      expect(userBox.isEmpty, true);
+      expect(urlBox.isEmpty, true);
+      expect(orgBox.isEmpty, true);
+
+      when(databaseFunctions.gqlAuthMutation(queries.logout()))
+          .thenAnswer((realInvocation) async {
+        throw Exception('test exception');
+      });
+
+      UserConfig().userLogOut();
+    });
     test('Test for User log out method.', () async {
       databaseFunctions.init();
 

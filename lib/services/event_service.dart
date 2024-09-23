@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -21,8 +23,8 @@ import 'package:talawa/utils/event_queries.dart';
 /// * `createVolunteerGroup` : to create a volunteer group.
 /// * `addVolunteerToGroup` : to add a volunteer to a group.
 /// * `dispose` : to cancel the stream subscription of an organization.
-class EventService {
-  EventService() {
+class EventService extends BaseFeedManager<Event> {
+  EventService() : super(HiveKeys.eventFeedKey) {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
     print(_eventStream);
     _currentOrg = _userConfig.currentOrg;
@@ -36,10 +38,12 @@ class EventService {
 
   late OrgInfo _currentOrg;
   late StreamSubscription _currentOrganizationStreamSubscription;
-  late Stream<Event> _eventStream;
+  late Stream<List<Event>> _eventStream;
 
-  final StreamController<Event> _eventStreamController =
-      StreamController<Event>();
+  final StreamController<List<Event>> _eventStreamController =
+      StreamController<List<Event>>();
+
+  List<Event> _events = [];
 
   /// The event stream.
   ///
@@ -47,7 +51,64 @@ class EventService {
   /// None
   /// returns:
   /// * `Stream<Event>`: returns the event stream
-  Stream<Event> get eventStream => _eventStream;
+  Stream<List<Event>> get eventStream => _eventStream;
+
+  @override
+  Future<List<Event>> fetchDataFromApi() async {
+    // get current organization id
+    final String currentOrgID = _currentOrg.id!;
+    // mutation to fetch the events
+    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
+
+    if (result.data == null) {
+      throw Exception('unable to fetch data');
+    }
+
+    print(result.data!["eventsByOrganizationConnection"]);
+    final List<Map<String, dynamic>> eventsJson = result
+        .data!["eventsByOrganizationConnection"] as List<Map<String, dynamic>>;
+    eventsJson.forEach((eventJsonData) {
+      final Event event = Event.fromJson(eventJsonData);
+      event.isRegistered = event.attendees?.any(
+            (attendee) => attendee.id == _userConfig.currentUser.id,
+          ) ??
+          false;
+      _events.insert(0, event);
+    });
+    return _events;
+  }
+
+  /// Fetches the initial set of events, loading from the cache first, and then refreshing the feed.
+  ///
+  /// This method loads events from the cache, adds them to the event stream, and then triggers a feed refresh
+  /// to fetch the latest events from the API and update the stream accordingly.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> fetchEventsInitial() async {
+    _events = await loadCachedData();
+    _eventStreamController.add(_events);
+    refreshFeed();
+  }
+
+  /// Refreshes the event feed by fetching the latest events from the API and updating the event stream.
+  ///
+  /// This method retrieves the latest events using the `getNewFeedAndRefreshCache` method and adds the new events
+  /// to the event stream.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> refreshFeed() async {
+    _events = await getNewFeedAndRefreshCache();
+    _eventStreamController.add(_events);
+  }
 
   /// This function is used to set stream subscription for an organization.
   ///
@@ -88,24 +149,8 @@ class EventService {
   /// **returns**:
   ///   None
   Future<void> getEvents() async {
-    // get current organization id
-    final String currentOrgID = _currentOrg.id!;
-    // mutation to fetch the events
-    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthMutation(mutation);
-
-    if (result.data == null) return;
-
-    final List eventsJson =
-        result.data!["eventsByOrganizationConnection"] as List;
-    eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.attendees?.any(
-            (attendee) => attendee.id == _userConfig.currentUser.id,
-          ) ??
-          false;
-      _eventStreamController.add(event);
-    });
+    final List<Event> newEvents = await getNewFeedAndRefreshCache();
+    _eventStreamController.add(newEvents);
   }
 
   /// This function is used to fetch all registrants of an event.
@@ -168,7 +213,6 @@ class EventService {
       EventQueries().updateEvent(eventId: eventId),
       variables: variables,
     );
-
     return result;
   }
 

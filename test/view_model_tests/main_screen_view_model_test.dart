@@ -1,8 +1,5 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -143,16 +140,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
 }
 
 void main() async {
-  final Directory dir = Directory('test/fixtures/core');
-
-  Hive.init(dir.path);
-  //   ..registerAdapter(UserAdapter())
-  //   ..registerAdapter(OrgInfoAdapter());
-
-  // final userBox = await Hive.openBox<User>('currentUser');
-  // final urlBox = await Hive.openBox('url');
-  // final orgBox = await Hive.openBox<OrgInfo>('currentOrg');
-  final pluginBox = await Hive.openBox('pluginBox');
+  final pluginBox = Hive.box('pluginBox');
 
   final List<Map<String, dynamic>> samplePluginData = [
     {
@@ -177,12 +165,6 @@ void main() async {
 
   tearDownAll(() {
     locator.unregister<SizeConfig>();
-    File('test/fixtures/core/currentorg.hive').delete();
-    File('test/fixtures/core/currentorg.lock').delete();
-    File('test/fixtures/core/currentuser.hive').delete();
-    File('test/fixtures/core/currentuser.lock').delete();
-    File('test/fixtures/core/pluginbox.hive').delete();
-    File('test/fixtures/core/pluginbox.lock').delete();
   });
 
   group("MainScreen ViewModel Tests - ", () {

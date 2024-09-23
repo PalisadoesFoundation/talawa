@@ -1,15 +1,11 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 
@@ -75,12 +71,8 @@ void main() {
         ),
       ).thenAnswer((_) async {});
 
-      Hive
-        ..init('test/fixtures/core')
-        ..registerAdapter(UserAdapter())
-        ..registerAdapter(OrgInfoAdapter());
-      final user = await Hive.openBox<User>('currentUser');
-      final url = await Hive.openBox('url');
+      final user = Hive.box<User>('currentUser');
+      final url = Hive.box('url');
 
       await user.put('test', model.currentUser);
       await url.put('test', 'fakeUrl');
@@ -99,9 +91,6 @@ void main() {
         expect(user.get('test'), null);
         expect(url.get('test'), null);
       });
-
-      File('test/fixtures/core/url.hive').delete();
-      File('test/fixtures/core/url.lock').delete();
     });
   });
 }

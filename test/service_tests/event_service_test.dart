@@ -11,6 +11,7 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -220,6 +221,24 @@ void main() {
       );
       final services = EventService();
       services.getEvents();
+
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          EventQueries().fetchOrgEvents('XYZ'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      services.getEvents();
+
+      AppConnectivity.isOnline = false;
+
+      services.getEvents();
     });
 
     test('Test dispose method', () {
@@ -229,7 +248,7 @@ void main() {
 
     test('Test for getters', () {
       final model = EventService();
-      expect(model.eventStream, isA<Stream<Event>>());
+      expect(model.eventStream, isA<Stream<List<Event>>>());
     });
     test('Test createVolunteerGroup method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();

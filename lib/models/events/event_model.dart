@@ -1,7 +1,11 @@
+import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+part 'event_model.g.dart';
+
 ///This class creates an event model and returns an Event instance.
+@HiveType(typeId: 10)
 class Event {
   Event({
     this.id,
@@ -66,59 +70,77 @@ class Event {
     );
   }
 
-  ///Unique identifier for the event.
+  /// Unique identifier for the event.
+  @HiveField(0)
   String? id;
 
   /// The title of the event.
+  @HiveField(1)
   String? title;
 
   /// The description of the event.
+  @HiveField(2)
   String? description;
 
   /// The location of the event.
+  @HiveField(3)
   String? location;
 
   /// A boolean value that indicates if the event is recurring.
+  @HiveField(4)
   bool? recurring;
 
   /// A boolean value that indicates if the event is an all-day event.
+  @HiveField(5)
   bool? allDay;
 
   /// The start date of the event.
+  @HiveField(6)
   String? startDate;
 
   /// The end date of the event.
+  @HiveField(7)
   String? endDate;
 
   /// The start time of the event.
+  @HiveField(8)
   String? startTime;
 
   /// The end time of the event.
+  @HiveField(9)
   String? endTime;
 
   /// A boolean value that indicates if the event is public.
+  @HiveField(10)
   bool? isPublic;
 
   /// A boolean value that indicates if the user is registered for the event.
+  @HiveField(11)
   bool? isRegistered;
 
   /// A boolean value that indicates if the event is registerable.
+  @HiveField(12)
   bool? isRegisterable;
 
   /// The creator of the event.
+  @HiveField(13)
   User? creator;
 
   /// The organization of the event.
+  @HiveField(14)
   OrgInfo? organization;
 
   /// The admins of the event.
+  @HiveField(15)
   List<User>? admins;
 
   /// The attendees of the event.
+  @HiveField(16)
   List<Attendee>? attendees;
 }
 
 ///This class creates an attendee model and returns an Attendee instance.
+@HiveType(typeId: 11)
 class Attendee {
   Attendee({this.id, this.firstName, this.lastName, this.image});
 
@@ -129,16 +151,20 @@ class Attendee {
     image = json['image'] as String?;
   }
 
-  ///Unique identifier for the attendee.
+  /// Unique identifier for the attendee.
+  @HiveField(0)
   String? id;
 
   /// The first name of the attendee.
+  @HiveField(1)
   String? firstName;
 
   /// The last name of the attendee.
+  @HiveField(2)
   String? lastName;
 
-  /// The image of the attendee.
+  /// The image URL of the attendee.
+  @HiveField(3)
   String? image;
 
   /// Converts the Attendee instance to a map structure..

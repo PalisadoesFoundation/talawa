@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -23,9 +21,6 @@ import '../helpers/test_locator.dart';
 ///   None
 void main() async {
   late DataBaseMutationFunctions functionsClass;
-  final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
-  Hive.init(dir.path);
-  await Hive.openBox('url');
 
   const userNotAuthenticated =
       GraphQLError(message: 'User is not authenticated');
