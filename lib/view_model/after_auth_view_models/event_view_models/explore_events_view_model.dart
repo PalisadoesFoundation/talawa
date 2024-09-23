@@ -95,14 +95,13 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> initialise() async {
     setState(ViewState.busy);
     if (!demoMode) {
-      print(demoMode);
       _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
           .listen((updatedOrganization) => refreshEvents());
-      await _eventService.getEvents();
 
       _eventStreamSubscription = _eventService.eventStream.listen(
-        (newEvent) => checkIfExistsAndAddNewEvent(newEvent),
+        (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
       );
+      await _eventService.fetchEventsInitial();
       _bufferEvents = _events;
     }
     setState(ViewState.idle);
@@ -111,21 +110,23 @@ class ExploreEventsViewModel extends BaseModel {
   /// This function add a new event if the event not exist.
   ///
   /// **params**:
-  /// * `newEvent`: `Event` type variable containing data to create a new event.
+  /// * `newEvents`: `Event` type variable containing data to create a new event.
   ///
   /// **returns**:
   ///   None
-  Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
+  Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
     // Check if the event is unique and belongs to the current organization
-    if (!_uniqueEventIds.contains(newEvent.id) &&
-        newEvent.organization!.id == userConfig.currentOrg.id) {
-      _uniqueEventIds.add(newEvent.id!);
-      _events.insert(0, newEvent);
-    }
-    if (!_userEvents.any((event) => event.id == newEvent.id) &&
-        newEvent.creator!.id == userConfig.currentUser.id) {
-      _userEvents.insert(0, newEvent);
-    }
+    newEvents.forEach((newEvent) {
+      if (!_uniqueEventIds.contains(newEvent.id) &&
+          newEvent.organization!.id == userConfig.currentOrg.id) {
+        _uniqueEventIds.add(newEvent.id!);
+        _events.insert(0, newEvent);
+      }
+      if (!_userEvents.any((event) => event.id == newEvent.id) &&
+          newEvent.creator!.id == userConfig.currentUser.id) {
+        _userEvents.insert(0, newEvent);
+      }
+    });
     notifyListeners();
   }
 

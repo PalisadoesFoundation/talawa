@@ -136,7 +136,6 @@ class OrganizationFeedViewModel extends BaseModel {
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
-
     _postsSubscription = _postService.postStream.listen((newPosts) {
       return buildNewPosts(newPosts);
     });
@@ -144,7 +143,7 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _postService.refreshFeed();
+    _postService.fetchPostsInitial();
     if (isTest) {
       istest = true;
     }
@@ -269,6 +268,25 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> removePost(Post post) async {
+    await actionHandlerService.performAction(
+      actionType: ActionType.critical,
+      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
+      action: () async {
+        final result = await _postService.deletePost(post);
+        return result;
+      },
+      onValidResult: (result) async {
+        _posts.remove(post);
+      },
+      apiCallSuccessUpdateUI: () {
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
+          'Post was deleted if you had the rights!',
+          MessageType.info,
+        );
+        notifyListeners();
+      },
+    );
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.postDeletionFailed,

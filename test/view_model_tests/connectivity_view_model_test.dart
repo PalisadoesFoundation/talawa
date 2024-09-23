@@ -65,7 +65,6 @@ void main() {
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    await cacheService.initialise();
     registerServices();
     // await cacheService.initialise();
     connectivityService.initConnectivity(client: http.Client());

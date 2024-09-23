@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -58,15 +55,9 @@ Widget createSetUrlScreen({
     );
 
 Future<void> main() async {
-  const testMockStorage = 'test/fixtures/core';
-  Hive
-    ..init(testMockStorage)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
   //opening Hive Boxes
   // await Hive.openBox<User>('currentUser');
   // await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
   //setting up MVVM
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();

@@ -2,35 +2,54 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+final u1 = User(
+  id: '123',
+  firstName: 'John',
+  lastName: 'Doe',
+  email: 'test@test.com',
+);
+final u2 = User(
+  id: '123',
+  firstName: 'Ayush',
+  lastName: 'Chaudhary',
+  email: 'test@test.com',
+);
+final List<User> users = [u1, u2];
+
+final LikedBy l1 = LikedBy(sId: 'test1');
+final LikedBy l2 = LikedBy(sId: 'test2');
+final List<LikedBy> likeby = [l1, l2];
+
+final comment1 = Comments(sId: 'comment1');
+final comment2 = Comments(sId: 'comment2');
+final comment3 = Comments(sId: 'comment3');
+final List<Comments> comments = [comment1, comment2, comment3];
+
+final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
+final post = Post(
+  creator: User(
+    id: '123',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'test@test.com',
+  ),
+  sId: "sid",
+  createdAt: myBirthday,
+  description: 'test description',
+  imageUrl: 'https://image.com',
+  videoUrl: 'https://image.com',
+  organization: OrgInfo(admins: users),
+  likedBy: likeby,
+  comments: comments,
+);
+
 void main() {
   group('Test Post model', () {
-    final u1 = User(
-      id: '123',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'test@test.com',
-    );
-    final u2 = User(
-      id: '123',
-      firstName: 'Ayush',
-      lastName: 'Chaudhary',
-      email: 'test@test.com',
-    );
-    final List<User> users = [u1, u2];
-
-    final LikedBy l1 = LikedBy(sId: 'test1');
-    final LikedBy l2 = LikedBy(sId: 'test2');
-    final List<LikedBy> likeby = [l1, l2];
-
-    final comment1 = Comments(sId: 'comment1');
-    final comment2 = Comments(sId: 'comment2');
-    final comment3 = Comments(sId: 'comment3');
-    final List<Comments> comments = [comment1, comment2, comment3];
-
     test('Test Post model', () {
       final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
       final post = Post(
@@ -268,6 +287,44 @@ void main() {
           '_id': 'test',
         };
         expect(comment.toJson(), commentJson);
+      });
+    });
+
+    group('Test caching part', () {
+      late final Box<Post> postBox;
+      setUpAll(() async {
+        postBox = await Hive.openBox<Post>('post_box');
+      });
+      test('get and put', () {
+        postBox.put('key', post);
+        final Post fetchedPost = postBox.get('key')!;
+
+        expect(fetchedPost.sId, post.sId);
+        expect(fetchedPost.createdAt, post.createdAt);
+        expect(fetchedPost.description, post.description);
+        expect(fetchedPost.imageUrl, post.imageUrl);
+        expect(fetchedPost.videoUrl, post.videoUrl);
+
+        expect(
+          fetchedPost.organization,
+          post.organization,
+        ); // Assuming users are compared by their ids or some other unique attribute
+        expect(
+          fetchedPost.likedBy,
+          post.likedBy,
+        ); // Assuming likeby is compared by ids or some other unique attribute
+        expect(
+          fetchedPost.comments,
+          post.comments,
+        ); // Assuming comments are compared by their ids or some other unique attribute
+      });
+
+      test('adpaters', () {
+        final PostAdapter adapter1 = PostAdapter();
+        final PostAdapter adapter2 = PostAdapter();
+
+        expect(adapter2.hashCode, isA<int>());
+        expect(adapter2 == adapter1, true);
       });
     });
   });

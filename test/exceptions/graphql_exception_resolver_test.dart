@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/exceptions/critical_action_exception.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
@@ -44,15 +41,6 @@ Widget buildBaseScreen({required Function() onClick}) {
 
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  // setupLocator();
-  // registerServices();
-  // graphqlConfig.test();
-  final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter());
-
-  await Hive.openBox('url');
   setUpAll(() {
     setupLocator();
     sizeConfig.test();
