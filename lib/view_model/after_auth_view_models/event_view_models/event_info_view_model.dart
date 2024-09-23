@@ -41,9 +41,7 @@ class EventInfoViewModel extends BaseModel {
     exploreEventsInstance =
         args["exploreEventViewModel"] as ExploreEventsViewModel;
     fabTitle = getFabTitle();
-    setState(ViewState.busy);
     attendees = event.attendees ?? [];
-    setState(ViewState.idle);
   }
 
   /// The function allows user to register for an event.
