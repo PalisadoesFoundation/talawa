@@ -9,14 +9,12 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-import 'flutter_test_config.dart';
 import 'helpers/test_helpers.dart';
 import 'helpers/test_locator.dart';
 
 void main() async {
   setUpAll(() async {
     testSetupLocator();
-    await setUpHive();
   });
   group('test my app', () {
     testWidgets('MyApp', (tester) async {

@@ -14,17 +14,6 @@ class CacheService {
     offlineActionQueue = OfflineActionQueue();
   }
 
-  /// Initializes the cache service.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> initialise() async {
-    await offlineActionQueue.initialize();
-  }
-
   /// Duration for which cached operations are considered valid.
   final Duration _timeToLive = const Duration(hours: 24);
 

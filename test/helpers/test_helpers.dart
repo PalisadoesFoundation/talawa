@@ -596,11 +596,12 @@ EventService getAndRegisterEventService() {
   final service = MockEventService();
 
   //Mock Stream for currentOrgStream
-  final StreamController<Event> streamController = StreamController();
-  final Stream<Event> stream = streamController.stream.asBroadcastStream();
+  final StreamController<List<Event>> streamController = StreamController();
+  final Stream<List<Event>> stream =
+      streamController.stream.asBroadcastStream();
   when(service.eventStream).thenAnswer((invocation) => stream);
   when(service.getEvents()).thenAnswer(
-    (invocation) async => streamController.add(
+    (invocation) async => streamController.add([
       Event(
         id: '1',
         title: 'test',
@@ -626,7 +627,7 @@ EventService getAndRegisterEventService() {
         isPublic: true,
         organization: OrgInfo(id: 'XYZ'),
       ),
-    ),
+    ]),
   );
   const data = {
     'getEventAttendeesByEventId': [

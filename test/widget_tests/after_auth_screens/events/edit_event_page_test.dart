@@ -8,7 +8,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
@@ -75,14 +74,6 @@ Widget editEventScreen({
 
 void main() {
   setUpAll(() async {
-    final Directory dir = Directory('temporaryPath');
-    Hive
-      ..init(dir.path)
-      ..registerAdapter(UserAdapter())
-      ..registerAdapter(OrgInfoAdapter());
-    await Hive.openBox<User>('currentUser');
-    await Hive.openBox<OrgInfo>('currentOrg');
-    await Hive.openBox('url');
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();

@@ -211,7 +211,7 @@ void main() {
       await viewModel.uploadPost();
       verify(
         locator<NavigationService>().showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Upload failed: Exception: exception",
           MessageType.error,
         ),
       ).called(1);
@@ -238,7 +238,7 @@ void main() {
       await viewModel.uploadPost();
       verify(
         locator<NavigationService>().showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Upload failed: Exception: exception",
           MessageType.error,
         ),
       ).called(1);
