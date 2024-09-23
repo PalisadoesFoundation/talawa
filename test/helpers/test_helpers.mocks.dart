@@ -9,49 +9,48 @@ import 'dart:ui' as _i10;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i41;
+import 'package:image_cropper/src/cropper.dart' as _i40;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i42;
+    as _i41;
 import 'package:image_picker/image_picker.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i18;
-import 'package:qr_code_scanner/src/qr_code_scanner.dart' as _i33;
-import 'package:qr_code_scanner/src/types/barcode.dart' as _i34;
-import 'package:qr_code_scanner/src/types/camera.dart' as _i35;
+import 'package:qr_code_scanner/src/qr_code_scanner.dart' as _i32;
+import 'package:qr_code_scanner/src/types/barcode.dart' as _i33;
+import 'package:qr_code_scanner/src/types/camera.dart' as _i34;
 import 'package:qr_code_scanner/src/types/features.dart' as _i12;
 import 'package:talawa/enums/enums.dart' as _i14;
-import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i24;
-import 'package:talawa/models/chats/chat_message.dart' as _i25;
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i23;
+import 'package:talawa/models/chats/chat_message.dart' as _i24;
 import 'package:talawa/models/events/event_model.dart' as _i21;
-import 'package:talawa/models/events/event_venue.dart' as _i39;
-import 'package:talawa/models/events/event_volunteer_group.dart' as _i22;
+import 'package:talawa/models/events/event_venue.dart' as _i38;
 import 'package:talawa/models/organization/org_info.dart' as _i6;
 import 'package:talawa/models/post/post_model.dart' as _i17;
 import 'package:talawa/models/user/user_info.dart' as _i7;
-import 'package:talawa/services/chat_service.dart' as _i23;
-import 'package:talawa/services/comment_service.dart' as _i36;
+import 'package:talawa/services/chat_service.dart' as _i22;
+import 'package:talawa/services/comment_service.dart' as _i35;
 import 'package:talawa/services/database_mutation_functions.dart' as _i9;
 import 'package:talawa/services/event_service.dart' as _i11;
 import 'package:talawa/services/graphql_config.dart' as _i15;
 import 'package:talawa/services/navigation_service.dart' as _i8;
-import 'package:talawa/services/org_service.dart' as _i29;
+import 'package:talawa/services/org_service.dart' as _i28;
 import 'package:talawa/services/post_service.dart' as _i16;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i19;
-import 'package:talawa/services/user_config.dart' as _i26;
-import 'package:talawa/utils/validators.dart' as _i32;
+import 'package:talawa/services/user_config.dart' as _i25;
+import 'package:talawa/utils/validators.dart' as _i31;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
-    as _i40;
+    as _i39;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
-    as _i38;
+    as _i37;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
-    as _i30;
+    as _i29;
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart'
-    as _i31;
-import 'package:talawa/view_model/lang_view_model.dart' as _i27;
+    as _i30;
+import 'package:talawa/view_model/lang_view_model.dart' as _i26;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
-    as _i28;
-import 'package:talawa/view_model/theme_view_model.dart' as _i37;
+    as _i27;
+import 'package:talawa/view_model/theme_view_model.dart' as _i36;
 import 'package:talawa/widgets/custom_alert_dialog.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -78,8 +77,8 @@ class _FakeGlobalKey_0<T extends _i1.State<_i1.StatefulWidget>>
         );
 }
 
-class _FakeWebSocketLink_1 extends _i2.SmartFake implements _i3.WebSocketLink {
-  _FakeWebSocketLink_1(
+class _FakeHttpLink_1 extends _i2.SmartFake implements _i3.HttpLink {
+  _FakeHttpLink_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,8 +87,8 @@ class _FakeWebSocketLink_1 extends _i2.SmartFake implements _i3.WebSocketLink {
         );
 }
 
-class _FakeGraphQLClient_2 extends _i2.SmartFake implements _i3.GraphQLClient {
-  _FakeGraphQLClient_2(
+class _FakeWebSocketLink_2 extends _i2.SmartFake implements _i3.WebSocketLink {
+  _FakeWebSocketLink_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -98,9 +97,19 @@ class _FakeGraphQLClient_2 extends _i2.SmartFake implements _i3.GraphQLClient {
         );
 }
 
-class _FakeDefaultPolicies_3 extends _i2.SmartFake
+class _FakeGraphQLClient_3 extends _i2.SmartFake implements _i3.GraphQLClient {
+  _FakeGraphQLClient_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDefaultPolicies_4 extends _i2.SmartFake
     implements _i3.DefaultPolicies {
-  _FakeDefaultPolicies_3(
+  _FakeDefaultPolicies_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -109,8 +118,8 @@ class _FakeDefaultPolicies_3 extends _i2.SmartFake
         );
 }
 
-class _FakeLink_4 extends _i2.SmartFake implements _i3.Link {
-  _FakeLink_4(
+class _FakeLink_5 extends _i2.SmartFake implements _i3.Link {
+  _FakeLink_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -119,8 +128,8 @@ class _FakeLink_4 extends _i2.SmartFake implements _i3.Link {
         );
 }
 
-class _FakeGraphQLCache_5 extends _i2.SmartFake implements _i3.GraphQLCache {
-  _FakeGraphQLCache_5(
+class _FakeGraphQLCache_6 extends _i2.SmartFake implements _i3.GraphQLCache {
+  _FakeGraphQLCache_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -129,8 +138,8 @@ class _FakeGraphQLCache_5 extends _i2.SmartFake implements _i3.GraphQLCache {
         );
 }
 
-class _FakeQueryManager_6 extends _i2.SmartFake implements _i3.QueryManager {
-  _FakeQueryManager_6(
+class _FakeQueryManager_7 extends _i2.SmartFake implements _i3.QueryManager {
+  _FakeQueryManager_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -139,9 +148,9 @@ class _FakeQueryManager_6 extends _i2.SmartFake implements _i3.QueryManager {
         );
 }
 
-class _FakeObservableQuery_7<TParsed1> extends _i2.SmartFake
+class _FakeObservableQuery_8<TParsed1> extends _i2.SmartFake
     implements _i3.ObservableQuery<TParsed1> {
-  _FakeObservableQuery_7(
+  _FakeObservableQuery_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -150,9 +159,9 @@ class _FakeObservableQuery_7<TParsed1> extends _i2.SmartFake
         );
 }
 
-class _FakeQueryResult_8<TParsed1 extends Object?> extends _i2.SmartFake
+class _FakeQueryResult_9<TParsed1 extends Object?> extends _i2.SmartFake
     implements _i3.QueryResult<TParsed1> {
-  _FakeQueryResult_8(
+  _FakeQueryResult_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -161,9 +170,9 @@ class _FakeQueryResult_8<TParsed1 extends Object?> extends _i2.SmartFake
         );
 }
 
-class _FakeCustomAlertDialog_9 extends _i2.SmartFake
+class _FakeCustomAlertDialog_10 extends _i2.SmartFake
     implements _i4.CustomAlertDialog {
-  _FakeCustomAlertDialog_9(
+  _FakeCustomAlertDialog_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -176,9 +185,9 @@ class _FakeCustomAlertDialog_9 extends _i2.SmartFake
       super.toString();
 }
 
-class _FakeStreamController_10<T> extends _i2.SmartFake
+class _FakeStreamController_11<T> extends _i2.SmartFake
     implements _i5.StreamController<T> {
-  _FakeStreamController_10(
+  _FakeStreamController_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -187,8 +196,8 @@ class _FakeStreamController_10<T> extends _i2.SmartFake
         );
 }
 
-class _FakeOrgInfo_11 extends _i2.SmartFake implements _i6.OrgInfo {
-  _FakeOrgInfo_11(
+class _FakeOrgInfo_12 extends _i2.SmartFake implements _i6.OrgInfo {
+  _FakeOrgInfo_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -197,8 +206,8 @@ class _FakeOrgInfo_11 extends _i2.SmartFake implements _i6.OrgInfo {
         );
 }
 
-class _FakeUser_12 extends _i2.SmartFake implements _i7.User {
-  _FakeUser_12(
+class _FakeUser_13 extends _i2.SmartFake implements _i7.User {
+  _FakeUser_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -207,9 +216,9 @@ class _FakeUser_12 extends _i2.SmartFake implements _i7.User {
         );
 }
 
-class _FakeNavigationService_13 extends _i2.SmartFake
+class _FakeNavigationService_14 extends _i2.SmartFake
     implements _i8.NavigationService {
-  _FakeNavigationService_13(
+  _FakeNavigationService_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -218,9 +227,9 @@ class _FakeNavigationService_13 extends _i2.SmartFake
         );
 }
 
-class _FakeDataBaseMutationFunctions_14 extends _i2.SmartFake
+class _FakeDataBaseMutationFunctions_15 extends _i2.SmartFake
     implements _i9.DataBaseMutationFunctions {
-  _FakeDataBaseMutationFunctions_14(
+  _FakeDataBaseMutationFunctions_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -229,8 +238,8 @@ class _FakeDataBaseMutationFunctions_14 extends _i2.SmartFake
         );
 }
 
-class _FakeLocale_15 extends _i2.SmartFake implements _i10.Locale {
-  _FakeLocale_15(
+class _FakeLocale_16 extends _i2.SmartFake implements _i10.Locale {
+  _FakeLocale_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -239,9 +248,9 @@ class _FakeLocale_15 extends _i2.SmartFake implements _i10.Locale {
         );
 }
 
-class _FakeTextEditingController_16 extends _i2.SmartFake
+class _FakeTextEditingController_17 extends _i2.SmartFake
     implements _i1.TextEditingController {
-  _FakeTextEditingController_16(
+  _FakeTextEditingController_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -250,8 +259,8 @@ class _FakeTextEditingController_16 extends _i2.SmartFake
         );
 }
 
-class _FakeFocusNode_17 extends _i2.SmartFake implements _i1.FocusNode {
-  _FakeFocusNode_17(
+class _FakeFocusNode_18 extends _i2.SmartFake implements _i1.FocusNode {
+  _FakeFocusNode_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -264,8 +273,8 @@ class _FakeFocusNode_17 extends _i2.SmartFake implements _i1.FocusNode {
       super.toString();
 }
 
-class _FakeEventService_18 extends _i2.SmartFake implements _i11.EventService {
-  _FakeEventService_18(
+class _FakeEventService_19 extends _i2.SmartFake implements _i11.EventService {
+  _FakeEventService_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -274,9 +283,9 @@ class _FakeEventService_18 extends _i2.SmartFake implements _i11.EventService {
         );
 }
 
-class _FakeSystemFeatures_19 extends _i2.SmartFake
+class _FakeSystemFeatures_20 extends _i2.SmartFake
     implements _i12.SystemFeatures {
-  _FakeSystemFeatures_19(
+  _FakeSystemFeatures_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -285,8 +294,8 @@ class _FakeSystemFeatures_19 extends _i2.SmartFake
         );
 }
 
-class _FakeThemeData_20 extends _i2.SmartFake implements _i1.ThemeData {
-  _FakeThemeData_20(
+class _FakeThemeData_21 extends _i2.SmartFake implements _i1.ThemeData {
+  _FakeThemeData_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -299,8 +308,8 @@ class _FakeThemeData_20 extends _i2.SmartFake implements _i1.ThemeData {
       super.toString();
 }
 
-class _FakeTimeOfDay_21 extends _i2.SmartFake implements _i1.TimeOfDay {
-  _FakeTimeOfDay_21(
+class _FakeTimeOfDay_22 extends _i2.SmartFake implements _i1.TimeOfDay {
+  _FakeTimeOfDay_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -309,8 +318,8 @@ class _FakeTimeOfDay_21 extends _i2.SmartFake implements _i1.TimeOfDay {
         );
 }
 
-class _FakeDateTime_22 extends _i2.SmartFake implements DateTime {
-  _FakeDateTime_22(
+class _FakeDateTime_23 extends _i2.SmartFake implements DateTime {
+  _FakeDateTime_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -319,9 +328,9 @@ class _FakeDateTime_22 extends _i2.SmartFake implements DateTime {
         );
 }
 
-class _FakeLostDataResponse_23 extends _i2.SmartFake
+class _FakeLostDataResponse_24 extends _i2.SmartFake
     implements _i13.LostDataResponse {
-  _FakeLostDataResponse_23(
+  _FakeLostDataResponse_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -509,7 +518,20 @@ class MockNavigationService extends _i2.Mock implements _i8.NavigationService {
 /// See the documentation for Mockito's code generation for more information.
 class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
   @override
-  set httpLink(dynamic _httpLink) => super.noSuchMethod(
+  _i3.HttpLink get httpLink => (super.noSuchMethod(
+        Invocation.getter(#httpLink),
+        returnValue: _FakeHttpLink_1(
+          this,
+          Invocation.getter(#httpLink),
+        ),
+        returnValueForMissingStub: _FakeHttpLink_1(
+          this,
+          Invocation.getter(#httpLink),
+        ),
+      ) as _i3.HttpLink);
+
+  @override
+  set httpLink(_i3.HttpLink? _httpLink) => super.noSuchMethod(
         Invocation.setter(
           #httpLink,
           _httpLink,
@@ -520,11 +542,11 @@ class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
   @override
   _i3.WebSocketLink get webSocketLink => (super.noSuchMethod(
         Invocation.getter(#webSocketLink),
-        returnValue: _FakeWebSocketLink_1(
+        returnValue: _FakeWebSocketLink_2(
           this,
           Invocation.getter(#webSocketLink),
         ),
-        returnValueForMissingStub: _FakeWebSocketLink_1(
+        returnValueForMissingStub: _FakeWebSocketLink_2(
           this,
           Invocation.getter(#webSocketLink),
         ),
@@ -573,14 +595,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
           #clientToQuery,
           [],
         ),
-        returnValue: _FakeGraphQLClient_2(
+        returnValue: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #clientToQuery,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeGraphQLClient_2(
+        returnValueForMissingStub: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #clientToQuery,
@@ -595,14 +617,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
           #authClient,
           [],
         ),
-        returnValue: _FakeGraphQLClient_2(
+        returnValue: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #authClient,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeGraphQLClient_2(
+        returnValueForMissingStub: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #authClient,
@@ -628,11 +650,11 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
   @override
   _i3.DefaultPolicies get defaultPolicies => (super.noSuchMethod(
         Invocation.getter(#defaultPolicies),
-        returnValue: _FakeDefaultPolicies_3(
+        returnValue: _FakeDefaultPolicies_4(
           this,
           Invocation.getter(#defaultPolicies),
         ),
-        returnValueForMissingStub: _FakeDefaultPolicies_3(
+        returnValueForMissingStub: _FakeDefaultPolicies_4(
           this,
           Invocation.getter(#defaultPolicies),
         ),
@@ -651,11 +673,11 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
   @override
   _i3.Link get link => (super.noSuchMethod(
         Invocation.getter(#link),
-        returnValue: _FakeLink_4(
+        returnValue: _FakeLink_5(
           this,
           Invocation.getter(#link),
         ),
-        returnValueForMissingStub: _FakeLink_4(
+        returnValueForMissingStub: _FakeLink_5(
           this,
           Invocation.getter(#link),
         ),
@@ -664,11 +686,11 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
   @override
   _i3.GraphQLCache get cache => (super.noSuchMethod(
         Invocation.getter(#cache),
-        returnValue: _FakeGraphQLCache_5(
+        returnValue: _FakeGraphQLCache_6(
           this,
           Invocation.getter(#cache),
         ),
-        returnValueForMissingStub: _FakeGraphQLCache_5(
+        returnValueForMissingStub: _FakeGraphQLCache_6(
           this,
           Invocation.getter(#cache),
         ),
@@ -677,11 +699,11 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
   @override
   _i3.QueryManager get queryManager => (super.noSuchMethod(
         Invocation.getter(#queryManager),
-        returnValue: _FakeQueryManager_6(
+        returnValue: _FakeQueryManager_7(
           this,
           Invocation.getter(#queryManager),
         ),
-        returnValueForMissingStub: _FakeQueryManager_6(
+        returnValueForMissingStub: _FakeQueryManager_7(
           this,
           Invocation.getter(#queryManager),
         ),
@@ -714,7 +736,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
             #alwaysRebroadcast: alwaysRebroadcast,
           },
         ),
-        returnValue: _FakeGraphQLClient_2(
+        returnValue: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #copyWith,
@@ -727,7 +749,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
             },
           ),
         ),
-        returnValueForMissingStub: _FakeGraphQLClient_2(
+        returnValueForMissingStub: _FakeGraphQLClient_3(
           this,
           Invocation.method(
             #copyWith,
@@ -750,14 +772,14 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           #watchQuery,
           [options],
         ),
-        returnValue: _FakeObservableQuery_7<TParsed>(
+        returnValue: _FakeObservableQuery_8<TParsed>(
           this,
           Invocation.method(
             #watchQuery,
             [options],
           ),
         ),
-        returnValueForMissingStub: _FakeObservableQuery_7<TParsed>(
+        returnValueForMissingStub: _FakeObservableQuery_8<TParsed>(
           this,
           Invocation.method(
             #watchQuery,
@@ -774,14 +796,14 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           #watchMutation,
           [options],
         ),
-        returnValue: _FakeObservableQuery_7<TParsed>(
+        returnValue: _FakeObservableQuery_8<TParsed>(
           this,
           Invocation.method(
             #watchMutation,
             [options],
           ),
         ),
-        returnValueForMissingStub: _FakeObservableQuery_7<TParsed>(
+        returnValueForMissingStub: _FakeObservableQuery_8<TParsed>(
           this,
           Invocation.method(
             #watchMutation,
@@ -799,7 +821,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           [options],
         ),
         returnValue: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #query,
@@ -807,7 +829,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #query,
@@ -825,7 +847,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           [options],
         ),
         returnValue: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #mutate,
@@ -833,7 +855,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #mutate,
@@ -870,7 +892,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           },
         ),
         returnValue: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #fetchMore,
@@ -882,7 +904,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<TParsed>>.value(
-            _FakeQueryResult_8<TParsed>(
+            _FakeQueryResult_9<TParsed>(
           this,
           Invocation.method(
             #fetchMore,
@@ -1115,7 +1137,7 @@ class MockPostService extends _i2.Mock implements _i16.PostService {
           [post],
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #deletePost,
@@ -1123,7 +1145,7 @@ class MockPostService extends _i2.Mock implements _i16.PostService {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #deletePost,
@@ -1246,14 +1268,14 @@ class MockMultiMediaPickerService extends _i2.Mock
           #permissionDeniedDialog,
           [],
         ),
-        returnValue: _FakeCustomAlertDialog_9(
+        returnValue: _FakeCustomAlertDialog_10(
           this,
           Invocation.method(
             #permissionDeniedDialog,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeCustomAlertDialog_9(
+        returnValueForMissingStub: _FakeCustomAlertDialog_10(
           this,
           Invocation.method(
             #permissionDeniedDialog,
@@ -1337,7 +1359,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           {#variables: variables},
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #createEvent,
@@ -1346,7 +1368,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #createEvent,
@@ -1396,7 +1418,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           [eventId],
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #deleteEvent,
@@ -1404,7 +1426,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #deleteEvent,
@@ -1428,7 +1450,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           },
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #editEvent,
@@ -1440,7 +1462,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #editEvent,
@@ -1452,77 +1474,6 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
           ),
         )),
       ) as _i5.Future<_i3.QueryResult<Object?>>);
-
-  @override
-  _i5.Future<dynamic> createVolunteerGroup(Map<String, dynamic>? variables) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #createVolunteerGroup,
-          [variables],
-        ),
-        returnValue: _i5.Future<dynamic>.value(),
-        returnValueForMissingStub: _i5.Future<dynamic>.value(),
-      ) as _i5.Future<dynamic>);
-
-  @override
-  _i5.Future<dynamic> removeVolunteerGroup(Map<String, dynamic>? variables) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #removeVolunteerGroup,
-          [variables],
-        ),
-        returnValue: _i5.Future<dynamic>.value(),
-        returnValueForMissingStub: _i5.Future<dynamic>.value(),
-      ) as _i5.Future<dynamic>);
-
-  @override
-  _i5.Future<dynamic> addVolunteerToGroup(Map<String, dynamic>? variables) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addVolunteerToGroup,
-          [variables],
-        ),
-        returnValue: _i5.Future<dynamic>.value(),
-        returnValueForMissingStub: _i5.Future<dynamic>.value(),
-      ) as _i5.Future<dynamic>);
-
-  @override
-  _i5.Future<dynamic> removeVolunteerFromGroup(
-          Map<String, dynamic>? variables) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #removeVolunteerFromGroup,
-          [variables],
-        ),
-        returnValue: _i5.Future<dynamic>.value(),
-        returnValueForMissingStub: _i5.Future<dynamic>.value(),
-      ) as _i5.Future<dynamic>);
-
-  @override
-  _i5.Future<dynamic> updateVolunteerGroup(Map<String, dynamic>? variables) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateVolunteerGroup,
-          [variables],
-        ),
-        returnValue: _i5.Future<dynamic>.value(),
-        returnValueForMissingStub: _i5.Future<dynamic>.value(),
-      ) as _i5.Future<dynamic>);
-
-  @override
-  _i5.Future<List<_i22.EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
-          String? eventId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchVolunteerGroupsByEvent,
-          [eventId],
-        ),
-        returnValue: _i5.Future<List<_i22.EventVolunteerGroup>>.value(
-            <_i22.EventVolunteerGroup>[]),
-        returnValueForMissingStub:
-            _i5.Future<List<_i22.EventVolunteerGroup>>.value(
-                <_i22.EventVolunteerGroup>[]),
-      ) as _i5.Future<List<_i22.EventVolunteerGroup>>);
 
   @override
   void dispose() => super.noSuchMethod(
@@ -1571,7 +1522,7 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
 /// A class which mocks [ChatService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockChatService extends _i2.Mock implements _i23.ChatService {
+class MockChatService extends _i2.Mock implements _i22.ChatService {
   @override
   _i5.Stream<_i3.QueryResult<Object?>> get chatStream => (super.noSuchMethod(
         Invocation.getter(#chatStream),
@@ -1590,20 +1541,20 @@ class MockChatService extends _i2.Mock implements _i23.ChatService {
       );
 
   @override
-  _i5.Stream<_i24.ChatListTileDataModel> get chatListStream =>
+  _i5.Stream<_i23.ChatListTileDataModel> get chatListStream =>
       (super.noSuchMethod(
         Invocation.getter(#chatListStream),
-        returnValue: _i5.Stream<_i24.ChatListTileDataModel>.empty(),
+        returnValue: _i5.Stream<_i23.ChatListTileDataModel>.empty(),
         returnValueForMissingStub:
-            _i5.Stream<_i24.ChatListTileDataModel>.empty(),
-      ) as _i5.Stream<_i24.ChatListTileDataModel>);
+            _i5.Stream<_i23.ChatListTileDataModel>.empty(),
+      ) as _i5.Stream<_i23.ChatListTileDataModel>);
 
   @override
-  _i5.Stream<_i25.ChatMessage> get chatMessagesStream => (super.noSuchMethod(
+  _i5.Stream<_i24.ChatMessage> get chatMessagesStream => (super.noSuchMethod(
         Invocation.getter(#chatMessagesStream),
-        returnValue: _i5.Stream<_i25.ChatMessage>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i25.ChatMessage>.empty(),
-      ) as _i5.Stream<_i25.ChatMessage>);
+        returnValue: _i5.Stream<_i24.ChatMessage>.empty(),
+        returnValueForMissingStub: _i5.Stream<_i24.ChatMessage>.empty(),
+      ) as _i5.Stream<_i24.ChatMessage>);
 
   @override
   _i5.Future<void> sendMessageToDirectChat(
@@ -1647,7 +1598,7 @@ class MockChatService extends _i2.Mock implements _i23.ChatService {
 /// A class which mocks [UserConfig].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserConfig extends _i2.Mock implements _i26.UserConfig {
+class MockUserConfig extends _i2.Mock implements _i25.UserConfig {
   @override
   _i5.Stream<_i6.OrgInfo> get currentOrgInfoStream => (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoStream),
@@ -1659,11 +1610,11 @@ class MockUserConfig extends _i2.Mock implements _i26.UserConfig {
   _i5.StreamController<_i6.OrgInfo> get currentOrgInfoController =>
       (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoController),
-        returnValue: _FakeStreamController_10<_i6.OrgInfo>(
+        returnValue: _FakeStreamController_11<_i6.OrgInfo>(
           this,
           Invocation.getter(#currentOrgInfoController),
         ),
-        returnValueForMissingStub: _FakeStreamController_10<_i6.OrgInfo>(
+        returnValueForMissingStub: _FakeStreamController_11<_i6.OrgInfo>(
           this,
           Invocation.getter(#currentOrgInfoController),
         ),
@@ -1672,11 +1623,11 @@ class MockUserConfig extends _i2.Mock implements _i26.UserConfig {
   @override
   _i6.OrgInfo get currentOrg => (super.noSuchMethod(
         Invocation.getter(#currentOrg),
-        returnValue: _FakeOrgInfo_11(
+        returnValue: _FakeOrgInfo_12(
           this,
           Invocation.getter(#currentOrg),
         ),
-        returnValueForMissingStub: _FakeOrgInfo_11(
+        returnValueForMissingStub: _FakeOrgInfo_12(
           this,
           Invocation.getter(#currentOrg),
         ),
@@ -1714,11 +1665,11 @@ class MockUserConfig extends _i2.Mock implements _i26.UserConfig {
   @override
   _i7.User get currentUser => (super.noSuchMethod(
         Invocation.getter(#currentUser),
-        returnValue: _FakeUser_12(
+        returnValue: _FakeUser_13(
           this,
           Invocation.getter(#currentUser),
         ),
-        returnValueForMissingStub: _FakeUser_12(
+        returnValueForMissingStub: _FakeUser_13(
           this,
           Invocation.getter(#currentUser),
         ),
@@ -1858,7 +1809,7 @@ class MockUserConfig extends _i2.Mock implements _i26.UserConfig {
 /// A class which mocks [AppLanguage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
+class MockAppLanguage extends _i2.Mock implements _i26.AppLanguage {
   @override
   bool get isTest => (super.noSuchMethod(
         Invocation.getter(#isTest),
@@ -1869,11 +1820,11 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
   @override
   _i8.NavigationService get navigationService => (super.noSuchMethod(
         Invocation.getter(#navigationService),
-        returnValue: _FakeNavigationService_13(
+        returnValue: _FakeNavigationService_14(
           this,
           Invocation.getter(#navigationService),
         ),
-        returnValueForMissingStub: _FakeNavigationService_13(
+        returnValueForMissingStub: _FakeNavigationService_14(
           this,
           Invocation.getter(#navigationService),
         ),
@@ -1882,11 +1833,11 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
   @override
   _i9.DataBaseMutationFunctions get databaseFunctions => (super.noSuchMethod(
         Invocation.getter(#databaseFunctions),
-        returnValue: _FakeDataBaseMutationFunctions_14(
+        returnValue: _FakeDataBaseMutationFunctions_15(
           this,
           Invocation.getter(#databaseFunctions),
         ),
-        returnValueForMissingStub: _FakeDataBaseMutationFunctions_14(
+        returnValueForMissingStub: _FakeDataBaseMutationFunctions_15(
           this,
           Invocation.getter(#databaseFunctions),
         ),
@@ -1895,11 +1846,11 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
   @override
   _i10.Locale get appLocal => (super.noSuchMethod(
         Invocation.getter(#appLocal),
-        returnValue: _FakeLocale_15(
+        returnValue: _FakeLocale_16(
           this,
           Invocation.getter(#appLocal),
         ),
-        returnValueForMissingStub: _FakeLocale_15(
+        returnValueForMissingStub: _FakeLocale_16(
           this,
           Invocation.getter(#appLocal),
         ),
@@ -1959,7 +1910,7 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
             supportedLocales,
           ],
         ),
-        returnValue: _FakeLocale_15(
+        returnValue: _FakeLocale_16(
           this,
           Invocation.method(
             #localeResoultion,
@@ -1969,7 +1920,7 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
             ],
           ),
         ),
-        returnValueForMissingStub: _FakeLocale_15(
+        returnValueForMissingStub: _FakeLocale_16(
           this,
           Invocation.method(
             #localeResoultion,
@@ -2081,7 +2032,7 @@ class MockAppLanguage extends _i2.Mock implements _i27.AppLanguage {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSignupDetailsViewModel extends _i2.Mock
-    implements _i28.SignupDetailsViewModel {
+    implements _i27.SignupDetailsViewModel {
   @override
   _i1.GlobalKey<_i1.FormState> get formKey => (super.noSuchMethod(
         Invocation.getter(#formKey),
@@ -2114,11 +2065,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i6.OrgInfo get selectedOrganization => (super.noSuchMethod(
         Invocation.getter(#selectedOrganization),
-        returnValue: _FakeOrgInfo_11(
+        returnValue: _FakeOrgInfo_12(
           this,
           Invocation.getter(#selectedOrganization),
         ),
-        returnValueForMissingStub: _FakeOrgInfo_11(
+        returnValueForMissingStub: _FakeOrgInfo_12(
           this,
           Invocation.getter(#selectedOrganization),
         ),
@@ -2137,11 +2088,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get confirmPassword => (super.noSuchMethod(
         Invocation.getter(#confirmPassword),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#confirmPassword),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#confirmPassword),
         ),
@@ -2160,11 +2111,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get firstName => (super.noSuchMethod(
         Invocation.getter(#firstName),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#firstName),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#firstName),
         ),
@@ -2182,11 +2133,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get lastName => (super.noSuchMethod(
         Invocation.getter(#lastName),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#lastName),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#lastName),
         ),
@@ -2204,11 +2155,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get password => (super.noSuchMethod(
         Invocation.getter(#password),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#password),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#password),
         ),
@@ -2226,11 +2177,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get email => (super.noSuchMethod(
         Invocation.getter(#email),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#email),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#email),
         ),
@@ -2264,11 +2215,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.FocusNode get confirmFocus => (super.noSuchMethod(
         Invocation.getter(#confirmFocus),
-        returnValue: _FakeFocusNode_17(
+        returnValue: _FakeFocusNode_18(
           this,
           Invocation.getter(#confirmFocus),
         ),
-        returnValueForMissingStub: _FakeFocusNode_17(
+        returnValueForMissingStub: _FakeFocusNode_18(
           this,
           Invocation.getter(#confirmFocus),
         ),
@@ -2523,11 +2474,11 @@ class MockDataBaseMutationFunctions extends _i2.Mock
   @override
   _i3.GraphQLClient get clientNonAuth => (super.noSuchMethod(
         Invocation.getter(#clientNonAuth),
-        returnValue: _FakeGraphQLClient_2(
+        returnValue: _FakeGraphQLClient_3(
           this,
           Invocation.getter(#clientNonAuth),
         ),
-        returnValueForMissingStub: _FakeGraphQLClient_2(
+        returnValueForMissingStub: _FakeGraphQLClient_3(
           this,
           Invocation.getter(#clientNonAuth),
         ),
@@ -2545,11 +2496,11 @@ class MockDataBaseMutationFunctions extends _i2.Mock
   @override
   _i3.GraphQLClient get clientAuth => (super.noSuchMethod(
         Invocation.getter(#clientAuth),
-        returnValue: _FakeGraphQLClient_2(
+        returnValue: _FakeGraphQLClient_3(
           this,
           Invocation.getter(#clientAuth),
         ),
-        returnValueForMissingStub: _FakeGraphQLClient_2(
+        returnValueForMissingStub: _FakeGraphQLClient_3(
           this,
           Invocation.getter(#clientAuth),
         ),
@@ -2567,11 +2518,11 @@ class MockDataBaseMutationFunctions extends _i2.Mock
   @override
   _i3.QueryResult<Object?> get noData => (super.noSuchMethod(
         Invocation.getter(#noData),
-        returnValue: _FakeQueryResult_8<Object?>(
+        returnValue: _FakeQueryResult_9<Object?>(
           this,
           Invocation.getter(#noData),
         ),
-        returnValueForMissingStub: _FakeQueryResult_8<Object?>(
+        returnValueForMissingStub: _FakeQueryResult_9<Object?>(
           this,
           Invocation.getter(#noData),
         ),
@@ -2616,7 +2567,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           {#variables: variables},
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlAuthQuery,
@@ -2625,7 +2576,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlAuthQuery,
@@ -2647,7 +2598,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           {#variables: variables},
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlAuthMutation,
@@ -2656,7 +2607,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlAuthMutation,
@@ -2682,7 +2633,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           },
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlNonAuthMutation,
@@ -2694,7 +2645,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlNonAuthMutation,
@@ -2719,7 +2670,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           {#variables: variables},
         ),
         returnValue: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlNonAuthQuery,
@@ -2728,7 +2679,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
           ),
         )),
         returnValueForMissingStub: _i5.Future<_i3.QueryResult<Object?>>.value(
-            _FakeQueryResult_8<Object?>(
+            _FakeQueryResult_9<Object?>(
           this,
           Invocation.method(
             #gqlNonAuthQuery,
@@ -2764,7 +2715,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizationService extends _i2.Mock
-    implements _i29.OrganizationService {
+    implements _i28.OrganizationService {
   @override
   _i5.Future<List<_i7.User>> getOrgMembersList(String? orgId) =>
       (super.noSuchMethod(
@@ -2782,7 +2733,7 @@ class MockOrganizationService extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockExploreEventsViewModel extends _i2.Mock
-    implements _i30.ExploreEventsViewModel {
+    implements _i29.ExploreEventsViewModel {
   @override
   bool get demoMode => (super.noSuchMethod(
         Invocation.getter(#demoMode),
@@ -2816,11 +2767,11 @@ class MockExploreEventsViewModel extends _i2.Mock
   @override
   _i11.EventService get eventService => (super.noSuchMethod(
         Invocation.getter(#eventService),
-        returnValue: _FakeEventService_18(
+        returnValue: _FakeEventService_19(
           this,
           Invocation.getter(#eventService),
         ),
-        returnValueForMissingStub: _FakeEventService_18(
+        returnValueForMissingStub: _FakeEventService_19(
           this,
           Invocation.getter(#eventService),
         ),
@@ -2986,7 +2937,7 @@ class MockExploreEventsViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizationFeedViewModel extends _i2.Mock
-    implements _i31.OrganizationFeedViewModel {
+    implements _i30.OrganizationFeedViewModel {
   @override
   bool get istest => (super.noSuchMethod(
         Invocation.getter(#istest),
@@ -3216,7 +3167,7 @@ class MockOrganizationFeedViewModel extends _i2.Mock
 /// A class which mocks [Validator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockValidator extends _i2.Mock implements _i32.Validator {
+class MockValidator extends _i2.Mock implements _i31.Validator {
   @override
   _i5.Future<bool?> validateUrlExistence(String? url) => (super.noSuchMethod(
         Invocation.method(
@@ -3231,13 +3182,13 @@ class MockValidator extends _i2.Mock implements _i32.Validator {
 /// A class which mocks [QRViewController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQRViewController extends _i2.Mock implements _i33.QRViewController {
+class MockQRViewController extends _i2.Mock implements _i32.QRViewController {
   @override
-  _i5.Stream<_i34.Barcode> get scannedDataStream => (super.noSuchMethod(
+  _i5.Stream<_i33.Barcode> get scannedDataStream => (super.noSuchMethod(
         Invocation.getter(#scannedDataStream),
-        returnValue: _i5.Stream<_i34.Barcode>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i34.Barcode>.empty(),
-      ) as _i5.Stream<_i34.Barcode>);
+        returnValue: _i5.Stream<_i33.Barcode>.empty(),
+        returnValueForMissingStub: _i5.Stream<_i33.Barcode>.empty(),
+      ) as _i5.Stream<_i33.Barcode>);
 
   @override
   bool get hasPermissions => (super.noSuchMethod(
@@ -3247,28 +3198,28 @@ class MockQRViewController extends _i2.Mock implements _i33.QRViewController {
       ) as bool);
 
   @override
-  _i5.Future<_i35.CameraFacing> getCameraInfo() => (super.noSuchMethod(
+  _i5.Future<_i34.CameraFacing> getCameraInfo() => (super.noSuchMethod(
         Invocation.method(
           #getCameraInfo,
           [],
         ),
         returnValue:
-            _i5.Future<_i35.CameraFacing>.value(_i35.CameraFacing.back),
+            _i5.Future<_i34.CameraFacing>.value(_i34.CameraFacing.back),
         returnValueForMissingStub:
-            _i5.Future<_i35.CameraFacing>.value(_i35.CameraFacing.back),
-      ) as _i5.Future<_i35.CameraFacing>);
+            _i5.Future<_i34.CameraFacing>.value(_i34.CameraFacing.back),
+      ) as _i5.Future<_i34.CameraFacing>);
 
   @override
-  _i5.Future<_i35.CameraFacing> flipCamera() => (super.noSuchMethod(
+  _i5.Future<_i34.CameraFacing> flipCamera() => (super.noSuchMethod(
         Invocation.method(
           #flipCamera,
           [],
         ),
         returnValue:
-            _i5.Future<_i35.CameraFacing>.value(_i35.CameraFacing.back),
+            _i5.Future<_i34.CameraFacing>.value(_i34.CameraFacing.back),
         returnValueForMissingStub:
-            _i5.Future<_i35.CameraFacing>.value(_i35.CameraFacing.back),
-      ) as _i5.Future<_i35.CameraFacing>);
+            _i5.Future<_i34.CameraFacing>.value(_i34.CameraFacing.back),
+      ) as _i5.Future<_i34.CameraFacing>);
 
   @override
   _i5.Future<bool?> getFlashStatus() => (super.noSuchMethod(
@@ -3327,7 +3278,7 @@ class MockQRViewController extends _i2.Mock implements _i33.QRViewController {
           [],
         ),
         returnValue:
-            _i5.Future<_i12.SystemFeatures>.value(_FakeSystemFeatures_19(
+            _i5.Future<_i12.SystemFeatures>.value(_FakeSystemFeatures_20(
           this,
           Invocation.method(
             #getSystemFeatures,
@@ -3335,7 +3286,7 @@ class MockQRViewController extends _i2.Mock implements _i33.QRViewController {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i12.SystemFeatures>.value(_FakeSystemFeatures_19(
+            _i5.Future<_i12.SystemFeatures>.value(_FakeSystemFeatures_20(
           this,
           Invocation.method(
             #getSystemFeatures,
@@ -3367,7 +3318,7 @@ class MockQRViewController extends _i2.Mock implements _i33.QRViewController {
 /// A class which mocks [CommentService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCommentService extends _i2.Mock implements _i36.CommentService {
+class MockCommentService extends _i2.Mock implements _i35.CommentService {
   @override
   _i5.Future<void> createComments(
     String? postId,
@@ -3400,7 +3351,7 @@ class MockCommentService extends _i2.Mock implements _i36.CommentService {
 /// A class which mocks [AppTheme].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppTheme extends _i2.Mock implements _i37.AppTheme {
+class MockAppTheme extends _i2.Mock implements _i36.AppTheme {
   @override
   String get key => (super.noSuchMethod(
         Invocation.getter(#key),
@@ -3424,11 +3375,11 @@ class MockAppTheme extends _i2.Mock implements _i37.AppTheme {
   @override
   _i1.ThemeData get theme => (super.noSuchMethod(
         Invocation.getter(#theme),
-        returnValue: _FakeThemeData_20(
+        returnValue: _FakeThemeData_21(
           this,
           Invocation.getter(#theme),
         ),
-        returnValueForMissingStub: _FakeThemeData_20(
+        returnValueForMissingStub: _FakeThemeData_21(
           this,
           Invocation.getter(#theme),
         ),
@@ -3524,15 +3475,15 @@ class MockAppTheme extends _i2.Mock implements _i37.AppTheme {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCreateEventViewModel extends _i2.Mock
-    implements _i38.CreateEventViewModel {
+    implements _i37.CreateEventViewModel {
   @override
   _i1.TextEditingController get eventTitleTextController => (super.noSuchMethod(
         Invocation.getter(#eventTitleTextController),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventTitleTextController),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventTitleTextController),
         ),
@@ -3553,11 +3504,11 @@ class MockCreateEventViewModel extends _i2.Mock
   _i1.TextEditingController get eventLocationTextController =>
       (super.noSuchMethod(
         Invocation.getter(#eventLocationTextController),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventLocationTextController),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventLocationTextController),
         ),
@@ -3578,11 +3529,11 @@ class MockCreateEventViewModel extends _i2.Mock
   _i1.TextEditingController get eventDescriptionTextController =>
       (super.noSuchMethod(
         Invocation.getter(#eventDescriptionTextController),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventDescriptionTextController),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#eventDescriptionTextController),
         ),
@@ -3603,11 +3554,11 @@ class MockCreateEventViewModel extends _i2.Mock
   _i1.TextEditingController get repeatsEveryCountController =>
       (super.noSuchMethod(
         Invocation.getter(#repeatsEveryCountController),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#repeatsEveryCountController),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#repeatsEveryCountController),
         ),
@@ -3627,11 +3578,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get endOccurenceController => (super.noSuchMethod(
         Invocation.getter(#endOccurenceController),
-        returnValue: _FakeTextEditingController_16(
+        returnValue: _FakeTextEditingController_17(
           this,
           Invocation.getter(#endOccurenceController),
         ),
-        returnValueForMissingStub: _FakeTextEditingController_16(
+        returnValueForMissingStub: _FakeTextEditingController_17(
           this,
           Invocation.getter(#endOccurenceController),
         ),
@@ -3651,11 +3602,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.TimeOfDay get eventStartTime => (super.noSuchMethod(
         Invocation.getter(#eventStartTime),
-        returnValue: _FakeTimeOfDay_21(
+        returnValue: _FakeTimeOfDay_22(
           this,
           Invocation.getter(#eventStartTime),
         ),
-        returnValueForMissingStub: _FakeTimeOfDay_21(
+        returnValueForMissingStub: _FakeTimeOfDay_22(
           this,
           Invocation.getter(#eventStartTime),
         ),
@@ -3673,11 +3624,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.TimeOfDay get eventEndTime => (super.noSuchMethod(
         Invocation.getter(#eventEndTime),
-        returnValue: _FakeTimeOfDay_21(
+        returnValue: _FakeTimeOfDay_22(
           this,
           Invocation.getter(#eventEndTime),
         ),
-        returnValueForMissingStub: _FakeTimeOfDay_21(
+        returnValueForMissingStub: _FakeTimeOfDay_22(
           this,
           Invocation.getter(#eventEndTime),
         ),
@@ -3695,11 +3646,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get eventStartDate => (super.noSuchMethod(
         Invocation.getter(#eventStartDate),
-        returnValue: _FakeDateTime_22(
+        returnValue: _FakeDateTime_23(
           this,
           Invocation.getter(#eventStartDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_22(
+        returnValueForMissingStub: _FakeDateTime_23(
           this,
           Invocation.getter(#eventStartDate),
         ),
@@ -3717,11 +3668,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get eventEndDate => (super.noSuchMethod(
         Invocation.getter(#eventEndDate),
-        returnValue: _FakeDateTime_22(
+        returnValue: _FakeDateTime_23(
           this,
           Invocation.getter(#eventEndDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_22(
+        returnValueForMissingStub: _FakeDateTime_23(
           this,
           Invocation.getter(#eventEndDate),
         ),
@@ -3739,11 +3690,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get recurrenceStartDate => (super.noSuchMethod(
         Invocation.getter(#recurrenceStartDate),
-        returnValue: _FakeDateTime_22(
+        returnValue: _FakeDateTime_23(
           this,
           Invocation.getter(#recurrenceStartDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_22(
+        returnValueForMissingStub: _FakeDateTime_23(
           this,
           Invocation.getter(#recurrenceStartDate),
         ),
@@ -3802,11 +3753,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.FocusNode get titleFocus => (super.noSuchMethod(
         Invocation.getter(#titleFocus),
-        returnValue: _FakeFocusNode_17(
+        returnValue: _FakeFocusNode_18(
           this,
           Invocation.getter(#titleFocus),
         ),
-        returnValueForMissingStub: _FakeFocusNode_17(
+        returnValueForMissingStub: _FakeFocusNode_18(
           this,
           Invocation.getter(#titleFocus),
         ),
@@ -3824,11 +3775,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.FocusNode get locationFocus => (super.noSuchMethod(
         Invocation.getter(#locationFocus),
-        returnValue: _FakeFocusNode_17(
+        returnValue: _FakeFocusNode_18(
           this,
           Invocation.getter(#locationFocus),
         ),
-        returnValueForMissingStub: _FakeFocusNode_17(
+        returnValueForMissingStub: _FakeFocusNode_18(
           this,
           Invocation.getter(#locationFocus),
         ),
@@ -3846,11 +3797,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.FocusNode get descriptionFocus => (super.noSuchMethod(
         Invocation.getter(#descriptionFocus),
-        returnValue: _FakeFocusNode_17(
+        returnValue: _FakeFocusNode_18(
           this,
           Invocation.getter(#descriptionFocus),
         ),
-        returnValueForMissingStub: _FakeFocusNode_17(
+        returnValueForMissingStub: _FakeFocusNode_18(
           this,
           Invocation.getter(#descriptionFocus),
         ),
@@ -4196,15 +4147,15 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  _i5.Future<List<_i39.Venue>> fetchVenues() => (super.noSuchMethod(
+  _i5.Future<List<_i38.Venue>> fetchVenues() => (super.noSuchMethod(
         Invocation.method(
           #fetchVenues,
           [],
         ),
-        returnValue: _i5.Future<List<_i39.Venue>>.value(<_i39.Venue>[]),
+        returnValue: _i5.Future<List<_i38.Venue>>.value(<_i38.Venue>[]),
         returnValueForMissingStub:
-            _i5.Future<List<_i39.Venue>>.value(<_i39.Venue>[]),
-      ) as _i5.Future<List<_i39.Venue>>);
+            _i5.Future<List<_i38.Venue>>.value(<_i38.Venue>[]),
+      ) as _i5.Future<List<_i38.Venue>>);
 
   @override
   void setState(_i14.ViewState? viewState) => super.noSuchMethod(
@@ -4256,7 +4207,7 @@ class MockCreateEventViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDirectChatViewModel extends _i2.Mock
-    implements _i40.DirectChatViewModel {
+    implements _i39.DirectChatViewModel {
   @override
   _i1.GlobalKey<_i1.AnimatedListState> get listKey => (super.noSuchMethod(
         Invocation.getter(#listKey),
@@ -4296,19 +4247,19 @@ class MockDirectChatViewModel extends _i2.Mock
       );
 
   @override
-  List<_i24.ChatListTileDataModel> get chats => (super.noSuchMethod(
+  List<_i23.ChatListTileDataModel> get chats => (super.noSuchMethod(
         Invocation.getter(#chats),
-        returnValue: <_i24.ChatListTileDataModel>[],
-        returnValueForMissingStub: <_i24.ChatListTileDataModel>[],
-      ) as List<_i24.ChatListTileDataModel>);
+        returnValue: <_i23.ChatListTileDataModel>[],
+        returnValueForMissingStub: <_i23.ChatListTileDataModel>[],
+      ) as List<_i23.ChatListTileDataModel>);
 
   @override
-  Map<String, List<_i25.ChatMessage>> get chatMessagesByUser =>
+  Map<String, List<_i24.ChatMessage>> get chatMessagesByUser =>
       (super.noSuchMethod(
         Invocation.getter(#chatMessagesByUser),
-        returnValue: <String, List<_i25.ChatMessage>>{},
-        returnValueForMissingStub: <String, List<_i25.ChatMessage>>{},
-      ) as Map<String, List<_i25.ChatMessage>>);
+        returnValue: <String, List<_i24.ChatMessage>>{},
+        returnValueForMissingStub: <String, List<_i24.ChatMessage>>{},
+      ) as Map<String, List<_i24.ChatMessage>>);
 
   @override
   _i14.ViewState get state => (super.noSuchMethod(
@@ -4435,24 +4386,24 @@ class MockDirectChatViewModel extends _i2.Mock
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i41.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i40.ImageCropper {
   @override
-  _i5.Future<_i42.CroppedFile?> cropImage({
+  _i5.Future<_i41.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i42.CropAspectRatio? aspectRatio,
-    List<_i42.CropAspectRatioPreset>? aspectRatioPresets = const [
-      _i42.CropAspectRatioPreset.original,
-      _i42.CropAspectRatioPreset.square,
-      _i42.CropAspectRatioPreset.ratio3x2,
-      _i42.CropAspectRatioPreset.ratio4x3,
-      _i42.CropAspectRatioPreset.ratio16x9,
+    _i41.CropAspectRatio? aspectRatio,
+    List<_i41.CropAspectRatioPreset>? aspectRatioPresets = const [
+      _i41.CropAspectRatioPreset.original,
+      _i41.CropAspectRatioPreset.square,
+      _i41.CropAspectRatioPreset.ratio3x2,
+      _i41.CropAspectRatioPreset.ratio4x3,
+      _i41.CropAspectRatioPreset.ratio16x9,
     ],
-    _i42.CropStyle? cropStyle = _i42.CropStyle.rectangle,
-    _i42.ImageCompressFormat? compressFormat = _i42.ImageCompressFormat.jpg,
+    _i41.CropStyle? cropStyle = _i41.CropStyle.rectangle,
+    _i41.ImageCompressFormat? compressFormat = _i41.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i42.PlatformUiSettings>? uiSettings,
+    List<_i41.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -4470,19 +4421,19 @@ class MockImageCropper extends _i2.Mock implements _i41.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i5.Future<_i42.CroppedFile?>.value(),
-        returnValueForMissingStub: _i5.Future<_i42.CroppedFile?>.value(),
-      ) as _i5.Future<_i42.CroppedFile?>);
+        returnValue: _i5.Future<_i41.CroppedFile?>.value(),
+        returnValueForMissingStub: _i5.Future<_i41.CroppedFile?>.value(),
+      ) as _i5.Future<_i41.CroppedFile?>);
 
   @override
-  _i5.Future<_i42.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i5.Future<_i41.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i5.Future<_i42.CroppedFile?>.value(),
-        returnValueForMissingStub: _i5.Future<_i42.CroppedFile?>.value(),
-      ) as _i5.Future<_i42.CroppedFile?>);
+        returnValue: _i5.Future<_i41.CroppedFile?>.value(),
+        returnValueForMissingStub: _i5.Future<_i41.CroppedFile?>.value(),
+      ) as _i5.Future<_i41.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].
@@ -4614,7 +4565,7 @@ class MockImagePicker extends _i2.Mock implements _i13.ImagePicker {
           [],
         ),
         returnValue:
-            _i5.Future<_i13.LostDataResponse>.value(_FakeLostDataResponse_23(
+            _i5.Future<_i13.LostDataResponse>.value(_FakeLostDataResponse_24(
           this,
           Invocation.method(
             #retrieveLostData,
@@ -4622,7 +4573,7 @@ class MockImagePicker extends _i2.Mock implements _i13.ImagePicker {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i13.LostDataResponse>.value(_FakeLostDataResponse_23(
+            _i5.Future<_i13.LostDataResponse>.value(_FakeLostDataResponse_24(
           this,
           Invocation.method(
             #retrieveLostData,
