@@ -363,10 +363,19 @@ void main() async {
     test('Testing gqlAuthQuery function without exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'organizations': [
               {
@@ -397,10 +406,19 @@ void main() async {
     test('Testing gqlAuthQuery with false exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           exception: OperationException(graphqlErrors: [userNotFound]),
           source: QueryResultSource.network,
         ),
@@ -443,20 +461,37 @@ void main() async {
         }
       }
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           exception: exp2()['val'],
           source: QueryResultSource.network,
         ),
       );
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+        locator<GraphQLClient>().mutate(
+          MutationOptions(
+            document: gql(query2),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query2)),
+          options: QueryOptions(
+            document: gql(query2),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'refreshToken': {
               'accessToken': 'testtoken',
@@ -468,10 +503,18 @@ void main() async {
       );
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+        locator<GraphQLClient>().mutate(
+          MutationOptions(
+            document: gql(query3),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query3)),
+          options: QueryOptions(
+            document: gql(query3),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'refreshToken': {
               'accessToken': 'testtoken',

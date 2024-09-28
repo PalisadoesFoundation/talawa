@@ -72,7 +72,7 @@ Widget editEventScreen({
       },
     );
 
-void main() {
+void main() async {
   setUpAll(() async {
     SizeConfig().test();
     setupLocator();
