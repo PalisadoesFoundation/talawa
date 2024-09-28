@@ -1,21 +1,7 @@
-
-
-
 # cropImage method
-
-
-
-
-
-
-
 
 [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?> cropImage
 ({required [File](https://api.flutter.dev/flutter/dart-io/File-class.html) imageFile})
-
-
-
-
 
 <p>This function is used to crop the image selected by the user.</p>
 <p>The function accepts a <code>File</code> type image and returns <code>File</code> type of cropped image.</p>
@@ -28,8 +14,6 @@
 <li><code>Future&lt;File?&gt;</code>: the image after been cropped.</li>
 </ul>
 
-
-
 ## Implementation
 
 ```dart
@@ -38,10 +22,6 @@ Future<File?> cropImage({required File imageFile}) async {
   try {
     final CroppedFile? croppedImage = await locator<ImageCropper>().cropImage(
       sourcePath: imageFile.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.original,
-      ],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
@@ -51,6 +31,10 @@ Future<File?> cropImage({required File imageFile}) async {
           cropGridColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.original,
+          ],
         ),
         IOSUiSettings(
           minimumAspectRatio: 1.0,
@@ -68,10 +52,3 @@ Future<File?> cropImage({required File imageFile}) async {
   return null;
 }
 ```
-
-
-
-
-
-
-
