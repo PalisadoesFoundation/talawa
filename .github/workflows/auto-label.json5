@@ -1,7 +1,7 @@
 {
   labelsSynonyms: {
     dependencies: ["dependencies", "dependabot", "dependency"],
-    security: ["security", "dependencies", "dependabot", "dependency"],
+    security: ["security"],
     "good first issue": [
       "security",
       "dependencies",
