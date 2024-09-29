@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// ExploreEventsViewModel class helps to interact with model to serve data to view for event explore section.
 ///
@@ -91,14 +95,13 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> initialise() async {
     setState(ViewState.busy);
     if (!demoMode) {
-      print(demoMode);
       _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
           .listen((updatedOrganization) => refreshEvents());
-      await _eventService.getEvents();
 
       _eventStreamSubscription = _eventService.eventStream.listen(
-        (newEvent) => checkIfExistsAndAddNewEvent(newEvent),
+        (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
       );
+      await _eventService.fetchEventsInitial();
       _bufferEvents = _events;
     }
     setState(ViewState.idle);
@@ -107,21 +110,23 @@ class ExploreEventsViewModel extends BaseModel {
   /// This function add a new event if the event not exist.
   ///
   /// **params**:
-  /// * `newEvent`: `Event` type variable containing data to create a new event.
+  /// * `newEvents`: `Event` type variable containing data to create a new event.
   ///
   /// **returns**:
   ///   None
-  Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
+  Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
     // Check if the event is unique and belongs to the current organization
-    if (!_uniqueEventIds.contains(newEvent.id) &&
-        newEvent.organization!.id == userConfig.currentOrg.id) {
-      _uniqueEventIds.add(newEvent.id!);
-      _events.insert(0, newEvent);
-    }
-    if (!_userEvents.any((event) => event.id == newEvent.id) &&
-        newEvent.creator!.id == userConfig.currentUser.id) {
-      _userEvents.insert(0, newEvent);
-    }
+    newEvents.forEach((newEvent) {
+      if (!_uniqueEventIds.contains(newEvent.id) &&
+          newEvent.organization!.id == userConfig.currentOrg.id) {
+        _uniqueEventIds.add(newEvent.id!);
+        _events.insert(0, newEvent);
+      }
+      if (!_userEvents.any((event) => event.id == newEvent.id) &&
+          newEvent.creator!.id == userConfig.currentUser.id) {
+        _userEvents.insert(0, newEvent);
+      }
+    });
     notifyListeners();
   }
 
@@ -133,25 +138,36 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> deleteEvent({required String eventId}) async {
-    // push the custom alert dialog to ask for confirmation.
     navigationService.pushDialog(
       CustomAlertDialog(
         reverse: true,
         dialogSubTitle: 'Are you sure you want to delete this event?',
         successText: 'Delete',
-        success: () {
-          navigationService.pop();
-          _eventService.deleteEvent(eventId).then(
-            (result) async {
-              if (result != null) {
-                navigationService.pop();
-                setState(ViewState.busy);
-                _uniqueEventIds.remove(eventId);
-                _events.removeWhere((element) => element.id == eventId);
-                _userEvents.removeWhere((element) => element.id == eventId);
-                await Future.delayed(const Duration(milliseconds: 500));
-                setState(ViewState.idle);
-              }
+        success: () async {
+          navigationService.pop(); // Close the confirmation dialog
+          navigationService.pushDialog(
+            const CustomProgressDialog(key: Key('DeleteEventProgress')),
+          );
+          await actionHandlerService.performAction(
+            actionType: ActionType.critical,
+            criticalActionFailureMessage: TalawaErrors.eventDeletionFailed,
+            action: () async {
+              Future<QueryResult<Object?>>? result;
+              result = _eventService.deleteEvent(eventId);
+              return result;
+            },
+            onValidResult: (result) async {
+              setState(ViewState.busy);
+              _uniqueEventIds.remove(eventId);
+              _events.removeWhere((element) => element.id == eventId);
+              _userEvents.removeWhere((element) => element.id == eventId);
+              await Future.delayed(const Duration(milliseconds: 500));
+              navigationService.pop(); // Dismiss progress dialog
+              setState(ViewState.idle);
+            },
+            updateUI: () async {
+              navigationService
+                  .pop(); // Ensure progress dialog is popped in case of error
             },
           );
         },

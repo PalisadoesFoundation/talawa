@@ -12,6 +12,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -45,7 +46,9 @@ final demoJson = {
 };
 
 void main() {
+  testSetupLocator();
   setUp(() {
+    AppConnectivity.isOnline = true;
     registerServices();
     getAndRegisterImageService();
   });
@@ -170,10 +173,10 @@ void main() {
         dataBaseMutationFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
-            "text": 'Some post content',
+            "text": 'Some post content #hashtag',
             "organizationId": 'XYZ',
             "title": 'Post Title',
-            "file": 'data:image/png;base64,',
+            "file": 'data:image/png;base64,${viewModel.imageInBase64}',
           },
         ),
       ).thenAnswer(
@@ -208,7 +211,7 @@ void main() {
       await viewModel.uploadPost();
       verify(
         locator<NavigationService>().showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Upload failed: Exception: exception",
           MessageType.error,
         ),
       ).called(1);
@@ -235,7 +238,7 @@ void main() {
       await viewModel.uploadPost();
       verify(
         locator<NavigationService>().showTalawaErrorSnackBar(
-          "Something went wrong",
+          "Upload failed: Exception: exception",
           MessageType.error,
         ),
       ).called(1);

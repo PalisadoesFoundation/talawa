@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/timeout.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -27,6 +28,7 @@ class OrganizationList extends StatelessWidget {
     final navigationServiceLocal = locator<NavigationService>();
     model.organizations = [];
     int noOfRefetch = 0;
+    const int maxRefetch = 10;
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
       child: Query(
@@ -45,11 +47,12 @@ class OrganizationList extends StatelessWidget {
         }) {
           // checking for any errors, if true fetch again!
           if (result.hasException) {
-            final isException = databaseFunctions.encounteredExceptionOrError(
+            final isException =
+                GraphqlExceptionResolver.encounteredExceptionOrError(
               result.exception!,
               showSnackBar: noOfRefetch == 0,
             );
-            if (isException != null) {
+            if (isException != null && noOfRefetch <= maxRefetch) {
               if (isException) {
                 refetch!();
                 noOfRefetch++;

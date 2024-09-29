@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EventService class provides different services in the context of Event.
 ///
@@ -20,9 +19,12 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// * `registerForAnEvent` : to register for an event.
 /// * `deleteEvent` : to delete an event.
 /// * `editEvent` : to edit the event.
+/// * `fetchEventVolunteers` : to fetch all volunteers of an event.
+/// * `createVolunteerGroup` : to create a volunteer group.
+/// * `addVolunteerToGroup` : to add a volunteer to a group.
 /// * `dispose` : to cancel the stream subscription of an organization.
-class EventService {
-  EventService() {
+class EventService extends BaseFeedManager<Event> {
+  EventService() : super(HiveKeys.eventFeedKey) {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
     print(_eventStream);
     _currentOrg = _userConfig.currentOrg;
@@ -36,10 +38,12 @@ class EventService {
 
   late OrgInfo _currentOrg;
   late StreamSubscription _currentOrganizationStreamSubscription;
-  late Stream<Event> _eventStream;
+  late Stream<List<Event>> _eventStream;
 
-  final StreamController<Event> _eventStreamController =
-      StreamController<Event>();
+  final StreamController<List<Event>> _eventStreamController =
+      StreamController<List<Event>>();
+
+  List<Event> _events = [];
 
   /// The event stream.
   ///
@@ -47,7 +51,64 @@ class EventService {
   /// None
   /// returns:
   /// * `Stream<Event>`: returns the event stream
-  Stream<Event> get eventStream => _eventStream;
+  Stream<List<Event>> get eventStream => _eventStream;
+
+  @override
+  Future<List<Event>> fetchDataFromApi() async {
+    // get current organization id
+    final String currentOrgID = _currentOrg.id!;
+    // mutation to fetch the events
+    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
+
+    if (result.data == null) {
+      throw Exception('unable to fetch data');
+    }
+
+    print(result.data!["eventsByOrganizationConnection"]);
+    final List<Map<String, dynamic>> eventsJson = result
+        .data!["eventsByOrganizationConnection"] as List<Map<String, dynamic>>;
+    eventsJson.forEach((eventJsonData) {
+      final Event event = Event.fromJson(eventJsonData);
+      event.isRegistered = event.attendees?.any(
+            (attendee) => attendee.id == _userConfig.currentUser.id,
+          ) ??
+          false;
+      _events.insert(0, event);
+    });
+    return _events;
+  }
+
+  /// Fetches the initial set of events, loading from the cache first, and then refreshing the feed.
+  ///
+  /// This method loads events from the cache, adds them to the event stream, and then triggers a feed refresh
+  /// to fetch the latest events from the API and update the stream accordingly.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> fetchEventsInitial() async {
+    _events = await loadCachedData();
+    _eventStreamController.add(_events);
+    refreshFeed();
+  }
+
+  /// Refreshes the event feed by fetching the latest events from the API and updating the event stream.
+  ///
+  /// This method retrieves the latest events using the `getNewFeedAndRefreshCache` method and adds the new events
+  /// to the event stream.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> refreshFeed() async {
+    _events = await getNewFeedAndRefreshCache();
+    _eventStreamController.add(_events);
+  }
 
   /// This function is used to set stream subscription for an organization.
   ///
@@ -63,6 +124,23 @@ class EventService {
     });
   }
 
+  /// This function is used to create an event using a GraphQL mutation.
+  ///
+  /// **params**:
+  /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult<Object?>>`: which contains the result of the GraphQL mutation.
+  Future<QueryResult<Object?>> createEvent({
+    required Map<String, dynamic> variables,
+  }) async {
+    final result = await databaseFunctions.gqlAuthMutation(
+      EventQueries().addEvent(),
+      variables: variables,
+    );
+    return result;
+  }
+
   /// This function is used to fetch all the events of an organization.
   ///
   /// **params**:
@@ -71,24 +149,8 @@ class EventService {
   /// **returns**:
   ///   None
   Future<void> getEvents() async {
-    // get current organization id
-    final String currentOrgID = _currentOrg.id!;
-    // mutation to fetch the events
-    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthMutation(mutation);
-
-    if (result == null) return;
-
-    final List eventsJson =
-        (result as QueryResult).data!["eventsByOrganizationConnection"] as List;
-    eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.attendees?.any(
-            (attendee) => attendee.id == _userConfig.currentUser.id,
-          ) ??
-          false;
-      _eventStreamController.add(event);
-    });
+    final List<Event> newEvents = await getNewFeedAndRefreshCache();
+    _eventStreamController.add(newEvents);
   }
 
   /// This function is used to fetch all registrants of an event.
@@ -127,15 +189,11 @@ class EventService {
   /// * `eventId`: id of an event
   ///
   /// **returns**:
-  /// * `Future<dynamic>`: Information about the event deletion
-  Future<dynamic> deleteEvent(String eventId) async {
-    navigationService.pushDialog(
-      const CustomProgressDialog(key: Key('DeleteEventProgress')),
-    );
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion
+  Future<QueryResult<Object?>> deleteEvent(String eventId) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().deleteEvent(eventId),
     );
-    navigationService.pop();
     return result;
   }
 
@@ -146,27 +204,124 @@ class EventService {
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
   ///
   /// **returns**:
-  ///   None
-  Future<void> editEvent({
+  /// * `Future<QueryResult<Object?>>`: Information about the event deletion.
+  Future<QueryResult<Object?>> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
   }) async {
-    navigationService.pushDialog(
-      const CustomProgressDialog(
-        key: Key('EditEventProgress'),
-      ),
-    );
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateEvent(eventId: eventId),
       variables: variables,
     );
-    navigationService.pop();
-    if (result != null) {
-      navigationService.removeAllAndPush(
-        Routes.exploreEventsScreen,
-        Routes.mainScreen,
-        arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+    return result;
+  }
+
+  /// This function is used to create a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain all the volunteer group details need to be created.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the created volunteer group.
+  Future<dynamic> createVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().createVolunteerGroup(),
+      variables: {'data': variables},
+    );
+    return result;
+  }
+
+  /// This function is used to remove a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: This will be a `map` type and contain the ID of the volunteer group to be deleted.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the removed volunteer group.
+  Future<dynamic> removeVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().removeEventVolunteerGroup(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to add a volunteer to a group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain all the details needed to add a volunteer to a group.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the added volunteer.
+  Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().addVolunteerToGroup(),
+      variables: {'data': variables},
+    );
+    return result;
+  }
+
+  /// This function is used to remove a volunteer from a group.
+  ///
+  /// **params**:
+  /// * `variables`: this will be `map` type and contain the ID of the volunteer to be removed.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the removed volunteer.
+  Future<dynamic> removeVolunteerFromGroup(
+    Map<String, dynamic> variables,
+  ) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().removeVolunteerMutation(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to update the information of a volunteer group.
+  ///
+  /// **params**:
+  /// * `variables`: This is a `Map<String, dynamic>` type that contains the ID of the volunteer group to be updated and the fields to be updated.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the updated volunteer group.
+  Future<dynamic> updateVolunteerGroup(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().updateVolunteerGroupMutation(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to fetch all volunteer groups for an event.
+  ///
+  /// **params**:
+  /// * `eventId`: Id of the event to fetch volunteer groups.
+  ///
+  /// **returns**:
+  /// * `Future<List<EventVolunteerGroup>>`: returns the list of volunteer groups
+  Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
+    String eventId,
+  ) async {
+    try {
+      final variables = {
+        "where": {"eventId": eventId},
+      };
+      final result = await _dbFunctions.gqlAuthQuery(
+        EventQueries().fetchVolunteerGroups(),
+        variables: variables,
       );
+      final List groupsJson = result.data!['getEventVolunteerGroups'] as List;
+
+      return groupsJson
+          .map(
+            (groupJson) =>
+                EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      print('Error fetching volunteer groups: $e');
+      rethrow;
     }
   }
 

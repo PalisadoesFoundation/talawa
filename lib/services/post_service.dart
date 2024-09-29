@@ -1,10 +1,18 @@
 // ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/constants.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/exceptions/critical_action_exception.dart';
+import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
@@ -15,16 +23,17 @@ import 'package:talawa/utils/post_queries.dart';
 /// * `getPosts` : to get all posts of the organization.
 /// * `addLike` : to add like to the post.
 /// * `removeLike` : to remove the like from the post.
-class PostService {
+
+class PostService extends BaseFeedManager<Post> {
   // constructor
-  PostService() {
+  PostService() : super(HiveKeys.postFeedKey) {
     _postStream = _postStreamController.stream.asBroadcastStream();
     _updatedPostStream =
         _updatedPostStreamController.stream.asBroadcastStream();
     _currentOrg = _userConfig.currentOrg;
     setOrgStreamSubscription();
-    getPosts();
   }
+
   // Stream for entire posts
   final StreamController<List<Post>> _postStreamController =
       StreamController<List<Post>>();
@@ -54,6 +63,34 @@ class PostService {
   /// Getter for Stream of update in any post.
   Stream<Post> get updatedPostStream => _updatedPostStream;
 
+  @override
+  Future<List<Post>> fetchDataFromApi() async {
+    // variables
+    final String currentOrgID = _currentOrg.id!;
+    final String query =
+        PostQueries().getPostsById(currentOrgID, after, before, first, last);
+    final result = await _dbFunctions.gqlAuthQuery(query);
+    //Checking if the dbFunctions return the postJSON, if not return.
+    if (result.data == null) {
+      // Handle the case where the result or result.data is null
+      throw Exception('unable to fetch data');
+    }
+
+    final organizations = result.data!['organizations'] as List;
+    final Map<String, dynamic> posts = (organizations[0]
+        as Map<String, dynamic>)['posts'] as Map<String, dynamic>;
+    final List<Post> newPosts = [];
+    postInfo = posts['pageInfo'] as Map<String, dynamic>;
+    debugPrint(postInfo.toString());
+    (posts['edges'] as List).forEach((postJson) {
+      final post = Post.fromJson(
+        (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
+      );
+      newPosts.insert(0, post);
+    });
+    return newPosts;
+  }
+
   ///This method sets up a stream that constantly listens to change in current org.
   ///
   /// **params**:
@@ -71,6 +108,14 @@ class PostService {
     });
   }
 
+  Future<void> fetchPostsInitial() async {
+    _posts = await loadCachedData();
+    debugPrint('fetchPostInitial');
+    debugPrint(_posts.length.toString());
+    _postStreamController.add(_posts);
+    refreshFeed();
+  }
+
   /// Method used to fetch all posts of the current organisation.
   ///
   /// **params**:
@@ -79,30 +124,14 @@ class PostService {
   /// **returns**:
   /// * `Future<void>`: returns future void
   Future<void> getPosts() async {
-    // variables
-    final String currentOrgID = _currentOrg.id!;
-    final String query =
-        PostQueries().getPostsById(currentOrgID, after, before, first, last);
-    final result = await _dbFunctions.gqlAuthQuery(query);
-    //Checking if the dbFunctions return the postJSON, if not return.
-    if (result == null || (result as QueryResult).data == null) {
-      // Handle the case where the result or result.data is null
-      return;
-    }
-
-    final organizations = result.data!['organizations'] as List;
-    final posts = (organizations[0] as Map<String, dynamic>)['posts'];
-    final List postsJson = (posts as Map<String, dynamic>)['edges'] as List;
-    postInfo = posts['pageInfo'] as Map<String, dynamic>;
-    postsJson.forEach((postJson) {
-      final Post post = Post.fromJson(
-        (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
-      );
+    final List<Post> newPosts = await getNewFeedAndRefreshCache();
+    newPosts.forEach((post) {
       if (!_renderedPostID.contains(post.sId)) {
         _posts.insert(0, post);
         _renderedPostID.add(post.sId);
       }
     });
+    debugPrint(_posts.length.toString());
     _postStreamController.add(_posts);
   }
 
@@ -114,9 +143,14 @@ class PostService {
   /// **returns**:
   /// * `Future<void>`: returns future void
   Future<void> refreshFeed() async {
-    _posts.clear();
+    final List<Post> newPosts = await getNewFeedAndRefreshCache();
     _renderedPostID.clear();
-    await getPosts();
+    _posts.clear();
+    _posts = newPosts;
+    GraphqlExceptionResolver.encounteredExceptionOrError(
+      CriticalActionException('Feed refreshed!!!'),
+    );
+    _postStreamController.add(_posts);
   }
 
   ///Method to add newly created post at the very top of the feed.
@@ -133,6 +167,15 @@ class PostService {
     _postStreamController.add(_posts);
   }
 
+  Future<QueryResult<Object?>> deletePost(Post post) async {
+    return await _dbFunctions.gqlAuthMutation(
+      PostQueries().removePost(),
+      variables: {
+        "id": post.sId,
+      },
+    );
+  }
+
   ///Method to add like on a Post.
   ///
   /// This method basically update likedBy list of a Post
@@ -143,15 +186,25 @@ class PostService {
   ///
   /// **returns**:
   /// * `Future<void>`: define_the_return
-  Future<void> addLike(String postID) async {
-    _localAddLike(postID);
-    final String mutation = PostQueries().addLike();
-    // run the graphQl mutation.
-    final result = await _dbFunctions
-        .gqlAuthMutation(mutation, variables: {"postID": postID});
-    print(result);
-    // return result
-    return result;
+  Future<bool> addLike(String postID) async {
+    bool isLiked = false;
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        final String mutation = PostQueries().addLike();
+        // run the graphQl mutation.
+        return await _dbFunctions
+            .gqlAuthMutation(mutation, variables: {"postID": postID});
+        // return result
+      },
+      onValidResult: (result) async {
+        isLiked = (result.data?["_id"] != null);
+      },
+      updateUI: () {
+        _localAddLike(postID);
+      },
+    );
+    return isLiked;
   }
 
   /// Locally add like on a Post and updates it using updated Post Stream.
@@ -180,13 +233,23 @@ class PostService {
   ///
   /// **returns**:
   /// * `Future<void>`: nothing
-  Future<void> removeLike(String postID) async {
-    _removeLocal(postID);
-    final String mutation = PostQueries().removeLike();
-    final result = await _dbFunctions
-        .gqlAuthMutation(mutation, variables: {"postID": postID});
-    print(result);
-    return result;
+  Future<bool> removeLike(String postID) async {
+    bool isLiked = false;
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        final String mutation = PostQueries().removeLike();
+        return await _dbFunctions
+            .gqlAuthMutation(mutation, variables: {"postID": postID});
+      },
+      onValidResult: (result) async {
+        isLiked = (result.data?["_id"] != null);
+      },
+      updateUI: () {
+        _removeLocal(postID);
+      },
+    );
+    return isLiked;
   }
 
   /// Locally removes the like of a user and update the Post UI.

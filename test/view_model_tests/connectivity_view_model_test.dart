@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -60,49 +62,63 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
 
 void main() {
   late AppConnectivity model;
-  setUpAll(() {
+  setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
+    // await cacheService.initialise();
     connectivityService.initConnectivity(client: http.Client());
-
     model = locator<AppConnectivity>();
     model.initialise();
   });
-  test('handleConnection when demoMode', () {
-    MainScreenViewModel.demoMode = true;
-    model.handleConnection(ConnectivityResult.mobile);
-  });
+  group('test connectivity view model', () {
+    test('handleConnection when demoMode', () {
+      MainScreenViewModel.demoMode = true;
+      model.handleConnection(ConnectivityResult.mobile);
+    });
 
-  test('handleConnection when online', () {
-    MainScreenViewModel.demoMode = false;
-    model.handleConnection(ConnectivityResult.mobile);
-  });
+    test('handleConnection when offline', () {
+      internetAccessible = false;
+      model.handleConnection(ConnectivityResult.none);
+    });
+    test('handleConnection when online', () async {
+      MainScreenViewModel.demoMode = false;
+      await cacheService.offlineActionQueue.addAction(
+        CachedUserAction(
+          id: 'test',
+          operation: 'test',
+          timeStamp: DateTime.now(),
+          status: CachedUserActionStatus.pending,
+          operationType: CachedOperationType.gqlAuthMutation,
+          expiry: DateTime.now().add(const Duration(hours: 6)),
+        ),
+      );
 
-  test('handleConnection when offline', () {
-    internetAccessible = false;
-    model.handleConnection(ConnectivityResult.none);
-  });
+      print(cacheService.offlineActionQueue.getActions());
+      model.handleConnection(ConnectivityResult.mobile);
+    });
 
-  testWidgets('showSnackbar when online', (tester) async {
-    await tester.pumpWidget(createMainScreen(isOnline: true));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
+    testWidgets('showSnackbar when online', (tester) async {
+      await tester.pumpWidget(createMainScreen(isOnline: true));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    await tester.tap(find.text('click me'));
-  });
+      await tester.tap(find.text('click me'));
+    });
 
-  testWidgets('showSnackbar when offline', (tester) async {
-    await tester.pumpWidget(createMainScreen(isOnline: false));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
+    testWidgets('showSnackbar when offline', (tester) async {
+      await tester.pumpWidget(createMainScreen(isOnline: false));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    await tester.tap(find.text('click me'));
-  });
+      await tester.tap(find.text('click me'));
+    });
 
-  test('check enableSubscription body', () {
-    connectivityService.connectionStatusController.add(ConnectivityResult.none);
-  });
+    test('check enableSubscription body', () {
+      connectivityService.connectionStatusController
+          .add(ConnectivityResult.none);
+    });
 
-  test('enableSubscirption exception', () async {
-    model.enableSubscription();
+    test('enableSubscirption exception', () async {
+      model.enableSubscription();
+    });
   });
 }

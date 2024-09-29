@@ -1,13 +1,12 @@
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/view_model/connectivity_view_model.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -22,9 +21,6 @@ import '../helpers/test_locator.dart';
 ///   None
 void main() async {
   late DataBaseMutationFunctions functionsClass;
-  final Directory dir = await Directory.systemTemp.createTemp('talawa_test');
-  Hive.init(dir.path);
-  await Hive.openBox('url');
 
   const userNotAuthenticated =
       GraphQLError(message: 'User is not authenticated');
@@ -68,6 +64,7 @@ void main() async {
     functionsClass = DataBaseMutationFunctions();
     functionsClass.init();
     functionsClass.initClientNonAuth();
+    AppConnectivity.isOnline = true;
   });
 
   group('Database Mutation Functions Tests', () {
@@ -366,10 +363,19 @@ void main() async {
     test('Testing gqlAuthQuery function without exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'organizations': [
               {
@@ -385,7 +391,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlAuthQuery(query) as QueryResult;
+      final res = await functionsClass.gqlAuthQuery(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -400,17 +406,26 @@ void main() async {
     test('Testing gqlAuthQuery with false exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           exception: OperationException(graphqlErrors: [userNotFound]),
           source: QueryResultSource.network,
         ),
       );
 
       final res = await functionsClass.gqlAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Testing gqlAuthQuery with true exception', () async {
@@ -446,20 +461,37 @@ void main() async {
         }
       }
 
-      when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
-          .thenAnswer(
+      when(
+        locator<GraphQLClient>().query(
+          QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
+          options: QueryOptions(
+            document: gql(query),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           exception: exp2()['val'],
           source: QueryResultSource.network,
         ),
       );
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query2))),
+        locator<GraphQLClient>().mutate(
+          MutationOptions(
+            document: gql(query2),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query2)),
+          options: QueryOptions(
+            document: gql(query2),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'refreshToken': {
               'accessToken': 'testtoken',
@@ -471,10 +503,18 @@ void main() async {
       );
 
       when(
-        locator<GraphQLClient>().mutate(MutationOptions(document: gql(query3))),
+        locator<GraphQLClient>().mutate(
+          MutationOptions(
+            document: gql(query3),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(query3)),
+          options: QueryOptions(
+            document: gql(query3),
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
           data: {
             'refreshToken': {
               'accessToken': 'testtoken',
@@ -486,7 +526,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql auth mutation', () async {
@@ -512,7 +552,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlAuthMutation(query) as QueryResult;
+      final res = await functionsClass.gqlAuthMutation(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -538,7 +578,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql auth mutation with true exception', () async {
@@ -615,7 +655,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth query', () async {
@@ -642,7 +682,7 @@ void main() async {
 
       final res = await functionsClass.gqlNonAuthQuery(query);
       final org = OrgInfo.fromJson(
-        (res!.data!['organizations'] as List<Map<String, dynamic>>)[0],
+        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
 
       expect(org.id, testOrg.id);
@@ -675,7 +715,7 @@ void main() async {
         ),
       );
 
-      final res = await functionsClass.gqlNonAuthMutation(query) as QueryResult;
+      final res = await functionsClass.gqlNonAuthMutation(query);
       final org = OrgInfo.fromJson(
         (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
@@ -701,7 +741,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth mutation with true exception', () async {
@@ -778,7 +818,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthMutation(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for refresh access token', () async {
@@ -924,7 +964,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
 
     test('Test for gql non auth query with true exception', () async {
@@ -1000,7 +1040,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
     test('Test for gql non auth query with false exception', () async {
       final String query = Queries().fetchOrgDetailsById('XYZ');
@@ -1075,7 +1115,7 @@ void main() async {
       );
 
       final res = await functionsClass.gqlNonAuthQuery(query);
-      expect(res, null);
+      expect(res.data, null);
     });
   });
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 // import 'package:talawa/main.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -112,27 +113,40 @@ class LoginViewModel extends BaseModel {
     // if the email and password are not empty.
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
-      databaseFunctions.init();
-      try {
-        // run the graph QL query to login the user,
-        // passing `email` and `password`.
-        final result = await databaseFunctions.gqlNonAuthMutation(
-          queries.loginUser(
-            email.text,
-            Encryptor.encryptString(
-              password.text,
+      await actionHandlerService.performAction(
+        actionType: ActionType.critical,
+        criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogin,
+        action: () async {
+          navigationService.pushDialog(
+            const CustomProgressDialog(
+              key: Key('LoginProgress'),
             ),
-          ),
-        );
-        navigationService.pop();
-        // if user found.
-        if (result != null) {
-          final User loggedInUser = User.fromJson(
-            (result as QueryResult).data!['login'] as Map<String, dynamic>,
           );
-          userConfig.updateUser(loggedInUser);
+          databaseFunctions.init();
+          // run the graph QL query to login the user,
+          // passing `email` and `password`.
+          final result = await databaseFunctions.gqlNonAuthMutation(
+            queries.loginUser(
+              email.text,
+              Encryptor.encryptString(
+                password.text,
+              ),
+            ),
+          );
+          navigationService.pop();
+
+          return result;
+        },
+        onValidResult: (result) async {
+          // if user found.
+          if (result.data != null) {
+            final User loggedInUser = User.fromJson(
+              result.data!['login'] as Map<String, dynamic>,
+            );
+            userConfig.updateUser(loggedInUser);
+          }
+        },
+        apiCallSuccessUpdateUI: () {
           // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
@@ -149,11 +163,12 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
-        }
-      } on Exception catch (e) {
-        print('here');
-        print(e);
-      }
+        },
+        onActionException: (e) async {
+          print('here');
+          print(e);
+        },
+      );
     }
   }
 }

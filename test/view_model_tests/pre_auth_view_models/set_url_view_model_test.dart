@@ -1,6 +1,4 @@
 // ignore_for_file: talawa_api_doc
-
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,6 +12,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -94,10 +93,9 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
 Future<void> main() async {
   SizeConfig().test();
 
-  Hive.init('test/fixtures/core');
-  await Hive.openBox('url');
-
   late SetUrlViewModel model;
+
+  locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
   setUp(() async {
     registerServices();
@@ -136,9 +134,6 @@ Future<void> main() async {
       final box = Hive.box('url');
       expect(box.get(SetUrlViewModel.urlKey), '');
       expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
-
-      File('test/fixtures/core/url.hive').delete();
-      File('test/fixtures/core/url.lock').delete();
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
@@ -207,9 +202,6 @@ Future<void> main() async {
       final box = Hive.box('url');
       expect(box.get(SetUrlViewModel.urlKey), '');
       expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
-
-      File('test/fixtures/core/url.hive').delete();
-      File('test/fixtures/core/url.lock').delete();
     });
 
     testWidgets(

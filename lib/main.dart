@@ -9,11 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -26,17 +24,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final Directory dir = await path.getApplicationDocumentsDirectory();
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter())
-    ..registerAdapter(AsymetricKeysAdapter());
 
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox<AsymetricKeys>('user_keys');
-  await Hive.openBox('pluginBox');
-  await Hive.openBox('url');
+  await HiveManager.initializeHive(dir: dir);
 
   setupLocator();
 

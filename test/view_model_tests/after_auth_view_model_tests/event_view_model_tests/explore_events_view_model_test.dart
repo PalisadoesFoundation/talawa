@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -11,8 +12,10 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/comment_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -75,7 +78,7 @@ void main() {
       endDate: '2024-01-14',
       startTime: '08:01:00.000Z',
       endTime: '08:50:00.000Z',
-      creator: User(id: 'Test Id'),
+      creator: User(id: 'xzy1'),
       isPublic: true,
       isRegistered: true,
       isRegisterable: true,
@@ -102,7 +105,7 @@ void main() {
     test("Test checkIfExistsAndAddNewEvent function", () async {
       final model = ExploreEventsViewModel();
       await model.initialise();
-      await model.checkIfExistsAndAddNewEvent(newEvent);
+      await model.checkIfExistsAndAddNewEvents([newEvent]);
       expect(model.events.isNotEmpty, true);
       expect(model.events.first.id, newEvent.id);
     });
@@ -113,41 +116,10 @@ void main() {
       final model = ExploreEventsViewModel();
       newEvent.startTime = "09:00:00";
       newEvent.organization!.id = 'Test Id 1';
-      await model.checkIfExistsAndAddNewEvent(newEvent);
+      await model.checkIfExistsAndAddNewEvents([newEvent]);
       expect(model.events, isEmpty);
       expect(model.events.length, 0);
       // expect(model.events.first.id, '1');
-    });
-    testWidgets(
-        "Test function of CustomAlertDialog when deleteEvent function is executed",
-        (tester) async {
-      final model = ExploreEventsViewModel();
-      when(model.eventService.deleteEvent(newEvent.id!))
-          .thenAnswer((realInvocation) async => 1);
-
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          navigatorKey: navigationService.navigatorKey,
-          home: Scaffold(body: Container()),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await model.checkIfExistsAndAddNewEvent(newEvent);
-      await model.deleteEvent(eventId: newEvent.id!);
-      await tester.pumpAndSettle();
-      final customFinder = find.byType(CustomAlertDialog);
-      expect(customFinder, findsOneWidget);
-
-      final successFinder = find.byKey(const Key('Delete'));
-      await tester.tap(successFinder);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      expect(model.events, isEmpty);
     });
 
     test("Test chooseValueFromDropdown function", () async {
@@ -220,9 +192,9 @@ void main() {
       when(userConfig.currentOrgInfoStream)
           .thenAnswer((realInvocation) => _MockStream<OrgInfo>());
       when(eventService.eventStream)
-          .thenAnswer((realInvocation) => _MockStream<Event>());
+          .thenAnswer((realInvocation) => _MockStream<List<Event>>());
 
-      await model.checkIfExistsAndAddNewEvent(newEvent);
+      await model.checkIfExistsAndAddNewEvents([newEvent]);
       await model.initialise();
       await model.choseValueFromDropdown('Registered Events');
       expect(model.emptyListMessage, "No registered events are present");
@@ -233,6 +205,46 @@ void main() {
       final model = ExploreEventsViewModel();
       final List<Event> userEvents = model.userEvents;
       expect(userEvents, []);
+    });
+    testWidgets(
+        "Test function of CustomAlertDialog when deleteEvent function is executed",
+        (tester) async {
+      final model = ExploreEventsViewModel();
+      when(model.eventService.deleteEvent(newEvent.id!)).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(CommentQueries().getPostsComments('postId')),
+          ),
+          data: {
+            'post': {'comments': []},
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(body: Container()),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await model.checkIfExistsAndAddNewEvents([newEvent]);
+      await model.deleteEvent(eventId: newEvent.id!);
+      await tester.pumpAndSettle();
+      final customFinder = find.byType(CustomAlertDialog);
+      expect(customFinder, findsOneWidget);
+
+      final successFinder = find.byKey(const Key('Delete'));
+      await tester.tap(successFinder);
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(CustomProgressDialog), findsOneWidget);
     });
   });
 }

@@ -4,9 +4,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -49,15 +55,140 @@ Widget createEventSearch() {
   );
 }
 
+final List<Event> cachedEvents = [
+  Event(
+    id: "event001",
+    title: "Annual Tech Conference",
+    description:
+        "A conference where tech enthusiasts gather to discuss the latest trends.",
+    location: "Tech Park, Silicon Valley",
+    recurring: false,
+    allDay: true,
+    startDate: "2024-09-10",
+    endDate: "2024-09-10",
+    startTime: "09:00 AM",
+    endTime: "05:00 PM",
+    isPublic: true,
+    isRegistered: false,
+    isRegisterable: true,
+    creator: User(id: "user123", firstName: "Alice Johnson"),
+    organization: OrgInfo(id: userConfig.currentOrg.id, name: "Tech Community"),
+    admins: [
+      User(id: "admin001", firstName: "Bob", lastName: "Smith"),
+      User(id: "admin002", firstName: "Carol", lastName: "Lee"),
+    ],
+    attendees: [
+      Attendee(
+        id: "attendee001",
+        firstName: "David",
+        lastName: "Brown",
+        image: "https://example.com/david.jpg",
+      ),
+      Attendee(
+        id: "attendee002",
+        firstName: "Eve",
+        lastName: "White",
+        image: "https://example.com/eve.jpg",
+      ),
+    ],
+  ),
+  Event(
+    id: "event002",
+    title: "Community Cleanup",
+    description:
+        "Join us for a community-wide effort to clean up our local park.",
+    location: "Central Park",
+    recurring: true,
+    allDay: false,
+    startDate: "2024-08-25",
+    endDate: "2024-08-25",
+    startTime: "08:00 AM",
+    endTime: "12:00 PM",
+    isPublic: true,
+    isRegistered: true,
+    isRegisterable: true,
+    creator: User(id: "user124", firstName: "John Doe"),
+    organization: OrgInfo(id: userConfig.currentOrg.id, name: "Green Earth"),
+    admins: [
+      User(id: "admin003", firstName: "Sam", lastName: "Green"),
+    ],
+    attendees: [
+      Attendee(
+        id: "attendee003",
+        firstName: "Paul",
+        lastName: "Black",
+        image: "https://example.com/paul.jpg",
+      ),
+    ],
+  ),
+  Event(
+    id: "event003",
+    title: "Coding Workshop",
+    description: "A hands-on workshop to improve coding skills.",
+    location: "TechHub, Downtown",
+    recurring: false,
+    allDay: false,
+    startDate: "2024-09-15",
+    endDate: "2024-09-15",
+    startTime: "10:00 AM",
+    endTime: "04:00 PM",
+    isPublic: false,
+    isRegistered: false,
+    isRegisterable: false,
+    creator: User(id: "user125", firstName: "Micheal Young"),
+    organization: OrgInfo(id: userConfig.currentOrg.id, name: "Code Masters"),
+    admins: [
+      User(id: "admin004", firstName: "Sara", lastName: "Blue"),
+    ],
+    attendees: [],
+  ),
+  Event(
+    id: "event004",
+    title: "Startup Pitch Day",
+    description: "Pitch your startup ideas to investors and get feedback.",
+    location: "Innovation Hub",
+    recurring: false,
+    allDay: false,
+    startDate: "2024-10-05",
+    endDate: "2024-10-05",
+    startTime: "11:00 AM",
+    endTime: "03:00 PM",
+    isPublic: false,
+    isRegistered: true,
+    isRegisterable: true,
+    creator: User(id: "user126", firstName: "Emma Davis"),
+    organization:
+        OrgInfo(id: userConfig.currentOrg.id, name: "Startup Network"),
+    admins: [
+      User(id: "admin005", firstName: "Jake", lastName: 'Wilson'),
+      User(id: "admin006", firstName: "Nina", lastName: 'Harris'),
+    ],
+    attendees: [
+      Attendee(
+        id: "attendee004",
+        firstName: "Chris",
+        lastName: "Miller",
+        image: "https://example.com/chris.jpg",
+      ),
+    ],
+  ),
+];
+
 void main() {
   SizeConfig().test();
 
-  setUp(() {
+  setUpAll(() {
     registerServices();
     registerViewModels();
+    locator.unregister<EventService>();
+    locator.registerSingleton<EventService>(EventService());
+    final eventsBox = Hive.box<Event>(HiveKeys.eventFeedKey);
+    eventsBox.addAll(cachedEvents);
   });
 
-  tearDown(() {
+  tearDownAll(() {
+    final eventsBox = Hive.box<Event>(HiveKeys.eventFeedKey);
+    eventsBox.clear();
     unregisterViewModels();
     unregisterServices();
   });
@@ -73,7 +204,7 @@ void main() {
         expect(find.byIcon(Icons.arrow_back), findsOneWidget);
         expect(find.byIcon(Icons.clear), findsOneWidget);
         expect(find.byType(TextField), findsOneWidget);
-        expect(find.byType(EventCard), findsOneWidget);
+        expect(find.byType(EventCard), findsNWidgets(4));
       });
     });
     testWidgets('Check if back button works fine', (tester) async {
@@ -102,7 +233,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final textfield = find.byType(TextField);
-        await tester.enterText(textfield, 'te');
+        await tester.enterText(textfield, 'Coding');
         await tester.pumpAndSettle();
 
         expect(find.byType(EventCard), findsOneWidget);
@@ -122,7 +253,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final textfield = find.byType(TextField);
-        await tester.enterText(textfield, 'te');
+        await tester.enterText(textfield, 'Coding');
         await tester.pumpAndSettle();
 
         await tester.showKeyboard(textfield);
@@ -177,7 +308,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final textfield = find.byType(TextField);
-        await tester.enterText(textfield, 'te');
+        await tester.enterText(textfield, 'Coding');
         await tester.pumpAndSettle();
 
         final eventCardFinder = find.byType(EventCard);

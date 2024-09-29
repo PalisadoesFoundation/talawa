@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -123,12 +124,17 @@ class SignupDetailsViewModel extends BaseModel {
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
-      databaseFunctions.init();
-      try {
-        final result = await databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser(
+      await actionHandlerService.performAction(
+        actionType: ActionType.critical,
+        criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToSignUp,
+        action: () async {
+          navigationService.pushDialog(
+            const CustomProgressDialog(
+              key: Key('SignUpProgress'),
+            ),
+          );
+          databaseFunctions.init();
+          final query = queries.registerUser(
             firstName.text,
             lastName.text,
             email.text,
@@ -136,32 +142,36 @@ class SignupDetailsViewModel extends BaseModel {
               password.text,
             ),
             selectedOrganization.id,
-          ),
-        );
-        navigationService.pop();
-        if (result != null) {
-          final User signedInUser = User.fromJson(
-            (result as QueryResult).data!['signUp'] as Map<String, dynamic>,
           );
-          final bool userSaved = await userConfig.updateUser(signedInUser);
-          final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-          // if user successfully saved and access token is also generated.
-          if (userSaved && tokenRefreshed) {
-            // if the selected organization userRegistration not required.
-            if (!selectedOrganization.userRegistrationRequired!) {
-              try {
+          final result = await databaseFunctions.gqlNonAuthMutation(query);
+          navigationService.pop();
+          return result;
+        },
+        onValidResult: (result) async {
+          if (result.data != null) {
+            final User signedInUser = User.fromJson(
+              result.data!['signUp'] as Map<String, dynamic>,
+            );
+            final bool userSaved = await userConfig.updateUser(signedInUser);
+            final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+
+            // if user successfully saved and access token is also generated.
+            if (userSaved && tokenRefreshed) {
+              // if the selected organization userRegistration not required.
+              if (!selectedOrganization.userRegistrationRequired!) {
+                final query = queries.joinOrgById(selectedOrganization.id!);
+                print(query);
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(
-                  queries.joinOrgById(selectedOrganization.id!),
-                ) as QueryResult;
-
+                  query,
+                );
                 final joinPublicOrganization = result
                     .data!['joinPublicOrganization'] as Map<String, dynamic>;
                 final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
                         'joinedOrganizations'] as List<dynamic>?)
                     ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
                     .toList();
-                userConfig.updateUserJoinedOrg(joinedOrg!);
+                await userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
                   userConfig.currentUser.joinedOrganizations![0],
                 );
@@ -171,20 +181,11 @@ class SignupDetailsViewModel extends BaseModel {
                   arguments:
                       MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
                 );
-              } on Exception catch (e) {
-                print(e);
-                navigationService.showTalawaErrorSnackBar(
-                  'Something went wrong',
-                  MessageType.error,
-                );
-              }
-            } else {
-              try {
+              } else {
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(
                   queries.sendMembershipRequest(selectedOrganization.id!),
-                ) as QueryResult;
-
+                );
                 final sendMembershipRequest = result
                     .data!['sendMembershipRequest'] as Map<String, dynamic>;
                 final OrgInfo membershipRequest = OrgInfo.fromJson(
@@ -196,23 +197,18 @@ class SignupDetailsViewModel extends BaseModel {
                   Routes.waitingScreen,
                   Routes.splashScreen,
                 );
-              } on Exception catch (e) {
-                print(e);
-                navigationService.showTalawaErrorSnackBar(
-                  'Something went wrong',
-                  MessageType.error,
-                );
               }
             }
           }
-        }
-      } on Exception catch (e) {
-        print(e);
-        navigationService.showTalawaErrorSnackBar(
-          'Something went wrong',
-          MessageType.error,
-        );
-      }
+        },
+        onActionException: (e) async {
+          print(e);
+          navigationService.showTalawaErrorSnackBar(
+            'Something went wrong',
+            MessageType.error,
+          );
+        },
+      );
     }
   }
 }

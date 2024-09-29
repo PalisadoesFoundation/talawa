@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
@@ -18,7 +19,9 @@ import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
+import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -28,6 +31,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -60,14 +64,22 @@ final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final connectivity = locator<Connectivity>();
 final connectivityService = locator<ConnectivityService>();
+final cacheService = locator<CacheService>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
 final imageService = locator<ImageService>();
 final imagePicker = locator<ImagePicker>();
 final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
+final actionHandlerService = locator<ActionHandlerService>();
 
 void testSetupLocator() {
+  locator.registerSingleton(CacheService());
+
+  locator.registerSingleton(DataBaseMutationFunctions());
+
+  locator.registerSingleton(GraphqlConfig());
+
   //services
   locator.registerSingleton(NavigationService());
 
@@ -92,15 +104,15 @@ void testSetupLocator() {
   locator.registerSingleton(() => OrganizationService());
 
   //graphql
-  locator.registerSingleton(GraphqlConfig());
 
   //databaseMutationFunction
-  locator.registerSingleton(DataBaseMutationFunctions());
 
   locator.registerSingleton(ConnectivityService());
 
   //queries
   locator.registerSingleton(Queries());
+
+  locator.registerSingleton(ActionHandlerService());
 
   locator.registerFactory(() => AppConnectivity());
 
@@ -110,7 +122,7 @@ void testSetupLocator() {
   locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => SetUrlViewModel());
   locator.registerFactory(() => LoginViewModel());
-
+  locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
@@ -134,4 +146,5 @@ void testSetupLocator() {
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => SelectContactViewModel());
+  locator.registerFactory(() => UserProfileService());
 }

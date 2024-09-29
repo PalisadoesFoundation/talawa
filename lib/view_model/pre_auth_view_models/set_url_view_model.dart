@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -128,27 +129,38 @@ class SetUrlViewModel extends BaseModel {
 
     /// if the url is valid.
     if (formKey.currentState!.validate()) {
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
-      validate = AutovalidateMode.disabled;
-      final String uri = url.text.trim();
-      final bool? urlPresent =
-          await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent! == true) {
-        final box = Hive.box('url');
-        box.put(urlKey, uri);
-        box.put(imageUrlKey, "$uri/talawa/");
-
-        navigationService.pop();
-        graphqlConfig.getOrgUrl();
-        navigationService.pushScreen(navigateTo, arguments: argument);
-      } else {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          "URL doesn't exist/no connection please check",
-          MessageType.error,
-        );
-      }
+      await actionHandlerService.performAction(
+        actionType: ActionType.critical,
+        criticalActionFailureMessage: navigateTo == '/login'
+            ? TalawaErrors.youAreOfflineUnableToLogin
+            : TalawaErrors.youAreOfflineUnableToSignUp,
+        action: () async {
+          navigationService.pushDialog(
+            const CustomProgressDialog(
+              key: Key('UrlCheckProgress'),
+            ),
+          );
+          validate = AutovalidateMode.disabled;
+          final String uri = url.text.trim();
+          final bool? urlPresent =
+              await locator<Validator>().validateUrlExistence(uri);
+          if (urlPresent! == true) {
+            final box = Hive.box('url');
+            box.put(urlKey, uri);
+            box.put(imageUrlKey, "$uri/talawa/");
+            navigationService.pop();
+            graphqlConfig.getOrgUrl();
+            navigationService.pushScreen(navigateTo, arguments: argument);
+          } else {
+            navigationService.pop();
+            navigationService.showTalawaErrorSnackBar(
+              "URL doesn't exist/no connection please check",
+              MessageType.error,
+            );
+          }
+          return null;
+        },
+      );
     }
   }
 

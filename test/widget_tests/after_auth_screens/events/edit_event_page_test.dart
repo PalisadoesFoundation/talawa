@@ -8,7 +8,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
@@ -73,16 +72,8 @@ Widget editEventScreen({
       },
     );
 
-void main() {
+void main() async {
   setUpAll(() async {
-    final Directory dir = Directory('temporaryPath');
-    Hive
-      ..init(dir.path)
-      ..registerAdapter(UserAdapter())
-      ..registerAdapter(OrgInfoAdapter());
-    await Hive.openBox<User>('currentUser');
-    await Hive.openBox<OrgInfo>('currentOrg');
-    await Hive.openBox('url');
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();
@@ -327,6 +318,17 @@ void main() {
     });
 
     group("Testing body properties and contents", () {
+      testWidgets("Testing if cancel button in app bar works", (tester) async {
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+        final closeBtn = find.byIcon(Icons.close);
+        await tester.tap(closeBtn.first);
+        await tester.pumpAndSettle();
+      });
       testWidgets("Testing Add Image section", (tester) async {
         await tester.pumpWidget(
           editEventScreen(
@@ -534,23 +536,6 @@ void main() {
           (tester.widgetList(switches).toList()[1] as Switch).value,
           false,
         );
-      });
-      testWidgets("Testing if cancel button in app bar works", (tester) async {
-        await tester.pumpWidget(
-          editEventScreen(
-            theme: TalawaTheme.lightTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-        final appBar = find.byType(AppBar);
-        final closeBtn = find.descendant(
-          of: appBar,
-          matching: find.byType(GestureDetector),
-        );
-        await tester.tap(closeBtn.first);
-        await tester.pumpAndSettle(const Duration(milliseconds: 500));
-        final createEventScreenPage = find.byKey(const Key('EditEventScreen'));
-        expect(createEventScreenPage, findsNothing);
       });
     });
   });

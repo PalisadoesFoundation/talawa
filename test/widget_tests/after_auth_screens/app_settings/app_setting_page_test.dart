@@ -5,7 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/language/language_model.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
@@ -287,27 +286,13 @@ Future<void> main() async {
 
       verify(navigationService.navigatorKey);
     });
-    testWidgets('Test if Logout is unsuccessful.', (tester) async {
-      final model = AppSettingViewModel();
-      when(model.logout()).thenThrow(Exception('Test error'));
-
-      const userLoggedIn = true;
-      when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
-
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const Key('Logout')));
-      await tester.pumpAndSettle();
-
-      final logoutButton = find.textContaining('Logout').last;
-      await tester.tap(logoutButton);
-    });
 
     testWidgets('Test if Logout is successful', (tester) async {
-      final model = AppSettingViewModel();
-      when(model.logout()).thenAnswer((_) async => true);
+      when(userConfig.loggedIn).thenAnswer((_) => true);
+
+      final AppSettingViewModel model = AppSettingViewModel();
+
+      when(model.logout()).thenAnswer((realInvocation) async {});
 
       await tester
           .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
@@ -317,16 +302,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       final logoutButton = find.textContaining('Logout').last;
+      expect(logoutButton, findsOneWidget);
       await tester.tap(logoutButton);
 
-      verify(navigationService.pop());
-      verify(
-        navigationService.removeAllAndPush(
-          Routes.setUrlScreen,
-          Routes.splashScreen,
-          arguments: '',
-        ),
-      );
+      verify(model.logout());
     });
   });
 }

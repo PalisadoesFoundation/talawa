@@ -13,7 +13,7 @@ name: PR Workflow
 on:
   pull_request:
     branches-ignore:
-      - 'master'
+      - "master"
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
@@ -30,12 +30,12 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '12.0'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "12.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.22.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
         shell: bash
@@ -48,7 +48,7 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
       - name: Running count lines
-        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart
+        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart
       - name: setup python
         uses: actions/setup-python@v5
       - name: Check for presence of ignore directives corresponding to custom lints
@@ -92,21 +92,21 @@ jobs:
           echo "Error: Source and Target Branches are the same. Please ensure they are different."
           exit 1
 
-#       - name: Echo the GitHub environment for troubleshooting
-#         run: echo "$GITHUB_CONTEXT"
-#       - name: Echo the GitHub context for troubleshooting
-#         run: echo "${{ toJSON(github) }}"
-#       - name: setup python
-#         uses: actions/setup-python@v5
-#       - name: Granting permission to documentationcheck.py
-#         run: chmod +x ./.github/workflows/documentationcheck.py
-#       - name: execute py script
-#         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
-#         # https://docs.github.com/en/actions/learn-github-actions/contexts
-#         run: |
-#           git branch
-#           pip install GitPython
-#           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+  #       - name: Echo the GitHub environment for troubleshooting
+  #         run: echo "$GITHUB_CONTEXT"
+  #       - name: Echo the GitHub context for troubleshooting
+  #         run: echo "${{ toJSON(github) }}"
+  #       - name: setup python
+  #         uses: actions/setup-python@v5
+  #       - name: Granting permission to documentationcheck.py
+  #         run: chmod +x ./.github/workflows/documentationcheck.py
+  #       - name: execute py script
+  #         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
+  #         # https://docs.github.com/en/actions/learn-github-actions/contexts
+  #         run: |
+  #           git branch
+  #           pip install GitPython
+  #           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
 
   Flutter-Testing:
     name: Testing codebase
@@ -116,12 +116,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '12.0'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "12.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.22.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -132,11 +132,11 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: false
-          name: '${{env.CODECOV_UNIQUE_NAME}}'
+          name: "${{env.CODECOV_UNIQUE_NAME}}"
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: './coverage/lcov.info'
+          path: "./coverage/lcov.info"
           min_coverage: 92.0
 
   Android-Build:
@@ -147,12 +147,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '12.0'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "12.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.22.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -166,8 +166,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.22.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign

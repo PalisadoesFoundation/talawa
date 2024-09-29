@@ -80,8 +80,7 @@ class ChatService {
     );
 
     final message = ChatMessage.fromJson(
-      (result as QueryResult).data?['sendMessageToDirectChat']
-          as Map<String, dynamic>,
+      result.data?['sendMessageToDirectChat'] as Map<String, dynamic>,
     );
 
     _chatMessageController.add(message);
@@ -105,8 +104,7 @@ class ChatService {
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
-    final directMessageList =
-        (result as QueryResult).data?['directChatsByUserID'] as List;
+    final directMessageList = result.data?['directChatsByUserID'] as List;
 
     // loop through the result [directMessageList]
     // and append the element to the directChat.
@@ -136,8 +134,7 @@ class ChatService {
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
-    final messages =
-        (result as QueryResult).data?['directChatsMessagesByChatID'] as List;
+    final messages = result.data?['directChatsMessagesByChatID'] as List;
 
     messages.forEach((message) {
       final chatMessage = ChatMessage.fromJson(message as Map<String, dynamic>);

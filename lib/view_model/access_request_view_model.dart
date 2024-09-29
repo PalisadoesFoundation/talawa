@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -43,9 +42,9 @@ class AccessScreenViewModel extends BaseModel {
     final result = await databaseFunctions.gqlAuthMutation(
       queries.sendMembershipRequest(selectedOrganization.id!),
     );
-    if (result != null) {
+    if (result.data != null) {
       final OrgInfo membershipRequest = OrgInfo.fromJson(
-        (((result as QueryResult).data!)['sendMembershipRequest']
+        ((result.data!)['sendMembershipRequest']
             as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
       );
       userConfig.updateUserMemberRequestOrg([membershipRequest]);
