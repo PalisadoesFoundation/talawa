@@ -74,7 +74,7 @@ dependencies:
   uni_links_platform_interface: ^1.0.0
   url_launcher: ^6.3.0
   vibration: ^2.0.0
-  video_player: ^2.9.1
+  video_player: ^2.9.2
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
