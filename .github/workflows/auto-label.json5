@@ -1,0 +1,17 @@
+{
+  labelsSynonyms: {
+    dependencies: ["dependencies", "dependabot", "dependency"],
+    security: ["security"],
+    "good first issue": [
+      "security",
+      "dependencies",
+      "dependabot",
+      "dependency",
+      "layout",
+      "screen",
+      "design",
+      "figma",
+    ],
+    "ui/ux": ["layout", "screen", "design", "figma"],
+  },
+}
