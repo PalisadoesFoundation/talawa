@@ -66,10 +66,10 @@ class EventService extends BaseFeedManager<Event> {
     }
 
     print(result.data!["eventsByOrganizationConnection"]);
-    final eventsJson = result
-        .data!["eventsByOrganizationConnection"] as List<dynamic>;
+    final eventsJson =
+        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
     eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String,dynamic>);
+      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.attendees?.any(
             (attendee) => attendee.id == _userConfig.currentUser.id,
           ) ??

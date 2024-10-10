@@ -121,9 +121,9 @@ class DataBaseMutationFunctions {
     String mutation, {
     Map<String, dynamic>? variables,
   }) async {
-     if (variables != null) {
-    traverseAndConvertDates(variables, convertLocalToUTC, splitDateTimeUTC);
-     }
+    if (variables != null) {
+      traverseAndConvertDates(variables, convertLocalToUTC, splitDateTimeUTC);
+    }
     final MutationOptions options = MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},

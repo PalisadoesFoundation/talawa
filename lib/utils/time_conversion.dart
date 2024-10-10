@@ -11,6 +11,7 @@ Map<String, String> splitDateTimeUTC(String dateTimeStr) {
     'time': DateFormat('HH:mm:ss.SSS\'Z\'').format(dateTime),
   };
 }
+
 Map<String, String> splitDateTimeLocal(String dateTimeStr) {
   final DateTime dateTime = DateTime.parse(dateTimeStr);
   return {
@@ -35,7 +36,6 @@ void traverseAndConvertDates(
   Map<String, String> Function(String) splitFn,
 ) {
   obj.forEach((key, value) {
-
     final pairedFields =
         dateTimeFields['pairedFields']?.cast<Map<String, String>>();
     if (pairedFields != null) {
