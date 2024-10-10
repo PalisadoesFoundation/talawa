@@ -8,7 +8,7 @@ Map<String, String> splitDateTimeUTC(String dateTimeStr) {
   final DateTime dateTime = DateTime.parse(dateTimeStr);
   return {
     'date': DateFormat('yyyy-MM-dd').format(dateTime),
-    'time': DateFormat('HH:mm:ss.SSS\'Z\'').format(dateTime),
+    'time': DateFormat("HH:mm:ss.SSS'Z'").format(dateTime),
   };
 }
 
@@ -27,7 +27,7 @@ String convertUTCToLocal(String utcTime) {
 
 String convertLocalToUTC(String localTime) {
   final DateTime dateTime = DateTime.parse(localTime).toUtc();
-  return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS\'Z\'').format(dateTime);
+  return DateFormat("yyyy-MM-ddTHH:mm:ss.SSS'Z'").format(dateTime);
 }
 
 void traverseAndConvertDates(
@@ -39,7 +39,7 @@ void traverseAndConvertDates(
     final pairedFields =
         dateTimeFields['pairedFields']?.cast<Map<String, String>>();
     if (pairedFields != null) {
-      for (var field in pairedFields) {
+      for (final field in pairedFields) {
         if (key == field['dateField'] && obj.containsKey(field['timeField'])) {
           final combinedDateTime = combineDateTime(
             obj[field['dateField']] as String,
@@ -48,23 +48,22 @@ void traverseAndConvertDates(
 
           final convertedDateTime = convertFn(combinedDateTime);
 
-          final splitDateTime = splitFn(convertedDateTime ?? '');
+          final splitDateTime = splitFn(convertedDateTime);
 
-          obj[field['dateField'] as String] = splitDateTime['date'] ?? '';
-          obj[field['timeField'] as String] = splitDateTime['time'] ?? '';
+          obj[field['dateField'] ?? ''] = splitDateTime['date'] ?? '';
+          obj[field['timeField'] ?? ''] = splitDateTime['time'] ?? '';
         }
       }
     }
 
-    if (dateTimeFields['directFields']?.cast<String>()?.contains(key) ??
-        false) {
+    if (dateTimeFields['directFields']?.cast<String>().contains(key) ?? false) {
       obj[key] = convertFn(value as String);
     }
 
     if (value is Map<String, dynamic>) {
       traverseAndConvertDates(value, convertFn, splitFn);
     } else if (value is List) {
-      for (var item in value) {
+      for (final item in value) {
         if (item is Map<String, dynamic>) {
           traverseAndConvertDates(item, convertFn, splitFn);
         }

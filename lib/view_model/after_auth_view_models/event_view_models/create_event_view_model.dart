@@ -225,11 +225,10 @@ class CreateEventViewModel extends BaseModel {
               'organizationId': _currentOrg.id,
               'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
               'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
-              'startTime': isAllDay
-                  ? null
-                  : '${DateFormat('HH:mm:ss').format(startTime)}',
+              'startTime':
+                  isAllDay ? null : DateFormat('HH:mm:ss').format(startTime),
               'endTime':
-                  isAllDay ? null : '${DateFormat('HH:mm:ss').format(endTime)}',
+                  isAllDay ? null : DateFormat('HH:mm:ss').format(endTime),
             },
             if (isRecurring)
               'recurrenceRuleData': {

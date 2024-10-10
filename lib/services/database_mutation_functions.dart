@@ -6,7 +6,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/utils/time_conversion.dart';
 
 /// DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.
@@ -99,8 +98,11 @@ class DataBaseMutationFunctions {
             return await gqlAuthQuery(query, variables: variables);
           }
         } else if (result.data != null && result.isConcrete) {
-          traverseAndConvertDates(result.data as Map<String, dynamic>,
-              convertUTCToLocal, splitDateTimeLocal);
+          traverseAndConvertDates(
+            result.data ?? <String, dynamic>{},
+            convertUTCToLocal,
+            splitDateTimeLocal,
+          );
           return result;
         }
         return noData;
@@ -219,8 +221,11 @@ class DataBaseMutationFunctions {
             result.exception!,
           );
         } else if (result.data != null && result.isConcrete) {
-          traverseAndConvertDates(result.data as Map<String, dynamic>,
-              convertUTCToLocal, splitDateTimeLocal);
+          traverseAndConvertDates(
+            result.data ?? <String, dynamic>{},
+            convertUTCToLocal,
+            splitDateTimeLocal,
+          );
           return result;
         }
         return noData;

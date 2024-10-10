@@ -1,8 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:talawa/utils/time_conversion.dart';
-import '../../../helpers/test_helpers.dart';
 import 'package:clock/clock.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/utils/time_conversion.dart';
+
+import '../../../helpers/test_helpers.dart';
 
 void main() {
   group('Time Conversion Utils', () {
@@ -31,19 +31,23 @@ void main() {
     });
 
     test('convertUTCToLocal converts UTC to local time', () {
-      final utcTime = '2023-05-01T14:30:00.000Z';
+      const utcTime = '2023-05-01T14:30:00.000Z';
       final localTime = convertUTCToLocal(utcTime);
       expect(localTime, isNot(equals(utcTime)));
       expect(
-          localTime, matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'));
+        localTime,
+        matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'),
+      );
     });
 
     test('convertLocalToUTC converts local to UTC time', () {
-      final localTime = '2023-05-01T14:30:00.000';
+      const localTime = '2023-05-01T14:30:00.000';
       final utcTime = convertLocalToUTC(localTime);
       expect(utcTime, isNot(equals(localTime)));
       expect(
-          utcTime, matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'));
+        utcTime,
+        matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'),
+      );
     });
 
     group('traverseAndConvertDates', () {
@@ -54,8 +58,10 @@ void main() {
         };
         traverseAndConvertDates(testObj, convertUTCToLocal, splitDateTimeLocal);
         expect(testObj['createdAt'], isNot(equals('2023-05-01T14:30:00.000Z')));
-        expect(testObj['createdAt'],
-            matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'));
+        expect(
+          testObj['createdAt'],
+          matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'),
+        );
       });
 
       test('converts paired fields', () {
@@ -77,10 +83,14 @@ void main() {
           },
         };
         traverseAndConvertDates(testObj, convertUTCToLocal, splitDateTimeLocal);
-        expect(testObj['user']?['createdAt'],
-            isNot(equals('2023-05-01T14:30:00.000Z')));
-        expect(testObj['user']?['createdAt'],
-            matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'));
+        expect(
+          testObj['user']?['createdAt'],
+          isNot(equals('2023-05-01T14:30:00.000Z')),
+        );
+        expect(
+          testObj['user']?['createdAt'],
+          matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'),
+        );
       });
 
       test('converts objects in lists', () {
@@ -92,15 +102,26 @@ void main() {
             ],
           };
           traverseAndConvertDates(
-              testObj, convertUTCToLocal, splitDateTimeLocal);
-          expect(testObj['items']?[0]['createdAt'],
-              isNot(equals('2023-05-01T14:30:00.000Z')));
-          expect(testObj['items']?[0]['createdAt'],
-              matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'));
-          expect(testObj['items']?[1]['createdAt'],
-              isNot(equals('2023-05-02T15:45:00.000Z')));
-          expect(testObj['items']?[1]['createdAt'],
-              matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'));
+            testObj,
+            convertUTCToLocal,
+            splitDateTimeLocal,
+          );
+          expect(
+            testObj['items']?[0]['createdAt'],
+            isNot(equals('2023-05-01T14:30:00.000Z')),
+          );
+          expect(
+            testObj['items']?[0]['createdAt'],
+            matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'),
+          );
+          expect(
+            testObj['items']?[1]['createdAt'],
+            isNot(equals('2023-05-02T15:45:00.000Z')),
+          );
+          expect(
+            testObj['items']?[1]['createdAt'],
+            matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$'),
+          );
         });
       });
     });
