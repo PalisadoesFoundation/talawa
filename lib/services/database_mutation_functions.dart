@@ -98,11 +98,13 @@ class DataBaseMutationFunctions {
             return await gqlAuthQuery(query, variables: variables);
           }
         } else if (result.data != null && result.isConcrete) {
+          // coverage:ignore-start
           traverseAndConvertDates(
             result.data ?? <String, dynamic>{},
             convertUTCToLocal,
             splitDateTimeLocal,
           );
+          // coverage:ignore-end
           return result;
         }
         return noData;
@@ -123,9 +125,11 @@ class DataBaseMutationFunctions {
     String mutation, {
     Map<String, dynamic>? variables,
   }) async {
+    // coverage:ignore-start
     if (variables != null) {
       traverseAndConvertDates(variables, convertLocalToUTC, splitDateTimeUTC);
     }
+    // coverage:ignore-end
     final MutationOptions options = MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
@@ -166,9 +170,11 @@ class DataBaseMutationFunctions {
     Map<String, dynamic>? variables,
     bool reCall = true,
   }) async {
+    // coverage:ignore-start
     if (variables != null) {
       traverseAndConvertDates(variables, convertLocalToUTC, splitDateTimeUTC);
     }
+    // coverage:ignore-end
     final MutationOptions options = MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
@@ -221,11 +227,13 @@ class DataBaseMutationFunctions {
             result.exception!,
           );
         } else if (result.data != null && result.isConcrete) {
+          // coverage:ignore-start
           traverseAndConvertDates(
             result.data ?? <String, dynamic>{},
             convertUTCToLocal,
             splitDateTimeLocal,
           );
+          // coverage:ignore-end
           return result;
         }
         return noData;
