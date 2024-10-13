@@ -59,17 +59,17 @@ class EventService extends BaseFeedManager<Event> {
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthQuery(mutation);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
 
     if (result.data == null) {
       throw Exception('unable to fetch data');
     }
 
     print(result.data!["eventsByOrganizationConnection"]);
-    final eventsJson =
-        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
+    final List<Map<String, dynamic>> eventsJson = result
+        .data!["eventsByOrganizationConnection"] as List<Map<String, dynamic>>;
     eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
+      final Event event = Event.fromJson(eventJsonData);
       event.isRegistered = event.attendees?.any(
             (attendee) => attendee.id == _userConfig.currentUser.id,
           ) ??
