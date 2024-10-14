@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
@@ -40,7 +39,10 @@ class EventInfoViewModel extends BaseModel {
   late List<AgendaCategory> _categories = [];
   late List<AgendaCategory> _selectedCategories = [];
 
+  /// List of Agenda categories in an organisation.
   List<AgendaCategory> get categories => _categories;
+
+  /// List of selected Agenda categories for an agenda item.
   List<AgendaCategory> get selectedCategories => _selectedCategories;
 
   /// This function initializes the EventInfoViewModel class with the required arguments.
@@ -302,6 +304,15 @@ class EventInfoViewModel extends BaseModel {
     return null;
   }
 
+  /// Method to delete an agenda item.
+  ///
+  /// more_info_if_required
+  ///
+  /// **params**:
+  /// * `id`: id of the gaenda item that is to be deleted
+  ///
+  /// **returns**:
+  ///   None
   Future<void> deleteAgendaItem(String id) async {
     try {
       await locator<EventService>()
@@ -313,6 +324,14 @@ class EventInfoViewModel extends BaseModel {
     }
   }
 
+  /// Method to update the sequence of an agenda item.
+  ///
+  /// **params**:
+  /// * `itemId`: id of the agenda item whose sequence need to be updated
+  /// * `newSequence`: new sequence of the item
+  ///
+  /// **returns**:
+  ///   None
   Future<void> updateAgendaItemSequence(String itemId, int newSequence) async {
     try {
       final result = await locator<EventService>().updateAgendaItem(
@@ -333,6 +352,14 @@ class EventInfoViewModel extends BaseModel {
     }
   }
 
+  /// Method to redorder the sequence of agenda items.
+  ///
+  /// **params**:
+  /// * `oldIndex`: old index of the item
+  /// * `newIndex`: new index of the item
+  ///
+  /// **returns**:
+  ///   None
   Future<void> reorderAgendaItems(int oldIndex, int newIndex) async {
     int adjustedNewIndex = newIndex;
 
