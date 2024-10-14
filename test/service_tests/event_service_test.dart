@@ -23,6 +23,7 @@ void main() {
     testSetupLocator();
     registerServices();
   });
+
   group('Test EventService', () {
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
@@ -118,7 +119,7 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'cretedEvent': {
+            'createdEvent': {
               '_id': 'eventId',
               'title': 'Test task',
               'description': 'Test description',
@@ -137,12 +138,13 @@ void main() {
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().registerForEvent(),
+          variables: {'eventId': 'eventId'},
         ),
       ).thenAnswer(
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'register for an event': {
+            'registerForEvent': {
               '_id': 'eventId',
             },
           },
@@ -250,6 +252,7 @@ void main() {
       final model = EventService();
       expect(model.eventStream, isA<Stream<List<Event>>>());
     });
+
     test('Test createVolunteerGroup method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
