@@ -27,7 +27,8 @@ env:
 jobs:
 
   Flutter-Codebase-Check:
-    name: Checking codebase
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Checking Codebase
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -73,8 +74,9 @@ jobs:
 #         run: echo "${{ toJSON(github) }}"
 
   Update-Documentation:
+    if: github.ref == 'refs/heads/automated-docs' 
+    name: Update Documentation
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/automated-docs'
     environment: TALAWA_ENVIRONMENT
     steps:
       - uses: actions/checkout@v4
@@ -136,8 +138,9 @@ jobs:
           echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
           
   Documentation-to-talawa-docs:
+    if: github.ref == 'refs/heads/automated-docs' && ${{ github.actor != 'dependabot[bot]' }}
+    name: Export Documentation to Talawa-Docs
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/automated-docs'
     needs: Update-Documentation
     steps:
     - uses: actions/checkout@v4
@@ -156,6 +159,7 @@ jobs:
   
 
   Flutter-Testing:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Testing codebase
     runs-on: ubuntu-latest
     needs: Flutter-Codebase-Check
@@ -185,6 +189,7 @@ jobs:
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
   Android-Build-and-Release:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Testing build for android
     permissions:
       contents: write
@@ -224,6 +229,7 @@ jobs:
             This may or may not be stable, so please have a look at the stable release(s).
 
   iOS-Build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: iOS Build and Relaese
     runs-on: macos-latest
     needs: Flutter-Testing
