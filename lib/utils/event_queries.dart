@@ -339,4 +339,147 @@ class EventQueries {
       }
     ''';
   }
+
+  /// Creates a GraphQL query for fetching agenda item categories by organization.
+  ///
+  /// **params**:
+  /// * `organizationId`: The ID of the organization to fetch agenda item categories for.
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL query string to fetch agenda item categories.
+  String fetchAgendaItemCategoriesByOrganization(String organizationId) {
+    return """
+    query {
+      agendaItemCategoriesByOrganization(organizationId: "$organizationId") {
+        _id
+        name
+        description
+        
+      }
+    }
+  """;
+  }
+
+  /// Creates a GraphQL mutation for creating an agenda item.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to create an agenda item.
+  String createAgendaItem() {
+    return """
+    mutation CreateAgendaItem(\$input: CreateAgendaItemInput!) {
+      createAgendaItem(input: \$input) {
+        _id
+        title
+        description
+        duration
+        attachments
+        createdBy {
+        _id
+        firstName
+        lastName
+        }
+        urls
+        categories {
+        _id
+        name
+        }
+        sequence
+      }
+    }
+  """;
+  }
+
+  /// Creates a GraphQL mutation for updating an agenda item.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to update an agenda item.
+  String updateAgendaItem() {
+    return """
+    mutation UpdateAgendaItem(\$updateAgendaItemId: ID!
+    \$input: UpdateAgendaItemInput!
+  ) {
+      updateAgendaItem(id: \$updateAgendaItemId, input: \$input) {
+        _id
+        title
+        description
+        duration
+        attachments
+        createdBy {
+        _id
+        firstName
+        lastName
+        }
+        urls
+        categories {
+        _id
+        name
+        }
+        sequence
+      }
+    }
+  """;
+  }
+
+  /// Creates a GraphQL mutation for deleting an agenda item.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL mutation string to delete an agenda item.
+  String deleteAgendaItem() {
+    return """
+    mutation RemoveAgendaItem(\$removeAgendaItemId: ID!) {
+      removeAgendaItem(id: \$removeAgendaItemId) {
+         _id
+      }
+    }
+  """;
+  }
+
+  /// Creates a GraphQL query for fetching agenda items by organization.
+  ///
+  /// **params**:
+  /// * `relatedEventId`: The ID of the event to fetch agenda items for.
+  ///
+  /// **returns**:
+  /// * `String`: Returns a GraphQL query string to fetch agenda items.
+  String fetchAgendaItemsByEvent(String relatedEventId) {
+    return """
+  query {
+    agendaItemByEvent(relatedEventId: "$relatedEventId") {
+      _id
+      title
+      description
+      duration
+      attachments
+      createdBy {
+        _id
+        firstName
+        lastName
+      }
+      urls
+      categories {
+        _id
+        name
+      }
+      sequence
+      organization {
+        _id
+        name
+      }
+      relatedEvent {
+        _id
+        title
+      }
+    }
+  }
+  """;
+  }
 }
