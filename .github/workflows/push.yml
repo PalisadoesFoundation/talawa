@@ -74,7 +74,7 @@ jobs:
 #         run: echo "${{ toJSON(github) }}"
 
   Update-Documentation:
-    if: github.ref == 'refs/heads/automated-docs' && ${{ github.actor != 'dependabot[bot]' }}
+    if: github.ref == 'refs/heads/automated-docs' 
     name: Update Documentation
     runs-on: ubuntu-latest
     environment: TALAWA_ENVIRONMENT
