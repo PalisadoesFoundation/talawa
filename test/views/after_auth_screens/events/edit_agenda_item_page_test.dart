@@ -63,14 +63,14 @@ List<AgendaCategory> testCategories = [
 ];
 
 void main() {
-  setUp(() {
+  setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
     locator<SizeConfig>().test();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 
