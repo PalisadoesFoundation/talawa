@@ -10,7 +10,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=2.17.0 <=3.4.4"
+  sdk: ">=2.17.0 <=3.24.4"
 
 dependencies:
   ############# Remove ###########
@@ -21,7 +21,7 @@ dependencies:
 
   auto_size_text: ^3.0.0
   cached_network_image: ^3.4.1
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.5
   contained_tab_bar_view: ^0.8.0
 
   crypto: ^3.0.5
@@ -76,6 +76,7 @@ dependencies:
   vibration: ^2.0.0
   video_player: ^2.9.1
   visibility_detector: ^0.4.0+2
+  win32: ^5.5.5
 
 dev_dependencies:
   build_runner: ^2.4.11

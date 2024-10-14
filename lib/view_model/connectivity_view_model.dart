@@ -39,7 +39,16 @@ class AppConnectivity extends BaseModel {
     await connectivityService.initConnectivity(client: http.Client());
     connectivityStream = connectivityService.connectionStream;
     enableSubscription();
-    handleConnection(await connectivityService.getConnectionType());
+
+    // Extract the first result from the list of connectivity results
+    List<ConnectivityResult> resultList =
+        await connectivityService.getConnectionType();
+    if (resultList.isNotEmpty) {
+      handleConnection(resultList.first);
+    } else {
+      handleConnection(ConnectivityResult
+          .none); // Default to 'none' if the list is unexpectedly empty
+    }
   }
 
   /// Subscribes to [connectivityStream] of [ConnectivityService].

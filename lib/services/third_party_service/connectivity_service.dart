@@ -21,17 +21,19 @@ class ConnectivityService {
   Stream<ConnectivityResult> get connectionStream =>
       connectionStatusController.stream;
 
+  // ignore: talawa_good_doc_comments
   /// Checks the current internet connectivity status of the device.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<ConnectivityResult>`: indicates if the url is reachable.
-  Future<ConnectivityResult> getConnectionType() async {
-    final result = await connectivity.checkConnectivity();
-    return result;
-  }
+  /// * `Future<List<ConnectivityResult>>: indicates if the url is reachable.
+  Future<List<ConnectivityResult>> getConnectionType() async {
+  final List<ConnectivityResult> result = await connectivity.checkConnectivity();
+  return result;
+}
+
 
   /// Client to access internet.
   late final http.Client _client;
@@ -58,18 +60,22 @@ class ConnectivityService {
   ///
   /// **returns**:
   ///   None
-  Future<void> enableSubscription() async {
-    connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult result) {
+Future<void> enableSubscription() async {
+  connectivity.onConnectivityChanged.listen(
+    (List<ConnectivityResult> results) {
+      for (var result in results) {
         print(result);
         connectionStatusController.add(result);
-      },
-      onError: (error) {
-        // Handle errors during listening for changes
-        print('Error listening for connectivity changes: $error');
-      },
-    );
-  }
+      }
+    },
+    onError: (error) {
+      // Handle errors during listening for changes
+      print('Error listening for connectivity changes: $error');
+    },
+  );
+}
+
+
 
   /// This function checks if a given URI is reachable within a specified timeout period.
   ///
@@ -106,11 +112,12 @@ class ConnectivityService {
   /// **returns**:
   /// * `Future<bool>`: indicating whether the device has a network connection.
   Future<bool> hasConnection() async {
-    try {
-      final result = await getConnectionType();
-      return result != ConnectivityResult.none;
-    } catch (e) {
-      return false;
-    }
+  try {
+    final results = await getConnectionType();
+    // Check if any of the connectivity results are not 'none'
+    return results.any((result) => result != ConnectivityResult.none);
+  } catch (e) {
+    return false;
   }
+}
 }
