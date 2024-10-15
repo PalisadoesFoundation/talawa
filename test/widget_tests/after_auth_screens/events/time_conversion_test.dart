@@ -24,10 +24,20 @@ void main() {
       expect(result['time'], '14:30:00.000Z');
     });
 
+    test('splitDateTimeUTC returns empty map for invalid input', () {
+      final result = splitDateTimeUTC('invalid-datetime');
+      expect(result, isEmpty);
+    });
+
     test('splitDateTimeLocal splits local datetime correctly', () {
       final result = splitDateTimeLocal('2023-05-01T14:30:00.000');
       expect(result['date'], '2023-05-01');
       expect(result['time'], '14:30');
+    });
+
+    test('splitDateTimeLocal returns empty map for invalid input', () {
+      final result = splitDateTimeLocal('invalid-datetime');
+      expect(result, isEmpty);
     });
 
     test('convertUTCToLocal converts UTC to local time', () {
@@ -40,6 +50,11 @@ void main() {
       );
     });
 
+    test('convertUTCToLocal returns empty string for invalid input', () {
+      final localTime = convertUTCToLocal('invalid-datetime');
+      expect(localTime, isEmpty);
+    });
+
     test('convertLocalToUTC converts local to UTC time', () {
       const localTime = '2023-05-01T14:30:00.000';
       final utcTime = convertLocalToUTC(localTime);
@@ -48,6 +63,11 @@ void main() {
         utcTime,
         matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'),
       );
+    });
+
+    test('convertLocalToUTC returns empty string for invalid input', () {
+      final utcTime = convertLocalToUTC('invalid-datetime');
+      expect(utcTime, isEmpty);
     });
 
     group('traverseAndConvertDates', () {
@@ -73,6 +93,19 @@ void main() {
         traverseAndConvertDates(testObj, convertUTCToLocal, splitDateTimeLocal);
         expect(testObj['startDate'], '2023-05-01');
         expect(testObj['startTime'], matches(r'^\d{2}:\d{2}$'));
+      });
+
+      test('handles invalid date/time in traverseAndConvertDates', () {
+        final testObj = {
+          'createdAt': 'invalid-datetime',
+          'startDate': 'invalid-date',
+          'startTime': 'invalid-time',
+          'name': 'Test',
+        };
+        traverseAndConvertDates(testObj, convertUTCToLocal, splitDateTimeLocal);
+        expect(testObj['createdAt'], isEmpty);
+        expect(testObj['startDate'], isEmpty);
+        expect(testObj['startTime'], isEmpty);
       });
 
       test('converts nested objects', () {
