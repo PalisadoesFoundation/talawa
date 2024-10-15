@@ -34,7 +34,6 @@ class MockConnectivityService extends Mock
   @override
   Stream<ConnectivityResult> get connectionStream => controller.stream;
 
-  
   @override
   Future<List<ConnectivityResult>> getConnectionType() {
     // Return a list of ConnectivityResults as expected by the new method signature
@@ -50,10 +49,12 @@ class MockConnectivityService extends Mock
 class MockConnectivity extends Mock implements Connectivity {
   final controller = StreamController<List<ConnectivityResult>>();
 
-  StreamController<List<ConnectivityResult>> get connectivityController => controller;
+  StreamController<List<ConnectivityResult>> get connectivityController =>
+      controller;
 
   @override
-  Stream<List<ConnectivityResult>> get onConnectivityChanged => controller.stream;
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      controller.stream;
 
   @override
   Future<List<ConnectivityResult>> checkConnectivity() async {
@@ -66,8 +67,6 @@ class MockConnectivity extends Mock implements Connectivity {
     return [connectivityStatus!];
   }
 }
-
-
 
 class MockClient extends Mock implements http.Client {
   @override
@@ -105,16 +104,15 @@ void main() {
     );
 
     test('listener', () async {
-  final mockConnectivity = testgetit.connectivity as MockConnectivity;
+      final mockConnectivity = testgetit.connectivity as MockConnectivity;
 
-  // Pass the connectivity result inside a list
-  mockConnectivity.connectivityController.add([ConnectivityResult.mobile]);
+      // Pass the connectivity result inside a list
+      mockConnectivity.connectivityController.add([ConnectivityResult.mobile]);
 
-  // Test for error handling by adding an error to the stream
-  mockConnectivity.connectivityController
-      .addError(Exception("Something went wrong!"));
-});
-
+      // Test for error handling by adding an error to the stream
+      mockConnectivity.connectivityController
+          .addError(Exception("Something went wrong!"));
+    });
 
     test('check has connection', () async {
       connectivityStatus = ConnectivityResult.none;
