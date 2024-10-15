@@ -76,6 +76,7 @@ dependencies:
   vibration: ^2.0.0
   video_player: ^2.9.1
   visibility_detector: ^0.4.0+2
+  win32: 5.5.4
 
 
 dev_dependencies:
