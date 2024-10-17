@@ -1548,6 +1548,66 @@ class MockEventService extends _i2.Mock implements _i11.EventService {
       ) as _i5.Future<List<_i22.EventVolunteerGroup>>);
 
   @override
+  _i5.Future<dynamic> fetchAgendaCategories(String? orgId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchAgendaCategories,
+          [orgId],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> createAgendaItem(Map<String, dynamic>? variables) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createAgendaItem,
+          [variables],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> deleteAgendaItem(Map<String, dynamic>? variables) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAgendaItem,
+          [variables],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> updateAgendaItem(
+    String? itemId,
+    Map<String, dynamic>? variables,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateAgendaItem,
+          [
+            itemId,
+            variables,
+          ],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> fetchAgendaItems(String? eventId) => (super.noSuchMethod(
+        Invocation.method(
+          #fetchAgendaItems,
+          [eventId],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
           #dispose,

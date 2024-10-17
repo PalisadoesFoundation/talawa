@@ -59,17 +59,16 @@ class EventService extends BaseFeedManager<Event> {
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthMutation(mutation);
+    final result = await _dbFunctions.gqlAuthQuery(mutation);
 
     if (result.data == null) {
       throw Exception('unable to fetch data');
     }
 
-    print(result.data!["eventsByOrganizationConnection"]);
-    final List<Map<String, dynamic>> eventsJson = result
-        .data!["eventsByOrganizationConnection"] as List<Map<String, dynamic>>;
+    final eventsJson =
+        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
     eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData);
+      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.attendees?.any(
             (attendee) => attendee.id == _userConfig.currentUser.id,
           ) ??
@@ -323,6 +322,86 @@ class EventService extends BaseFeedManager<Event> {
       print('Error fetching volunteer groups: $e');
       rethrow;
     }
+  }
+
+  /// This function is used to create an agenda item.
+  ///
+  /// **params**:
+  /// * `orgId`: ID of organisation to fetch categories.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the created agenda item.
+  Future<dynamic> fetchAgendaCategories(String orgId) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+    );
+    return result;
+  }
+
+  /// This function is used to create an agenda item.
+  ///
+  /// **params**:
+  /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the created agenda item.
+  Future<dynamic> createAgendaItem(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().createAgendaItem(),
+      variables: {'input': variables},
+    );
+    return result;
+  }
+
+  /// This function is used to delete an agenda item.
+  ///
+  /// **params**:
+  /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the deleted agenda item.
+  Future<dynamic> deleteAgendaItem(Map<String, dynamic> variables) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().deleteAgendaItem(),
+      variables: variables,
+    );
+    return result;
+  }
+
+  /// This function is used to update an agenda item.
+  ///
+  /// **params**:
+  /// * `itemId`: Id of agenda item which is to be updated
+  /// * `variables`: A map of key-value pairs representing the variables required for the GraphQL mutation.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Information about the updated agenda item.
+  Future<dynamic> updateAgendaItem(
+    String itemId,
+    Map<String, dynamic> variables,
+  ) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().updateAgendaItem(),
+      variables: {
+        'updateAgendaItemId': itemId,
+        'input': variables,
+      },
+    );
+    return result;
+  }
+
+  /// This function is used to fetch all agenda items for a specific organization.
+  ///
+  /// **params**:
+  /// * `eventId`: ID of the event to fetch agenda items.
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: A list of agenda items for the specified organization.
+  Future<dynamic> fetchAgendaItems(String eventId) async {
+    final result = await _dbFunctions.gqlAuthQuery(
+      EventQueries().fetchAgendaItemsByEvent(eventId),
+    );
+    return result;
   }
 
   /// This function is used to cancel the stream subscription of an organization.

@@ -284,5 +284,130 @@ mutation CreateEventVolunteer(\$data: EventVolunteerInput!) {
         expected.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\t', ''),
       );
     });
+
+    test("Check if fetchAgendaItemCategoriesByOrganization works correctly",
+        () {
+      const expected = """
+    query {
+      agendaItemCategoriesByOrganization(organizationId: "sampleOrgId") {
+        _id
+        name
+        description
+        
+      }
+    }
+  """;
+
+      final actual =
+          EventQueries().fetchAgendaItemCategoriesByOrganization("sampleOrgId");
+      expect(actual.trim(), expected.trim());
+    });
+
+    test("Check if createAgendaItem works correctly", () {
+      const expected = """
+    mutation CreateAgendaItem(\$input: CreateAgendaItemInput!) {
+      createAgendaItem(input: \$input) {
+        _id
+        title
+        description
+        duration
+        attachments
+        createdBy {
+        _id
+        firstName
+        lastName
+        }
+        urls
+        categories {
+        _id
+        name
+        }
+        sequence
+      }
+    }
+  """;
+
+      final actual = EventQueries().createAgendaItem();
+      expect(actual.trim(), expected.trim());
+    });
+
+    test("Check if updateAgendaItem works correctly", () {
+      const expected = """
+    mutation UpdateAgendaItem(\$updateAgendaItemId: ID!
+    \$input: UpdateAgendaItemInput!
+  ) {
+      updateAgendaItem(id: \$updateAgendaItemId, input: \$input) {
+        _id
+        title
+        description
+        duration
+        attachments
+        createdBy {
+        _id
+        firstName
+        lastName
+        }
+        urls
+        categories {
+        _id
+        name
+        }
+        sequence
+      }
+    }
+  """;
+
+      final actual = EventQueries().updateAgendaItem();
+      expect(actual.trim(), expected.trim());
+    });
+
+    test("Check if deleteAgendaItem works correctly", () {
+      const expected = """
+    mutation RemoveAgendaItem(\$removeAgendaItemId: ID!) {
+      removeAgendaItem(id: \$removeAgendaItemId) {
+         _id
+      }
+    }
+  """;
+
+      final actual = EventQueries().deleteAgendaItem();
+      expect(actual.trim(), expected.trim());
+    });
+
+    test("Check if fetchAgendaItemsByEvent works correctly", () {
+      const expected = """
+  query {
+    agendaItemByEvent(relatedEventId: "sampleEventId") {
+      _id
+      title
+      description
+      duration
+      attachments
+      createdBy {
+        _id
+        firstName
+        lastName
+      }
+      urls
+      categories {
+        _id
+        name
+      }
+      sequence
+      organization {
+        _id
+        name
+      }
+      relatedEvent {
+        _id
+        title
+      }
+    }
+  }
+  """;
+
+      final actual = EventQueries().fetchAgendaItemsByEvent("sampleEventId");
+      expect(actual.trim(), expected.trim());
+    });
   });
 }

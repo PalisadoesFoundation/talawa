@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
+import 'package:talawa/views/after_auth_screens/events/manage_agenda_items_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -27,7 +29,12 @@ class _EventInfoPageState extends State<EventInfoPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    // TabController length will depend on whether the user is the event creator
+    final bool isCreator = (widget.args["event"] as Event).creator!.id ==
+        userConfig.currentUser.id;
+    final int tabCount = isCreator ? 3 : 2;
+
+    _tabController = TabController(length: tabCount, vsync: this);
     _tabController.addListener(() {
       setState(() {
         _showFloatingActionButton = _tabController.index == 0;
@@ -46,6 +53,9 @@ class _EventInfoPageState extends State<EventInfoPage>
     return BaseView<EventInfoViewModel>(
       onModelReady: (model) => model.initialize(args: widget.args),
       builder: (context, model, child) {
+        final bool isCreator = model.event.creator != null &&
+            model.event.creator!.id == userConfig.currentUser.id;
+
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -54,9 +64,20 @@ class _EventInfoPageState extends State<EventInfoPage>
             bottom: TabBar(
               key: const Key("tabBar"),
               controller: _tabController,
-              tabs: const [
-                Tab(text: "Info"),
-                Tab(text: "Volunteers"),
+              tabs: [
+                const Tab(
+                  text: "Info",
+                  key: Key('info_tag'),
+                ),
+                const Tab(
+                  text: "Volunteers",
+                  key: Key('volunteer_tag'),
+                ),
+                if (isCreator)
+                  const Tab(
+                    text: "Agendas",
+                    key: Key('agenda_tag'),
+                  ),
               ],
             ),
           ),
@@ -109,6 +130,7 @@ class _EventInfoPageState extends State<EventInfoPage>
                     : null,
               ),
               VolunteerGroupsScreen(event: model.event, model: model),
+              if (isCreator) const ManageAgendaScreen(),
             ],
           ),
         );
