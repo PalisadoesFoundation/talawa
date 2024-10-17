@@ -10,7 +10,9 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
+import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 
 import '../../../helpers/test_helpers.dart';
 
@@ -88,38 +90,66 @@ void main() {
     unregisterViewModels();
   });
   group('Test EventInfoPage', () {
-    // testWidgets('Test Share button', (tester) async {
-    //   mockNetworkImages(() async {
-    //     await tester.pumpWidget(createEventInfoPage(true, true));
-    //     await tester.pumpAndSettle();
-
-    //     final shareButton = find.byIcon(Icons.share);
-    //     expect(shareButton, findsOneWidget);
-
-    //     await tester.tap(shareButton);
-    //     await tester.pumpAndSettle();
-    //   });
-    // });
-
-    testWidgets('Test FloatingActionButton', (tester) async {
+    testWidgets('Test tab Bar appears', (tester) async {
       mockNetworkImages(() async {
         await tester.pumpWidget(createEventInfoPage(true, true));
         await tester.pumpAndSettle();
-
-        expect(find.byType(FloatingActionButton), findsOneWidget);
-
-        await tester.tap(find.byType(FloatingActionButton));
+        expect(find.byKey(const Key("tabBar")), findsOneWidget);
       });
     });
 
-    testWidgets('Test Delete FloatingActionButton', (tester) async {
+    testWidgets('Test event info section appears', (tester) async {
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createEventInfoPage(true, true));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key("tabBar")), findsOneWidget);
+        expect(find.text('Info'), findsOneWidget);
+        expect(find.byType(EventInfoBody), findsOneWidget);
+
+        //check if delete floating button appears when user is creator
+        expect(find.byIcon(Icons.delete), findsOneWidget);
+        await tester.tap(find.byIcon(Icons.delete));
+        await tester.pumpAndSettle();
+      });
+    });
+
+    testWidgets('Test FloatingActionButton', (tester) async {
       mockNetworkImages(() async {
         await tester.pumpWidget(createEventInfoPage(true, false));
         await tester.pumpAndSettle();
 
-        expect(find.byType(FloatingActionButton), findsOneWidget);
+        expect(
+          find.byKey(
+            const Key("registerEventFloatingbtn"),
+          ),
+          findsOneWidget,
+        );
 
-        await tester.tap(find.byType(FloatingActionButton));
+        await tester.tap(
+          find.byKey(
+            const Key("registerEventFloatingbtn"),
+          ),
+        );
+        await tester.pumpAndSettle();
+      });
+    });
+    testWidgets('Test if volunteer section appears on swipe left',
+        (tester) async {
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createEventInfoPage(true, true));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key("tabBar")), findsOneWidget);
+        expect(find.text('Info'), findsOneWidget);
+        expect(find.byType(VolunteerGroupsScreen), findsNothing);
+
+        await tester.drag(
+          find.byType(TabBarView),
+          const Offset(-500.0, 0.0),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EventInfoBody), findsNothing);
+        expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
       });
     });
   });
