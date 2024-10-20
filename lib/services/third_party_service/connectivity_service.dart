@@ -62,7 +62,7 @@ class ConnectivityService {
   Future<void> enableSubscription() async {
     connectivity.onConnectivityChanged.listen(
       (List<ConnectivityResult> results) {
-        for (var result in results) {
+        for (final result in results) {
           print(result);
           connectionStatusController.add(result);
         }
