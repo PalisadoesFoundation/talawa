@@ -35,8 +35,9 @@ class MockConnectivityService extends Mock
   Stream<ConnectivityResult> get connectionStream => controller.stream;
 
   @override
-  Future<ConnectivityResult> getConnectionType() {
-    return Future.value(connectivityStatus);
+  Future<List<ConnectivityResult>> getConnectionType() {
+    // Return a list of ConnectivityResults as expected by the new method signature
+    return Future.value([connectivityStatus!]);
   }
 
   @override
@@ -46,20 +47,24 @@ class MockConnectivityService extends Mock
 }
 
 class MockConnectivity extends Mock implements Connectivity {
-  final controller = StreamController<ConnectivityResult>();
+  final controller = StreamController<List<ConnectivityResult>>();
 
-  StreamController<ConnectivityResult> get connectivityController => controller;
-
-  @override
-  Stream<ConnectivityResult> get onConnectivityChanged => controller.stream;
+  StreamController<List<ConnectivityResult>> get connectivityController =>
+      controller;
 
   @override
-  Future<ConnectivityResult> checkConnectivity() async {
-    // TODO: implement checkConnectivity
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      controller.stream;
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() async {
+    // If connectivityStatus is null, we simulate a socket exception
     if (connectivityStatus == null) {
       throw const SocketException('socket exception');
     }
-    return connectivityStatus!;
+
+    // Return the connectivity status as a list (as required by the new method signature)
+    return [connectivityStatus!];
   }
 }
 
@@ -100,8 +105,11 @@ void main() {
 
     test('listener', () async {
       final mockConnectivity = testgetit.connectivity as MockConnectivity;
-      mockConnectivity.connectivityController.add(ConnectivityResult.mobile);
 
+      // Pass the connectivity result inside a list
+      mockConnectivity.connectivityController.add([ConnectivityResult.mobile]);
+
+      // Test for error handling by adding an error to the stream
       mockConnectivity.connectivityController
           .addError(Exception("Something went wrong!"));
     });

@@ -27,9 +27,10 @@ class ConnectivityService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<ConnectivityResult>`: indicates if the url is reachable.
-  Future<ConnectivityResult> getConnectionType() async {
-    final result = await connectivity.checkConnectivity();
+  /// * `Future<List<ConnectivityResult>>`: A future that resolves to a list of connectivity results indicating the connection types.
+  Future<List<ConnectivityResult>> getConnectionType() async {
+    final List<ConnectivityResult> result =
+        await connectivity.checkConnectivity();
     return result;
   }
 
@@ -60,9 +61,11 @@ class ConnectivityService {
   ///   None
   Future<void> enableSubscription() async {
     connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult result) {
-        print(result);
-        connectionStatusController.add(result);
+      (List<ConnectivityResult> results) {
+        for (final result in results) {
+          print(result);
+          connectionStatusController.add(result);
+        }
       },
       onError: (error) {
         // Handle errors during listening for changes
@@ -107,8 +110,9 @@ class ConnectivityService {
   /// * `Future<bool>`: indicating whether the device has a network connection.
   Future<bool> hasConnection() async {
     try {
-      final result = await getConnectionType();
-      return result != ConnectivityResult.none;
+      final results = await getConnectionType();
+      // Check if any of the connectivity results are not 'none'
+      return results.any((result) => result != ConnectivityResult.none);
     } catch (e) {
       return false;
     }
