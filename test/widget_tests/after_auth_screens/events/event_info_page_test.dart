@@ -12,6 +12,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
+import 'package:talawa/views/after_auth_screens/events/manage_agenda_items_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -150,6 +151,33 @@ void main() {
 
         expect(find.byType(EventInfoBody), findsNothing);
         expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+      });
+    });
+    testWidgets('Test if agenda section appears on swipe left', (tester) async {
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createEventInfoPage(true, true));
+        await tester.pumpAndSettle();
+        expect(find.byKey(const Key("tabBar")), findsOneWidget);
+        expect(find.text('Info'), findsOneWidget);
+        expect(find.byType(VolunteerGroupsScreen), findsNothing);
+
+        await tester.drag(
+          find.byType(TabBarView),
+          const Offset(-500.0, 0.0),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EventInfoBody), findsNothing);
+        expect(find.byType(VolunteerGroupsScreen), findsOneWidget);
+
+        await tester.drag(
+          find.byType(TabBarView),
+          const Offset(-500.0, 0.0),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VolunteerGroupsScreen), findsNothing);
+        expect(find.byType(ManageAgendaScreen), findsOneWidget);
       });
     });
   });

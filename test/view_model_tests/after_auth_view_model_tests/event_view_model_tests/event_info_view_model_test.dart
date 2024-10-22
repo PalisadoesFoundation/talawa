@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -181,6 +182,183 @@ void main() {
       await model.fetchVolunteerGroups('1');
 
       expect(model.volunteerGroups.length, 0);
+    });
+
+    test('createAgendaItem success', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'createAgendaItem': {
+            'id': '1',
+            'title': 'Test Agenda',
+            'duration': '1h',
+            'sequence': 1,
+          },
+        },
+        options: QueryOptions(document: gql(EventQueries().createAgendaItem())),
+      );
+
+      when(
+        eventService.createAgendaItem({
+          'title': 'Test Agenda',
+          'sequence': 1,
+          'description': 'desc',
+          'duration': '1h',
+          'organizationId': 'XYZ',
+          'attachments': [],
+          'relatedEventId': model.event.id,
+          'urls': [],
+          'categories': ['cat1'],
+        }),
+      ).thenAnswer((_) async => mockResult);
+
+      final result = await model.createAgendaItem(
+        title: 'Test Agenda',
+        duration: '1h',
+        attachments: [],
+        categories: ['cat1'],
+        description: 'desc',
+        sequence: 1,
+        urls: [],
+      );
+
+      expect(result, isNotNull);
+      expect(result!.title, 'Test Agenda');
+      expect(model.agendaItems.length, 1);
+      expect(model.agendaItems.first.title, 'Test Agenda');
+    });
+    test('deleteAgendaItem success', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', title: 'Item 1'),
+        EventAgendaItem(id: '2', title: 'Item 2'),
+      ]);
+
+      when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
+          .thenAnswer((_) async => true);
+
+      await model.deleteAgendaItem('1');
+
+      expect(model.agendaItems.length, 1);
+      expect(model.agendaItems.first.id, '2');
+    });
+
+    test('updateAgendaItemSequence success', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'updateAgendaItem': {
+            'id': '1',
+            'title': 'Updated Item',
+            'sequence': 2,
+          },
+        },
+        options: QueryOptions(document: gql(EventQueries().updateAgendaItem())),
+      );
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', title: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', title: 'Item 2', sequence: 2),
+      ]);
+
+      when(
+        eventService.updateAgendaItem(
+          '1',
+          {'sequence': 2},
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      await model.updateAgendaItemSequence('1', 2);
+
+      expect(model.agendaItems.first.sequence, 2);
+      expect(model.agendaItems.first.title, 'Updated Item');
+    });
+    test('fetchAgendaItems success', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'agendaItemByEvent': [
+            {
+              'id': '1',
+              'title': 'Agenda 1',
+              'duration': '1h',
+              'sequence': 1,
+            },
+            {
+              'id': '2',
+              'title': 'Agenda 2',
+              'duration': '30m',
+              'sequence': 2,
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+        ),
+      );
+
+      when(eventService.fetchAgendaItems('1'))
+          .thenAnswer((_) async => mockResult);
+
+      await model.fetchAgendaItems();
+
+      expect(model.agendaItems.length, 2);
+      expect(model.agendaItems[0].title, 'Agenda 1');
+      expect(model.agendaItems[1].title, 'Agenda 2');
+      expect(model.agendaItems[0].sequence, 1);
+      expect(model.agendaItems[1].sequence, 2);
+    });
+
+    test('fetchCategories success', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'agendaItemCategoriesByOrganization': [
+            {
+              'id': '1',
+              'name': 'Category 1',
+            },
+            {
+              'id': '2',
+              'name': 'Category 2',
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(
+            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+          ),
+        ),
+      );
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => mockResult);
+
+      await model.fetchCategories();
+
+      expect(model.categories.length, 2);
+      expect(model.categories[0].name, 'Category 1');
+      expect(model.categories[1].name, 'Category 2');
     });
   });
 }

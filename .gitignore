@@ -8,6 +8,8 @@
 .buildlog/
 .history
 .svn/
+.metadata/
+.metadata
 
 # Ignore Google services configuration files
 google-services.json
