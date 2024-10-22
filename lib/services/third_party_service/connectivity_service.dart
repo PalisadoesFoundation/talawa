@@ -21,14 +21,13 @@ class ConnectivityService {
   Stream<ConnectivityResult> get connectionStream =>
       connectionStatusController.stream;
 
-  // ignore: talawa_good_doc_comments
   /// Checks the current internet connectivity status of the device.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Future<List<ConnectivityResult>>: indicates if the url is reachable.
+  /// * `Future<List<ConnectivityResult>>`: A future that resolves to a list of connectivity results indicating the connection types.
   Future<List<ConnectivityResult>> getConnectionType() async {
     final List<ConnectivityResult> result =
         await connectivity.checkConnectivity();
@@ -63,7 +62,7 @@ class ConnectivityService {
   Future<void> enableSubscription() async {
     connectivity.onConnectivityChanged.listen(
       (List<ConnectivityResult> results) {
-        for (var result in results) {
+        for (final result in results) {
           print(result);
           connectionStatusController.add(result);
         }

@@ -46,8 +46,9 @@ class AppConnectivity extends BaseModel {
     if (resultList.isNotEmpty) {
       handleConnection(resultList.first);
     } else {
-      handleConnection(ConnectivityResult
-          .none); // Default to 'none' if the list is unexpectedly empty
+      handleConnection(
+        ConnectivityResult.none,
+      ); // Default to 'none' if the list is unexpectedly empty
     }
   }
 
