@@ -3,7 +3,7 @@
 #
 # NOTE!
 #
-# Please read the README.md file in this directory that defines what should 
+# Please read the README.md file in this directory that defines what should
 # be placed in this file
 #
 ##############################################################################
@@ -12,7 +12,7 @@
 name: Issues Workflow
 on:
   issues:
-      types: ['opened']
+    types: ["opened"]
 jobs:
   Opened-issue-label:
     name: Adding Issue Label
@@ -23,7 +23,12 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           ignore-comments: true
           default-labels: '["unapproved"]'
-  
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/workflows/auto-label.json5
+          sparse-checkout-cone-mode: false
+
   Issue-Greeting:
     name: Greeting Message to User
     runs-on: ubuntu-latest
