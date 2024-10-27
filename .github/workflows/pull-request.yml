@@ -183,9 +183,9 @@ jobs:
           echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
           exit 1
 
-  Check-Unauthorized-Changes:
+  Check-Sensitive-Files:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Checks if no unauthorized files are changed
+    name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
