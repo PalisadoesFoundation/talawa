@@ -213,6 +213,14 @@ jobs:
             LICENSE
             setup.ts
             .coderabbit.yaml
+            CODE_OF_CONDUCT.md
+            CONTRIBUTING.md
+            DOCUMENTATION.md
+            INSTALLATION.md
+            ISSUE_GUIDELINES.md
+            PR_GUIDELINES.md
+            README.md
+
       - name: List all changed unauthorized files
         if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
         env:
