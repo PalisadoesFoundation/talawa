@@ -173,7 +173,7 @@ jobs:
         run: flutter build ios --release --no-codesign
 
   Branch-check:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
     name: "Base branch check"
     runs-on: ubuntu-latest
     steps:
