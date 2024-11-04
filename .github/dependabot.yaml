@@ -6,7 +6,7 @@ updates:
     directory: "/"
     # Check the pub.dev registry for updates every day (weekdays)
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     target-branch: "develop"
     # # Add default reviewers
     # reviewers:
