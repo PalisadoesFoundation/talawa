@@ -46,7 +46,7 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.8.0
-  get_it: ^8.0.1
+  get_it: ^8.0.2
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^1.2.2
