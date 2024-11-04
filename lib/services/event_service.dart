@@ -59,7 +59,7 @@ class EventService extends BaseFeedManager<Event> {
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthQuery(mutation);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
 
     if (result.data == null) {
       throw Exception('unable to fetch data');
