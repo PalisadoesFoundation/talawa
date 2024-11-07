@@ -289,9 +289,9 @@ class _PledgesScreenState extends State<PledgesScreen> {
       return const Center(child: Text('No pledges found.'));
     }
     return ListView.builder(
-      itemCount: model.pledges.length,
+      itemCount: model.filteredPledges.length,
       itemBuilder: (context, index) {
-        final pledge = model.pledges[index];
+        final pledge = model.filteredPledges[index];
         return PledgeCard(
           pledge: pledge,
           onUpdate: () => _showUpdatePledgeDialog(context, model, pledge),

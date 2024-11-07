@@ -33,7 +33,7 @@ class FundViewModel extends BaseModel {
   List<Campaign> _campaigns = [];
   List<Campaign> _filteredCampaigns = [];
   List<Pledge> _pledges = [];
-  final List<Pledge> _filteredPledges = [];
+  List<Pledge> _filteredPledges = [];
 
   bool _isFetchingFunds = false;
   bool _isFetchingCampaigns = false;
@@ -237,15 +237,24 @@ class FundViewModel extends BaseModel {
     notifyListeners();
   }
 
-  /// methoud to search pledgers.
+  /// Method to search pledges by pledger.
   ///
   /// **params**:
-  /// * `query`: query to search for Funds.
+  /// * `query`: query to search for pledger.
   ///
   /// **returns**:
   ///   None
   void searchPledgers(String query) {
-    _applyCampaignFilters();
+    final lowerCaseQuery = query.toLowerCase();
+
+    _filteredPledges.clear();
+    _filteredPledges.addAll(
+      _pledges.where((pledge) {
+        return pledge.pledgers!.any(
+          (user) => user.firstName!.toLowerCase().contains(lowerCaseQuery),
+        );
+      }).toList(),
+    );
     notifyListeners();
   }
 
@@ -274,12 +283,6 @@ class FundViewModel extends BaseModel {
       return campaign.name!.toLowerCase().contains(_campaignSearchQuery);
     }).toList();
   }
-
-  // void _applyPledgeFilters() {
-  //   _filteredPledges = _pledges.where((pledge) {
-  //     return pledge.name!.toLowerCase().contains(_campaignSearchQuery);
-  //   }).toList();
-  // }
 
   /// This function fetches pledges for a specific campaign.
   ///
@@ -353,7 +356,7 @@ class FundViewModel extends BaseModel {
       await _fundService.createPledge(pledgeData);
       await fetchPledges(parentcampaignId);
     } catch (e) {
-      // Handle error
+      print('Error creating pledge: $e');
     }
   }
 
@@ -369,7 +372,7 @@ class FundViewModel extends BaseModel {
       await _fundService.updatePledge(updatedPledgeData);
       await fetchPledges(parentcampaignId);
     } catch (e) {
-      // Handle error
+      print('Error updating pledge: $e');
     }
   }
 
@@ -387,7 +390,7 @@ class FundViewModel extends BaseModel {
       // Refresh pledges after deleting
       await fetchPledges(campaignId);
     } catch (e) {
-      // Handle error
+      print('Error updating pledge: $e');
     }
   }
 

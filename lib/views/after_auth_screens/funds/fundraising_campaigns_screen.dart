@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';

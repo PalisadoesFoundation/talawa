@@ -30,30 +30,35 @@ class FundService {
   /// **returns**:
   /// * `Future<List<Fund>>`: List of funds associated with the organization.
   Future<List<Fund>> getFunds({String orderBy = 'createdAt_DESC'}) async {
-    final String currentOrgID = _currentOrg.id!;
-    final result = await _dbFunctions.gqlAuthQuery(
-      _fundQueries.fetchOrgFunds(),
-      variables: {
-        'orgId': currentOrgID,
-        'filter': '',
-        'orderBy': orderBy,
-      },
-    );
+    try {
+      final String currentOrgID = _currentOrg.id!;
+      final result = await _dbFunctions.gqlAuthQuery(
+        _fundQueries.fetchOrgFunds(),
+        variables: {
+          'orgId': currentOrgID,
+          'filter': '',
+          'orderBy': orderBy,
+        },
+      );
 
-    if (result.data == null) {
-      throw Exception('Unable to fetch funds');
-    }
-
-    final fundsJson = result.data!['fundsByOrganization'] as List<dynamic>;
-    final funds = fundsJson.map((fundData) {
-      if (fundData is Map<String, dynamic>) {
-        return Fund.fromJson(fundData);
-      } else {
-        throw Exception('Invalid fund data format');
+      if (result.data == null) {
+        throw Exception('Unable to fetch funds');
       }
-    }).toList();
 
-    return funds;
+      final fundsJson = result.data!['fundsByOrganization'] as List<dynamic>;
+      final funds = fundsJson.map((fundData) {
+        if (fundData is Map<String, dynamic>) {
+          return Fund.fromJson(fundData);
+        } else {
+          throw Exception('Invalid fund data format');
+        }
+      }).toList();
+
+      return funds;
+    } catch (e) {
+      print('Error fetching funss: $e');
+      throw Exception('Failed to load Funds');
+    }
   }
 
   /// This function is used to fetch all campaigns of a fund.
@@ -177,8 +182,6 @@ class FundService {
     Map<String, dynamic> variables,
   ) async {
     try {
-      print(variables['startDate']);
-      print(variables['users'].length);
       final result = await _dbFunctions.gqlAuthMutation(
         _fundQueries.updatePledge(),
         variables: variables,
@@ -198,12 +201,17 @@ class FundService {
   /// **returns**:
   /// * `Future<QueryResult<Object?>>`: which contains the result of the GraphQL mutation.
   Future<QueryResult<Object?>> deletePledge(String pledgeId) async {
-    final result = await _dbFunctions.gqlAuthMutation(
-      _fundQueries.deletePledge(),
-      variables: {
-        'id': pledgeId,
-      },
-    );
-    return result;
+    try {
+      final result = await _dbFunctions.gqlAuthMutation(
+        _fundQueries.deletePledge(),
+        variables: {
+          'id': pledgeId,
+        },
+      );
+      return result;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to load pledges');
+    }
   }
 }
