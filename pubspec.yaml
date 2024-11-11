@@ -67,7 +67,7 @@ dependencies:
   shared_preferences: ^2.3.3
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^27.1.57
+  syncfusion_flutter_calendar: ^27.1.58
   syncfusion_flutter_datepicker: ^27.1.58
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.12
