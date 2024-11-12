@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:talawa/models/funds/fund.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/funds_view_models/organisation_fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/funds_view_models/fund_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/funds/fundraising_campaigns_screen.dart';
 import 'package:talawa/views/base_view.dart';

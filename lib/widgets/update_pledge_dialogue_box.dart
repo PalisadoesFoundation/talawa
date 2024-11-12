@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/view_model/after_auth_view_models/funds_view_models/organisation_fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/funds_view_models/fund_view_model.dart';
 
 /// Displays a dialog to update the pledge details, including amount, dates, and pledgers.
 class UpdatePledgeDialog extends StatefulWidget {

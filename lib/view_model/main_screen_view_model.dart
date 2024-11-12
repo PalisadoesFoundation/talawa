@@ -286,7 +286,7 @@ class MainScreenViewModel extends BaseModel {
         // ),
         const FundScreen(
           key: Key('FundScreen'),
-        )
+        ),
       ];
       pluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;

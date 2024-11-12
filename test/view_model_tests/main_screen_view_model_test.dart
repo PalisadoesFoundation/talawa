@@ -172,561 +172,564 @@ void main() async {
       final mainTestModel = getModel();
       expect(mainTestModel.currentPageIndex, 0);
     });
-  });
 
-  // May need to change
-  group("onTabTapped -", () {
-    test("When an index is passed that, current index should equal that index",
-        () {
-      final mainTestModel = getModel();
-      mainTestModel.onTabTapped(4);
-      expect(mainTestModel.currentPageIndex, 4);
-    });
-
-    test("When called function should notify listeners of tab change", () {
-      final mockcallback = MockCallBack();
-      final mainTestModel = getModel();
-      mainTestModel.addListener(mockcallback);
-
-      mainTestModel.onTabTapped(0);
-      verify(mockcallback()).called(1);
-    });
-  });
-
-  group("initialize", () {
-    final context = MockBuildContext();
-    SizeConfig().test();
-    setUp(() => registerServices());
-    tearDown(() => unregisterServices());
-
-    void runIntialize({
-      required bool fSignUp,
-      int mainIndex = 1,
-      required MainScreenViewModel model,
-      BuildContext? pcontext,
-    }) {
-      model.initialise(
-        pcontext ?? context,
-        fromSignUp: fSignUp,
-        mainScreenIndex: mainIndex,
-      );
-    }
-
-    test(
-        "MainScreenViewModel showAppTour and currentIndex should equal values passed to fromSignUp and mainScreenIndex",
-        () {
-      const bool fSignup = true;
-      const int mainIndex = 1;
-      final mainTestModel = getModel();
-      runIntialize(
-        fSignUp: fSignup,
-        mainIndex: mainIndex,
-        model: mainTestModel,
-      );
-
-      expect(mainTestModel.showAppTour, fSignup);
-      expect(mainTestModel.currentPageIndex, mainIndex);
-    });
-
-    test('Test for showHome method', () {
-      final model = getModel();
-
-      model.showHome(
-        TargetFocus(
-          identify: "keyDrawerLeaveCurrentOrg",
-          keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-        ),
-      );
-    });
-
-    test(
-        "When fromSignUp is false tourComplete should equal true, tourSkipped and showApptour false",
-        () {
-      final mainTestModel = getModel();
-      runIntialize(fSignUp: false, model: mainTestModel);
-      expect(mainTestModel.tourComplete, true);
-      expect(mainTestModel.tourSkipped, false);
-      expect(mainTestModel.showAppTour, false);
-    });
-
-    test("When fromSignUp is false, App Tour dialog should not be displayed",
-        () async {
-      final mocknav = getAndRegisterNavigationService();
-      final mainTestModel = getModel();
-
-      mainTestModel.initialise(
-        MockBuildContext(),
-        fromSignUp: false,
-        mainScreenIndex: 0,
-      );
-
-      // Ensures that navigation service was not called
-      verifyZeroInteractions(mocknav);
-    });
-
-    testWidgets('Test for apptour dialog skip action.', (tester) async {
-      await tester.pumpWidget(createAppTourDialog());
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      expect(find.byType(CustomAlertDialog), findsOneWidget);
-
-      // await tester.pumpAndSettle();
-
-      final skipBtn = find.textContaining('Skip');
-
-      expect(skipBtn, findsOneWidget);
-
-      await tester.tap(skipBtn);
-      await tester.pumpAndSettle(
-        const Duration(seconds: 1),
-      );
-    });
-
-    testWidgets('Test for apptour dialog success action.', (tester) async {
-      await tester.pumpWidget(createAppTourDialog());
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-
-      final mockUserConfig = getAndRegisterUserConfig();
-      when(mockUserConfig.loggedIn).thenReturn(true);
-
-      MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
-
-      expect(find.byType(CustomAlertDialog), findsOneWidget);
-
-      final startBtn = find.textContaining('Start').last;
-
-      expect(startBtn, findsOneWidget);
-
-      await tester.tap(startBtn);
-
-      await tester.pumpAndSettle(const Duration(seconds: 2));
-    });
-
-    testWidgets('Test for fetchAndAddPlugins when not in demoMode',
-        (tester) async {
-      final app = createAppTourDialog(demoMode: false);
-
-      await tester.pumpWidget(app);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-    });
-
-    group('Tests for tour', () {
-      late UserConfig model;
-      late List<FocusTarget> expectedTargets;
-      late Map<String, GlobalKey> keysMap;
-      final GlobalKey<ScaffoldState> key = MainScreenViewModel.scaffoldKey;
-      setUp(() {
-        keysMap = {};
-        expectedTargets = [];
-        model = getAndRegisterUserConfig();
+    // May need to change
+    group("onTabTapped -", () {
+      test(
+          "When an index is passed that, current index should equal that index",
+          () {
+        final mainTestModel = getModel();
+        mainTestModel.onTabTapped(4);
+        expect(mainTestModel.currentPageIndex, 4);
       });
-      testWidgets('Test for tourhomeTargets when userconfig.loggedin is true.',
-          (tester) async {
-        const val1 = true;
-        when(model.loggedIn).thenAnswer((_) => val1);
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourComplete = true;
-            model2.tourHomeTargets();
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
-            }
-            // ignore: avoid_dynamic_calls
-            model2.targets[1].next!();
-            // ignore: avoid_dynamic_calls
-            model2.targets[5].next!();
-            keysMap = {
-              'keySHOrgName': model2.keySHOrgName,
-              'keySHMenuIcon': model2.keySHMenuIcon,
-              'keyDrawerCurOrg': MainScreenViewModel.keyDrawerCurOrg,
-              'keyDrawerSwitchableOrg':
-                  MainScreenViewModel.keyDrawerSwitchableOrg,
-              'keyDrawerJoinOrg': MainScreenViewModel.keyDrawerJoinOrg,
-              'keyDrawerLeaveCurrentOrg':
-                  MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-              'keyBNHome': model2.keyBNHome,
-              'keySHPinnedPost': model2.keySHPinnedPost,
-              'keySHPost': model2.keySHPost,
-            };
-          }),
+
+      test("When called function should notify listeners of tab change", () {
+        final mockcallback = MockCallBack();
+        final mainTestModel = getModel();
+        mainTestModel.addListener(mockcallback);
+
+        mainTestModel.onTabTapped(0);
+        verify(mockcallback()).called(1);
+      });
+    });
+
+    group("initialize", () {
+      final context = MockBuildContext();
+      SizeConfig().test();
+      setUp(() => registerServices());
+      tearDown(() => unregisterServices());
+
+      void runIntialize({
+        required bool fSignUp,
+        int mainIndex = 1,
+        required MainScreenViewModel model,
+        BuildContext? pcontext,
+      }) {
+        model.initialise(
+          pcontext ?? context,
+          fromSignUp: fSignUp,
+          mainScreenIndex: mainIndex,
+        );
+      }
+
+      test(
+          "MainScreenViewModel showAppTour and currentIndex should equal values passed to fromSignUp and mainScreenIndex",
+          () {
+        const bool fSignup = true;
+        const int mainIndex = 1;
+        final mainTestModel = getModel();
+        runIntialize(
+          fSignUp: fSignup,
+          mainIndex: mainIndex,
+          model: mainTestModel,
         );
 
+        expect(mainTestModel.showAppTour, fSignup);
+        expect(mainTestModel.currentPageIndex, mainIndex);
+      });
+
+      test('Test for showHome method', () {
+        final model = getModel();
+
+        model.showHome(
+          TargetFocus(
+            identify: "keyDrawerLeaveCurrentOrg",
+            keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+          ),
+        );
+      });
+
+      test(
+          "When fromSignUp is false tourComplete should equal true, tourSkipped and showApptour false",
+          () {
+        final mainTestModel = getModel();
+        runIntialize(fSignUp: false, model: mainTestModel);
+        expect(mainTestModel.tourComplete, true);
+        expect(mainTestModel.tourSkipped, false);
+        expect(mainTestModel.showAppTour, false);
+      });
+
+      test("When fromSignUp is false, App Tour dialog should not be displayed",
+          () async {
+        final mocknav = getAndRegisterNavigationService();
+        final mainTestModel = getModel();
+
+        mainTestModel.initialise(
+          MockBuildContext(),
+          fromSignUp: false,
+          mainScreenIndex: 0,
+        );
+
+        // Ensures that navigation service was not called
+        verifyZeroInteractions(mocknav);
+      });
+
+      testWidgets('Test for apptour dialog skip action.', (tester) async {
+        await tester.pumpWidget(createAppTourDialog());
         await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+        expect(find.byType(CustomAlertDialog), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+        // await tester.pumpAndSettle();
 
-        await tester.pump();
+        final skipBtn = find.textContaining('Skip');
 
-        expect(find.text('drawer123'), findsOneWidget);
+        expect(skipBtn, findsOneWidget);
 
-        expect(expectedTargets.length, 9);
+        await tester.tap(skipBtn);
+        await tester.pumpAndSettle(
+          const Duration(seconds: 1),
+        );
+      });
 
-        final List<String> keyNames = keysMap.keys.toList();
+      testWidgets('Test for apptour dialog success action.', (tester) async {
+        await tester.pumpWidget(createAppTourDialog());
+        await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        for (int i = 0; i < expectedTargets.length; i++) {
-          expect(expectedTargets[i].keyName, keyNames[i]);
-          expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          if (i != 1 && i != 4 && i != 5) {
-            expect(expectedTargets[i].next, null);
-          } else {
-            expect(expectedTargets[i].next, isNotNull);
+        final mockUserConfig = getAndRegisterUserConfig();
+        when(mockUserConfig.loggedIn).thenReturn(true);
+
+        MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+
+        expect(find.byType(CustomAlertDialog), findsOneWidget);
+
+        final startBtn = find.textContaining('Start').last;
+
+        expect(startBtn, findsOneWidget);
+
+        await tester.tap(startBtn);
+
+        await tester.pumpAndSettle(const Duration(seconds: 2));
+      });
+
+      testWidgets('Test for fetchAndAddPlugins when not in demoMode',
+          (tester) async {
+        final app = createAppTourDialog(demoMode: false);
+
+        await tester.pumpWidget(app);
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+      });
+
+      group('Tests for tour', () {
+        late UserConfig model;
+        late List<FocusTarget> expectedTargets;
+        late Map<String, GlobalKey> keysMap;
+        final GlobalKey<ScaffoldState> key = MainScreenViewModel.scaffoldKey;
+        setUp(() {
+          keysMap = {};
+          expectedTargets = [];
+          model = getAndRegisterUserConfig();
+        });
+        testWidgets(
+            'Test for tourhomeTargets when userconfig.loggedin is true.',
+            (tester) async {
+          const val1 = true;
+          when(model.loggedIn).thenAnswer((_) => val1);
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourComplete = true;
+              model2.tourHomeTargets();
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              // ignore: avoid_dynamic_calls
+              model2.targets[1].next!();
+              // ignore: avoid_dynamic_calls
+              model2.targets[5].next!();
+              keysMap = {
+                'keySHOrgName': model2.keySHOrgName,
+                'keySHMenuIcon': model2.keySHMenuIcon,
+                'keyDrawerCurOrg': MainScreenViewModel.keyDrawerCurOrg,
+                'keyDrawerSwitchableOrg':
+                    MainScreenViewModel.keyDrawerSwitchableOrg,
+                'keyDrawerJoinOrg': MainScreenViewModel.keyDrawerJoinOrg,
+                'keyDrawerLeaveCurrentOrg':
+                    MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                'keyBNHome': model2.keyBNHome,
+                'keySHPinnedPost': model2.keySHPinnedPost,
+                'keySHPost': model2.keySHPost,
+              };
+            }),
+          );
+
+          await tester.pumpAndSettle(const Duration(seconds: 1));
+
+          expect(find.textContaining('tour home'), findsOneWidget);
+
+          await tester.tap(find.textContaining('tour home'));
+
+          await tester.pump();
+
+          expect(find.text('drawer123'), findsOneWidget);
+
+          expect(expectedTargets.length, 9);
+
+          final List<String> keyNames = keysMap.keys.toList();
+
+          for (int i = 0; i < expectedTargets.length; i++) {
+            expect(expectedTargets[i].keyName, keyNames[i]);
+            expect(expectedTargets[i].key, keysMap[keyNames[i]]);
+            if (i != 1 && i != 4 && i != 5) {
+              expect(expectedTargets[i].next, null);
+            } else {
+              expect(expectedTargets[i].next, isNotNull);
+            }
           }
-        }
-      });
-      testWidgets('Whether AppTour is initialized or not', (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
-        late AppTour appTour;
+        });
+        testWidgets('Whether AppTour is initialized or not', (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
+          late AppTour appTour;
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            appTour = model2.appTour;
-          }),
-        );
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              appTour = model2.appTour;
+            }),
+          );
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+          expect(find.textContaining('tour home'), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+          await tester.tap(find.textContaining('tour home'));
 
-        await tester.pump();
+          await tester.pump();
 
-        expect(appTour, isNotNull);
-      });
+          expect(appTour, isNotNull);
+        });
 
-      testWidgets('Test for tourhomeTargets when userconfig.loggedin is false.',
-          (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
+        testWidgets(
+            'Test for tourhomeTargets when userconfig.loggedin is false.',
+            (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourComplete = true;
-            model2.tourHomeTargets(model);
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourComplete = true;
+              model2.tourHomeTargets(model);
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              // ignore: avoid_dynamic_calls
+              model2.targets[4].next!();
+              keysMap = {
+                'keySHOrgName': model2.keySHOrgName,
+                'keySHMenuIcon': model2.keySHMenuIcon,
+                'keyDrawerCurOrg': MainScreenViewModel.keyDrawerCurOrg,
+                'keyDrawerSwitchableOrg':
+                    MainScreenViewModel.keyDrawerSwitchableOrg,
+                'keyDrawerJoinOrg': MainScreenViewModel.keyDrawerJoinOrg,
+                'keyBNHome': model2.keyBNHome,
+                'keySHPinnedPost': model2.keySHPinnedPost,
+                'keySHPost': model2.keySHPost,
+              };
+            }),
+          );
+
+          await tester.pumpAndSettle(const Duration(seconds: 1));
+
+          expect(find.textContaining('tour home'), findsOneWidget);
+
+          await tester.tap(find.textContaining('tour home'));
+
+          await tester.pump();
+
+          expect(expectedTargets.length, 8);
+
+          final List<String> keyNames = keysMap.keys.toList();
+
+          for (int i = 0; i < expectedTargets.length; i++) {
+            expect(expectedTargets[i].keyName, keyNames[i]);
+            expect(expectedTargets[i].key, keysMap[keyNames[i]]);
+            if (i != 1 && i != 4) {
+              expect(expectedTargets[i].next, null);
+            } else {
+              expect(expectedTargets[i].next, isNotNull);
             }
-            // ignore: avoid_dynamic_calls
-            model2.targets[4].next!();
-            keysMap = {
-              'keySHOrgName': model2.keySHOrgName,
-              'keySHMenuIcon': model2.keySHMenuIcon,
-              'keyDrawerCurOrg': MainScreenViewModel.keyDrawerCurOrg,
-              'keyDrawerSwitchableOrg':
-                  MainScreenViewModel.keyDrawerSwitchableOrg,
-              'keyDrawerJoinOrg': MainScreenViewModel.keyDrawerJoinOrg,
-              'keyBNHome': model2.keyBNHome,
-              'keySHPinnedPost': model2.keySHPinnedPost,
-              'keySHPost': model2.keySHPost,
-            };
-          }),
-        );
-
-        await tester.pumpAndSettle(const Duration(seconds: 1));
-
-        expect(find.textContaining('tour home'), findsOneWidget);
-
-        await tester.tap(find.textContaining('tour home'));
-
-        await tester.pump();
-
-        expect(expectedTargets.length, 8);
-
-        final List<String> keyNames = keysMap.keys.toList();
-
-        for (int i = 0; i < expectedTargets.length; i++) {
-          expect(expectedTargets[i].keyName, keyNames[i]);
-          expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          if (i != 1 && i != 4) {
-            expect(expectedTargets[i].next, null);
-          } else {
-            expect(expectedTargets[i].next, isNotNull);
           }
-        }
-      });
-      testWidgets(
-          'Test for tourhomeTargets whether correct function is called when tour is not exited.',
-          (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: MaterialApp(
-              home: Scaffold(
-                key: key,
-                body: Container(),
+        });
+        testWidgets(
+            'Test for tourhomeTargets whether correct function is called when tour is not exited.',
+            (tester) async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: MaterialApp(
+                home: Scaffold(
+                  key: key,
+                  body: Container(),
+                ),
               ),
             ),
-          ),
-        );
-        final BuildContext context = tester.element(find.byType(Container));
-        final MainScreenViewModel modelForKeys = MainScreenViewModel();
-        final MockLocalMainScreenViewModel model =
-            MockLocalMainScreenViewModel();
-        model.context = context;
-        model.testMode = true;
-        model.appTour = MockAppTour(model: model);
-        model.currentPageIndex = 0;
-        model.showHome(
-          TargetFocus(
-            identify: "keySHMenuIcon",
-            keyTarget: modelForKeys.keySHMenuIcon,
-          ),
-        );
-        model.tourHomeTargets();
-        expect(model.stackLength, 2);
-      });
+          );
+          final BuildContext context = tester.element(find.byType(Container));
+          final MainScreenViewModel modelForKeys = MainScreenViewModel();
+          final MockLocalMainScreenViewModel model =
+              MockLocalMainScreenViewModel();
+          model.context = context;
+          model.testMode = true;
+          model.appTour = MockAppTour(model: model);
+          model.currentPageIndex = 0;
+          model.showHome(
+            TargetFocus(
+              identify: "keySHMenuIcon",
+              keyTarget: modelForKeys.keySHMenuIcon,
+            ),
+          );
+          model.tourHomeTargets();
+          expect(model.stackLength, 2);
+        });
 
-      testWidgets('Test for tourEventTargets.', (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
+        testWidgets('Test for tourEventTargets.', (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourComplete = true;
-            model2.tourEventTargets();
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
-            }
-            keysMap = {
-              'keyBNEvents': model2.keyBNEvents,
-              'keySECategoryMenu': model2.keySECategoryMenu,
-              'keySEDateFilter': model2.keySEDateFilter,
-              'keySECard': model2.keySECard,
-              'keySEAdd': model2.keySEAdd,
-            };
-          }),
-        );
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourComplete = true;
+              model2.tourEventTargets();
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              keysMap = {
+                'keyBNEvents': model2.keyBNEvents,
+                'keySECategoryMenu': model2.keySECategoryMenu,
+                'keySEDateFilter': model2.keySEDateFilter,
+                'keySECard': model2.keySECard,
+                'keySEAdd': model2.keySEAdd,
+              };
+            }),
+          );
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+          expect(find.textContaining('tour home'), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+          await tester.tap(find.textContaining('tour home'));
 
-        await tester.pump();
+          await tester.pump();
 
-        expect(expectedTargets.length, 5);
+          expect(expectedTargets.length, 5);
 
-        final List<String> keyNames = keysMap.keys.toList();
+          final List<String> keyNames = keysMap.keys.toList();
 
-        for (int i = 0; i < expectedTargets.length; i++) {
-          expect(expectedTargets[i].keyName, keyNames[i]);
-          expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          expect(expectedTargets[i].next, null);
-        }
-      });
+          for (int i = 0; i < expectedTargets.length; i++) {
+            expect(expectedTargets[i].keyName, keyNames[i]);
+            expect(expectedTargets[i].key, keysMap[keyNames[i]]);
+            expect(expectedTargets[i].next, null);
+          }
+        });
 
-      testWidgets('Test for tourChats.', (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
+        testWidgets('Test for tourChats.', (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourComplete = true;
-            model2.tourChat();
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
-            }
-            // ignore: avoid_dynamic_calls
-            keysMap = {'keyBNChat': model2.keyBNChat};
-          }),
-        );
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourComplete = true;
+              model2.tourChat();
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              // ignore: avoid_dynamic_calls
+              keysMap = {'keyBNChat': model2.keyBNChat};
+            }),
+          );
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+          expect(find.textContaining('tour home'), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+          await tester.tap(find.textContaining('tour home'));
 
-        await tester.pump();
+          await tester.pump();
 
-        expect(expectedTargets.length, 1);
+          expect(expectedTargets.length, 1);
 
-        final List<String> keyNames = keysMap.keys.toList();
+          final List<String> keyNames = keysMap.keys.toList();
 
-        expect(expectedTargets[0].keyName, keyNames[0]);
-        expect(expectedTargets[0].key, keysMap[keyNames[0]]);
-        expect(expectedTargets[0].next, null);
-      });
-      testWidgets(
-          'Test for tourChat whether correct function is called when tour is not exited.',
-          (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: MaterialApp(
-              home: Scaffold(
-                key: key,
-                body: Container(),
+          expect(expectedTargets[0].keyName, keyNames[0]);
+          expect(expectedTargets[0].key, keysMap[keyNames[0]]);
+          expect(expectedTargets[0].next, null);
+        });
+        testWidgets(
+            'Test for tourChat whether correct function is called when tour is not exited.',
+            (tester) async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: MaterialApp(
+                home: Scaffold(
+                  key: key,
+                  body: Container(),
+                ),
               ),
             ),
-          ),
-        );
-        final BuildContext context = tester.element(find.byType(Container));
-        final MainScreenViewModel modelForKeys = MainScreenViewModel();
-        final MockLocalMainScreenViewModel model =
-            MockLocalMainScreenViewModel();
-        model.context = context;
-        model.testMode = true;
-        model.appTour = MockAppTour(model: model);
-        model.currentPageIndex = 0;
-        model.showHome(
-          TargetFocus(
-            identify: "keySHMenuIcon",
-            keyTarget: modelForKeys.keySHMenuIcon,
-          ),
-        );
-        model.tourChat();
-        expect(model.stackLength, 1);
-      });
+          );
+          final BuildContext context = tester.element(find.byType(Container));
+          final MainScreenViewModel modelForKeys = MainScreenViewModel();
+          final MockLocalMainScreenViewModel model =
+              MockLocalMainScreenViewModel();
+          model.context = context;
+          model.testMode = true;
+          model.appTour = MockAppTour(model: model);
+          model.currentPageIndex = 0;
+          model.showHome(
+            TargetFocus(
+              identify: "keySHMenuIcon",
+              keyTarget: modelForKeys.keySHMenuIcon,
+            ),
+          );
+          model.tourChat();
+          expect(model.stackLength, 1);
+        });
 
-      testWidgets('Test for addPost.', (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
+        testWidgets('Test for addPost.', (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourComplete = true;
-            model2.tourAddPost();
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
-            }
-            // ignore: avoid_dynamic_calls
-            keysMap = {'keyBNPost': model2.keyBNPost};
-          }),
-        );
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourComplete = true;
+              model2.tourAddPost();
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              // ignore: avoid_dynamic_calls
+              keysMap = {'keyBNPost': model2.keyBNPost};
+            }),
+          );
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+          expect(find.textContaining('tour home'), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+          await tester.tap(find.textContaining('tour home'));
 
-        await tester.pump();
+          await tester.pump();
 
-        expect(expectedTargets.length, 1);
+          expect(expectedTargets.length, 1);
 
-        final List<String> keyNames = keysMap.keys.toList();
+          final List<String> keyNames = keysMap.keys.toList();
 
-        expect(expectedTargets[0].keyName, keyNames[0]);
-        expect(expectedTargets[0].key, keysMap[keyNames[0]]);
-        expect(expectedTargets[0].next, null);
-      });
-      testWidgets(
-          'Test for tourAddPost whether correct function is called when tour is not exited.',
-          (tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: MaterialApp(
-              home: Scaffold(
-                key: key,
-                body: Container(),
+          expect(expectedTargets[0].keyName, keyNames[0]);
+          expect(expectedTargets[0].key, keysMap[keyNames[0]]);
+          expect(expectedTargets[0].next, null);
+        });
+        testWidgets(
+            'Test for tourAddPost whether correct function is called when tour is not exited.',
+            (tester) async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: MaterialApp(
+                home: Scaffold(
+                  key: key,
+                  body: Container(),
+                ),
               ),
             ),
-          ),
-        );
-        final BuildContext context = tester.element(find.byType(Container));
-        final MainScreenViewModel modelForKeys = MainScreenViewModel();
-        final MockLocalMainScreenViewModel model =
-            MockLocalMainScreenViewModel();
-        model.context = context;
-        model.testMode = true;
-        model.appTour = MockAppTour(model: model);
-        model.currentPageIndex = 0;
-        model.showHome(
-          TargetFocus(
-            identify: "keySHMenuIcon",
-            keyTarget: modelForKeys.keySHMenuIcon,
-          ),
-        );
-        model.tourAddPost();
-        expect(model.stackLength, 1);
-      });
+          );
+          final BuildContext context = tester.element(find.byType(Container));
+          final MainScreenViewModel modelForKeys = MainScreenViewModel();
+          final MockLocalMainScreenViewModel model =
+              MockLocalMainScreenViewModel();
+          model.context = context;
+          model.testMode = true;
+          model.appTour = MockAppTour(model: model);
+          model.currentPageIndex = 0;
+          model.showHome(
+            TargetFocus(
+              identify: "keySHMenuIcon",
+              keyTarget: modelForKeys.keySHMenuIcon,
+            ),
+          );
+          model.tourAddPost();
+          expect(model.stackLength, 1);
+        });
 
-      testWidgets('Test for profile tour.', (tester) async {
-        const val1 = false;
-        when(model.loggedIn).thenAnswer((_) => val1);
-        late MainScreenViewModel mainScreenViewModel;
+        testWidgets('Test for profile tour.', (tester) async {
+          const val1 = false;
+          when(model.loggedIn).thenAnswer((_) => val1);
+          late MainScreenViewModel mainScreenViewModel;
 
-        await tester.pumpWidget(
-          createMainScreenViewModelScreen((model2) {
-            model2.showHome(
-              TargetFocus(
-                identify: "keySHMenuIcon",
-                keyTarget: model2.keySHMenuIcon,
-              ),
-            );
-            model2.tourProfile();
-            for (int i = 0; i < model2.targets.length; i++) {
-              expectedTargets.add(model2.targets[i]);
-            }
-            keysMap = {
-              'keyBNProfile': model2.keyBNProfile,
-              'keySPAppSetting': model2.keySPAppSetting,
-              'keySPHelp': model2.keySPHelp,
-              'keySPDonateUs': model2.keySPDonateUs,
-              'keySPPalisadoes': model2.keySPPalisadoes,
-            };
-            mainScreenViewModel = model2;
-          }),
-        );
+          await tester.pumpWidget(
+            createMainScreenViewModelScreen((model2) {
+              model2.showHome(
+                TargetFocus(
+                  identify: "keySHMenuIcon",
+                  keyTarget: model2.keySHMenuIcon,
+                ),
+              );
+              model2.tourProfile();
+              for (int i = 0; i < model2.targets.length; i++) {
+                expectedTargets.add(model2.targets[i]);
+              }
+              keysMap = {
+                'keyBNProfile': model2.keyBNProfile,
+                'keySPAppSetting': model2.keySPAppSetting,
+                'keySPHelp': model2.keySPHelp,
+                'keySPDonateUs': model2.keySPDonateUs,
+                'keySPPalisadoes': model2.keySPPalisadoes,
+              };
+              mainScreenViewModel = model2;
+            }),
+          );
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-        expect(find.textContaining('tour home'), findsOneWidget);
+          expect(find.textContaining('tour home'), findsOneWidget);
 
-        await tester.tap(find.textContaining('tour home'));
+          await tester.tap(find.textContaining('tour home'));
 
-        await tester.pump();
+          await tester.pump();
 
-        expect(expectedTargets.length, 5);
+          expect(expectedTargets.length, 5);
 
-        final List<String> keyNames = keysMap.keys.toList();
+          final List<String> keyNames = keysMap.keys.toList();
 
-        for (int i = 0; i < expectedTargets.length; i++) {
-          expect(expectedTargets[i].keyName, keyNames[i]);
-          expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          expect(expectedTargets[i].next, null);
-        }
-        expect(mainScreenViewModel.currentPageIndex, 0);
-        expect(mainScreenViewModel.tourComplete, true);
+          for (int i = 0; i < expectedTargets.length; i++) {
+            expect(expectedTargets[i].keyName, keyNames[i]);
+            expect(expectedTargets[i].key, keysMap[keyNames[i]]);
+            expect(expectedTargets[i].next, null);
+          }
+          expect(mainScreenViewModel.currentPageIndex, 0);
+          expect(mainScreenViewModel.tourComplete, true);
+        });
       });
     });
   });

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/view_model/after_auth_view_models/funds_view_models/organisation_fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/funds_view_models/fund_view_model.dart';
 
 /// A dialog widget for creating a pledge, allowing the user to input pledge details.
 class AddPledgeDialog extends StatefulWidget {

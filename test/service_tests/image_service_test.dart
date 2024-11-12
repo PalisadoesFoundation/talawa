@@ -115,7 +115,7 @@ void main() {
 
     group('Tests for decodeBase64', () {
       test('decodeBase64 successfully decodes valid base64 string', () {
-        final validBase64 = 'data:image/png;base64,SGVsbG8gV29ybGQ=';
+        const validBase64 = 'data:image/png;base64,SGVsbG8gV29ybGQ=';
         final result = imageService.decodeBase64(validBase64);
 
         expect(result, isNotNull);
@@ -123,7 +123,7 @@ void main() {
       });
 
       test('decodeBase64 handles base64 string without MIME type prefix', () {
-        final validBase64 = 'SGVsbG8gV29ybGQ=';
+        const validBase64 = 'SGVsbG8gV29ybGQ=';
         final result = imageService.decodeBase64(validBase64);
 
         expect(result, isNotNull);
@@ -131,7 +131,7 @@ void main() {
       });
 
       test('decodeBase64 returns null for invalid base64 string', () {
-        final invalidBase64 = 'invalid-base64-string';
+        const invalidBase64 = 'invalid-base64-string';
         final result = imageService.decodeBase64(invalidBase64);
 
         expect(result, isNull);

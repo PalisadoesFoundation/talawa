@@ -32,7 +32,8 @@ class FundViewModel extends BaseModel {
   List<Fund> _filteredFunds = [];
   List<Campaign> _campaigns = [];
   List<Campaign> _filteredCampaigns = [];
-  List<Pledge> _pledges = [];
+  List<Pledge> _allPledges = [];
+  List<Pledge> _userPledges = [];
   List<Pledge> _filteredPledges = [];
 
   bool _isFetchingFunds = false;
@@ -45,6 +46,7 @@ class FundViewModel extends BaseModel {
 
   String _fundSearchQuery = '';
   String _campaignSearchQuery = '';
+  String _pledgerSearchQuery = '';
 
   /// used to identify the current fund id.
   late String parentFundId;
@@ -68,8 +70,11 @@ class FundViewModel extends BaseModel {
   /// getter for the filtered campaigns.
   List<Campaign> get filteredCampaigns => _filteredCampaigns;
 
-  /// getter for the pledges.
-  List<Pledge> get pledges => _pledges;
+  /// getter for the all pledges.
+  List<Pledge> get allPledges => _allPledges;
+
+  /// getter for the user pledges.
+  List<Pledge> get userPledges => _userPledges;
 
   /// getter for the filtered Pledges.
   List<Pledge> get filteredPledges => _filteredPledges;
@@ -205,7 +210,7 @@ class FundViewModel extends BaseModel {
   void sortPledges(String option) {
     if (option != _pledgeSortOption) {
       _pledgeSortOption = option;
-      if (_pledges.isNotEmpty) {
+      if (_userPledges.isNotEmpty) {
         fetchPledges(parentcampaignId);
       }
     }
@@ -245,16 +250,12 @@ class FundViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void searchPledgers(String query) {
-    final lowerCaseQuery = query.toLowerCase();
-
-    _filteredPledges.clear();
-    _filteredPledges.addAll(
-      _pledges.where((pledge) {
-        return pledge.pledgers!.any(
-          (user) => user.firstName!.toLowerCase().contains(lowerCaseQuery),
-        );
-      }).toList(),
-    );
+    _pledgerSearchQuery = query.toLowerCase();
+    _filteredPledges = _userPledges.where((pledge) {
+      return pledge.pledgers!.any(
+        (user) => user.firstName!.toLowerCase().contains(_pledgerSearchQuery),
+      );
+    }).toList();
     notifyListeners();
   }
 
@@ -296,10 +297,17 @@ class FundViewModel extends BaseModel {
     parentcampaignId = campaignId;
     notifyListeners();
     try {
-      _pledges = await _fundService.getPledgesByCampaign(
+      _allPledges = await _fundService.getPledgesByCampaign(
         campaignId,
         orderBy: _pledgeSortOption,
       );
+      _userPledges = _allPledges
+          .where(
+            (pledge) => pledge.pledgers!
+                .any((pledger) => pledger.id == userConfig.currentUser.id),
+          )
+          .toList();
+      _filteredPledges = List.from(_userPledges);
       _isFetchingPledges = false;
       notifyListeners();
     } catch (e) {

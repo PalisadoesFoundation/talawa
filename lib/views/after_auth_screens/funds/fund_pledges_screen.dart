@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
-import 'package:talawa/view_model/after_auth_view_models/funds_view_models/organisation_fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/funds_view_models/fund_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_pledge_dialogue_box.dart';
 import 'package:talawa/widgets/pledge_card.dart';
@@ -126,40 +125,62 @@ class _PledgesScreenState extends State<PledgesScreen> {
   ///
   /// **returns**:
   /// * `Widget`: a progress bar widget showing the funding progress.
+  /// Displays the progress indicator bar showing the campaign's funding status.
+  ///
+  /// **params**:
+  /// * `model`: the data model containing pledge and funding data.
+  ///
+  /// **returns**:
+  /// * `Widget`: a custom progress bar widget showing the funding progress.
   Widget _buildProgressIndicator(FundViewModel model) {
-    final totalPledged = model.pledges.fold(0, (int sum, pledge) {
+    final totalPledged = model.allPledges.fold(0, (int sum, pledge) {
       final amount = pledge.amount ?? 0;
       return sum + amount;
     });
 
     final goalAmount = widget.campaign.fundingGoal!;
-    final totalRaised = model.pledges.fold(0, (int sum, pledge) {
+    final totalRaised = model.allPledges.fold(0, (int sum, pledge) {
       const amountDonated = 0;
       return sum + amountDonated;
     });
 
     final double progress =
         _showPledged ? (totalPledged / goalAmount) : (totalRaised / goalAmount);
+    final double progressValue = progress > 1.0 ? 1.0 : progress;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          LinearPercentIndicator(
-            lineHeight: 20,
-            percent: progress > 1.0 ? 1.0 : progress,
-            progressColor: Colors.green,
-            backgroundColor: Colors.grey[300],
-            animation: true,
-            animationDuration: 1000,
-            center: Text(
-              '${(progress * 100).toStringAsFixed(1)}%',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+          Stack(
+            children: [
+              Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-            ),
-            barRadius: const Radius.circular(10),
+              Container(
+                height: 20,
+                width: progressValue * MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Positioned.fill(
+                child: Center(
+                  child: Text(
+                    '${(progressValue * 100).toStringAsFixed(1)}%',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Row(
@@ -282,15 +303,30 @@ class _PledgesScreenState extends State<PledgesScreen> {
   /// **returns**:
   /// * `Widget`: a list view of all pledges.
   Widget _buildPledgesList(FundViewModel model) {
+    print(model.filteredPledges.length);
     if (model.isFetchingPledges) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (model.pledges.isEmpty) {
-      return const Center(child: Text('No pledges found.'));
+    if (model.allPledges.isEmpty) {
+      return const Center(
+        child: Text(
+          'No pledges found.',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+    }
+    if (model.userPledges.isEmpty) {
+      return const Center(
+        child: Text(
+          'There are no pledges you are part of',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
     }
     return ListView.builder(
       itemCount: model.filteredPledges.length,
       itemBuilder: (context, index) {
+        print(model.filteredPledges.length);
         final pledge = model.filteredPledges[index];
         return PledgeCard(
           pledge: pledge,
