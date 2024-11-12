@@ -426,12 +426,17 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   itemBuilder: (context, index) {
                     final base64String = attachments[index];
                     final imageData = imageService.decodeBase64(base64String);
+                    if (imageData == null) {
+                      return const Center(
+                        child: Icon(Icons.broken_image, color: Colors.red),
+                      );
+                    }
                     return Stack(
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.memory(
-                            imageData!,
+                            imageData,
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,

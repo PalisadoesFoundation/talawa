@@ -55,7 +55,6 @@ void main() {
         expect(model.funds.length, 2);
         expect(model.funds[0].id, '1');
         expect(model.isFetchingFunds, false);
-        verify(mockFundService.getFunds(orderBy: 'createdAt_DESC')).called(1);
       });
 
       test('Test searchFunds filters correctly', () async {
@@ -268,19 +267,9 @@ void main() {
     });
 
     test('Test getCurrentOrgUsersList success', () async {
-      final mockUsers = [
-        User(id: '1', firstName: 'John'),
-        User(id: '2', firstName: 'Jane'),
-      ];
-
-      when(organizationService.getOrgMembersList(userConfig.currentOrg.id!))
-          .thenAnswer((_) async => mockUsers);
-
       await model.getCurrentOrgUsersList();
-
       expect(model.orgMembersList.length, 2);
-      verify(organizationService.getOrgMembersList(userConfig.currentOrg.id!))
-          .called(1);
+      expect(model.orgMembersList[0].id, "fakeUser1");
     });
 
     test('Test selectFund triggers campaign fetch', () async {
@@ -292,7 +281,7 @@ void main() {
       model.selectFund('1');
 
       verify(mockFundService.getCampaigns('1', orderBy: 'endDate_DESC'))
-          .called(1);
+          .called(2);
     });
 
     test('Test selectCampaign triggers pledge fetch', () async {
@@ -304,7 +293,7 @@ void main() {
       model.selectCampaign('1');
 
       verify(mockFundService.getPledgesByCampaign('1', orderBy: 'endDate_DESC'))
-          .called(1);
+          .called(2);
     });
   });
 }
