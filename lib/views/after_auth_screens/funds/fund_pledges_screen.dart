@@ -303,7 +303,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
   /// **returns**:
   /// * `Widget`: a list view of all pledges.
   Widget _buildPledgesList(FundViewModel model) {
-    print(model.filteredPledges.length);
     if (model.isFetchingPledges) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -326,7 +325,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
     return ListView.builder(
       itemCount: model.filteredPledges.length,
       itemBuilder: (context, index) {
-        print(model.filteredPledges.length);
         final pledge = model.filteredPledges[index];
         return PledgeCard(
           pledge: pledge,

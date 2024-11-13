@@ -125,7 +125,7 @@ class PledgeCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            '\$${pledge.amount?.toStringAsFixed(2) ?? 'N/A'}',
+                            '\$${pledge.amount!.toStringAsFixed(2)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge

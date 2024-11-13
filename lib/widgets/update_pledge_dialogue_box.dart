@@ -44,6 +44,7 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
     super.initState();
     _amountController =
         TextEditingController(text: widget.pledge.amount?.toString() ?? '');
+    _amountController.addListener(_onAmountChanged);
     _startDate = widget.pledge.startDate;
     _endDate = widget.pledge.endDate;
     _selectedPledgers = widget.pledge.pledgers ?? [];
@@ -56,6 +57,24 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
     _originalEndDate = widget.pledge.endDate;
   }
 
+  /// Changes state if amout is changed.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void _onAmountChanged() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _amountController.removeListener(_onAmountChanged);
+    _amountController.dispose();
+    super.dispose();
+  }
+
   /// Checks if there are any changes in the current pledge details compared to the original values.
   ///
   /// **params**:
@@ -64,12 +83,54 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
   /// **returns**:
   /// * `bool`: `true` if any detail has changed, `false` otherwise.
   bool _hasChanges() {
-    return _originalAmount != double.parse(_amountController.text) ||
+    double currentAmount = _originalAmount;
+    if (_amountController.text.isNotEmpty) {
+      try {
+        currentAmount = double.tryParse(_amountController.text) ?? 0;
+      } catch (e) {
+        // Handle invalid input gracefully if necessary
+      }
+    }
+
+    return currentAmount != _originalAmount ||
         _originalCurrency != widget.model.donationCurrency ||
         _originalPledgers.length != _selectedPledgers.length ||
         _selectedPledgers.any((user) => !_originalPledgers.contains(user)) ||
         _startDate != _originalStartDate ||
         _endDate != _originalEndDate;
+  }
+
+  /// Method to get fields that are updated.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: Object which include fields which are changed.
+  Map<String, dynamic> _getChangedFields() {
+    final Map<String, dynamic> changes = {'id': widget.pledge.id};
+    try {
+      final double currentAmount = double.tryParse(_amountController.text) ?? 0;
+      if (currentAmount != _originalAmount) {
+        changes['amount'] = currentAmount;
+      }
+    } catch (e) {
+      // Handle parse error if needed
+    }
+    if (widget.model.donationCurrency != _originalCurrency) {
+      changes['currency'] = widget.model.donationCurrency;
+    }
+    if (_startDate != _originalStartDate && _startDate != null) {
+      changes['startDate'] = DateFormat('yyyy-MM-dd').format(_startDate!);
+    }
+    if (_endDate != _originalEndDate && _endDate != null) {
+      changes['endDate'] = DateFormat('yyyy-MM-dd').format(_endDate!);
+    }
+    if (_selectedPledgers.length != _originalPledgers.length ||
+        _selectedPledgers.any((user) => !_originalPledgers.contains(user))) {
+      changes['users'] = _selectedPledgers.map((user) => user.id).toList();
+    }
+    return changes;
   }
 
   @override
@@ -177,6 +238,7 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        key: const Key('amount_field'),
                         controller: _amountController,
                         decoration: InputDecoration(
                           labelText: 'Amount',
@@ -187,7 +249,15 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter an amount';
                           }
-                          return null;
+                          final parsedValue = double.tryParse(value);
+                          if (parsedValue == null) {
+                            return 'Amount must be a number';
+                          }
+                          if (parsedValue <= 0) {
+                            return 'Amount must be greater than zero';
+                          }
+
+                          return null; // Input is valid
                         },
                       ),
                     ),
@@ -252,22 +322,14 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
           child: const Text('Cancel'),
         ),
         ElevatedButton(
+          key: const Key('update_btn'),
           onPressed: _hasChanges()
               ? () {
                   if (_formKey.currentState!.validate() &&
                       _startDate != null &&
                       _endDate != null &&
                       _selectedPledgers.isNotEmpty) {
-                    widget.onSubmit({
-                      'id': widget.pledge.id,
-                      'amount': double.parse(_amountController.text),
-                      'startDate': DateFormat('yyyy-MM-dd').format(_startDate!),
-                      'endDate': DateFormat('yyyy-MM-dd').format(_endDate!),
-                      'users':
-                          _selectedPledgers.map((user) => user.id).toList(),
-                      'currency': widget.model.donationCurrency,
-                    });
-                    Navigator.of(context).pop();
+                    widget.onSubmit(_getChangedFields());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please fill all fields')),
