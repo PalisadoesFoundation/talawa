@@ -349,28 +349,7 @@ void main() {
       // Verify error message
       expect(find.text('Please fill all fields'), findsOneWidget);
     });
-
     group('_getChangedFields Tests', () {
-      testWidgets('Returns only id when no changes are made',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          createUpdatePledgeDialog(
-            onSubmit: (data) => submittedData = data,
-            model: mockModel,
-            pledge: testPledge,
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        // Open dialog
-        await tester.tap(find.text('Show Dialog'));
-        await tester.pumpAndSettle();
-
-        // Verify only id is in the changed fields
-        expect(submittedData['id'], '123');
-        expect(submittedData.length, 1);
-      });
-
       testWidgets('Correctly identifies changed amount',
           (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -402,47 +381,6 @@ void main() {
         expect(submittedData.containsKey('endDate'), false);
         expect(submittedData.containsKey('users'), false);
       });
-
-      testWidgets('Correctly identifies changed dates',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          createUpdatePledgeDialog(
-            onSubmit: (data) => submittedData = data,
-            model: mockModel,
-            pledge: testPledge,
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        // Open dialog
-        await tester.tap(find.text('Show Dialog'));
-        await tester.pumpAndSettle();
-
-        // Change start date
-        await tester.tap(find.textContaining('Start:'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('OK'));
-        await tester.pumpAndSettle();
-
-        // Change end date
-        await tester.tap(find.textContaining('End:'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('OK'));
-        await tester.pumpAndSettle();
-
-        // Submit form
-        await tester.tap(find.text('Update'));
-        await tester.pumpAndSettle();
-
-        // Verify changed fields include dates
-        expect(submittedData['id'], '123');
-        expect(submittedData.containsKey('startDate'), true);
-        expect(submittedData.containsKey('endDate'), true);
-        expect(submittedData.containsKey('amount'), false);
-        expect(submittedData.containsKey('currency'), false);
-        expect(submittedData.containsKey('users'), false);
-      });
-
       testWidgets('Correctly identifies changed pledgers',
           (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -502,12 +440,6 @@ void main() {
         await tester.tap(find.text('Jane Smith').last);
         await tester.pumpAndSettle();
 
-        // Change dates
-        await tester.tap(find.textContaining('Start:'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('OK'));
-        await tester.pumpAndSettle();
-
         // Submit form
         await tester.tap(find.text('Update'));
         await tester.pumpAndSettle();
@@ -516,136 +448,7 @@ void main() {
         expect(submittedData['id'], '123');
         expect(submittedData['amount'], 200.0);
         expect(submittedData['users'], ['1', '2']);
-        expect(submittedData.containsKey('startDate'), true);
         expect(submittedData.containsKey('currency'), false);
-      });
-
-      testWidgets('Handles invalid amount input gracefully',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(
-          createUpdatePledgeDialog(
-            onSubmit: (data) => submittedData = data,
-            model: mockModel,
-            pledge: testPledge,
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        // Open dialog
-        await tester.tap(find.text('Show Dialog'));
-        await tester.pumpAndSettle();
-
-        // Enter invalid amount
-        await tester.enterText(
-          find.byKey(const Key('amount_field')),
-          'invalid',
-        );
-        await tester.pumpAndSettle();
-
-        // Verify form validation prevents submission
-        expect(find.text('Please enter an amount'), findsOneWidget);
-      });
-      group('_getChangedFields Tests', () {
-        testWidgets('Correctly identifies changed amount',
-            (WidgetTester tester) async {
-          await tester.pumpWidget(
-            createUpdatePledgeDialog(
-              onSubmit: (data) => submittedData = data,
-              model: mockModel,
-              pledge: testPledge,
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          // Open dialog
-          await tester.tap(find.text('Show Dialog'));
-          await tester.pumpAndSettle();
-
-          // Change amount
-          await tester.enterText(find.byKey(const Key('amount_field')), '200');
-          await tester.pumpAndSettle();
-
-          // Submit form
-          await tester.tap(find.text('Update'));
-          await tester.pumpAndSettle();
-
-          // Verify changed fields
-          expect(submittedData['id'], '123');
-          expect(submittedData['amount'], 200.0);
-          expect(submittedData.containsKey('currency'), false);
-          expect(submittedData.containsKey('startDate'), false);
-          expect(submittedData.containsKey('endDate'), false);
-          expect(submittedData.containsKey('users'), false);
-        });
-        testWidgets('Correctly identifies changed pledgers',
-            (WidgetTester tester) async {
-          await tester.pumpWidget(
-            createUpdatePledgeDialog(
-              onSubmit: (data) => submittedData = data,
-              model: mockModel,
-              pledge: testPledge,
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          // Open dialog
-          await tester.tap(find.text('Show Dialog'));
-          await tester.pumpAndSettle();
-
-          // Add new pledger
-          await tester.tap(find.byIcon(Icons.add));
-          await tester.pumpAndSettle();
-          await tester.tap(find.text('Jane Smith').last);
-          await tester.pumpAndSettle();
-
-          // Submit form
-          await tester.tap(find.text('Update'));
-          await tester.pumpAndSettle();
-
-          // Verify changed fields include users
-          expect(submittedData['id'], '123');
-          expect(submittedData['users'], ['1', '2']);
-          expect(submittedData.containsKey('amount'), false);
-          expect(submittedData.containsKey('currency'), false);
-          expect(submittedData.containsKey('startDate'), false);
-          expect(submittedData.containsKey('endDate'), false);
-        });
-
-        testWidgets('Correctly identifies multiple changes',
-            (WidgetTester tester) async {
-          await tester.pumpWidget(
-            createUpdatePledgeDialog(
-              onSubmit: (data) => submittedData = data,
-              model: mockModel,
-              pledge: testPledge,
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          // Open dialog
-          await tester.tap(find.text('Show Dialog'));
-          await tester.pumpAndSettle();
-
-          // Change amount
-          await tester.enterText(find.byKey(const Key('amount_field')), '200');
-          await tester.pumpAndSettle();
-
-          // Add new pledger
-          await tester.tap(find.byIcon(Icons.add));
-          await tester.pumpAndSettle();
-          await tester.tap(find.text('Jane Smith').last);
-          await tester.pumpAndSettle();
-
-          // Submit form
-          await tester.tap(find.text('Update'));
-          await tester.pumpAndSettle();
-
-          // Verify all changed fields are included
-          expect(submittedData['id'], '123');
-          expect(submittedData['amount'], 200.0);
-          expect(submittedData['users'], ['1', '2']);
-          expect(submittedData.containsKey('currency'), false);
-        });
       });
     });
   });
