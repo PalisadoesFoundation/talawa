@@ -1,0 +1,184 @@
+##############################################################################
+##############################################################################
+#
+# NOTE!
+#
+# Please read the README.md file in this directory that defines what should 
+# be placed in this file
+#
+##############################################################################
+##############################################################################
+
+name: PUSH Workflow
+on:
+  push:
+    # branches:
+    #   - develop
+
+    branches-ignore:
+      - 'master'
+
+    tags:
+      - "*"
+
+env:
+    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+    
+jobs:
+
+  Flutter-Codebase-Check:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Checking Codebase
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # This is important to fetch all history for all branches and tags.
+          # This could be important for our documentation generation process.
+          # See: https://github.com/actions/checkout
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
+      - name: Running pub get to fetch dependencies
+        run: flutter pub get
+      - name: Checking for correct formatting of code
+        run: dart format --set-exit-if-changed .
+      - name: setup python
+        uses: actions/setup-python@v5
+      - name: Check for presence of ignore directives corresponding to custom lints
+        run: chmod +x ./.github/workflows/check_ignore.py
+      - name: Run check_ignore
+        run: |
+          git branch
+          git checkout develop
+          git pull
+          git branch
+          git checkout -
+          pip install GitPython
+          python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+      - name: Analysing codebase for default linting
+        run: flutter analyze --no-pub
+      - name: Analysing codebase for custom linting
+        run: dart run custom_lint
+#       - name: Echo the GitHub environment for troubleshooting
+#         run: echo "$GITHUB_CONTEXT"
+#       - name: Echo the GitHub context for troubleshooting
+#         run: echo "${{ toJSON(github) }}"
+
+
+  Flutter-Testing:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Testing codebase
+    runs-on: ubuntu-latest
+    needs: Flutter-Codebase-Check
+    # needs: Update-Documentation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'          
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
+      - name: Running pub get to fetch dependencies
+        run: flutter pub get
+      - name: Codebase testing
+        run: flutter test --coverage
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+          fail_ci_if_error: false
+          name: '${{env.CODECOV_UNIQUE_NAME}}'     
+
+  Android-Build-and-Release:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Testing build for android
+    permissions:
+      contents: write
+    environment: TALAWA_ENVIRONMENT
+    runs-on: ubuntu-latest
+    needs: Flutter-Testing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'          
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
+      - name: Running pub get to fetch dependencies
+        run: flutter pub get
+      - name: Building for android
+        run: flutter build apk
+
+        ###################################################
+        ## Release the built apk as an automated release ##
+        ###################################################
+
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "Automated Android Release"
+          artifacts: "./build/app/outputs/flutter-apk/app-release.apk"
+          allowUpdates: "true"
+          generateReleaseNotes: false
+          tag: "automated"
+          body: |
+            This is an automated release, triggered by a recent push. 
+            This may or may not be stable, so please have a look at the stable release(s).
+
+  iOS-Build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: iOS Build and Relaese
+    runs-on: macos-latest
+    needs: Flutter-Testing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          architecture: x64
+      - name: Building for ios
+        run: flutter build ios --release --no-codesign
+        # '--no-codesign' is used for building without code signing.
+        # For actual distribution, proper code signing is required.
+
+      ########################################################
+      ## Package the app as an .ipa and create a release ##
+      ########################################################
+
+      - name: Releasing for iOS
+        run: |
+          mkdir Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
+          zip -r app.ipa Payload
+        # This packages the Runner.app into an .ipa file
+
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "Automated iOS Release"
+          artifacts: "app-release.ipa"
+          allowUpdates: "true"
+          generateReleaseNotes: false
+          tag: "automated"
+          body: |
+            This is an automated release, triggered by a recent push. 
+            This may or may not be stable, so please have a look at the stable release(s).

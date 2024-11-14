@@ -1,0 +1,115 @@
+PODS:
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - Reachability
+  - Flutter (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - image_cropper (0.0.4):
+    - Flutter
+    - TOCropViewController (~> 2.6.1)
+  - image_picker (0.0.1):
+    - Flutter
+  - MTBBarcodeScanner (5.0.11)
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - "permission_handler (5.1.0+2)":
+    - Flutter
+  - qr_code_scanner (0.2.0):
+    - Flutter
+    - MTBBarcodeScanner
+  - quick_actions (0.0.1):
+    - Flutter
+  - Reachability (3.2)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - social_share (0.0.1):
+    - Flutter
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
+  - TOCropViewController (2.6.1)
+  - uni_links (0.0.1):
+    - Flutter
+  - vibration (1.7.4-nullsafety.0):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - Flutter (from `Flutter`)
+  - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
+  - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - social_share (from `.symlinks/plugins/social_share/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - uni_links (from `.symlinks/plugins/uni_links/ios`)
+  - vibration (from `.symlinks/plugins/vibration/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
+    - MTBBarcodeScanner
+    - Reachability
+    - TOCropViewController
+
+EXTERNAL SOURCES:
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
+  Flutter:
+    :path: Flutter
+  image_cropper:
+    :path: ".symlinks/plugins/image_cropper/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  qr_code_scanner:
+    :path: ".symlinks/plugins/qr_code_scanner/ios"
+  quick_actions:
+    :path: ".symlinks/plugins/quick_actions/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  social_share:
+    :path: ".symlinks/plugins/social_share/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+  uni_links:
+    :path: ".symlinks/plugins/uni_links/ios"
+  vibration:
+    :path: ".symlinks/plugins/vibration/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+
+SPEC CHECKSUMS:
+  connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  image_cropper: 60c2789d1f1a78c873235d4319ca0c34a69f2d98
+  image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
+  qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
+  quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  social_share: 702a5e3842addd22db515aa9e1e00a4b80a0296d
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
+  uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
+  vibration: 1ec279c4a1a7a646627b54039d812334b3f1114a
+  video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
+
+PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
+
+COCOAPODS: 1.11.2
