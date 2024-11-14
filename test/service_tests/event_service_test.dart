@@ -23,6 +23,7 @@ void main() {
     testSetupLocator();
     registerServices();
   });
+
   group('Test EventService', () {
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
@@ -118,7 +119,7 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'cretedEvent': {
+            'createdEvent': {
               '_id': 'eventId',
               'title': 'Test task',
               'description': 'Test description',
@@ -137,12 +138,13 @@ void main() {
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().registerForEvent(),
+          variables: {'eventId': 'eventId'},
         ),
       ).thenAnswer(
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'register for an event': {
+            'registerForEvent': {
               '_id': 'eventId',
             },
           },
@@ -250,6 +252,7 @@ void main() {
       final model = EventService();
       expect(model.eventStream, isA<Stream<List<Event>>>());
     });
+
     test('Test createVolunteerGroup method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
@@ -450,6 +453,161 @@ void main() {
       expect(result.length, 2);
       expect(result[0].id, 'groupId1');
       expect(result[1].id, 'groupId2');
+    });
+    test('fetchAgendaCategories returns correct data', () async {
+      const orgId = 'org123';
+      final mockResult = QueryResult(
+        options: QueryOptions(
+          document: gql(
+            EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+          ),
+        ),
+        data: {
+          'fetchAgendaCategories': [
+            {'_id': 'cat1', 'name': 'Category 1'},
+            {'_id': 'cat2', 'name': 'Category 2'},
+          ],
+        },
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      final service = EventService();
+      final result = await service.fetchAgendaCategories(orgId);
+
+      expect(result, equals(mockResult));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().fetchAgendaItemCategoriesByOrganization(orgId),
+        ),
+      ).called(1);
+    });
+
+    test('createAgendaItem sends correct mutation and variables', () async {
+      final variables = {'title': 'New Agenda', 'description': 'Description'};
+      final mockResult = QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'createAgendaItem': {'_id': 'agenda1'},
+        },
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().createAgendaItem(),
+          variables: {'input': variables},
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      final service = EventService();
+
+      final result = await service.createAgendaItem(variables);
+
+      expect(result, equals(mockResult));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().createAgendaItem(),
+          variables: {'input': variables},
+        ),
+      ).called(1);
+    });
+
+    test('deleteAgendaItem sends correct mutation and variables', () async {
+      final variables = {'agendaItemId': 'agenda1'};
+      final mockResult = QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'deleteAgendaItem': {'_id': 'agenda1'},
+        },
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().deleteAgendaItem(),
+          variables: variables,
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      final result = await EventService().deleteAgendaItem(variables);
+
+      expect(result, equals(mockResult));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().deleteAgendaItem(),
+          variables: variables,
+        ),
+      ).called(1);
+    });
+
+    test('updateAgendaItem sends correct mutation and variables', () async {
+      const itemId = 'agenda1';
+      final variables = {'title': 'Updated Agenda'};
+      final mockResult = QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'updateAgendaItem': {'_id': 'agenda1', 'title': 'Updated Agenda'},
+        },
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().updateAgendaItem(),
+          variables: {
+            'updateAgendaItemId': itemId,
+            'input': variables,
+          },
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      final result = await EventService().updateAgendaItem(itemId, variables);
+
+      expect(result, equals(mockResult));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().updateAgendaItem(),
+          variables: {
+            'updateAgendaItemId': itemId,
+            'input': variables,
+          },
+        ),
+      ).called(1);
+    });
+
+    test('fetchAgendaItems returns correct data', () async {
+      const eventId = 'event123';
+      final mockResult = QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'fetchAgendaItems': [
+            {'_id': 'agenda1', 'title': 'Agenda Item 1'},
+            {'_id': 'agenda2', 'title': 'Agenda Item 2'},
+          ],
+        },
+        source: QueryResultSource.network,
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          EventQueries().fetchAgendaItemsByEvent(eventId),
+        ),
+      ).thenAnswer((_) async => mockResult);
+
+      final result = await EventService().fetchAgendaItems(eventId);
+
+      expect(result, equals(mockResult));
+      verify(
+        databaseFunctions.gqlAuthQuery(
+          EventQueries().fetchAgendaItemsByEvent(eventId),
+        ),
+      ).called(1);
     });
   });
 }

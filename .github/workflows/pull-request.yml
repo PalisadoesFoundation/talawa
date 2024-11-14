@@ -48,7 +48,7 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
       - name: Running count lines
-        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart
+        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart
       - name: setup python
         uses: actions/setup-python@v5
       - name: Check for presence of ignore directives corresponding to custom lints
@@ -173,6 +173,7 @@ jobs:
         run: flutter build ios --release --no-codesign
 
   Branch-check:
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
     name: "Base branch check"
     runs-on: ubuntu-latest
     steps:
@@ -182,8 +183,9 @@ jobs:
           echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
           exit 1
 
-  Check-Unauthorized-Changes:
-    name: Checks if no unauthorized files are changed
+  Check-Sensitive-Files:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -211,6 +213,14 @@ jobs:
             LICENSE
             setup.ts
             .coderabbit.yaml
+            CODE_OF_CONDUCT.md
+            CONTRIBUTING.md
+            DOCUMENTATION.md
+            INSTALLATION.md
+            ISSUE_GUIDELINES.md
+            PR_GUIDELINES.md
+            README.md
+
       - name: List all changed unauthorized files
         if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
         env:
@@ -222,6 +232,7 @@ jobs:
           exit 1
 
   Count-Changed-Files:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checks if number of files changed is acceptable
     runs-on: ubuntu-latest
     steps:
