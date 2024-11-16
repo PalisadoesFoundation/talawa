@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -56,7 +54,8 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(
-                      'Failed to load organizations. Please try again later.'),
+                    'Failed to load organizations. Please try again later.',
+                  ),
                 ),
               );
             }
@@ -80,8 +79,11 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
     );
   }
 
-  Widget _buildListView(BuildContext context, QueryResult result,
-      Future<QueryResult> Function(FetchMoreOptions)? fetchMore) {
+  Widget _buildListView(
+    BuildContext context,
+    QueryResult result,
+    Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
+  ) {
     return Scrollbar(
       thumbVisibility: true,
       interactive: true,
