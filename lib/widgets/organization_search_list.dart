@@ -117,7 +117,7 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
               type: TileType.org,
               orgInfo: model.organizations[index],
               onTapOrgInfo: model.selectOrg,
-              key: const Key('test'),
+              key: Key('orgTile_${widget.model.organizations[index].id}'),
             ),
           );
         },
