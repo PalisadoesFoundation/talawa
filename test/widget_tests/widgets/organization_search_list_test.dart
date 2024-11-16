@@ -98,10 +98,10 @@ void main() {
       find.byType(PageView).first,
       500.0,
     );
-    final fetchMore = (FetchMoreOptions options) => 
+    final fetchMore = (FetchMoreOptions options) =>
         Future.value(QueryResult.internal(source: QueryResultSource.network));
     verify(mockModel.fetchMoreHelper(fetchMore!, organizations)).called(1);
-    
+
     // Verify no more calls when hasMoreItems is false
     when(mockModel.hasMoreItems).thenReturn(false);
     await tester.scrollUntilVisible(
