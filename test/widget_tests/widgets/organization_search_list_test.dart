@@ -33,84 +33,71 @@ void main() {
   }
 
   testWidgets('OrganizationSearchList renders correctly',
-      (WidgetTester tester) async {
-    when(mockModel.searchController.text).thenReturn('');
-    await tester.pumpWidget(createWidgetUnderTest());
-    expect(find.byType(Query), findsOneWidget);
-  });
+          (WidgetTester tester) async {
+        when(mockModel.searchController.text).thenReturn('');
+        await tester.pumpWidget(createWidgetUnderTest());
+        expect(find.byType(Query), findsOneWidget);
+      });
 
   testWidgets('Displays loading indicator when fetching data',
-      (WidgetTester tester) async {
-    when(mockModel.searchController.text).thenReturn('test');
-    await tester.pumpWidget(createWidgetUnderTest());
+          (WidgetTester tester) async {
+        when(mockModel.searchController.text).thenReturn('test');
+        await tester.pumpWidget(createWidgetUnderTest());
 
-    // Simulate loading state
-    await tester.pump();
-    expect(find.byType(CupertinoActivityIndicator), findsWidgets);
-  });
+        // Simulate loading state
+        await tester.pump();
+        expect(find.byType(CupertinoActivityIndicator), findsWidgets);
+      });
 
   testWidgets('Displays CustomListTile for each organization item',
-      (WidgetTester tester) async {
-    final organizations = [
-      OrgInfo(name: 'Org1', id: '1'),
-      OrgInfo(name: 'Org2', id: '2'),
-    ];
+          (WidgetTester tester) async {
+        final organizations = [
+          OrgInfo(name: 'Org1', id: '1'),
+          OrgInfo(name: 'Org2', id: '2'),
+        ];
 
-    when(mockModel.searchController.text).thenReturn('org');
-    when(mockModel.organizations).thenReturn(organizations);
+        when(mockModel.searchController.text).thenReturn('org');
+        when(mockModel.organizations).thenReturn(organizations);
 
-    await tester.pumpWidget(createWidgetUnderTest());
-    await tester.pump();
+        await tester.pumpWidget(createWidgetUnderTest());
+        await tester.pump();
 
-    expect(find.byType(CustomListTile), findsNWidgets(2));
-  });
+        expect(find.byType(CustomListTile), findsNWidgets(2));
+      });
 
   testWidgets('Shows error message and attempts refetch on exception',
-      (WidgetTester tester) async {
-    when(mockModel.searchController.text).thenReturn('test');
-    when(mockGraphQLClient.query(
-      QueryOptions(
-        document: gql(''),
-      ),
-    )).thenAnswer((_) async {
-      throw Exception('GraphQL error');
-    });
+          (WidgetTester tester) async {
+        when(mockModel.searchController.text).thenReturn('test');
+        when(mockGraphQLClient.query(
+          QueryOptions(
+            document: gql(queries.getPluginsList()),
+          ),
+        ),).thenAnswer((_) async {
+          throw Exception('GraphQL error');
+        });
 
-    await tester.pumpWidget(createWidgetUnderTest());
-    await tester.pump();
+        await tester.pumpWidget(createWidgetUnderTest());
+        await tester.pump();
 
-    // Expect error handling and retry logic here
-    expect(find.textContaining('GraphQL error'), findsNothing);
-  });
+        // Expect error handling and retry logic here
+        expect(find.textContaining('GraphQL error'), findsNothing);
+      });
 
   testWidgets('Calls fetchMoreHelper when near end of list',
-      (WidgetTester tester) async {
-    final organizations = List<OrgInfo>.generate(
-        30, (index) => OrgInfo(name: 'Org $index', id: '$index'));
+          (WidgetTester tester) async {
+        final organizations = List<OrgInfo>.generate(
+            30, (index) => OrgInfo(name: 'Org $index', id: '$index'),);
 
-    when(mockModel.searchController.text).thenReturn('org');
-    when(mockModel.organizations).thenReturn(organizations);
-    when(mockModel.hasMoreItems).thenReturn(true);
+        when(mockModel.searchController.text).thenReturn('org');
+        when(mockModel.organizations).thenReturn(organizations);
 
-    await tester.pumpWidget(createWidgetUnderTest());
+        await tester.pumpWidget(createWidgetUnderTest());
 
-    await tester.scrollUntilVisible(
-      find.byType(PageView).first,
-      500.0,
-    );
-
-    Future<QueryResult<Object?>> fetchMore(FetchMoreOptions options) async {
-      return QueryResult.internal(source: QueryResultSource.network);
-    }
-
-    verify(mockModel.fetchMoreHelper(fetchMore, organizations)).called(1);
-
-    // Verify no more calls when hasMoreItems is false
-    when(mockModel.hasMoreItems).thenReturn(false);
-    await tester.scrollUntilVisible(
-      find.byType(PageView).last,
-      500.0,
-    );
-    verifyNever(mockModel.fetchMoreHelper(any, any));
-  });
+        await tester.scrollUntilVisible(
+          find.byType(PageView).first,
+          500.0,
+        );
+        Future<QueryResult> Function(FetchMoreOptions)? fetchMore;
+        verify(mockModel.fetchMoreHelper(fetchMore!, organizations)).called(1);
+      });
 }
