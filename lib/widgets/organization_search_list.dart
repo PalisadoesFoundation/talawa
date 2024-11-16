@@ -94,7 +94,9 @@ class OrganizationSearchList extends StatelessWidget {
             onVisibilityChanged: (VisibilityInfo info) {
               if (info.visibleFraction > 0 &&
                   index == model.organizations.length - 3) {
-                model.fetchMoreHelper(fetchMore!, model.organizations);
+                if (fetchMore != null) {
+                  model.fetchMoreHelper(fetchMore, model.organizations);
+                }
               }
             },
             child: CustomListTile(
