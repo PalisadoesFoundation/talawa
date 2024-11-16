@@ -90,6 +90,7 @@ void main() {
 
     when(mockModel.searchController.text).thenReturn('org');
     when(mockModel.organizations).thenReturn(organizations);
+    when(mockModel.hasMoreItems).thenReturn(true);
 
     await tester.pumpWidget(createWidgetUnderTest());
 
@@ -97,7 +98,16 @@ void main() {
       find.byType(PageView).first,
       500.0,
     );
-    Future<QueryResult> Function(FetchMoreOptions)? fetchMore;
+    final fetchMore = (FetchMoreOptions options) => 
+        Future.value(QueryResult.internal(source: QueryResultSource.network));
     verify(mockModel.fetchMoreHelper(fetchMore!, organizations)).called(1);
+    
+    // Verify no more calls when hasMoreItems is false
+    when(mockModel.hasMoreItems).thenReturn(false);
+    await tester.scrollUntilVisible(
+      find.byType(PageView).last,
+      500.0,
+    );
+    verifyNever(mockModel.fetchMoreHelper(any, any));
   });
 }
