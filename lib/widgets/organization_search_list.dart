@@ -23,7 +23,13 @@ class OrganizationSearchList extends StatefulWidget {
 class _OrganizationSearchListState extends State<OrganizationSearchList> {
   static const int maxRefetch = 10;
   final ValueNotifier<int> _refetchCount = ValueNotifier<int>(0);
-
+  
+  @override
+  void dispose() {
+    _refetchCount.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
