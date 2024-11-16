@@ -7,7 +7,7 @@ updates:
     # Check the pub.dev registry for updates every day (weekdays)
     schedule:
       interval: "monthly"
-    target-branch: "develop"
+    target-branch: "develop-postgres"
     # # Add default reviewers
     # reviewers:
     #   - "palisadoes"
