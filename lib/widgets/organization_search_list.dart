@@ -43,10 +43,17 @@ class OrganizationSearchList extends StatelessWidget {
               refetch?.call();
             }
           } else if (!result.isLoading) {
-            model.organizations = OrgInfo().fromJsonToList(
-              result.data!['organizationsConnection'],
-            );
-          }
+            final data = result.data;
+            if (data != null && data['organizationsConnection'] != null) {
+              try {
+                model.organizations = OrgInfo().fromJsonToList(
+                  data['organizationsConnection'],
+                );
+              } catch (e) {
+                debugPrint('Error parsing organization data: $e');
+                model.organizations = [];
+              }
+            }
 
           return _buildListView(context, result, fetchMore);
         },
