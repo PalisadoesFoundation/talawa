@@ -70,7 +70,7 @@ void main() {
     when(mockModel.searchController.text).thenReturn('test');
     when(mockGraphQLClient.query(
       QueryOptions(
-        document: gql(queries.getPluginsList()),
+        document: gql(''),
       ),
     )).thenAnswer((_) async {
       throw Exception('GraphQL error');
@@ -98,9 +98,12 @@ void main() {
       find.byType(PageView).first,
       500.0,
     );
-    final fetchMore = (FetchMoreOptions options) =>
-        Future.value(QueryResult.internal(source: QueryResultSource.network));
-    verify(mockModel.fetchMoreHelper(fetchMore!, organizations)).called(1);
+
+    Future<QueryResult<Object?>> fetchMore(FetchMoreOptions options) async {
+      return QueryResult.internal(source: QueryResultSource.network);
+    }
+
+    verify(mockModel.fetchMoreHelper(fetchMore, organizations)).called(1);
 
     // Verify no more calls when hasMoreItems is false
     when(mockModel.hasMoreItems).thenReturn(false);
