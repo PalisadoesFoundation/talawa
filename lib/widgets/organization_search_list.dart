@@ -11,13 +11,6 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class OrganizationSearchList extends StatelessWidget {
-  const OrganizationSearchList({required this.model, super.key});
-
-  final SelectOrganizationViewModel model;
-
-  @override
-  Widget build(BuildContext context) {
 class OrganizationSearchList extends StatefulWidget {
   const OrganizationSearchList({required this.model, super.key});
 
@@ -33,14 +26,13 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
 
   @override
   Widget build(BuildContext context) {
-
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
       child: Query(
         options: QueryOptions(
           document: gql(Queries().fetchJoinInOrgByName),
           variables: {
-            'nameStartsWith': model.searchController.text,
+            'nameStartsWith': widget.model.searchController.text,
             'first': 30,
             'skip': 0,
           },
@@ -55,9 +47,10 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
               _refetchCount.value++;
               refetch?.call();
             } else {
-             ScaffoldMessenger.of(context).showSnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                content: Text('Failed to load organizations. Please try again later.'),
+                  content: Text(
+                      'Failed to load organizations. Please try again later.'),
                 ),
               );
             }
@@ -65,14 +58,15 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
             final data = result.data;
             if (data != null && data['organizationsConnection'] != null) {
               try {
-                model.organizations = OrgInfo().fromJsonToList(
+                widget.model.organizations = OrgInfo().fromJsonToList(
                   data['organizationsConnection'],
                 );
               } catch (e) {
                 debugPrint('Error parsing organization data: $e');
-                model.organizations = [];
+                widget.model.organizations = [];
               }
             }
+          }
 
           return _buildListView(context, result, fetchMore);
         },
@@ -85,16 +79,16 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
     return Scrollbar(
       thumbVisibility: true,
       interactive: true,
-      controller: model.controller,
+      controller: widget.model.controller,
       child: ListView.separated(
-        controller: model.controller,
+        controller: widget.model.controller,
         padding: EdgeInsets.zero,
         shrinkWrap: true,
         itemCount: result.isLoading
-            ? model.organizations.length + 1
-            : model.organizations.length,
+            ? widget.model.organizations.length + 1
+            : widget.model.organizations.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index == model.organizations.length) {
+          if (index == widget.model.organizations.length) {
             return const ListTile(
               title: Center(
                 child: CupertinoActivityIndicator(),
@@ -106,17 +100,18 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
             key: Key('OrgSelItem$index'),
             onVisibilityChanged: (VisibilityInfo info) {
               if (info.visibleFraction > 0 &&
-                  index == model.organizations.length - 3) {
+                  index == widget.model.organizations.length - 3) {
                 if (fetchMore != null) {
-                  model.fetchMoreHelper(fetchMore, model.organizations);
+                  widget.model
+                      .fetchMoreHelper(fetchMore, widget.model.organizations);
                 }
               }
             },
             child: CustomListTile(
               index: index,
               type: TileType.org,
-              orgInfo: model.organizations[index],
-              onTapOrgInfo: model.selectOrg,
+              orgInfo: widget.model.organizations[index],
+              onTapOrgInfo: widget.model.selectOrg,
               key: Key('orgTile_${widget.model.organizations[index].id}'),
             ),
           );
