@@ -18,8 +18,8 @@ class OrganizationSearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int noOfRefetch = 0;
-    const int maxRefetch = 10;
+    static const int maxRefetch = 10;
+    final ValueNotifier<int> _refetchCount = ValueNotifier<int>(0);
 
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
@@ -38,9 +38,15 @@ class OrganizationSearchList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            if (noOfRefetch <= maxRefetch) {
-              noOfRefetch++;
+            if (_refetchCount.value < maxRefetch) {
+              _refetchCount.value++;
               refetch?.call();
+            } else {
+             ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                content: Text('Failed to load organizations. Please try again later.'),
+                ),
+              );
             }
           } else if (!result.isLoading) {
             final data = result.data;
