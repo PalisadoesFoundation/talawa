@@ -18,8 +18,21 @@ class OrganizationSearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    static const int maxRefetch = 10;
-    final ValueNotifier<int> _refetchCount = ValueNotifier<int>(0);
+class OrganizationSearchList extends StatefulWidget {
+  const OrganizationSearchList({required this.model, super.key});
+
+  final SelectOrganizationViewModel model;
+
+  @override
+  _OrganizationSearchListState createState() => _OrganizationSearchListState();
+}
+
+class _OrganizationSearchListState extends State<OrganizationSearchList> {
+  static const int maxRefetch = 10;
+  final ValueNotifier<int> _refetchCount = ValueNotifier<int>(0);
+
+  @override
+  Widget build(BuildContext context) {
 
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
