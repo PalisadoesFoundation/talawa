@@ -177,8 +177,8 @@ jobs:
     name: "Base branch check"
     runs-on: ubuntu-latest
     steps:
-      - name: "Check if base branch is develop"
-        if: github.event.pull_request.base.ref != 'develop'
+      - name: "Check if base branch is develop-postgres"
+        if: github.event.pull_request.base.ref != 'develop-postgres'
         run: |
           echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
           exit 1
