@@ -13,6 +13,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/organization_search_list.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -20,6 +21,7 @@ import '../../helpers/test_helpers.dart';
 void main() {
   const Key selectOrgKey = Key("selectOrgKey");
   const String orgID = "-1";
+
   Widget createSelectOrgPage({String? customorgID}) {
     return MaterialApp(
       locale: const Locale('en'),
@@ -58,10 +60,13 @@ void main() {
   SizeConfig().test();
 
   group("Select Organization Test", () {
+    late SelectOrganizationViewModel orgViewModel;
+
     setUp(() {
       registerViewModels();
       registerServices();
       locator.registerFactory(() => Queries());
+      orgViewModel = SelectOrganizationViewModel();
     });
 
     tearDown(() {
@@ -70,7 +75,7 @@ void main() {
       locator.unregister<Queries>();
     });
 
-    testWidgets("Test if SelectOrganization Page is displayed ",
+    testWidgets("Test if SelectOrganization Page is displayed",
         (WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
@@ -80,33 +85,28 @@ void main() {
       });
     });
 
-    testWidgets('test organization search list', (tester) async {
-      final orgViewModel = SelectOrganizationViewModel();
-      orgViewModel.organizations = [];
-      for (var i = 0; i < 6; i++) {
-        orgViewModel.organizations.add(
-          OrgInfo(
-            admins: [],
-            members: [],
-            creatorInfo: User(id: 'azad'),
-            id: i.toString(),
-            description: 'description',
-            name: 'azads org',
-            userRegistrationRequired: true,
-          ),
-        );
-      }
-      await tester
-          .pumpWidget(organizationSearchList(orgViewModel: orgViewModel));
-      await tester.pumpAndSettle();
-    });
-
-    testWidgets('test organization search list', (tester) async {
-      final orgViewModel = SelectOrganizationViewModel();
+    testWidgets('Test organization search list with valid data',
+        (tester) async {
+      // Populate mock data for organizations
+      orgViewModel.organizations = List.generate(
+        5,
+        (i) => OrgInfo(
+          admins: [],
+          members: [],
+          creatorInfo: User(id: 'user$i'),
+          id: '$i',
+          description: 'Organization $i description',
+          name: 'Organization $i',
+          userRegistrationRequired: true,
+        ),
+      );
 
       await tester
           .pumpWidget(organizationSearchList(orgViewModel: orgViewModel));
       await tester.pumpAndSettle();
+
+      // Ensure the CustomListTile widgets are rendered
+      expect(find.byType(CustomListTile), findsNWidgets(5));
     });
 
     testWidgets("Test if back-arrow is present", (WidgetTester tester) async {
@@ -118,17 +118,6 @@ void main() {
         final appBarFinder =
             find.descendant(of: orgFinder, matching: find.byType(AppBar));
         expect(appBarFinder, findsOneWidget);
-
-        // final appBarWidget = tester.firstWidget(appBarFinder) as AppBar;
-
-        // expect(
-        //   appBarWidget.leading,
-        //   isA<IconButton>().having(
-        //     (icon) => icon.icon,
-        //     "icon",
-        //     Icons.arrow_back,
-        //   ),
-        // );
       });
     });
   });
