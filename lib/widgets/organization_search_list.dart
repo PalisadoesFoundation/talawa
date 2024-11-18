@@ -92,35 +92,32 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
                     ),
                   );
                 }
+                Widget buildListTile(int index) {
+                  return CustomListTile(
+                    index: index,
+                    type: TileType.org,
+                    orgInfo: widget.model.organizations[index],
+                    onTapOrgInfo: widget.model.selectOrg,
+                    key: Key('orgTile_${widget.model.organizations[index].id}'),
+                  );
+                }
 
                 if (index == widget.model.organizations.length - 3) {
                   return VisibilityDetector(
-                    key: Key('OrgSelItem$index'),
+                    key: Key('orgTile_${widget.model.organizations[index].id}'),
                     onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction > 0) {
+                      if (fetchMore != null) {
                         widget.model.fetchMoreHelper(
-                          fetchMore!,
+                          fetchMore,
                           widget.model.organizations,
                         );
                       }
                     },
-                    child: CustomListTile(
-                      index: index,
-                      type: TileType.org,
-                      orgInfo: widget.model.organizations[index],
-                      onTapOrgInfo: widget.model.selectOrg,
-                      key: Key('OrgSelItem$index'),
-                    ),
+                    child: buildListTile(index),
                   );
                 }
 
-                return CustomListTile(
-                  index: index,
-                  type: TileType.org,
-                  orgInfo: widget.model.organizations[index],
-                  onTapOrgInfo: widget.model.selectOrg,
-                  key: Key('OrgSelItem$index'),
-                );
+                return buildListTile(index);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return Padding(
