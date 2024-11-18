@@ -79,7 +79,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
-        await tester.pump();
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
         final selectOrgFinder = find.byKey(selectOrgKey);
         expect(selectOrgFinder, findsOneWidget);
       });
@@ -101,18 +101,21 @@ void main() {
         ),
       );
 
-      await tester
-          .pumpWidget(organizationSearchList(orgViewModel: orgViewModel));
-      await tester.pumpAndSettle();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(
+          organizationSearchList(orgViewModel: orgViewModel),
+        );
+        await tester.pumpAndSettle();
 
-      // Ensure the CustomListTile widgets are rendered
-      expect(find.byType(CustomListTile), findsNWidgets(5));
+        // Ensure the CustomListTile widgets are rendered
+        expect(find.byType(CustomListTile), findsNWidgets(5));
+      });
     });
 
     testWidgets("Test if back-arrow is present", (WidgetTester tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createSelectOrgPage());
-        await tester.pump();
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
         final orgFinder = find.byKey(selectOrgKey);
         final appBarFinder =
