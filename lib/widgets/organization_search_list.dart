@@ -58,7 +58,9 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
     return VisibilityDetector(
       key: Key('orgTile_${widget.model.organizations[index].id}'),
       onVisibilityChanged: (VisibilityInfo info) {
-        if (fetchMore != null) {
+        if (fetchMore != null &&
+            info.visibleFraction > 0 &&
+            index == widget.model.organizations.length - 3) {
           widget.model.fetchMoreHelper(fetchMore, widget.model.organizations);
         }
       },
@@ -126,7 +128,9 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
               _refetchCount.value++;
               refetch?.call();
             } else {
-              print('Max refetch attempts reached.');
+              debugPrint(
+                'Max refetch attempts reached after $_maxRefetch attempts.',
+              );
             }
             // } else if (!result.isLoading) {
             //   widget.model.organizations = OrgInfo().fromJsonToList(
