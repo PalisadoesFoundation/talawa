@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -426,7 +425,12 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   itemCount: attachments.length,
                   itemBuilder: (context, index) {
                     final base64String = attachments[index];
-                    final imageData = base64Decode(base64String);
+                    final imageData = imageService.decodeBase64(base64String);
+                    if (imageData == null) {
+                      return const Center(
+                        child: Icon(Icons.broken_image, color: Colors.red),
+                      );
+                    }
                     return Stack(
                       children: [
                         ClipRRect(

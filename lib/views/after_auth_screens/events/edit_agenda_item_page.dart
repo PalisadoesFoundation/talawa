@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
@@ -325,13 +323,14 @@ class _EditAgendaItemPageState extends State<EditAgendaItemPage> {
                       itemCount: model.attachments.length,
                       itemBuilder: (context, index) {
                         final base64String = model.attachments[index];
-                        final imageData = base64Decode(base64String);
+                        final imageData =
+                            imageService.decodeBase64(base64String);
                         return Stack(
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.memory(
-                                imageData,
+                                imageData!,
                                 fit: BoxFit.cover,
                                 width: double.infinity,
                                 height: double.infinity,
