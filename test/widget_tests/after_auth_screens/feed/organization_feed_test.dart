@@ -285,5 +285,24 @@ void main() {
       verify(mockViewModel.nextPage()).called(1);
       verify(mockViewModel.previousPage()).called(1);
     });
+
+    testWidgets(
+      'check if FloatingActionButton click works fine',
+      (tester) async {
+        // Arrange
+        final model = locator<MainScreenViewModel>();
+        await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+        await tester.pumpAndSettle();
+        
+        // Simulate Tap
+        final fabFinder = find.byKey(const Key('floating_action_btn'));
+        expect(fabFinder, findsOneWidget);
+        await tester.tap(fabFinder);
+
+        // Verify the /addpostscreen is pushed
+        await tester.pump();
+        verify(locator<NavigationService>().pushScreen('/addpostscreen'));
+      },
+    );
   });
 }
