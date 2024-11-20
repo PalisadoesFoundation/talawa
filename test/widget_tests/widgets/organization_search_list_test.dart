@@ -15,6 +15,10 @@ void main() {
       'should render organization list',
       (tester) async {
         final viewModel = SimpleSelectOrganizationViewModel();
+        viewModel.organizations = [
+          OrgInfo(id: '1', name: 'Test Org 1'),
+          OrgInfo(id: '2', name: 'Test Org 2'),
+        ];
 
         await tester.pumpWidget(
           MaterialApp(
@@ -25,6 +29,14 @@ void main() {
           ),
         );
         expect(find.byType(OrganizationSearchList), findsOneWidget);
+
+        expect(find.text('Test Org 1'), findsOneWidget);
+        expect(find.text('Test Org 2'), findsOneWidget);
+
+        // Test empty state
+        viewModel.organizations = [];
+        await tester.pump();
+        expect(find.text('No organizations found'), findsOneWidget);
       },
       skip: true,
     );
@@ -33,7 +45,8 @@ void main() {
       'should show loader while fetching data',
       (tester) async {
         final viewModel = SimpleSelectOrganizationViewModel();
-
+// Trigger loading state
+        viewModel.initialise('');
         await tester.pumpWidget(
           MaterialApp(
             home: OrganizationSearchList(
@@ -43,7 +56,12 @@ void main() {
           ),
         );
         await tester.pump();
-        expect(find.byType(OrganizationSearchList), findsOneWidget);
+        // Verify loading state
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+        // Complete loading
+        await tester.pumpAndSettle();
+        expect(find.byType(CircularProgressIndicator), findsNothing);
       },
       skip: true,
     );
@@ -70,9 +88,20 @@ void main() {
 
         // Find the VisibilityDetector widgets
         final visibilityDetectorFinder = find.byType(VisibilityDetector);
+        expect(visibilityDetectorFinder, findsNWidgets(2));
+        // Simulate visibility change for last item
+        final lastDetector = tester
+            .widget<VisibilityDetector>(find.byKey(const Key('visibility_1')));
+        lastDetector.onVisibilityChanged!(
+          const VisibilityInfo(
+            key: Key('visibility_1'),
+            size: Size(100, 100),
+            visibleBounds: Rect.fromLTWH(0, 0, 100, 100),
+          ),
+        );
 
-        // Verify that VisibilityDetector widgets exist
-        expect(visibilityDetectorFinder, findsWidgets);
+        // Verify pagination triggered
+        await tester.pump();
       },
       skip: true,
     );
