@@ -304,5 +304,27 @@ void main() {
         verify(locator<NavigationService>().pushScreen('/addpostscreen'));
       },
     );
+
+    testWidgets(
+        'check if counters reset when scrolling occurs anywhere other than at the edge',
+        (tester) async {
+        // Arrange
+        when(mockViewModel.posts)
+            .thenReturn([post, post, post, post, post, post]);
+        final model = locator<MainScreenViewModel>();
+        await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+        await tester.pumpAndSettle();
+
+        // Simulate Drag
+        await tester.drag(
+          find.byKey(const Key('listView')),
+          const Offset(0, -200),
+        );
+        await tester.pumpAndSettle();
+
+        // Verify that counters are reset
+        expect(find.byType(CircularProgressIndicator), findsNothing);
+      },
+    );
   });
 }
