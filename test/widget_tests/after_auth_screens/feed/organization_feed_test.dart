@@ -315,15 +315,18 @@ void main() {
         await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
         await tester.pumpAndSettle();
 
-        // Simulate Drag
+        // Simulate Scroll within content (not at edge)
         await tester.drag(
           find.byKey(const Key('listView')),
           const Offset(0, -200),
         );
         await tester.pumpAndSettle();
 
-        // Verify that counters are reset
+        // Verify that counters are reset and loading state
         expect(find.byType(CircularProgressIndicator), findsNothing);
+
+        verifyNever(mockViewModel.nextPage());
+        verifyNever(mockViewModel.previousPage());
       },
     );
   });
