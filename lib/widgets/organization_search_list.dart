@@ -9,7 +9,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 /// This widget displays a list of organizations searched via the search bar.
 class OrganizationSearchList extends StatefulWidget {
@@ -49,22 +48,23 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
     );
   }
 
-  /// Builds a visibility tile to handle fetching more data when scrolled to the end.
+  /// Alternate implementation of the visibility tile using a listener-based approach.
   Widget _buildVisibilityTile(
     BuildContext context,
     int index,
     Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
   ) {
-    return VisibilityDetector(
-      key: Key('orgTile_${widget.model.organizations[index].id}'),
-      onVisibilityChanged: (VisibilityInfo info) {
-        if (fetchMore != null &&
-            info.visibleFraction > 0 &&
-            index == widget.model.organizations.length - 3) {
-          widget.model.fetchMoreHelper(fetchMore, widget.model.organizations);
-        }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (fetchMore != null &&
+              index == widget.model.organizations.length - 3 &&
+              constraints.biggest.height > 0) {
+            widget.model.fetchMoreHelper(fetchMore, widget.model.organizations);
+          }
+        });
+        return _buildListTile(context, index);
       },
-      child: _buildListTile(context, index),
     );
   }
 
@@ -132,10 +132,6 @@ class _OrganizationSearchListState extends State<OrganizationSearchList> {
                 'Max refetch attempts reached after $_maxRefetch attempts.',
               );
             }
-            // } else if (!result.isLoading) {
-            //   widget.model.organizations = OrgInfo().fromJsonToList(
-            //     result.data!['organizationsConnection'],
-            //   );
           }
 
           return Scrollbar(
