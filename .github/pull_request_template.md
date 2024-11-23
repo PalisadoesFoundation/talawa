@@ -4,7 +4,7 @@ This section can be deleted after reading.
 We employ the following branching strategy to simplify the development process and to ensure that only stable code is pushed to the `master` branch:
 
 - `develop`: For unstable code: New features and bug fixes.
-- `master`: Where the stable production ready code lies. Only security related bugs.
+- `master`: Where the stable production-ready code lies. Only security-related bugs.
 
 NOTE!!!
 
@@ -27,6 +27,9 @@ Fixes #<!--Add related issue number here and delete this comment text block.-->
 
 <!--Yes or No. Note: Add unit tests or automation tests for your code.-->
 
+- [ ] Tests are written for all changes made in this PR.
+- [ ] Test coverage meets or exceeds the current coverage (~90/95%).
+
 **Snapshots/Videos:**
 
 <!--Add snapshots or videos wherever possible.-->
@@ -43,6 +46,10 @@ Fixes #<!--Add related issue number here and delete this comment text block.-->
 **Does this PR introduce a breaking change?**
 
 <!-- If this PR introduces a breaking change, please describe the impact and a migration path for existing applications. -->
+
+**Checklist for Repository Standards**
+- [ ] Have you implemented all relevant `coderaabbitai` suggestions?
+- [ ] Have you ensured that the PR aligns with the repository’s contribution guidelines?
 
 **Other information**
 
