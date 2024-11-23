@@ -15,46 +15,46 @@ ONLY SUBMIT PRS AGAINST OUR `DEVELOP` BRANCH. THE DEFAULT IS `MAIN`, SO YOU WILL
 Thanks for submitting a pull request! Please provide enough information so that others can review your pull request.
 -->
 
-**What kind of change does this PR introduce?**
+### What kind of change does this PR introduce?
 
 <!-- E.g. a bugfix, feature, refactoring, etc… -->
 
-**Issue Number:**
+### Issue Number:
 
 Fixes #<!--Add related issue number here and delete this comment text block.-->
 
-**Did you add tests for your changes?**
+### Did you add tests for your changes?
 
 <!--Yes or No. Note: Add unit tests or automation tests for your code.-->
 
 - [ ] Tests are written for all changes made in this PR.
 - [ ] Test coverage meets or exceeds the current coverage (~90/95%).
 
-**Snapshots/Videos:**
+Snapshots/Videos:
 
 <!--Add snapshots or videos wherever possible.-->
 
-**If relevant, did you update the documentation?**
+### If relevant, did you update the documentation?
 
 <!--Add link to Talawa-Docs.-->
 
-**Summary**
+### Summary
 
-<!-- Explain the **motivation** for making this change. What existing problem does the pull request solve? -->
+<!-- Explain the motivation for making this change. What existing problem does the pull request solve? -->
 <!-- Try to link to an open issue for more information. -->
 
-**Does this PR introduce a breaking change?**
+### Does this PR introduce a breaking change?
 
 <!-- If this PR introduces a breaking change, please describe the impact and a migration path for existing applications. -->
 
-**Checklist for Repository Standards**
-- [ ] Have you implemented all relevant `coderaabbitai` suggestions?
+### Checklist for Repository Standards
+- [ ] Have you reviewed and implemented all applicable `coderaabbitai` review suggestions?
 - [ ] Have you ensured that the PR aligns with the repository’s contribution guidelines?
 
-**Other information**
+### Other information
 
 <!--Add extra information about this PR here-->
 
-**Have you read the [contributing guide](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md)?**
+### Have you read the [contributing guide](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md)?
 
 <!--Yes or No-->
