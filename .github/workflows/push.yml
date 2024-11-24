@@ -37,7 +37,7 @@ jobs:
           # This could be important for our documentation generation process.
           # See: https://github.com/actions/checkout
           fetch-depth: 0
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '12.0'
@@ -82,7 +82,7 @@ jobs:
     # needs: Update-Documentation
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '12.0'          
@@ -97,7 +97,7 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
@@ -114,7 +114,7 @@ jobs:
     needs: Flutter-Testing
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '12.0'          
