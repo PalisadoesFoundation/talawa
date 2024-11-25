@@ -30,15 +30,16 @@ jobs:
             ### Testing Your Code
             
             Remember, your PRs won't be reviewed until these criteria are met:
-            
+
             1. We don't merge PRs with poor code quality. 
                 1. Follow coding best practices such that CodeRabbit.ai approves your PR.
             1. We don't merge PRs with failed tests. 
                 1. When tests fail, click on the `Details` link to learn more.
                 1. Write sufficient tests for your changes (CodeCov Patch Test). Your testing level must be better than the target threshold of the repository
-                1. Tests may fail if you edit sensitive files. Ask to add the `sensitive-files-ignore-pr` label if the edits are necessary.
-            
-            These policies make our code better.
+                1. Tests may fail if you edit sensitive files. Ask to add the `ignore-sensitive-files-pr` label if the edits are necessary.
+            1. We cannot merge PRs with conflicting files. These must be fixed.
+                
+            Our policies make our code better.
 
             ### Reviewers
 
