@@ -465,5 +465,16 @@ Future<void> main() async {
         true,
       );
     });
+
+    testWidgets('Testing if onPressed requests focus on firstNameFocus',
+        (tester) async {
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
+      final iconButtonFinder = find.byIcon(Icons.edit);
+      expect(iconButtonFinder, findsNWidgets(2));
+      await tester.tap(iconButtonFinder.first);
+      await tester.tap(iconButtonFinder.last);
+      await tester.pump();
+    });
   });
 }
