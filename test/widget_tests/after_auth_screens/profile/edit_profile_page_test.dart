@@ -476,5 +476,37 @@ Future<void> main() async {
       await tester.tap(iconButtonFinder.last);
       await tester.pump();
     });
+
+    // Facing issue here 
+
+  //   testWidgets('Testing removeImage method in EditProfilePage', (WidgetTester tester) async {
+  //   final viewModel = MockEditProfilePageViewModel();
+
+  //   // Set up the mock to have an imageFile
+  //   when(viewModel.imageFile).thenReturn(File('dummy_path'));
+
+  //   await tester.pumpWidget(
+  //     ChangeNotifierProvider<EditProfilePageViewModel>(
+  //       create: (_) => viewModel,
+  //       child: createEditProfilePage(),
+  //     ),
+  //   );
+
+  //   // Verify the image is initially present
+  //   expect(find.byKey(Key('AddRemoveImageButton')), findsOneWidget);
+
+  //   // Simulate tapping the remove image button
+  //   await tester.tap(find.byKey(Key('AddRemoveImageButton')));
+  //   await tester.pumpAndSettle();
+
+  //   // Verify removeImage method is called
+  //   verify(viewModel.removeImage()).called(1);
+
+  //   // Verify the image is removed
+  //   when(viewModel.imageFile).thenReturn(null);
+  //   await tester.pump();
+  //   expect(viewModel.imageFile, isNull);
+  // });
+
   });
 }
