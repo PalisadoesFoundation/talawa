@@ -25,16 +25,21 @@ jobs:
           message: |
             ## Our Pull Request Approval Process
 
-            We have these basic policies to make the approval process smoother for our volunteer team.
-
+            Thanks for contributing! 
+            
             ### Testing Your Code
-
-            Please make sure your code passes all tests. Our test code coverage system will fail if either of these two conditions occur:
-
-            1.  The overall code coverage drops below the target threshold of the repository
-            2.  Any file in the pull request has code coverage levels below the repository threshold
-
-            The process helps maintain the overall reliability of the code base and is a prerequisite for getting your PR approved. Assigned reviewers regularly review the PR queue and tend to focus on PRs that are passing.
+            
+            Remember, your PRs won't be reviewed until these criteria are met:
+            
+            1. We don't merge PRs with poor code quality. 
+                1. Follow coding best practices such that CodeRabbit.ai approves your PR.
+            1. We don't merge PRs with failed tests. 
+                1. When tests fail, click on the `Details` link to learn more.
+                1. Write sufficient tests for your changes (CodeCov Patch Test). Your testing level must be better than the target threshold of the repository
+                1. Tests may fail if you edit sensitive files. Ask to add the `ignore-sensitive-files-pr` label if the edits are necessary.
+            1. We cannot merge PRs with conflicting files. These must be fixed.
+                
+            Our policies make our code better.
 
             ### Reviewers
 

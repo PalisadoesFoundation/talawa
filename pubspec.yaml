@@ -44,7 +44,7 @@ dependencies:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.0.14
+  flutter_svg: ^2.0.16
   font_awesome_flutter: ^10.8.0
   get_it: ^8.0.2
   graphql_flutter: ^5.1.2
@@ -67,8 +67,8 @@ dependencies:
   shared_preferences: ^2.3.3
   shimmer: ^3.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^27.2.2
-  syncfusion_flutter_datepicker: ^27.2.2
+  syncfusion_flutter_calendar: ^27.2.4
+  syncfusion_flutter_datepicker: ^27.2.4
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.12
   uni_links: ^0.5.1
