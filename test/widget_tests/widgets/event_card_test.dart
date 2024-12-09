@@ -195,5 +195,22 @@ void main() {
         expect(find.text("1"), findsOneWidget);
       });
     });
+
+
+    testWidgets('check for created text', (tester) async {
+      mockNetworkImages(() async {
+        const eventTitleHighlightedText = "ravidi";
+        userConfig.currentUser.id = "ravidi";
+        await tester.pumpWidget(createCustomEventCard(
+          getEvent(isRegistered: true, isPublic: true),
+          isSearchItem: false,
+          eventTitleHighlightedText: eventTitleHighlightedText,
+        ));
+        await tester.pump();
+        expect(find.text("Created"), findsOneWidget);
+        expect(find.byIcon(Icons.verified), findsOneWidget);
+        expect(find.byType(SizedBox), findsWidgets);
+      });
+    });
   });
 }
