@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -98,11 +100,22 @@ void main() {
           'groupId': "group1",
         }),
       ).thenThrow(Exception('Failed to add volunteer'));
-      try {
-        await model.addVolunteerToGroup("volunteer1", "1", "group1");
-      } catch (e) {
-        expect(e.toString(), "Failed to add volunteer");
-      }
+      String log = "";
+      await runZonedGuarded(
+        () async {
+          await model.addVolunteerToGroup("volunteer1", "1", "group1");
+        },
+        (error, stack) {},
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+      expect(
+        log,
+        contains("Failed to add volunteer"),
+      );
       expect(model.volunteers.length, 0);
     });
 
@@ -157,8 +170,10 @@ void main() {
       expect(model.volunteers.length, prevLength);
     });
 
-    // Tests the failure case when removing a volunteer from a group with null removeEventVolunteer.
-    test("Test removeVolunteerFromGroup with null data", () async {
+    // Tests the failure case when removing a volunteer from a group with null removeEventVolunteer response.
+    test(
+        "Test removeVolunteerFromGroup with null removeEventVolunteer response",
+        () async {
       final mockEventService = locator<EventService>();
       final int prevLength = model.volunteers.length;
       when(
@@ -187,15 +202,28 @@ void main() {
       when(
         mockEventService.removeVolunteerFromGroup(
           {
-            'id': 'volunteer1',
+            'volunteerId': 'volunteer1',
           },
         ),
       ).thenThrow(Exception('Failed to remove volunteer'));
-      try {
-        await model.removeVolunteerFromGroup("volunteer1");
-      } catch (e) {
-        expect(e.toString(), "Failed to add volunteer");
-      }
+      String log = "";
+      await runZonedGuarded(
+        () async {
+          await model.removeVolunteerFromGroup("volunteer1");
+        },
+        (error, stack) {},
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+
+      expect(
+        log,
+        contains('Failed to remove volunteer'),
+      );
+
       expect(model.volunteers.length, prevlength);
     });
 
@@ -233,11 +261,24 @@ void main() {
           {"id": "group1"},
         ),
       ).thenThrow(Exception("Failed to delete group"));
-      try {
-        await model.deleteVolunteerGroup("group1");
-      } catch (e) {
-        expect(e.toString(), "Failed to delete group");
-      }
+
+      String log = "";
+      await runZonedGuarded(
+        () async {
+          await model.deleteVolunteerGroup("group1");
+        },
+        (error, stack) {},
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+
+      expect(
+        log,
+        contains('Failed to delete group'),
+      );
 
       // Assuming the method should notify listeners
       verify(mockEventService.removeVolunteerGroup({"id": "group1"})).called(1);
@@ -285,7 +326,7 @@ void main() {
       final group = EventVolunteerGroup(
         id: "group1",
         name: "Old Name",
-        volunteersRequired: -1,
+        volunteersRequired: 0,
       );
       when(
         mockEventService.updateVolunteerGroup({
@@ -297,13 +338,25 @@ void main() {
           },
         }),
       ).thenThrow(Exception('Failed to update group'));
-      try {
-        await model.updateVolunteerGroup(group, "1", "Updated Group", 20);
-      } catch (e) {
-        expect(e.toString(), contains('Failed to update group'));
-      }
+      String log = "";
+      await runZonedGuarded(
+        () async {
+          await model.updateVolunteerGroup(group, "1", "Updated Group", 20);
+        },
+        (error, stack) {},
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+
+      expect(
+        log,
+        contains('Failed to update group'),
+      );
       expect(group.name, "Old Name");
-      expect(group.volunteersRequired, -1);
+      expect(group.volunteersRequired, 0);
     });
   });
 }
