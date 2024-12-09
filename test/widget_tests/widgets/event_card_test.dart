@@ -204,7 +204,8 @@ void main() {
           getEvent(isRegistered: true, isPublic: true),
           isSearchItem: false,
           eventTitleHighlightedText: eventTitleHighlightedText,
-        ));
+        ),
+        );
         await tester.pump();
         expect(find.text("Created"), findsOneWidget);
         expect(find.byIcon(Icons.verified), findsOneWidget);
