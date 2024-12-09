@@ -196,7 +196,6 @@ void main() {
       });
     });
 
-
     testWidgets('check for created text', (tester) async {
       mockNetworkImages(() async {
         const eventTitleHighlightedText = "ravidi";
