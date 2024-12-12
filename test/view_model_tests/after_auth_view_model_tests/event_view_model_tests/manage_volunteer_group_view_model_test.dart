@@ -93,6 +93,8 @@ void main() {
     // Tests the failure case when adding a volunteer to a group.
     test("Test addVolunteerToGroup Failure", () async {
       final mockEventService = locator<EventService>();
+      // Verify initial state
+      expect(model.volunteers.length, 0);
       when(
         mockEventService.addVolunteerToGroup({
           'eventId': "1",
@@ -106,10 +108,8 @@ void main() {
           await model.addVolunteerToGroup("volunteer1", "1", "group1");
         },
         (error, stack) {
-          expect(
-            error,
-            isA<Exception>(),
-          );
+          expect(error, isA<Exception>());
+          expect(error.toString(), contains('Failed to add volunteer'));
           expect(stack, isNotNull);
         },
         zoneSpecification: ZoneSpecification(
@@ -123,6 +123,8 @@ void main() {
         contains("Failed to add volunteer"),
       );
       expect(model.volunteers.length, 0);
+      // Verify model is in a clean state after error
+      expect(model.isFetchingVolunteers, isFalse);
     });
 
     // Tests removing a volunteer from a group successfully.
@@ -218,11 +220,9 @@ void main() {
           await model.removeVolunteerFromGroup("volunteer1");
         },
         (error, stack) {
-          expect(
-            error,
-            isA<Exception>(),
-          );
+          expect(error, isA<Exception>());
           expect(stack, isNotNull);
+          expect(error.toString(), contains('Failed to remove volunteer'));
         },
         zoneSpecification: ZoneSpecification(
           print: (self, parent, zone, line) {
@@ -284,6 +284,7 @@ void main() {
             error,
             isA<Exception>(),
           );
+          expect(error.toString(), contains('Failed to delete group'));
           expect(stack, isNotNull);
         },
         zoneSpecification: ZoneSpecification(
@@ -366,6 +367,7 @@ void main() {
             error,
             isA<Exception>(),
           );
+          expect(error.toString(), "Failed to update group");
           expect(stack, isNotNull);
         },
         zoneSpecification: ZoneSpecification(
