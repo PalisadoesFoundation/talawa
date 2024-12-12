@@ -89,6 +89,28 @@ void main() {
       expect(find.text('https://example.com'), findsOneWidget);
     });
 
+    testWidgets('Handles empty lists correctly', (WidgetTester tester) async {
+      testAgendaItem = EventAgendaItem(
+        id: '1',
+        title: 'Test Agenda Item',
+        duration: '00:30',
+        sequence: 1,
+        categories: [],
+        attachments: [],
+        urls: [],
+      );
+
+      await tester.pumpWidget(createExpandableAgendaItemTile());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Test Agenda Item'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Chip), findsNothing);
+      expect(find.text('URLs:'), findsNothing);
+      expect(find.text('Attachments:'), findsNothing);
+    });
+
     testWidgets('Edit button calls onEdit callback',
         (WidgetTester tester) async {
       bool editCalled = false;
@@ -131,6 +153,212 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(deleteCalled, isTrue);
+    });
+
+    group('Attachment Tests', () {
+      const validBase64Image1 =
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wAAAwAB/4JAoQAAAABJRU5ErkJggg==";
+      const validBase64Image2 =
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wQACgAB/1TwbpAAAAAASUVORK5CYII=";
+      final testAttachments = [
+        validBase64Image1,
+        validBase64Image2,
+      ];
+      testWidgets('Attachments Images display correctly',
+          (WidgetTester tester) async {
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        // Verify attachments header is displayed
+        expect(find.text('Attachments:'), findsOneWidget);
+
+        // Verify GridView is displayed
+        expect(find.byType(GridView), findsOneWidget);
+
+        // Verify the number of items in the grid
+        expect(find.byType(Image), findsNWidgets(testAttachments.length));
+      });
+
+      testWidgets('GridView layout properties are correct',
+          (WidgetTester tester) async {
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        final GridView gridView = tester.widget(find.byType(GridView));
+        final SliverGridDelegateWithFixedCrossAxisCount delegate =
+            gridView.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount;
+
+        expect(delegate.crossAxisCount, 3);
+        expect(delegate.crossAxisSpacing, 10);
+        expect(delegate.mainAxisSpacing, 10);
+      });
+
+      testWidgets('ClipRRect is applied correctly to valid images',
+          (WidgetTester tester) async {
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is ClipRRect &&
+                widget.borderRadius == BorderRadius.circular(8),
+          ),
+          findsNWidgets(testAttachments.length),
+        );
+      });
+
+      testWidgets('Fallback icon is displayed for invalid attachments',
+          (WidgetTester tester) async {
+        final testAttachments = [
+          "invalid_base64_data",
+        ];
+
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        // Verify Container is displayed and its properties are correct
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Container &&
+              (widget.decoration! as BoxDecoration).borderRadius ==
+                  BorderRadius.circular(8),
+        );
+
+        // Verify fallback icon is displayed
+        expect(find.byIcon(Icons.attachment), findsOneWidget);
+      });
+
+      testWidgets('Tap on attachment opens full-screen image view',
+          (WidgetTester tester) async {
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        // Tap on the first attachment
+        await tester.tap(find.byType(Image).first);
+        await tester.pumpAndSettle();
+
+        // Verify full-screen image view is displayed
+        expect(find.byType(InteractiveViewer), findsOneWidget);
+
+        // Close the dialog
+        await tester.tapAt(Offset.zero);
+        await tester.pumpAndSettle();
+
+        // Verify the dialog is dismissed
+        expect(find.byType(InteractiveViewer), findsNothing);
+      });
+
+      testWidgets('verify full-screen image properties',
+          (WidgetTester tester) async {
+        testAgendaItem = EventAgendaItem(
+          id: '1',
+          title: 'Test Agenda Item',
+          description: 'Test Description',
+          duration: '00:30',
+          sequence: 1,
+          categories: [],
+          attachments: testAttachments,
+          urls: [],
+        );
+
+        await tester.pumpWidget(createExpandableAgendaItemTile());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Test Agenda Item'));
+        await tester.pumpAndSettle();
+
+        // Tap on the first attachment
+        await tester.tap(find.byType(Image).first);
+        await tester.pumpAndSettle();
+
+        // Colored box renders correctly
+        expect(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is ColoredBox &&
+                widget.color == Colors.black.withOpacity(0.5),
+          ),
+          findsOneWidget,
+        );
+        // Interactive viewer properties
+        final InteractiveViewer viewer =
+            tester.widget(find.byType(InteractiveViewer));
+        expect(viewer.panEnabled, isTrue);
+        expect(viewer.boundaryMargin, const EdgeInsets.all(20));
+        expect(viewer.minScale, 0.5);
+        expect(viewer.maxScale, 4);
+      });
     });
   });
 }
