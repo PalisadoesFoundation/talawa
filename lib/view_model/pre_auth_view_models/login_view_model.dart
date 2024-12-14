@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talawa/constants/app_strings.dart';
 
 import 'package:talawa/constants/routing_constants.dart';
@@ -20,6 +21,15 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 class LoginViewModel extends BaseModel {
   /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
+
+  /// Secure Storage to store user's credentials in local storage securely.
+  final _authstorage = const FlutterSecureStorage();
+
+  /// This field store previous user Email.
+  String? prevUserEmail;
+
+  /// This field store previous user Password.
+  String? prevUserPassword;
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
@@ -144,6 +154,11 @@ class LoginViewModel extends BaseModel {
               result.data!['login'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
+            await _authstorage.write(key: "userEmail", value: this.email.text);
+            await _authstorage.write(
+              key: "Password",
+              value: this.password.text,
+            );
           }
         },
         apiCallSuccessUpdateUI: () {
@@ -170,5 +185,17 @@ class LoginViewModel extends BaseModel {
         },
       );
     }
+  }
+
+  /// Fetch the previous user credentials.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> fetchPrevUser() async {
+    prevUserEmail = await _authstorage.read(key: "userEmail");
+    prevUserPassword = await _authstorage.read(key: "Password");
   }
 }

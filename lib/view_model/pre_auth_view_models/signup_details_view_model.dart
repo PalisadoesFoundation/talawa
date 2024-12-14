@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -21,6 +22,9 @@ class SignupDetailsViewModel extends BaseModel {
 
   /// List of maps to store greeting information, where each greeting is represented by a map with String keys and dynamic values.
   late List<Map<String, dynamic>> greeting;
+
+  /// Secure Storage to store user's credentials in local storage securely.
+  final _authstorage = const FlutterSecureStorage();
 
   /// Represents information about the selected organization.
   late OrgInfo selectedOrganization;
@@ -151,6 +155,14 @@ class SignupDetailsViewModel extends BaseModel {
           if (result.data != null) {
             final User signedInUser = User.fromJson(
               result.data!['signUp'] as Map<String, dynamic>,
+            );
+            await _authstorage.write(
+              key: "userEmail",
+              value: this.email.text,
+            );
+            await _authstorage.write(
+              key: "Password",
+              value: this.password.text,
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;

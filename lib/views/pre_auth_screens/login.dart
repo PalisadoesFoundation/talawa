@@ -6,6 +6,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/directly_login.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -15,7 +16,8 @@ import 'package:talawa/widgets/rich_text.dart';
 /// the second one takes in the password of the user.
 /// There is also a "Forgot Password" text button, which directs to
 /// the "recover password" screen when pressed.
-/// At the bottom, there is a login button to initiate the login.
+/// There is a login button to initiate the login.
+/// At the bottom there is option to login directly with previous email.(This option is only available if user select remember me while logging out)
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);
 
@@ -27,7 +29,10 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
-      onModelReady: (model) => model.initialize(),
+      onModelReady: (model) {
+        model.initialize();
+        model.fetchPrevUser();
+      },
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: true,
@@ -186,6 +191,7 @@ class _LoginState extends State<Login> {
                       backgroundColor: Theme.of(context).colorScheme.tertiary,
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.0215),
+                    DirectlyLogin(model: model),
                   ],
                 ),
               ),

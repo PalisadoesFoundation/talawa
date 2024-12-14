@@ -11,13 +11,13 @@ class AppSettingViewModel extends BaseModel {
   /// This method destroys the user's session or sign out the user from app, The function asks for the confimation in Custom Alert Dialog.
   ///
   /// **params**:
-  ///   None
+  /// * `remember`: This is to check if user wants to store his/her credentials after logging out.
   ///
   /// **returns**:
   ///   None
-  Future<void> logout() async {
+  Future<void> logout(bool remember) async {
     // push custom alert dialog with the confirmation message.
-    userConfig.userLogOut();
+    userConfig.userLogOut(remember);
   }
 
   /// Launches a website using the provided URL.

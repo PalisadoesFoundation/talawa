@@ -13,11 +13,18 @@ import 'package:talawa/widgets/theme_switch.dart';
 ///
 /// This widget represents the settings page of the application.
 /// It allows users to configure various application settings.
-class AppSettingsPage extends StatelessWidget {
+class AppSettingsPage extends StatefulWidget {
   const AppSettingsPage({
     super.key,
   });
 
+  @override
+  State<AppSettingsPage> createState() => _AppSettingsPageState();
+}
+
+class _AppSettingsPageState extends State<AppSettingsPage> {
+  /// This is used to check if to remember user credentials after logout.
+  bool rememberMe = true;
   @override
   Widget build(BuildContext context) {
     const String talawaDocs = 'https://docs.talawa.io';
@@ -286,13 +293,30 @@ class AppSettingsPage extends StatelessWidget {
                 ? showDialog(
                     context: context,
                     builder: (context) {
-                      return CustomAlertDialog(
-                        reverse: true,
-                        dialogSubTitle: 'Are you sure you want to logout?',
-                        successText: 'Logout',
-                        success: () async {
-                          await model.logout();
-                        },
+                      return Column(
+                        children: [
+                          CustomAlertDialog(
+                            reverse: true,
+                            dialogSubTitle: 'Are you sure you want to logout?',
+                            successText: 'Logout',
+                            success: () async {
+                              await model.logout(rememberMe);
+                            },
+                          ),
+                          Row(
+                            children: [
+                              const Text("Remeber Me"),
+                              Checkbox(
+                                value: rememberMe,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    rememberMe = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       );
                     },
                   )

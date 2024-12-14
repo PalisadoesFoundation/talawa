@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
@@ -33,6 +34,9 @@ class UserConfig {
 
   /// Retrieves the stream of current organization information.
   Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
+
+  /// Secure Storage to delete user's credentials in local storage if user choose to not store his/her credentials after logout.
+  final _authstorage = const FlutterSecureStorage();
 
   /// Retrieves the stream controller for current organization information.
   StreamController<OrgInfo> get currentOrgInfoController =>
@@ -128,11 +132,12 @@ class UserConfig {
   /// Logs out the current user.
   ///
   /// **params**:
-  ///   None
+  /// * `remember`: This is to check if user wants to store his/her credentials after logging out.
   ///
   /// **returns**:
-  /// * `Future<bool>`: returns future of bool type.
-  Future<void> userLogOut() async {
+  ///   None
+
+  Future<void> userLogOut(bool remember) async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
@@ -167,6 +172,9 @@ class UserConfig {
           // }
           _currentUser = User(id: 'null', authToken: 'null');
         }
+        if (!remember) {
+          await _authstorage.deleteAll();
+        }
       },
       onActionException: (e) async {
         navigationService.pushDialog(
@@ -196,7 +204,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateJoinedOrg(orgDetails);
     saveUserInHive();
@@ -208,7 +216,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateCreatedOrg(orgDetails);
     saveUserInHive();
@@ -220,7 +228,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateMemberRequestOrg(orgDetails);
     saveUserInHive();
@@ -232,7 +240,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateAdminFor(orgDetails);
     saveUserInHive();
@@ -245,7 +253,7 @@ class UserConfig {
   /// * `refreshToken`: current user's refreshtoken.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateAccessToken({
     required String accessToken,
     required String refreshToken,
