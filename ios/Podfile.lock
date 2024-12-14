@@ -8,7 +8,7 @@ PODS:
   - FMDB/standard (2.7.5)
   - image_cropper (0.0.4):
     - Flutter
-    - TOCropViewController (~> 2.7.4)
+    - TOCropViewController (~> 2.6.1)
   - image_picker (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
@@ -29,7 +29,7 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
-  - TOCropViewController (2.7.4)
+  - TOCropViewController (2.6.1)
   - uni_links (0.0.1):
     - Flutter
   - vibration (1.7.4-nullsafety.0):
