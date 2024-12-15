@@ -28,10 +28,10 @@ Event getEvent({bool? isRegistered, bool isPublic = false}) {
 }
 
 Widget createCustomEventCard(
-    Event event, {
-      bool isSearchItem = false,
-      String? eventTitleHighlightedText,
-    }) {
+  Event event, {
+  bool isSearchItem = false,
+  String? eventTitleHighlightedText,
+}) {
   return MaterialApp(
     locale: const Locale('en'),
     supportedLocales: [
@@ -206,15 +206,16 @@ void main() {
       });
     });
 
-    testWidgets('Check for absence of Created Row for non-creators', (tester) async {
-          mockNetworkImages(() async {
-            final event = getEvent();
-            userConfig.currentUser.id = "nonCreatorId";
-            await tester.pumpWidget(createCustomEventCard(event));
-            await tester.pumpAndSettle();
-            expect(find.byIcon(Icons.verified), findsNothing);
-            expect(find.text('Created'), findsNothing);
-          });
-        });
+    testWidgets('Check for absence of Created Row for non-creators',
+        (tester) async {
+      mockNetworkImages(() async {
+        final event = getEvent();
+        userConfig.currentUser.id = "nonCreatorId";
+        await tester.pumpWidget(createCustomEventCard(event));
+        await tester.pumpAndSettle();
+        expect(find.byIcon(Icons.verified), findsNothing);
+        expect(find.text('Created'), findsNothing);
+      });
+    });
   });
 }
