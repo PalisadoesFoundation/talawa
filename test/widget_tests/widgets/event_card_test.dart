@@ -28,10 +28,10 @@ Event getEvent({bool? isRegistered, bool isPublic = false}) {
 }
 
 Widget createCustomEventCard(
-  Event event, {
-  bool isSearchItem = false,
-  String? eventTitleHighlightedText,
-}) {
+    Event event, {
+      bool isSearchItem = false,
+      String? eventTitleHighlightedText,
+    }) {
   return MaterialApp(
     locale: const Locale('en'),
     supportedLocales: [
@@ -195,23 +195,26 @@ void main() {
         expect(find.text("1"), findsOneWidget);
       });
     });
-
-    testWidgets('check for created text', (tester) async {
+    testWidgets('Check for Created Row visibility', (tester) async {
       mockNetworkImages(() async {
-        const eventTitleHighlightedText = "ravidi";
-        userConfig.currentUser.id = "ravidi";
-        await tester.pumpWidget(
-          createCustomEventCard(
-            getEvent(isRegistered: true, isPublic: true),
-            isSearchItem: false,
-            eventTitleHighlightedText: eventTitleHighlightedText,
-          ),
-        );
+        final event = getEvent();
+        userConfig.currentUser.id = event.creator!.id;
+        await tester.pumpWidget(createCustomEventCard(event));
         await tester.pump();
-        expect(find.text("Created"), findsOneWidget);
         expect(find.byIcon(Icons.verified), findsOneWidget);
-        expect(find.byType(SizedBox), findsWidgets);
+        expect(find.text('Created'), findsOneWidget);
       });
     });
+
+    testWidgets('Check for absence of Created Row for non-creators', (tester) async {
+          mockNetworkImages(() async {
+            final event = getEvent();
+            userConfig.currentUser.id = "nonCreatorId";
+            await tester.pumpWidget(createCustomEventCard(event));
+            await tester.pumpAndSettle();
+            expect(find.byIcon(Icons.verified), findsNothing);
+            expect(find.text('Created'), findsNothing);
+          });
+        });
   });
 }
