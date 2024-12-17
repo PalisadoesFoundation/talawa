@@ -195,5 +195,36 @@ void main() {
         expect(find.text("1"), findsOneWidget);
       });
     });
+
+    testWidgets('Check for Created Row visibility', (tester) async {
+      mockNetworkImages(() async {
+        final event = getEvent();
+        userConfig.currentUser.id = event.creator!.id;
+        await tester.pumpWidget(createCustomEventCard(event));
+        await tester.pump();
+        final BuildContext ctx = tester.element(find.byType(EventCard));
+        expect(find.byIcon(Icons.verified), findsOneWidget);
+        expect(
+          find.text(AppLocalizations.of(ctx)!.strictTranslate('Created')),
+          findsOneWidget,
+        );
+      });
+    });
+
+    testWidgets('Check for absence of Created Row for non-creators',
+        (tester) async {
+      mockNetworkImages(() async {
+        final event = getEvent();
+        userConfig.currentUser.id = "nonCreatorId";
+        await tester.pumpWidget(createCustomEventCard(event));
+        await tester.pumpAndSettle();
+        final BuildContext ctx = tester.element(find.byType(EventCard));
+        expect(find.byIcon(Icons.verified), findsNothing);
+        expect(
+          find.text(AppLocalizations.of(ctx)!.strictTranslate('Created')),
+          findsNothing,
+        );
+      });
+    });
   });
 }
