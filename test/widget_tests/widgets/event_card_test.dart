@@ -195,5 +195,28 @@ void main() {
         expect(find.text("1"), findsOneWidget);
       });
     });
+
+    testWidgets('Check for Created Row visibility', (tester) async {
+      mockNetworkImages(() async {
+        final event = getEvent();
+        userConfig.currentUser.id = event.creator!.id;
+        await tester.pumpWidget(createCustomEventCard(event));
+        await tester.pump();
+        expect(find.byIcon(Icons.verified), findsOneWidget);
+        expect(find.text('Created'), findsOneWidget);
+      });
+    });
+
+    testWidgets('Check for absence of Created Row for non-creators',
+        (tester) async {
+      mockNetworkImages(() async {
+        final event = getEvent();
+        userConfig.currentUser.id = "nonCreatorId";
+        await tester.pumpWidget(createCustomEventCard(event));
+        await tester.pumpAndSettle();
+        expect(find.byIcon(Icons.verified), findsNothing);
+        expect(find.text('Created'), findsNothing);
+      });
+    });
   });
 }
