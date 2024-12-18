@@ -65,6 +65,10 @@ void main() {
     testSetupLocator();
   });
 
+  tearDown(() {
+    userConfig.currentUser.id = null;
+  });
+
   group("Test for EventCard widget", () {
     testWidgets('Check if Event Card shows up', (tester) async {
       mockNetworkImages(() async {
@@ -211,13 +215,14 @@ void main() {
       });
     });
 
-    testWidgets('Check for absence of Created Row for non-creators',
+    testWidgets(
+        'should not show Created row and verified icon when current user is not the event creator',
         (tester) async {
       mockNetworkImages(() async {
         final event = getEvent();
         userConfig.currentUser.id = "nonCreatorId";
         await tester.pumpWidget(createCustomEventCard(event));
-        await tester.pumpAndSettle();
+        await tester.pump();
         final BuildContext ctx = tester.element(find.byType(EventCard));
         expect(find.byIcon(Icons.verified), findsNothing);
         expect(
