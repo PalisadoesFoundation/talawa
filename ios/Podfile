@@ -31,6 +31,8 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  pod 'TOCropViewController', '~> 2.7.4'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
