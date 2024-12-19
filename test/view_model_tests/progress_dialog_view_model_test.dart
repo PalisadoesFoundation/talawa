@@ -13,13 +13,14 @@ void main() {
       setUp(() {
         getAndRegisterConnectivity();
       });
-      final model = ProgressDialogViewModel();
 
       test(
           'When called and connectivity is present, connectivityPresent must be set to true',
           () async {
         // Simulate online state
         AppConnectivity.isOnline = true;
+
+        final model = ProgressDialogViewModel();
 
         await model.initialise();
 
