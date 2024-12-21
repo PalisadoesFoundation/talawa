@@ -12,7 +12,7 @@ import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart' as testgetit;
 
-ConnectivityResult? connectivityStatus = ConnectivityResult.mobile;
+List<ConnectivityResult>? connectivityStatus = [ConnectivityResult.mobile];
 bool internetAccessible = true;
 
 class MockConnectivityService extends Mock
@@ -36,7 +36,7 @@ class MockConnectivityService extends Mock
 
   @override
   Future<List<ConnectivityResult>> getConnectionType() {
-    return Future.value([connectivityStatus!]);
+    return Future.value(connectivityStatus!);
   }
 
   @override
@@ -83,7 +83,7 @@ class MockConnectivity extends Mock implements Connectivity {
     if (connectivityStatus == null) {
       throw const SocketException('socket exception');
     }
-    return [connectivityStatus!];
+    return connectivityStatus!;
   }
 }
 
@@ -104,7 +104,7 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     mockClient = MockClient();
     getAndRegisterConnectivity();
-    connectivityStatus = ConnectivityResult.mobile;
+    connectivityStatus = [ConnectivityResult.mobile];
     service = MockConnectivityService();
     locator.registerSingleton<ConnectivityService>(service);
     connectivityService.initConnectivity(client: http.Client());
@@ -130,12 +130,32 @@ void main() {
           .addError(Exception("Something went wrong!"));
     });
 
+    test('successfully listens to connectivity changes', () async {
+      final expectedResults = [ConnectivityResult.wifi];
+
+      service.connectionStatusController.stream.listen(
+        expectAsync1(
+          (List<ConnectivityResult> results) {
+            expect(results, equals(expectedResults));
+          },
+          count: 1,
+        ),
+      );
+
+      // Trigger the event
+      service.connectionStatusController.add(expectedResults);
+    });
+
     test('check has connection', () async {
-      connectivityStatus = ConnectivityResult.none;
+      connectivityStatus = [ConnectivityResult.none];
       expect(await service.hasConnection(), false);
 
-      connectivityStatus = ConnectivityResult.mobile;
+      connectivityStatus = [ConnectivityResult.mobile];
       expect(await service.hasConnection(), true);
+
+      // empty list
+      connectivityStatus = [];
+      expect(await service.hasConnection(), false);
     });
 
     test('isReachable', () async {
