@@ -96,8 +96,10 @@ void main() {
     expect(richTextFinder, findsOneWidget);
     final richTextWidget = tester.widget<RichText>(richTextFinder);
     final textSpan = richTextWidget.text as TextSpan;
-    expect(textSpan.toPlainText(),
-        contains("$translatedText ${mockLoginViewModel.email.text}"));
+    expect(
+      textSpan.toPlainText(),
+      contains("$translatedText ${mockLoginViewModel.email.text}"),
+    );
     await tester.pump();
     expect(mockLoginViewModel.prevUserEmail, equals(testEmail));
     expect(mockLoginViewModel.prevUserPassword, equals(testPassword));
