@@ -278,5 +278,7 @@
   "Start time must be before end time": "開始時間は終了時間より前でなければなりません",
   "Organisation on different server, logout and scan qr again": "異なるサーバー上の組織です。ログアウトして、QRコードを再びスキャンしてください。",
   "Post was deleted if you had the rights!": "権限がある場合、投稿は削除されました！",
-  "Members": " メンバー "
+  "Members": " メンバー ",
+  "Remember me": "私を覚えてますか",
+  "Login directly with": "直接ログイン"
 }

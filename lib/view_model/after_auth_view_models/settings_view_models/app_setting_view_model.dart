@@ -15,9 +15,9 @@ class AppSettingViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> logout(bool remember) async {
+  Future<void> logout({bool remember = false}) async {
     // push custom alert dialog with the confirmation message.
-    userConfig.userLogOut(remember);
+    userConfig.userLogOut(remember: remember);
   }
 
   /// Launches a website using the provided URL.

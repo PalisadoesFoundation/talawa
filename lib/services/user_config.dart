@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -35,15 +34,15 @@ class UserConfig {
   /// Retrieves the stream of current organization information.
   Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
 
-  /// Secure Storage to delete user's credentials in local storage if user choose to not store his/her credentials after logout.
-  final _authstorage = const FlutterSecureStorage();
-
   /// Retrieves the stream controller for current organization information.
   StreamController<OrgInfo> get currentOrgInfoController =>
       _currentOrgInfoController;
 
   /// Retrieves the current organization information.
   OrgInfo get currentOrg => _currentOrg!;
+
+  /// Secure local storage instance.
+  final secureStorage = const FlutterSecureStorage();
 
   /// Retrieves the name of the current organization.
   String get currentOrgName => _currentOrg!.name!;
@@ -137,7 +136,7 @@ class UserConfig {
   /// **returns**:
   ///   None
 
-  Future<void> userLogOut(bool remember) async {
+  Future<void> userLogOut({bool remember = false}) async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
@@ -173,7 +172,8 @@ class UserConfig {
           _currentUser = User(id: 'null', authToken: 'null');
         }
         if (!remember) {
-          await _authstorage.deleteAll();
+          await secureStorage.delete(key: "userEmail");
+          await secureStorage.delete(key: "userPassword");
         }
       },
       onActionException: (e) async {

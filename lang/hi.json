@@ -278,5 +278,7 @@
   "Start time must be before end time": "शुरू समय अंत समय से पहले होना चाहिए",
   "Organisation on different server, logout and scan qr again": "संगठन अलग सर्वर पर है, लॉगआउट करें और फिर से QR स्कैन करें",
   "Post was deleted if you had the rights!": "यदि आपके पास अधिकार थे तो पोस्ट हटा दिया गया था!",
-  "Members": " सदस्य"
+  "Members": " सदस्य",
+  "Remember me": "मुझे याद रखें",
+  "Login directly with": "इसके साथ सीधे लॉगिन करें"
 }

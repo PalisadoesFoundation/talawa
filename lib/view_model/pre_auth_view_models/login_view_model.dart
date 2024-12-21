@@ -5,7 +5,7 @@ import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-// import 'package:talawa/main.dart';
+
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/encryptor.dart';
@@ -22,14 +22,14 @@ class LoginViewModel extends BaseModel {
   /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
 
-  /// Secure Storage to store user's credentials in local storage securely.
-  final _authstorage = const FlutterSecureStorage();
-
   /// This field store previous user Email.
   String? prevUserEmail;
 
   /// This field store previous user Password.
   String? prevUserPassword;
+
+  /// Secure local storage instance.
+  final secureStorage = const FlutterSecureStorage();
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
@@ -154,9 +154,9 @@ class LoginViewModel extends BaseModel {
               result.data!['login'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
-            await _authstorage.write(key: "userEmail", value: this.email.text);
-            await _authstorage.write(
-              key: "Password",
+            await secureStorage.write(key: "userEmail", value: this.email.text);
+            await secureStorage.write(
+              key: "userPassword",
               value: this.password.text,
             );
           }
@@ -195,7 +195,11 @@ class LoginViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> fetchPrevUser() async {
-    prevUserEmail = await _authstorage.read(key: "userEmail");
-    prevUserPassword = await _authstorage.read(key: "Password");
+    try {
+      prevUserEmail = await secureStorage.read(key: "userEmail");
+      prevUserPassword = await secureStorage.read(key: "userPassword");
+    } catch (e) {
+      print("Error decrypting previous values $e");
+    }
   }
 }

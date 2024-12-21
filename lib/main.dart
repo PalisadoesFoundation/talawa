@@ -16,6 +16,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
