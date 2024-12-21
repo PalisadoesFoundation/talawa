@@ -18,11 +18,11 @@ bool internetAccessible = true;
 class MockConnectivityService extends Mock
     with MockPlatformInterfaceMixin
     implements ConnectivityService {
-  final controller = StreamController<ConnectivityResult>();
+  final controller = StreamController<List<ConnectivityResult>>();
 
   @override
   // TODO: implement connectionStatusController
-  StreamController<ConnectivityResult> get connectionStatusController =>
+  StreamController<List<ConnectivityResult>> get connectionStatusController =>
       controller;
 
   @override
@@ -32,34 +32,58 @@ class MockConnectivityService extends Mock
   }
 
   @override
-  Stream<ConnectivityResult> get connectionStream => controller.stream;
+  Stream<List<ConnectivityResult>> get connectionStream => controller.stream;
 
   @override
-  Future<ConnectivityResult> getConnectionType() {
-    return Future.value(connectivityStatus);
+  Future<List<ConnectivityResult>> getConnectionType() {
+    return Future.value([connectivityStatus!]);
   }
 
   @override
-  Future<bool> isReachable({http.Client? client, String? uriString}) {
-    return Future.value(internetAccessible);
+  Future<bool> hasConnection() async {
+    try {
+      final results = await getConnectionType();
+      return results.isNotEmpty &&
+          results.any((result) => result != ConnectivityResult.none);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> isReachable({
+    http.Client? client,
+    String? uriString,
+  }) async {
+    try {
+      await client!
+          .get(Uri.parse(uriString ?? graphqlConfig.httpLink.uri.toString()))
+          .timeout(const Duration(seconds: 30));
+      return true;
+    } catch (e) {
+      print('Timeout while checking reachability: $e');
+      return false;
+    }
   }
 }
 
 class MockConnectivity extends Mock implements Connectivity {
-  final controller = StreamController<ConnectivityResult>();
+  final controller = StreamController<List<ConnectivityResult>>();
 
-  StreamController<ConnectivityResult> get connectivityController => controller;
-
-  @override
-  Stream<ConnectivityResult> get onConnectivityChanged => controller.stream;
+  StreamController<List<ConnectivityResult>> get connectivityController =>
+      controller;
 
   @override
-  Future<ConnectivityResult> checkConnectivity() async {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      controller.stream;
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() async {
     // TODO: implement checkConnectivity
     if (connectivityStatus == null) {
       throw const SocketException('socket exception');
     }
-    return connectivityStatus!;
+    return [connectivityStatus!];
   }
 }
 
@@ -75,13 +99,13 @@ class MockClient extends Mock implements http.Client {
 
 void main() {
   late MockClient mockClient;
-  late ConnectivityService service;
+  late MockConnectivityService service;
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     mockClient = MockClient();
     getAndRegisterConnectivity();
     connectivityStatus = ConnectivityResult.mobile;
-    service = ConnectivityService();
+    service = MockConnectivityService();
     locator.registerSingleton<ConnectivityService>(service);
     connectivityService.initConnectivity(client: http.Client());
   });
@@ -90,17 +114,17 @@ void main() {
     test(
       'connectionStream getter',
       () async {
-        expect(connectivityService, isA<ConnectivityService>());
+        expect(service, isA<ConnectivityService>());
         expect(
-          connectivityService.connectionStream,
-          isA<Stream<ConnectivityResult>>(),
+          service.connectionStream,
+          isA<Stream<List<ConnectivityResult>>>(),
         );
       },
     );
 
     test('listener', () async {
       final mockConnectivity = testgetit.connectivity as MockConnectivity;
-      mockConnectivity.connectivityController.add(ConnectivityResult.mobile);
+      mockConnectivity.connectivityController.add([ConnectivityResult.mobile]);
 
       mockConnectivity.connectivityController
           .addError(Exception("Something went wrong!"));
@@ -115,8 +139,10 @@ void main() {
     });
 
     test('isReachable', () async {
-      final reached =
-          await service.isReachable(uriString: 'https://google.com');
+      final reached = await service.isReachable(
+        client: mockClient,
+        uriString: 'https://google.com',
+      );
       expect(reached, true);
     });
 

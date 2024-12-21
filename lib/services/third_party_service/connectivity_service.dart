@@ -15,10 +15,10 @@ import 'package:talawa/locator.dart';
 /// * Checking if the device has any type of network connection - [hasConnection]
 class ConnectivityService {
   /// Stream controller for network status changes.
-  late StreamController<ConnectivityResult> connectionStatusController;
+  late StreamController<List<ConnectivityResult>> connectionStatusController;
 
   /// Getter for the stream of connection status changes.
-  Stream<ConnectivityResult> get connectionStream =>
+  Stream<List<ConnectivityResult>> get connectionStream =>
       connectionStatusController.stream;
 
   /// Checks the current internet connectivity status of the device.
@@ -27,8 +27,8 @@ class ConnectivityService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<ConnectivityResult>`: indicates if the url is reachable.
-  Future<ConnectivityResult> getConnectionType() async {
+  /// * `Future<List<ConnectivityResult>>`: indicates if the url is reachable.
+  Future<List<ConnectivityResult>> getConnectionType() async {
     final result = await connectivity.checkConnectivity();
     return result;
   }
@@ -45,7 +45,7 @@ class ConnectivityService {
   ///   None
   Future<void> initConnectivity({required http.Client client}) async {
     _client = client;
-    connectionStatusController = StreamController<ConnectivityResult>();
+    connectionStatusController = StreamController<List<ConnectivityResult>>();
 
     /// Listen for future changes in connectivity
     enableSubscription();
@@ -60,7 +60,7 @@ class ConnectivityService {
   ///   None
   Future<void> enableSubscription() async {
     connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult result) {
+      (List<ConnectivityResult> result) {
         print(result);
         connectionStatusController.add(result);
       },
@@ -107,8 +107,9 @@ class ConnectivityService {
   /// * `Future<bool>`: indicating whether the device has a network connection.
   Future<bool> hasConnection() async {
     try {
-      final result = await getConnectionType();
-      return result != ConnectivityResult.none;
+      final results = await getConnectionType();
+      return results.isNotEmpty &&
+          results.any((result) => result != ConnectivityResult.none);
     } catch (e) {
       return false;
     }
