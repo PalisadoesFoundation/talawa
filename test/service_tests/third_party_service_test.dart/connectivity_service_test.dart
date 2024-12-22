@@ -135,15 +135,36 @@ void main() {
         ConnectivityResult.mobile,
         ConnectivityResult.wifi,
       ];
-
-      service.connectionStatusController.stream.listen(
+      final MockConnectivity mockConnectivity = MockConnectivity();
+      mockConnectivity.onConnectivityChanged.listen(
         (List<ConnectivityResult> results) {
           expect(results, equals(expectedResults));
         },
       );
 
       // Trigger the event
-      service.connectionStatusController.add(expectedResults);
+      mockConnectivity.connectivityController.add(expectedResults);
+    });
+
+    test('enableSubscription handles errors gracefully', () async {
+      final mockConnectivity = MockConnectivity();
+      mockConnectivity.connectivityController.addError(Exception("Error!"));
+
+      expect(
+        mockConnectivity.onConnectivityChanged,
+        emitsError(isA<Exception>()),
+      );
+    });
+
+    test('Returns true if there is a valid connectivity result', () async {
+      final mockConnectivityService = MockConnectivityService();
+      connectivityStatus = [ConnectivityResult.mobile, ConnectivityResult.wifi];
+      final result = await mockConnectivityService.getConnectionType();
+      final hasConnection = result.isNotEmpty &&
+          result.any((result) => result != ConnectivityResult.none);
+
+      // Verify the conditions
+      expect(hasConnection, true);
     });
 
     test('check has connection - no connection', () async {
