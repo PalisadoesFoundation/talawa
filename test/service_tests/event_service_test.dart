@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,6 +11,7 @@ import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -608,6 +611,22 @@ void main() {
           EventQueries().fetchAgendaItemsByEvent(eventId),
         ),
       ).called(1);
+    });
+
+    test(
+        'setOrgStreamSubscription updates _currentOrg when stream emits new value',
+        () async {
+      final userConfig = locator<UserConfig>();
+      userConfig.initialiseStream();
+
+      final eventService = EventService();
+      eventService.setOrgStreamSubscription();
+
+      final orgInfo2 = OrgInfo(name: 'Organization temp', id: '1');
+      userConfig.currentOrgInfoController.add(orgInfo2);
+      await Future.delayed(const Duration(milliseconds: 100));
+      expect(eventService.currentOrg.name, 'Organization temp');
+      expect(eventService.currentOrg.id, '1');
     });
   });
 }
