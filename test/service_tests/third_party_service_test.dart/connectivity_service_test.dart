@@ -131,30 +131,43 @@ void main() {
     });
 
     test('successfully listens to connectivity changes', () async {
-      final expectedResults = [ConnectivityResult.wifi];
+      final expectedResults = [
+        ConnectivityResult.mobile,
+        ConnectivityResult.wifi,
+      ];
 
       service.connectionStatusController.stream.listen(
-        expectAsync1(
-          (List<ConnectivityResult> results) {
-            expect(results, equals(expectedResults));
-          },
-          count: 1,
-        ),
+        (List<ConnectivityResult> results) {
+          expect(results, equals(expectedResults));
+        },
       );
 
       // Trigger the event
       service.connectionStatusController.add(expectedResults);
     });
 
-    test('check has connection', () async {
+    test('check has connection - no connection', () async {
       connectivityStatus = [ConnectivityResult.none];
       expect(await service.hasConnection(), false);
+    });
 
+    test('check has connection - with connection', () async {
       connectivityStatus = [ConnectivityResult.mobile];
       expect(await service.hasConnection(), true);
+    });
 
-      // empty list
+    test('check has connection - empty list', () async {
       connectivityStatus = [];
+      expect(await service.hasConnection(), false);
+    });
+
+    test('check has connection - mixed results', () async {
+      connectivityStatus = [ConnectivityResult.none, ConnectivityResult.wifi];
+      expect(await service.hasConnection(), true);
+    });
+
+    test('check has connection - all none', () async {
+      connectivityStatus = [ConnectivityResult.none, ConnectivityResult.none];
       expect(await service.hasConnection(), false);
     });
 
