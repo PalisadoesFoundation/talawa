@@ -56,10 +56,14 @@ class MockConnectivityService extends Mock
     String? uriString,
   }) async {
     try {
-      await client!
+      final response = await client!
           .get(Uri.parse(uriString ?? graphqlConfig.httpLink.uri.toString()))
           .timeout(const Duration(seconds: 30));
-      return true;
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       print('Timeout while checking reachability: $e');
       return false;
@@ -92,6 +96,8 @@ class MockClient extends Mock implements http.Client {
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
     if (url.toString() == 'https://timeout.com') {
       throw TimeoutException('site took too long to respond');
+    } else if (url.toString() == 'https://youtube.com') {
+      return http.Response('Server Error', 500);
     }
     return http.Response('{}', 200);
   }
@@ -208,6 +214,17 @@ void main() {
 
       // Verify results (timeout should be thrown before verification)
       expect(isReachableResult, false);
+    });
+
+    test('isReachable handles server error', () async {
+      // Mock client that returns 500 status code
+      final errorClient = MockClient();
+
+      final reached = await service.isReachable(
+        client: errorClient,
+        uriString: 'https://youtube.com',
+      );
+      expect(reached, false);
     });
   });
 }
