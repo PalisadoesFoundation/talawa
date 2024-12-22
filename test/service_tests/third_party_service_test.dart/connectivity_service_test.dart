@@ -40,6 +40,17 @@ class MockConnectivityService extends Mock
   }
 
   @override
+  Future<bool> hasConnection() async {
+    try {
+      final results = await getConnectionType();
+      return results.isNotEmpty &&
+          results.any((result) => result != ConnectivityResult.none);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
   Future<bool> isReachable({
     http.Client? client,
     String? uriString,
