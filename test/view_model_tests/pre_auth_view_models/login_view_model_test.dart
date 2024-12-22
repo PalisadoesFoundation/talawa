@@ -71,7 +71,10 @@ Future<void> main() async {
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
 
-      await model.login();
+      await tester.runAsync(() async {
+        await model.login();
+      });
+      await tester.pumpAndSettle();
       expect(model.validate, AutovalidateMode.disabled);
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
@@ -97,8 +100,10 @@ Future<void> main() async {
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
-
-      await model.login();
+      await tester.runAsync(() async {
+        await model.login();
+      });
+      await tester.pumpAndSettle();
       expect(model.validate, AutovalidateMode.disabled);
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
@@ -127,7 +132,10 @@ Future<void> main() async {
         ),
       );
 
-      await model.login();
+      await tester.runAsync(() async {
+        await model.login();
+      });
+      await tester.pumpAndSettle();
       expect(model.validate, AutovalidateMode.disabled);
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
       verifyNever(
@@ -151,7 +159,10 @@ Future<void> main() async {
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenThrow(Exception());
 
-      await model.login();
+      await tester.runAsync(() async {
+        await model.login();
+      });
+      await tester.pumpAndSettle();
       expect(model.validate, AutovalidateMode.disabled);
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
     });
