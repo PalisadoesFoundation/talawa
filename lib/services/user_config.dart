@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/app_strings.dart';
@@ -40,9 +39,6 @@ class UserConfig {
 
   /// Retrieves the current organization information.
   OrgInfo get currentOrg => _currentOrg!;
-
-  /// Secure local storage instance.
-  final secureStorage = const FlutterSecureStorage();
 
   /// Retrieves the name of the current organization.
   String get currentOrgName => _currentOrg!.name!;
@@ -131,12 +127,12 @@ class UserConfig {
   /// Logs out the current user.
   ///
   /// **params**:
-  /// * `remember`: This is to check if user wants to store his/her credentials after logging out.
+  ///   None
   ///
   /// **returns**:
   ///   None
 
-  Future<void> userLogOut({bool remember = false}) async {
+  Future<void> userLogOut() async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
@@ -170,10 +166,6 @@ class UserConfig {
           //   debugPrint("ERROR: Unable to delete firebase app $e");
           // }
           _currentUser = User(id: 'null', authToken: 'null');
-        }
-        if (!remember) {
-          await secureStorage.delete(key: "userEmail");
-          await secureStorage.delete(key: "userPassword");
         }
       },
       onActionException: (e) async {

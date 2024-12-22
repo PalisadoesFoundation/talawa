@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -25,6 +26,9 @@ class AppSettingsPage extends StatefulWidget {
 class _AppSettingsPageState extends State<AppSettingsPage> {
   /// This is used to check if to remember user credentials after logout.
   bool _rememberMe = true;
+
+  /// Secure local storage instance.
+  final secureStorage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -355,8 +359,15 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                               RaisedRoundedButton(
                                 key: const Key('Logout'),
                                 onTap: () async {
-                                  await model.logout(remember: _rememberMe);
-                                  navigationService.pop();
+                                  await model.logout();
+                                  if (!_rememberMe) {
+                                    await secureStorage.delete(
+                                      key: "userEmail",
+                                    );
+                                    await secureStorage.delete(
+                                      key: "userPassword",
+                                    );
+                                  }
                                 },
                                 buttonLabel: AppLocalizations.of(context)!
                                     .strictTranslate('Logout'),
