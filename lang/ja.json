@@ -279,6 +279,6 @@
   "Organisation on different server, logout and scan qr again": "異なるサーバー上の組織です。ログアウトして、QRコードを再びスキャンしてください。",
   "Post was deleted if you had the rights!": "権限がある場合、投稿は削除されました！",
   "Members": " メンバー ",
-  "Remember me": "私を覚えてますか",
+  "Remember me": "ログイン情報を保存",
   "Login directly with": "直接ログイン"
 }

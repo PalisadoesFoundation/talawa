@@ -156,12 +156,6 @@ class SignupDetailsViewModel extends BaseModel {
             final User signedInUser = User.fromJson(
               result.data!['signUp'] as Map<String, dynamic>,
             );
-
-            await secureStorage.write(key: "userEmail", value: this.email.text);
-            await secureStorage.write(
-              key: "userPassword",
-              value: this.password.text,
-            );
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
 
@@ -207,6 +201,19 @@ class SignupDetailsViewModel extends BaseModel {
                   Routes.waitingScreen,
                   Routes.splashScreen,
                 );
+              }
+              try {
+                await secureStorage.write(
+                  key: "userEmail",
+                  value: this.email.text,
+                );
+                await secureStorage.write(
+                  key: "userPassword",
+                  value: this.password.text,
+                );
+              } catch (e) {
+                // Handle secure storage write failure
+                print("Failed to save credentials: $e");
               }
             }
           }

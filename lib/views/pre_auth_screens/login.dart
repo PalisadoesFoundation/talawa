@@ -31,7 +31,6 @@ class _LoginState extends State<Login> {
     return BaseView<LoginViewModel>(
       onModelReady: (model) {
         model.initialize();
-        model.fetchPrevUser();
       },
       builder: (context, model, child) {
         return Scaffold(

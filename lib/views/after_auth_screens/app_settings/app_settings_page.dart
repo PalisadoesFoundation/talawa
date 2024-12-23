@@ -6,8 +6,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog_with_checkbox.dart';
 import 'package:talawa/widgets/lang_switch.dart';
-import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
 /// Widget representing the App Settings page.
@@ -24,9 +24,6 @@ class AppSettingsPage extends StatefulWidget {
 }
 
 class _AppSettingsPageState extends State<AppSettingsPage> {
-  /// This is used to check if to remember user credentials after logout.
-  bool _rememberMe = true;
-
   /// Secure local storage instance.
   final secureStorage = const FlutterSecureStorage();
 
@@ -298,88 +295,27 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                 ? showDialog(
                     context: context,
                     builder: (context) {
-                      return StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return AlertDialog(
-                            surfaceTintColor: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            title: Text(
-                              AppLocalizations.of(context)!
-                                  .strictTranslate('Confirmation'),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(fontWeight: FontWeight.w800),
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.strictTranslate(
-                                    'Are you sure you want to logout?',
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate("Remember me"),
-                                    ),
-                                    Checkbox(
-                                      value: _rememberMe,
-                                      onChanged: (bool? val) {
-                                        setState(() {
-                                          _rememberMe = val!;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            buttonPadding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.screenWidth! * 0.05,
-                              vertical: SizeConfig.screenHeight! * 0.05,
-                            ),
-                            actions: [
-                              RaisedRoundedButton(
-                                key: const Key('Close'),
-                                onTap: () {
-                                  navigationService.pop();
-                                },
-                                buttonLabel: AppLocalizations.of(context)!
-                                    .strictTranslate('Close'),
-                                textColor: Colors.white,
-                                backgroundColor: const Color(0xFF008A37),
-                                width: SizeConfig.screenWidth! * 0.2,
-                                height: SizeConfig.screenHeight! * 0.06,
-                              ),
-                              RaisedRoundedButton(
-                                key: const Key('Logout'),
-                                onTap: () async {
-                                  await model.logout();
-                                  if (!_rememberMe) {
-                                    await secureStorage.delete(
-                                      key: "userEmail",
-                                    );
-                                    await secureStorage.delete(
-                                      key: "userPassword",
-                                    );
-                                  }
-                                },
-                                buttonLabel: AppLocalizations.of(context)!
-                                    .strictTranslate('Logout'),
-                                textColor: const Color(0xFF008A37),
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.tertiary,
-                                width: SizeConfig.screenWidth! * 0.2,
-                                height: SizeConfig.screenHeight! * 0.06,
-                              ),
-                            ],
-                          );
+                      return CustomAlertDialogWithCheckbox(
+                        success: (checkBoxVal) async {
+                          await model.logout();
+                          if (checkBoxVal != null && checkBoxVal == false) {
+                            try {
+                              await secureStorage.delete(
+                                key: "userEmail",
+                              );
+                              await secureStorage.delete(
+                                key: "userPassword",
+                              );
+                            } catch (e) {
+                              print("Unable to delete stored value : $e");
+                            }
+                          }
                         },
+                        reverse: true,
+                        dialogSubTitle: "Are you sure you want to logout?",
+                        checkboxLabel: "Remember me",
+                        successText: "Logout",
+                        initialCheckboxValue: true,
                       );
                     },
                   )

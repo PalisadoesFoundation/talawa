@@ -154,14 +154,9 @@ class LoginViewModel extends BaseModel {
               result.data!['login'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
-            await secureStorage.write(key: "userEmail", value: this.email.text);
-            await secureStorage.write(
-              key: "userPassword",
-              value: this.password.text,
-            );
           }
         },
-        apiCallSuccessUpdateUI: () {
+        apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
@@ -177,6 +172,19 @@ class LoginViewModel extends BaseModel {
               Routes.splashScreen,
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
+          }
+          try {
+            await secureStorage.write(
+              key: "userEmail",
+              value: this.email.text,
+            );
+            await secureStorage.write(
+              key: "userPassword",
+              value: this.password.text,
+            );
+          } catch (e) {
+            // Handle secure storage write failure
+            print("Failed to save credentials: $e");
           }
         },
         onActionException: (e) async {
