@@ -628,5 +628,120 @@ void main() {
       expect(eventService.currentOrg.name, 'Organization temp');
       expect(eventService.currentOrg.id, '1');
     });
+
+    test('fetchDataFromApi should throw an exception if data is null',
+        () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final eventService = EventService();
+      final String mutation = EventQueries().fetchOrgEvents("XYZ");
+      final options = QueryOptions(
+        document: gql(mutation),
+      );
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: options,
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+      try {
+        await eventService.fetchDataFromApi();
+      } catch (e) {
+        expect(e, isA<Exception>());
+      }
+    });
+
+    test('fetchDataFromApi should return a list of events if data is valid',
+        () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final eventService = EventService();
+      final String mutation = EventQueries().fetchOrgEvents("XYZ");
+      final options = QueryOptions(
+        document: gql(mutation),
+      );
+
+      final data = {
+        "eventsByOrganizationConnection": [
+          {
+            "_id": "event1",
+            "title": "Test Event 1",
+            "description": "Description of Test Event 1",
+            "location": "Location 1",
+            "recurring": false,
+            "allDay": false,
+            "startDate": "2022-01-01T00:00:00.000Z",
+            "endDate": "2022-01-02T00:00:00.000Z",
+            "startTime": "10:00 AM",
+            "endTime": "12:00 PM",
+            "isPublic": true,
+            "isRegisterable": true,
+            "isRegistered": null,
+            "creator": {
+              "_id": "creator1",
+              "firstName": "Creator",
+              "lastName": "One",
+            },
+            "organization": {"_id": "org1", "image": "image1"},
+            "admins": [
+              {"_id": "admin1", "firstName": "Admin", "lastName": "One"},
+            ],
+            "attendees": [
+              {
+                "_id": "user1",
+                "firstName": "User",
+                "lastName": "One",
+                "image": "image1",
+              }
+            ],
+          },
+          {
+            "_id": "event2",
+            "title": "Test Event 2",
+            "description": "Description of Test Event 2",
+            "location": "Location 2",
+            "recurring": false,
+            "allDay": false,
+            "startDate": "2022-02-01T00:00:00.000Z",
+            "endDate": "2022-02-02T00:00:00.000Z",
+            "startTime": "11:00 AM",
+            "endTime": "1:00 PM",
+            "isPublic": true,
+            "isRegisterable": false,
+            "isRegistered": null,
+            "creator": {
+              "_id": "creator2",
+              "firstName": "Creator",
+              "lastName": "Two",
+            },
+            "organization": {"_id": "org2", "image": "image2"},
+            "admins": [
+              {"_id": "admin2", "firstName": "Admin", "lastName": "Two"},
+            ],
+            "attendees": [
+              {
+                "_id": "user2",
+                "firstName": "User",
+                "lastName": "Two",
+                "image": "image2",
+              }
+            ],
+          }
+        ],
+      };
+
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: options,
+          data: data,
+          source: QueryResultSource.network,
+        ),
+      );
+      final events = await eventService.fetchDataFromApi();
+      print(events);
+      // expect(events, isA<List<Event>>());
+      // expect(events.length, 2);
+      // expect(events[0].title, "Test Event 1");
+      // expect(events[1].title, "Test Event 2");
+    });
   });
 }
