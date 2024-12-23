@@ -417,7 +417,7 @@ void main() {
       );
     });
 
-    test('Test fetchVolunteerGroupsByEvent method', () async {
+    test('Test fetchVolunteerGroupsByEvent method success', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       const eventId = 'eventId123';
@@ -456,6 +456,29 @@ void main() {
       expect(result.length, 2);
       expect(result[0].id, 'groupId1');
       expect(result[1].id, 'groupId2');
+    });
+    test('Test fetchVolunteerGroupsByEvent method failure', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const eventId = 'eventId123';
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          EventQueries().fetchVolunteerGroups(),
+          variables: {
+            "where": {"eventId": eventId},
+          },
+        ),
+      ).thenThrow(
+        Exception("query error"),
+      );
+
+      final service = EventService();
+
+      try {
+        await service.fetchVolunteerGroupsByEvent(eventId);
+      } catch (e) {
+        expect(e, isA<Exception>());
+        expect(e.toString(), equals('Exception: query error'));
+      }
     });
     test('fetchAgendaCategories returns correct data', () async {
       const orgId = 'org123';
