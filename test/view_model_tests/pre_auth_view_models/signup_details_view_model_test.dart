@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -20,6 +21,7 @@ import '../../helpers/test_locator.dart';
 bool empty = true;
 bool userSaved = true;
 bool userRegistrationRequired = false;
+
 final data = {
   'signUp': {
     'user': {
@@ -66,6 +68,9 @@ void main() {
     userRegistrationRequired = false;
     await locator.unregister<UserConfig>();
     locator.registerSingleton<UserConfig>(MockUserConfig());
+    FlutterSecureStorage.setMockInitialValues(
+      {"userEmail": "mocked_value", "userPassword": "mocked_value"},
+    );
   });
   // tearDown(() async {
   //   await locator.unregister<Queries>();
@@ -76,7 +81,6 @@ void main() {
         'Check if signup() is working fine when selected organization is not empty and public',
         (tester) async {
       final model = SignupDetailsViewModel();
-
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
 
       model.initialise(org);

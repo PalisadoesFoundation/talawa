@@ -3,6 +3,7 @@
 
 // import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
@@ -46,6 +47,9 @@ Future<void> main() async {
 
   testSetupLocator();
   registerServices();
+  FlutterSecureStorage.setMockInitialValues(
+    {"userEmail": "mocked_value", "userPassword": "mocked_value"},
+  );
 
   group('LoginViewModel Test -', () {
     testWidgets(
