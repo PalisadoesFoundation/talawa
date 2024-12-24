@@ -4,13 +4,11 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
-
-import '../../helpers/test_helpers.dart';
-import '../../helpers/test_locator.dart' as testgetit;
 
 List<ConnectivityResult>? connectivityStatus = [ConnectivityResult.mobile];
 bool internetAccessible = true;
@@ -21,13 +19,11 @@ class MockConnectivityService extends Mock
   final controller = StreamController<List<ConnectivityResult>>();
 
   @override
-  // TODO: implement connectionStatusController
   StreamController<List<ConnectivityResult>> get connectionStatusController =>
       controller;
 
   @override
   Future<void> initConnectivity({required http.Client client}) {
-    // TODO: implement initConnectivity
     return Future(() => null);
   }
 
@@ -71,19 +67,20 @@ class MockConnectivityService extends Mock
   }
 }
 
+@GenerateMocks([Connectivity])
 class MockConnectivity extends Mock implements Connectivity {
-  final controller = StreamController<List<ConnectivityResult>>();
-
-  StreamController<List<ConnectivityResult>> get connectivityController =>
-      controller;
+  final _controller = StreamController<List<ConnectivityResult>>.broadcast();
 
   @override
   Stream<List<ConnectivityResult>> get onConnectivityChanged =>
-      controller.stream;
+      _controller.stream;
+
+  void emitConnectivityChange(List<ConnectivityResult> results) {
+    _controller.add(results);
+  }
 
   @override
   Future<List<ConnectivityResult>> checkConnectivity() async {
-    // TODO: implement checkConnectivity
     if (connectivityStatus == null) {
       throw const SocketException('socket exception');
     }
@@ -105,101 +102,81 @@ class MockClient extends Mock implements http.Client {
 
 void main() {
   late MockClient mockClient;
-  late MockConnectivityService service;
-  setUpAll(() {
+  late MockConnectivityService mockService;
+  late ConnectivityService actualService;
+  late MockConnectivity mockConnectivity;
+
+  setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     mockClient = MockClient();
-    getAndRegisterConnectivity();
-    connectivityStatus = [ConnectivityResult.mobile];
-    service = MockConnectivityService();
-    locator.registerSingleton<ConnectivityService>(service);
-    connectivityService.initConnectivity(client: http.Client());
+    mockConnectivity = MockConnectivity();
+    mockService = MockConnectivityService();
+
+    // Register both mock and actual services
+    locator.registerSingleton<Connectivity>(mockConnectivity);
+    locator.registerSingleton<ConnectivityService>(mockService);
+
+    // Initialize actual service for specific tests
+    actualService = ConnectivityService();
+    actualService.initConnectivity(client: mockClient);
+  });
+
+  tearDown(() {
+    locator.unregister<Connectivity>();
+    locator.unregister<ConnectivityService>();
   });
 
   group('connectivity', () {
-    test(
-      'connectionStream getter',
-      () async {
-        expect(service, isA<ConnectivityService>());
-        expect(
-          service.connectionStream,
-          isA<Stream<List<ConnectivityResult>>>(),
-        );
-      },
-    );
-
-    test('listener', () async {
-      final mockConnectivity = testgetit.connectivity as MockConnectivity;
-      mockConnectivity.connectivityController.add([ConnectivityResult.mobile]);
-
-      mockConnectivity.connectivityController
-          .addError(Exception("Something went wrong!"));
-    });
-
-    test('successfully listens to connectivity changes', () async {
-      final expectedResults = [
-        ConnectivityResult.mobile,
-        ConnectivityResult.wifi,
-      ];
-      final MockConnectivity mockConnectivity = MockConnectivity();
-      mockConnectivity.onConnectivityChanged.listen(
-        (List<ConnectivityResult> results) {
-          expect(results, equals(expectedResults));
-        },
-      );
-
-      // Trigger the event
-      mockConnectivity.connectivityController.add(expectedResults);
-    });
-
-    test('enableSubscription handles errors gracefully', () async {
-      final mockConnectivity = MockConnectivity();
-      mockConnectivity.connectivityController.addError(Exception("Error!"));
-
+    test('connectionStream getter', () async {
+      expect(mockService, isA<ConnectivityService>());
       expect(
-        mockConnectivity.onConnectivityChanged,
-        emitsError(isA<Exception>()),
+        mockService.connectionStream,
+        isA<Stream<List<ConnectivityResult>>>(),
       );
     });
 
-    test('Returns true if there is a valid connectivity result', () async {
-      final mockConnectivityService = MockConnectivityService();
-      connectivityStatus = [ConnectivityResult.mobile, ConnectivityResult.wifi];
-      final result = await mockConnectivityService.getConnectionType();
-      final hasConnection = result.isNotEmpty &&
-          result.any((result) => result != ConnectivityResult.none);
+    test('enableSubscription with actual service', () async {
+      // Test that the stream receives the connectivity change
+      actualService.connectionStream.listen(
+        expectAsync1((List<ConnectivityResult> results) {
+          expect(results, [ConnectivityResult.mobile]);
+        }),
+      );
 
-      // Verify the conditions
+      // Trigger the connectivity change
+      actualService.connectionStatusController.add([ConnectivityResult.mobile]);
+    });
+
+    test('hasConnection - with connection', () async {
+      connectivityStatus = [ConnectivityResult.mobile];
+      final hasConnection = await actualService.hasConnection();
       expect(hasConnection, true);
     });
-
-    test('check has connection - no connection', () async {
+    test('hasConnection - with no connection', () async {
       connectivityStatus = [ConnectivityResult.none];
-      expect(await service.hasConnection(), false);
+      final hasConnection = await actualService.hasConnection();
+      expect(hasConnection, false);
     });
-
-    test('check has connection - with connection', () async {
-      connectivityStatus = [ConnectivityResult.mobile];
-      expect(await service.hasConnection(), true);
-    });
-
-    test('check has connection - empty list', () async {
+    test('hasConnection - with empty list', () async {
       connectivityStatus = [];
-      expect(await service.hasConnection(), false);
+      final hasConnection = await actualService.hasConnection();
+      expect(hasConnection, false);
     });
 
-    test('check has connection - mixed results', () async {
+    test('hasConnection - with mixed results', () async {
       connectivityStatus = [ConnectivityResult.none, ConnectivityResult.wifi];
-      expect(await service.hasConnection(), true);
+      final result = await actualService.hasConnection();
+      expect(result, true);
     });
 
-    test('check has connection - all none', () async {
+    test('hasConnection - with all none', () async {
       connectivityStatus = [ConnectivityResult.none, ConnectivityResult.none];
-      expect(await service.hasConnection(), false);
+      final result = await actualService.hasConnection();
+      expect(result, false);
     });
 
     test('isReachable', () async {
-      final reached = await service.isReachable(
+      final reached = await mockService.isReachable(
         client: mockClient,
         uriString: 'https://google.com',
       );
@@ -207,21 +184,16 @@ void main() {
     });
 
     test('isReachable throws TimeoutException on timeout', () async {
-      final isReachableResult = await service.isReachable(
+      final isReachableResult = await mockService.isReachable(
         client: mockClient,
         uriString: 'https://timeout.com',
       );
-
-      // Verify results (timeout should be thrown before verification)
       expect(isReachableResult, false);
     });
 
     test('isReachable handles server error', () async {
-      // Mock client that returns 500 status code
-      final errorClient = MockClient();
-
-      final reached = await service.isReachable(
-        client: errorClient,
+      final reached = await mockService.isReachable(
+        client: mockClient,
         uriString: 'https://youtube.com',
       );
       expect(reached, false);
