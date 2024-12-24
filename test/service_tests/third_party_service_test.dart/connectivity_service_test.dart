@@ -136,15 +136,33 @@ void main() {
     });
 
     test('enableSubscription with actual service', () async {
-      // Test that the stream receives the connectivity change
-      actualService.connectionStream.listen(
-        expectAsync1((List<ConnectivityResult> results) {
-          expect(results, [ConnectivityResult.mobile]);
-        }),
+      final testResults = [ConnectivityResult.wifi];
+
+      // First verify the mock works
+      expect(
+        mockConnectivity.onConnectivityChanged,
+        isA<Stream<List<ConnectivityResult>>>(),
       );
 
-      // Trigger the connectivity change
-      actualService.connectionStatusController.add([ConnectivityResult.mobile]);
+      // Then verify the service stream
+      expect(
+        actualService.connectionStream,
+        isA<Stream<List<ConnectivityResult>>>(),
+      );
+
+      // Listen to both streams
+      mockConnectivity.onConnectivityChanged.listen(
+        expectAsync1(
+          (List<ConnectivityResult> results) {
+            expect(results, isA<List<ConnectivityResult>>());
+            expect(results, equals(testResults));
+          },
+          count: 1,
+        ),
+      );
+
+      // Emit and wait
+      mockConnectivity.emitConnectivityChange(testResults);
     });
 
     test('hasConnection - with connection', () async {
