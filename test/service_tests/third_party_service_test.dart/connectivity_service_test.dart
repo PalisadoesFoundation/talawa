@@ -9,6 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
+import '../../helpers/test_locator.dart' as testgetit;
 
 List<ConnectivityResult>? connectivityStatus = [ConnectivityResult.mobile];
 bool internetAccessible = true;
@@ -133,6 +134,17 @@ void main() {
         mockService.connectionStream,
         isA<Stream<List<ConnectivityResult>>>(),
       );
+    });
+
+    test('listener', () async {
+      final mockConnectivity = testgetit.connectivity as MockConnectivity;
+      final List<ConnectivityResult> result = [
+        ConnectivityResult.mobile,
+        ConnectivityResult.none,
+      ];
+      mockConnectivity._controller.add(result);
+
+      mockConnectivity._controller.addError(Exception("Something went wrong!"));
     });
 
     test('enableSubscription with actual service', () async {
