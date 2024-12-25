@@ -22,7 +22,6 @@ class CustomAlertDialogWithCheckbox extends StatefulWidget {
     required this.dialogSubTitle,
     required this.checkboxLabel,
     this.initialCheckboxValue = false,
-    this.onCheckboxChanged,
   });
 
   /// Indicates whether the order of action buttons should be reversed.
@@ -51,9 +50,6 @@ class CustomAlertDialogWithCheckbox extends StatefulWidget {
 
   /// Initial value for the checkbox.
   final bool initialCheckboxValue;
-
-  /// Callback for checkbox value change.
-  final ValueChanged<bool>? onCheckboxChanged;
 
   @override
   _CustomAlertDialogWithCheckboxState createState() =>
@@ -128,9 +124,6 @@ class _CustomAlertDialogWithCheckboxState
                   setState(() {
                     _checkboxValue = val!;
                   });
-                  if (widget.onCheckboxChanged != null) {
-                    widget.onCheckboxChanged?.call(_checkboxValue);
-                  }
                 },
               ),
             ],

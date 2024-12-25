@@ -45,11 +45,7 @@ class DirectlyLogin extends StatelessWidget {
                           color: const Color(0xFF4285F4),
                         ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        model.email.text = model.prevUserEmail ?? '';
-                        model.password.text = model.prevUserPassword ?? '';
-                        model.login();
-                      },
+                      ..onTap = loginUsingPrevCredentials,
                   ),
                 ],
               ),
@@ -58,5 +54,18 @@ class DirectlyLogin extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// This method is used to login useing saved detials.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> loginUsingPrevCredentials() async {
+    model.email.text = model.prevUserEmail ?? '';
+    model.password.text = model.prevUserPassword ?? '';
+    await model.login();
   }
 }

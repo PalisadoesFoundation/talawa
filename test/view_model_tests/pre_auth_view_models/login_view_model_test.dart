@@ -27,6 +27,42 @@ import '../../helpers/test_locator.dart';
 
 // import '../../helpers/test_helpers.dart';
 
+/// Mock Class for Flutter Secure Storage for error detection.
+class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
+  @override
+  Future<void> write({
+    required String key,
+    required String? value,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    if (key == "userEmail" || key == "userPassword") {
+      throw Exception("Storing error");
+    }
+    return Future.value(null);
+  }
+
+  @override
+  Future<String?> read({
+    required String key,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    if (key == "userEmail" || key == "userPassword") {
+      throw Exception("Unable to read");
+    }
+    return Future.value(null);
+  }
+}
+
 final data = {
   'login': {
     'user': {
@@ -214,6 +250,36 @@ Future<void> main() async {
         contains("Unable to read"),
       );
     });
+    test('Should handle exception while storing data', () async {
+      final model = LoginViewModel();
+      FlutterSecureStorage.setMockInitialValues(
+        {"userEmail": "test@example.com", "userPassword": "password123"},
+      );
+      final mockSecureStorage = MockFlutterSecureStorage();
+      model.secureStorage = mockSecureStorage;
+
+      String log = "";
+
+      await runZonedGuarded(
+        () async {
+          await model.storingCredentialsInSecureStorage();
+        },
+        (error, stack) {
+          expect(error, isA<Exception>());
+          expect(error.toString(), contains("Storing error"));
+          expect(stack, isNotNull);
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+      expect(
+        log,
+        contains("Storing error"),
+      );
+    });
   });
 }
 
@@ -234,23 +300,4 @@ class MockUserConfig extends Mock implements UserConfig {
 
   @override
   Future<bool> updateUser(User user) async => true;
-}
-
-/// Mock Class for Flutter Secure Storage.
-class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
-  @override
-  Future<String?> read({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) async {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Unable to read");
-    }
-    return Future.value(null);
-  }
 }

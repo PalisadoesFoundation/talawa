@@ -13,6 +13,9 @@ class MockLoginViewModel extends LoginViewModel {
   /// Mock email for testing.
   String? mockPassword;
 
+  /// To verify if model's login function called.
+  bool isLoginCalled = false;
+
   @override
   Future<void> fetchPrevUser() async {
     await Future.delayed(const Duration(milliseconds: 500));
@@ -26,6 +29,7 @@ class MockLoginViewModel extends LoginViewModel {
 
   @override
   Future<void> login() async {
+    isLoginCalled = true;
     await Future.delayed(const Duration(milliseconds: 500));
   }
 }
@@ -35,6 +39,7 @@ void main() {
 
   setUp(() {
     mockLoginViewModel = MockLoginViewModel();
+    mockLoginViewModel.isLoginCalled = false;
   });
 
   testWidgets('Displays email and triggers login on tap',
@@ -139,5 +144,18 @@ void main() {
     expect(mockLoginViewModel.email.text, "");
     expect(mockLoginViewModel.password.text, "");
     expect(find.byType(SizedBox), findsOneWidget);
+  });
+  test(
+      "test to check if login and instantiated and value of prev credential is set to current data when email inside gesture detector is tapped",
+      () async {
+    final model = MockLoginViewModel();
+    final directLogin = DirectlyLogin(model: model);
+    await model.fetchPrevUser();
+    model.mockEmail = "test@gmail.com";
+    model.mockPassword = "Test@1234";
+    await directLogin.loginUsingPrevCredentials();
+    expect(model.email.text, "test@gmail.com");
+    expect(model.password.text, "Test@1234");
+    expect(model.isLoginCalled, true);
   });
 }

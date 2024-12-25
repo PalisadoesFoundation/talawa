@@ -9,27 +9,58 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 import '../../helpers/test_locator.dart';
 
-/// success variable for checkBox.
-bool success = false;
+/// Test fixture for all the variables used to test the widget.
+class TestFixture {
+  /// success variable for checkBox.
+  bool success = false;
 
-/// cancellation variabe for checkBox.
-bool cancelled = false;
+  /// cancellation variable for checkBox.
+  bool cancelled = false;
 
-/// Checkbox variable.
-bool checkboxValue = false;
+  /// true when check box is ticked and false when check is not ticked.
+  bool checkboxValue = false;
 
-/// Function to run on pressing success.
-///
-/// Running this function will idicate that success is chosed and success is working properly.
-///
-/// **params**:
-/// * `value`: Represents the new value of check
-///
-/// **returns**:
-///   None
-void onSuccess(bool? value) {
-  success = true;
-  checkboxValue = value!;
+  /// Function to reset all values.
+  ///
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+
+  void reset() {
+    success = false;
+    cancelled = false;
+    checkboxValue = false;
+  }
+
+  /// Function to run on pressing success.
+  ///
+  /// Running this function will idicate that success is chosed and success is working properly.
+  ///
+  /// **params**:
+  /// * `value`: Represents the new value of check
+  ///
+  /// **returns**:
+  ///   None
+  void onSuccess(bool? value) {
+    success = true;
+    checkboxValue = value ?? false;
+  }
+
+  /// Function to run on pressing cancellation.
+  ///
+  /// Running this function will idicate that cancel is chosed and cancellation is working properly.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void onCancel() {
+    cancelled = true;
+  }
 }
 
 /// Function to run on pressing cancellation.
@@ -37,19 +68,7 @@ void onSuccess(bool? value) {
 /// Running this function will idicate that cancel is chosed and cancellation is working properly.
 ///
 /// **params**:
-///   None
-///
-/// **returns**:
-///   None
-void onCancel() {
-  cancelled = true;
-}
-
-/// Function to run on pressing cancellation.
-///
-/// Running this function will idicate that cancel is chosed and cancellation is working properly.
-///
-/// **params**:
+/// * `fixture`: fixture of variable for testing
 /// * `reverse`: Indicates whether the order of action buttons should be reversed.
 /// * `dialogTitle`: Title displayed in the dialog.
 /// * `initialCheckboxValue`: Initial value for the checkbox.
@@ -58,6 +77,7 @@ void onCancel() {
 /// **returns**:
 /// * `Widget`: Widget that we will be using for testing
 Widget createCustomAlertDialogWithCheckbox({
+  required TestFixture fixture,
   bool reverse = false,
   String? dialogTitle,
   bool initialCheckboxValue = false,
@@ -88,8 +108,8 @@ Widget createCustomAlertDialogWithCheckbox({
         onPressed: () {
           navigationService.pushDialog(
             CustomAlertDialogWithCheckbox(
-              success: onSuccess,
-              secondaryButtonTap: passSecondaryFunc ? onCancel : null,
+              success: fixture.onSuccess,
+              secondaryButtonTap: passSecondaryFunc ? fixture.onCancel : null,
               dialogSubTitle: 'This is a subtitle',
               checkboxLabel: 'Remember me',
               reverse: reverse,
@@ -103,15 +123,22 @@ Widget createCustomAlertDialogWithCheckbox({
 }
 
 void main() {
+  final fixture = TestFixture();
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SizeConfig().test();
     testSetupLocator();
   });
 
+  setUp(() {
+    fixture.reset();
+  });
+
   group('Test for CustomAlertDialogWithCheckbox', () {
     testWidgets('Check if the AlertDialog shows up', (tester) async {
-      await tester.pumpWidget(createCustomAlertDialogWithCheckbox());
+      await tester
+          .pumpWidget(createCustomAlertDialogWithCheckbox(fixture: fixture));
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
@@ -120,7 +147,8 @@ void main() {
     });
 
     testWidgets('Check for the RaisedRoundedButtons', (tester) async {
-      await tester.pumpWidget(createCustomAlertDialogWithCheckbox());
+      await tester
+          .pumpWidget(createCustomAlertDialogWithCheckbox(fixture: fixture));
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
@@ -129,7 +157,8 @@ void main() {
     });
 
     testWidgets('Check if the Confirm button works', (tester) async {
-      await tester.pumpWidget(createCustomAlertDialogWithCheckbox());
+      await tester
+          .pumpWidget(createCustomAlertDialogWithCheckbox(fixture: fixture));
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
@@ -139,12 +168,13 @@ void main() {
       await tester.tap(buttonFinder.last);
       await tester.pump();
 
-      expect(success, true);
+      expect(fixture.success, true);
     });
 
     testWidgets('Check if the Cancel button works (with secondary func)',
         (tester) async {
-      await tester.pumpWidget(createCustomAlertDialogWithCheckbox());
+      await tester
+          .pumpWidget(createCustomAlertDialogWithCheckbox(fixture: fixture));
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
@@ -160,7 +190,10 @@ void main() {
     testWidgets('Check if the Cancel button works (without secondary func)',
         (tester) async {
       await tester.pumpWidget(
-        createCustomAlertDialogWithCheckbox(passSecondaryFunc: false),
+        createCustomAlertDialogWithCheckbox(
+          fixture: fixture,
+          passSecondaryFunc: false,
+        ),
       );
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
@@ -177,7 +210,10 @@ void main() {
     testWidgets('Check if the checkbox is present and clickable',
         (tester) async {
       await tester.pumpWidget(
-        createCustomAlertDialogWithCheckbox(initialCheckboxValue: false),
+        createCustomAlertDialogWithCheckbox(
+          fixture: fixture,
+          initialCheckboxValue: false,
+        ),
       );
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
@@ -197,7 +233,10 @@ void main() {
     testWidgets('Check if the checkbox value is passed to success function',
         (tester) async {
       await tester.pumpWidget(
-        createCustomAlertDialogWithCheckbox(initialCheckboxValue: false),
+        createCustomAlertDialogWithCheckbox(
+          fixture: fixture,
+          initialCheckboxValue: false,
+        ),
       );
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
@@ -211,7 +250,39 @@ void main() {
       await tester.tap(buttonFinder.last);
       await tester.pump();
 
-      expect(checkboxValue, true);
+      expect(fixture.checkboxValue, true);
+    });
+
+    testWidgets('Check if reverse parameter changes button order',
+        (tester) async {
+      await tester.pumpWidget(
+        createCustomAlertDialogWithCheckbox(
+          fixture: fixture,
+          reverse: true,
+        ),
+      );
+      await tester.pump();
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      final buttons = find.byType(RaisedRoundedButton);
+      expect(buttons, findsNWidgets(2));
+
+      // When reversed, the Confirm button should be first and Close button second
+      expect(
+        find.descendant(
+          of: buttons.first,
+          matching: find.text('Confirm'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: buttons.last,
+          matching: find.text('Close'),
+        ),
+        findsOneWidget,
+      );
     });
   });
 }

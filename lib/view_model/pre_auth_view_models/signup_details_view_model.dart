@@ -27,7 +27,7 @@ class SignupDetailsViewModel extends BaseModel {
   late OrgInfo selectedOrganization;
 
   /// Secure local storage instance.
-  final secureStorage = const FlutterSecureStorage();
+  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
@@ -202,19 +202,7 @@ class SignupDetailsViewModel extends BaseModel {
                   Routes.splashScreen,
                 );
               }
-              try {
-                await secureStorage.write(
-                  key: "userEmail",
-                  value: this.email.text,
-                );
-                await secureStorage.write(
-                  key: "userPassword",
-                  value: this.password.text,
-                );
-              } catch (e) {
-                // Handle secure storage write failure
-                print("Failed to save credentials: $e");
-              }
+              await storingCredentialsInSecureStorage();
             }
           }
         },
@@ -226,6 +214,29 @@ class SignupDetailsViewModel extends BaseModel {
           );
         },
       );
+    }
+  }
+
+  /// Storing credentials in secure storage.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> storingCredentialsInSecureStorage() async {
+    try {
+      await secureStorage.write(
+        key: "userEmail",
+        value: this.email.text,
+      );
+      await secureStorage.write(
+        key: "userPassword",
+        value: this.password.text,
+      );
+    } catch (e) {
+      // Handle secure storage write failure
+      print("Failed to save credentials: $e");
     }
   }
 }

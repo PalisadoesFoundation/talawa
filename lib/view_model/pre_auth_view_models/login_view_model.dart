@@ -173,25 +173,36 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
-          try {
-            await secureStorage.write(
-              key: "userEmail",
-              value: this.email.text,
-            );
-            await secureStorage.write(
-              key: "userPassword",
-              value: this.password.text,
-            );
-          } catch (e) {
-            // Handle secure storage write failure
-            print("Failed to save credentials: $e");
-          }
+          await storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
           print('here');
           print(e);
         },
       );
+    }
+  }
+
+  /// Storing credentials in secure storage.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> storingCredentialsInSecureStorage() async {
+    try {
+      await secureStorage.write(
+        key: "userEmail",
+        value: this.email.text,
+      );
+      await secureStorage.write(
+        key: "userPassword",
+        value: this.password.text,
+      );
+    } catch (e) {
+      // Handle secure storage write failure
+      print("Failed to save credentials: $e");
     }
   }
 
