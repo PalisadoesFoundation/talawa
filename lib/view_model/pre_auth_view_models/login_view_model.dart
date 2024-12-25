@@ -29,7 +29,7 @@ class LoginViewModel extends BaseModel {
   String? prevUserPassword;
 
   /// Secure local storage instance.
-  final secureStorage = const FlutterSecureStorage();
+  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;

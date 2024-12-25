@@ -135,6 +135,9 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
+
+    expect(mockLoginViewModel.email.text, "");
+    expect(mockLoginViewModel.password.text, "");
     expect(find.byType(SizedBox), findsOneWidget);
   });
 }

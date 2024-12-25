@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +25,25 @@ import '../../../helpers/test_locator.dart';
 
 /// MockBuildContext class helps to mock the BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
+
+/// Mock Class for Flutter Secure Storage.
+class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
+  @override
+  Future<void> delete({
+    required String key,
+    IOSOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    MacOsOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    if (key == "userEmail" || key == "userPassword") {
+      throw Exception("Deletion error");
+    }
+    return Future.value(null);
+  }
+}
 
 /// MockCallbackFunction class helps to mock the callback function.
 class MockCallbackFunction extends Mock {
@@ -306,6 +328,61 @@ Future<void> main() async {
       await tester.tap(logoutButton);
 
       verify(model.logout());
+    });
+    test('Should delete stored values if checkBoxVal is false', () async {
+      FlutterSecureStorage.setMockInitialValues(
+        {"userEmail": "test@example.com", "userPassword": "password123"},
+      );
+      const secureStorage = FlutterSecureStorage();
+      const bool checkBoxVal = false;
+      if (checkBoxVal == false) {
+        try {
+          await secureStorage.delete(key: "userEmail");
+          await secureStorage.delete(key: "userPassword");
+        } catch (e) {
+          print("Unable to delete stored value : $e");
+        }
+      }
+      final userEmail = await secureStorage.read(key: "userEmail");
+      final userPassword = await secureStorage.read(key: "userPassword");
+      expect(userEmail, isNull);
+      expect(userPassword, isNull);
+    });
+    test('Should handle exception during deletion', () async {
+      FlutterSecureStorage.setMockInitialValues(
+        {"userEmail": "test@example.com", "userPassword": "password123"},
+      );
+      final mockSecureStorage = MockFlutterSecureStorage();
+      const checkBoxVal = false;
+
+      String log = "";
+
+      await runZonedGuarded(
+        () async {
+          if (checkBoxVal == false) {
+            try {
+              await mockSecureStorage.delete(key: "userEmail");
+              await mockSecureStorage.delete(key: "userPassword");
+            } catch (e) {
+              print("Unable to delete stored value: $e");
+            }
+          }
+        },
+        (error, stack) {
+          expect(error, isA<Exception>());
+          expect(error.toString(), contains("Deletion error"));
+          expect(stack, isNotNull);
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+      expect(
+        log,
+        contains("Deletion error"),
+      );
     });
   });
 }

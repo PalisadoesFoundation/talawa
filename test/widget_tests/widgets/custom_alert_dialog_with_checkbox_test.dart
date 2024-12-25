@@ -9,19 +9,54 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 import '../../helpers/test_locator.dart';
 
+/// success variable for checkBox.
 bool success = false;
+
+/// cancellation variabe for checkBox.
 bool cancelled = false;
+
+/// Checkbox variable.
 bool checkboxValue = false;
 
+/// Function to run on pressing success.
+///
+/// Running this function will idicate that success is chosed and success is working properly.
+///
+/// **params**:
+/// * `value`: Represents the new value of check
+///
+/// **returns**:
+///   None
 void onSuccess(bool? value) {
   success = true;
   checkboxValue = value!;
 }
 
+/// Function to run on pressing cancellation.
+///
+/// Running this function will idicate that cancel is chosed and cancellation is working properly.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+///   None
 void onCancel() {
   cancelled = true;
 }
 
+/// Function to run on pressing cancellation.
+///
+/// Running this function will idicate that cancel is chosed and cancellation is working properly.
+///
+/// **params**:
+/// * `reverse`: Indicates whether the order of action buttons should be reversed.
+/// * `dialogTitle`: Title displayed in the dialog.
+/// * `initialCheckboxValue`: Initial value for the checkbox.
+/// * `passSecondaryFunc`: Indicates whether to pass secondary function.
+///
+/// **returns**:
+/// * `Widget`: Widget that we will be using for testing
 Widget createCustomAlertDialogWithCheckbox({
   bool reverse = false,
   String? dialogTitle,
