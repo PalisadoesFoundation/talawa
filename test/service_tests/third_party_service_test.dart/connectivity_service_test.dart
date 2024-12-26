@@ -147,6 +147,22 @@ void main() {
       mockConnectivity._controller.addError(Exception("Something went wrong!"));
     });
 
+    test('connectivity stream callback handles List<ConnectivityResult>',
+        () async {
+      final service = ConnectivityService();
+      await service.initConnectivity(client: mockClient);
+
+      void callback(List<ConnectivityResult> result) {
+        service.connectionStatusController.add(result);
+      }
+
+      final testResults = [ConnectivityResult.wifi];
+      callback(testResults);
+
+      final emittedResults = await service.connectionStream.first;
+      expect(emittedResults, equals(testResults));
+    });
+
     test('enableSubscription with actual service', () async {
       final testResults = [ConnectivityResult.wifi];
 
