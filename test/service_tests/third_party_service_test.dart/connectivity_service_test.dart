@@ -204,7 +204,7 @@ void main() {
     });
 
     test('isReachable', () async {
-      final reached = await mockService.isReachable(
+      final reached = await actualService.isReachable(
         client: mockClient,
         uriString: 'https://google.com',
       );
