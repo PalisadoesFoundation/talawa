@@ -229,6 +229,7 @@ jobs:
           for file in ${CHANGED_UNAUTH_FILES}; do
             echo "$file is unauthorized to change/delete"
           done
+          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
           exit 1
 
   Count-Changed-Files:
