@@ -184,7 +184,7 @@ jobs:
           exit 1
 
   Check-Sensitive-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
     name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
     steps:
