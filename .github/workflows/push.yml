@@ -12,9 +12,6 @@
 name: PUSH Workflow
 on:
   push:
-    # branches:
-    #   - develop
-
     branches-ignore:
       - 'master'
 
