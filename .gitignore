@@ -252,6 +252,5 @@ test_img.png
 node_modules/
 package.json
 package-lock.json
-yarn.lock
 npm-debug.log
 yarn-error.log
