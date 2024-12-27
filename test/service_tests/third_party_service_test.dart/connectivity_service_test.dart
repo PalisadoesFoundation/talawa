@@ -212,8 +212,7 @@ void main() {
     });
 
     test('isReachable throws TimeoutException on timeout', () async {
-      final isReachableResult = await mockService.isReachable(
-        client: mockClient,
+      final isReachableResult = await actualService.isReachable(
         uriString: 'https://timeout.com',
       );
       expect(isReachableResult, false);

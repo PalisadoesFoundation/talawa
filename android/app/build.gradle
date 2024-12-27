@@ -34,7 +34,7 @@ android {
     }
     
     compileSdkVersion 34
-
+    namespace "com.example.talawa"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -49,6 +49,14 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+    }
+     compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
     }
 
     buildTypes {
@@ -67,4 +75,5 @@ flutter {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
+
 }
