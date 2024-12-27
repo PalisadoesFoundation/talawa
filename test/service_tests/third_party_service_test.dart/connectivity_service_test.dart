@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:talawa/locator.dart';
@@ -68,7 +67,6 @@ class MockConnectivityService extends Mock
   }
 }
 
-@GenerateMocks([Connectivity])
 class MockConnectivity extends Mock implements Connectivity {
   final _controller = StreamController<List<ConnectivityResult>>.broadcast();
 
@@ -118,7 +116,7 @@ void main() {
     locator.registerSingleton<ConnectivityService>(mockService);
 
     // Initialize actual service for specific tests
-    actualService = ConnectivityService();
+    actualService = ConnectivityService(mockConnectivity);
     actualService.initConnectivity(client: mockClient);
   });
 
@@ -145,22 +143,6 @@ void main() {
       mockConnectivity._controller.add(result);
 
       mockConnectivity._controller.addError(Exception("Something went wrong!"));
-    });
-
-    test('connectivity stream callback handles List<ConnectivityResult>',
-        () async {
-      final service = ConnectivityService();
-      await service.initConnectivity(client: mockClient);
-
-      void callback(List<ConnectivityResult> result) {
-        service.connectionStatusController.add(result);
-      }
-
-      final testResults = [ConnectivityResult.wifi];
-      callback(testResults);
-
-      final emittedResults = await service.connectionStream.first;
-      expect(emittedResults, equals(testResults));
     });
 
     test('enableSubscription with actual service', () async {

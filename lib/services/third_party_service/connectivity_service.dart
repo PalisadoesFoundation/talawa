@@ -14,6 +14,13 @@ import 'package:talawa/locator.dart';
 /// * Handling the device's connectivity status - [handleConnection]
 /// * Checking if the device has any type of network connection - [hasConnection]
 class ConnectivityService {
+  ConnectivityService(
+    this.connectivityInstance,
+  );
+
+  /// dependency injection connectivity.
+  late final Connectivity connectivityInstance;
+
   /// Stream controller for network status changes.
   late StreamController<List<ConnectivityResult>> connectionStatusController;
 
@@ -59,7 +66,7 @@ class ConnectivityService {
   /// **returns**:
   ///   None
   Future<void> enableSubscription() async {
-    connectivity.onConnectivityChanged.listen(
+    connectivityInstance.onConnectivityChanged.listen(
       (List<ConnectivityResult> result) {
         print(result);
         connectionStatusController.add(result);
