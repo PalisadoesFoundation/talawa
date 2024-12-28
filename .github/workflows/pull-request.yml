@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -117,7 +117,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -148,7 +148,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -184,7 +184,7 @@ jobs:
           exit 1
 
   Check-Sensitive-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
     name: Checks if sensitive files have been changed without authorization
     runs-on: ubuntu-latest
     steps:
@@ -229,6 +229,7 @@ jobs:
           for file in ${CHANGED_UNAUTH_FILES}; do
             echo "$file is unauthorized to change/delete"
           done
+          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
           exit 1
 
   Count-Changed-Files:
