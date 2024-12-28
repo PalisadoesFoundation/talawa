@@ -53,6 +53,14 @@ class EventService extends BaseFeedManager<Event> {
   /// * `Stream<Event>`: returns the event stream
   Stream<List<Event>> get eventStream => _eventStream;
 
+  /// The event stream.
+  ///
+  /// params:
+  ///  None
+  /// returns:
+  /// * `OrgInfo`: returns the Organisation info.
+  OrgInfo get currentOrg => _currentOrg;
+
   @override
   Future<List<Event>> fetchDataFromApi() async {
     // get current organization id
