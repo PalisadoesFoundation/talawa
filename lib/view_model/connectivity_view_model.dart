@@ -20,7 +20,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 /// * Triggers the snackbar UI to show online status.: [showSnackbar]
 class AppConnectivity extends BaseModel {
   /// Stream from [ConnectivityService].
-  late final Stream<ConnectivityResult> connectivityStream;
+  late final Stream<List<ConnectivityResult>> connectivityStream;
 
   /// Subscription of the [connectivityStream]
   StreamSubscription? _subscription;
@@ -51,7 +51,8 @@ class AppConnectivity extends BaseModel {
   ///   None
   void enableSubscription() {
     try {
-      _subscription = connectivityStream.listen((ConnectivityResult result) {
+      _subscription =
+          connectivityStream.listen((List<ConnectivityResult> result) {
         handleConnection(result);
       });
     } catch (e) {
@@ -59,16 +60,18 @@ class AppConnectivity extends BaseModel {
     }
   }
 
-  /// This function handles the device's connectivity status based on the provided [ConnectivityResult].
+  /// This function handles the device's connectivity status based on the provided [List<ConnectivityResult>].
   ///
   /// **params**:
-  /// * `result`: A [ConnectivityResult] indicating the current connectivity status.
+  /// * `result`: A [List<ConnectivityResult>] indicating the current connectivity status.
   ///
   /// **returns**:
   ///   None
-  Future<void> handleConnection(ConnectivityResult result) async {
-    if (![ConnectivityResult.none, ConnectivityResult.bluetooth]
-        .contains(result)) {
+  Future<void> handleConnection(List<ConnectivityResult> result) async {
+    if (result.any(
+      (r) =>
+          ![ConnectivityResult.none, ConnectivityResult.bluetooth].contains(r),
+    )) {
       handleOnline();
     } else {
       handleOffline();
