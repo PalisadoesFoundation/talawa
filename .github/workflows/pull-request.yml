@@ -207,6 +207,7 @@ jobs:
             .eslintrc.json
             .eslintignore
             vite.config.ts
+            pubspec.yaml
             docker-compose.yaml
             Dockerfile
             CODEOWNERS
