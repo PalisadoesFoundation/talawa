@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_alert_dialog_with_checkbox.dart';
 import 'package:talawa/widgets/lang_switch.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
@@ -13,10 +14,18 @@ import 'package:talawa/widgets/theme_switch.dart';
 ///
 /// This widget represents the settings page of the application.
 /// It allows users to configure various application settings.
-class AppSettingsPage extends StatelessWidget {
+class AppSettingsPage extends StatefulWidget {
   const AppSettingsPage({
     super.key,
   });
+
+  @override
+  State<AppSettingsPage> createState() => _AppSettingsPageState();
+}
+
+class _AppSettingsPageState extends State<AppSettingsPage> {
+  /// Secure local storage instance.
+  final secureStorage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -286,13 +295,27 @@ class AppSettingsPage extends StatelessWidget {
                 ? showDialog(
                     context: context,
                     builder: (context) {
-                      return CustomAlertDialog(
-                        reverse: true,
-                        dialogSubTitle: 'Are you sure you want to logout?',
-                        successText: 'Logout',
-                        success: () async {
+                      return CustomAlertDialogWithCheckbox(
+                        success: (checkBoxVal) async {
                           await model.logout();
+                          if (checkBoxVal != null && checkBoxVal == false) {
+                            try {
+                              await secureStorage.delete(
+                                key: "userEmail",
+                              );
+                              await secureStorage.delete(
+                                key: "userPassword",
+                              );
+                            } catch (e) {
+                              print("Unable to delete stored value : $e");
+                            }
+                          }
                         },
+                        reverse: true,
+                        dialogSubTitle: "Are you sure you want to logout?",
+                        checkboxLabel: "Remember me",
+                        successText: "Logout",
+                        initialCheckboxValue: true,
                       );
                     },
                   )

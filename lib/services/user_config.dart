@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
@@ -131,7 +130,8 @@ class UserConfig {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<bool>`: returns future of bool type.
+  ///   None
+
   Future<void> userLogOut() async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
@@ -196,7 +196,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateJoinedOrg(orgDetails);
     saveUserInHive();
@@ -208,7 +208,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateCreatedOrg(orgDetails);
     saveUserInHive();
@@ -220,7 +220,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateMemberRequestOrg(orgDetails);
     saveUserInHive();
@@ -232,7 +232,7 @@ class UserConfig {
   /// * `orgDetails`: details of the organization that user joined.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateAdminFor(orgDetails);
     saveUserInHive();
@@ -245,7 +245,7 @@ class UserConfig {
   /// * `refreshToken`: current user's refreshtoken.
   ///
   /// **returns**:
-  /// * `Future<void>`: returns future of void type.
+  ///   None
   Future<void> updateAccessToken({
     required String accessToken,
     required String refreshToken,
