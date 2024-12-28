@@ -21,8 +21,8 @@ Widget createEditProfilePage({required EditProfilePageViewModel viewModel}) {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: Scaffold(
-          key: const Key('EditProfileScreenScaffold'),
+        home: const Scaffold(
+          key: Key('EditProfileScreenScaffold'),
           body: EditProfilePage(),
         ),
       );
