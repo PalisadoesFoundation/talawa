@@ -14,14 +14,14 @@ Widget createEditProfilePage({required EditProfilePageViewModel viewModel}) {
   return BaseView<EditProfilePageViewModel>(
     onModelReady: (model) => model.initialize(),
     builder: (context, model, child) {
-      return MaterialApp(
-        locale: const Locale('en'),
+      return const MaterialApp(
+        locale: Locale('en'),
         localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
+          AppLocalizationsDelegate(isTest: true),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: const Scaffold(
+        home: Scaffold(
           key: Key('EditProfileScreenScaffold'),
           body: EditProfilePage(),
         ),
@@ -35,6 +35,10 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
+  });
+
+  tearDownAll(() {
+    locator.reset();
   });
 
   group('EditProfilePage Tests', () {
@@ -99,10 +103,13 @@ void main() {
 
       await tester.tap(updateButton);
       await tester.pump();
-      verify(locator<EditProfilePageViewModel>().updateUserProfile(
-          firstName: anyNamed('firstName'),
-          lastName: anyNamed('lastName'),
-          newImage: anyNamed('newImage')));
+      verify(
+        locator<EditProfilePageViewModel>().updateUserProfile(
+          firstName: 'Test',
+          lastName: 'User',
+          newImage: null,
+        ),
+      );
     });
 
     testWidgets('Check if Email section is displayed', (tester) async {
