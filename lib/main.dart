@@ -1,25 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter/services.dart' as fs;
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path;
-import 'package:provider/provider.dart';
-import 'package:quick_actions/quick_actions.dart';
-import 'package:talawa/constants/quick_actions.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/plugins/fetch_plugin_list.dart';
-import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/hive_manager.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/view_model/theme_view_model.dart';
-import 'package:talawa/views/base_view.dart';
-=======
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -39,7 +20,6 @@ import 'package:talawa/views/pages/organization/create_organization.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
->>>>>>> 442e0958 (pagination addition for organization)
 
 Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
