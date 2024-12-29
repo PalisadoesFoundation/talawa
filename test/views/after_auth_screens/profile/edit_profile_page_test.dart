@@ -6,8 +6,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/base_view.dart';
-
-import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createEditProfilePage({required EditProfilePageViewModel viewModel}) {
@@ -34,7 +32,17 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    registerServices();
+
+    // Mock ViewModel methods
+    final mockViewModel = locator<EditProfilePageViewModel>();
+    when(mockViewModel.initialize()).thenAnswer((_) async {});
+    when(
+      mockViewModel.updateUserProfile(
+        firstName: anyNamed('firstName'),
+        lastName: anyNamed('lastName'),
+        newImage: anyNamed('newImage'),
+      ),
+    ).thenAnswer((_) async {});
   });
 
   tearDownAll(() {
