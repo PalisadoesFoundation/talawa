@@ -1,0 +1,43 @@
+/* Global background and text color */
+
+:root {
+    --primary-color: #004080;
+    --secondary-color: #007acc;
+    --background-light: #f8f9fa;
+    --background-dark: #1a1a1a;
+    --text-light: #333;
+    --text-dark: #ddd;
+}
+
+
+/* Light mode styling */
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
+
+/* Dark mode styling */
+
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+
+/* Navbar styles */
+
+.navbar {
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
