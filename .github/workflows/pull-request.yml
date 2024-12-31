@@ -181,7 +181,8 @@ jobs:
       - name: "Check if base branch is develop-postgres"
         if: github.event.pull_request.base.ref != 'develop-postgres'
         run: |
-          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+          echo "PR is not against develop-postgres branch. Please refer PR_GUIDELINES.md"
+          echo "Error: Close this PR and try again."
           exit 1
 
   Check-Sensitive-Files:
