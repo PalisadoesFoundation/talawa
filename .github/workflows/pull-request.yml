@@ -90,6 +90,7 @@ jobs:
           echo "Source Branch ${{ github.event.pull_request.head.ref }}"
           echo "Target Branch ${{ github.event.pull_request.base.ref }}"
           echo "Error: Source and Target Branches are the same. Please ensure they are different."
+          echo "Error: Close this PR and try again."          
           exit 1
 
   #       - name: Echo the GitHub environment for troubleshooting
@@ -180,7 +181,8 @@ jobs:
       - name: "Check if base branch is develop-postgres"
         if: github.event.pull_request.base.ref != 'develop-postgres'
         run: |
-          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
+          echo "PR is not against develop-postgres branch. Please refer PR_GUIDELINES.md"
+          echo "Error: Close this PR and try again."
           exit 1
 
   Check-Sensitive-Files:
@@ -221,7 +223,12 @@ jobs:
             ISSUE_GUIDELINES.md
             PR_GUIDELINES.md
             README.md
-
+            .nojekyll
+            yarn.lock
+            docs/docusaurus.config.ts
+            docs/sidebar*
+            CNAME
+            
       - name: List all changed unauthorized files
         if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
         env:
