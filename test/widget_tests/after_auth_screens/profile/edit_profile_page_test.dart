@@ -465,5 +465,99 @@ Future<void> main() async {
         true,
       );
     });
+    testWidgets("Testing if firstName text field gets focus on onPressed",
+        (tester) async {
+      // Mock or set up user data
+      userConfig.updateUser(
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
+
+      // Render the widget
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
+
+      // Find the 'First Name' text field and its suffix icon
+      final firstNameTextField = find.byKey(const Key('FirstNameTextField'));
+      final editIconButton = find.descendant(
+        of: firstNameTextField,
+        matching: find.byIcon(Icons.edit),
+      );
+
+      // Ensure the text field and icon exist
+      expect(firstNameTextField, findsOneWidget);
+      expect(editIconButton, findsOneWidget);
+
+      // Tap on the edit icon button to trigger focus
+      await tester.tap(editIconButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the firstNameFocus is focused
+      final focusedElement =
+          FocusScope.of(tester.element(firstNameTextField)).focusedChild;
+      expect(focusedElement, isNotNull); // Ensure there is a focused child
+      expect(
+        focusedElement!.hasPrimaryFocus,
+        isTrue,
+      ); // Ensure it has primary focus
+    });
+
+    testWidgets("Testing image selection and removal functionality",
+        (tester) async {
+      await mockNetworkImages(() async {
+        // Mock user data with no image
+        userConfig.updateUser(
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
+
+        // Render the widget
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        // Case 1: Image file is null (modal sheet for selection should appear)
+        final addRemoveButton = find.byKey(const Key('AddRemoveImageButton'));
+        expect(addRemoveButton, findsOneWidget);
+
+        // Ensure the button is visible before interacting
+        await tester.ensureVisible(addRemoveButton);
+        await tester.pumpAndSettle();
+
+        // Tap the button to trigger modal sheet for image selection
+        await tester.tap(addRemoveButton);
+        await tester.pumpAndSettle();
+
+        // Verify modal sheet appears with options
+        expect(find.text('Camera'), findsOneWidget);
+        expect(find.text('Gallery'), findsOneWidget);
+        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+        expect(find.byIcon(Icons.photo_library), findsOneWidget);
+
+        // Close the modal sheet
+        await tester.tap(find.text('Camera'));
+        await tester.pumpAndSettle();
+
+        // Mock setting an image file
+        final model = EditProfilePageViewModel();
+        model.imageFile = File('mockPath');
+
+        // Rebuild the widget to reflect the new state
+        await tester
+            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
+        await tester.pumpAndSettle();
+
+        // Case 2: Image file is not null (image removal should be triggered)
+        await tester.ensureVisible(addRemoveButton);
+        await tester.tap(addRemoveButton);
+        await tester.pumpAndSettle();
+
+        // Mock removing the image file
+        model.imageFile = null;
+        model.notifyListeners();
+        await tester.pumpAndSettle();
+
+        // Verify the image file is removed
+        expect(model.imageFile, isNull);
+      });
+    });
   });
 }

@@ -205,7 +205,7 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: e0817759ec6d2d8e57eb234e6e57d2173931367a865850c7acea40d4b4f9c27d
+      sha256: "2056db5241f96cdc0126bd94459fc4cdc13876753768fc7a31c425e50a7177d0"
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
@@ -357,10 +357,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "7bf0adc28a23d395f19f3f1eb21dd7cfd1dd9f8e1c50051c069122e6853bc878"
+      sha256: "16ed7b077ef01ad6170a3d0c57caa4a112a38d7a2ed5602e0aca9ca6f3d98da6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.3"
   file:
     dependency: "direct main"
     description:
@@ -673,18 +673,18 @@ packages:
     dependency: transitive
     description:
       name: graphql
-      sha256: d066e53446166c12537458386b507f7426f2b8801ebafc184576aab3cbc64d56
+      sha256: b90f3faa525fed0d8b57f528af913cf1363e1d77f287004d3a15ce699fa866ee
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0-beta.7"
+    version: "5.2.0-beta.9"
   graphql_flutter:
     dependency: "direct main"
     description:
       name: graphql_flutter
-      sha256: "39b5e830bc654ab02c5b776c31675841d1a8c95840fdd284efba713b1d47e65d"
+      sha256: fad0c3bad7e4aeec9a2eee11de8e4d305e0fbce260a24351b6c688911aea5fc8
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0-beta.6"
+    version: "5.2.0-beta.8"
   graphs:
     dependency: transitive
     description:
@@ -881,18 +881,18 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "7f0df31977cb2c0b88585095d168e689669a2cc9b97c309665e3386f3e9d341a"
+      sha256: "3f87a60e8c63aecc975dda1ceedbc8f24de75f09e4856ea27daf8958f2f0ce05"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.4"
+    version: "10.0.5"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: "06e98f569d004c1315b991ded39924b21af84cf14cc94791b8aea337d25b57f8"
+      sha256: "932549fb305594d82d7183ecd9fa93463e9914e1b67cacc34bc40906594a1806"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.5"
   leak_tracker_testing:
     dependency: transitive
     description:
@@ -929,18 +929,18 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-      sha256: "0e0a020085b65b6083975e499759762399b4475f766c21668c4ecca34ea74e5a"
+      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.0"
+    version: "0.11.1"
   meta:
     dependency: transitive
     description:
       name: meta
-      sha256: "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136"
+      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
       url: "https://pub.dev"
     source: hosted
-    version: "1.12.0"
+    version: "1.15.0"
   mime:
     dependency: transitive
     description:
@@ -1485,10 +1485,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f"
+      sha256: "5b8a98dafc4d5c4c9c72d8b31ab2b23fc13422348d2997120294d3bac86b4ddb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.2"
   timelines:
     dependency: "direct main"
     description:
@@ -1725,10 +1725,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.1"
+    version: "14.2.5"
   watcher:
     dependency: transitive
     description:
@@ -1754,13 +1754,13 @@ packages:
     source: hosted
     version: "2.4.0"
   win32:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: win32
-      sha256: "464f5674532865248444b4c3daca12bd9bf2d7c47f759ce2617986e7229494a8"
+      sha256: "8b338d4486ab3fbc0ba0db9f9b4f5239b6697fcee427939a40e720cbb9ee0a69"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "5.9.0"
   win32_registry:
     dependency: transitive
     description:
@@ -1794,5 +1794,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.4.0 <=3.4.4"
+  dart: ">=3.5.0 <=3.22.3"
   flutter: ">=3.22.0"
