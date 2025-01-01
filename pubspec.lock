@@ -208,7 +208,7 @@ packages:
       sha256: e0817759ec6d2d8e57eb234e6e57d2173931367a865850c7acea40d4b4f9c27d
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.5"
+    version: "6.1.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
