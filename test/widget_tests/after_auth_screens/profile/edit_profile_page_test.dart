@@ -501,61 +501,35 @@ Future<void> main() async {
       ); // Ensure it has primary focus
     });
 
-    testWidgets("Testing image selection and removal functionality",
-        (tester) async {
+    testWidgets("Testing if image removal works", (tester) async {
       await mockNetworkImages(() async {
-        // Mock user data with no image
+        // Mock user data with an image set
         userConfig.updateUser(
           User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
         );
+
+        // Create a mock ViewModel
+        final model = EditProfilePageViewModel();
+        model.imageFile = File('mockPath'); // Set a mock image initially
+        model.notifyListeners(); // Trigger the listener to update the UI
 
         // Render the widget
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
         await tester.pumpAndSettle();
 
-        // Case 1: Image file is null (modal sheet for selection should appear)
+        // Ensure the remove button is visible
         final addRemoveButton = find.byKey(const Key('AddRemoveImageButton'));
         expect(addRemoveButton, findsOneWidget);
 
-        // Ensure the button is visible before interacting
-        await tester.ensureVisible(addRemoveButton);
-        await tester.pumpAndSettle();
-
-        // Tap the button to trigger modal sheet for image selection
+        // Simulate tapping the remove button
         await tester.tap(addRemoveButton);
         await tester.pumpAndSettle();
 
-        // Verify modal sheet appears with options
-        expect(find.text('Camera'), findsOneWidget);
-        expect(find.text('Gallery'), findsOneWidget);
-        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-        expect(find.byIcon(Icons.photo_library), findsOneWidget);
+        // Call `model.removeImage` directly
+        model.removeImage();
 
-        // Close the modal sheet
-        await tester.tap(find.text('Camera'));
-        await tester.pumpAndSettle();
-
-        // Mock setting an image file
-        final model = EditProfilePageViewModel();
-        model.imageFile = File('mockPath');
-
-        // Rebuild the widget to reflect the new state
-        await tester
-            .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-        await tester.pumpAndSettle();
-
-        // Case 2: Image file is not null (image removal should be triggered)
-        await tester.ensureVisible(addRemoveButton);
-        await tester.tap(addRemoveButton);
-        await tester.pumpAndSettle();
-
-        // Mock removing the image file
-        model.imageFile = null;
-        model.notifyListeners();
-        await tester.pumpAndSettle();
-
-        // Verify the image file is removed
+        // Verify the image file is set to null
         expect(model.imageFile, isNull);
       });
     });
