@@ -187,6 +187,20 @@ void main() {
       final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
       expect(isLastOccurrence, false);
     });
+
+    test(
+        'isLastOccurenceOfWeekDay iterates through multiple days to find last occurrence',
+        () {
+      final date = DateTime(2022, 8, 29); // Last Monday of August 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true); // 29th August is the last Monday
+    });
+
+    test('isLastOccurenceOfWeekDay iterates and adjusts last occurrence', () {
+      final date = DateTime(2022, 3, 28); // Last Monday of March 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true); // 28th March is the last Monday
+    });
   });
   group('Test custom recurrence page.', () {
     testWidgets('Appbar is being rendered as expected.', (tester) async {
