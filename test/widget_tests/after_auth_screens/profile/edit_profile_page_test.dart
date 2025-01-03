@@ -538,8 +538,11 @@ Future<void> main() async {
 
         // Mock setting an image file
         final model = EditProfilePageViewModel();
-        model.imageFile = File('mockPath');
-
+// Mock file with proper cleanup
+        final tempDir = await Directory.systemTemp.createTemp();
+        final file = File('${tempDir.path}/test.png');
+        await file.writeAsString('mock data');
+        model.imageFile = file;
         // Rebuild the widget to reflect the new state
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
@@ -557,6 +560,20 @@ Future<void> main() async {
 
         // Verify the image file is removed
         expect(model.imageFile, isNull);
+
+        // Verify UI feedback
+        expect(find.byIcon(Icons.add_photo_alternate), findsOneWidget);
+
+        // Cleanup
+        await tempDir.delete(recursive: true);
+
+        // Test error handling
+        try {
+          model.imageFile = File('invalid_path');
+          fail('Should throw exception for invalid file');
+        } catch (e) {
+          expect(e, isInstanceOf<FileSystemException>());
+        }
       });
     });
 
