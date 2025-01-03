@@ -559,5 +559,43 @@ Future<void> main() async {
         expect(model.imageFile, isNull);
       });
     });
+
+    testWidgets("Focus shifts to lastNameTextField when edit icon is pressed",
+        (tester) async {
+      // Arrange: Set up the EditProfilePageViewModel mock with a focus node
+      final model = EditProfilePageViewModel();
+      final lastNameFocusNode = FocusNode();
+      model.lastNameFocus = lastNameFocusNode;
+
+      // Render the widget
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: TextFormField(
+              key: const Key('LastNameTextField'),
+              focusNode: model.lastNameFocus,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  key: const Key('LastNameEditIcon'),
+                  onPressed: () {
+                    FocusScope.of(tester.element(
+                            find.byKey(const Key('LastNameTextField'))))
+                        .requestFocus(model.lastNameFocus);
+                  },
+                  icon: const Icon(Icons.edit),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Act: Tap the edit icon to trigger the focus request
+      await tester.tap(find.byKey(const Key('LastNameEditIcon')));
+      await tester.pumpAndSettle();
+
+      // Assert: Verify the lastNameTextField is focused
+      expect(lastNameFocusNode.hasFocus, isTrue);
+    });
   });
 }
