@@ -256,5 +256,48 @@ void main() {
         },
       );
     });
+
+    testWidgets('handles last weekday occurrence for various dates',
+        (tester) async {
+      // Test for leap year February
+      model.recurrenceStartDate = DateTime(2024, 2, 29); // Leap year
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ShowRecurrenceDialog(model: model),
+        ),
+      );
+      expect(
+        find.text(
+          RecurrenceUtils.getRecurrenceRuleText(
+            Frequency.monthly,
+            {'THURSDAY'},
+            model.interval,
+            model.count,
+            -1,
+            model.recurrenceStartDate,
+            model.recurrenceEndDate,
+          ),
+        ),
+        findsOneWidget,
+      );
+
+      // Test for non-leap year February
+      model.recurrenceStartDate = DateTime(2023, 2, 28); // Non-leap year
+      await tester.pump();
+      expect(
+        find.text(
+          RecurrenceUtils.getRecurrenceRuleText(
+            Frequency.monthly,
+            {'TUESDAY'},
+            model.interval,
+            model.count,
+            -1,
+            model.recurrenceStartDate,
+            model.recurrenceEndDate,
+          ),
+        ),
+        findsOneWidget,
+      );
+    });
   });
 }
