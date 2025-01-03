@@ -560,43 +560,40 @@ Future<void> main() async {
       });
     });
 
-    testWidgets("Focus shifts to lastNameTextField when edit icon is pressed",
+    testWidgets("Testing if lastName text field gets focus on onPressed",
         (tester) async {
-      // Arrange: Set up the EditProfilePageViewModel mock with a focus node
-      final model = EditProfilePageViewModel();
-      final lastNameFocusNode = FocusNode();
-      model.lastNameFocus = lastNameFocusNode;
-
-      // Render the widget
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: TextFormField(
-              key: const Key('LastNameTextField'),
-              focusNode: model.lastNameFocus,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  key: const Key('LastNameEditIcon'),
-                  onPressed: () {
-                    FocusScope.of(
-                      tester
-                          .element(find.byKey(const Key('LastNameTextField'))),
-                    ).requestFocus(model.lastNameFocus);
-                  },
-                  icon: const Icon(Icons.edit),
-                ),
-              ),
-            ),
-          ),
-        ),
+      // Mock or set up user data
+      userConfig.updateUser(
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
       );
 
-      // Act: Tap the edit icon to trigger the focus request
-      await tester.tap(find.byKey(const Key('LastNameEditIcon')));
+      // Render the widget
+      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
-      // Assert: Verify the lastNameTextField is focused
-      expect(lastNameFocusNode.hasFocus, isTrue);
+      // Find the 'Last Name' text field and its suffix icon
+      final lastNameTextField = find.byKey(const Key('LastNameTextField'));
+      final editIconButton = find.descendant(
+        of: lastNameTextField,
+        matching: find.byIcon(Icons.edit),
+      );
+
+      // Ensure the text field and icon exist
+      expect(lastNameTextField, findsOneWidget);
+      expect(editIconButton, findsOneWidget);
+
+      // Tap on the edit icon button to trigger focus
+      await tester.tap(editIconButton);
+      await tester.pumpAndSettle();
+
+      // Verify that the lastNameFocus is focused
+      final focusedElement =
+          FocusScope.of(tester.element(lastNameTextField)).focusedChild;
+      expect(focusedElement, isNotNull); // Ensure there is a focused child
+      expect(
+        focusedElement!.hasPrimaryFocus,
+        isTrue,
+      ); // Ensure it has primary focus
     });
   });
 }
