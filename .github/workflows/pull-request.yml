@@ -198,37 +198,21 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            .github/**
-            env.example
-            .node-version
-            .husky/**
-            scripts/**
-            package.json
-            tsconfig.json
-            .gitignore
-            .eslintrc.json
-            .eslintignore
-            vite.config.ts
-            pubspec.yaml
-            docker-compose.yaml
-            Dockerfile
-            CODEOWNERS
-            LICENSE
-            setup.ts
-            .coderabbit.yaml
             CODE_OF_CONDUCT.md
+            CODE_STYLE.md
             CONTRIBUTING.md
             DOCUMENTATION.md
             INSTALLATION.md
             ISSUE_GUIDELINES.md
             PR_GUIDELINES.md
             README.md
-            .nojekyll
-            yarn.lock
-            docs/docusaurus.config.ts
-            docs/sidebar*
-            CNAME
-            
+            CODEOWNERS
+            LICENSE  
+            .github/**
+            analysis_options.yaml
+            pubspec.yaml
+            pubspec.lock
+            lib/main.dart
       - name: List all changed unauthorized files
         if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
         env:
