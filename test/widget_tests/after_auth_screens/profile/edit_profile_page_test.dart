@@ -578,9 +578,10 @@ Future<void> main() async {
                 suffixIcon: IconButton(
                   key: const Key('LastNameEditIcon'),
                   onPressed: () {
-                    FocusScope.of(tester.element(
-                            find.byKey(const Key('LastNameTextField'))))
-                        .requestFocus(model.lastNameFocus);
+                    FocusScope.of(
+                      tester
+                          .element(find.byKey(const Key('LastNameTextField'))),
+                    ).requestFocus(model.lastNameFocus);
                   },
                   icon: const Icon(Icons.edit),
                 ),
