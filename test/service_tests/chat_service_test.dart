@@ -93,12 +93,12 @@ void main() {
                   {
                     '_id': 'user1',
                     'firstName': 'John',
-                    'email': 'john@example.com'
+                    'email': 'john@example.com',
                   },
                   {
                     '_id': 'xzy1',
                     'firstName': 'Jane',
-                    'email': 'jane@example.com'
+                    'email': 'jane@example.com',
                   },
                 ],
                 '_id': 'chat1',
