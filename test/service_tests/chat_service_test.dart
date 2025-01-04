@@ -59,7 +59,6 @@ void main() {
         completer.complete();
       });
 
-
       await service.sendMessageToDirectChat(
         chatId,
         messageContent,
@@ -75,9 +74,7 @@ void main() {
       expect(messages.first.messageContent, messageContent);
       expect(messages.first.sender?.firstName, 'Mohamed');
       expect(messages.first.receiver?.firstName, 'Ali');
-
     });
-
 
     test('getDirectChatsByUserId Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
@@ -93,8 +90,16 @@ void main() {
             'directChatsByUserID': [
               {
                 'users': [
-                  {'_id': 'user1', 'firstName': 'John', 'email': 'john@example.com'},
-                  {'_id': 'xzy1', 'firstName': 'Jane', 'email': 'jane@example.com'},
+                  {
+                    '_id': 'user1',
+                    'firstName': 'John',
+                    'email': 'john@example.com'
+                  },
+                  {
+                    '_id': 'xzy1',
+                    'firstName': 'Jane',
+                    'email': 'jane@example.com'
+                  },
                 ],
                 '_id': 'chat1',
               },
@@ -104,7 +109,7 @@ void main() {
         ),
       );
       final service = ChatService();
-       final completer = Completer<void>();
+      final completer = Completer<void>();
       final chats = <ChatListTileDataModel>[];
       final subscription = service.chatListStream.listen((chat) {
         chats.add(chat);
@@ -124,7 +129,6 @@ void main() {
       expect(chats.first.users?.length, 2);
       expect(chats.first.users?.first.firstName, 'John');
     });
-
 
     test("getDirectChatMessagesByChatId Method", () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
@@ -180,7 +184,6 @@ void main() {
       expect(messages.first.receiver?.firstName, 'Jane');
     });
 
-    
     test("chatListStream return a stream of ChatListTileDataModel", () {
       final service = ChatService();
       expect(service.chatListStream, isA<Stream<ChatListTileDataModel>>());
@@ -190,6 +193,5 @@ void main() {
       final chatService = ChatService();
       expect(chatService.chatMessagesStream, isA<Stream<ChatMessage>>());
     });
-    
   });
 }
