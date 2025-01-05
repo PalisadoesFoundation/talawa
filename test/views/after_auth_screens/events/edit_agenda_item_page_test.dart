@@ -1,5 +1,7 @@
 // ignore_for_file: talawa_api_doc
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -226,7 +228,9 @@ void main() {
     });
 
     testWidgets('Agenda Item Title Validation', (WidgetTester tester) async {
-      // Build the widget
+      // Title validation rules:
+      // - Must not be empty
+      // - Must contain at least one letter (A-Z or a-z)
       await tester.pumpWidget(createEditAgendaItemScreen());
       await tester.pumpAndSettle();
 
@@ -244,7 +248,7 @@ void main() {
       // Verify the error message for an empty title
       expect(find.text('Title must not be left blank.'), findsOneWidget);
 
-      // Simulate user entering an invalid title and trigger validation
+      // Simulate user entering an invalid title (numbers only) and trigger validation
       await tester.enterText(titleField, '12345');
       await tester.pumpAndSettle();
       final invalidFieldState =
@@ -254,11 +258,24 @@ void main() {
 
       // Verify the error message for an invalid title
       expect(find.text('Invalid Title'), findsOneWidget);
+
+      // Simulate user entering a valid title and trigger validation
+      await tester.enterText(titleField, 'Team Meeting');
+      await tester.pumpAndSettle();
+      final validFieldState = tester.state<FormFieldState<String>>(titleField);
+      validFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Verify no error message is shown for valid title
+      expect(find.text('Invalid Title'), findsNothing);
+      expect(find.text('Title must not be left blank.'), findsNothing);
     });
 
     testWidgets('Agenda Item Description Validation',
         (WidgetTester tester) async {
-      // Build the widget
+      // Description validation rules:
+      // - Must not be empty
+      // - Must contain valid characters (add specific rules here)
       await tester.pumpWidget(createEditAgendaItemScreen());
       await tester.pumpAndSettle();
 
@@ -266,7 +283,7 @@ void main() {
       final descriptionField = find.byKey(const Key('edit_event_agenda_tf2'));
       expect(descriptionField, findsOneWidget);
 
-      // Simulate user entering empty text and trigger validation
+      // Simulate user entering an invalid description and trigger validation
       await tester.enterText(descriptionField, '');
       await tester.pumpAndSettle();
       final emptyFieldState =
@@ -287,6 +304,15 @@ void main() {
 
       // Verify the error message for an invalid description
       expect(find.text('Invalid Description'), findsOneWidget);
+
+      // Test valid description
+      await tester.enterText(descriptionField, 'Valid Description');
+      await tester.pumpAndSettle();
+      final validFieldState =
+          tester.state<FormFieldState<String>>(descriptionField);
+      validFieldState.validate();
+      await tester.pumpAndSettle();
+      expect(find.text('Invalid Description'), findsNothing);
     });
   });
 }
