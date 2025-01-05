@@ -1,4 +1,6 @@
 // ignore_for_file: talawa_api_doc
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +10,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_agenda_item_page.dart';
@@ -163,6 +166,129 @@ void main() {
 
       // Verify the category was removed
       expect(find.byKey(const Key('Category 1')), findsNothing);
+    });
+
+    testWidgets('Chip onDeleted removes a category',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Step 1: Add a category to the selected categories
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      // Verify the category was added and is displayed as a Chip
+      expect(find.byKey(const Key('Category 1')), findsOneWidget);
+
+      // Step 2: Trigger the onDeleted callback by specifically finding the delete icon
+      final deleteButtonFinder = find.descendant(
+        of: find.byKey(const Key('Category 1')),
+        matching: find.byIcon(
+          Icons.cancel,
+        ), // Adjust to match the delete icon used in the Chip
+      );
+
+      expect(
+        deleteButtonFinder,
+        findsOneWidget,
+      ); // Ensure there's exactly one match
+      await tester.tap(deleteButtonFinder);
+      await tester.pumpAndSettle();
+
+      // Step 3: Verify the category was removed
+      expect(find.byKey(const Key('Category 1')), findsNothing);
+    });
+
+    testWidgets('TextFormField displays error message when input is empty',
+        (WidgetTester tester) async {
+      // Build the widget
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Find the TextFormField
+      final textFormField = find.byKey(const Key('edit_event_agenda_duration'));
+      expect(textFormField, findsOneWidget);
+
+      // Simulate user entering empty text
+      await tester.enterText(textFormField, '');
+      await tester.pumpAndSettle();
+
+      // Since we're not using a Form, we need to manually trigger the validator
+      // by accessing the FormFieldState and calling validate()
+      final formFieldState =
+          tester.state<FormFieldState<String>>(textFormField);
+      formFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Check for the error message
+      expect(find.text('Please enter a duration'), findsOneWidget);
+    });
+
+    testWidgets('Agenda Item Title Validation', (WidgetTester tester) async {
+      // Build the widget
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Locate the TextFormField using its Key
+      final titleField = find.byKey(const Key('edit_event_agenda_tf1'));
+      expect(titleField, findsOneWidget);
+
+      // Simulate user entering empty text and trigger validation
+      await tester.enterText(titleField, '');
+      await tester.pumpAndSettle();
+      final emptyFieldState = tester.state<FormFieldState<String>>(titleField);
+      emptyFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Verify the error message for an empty title
+      expect(find.text('Title must not be left blank.'), findsOneWidget);
+
+      // Simulate user entering an invalid title and trigger validation
+      await tester.enterText(titleField, '12345');
+      await tester.pumpAndSettle();
+      final invalidFieldState =
+          tester.state<FormFieldState<String>>(titleField);
+      invalidFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Verify the error message for an invalid title
+      expect(find.text('Invalid Title'), findsOneWidget);
+    });
+
+    testWidgets('Agenda Item Description Validation',
+        (WidgetTester tester) async {
+      // Build the widget
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Locate the TextFormField using its Key
+      final descriptionField = find.byKey(const Key('edit_event_agenda_tf2'));
+      expect(descriptionField, findsOneWidget);
+
+      // Simulate user entering empty text and trigger validation
+      await tester.enterText(descriptionField, '');
+      await tester.pumpAndSettle();
+      final emptyFieldState =
+          tester.state<FormFieldState<String>>(descriptionField);
+      emptyFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Verify the error message for an empty description
+      expect(find.text('Description must not be left blank.'), findsOneWidget);
+
+      // Simulate user entering an invalid title and trigger validation
+      await tester.enterText(descriptionField, '12345');
+      await tester.pumpAndSettle();
+      final invalidFieldState =
+          tester.state<FormFieldState<String>>(descriptionField);
+      invalidFieldState.validate();
+      await tester.pumpAndSettle();
+
+      // Verify the error message for an invalid description
+      expect(find.text('Invalid Description'), findsOneWidget);
     });
   });
 }
