@@ -139,5 +139,30 @@ void main() {
       await tester.tap(find.text('Add Attachments'));
       await tester.pumpAndSettle();
     });
+
+    testWidgets('Remove a selected category', (WidgetTester tester) async {
+      await tester.pumpWidget(createEditAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Step 1: Select a category
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      // Verify the category was added
+      expect(find.byKey(const Key('Category 1')), findsOneWidget);
+
+      // Step 2: Remove the selected category
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      // Verify the category was removed
+      expect(find.byKey(const Key('Category 1')), findsNothing);
+    });
   });
 }
