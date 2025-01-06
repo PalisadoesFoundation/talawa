@@ -18,28 +18,28 @@ import os
 import argparse
 import re
 
-def escape_mdx_characters(text):
-    """
-    Escape special characters (<, >, {, }) in Dart docs to make them MDX compatible.
+# def escape_mdx_characters(text):
+#     """
+#     Escape special characters (<, >, {, }) in Dart docs to make them MDX compatible.
 
-    Args:
-        text (str): The text content to be processed.
+#     Args:
+#         text (str): The text content to be processed.
 
-    Returns:
-        str: The modified string with escaped MDX characters.
-    """
-    # Replace unescaped <, >, {, } with their escaped equivalents
-    patterns = {
-        "<": r"(?<!\\)<",
-        ">": r"(?<!\\)>",
-        "{": r"(?<!\\){",
-        "}": r"(?<!\\)}"
-    }
+#     Returns:
+#         str: The modified string with escaped MDX characters.
+#     """
+#     # Replace unescaped <, >, {, } with their escaped equivalents
+#     patterns = {
+#         "<": r"(?<!\\)<",
+#         ">": r"(?<!\\)>",
+#         "{": r"(?<!\\){",
+#         "}": r"(?<!\\)}"
+#     }
     
-    for char, pattern in patterns.items():
-        text = re.sub(pattern, f"\\{char}", text)
+#     for char, pattern in patterns.items():
+#         text = re.sub(pattern, f"\\{char}", text)
 
-    return text
+#     return text
 
 def adjust_dart_code_blocks(text):
     """
