@@ -22,22 +22,20 @@ class MockImageService extends Mock implements ImageService {
 }
 
 void main() {
+  late ImageCropper mockImageCropper;
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
   });
+  setUp(() {
+    mockImageCropper = locator<ImageCropper>();
+    reset(mockImageCropper); // Reset mock before each test
+  });
 
   group('Tests for Crop Image', () {
-    test("test no image provided for the image cropper", () async {
-      const path = 'test';
-      final file = await imageService.cropImage(imageFile: File(path));
-      expect(file?.path, null);
-    });
-
     test("crop image method", () async {
-      final mockImageCropper = imageCropper;
-
       const path = "test";
       final fakefile = File(path);
       final croppedFile = CroppedFile("fakeCropped");
@@ -45,10 +43,6 @@ void main() {
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenAnswer((realInvocation) async => croppedFile);
@@ -58,17 +52,71 @@ void main() {
       expect(file?.path, croppedFile.path);
     });
 
+    test('cropImage handles null CroppedFile', () async {
+      final testFile = File('test.png');
+
+      when(
+        mockImageCropper.cropImage(
+          sourcePath: 'test',
+          uiSettings: anyNamed('uiSettings'),
+        ),
+      ).thenAnswer((_) async => null);
+
+      final result = await imageService.cropImage(imageFile: testFile);
+
+      expect(result, isNull);
+    });
+
+    test('cropImage uses correct aspectRatioPresets', () async {
+      const path = "test";
+
+      final testFile = File(path);
+      final croppedFile = CroppedFile('cropped_test.png');
+
+      when(
+        mockImageCropper.cropImage(
+          sourcePath: 'test',
+          uiSettings: captureAnyNamed('uiSettings'),
+        ),
+      ).thenAnswer((_) async => croppedFile);
+
+      await imageService.cropImage(imageFile: testFile);
+
+      final capturedUiSettings = verify(
+        mockImageCropper.cropImage(
+          sourcePath: 'test',
+          uiSettings: captureAnyNamed('uiSettings'),
+        ),
+      ).captured.single as List<PlatformUiSettings>;
+
+      final androidSettings =
+          capturedUiSettings.whereType<AndroidUiSettings>().single;
+      final iosSettings = capturedUiSettings.whereType<IOSUiSettings>().single;
+
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.square),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.original),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.square),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.original),
+      );
+    });
+
     test("error in crop image", () async {
-      final mockImageCropper = locator<ImageCropper>();
       const path = "test";
       final fakefile = File(path);
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenThrow(Exception());
