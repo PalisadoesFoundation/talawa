@@ -76,7 +76,7 @@ def process_file(filepath):
         content = file.read()
 
     # Escape MDX special characters
-    content = escape_mdx_characters(content)
+    # content = escape_mdx_characters(content)
     # Adjust Dart code blocks for MDX
     content = adjust_dart_code_blocks(content)
 
