@@ -3,7 +3,7 @@
 #
 # NOTE!
 #
-# Please read the README.md file in this directory that defines what should 
+# Please read the README.md file in this directory that defines what should
 # be placed in this file
 #
 ##############################################################################
@@ -19,14 +19,16 @@ on:
       - "*"
 
 env:
-    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-    
-jobs:
+  CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
 
+jobs:
+  
   Flutter-Codebase-Check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checking Codebase
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,6 +36,7 @@ jobs:
           # This could be important for our documentation generation process.
           # See: https://github.com/actions/checkout
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
@@ -46,6 +49,17 @@ jobs:
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
+      - name: Check and commit pubspec.lock changes
+        run: |
+          if [[ $(git status --porcelain pubspec.lock) ]]; then
+            echo "Changes detected in pubspec.lock. Auto-committing updates."
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add pubspec.lock
+            git commit -m "Automated update of pubspec.lock"
+          else
+            echo "No changes in pubspec.lock."
+          fi
       - name: Checking for correct formatting of code
         run: dart format --set-exit-if-changed .
       - name: setup python
@@ -65,10 +79,10 @@ jobs:
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: dart run custom_lint
-#       - name: Echo the GitHub environment for troubleshooting
-#         run: echo "$GITHUB_CONTEXT"
-#       - name: Echo the GitHub context for troubleshooting
-#         run: echo "${{ toJSON(github) }}"
+  #       - name: Echo the GitHub environment for troubleshooting
+  #         run: echo "$GITHUB_CONTEXT"
+  #       - name: Echo the GitHub context for troubleshooting
+  #         run: echo "${{ toJSON(github) }}"
 
 
   Flutter-Testing:
@@ -82,7 +96,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'          
+          java-version: '17.0'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.3'
@@ -99,7 +113,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: false
-          name: '${{env.CODECOV_UNIQUE_NAME}}'     
+          name: '${{env.CODECOV_UNIQUE_NAME}}'
 
   Android-Build-and-Release:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -114,7 +128,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'          
+          java-version: '17.0'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.3'
@@ -161,7 +175,7 @@ jobs:
       ########################################################
       ## Package the app as an .ipa and create a release ##
       ########################################################
-
+      
       - name: Releasing for iOS
         run: |
           mkdir Payload
