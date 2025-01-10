@@ -57,6 +57,7 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add pubspec.lock
             git commit -m "Automated update of pubspec.lock"
+            git push
           else
             echo "No changes in pubspec.lock."
           fi
@@ -79,10 +80,10 @@ jobs:
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: dart run custom_lint
-  #       - name: Echo the GitHub environment for troubleshooting
-  #         run: echo "$GITHUB_CONTEXT"
-  #       - name: Echo the GitHub context for troubleshooting
-  #         run: echo "${{ toJSON(github) }}"
+  #     - name: Echo the GitHub environment for troubleshooting
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Echo the GitHub context for troubleshooting
+  #       run: echo "${{ toJSON(github) }}"
 
 
   Flutter-Testing:
