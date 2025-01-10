@@ -136,7 +136,7 @@ Future<void> setupLocator() async {
 
   //databaseMutationFunction
 
-  locator.registerSingleton(ConnectivityService());
+  locator.registerSingleton(ConnectivityService(connectivity));
 
   //queries
   locator.registerSingleton(Queries());

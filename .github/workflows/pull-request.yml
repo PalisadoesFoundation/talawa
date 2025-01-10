@@ -28,10 +28,10 @@ jobs:
         with:
           # ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -77,7 +77,7 @@ jobs:
         run: dart run custom_lint
       - name: Changed Files
         id: changed-files
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v45
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
@@ -90,23 +90,87 @@ jobs:
           echo "Source Branch ${{ github.event.pull_request.head.ref }}"
           echo "Target Branch ${{ github.event.pull_request.base.ref }}"
           echo "Error: Source and Target Branches are the same. Please ensure they are different."
+          echo "Error: Close this PR and try again."          
           exit 1
 
-  #       - name: Echo the GitHub environment for troubleshooting
-  #         run: echo "$GITHUB_CONTEXT"
-  #       - name: Echo the GitHub context for troubleshooting
-  #         run: echo "${{ toJSON(github) }}"
-  #       - name: setup python
-  #         uses: actions/setup-python@v5
-  #       - name: Granting permission to documentationcheck.py
-  #         run: chmod +x ./.github/workflows/documentationcheck.py
-  #       - name: execute py script
-  #         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
-  #         # https://docs.github.com/en/actions/learn-github-actions/contexts
-  #         run: |
-  #           git branch
-  #           pip install GitPython
-  #           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+
+  Branch-check:
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
+    name: "Base branch check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check if base branch is develop-postgres"
+        if: github.event.pull_request.base.ref != 'develop-postgres'
+        run: |
+          echo "PR is not against develop-postgres branch. Please refer PR_GUIDELINES.md"
+          echo "Error: Close this PR and try again."
+          exit 1
+
+  Check-Sensitive-Files:
+    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
+    name: Checks if sensitive files have been changed without authorization
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get Changed Unauthorized files
+        id: changed-unauth-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            CODE_OF_CONDUCT.md
+            CODE_STYLE.md
+            CONTRIBUTING.md
+            DOCUMENTATION.md
+            INSTALLATION.md
+            ISSUE_GUIDELINES.md
+            PR_GUIDELINES.md
+            README.md
+            CODEOWNERS
+            LICENSE  
+            .github/**
+            analysis_options.yaml
+            pubspec.yaml
+            pubspec.lock
+            lib/main.dart
+      - name: List all changed unauthorized files
+        if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
+        env:
+          CHANGED_UNAUTH_FILES: ${{ steps.changed-unauth-files.outputs.all_changed_files }}
+        run: |
+          for file in ${CHANGED_UNAUTH_FILES}; do
+            echo "$file is unauthorized to change/delete"
+          done
+          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
+          exit 1
+
+  Count-Changed-Files:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Checks if number of files changed is acceptable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+
+      - name: Echo number of changed files
+        env:
+          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
+        run: |
+          echo "Number of files changed: $CHANGED_FILES_COUNT"
+      - name: Check if the number of changed files is less than 100
+        if: steps.changed-files.outputs.all_changed_files_count > 100
+        env:
+          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
+        run: |
+          echo "Error: Too many files (greater than 100) changed in the pull request."
+          echo "Possible issues:"
+          echo "- Contributor may be merging into an incorrect branch."
+          echo "- Source branch may be incorrect please use develop as source branch."
+          exit 1
 
   Flutter-Testing:
     name: Testing codebase
@@ -114,10 +178,10 @@ jobs:
     needs: Flutter-Codebase-Check
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -127,14 +191,14 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: false
           name: "${{env.CODECOV_UNIQUE_NAME}}"
       - name: Test acceptable level of code coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v2
+        uses: VeryGoodOpenSource/very_good_coverage@v3
         with:
           path: "./coverage/lcov.info"
           min_coverage: 92.0
@@ -145,10 +209,10 @@ jobs:
     needs: Flutter-Codebase-Check
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "12.0"
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
@@ -172,89 +236,40 @@ jobs:
       - name: Building for ios
         run: flutter build ios --release --no-codesign
 
-  Branch-check:
-    if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
-    name: "Base branch check"
+  Test-Docusaurus-Deployment:
+    name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
+    needs: [iOS-Build, Android-Build]
+    # Run only if the develop-postgres branch and not dependabot    
+    if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop-postgres' }}
     steps:
-      - name: "Check if base branch is develop"
-        if: github.event.pull_request.base.ref != 'develop'
-        run: |
-          echo "PR is not against develop branch. Please refer PR_GUIDELINES.md"
-          exit 1
-
-  Check-Sensitive-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Checks if sensitive files have been changed without authorization
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Get Changed Unauthorized files
-        id: changed-unauth-files
-        uses: tj-actions/changed-files@v40
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          files: |
-            .github/**
-            env.example
-            .node-version
-            .husky/**
-            scripts/**
-            package.json
-            tsconfig.json
-            .gitignore
-            .eslintrc.json
-            .eslintignore
-            vite.config.ts
-            docker-compose.yaml
-            Dockerfile
-            CODEOWNERS
-            LICENSE
-            setup.ts
-            .coderabbit.yaml
-            CODE_OF_CONDUCT.md
-            CONTRIBUTING.md
-            DOCUMENTATION.md
-            INSTALLATION.md
-            ISSUE_GUIDELINES.md
-            PR_GUIDELINES.md
-            README.md
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: 'docs/'
+      # Run Docusaurus in the ./docs directory
+      - name: Install dependencies
+        working-directory: ./docs
+        run: yarn install --frozen-lockfile
+      - name: Test building the website
+        working-directory: ./docs
+        run: yarn build
 
-      - name: List all changed unauthorized files
-        if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
-        env:
-          CHANGED_UNAUTH_FILES: ${{ steps.changed-unauth-files.outputs.all_changed_files }}
-        run: |
-          for file in ${CHANGED_UNAUTH_FILES}; do
-            echo "$file is unauthorized to change/delete"
-          done
-          exit 1
-
-  Count-Changed-Files:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Checks if number of files changed is acceptable
+  Validate-Coderabbit:
+    name: Validate CodeRabbit Approval
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    needs: [Test-Docusaurus-Deployment]
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v40
-
-      - name: Echo number of changed files
-        env:
-          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
+      - name: Validate CodeRabbit.ai Approval
         run: |
-          echo "Number of files changed: $CHANGED_FILES_COUNT"
-      - name: Check if the number of changed files is less than 100
-        if: steps.changed-files.outputs.all_changed_files_count > 100
+          chmod +x $GITHUB_WORKSPACE/.github/workflows/scripts/validate-coderabbit.sh
+          $GITHUB_WORKSPACE/.github/workflows/scripts/validate-coderabbit.sh
         env:
-          CHANGED_FILES_COUNT: ${{ steps.changed-files.outputs.all_changed_files_count }}
-        run: |
-          echo "Error: Too many files (greater than 100) changed in the pull request."
-          echo "Possible issues:"
-          echo "- Contributor may be merging into an incorrect branch."
-          echo "- Source branch may be incorrect please use develop as source branch."
-          exit 1
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}

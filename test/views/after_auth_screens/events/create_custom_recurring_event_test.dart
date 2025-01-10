@@ -187,6 +187,20 @@ void main() {
       final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
       expect(isLastOccurrence, false);
     });
+
+    test(
+        'isLastOccurenceOfWeekDay iterates through multiple days to find last occurrence',
+        () {
+      final date = DateTime(2022, 8, 29); // Last Monday of August 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true); // 29th August is the last Monday
+    });
+
+    test('isLastOccurenceOfWeekDay iterates and adjusts last occurrence', () {
+      final date = DateTime(2022, 3, 28); // Last Monday of March 2022
+      final isLastOccurrence = RecurrenceUtils.isLastOccurenceOfWeekDay(date);
+      expect(isLastOccurrence, true); // 28th March is the last Monday
+    });
   });
   group('Test custom recurrence page.', () {
     testWidgets('Appbar is being rendered as expected.', (tester) async {
@@ -413,25 +427,53 @@ void main() {
       });
     });
 
-    testWidgets('CustomWeekDaySelector', (tester) async {
-      final widget = createCustomRecurrenceScreen(
-        theme: TalawaTheme.darkTheme,
+    testWidgets(
+        'CustomWeekDaySelector handles selecting and deselecting weekdays',
+        (tester) async {
+      final mockModel = CreateEventViewModel();
+      mockModel.weekDays = {}; // Start with an empty set of selected weekdays.
+
+      // Create the widget with the mock model
+      final widget = MaterialApp(
+        home: Scaffold(
+          body: CustomWeekDaySelector(model: mockModel),
+        ),
       );
+
       await tester.pumpWidget(widget);
       await tester.pump();
 
+      // Verify the CustomWeekDaySelector widget is present
       expect(find.byType(CustomWeekDaySelector), findsOne);
 
+      // Tap "M" (Monday) to select it
       await tester.tap(find.text("M"));
       await tester.pumpAndSettle();
+
+      // Verify that "M" is selected and added to the model
+      expect(mockModel.weekDays, contains(WeekDays.monday));
+
+      // Tap "W" (Wednesday) to select it
       await tester.tap(find.text("W"));
       await tester.pumpAndSettle();
 
-      expect(find.text("S"), findsNWidgets(2));
-      expect(find.text("M"), findsNWidgets(1));
-      expect(find.text("T"), findsNWidgets(2));
-      expect(find.text("W"), findsNWidgets(1));
-      expect(find.text("F"), findsNWidgets(1));
+      // Verify that "W" is selected and added to the model
+      expect(mockModel.weekDays, contains(WeekDays.wednesday));
+
+      // Verify that unrelated weekdays remain unselected
+      expect(mockModel.weekDays, isNot(contains(WeekDays.sunday)));
+      expect(mockModel.weekDays, isNot(contains(WeekDays.friday)));
+
+      // Tap "M" again to deselect it
+      await tester.tap(find.text("M"));
+      await tester.pumpAndSettle();
+
+      // Verify that "M" is removed from the model
+      expect(mockModel.weekDays, isNot(contains(WeekDays.monday)));
+
+      // Final state checks
+      expect(mockModel.weekDays, contains(WeekDays.wednesday));
+      expect(mockModel.weekDays.length, 1);
     });
 
     testWidgets('EventEndOptions', (tester) async {

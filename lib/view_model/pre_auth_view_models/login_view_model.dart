@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talawa/constants/app_strings.dart';
 
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-// import 'package:talawa/main.dart';
+
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/encryptor.dart';
@@ -20,6 +21,15 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 class LoginViewModel extends BaseModel {
   /// GlobalKey to identify and manage the state of a form widget.
   final formKey = GlobalKey<FormState>();
+
+  /// This field store previous user Email.
+  String? prevUserEmail;
+
+  /// This field store previous user Password.
+  String? prevUserPassword;
+
+  /// Secure local storage instance.
+  FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// List of maps to store greetings..
   late List<Map<String, dynamic>> greeting;
@@ -146,7 +156,7 @@ class LoginViewModel extends BaseModel {
             userConfig.updateUser(loggedInUser);
           }
         },
-        apiCallSuccessUpdateUI: () {
+        apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
@@ -163,12 +173,52 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
+          await storingCredentialsInSecureStorage();
         },
         onActionException: (e) async {
           print('here');
           print(e);
         },
       );
+    }
+  }
+
+  /// Storing credentials in secure storage.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> storingCredentialsInSecureStorage() async {
+    try {
+      await secureStorage.write(
+        key: "userEmail",
+        value: this.email.text,
+      );
+      await secureStorage.write(
+        key: "userPassword",
+        value: this.password.text,
+      );
+    } catch (e) {
+      // Handle secure storage write failure
+      print("Failed to save credentials: $e");
+    }
+  }
+
+  /// Fetch the previous user credentials.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> fetchPrevUser() async {
+    try {
+      prevUserEmail = await secureStorage.read(key: "userEmail");
+      prevUserPassword = await secureStorage.read(key: "userPassword");
+    } catch (e) {
+      print("Error decrypting previous values $e");
     }
   }
 }
