@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 
 /// A widget that displays an expandable agenda item tile.
@@ -129,15 +129,13 @@ class ExpandableAgendaItemTile extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final base64String = item.attachments![index];
                       try {
-                        final imageData =
-                            imageService.decodeBase64(base64String);
+                        final imageData = base64Decode(base64String);
                         return GestureDetector(
-                          onTap: () =>
-                              _showFullScreenImage(context, imageData!),
+                          onTap: () => _showFullScreenImage(context, imageData),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.memory(
-                              imageData!,
+                              imageData,
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,

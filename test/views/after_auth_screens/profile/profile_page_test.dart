@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -75,6 +74,16 @@ void main() async {
       await tester.pump();
       await tester.tap(find.byKey(const Key('inviteicon')));
       await tester.pump();
+    });
+    testWidgets('check if left drawer works', (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
     });
     testWidgets('check if Donate button work', (tester) async {
       await tester.pumpWidget(

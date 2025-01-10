@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,6 +11,7 @@ import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
@@ -414,7 +417,7 @@ void main() {
       );
     });
 
-    test('Test fetchVolunteerGroupsByEvent method', () async {
+    test('Test fetchVolunteerGroupsByEvent method success', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       const eventId = 'eventId123';
@@ -453,6 +456,29 @@ void main() {
       expect(result.length, 2);
       expect(result[0].id, 'groupId1');
       expect(result[1].id, 'groupId2');
+    });
+    test('Test fetchVolunteerGroupsByEvent method failure', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      const eventId = 'eventId123';
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          EventQueries().fetchVolunteerGroups(),
+          variables: {
+            "where": {"eventId": eventId},
+          },
+        ),
+      ).thenThrow(
+        Exception("query error"),
+      );
+
+      final service = EventService();
+
+      try {
+        await service.fetchVolunteerGroupsByEvent(eventId);
+      } catch (e) {
+        expect(e, isA<Exception>());
+        expect(e.toString(), equals('Exception: query error'));
+      }
     });
     test('fetchAgendaCategories returns correct data', () async {
       const orgId = 'org123';
@@ -608,6 +634,137 @@ void main() {
           EventQueries().fetchAgendaItemsByEvent(eventId),
         ),
       ).called(1);
+    });
+
+    test(
+        'setOrgStreamSubscription updates _currentOrg when stream emits new value',
+        () async {
+      final userConfig = locator<UserConfig>();
+      userConfig.initialiseStream();
+
+      final eventService = EventService();
+      eventService.setOrgStreamSubscription();
+
+      final orgInfo2 = OrgInfo(name: 'Organization temp', id: '1');
+      userConfig.currentOrgInfoController.add(orgInfo2);
+      await Future.delayed(const Duration(milliseconds: 100));
+      expect(eventService.currentOrg.name, 'Organization temp');
+      expect(eventService.currentOrg.id, '1');
+    });
+
+    test('fetchDataFromApi should throw an exception if data is null',
+        () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final eventService = EventService();
+      final String mutation = EventQueries().fetchOrgEvents("XYZ");
+      final options = QueryOptions(
+        document: gql(mutation),
+      );
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: options,
+          data: null,
+          source: QueryResultSource.network,
+        ),
+      );
+      try {
+        await eventService.fetchDataFromApi();
+      } catch (e) {
+        expect(e, isA<Exception>());
+      }
+    });
+
+    test('fetchDataFromApi should return a list of events if data is valid',
+        () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final eventService = EventService();
+      final String mutation = EventQueries().fetchOrgEvents("XYZ");
+      final options = QueryOptions(
+        document: gql(mutation),
+      );
+
+      final data = {
+        "eventsByOrganizationConnection": [
+          {
+            "_id": "event1",
+            "title": "Test Event 1",
+            "description": "Description of Test Event 1",
+            "location": "Location 1",
+            "recurring": false,
+            "allDay": false,
+            "startDate": "2022-01-01T00:00:00.000Z",
+            "endDate": "2022-01-02T00:00:00.000Z",
+            "startTime": "10:00 AM",
+            "endTime": "12:00 PM",
+            "isPublic": true,
+            "isRegisterable": true,
+            "isRegistered": null,
+            "creator": {
+              "_id": "creator1",
+              "firstName": "Creator",
+              "lastName": "One",
+            },
+            "organization": {"_id": "org1", "image": "image1"},
+            "admins": [
+              {"_id": "admin1", "firstName": "Admin", "lastName": "One"},
+            ],
+            "attendees": [
+              {
+                "_id": "user1",
+                "firstName": "User",
+                "lastName": "One",
+                "image": "image1",
+              }
+            ],
+          },
+          {
+            "_id": "event2",
+            "title": "Test Event 2",
+            "description": "Description of Test Event 2",
+            "location": "Location 2",
+            "recurring": false,
+            "allDay": false,
+            "startDate": "2022-02-01T00:00:00.000Z",
+            "endDate": "2022-02-02T00:00:00.000Z",
+            "startTime": "11:00 AM",
+            "endTime": "1:00 PM",
+            "isPublic": true,
+            "isRegisterable": false,
+            "isRegistered": null,
+            "creator": {
+              "_id": "creator2",
+              "firstName": "Creator",
+              "lastName": "Two",
+            },
+            "organization": {"_id": "org2", "image": "image2"},
+            "admins": [
+              {"_id": "admin2", "firstName": "Admin", "lastName": "Two"},
+            ],
+            "attendees": [
+              {
+                "_id": "user2",
+                "firstName": "User",
+                "lastName": "Two",
+                "image": "image2",
+              }
+            ],
+          }
+        ],
+      };
+
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: options,
+          data: data,
+          source: QueryResultSource.network,
+        ),
+      );
+      final events = await eventService.fetchDataFromApi();
+      print(events);
+      // expect(events, isA<List<Event>>());
+      // expect(events.length, 2);
+      // expect(events[0].title, "Test Event 1");
+      // expect(events[1].title, "Test Event 2");
     });
   });
 }

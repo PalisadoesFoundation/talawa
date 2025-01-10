@@ -250,6 +250,8 @@ The value of `safeBlockVertical` and `safeBlockHorizontal` will be displayed in 
     - All your file should contain at max `300` lines of code.
     - Follow proper code formatting and run `flutter format .` before your PR.
     - Run `flutter analyze` before your PR and make sure to resolve all the found issues.
+    - Tests must be written for all code changes, ensuring they maintain or exceed the current code coverage threshold.
+    - Ensure your pull request is approved by Coderaabbitai by addressing and implementing all its suggestions.
 
 ### Project Structure
 

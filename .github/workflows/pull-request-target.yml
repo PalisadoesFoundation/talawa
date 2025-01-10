@@ -30,7 +30,7 @@ jobs:
             ### Testing Your Code
             
             Remember, your PRs won't be reviewed until these criteria are met:
-
+            
             1. We don't merge PRs with poor code quality. 
                 1. Follow coding best practices such that CodeRabbit.ai approves your PR.
             1. We don't merge PRs with failed tests. 
@@ -40,7 +40,7 @@ jobs:
             1. We cannot merge PRs with conflicting files. These must be fixed.
                 
             Our policies make our code better.
-            
+
             ### Reviewers
 
             Do not assign reviewers. Our Queue Monitors will review your PR and assign them. 

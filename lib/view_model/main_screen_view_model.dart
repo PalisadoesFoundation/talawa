@@ -12,7 +12,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 // import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
-import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
@@ -260,10 +260,10 @@ class MainScreenViewModel extends BaseModel {
       // ),
       BottomNavigationBarItem(
         icon: Icon(
-          Icons.attach_money_sharp,
+          Icons.account_circle,
           key: keyBNProfile,
         ),
-        label: AppLocalizations.of(context)!.strictTranslate('Funds'),
+        label: AppLocalizations.of(context)!.strictTranslate('Profile'),
       ),
     ];
 
@@ -284,8 +284,9 @@ class MainScreenViewModel extends BaseModel {
         // const ChatPage(
         //   key: Key('Chats'),
         // ),
-        const FundScreen(
-          key: Key('FundScreen'),
+        ProfilePage(
+          key: keySPEditProfile,
+          homeModel: this,
         ),
       ];
       pluginList =

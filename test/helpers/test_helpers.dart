@@ -20,7 +20,6 @@ import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -72,7 +71,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<FundService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SignupDetailsViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
@@ -233,20 +231,6 @@ SessionManager getAndRegisterSessionManager() {
   _removeRegistrationIfExists<SessionManager>();
   final service = MockSessionManger();
   locator.registerSingleton<SessionManager>(service);
-  return service;
-}
-
-/// `getAndRegisterFundService` returns a mock instance of the `FundService` class.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-/// * `FundService`: A mock instance of the `FundService` class.
-FundService getAndRegisterFundService() {
-  _removeRegistrationIfExists<FundService>();
-  final service = MockFundService();
-  locator.registerSingleton<FundService>(service);
   return service;
 }
 
@@ -904,7 +888,6 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
-  getAndRegisterFundService();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.

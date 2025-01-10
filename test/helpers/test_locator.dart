@@ -10,7 +10,6 @@ import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -35,7 +34,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/funds_view_models/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
@@ -97,7 +95,6 @@ void testSetupLocator() {
   //Services
   locator.registerLazySingleton(() => OrganizationService());
   locator.registerLazySingleton(() => PostService());
-  locator.registerLazySingleton(() => FundService());
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => Connectivity());
@@ -111,7 +108,7 @@ void testSetupLocator() {
 
   //databaseMutationFunction
 
-  locator.registerSingleton(ConnectivityService());
+  locator.registerSingleton(ConnectivityService(connectivity));
 
   //queries
   locator.registerSingleton(Queries());
@@ -124,7 +121,6 @@ void testSetupLocator() {
   locator.registerFactory(() => DemoViewModel());
   // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => FundViewModel());
   locator.registerFactory(() => SetUrlViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());

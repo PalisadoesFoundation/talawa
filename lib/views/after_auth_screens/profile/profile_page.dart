@@ -36,6 +36,12 @@ class ProfilePage extends StatelessWidget {
             backgroundColor: Colors.green,
             elevation: 0.0,
             centerTitle: true,
+            leading: IconButton(
+              color: Colors.white,
+              icon: const Icon(Icons.menu),
+              onPressed: () =>
+                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+            ),
             key: const Key("ProfilePageAppBar"),
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),

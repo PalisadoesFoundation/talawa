@@ -74,12 +74,12 @@ void main() {
   group('test connectivity view model', () {
     test('handleConnection when demoMode', () {
       MainScreenViewModel.demoMode = true;
-      model.handleConnection(ConnectivityResult.mobile);
+      model.handleConnection([ConnectivityResult.mobile]);
     });
 
     test('handleConnection when offline', () {
       internetAccessible = false;
-      model.handleConnection(ConnectivityResult.none);
+      model.handleConnection([ConnectivityResult.none]);
     });
     test('handleConnection when online', () async {
       MainScreenViewModel.demoMode = false;
@@ -95,7 +95,7 @@ void main() {
       );
 
       print(cacheService.offlineActionQueue.getActions());
-      model.handleConnection(ConnectivityResult.mobile);
+      model.handleConnection([ConnectivityResult.mobile]);
     });
 
     testWidgets('showSnackbar when online', (tester) async {
@@ -114,7 +114,7 @@ void main() {
 
     test('check enableSubscription body', () {
       connectivityService.connectionStatusController
-          .add(ConnectivityResult.none);
+          .add([ConnectivityResult.none]);
     });
 
     test('enableSubscirption exception', () async {

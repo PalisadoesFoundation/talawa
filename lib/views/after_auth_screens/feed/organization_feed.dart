@@ -4,7 +4,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
@@ -83,36 +82,6 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                 MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
               },
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(
-                        key: const Key('UserProfile'),
-                        homeModel: widget.homeModel,
-                      ),
-                    ),
-                  );
-                },
-                icon: CircleAvatar(
-                  radius: 16,
-                  backgroundImage: userConfig.currentUser.image != null
-                      ? NetworkImage(userConfig.currentUser.image!)
-                      : null,
-                  backgroundColor: userConfig.currentUser.image == null
-                      ? Colors.blue
-                      : Colors.transparent,
-                  child: userConfig.currentUser.image == null
-                      ? const Icon(
-                          Icons.person_3,
-                          size: 26,
-                        )
-                      : null,
-                ),
-              ),
-            ],
           ),
           // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
           body: model.isFetchingPosts || model.isBusy
