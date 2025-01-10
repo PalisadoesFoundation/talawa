@@ -1,0 +1,24 @@
+
+
+
+# CreateEventViewModel constructor
+
+
+
+
+
+
+
+CreateEventViewModel()
+
+
+
+
+
+
+
+
+
+
+
+
