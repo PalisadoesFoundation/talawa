@@ -13,6 +13,7 @@ reviews:
     drafts: false
     base_branches:
       - develop
+      - develop-postgres
       - main
 chat:
   auto_reply: true
