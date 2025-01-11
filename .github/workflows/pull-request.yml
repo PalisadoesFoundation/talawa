@@ -169,7 +169,7 @@ jobs:
           echo "Error: Too many files (greater than 100) changed in the pull request."
           echo "Possible issues:"
           echo "- Contributor may be merging into an incorrect branch."
-          echo "- Source branch may be incorrect please use develop as source branch."
+          echo "- Source branch may be incorrect please use develop-postgres as source branch."
           exit 1
 
   Flutter-Testing:
