@@ -93,6 +93,10 @@ def _check_for_ignore_directive(filePath):
     if (not filePath.startswith('lib') or not filePath.endswith('.dart') or not os.path.exists(filePath)):
         return False
     
+     # Exclude generated files
+    if 'generated' in filePath or filePath == 'lib/generated_plugin_registrant.dart':
+        return False
+    
     with open(filePath, "r") as file:
         lines = file.readlines()
 
