@@ -70,7 +70,7 @@ jobs:
       - name: Run check_ignore
         run: |
           git branch
-          git checkout develop
+          git checkout develop-postgres
           git pull
           git branch
           git checkout -

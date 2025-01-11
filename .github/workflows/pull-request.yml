@@ -59,7 +59,7 @@ jobs:
           git checkout -b temp_branch
           git branch
           git stash push -m lock_file pubspec.lock
-          git checkout develop
+          git checkout develop-postgres
           git pull
           git branch
           git diff --name-only develop..HEAD
