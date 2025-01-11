@@ -62,7 +62,7 @@ jobs:
           git checkout develop-postgres
           git pull
           git branch
-          git diff --name-only develop..HEAD
+          git diff --name-only develop-postgres..HEAD
           git checkout temp_branch
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
