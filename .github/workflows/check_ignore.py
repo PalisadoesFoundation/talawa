@@ -88,9 +88,13 @@ def _check_for_ignore_directive(filePath):
     """
     
     # Either it is a non-code file, or the file does not exist. This can happen when
-    # `develop` gets ahead of your branch and has some files which you don't have
+    # `develop-postgres` gets ahead of your branch and has some files which you don't have
     
     if (not filePath.startswith('lib') or not filePath.endswith('.dart') or not os.path.exists(filePath)):
+        return False
+    
+     # Exclude generated files
+    if 'generated' in filePath or filePath == 'lib/generated_plugin_registrant.dart':
         return False
     
     with open(filePath, "r") as file:
@@ -160,7 +164,7 @@ def main():
     
     current_branch = subprocess.check_output(['git', 'branch', '--show-current']).decode('utf-8').strip('\n')
     print(current_branch)
-    changed_files = subprocess.check_output(['git', 'diff', '--name-only', 'develop', current_branch]).decode('utf-8').splitlines()
+    changed_files = subprocess.check_output(['git', 'diff', '--name-only', 'develop-postgres', current_branch]).decode('utf-8').splitlines()
     print(changed_files)
     
     
