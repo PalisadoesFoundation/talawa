@@ -27,8 +27,6 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checking Codebase
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,7 +34,6 @@ jobs:
           # This could be important for our documentation generation process.
           # See: https://github.com/actions/checkout
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
@@ -49,18 +46,6 @@ jobs:
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
-      - name: Check and commit pubspec.lock changes
-        run: |
-          if [[ $(git status --porcelain pubspec.lock) ]]; then
-            echo "Changes detected in pubspec.lock. Auto-committing updates."
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add pubspec.lock
-            git commit -m "Automated update of pubspec.lock"
-            git push
-          else
-            echo "No changes in pubspec.lock."
-          fi
       - name: Checking for correct formatting of code
         run: dart format --set-exit-if-changed .
       - name: setup python
