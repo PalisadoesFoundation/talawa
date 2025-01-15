@@ -47,14 +47,19 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Check and commit pubspec.lock changes
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           if [[ $(git status --porcelain pubspec.lock) ]]; then
             echo "Changes detected in pubspec.lock. Auto-committing updates."
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add pubspec.lock
-            git commit -a -m "Automated update of pubspec.lock"
-            git push origin HEAD:${{ github.head_ref }}
+            git commit -a -m "chore: Auto-update pubspec.lock in PR #${{ github.event.pull_request.number }}"           
+            if ! git push origin HEAD:"$HEAD_REF"; then
+              echo "Failed to push changes. Please check if you have the correct permissions."
+              exit 1
+            fi
           else
             echo "No changes in pubspec.lock."
           fi
