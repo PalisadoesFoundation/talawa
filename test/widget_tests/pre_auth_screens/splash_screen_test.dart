@@ -3,6 +3,7 @@
 
 // ignore_for_file: unused_import
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +16,6 @@ import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:uni_links/uni_links.dart';
 
 Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
@@ -228,14 +228,14 @@ Future<void> main() async {
 }
 
 // Added the following test cases
-
+final appLinks = AppLinks();
 Future<void> testWidgets1(WidgetTester tester) async {
   await tester.pumpWidget(createSplashScreenLight());
   await tester.pumpAndSettle();
 
   // Mock the uriLinkStream to emit a test URI
   final testUri = Uri.parse("https://example.com");
-  uriLinkStream.any(testUri as bool Function(Uri? element));
+  appLinks.uriLinkStream.any(testUri as bool Function(Uri? element));
 
   // Wait for the URI to be handled
   await tester.pumpAndSettle();
@@ -267,7 +267,7 @@ Future<void> testWidgets3(WidgetTester tester) async {
 
   // Mock the uriLinkStream to emit a test URI
   final testUri = Uri.parse("https://example.com");
-  uriLinkStream.any(testUri as bool Function(Uri? element));
+  appLinks.uriLinkStream.any(testUri as bool Function(Uri? element));
 
   // Wait for the URI to be handled
   await tester.pumpAndSettle();
@@ -299,7 +299,7 @@ Future<void> testWidgets5(WidgetTester tester) async {
 
   // Mock the initial URI to be a test URI
   final testUri = Uri.parse("https://example.com");
-  when(getInitialUri()).thenAnswer((_) async => testUri);
+  when(appLinks.getInitialLink()).thenAnswer((_) async => testUri);
 
   // Wait for the initial URI to be handled
   await tester.pumpAndSettle();
