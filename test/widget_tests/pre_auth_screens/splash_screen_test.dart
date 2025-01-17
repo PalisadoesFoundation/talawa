@@ -72,7 +72,6 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   // Disable stack trace demangling for non-standard environments (e.g., CI)
   FlutterError.demangleStackTrace = (StackTrace stack) {
     if (stack is Trace) return stack.vmTrace;
