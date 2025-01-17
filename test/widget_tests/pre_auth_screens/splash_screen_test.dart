@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -70,6 +71,13 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
+  // Disable stack trace demangling for non-standard environments (e.g., CI)
+  FlutterError.demangleStackTrace = (StackTrace stack) {
+    if (stack is Trace) return stack.vmTrace;
+    if (stack is Chain) return stack.toTrace().vmTrace;
+    return stack;
+  };
+
   late MockAppLinks mockAppLinks;
   late MockUserConfig mockUserConfig;
 
@@ -88,6 +96,9 @@ Future<void> main() async {
       locator.unregister<UserConfig>();
     }
     locator.registerSingleton<UserConfig>(mockUserConfig);
+
+    when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
+    when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
   });
 
   tearDown(() {
