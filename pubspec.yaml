@@ -19,13 +19,13 @@ dependencies:
   # analyzer_plugin:
   ################################
 
-  auto_size_text: ^3.1.0
-  cached_network_image: ^3.4.1
+  auto_size_text: ^3.0.0
+  cached_network_image: ^3.3.0
   clock: ^1.1.1
   connectivity_plus: ^6.1.1
   contained_tab_bar_view: ^0.8.0
 
-  crypto: ^3.0.5
+  crypto: ^3.0.0
   cupertino_icons: ^1.0.8
   currency_picker: ^2.0.21
   ############## Remove ##########
@@ -38,7 +38,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_braintree: ^4.0.0
-  flutter_cache_manager: ^3.4.1
+  flutter_cache_manager: ^3.3.0
   flutter_local_notifications: ^18.0.1
   flutter_localizations:
     sdk: flutter
@@ -50,10 +50,10 @@ dependencies:
   get_it: ^8.0.3
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
-  http: ^1.2.2
+  http: ^1.2.0
   image_cropper: ^5.0.1
   image_picker: ^1.1.2
-  intl: ^0.19.0
+  intl: ^0.18.0
   json_annotation: ^4.7.0
   mockito: ^5.4.4
   network_image_mock: ^2.1.1
