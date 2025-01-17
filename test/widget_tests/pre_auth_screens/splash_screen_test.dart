@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
@@ -71,6 +72,7 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Disable stack trace demangling for non-standard environments (e.g., CI)
   FlutterError.demangleStackTrace = (StackTrace stack) {
     if (stack is Trace) return stack.vmTrace;
@@ -112,6 +114,10 @@ Future<void> main() async {
   });
 
   setUpAll(() {
+    // Set up shared preferences
+    SharedPreferences.setMockInitialValues({});
+    // Set up any other test configurations
+    TestWidgetsFlutterBinding.ensureInitialized();
     setupLocator();
     graphqlConfig.test();
   });
