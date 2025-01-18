@@ -25,7 +25,11 @@ import 'package:talawa/views/base_view.dart';
 import 'splash_screen_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<AppLinks>(), MockSpec<UserConfig>()])
-Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
+Widget _createSplashScreen({
+  required ThemeMode themeMode,
+  ThemeData? theme,
+  ThemeData? darkTheme,
+}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -38,7 +42,8 @@ Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
           ],
           key: const Key('Root'),
           themeMode: themeMode,
-          theme: TalawaTheme.lightTheme,
+          theme: theme,
+          darkTheme: darkTheme,
           home: const SplashScreen(
             key: Key('SplashScreen'),
           ),
@@ -48,31 +53,22 @@ Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
       },
     );
 
+Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
+    _createSplashScreen(
+      themeMode: themeMode,
+      theme: TalawaTheme.lightTheme,
+    );
+
 Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          key: const Key('Root'),
-          themeMode: themeMode,
-          darkTheme: TalawaTheme.darkTheme,
-          home: const SplashScreen(
-            key: Key('SplashScreen'),
-          ),
-          navigatorKey: navigationService.navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      },
+    _createSplashScreen(
+      themeMode: themeMode,
+      darkTheme: TalawaTheme.darkTheme,
     );
 
 Future<void> main() async {
   // Disable stack trace demangling for non-standard environments (e.g., CI)
+  // This ensures consistent stack traces across different environments and
+  // makes test failures more debuggable in CI pipelines
   FlutterError.demangleStackTrace = (StackTrace stack) {
     if (stack is Trace) return stack.vmTrace;
     if (stack is Chain) return stack.toTrace().vmTrace;
