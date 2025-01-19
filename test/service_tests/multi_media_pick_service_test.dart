@@ -107,12 +107,36 @@ void main() {
         contains(CropAspectRatioPreset.original),
       );
       expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio3x2),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio4x3),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio16x9),
+      );
+      expect(
         iosSettings.aspectRatioPresets,
         contains(CropAspectRatioPreset.square),
       );
       expect(
         iosSettings.aspectRatioPresets,
         contains(CropAspectRatioPreset.original),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio3x2),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio4x3),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio16x9),
       );
     });
     test("test no photo provided for the pick image", () async {

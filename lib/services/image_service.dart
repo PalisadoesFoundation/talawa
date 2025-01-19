@@ -38,6 +38,7 @@ class ImageService {
             cropGridColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false,
+            cropStyle: CropStyle.rectangle,
             aspectRatioPresets: [
               CropAspectRatioPreset.square,
               CropAspectRatioPreset.original,
