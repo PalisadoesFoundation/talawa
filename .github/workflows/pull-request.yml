@@ -46,23 +46,6 @@ jobs:
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
-      - name: Check and commit pubspec.lock changes
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          if [[ $(git status --porcelain pubspec.lock) ]]; then
-            echo "Changes detected in pubspec.lock. Auto-committing updates."
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add pubspec.lock
-            git commit -a -m "chore: Auto-update pubspec.lock in PR #${{ github.event.pull_request.number }}"           
-            if ! git push origin HEAD:"$HEAD_REF"; then
-              echo "Failed to push changes. Please check if you have the correct permissions."
-              exit 1
-            fi
-          else
-            echo "No changes in pubspec.lock."
-          fi
       - name: Checking for correct formatting of code
         run: dart format --set-exit-if-changed .
       - name: Count lines of code in each file
@@ -89,7 +72,6 @@ jobs:
         run: |
           chmod +x .github/workflows/compare_translations.py
           python .github/workflows/compare_translations.py --directory lang
-
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
