@@ -24,7 +24,7 @@ jobs:
     name: Deploy https://docs-mobile.talawa.io website
     runs-on: ubuntu-latest
     # Run only if the develop-postgres branch and not dependabot
-    if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop-postgres' }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
     environment:
       # This "name" has to be the repos' branch that contains 
       # the current active website. There must be an entry for
