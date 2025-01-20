@@ -75,7 +75,6 @@ void main() {
       final model = MultiMediaPickerService();
       const path = 'test';
       final image = XFile(path);
-
       when(mockPicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((_) async => image);
       when(
