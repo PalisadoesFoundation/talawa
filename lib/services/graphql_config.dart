@@ -16,6 +16,12 @@ class GraphqlConfig {
   static String? token;
   late HttpLink httpLink;
   late WebSocketLink webSocketLink;
+  
+  GraphqlConfig({required this.httpLink, required this.webSocketLink});
+  // httpLink = HttpLink('http://10.0.2.2:4000/graphql');
+  // webSocketLink = WebSocketLink("http://10.0.2.2:4000/graphql");
+
+  
 
 //prefix route for showing images
   String? displayImgRoute;

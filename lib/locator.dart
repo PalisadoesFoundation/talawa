@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
@@ -100,10 +101,13 @@ final actionHandlerService = locator<ActionHandlerService>();
 ///
 /// **returns**:
 ///   None
+
 Future<void> setupLocator() async {
   locator.registerSingleton(DataBaseMutationFunctions());
 
-  locator.registerSingleton(GraphqlConfig());
+  locator.registerSingleton(GraphqlConfig(
+      httpLink: HttpLink('http://10.0.2.2:4000/'),
+      webSocketLink: WebSocketLink("ws://10.0.2.2:4000/graphql/")));
   //services
   locator.registerSingleton(NavigationService());
 
