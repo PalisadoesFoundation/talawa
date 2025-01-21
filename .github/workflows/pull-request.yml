@@ -319,11 +319,11 @@ jobs:
 
       # Run Docusaurus in the ./docs directory
       - name: Install dependencies
-        working-directory: ../docs
+        working-directory: ./docs
         run: npm install
 
       - name: Test building the website
-        working-directory: ../docs
+        working-directory: ./docs
         run: npm run build
 
   Validate-Coderabbit:
