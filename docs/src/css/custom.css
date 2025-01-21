@@ -2,29 +2,451 @@
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
+ * You can override the default Infima variables here. 
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --h1-markdown: #021526;
+  --h2-markdown: #3a6d8c;
+  --h3-markdown: #474e93;
+  --h4-markdown: #508c9b;
+  --h5-markdown: #6a9ab0;
+  --h6-markdown: #888888;
+  --hx-markdown-underline: #eeeeee;
+  --secondary-blue-900: #001c63;
+  --sidebar-bg-color: #f3f4f6;
+  --secondary-blue-500: #3970fd;
+  --primary-blue-600: #1e56e3;
+  --base-neutral-0: #ffffff;
+  --primary-neutral-800: #1f2a37;
+  --ifm-menu-color-active: #1e56e3;
+  --primary-neutral-600: #4d5761;
+  --ifm-breadcrumb-color-active: var(--primary-neutral-600);
+  --ifm-link-color: #1e56e3;
+  --ifm-button-background-color: #2e8555;
+  --ifm-button-background-color-dark: #205d3b;
+  --ifm-hover-overlay: rgba(0, 0, 0, 0.05);
+  --brand-color: black;
+  --next-prev-border-color: #e5e7eb;
+  --ifm-color-emphasis-100: #f4f8fb;
+  --ifm-color-emphasis-0: #fff;
+  --ifm-color-primary: #1e56e3;
+  --ifm-background-surface-color: var(--ifm-color-white);
+  --ifm-menu-color: var(--ifm-color-gray-600);
+  --ifm-toc-link-color: var(--ifm-color-gray-600);
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-toc-border-color: transparent;
+  --ifm-code-background: #e5ecff;
+  --ifm-code-color: #0087ff;
+  --ifm-color-content: #000e33;
+  --ifm-heading-line-height: 1.5;
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.875rem;
+  --ifm-navbar-shadow: 0 1px 2px 0 #0000001a;
+  --ifm-navbar-search-input-background-color: var(--ifm-color-gray-100);
+  --ifm-navbar-search-input-color: var(--ifm-color-content);
+  --ifm-table-stripe-background: #efeff2;
+  --ifm-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --ifm-font-family-monospace: 'IBM Plex Mono', SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Dak mode css */
+
+html[data-theme='dark'] {
+  --ifm-background-color: #111927;
+  --ifm-background-surface-color: var(--ifm-background-color);
+  --ifm-menu-color: var(--ifm-color-gray-200);
+  --ifm-toc-link-color: var(--ifm-color-gray-200);
+  --ifm-code-background: #001b66;
+  --ifm-color-content: var(--ifm-color-white);
+  --ifm-navbar-search-input-background-color: #001b66;
+  --ifm-table-stripe-background: #001242;
+  --ifm-navbar-search-input-placeholder-color: var(--ifm-color-gray-200);
+  --ifm-navbar-search-input-icon: url('data:image/svg+xml;utf8,<svg fill="%23C9C9CC" alt="Search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" height="16px" width="16px"><path d="M6.02945,10.20327a4.17382,4.17382,0,1,1,4.17382-4.17382A4.15609,4.15609,0,0,1,6.02945,10.20327Zm9.69195,4.2199L10.8989,9.59979A5.88021,5.88021,0,0,0,12.058,6.02856,6.00467,6.00467,0,1,0,9.59979,10.8989l4.82338,4.82338a.89729.89729,0,0,0,1.29912,0,.89749.89749,0,0,0-.00087-1.29909Z" /></svg>');
+
+  --ifm-hover-overlay: rgba(0, 0, 0, 0);
+  --ifm-color-primary: #1e56e3;
+  --secondary-blue-900: #c6d6ff;
+  --sidebar-bg-color: #161f36;
+  --primary-neutral-800: #c9c9cc;
+  --ifm-button-background-color: #25c2a0;
+  --ifm-button-background-color-dark: #2e8555;
+  --ifm-navbar-link-color: #9da4ae;
+  --brand-color: white;
+  --primary-neutral-600: #c4c4c4;
+  --next-prev-border-color: #293441;
+  --ifm-color-emphasis-100: #1d1e30;
+  --ifm-color-emphasis-0: #111f3b;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+.table-of-contents {
+  font-size: 0.75rem;
+}
+
+h1.docTitle_node_modules-\@docusaurus-theme-classic-src-theme-DocItem- {
+  font-size: var(--ifm-h1-font-size);
+  margin-bottom: 1.5rem;
+}
+
+.menu {
+  background-color: var(--sidebar-bg-color);
+}
+
+.menu__link,
+.menu * {
+  line-height: 1.5;
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: transparent !important;
+}
+
+.menu__list {
+  border-bottom: 1px solid var(--next-prev-border-color);
+}
+
+.menu__list ul {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.875rem;
+  margin-bottom: 0.8rem;
+  margin-top: calc(var(--ifm-h2-vertical-rhythm-top) * 0rem);
+  color: var(--h2-markdown);
+  border-bottom: 1px solid var(--hx-markdown-underline);
+  padding-bottom: 5px;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  margin-top: calc(var(--ifm-h3-vertical-rhythm-top) * 0rem);
+  color: var(--h3-markdown);
+  border-bottom: 1px solid var(--hx-markdown-underline);
+  padding-bottom: 5px;
+}
+
+.markdown > h4 {
+  color: var(--h4-markdown);
+  border-bottom: 1px solid var(--hx-markdown-underline);
+  padding-bottom: 5px;
+}
+
+.markdown > h5 {
+  color: var(--h5-markdown);
+}
+
+.markdown > h6 {
+  color: var(--h6-markdown);
+}
+
+.navbar {
+  background-color: var(--sidebar-bg-color);
+  box-shadow: var(--ifm-navbar-shadow);
+  padding: 24px 48px;
+  height: auto;
+}
+
+.navbar__title {
+  font-size: 1.155rem;
+}
+
+.navbar__item {
+  font-size: 1rem;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--primary-blue-600);
+  text-decoration: none;
+}
+
+.navbar__items--right > .navbar__item:not(:first-of-type) {
+  margin-left: 0.25px;
+}
+
+.dropdown__link:hover {
+  color: #2563eb;
+}
+
+.dropdown__link--active {
+  background-color: transparent;
+}
+
+.dropdown__link {
+  color: var(--ifm-navbar-link-color);
+}
+
+.header-github-link:hover {
+  opacity: 0.7;
+}
+
+.header-youtube-link:hover {
+  opacity: 0.7;
+}
+
+.youtube-button {
+  background: linear-gradient(90deg, #ff3600 0%, #ff8100 100%);
+  border: none;
+  border-radius: 4px;
+  padding: 7px 21px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  margin-right: 2.75rem;
+}
+
+.github-button {
+  background: linear-gradient(90deg, #ff3600 0%, #ff8100 100%);
+  border: none;
+  border-radius: 4px;
+  padding: 7px 21px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  margin-right: 2.75rem;
+}
+
+.github-button:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.youtube-button:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-github-link:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: flex;
+  background: url('/img/icons/github-dark.svg') no-repeat;
+  position: relative;
+  right: 8px;
+  top: 1.5px;
+}
+
+.header-twitter-link:before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  display: flex;
+  background: url('/img/icons/twitter.svg') no-repeat 90% 100%;
+  position: relative;
+  right: 6px;
+  top: 2px;
+}
+
+.header-youtube-link:before {
+  content: '';
+  width: 25px;
+  height: 30px;
+  display: flex;
+  background: url('/img/icons/youtube.svg') no-repeat;
+  position: relative;
+  right: 8px;
+  top: 4.5px;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #111927;
+}
+
+.footer--dark li {
+  margin-bottom: 0;
+  line-height: normal;
+}
+
+.footer__icon {
+  margin: 0;
+  padding: 2px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.footer__icon:before {
+  content: '';
+  display: inline-flex;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+}
+
+.footer__icon:hover:before {
+  background-color: var(--ifm-navbar-link-hover-color);
+}
+
+.footer__github:before {
+  mask: url(/img/icons/github.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__slack:before {
+  mask: url(/img/icons/slack.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__facebook:before {
+  mask: url(/img/icons/facebook.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__instagram:before {
+  mask: url(/img/icons/instagram.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__twitter:before {
+  mask: url(/img/icons/twitter.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__news:before {
+  mask: url(/img/icons/source.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__contact:before {
+  mask: url(/img/icons/source.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__opportunities:before {
+  mask: url(/img/icons/opportunities.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+.footer__team:before {
+  mask: url(/img/icons/team.svg) no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+html[data-theme='dark'] .header-github-link:before {
+  background: url(/img/icons/github.svg) no-repeat;
+}
+html[data-theme='dark'] .header-youtube-link:before {
+  background: url(/img/icons/youtube-white.svg) no-repeat;
+}
+
+@media (max-width: 996px) {
+  .navbar__item.github-button {
+    display: none;
+  }
+  .github-button {
+    margin: var(--ifm-menu-link-padding-vertical)
+      var(--ifm-menu-link-padding-horizontal);
+  }
+  .navbar__item.youtube-button {
+    display: none;
+  }
+  .youtube-button {
+    margin: var(--ifm-menu-link-padding-vertical)
+      var(--ifm-menu-link-padding-horizontal);
+  }
+  .center {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .navbar__items--right > .navbar__item:not(:first-of-type) {
+    margin-left: 0.25rem;
+  }
+  .github-button {
+    margin-right: 0.5rem;
+  }
+  .youtube-button {
+    margin-right: 0.5rem;
+  }
+  .hero__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 1149px) and (min-width: 1050px) {
+  .navbar__items--right > .navbar__item:not(:first-of-type) {
+    margin-left: 1.5rem;
+  }
+  .github-button {
+    margin-right: 0.5rem;
+  }
+  .youtube-button {
+    margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: 1049px) and (min-width: 1001px) {
+  .navbar__items--right > .navbar__item:not(:first-of-type) {
+    margin-left: 0.5rem;
+  }
+  .github-button {
+    margin-right: 0.5rem;
+  }
+  .youtube-button {
+    margin-right: 0.5rem;
+  }
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+.Heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--secondary-blue-900);
+  margin: 20px 0 !important;
+}
+
+p,
+textarea,
+li,
+.Heading div {
+  margin-bottom: 1.25rem;
+  color: var(--primary-neutral-800);
+  font-size: 0.9375rem;
+  line-height: 1.625rem;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #86a7ef;
+}
+
+/* Hide external link svg on Navbar */
+.iconExternalLink_nPIU {
+  display: none !important;
 }
