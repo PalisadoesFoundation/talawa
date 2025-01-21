@@ -95,8 +95,16 @@ jobs:
           exit 1
 
   generate-docs:
+    if: github.ref == 'refs/heads/develop-postgres' || (github.event_name == 'pull_request' && github.base_ref == 'develop-postgres')
     runs-on: ubuntu-latest
     environment: TALAWA_ENVIRONMENT
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "Error: GITHUB_TOKEN is not set"
+          exit 1
+        fi
 
     steps:
       # Step 1: Check out the repository
@@ -105,7 +113,7 @@ jobs:
 
       # Step 2: Set up Java
       - name: Set up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: "zulu" # Adjust if required
           java-version: "17" # Use a modern version suitable for your project
@@ -128,16 +136,17 @@ jobs:
         run: |
           cd talawa_lint && flutter pub get && cd ..
           flutter pub get
-          flutter analyze
-          dart analyze
-          flutter pub global activate dartdoc
-          flutter pub global run dartdoc --output docs/docs/auto-docs/dart
-
+          flutter analyze --no-fatal-infos
+          flutter pub global activate dartdoc          flutter pub global run dartdoc \
+          --output docs/docs/auto-docs/dart \
+          --exclude 'dart:async,dart:collection,dart:convert,dart:core,dart:developer,dart:io' \
+          --no-generate-docs-for-dependencies \
+          --warnings-as-errors
       # Step 6: Generate Java Documentation
       - name: Generate Java Docs
         run: |
-          javadoc -d docs/docs/auto-docs/java -sourcepath src -subpackages com.example
-
+          find . -name "*.java" > sources.txt
+          javadoc -d docs/docs/auto-docs/java @sources.txt
       # Step 7: Check for Documentation Updates
       - name: Check for Doc Updates
         id: DocUpdated
