@@ -122,14 +122,14 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "stable"
+          flutter-version: "3.22.3"
           channel: "stable"
 
       # Step 4: Set up Dart
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: "stable"
+          sdk: "3.4.4"
 
       # Step 5: Generate Dart and Flutter Documentation
       - name: Generate Dart and Flutter Docs
