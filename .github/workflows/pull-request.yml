@@ -95,7 +95,6 @@ jobs:
           exit 1
 
   generate-docs:
-    if: github.ref == 'refs/heads/develop-postgres'
     runs-on: ubuntu-latest
     environment: TALAWA_ENVIRONMENT
 
