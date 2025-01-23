@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -8,7 +9,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:uni_links/uni_links.dart';
 
 /// This widget return the SplashScreen. Splash Screen is the first screen that we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
@@ -43,7 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
   /// **returns**:
   ///   None
   Future<void> _handleInitialUri() async {
-    _sub = uriLinkStream.listen(
+    final appLinks = locator<AppLinks>();
+
+    _sub = appLinks.uriLinkStream.listen(
       (Uri? uri) {
         // After creating a State object and before calling initState, the framework
         // "mounts" the State object by associating it with a BuildContext.
@@ -60,8 +62,8 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     try {
-      // Retrieving the initial URI from getInitialUri function.
-      final uri = await getInitialUri();
+      // Retrieving the initial URI from getInitialLink function.
+      final uri = await appLinks.getInitialLink();
       if (!mounted) return;
       setState(() => _initialUri = uri);
     } on PlatformException {

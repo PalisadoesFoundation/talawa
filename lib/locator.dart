@@ -1,3 +1,4 @@
+import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -177,4 +178,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => UserProfileService());
+
+  //AppLinks
+  locator.registerSingleton(AppLinks());
 }
