@@ -17,21 +17,21 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
+  late ImageCropper mockImageCropper;
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
+    registerServices();
   });
   setUp(() {
-    registerServices();
+    mockImageCropper = locator<ImageCropper>();
+    reset(mockImageCropper); // Reset mock before each test
     SizeConfig().test();
-  });
-  tearDown(() {
-    unregisterServices();
   });
   group('MultiMediaPickerService test', () {
     test("test get photo from gallery method if camera option is false",
         () async {
-      final mockImageCropper = locator<ImageCropper>();
       final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
@@ -41,10 +41,6 @@ void main() {
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenAnswer((realInvocation) async => CroppedFile(path));
@@ -55,7 +51,6 @@ void main() {
     });
     test("test get photo from gallery method if camera option is true",
         () async {
-      final mockImageCropper = locator<ImageCropper>();
       final mockPicker = locator<ImagePicker>();
       final model = MultiMediaPickerService();
       const path = 'test';
@@ -65,10 +60,6 @@ void main() {
       when(
         mockImageCropper.cropImage(
           sourcePath: "test",
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
           uiSettings: anyNamed('uiSettings'),
         ),
       ).thenAnswer((realInvocation) async => CroppedFile(path));
@@ -76,6 +67,76 @@ void main() {
       final result = await model.getPhotoFromGallery(camera: true);
 
       expect(result?.path, path);
+    });
+    test(
+        "test get photo from gallery method with aspectRatioPresets in uiSettings",
+        () async {
+      final mockPicker = locator<ImagePicker>();
+      final model = MultiMediaPickerService();
+      const path = 'test';
+      final image = XFile(path);
+      when(mockPicker.pickImage(source: ImageSource.gallery))
+          .thenAnswer((_) async => image);
+      when(
+        mockImageCropper.cropImage(
+          sourcePath: "test",
+          uiSettings: anyNamed('uiSettings'),
+        ),
+      ).thenAnswer((_) async => CroppedFile(path));
+
+      await model.getPhotoFromGallery(camera: false);
+
+      final capturedUiSettings = verify(
+        mockImageCropper.cropImage(
+          sourcePath: "test",
+          uiSettings: captureAnyNamed('uiSettings'),
+        ),
+      ).captured.single as List<PlatformUiSettings>;
+
+      final androidSettings =
+          capturedUiSettings.whereType<AndroidUiSettings>().single;
+      final iosSettings = capturedUiSettings.whereType<IOSUiSettings>().single;
+
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.square),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.original),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio3x2),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio4x3),
+      );
+      expect(
+        androidSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio16x9),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.square),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.original),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio3x2),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio4x3),
+      );
+      expect(
+        iosSettings.aspectRatioPresets,
+        contains(CropAspectRatioPreset.ratio16x9),
+      );
     });
     test("test no photo provided for the pick image", () async {
       final model = MultiMediaPickerService();
