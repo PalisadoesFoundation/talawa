@@ -38,9 +38,24 @@ class ImageService {
             cropGridColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false,
+            cropStyle: CropStyle.rectangle,
+            aspectRatioPresets: [
+              CropAspectRatioPreset.square,
+              CropAspectRatioPreset.original,
+              CropAspectRatioPreset.ratio3x2,
+              CropAspectRatioPreset.ratio4x3,
+              CropAspectRatioPreset.ratio16x9,
+            ],
           ),
           IOSUiSettings(
             minimumAspectRatio: 1.0,
+            aspectRatioPresets: [
+              CropAspectRatioPreset.square,
+              CropAspectRatioPreset.original,
+              CropAspectRatioPreset.ratio3x2,
+              CropAspectRatioPreset.ratio4x3,
+              CropAspectRatioPreset.ratio16x9,
+            ],
           ),
         ],
       );
