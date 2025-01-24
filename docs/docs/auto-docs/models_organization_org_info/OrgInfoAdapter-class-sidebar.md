@@ -1,0 +1,15 @@
+
+
+1. [Constructors](models_organization_org_info/OrgInfoAdapter-class.html#constructors)
+2. [OrgInfoAdapter](models_organization_org_info/OrgInfoAdapter/OrgInfoAdapter.html)
+3. [Properties](models_organization_org_info/OrgInfoAdapter-class.html#instance-properties)
+4. [hashCode](models_organization_org_info/OrgInfoAdapter/hashCode.html)
+5. [runtimeType](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/runtimeType.html)
+6. [typeId](models_organization_org_info/OrgInfoAdapter/typeId.html)
+7. [Methods](models_organization_org_info/OrgInfoAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/noSuchMethod.html)
+9. [read](models_organization_org_info/OrgInfoAdapter/read.html)
+10. [toString](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/toString.html)
+11. [write](models_organization_org_info/OrgInfoAdapter/write.html)
+12. [Operators](models_organization_org_info/OrgInfoAdapter-class.html#operators)
+13. [operator ==](models_organization_org_info/OrgInfoAdapter/operator_equals.html)

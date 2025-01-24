@@ -1,0 +1,18 @@
+
+
+1. [Constructors](models_events_event_model/Attendee-class.html#constructors)
+2. [Attendee](models_events_event_model/Attendee/Attendee.html)
+3. [fromJson](models_events_event_model/Attendee/Attendee.fromJson.html)
+4. [Properties](models_events_event_model/Attendee-class.html#instance-properties)
+5. [firstName](models_events_event_model/Attendee/firstName.html)
+6. [hashCode](models_events_event_model/Attendee/hashCode.html)
+7. [id](models_events_event_model/Attendee/id.html)
+8. [image](models_events_event_model/Attendee/image.html)
+9. [lastName](models_events_event_model/Attendee/lastName.html)
+10. [runtimeType](models_events_event_model/Attendee/runtimeType.html)
+11. [Methods](models_events_event_model/Attendee-class.html#instance-methods)
+12. [noSuchMethod](models_events_event_model/Attendee/noSuchMethod.html)
+13. [toJson](models_events_event_model/Attendee/toJson.html)
+14. [toString](models_events_event_model/Attendee/toString.html)
+15. [Operators](models_events_event_model/Attendee-class.html#operators)
+16. [operator ==](models_events_event_model/Attendee/operator_equals.html)

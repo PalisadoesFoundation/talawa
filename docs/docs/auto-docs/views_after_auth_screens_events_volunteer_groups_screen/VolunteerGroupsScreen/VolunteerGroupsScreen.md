@@ -1,0 +1,74 @@
+
+
+
+
+
+VolunteerGroupsScreen constructor - VolunteerGroupsScreen - volunteer\_groups\_screen library - Dart API
+
+
+
+
+
+
+
+menu
+
+1. [talawa](../../index.html)
+2. [views/after\_auth\_screens/events/volunteer\_groups\_screen.dart](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.html)
+3. [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.html)
+4. VolunteerGroupsScreen const constructor
+
+VolunteerGroupsScreen
+
+
+dark\_mode
+
+light\_mode
+
+
+
+
+# VolunteerGroupsScreen constructor
+
+
+const
+VolunteerGroupsScreen({
+
+1. [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key,
+2. required [Event](../../models_events_event_model/Event-class.html) event,
+3. required [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html) model,
+
+})
+
+## Implementation
+
+```
+const VolunteerGroupsScreen({
+  super.key,
+  required this.event,
+  required this.model,
+});
+```
+
+ 
+
+
+1. [talawa](../../index.html)
+2. [volunteer\_groups\_screen](../../views_after_auth_screens_events_volunteer_groups_screen/views_after_auth_screens_events_volunteer_groups_screen-library.html)
+3. [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.html)
+4. VolunteerGroupsScreen const constructor
+
+##### VolunteerGroupsScreen class
+
+
+
+
+
+talawa
+1.0.0+1
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+
+
+1. [Values](enums_enums/CachedOperationType.html#values)
+2. [gqlAuthQuery](enums_enums/CachedOperationType.html#gqlAuthQuery)
+3. [gqlAuthMutation](enums_enums/CachedOperationType.html#gqlAuthMutation)
+4. [gqlNonAuthQuery](enums_enums/CachedOperationType.html#gqlNonAuthQuery)
+5. [gqlNonAuthMutation](enums_enums/CachedOperationType.html#gqlNonAuthMutation)
+6. [Properties](enums_enums/CachedOperationType.html#instance-properties)
+7. [hashCode](enums_enums/CachedOperationType/hashCode.html)
+8. [index](enums_enums/CachedOperationType/index.html)
+9. [runtimeType](enums_enums/CachedOperationType/runtimeType.html)
+10. [Methods](enums_enums/CachedOperationType.html#instance-methods)
+11. [noSuchMethod](enums_enums/CachedOperationType/noSuchMethod.html)
+12. [toString](enums_enums/CachedOperationType/toString.html)
+13. [Operators](enums_enums/CachedOperationType.html#operators)
+14. [operator ==](enums_enums/CachedOperationType/operator_equals.html)
+15. [Constants](enums_enums/CachedOperationType.html#constants)
+16. [values](enums_enums/CachedOperationType/values-constant.html)

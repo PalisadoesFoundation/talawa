@@ -1,0 +1,79 @@
+
+
+
+
+
+initialize method - CreateEventViewModel class - create\_event\_view\_model library - Dart API
+
+
+
+
+
+
+
+menu
+
+1. [talawa](../../index.html)
+2. [view\_model/after\_auth\_view\_models/event\_view\_models/create\_event\_view\_model.dart](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/view_model_after_auth_view_models_event_view_models_create_event_view_model-library.html)
+3. [CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)
+4. initialize method
+
+initialize
+
+
+dark\_mode
+
+light\_mode
+
+
+
+
+# initialize method
+
+
+void
+initialize()
+
+Function To Initialize.
+
+**params**:
+None
+
+**returns**:
+None
+
+
+## Implementation
+
+```
+void initialize() {
+  _currentOrg = _userConfig.currentOrg;
+  //_organizationService = locator<OrganizationService>();
+
+  _imageFile = null;
+  _multiMediaPickerService = locator<MultiMediaPickerService>();
+}
+```
+
+ 
+
+
+1. [talawa](../../index.html)
+2. [create\_event\_view\_model](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/view_model_after_auth_view_models_event_view_models_create_event_view_model-library.html)
+3. [CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)
+4. initialize method
+
+##### CreateEventViewModel class
+
+
+
+
+
+talawa
+1.0.0+1
+
+
+
+
+
+

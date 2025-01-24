@@ -1,0 +1,15 @@
+
+
+1. [Constructors](models_caching_cached_user_action/CachedUserActionAdapter-class.html#constructors)
+2. [CachedUserActionAdapter](models_caching_cached_user_action/CachedUserActionAdapter/CachedUserActionAdapter.html)
+3. [Properties](models_caching_cached_user_action/CachedUserActionAdapter-class.html#instance-properties)
+4. [hashCode](models_caching_cached_user_action/CachedUserActionAdapter/hashCode.html)
+5. [runtimeType](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/runtimeType.html)
+6. [typeId](models_caching_cached_user_action/CachedUserActionAdapter/typeId.html)
+7. [Methods](models_caching_cached_user_action/CachedUserActionAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/noSuchMethod.html)
+9. [read](models_caching_cached_user_action/CachedUserActionAdapter/read.html)
+10. [toString](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/toString.html)
+11. [write](models_caching_cached_user_action/CachedUserActionAdapter/write.html)
+12. [Operators](models_caching_cached_user_action/CachedUserActionAdapter-class.html#operators)
+13. [operator ==](models_caching_cached_user_action/CachedUserActionAdapter/operator_equals.html)

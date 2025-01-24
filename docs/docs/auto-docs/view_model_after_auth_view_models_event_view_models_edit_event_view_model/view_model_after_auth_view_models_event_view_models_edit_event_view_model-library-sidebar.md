@@ -1,0 +1,4 @@
+
+
+1. [Classes](view_model_after_auth_view_models_event_view_models_edit_event_view_model/view_model_after_auth_view_models_event_view_models_edit_event_view_model-library.html#classes)
+2. [EditEventViewModel](view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.html)

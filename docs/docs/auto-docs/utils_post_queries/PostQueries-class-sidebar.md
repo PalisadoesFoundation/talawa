@@ -1,0 +1,18 @@
+
+
+1. [Constructors](utils_post_queries/PostQueries-class.html#constructors)
+2. [PostQueries](utils_post_queries/PostQueries/PostQueries.html)
+3. [Properties](utils_post_queries/PostQueries-class.html#instance-properties)
+4. [hashCode](utils_post_queries/PostQueries/hashCode.html)
+5. [runtimeType](utils_post_queries/PostQueries/runtimeType.html)
+6. [Methods](utils_post_queries/PostQueries-class.html#instance-methods)
+7. [addLike](utils_post_queries/PostQueries/addLike.html)
+8. [getPostById](utils_post_queries/PostQueries/getPostById.html)
+9. [getPostsById](utils_post_queries/PostQueries/getPostsById.html)
+10. [noSuchMethod](utils_post_queries/PostQueries/noSuchMethod.html)
+11. [removeLike](utils_post_queries/PostQueries/removeLike.html)
+12. [removePost](utils_post_queries/PostQueries/removePost.html)
+13. [toString](utils_post_queries/PostQueries/toString.html)
+14. [uploadPost](utils_post_queries/PostQueries/uploadPost.html)
+15. [Operators](utils_post_queries/PostQueries-class.html#operators)
+16. [operator ==](utils_post_queries/PostQueries/operator_equals.html)

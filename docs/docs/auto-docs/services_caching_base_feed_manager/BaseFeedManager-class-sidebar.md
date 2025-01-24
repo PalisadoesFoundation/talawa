@@ -1,0 +1,17 @@
+
+
+1. [Constructors](services_caching_base_feed_manager/BaseFeedManager-class.html#constructors)
+2. [BaseFeedManager](services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.html)
+3. [Properties](services_caching_base_feed_manager/BaseFeedManager-class.html#instance-properties)
+4. [cacheKey](services_caching_base_feed_manager/BaseFeedManager/cacheKey.html)
+5. [hashCode](services_caching_base_feed_manager/BaseFeedManager/hashCode.html)
+6. [runtimeType](services_caching_base_feed_manager/BaseFeedManager/runtimeType.html)
+7. [Methods](services_caching_base_feed_manager/BaseFeedManager-class.html#instance-methods)
+8. [fetchDataFromApi](services_caching_base_feed_manager/BaseFeedManager/fetchDataFromApi.html)
+9. [getNewFeedAndRefreshCache](services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.html)
+10. [loadCachedData](services_caching_base_feed_manager/BaseFeedManager/loadCachedData.html)
+11. [noSuchMethod](services_caching_base_feed_manager/BaseFeedManager/noSuchMethod.html)
+12. [saveDataToCache](services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.html)
+13. [toString](services_caching_base_feed_manager/BaseFeedManager/toString.html)
+14. [Operators](services_caching_base_feed_manager/BaseFeedManager-class.html#operators)
+15. [operator ==](services_caching_base_feed_manager/BaseFeedManager/operator_equals.html)

@@ -1,0 +1,16 @@
+
+
+1. [Constructors](models_events_event_agenda_category/AgendaCategory-class.html#constructors)
+2. [AgendaCategory](models_events_event_agenda_category/AgendaCategory/AgendaCategory.html)
+3. [fromJson](models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.html)
+4. [Properties](models_events_event_agenda_category/AgendaCategory-class.html#instance-properties)
+5. [description](models_events_event_agenda_category/AgendaCategory/description.html)
+6. [hashCode](models_events_event_agenda_category/AgendaCategory/hashCode.html)
+7. [id](models_events_event_agenda_category/AgendaCategory/id.html)
+8. [name](models_events_event_agenda_category/AgendaCategory/name.html)
+9. [runtimeType](models_events_event_agenda_category/AgendaCategory/runtimeType.html)
+10. [Methods](models_events_event_agenda_category/AgendaCategory-class.html#instance-methods)
+11. [noSuchMethod](models_events_event_agenda_category/AgendaCategory/noSuchMethod.html)
+12. [toString](models_events_event_agenda_category/AgendaCategory/toString.html)
+13. [Operators](models_events_event_agenda_category/AgendaCategory-class.html#operators)
+14. [operator ==](models_events_event_agenda_category/AgendaCategory/operator_equals.html)

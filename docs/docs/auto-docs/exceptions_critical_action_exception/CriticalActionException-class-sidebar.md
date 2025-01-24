@@ -1,0 +1,18 @@
+
+
+1. [Constructors](exceptions_critical_action_exception/CriticalActionException-class.html#constructors)
+2. [CriticalActionException](exceptions_critical_action_exception/CriticalActionException/CriticalActionException.html)
+3. [Properties](exceptions_critical_action_exception/CriticalActionException-class.html#instance-properties)
+4. [actionError](exceptions_critical_action_exception/CriticalActionException/actionError.html)
+5. [graphqlErrors](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/graphqlErrors.html)
+6. [hashCode](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/hashCode.html)
+7. [linkException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/linkException.html)
+8. [originalStackTrace](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/originalStackTrace.html)
+9. [raw](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/raw.html)
+10. [runtimeType](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/runtimeType.html)
+11. [Methods](exceptions_critical_action_exception/CriticalActionException-class.html#instance-methods)
+12. [addError](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/addError.html)
+13. [noSuchMethod](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/noSuchMethod.html)
+14. [toString](exceptions_critical_action_exception/CriticalActionException/toString.html)
+15. [Operators](exceptions_critical_action_exception/CriticalActionException-class.html#operators)
+16. [operator ==](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/operator_equals.html)

@@ -1,0 +1,4 @@
+
+
+1. [Classes](view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/view_model_after_auth_view_models_chat_view_models_direct_chat_view_model-library.html#classes)
+2. [DirectChatViewModel](view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.html)

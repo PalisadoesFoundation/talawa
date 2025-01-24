@@ -1,0 +1,15 @@
+
+
+1. [Constructors](models_post_post_model/CommentsAdapter-class.html#constructors)
+2. [CommentsAdapter](models_post_post_model/CommentsAdapter/CommentsAdapter.html)
+3. [Properties](models_post_post_model/CommentsAdapter-class.html#instance-properties)
+4. [hashCode](models_post_post_model/CommentsAdapter/hashCode.html)
+5. [runtimeType](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/runtimeType.html)
+6. [typeId](models_post_post_model/CommentsAdapter/typeId.html)
+7. [Methods](models_post_post_model/CommentsAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/noSuchMethod.html)
+9. [read](models_post_post_model/CommentsAdapter/read.html)
+10. [toString](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/toString.html)
+11. [write](models_post_post_model/CommentsAdapter/write.html)
+12. [Operators](models_post_post_model/CommentsAdapter-class.html#operators)
+13. [operator ==](models_post_post_model/CommentsAdapter/operator_equals.html)

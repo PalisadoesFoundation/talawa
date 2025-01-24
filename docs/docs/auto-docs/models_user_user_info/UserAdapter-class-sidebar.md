@@ -1,0 +1,15 @@
+
+
+1. [Constructors](models_user_user_info/UserAdapter-class.html#constructors)
+2. [UserAdapter](models_user_user_info/UserAdapter/UserAdapter.html)
+3. [Properties](models_user_user_info/UserAdapter-class.html#instance-properties)
+4. [hashCode](models_user_user_info/UserAdapter/hashCode.html)
+5. [runtimeType](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/runtimeType.html)
+6. [typeId](models_user_user_info/UserAdapter/typeId.html)
+7. [Methods](models_user_user_info/UserAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/noSuchMethod.html)
+9. [read](models_user_user_info/UserAdapter/read.html)
+10. [toString](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/toString.html)
+11. [write](models_user_user_info/UserAdapter/write.html)
+12. [Operators](models_user_user_info/UserAdapter-class.html#operators)
+13. [operator ==](models_user_user_info/UserAdapter/operator_equals.html)

@@ -1,0 +1,80 @@
+
+
+
+
+
+saveUserInHive method - UserConfig class - user\_config library - Dart API
+
+
+
+
+
+
+
+menu
+
+1. [talawa](../../index.html)
+2. [services/user\_config.dart](../../services_user_config/services_user_config-library.html)
+3. [UserConfig](../../services_user_config/UserConfig-class.html)
+4. saveUserInHive method
+
+saveUserInHive
+
+
+dark\_mode
+
+light\_mode
+
+
+
+
+# saveUserInHive method
+
+
+void
+saveUserInHive()
+
+save user in hive.
+
+**params**:
+None
+
+**returns**:
+None
+
+
+## Implementation
+
+```
+void saveUserInHive() {
+  final box = Hive.box<User>('currentUser');
+  if (box.get('user') == null) {
+    box.put('user', _currentUser!);
+  } else {
+    box.put('user', _currentUser!);
+  }
+}
+```
+
+ 
+
+
+1. [talawa](../../index.html)
+2. [user\_config](../../services_user_config/services_user_config-library.html)
+3. [UserConfig](../../services_user_config/UserConfig-class.html)
+4. saveUserInHive method
+
+##### UserConfig class
+
+
+
+
+
+talawa
+1.0.0+1
+
+
+
+
+
+

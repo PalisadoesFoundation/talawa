@@ -1,0 +1,15 @@
+
+
+1. [Constructors](enums_enums/CachedUserActionStatusAdapter-class.html#constructors)
+2. [CachedUserActionStatusAdapter](enums_enums/CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.html)
+3. [Properties](enums_enums/CachedUserActionStatusAdapter-class.html#instance-properties)
+4. [hashCode](enums_enums/CachedUserActionStatusAdapter/hashCode.html)
+5. [runtimeType](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/runtimeType.html)
+6. [typeId](enums_enums/CachedUserActionStatusAdapter/typeId.html)
+7. [Methods](enums_enums/CachedUserActionStatusAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/noSuchMethod.html)
+9. [read](enums_enums/CachedUserActionStatusAdapter/read.html)
+10. [toString](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter/toString.html)
+11. [write](enums_enums/CachedUserActionStatusAdapter/write.html)
+12. [Operators](enums_enums/CachedUserActionStatusAdapter-class.html#operators)
+13. [operator ==](enums_enums/CachedUserActionStatusAdapter/operator_equals.html)

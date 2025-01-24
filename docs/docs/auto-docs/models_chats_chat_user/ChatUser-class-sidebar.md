@@ -1,0 +1,17 @@
+
+
+1. [Constructors](models_chats_chat_user/ChatUser-class.html#constructors)
+2. [ChatUser](models_chats_chat_user/ChatUser/ChatUser.html)
+3. [fromJson](models_chats_chat_user/ChatUser/ChatUser.fromJson.html)
+4. [Properties](models_chats_chat_user/ChatUser-class.html#instance-properties)
+5. [firstName](models_chats_chat_user/ChatUser/firstName.html)
+6. [hashCode](models_chats_chat_user/ChatUser/hashCode.html)
+7. [id](models_chats_chat_user/ChatUser/id.html)
+8. [image](models_chats_chat_user/ChatUser/image.html)
+9. [runtimeType](models_chats_chat_user/ChatUser/runtimeType.html)
+10. [Methods](models_chats_chat_user/ChatUser-class.html#instance-methods)
+11. [noSuchMethod](models_chats_chat_user/ChatUser/noSuchMethod.html)
+12. [toJson](models_chats_chat_user/ChatUser/toJson.html)
+13. [toString](models_chats_chat_user/ChatUser/toString.html)
+14. [Operators](models_chats_chat_user/ChatUser-class.html#operators)
+15. [operator ==](models_chats_chat_user/ChatUser/operator_equals.html)
