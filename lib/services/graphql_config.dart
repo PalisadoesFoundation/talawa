@@ -17,8 +17,6 @@ class GraphqlConfig {
   late HttpLink httpLink;
   late WebSocketLink webSocketLink;
 
-  
-
 //prefix route for showing images
   String? displayImgRoute;
 

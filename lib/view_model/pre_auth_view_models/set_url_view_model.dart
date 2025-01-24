@@ -278,7 +278,6 @@ class SetUrlViewModel extends BaseModel {
                     onDetect: _onQRViewCreated,
                   ),
                 ),
-
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
