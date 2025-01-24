@@ -256,6 +256,13 @@ jobs:
         run: |
           rm -rf docs/temp-docs
 
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "
+          git config --global user.name "GitHub Actions"
+          git commit -a -m "Update documentation"
+          git push
+
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
