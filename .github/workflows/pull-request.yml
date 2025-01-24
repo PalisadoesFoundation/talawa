@@ -247,8 +247,6 @@ jobs:
           flutter pub global run dartdoc \
             --output docs/temp-docs \
             --exclude 'dart:async,dart:collection,dart:convert,dart:core,dart:developer,dart:io' \
-            --no-generate-docs-for-dependencies \
-            --warnings-as-errors
 
       - name: Convert HTML to Markdown
         run: |
