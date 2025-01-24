@@ -1,4 +1,0 @@
-
-
-1. [Classes](view_model_after_auth_view_models_event_view_models_event_calendar_view_model/view_model_after_auth_view_models_event_view_models_event_calendar_view_model-library.html#classes)
-2. [EventCalendarViewModel](view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.html)

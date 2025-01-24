@@ -1,4 +1,0 @@
-
-
-1. [Classes](views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/views_after_auth_screens_join_org_after_auth_join_organisation_after_auth-library.html#classes)
-2. [JoinOrganisationAfterAuth](views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html)

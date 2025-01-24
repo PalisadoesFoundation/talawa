@@ -1,4 +1,0 @@
-
-
-1. [Classes](views_after_auth_screens_join_org_after_auth_access_request_screen/views_after_auth_screens_join_org_after_auth_access_request_screen-library.html#classes)
-2. [SendAccessRequest](views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.html)
