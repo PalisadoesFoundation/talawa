@@ -29,10 +29,6 @@ class ImageService {
     try {
       final CroppedFile? croppedImage = await _imageCropper.cropImage(
         sourcePath: imageFile.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.original,
-        ],
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop Image',

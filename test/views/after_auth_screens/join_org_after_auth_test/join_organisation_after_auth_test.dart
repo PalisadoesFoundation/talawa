@@ -4,8 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -59,16 +60,22 @@ void main() {
 
   group("Tests for JoinOrganizationAfterAuth - widgets", () {
     testWidgets('QR Scan Test', (WidgetTester tester) async {
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode(
-          ' ' + '?orgid=6737904485008f171cf29924',
-          BarcodeFormat.qrcode,
-          null,
-        );
-      });
-      when(controller.stopCamera())
-          .thenAnswer((realInvocation) => Future.value());
+      final controller = MockMobileScannerController();
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: ' ' + '?orgid=6737904485008f171cf29924',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenAnswer((realInvocation) => Future.value());
 
       await tester.pumpWidget(
         createJoinOrgAfterAuth(),
@@ -88,21 +95,27 @@ void main() {
         ),
         findsOneWidget,
       );
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets('QR Scan Test when url != GraphqlConfig.orgURI',
         (WidgetTester tester) async {
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode(
-          '1' + '?orgid=6737904485008f171cf29924',
-          BarcodeFormat.qrcode,
-          null,
-        );
-      });
-      when(controller.stopCamera())
-          .thenAnswer((realInvocation) => Future.value());
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: '1' + '?orgid=6737904485008f171cf29924',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenAnswer((realInvocation) => Future.value());
 
       await tester.pumpWidget(
         createJoinOrgAfterAuth(),
@@ -122,34 +135,41 @@ void main() {
         ),
         findsOneWidget,
       );
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets('Test _onQRViewCreated when throwing exception',
         (WidgetTester tester) async {
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode(
-          ' ' + '?orgid=6737904485008f171cf29924',
-          BarcodeFormat.qrcode,
-          null,
-        );
-      });
-      when(controller.stopCamera())
-          .thenAnswer((realInvocation) => Future.value());
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: ' ' + '?orgid=6737904485008f171cf29924',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenAnswer((realInvocation) => Future.value());
 
       await tester.pumpWidget(
         createJoinOrgAfterAuth(),
       );
-      when(controller.stopCamera()).thenThrow(Exception("exception"));
+      when(controller.stop()).thenThrow(Exception("exception"));
 
       await tester.pumpAndSettle(const Duration(seconds: 6));
 
       await tester.tap(find.byIcon(Icons.qr_code_scanner));
       await tester.pumpAndSettle();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets(
       "Check if JoinOrganizationsAfterAuth shows up",

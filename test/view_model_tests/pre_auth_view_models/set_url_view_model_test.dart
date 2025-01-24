@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
@@ -207,9 +207,9 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
         (tester) async {
-      //await locator.unregister<Validator>();
+      // await locator.unregister<Validator>();
       final service = MockValidator();
-      //locator.registerSingleton<Validator>(service);
+      // locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
@@ -233,7 +233,7 @@ Future<void> main() async {
       await tester.pump();
 
       expect(find.byType(ClipRRect), findsOneWidget);
-      expect(find.byType(QRView), findsOneWidget);
+      expect(find.byType(MobileScanner), findsOneWidget);
     });
 
     testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
@@ -244,20 +244,31 @@ Future<void> main() async {
         ),
       );
 
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
+      final controller = MockMobileScannerController();
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
 
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
 
     testWidgets(
-        'Check if _onQRViewCreated() is working fine when throws CameraException',
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
         (tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -266,20 +277,31 @@ Future<void> main() async {
         ),
       );
 
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
 
-      when(controller.stopCamera())
-          .thenThrow(CameraException("200", "cameraException"));
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.controllerUninitialized,
+        ),
+      );
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws QrEmbeddedImageException',
@@ -291,20 +313,28 @@ Future<void> main() async {
         ),
       );
 
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
 
-      when(controller.stopCamera())
-          .thenThrow(QrEmbeddedImageException("error"));
+      when(controller.stop()).thenThrow(QrEmbeddedImageException("error"));
+
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws QrUnsupportedVersionException',
@@ -316,19 +346,28 @@ Future<void> main() async {
         ),
       );
 
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
 
-      when(controller.stopCamera()).thenThrow(QrUnsupportedVersionException(0));
+      when(controller.stop()).thenThrow(QrUnsupportedVersionException(0));
+
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws Exception',
@@ -340,19 +379,27 @@ Future<void> main() async {
         ),
       );
 
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
+      final controller = MockMobileScannerController();
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
 
-      when(controller.stopCamera()).thenThrow(Exception(0));
+      when(controller.stop()).thenThrow(Exception(0));
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
     });
   });
 }

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-// import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:developer';
-
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -58,6 +54,9 @@ class SetUrlViewModel extends BaseModel {
 
   /// qrValidator.
   AutovalidateMode validate = AutovalidateMode.disabled;
+
+  /// qrController.
+  final MobileScannerController controller = MobileScannerController();
 
   /// This function initialises the variables.
   ///
@@ -239,64 +238,44 @@ class SetUrlViewModel extends BaseModel {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // SizedBox(
-                //   height: 250,
-                //   width: 250,
-                //   child: QRView(
-                //     key: qrKey,
-                //     onQRViewCreated: _onQRViewCreated,
-                //     overlay: QrScannerOverlayShape(
-                //       borderRadius: 10,
-                //       borderLength: 20,
-                //       borderWidth: 10,
-                //       cutOutSize: 250,
-                //     ),
-                //     /*overlayMargin: EdgeInsets.all(50)*/
-                //   ),
-                // ),
-
                 SizedBox(
                   height: 250,
                   width: 250,
                   child: MobileScanner(
                     fit: BoxFit.contain,
-                    onDetectError: (error, stackTrace) {
-                      debugPrint('On detect Error: $error');
-                    },
-                    errorBuilder: (p0, error, p2) {
-                      if (error.errorCode ==
-                          MobileScannerErrorCode.permissionDenied) {
-                        log('Camera permission was denied.');
-                        navigationService.showTalawaErrorSnackBar(
-                          'The Camera is not working',
-                          MessageType.error,
-                        );
-                      } else if (error.errorCode ==
-                          MobileScannerErrorCode.unsupported) {
-                        log('This device does not support scanning.');
-                        navigationService.showTalawaErrorSnackBar(
-                          'Scanning is unsupported on this device',
-                          MessageType.error,
-                        );
-                      } else {
-                        log('An unknown error occurred: $error');
-                        navigationService.showTalawaErrorSnackBar(
-                          'An unknown error occurred',
-                          MessageType.error,
-                        );
+                    controller: controller,
+                    errorBuilder: (ctx, error, _) {
+                      String errorMessage = '';
+                      switch (error.errorCode) {
+                        case MobileScannerErrorCode.controllerUninitialized:
+                          errorMessage = 'camera is not ready';
+                          break;
+                        case MobileScannerErrorCode.permissionDenied:
+                          errorMessage =
+                              'Please provide camera permission to scan QR code';
+                          break;
+                        case MobileScannerErrorCode.unsupported:
+                          errorMessage =
+                              'This device does not support scanning.';
+                          break;
+                        default:
+                          errorMessage = 'An unkonwn error occurred';
                       }
-                      return const Text("Something went wrong");
+
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        navigationService.showTalawaErrorSnackBar(
+                          errorMessage,
+                          MessageType.error,
+                        );
+                      });
+
+                      return Center(
+                        child: Text(
+                          errorMessage,
+                        ),
+                      );
                     },
-                    onDetect: (barcode) {
-                      if (barcode.raw != null && barcode.barcodes.isNotEmpty) {
-                        final String code =
-                            barcode.barcodes.first.displayValue!;
-                        // Handle the scanned QR code here
-                        print('QR Code found: $code');
-                      } else {
-                        print('Failed to scan QR Code');
-                      }
-                    },
+                    onDetect: _onQRViewCreated,
                   ),
                 ),
 
@@ -318,18 +297,15 @@ class SetUrlViewModel extends BaseModel {
   /// This is the helper function which execute when the on QR view created.
   ///
   /// **params**:
-  /// * `controller`: QRViewController
+  /// * `scanData`: BarcodeCapture
   ///
   /// **returns**:
   ///   None
 
-  void _onQRViewCreated(MobileScannerController controller) {
-    controller.barcodes.listen((BarcodeCapture scanData) {
-      /// if the scanData is not empty.
-      if (scanData.barcodes.isNotEmpty) {
-        final String code = scanData.barcodes.first.displayValue!;
-        print(code);
-        // try {
+  void _onQRViewCreated(BarcodeCapture scanData) {
+    if (scanData.raw != null && scanData.barcodes.isNotEmpty) {
+      final String code = scanData.barcodes.first.displayValue!;
+      try {
         final List<String> data = code.split('?');
         url.text = data[0];
         final List<String> queries = data[1].split('&');
@@ -343,81 +319,13 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         Navigator.pop(navigationService.navigatorKey.currentContext!);
         navigationService.pushScreen('/selectOrg', arguments: orgId);
-        // } on MobileScannerBarcodeException catch (e) {
-        //   debugPrint(e.toString());
-        //   navigationService.showTalawaErrorSnackBar(
-        //     "The Camera is not working",
-        //     MessageType.error,
-        //   );
-        // } on QrEmbeddedImageException catch (e) {
-        //   debugPrint(e.toString());
-        //   navigationService.showTalawaErrorDialog(
-        //     "The QR is not Working",
-        //     MessageType.error,
-        //   );
-        // } on QrUnsupportedVersionException catch (e) {
-        //   debugPrint(e.toString());
-        //   navigationService.showTalawaErrorDialog(
-        //     "This QR version is not Supported.",
-        //     MessageType.error,
-        //   );
-        // } on Exception catch (e) {
-        //   debugPrint(e.toString());
-        //   navigationService.showTalawaErrorSnackBar(
-        //     "This QR is not for the App",
-        //     MessageType.error,
-        //   );
-        // }
-        // }
+      } on Exception catch (e) {
+        debugPrint(e.toString());
+        navigationService.showTalawaErrorSnackBar(
+          "The Camera is not working",
+          MessageType.error,
+        );
       }
-    });
-
-//   void _onQRViewCreated(QRViewController controller) {
-//     controller.scannedDataStream.listen((scanData) {
-//       /// if the scanData is not empty.
-//       if (scanData.code!.isNotEmpty) {
-//         print(scanData.code);
-//         try {
-//           final List<String> data = scanData.code!.split('?');
-//           url.text = data[0];
-//           final List<String> queries = data[1].split('&');
-//           orgId = queries[0].split('=')[1];
-//           Vibration.vibrate(duration: 100);
-//           controller.stopCamera();
-//           controller.dispose();
-//           final box = Hive.box('url');
-//           box.put(urlKey, url.text);
-//           box.put(imageUrlKey, "${url.text}/talawa/");
-//           graphqlConfig.getOrgUrl();
-//           Navigator.pop(navigationService.navigatorKey.currentContext!);
-//           navigationService.pushScreen('/selectOrg', arguments: orgId);
-//         } on CameraException catch (e) {
-//           debugPrint(e.toString());
-//           navigationService.showTalawaErrorSnackBar(
-//             "The Camera is not working",
-//             MessageType.error,
-//           );
-//         } on QrEmbeddedImageException catch (e) {
-//           debugPrint(e.toString());
-//           navigationService.showTalawaErrorDialog(
-//             "The QR is not Working",
-//             MessageType.error,
-//           );
-//         } on QrUnsupportedVersionException catch (e) {
-//           debugPrint(e.toString());
-//           navigationService.showTalawaErrorDialog(
-//             "This QR version is not Supported.",
-//             MessageType.error,
-//           );
-//         } on Exception catch (e) {
-//           debugPrint(e.toString());
-//           navigationService.showTalawaErrorSnackBar(
-//             "This QR is not for the App",
-//             MessageType.error,
-//           );
-//         }
-//       }
-//     });
-//   }
+    }
   }
 }

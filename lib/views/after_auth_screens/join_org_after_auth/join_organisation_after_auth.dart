@@ -1,9 +1,7 @@
 // ignore_for_file: talawa_api_doc, talawa_good_doc_comments
 import 'package:flutter/material.dart';
 
-import 'dart:developer';
 import 'package:mobile_scanner/mobile_scanner.dart';
-// import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -16,7 +14,7 @@ import 'package:talawa/widgets/organization_search_list.dart';
 import 'package:vibration/vibration.dart';
 
 /// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
-class JoinOrganisationAfterAuth extends StatelessWidget {
+class JoinOrganisationAfterAuth extends StatefulWidget {
   const JoinOrganisationAfterAuth({super.key, required this.orgId});
 
   /// org identifier.
@@ -24,9 +22,18 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   final String orgId;
 
   @override
+  State<JoinOrganisationAfterAuth> createState() =>
+      _JoinOrganisationAfterAuthState();
+}
+
+class _JoinOrganisationAfterAuthState extends State<JoinOrganisationAfterAuth> {
+  /// qrController.
+  final MobileScannerController controller = MobileScannerController();
+
+  @override
   Widget build(BuildContext context) {
     return BaseView<SelectOrganizationViewModel>(
-      onModelReady: (model) => model.initialise(orgId),
+      onModelReady: (model) => model.initialise(widget.orgId),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('JoinOrgScreen'),
@@ -117,64 +124,54 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                   width: 250,
                   child: MobileScanner(
                     fit: BoxFit.contain,
-                    onDetectError: (error, stackTrace) {
-                      log('On detect Error: $error');
-                    },
-                    errorBuilder: (p0, error, p2) {
-                      if (error.errorCode ==
-                          MobileScannerErrorCode.permissionDenied) {
-                        log('Camera permission was denied.');
-                        navigationService.showTalawaErrorSnackBar(
-                          'The Camera is not working',
-                          MessageType.error,
-                        );
-                      } else if (error.errorCode ==
-                          MobileScannerErrorCode.unsupported) {
-                        log('This device does not support scanning.');
-                        navigationService.showTalawaErrorSnackBar(
-                          'Scanning is unsupported on this device',
-                          MessageType.error,
-                        );
-                      } else {
-                        log('An unknown error occurred: $error');
-                        navigationService.showTalawaErrorSnackBar(
-                          'An unknown error occurred',
-                          MessageType.error,
-                        );
+                    controller: controller,
+                    errorBuilder: (ctx, error, _) {
+                      String errorMessage = '';
+                      switch (error.errorCode) {
+                        case MobileScannerErrorCode.controllerUninitialized:
+                          errorMessage = 'camera is not ready';
+                          break;
+                        case MobileScannerErrorCode.permissionDenied:
+                          errorMessage =
+                              'Please provide camera permission to scan QR code';
+                          break;
+                        case MobileScannerErrorCode.unsupported:
+                          errorMessage =
+                              'This device does not support scanning.';
+                          break;
+                        default:
+                          errorMessage = 'An unkonwn error occurred';
                       }
-                      return const Text("Something went wrong");
+
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        navigationService.showTalawaErrorSnackBar(
+                          errorMessage,
+                          MessageType.error,
+                        );
+                      });
+
+                      return Center(
+                        child: Text(
+                          errorMessage,
+                        ),
+                      );
                     },
-                    onDetect: (barcode) {
-                      if (barcode.raw != null && barcode.barcodes.isNotEmpty) {
-                        final String code =
-                            barcode.barcodes.first.displayValue!;
-                        // Handle the scanned QR code here
-                        print('QR Code found: $code');
-                      } else {
-                        print('Failed to scan QR Code');
-                      }
+                    onDetect: (scanData) => _onQRViewCreated(scanData, model),
+                    overlayBuilder: (context, constraints) {
+                      return Container(
+                        width: 250,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.secondary,
+                            width: 10,
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
-
-
-                // SizedBox(
-                //   height: 250,
-                //   width: 250,
-                //   child: QRView(
-                //     key: model.qrKey,
-                //     onQRViewCreated: (controller) =>
-                //         _onQRViewCreated(controller, model),
-                //     overlay: QrScannerOverlayShape(
-                //       overlayColor: Theme.of(context).colorScheme.secondary,
-                //       borderRadius: 10,
-                //       borderLength: 20,
-                //       borderWidth: 10,
-                //       cutOutSize: 250,
-                //     ),
-                //     /*overlayMargin: EdgeInsets.all(50)*/
-                //   ),
-                // ),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 ),
@@ -201,35 +198,33 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   /// **returns**:
   ///   None
   void _onQRViewCreated(
-    MobileScannerController controller,
+    BarcodeCapture scanData,
     SelectOrganizationViewModel model,
   ) {
-    controller.barcodes.listen((scanData) {
-      if (scanData.barcodes.isNotEmpty) {
-        final String code = scanData.barcodes.first.displayValue!;
-        print(code);
-        try {
-          final List<String> data = code.split('?');
-          final String url = data[0];
-          Vibration.vibrate(duration: 100);
-          if (url == GraphqlConfig.orgURI) {
-            final List<String> queries = data[1].split('&');
-            model.orgId = queries[0].split('=')[1];
-            controller.stop();
-            controller.dispose();
-            Navigator.pop(navigationService.navigatorKey.currentContext!);
-            model.initialise(model.orgId);
-          } else {
-            navigationService.showTalawaErrorSnackBar(
-              "Organisation on different server, logout and scan qr again",
-              MessageType.error,
-            );
-          }
-        } on Exception catch (e) {
-          print(e);
-          print('invalid app qr');
+    if (scanData.raw != null && scanData.barcodes.isNotEmpty) {
+      final String code = scanData.barcodes.first.displayValue!;
+      print(code);
+      try {
+        final List<String> data = code.split('?');
+        final String url = data[0];
+        Vibration.vibrate(duration: 100);
+        if (url == GraphqlConfig.orgURI) {
+          final List<String> queries = data[1].split('&');
+          model.orgId = queries[0].split('=')[1];
+          controller.stop();
+          controller.dispose();
+          Navigator.pop(navigationService.navigatorKey.currentContext!);
+          model.initialise(model.orgId);
+        } else {
+          navigationService.showTalawaErrorSnackBar(
+            "Organisation on different server, logout and scan qr again",
+            MessageType.error,
+          );
         }
+      } on Exception catch (e) {
+        print(e);
+        print('invalid app qr');
       }
-    });
+    }
   }
 }
