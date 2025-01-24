@@ -207,6 +207,8 @@ jobs:
     if: github.ref == 'refs/heads/develop-postgres' || (github.event_name == 'pull_request' && github.base_ref == 'develop-postgres')
     name: Generate documentation
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
