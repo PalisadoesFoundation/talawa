@@ -1,0 +1,18 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee-class.html#constructors)
+2. [Attendee](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/Attendee.html)
+3. [fromJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/Attendee.fromJson.html)
+4. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee-class.html#instance-properties)
+5. [firstName](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/firstName.html)
+6. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+7. [id](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/id.html)
+8. [image](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/image.html)
+9. [lastName](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/lastName.html)
+10. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+11. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee-class.html#instance-methods)
+12. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+13. [toJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee/toJson.html)
+14. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+15. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_model/Attendee-class.html#operators)
+16. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

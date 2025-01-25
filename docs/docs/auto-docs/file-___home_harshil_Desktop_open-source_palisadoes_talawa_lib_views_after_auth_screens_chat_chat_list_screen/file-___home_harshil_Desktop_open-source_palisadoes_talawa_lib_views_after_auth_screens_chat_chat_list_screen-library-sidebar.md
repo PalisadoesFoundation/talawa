@@ -1,0 +1,4 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_chat_list_screen/#classes)
+2. [ChatPage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_chat_list_screen/ChatPage-class.html)

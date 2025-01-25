@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter-class.html#constructors)
+2. [UserAdapter](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/UserAdapter.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter-class.html#instance-properties)
+4. [hashCode](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/hashCode.html)
+5. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+6. [typeId](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/typeId.html)
+7. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter-class.html#instance-methods)
+8. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+9. [read](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/read.html)
+10. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+11. [write](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/write.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter-class.html#operators)
+13. [operator ==](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_user_user_info/UserAdapter/operator_equals.html)

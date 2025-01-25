@@ -1,0 +1,4 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_pre_auth_view_models_signup_details_view_model/#classes)
+2. [SignupDetailsViewModel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.html)

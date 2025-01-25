@@ -1,0 +1,5 @@
+
+
+1. [Functions](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_date_time_picker/#functions)
+2. [customDatePicker](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_date_time_picker/customDatePicker.html)
+3. [customTimePicker](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_date_time_picker/customTimePicker.html)

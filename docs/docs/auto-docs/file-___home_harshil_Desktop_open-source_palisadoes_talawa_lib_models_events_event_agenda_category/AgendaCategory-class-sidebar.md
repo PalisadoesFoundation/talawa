@@ -1,0 +1,16 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory-class.html#constructors)
+2. [AgendaCategory](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory/AgendaCategory.html)
+3. [fromJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.html)
+4. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory-class.html#instance-properties)
+5. [description](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory/description.html)
+6. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+7. [id](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory/id.html)
+8. [name](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory/name.html)
+9. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+10. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory-class.html#instance-methods)
+11. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+12. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+13. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory-class.html#operators)
+14. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

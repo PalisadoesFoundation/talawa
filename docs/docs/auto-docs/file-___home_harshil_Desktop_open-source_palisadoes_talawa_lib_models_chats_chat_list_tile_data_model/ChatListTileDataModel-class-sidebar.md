@@ -1,0 +1,16 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html#constructors)
+2. [ChatListTileDataModel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.html)
+3. [fromJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromJson.html)
+4. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html#instance-properties)
+5. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6. [id](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel/id.html)
+7. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8. [users](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel/users.html)
+9. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html#instance-methods)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel/toJson.html)
+12. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+13. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html#operators)
+14. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

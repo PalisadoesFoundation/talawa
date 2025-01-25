@@ -1,0 +1,17 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme-class.html#constructors)
+2. [AppTheme](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/AppTheme.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [isdarkTheme](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/isdarkTheme.html)
+6. [key](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/key.html)
+7. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8. [theme](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/theme.html)
+9. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme-class.html#instance-methods)
+10. [initialize](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/initialize.html)
+11. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+12. [switchTheme](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme/switchTheme.html)
+13. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+14. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_theme_view_model/AppTheme-class.html#operators)
+15. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

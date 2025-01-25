@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard-class.html#constructors)
+2. [VenueCard](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard/VenueCard.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [isSelected](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard/isSelected.html)
+6. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+7. [venue](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard/venue.html)
+8. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard-class.html#instance-methods)
+9. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard/build.html)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_venue_card/VenueCard-class.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

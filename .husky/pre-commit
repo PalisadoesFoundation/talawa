@@ -7,7 +7,10 @@ npm run generate-docs
 echo "Documentation generated."
 
 echo "Running HTML to Markdown conversion..."
-chmod +x .github/workflows/convert_html_to_md.py  
+# python3 -m venv .venv
+. .venv/bin/activate
+pip install markdownify
+python .husky/scripts/convert_html_to_md.py  
 
 TEMP_DIR="docs/temp-docs"
 rm -rf "$TEMP_DIR"

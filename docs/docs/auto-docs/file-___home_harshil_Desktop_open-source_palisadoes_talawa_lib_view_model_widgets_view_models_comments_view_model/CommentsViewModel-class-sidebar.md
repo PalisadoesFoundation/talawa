@@ -1,0 +1,18 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.html#constructors)
+2. [CommentsViewModel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/CommentsViewModel.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.html#instance-properties)
+4. [commentList](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/commentList.html)
+5. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6. [postId](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/postId.html)
+7. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.html#instance-methods)
+9. [addCommentLocally](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/addCommentLocally.html)
+10. [createComment](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/createComment.html)
+11. [getComments](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/getComments.html)
+12. [initialise](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel/initialise.html)
+13. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+14. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+15. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.html#operators)
+16. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

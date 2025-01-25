@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile-class.html#constructors)
+2. [ChatTile](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile/ChatTile.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile-class.html#instance-properties)
+4. [chat](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile/chat.html)
+5. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6. [model](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile/model.html)
+7. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile-class.html#instance-methods)
+9. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile/build.html)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_direct_chats/ChatTile-class.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

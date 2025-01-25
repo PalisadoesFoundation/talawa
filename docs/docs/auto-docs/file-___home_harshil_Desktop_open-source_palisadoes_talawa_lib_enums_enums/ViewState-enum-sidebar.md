@@ -1,0 +1,18 @@
+
+
+1. [Values](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#values)
+2. [idle](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#idle)
+3. [busy](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#busy)
+4. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#instance-properties)
+5. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6. [index](https://api.flutter.dev/flutter/dart-core/Enum/index.html)
+7. [name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)
+   (ext)
+8. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+9. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#instance-methods)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
+14. [Constants](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState.html#constants)
+15. [values](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_enums_enums/ViewState/values-constant.html)

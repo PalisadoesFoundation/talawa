@@ -1,0 +1,4 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_widgets_chat_message_bubble/#classes)
+2. [Message](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.html)

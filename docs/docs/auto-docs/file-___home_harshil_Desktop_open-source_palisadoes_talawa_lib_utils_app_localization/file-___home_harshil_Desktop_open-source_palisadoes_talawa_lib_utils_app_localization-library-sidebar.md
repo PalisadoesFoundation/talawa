@@ -1,0 +1,5 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_utils_app_localization/#classes)
+2. [AppLocalizations](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_utils_app_localization/AppLocalizations-class.html)
+3. [AppLocalizationsDelegate](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_utils_app_localization/AppLocalizationsDelegate-class.html)

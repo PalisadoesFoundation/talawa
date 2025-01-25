@@ -1,0 +1,68 @@
+
+
+
+
+
+usersLiked property - IndividualPageLikeSection class - individual\_post library - Dart API
+
+
+
+
+
+
+
+menu
+
+1. [talawa](../../index.html)
+2. [views/after\_auth\_screens/feed/individual\_post.dart](../../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_feed_individual_post/)
+3. [IndividualPageLikeSection](../../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_feed_individual_post/IndividualPageLikeSection-class.html)
+4. usersLiked property
+
+usersLiked
+
+
+dark\_mode
+
+light\_mode
+
+
+
+
+# usersLiked property
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)
+usersLiked
+final
+
+Represents a list of users who have liked a post.
+
+
+## Implementation
+
+```
+final List<LikedBy> usersLiked;
+```
+
+ 
+
+
+1. [talawa](../../index.html)
+2. [individual\_post](../../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_feed_individual_post/)
+3. [IndividualPageLikeSection](../../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_feed_individual_post/IndividualPageLikeSection-class.html)
+4. usersLiked property
+
+##### IndividualPageLikeSection class
+
+
+
+
+
+talawa
+1.0.0+1
+
+
+
+
+
+

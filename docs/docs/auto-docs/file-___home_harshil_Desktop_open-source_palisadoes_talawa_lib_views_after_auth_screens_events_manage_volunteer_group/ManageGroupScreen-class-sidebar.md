@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html#constructors)
+2. [ManageGroupScreen](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/ManageGroupScreen.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html#instance-properties)
+4. [event](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/event.html)
+5. [group](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/group.html)
+6. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+7. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+8. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html#instance-methods)
+9. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen/build.html)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

@@ -1,0 +1,124 @@
+
+
+
+
+
+ImageService class - image\_service library - Dart API
+
+
+
+
+
+
+
+menu
+
+1. [talawa](../index.html)
+2. [services/image\_service.dart](../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_image_service/)
+3. ImageService class
+
+ImageService
+
+
+dark\_mode
+
+light\_mode
+
+
+
+
+# ImageService class
+
+
+ImageService class provides different functions as service in the context of Images.
+
+Services include:
+
+* `cropImage`
+* `convertToBase64`
+
+## Constructors
+
+[ImageService](../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_image_service/ImageService/ImageService.html)()
+
+
+
+
+## Properties
+
+[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+
+The hash code for this object.
+no setterinherited
+
+[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
+
+A representation of the runtime type of the object.
+no setterinherited
+
+
+
+## Methods
+
+[convertToBase64](../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_image_service/ImageService/convertToBase64.html)([File](https://api.flutter.dev/flutter/dart-io/File-class.html) file)
+→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<[String](https://api.flutter.dev/flutter/dart-core/String-class.html)>
+
+
+Converts the image into Base64 format.
+
+[cropImage](../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_image_service/ImageService/cropImage.html)({required [File](https://api.flutter.dev/flutter/dart-io/File-class.html) imageFile})
+→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)<[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?>
+
+
+Crops the image selected by the user.
+
+[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation)
+→ dynamic
+
+
+Invoked when a nonexistent method or property is accessed.
+inherited
+
+[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)()
+→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+
+
+A string representation of this object.
+inherited
+
+
+
+## Operators
+
+[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other)
+→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+
+
+The equality operator.
+inherited
+
+
+
+ 
+
+
+1. [talawa](../index.html)
+2. [image\_service](../file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_image_service/)
+3. ImageService class
+
+##### image\_service library
+
+
+
+
+
+talawa
+1.0.0+1
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager-class.html#constructors)
+2. [SessionManager](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager/SessionManager.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [refreshInterval](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager/refreshInterval.html)
+6. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+7. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager-class.html#instance-methods)
+8. [initializeSessionRefresher](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager/initializeSessionRefresher.html)
+9. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+10. [refreshSession](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager/refreshSession.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_session_manager/SessionManager-class.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

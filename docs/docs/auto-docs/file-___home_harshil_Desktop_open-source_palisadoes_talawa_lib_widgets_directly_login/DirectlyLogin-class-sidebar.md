@@ -1,0 +1,15 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin-class.html#constructors)
+2. [DirectlyLogin](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin/DirectlyLogin.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [model](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin/model.html)
+6. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+7. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin-class.html#instance-methods)
+8. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin/build.html)
+9. [loginUsingPrevCredentials](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin/loginUsingPrevCredentials.html)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_directly_login/DirectlyLogin-class.html#operators)
+13. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

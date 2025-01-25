@@ -1,0 +1,4 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/#classes)
+2. [DirectChatViewModel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.html)

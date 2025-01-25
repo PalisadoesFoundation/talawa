@@ -1,0 +1,4 @@
+
+
+1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/#classes)
+2. [ManageGroupScreen](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html)

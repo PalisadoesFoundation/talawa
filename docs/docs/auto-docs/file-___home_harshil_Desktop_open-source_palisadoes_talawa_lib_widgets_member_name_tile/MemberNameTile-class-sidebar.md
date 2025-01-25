@@ -1,0 +1,16 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile-class.html#constructors)
+2. [MemberNameTile](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile/MemberNameTile.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [onDelete](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile/onDelete.html)
+6. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+7. [userImage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile/userImage.html)
+8. [userName](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile/userName.html)
+9. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile-class.html#instance-methods)
+10. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile/build.html)
+11. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+12. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+13. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_member_name_tile/MemberNameTile-class.html#operators)
+14. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

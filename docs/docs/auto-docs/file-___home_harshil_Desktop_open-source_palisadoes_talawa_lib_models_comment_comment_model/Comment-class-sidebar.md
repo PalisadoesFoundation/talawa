@@ -1,0 +1,18 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment-class.html#constructors)
+2. [Comment](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/Comment.html)
+3. [fromJson](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/Comment.fromJson.html)
+4. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment-class.html#instance-properties)
+5. [createdAt](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/createdAt.html)
+6. [creator](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/creator.html)
+7. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+8. [likeCount](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/likeCount.html)
+9. [post](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/post.html)
+10. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+11. [text](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment/text.html)
+12. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment-class.html#instance-methods)
+13. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+14. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+15. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_comment_comment_model/Comment-class.html#operators)
+16. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)

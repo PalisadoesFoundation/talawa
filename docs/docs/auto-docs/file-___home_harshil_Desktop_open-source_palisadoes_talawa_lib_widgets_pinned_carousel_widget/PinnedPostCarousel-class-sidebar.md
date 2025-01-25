@@ -1,0 +1,16 @@
+
+
+1. [Constructors](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel-class.html#constructors)
+2. [PinnedPostCarousel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel/PinnedPostCarousel.html)
+3. [Properties](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel-class.html#instance-properties)
+4. [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+5. [navigateToIndividualPostPage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToIndividualPostPage.html)
+6. [navigateToPinnedPostPage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToPinnedPostPage.html)
+7. [pinnedPosts](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel/pinnedPosts.html)
+8. [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+9. [Methods](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel-class.html#instance-methods)
+10. [build](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel/build.html)
+11. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+12. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+13. [Operators](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_pinned_carousel_widget/PinnedPostCarousel-class.html#operators)
+14. [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
