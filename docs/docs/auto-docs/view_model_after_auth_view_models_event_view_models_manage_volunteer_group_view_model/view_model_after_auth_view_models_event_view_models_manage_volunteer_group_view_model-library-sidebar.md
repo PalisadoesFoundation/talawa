@@ -1,0 +1,2 @@
+1.  [Classes](view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/#classes)
+2.  [ManageVolunteerGroupViewModel](view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.html)

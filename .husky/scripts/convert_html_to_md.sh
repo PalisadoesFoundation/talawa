@@ -1,31 +1,37 @@
 #!/bin/bash
 
-# Define directories for source HTML and output Markdown
-SOURCE_DIR="docs/temp-docs"
-OUTPUT_DIR="docs/docs/auto-docs"
+# Input and Output directories
+INPUT_DIR="docs/temp-docs"          # Directory containing HTML files
+OUTPUT_DIR="docs/docs/auto-docs"    # Directory to store Markdown files
 
 # Ensure output directory exists
 mkdir -p "$OUTPUT_DIR"
 
-# Find all HTML files recursively and convert them
-find "$SOURCE_DIR" -type f -name "*.html" | while read -r html_file; do
-  # Get the relative path by stripping out the base SOURCE_DIR part
-  relative_path="${html_file#$SOURCE_DIR/}"
+# Function to convert HTML to Markdown
+convert_html_to_md() {
+    local input_dir="$1"
+    local output_dir="$2"
 
-  relative_path_stripped="${relative_path#lib/}"
+    # Recursively iterate through input directory
+    find "$input_dir" -type f -name "*.html" | while read -r html_file; do
+        # Generate relative path for output
+        relative_path=$(realpath --relative-to="$input_dir" "$html_file")
+        
+        # Remove ".html" extension and generate target file path
+        target_md_file="$output_dir/${relative_path%.html}.md"
+        
+        # Ensure the target directory exists
+        mkdir -p "$(dirname "$target_md_file")"
 
-  # Remove the file extension (.html) to get the base name
-  base_filename="${relative_path_stripped%.html}.md"
+        # Convert HTML to Markdown using pandoc
+        pandoc "$html_file" -o "$target_md_file"
+        
+        # Log the conversion
+        echo "Converted: $html_file -> $target_md_file"
+    done
+}
 
-  # Create the corresponding output file path in OUTPUT_DIR
-  output_file="$OUTPUT_DIR/$base_filename"
+# Call the function
+convert_html_to_md "$INPUT_DIR" "$OUTPUT_DIR"
 
-  # Ensure subdirectories in OUTPUT_DIR exist
-  mkdir -p "$(dirname "$output_file")"
-
-  # Convert HTML to Markdown using pandoc
-  echo "Converting $html_file to $output_file"
-  pandoc -s "$html_file" -o "$output_file"
-done
-
-echo "HTML to Markdown conversion complete."
+echo "All HTML files successfully converted to Markdown."
