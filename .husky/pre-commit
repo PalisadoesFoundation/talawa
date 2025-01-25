@@ -6,14 +6,12 @@ npm run generate-docs
 # find docs/docs/auto-docs -name 'README.md' -delete && \
 echo "Documentation generated."
 
+# Calling HTML to MD conversion script
 echo "Running HTML to Markdown conversion..."
-# python3 -m venv .venv
-. .venv/bin/activate
-pip install markdownify
-python .husky/scripts/convert_html_to_md.py  
+.husky/scripts/convert_html_to_md.sh 
 
-TEMP_DIR="docs/temp-docs"
-rm -rf "$TEMP_DIR"
+# Removing temporary docs to clear space
+rm -rf "docs/temp-docs"
 
 echo "Adding updated Markdown files to commit..."
 git add docs/docs/auto-docs/

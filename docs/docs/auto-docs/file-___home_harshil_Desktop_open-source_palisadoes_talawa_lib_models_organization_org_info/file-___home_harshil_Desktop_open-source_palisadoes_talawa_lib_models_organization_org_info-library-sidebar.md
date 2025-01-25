@@ -1,5 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_organization_org_info/#classes)
-2. [OrgInfo](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_organization_org_info/OrgInfo-class.html)
-3. [OrgInfoAdapter](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_organization_org_info/OrgInfoAdapter-class.html)

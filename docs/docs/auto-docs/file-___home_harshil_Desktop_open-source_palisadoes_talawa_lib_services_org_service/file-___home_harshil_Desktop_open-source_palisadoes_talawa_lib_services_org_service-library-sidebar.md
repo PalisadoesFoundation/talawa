@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_org_service/#classes)
-2. [OrganizationService](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_org_service/OrganizationService-class.html)

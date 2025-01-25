@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_third_party_service_connectivity_service/#classes)
-2. [ConnectivityService](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_third_party_service_connectivity_service/ConnectivityService-class.html)

@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_pre_auth_screens_select_language/#classes)
-2. [SelectLanguage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_pre_auth_screens_select_language/SelectLanguage-class.html)

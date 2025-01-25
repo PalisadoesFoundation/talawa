@@ -1,6 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_event_calendar/#classes)
-2. [EventCalendar](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_event_calendar/EventCalendar-class.html)
-3. [Functions](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_event_calendar/#functions)
-4. [parseTime](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_event_calendar/parseTime.html)

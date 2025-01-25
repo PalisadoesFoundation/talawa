@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_widgets_chat_input_field/#classes)
-2. [ChatInputField](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.html)

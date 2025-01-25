@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_create_event_page/#classes)
-2. [CreateEventPage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)

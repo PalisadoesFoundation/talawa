@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_demo_screens_organization_feed_demo/#classes)
-2. [DemoOrganizationFeed](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.html)

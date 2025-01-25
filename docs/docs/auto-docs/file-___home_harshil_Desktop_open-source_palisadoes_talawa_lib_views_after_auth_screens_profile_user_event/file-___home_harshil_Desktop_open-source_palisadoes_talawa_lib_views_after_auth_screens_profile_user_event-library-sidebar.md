@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_profile_user_event/#classes)
-2. [UserEvents](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_profile_user_event/UserEvents-class.html)

@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_profile_profile_page/#classes)
-2. [ProfilePage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_profile_profile_page/ProfilePage-class.html)

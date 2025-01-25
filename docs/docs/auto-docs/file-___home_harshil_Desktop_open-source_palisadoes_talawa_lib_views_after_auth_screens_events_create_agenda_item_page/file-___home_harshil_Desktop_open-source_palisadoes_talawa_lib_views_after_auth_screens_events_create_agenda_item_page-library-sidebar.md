@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_create_agenda_item_page/#classes)
-2. [CreateAgendaItemPage](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)

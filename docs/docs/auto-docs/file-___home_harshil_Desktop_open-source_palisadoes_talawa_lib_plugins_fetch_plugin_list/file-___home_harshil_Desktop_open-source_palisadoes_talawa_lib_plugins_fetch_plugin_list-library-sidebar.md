@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_plugins_fetch_plugin_list/#classes)
-2. [FetchPluginList](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_plugins_fetch_plugin_list/FetchPluginList-class.html)

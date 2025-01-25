@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_custom_weekday_selector/#classes)
-2. [CustomWeekDaySelector](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_custom_weekday_selector/CustomWeekDaySelector-class.html)

@@ -14,8 +14,6 @@
 .metadata/
 .metadata
 
-# Python Virtual Environment
-.venv/
 #For testing purposes
 docs/temp-docs/ 
 

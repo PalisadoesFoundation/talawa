@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_custom_painters_whatsapp_logo/#classes)
-2. [WhatsappLogo](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_custom_painters_whatsapp_logo/WhatsappLogo-class.html)

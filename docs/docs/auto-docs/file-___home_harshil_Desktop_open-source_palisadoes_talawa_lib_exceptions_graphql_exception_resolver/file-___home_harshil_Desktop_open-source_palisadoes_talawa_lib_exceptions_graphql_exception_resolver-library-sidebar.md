@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_exceptions_graphql_exception_resolver/#classes)
-2. [GraphqlExceptionResolver](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html)

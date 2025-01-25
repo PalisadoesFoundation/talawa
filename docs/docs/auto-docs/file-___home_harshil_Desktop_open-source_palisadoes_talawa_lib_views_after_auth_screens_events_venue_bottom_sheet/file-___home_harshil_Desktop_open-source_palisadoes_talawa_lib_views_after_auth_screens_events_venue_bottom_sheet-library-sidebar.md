@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_venue_bottom_sheet/#classes)
-2. [VenueBottomSheet](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.html)

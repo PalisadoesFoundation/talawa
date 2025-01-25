@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_plugins_talawa_plugin_provider/#classes)
-2. [TalawaPluginProvider](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_plugins_talawa_plugin_provider/TalawaPluginProvider-class.html)

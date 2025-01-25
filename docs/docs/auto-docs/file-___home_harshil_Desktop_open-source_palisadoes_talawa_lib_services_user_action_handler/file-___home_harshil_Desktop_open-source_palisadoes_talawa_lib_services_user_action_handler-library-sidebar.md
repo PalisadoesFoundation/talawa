@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_user_action_handler/#classes)
-2. [ActionHandlerService](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_services_user_action_handler/ActionHandlerService-class.html)

@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/#classes)
-2. [ChatListTileDataModel](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html)

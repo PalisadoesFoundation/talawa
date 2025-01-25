@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_volunteer_group/#classes)
-2. [EventVolunteerGroup](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_volunteer_group/EventVolunteerGroup-class.html)

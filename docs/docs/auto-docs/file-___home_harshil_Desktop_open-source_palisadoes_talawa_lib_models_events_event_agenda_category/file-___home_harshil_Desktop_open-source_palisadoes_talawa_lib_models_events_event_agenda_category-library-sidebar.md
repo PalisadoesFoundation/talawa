@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/#classes)
-2. [AgendaCategory](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_models_events_event_agenda_category/AgendaCategory-class.html)

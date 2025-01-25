@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_custom_progress_dialog/#classes)
-2. [CustomProgressDialog](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_widgets_custom_progress_dialog/CustomProgressDialog-class.html)

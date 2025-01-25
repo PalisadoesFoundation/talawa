@@ -1,4 +1,0 @@
-
-
-1. [Classes](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_exceptions_critical_action_exception/#classes)
-2. [CriticalActionException](file-___home_harshil_Desktop_open-source_palisadoes_talawa_lib_exceptions_critical_action_exception/CriticalActionException-class.html)
