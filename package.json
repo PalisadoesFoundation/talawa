@@ -1,8 +1,9 @@
 {
-  "devDependencies": {
-    "husky": "^9.1.7"
-  },
-  "scripts": {
-    "prepare": "husky"
-  }
+	"devDependencies": {
+		"husky": "^9.1.7"
+	},
+	"scripts": {
+		"prepare": "husky",
+		"generate-docs": "flutter pub global run dartdoc . --output docs/temp-docs"
+	}
 }

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "Generating documentation..."
+npm run generate-docs
+# find docs/docs/auto-docs -name '*.html' -delete && \
+# find docs/docs/auto-docs -name 'README.md' -delete && \
+echo "Documentation generated."
+
+echo "Running HTML to Markdown conversion..."
+chmod +x .github/workflows/convert_html_to_md.py  
+
+TEMP_DIR="docs/temp-docs"
+rm -rf "$TEMP_DIR"
+
+echo "Adding updated Markdown files to commit..."
+git add docs/docs/auto-docs/
