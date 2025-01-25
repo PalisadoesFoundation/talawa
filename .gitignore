@@ -14,9 +14,6 @@
 .metadata/
 .metadata
 
-#For testing purposes
-docs/temp-docs/ 
-
 # Ignore Google services configuration files
 google-services.json
 GoogleService-Info.plist
