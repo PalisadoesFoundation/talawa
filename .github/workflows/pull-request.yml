@@ -251,11 +251,11 @@ jobs:
       # Run Docusaurus in the ./docs directory
       - name: Install dependencies
         working-directory: ./docs
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: Test building the website
         working-directory: ./docs
-        run: npm run build
+        run: yarn build
 
   Validate-Coderabbit:
     name: Validate CodeRabbit Approval
