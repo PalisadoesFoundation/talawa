@@ -1,0 +1,2 @@
+1.  [Classes](views_after_auth_screens_events_explore_event_dialogue/#classes)
+2.  [ExploreEventDialog](views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.html)
