@@ -13,7 +13,7 @@ name: PR Workflow
 on:
   pull_request:
     branches-ignore:
-      - 'master'
+      - "master"
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
@@ -33,12 +33,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.22.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
         shell: bash
@@ -93,7 +93,6 @@ jobs:
           echo "Error: Source and Target Branches are the same. Please ensure they are different."
           echo "Error: Close this PR and try again."          
           exit 1
-
 
   Branch-check:
     if: ${{ github.actor != 'dependabot[bot]' && !contains(github.event.pull_request.labels.*.name, 'ignore-sensitive-files-pr') }}
@@ -241,22 +240,22 @@ jobs:
     name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
     needs: [iOS-Build, Android-Build]
-    # Run only if the develop-postgres branch and not dependabot    
+    # Run only if the develop-postgres branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop-postgres' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: yarn
-          cache-dependency-path: 'docs/'
+          node-version: "20.x"
+
       # Run Docusaurus in the ./docs directory
       - name: Install dependencies
         working-directory: ./docs
-        run: yarn install --frozen-lockfile
+        run: npm install
+
       - name: Test building the website
         working-directory: ./docs
-        run: yarn build
+        run: npm run build
 
   Validate-Coderabbit:
     name: Validate CodeRabbit Approval
