@@ -61,7 +61,10 @@ import 'test_helpers.mocks.dart';
   [],
   customMocks: [
     MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<GraphqlConfig>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GraphqlConfig>(
+      as: #MockGraphqlConfig,
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
     MockSpec<GraphQLClient>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PostService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<MultiMediaPickerService>(
@@ -302,12 +305,13 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
 
-  when(service.httpLink).thenReturn(
-    HttpLink(
-      'https://talawa-graphql-api.herokuapp.com/graphql',
-      httpClient: MockHttpClient(),
-    ),
+  final mockLink = HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: MockHttpClient(),
   );
+
+  // Use stub instead of when for better null safety handling
+  when(service.httpLink).thenReturn(mockLink);
 
   when(service.clientToQuery()).thenAnswer((realInvocation) {
     // return GraphQLClient(
