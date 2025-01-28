@@ -36,7 +36,7 @@ class VenueCard extends StatelessWidget {
             ),
             elevation: 3,
             color: isSelected
-                ? Colors.blue.withOpacity(0.3)
+                ? Colors.blue.withAlpha((0.3 * 255).toInt())
                 : Theme.of(context).primaryColor,
             child: Column(
               children: [
@@ -47,7 +47,7 @@ class VenueCard extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.11,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withAlpha((0.3 * 255).toInt()),
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.topCenter,

@@ -319,7 +319,7 @@ class LanguageIcon extends CustomPainter {
     path_0.close();
 
     final Paint paint0fill = Paint()..style = PaintingStyle.fill;
-    paint0fill.color = const Color(0xff737373).withOpacity(1.0);
+    paint0fill.color = const Color(0xff737373).withAlpha((1.0*255).toInt());
     canvas.drawPath(path_0, paint0fill);
   }
 

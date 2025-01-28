@@ -151,7 +151,7 @@ Future<void> main() async {
 
         expect(
           (tester.firstWidget(findAppNameWidget) as Container).decoration,
-          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
+          BoxDecoration(color: const Color(0xFFC4C4C4).withAlpha((0.15 * 255).toInt())),
         );
       });
       testWidgets("Testing to navigate to MainScreen", (tester) async {
@@ -255,7 +255,7 @@ Future<void> main() async {
 
         expect(
           (tester.firstWidget(findAppNameWidget) as Container).decoration,
-          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
+          BoxDecoration(color: const Color(0xFFC4C4C4).withAlpha((0.15 * 255).toInt())),
         );
       });
       testWidgets("Testing to select and navigate button appears",

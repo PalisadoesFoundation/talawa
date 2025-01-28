@@ -51,7 +51,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           BoxShadow(
             offset: const Offset(0, 4),
             blurRadius: 32,
-            color: const Color(0xFF087949).withOpacity(0.08),
+            color: const Color(0xFF087949).withAlpha((0.08 * 255).toInt()),
           ),
         ],
       ),
@@ -94,7 +94,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                                 .textTheme
                                 .bodyLarge!
                                 .color!
-                                .withOpacity(0.64),
+                                .withAlpha((0.64 * 255).toInt()),
                           ),
                         ),
                         // Placeholder text for the text field

@@ -57,7 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 : null,
                         backgroundColor:
                             model.imageFile == null && model.user.image == null
-                                ? Colors.grey.withOpacity(0.2)
+                                ? Colors.grey.withAlpha((0.2 * 255).toInt())
                                 : null,
                         child: model.imageFile == null
                             ? model.user.image == null

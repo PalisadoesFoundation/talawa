@@ -242,7 +242,7 @@ class CommentTemplate extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).iconTheme.color!.withOpacity(0.2),
+              color: Theme.of(context).iconTheme.color!.withAlpha((0.2 * 255).toInt()),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             padding: const EdgeInsets.all(16.0),
