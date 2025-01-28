@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 /// This class returns a widget for showing the
 /// progress indicator/flow while Signing Up/ Registration.
