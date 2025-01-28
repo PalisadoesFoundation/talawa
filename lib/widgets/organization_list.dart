@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/constants/timeout.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -25,7 +23,6 @@ class OrganizationList extends StatelessWidget {
   final SelectOrganizationViewModel model;
   @override
   Widget build(BuildContext context) {
-    final navigationServiceLocal = locator<NavigationService>();
     model.organizations = [];
     int noOfRefetch = 0;
     const int maxRefetch = 10;
@@ -70,14 +67,14 @@ class OrganizationList extends StatelessWidget {
               );
             }
 
-            Timer(const Duration(seconds: TimeOuts.small), () {
-              if (model.organizations.isEmpty) {
-                navigationServiceLocal.showTalawaErrorDialog(
-                  "No organizations found Please contact your admin",
-                  MessageType.error,
-                );
-              }
-            });
+            // Timer(const Duration(seconds: TimeOuts.small), () {
+            //   if (model.organizations.isEmpty) {
+            //     navigationServiceLocal.showTalawaErrorDialog(
+            //       "No organizations found Please contact your admin",
+            //       MessageType.error,
+            //     );
+            //   }
+            // });
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,

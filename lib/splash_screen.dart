@@ -214,6 +214,14 @@ class _SplashScreenState extends State<SplashScreen> {
       }
 
       final currentUser = userConfig.currentUser;
+      if (currentUser.joinedOrganizations == null) {
+        final mainScreenArgs = MainScreenArgs(
+          mainScreenIndex: widget.mainScreenIndex,
+          fromSignUp: false,
+        );
+        pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+        return;
+      }
       if (currentUser.joinedOrganizations!.isNotEmpty) {
         final mainScreenArgs = MainScreenArgs(
           mainScreenIndex: widget.mainScreenIndex,

@@ -22,67 +22,24 @@ class Queries {
     String? selectedOrganization,
   ) {
     return """
-        mutation{
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password", selectedOrganization: "$selectedOrganization"})
-          {
-            appUserProfile{
-              adminFor{
-                _id
-                name
-              }
-              createdOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
+            mutation {
+              signUp(input: {
+                emailAddress: "$email"
+                name: "$firstName $lastName"
+                password: "$password"
+                
+              }) {
+                authenticationToken,
+                user{
+                  id
+                  name,
+                  avatarURL,
+                  emailAddress,
+                  
+                }
+                
               }
             }
-            user{
-                _id
-                firstName
-                lastName
-                email
-                image
-                joinedOrganizations{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
-                }
-                membershipRequests{
-                  organization{
-                    _id
-                    name
-                    image
-                    description
-                    userRegistrationRequired
-                    creator{
-                      _id
-                      firstName
-                      lastName
-                      image
-                    } 
-                  }
-                }
-              }
-              refreshToken
-              accessToken
-            }
-        }
     """;
   }
 
@@ -97,66 +54,18 @@ class Queries {
   /// * `String`: mutation in string form, to be passed on to graphql client.
   String loginUser(String email, String password) {
     return """
-        mutation {
-          login(data: {email: "$email", password: "$password"}){
-            appUserProfile{
-              adminFor{
-                _id
-                name
-              }
-              createdOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-            }
-            user{
-              _id
-              firstName
-              lastName
-              email
-              image
-              joinedOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-              membershipRequests{
-                organization{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
-                }
-              }
-            }
-            refreshToken
-            accessToken
-          }
+      query {
+      signIn(input: { emailAddress: "$email", password: "$password" }) {
+        authenticationToken,
+        user {
+          id,
+          name,
+          emailAddress,
+          name,
+          avatarURL,
         }
+      }
+    }
     """;
   }
 
