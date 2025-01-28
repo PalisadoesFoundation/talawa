@@ -77,7 +77,8 @@ class ManageAgendaScreen extends StatelessWidget {
                                       Icons.error_outline,
                                       color: Colors.redAccent,
                                     ),
-                                    color: Colors.black.withAlpha((0.8 * 255).toInt()),
+                                    color: Colors.black
+                                        .withAlpha((0.8 * 255).toInt()),
                                   );
                                 },
                               ).show(context);

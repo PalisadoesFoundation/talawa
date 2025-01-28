@@ -90,7 +90,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
                           decoration: BoxDecoration(
                             color: languages[index].langCode ==
                                     appLang.appLocal.languageCode
-                                ? const Color(0xFFC4C4C4).withAlpha((0.15 * 255).toInt())
+                                ? const Color(0xFFC4C4C4)
+                                    .withAlpha((0.15 * 255).toInt())
                                 : Colors.transparent,
                           ),
                           child: index == 0

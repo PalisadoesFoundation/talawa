@@ -38,7 +38,10 @@ class _CustomWeekDaySelectorState extends State<CustomWeekDaySelector> {
               height: 30,
               decoration: BoxDecoration(
                 color: weekdays.contains(weekday)
-                    ? Theme.of(context).colorScheme.primary.withAlpha((0.5 * 255).toInt())
+                    ? Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withAlpha((0.5 * 255).toInt())
                     : Colors.transparent,
                 border: Border.all(
                   width: weekdays.contains(weekday) ? 2 : 1,

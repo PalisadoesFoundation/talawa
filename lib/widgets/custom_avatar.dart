@@ -41,8 +41,10 @@ class CustomAvatar extends StatelessWidget {
     return isImageNull
         //creating the avatar with the icon-theme color when the image is null
         ? CircleAvatar(
-            backgroundColor:
-                Theme.of(context).iconTheme.color!.withAlpha((0.2 * 255).toInt()),
+            backgroundColor: Theme.of(context)
+                .iconTheme
+                .color!
+                .withAlpha((0.2 * 255).toInt()),
             maxRadius: maxRadius,
             child: Center(
               child: Text(
@@ -59,8 +61,10 @@ class CustomAvatar extends StatelessWidget {
             cacheManager: cacheManager,
             imageBuilder: (context, imageProvider) {
               return CircleAvatar(
-                backgroundColor:
-                    Theme.of(context).iconTheme.color!.withAlpha((0.2 * 255).toInt()),
+                backgroundColor: Theme.of(context)
+                    .iconTheme
+                    .color!
+                    .withAlpha((0.2 * 255).toInt()),
                 backgroundImage: imageProvider,
               );
             },

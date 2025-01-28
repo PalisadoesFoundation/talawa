@@ -29,8 +29,10 @@ class PinnedPostCarousel extends StatelessWidget {
       children: [
         Container(
           height: 220,
-          color:
-              Theme.of(context).colorScheme.primaryContainer.withAlpha((0.5 * 255).toInt()),
+          color: Theme.of(context)
+              .colorScheme
+              .primaryContainer
+              .withAlpha((0.5 * 255).toInt()),
           child: CustomCarouselScroller(
             pinnedPosts: pinnedPosts,
             key: const Key('Carousel'),
