@@ -42,10 +42,11 @@ final event = Event(
 
 final eventJson = {
   'creator': {
-    '_id': '123',
-    'firstName': 'Ayush',
-    'lastName': 'Chaudhary',
-    'email': 'test@test.com',
+    'user': {
+      'id': '123',
+      'name': 'Ayush Chaudhary',
+      'emailAddress': 'test@test.com',
+    },
   },
   '_id': '12',
   'title': 'for test only',

@@ -172,9 +172,6 @@ class SignupDetailsViewModel extends BaseModel {
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-            if (selectedOrganization!.id == "-1") {
-              selectedOrganization = null;
-            }
 
             // if user successfully saved and access token is also generated.
             if (userSaved && tokenRefreshed) {

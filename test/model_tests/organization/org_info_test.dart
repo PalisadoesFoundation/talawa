@@ -15,9 +15,11 @@ void main() {
 
   group('Test OrgInfo model', () {
     final Map<String, dynamic> userJson = {
-      'accessToken': ' ',
+      'user': {
+        'id': 'user_id',
+      },
+      'authenticationToken': ' ',
       'refreshToken': ' ',
-      '_id': 'user_id',
     };
     final Map<String, dynamic> json1 = {
       '_id': '123',

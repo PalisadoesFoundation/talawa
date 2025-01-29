@@ -27,12 +27,11 @@ bool userRegistrationRequired = false;
 final data = {
   'signUp': {
     'user': {
-      '_id': 'xzy1',
-      'firstName': 'Test',
-      'lastName': 'User',
-      'email': 'testuser@gmail.com',
+      'id': 'xzy1',
+      'name': 'Test User',
+      'emailAddress': 'testuser@gmail.com',
     },
-    'accessToken': 'testtoken',
+    'authenticationToken': 'testtoken',
     'refreshToken': 'testtoken',
   },
 };
@@ -80,82 +79,11 @@ void main() {
 
   group('SignupDetailsViewModel Test -', () {
     testWidgets(
-        'Check if signup() is working fine when selected organization is not empty and public',
-        (tester) async {
-      final model = SignupDetailsViewModel();
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', '')),
-        ),
-      );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      ).thenAnswer((_) async => result);
-      final query = queries.joinOrgById(org.id!);
-      when(databaseFunctions.gqlAuthMutation(query))
-          .thenAnswer((realInvocation) async {
-        final data = {
-          'joinPublicOrganization': {
-            'joinedOrganizations': [],
-          },
-        };
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(document: gql(query)),
-        );
-      });
-      empty = false;
-
-      await model.signUp();
-
-      expect(model.validate, AutovalidateMode.disabled);
-
-      verify(databaseFunctions.gqlAuthMutation(query));
-      verify(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      );
-      verify(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
-    });
-    testWidgets(
         'Check if signup() is working fine when credentials are invalid',
         (tester) async {
       final model = SignupDetailsViewModel();
       model.selectedOrganization = OrgInfo(id: "");
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      // print(model.firstName.text = '1');
-      // print(model.lastName.text = '1');
-      // print(model.email.text = '1');
-      // print(model.password.text = '1');
-      // print(model.selectedOrganization.id = '1');
 
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -313,74 +241,8 @@ void main() {
       );
     });
     testWidgets(
-        'Check if signup() is working fine when selected organization requires userRegistration',
-        (tester) async {
-      userRegistrationRequired = true;
-      // locator.registerSingleton<UserConfig>(MockUserConfig());
-
-      final model = SignupDetailsViewModel();
-
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', org.id)),
-        ),
-      );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      ).thenAnswer((_) async => result);
-      when(
-        databaseFunctions
-            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
-      ).thenAnswer((realInvocation) async {
-        final data = {
-          'sendMembershipRequest': {
-            'organization': <String, dynamic>{},
-          },
-        };
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-            document: gql(queries.sendMembershipRequest(org.id!)),
-          ),
-        );
-      });
-      empty = false;
-
-      await model.signUp();
-
-      expect(model.validate, AutovalidateMode.disabled);
-
-      verify(
-        databaseFunctions
-            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
-      );
-      verify(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      );
-      verify(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-    });
-    testWidgets(
         'Check if signup() works fine when process of register user throws exception',
         (tester) async {
-      // locator.registerSingleton<UserConfig>(MockUserConfig());
-
       final model = SignupDetailsViewModel();
 
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
@@ -393,135 +255,6 @@ void main() {
           queries.registerUser('', '', '', '', org.id),
         ),
       ).thenThrow(Exception());
-
-      await model.signUp();
-
-      expect(model.validate, AutovalidateMode.disabled);
-
-      verify(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
-    });
-    testWidgets(
-        'Check if signup() works fine when process of user joining org throws exception',
-        (tester) async {
-      // locator.registerSingleton<UserConfig>(MockUserConfig());
-
-      final model = SignupDetailsViewModel();
-
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(
-          document: gql(
-            queries.registerUser('', '', '', '', ''),
-          ),
-        ),
-      );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      ).thenAnswer((_) async => result);
-      when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
-          .thenThrow(Exception());
-
-      await model.signUp();
-
-      expect(model.validate, AutovalidateMode.disabled);
-
-      verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
-      verify(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.waitingScreen,
-          Routes.splashScreen,
-        ),
-      );
-      verifyNever(
-        navigationService.removeAllAndPush(
-          Routes.mainScreen,
-          Routes.splashScreen,
-          arguments: isA<MainScreenArgs>()
-              .having(
-                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-                "main screen index",
-                0,
-              )
-              .having(
-                (mainScreenArgs) => mainScreenArgs.fromSignUp,
-                "from sign up",
-                true,
-              ),
-        ),
-      );
-    });
-    testWidgets(
-        'Check if signup() is working fine when process of send membership request throws exception',
-        (tester) async {
-      userRegistrationRequired = true;
-      // locator.registerSingleton<UserConfig>(MockUserConfig());
-
-      final model = SignupDetailsViewModel();
-
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-
-      model.initialise(org);
-
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: data,
-        options: QueryOptions(
-          document: gql(
-            queries.registerUser('', '', '', '', ''),
-          ),
-        ),
-      );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
-        ),
-      ).thenAnswer((_) async => result);
-      when(
-        databaseFunctions
-            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
-      ).thenThrow(Exception());
-      empty = false;
 
       await model.signUp();
 

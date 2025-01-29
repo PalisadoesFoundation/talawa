@@ -36,8 +36,10 @@ class User extends HiveObject {
         : null;
 
     return User(
-      authToken: fromOrg ? ' ' : json['authenticationToken'] as String?,
-      // refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
+      authToken: json['authenticationToken'] != null
+          ? json['authenticationToken'] as String?
+          : null,
+      refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
       id: userData['id'] as String?,
       firstName: firstName,
       lastName: lastName,
@@ -47,11 +49,11 @@ class User extends HiveObject {
       image: userData['avatarURL'] != null
           ? userData['avatarURL'] as String?
           : null,
-      // joinedOrganizations: userData['joinedOrganizations'] != null
-      //     ? (userData['joinedOrganizations'] as List<dynamic>)
-      //         .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-      //         .toList()
-      //     : null,
+      joinedOrganizations: userData['joinedOrganizations'] != null
+          ? (userData['joinedOrganizations'] as List<dynamic>)
+              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : [],
     );
   }
 
