@@ -172,16 +172,17 @@ class SignupDetailsViewModel extends BaseModel {
             );
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-
             // if user successfully saved and access token is also generated.
             if (userSaved && tokenRefreshed) {
               // if the selected organization userRegistration not required.
-              if (selectedOrganization == null) {
+              if (selectedOrganization?.id == '-1') {
                 navigationService.removeAllAndPush(
                   Routes.mainScreen,
                   Routes.splashScreen,
-                  arguments:
-                      MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+                  arguments: MainScreenArgs(
+                    mainScreenIndex: 0,
+                    fromSignUp: false,
+                  ),
                 );
                 await storingCredentialsInSecureStorage();
               } else {
