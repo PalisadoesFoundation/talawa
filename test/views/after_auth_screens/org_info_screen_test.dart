@@ -20,33 +20,41 @@ final OrgInfo mockOrgInfo = OrgInfo.fromJson(
     'description': 'aabbcc',
     'userRegistrationRequired': false,
     'creator': {
-      'accessToken': 'abc',
+      'user': {
+        'id': '123',
+        'name': 'Parag Gupta',
+      },
+      'authenticationToken': 'abc',
       'refreshToken': 'abc',
-      '_id': '123',
-      'firstName': 'Parag',
-      'lastName': 'Gupta',
     },
     'members': [
       {
-        'accessToken': 'abc',
+        'user': {
+          'id': '123',
+          'name': 'Parag Gupta',
+        },
+        'authenticationToken': 'abc',
         'refreshToken': 'abc',
-        '_id': '123',
-        'firstName': 'Parag',
-        'lastName': 'Gupta',
       },
     ],
     'admins': [
       {
-        'firstName': 'Parag',
-        'lastName': '1',
+        'user': {
+          'id': '123',
+          'name': 'Parag 1',
+        },
       },
       {
-        'firstName': 'Parag',
-        'lastName': '2',
+        'user': {
+          'id': '123',
+          'name': 'Parag 2',
+        },
       },
       {
-        'firstName': 'Parag',
-        'lastName': '3',
+        'user': {
+          'id': '123',
+          'name': 'Parag 3',
+        },
       }
     ],
     'address': {
@@ -71,38 +79,45 @@ final OrgInfo mockOrgInfo2 = OrgInfo.fromJson(
     'description': 'aabbcc',
     'userRegistrationRequired': true,
     'creator': {
-      'accessToken': 'abc',
+      'user': {
+        'id': '123',
+        'name': 'Parag Gupta',
+      },
+      'authenticationToken': 'abc',
       'refreshToken': 'abc',
-      '_id': '123',
-      'firstName': 'Parag',
-      'lastName': 'Gupta',
     },
     'members': [
       {
-        'firstName': 'Paul',
-        'lastName': '1',
+        'user': {
+          'name': 'Paul 1',
+        },
       },
       {
-        'firstName': 'jon',
-        'lastName': '1',
+        'user': {
+          'name': 'jon 1',
+        },
       },
       {
-        'firstName': 'sean',
-        'lastName': '1',
+        'user': {
+          'name': 'Sean 1',
+        },
       },
       {
-        'firstName': 'Jay',
-        'lastName': '1',
+        'user': {
+          'name': 'Jay 1',
+        },
       },
       {
-        'firstName': 'Chris',
-        'lastName': '1',
+        'user': {
+          'name': 'Chris 1',
+        },
       },
     ],
     'admins': [
       {
-        'firstName': 'Parag',
-        'lastName': 'Gupta',
+        'user': {
+          'name': 'Parag Gupta',
+        },
       },
     ],
     'address': {
@@ -184,7 +199,7 @@ void main() {
     testWidgets('Leave button shows when organization is joined',
         (WidgetTester tester) async {
       mockNetworkImagesFor(() async {
-        userConfig.currentUser.joinedOrganizations!.add(mockOrgInfo);
+        userConfig.currentUser.joinedOrganizations?.add(mockOrgInfo);
 
         await tester.pumpWidget(createOrgInfoScreen1());
         await tester.pumpAndSettle();

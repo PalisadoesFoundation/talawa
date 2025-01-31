@@ -393,7 +393,7 @@ void main() {
       await selectOrganizationViewModel.selectOrg(org);
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
-      expect(orgTest.id, '-1');
+      expect(orgTest?.id, '-1');
       verify(
         navigationService.showTalawaErrorSnackBar(
           'Organisation already joined',
@@ -425,7 +425,7 @@ void main() {
       await selectOrganizationViewModel.selectOrg(org);
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
-      expect(orgTest.id, '-1');
+      expect(orgTest?.id, '-1');
       verify(
         navigationService.showTalawaErrorSnackBar(
           'Membership request already sent',

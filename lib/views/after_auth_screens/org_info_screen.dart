@@ -361,7 +361,7 @@ class OrganisationInfoScreen extends StatelessWidget {
                         child: CustomAvatar(
                           isImageNull: user.image == null,
                           firstAlphabet:
-                              user.firstName!.substring(0, 1).toUpperCase(),
+                              user.firstName?.substring(0, 1).toUpperCase(),
                           imageUrl:
                               '${'${GraphqlConfig.orgURI}'.replaceFirst('/graphql', '')}/${user.image}',
                           fontSize: SizeConfig.screenHeight! * 0.018,

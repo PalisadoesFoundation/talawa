@@ -70,10 +70,11 @@ void main() {
       );
       final postJson = {
         'creator': {
-          '_id': '123',
-          'firstName': 'John',
-          'lastName': 'Doe',
-          'email': 'test@test.com',
+          'user': {
+            'id': '123',
+            'name': 'John Doe',
+            'emailAddress': 'test@test.com',
+          },
         },
         '_id': '1222',
         'createdAt': '2023-03-15T15:28:52.122Z',
@@ -83,33 +84,39 @@ void main() {
         'organization': {
           'admins': [
             {
-              'id': '123',
-              'firstName': 'Ayush',
-              'lastName': 'Chaudhary',
-              'email': 'test@test.com',
+              'user': {
+                'id': '123',
+                'name': 'John Doe',
+                'emailAddress': 'test@test.com',
+              },
             },
             {
-              'id': '123',
-              'firstName': 'John',
-              'lastName': 'Doe',
-              'email': 'test@test.com',
+              'user': {
+                'id': '123',
+                'name': 'Ayush Chaudhary',
+                'emailAddress': 'test@test.com',
+              },
             }
           ],
         },
         'likedBy': [
-          {'_id': 'test1'},
-          {'_id': 'test2'},
+          {
+            'user': {'id': 'test1'},
+          },
+          {
+            'user': {'id': 'test2'},
+          },
         ],
         'comments': [
           {
-            '_id': 'comment1',
+            'user': {'id': 'comment1'},
           },
           {
-            '_id': 'comment2',
+            'user': {'id': 'comment2'},
           },
           {
-            '_id': 'comment3',
-          }
+            'user': {'id': 'comment3'},
+          },
         ],
       };
       final postFromJson = Post.fromJson(postJson);
