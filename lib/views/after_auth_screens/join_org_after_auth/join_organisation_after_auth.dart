@@ -126,22 +126,7 @@ class _JoinOrganisationAfterAuthState extends State<JoinOrganisationAfterAuth> {
                     fit: BoxFit.contain,
                     controller: controller,
                     errorBuilder: (ctx, error, _) {
-                      String errorMessage = '';
-                      switch (error.errorCode) {
-                        case MobileScannerErrorCode.controllerUninitialized:
-                          errorMessage = 'camera is not ready';
-                          break;
-                        case MobileScannerErrorCode.permissionDenied:
-                          errorMessage =
-                              'Please provide camera permission to scan QR code';
-                          break;
-                        case MobileScannerErrorCode.unsupported:
-                          errorMessage =
-                              'This device does not support scanning.';
-                          break;
-                        default:
-                          errorMessage = 'An unkonwn error occurred';
-                      }
+                      final String errorMessage = error.toString();
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         navigationService.showTalawaErrorSnackBar(

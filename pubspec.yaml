@@ -19,7 +19,7 @@ dependencies:
   # analyzer_plugin:
   ################################
 
-  app_links: ^6.3.3
+  app_links: 
   app_links_platform_interface: ^2.0.2
   auto_size_text: ^3.0.0
   cached_network_image: ^3.4.1
@@ -69,7 +69,6 @@ dependencies:
   quick_actions: ^1.0.8
   shared_preferences: ^2.3.3
   shimmer: ^3.0.0
-  social_share: ^2.2.1
   stack_trace: ^1.11.1
   syncfusion_flutter_calendar: ^27.2.5
   syncfusion_flutter_datepicker: ^27.2.5

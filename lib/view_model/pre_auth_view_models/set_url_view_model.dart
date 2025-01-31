@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -210,11 +211,13 @@ class SetUrlViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `context`: BuildContext
+  /// * `mockController`: MobileScannerController
   ///
   /// **returns**:
   ///   None
 
-  void scanQR(BuildContext context) {
+  void scanQR(BuildContext context, {MobileScannerController? mockController}) {
+    debugPrint('Scan QR called');
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
@@ -245,22 +248,8 @@ class SetUrlViewModel extends BaseModel {
                     fit: BoxFit.contain,
                     controller: controller,
                     errorBuilder: (ctx, error, _) {
-                      String errorMessage = '';
-                      switch (error.errorCode) {
-                        case MobileScannerErrorCode.controllerUninitialized:
-                          errorMessage = 'camera is not ready';
-                          break;
-                        case MobileScannerErrorCode.permissionDenied:
-                          errorMessage =
-                              'Please provide camera permission to scan QR code';
-                          break;
-                        case MobileScannerErrorCode.unsupported:
-                          errorMessage =
-                              'This device does not support scanning.';
-                          break;
-                        default:
-                          errorMessage = 'An unkonwn error occurred';
-                      }
+                      final String errorMessage = onDetectError(error);
+                      debugPrint(errorMessage);
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         navigationService.showTalawaErrorSnackBar(
@@ -275,7 +264,10 @@ class SetUrlViewModel extends BaseModel {
                         ),
                       );
                     },
-                    onDetect: _onQRViewCreated,
+                    onDetect: (capture) {
+                      debugPrint('onDetect called with capture: $capture');
+                      onQRViewCreated(capture, controller);
+                    },
                   ),
                 ),
                 SizedBox(
@@ -297,34 +289,92 @@ class SetUrlViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `scanData`: BarcodeCapture
+  /// * `controller`: MobileScannerController
   ///
   /// **returns**:
   ///   None
 
-  void _onQRViewCreated(BarcodeCapture scanData) {
-    if (scanData.raw != null && scanData.barcodes.isNotEmpty) {
-      final String code = scanData.barcodes.first.displayValue!;
+  void onQRViewCreated(
+    BarcodeCapture scanData,
+    MobileScannerController? controller,
+  ) {
+    if (scanData.barcodes.isNotEmpty) {
+      debugPrint("Barcode: ${scanData.barcodes.first.displayValue}");
       try {
+        final String code = scanData.barcodes.first.displayValue!;
+
         final List<String> data = code.split('?');
         url.text = data[0];
         final List<String> queries = data[1].split('&');
         orgId = queries[0].split('=')[1];
         Vibration.vibrate(duration: 100);
-        controller.stop();
+        controller!.stop();
         controller.dispose();
+
         final box = Hive.box('url');
         box.put(urlKey, url.text);
         box.put(imageUrlKey, "${url.text}/talawa/");
         graphqlConfig.getOrgUrl();
         Navigator.pop(navigationService.navigatorKey.currentContext!);
         navigationService.pushScreen('/selectOrg', arguments: orgId);
+      } on QrEmbeddedImageException catch (e) {
+        debugPrint(e.toString());
+        navigationService.showTalawaErrorDialog(
+          "The QR is not Working",
+          MessageType.error,
+        );
+      } on QrUnsupportedVersionException catch (e) {
+        debugPrint(e.toString());
+        navigationService.showTalawaErrorDialog(
+          "This QR version is not Supported.",
+          MessageType.error,
+        );
       } on Exception catch (e) {
         debugPrint(e.toString());
         navigationService.showTalawaErrorSnackBar(
-          "The Camera is not working",
+          "This QR is not for the App",
           MessageType.error,
         );
       }
     }
+  }
+
+  /// This function is used to handle the error.
+  ///
+  /// **params**:
+  /// * `error`: Object
+  ///
+  /// **returns**:
+  /// * `String`: The error message generated.
+
+  String onDetectError(Object error) {
+    String errorMsg = 'An unknown error occurred';
+
+    if (error is MobileScannerException) {
+      debugPrint(error.errorCode.toString());
+      switch (error.errorCode) {
+        case MobileScannerErrorCode.controllerDisposed:
+          errorMsg = 'Camera is disposed';
+          break;
+        case MobileScannerErrorCode.controllerAlreadyInitialized:
+          errorMsg = 'Camera is already in use';
+          break;
+        case MobileScannerErrorCode.controllerUninitialized:
+          errorMsg = 'Camera is not ready';
+          break;
+        case MobileScannerErrorCode.permissionDenied:
+          errorMsg = 'Please provide camera permission to scan QR code';
+          break;
+        case MobileScannerErrorCode.unsupported:
+          errorMsg = 'This device does not support scanning';
+          break;
+        case MobileScannerErrorCode.genericError:
+          errorMsg = 'Something went wrong while detecting the QR';
+          break;
+        default:
+          errorMsg = 'An unknown error occurred';
+      }
+    }
+    return errorMsg;
   }
 }

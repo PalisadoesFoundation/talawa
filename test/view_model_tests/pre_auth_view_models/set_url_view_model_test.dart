@@ -1,4 +1,5 @@
 // ignore_for_file: talawa_api_doc
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,15 +26,18 @@ import '../../helpers/test_helpers.mocks.dart';
 
 /// This is a TestWidget class.
 class TestWidget extends StatelessWidget {
-  const TestWidget(this.model, {super.key});
+  const TestWidget(this.model, this.controller, {super.key});
 
   /// State.
   final SetUrlViewModel model;
+
+  final MobileScannerController controller;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FloatingActionButton(
-        onPressed: () => model.scanQR(context),
+        onPressed: () => model.scanQR(context, mockController: controller),
       ),
     );
   }
@@ -90,10 +94,51 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
       },
     );
 
+Widget testMobileScannerForError(MobileScannerController controller) {
+  return MaterialApp(
+    home: Scaffold(
+      body: SizedBox(
+        height: 250,
+        width: 250,
+        child: MobileScanner(
+          controller: controller,
+          errorBuilder: (ctx, error, _) {
+            String errorMsg = '';
+            switch (error.errorCode) {
+              case MobileScannerErrorCode.controllerDisposed:
+                errorMsg = 'Camera is disposed';
+                break;
+              case MobileScannerErrorCode.controllerAlreadyInitialized:
+                errorMsg = 'Camera is already in use';
+                break;
+              case MobileScannerErrorCode.controllerUninitialized:
+                errorMsg = 'Camera is not ready';
+                break;
+              case MobileScannerErrorCode.permissionDenied:
+                errorMsg = 'Please provide camera permission to scan QR code';
+                break;
+              case MobileScannerErrorCode.unsupported:
+                errorMsg = 'This device does not support scanning';
+                break;
+              case MobileScannerErrorCode.genericError:
+                errorMsg = 'Something went wrong while detecting the QR';
+                break;
+              default:
+                errorMsg = 'An unknown error occurred';
+            }
+            return Center(child: Text(errorMsg));
+          },
+        ),
+      ),
+    ),
+  );
+}
+
 Future<void> main() async {
   SizeConfig().test();
 
   late SetUrlViewModel model;
+  late MockMobileScannerController controller;
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
@@ -101,9 +146,357 @@ Future<void> main() async {
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
+    controller = MockMobileScannerController();
   });
   tearDown(() async {
     unregisterViewModels();
+  });
+
+  group('Testing the qr functionality', () {
+    testWidgets('MobileScanner widget renders correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: MobileScannerController(),
+              onDetect: (barcode) {},
+            ),
+          ),
+        ),
+      );
+
+      // Verify that the MobileScanner widget is rendered
+      expect(find.byType(MobileScanner), findsOneWidget);
+    });
+
+    testWidgets('onDetect callback is triggered when a barcode is detected',
+        (WidgetTester tester) async {
+      bool isDetected = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: MobileScannerController(),
+              onDetect: (barcode) {
+                isDetected = true; // Set flag to true when barcode is detected
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Simulate a barcode detection event
+      const barcode = BarcodeCapture(
+        barcodes: [Barcode(displayValue: 'test', format: BarcodeFormat.qrCode)],
+      );
+      (find.byType(MobileScanner).evaluate().single.widget as MobileScanner)
+          .onDetect
+          ?.call(barcode);
+
+      // Verify that the callback was triggered
+      expect(isDetected, true);
+    });
+
+    testWidgets('UI updates when a barcode is detected',
+        (WidgetTester tester) async {
+      // String? detectedBarcode;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BarcodeScannerTestWidget(),
+        ),
+      );
+
+      const barcode = BarcodeCapture(
+        barcodes: [
+          Barcode(displayValue: '123456', format: BarcodeFormat.code128),
+        ],
+      );
+      (find.byType(MobileScanner).evaluate().single.widget as MobileScanner)
+          .onDetect
+          ?.call(barcode);
+
+      // Rebuild the widget to reflect the updated state
+      await tester.pump();
+
+      // Verify that the UI updates with the detected barcode
+      expect(find.text('Detected: 123456'), findsOneWidget);
+    });
+
+    testWidgets('UI updates for multiple barcode detections',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BarcodeScannerTestWidget(),
+        ),
+      );
+
+      // Simulate the first barcode detection event
+      const firstBarcode = BarcodeCapture(
+        barcodes: [
+          Barcode(displayValue: '123456', format: BarcodeFormat.code128),
+        ],
+      );
+      (find.byType(MobileScanner).evaluate().single.widget as MobileScanner)
+          .onDetect
+          ?.call(firstBarcode);
+
+      // Rebuild the widget to reflect the updated state
+      await tester.pump();
+
+      // Verify that the UI updates with the first detected barcode
+      expect(find.text('Detected: 123456'), findsOneWidget);
+
+      // Simulate the second barcode detection event
+      const secondBarcode = BarcodeCapture(
+        barcodes: [
+          Barcode(displayValue: '789012', format: BarcodeFormat.code128),
+        ],
+      );
+      (find.byType(MobileScanner).evaluate().single.widget as MobileScanner)
+          .onDetect
+          ?.call(secondBarcode);
+
+      // Rebuild the widget to reflect the updated state
+      await tester.pump();
+
+      // Verify that the UI updates with the second detected barcode
+      expect(find.text('Detected: 789012'), findsOneWidget);
+    });
+
+    testWidgets('errorBuilder displays correct message for controllerDisposed',
+        (WidgetTester tester) async {
+      final controller = MockMobileScannerController();
+
+      when(controller.value).thenReturn(
+        const MobileScannerState(
+          isInitialized: true,
+          // hasCameraPermission: true,
+          size: Size(250, 250),
+          availableCameras: 0,
+          cameraDirection: CameraFacing.back,
+          isRunning: true,
+          torchState: TorchState.off,
+          zoomScale: 0.0,
+          error: MobileScannerException(
+            errorCode: MobileScannerErrorCode.controllerDisposed,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: controller,
+              onDetect: (barcode) {},
+              errorBuilder: (context, error, child) {
+                final errorMsg = model.onDetectError(error);
+                return Text('Error: $errorMsg');
+              },
+            ),
+          ),
+        ),
+      );
+
+      // await controller.start();
+
+      // Wait for the widget to fully initialize and handle the error
+      await tester.pumpAndSettle();
+
+      // Verify that the correct error message is displayed
+      expect(find.text('Error: Camera is disposed'), findsOneWidget);
+    });
+
+    testWidgets('errorBuilder displays correct message for permissionDenied',
+        (WidgetTester tester) async {
+      final controller = MockMobileScannerController();
+
+      when(controller.value).thenReturn(
+        const MobileScannerState(
+          isInitialized: true,
+          // hasCameraPermission: true,
+          size: Size(250, 250),
+          availableCameras: 0,
+          cameraDirection: CameraFacing.back,
+          isRunning: true,
+          torchState: TorchState.off,
+          zoomScale: 0.0,
+          error: MobileScannerException(
+            errorCode: MobileScannerErrorCode.permissionDenied,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: controller,
+              onDetect: (barcode) {},
+              errorBuilder: (context, error, child) {
+                final errorMsg = model.onDetectError(error);
+                return Text('Error: $errorMsg');
+              },
+            ),
+          ),
+        ),
+      );
+
+      // await controller.start();
+
+      // Wait for the widget to fully initialize and handle the error
+      await tester.pumpAndSettle();
+
+      // Verify that the correct error message is displayed
+      expect(
+        find.text('Error: Please provide camera permission to scan QR code'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('errorBuilder displays correct message for unsupported',
+        (WidgetTester tester) async {
+      final controller = MockMobileScannerController();
+
+      when(controller.value).thenReturn(
+        const MobileScannerState(
+          isInitialized: true,
+          // hasCameraPermission: true,
+          size: Size(250, 250),
+          availableCameras: 0,
+          cameraDirection: CameraFacing.back,
+          isRunning: true,
+          torchState: TorchState.off,
+          zoomScale: 0.0,
+          error: MobileScannerException(
+            errorCode: MobileScannerErrorCode.unsupported,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: controller,
+              onDetect: (barcode) {},
+              errorBuilder: (context, error, child) {
+                final errorMsg = model.onDetectError(error);
+                return Text('Error: $errorMsg');
+              },
+            ),
+          ),
+        ),
+      );
+
+      // await controller.start();
+
+      // Wait for the widget to fully initialize and handle the error
+      await tester.pumpAndSettle();
+
+      // Verify that the correct error message is displayed
+      expect(
+        find.text('Error: This device does not support scanning'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('errorBuilder displays correct message for generic error',
+        (WidgetTester tester) async {
+      final controller = MockMobileScannerController();
+
+      when(controller.value).thenReturn(
+        const MobileScannerState(
+          isInitialized: true,
+          // hasCameraPermission: true,
+          size: Size(250, 250),
+          availableCameras: 0,
+          cameraDirection: CameraFacing.back,
+          isRunning: true,
+          torchState: TorchState.off,
+          zoomScale: 0.0,
+          error: MobileScannerException(
+            errorCode: MobileScannerErrorCode.genericError,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: controller,
+              onDetect: (barcode) {},
+              errorBuilder: (context, error, child) {
+                final errorMsg = model.onDetectError(error);
+                return Text('Error: $errorMsg');
+              },
+            ),
+          ),
+        ),
+      );
+
+      // await controller.start();
+
+      // Wait for the widget to fully initialize and handle the error
+      await tester.pumpAndSettle();
+
+      // Verify that the correct error message is displayed
+      expect(
+        find.text('Error: Something went wrong while detecting the QR'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('errorBuilder displays correct message for camera already use',
+        (WidgetTester tester) async {
+      final controller = MockMobileScannerController();
+
+      when(controller.value).thenReturn(
+        const MobileScannerState(
+          isInitialized: true,
+          // hasCameraPermission: true,
+          size: Size(250, 250),
+          availableCameras: 0,
+          cameraDirection: CameraFacing.back,
+          isRunning: true,
+          torchState: TorchState.off,
+          zoomScale: 0.0,
+          error: MobileScannerException(
+            errorCode: MobileScannerErrorCode.controllerAlreadyInitialized,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MobileScanner(
+              controller: controller,
+              onDetect: (barcode) {},
+              errorBuilder: (context, error, child) {
+                final errorMsg = model.onDetectError(error);
+                return Text('Error: $errorMsg');
+              },
+            ),
+          ),
+        ),
+      );
+
+      // await controller.start();
+
+      // Wait for the widget to fully initialize and handle the error
+      await tester.pumpAndSettle();
+
+      // Verify that the correct error message is displayed
+      expect(
+        find.text('Error: Camera is already in use'),
+        findsOneWidget,
+      );
+    });
   });
 
   group('SetUrlViewModel Test -', () {
@@ -227,7 +620,7 @@ Future<void> main() async {
     });
 
     testWidgets('Check if scanQR() is working fine', (tester) async {
-      await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
+      await tester.pumpWidget(MaterialApp(home: TestWidget(model, controller)));
 
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
@@ -237,14 +630,13 @@ Future<void> main() async {
     });
 
     testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
+      final controller = MockMobileScannerController();
       await tester.pumpWidget(
         MaterialApp(
-          home: TestWidget(model),
+          home: TestWidget(model, controller),
           navigatorKey: navigationService.navigatorKey,
         ),
       );
-
-      final controller = MockMobileScannerController();
 
       when(controller.barcodes).thenAnswer(
         (_) => Stream.fromIterable([
@@ -262,22 +654,28 @@ Future<void> main() async {
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
       (tester.widget(find.byType(MobileScanner)) as MobileScanner)
           .controller!
           .start();
+
+      // Add verification for expected UI changes after QR code detection
+      expect(find.text('Scan QR'), findsOneWidget);
     });
 
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
         (tester) async {
+      final controller = MockMobileScannerController();
       await tester.pumpWidget(
         MaterialApp(
-          home: TestWidget(model),
+          home: TestWidget(model, controller),
           navigatorKey: navigationService.navigatorKey,
         ),
       );
 
-      final controller = MockMobileScannerController();
       when(controller.barcodes).thenAnswer(
         (_) => Stream.fromIterable([
           const BarcodeCapture(
@@ -293,11 +691,227 @@ Future<void> main() async {
 
       when(controller.stop()).thenThrow(
         const MobileScannerException(
-          errorCode: MobileScannerErrorCode.controllerUninitialized,
+          errorCode: MobileScannerErrorCode.controllerAlreadyInitialized,
+          errorDetails: MobileScannerErrorDetails(
+            message: 'The camera is already in use',
+          ),
         ),
       );
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
+        (tester) async {
+      final controller = MockMobileScannerController();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model, controller),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.permissionDenied,
+          errorDetails: MobileScannerErrorDetails(
+            message: 'Please provide camera permission to scan QR code',
+          ),
+        ),
+      );
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
+        (tester) async {
+      final controller = MockMobileScannerController();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model, controller),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.controllerDisposed,
+          errorDetails: MobileScannerErrorDetails(
+            message: 'Camera is disposed',
+          ),
+        ),
+      );
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
+        (tester) async {
+      final controller = MockMobileScannerController();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model, controller),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.controllerAlreadyInitialized,
+          errorDetails: MobileScannerErrorDetails(
+            message: 'Camera is already in use',
+          ),
+        ),
+      );
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
+        (tester) async {
+      final controller = MockMobileScannerController();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model, controller),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.unsupported,
+          errorDetails: MobileScannerErrorDetails(
+            message: 'This device does not support scanning',
+          ),
+        ),
+      );
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
+      (tester.widget(find.byType(MobileScanner)) as MobileScanner)
+          .controller!
+          .start();
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws MobileScannerException',
+        (tester) async {
+      final controller = MockMobileScannerController();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model, controller),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      when(controller.barcodes).thenAnswer(
+        (_) => Stream.fromIterable([
+          const BarcodeCapture(
+            barcodes: [
+              Barcode(
+                displayValue: 'qr?orgId=1&scan',
+                format: BarcodeFormat.qrCode,
+              ),
+            ],
+          ),
+        ]),
+      );
+
+      when(controller.stop()).thenThrow(
+        const MobileScannerException(
+          errorCode: MobileScannerErrorCode.genericError,
+          errorDetails: MobileScannerErrorDetails(
+            message: "Something went wrong while detecting the QR",
+          ),
+        ),
+      );
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
 
       (tester.widget(find.byType(MobileScanner)) as MobileScanner)
           .controller!
@@ -306,14 +920,14 @@ Future<void> main() async {
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws QrEmbeddedImageException',
         (tester) async {
+      final controller = MockMobileScannerController();
       await tester.pumpWidget(
         MaterialApp(
-          home: TestWidget(model),
+          home: TestWidget(model, controller),
           navigatorKey: navigationService.navigatorKey,
         ),
       );
 
-      final controller = MockMobileScannerController();
       when(controller.barcodes).thenAnswer(
         (_) => Stream.fromIterable([
           const BarcodeCapture(
@@ -332,6 +946,9 @@ Future<void> main() async {
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
       (tester.widget(find.byType(MobileScanner)) as MobileScanner)
           .controller!
           .start();
@@ -339,14 +956,14 @@ Future<void> main() async {
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws QrUnsupportedVersionException',
         (tester) async {
+      final controller = MockMobileScannerController();
       await tester.pumpWidget(
         MaterialApp(
-          home: TestWidget(model),
+          home: TestWidget(model, controller),
           navigatorKey: navigationService.navigatorKey,
         ),
       );
 
-      final controller = MockMobileScannerController();
       when(controller.barcodes).thenAnswer(
         (_) => Stream.fromIterable([
           const BarcodeCapture(
@@ -365,6 +982,9 @@ Future<void> main() async {
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
       (tester.widget(find.byType(MobileScanner)) as MobileScanner)
           .controller!
           .start();
@@ -372,14 +992,14 @@ Future<void> main() async {
     testWidgets(
         'Check if _onQRViewCreated() is working fine when throws Exception',
         (tester) async {
+      final controller = MockMobileScannerController();
       await tester.pumpWidget(
         MaterialApp(
-          home: TestWidget(model),
+          home: TestWidget(model, controller),
           navigatorKey: navigationService.navigatorKey,
         ),
       );
 
-      final controller = MockMobileScannerController();
       when(controller.barcodes).thenAnswer(
         (_) => Stream.fromIterable([
           const BarcodeCapture(
@@ -397,9 +1017,102 @@ Future<void> main() async {
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 
+      expect(find.byType(MobileScanner), findsOneWidget);
+      expect(find.byType(Text), findsOneWidget);
+
       (tester.widget(find.byType(MobileScanner)) as MobileScanner)
           .controller!
           .start();
     });
   });
+}
+
+class BarcodeScannerTestWidget extends StatefulWidget {
+  @override
+  _BarcodeScannerTestWidgetState createState() =>
+      _BarcodeScannerTestWidgetState();
+}
+
+class _BarcodeScannerTestWidgetState extends State<BarcodeScannerTestWidget> {
+  String? detectedBarcode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          MobileScanner(
+            controller: MobileScannerController(),
+            onDetect: (barcode) {
+              setState(() {
+                detectedBarcode = barcode
+                    .barcodes.first.displayValue; // Update the detected barcode
+              });
+            },
+          ),
+          if (detectedBarcode != null) Text('Detected: $detectedBarcode'),
+        ],
+      ),
+    );
+  }
+}
+
+class BarcodeScannerErrorTestWidget extends StatefulWidget {
+  @override
+  _BarcodeScannerErrorTestWidgetState createState() =>
+      _BarcodeScannerErrorTestWidgetState();
+}
+
+class _BarcodeScannerErrorTestWidgetState
+    extends State<BarcodeScannerErrorTestWidget> {
+  String? errorMessage;
+
+  String _onDetectError(Object error) {
+    String errorMsg = 'An unknown error occurred';
+
+    if (error is MobileScannerException) {
+      debugPrint(error.errorCode.toString());
+      switch (error.errorCode) {
+        case MobileScannerErrorCode.controllerDisposed:
+          errorMsg = 'Camera is disposed';
+          break;
+        case MobileScannerErrorCode.controllerAlreadyInitialized:
+          errorMsg = 'Camera is already in use';
+          break;
+        case MobileScannerErrorCode.controllerUninitialized:
+          errorMsg = 'Camera is not ready';
+          break;
+        case MobileScannerErrorCode.permissionDenied:
+          errorMsg = 'Please provide camera permission to scan QR code';
+          break;
+        case MobileScannerErrorCode.unsupported:
+          errorMsg = 'This device does not support scanning';
+          break;
+        case MobileScannerErrorCode.genericError:
+          errorMsg = 'Something went wrong while detecting the QR';
+          break;
+        default:
+          errorMsg = 'An unknown error occurred';
+      }
+    }
+    return errorMsg;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          MobileScanner(
+            controller: MobileScannerController(),
+            onDetect: (barcode) {},
+            errorBuilder: (context, error, child) {
+              final errorMsg = _onDetectError(error);
+              return Text('Error: $errorMsg');
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
