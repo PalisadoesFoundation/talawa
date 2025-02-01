@@ -45,7 +45,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_reaction_button: ^3.0.0+3
-  flutter_secure_storage: ^9.2.2
+  flutter_secure_storage: ^9.2.4
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.16
   font_awesome_flutter: ^10.8.0
