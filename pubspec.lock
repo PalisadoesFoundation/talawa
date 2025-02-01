@@ -1265,10 +1265,10 @@ packages:
     dependency: "direct main"
     description:
       name: quick_actions
-      sha256: "2c1d9a91f3218b4e987a7e1e95ba0415b7f48a2cb3ffacc027a1e3d3c117223f"
+      sha256: "7e35dd6a21f5bbd21acf6899039eaf85001a5ac26d52cbd6a8a2814505b90798"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.8"
+    version: "1.1.0"
   quick_actions_android:
     dependency: transitive
     description:
@@ -1281,18 +1281,18 @@ packages:
     dependency: transitive
     description:
       name: quick_actions_ios
-      sha256: dd355101d0e9fef6176fa2ae2bf738bcafa8df09a1e17057fcb56475719793de
+      sha256: "837b7e6b5973784d3da56b8c959b446b215914f20405d88cd7d22a2fb94e4e4c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.10"
+    version: "1.2.0"
   quick_actions_platform_interface:
     dependency: transitive
     description:
       name: quick_actions_platform_interface
-      sha256: "81a1e40c519bb3cacfec38b3008b13cef665a75bd270da94f40091b57f0f9236"
+      sha256: "1fec7068db5122cd019e9340d3d7be5d36eab099695ef3402c7059ee058329a4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.1.0"
   rxdart:
     dependency: transitive
     description:
