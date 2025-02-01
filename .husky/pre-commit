@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "Generating documentation..."
+npm run generate-docs
+echo "Documentation generated."
+
+# Calling HTML to MD conversion script
+echo "Running HTML to Markdown conversion..."
+.husky/scripts/convert_html_to_md.sh 
+
+# Removing unwanted files to clear space
+rm -rf "docs/temp-docs"
+find docs/docs/auto-docs -name '*.html' -delete
+find docs/docs/auto-docs -name 'README.md' -delete
+
+echo "Adding updated Markdown files to commit..."
+git add docs/docs/auto-docs/

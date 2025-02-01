@@ -1,0 +1,2 @@
+1.  [Classes](views_after_auth_screens_events_manage_volunteer_group/#classes)
+2.  [ManageGroupScreen](views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html)
