@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/app_strings.dart';
 import 'package:talawa/enums/enums.dart';
@@ -286,7 +286,6 @@ class SetUrlViewModel extends BaseModel {
           orgId = queries[0].split('=')[1];
           Vibration.vibrate(duration: 100);
           controller.stopCamera();
-          controller.dispose();
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");

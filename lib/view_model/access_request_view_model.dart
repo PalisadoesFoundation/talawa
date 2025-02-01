@@ -44,7 +44,7 @@ class AccessScreenViewModel extends BaseModel {
     );
     if (result.data != null) {
       final OrgInfo membershipRequest = OrgInfo.fromJson(
-        ((result.data!)['sendMembershipRequest']
+        (result.data!['sendMembershipRequest']
             as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
       );
       userConfig.updateUserMemberRequestOrg([membershipRequest]);

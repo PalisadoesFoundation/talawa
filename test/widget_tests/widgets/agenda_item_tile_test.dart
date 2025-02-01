@@ -347,7 +347,7 @@ void main() {
           find.byWidgetPredicate(
             (widget) =>
                 widget is ColoredBox &&
-                widget.color == Colors.black.withOpacity(0.5),
+                widget.color == Colors.black.withAlpha((0.5 * 255).toInt()),
           ),
           findsOneWidget,
         );

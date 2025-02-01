@@ -99,7 +99,7 @@ class OrganisationInfoScreen extends StatelessWidget {
                       height: imageHeight,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.55),
+                        color: Colors.black.withAlpha((0.55 * 255).toInt()),
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(20.0),
                           bottomRight: Radius.circular(20.0),
@@ -341,7 +341,7 @@ class OrganisationInfoScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey.withAlpha((0.5 * 255).toInt()),
                         spreadRadius: 1,
                         blurRadius:
                             Theme.of(context).brightness == Brightness.dark
