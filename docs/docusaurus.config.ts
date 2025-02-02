@@ -60,7 +60,7 @@ const config: Config = {
       title: "Talawa",
       logo: {
         alt: "Talawa Logo",
-        src: "img/icons/favicon_palisadoes.ico",
+        src: "img/icons/logo.png",
       },
       items: [
         {
