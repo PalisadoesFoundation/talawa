@@ -70,10 +70,10 @@ const config: Config = {
           target: '_self',
         },
         {
+          to: '/docs',
+          activeBasePath: 'docs',
           label: 'Mobile Guide',
           position: 'left',
-          href: '/docs',
-          target: '_self',
         },
         {
           label: 'Admin Guide',
