@@ -6,8 +6,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "Talawa Mobile Documentation",
-  tagline: "Start your open source journey here",
-  favicon: "img/favicon.ico",
+  tagline: "Complete guides and references for building with Talawa Mobile",
+  favicon: "img/icons/logo.png",
 
   url: "https://docs-mobile.talawa.io",
   baseUrl: "/",
@@ -61,6 +61,8 @@ const config: Config = {
       logo: {
         alt: "Talawa Logo",
         src: "img/icons/logo.png",
+        href: 'https://docs.talawa.io/',
+        target: '_self',
       },
       items: [
         {

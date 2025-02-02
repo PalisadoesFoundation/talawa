@@ -568,6 +568,7 @@ a:hover {
   color: var(--primary-neutral-800);
   opacity: 1;
   text-align: center;
+  max-width: 70vw;
 }
 
 .HeaderHero .buttons {
