@@ -70,8 +70,8 @@ dependencies:
   shared_preferences: ^2.3.3
   shimmer: ^3.0.0
   stack_trace: ^1.11.1
-  syncfusion_flutter_calendar: ^27.2.5
-  syncfusion_flutter_datepicker: ^27.2.5
+  syncfusion_flutter_calendar: ^28.2.3
+  syncfusion_flutter_datepicker: ^28.2.3
   timelines_plus: ^1.0.6
   tutorial_coach_mark: ^1.2.12
   url_launcher: ^6.3.1
