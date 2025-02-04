@@ -14,7 +14,9 @@ name: PUSH Workflow - Website Deployment
 on:
   push:
     branches:
-      - 'develop-postgres'   
+      - 'develop-postgres'
+    paths:
+      - docs/**
       
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
