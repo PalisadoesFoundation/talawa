@@ -23,9 +23,9 @@ void updateAdminFor
 ## Implementation
 
 ```dart
-void updateAdminFor(List<OrgInfo> orgList) {
+void updateAdminFor(List<OrgInfo> orgList) \{
   this.adminFor = orgList;
-}
+\}
 ```
 
 

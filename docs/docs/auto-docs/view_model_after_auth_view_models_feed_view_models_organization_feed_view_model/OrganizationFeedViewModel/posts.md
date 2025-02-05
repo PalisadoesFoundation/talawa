@@ -23,13 +23,13 @@
 ## Implementation
 
 ```dart
-List<Post> get posts {
-  // if (istest) {
+List<Post> get posts \{
+  // if (istest) \{
   //   _posts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   //   return _posts;
-  // }
+  // \}
   return _posts;
-}
+\}
 ```
 
 

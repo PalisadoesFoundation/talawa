@@ -9,7 +9,7 @@
 
 
 const
-IndividualPostCommentSection({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Comments](../../models_post_post_model/Comments-class.md)> comments, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) postID})
+IndividualPostCommentSection(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Comments](../../models_post_post_model/Comments-class.md)> comments, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) postID\})
 
 
 
@@ -18,11 +18,11 @@ IndividualPostCommentSection({[Key](https://api.flutter.dev/flutter/foundation/K
 ## Implementation
 
 ```dart
-const IndividualPostCommentSection({
+const IndividualPostCommentSection(\{
   Key? key,
   required this.comments,
   required this.postID,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

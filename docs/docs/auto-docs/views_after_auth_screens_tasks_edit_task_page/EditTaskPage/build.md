@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_tasks_edit_task_page/EditTaskPage/build.md">build</a> method is to depend on anything else, use a
@@ -58,19 +58,19 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<CreateTaskViewModel>(
     onModelReady: (model) => model.fillTask(task),
-    builder: (context, model, _) {
+    builder: (context, model, _) \{
       // renders custom widget TaskForm, you can explore TaskForm widget [here](/widgets/task_form.dart).
       return TaskForm(
         onSave: () => model.editTask(task.id),
         title: 'Edit Task',
         actionText: 'Update',
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

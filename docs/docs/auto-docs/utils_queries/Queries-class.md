@@ -78,7 +78,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 
 
-<code>createDonation</code> creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters  
+```dartcreateDonation``` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters  
 
 
 
@@ -105,7 +105,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 
 
-<code>getPluginList</code> queries all properties of  pluginList from the server  
+```dartgetPluginList``` queries all properties of  pluginList from the server  
 
 
 

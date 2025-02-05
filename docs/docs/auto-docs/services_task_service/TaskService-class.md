@@ -14,11 +14,11 @@
 <p>PostService class provides functions in the context of a Task.</p>
 <p>Services include:</p>
 <ul>
-<li><code>getTasksForEvent</code> : to get the task for the event.</li>
-<li><code>getTasksByUser</code> : to get the task added by the user.</li>
-<li><code>editTask</code> : to edit the task added by the user.</li>
-<li><code>createTask</code> : to create the task for the event.</li>
-<li><code>deleteTask</code> : to delete the task added by the user.</li>
+<li>```dartgetTasksForEvent``` : to get the task for the event.</li>
+<li>```dartgetTasksByUser``` : to get the task added by the user.</li>
+<li>```darteditTask``` : to edit the task added by the user.</li>
+<li>```dartcreateTask``` : to create the task for the event.</li>
+<li>```dartdeleteTask``` : to delete the task added by the user.</li>
 </ul>
 
 
@@ -73,7 +73,7 @@ _<span class="feature">read-only</span>_
 
 ## Methods
 
-##### [createTask](../services_task_service/TaskService/createTask.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)>
+##### [createTask](../services_task_service/TaskService/createTask.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)>
 
 
 
@@ -91,7 +91,7 @@ This function is used to delete a task.
 
 
 
-##### [editTask](../services_task_service/TaskService/editTask.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)>
+##### [editTask](../services_task_service/TaskService/editTask.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)>
 
 
 

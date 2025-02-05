@@ -9,7 +9,7 @@
 
 
 const
-CustomProgressDialog({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+CustomProgressDialog(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ CustomProgressDialog({required [Key](https://api.flutter.dev/flutter/foundation/
 ## Implementation
 
 ```dart
-const CustomProgressDialog({required Key key}) : super(key: key);
+const CustomProgressDialog(\{required Key key\}) : super(key: key);
 ```
 
 

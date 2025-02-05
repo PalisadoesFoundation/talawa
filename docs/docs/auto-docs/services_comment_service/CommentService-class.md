@@ -14,8 +14,8 @@
 <p>CommentService class have different member functions which provides service in the context of commenting.</p>
 <p>Services include:</p>
 <ul>
-<li><code>createComments</code> - used to add comment on the post.</li>
-<li><code>getCommentsForPost</code> - used to get all comments on the post.</li>
+<li>```dartcreateComments``` - used to add comment on the post.</li>
+<li>```dartgetCommentsForPost``` - used to get all comments on the post.</li>
 </ul>
 
 

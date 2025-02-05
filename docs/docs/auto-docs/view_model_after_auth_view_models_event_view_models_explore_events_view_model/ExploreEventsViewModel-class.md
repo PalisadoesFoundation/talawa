@@ -14,11 +14,11 @@
 <p>ExploreEventsViewModel class helps to interact with model to serve data to view for event explore section.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>fetchNewEvents</code> : to fetch new events in the organization.</li>
-<li><code>refreshEvents</code> : to refersh the event.</li>
-<li><code>checkIfExistsAndAddNewEvent</code> : to check if the event exists or not, if now add a new event.</li>
-<li><code>deleteEvent</code> : to delete the event.</li>
-<li><code>choseValueFromDropdown</code> : to return the relevant message in the dropdown after any action.</li>
+<li>```dartfetchNewEvents``` : to fetch new events in the organization.</li>
+<li>```dartrefreshEvents``` : to refersh the event.</li>
+<li>```dartcheckIfExistsAndAddNewEvent``` : to check if the event exists or not, if now add a new event.</li>
+<li>```dartdeleteEvent``` : to delete the event.</li>
+<li>```dartchoseValueFromDropdown``` : to return the relevant message in the dropdown after any action.</li>
 </ul>
 
 
@@ -159,7 +159,7 @@ return the filter events, if empty list then return relevant message.
 
 
 
-##### [deleteEvent](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/deleteEvent.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
+##### [deleteEvent](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel/deleteEvent.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
 
 
 
@@ -184,7 +184,7 @@ _<span class="feature">override</span>_
 
 
 This function is used to fetch new events in the organization.
-The function uses <code>getEvents</code> method from <code>EventService</code>.  
+The function uses ```dartgetEvents``` method from ```dartEventService```.  
 
 
 
@@ -221,7 +221,7 @@ _<span class="feature">inherited</span>_
 
 
 This function is used to refresh the events in the organization.
-The function uses <code>getEvents</code> method from <code>EventService</code>.  
+The function uses ```dartgetEvents``` method from ```dartEventService```.  
 
 
 

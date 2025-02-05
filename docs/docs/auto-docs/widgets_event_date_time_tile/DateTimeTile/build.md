@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_event_date_time_tile/DateTimeTile/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return Container(
     color: Theme.of(context).colorScheme.primaryContainer,
     height: SizeConfig.screenHeight! * 0.068,
@@ -78,9 +78,9 @@ Widget build(BuildContext context) {
           ),
           InkWell(
             key: const Key('EventDateTimeTileDate'),
-            onTap: () async {
+            onTap: () async \{
               setDate();
-            },
+            \},
             child: Text(
               date,
               style: const TextStyle(fontSize: 16),
@@ -97,9 +97,9 @@ Widget build(BuildContext context) {
           ),
           InkWell(
             key: const Key('EventDateTimeTileTime'),
-            onTap: () async {
+            onTap: () async \{
               setTime();
-            },
+            \},
             child: Text(
               time,
               style: const TextStyle(fontSize: 16),
@@ -109,7 +109,7 @@ Widget build(BuildContext context) {
       ),
     ),
   );
-}
+\}
 ```
 
 

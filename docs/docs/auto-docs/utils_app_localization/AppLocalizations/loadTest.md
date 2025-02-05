@@ -23,9 +23,9 @@
 ## Implementation
 
 ```dart
-Future<AppLocalizations> loadTest(Locale locale) async {
+Future<AppLocalizations> loadTest(Locale locale) async \{
   return AppLocalizations(locale);
-}
+\}
 ```
 
 

@@ -22,7 +22,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>String</code>: The query related to addingLike</li>
+<li>```dartString```: The query related to addingLike</li>
 </ul>
 
 
@@ -30,16 +30,16 @@
 ## Implementation
 
 ```dart
-String addLike() {
+String addLike() \{
   return """
-   mutation likePost(\$postID: ID!) {
+   mutation likePost(\$postID: ID!) \{
     likePost( id: \$postID,)
-    {
+    \{
       _id
-    }
-  }
+    \}
+  \}
 """;
-}
+\}
 ```
 
 

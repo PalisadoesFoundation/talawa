@@ -9,7 +9,7 @@
 
 
 const
-Login({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+Login(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ Login({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)
 ## Implementation
 
 ```dart
-const Login({required Key key}) : super(key: key);
+const Login(\{required Key key\}) : super(key: key);
 ```
 
 

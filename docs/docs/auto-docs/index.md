@@ -6,11 +6,11 @@
 
 <h1 id="talawa">Talawa</h1>
 <p><a href="https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-201rfrnid-TTDT4fPjdVEhnHGeYJ6uSw">💬 Join the community on Slack</a></p>
-<p><img src="https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png" alt="talawa-logo-lite-200x200"></p>
-<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
-<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&amp;label=Star&amp;maxAge=2592000" alt="GitHub stars"></a>
-<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&amp;label=Fork&amp;maxAge=2592000" alt="GitHub forks"></a>
-<a href="https://codecov.io/gh/PalisadoesFoundation/talawa"><img src="https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S" alt="codecov"></a></p>
+<p><img src="https://raw.githubusercontent.com/PalisadoesFoundation/talawa/develop/assets/images/talawa-logo-lite-200x200.png" alt="talawa-logo-lite-200x200"/></p>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"/></a>
+<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&amp;label=Star&amp;maxAge=2592000" alt="GitHub stars"/></a>
+<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&amp;label=Fork&amp;maxAge=2592000" alt="GitHub forks"/></a>
+<a href="https://codecov.io/gh/PalisadoesFoundation/talawa"><img src="https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S" alt="codecov"/></a></p>
 <p><strong>Talawa</strong> is a comprehensive platform that aims to revolutionize the way organizations manage and interact with their data and content. Talawa empowers administrators to access and manage content with ease through the Talawa Admin interface, ensuring that information remains up-to-date and accessible to the platform's members.</p>
 <p>With the Talawa API facilitating smooth communication between all parts of the platform, Talawa offers a cohesive and exceptional user experience for both administrators and members, making it a powerful tool for data management and content delivery seamlessly. Talawa is a modular open source project to manage group activities of both non-profit organizations and businesses.</p>
 <p>Core features include:</p>
@@ -21,9 +21,9 @@
 <li>Recurring meetings</li>
 <li>Facilities registrations</li>
 </ol>
-<p><code>talawa</code> is based on the original <code>quito</code> code created by the <a href="http://www.palisadoes.org">Palisadoes Foundation</a> as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit <a href="http://www.palisadoes.org/">The Palisadoes Foundation's website</a> for more details on its origin and activities.</p>
+<p>```darttalawa``` is based on the original ```dartquito``` code created by the <a href="http://www.palisadoes.org">Palisadoes Foundation</a> as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit <a href="http://www.palisadoes.org/">The Palisadoes Foundation's website</a> for more details on its origin and activities.</p>
 <h1 id="talawa-components">Talawa Components</h1>
-<p><code>talawa</code> has these major software components:</p>
+<p>```darttalawa``` has these major software components:</p>
 <ol>
 <li><strong>talawa</strong>: <a href="https://github.com/PalisadoesFoundation/talawa">A mobile application with social media features</a></li>
 <li><strong>talawa-api</strong>: <a href="https://github.com/PalisadoesFoundation/talawa-api">An API providing access to user data and features</a></li>
@@ -31,7 +31,7 @@
 <li><strong>talawa-docs</strong>: <a href="https://github.com/PalisadoesFoundation/talawa-docs">The online documentation website</a></li>
 </ol>
 <h1 id="documentation">Documentation</h1>
-<p>Get familiar with <code>talawa</code>:</p>
+<p>Get familiar with ```darttalawa```:</p>
 <ol>
 <li>Read our <a href="https://github.com/PalisadoesFoundation/talawa/blob/develop/INSTALLATION.md">Talawa Mobile App installation guide</a> to get setup quickly.</li>
 <li>The complete talawa documentation set can be found <a href="https://docs.talawa.io">here</a>.</li>

@@ -9,7 +9,7 @@
 
 
 const
-AppLocalizationsDelegate({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false})
+AppLocalizationsDelegate(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
 
 
@@ -18,9 +18,9 @@ AppLocalizationsDelegate({[bool](https://api.flutter.dev/flutter/dart-core/bool-
 ## Implementation
 
 ```dart
-const AppLocalizationsDelegate({
+const AppLocalizationsDelegate(\{
   this.isTest = false,
-});
+\});
 ```
 
 

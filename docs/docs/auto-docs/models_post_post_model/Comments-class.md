@@ -18,7 +18,7 @@
 
 ## Constructors
 
-[Comments](../models_post_post_model/Comments/Comments.md) ({[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId})
+[Comments](../models_post_post_model/Comments/Comments.md) (\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId\})
 
    
 

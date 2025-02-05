@@ -34,19 +34,19 @@ the results are currently shown.</p>
 
 ```dart
 @override
-List<Widget> buildActions(BuildContext context) {
+List<Widget> buildActions(BuildContext context) \{
   /// Returns an icon button which closes the search page and returns
   /// to the underlying route if the query is empty. Otherwise it sets the
   /// query empty.
   return [
     IconButton(
-      onPressed: () {
+      onPressed: () \{
         query.isNotEmpty ? query = '' : close(context, eventList.first);
-      },
+      \},
       icon: const Icon(Icons.clear),
     )
   ];
-}
+\}
 ```
 
 

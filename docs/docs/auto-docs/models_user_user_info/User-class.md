@@ -33,11 +33,11 @@
 
 ## Constructors
 
-[User](../models_user_user_info/User/User.md) ({[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? adminFor, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? createdOrganizations, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? email, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? joinedOrganizations, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? lastName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? authToken, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? refreshToken, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? membershipRequests})
+[User](../models_user_user_info/User/User.md) (\{[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? adminFor, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? createdOrganizations, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? email, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? joinedOrganizations, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? lastName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? authToken, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? refreshToken, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../models_organization_org_info/OrgInfo-class.md)>? membershipRequests\})
 
    
 
-[User.fromJson](../models_user_user_info/User/User.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromOrg = false})
+[User.fromJson](../models_user_user_info/User/User.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromOrg = false\})
 
    _factory_
 
@@ -66,7 +66,7 @@ _<span class="feature">read / write</span>_
 
 
 
-Get the box in which this object is stored. Returns <code>null</code> if object has
+Get the box in which this object is stored. Returns ```dartnull``` if object has
 not been added to a box yet.  
 _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
@@ -148,7 +148,7 @@ _<span class="feature">read / write</span>_
 
 
 
-Get the key associated with this object. Returns <code>null</code> if object has
+Get the key associated with this object. Returns ```dartnull``` if object has
 not been added to a box yet.  
 _<span class="feature">read-only</span><span class="feature">inherited</span>_
 

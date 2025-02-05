@@ -9,7 +9,7 @@
 
 
 const
-AppSettingsPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+AppSettingsPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ AppSettingsPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html
 ## Implementation
 
 ```dart
-const AppSettingsPage({Key? key}) : super(key: key);
+const AppSettingsPage(\{Key? key\}) : super(key: key);
 ```
 
 

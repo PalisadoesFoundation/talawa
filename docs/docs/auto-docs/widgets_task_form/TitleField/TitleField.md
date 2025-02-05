@@ -9,7 +9,7 @@
 
 
 const
-TitleField({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+TitleField(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ TitleField({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? ke
 ## Implementation
 
 ```dart
-const TitleField({Key? key}) : super(key: key);
+const TitleField(\{Key? key\}) : super(key: key);
 ```
 
 

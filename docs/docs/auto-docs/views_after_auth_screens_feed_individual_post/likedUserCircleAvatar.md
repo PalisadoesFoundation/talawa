@@ -26,7 +26,7 @@
 ## Implementation
 
 ```dart
-Widget likedUserCircleAvatar(LikedBy user) {
+Widget likedUserCircleAvatar(LikedBy user) \{
   return Padding(
     padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
     child: Stack(
@@ -51,7 +51,7 @@ Widget likedUserCircleAvatar(LikedBy user) {
       ],
     ),
   );
-}
+\}
 ```
 
 

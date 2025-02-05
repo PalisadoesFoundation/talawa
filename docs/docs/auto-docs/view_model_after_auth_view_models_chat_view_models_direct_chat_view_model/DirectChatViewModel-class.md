@@ -14,9 +14,9 @@
 <p>This ViewModel class have different functions that are used interact with model in the context of Direct Chat.</p>
 <p>Functions include:</p>
 <ul>
-<li><code>initialise</code> : Initialise the states.</li>
-<li><code>getChatMessages</code> : to get all the messages of a chat.</li>
-<li><code>sendMessageToDirectChat</code> : to send the message to chat.</li>
+<li>```dartinitialise``` : Initialise the states.</li>
+<li>```dartgetChatMessages``` : to get all the messages of a chat.</li>
+<li>```dartsendMessageToDirectChat``` : to send the message to chat.</li>
 </ul>
 
 

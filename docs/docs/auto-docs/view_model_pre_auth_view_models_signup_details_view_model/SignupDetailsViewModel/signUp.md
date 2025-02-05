@@ -18,24 +18,24 @@
 
 
 <p>This function is used to sign up the user into the application by passing the data to database query.
-The function uses <code>gqlNonAuthMutation</code> method provided by <code>databaseFunctions</code> services.</p>
+The function uses ```dartgqlNonAuthMutation``` method provided by ```dartdatabaseFunctions``` services.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> signUp() async {
+Future<void> signUp() async \{
   FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
   setState(ViewState.busy);
   validate = AutovalidateMode.always;
   setState(ViewState.idle);
-  if (formKey.currentState!.validate()) {
+  if (formKey.currentState!.validate()) \{
     validate = AutovalidateMode.disabled;
     navigationService
         .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
     databaseFunctions.init();
-    try {
+    try \{
       final result = await databaseFunctions.gqlNonAuthMutation(
         queries.registerUser(
           firstName.text,
@@ -45,16 +45,16 @@ Future<void> signUp() async {
         ),
       );
       navigationService.pop();
-      if (result != null) {
+      if (result != null) \{
         final User signedInUser =
             User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
         final bool userSaved = await userConfig.updateUser(signedInUser);
         final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
         // if user successfully saved and access token is also generated.
-        if (userSaved && tokenRefreshed) {
+        if (userSaved && tokenRefreshed) \{
           // if the selected organization is public.
-          if (selectedOrganization.isPublic!) {
-            try {
+          if (selectedOrganization.isPublic!) \{
+            try \{
               final QueryResult result =
                   await databaseFunctions.gqlAuthMutation(
                 queries.joinOrgById(selectedOrganization.id!),
@@ -75,15 +75,15 @@ Future<void> signUp() async {
                 arguments:
                     MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
               );
-            } on Exception catch (e) {
+            \} on Exception catch (e) \{
               print(e);
               navigationService.showTalawaErrorSnackBar(
                 'SomeThing went wrong',
                 MessageType.error,
               );
-            }
-          } else {
-            try {
+            \}
+          \} else \{
+            try \{
               final QueryResult result =
                   await databaseFunctions.gqlAuthMutation(
                 queries.sendMembershipRequest(selectedOrganization.id!),
@@ -99,25 +99,25 @@ Future<void> signUp() async {
                 Routes.waitingScreen,
                 Routes.splashScreen,
               );
-            } on Exception catch (e) {
+            \} on Exception catch (e) \{
               print(e);
               navigationService.showTalawaErrorSnackBar(
                 'SomeThing went wrong',
                 MessageType.error,
               );
-            }
-          }
-        }
-      }
-    } on Exception catch (e) {
+            \}
+          \}
+        \}
+      \}
+    \} on Exception catch (e) \{
       print(e);
       navigationService.showTalawaErrorSnackBar(
         'SomeThing went wrong',
         MessageType.error,
       );
-    }
-  }
-}
+    \}
+  \}
+\}
 ```
 
 

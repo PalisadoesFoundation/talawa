@@ -23,17 +23,17 @@
 ## Implementation
 
 ```dart
-String deleteEvent(String id) {
+String deleteEvent(String id) \{
   return """
-    mutation {
+    mutation \{
       removeEvent(
         id: "$id",
-        ){
+        )\{
           _id
-        }
-      }
+        \}
+      \}
   """;
-}
+\}
 ```
 
 

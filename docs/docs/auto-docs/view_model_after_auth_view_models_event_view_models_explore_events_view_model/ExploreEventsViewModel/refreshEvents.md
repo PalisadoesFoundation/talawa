@@ -18,20 +18,20 @@
 
 
 <p>This function is used to refresh the events in the organization.
-The function uses <code>getEvents</code> method from <code>EventService</code>.</p>
+The function uses ```dartgetEvents``` method from ```dartEventService```.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> refreshEvents() async {
+Future<void> refreshEvents() async \{
   setState(ViewState.busy);
   _events.clear();
   _uniqueEventIds.clear();
   await _eventService.getEvents();
   setState(ViewState.idle);
-}
+\}
 ```
 
 

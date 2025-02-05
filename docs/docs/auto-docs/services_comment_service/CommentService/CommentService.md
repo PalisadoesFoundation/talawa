@@ -18,9 +18,9 @@ CommentService()
 ## Implementation
 
 ```dart
-CommentService() {
+CommentService() \{
   _dbFunctions = locator<DataBaseMutationFunctions>();
-}
+\}
 ```
 
 

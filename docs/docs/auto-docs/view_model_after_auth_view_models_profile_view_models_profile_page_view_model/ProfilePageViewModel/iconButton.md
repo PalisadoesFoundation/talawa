@@ -20,8 +20,8 @@
 <p>This widget returns the button for social media sharing option.</p>
 <p>params:</p>
 <ul>
-<li><code>icon</code> : This is <code>Widget</code> type with icon details.</li>
-<li><code>onTap</code> : This is <code>Function</code>, which invoke on tap.</li>
+<li>```darticon``` : This is ```dartWidget``` type with icon details.</li>
+<li>```dartonTap``` : This is ```dartFunction```, which invoke on tap.</li>
 </ul>
 
 
@@ -29,19 +29,19 @@
 ## Implementation
 
 ```dart
-Widget iconButton(Widget icon, Function onTap) {
+Widget iconButton(Widget icon, Function onTap) \{
   return Stack(
     children: [
       IconButton(
-        onPressed: () {
+        onPressed: () \{
           print('tapped');
           onTap();
-        },
+        \},
         icon: icon,
       ),
     ],
   );
-}
+\}
 ```
 
 

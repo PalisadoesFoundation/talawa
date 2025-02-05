@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>TextEditingController</code>: The text controller of the title body</li>
+<li>```dartTextEditingController```: The text controller of the title body</li>
 </ul>
 
 

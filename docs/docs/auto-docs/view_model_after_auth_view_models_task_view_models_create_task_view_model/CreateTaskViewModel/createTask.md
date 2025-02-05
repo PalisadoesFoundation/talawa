@@ -18,10 +18,10 @@
 
 
 <p>This function creates a new task for an event.
-The function uses <code>createTask</code> method provided by Task Services.</p>
+The function uses ```dartcreateTask``` method provided by Task Services.</p>
 <p>params:</p>
 <ul>
-<li><code>eventId</code> : id of the event for which task need to be add.</li>
+<li>```darteventId``` : id of the event for which task need to be add.</li>
 </ul>
 
 
@@ -29,7 +29,7 @@ The function uses <code>createTask</code> method provided by Task Services.</p>
 ## Implementation
 
 ```dart
-Future<bool> createTask(String eventId) async {
+Future<bool> createTask(String eventId) async \{
   final deadline = DateTime(
     taskEndDate.year,
     taskEndDate.month,
@@ -43,7 +43,7 @@ Future<bool> createTask(String eventId) async {
     deadline: deadline.microsecondsSinceEpoch.toString(),
     eventId: eventId,
   );
-}
+\}
 ```
 
 

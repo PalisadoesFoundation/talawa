@@ -21,7 +21,7 @@ Task.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt
 ```dart
 factory Task.fromJson(
   Map<String, dynamic> json,
-) {
+) \{
   return Task(
     id: json['_id'] as String,
     title: json['title'] as String,
@@ -36,7 +36,7 @@ factory Task.fromJson(
     description: json['description'] as String?,
     deadline: json['deadline'] as String?,
   );
-}
+\}
 ```
 
 

@@ -18,11 +18,11 @@ ChatService()
 ## Implementation
 
 ```dart
-ChatService() {
+ChatService() \{
   _dbFunctions = locator<DataBaseMutationFunctions>();
   _chatListStream = _chatController.stream.asBroadcastStream();
   _chatMessagesStream = _chatMessageController.stream.asBroadcastStream();
-}
+\}
 ```
 
 

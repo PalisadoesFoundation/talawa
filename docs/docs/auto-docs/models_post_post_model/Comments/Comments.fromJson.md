@@ -17,7 +17,7 @@ Comments.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html
 None
 returns:</p>
 <ul>
-<li><code>Map&lt;String, dynamic&gt;</code>: Dart object is returned.</li>
+<li>```dartMap&lt;String, dynamic&gt;```: Dart object is returned.</li>
 </ul>
 
 
@@ -25,9 +25,9 @@ returns:</p>
 ## Implementation
 
 ```dart
-Comments.fromJson(Map<String, dynamic> json) {
+Comments.fromJson(Map<String, dynamic> json) \{
   sId = json['_id'] as String?;
-}
+\}
 ```
 
 

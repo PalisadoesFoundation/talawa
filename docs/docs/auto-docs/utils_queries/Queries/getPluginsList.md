@@ -17,27 +17,27 @@
 
 
 
-<p><code>getPluginList</code> queries all properties of  pluginList from the server</p>
+<p>```dartgetPluginList``` queries all properties of  pluginList from the server</p>
 
 
 
 ## Implementation
 
 ```dart
-String getPluginsList() {
+String getPluginsList() \{
   return '''
-query  {
-getPlugins {
+query  \{
+getPlugins \{
   _id
   pluginName
   pluginCreatedBy
   pluginDesc
   pluginInstallStatus
   installedOrgs
-}
-}
+\}
+\}
 ''';
-}
+\}
 ```
 
 

@@ -20,7 +20,7 @@ _<span class="feature">override</span>_
 
 <p>Called whenever the object needs to paint. The given <a href="https://api.flutter.dev/flutter/dart-ui/Canvas-class.html">Canvas</a> has its
 coordinate space configured such that the origin is at the top left of the
-box. The area of the box is the size of the <code>size</code> argument.</p>
+box. The area of the box is the size of the ```dartsize``` argument.</p>
 <p>Paint operations should remain inside the given area. Graphical
 operations outside the bounds may be silently ignored, clipped, or not
 clipped. It may sometimes be difficult to guarantee that a certain
@@ -58,7 +58,7 @@ obtain the correct rendering size.</p>
 
 ```dart
 @override
-void paint(Canvas canvas, Size size) {
+void paint(Canvas canvas, Size size) \{
   final Paint paint0Fill = Paint()..style = PaintingStyle.fill;
   paint0Fill.shader = ui.Gradient.linear(
       Offset(size.width * 0.6670000, size.height * 0.1670000),
@@ -160,7 +160,7 @@ void paint(Canvas canvas, Size size) {
     1
   ]);
   canvas.drawPath(path_3, paint3Fill);
-}
+\}
 ```
 
 

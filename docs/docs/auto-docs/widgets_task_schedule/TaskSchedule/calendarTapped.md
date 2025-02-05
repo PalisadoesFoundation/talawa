@@ -23,9 +23,9 @@ void calendarTapped
 ## Implementation
 
 ```dart
-void calendarTapped(CalendarTapDetails details) {
+void calendarTapped(CalendarTapDetails details) \{
   if (details.targetElement == CalendarElement.appointment ||
-      details.targetElement == CalendarElement.agenda) {
+      details.targetElement == CalendarElement.agenda) \{
     final Appointment appointmentDetails =
         details.appointments![0] as Appointment;
     final subjectText = appointmentDetails.subject;
@@ -63,8 +63,8 @@ void calendarTapped(CalendarTapDetails details) {
         ],
       ),
     );
-  }
-}
+  \}
+\}
 ```
 
 

@@ -18,10 +18,10 @@
 
 
 <p>This function add comment on the post.
-The function uses <code>createComments</code> method provided by Comment Service.</p>
+The function uses ```dartcreateComments``` method provided by Comment Service.</p>
 <p>params:</p>
 <ul>
-<li><code>msg</code> : text of the comment to add.</li>
+<li>```dartmsg``` : text of the comment to add.</li>
 </ul>
 
 
@@ -29,11 +29,11 @@ The function uses <code>createComments</code> method provided by Comment Service
 ## Implementation
 
 ```dart
-Future createComment(String msg) async {
+Future createComment(String msg) async \{
   print("comment viewModel called");
   await _commentService.createComments(_postID, msg);
   addCommentLocally(msg);
-}
+\}
 ```
 
 

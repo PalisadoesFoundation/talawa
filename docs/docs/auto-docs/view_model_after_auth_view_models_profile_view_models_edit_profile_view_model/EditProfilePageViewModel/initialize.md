@@ -23,10 +23,10 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize() {
+void initialize() \{
   imageFile = null;
   _multiMediaPickerService = locator<MultiMediaPickerService>();
-}
+\}
 ```
 
 

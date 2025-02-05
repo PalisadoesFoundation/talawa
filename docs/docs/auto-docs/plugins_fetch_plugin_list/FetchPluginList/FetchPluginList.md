@@ -19,9 +19,9 @@ FetchPluginList()
 ## Implementation
 
 ```dart
-FetchPluginList() {
+FetchPluginList() \{
   fetchList();
-}
+\}
 ```
 
 

@@ -20,7 +20,7 @@
 <p>This function add a new event if the event not exist.</p>
 <p>params:</p>
 <ul>
-<li><code>newEvent</code> : <code>Event</code> type variable containing data to create a new event.</li>
+<li>```dartnewEvent``` : ```dartEvent``` type variable containing data to create a new event.</li>
 </ul>
 
 
@@ -28,15 +28,15 @@
 ## Implementation
 
 ```dart
-Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
+Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async \{
   // checking if the `newEvent.id` is unique and not exist already.
   if ((!_uniqueEventIds.contains(newEvent.id)) &&
-      (newEvent.organization!.id == userConfig.currentOrg.id)) {
+      (newEvent.organization!.id == userConfig.currentOrg.id)) \{
     _uniqueEventIds.add(newEvent.id!);
     _parseEventDateTime(newEvent);
     notifyListeners();
-  }
-}
+  \}
+\}
 ```
 
 

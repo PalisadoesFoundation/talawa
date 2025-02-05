@@ -17,15 +17,15 @@
 
 
 
-<p>Shows a list of dropdown taken from  <code>model</code> and <code>context</code>.</p>
+<p>Shows a list of dropdown taken from  ```dartmodel``` and ```dartcontext```.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>model</code>: contains the events data</li>
-<li><code>context</code>: the overall context of UI</li>
+<li>```dartmodel```: contains the events data</li>
+<li>```dartcontext```: the overall context of UI</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Widget</code>: the dropdown</li>
+<li>```dartWidget```: the dropdown</li>
 </ul>
 
 
@@ -33,7 +33,7 @@
 ## Implementation
 
 ```dart
-Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
+Widget dropDownList(ExploreEventsViewModel model, BuildContext context) \{
   return DropdownButton<String>(
     key: homeModel?.keySECategoryMenu,
     value: model.chosenValue,
@@ -44,7 +44,7 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
       'Registered Events',
       'Public Events',
       'Private Events',
-    ].map<DropdownMenuItem<String>>((String value) {
+    ].map<DropdownMenuItem<String>>((String value) \{
       return DropdownMenuItem<String>(
         value: value,
         child: Text(
@@ -55,12 +55,12 @@ Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
               .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
-    }).toList(),
-    onChanged: (value) {
+    \}).toList(),
+    onChanged: (value) \{
       model.choseValueFromDropdown(value!);
-    },
+    \},
   );
-}
+\}
 ```
 
 

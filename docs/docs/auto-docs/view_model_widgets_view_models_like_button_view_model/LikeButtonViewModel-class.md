@@ -15,9 +15,9 @@
 to react to user's input for Like Button Widget.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>toggleIsLiked</code></li>
-<li><code>setIsLiked</code></li>
-<li><code>updatePost</code></li>
+<li>```darttoggleIsLiked```</li>
+<li>```dartsetIsLiked```</li>
+<li>```dartupdatePost```</li>
 </ul>
 
 
@@ -187,11 +187,11 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [setIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/setIsLiked.md)({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) val = true}) void
+##### [setIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/setIsLiked.md)(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) val = true\}) void
 
 
 
-This function set <code>_isLike</code> to true.  
+This function set ```dart_isLike``` to true.  
 
 
 

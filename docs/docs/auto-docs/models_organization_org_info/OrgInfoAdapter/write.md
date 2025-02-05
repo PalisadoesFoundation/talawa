@@ -26,7 +26,7 @@ _<span class="feature">override</span>_
 
 ```dart
 @override
-void write(BinaryWriter writer, OrgInfo obj) {
+void write(BinaryWriter writer, OrgInfo obj) \{
   writer
     ..writeByte(8)
     ..writeByte(0)
@@ -45,7 +45,7 @@ void write(BinaryWriter writer, OrgInfo obj) {
     ..write(obj.isPublic)
     ..writeByte(7)
     ..write(obj.creatorInfo);
-}
+\}
 ```
 
 

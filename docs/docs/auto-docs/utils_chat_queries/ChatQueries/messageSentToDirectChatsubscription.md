@@ -24,22 +24,22 @@
 
 ```dart
 String get messageSentToDirectChatsubscription => '''
-    subscription{
-      messageSentToDirectChat{
+    subscription\{
+      messageSentToDirectChat\{
         _id
         messageContent
-        sender {
+        sender \{
             _id
             firstName
             image
-          }
-          receiver {
+          \}
+          receiver \{
             _id
             firstName
             image
-          }
-      }
-    }
+          \}
+      \}
+    \}
 ''';
 ```
 

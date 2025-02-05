@@ -18,10 +18,10 @@
 
 
 <p>This function perform graphQL query to check the user's language in the database.
-The function uses <code>gqlAuthQuery</code> method provided by Database Functions Services.</p>
+The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.</p>
 <p>params:</p>
 <ul>
-<li><code>userId</code> : user for which language need to be fetch.</li>
+<li>```dartuserId``` : user for which language need to be fetch.</li>
 </ul>
 
 
@@ -29,13 +29,13 @@ The function uses <code>gqlAuthQuery</code> method provided by Database Function
 ## Implementation
 
 ```dart
-Future<void> userLanguageQuery(String userId) async {
-  try {
+Future<void> userLanguageQuery(String userId) async \{
+  try \{
     await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
-  } catch (e) {
+  \} catch (e) \{
     print(e);
-  }
-}
+  \}
+\}
 ```
 
 

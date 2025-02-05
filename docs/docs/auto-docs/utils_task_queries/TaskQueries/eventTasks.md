@@ -24,23 +24,23 @@
 
 ```dart
 static String eventTasks(String eventId) => '''
-  query {
-    tasksByEvent(id: "$eventId") {
+  query \{
+    tasksByEvent(id: "$eventId") \{
       _id
       title
       description
       createdAt
       deadline
-      creator {
+      creator \{
         _id
         firstName
-      }
-      event {
+      \}
+      event \{
         _id
         title
-      }
-    }
-  }
+      \}
+    \}
+  \}
 ''';
 ```
 

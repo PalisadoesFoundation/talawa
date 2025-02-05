@@ -20,8 +20,8 @@
 <p>This widget returns button for domination.</p>
 <p>params:</p>
 <ul>
-<li><code>amount</code> : donation Amount.</li>
-<li><code>setter</code> : <code>Function</code> type, which on tap set the amount to <code>donationAmount</code>.</li>
+<li>```dartamount``` : donation Amount.</li>
+<li>```dartsetter``` : ```dartFunction``` type, which on tap set the amount to ```dartdonationAmount```.</li>
 </ul>
 
 
@@ -33,13 +33,13 @@ Widget dominationButton(
   String amount,
   BuildContext context,
   Function setter,
-) {
+) \{
   return InkWell(
-    onTap: () {
-      setter(() {
+    onTap: () \{
+      setter(() \{
         donationAmount.text = amount;
-      });
-    },
+      \});
+    \},
     child: Container(
       padding: EdgeInsets.symmetric(
         vertical: SizeConfig.screenHeight! * 0.02,
@@ -57,7 +57,7 @@ Widget dominationButton(
       ),
     ),
   );
-}
+\}
 ```
 
 

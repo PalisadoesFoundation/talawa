@@ -17,12 +17,12 @@
 
 
 
-<p>This function fetch all the users in the current organization and return <code>List</code>.</p>
+<p>This function fetch all the users in the current organization and return ```dartList```.</p>
 <p><strong>params</strong>:
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;List&lt;User&gt;&gt;</code>: Current Organization Users List</li>
+<li>```dartFuture&lt;List&lt;User&gt;&gt;```: Current Organization Users List</li>
 </ul>
 
 
@@ -30,20 +30,20 @@
 ## Implementation
 
 ```dart
-Future<List<User>> getCurrentOrgUsersList() async {
-  if (orgMembersList.isEmpty) {
+Future<List<User>> getCurrentOrgUsersList() async \{
+  if (orgMembersList.isEmpty) \{
     orgMembersList = await organizationService
         .getOrgMembersList(userConfig.currentOrg.id!);
-  }
+  \}
 
   // loop through list
-  orgMembersList.forEach((orgMember) {
+  orgMembersList.forEach((orgMember) \{
     _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-  });
+  \});
   // return list
   return orgMembersList;
-}
+\}
 ```
 
 

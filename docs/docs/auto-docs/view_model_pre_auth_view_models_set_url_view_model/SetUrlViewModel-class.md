@@ -15,13 +15,13 @@
 <p>and react to user's input for Set Url Section.
 Methods include:</p>
 <ul>
-<li><code>checkURLandNavigate</code></li>
-<li><code>scanQR</code></li>
-<li><code>initialise</code></li>
-<li><code>checkURLandNavigate</code></li>
-<li><code>checkURLandShowPopUp</code></li>
-<li><code>scanQR</code></li>
-<li><code>_onQRViewCreated</code></li>
+<li>```dartcheckURLandNavigate```</li>
+<li>```dartscanQR```</li>
+<li>```dartinitialise```</li>
+<li>```dartcheckURLandNavigate```</li>
+<li>```dartcheckURLandShowPopUp```</li>
+<li>```dartscanQR```</li>
+<li>```dart_onQRViewCreated```</li>
 </ul>
 
 
@@ -208,7 +208,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [initialise](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/initialise.md)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html) inviteUrl = ''}) void
+##### [initialise](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel/initialise.md)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html) inviteUrl = ''\}) void
 
 
 

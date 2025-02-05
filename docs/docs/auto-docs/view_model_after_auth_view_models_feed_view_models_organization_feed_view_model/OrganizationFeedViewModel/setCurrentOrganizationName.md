@@ -20,7 +20,7 @@ void setCurrentOrganizationName
 <p>This function sets the organization name after update.</p>
 <p>params:</p>
 <ul>
-<li><code>updatedOrganization</code> : updated organization name.</li>
+<li>```dartupdatedOrganization``` : updated organization name.</li>
 </ul>
 
 
@@ -28,16 +28,16 @@ void setCurrentOrganizationName
 ## Implementation
 
 ```dart
-void setCurrentOrganizationName(String updatedOrganization) {
+void setCurrentOrganizationName(String updatedOrganization) \{
   // if `updatedOrganization` is not same to `_currentOrgName`.
-  if (updatedOrganization != _currentOrgName) {
+  if (updatedOrganization != _currentOrgName) \{
     _posts.clear();
     _renderedPostID.clear();
     _currentOrgName = updatedOrganization;
     notifyListeners();
-  }
+  \}
   // _postService.getPosts();
-}
+\}
 ```
 
 

@@ -14,13 +14,13 @@
 <p>DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.</p>
 <p>Services include:</p>
 <ul>
-<li><code>encounteredExceptionOrError</code></li>
-<li><code>gqlAuthQuery</code></li>
-<li><code>gqlAuthMutation</code></li>
-<li><code>gqlNonAuthMutation</code></li>
-<li><code>gqlNonAuthQuery</code></li>
-<li><code>refreshAccessToken</code></li>
-<li><code>fetchOrgById</code></li>
+<li>```dartencounteredExceptionOrError```</li>
+<li>```dartgqlAuthQuery```</li>
+<li>```dartgqlAuthMutation```</li>
+<li>```dartgqlNonAuthMutation```</li>
+<li>```dartgqlNonAuthQuery```</li>
+<li>```dartrefreshAccessToken```</li>
+<li>```dartfetchOrgById```</li>
 </ul>
 
 
@@ -147,11 +147,11 @@ _<span class="feature">read / write</span>_
 
 ## Methods
 
-##### [encounteredExceptionOrError](../services_database_mutation_functions/DataBaseMutationFunctions/encounteredExceptionOrError.md)([OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/OperationException-class.html) exception, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) showSnackBar = true}) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?
+##### [encounteredExceptionOrError](../services_database_mutation_functions/DataBaseMutationFunctions/encounteredExceptionOrError.md)([OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/OperationException-class.html) exception, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) showSnackBar = true\}) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?
 
 
 
-This function is used to check if any exceptions or error encountered. The return type is <code>boolean</code>.  
+This function is used to check if any exceptions or error encountered. The return type is ```dartboolean```.  
 
 
 
@@ -160,12 +160,12 @@ This function is used to check if any exceptions or error encountered. The retur
 
 
 
-This function fetch the organization using the <code>id</code> passed.  
+This function fetch the organization using the ```dartid``` passed.  
 
 
 
 
-##### [gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) mutation, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) mutation, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -174,7 +174,7 @@ This function is used to run the graph-ql mutation for authenticated user.
 
 
 
-##### [gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -183,7 +183,7 @@ This function is used to run the graph-ql query for authentication.
 
 
 
-##### [gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) mutation, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) reCall = true}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) mutation, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) reCall = true\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -192,7 +192,7 @@ This function is used to run the graph-ql mutation to authenticate the non signe
 
 
 
-##### [gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/QueryResult-class.html)&lt;[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?>?>
+##### [gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/QueryResult-class.html)&lt;[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?>?>
 
 
 

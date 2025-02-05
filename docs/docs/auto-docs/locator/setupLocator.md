@@ -30,7 +30,7 @@ void setupLocator
 ## Implementation
 
 ```dart
-void setupLocator() {
+void setupLocator() \{
   //services
   locator.registerSingleton(NavigationService());
 
@@ -93,7 +93,7 @@ void setupLocator() {
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
-}
+\}
 ```
 
 

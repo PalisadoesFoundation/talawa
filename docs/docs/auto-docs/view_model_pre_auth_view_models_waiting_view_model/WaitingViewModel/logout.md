@@ -24,7 +24,7 @@ void logout
 ## Implementation
 
 ```dart
-void logout() {
+void logout() \{
   final user = Hive.box<User>('currentUser');
   final url = Hive.box('url');
   user.clear();
@@ -34,7 +34,7 @@ void logout() {
     Routes.splashScreen,
     arguments: '0',
   );
-}
+\}
 ```
 
 

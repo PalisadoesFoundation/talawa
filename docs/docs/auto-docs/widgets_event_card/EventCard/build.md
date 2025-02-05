@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_event_card/EventCard/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   final bool isRegistered = event.isRegistered ?? false;
   return Padding(
     padding: const EdgeInsets.only(bottom: 10),
@@ -152,7 +152,7 @@ Widget build(BuildContext context) {
                         ),
                         const Spacer(),
                         Text(
-                          "${event.startDate!} - ${event.endDate!}",
+                          "$\{event.startDate!\} - $\{event.endDate!\}",
                           style: Theme.of(context).textTheme.bodySmall,
                         )
                       ],
@@ -170,7 +170,7 @@ Widget build(BuildContext context) {
                           width: SizeConfig.screenWidth! * 0.015,
                         ),
                         Text(
-                          "${event.startTime!} - ${event.endTime!}",
+                          "$\{event.startTime!\} - $\{event.endTime!\}",
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         const Spacer(),
@@ -325,7 +325,7 @@ Widget build(BuildContext context) {
       ],
     ),
   );
-}
+\}
 ```
 
 

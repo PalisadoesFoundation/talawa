@@ -23,9 +23,9 @@ void updateCreatedOrg
 ## Implementation
 
 ```dart
-void updateCreatedOrg(List<OrgInfo> orgList) {
+void updateCreatedOrg(List<OrgInfo> orgList) \{
   this.createdOrganizations = orgList;
-}
+\}
 ```
 
 

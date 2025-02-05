@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>String</code>: title  of the model</li>
+<li>```dartString```: title  of the model</li>
 </ul>
 
 

@@ -22,7 +22,7 @@
 None</p>
 <p>returns:</p>
 <ul>
-<li><code>Map&lt;String, bool&gt;</code>: Returns a map of entries with id and boolean if they are
+<li>```dartMap&lt;String, bool&gt;```: Returns a map of entries with id and boolean if they are
 selected for events or not in bottom sheet.</li>
 </ul>
 

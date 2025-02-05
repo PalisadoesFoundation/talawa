@@ -26,11 +26,11 @@ _<span class="feature">override</span>_
 
 ```dart
 @override
-OrgInfo read(BinaryReader reader) {
+OrgInfo read(BinaryReader reader) \{
   final numOfFields = reader.readByte();
-  final fields = <int, dynamic>{
+  final fields = <int, dynamic>\{
     for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-  };
+  \};
   return OrgInfo(
     admins: (fields[3] as List?)?.cast<User>(),
     members: (fields[4] as List?)?.cast<User>(),
@@ -41,7 +41,7 @@ OrgInfo read(BinaryReader reader) {
     isPublic: fields[6] as bool?,
     name: fields[2] as String?,
   );
-}
+\}
 ```
 
 

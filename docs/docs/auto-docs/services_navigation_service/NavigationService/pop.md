@@ -24,9 +24,9 @@ void pop
 ## Implementation
 
 ```dart
-void pop() {
+void pop() \{
   return navigatorKey.currentState!.pop();
-}
+\}
 ```
 
 

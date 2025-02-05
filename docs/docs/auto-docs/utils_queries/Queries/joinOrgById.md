@@ -23,28 +23,28 @@
 ## Implementation
 
 ```dart
-String joinOrgById(String orgId) {
+String joinOrgById(String orgId) \{
   return '''
-  mutation {
-    joinPublicOrganization(organizationId: "$orgId") {
-        joinedOrganizations{
+  mutation \{
+    joinPublicOrganization(organizationId: "$orgId") \{
+        joinedOrganizations\{
           _id
           name
           image
           description
           isPublic
-          creator{
+          creator\{
             _id
             firstName
             lastName
             image
-          }
+          \}
 
-        }
-    }
-	}
+        \}
+    \}
+	\}
 ''';
-}
+\}
 ```
 
 

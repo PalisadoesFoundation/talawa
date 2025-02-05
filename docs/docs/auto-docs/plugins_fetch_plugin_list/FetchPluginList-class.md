@@ -60,7 +60,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 
 
-Fetches plugins from server and stores them in Hive <code>pluginBox</code>.  
+Fetches plugins from server and stores them in Hive ```dartpluginBox```.  
 
 
 

@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_events_explore_events/ExploreEvents/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<ExploreEventsViewModel>(
     onModelReady: (model) => model.initialise(),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return Scaffold(
         appBar: AppBar(
           // AppBar returns widget for the header.
@@ -92,7 +92,7 @@ Widget build(BuildContext context) {
               // if the events is not empty then renders button for searching the events else renders just a box.
               child: model.events.isNotEmpty
                   ? IconButton(
-                      onPressed: () {
+                      onPressed: () \{
                         showSearch(
                           context: context,
                           delegate: EventSearch(
@@ -100,7 +100,7 @@ Widget build(BuildContext context) {
                             exploreEventsViewModel: model,
                           ),
                         );
-                      },
+                      \},
                       icon: const Icon(Icons.search, size: 20),
                     )
                   : const SizedBox(),
@@ -148,17 +148,17 @@ Widget build(BuildContext context) {
                                 Expanded(
                                   flex: 2,
                                   child: GestureDetector(
-                                    onTap: () {
+                                    onTap: () \{
                                       showDialog(
                                         // on tap open the Explore Event Dialog.
                                         context: context,
-                                        builder: (_) {
+                                        builder: (_) \{
                                           return const ExploreEventDialog(
                                             key: Key('ExploreEvents'),
                                           );
-                                        },
+                                        \},
                                       );
-                                    },
+                                    \},
                                     child: Card(
                                       key: homeModel?.keySEDateFilter,
                                       color: Theme.of(context)
@@ -199,12 +199,12 @@ Widget build(BuildContext context) {
                                         .colorScheme
                                         .onPrimary,
                                     child: IconButton(
-                                      onPressed: () {
+                                      onPressed: () \{
                                         navigationService.pushScreen(
                                           Routes.calendar,
                                           arguments: model.events,
                                         );
-                                      },
+                                      \},
                                       icon: const Icon(
                                         Icons.calendar_month,
                                       ),
@@ -231,23 +231,23 @@ Widget build(BuildContext context) {
                                     shrinkWrap: true,
                                     itemCount: model.events.length,
                                     itemBuilder:
-                                        (BuildContext context, int index) {
+                                        (BuildContext context, int index) \{
                                       return GestureDetector(
-                                        onTap: () {
+                                        onTap: () \{
                                           navigationService.pushScreen(
                                             "/eventInfo",
-                                            arguments: {
+                                            arguments: \{
                                               "event": model.events[index],
                                               "exploreEventViewModel": model
-                                            },
+                                            \},
                                           );
-                                        },
+                                        \},
                                         child: EventCard(
                                           event: model.events[index],
                                           isSearchItem: false,
                                         ),
                                       );
-                                    },
+                                    \},
                                   ),
                           ],
                         ),
@@ -260,11 +260,11 @@ Widget build(BuildContext context) {
           key: homeModel?.keySEAdd,
           heroTag: "AddEventFab",
           backgroundColor: Theme.of(context).colorScheme.background,
-          onPressed: () {
+          onPressed: () \{
             navigationService.pushScreen(
               "/createEventPage",
             );
-          },
+          \},
           icon: Icon(
             Icons.add,
             color: Theme.of(context).colorScheme.secondary,
@@ -278,9 +278,9 @@ Widget build(BuildContext context) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

@@ -41,7 +41,7 @@ method. However, <a href="https://api.flutter.dev/flutter/widgets/State/didChang
 following this method, and <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a> can
 be used there.</p>
 <p>Implementations of this method should start with a call to the inherited
-method, as in <code>super.initState()</code>.</p>
+method, as in ```dartsuper.initState()```.</p>
 
 
 
@@ -49,9 +49,9 @@ method, as in <code>super.initState()</code>.</p>
 
 ```dart
 @override
-void initState() {
+void initState() \{
   super.initState();
-}
+\}
 ```
 
 

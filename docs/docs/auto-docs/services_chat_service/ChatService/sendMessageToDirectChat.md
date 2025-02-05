@@ -20,8 +20,8 @@
 <p>This function is used to send the message in the direct chats.</p>
 <p>parameters required:</p>
 <ul>
-<li><code>chatId</code> - id of the direct chat where message need to be send.</li>
-<li><code>messageContent</code> - the text that need to be send.</li>
+<li>```dartchatId``` - id of the direct chat where message need to be send.</li>
+<li>```dartmessageContent``` - the text that need to be send.</li>
 </ul>
 
 
@@ -32,11 +32,11 @@
 Future<void> sendMessageToDirectChat(
   String chatId,
   String messageContent,
-) async {
+) async \{
   // trigger graphQL mutation to push the message in the Database.
   final result = await _dbFunctions.gqlAuthMutation(
     ChatQueries().sendMessageToDirectChat(),
-    variables: {"chatId": chatId, "messageContent": messageContent},
+    variables: \{"chatId": chatId, "messageContent": messageContent\},
   );
 
   final message = ChatMessage.fromJson(
@@ -46,7 +46,7 @@ Future<void> sendMessageToDirectChat(
   _chatMessageController.add(message);
 
   debugPrint(result.data.toString());
-}
+\}
 ```
 
 

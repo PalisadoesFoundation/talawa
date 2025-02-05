@@ -15,9 +15,9 @@
 and react to user's input in Create Task view.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>fillTask</code></li>
+<li>```dartfillTask```</li>
 <li>`editTask</li>
-<li><code>createTask</code></li>
+<li>```dartcreateTask```</li>
 </ul>
 
 
@@ -144,7 +144,7 @@ _<span class="feature">inherited</span>_
 
 
 This function creates a new task for an event.
-The function uses <code>createTask</code> method provided by Task Services.  
+The function uses ```dartcreateTask``` method provided by Task Services.  
 
 
 
@@ -165,7 +165,7 @@ _<span class="feature">override</span>_
 
 
 This function updates the task.
-The function uses <code>editTask</code> method provided by Task Services.  
+The function uses ```darteditTask``` method provided by Task Services.  
 
 
 

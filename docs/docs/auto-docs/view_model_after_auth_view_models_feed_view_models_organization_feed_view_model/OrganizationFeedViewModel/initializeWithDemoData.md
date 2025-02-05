@@ -23,7 +23,7 @@ void initializeWithDemoData
 ## Implementation
 
 ```dart
-void initializeWithDemoData() {
+void initializeWithDemoData() \{
   // final postJsonResult = postsDemoData;
   //
   // ------
@@ -32,10 +32,10 @@ void initializeWithDemoData() {
   //
   // //fetching pinnedPosts
   // final pinnedPostJsonResult = pinnedPostsDemoData;
-  // pinnedPostJsonResult.forEach((pinnedPostJsonData) {
+  // pinnedPostJsonResult.forEach((pinnedPostJsonData) \{
   //   _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
-  // });
-}
+  // \});
+\}
 ```
 
 

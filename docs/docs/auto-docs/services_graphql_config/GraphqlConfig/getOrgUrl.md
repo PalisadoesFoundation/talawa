@@ -24,7 +24,7 @@ void getOrgUrl
 ## Implementation
 
 ```dart
-void getOrgUrl() {
+void getOrgUrl() \{
   final box = Hive.box('url');
   final String? url = box.get(urlKey) as String?;
   final String? imgUrl = box.get(imageUrlKey) as String?;
@@ -33,7 +33,7 @@ void getOrgUrl() {
   httpLink = HttpLink(orgURI!);
   clientToQuery();
   authClient();
-}
+\}
 ```
 
 

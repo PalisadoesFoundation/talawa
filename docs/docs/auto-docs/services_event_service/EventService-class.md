@@ -14,13 +14,13 @@
 <p>EventService class provides different services in the context of Event.</p>
 <p>Services include:</p>
 <ul>
-<li><code>setOrgStreamSubscription</code> : to set organization stream subscription for user.</li>
-<li><code>getEvents</code> : to get all events of the organization.</li>
-<li><code>fetchRegistrantsByEvent</code> : to fetch all registrants of an event.</li>
-<li><code>registerForAnEvent</code> : to register for an event.</li>
-<li><code>deleteEvent</code> : to delete an event.</li>
-<li><code>editEvent</code> : to edit the event.</li>
-<li><code>dispose</code> : to cancel the stream subscription of an organization.</li>
+<li>```dartsetOrgStreamSubscription``` : to set organization stream subscription for user.</li>
+<li>```dartgetEvents``` : to get all events of the organization.</li>
+<li>```dartfetchRegistrantsByEvent``` : to fetch all registrants of an event.</li>
+<li>```dartregisterForAnEvent``` : to register for an event.</li>
+<li>```dartdeleteEvent``` : to delete an event.</li>
+<li>```darteditEvent``` : to edit the event.</li>
+<li>```dartdispose``` : to cancel the stream subscription of an organization.</li>
 </ul>
 
 
@@ -84,7 +84,7 @@ This function is used to cancel the stream subscription of an organization.
 
 
 
-##### [editEvent](../services_event_service/EventService/editEvent.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId, required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> variables}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
+##### [editEvent](../services_event_service/EventService/editEvent.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId, required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> variables\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
 
 
 

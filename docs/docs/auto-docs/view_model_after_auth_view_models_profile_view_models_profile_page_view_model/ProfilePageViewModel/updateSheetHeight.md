@@ -23,10 +23,10 @@ void updateSheetHeight
 ## Implementation
 
 ```dart
-void updateSheetHeight() {
+void updateSheetHeight() \{
   bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
   notifyListeners();
-}
+\}
 ```
 
 

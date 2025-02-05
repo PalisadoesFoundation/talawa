@@ -28,68 +28,68 @@ String registerUser(
   String lastName,
   String email,
   String password,
-) {
+) \{
   return """
-      mutation{
-        signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
-        {
+      mutation\{
+        signUp(data: \{firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"\})
+        \{
           accessToken
-          user{
+          user\{
               _id
               firstName
               lastName
               email
               image
-              joinedOrganizations{
+              joinedOrganizations\{
                 _id
                 name
                 image
                 description
                 isPublic
-                creator{
+                creator\{
                   _id
                   firstName
                   lastName
                   image
-                }
-              }
-              createdOrganizations{
+                \}
+              \}
+              createdOrganizations\{
                 _id
                 name
                 image
                 description
                 isPublic
-                creator{
+                creator\{
                   _id
                   firstName
                   lastName
                   image
-                }
-              }
-              membershipRequests{
-                organization{
+                \}
+              \}
+              membershipRequests\{
+                organization\{
                   _id
                   name
                   image
                   description
                   isPublic
-                  creator{
+                  creator\{
                     _id
                     firstName
                     lastName
                     image
-                  }
-                }
-              }
-              adminFor{
+                  \}
+                \}
+              \}
+              adminFor\{
                 _id
-              }
-            }
+              \}
+            \}
             refreshToken
-          }
-      }
+          \}
+      \}
   """;
-}
+\}
 ```
 
 

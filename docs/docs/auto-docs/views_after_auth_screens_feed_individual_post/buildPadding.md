@@ -25,7 +25,7 @@
 ## Implementation
 
 ```dart
-Padding buildPadding(BuildContext context, String text) {
+Padding buildPadding(BuildContext context, String text) \{
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Text(
@@ -33,7 +33,7 @@ Padding buildPadding(BuildContext context, String text) {
       style: Theme.of(context).textTheme.titleLarge,
     ),
   );
-}
+\}
 ```
 
 

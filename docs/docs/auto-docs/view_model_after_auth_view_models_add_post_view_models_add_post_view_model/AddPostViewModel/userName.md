@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>String</code>: The username of the currentUser</li>
+<li>```dartString```: The username of the currentUser</li>
 </ul>
 
 

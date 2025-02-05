@@ -14,12 +14,12 @@
 <p>OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>setCurrentOrganizationName</code> : to set current organization name.</li>
-<li><code>fetchNewPosts</code> : to fetch new posts in the organization.</li>
-<li><code>navigateToIndividualPage</code> : to navigate to individual page.</li>
-<li><code>navigateToPinnedPostPage</code> : to navigate to pinned post page.</li>
-<li><code>addNewPost</code> : to add new post in the organization.</li>
-<li><code>updatedPost</code> : to update a post in the organization.</li>
+<li>```dartsetCurrentOrganizationName``` : to set current organization name.</li>
+<li>```dartfetchNewPosts``` : to fetch new posts in the organization.</li>
+<li>```dartnavigateToIndividualPage``` : to navigate to individual page.</li>
+<li>```dartnavigateToPinnedPostPage``` : to navigate to pinned post page.</li>
+<li>```dartaddNewPost``` : to add new post in the organization.</li>
+<li>```dartupdatedPost``` : to update a post in the organization.</li>
 </ul>
 
 
@@ -154,7 +154,7 @@ This function adds new Post.
 
 
 
-This function initialise <code>_posts</code> with <code>newPosts</code>.  
+This function initialise ```dart_posts``` with ```dartnewPosts```.  
 
 
 
@@ -179,7 +179,7 @@ This function fetches new posts in the organization.
 
 
 
-##### [initialise](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/initialise.md)({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false}) void
+##### [initialise](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel/initialise.md)(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\}) void
 
 
 

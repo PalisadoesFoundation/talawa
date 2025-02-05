@@ -22,7 +22,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;void&gt;</code>: void</li>
+<li>```dartFuture&lt;void&gt;```: void</li>
 </ul>
 
 
@@ -30,7 +30,7 @@
 ## Implementation
 
 ```dart
-Future<void> getEvents() async {
+Future<void> getEvents() async \{
   // refresh user's access token
   await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
   _dbFunctions.init();
@@ -43,15 +43,15 @@ Future<void> getEvents() async {
 
   if (result == null) return;
   final List eventsJson = result.data!["eventsByOrganization"] as List;
-  eventsJson.forEach((eventJsonData) {
+  eventsJson.forEach((eventJsonData) \{
     final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
     event.isRegistered = event.registrants?.any(
           (registrant) => registrant.id == _userConfig.currentUser.id,
         ) ??
         false;
     _eventStreamController.add(event);
-  });
-}
+  \});
+\}
 ```
 
 

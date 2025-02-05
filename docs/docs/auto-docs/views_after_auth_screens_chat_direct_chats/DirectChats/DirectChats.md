@@ -9,7 +9,7 @@
 
 
 const
-DirectChats({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+DirectChats(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ DirectChats({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? k
 ## Implementation
 
 ```dart
-const DirectChats({Key? key}) : super(key: key);
+const DirectChats(\{Key? key\}) : super(key: key);
 ```
 
 

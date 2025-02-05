@@ -23,21 +23,21 @@ void onTapContinue
 ## Implementation
 
 ```dart
-void onTapContinue() {
+void onTapContinue() \{
   // if user selected any organization.
-  if (selectedOrganization.id != '-1') {
+  if (selectedOrganization.id != '-1') \{
     navigationService.pushScreen(
       Routes.signupDetailScreen,
       arguments: selectedOrganization,
     );
-  } else {
+  \} else \{
     navigationService.showTalawaErrorSnackBar(
       'Select one organization to continue',
       MessageType.warning,
       duration: const Duration(milliseconds: 750),
     );
-  }
-}
+  \}
+\}
 ```
 
 

@@ -17,7 +17,7 @@
 
 
 
-<p><code>createDonation</code> creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters</p>
+<p>```dartcreateDonation``` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters</p>
 
 
 
@@ -31,26 +31,26 @@ String createDonation(
   String nameOfUser,
   String payPalId,
   double amount,
-) {
+) \{
   return '''
-    mutation createDonationMutation { createDonation(
+    mutation createDonationMutation \{ createDonation(
           userId :"$userId"
           orgId :"$orgId",
           nameOfOrg:"$nameOfOrg",
           nameOfUser:"$nameOfUser",
           payPalId:"$payPalId"
           amount :$amount
-      ){
+      )\{
           _id
           payPalId
           userId
           orgId
           payPalId
           nameOfUser
-      }
-    }
+      \}
+    \}
     ''';
-}
+\}
 ```
 
 

@@ -23,7 +23,7 @@ void init
 ## Implementation
 
 ```dart
-void init(BuildContext context) {
+void init(BuildContext context) \{
   _mediaQueryData = MediaQuery.of(context);
   screenWidth = _mediaQueryData.size.width;
   screenHeight = _mediaQueryData.size.height;
@@ -38,7 +38,7 @@ void init(BuildContext context) {
   safeBlockVertical = (screenHeight! - _safeAreaVertical) / 100;
   debugPrint("safeBlockHorizontal: $safeBlockHorizontal");
   debugPrint("safeBlockVertical: $safeBlockVertical");
-}
+\}
 ```
 
 

@@ -9,7 +9,7 @@
 
 
 const
-WaitingPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+WaitingPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ WaitingPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? k
 ## Implementation
 
 ```dart
-const WaitingPage({Key? key}) : super(key: key);
+const WaitingPage(\{Key? key\}) : super(key: key);
 ```
 
 

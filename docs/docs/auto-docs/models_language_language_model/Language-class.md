@@ -18,7 +18,7 @@
 
 ## Constructors
 
-[Language](../models_language_language_model/Language/Language.md) ({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) countryCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langName, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langSample})
+[Language](../models_language_language_model/Language/Language.md) (\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) countryCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langName, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langSample\})
 
    
 

@@ -20,12 +20,12 @@
 <p>This function check the URL and navigate to the respective URL.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>navigateTo</code>: url</li>
-<li><code>argument</code>: message</li>
+<li>```dartnavigateTo```: url</li>
+<li>```dartargument```: message</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;void&gt;</code>: void</li>
+<li>```dartFuture&lt;void&gt;```: void</li>
 </ul>
 
 
@@ -33,19 +33,19 @@
 ## Implementation
 
 ```dart
-Future<void> checkURLandNavigate(String navigateTo, String argument) async {
+Future<void> checkURLandNavigate(String navigateTo, String argument) async \{
   urlFocus.unfocus();
   validate = AutovalidateMode.always;
 
   /// if the url is valid.
-  if (formKey.currentState!.validate()) {
+  if (formKey.currentState!.validate()) \{
     navigationService
         .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
     validate = AutovalidateMode.disabled;
     final String uri = url.text.trim();
     final bool? urlPresent =
         await locator<Validator>().validateUrlExistence(uri);
-    if (urlPresent! == true) {
+    if (urlPresent! == true) \{
       final box = Hive.box('url');
       box.put(urlKey, uri);
       box.put(imageUrlKey, "$uri/talawa/");
@@ -53,15 +53,15 @@ Future<void> checkURLandNavigate(String navigateTo, String argument) async {
       navigationService.pop();
       graphqlConfig.getOrgUrl();
       navigationService.pushScreen(navigateTo, arguments: argument);
-    } else {
+    \} else \{
       navigationService.pop();
       navigationService.showTalawaErrorSnackBar(
         "URL doesn't exist/no connection please check",
         MessageType.error,
       );
-    }
-  }
-}
+    \}
+  \}
+\}
 ```
 
 

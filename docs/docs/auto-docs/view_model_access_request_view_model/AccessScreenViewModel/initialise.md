@@ -23,9 +23,9 @@
 ## Implementation
 
 ```dart
-Future<void> initialise(OrgInfo org) async {
+Future<void> initialise(OrgInfo org) async \{
   selectedOrganization = org;
-}
+\}
 ```
 
 

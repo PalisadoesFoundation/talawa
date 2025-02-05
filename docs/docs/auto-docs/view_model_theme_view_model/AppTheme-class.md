@@ -14,7 +14,7 @@
 <p>AppTheme class is a type of View Model to serve data from modal to views in the context of App Themes.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>switchTheme</code></li>
+<li>```dartswitchTheme```</li>
 </ul>
 
 
@@ -175,7 +175,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [switchTheme](../view_model_theme_view_model/AppTheme/switchTheme.md)({required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isOn}) void
+##### [switchTheme](../view_model_theme_view_model/AppTheme/switchTheme.md)(\{required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isOn\}) void
 
 
 

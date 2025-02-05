@@ -14,9 +14,9 @@
 <p>ChatService class provides different services for direct chats of the user.</p>
 <p>Services include:</p>
 <ul>
-<li><code>sendMessageToDirectChat</code> - used to send messages.</li>
-<li><code>getDirectChatsByUserId</code> - used to get all chats by the user.</li>
-<li><code>getDirectChatMessagesByChatId</code> - used to get all chats of a user with another user.</li>
+<li>```dartsendMessageToDirectChat``` - used to send messages.</li>
+<li>```dartgetDirectChatsByUserId``` - used to get all chats by the user.</li>
+<li>```dartgetDirectChatMessagesByChatId``` - used to get all chats of a user with another user.</li>
 </ul>
 
 

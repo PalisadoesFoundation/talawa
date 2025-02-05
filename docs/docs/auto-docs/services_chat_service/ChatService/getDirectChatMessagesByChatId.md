@@ -20,7 +20,7 @@
 <p>This function is used to get all the chat messages of a particular chat by the user.</p>
 <p>parameters required:</p>
 <ul>
-<li><code>chatId</code> - id of the direct chat.</li>
+<li>```dartchatId``` - id of the direct chat.</li>
 </ul>
 
 
@@ -28,7 +28,7 @@
 ## Implementation
 
 ```dart
-Future<void> getDirectChatMessagesByChatId(chatId) async {
+Future<void> getDirectChatMessagesByChatId(chatId) async \{
   // trigger graphQL query to get all the chat messages of a particular chat using [chatId].
   final String query =
       ChatQueries().fetchDirectChatMessagesByChatId(chatId as String);
@@ -37,11 +37,11 @@ Future<void> getDirectChatMessagesByChatId(chatId) async {
 
   final messages = result.data['directChatsMessagesByChatID'] as List;
 
-  messages.forEach((message) {
+  messages.forEach((message) \{
     final chatMessage = ChatMessage.fromJson(message as Map<String, dynamic>);
     _chatMessageController.add(chatMessage);
-  });
-}
+  \});
+\}
 ```
 
 

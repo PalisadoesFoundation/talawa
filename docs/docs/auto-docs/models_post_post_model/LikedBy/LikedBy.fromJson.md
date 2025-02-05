@@ -19,9 +19,9 @@ LikedBy.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)
 ## Implementation
 
 ```dart
-LikedBy.fromJson(Map<String, dynamic> json) {
+LikedBy.fromJson(Map<String, dynamic> json) \{
   sId = json['_id'] as String?;
-}
+\}
 ```
 
 

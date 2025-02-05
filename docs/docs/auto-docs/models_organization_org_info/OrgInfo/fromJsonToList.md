@@ -23,14 +23,14 @@
 ## Implementation
 
 ```dart
-List<OrgInfo> fromJsonToList(List<dynamic> json) {
+List<OrgInfo> fromJsonToList(List<dynamic> json) \{
   final List<OrgInfo> orgList = [];
-  json.forEach((element) {
+  json.forEach((element) \{
     final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
     orgList.add(org);
-  });
+  \});
   return orgList;
-}
+\}
 ```
 
 

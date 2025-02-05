@@ -23,7 +23,7 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize(List<LikedBy> likedBy, String postID) {
+void initialize(List<LikedBy> likedBy, String postID) \{
   _postID = postID;
   _user = _userConfig.currentUser;
   _likedBy = likedBy;
@@ -31,7 +31,7 @@ void initialize(List<LikedBy> likedBy, String postID) {
   checkAndSetTheIsLiked();
   _updatePostSubscription =
       _postService.updatedPostStream.listen((post) => updatePost(post));
-}
+\}
 ```
 
 

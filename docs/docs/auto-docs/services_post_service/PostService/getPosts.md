@@ -18,14 +18,14 @@
 
 
 <p>This function used to get all posts of an organization.
-The function reference the organization Id from <code>_currentOrg</code>.</p>
+The function reference the organization Id from ```dart_currentOrg```.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> getPosts() async {
+Future<void> getPosts() async \{
   // variables
   final String currentOrgID = _currentOrg.id!;
   final String query = PostQueries().getPostsById(currentOrgID);
@@ -36,15 +36,15 @@ Future<void> getPosts() async {
 
   final List postsJson = result.data!['postsByOrganization'] as List;
 
-  postsJson.forEach((postJson) {
+  postsJson.forEach((postJson) \{
     final Post post = Post.fromJson(postJson as Map<String, dynamic>);
-    if (!_renderedPostID.contains(post.sId)) {
+    if (!_renderedPostID.contains(post.sId)) \{
       _posts.insert(0, post);
       _renderedPostID.add(post.sId);
-    }
-  });
+    \}
+  \});
   _postStreamController.add(_posts);
-}
+\}
 ```
 
 

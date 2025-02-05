@@ -24,14 +24,14 @@
 ## Implementation
 
 ```dart
-Future<void> getCurrentOrgUsersList() async {
-  if (orgMembersList.isEmpty) {
+Future<void> getCurrentOrgUsersList() async \{
+  if (orgMembersList.isEmpty) \{
     orgMembersList = await _organizationService
         .getOrgMembersList(userConfig.currentOrg.id!);
-  }
+  \}
 
   //return orgMembersList;
-}
+\}
 ```
 
 

@@ -14,15 +14,15 @@
 <p>NavigationService class provides different functions as service in the context of navigation.</p>
 <p>Services include:</p>
 <ul>
-<li><code>pushScreen</code></li>
-<li><code>popAndPushScreen</code></li>
-<li><code>pushReplacementScreen</code></li>
-<li><code>removeAllAndPush</code></li>
-<li><code>showSnackBar</code></li>
-<li><code>pushDialog</code></li>
-<li><code>showTalawaErrorWidget</code></li>
-<li><code>showTalawaErrorDialog</code></li>
-<li><code>pop</code></li>
+<li>```dartpushScreen```</li>
+<li>```dartpopAndPushScreen```</li>
+<li>```dartpushReplacementScreen```</li>
+<li>```dartremoveAllAndPush```</li>
+<li>```dartshowSnackBar```</li>
+<li>```dartpushDialog```</li>
+<li>```dartshowTalawaErrorWidget```</li>
+<li>```dartshowTalawaErrorDialog```</li>
+<li>```dartpop```</li>
 </ul>
 
 
@@ -95,7 +95,7 @@ This function pops the current state.
 
 
 
-##### [popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, {dynamic arguments}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, \{dynamic arguments\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -113,7 +113,7 @@ This function is used to show the custom Dialog.
 
 
 
-##### [pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, {dynamic arguments}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, \{dynamic arguments\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -122,7 +122,7 @@ This function push the route and replace the screen.
 
 
 
-##### [pushScreen](../services_navigation_service/NavigationService/pushScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, {dynamic arguments}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [pushScreen](../services_navigation_service/NavigationService/pushScreen.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, \{dynamic arguments\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -131,7 +131,7 @@ This function push the route to the navigator.
 
 
 
-##### [removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) tillRoute, {dynamic arguments}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) tillRoute, \{dynamic arguments\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 
@@ -140,11 +140,11 @@ This function remove all the routes till the particular route and add new route.
 
 
 
-##### [showSnackBar](../services_navigation_service/NavigationService/showSnackBar.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) message, {[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)}) void
+##### [showSnackBar](../services_navigation_service/NavigationService/showSnackBar.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) message, \{[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)\}) void
 
 
 
-This is used for the quick alert of <code>duration: 2 seconds</code> with text message(passed).  
+This is used for the quick alert of ```dartduration: 2 seconds``` with text message(passed).  
 
 
 
@@ -158,7 +158,7 @@ This is used for the quick alert of <code>duration: 2 seconds</code> with text m
 
 
 
-##### [showTalawaErrorSnackBar](../services_navigation_service/NavigationService/showTalawaErrorSnackBar.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, [MessageType](../enums_enums/MessageType.md) messageType, {[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)}) void
+##### [showTalawaErrorSnackBar](../services_navigation_service/NavigationService/showTalawaErrorSnackBar.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, [MessageType](../enums_enums/MessageType.md) messageType, \{[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)\}) void
 
 
 

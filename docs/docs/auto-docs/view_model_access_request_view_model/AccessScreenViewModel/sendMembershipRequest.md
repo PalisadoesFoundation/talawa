@@ -23,31 +23,31 @@
 ## Implementation
 
 ```dart
-Future<void> sendMembershipRequest() async {
+Future<void> sendMembershipRequest() async \{
   //TODO: Implement Message arg for below function
   final result = await databaseFunctions.gqlAuthMutation(
     queries.sendMembershipRequest(selectedOrganization.id!),
   );
-  if (result != null) {
+  if (result != null) \{
     final OrgInfo membershipRequest = OrgInfo.fromJson(
       (((result as QueryResult).data!)['sendMembershipRequest']
           as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
     );
     userConfig.updateUserMemberRequestOrg([membershipRequest]);
-    if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+    if (userConfig.currentUser.joinedOrganizations!.isEmpty) \{
       navigationService.removeAllAndPush(
         Routes.waitingScreen,
         Routes.splashScreen,
       );
-    } else {
+    \} else \{
       navigationService.pop();
       navigationService.showTalawaErrorSnackBar(
-        'Join in request sent to ${selectedOrganization.name} successfully',
+        'Join in request sent to $\{selectedOrganization.name\} successfully',
         MessageType.info,
       );
-    }
-  }
-}
+    \}
+  \}
+\}
 ```
 
 

@@ -9,7 +9,7 @@
 
 
 const
-FromPalisadoes({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+FromPalisadoes(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ FromPalisadoes({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)
 ## Implementation
 
 ```dart
-const FromPalisadoes({Key? key}) : super(key: key);
+const FromPalisadoes(\{Key? key\}) : super(key: key);
 ```
 
 

@@ -23,10 +23,10 @@ void setState
 ## Implementation
 
 ```dart
-void setState(ViewState viewState) {
+void setState(ViewState viewState) \{
   _state = viewState;
   notifyListeners();
-}
+\}
 ```
 
 

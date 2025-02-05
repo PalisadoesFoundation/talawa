@@ -24,18 +24,18 @@ void changeCurrency
 ## Implementation
 
 ```dart
-void changeCurrency(BuildContext context, Function setter) {
+void changeCurrency(BuildContext context, Function setter) \{
   showCurrencyPicker(
     context: context,
     currencyFilter: supportedCurrencies,
-    onSelect: (Currency currency) {
-      setter(() {
+    onSelect: (Currency currency) \{
+      setter(() \{
         donationCurrency = currency.code;
         donationCurrencySymbol = currency.symbol;
-      });
-    },
+      \});
+    \},
   );
-}
+\}
 ```
 
 

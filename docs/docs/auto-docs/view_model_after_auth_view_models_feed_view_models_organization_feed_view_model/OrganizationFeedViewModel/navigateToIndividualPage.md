@@ -24,10 +24,10 @@ void navigateToIndividualPage
 ## Implementation
 
 ```dart
-void navigateToIndividualPage(Post post) {
+void navigateToIndividualPage(Post post) \{
   // uses `pushScreen` method by `navigationService` service.
   _navigationService.pushScreen(Routes.individualPost, arguments: post);
-}
+\}
 ```
 
 

@@ -24,12 +24,12 @@ void refreshChats
 ## Implementation
 
 ```dart
-void refreshChats() {
+void refreshChats() \{
   _chats.clear();
   _uniqueChatIds.clear();
   notifyListeners();
   _chatService.getDirectChatsByUserId();
-}
+\}
 ```
 
 

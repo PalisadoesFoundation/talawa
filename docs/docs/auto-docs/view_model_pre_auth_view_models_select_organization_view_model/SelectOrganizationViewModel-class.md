@@ -15,8 +15,8 @@
 and react to user's input in Select Organization View.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>selectOrg</code></li>
-<li><code>onTapJoin</code></li>
+<li>```dartselectOrg```</li>
+<li>```dartonTapJoin```</li>
 </ul>
 
 
@@ -262,7 +262,7 @@ _<span class="feature">inherited</span>_
 
 
 This function make user to join the selected organization.
-The function uses <code>joinOrgById</code> graph QL query.  
+The function uses ```dartjoinOrgById``` graph QL query.  
 
 
 

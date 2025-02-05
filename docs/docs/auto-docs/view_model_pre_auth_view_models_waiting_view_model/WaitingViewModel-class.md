@@ -15,7 +15,7 @@
 and react to user's input for Waiting section.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>logout</code></li>
+<li>```dartlogout```</li>
 </ul>
 
 

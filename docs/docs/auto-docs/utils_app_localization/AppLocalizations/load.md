@@ -23,19 +23,19 @@
 ## Implementation
 
 ```dart
-Future<bool> load() async {
+Future<bool> load() async \{
   // Load the language JSON file from the "lang" folder
   final String jsonString =
-      await rootBundle.loadString('lang/${locale.languageCode}.json');
+      await rootBundle.loadString('lang/$\{locale.languageCode\}.json');
   final Map<String, dynamic> jsonMap =
       json.decode(jsonString) as Map<String, dynamic>;
 
-  _localizedStrings = jsonMap.map((key, value) {
+  _localizedStrings = jsonMap.map((key, value) \{
     return MapEntry(key, value.toString());
-  });
+  \});
 
   return true;
-}
+\}
 ```
 
 

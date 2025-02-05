@@ -13,7 +13,7 @@
 
 
 [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)> customTimePicker
-({required [TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html) initialTime})
+(\{required [TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html) initialTime\})
 
 
 
@@ -28,7 +28,7 @@ If the user cancels the dialog, null is returned.</p>
 ## Implementation
 
 ```dart
-Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
+Future<TimeOfDay> customTimePicker(\{required TimeOfDay initialTime\}) async \{
   // showTimePicker which shows a material design time range picker used to select a range of times.
   // Click ![here](https://api.flutter.dev/flutter/material/showTimePicker.html) to know more.
   final TimeOfDay? pickedTime = await showTimePicker(
@@ -36,11 +36,11 @@ Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
     initialTime: initialTime,
   );
 
-  if (pickedTime != null && pickedTime != initialTime) {
+  if (pickedTime != null && pickedTime != initialTime) \{
     return pickedTime;
-  }
+  \}
   return initialTime;
-}
+\}
 ```
 
 

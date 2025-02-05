@@ -24,9 +24,9 @@ void fetchNewPosts
 ## Implementation
 
 ```dart
-void fetchNewPosts() {
+void fetchNewPosts() \{
   _postService.getPosts();
-}
+\}
 ```
 
 

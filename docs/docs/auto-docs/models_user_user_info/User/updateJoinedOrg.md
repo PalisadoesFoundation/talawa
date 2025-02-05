@@ -23,9 +23,9 @@ void updateJoinedOrg
 ## Implementation
 
 ```dart
-void updateJoinedOrg(List<OrgInfo> orgList) {
+void updateJoinedOrg(List<OrgInfo> orgList) \{
   this.joinedOrganizations = orgList;
-}
+\}
 ```
 
 

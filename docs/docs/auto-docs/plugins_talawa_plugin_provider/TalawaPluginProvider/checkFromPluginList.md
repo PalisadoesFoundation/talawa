@@ -17,14 +17,14 @@
 
 
 
-<p>return <code>bool</code> decides the final visibility of the verifying from database and current OrgId</p>
+<p>return ```dartbool``` decides the final visibility of the verifying from database and current OrgId</p>
 
 
 
 ## Implementation
 
 ```dart
-bool checkFromPluginList() {
+bool checkFromPluginList() \{
   final UserConfig userConfig = locator<UserConfig>();
   final Box box;
   bool res = false;
@@ -35,21 +35,21 @@ bool checkFromPluginList() {
   ///mapping over the list from the server
   pluginList
       .map(
-        (plugin) => {
+        (plugin) => \{
           if (plugin["pluginName"] == pluginName)
-            {
+            \{
               if (plugin["pluginInstallStatus"] as bool)
-                {
+                \{
                   res = plugin["pluginInstallStatus"] as bool ||
                       plugin["installedOrgs"]
                           .contains(userConfig.currentOrg.id) as bool
-                }
-            }
-        },
+                \}
+            \}
+        \},
       )
       .toList();
   return res;
-}
+\}
 ```
 
 

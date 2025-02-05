@@ -23,25 +23,25 @@
 ## Implementation
 
 ```dart
-Future<void> initialise(String initialData) async {
+Future<void> initialise(String initialData) async \{
   searchFocus.addListener(searchActive);
-  if (!initialData.contains('-1')) {
+  if (!initialData.contains('-1')) \{
     databaseFunctions.init();
     final fetch = await databaseFunctions.fetchOrgById(initialData);
-    if (fetch.runtimeType == OrgInfo) {
+    if (fetch.runtimeType == OrgInfo) \{
       selectedOrganization = fetch as OrgInfo;
-      if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
+      if (userConfig.currentUser.refreshToken?.isEmpty ?? true) \{
         navigationService.pushScreen(
           Routes.signupDetailScreen,
           arguments: selectedOrganization,
         );
-      } else {
+      \} else \{
         selectOrg(selectedOrganization);
-      }
+      \}
       setState(ViewState.idle);
-    }
-  }
-}
+    \}
+  \}
+\}
 ```
 
 

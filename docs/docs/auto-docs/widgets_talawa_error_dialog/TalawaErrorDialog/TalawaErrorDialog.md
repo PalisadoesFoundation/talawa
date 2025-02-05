@@ -9,7 +9,7 @@
 
 
 const
-TalawaErrorDialog([String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, {[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MessageType](../../enums_enums/MessageType.md) messageType})
+TalawaErrorDialog([String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, \{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MessageType](../../enums_enums/MessageType.md) messageType\})
 
 
 
@@ -19,10 +19,10 @@ TalawaErrorDialog([String](https://api.flutter.dev/flutter/dart-core/String-clas
 
 ```dart
 const TalawaErrorDialog(
-  this.errorMessage, {
+  this.errorMessage, \{
   Key? key,
   required this.messageType,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

@@ -18,7 +18,7 @@ _<span class="feature">read / write</span>_
 <p>these are dart object.</p>
 <p>params:</p>
 <ul>
-<li><code>sId</code> : unique identifier for post</li>
+<li>```dartsId``` : unique identifier for post</li>
 </ul>
 
 

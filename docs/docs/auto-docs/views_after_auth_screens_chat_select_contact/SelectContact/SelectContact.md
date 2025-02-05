@@ -9,7 +9,7 @@
 
 
 const
-SelectContact({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+SelectContact(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ SelectContact({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?
 ## Implementation
 
 ```dart
-const SelectContact({Key? key}) : super(key: key);
+const SelectContact(\{Key? key\}) : super(key: key);
 ```
 
 

@@ -24,13 +24,13 @@
 ## Implementation
 
 ```dart
-Future<void> fetchLocale() async {
+Future<void> fetchLocale() async \{
   final prefs = await SharedPreferences.getInstance();
   final String langCode = prefs.getString('language_code') ?? 'en';
   _appLocale = Locale(langCode);
 
   notifyListeners();
-}
+\}
 ```
 
 

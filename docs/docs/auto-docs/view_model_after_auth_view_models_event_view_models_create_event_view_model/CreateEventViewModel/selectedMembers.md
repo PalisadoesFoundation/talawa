@@ -22,7 +22,7 @@
 None</p>
 <p>returns:</p>
 <ul>
-<li><code>List&lt;User&gt;</code>: Returns a list of selectedMembers for events</li>
+<li>```dartList&lt;User&gt;```: Returns a list of selectedMembers for events</li>
 </ul>
 
 

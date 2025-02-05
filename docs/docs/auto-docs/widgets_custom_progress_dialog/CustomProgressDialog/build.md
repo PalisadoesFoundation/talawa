@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_custom_progress_dialog/CustomProgressDialog/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<ProgressDialogViewModel>(
     onModelReady: (model) => model.initialise(),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return Container(
         margin: EdgeInsets.symmetric(
           horizontal: SizeConfig.screenWidth! * 0.25,
@@ -95,15 +95,15 @@ Widget build(BuildContext context) {
                     ),
                   ),
                   Text(
-                    '${AppLocalizations.of(context)!.strictTranslate("No Internet")}!',
+                    '$\{AppLocalizations.of(context)!.strictTranslate("No Internet")\}!',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

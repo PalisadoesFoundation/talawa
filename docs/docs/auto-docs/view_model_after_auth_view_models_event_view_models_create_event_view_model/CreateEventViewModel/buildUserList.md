@@ -28,18 +28,18 @@ void buildUserList
 ## Implementation
 
 ```dart
-void buildUserList() {
+void buildUserList() \{
   _selectedMembers.clear();
 
   // loop through the organization member list
 
-  orgMembersList.forEach((orgMember) {
-    if (_memberCheckedMap[orgMember.id] == true) {
+  orgMembersList.forEach((orgMember) \{
+    if (_memberCheckedMap[orgMember.id] == true) \{
       _selectedMembers.add(orgMember);
-    }
-  });
+    \}
+  \});
   notifyListeners();
-}
+\}
 ```
 
 

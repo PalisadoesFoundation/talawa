@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<AccessScreenViewModel>(
     onModelReady: (model) => model.initialise(org),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -122,9 +122,9 @@ Widget build(BuildContext context) {
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {
+                  onPressed: () \{
                     model.sendMembershipRequest();
-                  },
+                  \},
                   style:
                       TextButton.styleFrom(backgroundColor: AppTheme.green),
                   child: const Text(
@@ -139,9 +139,9 @@ Widget build(BuildContext context) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

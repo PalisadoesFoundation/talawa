@@ -20,7 +20,7 @@ _<span class="feature">override</span>_
 
 <p>The equality operator.</p>
 <p>The default behavior for all <a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>s is to return true if and
-only if this object and <code>other</code> are the same object.</p>
+only if this object and ```dartother``` are the same object.</p>
 <p>Override this method to specify a different equality relation on
 a class. The overriding method must still be an equivalence relation.
 That is, it must be:</p>
@@ -29,15 +29,15 @@ That is, it must be:</p>
 <p>Total: It must return a boolean for all arguments. It should never throw.</p>
 </li>
 <li>
-<p>Reflexive: For all objects <code>o</code>, <code>o == o</code> must be true.</p>
+<p>Reflexive: For all objects ```darto```, ```darto == o``` must be true.</p>
 </li>
 <li>
-<p>Symmetric: For all objects <code>o1</code> and <code>o2</code>, <code>o1 == o2</code> and <code>o2 == o1</code> must
+<p>Symmetric: For all objects ```darto1``` and ```darto2```, ```darto1 == o2``` and ```darto2 == o1``` must
 either both be true, or both be false.</p>
 </li>
 <li>
-<p>Transitive: For all objects <code>o1</code>, <code>o2</code>, and <code>o3</code>, if <code>o1 == o2</code> and
-<code>o2 == o3</code> are true, then <code>o1 == o3</code> must be true.</p>
+<p>Transitive: For all objects ```darto1```, ```darto2```, and ```darto3```, if ```darto1 == o2``` and
+```darto2 == o3``` are true, then ```darto1 == o3``` must be true.</p>
 </li>
 </ul>
 <p>The method should also be consistent over time,

@@ -23,16 +23,16 @@
 ## Implementation
 
 ```dart
-String refreshToken(String refreshToken) {
+String refreshToken(String refreshToken) \{
   return '''
-      mutation{
-        refreshToken(refreshToken: "$refreshToken"){
+      mutation\{
+        refreshToken(refreshToken: "$refreshToken")\{
           accessToken
           refreshToken
-        }
-      }
+        \}
+      \}
   ''';
-}
+\}
 ```
 
 

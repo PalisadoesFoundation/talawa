@@ -23,9 +23,9 @@ void initialise
 ## Implementation
 
 ```dart
-void initialise() {
+void initialise() \{
   _organizationService = locator<OrganizationService>();
-}
+\}
 ```
 
 

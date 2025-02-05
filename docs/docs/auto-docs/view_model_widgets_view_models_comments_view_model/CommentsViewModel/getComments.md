@@ -18,23 +18,23 @@
 
 
 <p>This methods fetch all comments on the post.
-The function uses <code>getCommentsForPost</code> method by Comment Service.</p>
+The function uses ```dartgetCommentsForPost``` method by Comment Service.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future getComments() async {
+Future getComments() async \{
   setState(ViewState.busy);
   final List commentsJSON =
       await _commentService.getCommentsForPost(_postID) as List;
   print(commentsJSON);
-  commentsJSON.forEach((commentJson) {
+  commentsJSON.forEach((commentJson) \{
     _commentlist.add(Comment.fromJson(commentJson as Map<String, dynamic>));
-  });
+  \});
   setState(ViewState.idle);
-}
+\}
 ```
 
 

@@ -24,7 +24,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;void&gt;</code>: promise that will be fulfilled Firebase keys are setted up.</li>
+<li>```dartFuture&lt;void&gt;```: promise that will be fulfilled Firebase keys are setted up.</li>
 </ul>
 
 
@@ -32,7 +32,7 @@
 ## Implementation
 
 ```dart
-Future<void> setUpFirebaseKeys() async {
+Future<void> setUpFirebaseKeys() async \{
   final androidFirebaseOptionsBox =
       await Hive.openBox('androidFirebaseOptions');
   final androidFirebaseOptionsMap = androidFirebaseOptionsBox
@@ -41,17 +41,17 @@ Future<void> setUpFirebaseKeys() async {
   final iosFirebaseOptionsBox = await Hive.openBox('iosFirebaseOptions');
   final iosFirebaseOptionsMap =
       iosFirebaseOptionsBox.get('iosFirebaseOptions') as Map<dynamic, dynamic>?;
-  if (androidFirebaseOptionsMap != null) {
-    androidFirebaseOptions = androidFirebaseOptionsMap.map((key, value) {
+  if (androidFirebaseOptionsMap != null) \{
+    androidFirebaseOptions = androidFirebaseOptionsMap.map((key, value) \{
       return MapEntry(key.toString(), value);
-    });
-  }
-  if (iosFirebaseOptionsMap != null) {
-    iosFirebaseOptions = iosFirebaseOptionsMap.map((key, value) {
+    \});
+  \}
+  if (iosFirebaseOptionsMap != null) \{
+    iosFirebaseOptions = iosFirebaseOptionsMap.map((key, value) \{
       return MapEntry(key.toString(), value);
-    });
-  }
-}
+    \});
+  \}
+\}
 ```
 
 

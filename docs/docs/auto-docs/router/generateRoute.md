@@ -28,11 +28,11 @@ we can pass in a Function that returns a Route<dynamic> and takes in RouteSettin
 ## Implementation
 
 ```dart
-Route<dynamic> generateRoute(RouteSettings settings) {
+Route<dynamic> generateRoute(RouteSettings settings) \{
   // The settings contains the route information of the requested route.
   // It provides two key things to us: the name, and the arguments.
   // We use the name to determine which view to return.
-  switch (settings.name) {
+  switch (settings.name) \{
     // Returns the SplashScreen
     case Routes.splashScreen:
       final int mainScreenIndex = settings.arguments! as int;
@@ -282,8 +282,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           key: Key("DemoPage"),
         ),
       );
-  }
-}
+  \}
+\}
 ```
 
 

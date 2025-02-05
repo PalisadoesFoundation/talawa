@@ -15,7 +15,7 @@ _<span class="feature">read / write</span>_
 
 
 
-<p>Actual <code>BottomNavigationBarItem</code>s that show up on the screen.</p>
+<p>Actual ```dartBottomNavigationBarItem```s that show up on the screen.</p>
 
 
 

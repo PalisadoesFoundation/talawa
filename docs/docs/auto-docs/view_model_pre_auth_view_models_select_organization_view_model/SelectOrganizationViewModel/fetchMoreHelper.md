@@ -24,24 +24,24 @@ void fetchMoreHelper
 ## Implementation
 
 ```dart
-void fetchMoreHelper(FetchMore fetchMore, List organizations) {
+void fetchMoreHelper(FetchMore fetchMore, List organizations) \{
   fetchMore(
     FetchMoreOptions(
-      variables: {
+      variables: \{
         "first": organizations.length + 15,
         "skip": organizations.length,
-      },
-      updateQuery: (existingOrganizations, newOrganizations) {
-        return {
+      \},
+      updateQuery: (existingOrganizations, newOrganizations) \{
+        return \{
           'organizationsConnection': [
             ...existingOrganizations!["organizationsConnection"],
             ...newOrganizations!['organizationsConnection'],
           ],
-        };
-      },
+        \};
+      \},
     ),
   );
-}
+\}
 ```
 
 

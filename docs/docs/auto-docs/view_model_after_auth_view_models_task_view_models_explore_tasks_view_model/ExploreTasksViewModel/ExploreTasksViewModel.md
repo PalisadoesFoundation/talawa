@@ -18,9 +18,9 @@ ExploreTasksViewModel()
 ## Implementation
 
 ```dart
-ExploreTasksViewModel() {
+ExploreTasksViewModel() \{
   _taskService.callbackNotifyListeners = () => notifyListeners();
-}
+\}
 ```
 
 

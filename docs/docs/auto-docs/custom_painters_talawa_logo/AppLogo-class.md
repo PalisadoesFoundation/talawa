@@ -106,7 +106,7 @@ _<span class="feature">inherited</span>_
 
 Called whenever the object needs to paint. The given <a href="https://api.flutter.dev/flutter/dart-ui/Canvas-class.html">Canvas</a> has its
 coordinate space configured such that the origin is at the top left of the
-box. The area of the box is the size of the <code>size</code> argument.  
+box. The area of the box is the size of the ```dartsize``` argument.  
 _<span class="feature">override</span>_
 
 

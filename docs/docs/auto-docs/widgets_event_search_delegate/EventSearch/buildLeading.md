@@ -35,16 +35,16 @@ back button as the search overlay fades in.</p>
 
 ```dart
 @override
-Widget buildLeading(BuildContext context) {
+Widget buildLeading(BuildContext context) \{
   /// Returns an icon button which closes the search page and returns
   /// to the underlying route
   return IconButton(
-    onPressed: () {
+    onPressed: () \{
       close(context, eventList.first);
-    },
+    \},
     icon: const Icon(Icons.arrow_back),
   );
-}
+\}
 ```
 
 

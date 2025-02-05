@@ -23,12 +23,12 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize() {
+void initialize() \{
   setState(ViewState.busy);
   currentOrg = _userConfig.currentOrg;
   currentUser = _userConfig.currentUser;
   setState(ViewState.idle);
-}
+\}
 ```
 
 

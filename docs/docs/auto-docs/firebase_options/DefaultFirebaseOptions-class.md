@@ -13,12 +13,12 @@
 
 <p>Default <a href="https://pub.dev/documentation/firebase_core_platform_interface/4.8.0/firebase_core_platform_interface/FirebaseOptions-class.html">FirebaseOptions</a> for use with your Firebase apps.</p>
 <p>Example:</p>
-<pre class="language-dart"><code class="language-dart">import 'firebase_options.dart';
+```dartimport 'firebase_options.dart';
 // ...
 await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
-</code></pre>
+```
 
 
 

@@ -21,11 +21,11 @@
 <p>more_info_if_required</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>iosFirebaseOptions</code>: The options which we want to scaffold</li>
+<li>```dartiosFirebaseOptions```: The options which we want to scaffold</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>FirebaseOptions</code>: Scaffolded FirebaseOptions</li>
+<li>```dartFirebaseOptions```: Scaffolded FirebaseOptions</li>
 </ul>
 
 

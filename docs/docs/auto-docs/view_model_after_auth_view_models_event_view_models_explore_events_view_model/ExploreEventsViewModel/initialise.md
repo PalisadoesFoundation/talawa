@@ -23,7 +23,7 @@
 ## Implementation
 
 ```dart
-Future<void> initialise() async {
+Future<void> initialise() async \{
   setState(ViewState.busy);
   _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
       .listen((updatedOrganization) => refreshEvents());
@@ -34,7 +34,7 @@ Future<void> initialise() async {
   );
   _bufferEvents = _events;
   setState(ViewState.idle);
-}
+\}
 ```
 
 

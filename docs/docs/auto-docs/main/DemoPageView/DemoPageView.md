@@ -9,7 +9,7 @@
 
 
 const
-DemoPageView({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+DemoPageView(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ DemoPageView({required [Key](https://api.flutter.dev/flutter/foundation/Key-clas
 ## Implementation
 
 ```dart
-const DemoPageView({required Key key}) : super(key: key);
+const DemoPageView(\{required Key key\}) : super(key: key);
 ```
 
 

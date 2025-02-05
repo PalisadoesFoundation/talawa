@@ -28,12 +28,12 @@ void setOrgStreamSubscription
 ## Implementation
 
 ```dart
-void setOrgStreamSubscription() {
+void setOrgStreamSubscription() \{
   _currentOrganizationStreamSubscription =
-      _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
+      _userConfig.currentOrgInfoStream.listen((updatedOrganization) \{
     _currentOrg = updatedOrganization;
-  });
-}
+  \});
+\}
 ```
 
 

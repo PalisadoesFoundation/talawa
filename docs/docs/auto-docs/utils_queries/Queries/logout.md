@@ -23,13 +23,13 @@
 ## Implementation
 
 ```dart
-String logout() {
+String logout() \{
   return """
-      mutation {
+      mutation \{
         logout
-      }
+      \}
   """;
-}
+\}
 ```
 
 

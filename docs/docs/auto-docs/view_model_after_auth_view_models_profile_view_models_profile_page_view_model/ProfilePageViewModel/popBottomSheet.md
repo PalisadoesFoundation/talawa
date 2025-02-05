@@ -23,9 +23,9 @@ void popBottomSheet
 ## Implementation
 
 ```dart
-void popBottomSheet() {
+void popBottomSheet() \{
   _navigationService.pop();
-}
+\}
 ```
 
 

@@ -32,11 +32,11 @@ listeners or not immediately before disposal.</p>
 
 ```dart
 @override
-void dispose() {
+void dispose() \{
   _chatMessageSubscription?.cancel();
   _chatListSubscription.cancel();
   super.dispose();
-}
+\}
 ```
 
 

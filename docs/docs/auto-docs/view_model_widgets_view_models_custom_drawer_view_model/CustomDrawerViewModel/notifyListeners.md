@@ -36,11 +36,11 @@ See the discussion at <a href="https://api.flutter.dev/flutter/foundation/Change
 
 ```dart
 @override
-void notifyListeners() {
-  if (!_disposed) {
+void notifyListeners() \{
+  if (!_disposed) \{
     super.notifyListeners();
-  }
-}
+  \}
+\}
 ```
 
 

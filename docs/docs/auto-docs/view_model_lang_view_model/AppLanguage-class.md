@@ -15,12 +15,12 @@
 The class provides methods that set's the language, change the language in the modal.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>fetchLocale</code></li>
-<li><code>changeLanguage</code></li>
-<li><code>selectLanguagePress</code></li>
-<li><code>dbLanguageUpdate</code></li>
-<li><code>appLanguageQuery</code></li>
-<li><code>userLanguageQuery</code></li>
+<li>```dartfetchLocale```</li>
+<li>```dartchangeLanguage```</li>
+<li>```dartselectLanguagePress```</li>
+<li>```dartdbLanguageUpdate```</li>
+<li>```dartappLanguageQuery```</li>
+<li>```dartuserLanguageQuery```</li>
 </ul>
 
 
@@ -41,7 +41,7 @@ The class provides methods that set's the language, change the language in the m
 
 ## Constructors
 
-[AppLanguage](../view_model_lang_view_model/AppLanguage/AppLanguage.md) ({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false})
+[AppLanguage](../view_model_lang_view_model/AppLanguage/AppLanguage.md) (\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
    
 
@@ -147,7 +147,7 @@ _<span class="feature">inherited</span>_
 
 
 This function perform graphQL query to check the app language.
-The function uses <code>gqlAuthQuery</code> method provided by Database Functions Services.  
+The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.  
 
 
 
@@ -165,7 +165,7 @@ This function change the app default language.
 
 
 
-This function updates the Database Language by running the graphQL <code>mutations</code>.  
+This function updates the Database Language by running the graphQL ```dartmutations```.  
 
 
 
@@ -231,8 +231,8 @@ _<span class="feature">inherited</span>_
 
 
 
-This function navigate user to <code>/appSettingsPage</code> route if the user is authenticated
-else navigate to <code>/setUrl</code> route.  
+This function navigate user to ```dart/appSettingsPage``` route if the user is authenticated
+else navigate to ```dart/setUrl``` route.  
 
 
 
@@ -260,7 +260,7 @@ _<span class="feature">inherited</span>_
 
 
 This function perform graphQL query to check the user's language in the database.
-The function uses <code>gqlAuthQuery</code> method provided by Database Functions Services.  
+The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.  
 
 
 

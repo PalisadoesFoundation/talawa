@@ -22,7 +22,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Map&lt;String, dynamic&gt;</code>: json is returned.</li>
+<li>```dartMap&lt;String, dynamic&gt;```: json is returned.</li>
 </ul>
 
 
@@ -30,11 +30,11 @@
 ## Implementation
 
 ```dart
-Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = <String, dynamic>{};
+Map<String, dynamic> toJson() \{
+  final Map<String, dynamic> data = <String, dynamic>\{\};
   data['_id'] = this.sId;
   return data;
-}
+\}
 ```
 
 

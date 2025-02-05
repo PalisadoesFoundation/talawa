@@ -24,7 +24,7 @@ void scanQR
 ## Implementation
 
 ```dart
-void scanQR(BuildContext context, SelectOrganizationViewModel model) {
+void scanQR(BuildContext context, SelectOrganizationViewModel model) \{
   showModalBottomSheet(
     context: context,
     barrierColor: Colors.transparent,
@@ -34,7 +34,7 @@ void scanQR(BuildContext context, SelectOrganizationViewModel model) {
         topRight: Radius.circular(30),
       ),
     ),
-    builder: (BuildContext context) {
+    builder: (BuildContext context) \{
       return ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -76,9 +76,9 @@ void scanQR(BuildContext context, SelectOrganizationViewModel model) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

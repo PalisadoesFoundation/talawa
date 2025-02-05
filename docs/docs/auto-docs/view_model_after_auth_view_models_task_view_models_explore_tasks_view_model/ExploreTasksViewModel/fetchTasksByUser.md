@@ -18,18 +18,18 @@
 
 
 <p>This function fetch tasks created by the current user for an event.
-The function uses <code>getTasksByUser</code> method of Task Service.</p>
+The function uses ```dartgetTasksByUser``` method of Task Service.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> fetchTasksByUser() async {
+Future<void> fetchTasksByUser() async \{
   setState(ViewState.busy);
   await _taskService.getTasksByUser();
   setState(ViewState.idle);
-}
+\}
 ```
 
 

@@ -20,11 +20,11 @@
 <p>Scaffolds androidFirebaseOptions around FirebaseOptions.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>androidFirebaseOptions</code>: The options which we want to scaffold</li>
+<li>```dartandroidFirebaseOptions```: The options which we want to scaffold</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>FirebaseOptions</code>: Scaffolded FirebaseOptions</li>
+<li>```dartFirebaseOptions```: Scaffolded FirebaseOptions</li>
 </ul>
 
 

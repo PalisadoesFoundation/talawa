@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_custom_drawer/CustomDrawer/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<CustomDrawerViewModel>(
     onModelReady: (model) => model.initialize(homeModel, context),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return Container(
         width: SizeConfig.screenWidth! * 0.6,
         alignment: Alignment.centerLeft,
@@ -121,7 +121,7 @@ Widget build(BuildContext context) {
                             padding: EdgeInsets.zero,
                             itemCount: model.switchAbleOrg.length,
                             // itemCount: 3,
-                            itemBuilder: (BuildContext context, int index) {
+                            itemBuilder: (BuildContext context, int index) \{
                               return ListTile(
                                 key: const Key("Org"),
                                 onTap: () => model
@@ -140,7 +140,7 @@ Widget build(BuildContext context) {
                                   model.switchAbleOrg[index].name!,
                                 ),
                               );
-                            },
+                            \},
                           ),
                         ),
                       ),
@@ -185,9 +185,9 @@ Widget build(BuildContext context) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

@@ -11,7 +11,7 @@
 
 
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html) editTask
-({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId})
+(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId\})
 
 
 
@@ -23,31 +23,31 @@
 ## Implementation
 
 ```dart
-static String editTask({
+static String editTask(\{
   required String title,
   required String description,
   required String deadline,
   required String taskId,
-}) =>
+\}) =>
     '''
-      mutation {
+      mutation \{
         updateTask(
-          data: { title: "$title", description: "$description", deadline: "$deadline" }
+          data: \{ title: "$title", description: "$description", deadline: "$deadline" \}
           id: "$taskId"
-        ) {
+        ) \{
           _id
           title
           description
           createdAt
           deadline
-          creator {
+          creator \{
             _id
-          }
-          event {
+          \}
+          event \{
             _id
-          }
-        }
-      }
+          \}
+        \}
+      \}
     ''';
 ```
 

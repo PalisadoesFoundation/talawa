@@ -18,17 +18,17 @@
 
 
 <p>This function make user to join the selected organization.
-The function uses <code>joinOrgById</code> graph QL query.</p>
+The function uses ```dartjoinOrgById``` graph QL query.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> onTapJoin() async {
+Future<void> onTapJoin() async \{
   // if `selectedOrganization` is public.
-  if (selectedOrganization.isPublic == true) {
-    try {
+  if (selectedOrganization.isPublic == true) \{
+    try \{
       // run the graph QL mutation
       final QueryResult result = await databaseFunctions.gqlAuthMutation(
         queries.joinOrgById(selectedOrganization.id!),
@@ -42,7 +42,7 @@ Future<void> onTapJoin() async {
               .toList();
       userConfig.updateUserJoinedOrg(joinedOrg!);
       // if user joined organization length is 1
-      if (userConfig.currentUser.joinedOrganizations!.length == 1) {
+      if (userConfig.currentUser.joinedOrganizations!.length == 1) \{
         userConfig.saveCurrentOrgInHive(
           userConfig.currentUser.joinedOrganizations![0],
         );
@@ -51,33 +51,33 @@ Future<void> onTapJoin() async {
           Routes.splashScreen,
           arguments: MainScreenArgs(mainScreenIndex: 0),
         );
-      } else {
+      \} else \{
         navigationService.pop();
         navigationService.showTalawaErrorSnackBar(
-          'Joined ${selectedOrganization.name} successfully',
+          'Joined $\{selectedOrganization.name\} successfully',
           MessageType.info,
         );
-      }
-    } on Exception catch (e) {
+      \}
+    \} on Exception catch (e) \{
       print(e);
       navigationService.showTalawaErrorSnackBar(
         'SomeThing went wrong',
         MessageType.error,
       );
-    }
-  }
-  // else {
-  //   try {
+    \}
+  \}
+  // else \{
+  //   try \{
   //     // navigationService.pushScreen(Routes.requestAccess);
-  //   } on Exception catch (e) {
+  //   \} on Exception catch (e) \{
   //     print(e);
   //     navigationService.showTalawaErrorSnackBar(
   //       'SomeThing went wrong',
   //       MessageType.error,
   //     );
-  //   }
-  // }
-}
+  //   \}
+  // \}
+\}
 ```
 
 

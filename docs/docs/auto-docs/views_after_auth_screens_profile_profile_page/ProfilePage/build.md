@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_profile_profile_page/ProfilePage/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<ProfilePageViewModel>(
     onModelReady: (model) => model.initialize(),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return Scaffold(
         key: model.scaffoldKey,
         appBar: AppBar(
@@ -111,7 +111,7 @@ Widget build(BuildContext context) {
                         ),
                         // display first and last name.
                         title:
-                            '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                            '$\{model.currentUser.firstName!\} $\{model.currentUser.lastName!\}',
                         // display email address
                         subtitle: model.currentUser.email!,
                         // button to edit the profile which redirects to edit profile page.
@@ -120,12 +120,12 @@ Widget build(BuildContext context) {
                             Icons.drive_file_rename_outline,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          onPressed: () {
+                          onPressed: () \{
                             navigationService.pushScreen("/editProfilePage");
-                          },
+                          \},
                         ),
                       ),
-                      onTapOption: () {},
+                      onTapOption: () \{\},
                     ),
                     const Divider(
                       thickness: 1, // thickness of the line
@@ -161,13 +161,13 @@ Widget build(BuildContext context) {
                                   .strictTranslate('App Settings'),
                               // display language of the app.
                               subtitle:
-                                  '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
+                                  '$\{AppLocalizations.of(context)!.strictTranslate("Language")\}, $\{AppLocalizations.of(context)!.strictTranslate("dark mode")\}, $\{AppLocalizations.of(context)!.strictTranslate("font size")\}',
                             ),
                             // button for the app setting which redirects to app setting page.
-                            onTapOption: () {
+                            onTapOption: () \{
                               navigationService
                                   .pushScreen("/appSettingsPage");
-                            },
+                            \},
                           ),
                           SizedBox(
                             height: SizeConfig.screenHeight! * 0.05,
@@ -193,9 +193,9 @@ Widget build(BuildContext context) {
                               ),
                             ),
                             // on tag redirects to the user Tasks page.
-                            onTapOption: () {
+                            onTapOption: () \{
                               navigationService.pushScreen(Routes.userTasks);
-                            },
+                            \},
                           ),
                           SizedBox(
                             height: SizeConfig.screenHeight! * 0.05,
@@ -217,7 +217,7 @@ Widget build(BuildContext context) {
                           //       'Reach out to us for help',
                           //     ),
                           //   ),
-                          //   onTapOption: () {},
+                          //   onTapOption: () \{\},
                           // ),
                           /// `Donation` acts as plugin. If visible is true the it will be always visible.
                           /// even if it's uninstalled by the admin (for development purposes)
@@ -309,9 +309,9 @@ Widget build(BuildContext context) {
                 ),
               ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

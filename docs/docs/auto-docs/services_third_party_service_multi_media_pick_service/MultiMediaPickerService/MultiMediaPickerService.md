@@ -18,10 +18,10 @@ MultiMediaPickerService()
 ## Implementation
 
 ```dart
-MultiMediaPickerService() {
+MultiMediaPickerService() \{
   _picker = locator<ImagePicker>();
   _fileStream = _fileStreamController.stream.asBroadcastStream();
-}
+\}
 ```
 
 

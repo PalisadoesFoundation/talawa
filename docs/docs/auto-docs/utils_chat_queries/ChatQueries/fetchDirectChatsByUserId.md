@@ -23,20 +23,20 @@
 ## Implementation
 
 ```dart
-String fetchDirectChatsByUserId(String userId) {
+String fetchDirectChatsByUserId(String userId) \{
   return '''
-    query {
-    directChatsByUserID(id: "$userId") {
+    query \{
+    directChatsByUserID(id: "$userId") \{
       _id
-      users{
+      users\{
         _id
         firstName
         email
-      }
-    }
-  }
+      \}
+    \}
+  \}
  ''';
-}
+\}
 ```
 
 

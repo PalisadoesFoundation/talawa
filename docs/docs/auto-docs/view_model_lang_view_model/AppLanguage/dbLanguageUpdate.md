@@ -17,22 +17,22 @@
 
 
 
-<p>This function updates the Database Language by running the graphQL <code>mutations</code>.</p>
+<p>This function updates the Database Language by running the graphQL ```dartmutations```.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> dbLanguageUpdate() async {
-  try {
+Future<void> dbLanguageUpdate() async \{
+  try \{
     await databaseFunctions
         .gqlAuthMutation(queries.updateLanguage(_appLocale.languageCode));
     print('Language Updated in Database');
-  } catch (e) {
+  \} catch (e) \{
     print(e);
-  }
-}
+  \}
+\}
 ```
 
 

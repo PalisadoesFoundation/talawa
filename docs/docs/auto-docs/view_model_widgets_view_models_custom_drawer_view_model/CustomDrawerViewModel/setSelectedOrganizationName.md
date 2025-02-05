@@ -20,7 +20,7 @@ void setSelectedOrganizationName
 <p>This function switches the current organization to new organization.</p>
 <p>params:</p>
 <ul>
-<li><code>updatedOrganization</code> : <code>OrgInfo</code> type, new organization.</li>
+<li>```dartupdatedOrganization``` : ```dartOrgInfo``` type, new organization.</li>
 </ul>
 
 
@@ -28,15 +28,15 @@ void setSelectedOrganizationName
 ## Implementation
 
 ```dart
-void setSelectedOrganizationName(OrgInfo updatedOrganization) {
+void setSelectedOrganizationName(OrgInfo updatedOrganization) \{
   // if current and updated organization are not same.
-  if (_selectedOrg != updatedOrganization) {
+  if (_selectedOrg != updatedOrganization) \{
     _selectedOrg = updatedOrganization;
     // update in `UserConfig` variable.
     userConfig.currentOrgInfoController.add(_selectedOrg!);
     notifyListeners();
-  }
-}
+  \}
+\}
 ```
 
 

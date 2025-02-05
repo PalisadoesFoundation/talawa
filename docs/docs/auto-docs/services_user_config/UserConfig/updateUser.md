@@ -20,7 +20,7 @@
 <p>This function is used to update the user details.</p>
 <p>params:</p>
 <ul>
-<li><code>updatedUserDetails</code> : <code>User</code> type variable containing all the details of an user need to be updated.</li>
+<li>```dartupdatedUserDetails``` : ```dartUser``` type variable containing all the details of an user need to be updated.</li>
 </ul>
 
 
@@ -28,18 +28,18 @@
 ## Implementation
 
 ```dart
-Future<bool> updateUser(User updatedUserDetails) async {
-  try {
+Future<bool> updateUser(User updatedUserDetails) async \{
+  try \{
     _currentUser = updatedUserDetails;
     saveUserInHive();
     graphqlConfig.getToken();
     databaseFunctions.init();
     return true;
-  } on Exception catch (e) {
+  \} on Exception catch (e) \{
     debugPrint(e.toString());
     return false;
-  }
-}
+  \}
+\}
 ```
 
 

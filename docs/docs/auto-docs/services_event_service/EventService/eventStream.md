@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>Stream&lt;Event&gt;</code>: returns the event stream</li>
+<li>```dartStream&lt;Event&gt;```: returns the event stream</li>
 </ul>
 
 

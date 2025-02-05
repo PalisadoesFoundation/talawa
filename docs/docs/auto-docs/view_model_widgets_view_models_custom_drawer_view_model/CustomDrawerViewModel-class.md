@@ -15,9 +15,9 @@
 to react to user's input for Custom Dialog Widget.</p>
 <p>Functions include:</p>
 <ul>
-<li><code>switchOrg</code></li>
-<li><code>isPresentinSwitchableOrg</code></li>
-<li><code>setSelectedOrganizationName</code></li>
+<li>```dartswitchOrg```</li>
+<li>```dartisPresentinSwitchableOrg```</li>
+<li>```dartsetSelectedOrganizationName```</li>
 </ul>
 
 
@@ -172,7 +172,7 @@ _<span class="feature">override</span>_
 
 
 
-This function checks <code>switchOrg</code> is present in the <code>switchAbleOrg</code>.  
+This function checks ```dartswitchOrg``` is present in the ```dartswitchAbleOrg```.  
 
 
 

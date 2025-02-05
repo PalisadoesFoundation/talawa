@@ -9,7 +9,7 @@
 
 
 const
-SendAccessRequest({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [OrgInfo](../../models_organization_org_info/OrgInfo-class.md) org})
+SendAccessRequest(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [OrgInfo](../../models_organization_org_info/OrgInfo-class.md) org\})
 
 
 
@@ -18,11 +18,11 @@ SendAccessRequest({[Key](https://api.flutter.dev/flutter/foundation/Key-class.ht
 ## Implementation
 
 ```dart
-const SendAccessRequest({
+const SendAccessRequest(\{
   Key? key,
   required this.org,
   // required this.model
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

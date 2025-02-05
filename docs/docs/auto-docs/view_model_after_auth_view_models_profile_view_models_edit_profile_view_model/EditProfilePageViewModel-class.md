@@ -14,7 +14,7 @@
 <p>EditProfilePageViewModel class helps to interact with model to serve data to edit profile views.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>getImageFromGallery</code></li>
+<li>```dartgetImageFromGallery```</li>
 </ul>
 
 
@@ -174,12 +174,12 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [getImageFromGallery](../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel/getImageFromGallery.md)({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
+##### [getImageFromGallery](../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel/getImageFromGallery.md)(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
 
 
 
 This function is used to get the image from gallery.
-The function uses the <code>_multiMediaPickerService</code> services.  
+The function uses the ```dart_multiMediaPickerService``` services.  
 
 
 

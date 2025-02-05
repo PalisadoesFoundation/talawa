@@ -14,7 +14,7 @@
 <p>OrganizationService class provides the in the context of organizations.</p>
 <p>Services include:</p>
 <ul>
-<li><code>getOrgMembersList</code> : to get all organizations members</li>
+<li>```dartgetOrgMembersList``` : to get all organizations members</li>
 </ul>
 
 

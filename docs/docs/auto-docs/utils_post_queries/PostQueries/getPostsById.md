@@ -20,11 +20,11 @@
 <p>Getting Posts by Id.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>orgId</code>: The organisation id</li>
+<li>```dartorgId```: The organisation id</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>String</code>: The query related to gettingPostsbyId</li>
+<li>```dartString```: The query related to gettingPostsbyId</li>
 </ul>
 
 
@@ -32,11 +32,11 @@
 ## Implementation
 
 ```dart
-String getPostsById(String orgId) {
+String getPostsById(String orgId) \{
   return """
-    query {
+    query \{
       postsByOrganization(id: "$orgId",orderBy: createdAt_DESC )
-      {
+      \{
         _id
         text
         createdAt
@@ -45,25 +45,25 @@ String getPostsById(String orgId) {
         title
         commentCount
         likeCount
-        creator{
+        creator\{
           _id
           firstName
           lastName
           image
-        }
-        organization{
+        \}
+        organization\{
           _id
-        }
-        likedBy{
+        \}
+        likedBy\{
           _id
-        }
-        comments{
+        \}
+        comments\{
           _id
-        }
-      }
-    }
+        \}
+      \}
+    \}
 """;
-}
+\}
 ```
 
 

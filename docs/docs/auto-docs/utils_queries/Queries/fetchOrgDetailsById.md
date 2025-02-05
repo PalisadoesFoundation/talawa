@@ -23,33 +23,33 @@
 ## Implementation
 
 ```dart
-String fetchOrgDetailsById(String orgId) {
+String fetchOrgDetailsById(String orgId) \{
   return '''
-  query{
-    organizations(id: "$orgId"){
+  query\{
+    organizations(id: "$orgId")\{
       image
       _id
       name
-      admins{
+      admins\{
         _id
-      }
+      \}
       description
       isPublic
-      creator{
+      creator\{
         _id
         firstName
         lastName
-      }
-      members{
+      \}
+      members\{
         _id
         firstName
         lastName
         image
-      }
-    }
-  }
+      \}
+    \}
+  \}
 ''';
-}
+\}
 ```
 
 

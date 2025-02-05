@@ -25,13 +25,13 @@ remove the like from the post if liked.</p>
 ## Implementation
 
 ```dart
-void toggleIsLiked() {
-  if (!_isLiked) {
+void toggleIsLiked() \{
+  if (!_isLiked) \{
     _postService.addLike(_postID);
-  } else {
+  \} else \{
     _postService.removeLike(_postID);
-  }
-}
+  \}
+\}
 ```
 
 

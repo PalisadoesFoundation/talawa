@@ -15,8 +15,8 @@
 and to react to user's input for Comment Widget.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>getComments</code> : to get all comments on the post.</li>
-<li><code>createComment</code> : to add comment on the post.</li>
+<li>```dartgetComments``` : to get all comments on the post.</li>
+<li>```dartcreateComment``` : to add comment on the post.</li>
 </ul>
 
 
@@ -134,7 +134,7 @@ _<span class="feature">inherited</span>_
 
 
 This function add comment on the post.
-The function uses <code>createComments</code> method provided by Comment Service.  
+The function uses ```dartcreateComments``` method provided by Comment Service.  
 
 
 
@@ -155,7 +155,7 @@ _<span class="feature">inherited</span>_
 
 
 This methods fetch all comments on the post.
-The function uses <code>getCommentsForPost</code> method by Comment Service.  
+The function uses ```dartgetCommentsForPost``` method by Comment Service.  
 
 
 

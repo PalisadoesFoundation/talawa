@@ -11,7 +11,7 @@
 
 
 [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> initialize
-({required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> args})
+(\{required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> args\})
 
 
 
@@ -24,7 +24,7 @@
 ## Implementation
 
 ```dart
-Future<void> initialize({required Map<String, dynamic> args}) async {
+Future<void> initialize(\{required Map<String, dynamic> args\}) async \{
   event = args["event"] as Event;
   exploreEventsInstance =
       args["exploreEventViewModel"] as ExploreEventsViewModel;
@@ -43,7 +43,7 @@ Future<void> initialize({required Map<String, dynamic> args}) async {
       )
       .toList();
   setState(ViewState.idle);
-}
+\}
 ```
 
 

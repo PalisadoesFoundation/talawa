@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_after_auth_screens_events_event_info_body/EventInfoBody/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   // fetching the event data from model
   final model = Provider.of<EventInfoViewModel>(context);
   final event = model.event;
@@ -114,7 +114,7 @@ Widget build(BuildContext context) {
           ),
           Text(
             // Display event creator full name.
-            "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator!.firstName} ${event.creator!.lastName}",
+            "$\{AppLocalizations.of(context)!.strictTranslate("Created by")\}: $\{event.creator!.firstName\} $\{event.creator!.lastName\}",
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -135,7 +135,7 @@ Widget build(BuildContext context) {
               ),
               Text(
                 // Display start and end date of the Event.
-                "${event.startDate!} - ${event.endDate!}",
+                "$\{event.startDate!\} - $\{event.endDate!\}",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const Spacer(),
@@ -183,7 +183,7 @@ Widget build(BuildContext context) {
                 width: SizeConfig.screenWidth! * 0.025,
               ),
               Text(
-                "${event.startTime!} - ${event.endTime!}",
+                "$\{event.startTime!\} - $\{event.endTime!\}",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
@@ -215,10 +215,10 @@ Widget build(BuildContext context) {
                 GestureDetector(
                   onTap: () => navigationService.pushScreen(
                     Routes.mapScreen,
-                    arguments: {
+                    arguments: \{
                       "latitude": event.latitude,
                       "longitude": event.longitude,
-                    },
+                    \},
                   ),
                   child: Text(
                     'View on map',
@@ -266,17 +266,17 @@ Widget build(BuildContext context) {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: event.admins!.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, int index) \{
               return CustomListTile(
                 key: Key(
-                  '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
+                  '$\{AppLocalizations.of(context)!.strictTranslate("Admins")\}$index',
                 ),
                 index: index,
                 type: TileType.user,
                 userInfo: event.admins![index],
-                onTapUserInfo: () {},
+                onTapUserInfo: () \{\},
               );
-            },
+            \},
           ),
           SizedBox(
             height: SizeConfig.screenHeight! * 0.013,
@@ -305,23 +305,23 @@ Widget build(BuildContext context) {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemCount: model.registrants.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int index) \{
                 return CustomListTile(
                   key: Key(
-                    '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
+                    '$\{AppLocalizations.of(context)!.strictTranslate("Attendee")\}$index',
                   ),
                   index: index,
                   type: TileType.user,
                   userInfo: model.registrants[index],
-                  onTapUserInfo: () {},
+                  onTapUserInfo: () \{\},
                 );
-              },
+              \},
             )
         ],
       ),
     ),
   );
-}
+\}
 ```
 
 

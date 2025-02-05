@@ -9,7 +9,7 @@
 
 
 const
-LanguageTile({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+LanguageTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ LanguageTile({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? 
 ## Implementation
 
 ```dart
-const LanguageTile({Key? key}) : super(key: key);
+const LanguageTile(\{Key? key\}) : super(key: key);
 ```
 
 

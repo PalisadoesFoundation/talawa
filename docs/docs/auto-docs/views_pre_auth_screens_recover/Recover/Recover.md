@@ -9,7 +9,7 @@
 
 
 const
-Recover({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+Recover(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ Recover({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.htm
 ## Implementation
 
 ```dart
-const Recover({required Key key}) : super(key: key);
+const Recover(\{required Key key\}) : super(key: key);
 ```
 
 

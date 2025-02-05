@@ -23,10 +23,10 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize(Event event) {
+void initialize(Event event) \{
   _event = event;
   _fillEditForm();
-}
+\}
 ```
 
 

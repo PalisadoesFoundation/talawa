@@ -20,7 +20,7 @@ void addNewPost
 <p>This function adds new Post.</p>
 <p>params:</p>
 <ul>
-<li><code>newPost</code></li>
+<li>```dartnewPost```</li>
 </ul>
 
 
@@ -28,10 +28,10 @@ void addNewPost
 ## Implementation
 
 ```dart
-void addNewPost(Post newPost) {
+void addNewPost(Post newPost) \{
   _posts.insert(0, newPost);
   notifyListeners();
-}
+\}
 ```
 
 

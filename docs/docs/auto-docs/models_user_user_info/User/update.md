@@ -23,7 +23,7 @@ void update
 ## Implementation
 
 ```dart
-void update(User details) {
+void update(User details) \{
   this.firstName = details.firstName;
   this.lastName = details.lastName;
   this.email = details.email;
@@ -34,7 +34,7 @@ void update(User details) {
   this.createdOrganizations = details.createdOrganizations;
   this.membershipRequests = details.membershipRequests;
   this.adminFor = details.adminFor;
-}
+\}
 ```
 
 

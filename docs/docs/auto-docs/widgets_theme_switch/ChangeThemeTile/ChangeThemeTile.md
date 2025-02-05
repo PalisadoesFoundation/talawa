@@ -9,7 +9,7 @@
 
 
 const
-ChangeThemeTile({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+ChangeThemeTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ ChangeThemeTile({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html
 ## Implementation
 
 ```dart
-const ChangeThemeTile({Key? key}) : super(key: key);
+const ChangeThemeTile(\{Key? key\}) : super(key: key);
 ```
 
 

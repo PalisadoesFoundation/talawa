@@ -28,9 +28,9 @@ void dispose
 ## Implementation
 
 ```dart
-void dispose() {
+void dispose() \{
   _currentOrganizationStreamSubscription.cancel();
-}
+\}
 ```
 
 

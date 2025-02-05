@@ -23,19 +23,19 @@ void showTalawaErrorDialog
 ## Implementation
 
 ```dart
-void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
+void showTalawaErrorDialog(String errorMessage, MessageType messageType) \{
   showDialog(
     context: navigatorKey.currentContext!,
     barrierColor: Colors.transparent,
     barrierDismissible: false,
-    builder: (BuildContext context) {
+    builder: (BuildContext context) \{
       return TalawaErrorDialog(
         errorMessage,
         messageType: messageType,
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

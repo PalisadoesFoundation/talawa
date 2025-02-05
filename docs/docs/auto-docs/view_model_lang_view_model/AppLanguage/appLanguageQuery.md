@@ -18,20 +18,20 @@
 
 
 <p>This function perform graphQL query to check the app language.
-The function uses <code>gqlAuthQuery</code> method provided by Database Functions Services.</p>
+The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.</p>
 
 
 
 ## Implementation
 
 ```dart
-Future<void> appLanguageQuery() async {
-  try {
+Future<void> appLanguageQuery() async \{
+  try \{
     await databaseFunctions.gqlAuthQuery(queries.userLanguage());
-  } catch (e) {
+  \} catch (e) \{
     print(e);
-  }
-}
+  \}
+\}
 ```
 
 

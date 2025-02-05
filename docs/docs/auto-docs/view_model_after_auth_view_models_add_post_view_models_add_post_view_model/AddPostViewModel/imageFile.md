@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>File?</code>: The image file</li>
+<li>```dartFile?```: The image file</li>
 </ul>
 
 

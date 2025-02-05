@@ -22,7 +22,7 @@
 None
 returns:</p>
 <ul>
-<li><code>String</code>: The organisation name</li>
+<li>```dartString```: The organisation name</li>
 </ul>
 
 

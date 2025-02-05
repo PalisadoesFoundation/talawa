@@ -28,7 +28,7 @@ void tourEventTargets
 ## Implementation
 
 ```dart
-void tourEventTargets() {
+void tourEventTargets() \{
   targets.clear();
   targets.add(
     focusTarget(
@@ -69,15 +69,15 @@ void tourEventTargets() {
     ),
   );
   showTutorial(
-    onFinish: () {
+    onFinish: () \{
       onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) {
+      if (!tourComplete && !tourSkipped) \{
         tourAddPost();
-      }
-    },
-    onClickTarget: (TargetFocus a) {},
+      \}
+    \},
+    onClickTarget: (TargetFocus a) \{\},
   );
-}
+\}
 ```
 
 

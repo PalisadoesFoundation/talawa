@@ -24,9 +24,9 @@
 ## Implementation
 
 ```dart
-Future<void> registerForEvent() async {
+Future<void> registerForEvent() async \{
   // if event registration is open and user not already registered for the event.
-  if (event.isRegisterable == true && event.isRegistered == false) {
+  if (event.isRegisterable == true && event.isRegistered == false) \{
     navigationService.pushDialog(
       const CustomProgressDialog(
         key: Key('RegisterEvent'),
@@ -38,16 +38,16 @@ Future<void> registerForEvent() async {
         await locator<EventService>().registerForAnEvent(event.id!);
     //final registerResult = await EventService().registerForAnEvent(event.id!);
     // if the registration is successful.
-    if (registerResult != null) {
+    if (registerResult != null) \{
       event.isRegistered = true;
       registrants.add(locator<UserConfig>().currentUser);
-    }
+    \}
     print(registerResult);
     fabTitle = getFabTitle();
     navigationService.pop();
     notifyListeners();
-  }
-}
+  \}
+\}
 ```
 
 

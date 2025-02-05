@@ -23,7 +23,7 @@ void donate
 ## Implementation
 
 ```dart
-void donate(BuildContext context, ProfilePageViewModel model) {
+void donate(BuildContext context, ProfilePageViewModel model) \{
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -33,9 +33,9 @@ void donate(BuildContext context, ProfilePageViewModel model) {
         topRight: Radius.circular(30),
       ),
     ),
-    builder: (BuildContext context) {
+    builder: (BuildContext context) \{
       return StatefulBuilder(
-        builder: (context, setState) {
+        builder: (context, setState) \{
           model.attachListener(setState);
           return ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -59,7 +59,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                     padding: const EdgeInsets.only(top: 8.0),
                     // display title
                     child: Text(
-                      'Donating to \n${model.currentOrg.name}',
+                      'Donating to \n$\{model.currentOrg.name\}',
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
@@ -142,9 +142,9 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                           autofillHints: const <String>[AutofillHints.email],
                           enableSuggestions: true,
                           style: Theme.of(context).textTheme.titleLarge,
-                          onChanged: (text) {
-                            setState(() {});
-                          },
+                          onChanged: (text) \{
+                            setState(() \{\});
+                          \},
                           decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
                                 .translate("Enter donation amount"),
@@ -153,9 +153,9 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                             labelStyle:
                                 Theme.of(context).textTheme.titleMedium,
                             prefixIcon: GestureDetector(
-                              onTap: () {
+                              onTap: () \{
                                 model.changeCurrency(context, setState);
-                              },
+                              \},
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 15.0,
@@ -203,7 +203,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                         height: SizeConfig.screenWidth! * 0.05,
                       ),
                       ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () async \{
                           ///required fields for donation transaction
                           late final String userId;
                           late final String orgId;
@@ -214,7 +214,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                           orgId = model.currentOrg.id!;
                           userId = model.currentUser.id!;
                           nameOfUser =
-                              "${model.currentUser.firstName!} ${model.currentUser.lastName!}";
+                              "$\{model.currentUser.firstName!\} $\{model.currentUser.lastName!\}";
                           nameOfOrg = model.currentOrg.name!;
 
                           amount = double.parse(model.donationAmount.text);
@@ -231,7 +231,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
 
                           final BraintreeDropInResult? result =
                               await BraintreeDropIn.start(request);
-                          if (result != null) {
+                          if (result != null) \{
                             ///saving the donation in server
                             late final GraphQLClient client =
                                 graphqlConfig.clientToQuery();
@@ -254,19 +254,19 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                                 ),
                               ),
                             );
-                            if (donationResult.hasException) {
+                            if (donationResult.hasException) \{
                               model.showSnackBar(
                                 "Error occurred while making a donation",
                               );
-                            }
+                            \}
 
                             /// hiding the donation UI once it is successful
                             model.popBottomSheet();
                             model.showSnackBar(
                               'Donation Successful,Thanks for the support !',
                             );
-                          }
-                        },
+                          \}
+                        \},
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                             // if the donation amount entered or selected is empty then renders grey color
@@ -287,11 +287,11 @@ void donate(BuildContext context, ProfilePageViewModel model) {
               ),
             ),
           );
-        },
+        \},
       );
-    },
+    \},
   ).then((value) => model.updateSheetHeight());
-}
+\}
 ```
 
 

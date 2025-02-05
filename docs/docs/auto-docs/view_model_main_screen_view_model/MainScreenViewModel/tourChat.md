@@ -28,7 +28,7 @@ void tourChat
 ## Implementation
 
 ```dart
-void tourChat() {
+void tourChat() \{
   targets.clear();
   targets.add(
     focusTarget(
@@ -40,15 +40,15 @@ void tourChat() {
     ),
   );
   showTutorial(
-    onFinish: () {
+    onFinish: () \{
       onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) {
+      if (!tourComplete && !tourSkipped) \{
         tourProfile();
-      }
-    },
-    onClickTarget: (TargetFocus a) {},
+      \}
+    \},
+    onClickTarget: (TargetFocus a) \{\},
   );
-}
+\}
 ```
 
 

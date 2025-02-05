@@ -18,11 +18,11 @@
 
 
 <p>This function deletes the task for an event.
-The function uses <code>deleteTask</code> method of Task Service.</p>
+The function uses ```dartdeleteTask``` method of Task Service.</p>
 <p>params:</p>
 <ul>
-<li><code>taskId</code> : id of the task need to be deleted.</li>
-<li><code>creatorId</code> : id of the task creator.</li>
+<li>```darttaskId``` : id of the task need to be deleted.</li>
+<li>```dartcreatorId``` : id of the task creator.</li>
 </ul>
 
 
@@ -30,10 +30,10 @@ The function uses <code>deleteTask</code> method of Task Service.</p>
 ## Implementation
 
 ```dart
-Future<void> deleteTask(String taskId, String creatorId) async {
+Future<void> deleteTask(String taskId, String creatorId) async \{
   await _taskService.deleteTask(taskId, creatorId);
   notifyListeners();
-}
+\}
 ```
 
 

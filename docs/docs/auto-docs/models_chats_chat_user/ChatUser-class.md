@@ -28,7 +28,7 @@
 
 ## Constructors
 
-[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md) ({[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image})
+[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md) (\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image\})
 
    
 

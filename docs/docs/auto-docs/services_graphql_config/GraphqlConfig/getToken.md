@@ -24,12 +24,12 @@
 ## Implementation
 
 ```dart
-Future getToken() async {
+Future getToken() async \{
   final authToken = userConfig.currentUser.authToken;
   token = authToken;
   getOrgUrl();
   return true;
-}
+\}
 ```
 
 

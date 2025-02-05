@@ -23,71 +23,71 @@
 ## Implementation
 
 ```dart
-String loginUser(String email, String password) {
+String loginUser(String email, String password) \{
   return """
-      mutation {
-        login(data: {email: "$email", password: "$password"}){
+      mutation \{
+        login(data: \{email: "$email", password: "$password"\})\{
           accessToken
-          user{
+          user\{
             _id
             firstName
             lastName
             email
             image
-            joinedOrganizations{
+            joinedOrganizations\{
               _id
               name
               image
               description
               isPublic
-              creator{
+              creator\{
                 _id
                 firstName
                 lastName
                 image
-              }
-            }
-            createdOrganizations{
+              \}
+            \}
+            createdOrganizations\{
               _id
               name
               image
               description
               isPublic
-              creator{
+              creator\{
                 _id
                 firstName
                 lastName
                 image
-              }
-            }
-            membershipRequests{
-              organization{
+              \}
+            \}
+            membershipRequests\{
+              organization\{
                 _id
                 name
                 image
                 description
                 isPublic
-                creator{
+                creator\{
                   _id
                   firstName
                   lastName
                   image
-                }
-              }
-            }
-            adminFor{
+                \}
+              \}
+            \}
+            adminFor\{
               _id
-            }
-          }
+            \}
+          \}
           refreshToken
-          androidFirebaseOptions {
+          androidFirebaseOptions \{
             apiKey
             appId
             messagingSenderId
             projectId
             storageBucket
-          }
-          iosFirebaseOptions {
+          \}
+          iosFirebaseOptions \{
             apiKey
             appId
             messagingSenderId
@@ -95,11 +95,11 @@ String loginUser(String email, String password) {
             storageBucket
             iosClientId
             iosBundleId
-          }
-        }
-      }
+          \}
+        \}
+      \}
   """;
-}
+\}
 ```
 
 

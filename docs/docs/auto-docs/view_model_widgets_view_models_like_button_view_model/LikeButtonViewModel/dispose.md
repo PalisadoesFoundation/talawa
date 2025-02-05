@@ -33,9 +33,9 @@ listeners or not immediately before disposal.</p>
 ```dart
 @override
 // ignore: must_call_super
-void dispose() {
+void dispose() \{
   _updatePostSubscription.cancel();
-}
+\}
 ```
 
 

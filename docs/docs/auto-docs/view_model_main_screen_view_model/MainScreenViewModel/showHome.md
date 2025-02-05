@@ -20,7 +20,7 @@ void showHome
 <p>This function shows the Home screen.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>clickedTarget</code>: object to identify clickedTarget.</li>
+<li>```dartclickedTarget```: object to identify clickedTarget.</li>
 </ul>
 <p><strong>returns</strong>:
   None</p>
@@ -30,15 +30,15 @@ void showHome
 ## Implementation
 
 ```dart
-void showHome(TargetFocus clickedTarget) {
-  switch (clickedTarget.identify) {
+void showHome(TargetFocus clickedTarget) \{
+  switch (clickedTarget.identify) \{
     case "keySHMenuIcon":
       scaffoldKey.currentState!.openDrawer();
       break;
     case "keyDrawerLeaveCurrentOrg":
       navigationService.pop();
-  }
-}
+  \}
+\}
 ```
 
 

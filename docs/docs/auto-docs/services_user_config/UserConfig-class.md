@@ -14,13 +14,13 @@
 <p>UserConfig class provides different services in the context of the User.</p>
 <p>Services include:</p>
 <ul>
-<li><code>userLoggedIn</code> : helps to make user logged in to the application.</li>
-<li><code>updateUserJoinedOrg</code> : helps to update the user joined organization.</li>
-<li><code>updateUserCreatedOrg</code> : helps to update the user created organization.</li>
-<li><code>updateUserMemberRequestOrg</code> : helps to update the User membership request for the organization.</li>
-<li><code>updateUserAdminOrg</code> : helps to update the Admin of the Organization.</li>
-<li><code>updateAccessToken</code> : helps to update the access token of an user.</li>
-<li><code>updateUser</code> : helps to update the user.</li>
+<li>```dartuserLoggedIn``` : helps to make user logged in to the application.</li>
+<li>```dartupdateUserJoinedOrg``` : helps to update the user joined organization.</li>
+<li>```dartupdateUserCreatedOrg``` : helps to update the user created organization.</li>
+<li>```dartupdateUserMemberRequestOrg``` : helps to update the User membership request for the organization.</li>
+<li>```dartupdateUserAdminOrg``` : helps to update the Admin of the Organization.</li>
+<li>```dartupdateAccessToken``` : helps to update the access token of an user.</li>
+<li>```dartupdateUser``` : helps to update the user.</li>
 </ul>
 
 
@@ -147,7 +147,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [updateAccessToken](../services_user_config/UserConfig/updateAccessToken.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) accessToken, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) refreshToken}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
+##### [updateAccessToken](../services_user_config/UserConfig/updateAccessToken.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) accessToken, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) refreshToken\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)
 
 
 

@@ -20,7 +20,7 @@
 <p>This function is used to update the user request to join the organization.</p>
 <p>params:</p>
 <ul>
-<li><code>orgDetails</code> : details of the organization that user requested to join.</li>
+<li>```dartorgDetails``` : details of the organization that user requested to join.</li>
 </ul>
 
 
@@ -28,10 +28,10 @@
 ## Implementation
 
 ```dart
-Future updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
+Future updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async \{
   _currentUser!.updateMemberRequestOrg(orgDetails);
   saveUserInHive();
-}
+\}
 ```
 
 

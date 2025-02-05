@@ -28,7 +28,7 @@ void tourProfile
 ## Implementation
 
 ```dart
-void tourProfile() {
+void tourProfile() \{
   targets.clear();
   targets.add(
     focusTarget(
@@ -77,15 +77,15 @@ void tourProfile() {
     ),
   );
   showTutorial(
-    onFinish: () {
-      if (!tourComplete && !tourSkipped) {
+    onFinish: () \{
+      if (!tourComplete && !tourSkipped) \{
         tourComplete = true;
         onTabTapped(0);
-      }
-    },
-    onClickTarget: (TargetFocus a) {},
+      \}
+    \},
+    onClickTarget: (TargetFocus a) \{\},
   );
-}
+\}
 ```
 
 

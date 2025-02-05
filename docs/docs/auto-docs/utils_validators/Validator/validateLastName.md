@@ -23,18 +23,18 @@
 ## Implementation
 
 ```dart
-static String? validateLastName(String value) {
-  if (value.isEmpty) {
+static String? validateLastName(String value) \{
+  if (value.isEmpty) \{
     return 'Lastname must not be left blank.';
-  }
+  \}
   // ignore: unnecessary_raw_strings
   const String pattern = r"(?=.*?[A-Za-z]).+";
   final RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(value)) {
+  if (!regex.hasMatch(value)) \{
     return "Invalid Lastname";
-  }
+  \}
   return null;
-}
+\}
 ```
 
 

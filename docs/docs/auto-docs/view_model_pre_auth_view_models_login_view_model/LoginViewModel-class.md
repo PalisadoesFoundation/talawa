@@ -15,7 +15,7 @@
 and react to user's input in Login View.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>login</code></li>
+<li>```dartlogin```</li>
 </ul>
 
 

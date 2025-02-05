@@ -23,9 +23,9 @@ void showSnackBar
 ## Implementation
 
 ```dart
-void showSnackBar(String message) {
+void showSnackBar(String message) \{
   _navigationService.showTalawaErrorDialog(message, MessageType.error);
-}
+\}
 ```
 
 

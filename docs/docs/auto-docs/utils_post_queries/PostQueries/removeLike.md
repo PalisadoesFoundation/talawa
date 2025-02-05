@@ -22,7 +22,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>String</code>: The query related to removingLike</li>
+<li>```dartString```: The query related to removingLike</li>
 </ul>
 
 
@@ -30,19 +30,19 @@
 ## Implementation
 
 ```dart
-String removeLike() {
+String removeLike() \{
   return """
-   mutation unlikePost(\$postID: ID!) {
+   mutation unlikePost(\$postID: ID!) \{
     unlikePost( id: \$postID,)
-    {
+    \{
       _id
-      likedBy{
+      likedBy\{
       _id
-      }
-    }
-  }
+      \}
+    \}
+  \}
 """;
-}
+\}
 ```
 
 

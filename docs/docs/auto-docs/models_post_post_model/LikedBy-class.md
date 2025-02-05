@@ -18,7 +18,7 @@
 
 ## Constructors
 
-[LikedBy](../models_post_post_model/LikedBy/LikedBy.md) ({[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId})
+[LikedBy](../models_post_post_model/LikedBy/LikedBy.md) (\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId\})
 
    
 

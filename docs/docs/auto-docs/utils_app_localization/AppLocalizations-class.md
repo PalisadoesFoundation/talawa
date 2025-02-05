@@ -19,7 +19,7 @@ to users with different languages.</p>
 
 ## Constructors
 
-[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.md) ([Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html) locale, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false})
+[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.md) ([Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html) locale, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
    
 

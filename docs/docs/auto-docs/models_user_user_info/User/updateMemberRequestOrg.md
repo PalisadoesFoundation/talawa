@@ -23,9 +23,9 @@ void updateMemberRequestOrg
 ## Implementation
 
 ```dart
-void updateMemberRequestOrg(List<OrgInfo> orgList) {
+void updateMemberRequestOrg(List<OrgInfo> orgList) \{
   this.membershipRequests = [...membershipRequests!, ...orgList];
-}
+\}
 ```
 
 

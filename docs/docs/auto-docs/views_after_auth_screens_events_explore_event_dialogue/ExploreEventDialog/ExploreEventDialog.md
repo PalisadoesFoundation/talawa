@@ -9,7 +9,7 @@
 
 
 const
-ExploreEventDialog({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+ExploreEventDialog(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ ExploreEventDialog({required [Key](https://api.flutter.dev/flutter/foundation/Ke
 ## Implementation
 
 ```dart
-const ExploreEventDialog({required Key key}) : super(key: key);
+const ExploreEventDialog(\{required Key key\}) : super(key: key);
 ```
 
 

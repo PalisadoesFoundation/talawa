@@ -47,7 +47,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 ## Methods
 
-##### [addUserBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/addUserBottomSheet.md)({required [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) context, required [CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md) model}) void
+##### [addUserBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet/addUserBottomSheet.md)(\{required [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) context, required [CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md) model\}) void
 
 
 

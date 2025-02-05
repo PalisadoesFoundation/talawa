@@ -27,13 +27,13 @@ We can use QR code scanner, social media platforms like twitter, whatsapp, teleg
 ## Implementation
 
 ```dart
-Widget invite(BuildContext context) {
+Widget invite(BuildContext context) \{
   _appLanguageService.initialize();
 
   final String url =
-      'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+      'https://cyberwake.github.io/applink/invite?selectLang=$\{_appLanguageService.appLocal.languageCode\}&setUrl=$\{GraphqlConfig.orgURI\}&selectOrg=$\{userConfig.currentOrg.id!\}';
   final String qrData =
-      '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
+      '$\{GraphqlConfig.orgURI\}?orgid=$\{userConfig.currentOrg.id!\}';
 
   // print(url);
   // print(qrData);
@@ -55,7 +55,7 @@ Widget invite(BuildContext context) {
         height: SizeConfig.screenHeight! * 0.08,
       ),
       Text(
-        'Scan the QR to join ${userConfig.currentOrg.name}',
+        'Scan the QR to join $\{userConfig.currentOrg.name\}',
         style: const TextStyle(color: Colors.black),
       ),
       SizedBox(
@@ -111,7 +111,7 @@ Widget invite(BuildContext context) {
       )
     ],
   );
-}
+\}
 ```
 
 

@@ -24,7 +24,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;void&gt;</code>: promise that will be fulfilled Firebase is setted up in app.</li>
+<li>```dartFuture&lt;void&gt;```: promise that will be fulfilled Firebase is setted up in app.</li>
 </ul>
 
 
@@ -32,14 +32,14 @@
 ## Implementation
 
 ```dart
-Future<void> setUpFirebase() async {
+Future<void> setUpFirebase() async \{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform(
       androidFirebaseOptions,
       iosFirebaseOptions,
     ),
   );
-}
+\}
 ```
 
 

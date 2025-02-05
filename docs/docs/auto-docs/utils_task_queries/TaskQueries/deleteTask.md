@@ -24,11 +24,11 @@
 
 ```dart
 static String deleteTask(String taskId) => '''
-  mutation {
-    removeTask(id: "$taskId") {
+  mutation \{
+    removeTask(id: "$taskId") \{
       _id
-    }
-  }
+    \}
+  \}
 ''';
 ```
 

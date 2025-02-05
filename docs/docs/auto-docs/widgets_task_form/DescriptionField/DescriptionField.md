@@ -9,7 +9,7 @@
 
 
 const
-DescriptionField({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+DescriptionField(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ DescriptionField({[Key](https://api.flutter.dev/flutter/foundation/Key-class.htm
 ## Implementation
 
 ```dart
-const DescriptionField({Key? key}) : super(key: key);
+const DescriptionField(\{Key? key\}) : super(key: key);
 ```
 
 

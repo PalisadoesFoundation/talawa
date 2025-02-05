@@ -24,16 +24,16 @@ void pushDialog
 ## Implementation
 
 ```dart
-void pushDialog(Widget dialog) {
+void pushDialog(Widget dialog) \{
   showDialog(
     context: navigatorKey.currentContext!,
     barrierColor: Colors.transparent,
     barrierDismissible: false,
-    builder: (BuildContext context) {
+    builder: (BuildContext context) \{
       return dialog;
-    },
+    \},
   );
-}
+\}
 ```
 
 

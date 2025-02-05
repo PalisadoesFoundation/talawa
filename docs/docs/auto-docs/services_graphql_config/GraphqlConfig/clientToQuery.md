@@ -23,7 +23,7 @@
 ## Implementation
 
 ```dart
-GraphQLClient clientToQuery() {
+GraphQLClient clientToQuery() \{
   //TODO: Implement websocket link from OrgUrl
   // final link = Link.split(
   //     (request) => request.isSubscription, webSocketLink, httpLink);
@@ -31,7 +31,7 @@ GraphQLClient clientToQuery() {
     cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
     link: httpLink,
   );
-}
+\}
 ```
 
 

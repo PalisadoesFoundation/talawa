@@ -23,17 +23,17 @@
 ## Implementation
 
 ```dart
-String updateLanguage(String languageCode) {
+String updateLanguage(String languageCode) \{
   return '''
-      mutation {
-        updateLanguage(languageCode: "$languageCode"){
+      mutation \{
+        updateLanguage(languageCode: "$languageCode")\{
           _id
           firstName
           appLanguageCode
-        }
-      }
+        \}
+      \}
   ''';
-}
+\}
 ```
 
 

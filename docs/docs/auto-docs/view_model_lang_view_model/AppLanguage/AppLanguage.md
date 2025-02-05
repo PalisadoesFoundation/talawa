@@ -9,7 +9,7 @@
 
 
 
-AppLanguage({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false})
+AppLanguage(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
 
 
@@ -18,7 +18,7 @@ AppLanguage({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) i
 ## Implementation
 
 ```dart
-AppLanguage({this.isTest = false});
+AppLanguage(\{this.isTest = false\});
 ```
 
 

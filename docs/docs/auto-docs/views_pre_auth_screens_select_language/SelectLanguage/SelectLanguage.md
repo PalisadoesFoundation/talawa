@@ -9,7 +9,7 @@
 
 
 const
-SelectLanguage({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+SelectLanguage(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ SelectLanguage({required [Key](https://api.flutter.dev/flutter/foundation/Key-cl
 ## Implementation
 
 ```dart
-const SelectLanguage({required Key key}) : super(key: key);
+const SelectLanguage(\{required Key key\}) : super(key: key);
 ```
 
 

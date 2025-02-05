@@ -23,7 +23,7 @@ void test
 ## Implementation
 
 ```dart
-void test() {
+void test() \{
   _mediaQueryData =
       const MediaQueryData(size: Size(360, 684), padding: EdgeInsets.zero);
   screenWidth = _mediaQueryData.size.width;
@@ -37,7 +37,7 @@ void test() {
       _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
   safeBlockHorizontal = (screenWidth! - _safeAreaHorizontal) / 100;
   safeBlockVertical = (screenHeight! - _safeAreaVertical) / 100;
-}
+\}
 ```
 
 

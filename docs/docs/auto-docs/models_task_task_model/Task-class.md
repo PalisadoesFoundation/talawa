@@ -17,7 +17,7 @@
 
 ## Constructors
 
-[Task](../models_task_task_model/Task/Task.md) ({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) id, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [User](../models_user_user_info/User-class.md) creator, required [Event](../models_events_event_model/Event-class.md) event, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) createdAt, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? deadline})
+[Task](../models_task_task_model/Task/Task.md) (\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) id, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [User](../models_user_user_info/User-class.md) creator, required [Event](../models_events_event_model/Event-class.md) event, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) createdAt, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? deadline\})
 
   _const_ 
 

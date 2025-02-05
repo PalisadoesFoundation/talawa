@@ -23,10 +23,10 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize() {
+void initialize() \{
   _isDarkMode = true;
   _loadFromPrefs();
-}
+\}
 ```
 
 

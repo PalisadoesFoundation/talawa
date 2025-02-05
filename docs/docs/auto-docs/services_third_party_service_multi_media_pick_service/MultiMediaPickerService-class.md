@@ -15,8 +15,8 @@
 <p>gallery and then image can be cropped as well.</p>
 <p>Services include:</p>
 <ul>
-<li><code>getPhotoFromGallery</code> - Used to select photo from gallery.</li>
-<li><code>cropImage</code> - Used to crop the selected image.</li>
+<li>```dartgetPhotoFromGallery``` - Used to select photo from gallery.</li>
+<li>```dartcropImage``` - Used to crop the selected image.</li>
 </ul>
 
 
@@ -62,7 +62,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 ## Methods
 
-##### [cropImage](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/cropImage.md)({required [File](https://api.flutter.dev/flutter/dart-io/File-class.html) imageFile}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?>
+##### [cropImage](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/cropImage.md)(\{required [File](https://api.flutter.dev/flutter/dart-io/File-class.html) imageFile\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?>
 
 
 
@@ -71,7 +71,7 @@ This function is used to crop the image selected by the user.
 
 
 
-##### [getPhotoFromGallery](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/getPhotoFromGallery.md)({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?>
+##### [getPhotoFromGallery](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/getPhotoFromGallery.md)(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?>
 
 
 

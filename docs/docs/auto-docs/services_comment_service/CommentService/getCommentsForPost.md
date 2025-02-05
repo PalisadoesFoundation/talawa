@@ -20,7 +20,7 @@
 <p>This function is used to fetch all comments on the post.</p>
 <p>parameters:</p>
 <ul>
-<li><code>postId</code> - Post id for which comments need to be fetched.</li>
+<li>```dartpostId``` - Post id for which comments need to be fetched.</li>
 </ul>
 
 
@@ -28,14 +28,14 @@
 ## Implementation
 
 ```dart
-Future getCommentsForPost(String postId) async {
+Future getCommentsForPost(String postId) async \{
   final String getCommmentQuery = CommentQueries().getPostsComments(postId);
   final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
-  if (result.data != null) {
+  if (result.data != null) \{
     return result.data["commentsByPost"] as List;
-  }
+  \}
   return [];
-}
+\}
 ```
 
 

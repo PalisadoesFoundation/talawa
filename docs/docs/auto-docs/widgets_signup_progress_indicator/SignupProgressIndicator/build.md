@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_signup_progress_indicator/SignupProgressIndicator/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return Container(
     alignment: Alignment.center,
     height: SizeConfig.screenHeight! * 0.15,
@@ -78,7 +78,7 @@ Widget build(BuildContext context) {
               ),
           textAlign: TextAlign.center,
         ),
-        connectorBuilder: (_, index, __) {
+        connectorBuilder: (_, index, __) \{
           return SolidLineConnector(
             space: 30,
             // If the flow index is greater than currentPageIndex then
@@ -87,8 +87,8 @@ Widget build(BuildContext context) {
                 ? const Color(0xFF008A37)
                 : const Color(0xFF737373),
           );
-        },
-        indicatorBuilder: (_, index) {
+        \},
+        indicatorBuilder: (_, index) \{
           return DotIndicator(
             size: 25,
             color: index <= currentPageIndex
@@ -102,13 +102,13 @@ Widget build(BuildContext context) {
                   )
                 : const SizedBox(),
           );
-        },
+        \},
         itemExtentBuilder: (_, __) => MediaQuery.of(context).size.width / 3,
         itemCount: 3,
       ),
     ),
   );
-}
+\}
 ```
 
 

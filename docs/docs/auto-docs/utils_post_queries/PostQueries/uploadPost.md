@@ -22,7 +22,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>String</code>: The query related to uploadingPost.</li>
+<li>```dartString```: The query related to uploadingPost.</li>
 </ul>
 
 
@@ -30,7 +30,7 @@
 ## Implementation
 
 ```dart
-String uploadPost() {
+String uploadPost() \{
   return '''
   mutation CreatePost(
   \$text: String!
@@ -38,21 +38,21 @@ String uploadPost() {
   \$imageUrl: URL
   \$videoUrl: URL
   \$organizationId: ID!
-) {
+) \{
   createPost(
-    data: {
+    data: \{
       text: \$text
       title: \$title
       imageUrl: \$imageUrl
       videoUrl: \$videoUrl
       organizationId: \$organizationId
-    }
-  ) {
+    \}
+  ) \{
     _id
-  }
-}
+  \}
+\}
   ''';
-}
+\}
 ```
 
 

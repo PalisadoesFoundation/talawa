@@ -20,11 +20,11 @@
 <p>This function is used to fetch all registrants of an event.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>eventId</code>: id of an event.</li>
+<li>```darteventId```: id of an event.</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;dynamic&gt;</code>: Information about event registrants.</li>
+<li>```dartFuture&lt;dynamic&gt;```: Information about event registrants.</li>
 </ul>
 
 
@@ -32,13 +32,13 @@
 ## Implementation
 
 ```dart
-Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
+Future<dynamic> fetchRegistrantsByEvent(String eventId) async \{
   await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
   final result = await _dbFunctions.gqlAuthQuery(
     EventQueries().registrantsByEvent(eventId),
   );
   return result;
-}
+\}
 ```
 
 

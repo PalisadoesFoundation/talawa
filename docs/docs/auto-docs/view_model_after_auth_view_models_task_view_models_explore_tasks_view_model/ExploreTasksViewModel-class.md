@@ -15,9 +15,9 @@
 and react to user's input in Explore Task section.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>fetchTasks</code></li>
+<li>```dartfetchTasks```</li>
 <li>`fetchTasksByUser</li>
-<li><code>deleteTask</code></li>
+<li>```dartdeleteTask```</li>
 </ul>
 
 
@@ -117,7 +117,7 @@ _<span class="feature">inherited</span>_
 
 
 This function deletes the task for an event.
-The function uses <code>deleteTask</code> method of Task Service.  
+The function uses ```dartdeleteTask``` method of Task Service.  
 
 
 
@@ -138,7 +138,7 @@ _<span class="feature">inherited</span>_
 
 
 This function fetch all the task for an event.
-The function uses <code>getTasksForEvent</code> method of Task Service.  
+The function uses ```dartgetTasksForEvent``` method of Task Service.  
 
 
 
@@ -148,7 +148,7 @@ The function uses <code>getTasksForEvent</code> method of Task Service.
 
 
 This function fetch tasks created by the current user for an event.
-The function uses <code>getTasksByUser</code> method of Task Service.  
+The function uses ```dartgetTasksByUser``` method of Task Service.  
 
 
 

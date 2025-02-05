@@ -9,7 +9,7 @@
 
 
 const
-CustomCarouselScroller({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> pinnedPosts, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) navigateToIndividualPostPage})
+CustomCarouselScroller(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> pinnedPosts, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) navigateToIndividualPostPage\})
 
 
 
@@ -18,11 +18,11 @@ CustomCarouselScroller({[Key](https://api.flutter.dev/flutter/foundation/Key-cla
 ## Implementation
 
 ```dart
-const CustomCarouselScroller({
+const CustomCarouselScroller(\{
   Key? key,
   required this.pinnedPosts,
   required this.navigateToIndividualPostPage,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

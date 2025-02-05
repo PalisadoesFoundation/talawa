@@ -25,14 +25,14 @@ Dialog box contains the QR-code of organization invite link and social media sha
 ## Implementation
 
 ```dart
-void invite(BuildContext context) {
+void invite(BuildContext context) \{
   _appLanguageService.initialize();
   // organization url
   final String url =
-      'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+      'https://cyberwake.github.io/applink/invite?selectLang=$\{_appLanguageService.appLocal.languageCode\}&setUrl=$\{GraphqlConfig.orgURI\}&selectOrg=$\{userConfig.currentOrg.id!\}';
   // QR
   final String qrData =
-      '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
+      '$\{GraphqlConfig.orgURI\}?orgid=$\{userConfig.currentOrg.id!\}';
   print(url);
   print(qrData);
   showModalBottomSheet(
@@ -43,7 +43,7 @@ void invite(BuildContext context) {
         topRight: Radius.circular(30),
       ),
     ),
-    builder: (BuildContext context) {
+    builder: (BuildContext context) \{
       return ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -69,7 +69,7 @@ void invite(BuildContext context) {
                 height: SizeConfig.screenHeight! * 0.08,
               ),
               Text(
-                'Scan the QR to join ${userConfig.currentOrg.name}',
+                'Scan the QR to join $\{userConfig.currentOrg.name\}',
                 style: const TextStyle(color: Colors.black),
               ),
               SizedBox(
@@ -121,9 +121,9 @@ void invite(BuildContext context) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

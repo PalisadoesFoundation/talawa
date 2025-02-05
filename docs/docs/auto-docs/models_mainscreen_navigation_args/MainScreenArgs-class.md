@@ -17,7 +17,7 @@
 
 ## Constructors
 
-[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.md) ({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromSignUp = false, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) mainScreenIndex})
+[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.md) (\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromSignUp = false, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) mainScreenIndex\})
 
    
 

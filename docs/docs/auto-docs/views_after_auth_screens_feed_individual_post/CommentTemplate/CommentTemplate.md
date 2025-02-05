@@ -9,7 +9,7 @@
 
 
 const
-CommentTemplate({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Comment](../../models_comment_comment_model/Comment-class.md) comment})
+CommentTemplate(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Comment](../../models_comment_comment_model/Comment-class.md) comment\})
 
 
 
@@ -18,10 +18,10 @@ CommentTemplate({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html
 ## Implementation
 
 ```dart
-const CommentTemplate({
+const CommentTemplate(\{
   Key? key,
   required this.comment,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

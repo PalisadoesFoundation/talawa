@@ -23,17 +23,17 @@
 ## Implementation
 
 ```dart
-String strictTranslate(String key) {
+String strictTranslate(String key) \{
   if (isTest) return key;
 
   // ignore: unnecessary_null_comparison
-  if (key == null) {
+  if (key == null) \{
     return '...';
-  }
+  \}
 
   final String translate = _localizedStrings[key] ?? key;
   return translate;
-}
+\}
 ```
 
 

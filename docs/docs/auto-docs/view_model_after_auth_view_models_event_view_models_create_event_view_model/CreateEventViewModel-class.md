@@ -15,11 +15,11 @@
 <p>the context of creating the event in the organization.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>createEvent</code> : to create an event.</li>
-<li><code>getImageFromGallery</code> : to select image for a post.</li>
-<li><code>removeImage</code> : to remove the image.</li>
-<li><code>getCurrentOrgUsersList</code> : to get all user list of current organization.</li>
-<li><code>removeUserFromList</code> : to remove a user from list.</li>
+<li>```dartcreateEvent``` : to create an event.</li>
+<li>```dartgetImageFromGallery``` : to select image for a post.</li>
+<li>```dartremoveImage``` : to remove the image.</li>
+<li>```dartgetCurrentOrgUsersList``` : to get all user list of current organization.</li>
+<li>```dartremoveUserFromList``` : to remove a user from list.</li>
 </ul>
 
 
@@ -318,12 +318,12 @@ _<span class="feature">inherited</span>_
 
 
 
-This function fetch all the users in the current organization and return <code>List</code>.  
+This function fetch all the users in the current organization and return ```dartList```.  
 
 
 
 
-##### [getImageFromGallery](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel/getImageFromGallery.md)({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
+##### [getImageFromGallery](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel/getImageFromGallery.md)(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void>
 
 
 
@@ -378,7 +378,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [removeUserFromList](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel/removeUserFromList.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) userId}) void
+##### [removeUserFromList](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel/removeUserFromList.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) userId\}) void
 
 
 

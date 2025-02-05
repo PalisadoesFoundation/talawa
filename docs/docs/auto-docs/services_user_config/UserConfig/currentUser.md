@@ -42,9 +42,9 @@ currentUser=
 ## Implementation
 
 ```dart
-set currentUser(User user) {
+set currentUser(User user) \{
   _currentUser = user;
-}
+\}
 ```
 
 

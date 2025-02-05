@@ -18,17 +18,17 @@
 
 
 <p>Builds and returns <a href="https://pub.dev/documentation/firebase_core_platform_interface/4.8.0/firebase_core_platform_interface/FirebaseOptions-class.html">FirebaseOptions</a> based on the current platform.</p>
-<p>Switches on the current platform and calls <a href="../../firebase_options/DefaultFirebaseOptions/android.md">android</a> or <code>iOS</code>
+<p>Switches on the current platform and calls <a href="../../firebase_options/DefaultFirebaseOptions/android.md">android</a> or ```dartiOS```
 methods accordingly to build the <a href="https://pub.dev/documentation/firebase_core_platform_interface/4.8.0/firebase_core_platform_interface/FirebaseOptions-class.html">FirebaseOptions</a>. Throws
 <a href="https://api.flutter.dev/flutter/dart-core/UnsupportedError-class.html">UnsupportedError</a> if the platform is other than these two.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>androidFirebaseOptions</code>: Firebase Options for Android</li>
-<li><code>iosFirebaseOptions</code>: Firebase Options for iOS</li>
+<li>```dartandroidFirebaseOptions```: Firebase Options for Android</li>
+<li>```dartiosFirebaseOptions```: Firebase Options for iOS</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>FirebaseOptions</code>: The <a href="https://pub.dev/documentation/firebase_core_platform_interface/4.8.0/firebase_core_platform_interface/FirebaseOptions-class.html">FirebaseOptions</a> built according to the platform.</li>
+<li>```dartFirebaseOptions```: The <a href="https://pub.dev/documentation/firebase_core_platform_interface/4.8.0/firebase_core_platform_interface/FirebaseOptions-class.html">FirebaseOptions</a> built according to the platform.</li>
 </ul>
 
 
@@ -39,14 +39,14 @@ methods accordingly to build the <a href="https://pub.dev/documentation/firebase
 static FirebaseOptions currentPlatform(
   Map<String, dynamic> androidFirebaseOptions,
   Map<String, dynamic> iosFirebaseOptions,
-) {
-  if (kIsWeb) {
+) \{
+  if (kIsWeb) \{
     throw UnsupportedError(
       'DefaultFirebaseOptions have not been configured for web - '
       'you can reconfigure this by running the FlutterFire CLI again.',
     );
-  }
-  switch (defaultTargetPlatform) {
+  \}
+  switch (defaultTargetPlatform) \{
     case TargetPlatform.android:
       return android(androidFirebaseOptions);
     case TargetPlatform.iOS:
@@ -60,8 +60,8 @@ static FirebaseOptions currentPlatform(
       throw UnsupportedError(
         'DefaultFirebaseOptions are not supported for this platform.',
       );
-  }
-}
+  \}
+\}
 ```
 
 

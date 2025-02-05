@@ -37,7 +37,7 @@ size).</p>
 repaints should be avoided as much as possible, a <a href="https://api.flutter.dev/flutter/widgets/RepaintBoundary-class.html">RepaintBoundary</a> or
 <a href="https://api.flutter.dev/flutter/rendering/RenderRepaintBoundary-class.html">RenderRepaintBoundary</a> (or other render object with
 <a href="https://api.flutter.dev/flutter/rendering/RenderObject/isRepaintBoundary.html">RenderObject.isRepaintBoundary</a> set to true) might be helpful.</p>
-<p>The <code>oldDelegate</code> argument will never be null.</p>
+<p>The ```dartoldDelegate``` argument will never be null.</p>
 
 
 
@@ -45,9 +45,9 @@ repaints should be avoided as much as possible, a <a href="https://api.flutter.d
 
 ```dart
 @override
-bool shouldRepaint(covariant CustomPainter oldDelegate) {
+bool shouldRepaint(covariant CustomPainter oldDelegate) \{
   return true;
-}
+\}
 ```
 
 

@@ -9,7 +9,7 @@
 
 
 
-OrgInfo.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) memberRequest = false})
+OrgInfo.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) memberRequest = false\})
 
 
 
@@ -19,15 +19,15 @@ OrgInfo.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)
 
 ```dart
 factory OrgInfo.fromJson(
-  Map<String, dynamic> json1, {
+  Map<String, dynamic> json1, \{
   bool memberRequest = false,
-}) {
+\}) \{
   Map<String, dynamic> json;
-  if (memberRequest) {
+  if (memberRequest) \{
     json = json1['organization'] as Map<String, dynamic>;
-  } else {
+  \} else \{
     json = json1;
-  }
+  \}
   return OrgInfo(
     id: json['_id'] != null ? json['_id'] as String : null,
     image: json['image'] != null ? json['image'] as String? : null,
@@ -56,7 +56,7 @@ factory OrgInfo.fromJson(
             .toList()
         : null,
   );
-}
+\}
 ```
 
 

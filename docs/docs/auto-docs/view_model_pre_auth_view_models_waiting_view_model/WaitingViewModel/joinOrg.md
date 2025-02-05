@@ -23,9 +23,9 @@ void joinOrg
 ## Implementation
 
 ```dart
-void joinOrg() {
+void joinOrg() \{
   navigationService.pushScreen(Routes.joinOrg, arguments: '-1');
-}
+\}
 ```
 
 

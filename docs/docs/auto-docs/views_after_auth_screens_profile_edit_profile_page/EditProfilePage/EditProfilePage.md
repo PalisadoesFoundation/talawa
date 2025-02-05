@@ -9,7 +9,7 @@
 
 
 const
-EditProfilePage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+EditProfilePage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ EditProfilePage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html
 ## Implementation
 
 ```dart
-const EditProfilePage({Key? key}) : super(key: key);
+const EditProfilePage(\{Key? key\}) : super(key: key);
 ```
 
 

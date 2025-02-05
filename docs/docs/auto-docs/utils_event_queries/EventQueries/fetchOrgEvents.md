@@ -23,15 +23,15 @@
 ## Implementation
 
 ```dart
-String fetchOrgEvents(String orgId) {
+String fetchOrgEvents(String orgId) \{
   return """
-    query {
-      eventsByOrganization(id: "$orgId"){
+    query \{
+      eventsByOrganization(id: "$orgId")\{
         _id
-        organization {
+        organization \{
           _id
           image
-        }
+        \}
         title
         description
         isPublic
@@ -44,24 +44,24 @@ String fetchOrgEvents(String orgId) {
         startTime
         endTime
         location
-        creator{
+        creator\{
           _id
           firstName
           lastName
-        }
-        admins {
+        \}
+        admins \{
           firstName
           lastName
-        }
-        registrants {
-          user {
+        \}
+        registrants \{
+          user \{
             _id
-          }
-        }
-      }
-    }
+          \}
+        \}
+      \}
+    \}
   """;
-}
+\}
 ```
 
 

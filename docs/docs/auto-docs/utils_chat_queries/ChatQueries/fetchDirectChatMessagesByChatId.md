@@ -23,26 +23,26 @@
 ## Implementation
 
 ```dart
-String fetchDirectChatMessagesByChatId(String chatId) {
+String fetchDirectChatMessagesByChatId(String chatId) \{
   return '''
-      query {
-        directChatsMessagesByChatID(id: "$chatId") {
+      query \{
+        directChatsMessagesByChatID(id: "$chatId") \{
           _id
           messageContent
-          sender {
+          sender \{
             _id
             firstName
             image
-          }
-          receiver {
+          \}
+          receiver \{
             _id
             firstName
             image
-          }
-        }
-      }
+          \}
+        \}
+      \}
   ''';
-}
+\}
 ```
 
 

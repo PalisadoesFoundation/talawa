@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_organization_search_list/OrganizationSearchList/build.md">build</a> method is to depend on anything else, use a
@@ -58,42 +58,42 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return GraphQLProvider(
     client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
     child: Query(
       options: QueryOptions(
         document: gql(Queries().fetchJoinInOrgByName),
-        variables: {
+        variables: \{
           'nameStartsWith': model.searchController.text,
           // fetch 30 items only, will fetch more when scrolling index is at the 3rd last item!
           'first': 30,
           'skip': 0,
-        },
+        \},
       ),
       builder: (
-        QueryResult result, {
+        QueryResult result, \{
         Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
         Future<QueryResult?> Function()? refetch,
-      }) {
+      \}) \{
         // checking for any errors, if true fetch again!
-        if (result.hasException) {
+        if (result.hasException) \{
           final isException = databaseFunctions.encounteredExceptionOrError(
             result.exception!,
             showSnackBar: false,
           );
-          if (isException!) {
+          if (isException!) \{
             refetch!();
-          } else {
+          \} else \{
             refetch!();
-          }
-        } else {
+          \}
+        \} else \{
           // If the result is still loading!
-          if (!result.isLoading) {
+          if (!result.isLoading) \{
             model.organizations = OrgInfo().fromJsonToList(
               result.data!['organizationsConnection'] as List,
             );
-          }
+          \}
           // return the Scroll bar widget for scrolling down the organizations.
           return Scrollbar(
             thumbVisibility: true,
@@ -107,9 +107,9 @@ Widget build(BuildContext context) {
               itemCount: result.isLoading
                   ? model.organizations.length + 1
                   : model.organizations.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int index) \{
                 // If the index is at the end of the list!
-                if (index == model.organizations.length) {
+                if (index == model.organizations.length) \{
                   // return the ListTile showing the loading icon!
                   return ListTile(
                     title: Center(
@@ -118,22 +118,22 @@ Widget build(BuildContext context) {
                       ),
                     ),
                   );
-                }
+                \}
                 // If the index is at the 3rd last item in the organization list.
-                if (index == model.organizations.length - 3) {
+                if (index == model.organizations.length - 3) \{
                   // return VisibilityDetector and fetch more items in the list to show up!
                   return VisibilityDetector(
                     key: const Key('OrgSelItem'),
-                    onVisibilityChanged: (VisibilityInfo info) {
-                      if (info.visibleFraction > 0) {
+                    onVisibilityChanged: (VisibilityInfo info) \{
+                      if (info.visibleFraction > 0) \{
                         print(model.organizations.length);
                         model.fetchMoreHelper(
                           fetchMore!,
                           model.organizations,
                         );
                         print(model.organizations.length);
-                      }
-                    },
+                      \}
+                    \},
                     child: CustomListTile(
                       index: index,
                       type: TileType.org,
@@ -142,7 +142,7 @@ Widget build(BuildContext context) {
                       key: Key('OrgSelItem$index'),
                     ),
                   );
-                }
+                \}
                 // return CustomeTile that shows a particular item in the list!
                 return CustomListTile(
                   index: index,
@@ -151,8 +151,8 @@ Widget build(BuildContext context) {
                   onTapOrgInfo: (item) => model.selectOrg(item),
                   key: Key('OrgSelItem$index'),
                 );
-              },
-              separatorBuilder: (BuildContext context, int index) {
+              \},
+              separatorBuilder: (BuildContext context, int index) \{
                 return Padding(
                   padding: EdgeInsets.only(
                     left: SizeConfig.screenWidth! * 0.2,
@@ -163,15 +163,15 @@ Widget build(BuildContext context) {
                     thickness: 0.5,
                   ),
                 );
-              },
+              \},
             ),
           );
-        }
+        \}
         return Container();
-      },
+      \},
     ),
   );
-}
+\}
 ```
 
 

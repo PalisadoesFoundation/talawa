@@ -39,7 +39,7 @@ replacing the object.</li>
 <li>In <a href="../../widgets_post_widget/PostContainerState/dispose.md">dispose</a>, unsubscribe from the object.</li>
 </ul>
 <p>Implementations of this method should end with a call to the inherited
-method, as in <code>super.dispose()</code>.</p>
+method, as in ```dartsuper.dispose()```.</p>
 <p>See also:</p>
 <ul>
 <li><a href="https://api.flutter.dev/flutter/widgets/State/deactivate.html">deactivate</a>, which is called prior to <a href="../../widgets_post_widget/PostContainerState/dispose.md">dispose</a>.</li>
@@ -51,10 +51,10 @@ method, as in <code>super.dispose()</code>.</p>
 
 ```dart
 @override
-void dispose() {
+void dispose() \{
   controller.dispose();
   super.dispose();
-}
+\}
 ```
 
 

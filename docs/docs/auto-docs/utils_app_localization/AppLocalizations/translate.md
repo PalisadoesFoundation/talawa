@@ -23,15 +23,15 @@
 ## Implementation
 
 ```dart
-String? translate(String? key) {
+String? translate(String? key) \{
   if (isTest) return key;
 
   // ignore: unnecessary_null_comparison
-  if (key == null) {
+  if (key == null) \{
     return '...';
-  }
+  \}
   return _localizedStrings[key];
-}
+\}
 ```
 
 

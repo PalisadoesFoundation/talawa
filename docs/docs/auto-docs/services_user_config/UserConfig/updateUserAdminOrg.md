@@ -20,7 +20,7 @@
 <p>This function is used to update the organization admin.</p>
 <p>params:</p>
 <ul>
-<li><code>orgDetails</code> : details of the organization.</li>
+<li>```dartorgDetails``` : details of the organization.</li>
 </ul>
 
 
@@ -28,10 +28,10 @@
 ## Implementation
 
 ```dart
-Future updateUserAdminOrg(List<OrgInfo> orgDetails) async {
+Future updateUserAdminOrg(List<OrgInfo> orgDetails) async \{
   _currentUser!.updateAdminFor(orgDetails);
   saveUserInHive();
-}
+\}
 ```
 
 

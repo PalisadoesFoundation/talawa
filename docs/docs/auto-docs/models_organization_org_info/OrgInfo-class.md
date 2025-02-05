@@ -28,11 +28,11 @@
 
 ## Constructors
 
-[OrgInfo](../models_organization_org_info/OrgInfo/OrgInfo.md) ({[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../models_user_user_info/User-class.md)>? admins, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../models_user_user_info/User-class.md)>? members, [User](../models_user_user_info/User-class.md)? creatorInfo, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)? isPublic, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name})
+[OrgInfo](../models_organization_org_info/OrgInfo/OrgInfo.md) (\{[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../models_user_user_info/User-class.md)>? admins, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../models_user_user_info/User-class.md)>? members, [User](../models_user_user_info/User-class.md)? creatorInfo, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)? isPublic, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name\})
 
    
 
-[OrgInfo.fromJson](../models_organization_org_info/OrgInfo/OrgInfo.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) memberRequest = false})
+[OrgInfo.fromJson](../models_organization_org_info/OrgInfo/OrgInfo.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) memberRequest = false\})
 
    _factory_
 

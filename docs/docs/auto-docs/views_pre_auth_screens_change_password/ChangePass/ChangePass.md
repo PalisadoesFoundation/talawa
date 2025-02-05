@@ -9,7 +9,7 @@
 
 
 const
-ChangePass({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key})
+ChangePass(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
 
 
 
@@ -18,7 +18,7 @@ ChangePass({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.
 ## Implementation
 
 ```dart
-const ChangePass({required Key key}) : super(key: key);
+const ChangePass(\{required Key key\}) : super(key: key);
 ```
 
 

@@ -18,7 +18,7 @@ Comment.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)
 ## Implementation
 
 ```dart
-factory Comment.fromJson(Map<String, dynamic> json) {
+factory Comment.fromJson(Map<String, dynamic> json) \{
   return Comment(
     text: json['text'] as String?,
     createdAt: json['createdAt'] as String?,
@@ -32,7 +32,7 @@ factory Comment.fromJson(Map<String, dynamic> json) {
     post: json['post'] as String?,
     likeCount: json['likeCount'] as String?,
   );
-}
+\}
 ```
 
 

@@ -9,7 +9,7 @@
 
 
 const
-CreateTaskPage({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId, [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+CreateTaskPage(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId, [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ CreateTaskPage({required [String](https://api.flutter.dev/flutter/dart-core/Stri
 ## Implementation
 
 ```dart
-const CreateTaskPage({required this.eventId, Key? key}) : super(key: key);
+const CreateTaskPage(\{required this.eventId, Key? key\}) : super(key: key);
 ```
 
 

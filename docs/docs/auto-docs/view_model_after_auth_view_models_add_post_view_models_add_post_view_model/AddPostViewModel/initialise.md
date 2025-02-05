@@ -28,14 +28,14 @@ void initialise
 ## Implementation
 
 ```dart
-void initialise() {
+void initialise() \{
   _currentUser = locator<UserConfig>().currentUser;
   _navigationService = locator<NavigationService>();
   _selectedOrg = locator<UserConfig>().currentOrg;
   _imageFile = null;
   _multiMediaPickerService = locator<MultiMediaPickerService>();
   _dbFunctions = locator<DataBaseMutationFunctions>();
-}
+\}
 ```
 
 

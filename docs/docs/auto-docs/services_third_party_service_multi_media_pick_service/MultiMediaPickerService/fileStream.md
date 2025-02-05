@@ -22,7 +22,7 @@
 None.</p>
 <p>returns:</p>
 <ul>
-<li><code>Stream&lt;dynamic&gt;</code>: Stream of files.</li>
+<li>```dartStream&lt;dynamic&gt;```: Stream of files.</li>
 </ul>
 
 

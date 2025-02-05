@@ -9,7 +9,7 @@
 
 
 const
-IndividualPageLikeSection({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[LikedBy](../../models_post_post_model/LikedBy-class.md)> usersLiked})
+IndividualPageLikeSection(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[LikedBy](../../models_post_post_model/LikedBy-class.md)> usersLiked\})
 
 
 
@@ -18,10 +18,10 @@ IndividualPageLikeSection({[Key](https://api.flutter.dev/flutter/foundation/Key-
 ## Implementation
 
 ```dart
-const IndividualPageLikeSection({
+const IndividualPageLikeSection(\{
   Key? key,
   required this.usersLiked,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

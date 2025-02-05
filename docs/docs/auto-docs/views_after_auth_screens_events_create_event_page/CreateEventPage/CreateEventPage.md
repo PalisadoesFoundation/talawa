@@ -9,7 +9,7 @@
 
 
 const
-CreateEventPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+CreateEventPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ CreateEventPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html
 ## Implementation
 
 ```dart
-const CreateEventPage({Key? key}) : super(key: key);
+const CreateEventPage(\{Key? key\}) : super(key: key);
 ```
 
 

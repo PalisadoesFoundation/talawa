@@ -23,18 +23,18 @@
 ## Implementation
 
 ```dart
-Future<void> initialise() async {
+Future<void> initialise() async \{
   setState(ViewState.busy);
   connectivityResult = await connectivity.checkConnectivity();
-  if (connectivityResult == ConnectivityResult.none) {
+  if (connectivityResult == ConnectivityResult.none) \{
     connectivityPresent = false;
     Future.delayed(const Duration(seconds: 2))
         .then((value) => navigationService.pop());
-  } else {
+  \} else \{
     connectivityPresent = true;
-  }
+  \}
   setState(ViewState.idle);
-}
+\}
 ```
 
 

@@ -20,7 +20,7 @@ void onTabTapped
 <p>Handles click on <a href="https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html">BottomNavigationBarItem</a>.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>index</code>: it is track of current page index.</li>
+<li>```dartindex```: it is track of current page index.</li>
 </ul>
 <p><strong>returns</strong>:
   None</p>
@@ -30,10 +30,10 @@ void onTabTapped
 ## Implementation
 
 ```dart
-void onTabTapped(int index) {
+void onTabTapped(int index) \{
   currentPageIndex = index;
   notifyListeners();
-}
+\}
 ```
 
 

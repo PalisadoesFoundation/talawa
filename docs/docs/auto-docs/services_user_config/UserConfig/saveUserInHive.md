@@ -23,14 +23,14 @@ void saveUserInHive
 ## Implementation
 
 ```dart
-void saveUserInHive() {
+void saveUserInHive() \{
   final box = Hive.box<User>('currentUser');
-  if (box.get('user') == null) {
+  if (box.get('user') == null) \{
     box.put('user', _currentUser!);
-  } else {
+  \} else \{
     box.put('user', _currentUser!);
-  }
-}
+  \}
+\}
 ```
 
 

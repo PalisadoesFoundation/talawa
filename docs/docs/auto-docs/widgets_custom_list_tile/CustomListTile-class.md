@@ -33,7 +33,7 @@ A Tile shows the org info, user info, options that on tap user &amp; org info.</
 
 ## Constructors
 
-[CustomListTile](../widgets_custom_list_tile/CustomListTile/CustomListTile.md) ({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) index, required [TileType](../enums_enums/TileType.md) type, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) showIcon = false, [OrgInfo](../models_organization_org_info/OrgInfo-class.md)? orgInfo, dynamic onTapOrgInfo([OrgInfo](../models_organization_org_info/OrgInfo-class.md))?, [User](../models_user_user_info/User-class.md)? userInfo, dynamic onTapUserInfo()?, [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)? onTapOption, [Options](../models_options_options/Options-class.md)? option})
+[CustomListTile](../widgets_custom_list_tile/CustomListTile/CustomListTile.md) (\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) index, required [TileType](../enums_enums/TileType.md) type, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) showIcon = false, [OrgInfo](../models_organization_org_info/OrgInfo-class.md)? orgInfo, dynamic onTapOrgInfo([OrgInfo](../models_organization_org_info/OrgInfo-class.md))?, [User](../models_user_user_info/User-class.md)? userInfo, dynamic onTapUserInfo()?, [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)? onTapOption, [Options](../models_options_options/Options-class.md)? option\})
 
   _const_ 
 
@@ -174,7 +174,7 @@ _<span class="feature">inherited</span>_
 
 
 
-Returns a list of <code>DiagnosticsNode</code> objects describing this node's
+Returns a list of ```dartDiagnosticsNode``` objects describing this node's
 children.  
 _<span class="feature">inherited</span>_
 
@@ -198,7 +198,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name, [DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)? style}) [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
+##### [toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name, [DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)? style\}) [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
 
 
 
@@ -208,7 +208,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)({[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.info}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)(\{[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.info\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 
@@ -217,7 +217,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html) prefixLineOne = '', [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? prefixOtherLines, [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html) prefixLineOne = '', [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? prefixOtherLines, [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 
@@ -226,7 +226,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html) joiner = ', ', [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html) joiner = ', ', [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 

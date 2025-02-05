@@ -14,7 +14,7 @@
 <p>SelectContactViewModel class have different functions to interact with model.</p>
 <p>Functions include:</p>
 <ul>
-<li><code>getCurrentOrgUsersList</code> : to get all users of current organization.</li>
+<li>```dartgetCurrentOrgUsersList``` : to get all users of current organization.</li>
 </ul>
 
 

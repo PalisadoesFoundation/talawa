@@ -23,15 +23,15 @@
 ## Implementation
 
 ```dart
-Future<bool?> validateUrlExistence(String url) async {
-  try {
+Future<bool?> validateUrlExistence(String url) async \{
+  try \{
     await http.get(Uri.parse(url));
     return true;
-  } on Exception catch (e) {
+  \} on Exception catch (e) \{
     debugPrint(e.toString());
     return false;
-  }
-}
+  \}
+\}
 ```
 
 

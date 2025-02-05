@@ -16,12 +16,12 @@
 mainly in the context of Tutorials for different componenets of the App.</p>
 <p>Functions include:</p>
 <ul>
-<li><code>showTutorial</code></li>
-<li><code>showHome</code></li>
-<li><code>tourEventTargets</code></li>
-<li><code>tourAddPost</code></li>
-<li><code>tourChat</code></li>
-<li><code>tourProfile</code></li>
+<li>```dartshowTutorial```</li>
+<li>```dartshowHome```</li>
+<li>```darttourEventTargets```</li>
+<li>```darttourAddPost```</li>
+<li>```darttourChat```</li>
+<li>```darttourProfile```</li>
 </ul>
 
 
@@ -278,7 +278,7 @@ _<span class="feature">final</span>_
 
 
 
-Actual <code>BottomNavigationBarItem</code>s that show up on the screen.  
+Actual ```dartBottomNavigationBarItem```s that show up on the screen.  
 _<span class="feature">read / write</span>_
 
 
@@ -401,12 +401,12 @@ _<span class="feature">inherited</span>_
 
 
 
-Dynamically adds <code>BottomNavigationBarItems</code> in <code>BottomNavigationBar</code>.  
+Dynamically adds ```dartBottomNavigationBarItems``` in ```dartBottomNavigationBar```.  
 
 
 
 
-##### [focusTarget](../view_model_main_screen_view_model/MainScreenViewModel/focusTarget.md)([GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[State](https://api.flutter.dev/flutter/widgets/State-class.html)&lt;[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)>> key, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) keyName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isCircle = false, [ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/ContentAlign.html) align = ContentAlign.bottom, [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html) crossAlign = CrossAxisAlignment.start, [Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html) skipAlignment = Alignment.topRight, [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)? next, [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html) nextCrossAlign = CrossAxisAlignment.end, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isEnd = false}) [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html)
+##### [focusTarget](../view_model_main_screen_view_model/MainScreenViewModel/focusTarget.md)([GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[State](https://api.flutter.dev/flutter/widgets/State-class.html)&lt;[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)>> key, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) keyName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isCircle = false, [ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/ContentAlign.html) align = ContentAlign.bottom, [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html) crossAlign = CrossAxisAlignment.start, [Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html) skipAlignment = Alignment.topRight, [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)? next, [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html) nextCrossAlign = CrossAxisAlignment.end, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isEnd = false\}) [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html)
 
 
 
@@ -415,7 +415,7 @@ This returns a widget for a step in a tutorial.
 
 
 
-##### [initialise](../view_model_main_screen_view_model/MainScreenViewModel/initialise.md)([BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) ctx, {required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromSignUp, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) mainScreenIndex}) void
+##### [initialise](../view_model_main_screen_view_model/MainScreenViewModel/initialise.md)([BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) ctx, \{required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromSignUp, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) mainScreenIndex\}) void
 
 
 
@@ -479,7 +479,7 @@ This function shows the Home screen.
 
 
 
-##### [showTutorial](../view_model_main_screen_view_model/MainScreenViewModel/showTutorial.md)({required dynamic onClickTarget([TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html)), required dynamic onFinish()}) void
+##### [showTutorial](../view_model_main_screen_view_model/MainScreenViewModel/showTutorial.md)(\{required dynamic onClickTarget([TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html)), required dynamic onFinish()\}) void
 
 
 

@@ -35,9 +35,9 @@ communicate the result back to the initial caller of <a href="https://api.flutte
 
 ```dart
 @override
-Widget buildResults(BuildContext context) {
+Widget buildResults(BuildContext context) \{
   return Container();
-}
+\}
 ```
 
 

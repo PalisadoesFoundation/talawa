@@ -20,8 +20,8 @@
 <p>This function send the message to Direct Chat.</p>
 <p>params:</p>
 <ul>
-<li><code>chatId</code> : id of a chat where message need to be send.</li>
-<li><code>messageContent</code> : content of a message.</li>
+<li>```dartchatId``` : id of a chat where message need to be send.</li>
+<li>```dartmessageContent``` : content of a message.</li>
 </ul>
 
 
@@ -32,14 +32,14 @@
 Future<void> sendMessageToDirectChat(
   String chatId,
   String messageContent,
-) async {
+) async \{
   chatState = ChatState.loading;
-  _chatService.chatMessagesStream.listen((newMessage) {
+  _chatService.chatMessagesStream.listen((newMessage) \{
     _chatMessagesByUser[chatId]!.add(newMessage);
-  });
+  \});
   await _chatService.sendMessageToDirectChat(chatId, messageContent);
   chatState = ChatState.complete;
-}
+\}
 ```
 
 

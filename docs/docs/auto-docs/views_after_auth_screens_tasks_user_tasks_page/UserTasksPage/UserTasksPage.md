@@ -9,7 +9,7 @@
 
 
 const
-UserTasksPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+UserTasksPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ UserTasksPage({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?
 ## Implementation
 
 ```dart
-const UserTasksPage({Key? key}) : super(key: key);
+const UserTasksPage(\{Key? key\}) : super(key: key);
 ```
 
 

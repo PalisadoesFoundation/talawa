@@ -24,7 +24,7 @@
   None</p>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;void&gt;</code>: resolves if the application was successfully initialized.</li>
+<li>```dartFuture&lt;void&gt;```: resolves if the application was successfully initialized.</li>
 </ul>
 
 
@@ -32,11 +32,11 @@
 ## Implementation
 
 ```dart
-Future<void> main() async {
+Future<void> main() async \{
   // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb) {
+  if (!kIsWeb) \{
     channel = const AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
@@ -54,7 +54,7 @@ Future<void> main() async {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-  }
+  \}
 
   final Directory dir = await path.getApplicationDocumentsDirectory();
   Hive
@@ -70,21 +70,21 @@ Future<void> main() async {
 
   final urlBox = await Hive.openBox('url');
 
-  try {
-    if (urlBox.get('url') != null) {
+  try \{
+    if (urlBox.get('url') != null) \{
       await setUpFirebaseKeys();
 
       await setUpFirebase();
       await setUpFirebaseMessaging();
-    }
-  } catch (e) {
+    \}
+  \} catch (e) \{
     print("Firebase not working");
-  }
+  \}
 
   setupLocator();
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
-}
+\}
 ```
 
 

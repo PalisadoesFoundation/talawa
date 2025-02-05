@@ -20,7 +20,7 @@
 <p>This function fetch and returns the list of organization members.</p>
 <p>params:</p>
 <ul>
-<li><code>orgId</code> : id of the organization for which members list need be fetched.</li>
+<li>```dartorgId``` : id of the organization for which members list need be fetched.</li>
 </ul>
 
 
@@ -28,22 +28,22 @@
 ## Implementation
 
 ```dart
-Future<List<User>> getOrgMembersList(String orgId) async {
+Future<List<User>> getOrgMembersList(String orgId) async \{
   final String query = Queries().fetchOrgDetailsById(orgId);
   // fetching from database using graphQL mutations.
   final result = await _dbFunctions.gqlAuthMutation(query);
   final List orgMembersResult =
       result.data['organizations'][0]['members'] as List;
   final List<User> orgMembersList = [];
-  orgMembersResult.forEach((jsonElement) {
+  orgMembersResult.forEach((jsonElement) \{
     final User member =
         User.fromJson(jsonElement as Map<String, dynamic>, fromOrg: true);
     orgMembersList.add(member);
-  });
+  \});
 
   // return list
   return orgMembersList;
-}
+\}
 ```
 
 

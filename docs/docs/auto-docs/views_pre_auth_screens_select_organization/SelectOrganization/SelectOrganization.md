@@ -9,7 +9,7 @@
 
 
 const
-SelectOrganization({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) selectedOrgId})
+SelectOrganization(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) selectedOrgId\})
 
 
 
@@ -18,7 +18,7 @@ SelectOrganization({required [Key](https://api.flutter.dev/flutter/foundation/Ke
 ## Implementation
 
 ```dart
-const SelectOrganization({required Key key, required this.selectedOrgId})
+const SelectOrganization(\{required Key key, required this.selectedOrgId\})
     : super(key: key);
 ```
 

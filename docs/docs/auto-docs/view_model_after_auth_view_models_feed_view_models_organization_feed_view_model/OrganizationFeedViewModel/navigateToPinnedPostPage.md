@@ -24,13 +24,13 @@ void navigateToPinnedPostPage
 ## Implementation
 
 ```dart
-void navigateToPinnedPostPage() {
+void navigateToPinnedPostPage() \{
   // uses `pushScreen` method by `navigationService` service.
   _navigationService.pushScreen(
     Routes.pinnedPostPage,
     arguments: _pinnedPosts,
   );
-}
+\}
 ```
 
 

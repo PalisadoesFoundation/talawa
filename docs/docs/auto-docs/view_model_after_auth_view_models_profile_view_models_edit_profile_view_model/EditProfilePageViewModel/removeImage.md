@@ -24,10 +24,10 @@ void removeImage
 ## Implementation
 
 ```dart
-void removeImage() {
+void removeImage() \{
   imageFile = null;
   notifyListeners();
-}
+\}
 ```
 
 

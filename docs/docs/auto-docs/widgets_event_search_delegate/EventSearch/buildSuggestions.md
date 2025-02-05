@@ -35,18 +35,18 @@ by calling <a href="https://api.flutter.dev/flutter/material/SearchDelegate/show
 
 ```dart
 @override
-Widget buildSuggestions(BuildContext context) {
+Widget buildSuggestions(BuildContext context) \{
   /// Returns a scrollable list through "buildSuggestionsSuccess" function.
   /// where() method Returns a new lazy Iterable with all elements that satisfy the predicate test.
   /// toList( ) method is used to convert an Iterable to a List.
   /// toLowerCase() converts all characters in a string to lower case.
-  final suggestions = eventList.where((event) {
+  final suggestions = eventList.where((event) \{
     final eventLowerCase = event.title!.toLowerCase();
     final queryLowerCase = query.toLowerCase();
     return eventLowerCase.startsWith(queryLowerCase);
-  }).toList();
+  \}).toList();
   return buildSuggestionsSucess(suggestions);
-}
+\}
 ```
 
 

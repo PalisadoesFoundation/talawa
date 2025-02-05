@@ -14,9 +14,9 @@
 <p>PostService class provides functions in the context of a Post.</p>
 <p>Services include:</p>
 <ul>
-<li><code>getPosts</code> : to get all posts of the organization.</li>
-<li><code>addLike</code> : to add like to the post.</li>
-<li><code>removeLike</code> : to remove the like from the post.</li>
+<li>```dartgetPosts``` : to get all posts of the organization.</li>
+<li>```dartaddLike``` : to add like to the post.</li>
+<li>```dartremoveLike``` : to remove the like from the post.</li>
 </ul>
 
 
@@ -94,7 +94,7 @@ This function is used to add Like to the Post.
 
 
 This function used to get all posts of an organization.
-The function reference the organization Id from <code>_currentOrg</code>.  
+The function reference the organization Id from ```dart_currentOrg```.  
 
 
 

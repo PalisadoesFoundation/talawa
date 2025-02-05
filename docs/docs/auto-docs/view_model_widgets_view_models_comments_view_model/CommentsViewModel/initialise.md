@@ -23,7 +23,7 @@
 ## Implementation
 
 ```dart
-Future initialise(String postID) async {
+Future initialise(String postID) async \{
   _commentlist = [];
   _postID = postID;
   _commentService = locator<CommentService>();
@@ -31,7 +31,7 @@ Future initialise(String postID) async {
   _postService = locator<PostService>();
   notifyListeners();
   await getComments();
-}
+\}
 ```
 
 

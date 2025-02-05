@@ -23,10 +23,10 @@ void initialiseStream
 ## Implementation
 
 ```dart
-void initialiseStream() {
+void initialiseStream() \{
   _currentOrgInfoStream =
       _currentOrgInfoController.stream.asBroadcastStream();
-}
+\}
 ```
 
 

@@ -29,7 +29,7 @@
 
 ## Constructors
 
-[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.md) ({[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false})
+[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.md) (\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
   _const_ 
 
@@ -89,7 +89,7 @@ _<span class="feature">override</span>_
 
 
 
-Start loading the resources for <code>locale</code>. The returned future completes
+Start loading the resources for ```dartlocale```. The returned future completes
 when the resources have finished loading.  
 _<span class="feature">override</span>_
 

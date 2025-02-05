@@ -71,7 +71,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [delete](https://pub.dev/documentation/http/0.13.6/http/Client/delete.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [delete](https://pub.dev/documentation/http/0.13.6/http/Client/delete.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -80,7 +80,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [get](https://pub.dev/documentation/http/0.13.6/http/Client/get.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [get](https://pub.dev/documentation/http/0.13.6/http/Client/get.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -89,7 +89,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [head](https://pub.dev/documentation/http/0.13.6/http/Client/head.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [head](https://pub.dev/documentation/http/0.13.6/http/Client/head.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -98,7 +98,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [noSuchMethod](https://pub.dev/documentation/mockito/5.4.0/mockito/Mock/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation, {[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? returnValue, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? returnValueForMissingStub = deferToDefaultResponse}) dynamic
+##### [noSuchMethod](https://pub.dev/documentation/mockito/5.4.0/mockito/Mock/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation, \{[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? returnValue, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? returnValueForMissingStub = deferToDefaultResponse\}) dynamic
 
 
 
@@ -107,7 +107,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [patch](https://pub.dev/documentation/http/0.13.6/http/Client/patch.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [patch](https://pub.dev/documentation/http/0.13.6/http/Client/patch.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -117,7 +117,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [post](https://pub.dev/documentation/http/0.13.6/http/Client/post.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [post](https://pub.dev/documentation/http/0.13.6/http/Client/post.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -127,7 +127,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [put](https://pub.dev/documentation/http/0.13.6/http/Client/put.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
+##### [put](https://pub.dev/documentation/http/0.13.6/http/Client/put.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers, [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)? body, [Encoding](https://api.flutter.dev/flutter/dart-convert/Encoding-class.html)? encoding\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Response](https://pub.dev/documentation/http/0.13.6/http/Response-class.html)>
 
 
 
@@ -137,7 +137,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [read](https://pub.dev/documentation/http/0.13.6/http/Client/read.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html)>
+##### [read](https://pub.dev/documentation/http/0.13.6/http/Client/read.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html)>
 
 
 
@@ -147,7 +147,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [readBytes](https://pub.dev/documentation/http/0.13.6/http/Client/readBytes.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, {[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Uint8List](https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html)>
+##### [readBytes](https://pub.dev/documentation/http/0.13.6/http/Client/readBytes.html)([Uri](https://api.flutter.dev/flutter/dart-core/Uri-class.html) url, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), [String](https://api.flutter.dev/flutter/dart-core/String-class.html)>? headers\}) [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[Uint8List](https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html)>
 
 
 

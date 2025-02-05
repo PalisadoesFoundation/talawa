@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_post_widget/NewsPost/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -72,7 +72,7 @@ Widget build(BuildContext context) {
           fontSize: 24,
         ),
         title: Text(
-          "${post.creator!.firstName} ${post.creator!.lastName}",
+          "$\{post.creator!.firstName\} $\{post.creator!.lastName\}",
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
         ),
         subtitle: Text(post.getPostCreatedDuration()),
@@ -85,9 +85,9 @@ Widget build(BuildContext context) {
         child: PostContainer(id: post.sId),
       ),
       BaseView<LikeButtonViewModel>(
-        onModelReady: (model) {
+        onModelReady: (model) \{
           model.initialize(post.likedBy ?? [], post.sId);
-        },
+        \},
         builder: (context, model, child) => Column(
           children: [
             Padding(
@@ -97,9 +97,9 @@ Widget build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => function != null ? function!(post) : {},
+                    onTap: () => function != null ? function!(post) : \{\},
                     child: Text(
-                      "${model.likedBy.length} ${AppLocalizations.of(context)!.strictTranslate("Likes")}",
+                      "$\{model.likedBy.length\} $\{AppLocalizations.of(context)!.strictTranslate("Likes")\}",
                       style: const TextStyle(
                         fontFamily: 'open-sans',
                         fontWeight: FontWeight.w800,
@@ -107,9 +107,9 @@ Widget build(BuildContext context) {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => function != null ? function!(post) : {},
+                    onTap: () => function != null ? function!(post) : \{\},
                     child: Text(
-                      "${post.comments!.length} ${AppLocalizations.of(context)!.strictTranslate("comments")}",
+                      "$\{post.comments!.length\} $\{AppLocalizations.of(context)!.strictTranslate("comments")\}",
                     ),
                   )
                 ],
@@ -125,9 +125,9 @@ Widget build(BuildContext context) {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () \{
                       model.toggleIsLiked();
-                    },
+                    \},
                     child: Icon(
                       Icons.thumb_up,
                       color: model.isLiked
@@ -136,7 +136,7 @@ Widget build(BuildContext context) {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => function != null ? function!(post) : {},
+                    onTap: () => function != null ? function!(post) : \{\},
                     child: const Padding(
                       padding: EdgeInsets.only(left: 18.0),
                       child: Icon(
@@ -153,7 +153,7 @@ Widget build(BuildContext context) {
       ),
     ],
   );
-}
+\}
 ```
 
 

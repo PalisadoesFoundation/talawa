@@ -84,7 +84,7 @@ _<span class="feature">inherited</span>_
 
 ## Static Methods
 
-##### [addTask](../utils_task_queries/TaskQueries/addTask.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [addTask](../utils_task_queries/TaskQueries/addTask.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 
@@ -102,7 +102,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [editTask](../utils_task_queries/TaskQueries/editTask.md)({required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [editTask](../utils_task_queries/TaskQueries/editTask.md)(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) description, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) deadline, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) taskId\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 

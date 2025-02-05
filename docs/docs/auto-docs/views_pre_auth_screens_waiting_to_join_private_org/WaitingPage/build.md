@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../views_pre_auth_screens_waiting_to_join_private_org/WaitingPage/build.md">build</a> method is to depend on anything else, use a
@@ -58,10 +58,10 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return BaseView<WaitingViewModel>(
     onModelReady: (model) => model.initialise(context),
-    builder: (context, model, child) {
+    builder: (context, model, child) \{
       return Scaffold(
         key: const Key('WaitingPageScaffold'),
         extendBodyBehindAppBar: true,
@@ -114,15 +114,15 @@ Widget build(BuildContext context) {
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   itemCount: model.pendingRequestOrg.length,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (BuildContext context, int index) \{
                     return CustomListTile(
                       key: const Key('WaitingJoin'),
                       index: index,
                       type: TileType.org,
                       orgInfo: model.pendingRequestOrg[index],
-                      onTapOrgInfo: (item) {},
+                      onTapOrgInfo: (item) \{\},
                     );
-                  },
+                  \},
                 ),
               ),
               SizedBox(
@@ -166,9 +166,9 @@ Widget build(BuildContext context) {
           ),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

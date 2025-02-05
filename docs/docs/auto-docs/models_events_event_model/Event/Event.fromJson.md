@@ -20,7 +20,7 @@ Event.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&l
 ```dart
 factory Event.fromJson(
   Map<String, dynamic> json,
-) {
+) \{
   return Event(
     id: json['_id'] as String,
     title: json['title'] as String?,
@@ -61,7 +61,7 @@ factory Event.fromJson(
         ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: false))
         .toList(),
   );
-}
+\}
 ```
 
 

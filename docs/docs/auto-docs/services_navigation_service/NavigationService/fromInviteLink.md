@@ -23,13 +23,13 @@ void fromInviteLink
 ## Implementation
 
 ```dart
-void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
+void fromInviteLink(List<String> routeNames, List<dynamic> arguments) \{
   int i = 0;
-  removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
-  for (i = 1; i < routeNames.length; i++) {
-    pushScreen('/${routeNames[i]}', arguments: arguments[i]);
-  }
-}
+  removeAllAndPush('/$\{routeNames[i]\}', '/', arguments: arguments[i]);
+  for (i = 1; i < routeNames.length; i++) \{
+    pushScreen('/$\{routeNames[i]\}', arguments: arguments[i]);
+  \}
+\}
 ```
 
 

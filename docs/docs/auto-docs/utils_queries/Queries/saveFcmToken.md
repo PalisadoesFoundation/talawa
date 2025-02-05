@@ -23,13 +23,13 @@
 ## Implementation
 
 ```dart
-String saveFcmToken(String? token) {
+String saveFcmToken(String? token) \{
   return """
-      mutation {
+      mutation \{
         saveFcmToken(token: "$token")
-      }
+      \}
   """;
-}
+\}
 ```
 
 

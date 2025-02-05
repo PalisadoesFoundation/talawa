@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_task_schedule/TaskCard/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return Container(
     decoration: BoxDecoration(
       color: appointment.color,
@@ -75,7 +75,7 @@ Widget build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              ' ${appointment.subject}',
+              ' $\{appointment.subject\}',
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
@@ -98,7 +98,7 @@ Widget build(BuildContext context) {
         ),
         showMoreOptions
             ? IconButton(
-                onPressed: () {
+                onPressed: () \{
                   navigationService.pushDialog(
                     AlertDialog(
                       title: Text(
@@ -110,23 +110,23 @@ Widget build(BuildContext context) {
                       actions: [
                         TextButton(
                           child: const Text('Delete'),
-                          onPressed: () {
+                          onPressed: () \{
                             context.read<ExploreTasksViewModel>().deleteTask(
                                   task.id,
                                   task.creator.id!,
                                 );
                             navigationService.pop();
-                          },
+                          \},
                         ),
                         TextButton(
                           child: const Text('Edit'),
-                          onPressed: () {
+                          onPressed: () \{
                             navigationService.pop();
                             navigationService.pushScreen(
                               Routes.editTask,
                               arguments: task,
                             );
-                          },
+                          \},
                         ),
                         TextButton(
                           child: const Text('Cancel'),
@@ -135,14 +135,14 @@ Widget build(BuildContext context) {
                       ],
                     ),
                   );
-                },
+                \},
                 icon: const Icon(Icons.more_vert),
               )
             : Container(),
       ],
     ),
   );
-}
+\}
 ```
 
 

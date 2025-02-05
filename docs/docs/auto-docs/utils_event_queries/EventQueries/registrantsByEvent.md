@@ -23,18 +23,18 @@
 ## Implementation
 
 ```dart
-String registrantsByEvent(String eventId) {
+String registrantsByEvent(String eventId) \{
   return '''
-    query {
-      registrantsByEvent(id: "$eventId") {
+    query \{
+      registrantsByEvent(id: "$eventId") \{
         _id
         firstName
         lastName
         image
-      }
-    }
+      \}
+    \}
   ''';
-}
+\}
 ```
 
 

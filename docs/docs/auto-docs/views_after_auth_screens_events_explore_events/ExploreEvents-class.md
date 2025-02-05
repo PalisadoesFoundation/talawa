@@ -32,7 +32,7 @@
 
 ## Constructors
 
-[ExploreEvents](../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.md) ({required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)? homeModel})
+[ExploreEvents](../views_after_auth_screens_events_explore_events/ExploreEvents/ExploreEvents.md) (\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)? homeModel\})
 
   _const_ 
 
@@ -52,7 +52,7 @@ _<span class="feature">read-only</span><span class="feature">inherited</span>_
 
 
 
-<code>homeModal</code> is a type of <a href="../view_model_main_screen_view_model/MainScreenViewModel-class.md">MainScreenViewModel</a> which provides methods to handle the data for this component.  
+```darthomeModal``` is a type of <a href="../view_model_main_screen_view_model/MainScreenViewModel-class.md">MainScreenViewModel</a> which provides methods to handle the data for this component.  
 _<span class="feature">final</span>_
 
 
@@ -101,7 +101,7 @@ _<span class="feature">inherited</span>_
 
 
 
-Returns a list of <code>DiagnosticsNode</code> objects describing this node's
+Returns a list of ```dartDiagnosticsNode``` objects describing this node's
 children.  
 _<span class="feature">inherited</span>_
 
@@ -120,7 +120,7 @@ _<span class="feature">inherited</span>_
 
 
 
-Shows a list of dropdown taken from  <code>model</code> and <code>context</code>.  
+Shows a list of dropdown taken from  ```dartmodel``` and ```dartcontext```.  
 
 
 
@@ -134,7 +134,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name, [DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)? style}) [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
+##### [toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name, [DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)? style\}) [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
 
 
 
@@ -144,7 +144,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)({[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.info}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)(\{[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.info\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 
@@ -153,7 +153,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html) prefixLineOne = '', [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? prefixOtherLines, [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html) prefixLineOne = '', [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? prefixOtherLines, [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 
@@ -162,7 +162,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)({[String](https://api.flutter.dev/flutter/dart-core/String-class.html) joiner = ', ', [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html) joiner = ', ', [DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html) minLevel = DiagnosticLevel.debug\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 

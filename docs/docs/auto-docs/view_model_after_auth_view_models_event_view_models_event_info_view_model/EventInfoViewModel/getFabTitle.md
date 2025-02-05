@@ -17,22 +17,22 @@
 
 
 
-<p>This function returns <code>String</code> type for the event registration status.</p>
+<p>This function returns ```dartString``` type for the event registration status.</p>
 
 
 
 ## Implementation
 
 ```dart
-String getFabTitle() {
-  if (event.isRegisterable == false) {
+String getFabTitle() \{
+  if (event.isRegisterable == false) \{
     return "Not Registrable";
-  } else if (event.isRegistered == true) {
+  \} else if (event.isRegistered == true) \{
     return "Registered";
-  } else {
+  \} else \{
     return "Register";
-  }
-}
+  \}
+\}
 ```
 
 

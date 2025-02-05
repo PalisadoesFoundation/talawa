@@ -23,10 +23,10 @@
 ## Implementation
 
 ```dart
-Future<void> initialize() async {
+Future<void> initialize() async \{
   _appLocale = const Locale('en');
   await fetchLocale();
-}
+\}
 ```
 
 

@@ -27,20 +27,20 @@ It prints "tapped" in the console for the developer to know that the button was 
 ## Implementation
 
 ```dart
-Widget iconButton(String key, Widget icon, Function onTap) {
+Widget iconButton(String key, Widget icon, Function onTap) \{
   return Stack(
     children: [
       IconButton(
         key: Key(key),
-        onPressed: () {
+        onPressed: () \{
           print('tapped');
           onTap();
-        },
+        \},
         icon: icon,
       ),
     ],
   );
-}
+\}
 ```
 
 

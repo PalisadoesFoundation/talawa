@@ -18,10 +18,10 @@
 
 
 <p>This function updates the task.
-The function uses <code>editTask</code> method provided by Task Services.</p>
+The function uses ```darteditTask``` method provided by Task Services.</p>
 <p>params:</p>
 <ul>
-<li><code>taskId</code> : id of the task that needs to be updated.</li>
+<li>```darttaskId``` : id of the task that needs to be updated.</li>
 </ul>
 
 
@@ -29,7 +29,7 @@ The function uses <code>editTask</code> method provided by Task Services.</p>
 ## Implementation
 
 ```dart
-Future<bool> editTask(String taskId) async {
+Future<bool> editTask(String taskId) async \{
   final deadline = DateTime(
     taskEndDate.year,
     taskEndDate.month,
@@ -43,7 +43,7 @@ Future<bool> editTask(String taskId) async {
     deadline: deadline.microsecondsSinceEpoch.toString(),
     taskId: taskId,
   );
-}
+\}
 ```
 
 

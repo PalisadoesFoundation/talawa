@@ -23,17 +23,17 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize(MainScreenViewModel homeModel, BuildContext context) {
+void initialize(MainScreenViewModel homeModel, BuildContext context) \{
   _currentOrganizationStreamSubscription =
       userConfig.currentOrgInfoStream.listen(
-    (updatedOrganization) {
+    (updatedOrganization) \{
       setSelectedOrganizationName(updatedOrganization);
-    },
+    \},
   );
   _currentUser = userConfig.currentUser;
   _selectedOrg = userConfig.currentOrg;
   _switchAbleOrg = _currentUser.joinedOrganizations!;
-}
+\}
 ```
 
 

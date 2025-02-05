@@ -25,25 +25,25 @@ The function asks for the confimation in Custom Alert Dialog.</p>
 ## Implementation
 
 ```dart
-Future<void> logout(BuildContext context) async {
+Future<void> logout(BuildContext context) async \{
   // push custom alert dialog with the confirmation message.
   navigationService.pushDialog(
     CustomAlertDialog(
       reverse: true,
       dialogSubTitle: 'Are you sure you want to logout?',
       successText: 'Logout',
-      success: () async {
-        try {
+      success: () async \{
+        try \{
           final result = await databaseFunctions
               .gqlAuthMutation(queries.logout()) as QueryResult?;
-          if (result != null && result.data!['logout'] == true) {
+          if (result != null && result.data!['logout'] == true) \{
             navigationService.pop();
             navigationService.pushDialog(
               const CustomProgressDialog(
                 key: Key('LogoutProgress'),
               ),
             );
-            Future.delayed(const Duration(seconds: 1)).then((value) {
+            Future.delayed(const Duration(seconds: 1)).then((value) \{
               user = Hive.box<User>('currentUser');
               url = Hive.box('url');
               final androidFirebaseOptionsBox =
@@ -54,12 +54,12 @@ Future<void> logout(BuildContext context) async {
               url.clear();
               androidFirebaseOptionsBox.clear();
               iosFirebaseOptionsBox.clear();
-              try {
+              try \{
                 Firebase.app()
                     .delete(); // Deleting app will stop all Firebase plugins
-              } catch (e) {
+              \} catch (e) \{
                 debugPrint("ERROR: Unable to delete firebase app $e");
-              }
+              \}
               organisation.clear();
               navigationService.pop();
               navigationService.removeAllAndPush(
@@ -67,15 +67,15 @@ Future<void> logout(BuildContext context) async {
                 '/',
                 arguments: '0',
               );
-            });
-          }
-        } catch (e) {
+            \});
+          \}
+        \} catch (e) \{
           print(e);
-        }
-      },
+        \}
+      \},
     ),
   );
-}
+\}
 ```
 
 

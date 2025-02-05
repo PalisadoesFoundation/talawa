@@ -23,13 +23,13 @@
 ## Implementation
 
 ```dart
-String userLanguage() {
+String userLanguage() \{
   return '''
-  query{
+  query\{
     myLanguage
-  }
+  \}
 ''';
-}
+\}
 ```
 
 

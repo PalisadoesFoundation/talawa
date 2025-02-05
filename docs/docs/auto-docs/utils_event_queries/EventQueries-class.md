@@ -110,7 +110,7 @@ _<span class="feature">inherited</span>_
 
 
 
-##### [updateEvent](../utils_event_queries/EventQueries/updateEvent.md)({dynamic eventId}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+##### [updateEvent](../utils_event_queries/EventQueries/updateEvent.md)(\{dynamic eventId\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 
 

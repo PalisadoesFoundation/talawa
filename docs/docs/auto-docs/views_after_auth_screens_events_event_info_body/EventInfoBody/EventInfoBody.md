@@ -9,7 +9,7 @@
 
 
 const
-EventInfoBody({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key})
+EventInfoBody(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
 
 
 
@@ -18,7 +18,7 @@ EventInfoBody({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?
 ## Implementation
 
 ```dart
-const EventInfoBody({Key? key}) : super(key: key);
+const EventInfoBody(\{Key? key\}) : super(key: key);
 ```
 
 

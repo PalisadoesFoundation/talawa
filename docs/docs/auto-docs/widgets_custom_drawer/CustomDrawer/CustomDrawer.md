@@ -9,7 +9,7 @@
 
 
 const
-CustomDrawer({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md) homeModel})
+CustomDrawer(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md) homeModel\})
 
 
 
@@ -18,10 +18,10 @@ CustomDrawer({[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? 
 ## Implementation
 
 ```dart
-const CustomDrawer({
+const CustomDrawer(\{
   Key? key,
   required this.homeModel,
-}) : super(key: key);
+\}) : super(key: key);
 ```
 
 

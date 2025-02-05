@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_lang_switch/LanguageTile/build.md">build</a> method is to depend on anything else, use a
@@ -58,13 +58,13 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   //AppLanguage enables to set up localized values for each locale that our app supports.
   //A locale is an identifier used to select a user's language and formatting preferences.
   //This represents a Unicode Language Identifier (i.e. without Locale extensions),
   //except variants are not supported.
   return Consumer<AppLanguage>(
-    builder: (context, appLang, _) {
+    builder: (context, appLang, _) \{
       final Language userLanguage = languages.firstWhere(
         (element) => element.langCode == appLang.appLocal.languageCode,
       );
@@ -75,18 +75,18 @@ Widget build(BuildContext context) {
             Text(AppLocalizations.of(context)!.strictTranslate("Language")),
         trailing: TextButton(
           key: const Key('LanguageSelector'),
-          onPressed: () {
+          onPressed: () \{
             navigationService.pushReplacementScreen(
               '/selectLang',
               arguments: '0',
             );
-          },
+          \},
           child: Text(userLanguage.langName),
         ),
       );
-    },
+    \},
   );
-}
+\}
 ```
 
 

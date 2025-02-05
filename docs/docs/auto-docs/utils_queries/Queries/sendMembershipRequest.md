@@ -23,27 +23,27 @@
 ## Implementation
 
 ```dart
-String sendMembershipRequest(String orgId) {
+String sendMembershipRequest(String orgId) \{
   return '''
-    mutation {
-        sendMembershipRequest(organizationId: "$orgId"){
-          organization{
+    mutation \{
+        sendMembershipRequest(organizationId: "$orgId")\{
+          organization\{
             _id
             name
             image
             description
             isPublic
-            creator{
+            creator\{
               _id
               firstName
               lastName
               image
-            }
-          }
-       }
-  }
+            \}
+          \}
+       \}
+  \}
 ''';
-}
+\}
 ```
 
 

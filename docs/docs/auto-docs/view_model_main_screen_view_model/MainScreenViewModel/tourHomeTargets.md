@@ -28,7 +28,7 @@ void tourHomeTargets
 ## Implementation
 
 ```dart
-void tourHomeTargets() {
+void tourHomeTargets() \{
   targets.clear();
   targets.add(
     focusTarget(
@@ -104,14 +104,14 @@ void tourHomeTargets() {
   );
   showTutorial(
     onClickTarget: showHome,
-    onFinish: () {
+    onFinish: () \{
       onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) {
+      if (!tourComplete && !tourSkipped) \{
         tourEventTargets();
-      }
-    },
+      \}
+    \},
   );
-}
+\}
 ```
 
 

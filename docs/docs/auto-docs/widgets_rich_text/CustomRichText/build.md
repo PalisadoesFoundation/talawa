@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_rich_text/CustomRichText/build.md">build</a> method is to depend on anything else, use a
@@ -58,24 +58,24 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return RichText(
     textAlign: TextAlign.start,
     text: TextSpan(
       text:
-          "${AppLocalizations.of(context)!.strictTranslate(words[0]['text'].toString().trim())} ",
+          "$\{AppLocalizations.of(context)!.strictTranslate(words[0]['text'].toString().trim())\} ",
       style: words[0]['textStyle'] as TextStyle,
       children: List.generate(
         words.length - 1,
         (index) => TextSpan(
           text:
-              "${AppLocalizations.of(context)!.strictTranslate(words[index + 1]['text'].toString().trim())} ",
+              "$\{AppLocalizations.of(context)!.strictTranslate(words[index + 1]['text'].toString().trim())\} ",
           style: words[index + 1]['textStyle'] as TextStyle,
         ),
       ),
     ),
   );
-}
+\}
 ```
 
 

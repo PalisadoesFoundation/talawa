@@ -22,7 +22,7 @@
 None</p>
 <p>returns:</p>
 <ul>
-<li><code>File?</code>: Returns imageFile.</li>
+<li>```dartFile?```: Returns imageFile.</li>
 </ul>
 
 

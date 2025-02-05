@@ -18,7 +18,7 @@ _<span class="feature">override</span>_
 
 
 
-<p>build the Plugin combining local <code>visibility</code> property and <code>serverVisible</code> property</p>
+<p>build the Plugin combining local ```dartvisibility``` property and ```dartserverVisible``` property</p>
 
 
 
@@ -26,11 +26,11 @@ _<span class="feature">override</span>_
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   var serverVisible = false;
   serverVisible = checkFromPluginList();
   return serverVisible || visible ? child! : Container();
-}
+\}
 ```
 
 

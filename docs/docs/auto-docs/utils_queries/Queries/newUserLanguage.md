@@ -23,13 +23,13 @@
 ## Implementation
 
 ```dart
-String newUserLanguage(String userId) {
+String newUserLanguage(String userId) \{
   return '''
-  query{
+  query\{
     userLanguage(userId:"$userId")
-  }
+  \}
 ''';
-}
+\}
 ```
 
 

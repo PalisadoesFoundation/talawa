@@ -17,7 +17,7 @@ Post.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt
 None
 returns:</p>
 <ul>
-<li><code>PostObject</code>: Dart Object for posts</li>
+<li>```dartPostObject```: Dart Object for posts</li>
 </ul>
 
 
@@ -30,7 +30,7 @@ returns:</p>
 /// None
 /// returns:
 /// * `PostObject`: Dart Object for posts
-Post.fromJson(Map<String, dynamic> json) {
+Post.fromJson(Map<String, dynamic> json) \{
   sId = json['_id'] as String;
   description = json['text'] as String?;
   createdAt = DateTime.parse(json['createdAt'] as String);
@@ -42,19 +42,19 @@ Post.fromJson(Map<String, dynamic> json) {
   organization = json['organization'] != null
       ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
       : null;
-  if (json['likedBy'] != null) {
+  if (json['likedBy'] != null) \{
     likedBy = <LikedBy>[];
-    json['likedBy'].forEach((v) {
+    json['likedBy'].forEach((v) \{
       likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
-    });
-  }
-  if (json['comments'] != null) {
+    \});
+  \}
+  if (json['comments'] != null) \{
     comments = <Comments>[];
-    json['comments'].forEach((v) {
+    json['comments'].forEach((v) \{
       comments?.add(Comments.fromJson(v as Map<String, dynamic>));
-    });
-  }
-}
+    \});
+  \}
+\}
 ```
 
 

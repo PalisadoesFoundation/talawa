@@ -20,11 +20,11 @@
 <p>This function is used to delete the event.</p>
 <p><strong>params</strong>:</p>
 <ul>
-<li><code>eventId</code>: id of an event</li>
+<li>```darteventId```: id of an event</li>
 </ul>
 <p><strong>returns</strong>:</p>
 <ul>
-<li><code>Future&lt;dynamic&gt;</code>: Information about the event deletion</li>
+<li>```dartFuture&lt;dynamic&gt;```: Information about the event deletion</li>
 </ul>
 
 
@@ -32,7 +32,7 @@
 ## Implementation
 
 ```dart
-Future<dynamic> deleteEvent(String eventId) async {
+Future<dynamic> deleteEvent(String eventId) async \{
   navigationService.pushDialog(
     const CustomProgressDialog(key: Key('DeleteEventProgress')),
   );
@@ -44,7 +44,7 @@ Future<dynamic> deleteEvent(String eventId) async {
   );
   navigationService.pop();
   return result;
-}
+\}
 ```
 
 

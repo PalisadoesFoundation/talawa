@@ -15,7 +15,7 @@
 the context of editing the event in the organization.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>updateEvent</code> : to update an event.</li>
+<li>```dartupdateEvent``` : to update an event.</li>
 </ul>
 
 
@@ -298,7 +298,7 @@ _<span class="feature">inherited</span>_
 
 
 This function is used to update an event.
-The function uses <code>editEvent</code> function provided by <code>eventService</code> service.  
+The function uses ```darteditEvent``` function provided by ```darteventService``` service.  
 
 
 

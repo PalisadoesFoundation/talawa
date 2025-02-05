@@ -9,7 +9,7 @@
 
 
 
-User.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, {[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromOrg = false})
+User.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json1, \{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromOrg = false\})
 
 
 
@@ -18,13 +18,13 @@ User.fromJson([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt
 ## Implementation
 
 ```dart
-factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
+factory User.fromJson(Map<String, dynamic> json1, \{bool fromOrg = false\}) \{
   Map<String, dynamic> json;
-  if (fromOrg) {
+  if (fromOrg) \{
     json = json1;
-  } else {
+  \} else \{
     json = json1['user'] as Map<String, dynamic>;
-  }
+  \}
   return User(
     authToken: fromOrg ? ' ' : json1['accessToken'] as String?,
     refreshToken: fromOrg ? ' ' : json1['refreshToken'] as String?,
@@ -60,7 +60,7 @@ factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
             .toList()
         : null,
   );
-}
+\}
 ```
 
 

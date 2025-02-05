@@ -28,13 +28,13 @@ void initialize
 ## Implementation
 
 ```dart
-void initialize() {
+void initialize() \{
   _currentOrg = _userConfig.currentOrg;
   //_organizationService = locator<OrganizationService>();
 
   _imageFile = null;
   _multiMediaPickerService = locator<MultiMediaPickerService>();
-}
+\}
 ```
 
 

@@ -32,13 +32,13 @@ listeners or not immediately before disposal.</p>
 
 ```dart
 @override
-void dispose() {
+void dispose() \{
   // Canceling the subscription so that there will be no rebuild after the widget is disposed.
   _currentOrganizationStreamSubscription.cancel();
   _postsSubscription.cancel();
   _updatePostSubscription.cancel();
   super.dispose();
-}
+\}
 ```
 
 

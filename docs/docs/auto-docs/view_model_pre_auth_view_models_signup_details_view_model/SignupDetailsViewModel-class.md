@@ -15,7 +15,7 @@
 and react to user's input for Sign Up Details section.</p>
 <p>Methods include:</p>
 <ul>
-<li><code>signUp</code></li>
+<li>```dartsignUp```</li>
 </ul>
 
 
@@ -262,7 +262,7 @@ _<span class="feature">inherited</span>_
 
 
 This function is used to sign up the user into the application by passing the data to database query.
-The function uses <code>gqlNonAuthMutation</code> method provided by <code>databaseFunctions</code> services.  
+The function uses ```dartgqlNonAuthMutation``` method provided by ```dartdatabaseFunctions``` services.  
 
 
 

@@ -17,10 +17,10 @@ void buildNewPosts
 
 
 
-<p>This function initialise <code>_posts</code> with <code>newPosts</code>.</p>
+<p>This function initialise ```dart_posts``` with ```dartnewPosts```.</p>
 <p>params:</p>
 <ul>
-<li><code>newPosts</code></li>
+<li>```dartnewPosts```</li>
 </ul>
 
 
@@ -28,10 +28,10 @@ void buildNewPosts
 ## Implementation
 
 ```dart
-void buildNewPosts(List<Post> newPosts) {
+void buildNewPosts(List<Post> newPosts) \{
   _posts = newPosts;
   notifyListeners();
-}
+\}
 ```
 
 

@@ -28,11 +28,11 @@ void init
 ## Implementation
 
 ```dart
-void init() {
+void init() \{
   clientNonAuth = graphqlConfig.clientToQuery();
   clientAuth = graphqlConfig.authClient();
   _query = Queries();
-}
+\}
 ```
 
 

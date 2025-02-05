@@ -23,7 +23,7 @@
 ## Implementation
 
 ```dart
-Widget buildSuggestionsSucess(List<Event> suggestions) {
+Widget buildSuggestionsSucess(List<Event> suggestions) \{
   /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
   /// Returns a SingleChildScrollView of the events from the list.
   /// SingleChildScrollView is box in which a single widget can be scrolled.
@@ -32,7 +32,7 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: suggestions.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (BuildContext context, int index) \{
         final highlightedText =
             suggestions[index].title!.substring(0, query.length);
         final normalText = suggestions[index].title!.substring(query.length);
@@ -41,15 +41,15 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
         /// Defers to its child for its sizing behavior.
         /// Navigates to the screen with the event information.
         return GestureDetector(
-          onTap: () {
+          onTap: () \{
             navigationService.pushScreen(
               "/eventInfo",
-              arguments: {
+              arguments: \{
                 "event": suggestions[index],
                 "exploreEventViewModel": exploreEventsViewModel
-              },
+              \},
             );
-          },
+          \},
           child: EventCard(
             event: suggestions[index],
             isSearchItem: true,
@@ -57,10 +57,10 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
             eventTitleNormalText: normalText,
           ),
         );
-      },
+      \},
     ),
   );
-}
+\}
 ```
 
 

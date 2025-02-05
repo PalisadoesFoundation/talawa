@@ -42,7 +42,7 @@ widget is inserted into the tree in multiple places at once.</p>
 <ul>
 <li>the fields of the widget, which themselves must not change over time,
 and</li>
-<li>any ambient state obtained from the <code>context</code> using
+<li>any ambient state obtained from the ```dartcontext``` using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
 <p>If a widget's <a href="../../widgets_custom_avatar/CustomAvatar/build.md">build</a> method is to depend on anything else, use a
@@ -58,7 +58,7 @@ and</li>
 
 ```dart
 @override
-Widget build(BuildContext context) {
+Widget build(BuildContext context) \{
   return isImageNull
       //creating the avatar with the icon-theme color when the image is null
       ? CircleAvatar(
@@ -77,13 +77,13 @@ Widget build(BuildContext context) {
       //creating the avatar with the provided image
       : CachedNetworkImage(
           cacheManager: cacheManager,
-          imageBuilder: (context, imageProvider) {
+          imageBuilder: (context, imageProvider) \{
             return CircleAvatar(
               backgroundColor:
                   Theme.of(context).iconTheme.color!.withOpacity(0.2),
               backgroundImage: imageProvider,
             );
-          },
+          \},
           imageUrl: imageUrl!,
           placeholder: (context, url) => CircleAvatar(
             child: Shimmer.fromColors(
@@ -95,7 +95,7 @@ Widget build(BuildContext context) {
           errorWidget: (context, url, error) =>
               const CircleAvatar(child: Icon(Icons.error)),
         );
-}
+\}
 ```
 
 

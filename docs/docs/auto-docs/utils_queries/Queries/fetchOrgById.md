@@ -23,23 +23,23 @@
 ## Implementation
 
 ```dart
-String fetchOrgById(String orgId) {
+String fetchOrgById(String orgId) \{
   return '''
-  query{
-    organizations(id: "$orgId"){
+  query\{
+    organizations(id: "$orgId")\{
       image
       _id
       name
       image
       isPublic
-      creator{
+      creator\{
         firstName
         lastName
-      }
-    }
-  }
+      \}
+    \}
+  \}
 ''';
-}
+\}
 ```
 
 

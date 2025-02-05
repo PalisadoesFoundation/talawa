@@ -23,16 +23,16 @@ void saveCurrentOrgInHive
 ## Implementation
 
 ```dart
-void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
+void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) \{
   _currentOrg = saveOrgAsCurrent;
   _currentOrgInfoController.add(_currentOrg!);
   final box = Hive.box<OrgInfo>('currentOrg');
-  if (box.get('org') == null) {
+  if (box.get('org') == null) \{
     box.put('org', _currentOrg!);
-  } else {
+  \} else \{
     box.put('org', _currentOrg!);
-  }
-}
+  \}
+\}
 ```
 
 

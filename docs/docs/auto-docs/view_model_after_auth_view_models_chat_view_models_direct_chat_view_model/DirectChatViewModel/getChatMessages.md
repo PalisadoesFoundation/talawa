@@ -20,7 +20,7 @@
 <p>This function get all messages for a chat.</p>
 <p>params:</p>
 <ul>
-<li><code>chatId</code> : id of a chat for which messages need to be fetched.</li>
+<li>```dartchatId``` : id of a chat for which messages need to be fetched.</li>
 </ul>
 
 
@@ -28,22 +28,22 @@
 ## Implementation
 
 ```dart
-Future<void> getChatMessages(String chatId) async {
+Future<void> getChatMessages(String chatId) async \{
   _chatMessagesByUser.clear();
   chatState = ChatState.loading;
   // await _chatService.getMessagesFromDirectChat();
   // variable
   final List<ChatMessage> messages = [];
   _chatMessageSubscription =
-      _chatService.chatMessagesStream.listen((newMessage) {
+      _chatService.chatMessagesStream.listen((newMessage) \{
     messages.add(newMessage);
     _chatMessagesByUser[chatId] = messages;
-  });
+  \});
   // use `chatService` services
   await _chatService.getDirectChatMessagesByChatId(chatId);
   chatState = ChatState.complete;
   notifyListeners();
-}
+\}
 ```
 
 

@@ -28,19 +28,19 @@ void exitButton
 ## Implementation
 
 ```dart
-void exitButton() {
+void exitButton() \{
   return navigationService.pushDialog(
     CustomAlertDialog(
       key: const Key("Exit?"),
       reverse: true,
       dialogSubTitle: 'Are you sure you want to exit this organization?',
       successText: 'Exit',
-      success: () {
+      success: () \{
         //Exit org
-      },
+      \},
     ),
   );
-}
+\}
 ```
 
 
