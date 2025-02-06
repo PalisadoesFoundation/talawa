@@ -21,8 +21,9 @@ _<span class="feature">override</span>_
 <p>Creates the mutable state for this widget at a given location in the tree.</p>
 <p>Subclasses should override this method to return a newly created
 instance of their associated <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> subclass:</p>
-```dart@override
-State&lt;SomeWidget&gt; createState() =&gt; _SomeWidgetState();
+```dart
+@override
+_MyAppState createState() => _MyAppState();
 ```
 <p>The framework can call this method multiple times over the lifetime of
 a ```dartStatefulWidget```. For example, if the widget is inserted into the tree
