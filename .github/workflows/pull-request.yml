@@ -243,19 +243,18 @@ jobs:
     # Run only if the develop-postgres branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop-postgres' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout the Repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: yarn
-          cache-dependency-path: "docs/"
-      # Run Docusaurus in the ./docs directory
+          node-version: '20.x' 
       - name: Install dependencies
         working-directory: ./docs
-        run: yarn install --frozen-lockfile
+        run: npm install
       - name: Test building the website
         working-directory: ./docs
-        run: yarn build
+        run: npm run build
 
   Validate-Coderabbit:
     name: Validate CodeRabbit Approval
