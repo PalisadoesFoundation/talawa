@@ -38,11 +38,7 @@ const config: Config = {
             return `https://github.com/PalisadoesFoundation/talawa/edit/develop/docs/docs/${docPath}`;
           },
         },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            "https://github.com/PalisadoesFoundation/talawa/tree/develop/docs/docs",
-        },
+        blog: false,
         theme: {
           customCss: [
             require.resolve("./src/css/custom.css"),
