@@ -11,7 +11,7 @@
 
 [int](https://api.flutter.dev/flutter/dart-core/int-class.html) index
   
-_<span class="feature">read / write</span>_
+_<span class="feature">final</span>_
 
 
 
