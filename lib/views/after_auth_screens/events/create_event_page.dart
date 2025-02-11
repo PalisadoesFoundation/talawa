@@ -24,13 +24,67 @@ class CreateEventPage extends StatefulWidget {
   const CreateEventPage({super.key});
 
   @override
-  _CreateEventPageState createState() => _CreateEventPageState();
+  CreateEventPageState createState() => CreateEventPageState();
 }
 
 /// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
-class _CreateEventPageState extends State<CreateEventPage> {
+class CreateEventPageState extends State<CreateEventPage> {
   /// venue selected by the user.
   Venue? selectedVenue;
+
+  /// Handles the selection and deselection of categories.
+  ///
+  /// **params**:
+  /// * `date`: Date for event
+  /// * `model`: Model to be updated
+  ///
+  /// **returns**:
+  ///   None
+  void dateUpdater1(DateTime date, CreateEventViewModel model) {
+    if (date.isBefore(DateTime.now())) {
+      navigationService.showSnackBar(
+        "Cannot create events having date prior than today",
+      );
+    } else {
+      setState(() {
+        if (model.eventStartDate != date) {
+          model.eventStartDate = date;
+          model.recurrenceStartDate = date;
+          model.recurrenceLabel = 'Does not repeat';
+          model.isRecurring = false;
+          model.frequency = Frequency.weekly;
+          model.weekDays = {};
+          model.weekDayOccurenceInMonth = null;
+        }
+      });
+    }
+  }
+
+  /// Handles the selection and deselection of categories.
+  ///
+  /// **params**:
+  /// * `time`: Time for event
+  /// * `model`: Model to be updated
+  ///
+  /// **returns**:
+  ///   None
+  void timeUpdater1(TimeOfDay time, CreateEventViewModel model) {
+    final validationError = Validator.validateEventTime(
+      time,
+      model.eventEndTime,
+    );
+
+    if (validationError != null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Start time must be before end time',
+        MessageType.error,
+      );
+    } else {
+      setState(() {
+        model.eventStartTime = time;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -335,6 +389,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     // DateTimeTile is custom widget that returns a tile to select date and time.
                     DateTimeTile(
+                      key: const Key("dateTimeTileFirst"),
                       isAllDay: model.isAllDay,
                       date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                       time: model.eventStartTime.format(context),
@@ -342,43 +397,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventStartDate,
                         );
-                        if (date.isBefore(DateTime.now())) {
-                          navigationServiceLocal.showSnackBar(
-                            "Cannot create events having date prior than today ",
-                          );
-                        }
-                        setState(() {
-                          if (model.eventStartDate != date) {
-                            model.eventStartDate = date;
-                            model.recurrenceStartDate = date;
-                            model.recurrenceLabel = 'Does not repeat';
-                            model.isRecurring = false;
-                            model.frequency = Frequency.weekly;
-                            model.weekDays = {};
-                            model.weekDayOccurenceInMonth = null;
-                          }
-                        });
+                        dateUpdater1(date, model);
                       },
                       setTime: () async {
                         final time = await customTimePicker(
                           initialTime: model.eventStartTime,
                         );
-                        final validationError = Validator.validateEventTime(
-                          time,
-                          model.eventEndTime,
-                        );
-                        if (validationError != null) {
-                          // coverage:ignore-start
-                          navigationService.showTalawaErrorSnackBar(
-                            'Start time must be before end time',
-                            MessageType.error,
-                          );
-                          // coverage:ignore-end
-                        } else {
-                          setState(() {
-                            model.eventStartTime = time;
-                          });
-                        }
+                        timeUpdater1(time, model);
                       },
                     ),
                     SizedBox(

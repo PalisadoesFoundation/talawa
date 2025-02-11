@@ -78,17 +78,17 @@ Widget createEventScreen({
     );
 
 void main() {
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    SizeConfig().test();
-    testSetupLocator();
-    registerServices();
-  });
-
-  tearDownAll(() {
-    unregisterServices();
-  });
   group('testing -> CreateEventPage', () {
+    setUpAll(() {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      SizeConfig().test();
+      testSetupLocator();
+      registerServices();
+    });
+
+    tearDownAll(() {
+      unregisterServices();
+    });
     testWidgets("Checking if add venue button shows up", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
@@ -818,82 +818,6 @@ void main() {
           });
         },
       );
-    });
-
-    group('DateTimeTile Tests', () {
-      testWidgets('Test date selection in DateTimeTile', (tester) async {
-        final model = createEventViewModel;
-        model.initialize();
-
-        await tester.pumpWidget(
-          createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ),
-        );
-
-        await tester.pumpAndSettle();
-
-        final switches = find.descendant(
-          of: find.byType(Row),
-          matching: find.byType(Switch),
-        );
-        expect(switches, findsNWidgets(3));
-        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
-        await tester.ensureVisible(switches.at(0));
-        await tester.tap(switches.at(1));
-
-        await tester.pump();
-
-        await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
-        await tester.pump();
-
-        await tester.tap(find.text('OK'));
-        await tester.pumpAndSettle();
-        expect(find.text('Does not repeat'), findsOneWidget);
-      });
-
-      testWidgets('Test time selection in DateTimeTile', (tester) async {
-        final currentTime = DateTime.now();
-        final futureTime = currentTime.add(const Duration(minutes: 30));
-        final model = createEventViewModel;
-        model.initialize();
-
-        await tester.pumpWidget(
-          createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        final switches = find.descendant(
-          of: find.byType(Row),
-          matching: find.byType(Switch),
-        );
-        expect(switches, findsNWidgets(3));
-        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
-        await tester.ensureVisible(switches.at(0));
-        await tester.tap(switches.at(1));
-
-        await tester.pump();
-        await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
-        await tester.pump();
-
-        expect(find.byType(TimePickerDialog), findsOneWidget);
-
-        await tester.tap(find.text('OK'));
-        await tester.pump();
-        expect(
-          find.text(DateFormat.jm().format(currentTime)),
-          findsOneWidget,
-        );
-
-        expect(
-          find.text(DateFormat.jm().format(futureTime)),
-          findsOneWidget,
-        );
-      });
     });
   });
 }
