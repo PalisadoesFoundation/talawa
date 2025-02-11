@@ -261,7 +261,7 @@ void main() {
       final query = queries.venueListQuery();
       final variables = {
         "orgId": 'XYZ',
-      }; // ***REPLACE WITH YOUR ACTUAL ORG ID***
+      };
 
       final mockQueryResult = QueryResult(
         source: QueryResultSource.network,
@@ -271,7 +271,7 @@ void main() {
               'id': '1',
               'name': 'Mock Venue 1',
               'capacity': 100,
-              'imageUrl': null, // Simulate no image URL
+              'imageUrl': null,
               'description': 'aaa',
             },
           ],
@@ -283,7 +283,6 @@ void main() {
           .thenAnswer((_) async => mockQueryResult);
 
       await mockNetworkImagesFor(() async {
-        // Wrap with mockNetworkImagesFor
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -304,7 +303,6 @@ void main() {
         await tester.tap(find.byIcon(Icons.check));
         await tester.pumpAndSettle();
 
-        // Find the Image.asset widget (placeholder)
         final placeholderImageFinder = find.byWidgetPredicate(
           (widget) =>
               widget is Image &&
@@ -316,9 +314,8 @@ void main() {
         expect(
           placeholderImageFinder,
           findsOneWidget,
-        ); // Check if the placeholder is visible
+        );
 
-        // Optional: You can also check the size if needed
         final imageWidget = tester.widget<Image>(placeholderImageFinder);
         expect(imageWidget.width, 50);
         expect(imageWidget.height, 50);
@@ -709,7 +706,44 @@ void main() {
         expect(find.text('Does not repeat'), findsOneWidget);
       });
 
-      testWidgets('Tap on DateTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date first', (tester) async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
+
+        await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
+        await tester.pump();
+
+        await tester.ensureVisible(find.byKey(const Key('dateTimeTileFirst')));
+        await tester.pump();
+
+        expect(find.byType(DatePickerDialog), findsOneWidget);
+        expect(find.byType(CalendarDatePicker), findsOneWidget);
+
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+        expect(
+          find.text(DateTime.now().toString().split(' ').first),
+          findsNWidgets(2),
+        );
+      });
+      testWidgets('Tap on DateTimeTile date second', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -746,7 +780,8 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DateTimeTile time', (tester) async {
+
+      testWidgets('Tap on DateTimeTile time first', (tester) async {
         final currentTime = DateTime.now();
         final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
@@ -768,6 +803,44 @@ void main() {
 
         await tester.pump();
         await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
+        await tester.pump();
+
+        expect(find.byType(TimePickerDialog), findsOneWidget);
+
+        await tester.tap(find.text('OK'));
+        await tester.pump();
+        expect(
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
+        );
+      });
+      testWidgets('Tap on DateTimeTile time second', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
         await tester.pump();
 
         expect(find.byType(TimePickerDialog), findsOneWidget);
