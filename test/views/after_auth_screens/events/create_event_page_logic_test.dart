@@ -16,24 +16,6 @@ import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-/// Mock class instance of CallbackFunction.
-class MockCallbackFunction extends Mock {
-  /// Mock function call.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void call();
-}
-
-/// mock instance for setDateCallback.
-final setDateCallback = MockCallbackFunction();
-
-/// mock instance for setTimeCallback.
-final setTimeCallback = MockCallbackFunction();
-
 /// Creates a EventScreen for tests.
 ///
 /// **params**:
@@ -71,7 +53,7 @@ Widget createEventScreenForDateTimeTileTesting({
     );
 
 void main() {
-  group('CreateEventPageState dateTimeTile 1', () {
+  group('CreateEventPageState dateTimeTile', () {
     late CreateEventViewModel createEventViewModel;
     setUpAll(() {
       SizeConfig().test();
@@ -279,6 +261,166 @@ void main() {
         createEventViewModel.eventStartTime,
         initialStartTime,
       );
+    });
+    testWidgets('dateUpdater2 updates model if endDate is after startDate',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createEventScreenForDateTimeTileTesting(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final endDateTile = find.byKey(const Key('key for test cep')).first;
+      await tester.ensureVisible(endDateTile);
+      await tester.tap(
+        find.descendant(
+          of: endDateTile,
+          matching: find.byKey(const Key('EventDateTimeTileDate')).last,
+        ),
+      );
+      await tester.pump();
+
+      final createState = tester.state(
+        find.byKey(const Key('CreateEventScreenForDateTimetile')),
+      ) as CreateEventPageState;
+
+      final DateTime endDate = DateTime.now().add(const Duration(days: 3));
+
+      createState.dateUpdater2(endDate, createEventViewModel);
+
+      verifyNever(
+        navigationService.showSnackBar(
+          "End Date cannot be after start date",
+        ),
+      );
+      expect(
+        createEventViewModel.eventEndDate.toLocal().day,
+        endDate.toLocal().day,
+      );
+    });
+
+    testWidgets(
+        'dateUpdater2 shows error snackbar if endDate is before startDate',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createEventScreenForDateTimeTileTesting(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final endDateTile = find.byKey(const Key('key for test cep')).first;
+      await tester.ensureVisible(endDateTile);
+      await tester.tap(
+        find.descendant(
+          of: endDateTile,
+          matching: find.byKey(const Key('EventDateTimeTileDate')).last,
+        ),
+      );
+      await tester.pump();
+
+      final createState = tester.state(
+        find.byKey(const Key('CreateEventScreenForDateTimetile')),
+      ) as CreateEventPageState;
+
+      final DateTime endDate = DateTime.now().subtract(const Duration(days: 5));
+      final DateTime initialEndDate = createEventViewModel.eventEndDate;
+
+      createState.dateUpdater2(endDate, createEventViewModel);
+
+      verify(
+        navigationService.showSnackBar(
+          "End Date cannot be after start date",
+        ),
+      ).called(1);
+      expect(
+        createEventViewModel.eventEndDate,
+        initialEndDate,
+      );
+    });
+    testWidgets('timeUpdater2 updates model if endTime is after startTime',
+        (WidgetTester tester) async {
+      createEventViewModel.eventStartTime = const TimeOfDay(hour: 9, minute: 0);
+      createEventViewModel.eventEndTime = const TimeOfDay(hour: 10, minute: 0);
+
+      await tester.pumpWidget(
+        createEventScreenForDateTimeTileTesting(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final endDateTile = find.byKey(const Key('key for test cep')).first;
+      await tester.ensureVisible(endDateTile);
+      await tester.tap(
+        find.descendant(
+          of: endDateTile,
+          matching: find.byKey(const Key('EventDateTimeTileDate')).last,
+        ),
+      );
+      await tester.pump();
+
+      final createState = tester.state(
+        find.byKey(const Key('CreateEventScreenForDateTimetile')),
+      ) as CreateEventPageState;
+
+      const TimeOfDay endTime = TimeOfDay(hour: 11, minute: 0);
+
+      createState.timeUpdater2(endTime, createEventViewModel);
+
+      verifyNever(
+        navigationService.showTalawaErrorSnackBar(
+          'Start time must be before end time',
+          MessageType.error,
+        ),
+      );
+      expect(createEventViewModel.eventEndTime, endTime);
+    });
+
+    testWidgets(
+        'timeUpdater2 shows error snackbar if endTime is before startTime',
+        (WidgetTester tester) async {
+      createEventViewModel.eventStartTime = const TimeOfDay(hour: 9, minute: 0);
+      createEventViewModel.eventEndTime = const TimeOfDay(hour: 10, minute: 0);
+
+      await tester.pumpWidget(
+        createEventScreenForDateTimeTileTesting(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final endDateTile = find.byKey(const Key('key for test cep')).first;
+      await tester.ensureVisible(endDateTile);
+      await tester.tap(
+        find.descendant(
+          of: endDateTile,
+          matching: find.byKey(const Key('EventDateTimeTileDate')).last,
+        ),
+      );
+      await tester.pump();
+
+      final createState = tester.state(
+        find.byKey(const Key('CreateEventScreenForDateTimetile')),
+      ) as CreateEventPageState;
+
+      const TimeOfDay endTime = TimeOfDay(hour: 8, minute: 0);
+      final TimeOfDay initialEndTime = createEventViewModel.eventEndTime;
+
+      createState.timeUpdater2(endTime, createEventViewModel);
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Start time must be before end time',
+          MessageType.error,
+        ),
+      ).called(1);
+      expect(createEventViewModel.eventEndTime, initialEndTime);
     });
   });
 }

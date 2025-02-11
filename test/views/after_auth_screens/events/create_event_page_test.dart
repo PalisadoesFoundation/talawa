@@ -255,6 +255,81 @@ void main() {
       await tester.pump();
     });
 
+    testWidgets(
+        "Checking if placeholder image is visible when no venue image is available",
+        (tester) async {
+      final query = queries.venueListQuery();
+      final variables = {
+        "orgId": 'XYZ',
+      }; // ***REPLACE WITH YOUR ACTUAL ORG ID***
+
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': null, // Simulate no image URL
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(databaseFunctions.gqlAuthQuery(query, variables: variables))
+          .thenAnswer((_) async => mockQueryResult);
+
+      await mockNetworkImagesFor(() async {
+        // Wrap with mockNetworkImagesFor
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Add Venue'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VenueBottomSheet), findsOneWidget);
+        expect(find.text('Mock Venue 1'), findsOneWidget);
+
+        await tester.tap(find.text('Mock Venue 1'));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.check));
+        await tester.pumpAndSettle();
+
+        // Find the Image.asset widget (placeholder)
+        final placeholderImageFinder = find.byWidgetPredicate(
+          (widget) =>
+              widget is Image &&
+              widget.image is AssetImage &&
+              (widget.image as AssetImage).assetName ==
+                  'assets/images/defaultImg.png',
+        );
+
+        expect(
+          placeholderImageFinder,
+          findsOneWidget,
+        ); // Check if the placeholder is visible
+
+        // Optional: You can also check the size if needed
+        final imageWidget = tester.widget<Image>(placeholderImageFinder);
+        expect(imageWidget.width, 50);
+        expect(imageWidget.height, 50);
+
+        await tester.tap(find.byIcon(Icons.cancel));
+        await tester.pumpAndSettle();
+
+        expect(placeholderImageFinder, findsNothing);
+      });
+    });
+
     testWidgets("Checking tap Inkwell for setTime 1 datetime", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
