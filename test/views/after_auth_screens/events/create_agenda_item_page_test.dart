@@ -21,6 +21,11 @@ import 'package:talawa/views/base_view.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
+// Mock classes
+class MockBuildContext extends Mock implements BuildContext {}
+
+class MockAppLocalizations extends Mock implements AppLocalizations {}
+
 Event getTestEvent({
   bool isPublic = false,
   bool viewOnMap = true,
@@ -164,6 +169,48 @@ void main() {
       expect(find.text('Category 1'), findsNWidgets(2));
     });
 
+    testWidgets('Category deselection works correctly',
+        (WidgetTester tester) async {
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'agendaItemCategoriesByOrganization': [
+            {
+              'id': '1',
+              'name': 'Category 1',
+            },
+            {
+              'id': '2',
+              'name': 'Category 2',
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(
+            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+          ),
+        ),
+      );
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => mockResult);
+      await tester.pumpWidget(createCreateAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Chip), findsOneWidget);
+      expect(find.text('Category 1'), findsNWidgets(2));
+
+      await tester.tap(find.byIcon(Icons.cancel));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Chip), findsNothing);
+    });
+
     testWidgets('Add button works correctly', (WidgetTester tester) async {
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();
@@ -205,6 +252,34 @@ void main() {
       expect(find.byType(Chip), findsOneWidget);
       expect(find.text('https://example.com'), findsOneWidget);
     });
+    testWidgets('Remove URL works correctly', (WidgetTester tester) async {
+      await tester.pumpWidget(createCreateAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      // Add a URL first
+      await tester.enterText(
+        find.byType(TextFormField).at(3),
+        'https://example.com',
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(const Key('add_url')),
+      );
+      await tester.pumpAndSettle();
+
+      // Verify URL is added
+      expect(find.byType(Chip), findsOneWidget);
+      expect(find.text('https://example.com'), findsOneWidget);
+
+      // Remove the URL
+      await tester
+          .tap(find.byIcon(Icons.cancel)); // Find the delete icon on the chip
+      await tester.pumpAndSettle();
+
+      // Verify URL is removed
+      expect(find.byType(Chip), findsNothing);
+      expect(find.text('https://example.com'), findsNothing);
+    });
 
     testWidgets('Add Attachments button is present',
         (WidgetTester tester) async {
@@ -214,4 +289,77 @@ void main() {
       expect(find.text('Add Attachments'), findsOneWidget);
     });
   });
+  group("description Validator", () {
+    test('should return null if description is valid', () {
+      final state = CreateAgendaItemPageState();
+      expect(state.descriptionValidator('Valid Description'), null);
+    });
+
+    test('should return error message if description is invalid - empty', () {
+      final state = CreateAgendaItemPageState();
+      expect(
+        state.descriptionValidator(''),
+        'Description must not be left blank.',
+      );
+    });
+
+    test('should return error message if description is invalid - no letters',
+        () {
+      final state = CreateAgendaItemPageState();
+      expect(state.descriptionValidator('123'), 'Invalid Description');
+    });
+  });
+
+  group('titleValidator', () {
+    test('should return null if title is valid', () {
+      final state = CreateAgendaItemPageState();
+      expect(state.titleValidator('Valid Title'), null);
+    });
+
+    test('should return error message if title is invalid - empty', () {
+      final state = CreateAgendaItemPageState();
+      expect(state.titleValidator(''), 'Title must not be left blank.');
+    });
+
+    test('should return error message if title is invalid - no letters', () {
+      final state = CreateAgendaItemPageState();
+      expect(state.titleValidator('123'), 'Invalid Title');
+    });
+  });
+
+  // group('durationValidator', () {
+  //   late MockAppLocalizations mockLocalizations;
+  //   late BuildContext mockContext;
+
+  //   setUp(() {
+  //     mockLocalizations = MockAppLocalizations();
+  //     mockContext = MockBuildContext();
+  //     when(AppLocalizations.of(mockContext)).thenReturn(mockLocalizations);
+  //   });
+
+  //   test('should return error message if duration is null', () {
+  //     when(mockLocalizations.strictTranslate('Please enter a duration'))
+  //         .thenReturn('Please enter a duration');
+  //     final state = CreateAgendaItemPageState();
+  //     expect(
+  //       state.durationValidator(mockContext, null),
+  //       'Please enter a duration',
+  //     );
+  //   });
+
+  //   test('should return error message if duration is empty', () {
+  //     when(mockLocalizations.strictTranslate('Please enter a duration'))
+  //         .thenReturn('Please enter a duration');
+  //     final state = CreateAgendaItemPageState();
+  //     expect(
+  //       state.durationValidator(mockContext, ''),
+  //       'Please enter a duration',
+  //     );
+  //   });
+
+  //   test('should return null if duration is valid', () {
+  //     final state = CreateAgendaItemPageState();
+  //     expect(state.durationValidator(mockContext, '01:30'), null);
+  //   });
+  // });
 }

@@ -23,11 +23,11 @@ class CreateAgendaItemPage extends StatefulWidget {
   final EventInfoViewModel model;
 
   @override
-  _CreateAgendaItemPageState createState() => _CreateAgendaItemPageState();
+  CreateAgendaItemPageState createState() => CreateAgendaItemPageState();
 }
 
 /// State class for [CreateAgendaItemPage].
-class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
+class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   /// Controller for the agenda item title input field.
   TextEditingController titleController = TextEditingController();
 
@@ -167,6 +167,45 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
     });
   }
 
+  /// Validates the event description.
+  ///
+  /// **params**:
+  /// * `value`: The value of the description to be validated.
+  ///
+  /// **returns**:
+  /// * `String?`: Error message if the description is invalid, otherwise null.
+  String? descriptionValidator(String? value) {
+    return Validator.validateEventForm(value!, 'Description');
+  }
+
+  /// Validates the event title.
+  ///
+  /// **params**:
+  /// * `value`: The value of the title to be validated.
+  ///
+  /// **returns**:
+  /// * `String?`: Error message if the title is invalid, otherwise null.
+  String? titleValidator(String? value) {
+    return Validator.validateEventForm(value!, 'Title');
+  }
+
+  /// Validates the event duration.
+  ///
+  /// **params**:
+  /// * `context`: The BuildContext used for localization.
+  /// * `value`: The value of the duration to be validated.
+  ///
+  /// **returns**:
+  /// * `String?`: Error message if the duration is invalid, otherwise null.
+  String? durationValidator(BuildContext context, String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.of(context)!
+          .strictTranslate('Please enter a duration');
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final navigationServiceLocal = locator<NavigationService>();
@@ -176,7 +215,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
         elevation: 1,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () => navigationServiceLocal.pop(),
+          onTap: navigationServiceLocal.pop,
           child: const Icon(Icons.close),
         ),
         title: Text(
@@ -266,8 +305,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.name,
                   maxLength: 20,
                   focusNode: titleFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Title'),
+                  validator: titleValidator,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!
                         .strictTranslate('Add Agenda Item Title'),
@@ -295,8 +333,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                   keyboardType: TextInputType.multiline,
                   controller: descController,
                   focusNode: descFocus,
-                  validator: (value) =>
-                      Validator.validateEventForm(value!, 'Description'),
+                  validator: descriptionValidator,
                   maxLines: 10,
                   minLines: 1,
                   decoration: InputDecoration(
@@ -345,14 +382,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                       ),
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .strictTranslate('Please enter a duration');
-                    }
-                    // Add additional validation for mm:ss format if needed
-                    return null;
-                  },
+                  validator: (value) => durationValidator(context, value),
                 ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.013),
                 Row(
