@@ -446,6 +446,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                 const Divider(),
                 const SizedBox(height: 10),
                 GridView.builder(
+                  key: const Key('attachmentGridView'),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -458,9 +459,11 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                     final base64String = attachments[index];
                     final imageData = base64Decode(base64String);
                     return Stack(
+                      key: Key('attachmentItem_$index'),
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
+                          key: Key('attachmentImage_$index'),
                           child: Image.memory(
                             imageData,
                             fit: BoxFit.cover,
@@ -469,6 +472,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                           ),
                         ),
                         Positioned(
+                          key: Key('attachmentCloseButton_$index'),
                           top: 0,
                           right: 0,
                           child: GestureDetector(

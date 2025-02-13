@@ -10,6 +10,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -17,14 +18,15 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_agenda_item_page.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-// Mock classes
-class MockBuildContext extends Mock implements BuildContext {}
+class MockEventInfoViewModel extends Mock implements EventInfoViewModel {}
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+class MockMultiMediaPickerService extends Mock
+    implements MultiMediaPickerService {}
 
 Event getTestEvent({
   bool isPublic = false,
@@ -215,7 +217,6 @@ void main() {
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();
 
-      // Fill in the required fields
       await tester.enterText(
         find.byKey(const Key('create_event_agenda_tf1')),
         'Test Agenda Item',
@@ -255,8 +256,6 @@ void main() {
     testWidgets('Remove URL works correctly', (WidgetTester tester) async {
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();
-
-      // Add a URL first
       await tester.enterText(
         find.byType(TextFormField).at(3),
         'https://example.com',
@@ -266,17 +265,10 @@ void main() {
         find.byKey(const Key('add_url')),
       );
       await tester.pumpAndSettle();
-
-      // Verify URL is added
       expect(find.byType(Chip), findsOneWidget);
       expect(find.text('https://example.com'), findsOneWidget);
-
-      // Remove the URL
-      await tester
-          .tap(find.byIcon(Icons.cancel)); // Find the delete icon on the chip
+      await tester.tap(find.byIcon(Icons.cancel));
       await tester.pumpAndSettle();
-
-      // Verify URL is removed
       expect(find.byType(Chip), findsNothing);
       expect(find.text('https://example.com'), findsNothing);
     });
@@ -287,6 +279,41 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Add Attachments'), findsOneWidget);
+    });
+  });
+
+  group('Attachment GridView builder Tests', () {
+    testWidgets('Display no attachments if attachements array is empty',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCreateAgendaItemScreen(),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(Image), findsNWidgets(0));
+    });
+    testWidgets('Displays multiple attachments', (WidgetTester tester) async {
+      final attachments = [
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+      ];
+
+      await tester.pumpWidget(
+        createCreateAgendaItemScreen(),
+      );
+      await tester.pumpAndSettle();
+
+      final CreateAgendaItemPageState state =
+          tester.state(find.byType(CreateAgendaItemPage));
+      await tester.runAsync(() async {
+        state.safeSetState(() {
+          state.attachments = attachments;
+        });
+      });
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('attachmentItem_0')), findsOneWidget);
+      expect(find.byKey(const Key('attachmentItem_1')), findsOneWidget);
+      expect(find.byType(Image), findsNWidgets(2));
     });
   });
   group("description Validator", () {
