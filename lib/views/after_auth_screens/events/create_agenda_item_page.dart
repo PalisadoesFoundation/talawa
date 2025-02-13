@@ -436,6 +436,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                 ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.013),
                 ElevatedButton.icon(
+                  key: const Key('addAttachmentButton'),
                   onPressed: () => _pickAttachment(fromCamera: false),
                   icon: const Icon(Icons.attach_file),
                   label: Text(
@@ -472,10 +473,10 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                           ),
                         ),
                         Positioned(
-                          key: Key('attachmentCloseButton_$index'),
                           top: 0,
                           right: 0,
                           child: GestureDetector(
+                            key: Key('attachmentCloseButton_$index'),
                             onTap: () => _removeAttachment(base64String),
                             child: Container(
                               padding: const EdgeInsets.all(4),
