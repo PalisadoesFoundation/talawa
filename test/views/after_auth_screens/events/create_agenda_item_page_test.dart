@@ -1,5 +1,7 @@
 // ignore_for_file: talawa_api_doc
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,8 +11,10 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -22,6 +26,15 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+
+class MockImageService extends Mock implements ImageService {
+  static const throwException = 'throw Exception';
+  @override
+  Future<String> convertToBase64(File file) async {
+    if (file.path == throwException) throw Exception('fake exception');
+    return "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+  }
+}
 
 Event getTestEvent({
   bool isPublic = false,
@@ -113,6 +126,8 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
+    locator.unregister<ImageService>();
+    locator.registerSingleton<ImageService>(MockImageService());
     locator<SizeConfig>().test();
   });
 
@@ -191,6 +206,7 @@ void main() {
 
       when(eventService.fetchAgendaCategories("XYZ"))
           .thenAnswer((_) async => mockResult);
+
       await tester.pumpWidget(createCreateAgendaItemScreen());
       await tester.pumpAndSettle();
 
@@ -201,7 +217,9 @@ void main() {
 
       expect(find.byType(Chip), findsOneWidget);
       expect(find.text('Category 1'), findsNWidgets(2));
-
+      final CreateAgendaItemPageState state =
+          tester.state(find.byType(CreateAgendaItemPage));
+      final prevSize = state.selectedCategories.length;
       await tester.tap(
         find
             .descendant(
@@ -217,6 +235,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      expect(state.selectedCategories.length, prevSize - 1);
       expect(find.byType(Chip), findsNothing);
     });
 
@@ -325,21 +344,26 @@ void main() {
   });
 
   group('Attachment Management Tests', () {
-    // testWidgets('Verify attachment addition', (WidgetTester tester) async {
-    //   final mockMultiMediaPickerService = locator<MultiMediaPickerService>();
+    testWidgets('Verify attachment addition', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCreateAgendaItemScreen(),
+      );
+      await tester.pumpAndSettle();
+      final file = File('fakePath');
+      final mockmultimediaPickerService = locator<MultiMediaPickerService>();
+      when(mockmultimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async {
+        return file;
+      });
 
-    //   await tester.pumpWidget(
-    //     createCreateAgendaItemScreen(),
-    //   );
-    //   await tester.pumpAndSettle();
-    //   final btn = find.byKey(const Key('addAttachmentButton'));
-    //   await tester.tap(btn);
-    //   await tester.pumpAndSettle();
-    //   final CreateAgendaItemPageState state =
-    //       tester.state(find.byType(CreateAgendaItemPage));
-    //   expect(state.attachments.length, 1);
-    //   // new attachements added
-    // });
+      final btn = find.byKey(const Key('addAttachmentButton'));
+      await tester.tap(btn);
+      await tester.pumpAndSettle();
+      final CreateAgendaItemPageState state =
+          tester.state(find.byType(CreateAgendaItemPage));
+      await tester.pumpAndSettle();
+      expect(state.attachments.length, 1);
+    });
     testWidgets('Verify attachment removal', (WidgetTester tester) async {
       final attachments = [
         'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
@@ -369,10 +393,18 @@ void main() {
       expect(find.byKey(const Key('attachmentItem_1')), findsNothing);
     });
   });
-
   group("description Validator", () {
-    test('should return null if description is valid', () {
-      final state = CreateAgendaItemPageState();
+    testWidgets('should return null if description is valid',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        createCreateAgendaItemScreen(),
+      );
+      await tester.pumpAndSettle();
+
+      final CreateAgendaItemPageState state =
+          tester.state(find.byType(CreateAgendaItemPage));
+      state.titleController.text = 'Valid Title';
+
       expect(state.descriptionValidator('Valid Description'), null);
     });
 
@@ -441,5 +473,30 @@ void main() {
         null,
       );
     });
+    // testWidgets('Duration field validation works correctly',
+    //     (WidgetTester tester) async {
+    //   await tester.pumpWidget(createCreateAgendaItemScreen());
+    //   await tester.pumpAndSettle();
+
+    //   // Empty duration input
+    //   await tester.enterText(
+    //     find.byKey(const Key('create_event_agenda_duration')),
+    //     '',
+    //   );
+    //   await tester.pumpAndSettle();
+
+    //   // Trigger form validation
+    //   final form = find.byType(Form);
+    //   await tester.tap(form);
+    //   await tester.pumpAndSettle();
+
+    //   expect(find.text('Please enter a duration'), findsOneWidget);
+
+    //   // Non-empty duration input
+    //   // await tester.enterText(
+    //   //     find.byKey(const Key('create_event_agenda_duration')), '00:30');
+    //   // await tester.pumpAndSettle();
+    //   // expect(find.text('Please enter a duration'), findsNothing);
+    // });
   });
 }
