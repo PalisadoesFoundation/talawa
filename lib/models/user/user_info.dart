@@ -34,7 +34,11 @@ class User extends HiveObject {
     final String? lastName = nameParts != null && nameParts.length > 1
         ? nameParts.sublist(1).join(' ')
         : null;
-
+    final Map<String, dynamic>? org =
+        userData['organizationsWhereMember'] as Map<String, dynamic>?;
+    final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
+    final List<Map<String, dynamic>>? orgList =
+        edges?.map((e) => e as Map<String, dynamic>).toList();
     return User(
       authToken: json['authenticationToken'] != null
           ? json['authenticationToken'] as String?
@@ -49,9 +53,9 @@ class User extends HiveObject {
       image: userData['avatarURL'] != null
           ? userData['avatarURL'] as String?
           : null,
-      joinedOrganizations: userData['joinedOrganizations'] != null
-          ? (userData['joinedOrganizations'] as List<dynamic>)
-              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+      joinedOrganizations: orgList != null
+          ? orgList
+              .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
               .toList()
           : [],
     );

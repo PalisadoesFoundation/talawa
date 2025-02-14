@@ -116,11 +116,12 @@ class CustomListTile extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                             children: <TextSpan>[
-                              if (orgInfo!.address != null) ...[
+                              if (orgInfo?.city != null &&
+                                  orgInfo?.countryCode != null) ...[
                                 const TextSpan(text: ' '),
                                 TextSpan(
                                   text:
-                                      '(${orgInfo!.address!.city}, ${orgInfo!.address!.countryCode})',
+                                      '(${orgInfo!.city}, ${orgInfo!.countryCode})',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!

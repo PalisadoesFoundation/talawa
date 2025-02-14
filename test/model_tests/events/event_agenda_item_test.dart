@@ -29,7 +29,7 @@ void main() {
         ],
         'sequence': 1,
         'organization': {
-          '_id': 'org1',
+          'id': 'org1',
           'name': 'Tech Conference Org',
         },
       };

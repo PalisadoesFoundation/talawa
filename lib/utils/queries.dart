@@ -35,7 +35,29 @@ class Queries {
                   name,
                   avatarURL,
                   emailAddress,
-                  
+                  organizationsWhereMember(first:32){
+                    edges{
+                      node{
+                        id,
+                        name,
+                        addressLine1,
+                        addressLine2,
+                        avatarMimeType,
+                        avatarURL,
+                        postalCode,
+                        countryCode,
+                        description,
+                        members(first:32){
+                          edges{
+                            node{
+                              name
+                              role
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
                 
               }
@@ -63,6 +85,29 @@ class Queries {
           emailAddress,
           name,
           avatarURL,
+          organizationsWhereMember(first:32){
+            edges{
+              node{
+                id,
+                name,
+                addressLine1,
+                addressLine2,
+                avatarMimeType,
+                avatarURL,
+                postalCode,
+                countryCode,
+                description,
+                members(first:32){
+                  edges{
+                    node{
+                      name
+                      role
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

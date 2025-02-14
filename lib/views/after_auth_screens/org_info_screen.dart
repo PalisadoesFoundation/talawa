@@ -121,12 +121,12 @@ class OrganisationInfoScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      if (orgInfo.address != null)
+                      if (orgInfo.city != null && orgInfo.countryCode != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 8, left: 8),
                           child: Center(
                             child: Text(
-                              '${orgInfo.address?.city}, ${orgInfo.address?.countryCode}',
+                              '${orgInfo.city}, ${orgInfo.countryCode}',
                               style: const TextStyle(
                                 fontSize: 16.0,
                                 color: Color.fromARGB(255, 179, 168, 168),
