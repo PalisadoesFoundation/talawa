@@ -234,7 +234,6 @@ void main() {
             .last,
       );
       await tester.pumpAndSettle();
-
       expect(state.selectedCategories.length, prevSize - 1);
       expect(find.byType(Chip), findsNothing);
     });
@@ -393,110 +392,45 @@ void main() {
       expect(find.byKey(const Key('attachmentItem_1')), findsNothing);
     });
   });
-  group("description Validator", () {
-    testWidgets('should return null if description is valid',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        createCreateAgendaItemScreen(),
-      );
-      await tester.pumpAndSettle();
+  testWidgets('Description field validation works correctly',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(createCreateAgendaItemScreen());
+    await tester.pumpAndSettle();
 
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      state.titleController.text = 'Valid Title';
-
-      expect(state.descriptionValidator('Valid Description'), null);
-    });
-
-    test('should return error message if description is invalid - empty', () {
-      final state = CreateAgendaItemPageState();
-      expect(
-        state.descriptionValidator(''),
-        'Description must not be left blank.',
-      );
-    });
-
-    test('should return error message if description is invalid - no letters',
-        () {
-      final state = CreateAgendaItemPageState();
-      expect(state.descriptionValidator('123'), 'Invalid Description');
-    });
+    final validator = tester
+        .widget<TextFormField>(
+          find.byKey(const Key('create_event_agenda_tf2')),
+        )
+        .validator;
+    expect(validator?.call(''), 'Description must not be left blank.');
+    expect(validator?.call('123'), 'Invalid Description');
+    expect(validator?.call('Valid Description'), null);
   });
+  testWidgets('Title field validation works correctly',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(createCreateAgendaItemScreen());
+    await tester.pumpAndSettle();
 
-  group('titleValidator', () {
-    test('should return null if title is valid', () {
-      final state = CreateAgendaItemPageState();
-      expect(state.titleValidator('Valid Title'), null);
-    });
-
-    test('should return error message if title is invalid - empty', () {
-      final state = CreateAgendaItemPageState();
-      expect(state.titleValidator(''), 'Title must not be left blank.');
-    });
-
-    test('should return error message if title is invalid - no letters', () {
-      final state = CreateAgendaItemPageState();
-      expect(state.titleValidator('123'), 'Invalid Title');
-    });
+    final validator = tester
+        .widget<TextFormField>(
+          find.byKey(const Key('create_event_agenda_tf1')),
+        )
+        .validator;
+    expect(validator?.call(''), 'Title must not be left blank.');
+    expect(validator?.call('123'), 'Invalid Title');
+    expect(validator?.call('Valid Title'), null);
   });
+  testWidgets('Duration field validation works correctly',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(createCreateAgendaItemScreen());
+    await tester.pumpAndSettle();
 
-  group('durationValidator', () {
-    testWidgets(
-        'durationValidator should return error message if duration is empty',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(createCreateAgendaItemScreen());
-      await tester.pumpAndSettle();
-
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      expect(
-        state.durationValidator(
-          tester.element(find.byType(CreateAgendaItemPage)),
-          '',
-        ),
-        'Please enter a duration',
-      );
-    });
-
-    testWidgets('durationValidator should return null if duration is valid',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(createCreateAgendaItemScreen());
-      await tester.pumpAndSettle();
-
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      expect(
-        state.durationValidator(
-          tester.element(find.byType(CreateAgendaItemPage)),
-          '01:30',
-        ),
-        null,
-      );
-    });
-    // testWidgets('Duration field validation works correctly',
-    //     (WidgetTester tester) async {
-    //   await tester.pumpWidget(createCreateAgendaItemScreen());
-    //   await tester.pumpAndSettle();
-
-    //   // Empty duration input
-    //   await tester.enterText(
-    //     find.byKey(const Key('create_event_agenda_duration')),
-    //     '',
-    //   );
-    //   await tester.pumpAndSettle();
-
-    //   // Trigger form validation
-    //   final form = find.byType(Form);
-    //   await tester.tap(form);
-    //   await tester.pumpAndSettle();
-
-    //   expect(find.text('Please enter a duration'), findsOneWidget);
-
-    //   // Non-empty duration input
-    //   // await tester.enterText(
-    //   //     find.byKey(const Key('create_event_agenda_duration')), '00:30');
-    //   // await tester.pumpAndSettle();
-    //   // expect(find.text('Please enter a duration'), findsNothing);
-    // });
+    final validator = tester
+        .widget<TextFormField>(
+          find.byKey(const Key('create_event_agenda_duration')),
+        )
+        .validator;
+    expect(validator?.call(''), 'Please enter a duration');
+    expect(validator?.call('00:30'), null);
   });
 }
