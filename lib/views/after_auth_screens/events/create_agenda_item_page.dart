@@ -350,6 +350,7 @@ class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                       return AppLocalizations.of(context)!
                           .strictTranslate('Please enter a duration');
                     }
+                    // Add additional validation for mm:ss format if needed
                     return null;
                   },
                 ),

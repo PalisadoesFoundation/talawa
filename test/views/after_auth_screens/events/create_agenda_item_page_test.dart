@@ -181,7 +181,7 @@ void main() {
       expect(find.text('Category 1'), findsNWidgets(2));
     });
 
-    testWidgets('Category deselection works correctly',
+    testWidgets('Removing category from selected categories works correctly',
         (WidgetTester tester) async {
       final mockResult = QueryResult(
         source: QueryResultSource.network,
