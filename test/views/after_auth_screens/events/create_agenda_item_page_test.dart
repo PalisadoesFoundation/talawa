@@ -217,9 +217,12 @@ void main() {
 
       expect(find.byType(Chip), findsOneWidget);
       expect(find.text('Category 1'), findsNWidgets(2));
+
       final CreateAgendaItemPageState state =
           tester.state(find.byType(CreateAgendaItemPage));
       final prevSize = state.selectedCategories.length;
+
+      expect(state.selectedCategories.first.name, 'Category 1');
       await tester.tap(
         find
             .descendant(
@@ -234,6 +237,15 @@ void main() {
             .last,
       );
       await tester.pumpAndSettle();
+      expect(
+        state.selectedCategories.contains(
+          AgendaCategory(
+            id: "1",
+            name: 'Category 1',
+          ),
+        ),
+        false,
+      );
       expect(state.selectedCategories.length, prevSize - 1);
       expect(find.byType(Chip), findsNothing);
     });
