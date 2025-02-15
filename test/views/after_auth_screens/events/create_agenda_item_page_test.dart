@@ -284,7 +284,45 @@ void main() {
       expect(find.byType(Chip), findsNothing);
       expect(find.text('https://example.com'), findsNothing);
     });
+    testWidgets('Deletes category chip on delete icon tap',
+        (WidgetTester tester) async {
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'agendaItemCategoriesByOrganization': [
+            {
+              '_id': '1',
+              'name': 'Category 1',
+            },
+            {
+              '_id': '2',
+              'name': 'Category 2',
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(
+            EventQueries().fetchAgendaItemCategoriesByOrganization('XYZ'),
+          ),
+        ),
+      );
 
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenAnswer((_) async => mockResult);
+      await tester.pumpWidget(createCreateAgendaItemScreen());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Category 1').last);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Chip), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.cancel));
+      await tester.pumpAndSettle();
+      expect(find.byType(Chip), findsNothing);
+    });
     testWidgets('Add Attachments button is present',
         (WidgetTester tester) async {
       await tester.pumpWidget(createCreateAgendaItemScreen());
