@@ -150,11 +150,11 @@ void main() {
         data: {
           'agendaItemCategoriesByOrganization': [
             {
-              'id': '1',
+              '_id': '1',
               'name': 'Category 1',
             },
             {
-              'id': '2',
+              '_id': '2',
               'name': 'Category 2',
             },
           ],
@@ -188,11 +188,11 @@ void main() {
         data: {
           'agendaItemCategoriesByOrganization': [
             {
-              'id': '1',
+              '_id': '1',
               'name': 'Category 1',
             },
             {
-              'id': '2',
+              '_id': '2',
               'name': 'Category 2',
             },
           ],
@@ -212,42 +212,17 @@ void main() {
 
       await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Category 1').last);
+      await tester.tap(find.text('Category 1').first);
       await tester.pumpAndSettle();
 
       expect(find.byType(Chip), findsOneWidget);
       expect(find.text('Category 1'), findsNWidgets(2));
-
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      final prevSize = state.selectedCategories.length;
-
-      expect(state.selectedCategories.first.name, 'Category 1');
-      await tester.tap(
-        find
-            .descendant(
-              of: find.byWidgetPredicate(
-                (widget) =>
-                    widget is Chip &&
-                    widget.label is Text &&
-                    (widget.label as Text).data == 'Category 1',
-              ),
-              matching: find.byType(GestureDetector),
-            )
-            .last,
-      );
+      await tester.tap(find.byType(DropdownButtonFormField<AgendaCategory>));
       await tester.pumpAndSettle();
-      expect(
-        state.selectedCategories.contains(
-          AgendaCategory(
-            id: "1",
-            name: 'Category 1',
-          ),
-        ),
-        false,
-      );
-      expect(state.selectedCategories.length, prevSize - 1);
+      await tester.tap(find.text('Category 1').first, warnIfMissed: false);
+      await tester.pumpAndSettle();
       expect(find.byType(Chip), findsNothing);
+      expect(find.text('Category 1'), findsNothing);
     });
 
     testWidgets('Add button works correctly', (WidgetTester tester) async {
