@@ -58,8 +58,6 @@ class OrgInfo {
         .where((user) => user != null)
         .cast<User>()
         .toList();
-    print("hello");
-    print(admins);
 
     return OrgInfo(
       id: json['id'] != null ? json['id'] as String : null,
