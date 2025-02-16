@@ -13,56 +13,56 @@ void main() {
   });
 
   group('Test OrgInfo model', () {
-    final Map<String, dynamic> userJson = {
-      'user': {
-        'id': 'user_id',
-      },
-      'authenticationToken': ' ',
-      'refreshToken': ' ',
-    };
-    final Map<String, dynamic> json1 = {
-      "id": "123",
-      "name": "Name",
-      "addressLine1": "123 Random Street",
-      "addressLine2": "Apartment 456",
-      "avatarURL": "image_url",
-      "postalCode": "110001",
-      "countryCode": "in",
-      "description": "Description",
-      "city": "Delhi",
-      "state": "Delhi",
-      "members": {
-        "edges": [
-          {
-            "node": {
-              "id": "id123",
-              "name": "user_id",
-              "role": "administrator",
-            },
-          }
-        ],
-      },
-    };
-    final Map<String, dynamic> json2 = {
-      '_id': '321',
-      'image': 'image_url',
-      'name': 'Name',
-      'description': 'Description',
-      'userRegistrationRequired': false,
-      'creator': userJson,
-      'members': [userJson],
-      'admins': [userJson],
-      'address': {
-        "city": "Delhi",
-        "countryCode": "IN",
-        "dependentLocality": "Some Dependent Locality",
-        "line1": "123 Random Street",
-        "line2": "Apartment 456",
-        "postalCode": "110001",
-        "sortingCode": "ABC-123",
-        "state": "Delhi",
-      },
-    };
+    // final Map<String, dynamic> userJson = {
+    //   'user': {
+    //     'id': 'user_id',
+    //   },
+    //   'authenticationToken': ' ',
+    //   'refreshToken': ' ',
+    // };
+    // final Map<String, dynamic> json1 = {
+    //   "id": "123",
+    //   "name": "Name",
+    //   "addressLine1": "123 Random Street",
+    //   "addressLine2": "Apartment 456",
+    //   "avatarURL": "image_url",
+    //   "postalCode": "110001",
+    //   "countryCode": "in",
+    //   "description": "Description",
+    //   "city": "Delhi",
+    //   "state": "Delhi",
+    //   "members": {
+    //     "edges": [
+    //       {
+    //         "node": {
+    //           "id": "id123",
+    //           "name": "user_id",
+    //           "role": "administrator",
+    //         },
+    //       }
+    //     ],
+    //   },
+    // };
+    // final Map<String, dynamic> json2 = {
+    //   '_id': '321',
+    //   'image': 'image_url',
+    //   'name': 'Name',
+    //   'description': 'Description',
+    //   'userRegistrationRequired': false,
+    //   'creator': userJson,
+    //   'members': [userJson],
+    //   'admins': [userJson],
+    //   'address': {
+    //     "city": "Delhi",
+    //     "countryCode": "IN",
+    //     "dependentLocality": "Some Dependent Locality",
+    //     "line1": "123 Random Street",
+    //     "line2": "Apartment 456",
+    //     "postalCode": "110001",
+    //     "sortingCode": "ABC-123",
+    //     "state": "Delhi",
+    //   },
+    // };
 
     // test('Test fromJson function with memberRequest false', () {
     //     final OrgInfo result = OrgInfo.fromJson(json1);
