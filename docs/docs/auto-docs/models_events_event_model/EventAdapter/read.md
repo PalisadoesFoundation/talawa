@@ -12,10 +12,10 @@
 
 </div>
 
-[[Event](../../models_events_event_model/Event-class.html)]
+[[Event](../../models_events_event_model/Event-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -67,9 +67,9 @@ Event read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_model](../../models_events_event_model/)
-3.  [EventAdapter](../../models_events_event_model/EventAdapter-class.html)
+3.  [EventAdapter](../../models_events_event_model/EventAdapter-class.md)
 4.  read method
 
 ##### EventAdapter class

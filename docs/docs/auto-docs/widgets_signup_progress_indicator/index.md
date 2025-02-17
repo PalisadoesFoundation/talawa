@@ -1,3 +1,7 @@
+---
+title: "widgets_signup_progress_indicator"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SignupProgressIndicator](../widgets_signup_progress_indicator/SignupProgressIndicator-class.html)]
+[[SignupProgressIndicator](../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)]
 :   A widget that displays a progress indicator/flow for the Sign-Up or
     Registration process.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//signup_progress_indicator.dart
 
 ##### talawa package

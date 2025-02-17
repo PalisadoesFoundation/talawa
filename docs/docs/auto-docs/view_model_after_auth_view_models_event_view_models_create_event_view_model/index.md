@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_event_view_models_create_event_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)]
 :   CreateEventViewModel class have methods to interact with model in.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//event_view_models//create_event_view_model.dart
 
 ##### talawa package

@@ -8,7 +8,7 @@
 
 const TalawaErrorSnackBar({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
     [[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)]
@@ -17,7 +17,7 @@ const TalawaErrorSnackBar({
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     errorMessage, ]
 4.  [required
-    [[MessageType](../../enums_enums/MessageType.html)]
+    [[MessageType](../../enums_enums/MessageType.md)]
     messageType, ]
 
 })
@@ -41,9 +41,9 @@ const TalawaErrorSnackBar({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/)
-3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.html)
+3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)
 4.  TalawaErrorSnackBar const constructor
 
 ##### TalawaErrorSnackBar class

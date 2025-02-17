@@ -6,10 +6,10 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?]\>]]
 createVolunteerGroup(
 
-1.  [[[Event](../../models_events_event_model/Event-class.html)]
+1.  [[[Event](../../models_events_event_model/Event-class.md)]
     event, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     groupName,
@@ -81,9 +81,9 @@ Future<EventVolunteerGroup?> createVolunteerGroup(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
-3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
 4.  createVolunteerGroup method
 
 ##### EventInfoViewModel class

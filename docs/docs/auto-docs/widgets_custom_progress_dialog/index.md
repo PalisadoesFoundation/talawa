@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_progress_dialog"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomProgressDialog](../widgets_custom_progress_dialog/CustomProgressDialog-class.html)]
+[[CustomProgressDialog](../widgets_custom_progress_dialog/CustomProgressDialog-class.md)]
 :   A progress dialogue which shows an activity indicator spinning
     clockwise if there is internet connectivity. Otherwise, it shows
     no-internet image and text.
@@ -19,7 +23,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_progress_dialog.dart
 
 ##### talawa package

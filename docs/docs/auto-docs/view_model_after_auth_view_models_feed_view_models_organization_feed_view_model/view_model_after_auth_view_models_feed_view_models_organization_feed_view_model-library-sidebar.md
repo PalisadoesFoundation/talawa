@@ -1,2 +1,2 @@
-1.  [Classes](view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/#classes)
-2.  [OrganizationFeedViewModel](view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.html)
+1.  [Classes](./#classes)
+2.  [OrganizationFeedViewModel](./OrganizationFeedViewModel-class.md)

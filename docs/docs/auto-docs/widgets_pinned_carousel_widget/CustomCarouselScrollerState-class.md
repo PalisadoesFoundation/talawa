@@ -10,7 +10,7 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)]\>]
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)]\>]
     -   CustomCarouselScrollerState
 
 Annotations
@@ -21,7 +21,7 @@ Annotations
 
 ## Constructors
 
-[CustomCarouselScrollerState](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/CustomCarouselScrollerState.html)
+[CustomCarouselScrollerState](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/CustomCarouselScrollerState.md)
 
 :   
 
@@ -35,7 +35,7 @@ Annotations
     no setterinherited
     :::
 
-[[controller](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/controller.html)] [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]
+[[controller](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/controller.md)] [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]
 :   pageController.
     ::: features
     final
@@ -55,7 +55,7 @@ Annotations
     no setterinherited
     :::
 
-[[pindex](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/pindex.html)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[pindex](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/pindex.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   pageIndex.
     ::: features
     getter/setter pair
@@ -67,7 +67,7 @@ Annotations
     no setterinherited
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)]
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)]
 :   The current configuration.
     ::: features
     no setterinherited
@@ -85,7 +85,7 @@ Annotations
     inherited
     :::
 
-[[build](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../widgets_pinned_carousel_widget/CustomCarouselScrollerState/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
@@ -97,7 +97,7 @@ Annotations
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
@@ -111,7 +111,7 @@ Annotations
     inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)] oldWidget]) → void ]
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
     inherited
@@ -129,7 +129,7 @@ Annotations
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -142,14 +142,14 @@ Annotations
     inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
     inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -157,7 +157,7 @@ Annotations
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
@@ -176,7 +176,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -188,7 +188,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [pinned_carousel_widget](../widgets_pinned_carousel_widget/)
 3.  CustomCarouselScrollerState class
 

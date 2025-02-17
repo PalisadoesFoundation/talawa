@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 createDonation(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     userId, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     orgId, ]
@@ -85,9 +85,9 @@ String createDonation(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [queries](../../utils_queries/)
-3.  [Queries](../../utils_queries/Queries-class.html)
+3.  [Queries](../../utils_queries/Queries-class.md)
 4.  createDonation method
 
 ##### Queries class

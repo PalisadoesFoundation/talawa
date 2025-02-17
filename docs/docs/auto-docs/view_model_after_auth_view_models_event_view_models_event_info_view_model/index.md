@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_event_view_models_event_info_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventInfoViewModel](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html)]
+[[EventInfoViewModel](../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)]
 :   EventInfoViewModel class helps interacting with model to serve view
     with the event information data.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//event_view_models//event_info_view_model.dart
 
 ##### talawa package

@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_direct_chats"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Classes
 
-[[ChatTile](../views_after_auth_screens_chat_direct_chats/ChatTile-class.html)]
+[[ChatTile](../views_after_auth_screens_chat_direct_chats/ChatTile-class.md)]
 :   ChatTile return a widget for a tile in the list of Direct Chats in
     the Chat List Screen.
 
-[[DirectChats](../views_after_auth_screens_chat_direct_chats/DirectChats-class.html)]
+[[DirectChats](../views_after_auth_screens_chat_direct_chats/DirectChats-class.md)]
 :   DirectChats return a statelessWidget for rendering all the directs
     chats of the current user in the Chat List Screen
 
@@ -22,7 +26,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//direct_chats.dart
 
 ##### talawa package

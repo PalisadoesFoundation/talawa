@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_event_view_models_event_calendar_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventCalendarViewModel](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.html)]
+[[EventCalendarViewModel](../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)]
 :   ViewModel for managing events and calendar view.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//event_view_models//event_calendar_view_model.dart
 
 ##### talawa package

@@ -10,7 +10,7 @@
 [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]\>]]
 loadKeyPair(
 
-1.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]
+1.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.md)]
     hive]
 
 )
@@ -49,9 +49,9 @@ Future<AsymmetricKeyPair<PublicKey, PrivateKey>> loadKeyPair(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [encryptor](../../utils_encryptor/)
-3.  [Encryptor](../../utils_encryptor/Encryptor-class.html)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  loadKeyPair method
 
 ##### Encryptor class

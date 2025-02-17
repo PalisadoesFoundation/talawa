@@ -6,7 +6,7 @@
 </div>
 
 
-[User](../../models_user_user_info/User-class.html)? userInfo
+[User](../../models_user_user_info/User-class.md)? userInfo
 
 
 final
@@ -30,9 +30,9 @@ final User? userInfo;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_list_tile](../../widgets_custom_list_tile/)
-3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.html)
+3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  userInfo property
 
 ##### CustomListTile class

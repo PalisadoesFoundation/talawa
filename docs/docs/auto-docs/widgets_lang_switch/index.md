@@ -1,3 +1,7 @@
+---
+title: "widgets_lang_switch"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[LanguageTile](../widgets_lang_switch/LanguageTile-class.html)]
+[[LanguageTile](../widgets_lang_switch/LanguageTile-class.md)]
 :   This widget enables language switch for /"internationalizing our
     app/".
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//lang_switch.dart
 
 ##### talawa package

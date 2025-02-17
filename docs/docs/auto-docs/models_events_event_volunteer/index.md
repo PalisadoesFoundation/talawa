@@ -1,3 +1,7 @@
+---
+title: "models_events_event_volunteer"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.html)]
+[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.md)]
 :   This class creates an event volunteer model and returns an
     EventVolunteer instance.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//events//event_volunteer.dart
 
 ##### talawa package

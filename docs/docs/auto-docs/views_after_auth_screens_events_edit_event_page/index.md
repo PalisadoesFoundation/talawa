@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_edit_event_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EditEventPage](../views_after_auth_screens_events_edit_event_page/EditEventPage-class.html)]
+[[EditEventPage](../views_after_auth_screens_events_edit_event_page/EditEventPage-class.md)]
 :   EditEventPage returns a widget that has mutable state
     /_EditEventPageState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//edit_event_page.dart
 
 ##### talawa package

@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 assymetricDecryptString(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     data, ]
 2.  [[[RSAPrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPrivateKey-class.html)]
     privateKey]
@@ -50,9 +50,9 @@ String assymetricDecryptString(String data, RSAPrivateKey privateKey) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [encryptor](../../utils_encryptor/)
-3.  [Encryptor](../../utils_encryptor/Encryptor-class.html)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  assymetricDecryptString method
 
 ##### Encryptor class

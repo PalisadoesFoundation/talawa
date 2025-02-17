@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 sendMessageToDirectChat(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     chatId, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     messageContent]
@@ -58,9 +58,9 @@ Future<void> sendMessageToDirectChat(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [chat_service](../../services_chat_service/)
-3.  [ChatService](../../services_chat_service/ChatService-class.html)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
 4.  sendMessageToDirectChat method
 
 ##### ChatService class

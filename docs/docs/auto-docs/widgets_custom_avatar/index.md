@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_avatar"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomAvatar](../widgets_custom_avatar/CustomAvatar-class.html)]
+[[CustomAvatar](../widgets_custom_avatar/CustomAvatar-class.md)]
 :   Creates a custom avatar.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_avatar.dart
 
 ##### talawa package

@@ -1,3 +1,7 @@
+---
+title: "models_comment_comment_model"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Classes
 
-[[Comment](../models_comment_comment_model/Comment-class.html)]
+[[Comment](../models_comment_comment_model/Comment-class.md)]
 :   This class returns a Comment instance.
 
-[[CommentAdapter](../models_comment_comment_model/CommentAdapter-class.html)]
+[[CommentAdapter](../models_comment_comment_model/CommentAdapter-class.md)]
 
 :   
 
@@ -21,7 +25,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//comment//comment_model.dart
 
 ##### talawa package

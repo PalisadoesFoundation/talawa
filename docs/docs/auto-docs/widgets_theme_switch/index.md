@@ -1,3 +1,7 @@
+---
+title: "widgets_theme_switch"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChangeThemeTile](../widgets_theme_switch/ChangeThemeTile-class.html)]
+[[ChangeThemeTile](../widgets_theme_switch/ChangeThemeTile-class.md)]
 :   This class enables theme switch.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//theme_switch.dart
 
 ##### talawa package

@@ -1,3 +1,7 @@
+---
+title: "services_navigation_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[NavigationService](../services_navigation_service/NavigationService-class.html)]
+[[NavigationService](../services_navigation_service/NavigationService-class.md)]
 :   NavigationService class provides different functions as service in
     the context of navigation.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//navigation_service.dart
 
 ##### talawa package

@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage/createState.html)
+[createState](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<CustomRecurrencePage>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_custom_recurring_event](../../views_after_auth_screens_events_create_custom_recurring_event/)
-3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.html)
+3.  [CustomRecurrencePage](../../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)
 4.  createState method
 
 ##### CustomRecurrencePage class

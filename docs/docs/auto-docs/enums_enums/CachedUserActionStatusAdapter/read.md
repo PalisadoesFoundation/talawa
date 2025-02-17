@@ -12,10 +12,10 @@
 
 </div>
 
-[[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.html)]
+[[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -52,9 +52,9 @@ CachedUserActionStatus read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.html)
+3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
 4.  read method
 
 ##### CachedUserActionStatusAdapter class

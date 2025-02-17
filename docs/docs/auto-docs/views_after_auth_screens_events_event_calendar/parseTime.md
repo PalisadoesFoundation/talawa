@@ -9,7 +9,7 @@
 [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
 parseTime(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     time]
 
 )
@@ -52,7 +52,7 @@ DateTime parseTime(String time) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_calendar](../views_after_auth_screens_events_event_calendar/)
 3.  parseTime function
 

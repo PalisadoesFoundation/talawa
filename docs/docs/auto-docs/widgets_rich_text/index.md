@@ -1,3 +1,7 @@
+---
+title: "widgets_rich_text"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomRichText](../widgets_rich_text/CustomRichText-class.html)]
+[[CustomRichText](../widgets_rich_text/CustomRichText-class.md)]
 :   CustomRichText class returns a widget for customized rich/bold text.
     These rich text are being used in form for changing the password.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//rich_text.dart
 
 ##### talawa package

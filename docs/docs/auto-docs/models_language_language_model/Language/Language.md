@@ -9,7 +9,7 @@
 Language({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     countryCode, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -42,9 +42,9 @@ Language({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [language_model](../../models_language_language_model/)
-3.  [Language](../../models_language_language_model/Language-class.html)
+3.  [Language](../../models_language_language_model/Language-class.md)
 4.  Language constructor
 
 ##### Language class

@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_venue_bottom_sheet"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[VenueBottomSheet](../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.html)]
+[[VenueBottomSheet](../views_after_auth_screens_events_venue_bottom_sheet/VenueBottomSheet-class.md)]
 :   a_line_ending_with_end_punctuation.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//venue_bottom_sheet.dart
 
 ##### talawa package

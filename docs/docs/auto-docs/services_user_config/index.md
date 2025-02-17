@@ -1,3 +1,7 @@
+---
+title: "services_user_config"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[UserConfig](../services_user_config/UserConfig-class.html)]
+[[UserConfig](../services_user_config/UserConfig-class.md)]
 :   Provides different services in the context of the User.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//user_config.dart
 
 ##### talawa package

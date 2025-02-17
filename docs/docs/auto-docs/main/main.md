@@ -35,7 +35,7 @@ Future<void>  async {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [main](../main/)
 3.  main function
 

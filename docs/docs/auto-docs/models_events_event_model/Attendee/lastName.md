@@ -38,9 +38,9 @@ String? lastName;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_model](../../models_events_event_model/)
-3.  [Attendee](../../models_events_event_model/Attendee-class.html)
+3.  [Attendee](../../models_events_event_model/Attendee-class.md)
 4.  lastName property
 
 ##### Attendee class

@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_feed_view_models_organization_feed_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganizationFeedViewModel](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.html)]
+[[OrganizationFeedViewModel](../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.md)]
 :   OrganizationFeedViewModel class helps to interact with model to
     serve data to view for organization feed section.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//feed_view_models//organization_feed_view_model.dart
 
 ##### talawa package

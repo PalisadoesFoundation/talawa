@@ -1,3 +1,7 @@
+---
+title: "widgets_video_widget"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[VideoWidget](../widgets_video_widget/VideoWidget-class.html)]
+[[VideoWidget](../widgets_video_widget/VideoWidget-class.md)]
 :   currently not part of MVP.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//video_widget.dart
 
 ##### talawa package

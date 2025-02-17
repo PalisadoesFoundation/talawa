@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_manage_agenda_items_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ManageAgendaScreen](../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen-class.html)]
+[[ManageAgendaScreen](../views_after_auth_screens_events_manage_agenda_items_screen/ManageAgendaScreen-class.md)]
 :   Agenda section screen to manage agendas.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//manage_agenda_items_screen.dart
 
 ##### talawa package

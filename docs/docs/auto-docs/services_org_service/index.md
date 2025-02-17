@@ -1,3 +1,7 @@
+---
+title: "services_org_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganizationService](../services_org_service/OrganizationService-class.html)]
+[[OrganizationService](../services_org_service/OrganizationService-class.md)]
 :   Provides the Services in the context of organizations.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//org_service.dart
 
 ##### talawa package

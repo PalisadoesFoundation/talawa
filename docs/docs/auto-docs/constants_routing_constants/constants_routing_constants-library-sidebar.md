@@ -1,2 +1,2 @@
-1.  [Classes](constants_routing_constants/#classes)
-2.  [Routes](constants_routing_constants/Routes-class.html)
+1.  [Classes](./#classes)
+2.  [Routes](./Routes-class.md)

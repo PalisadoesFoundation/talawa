@@ -15,7 +15,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -32,7 +32,7 @@ The framework calls this method when this widget is inserted into the
 tree in a given
 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)
 and when the dependencies of this widget change (e.g., an
-[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)
+[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.md)
 referenced by this widget changes). This method can potentially be
 called in every frame and should not have any side effects beyond
 building a widget.
@@ -67,7 +67,7 @@ The implementation of this method must only depend on:
     [BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html).
 
 If a widget\'s
-[build](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest/build.html)
+[build](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest/build.md)
 method is to depend on anything else, use a
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 instead.
@@ -175,9 +175,9 @@ Widget build(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [access_request_screen](../../views_after_auth_screens_join_org_after_auth_access_request_screen/)
-3.  [SendAccessRequest](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.html)
+3.  [SendAccessRequest](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.md)
 4.  build method
 
 ##### SendAccessRequest class

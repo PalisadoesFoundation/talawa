@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_profile_user_feed"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[UserFeed](../views_after_auth_screens_profile_user_feed/UserFeed-class.html)]
+[[UserFeed](../views_after_auth_screens_profile_user_feed/UserFeed-class.md)]
 :   User Feed to shows posts by user in current organisation.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//profile//user_feed.dart
 
 ##### talawa package

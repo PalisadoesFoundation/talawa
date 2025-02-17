@@ -1,3 +1,7 @@
+---
+title: "models_options_options"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Options](../models_options_options/Options-class.html)]
+[[Options](../models_options_options/Options-class.md)]
 :   This class creates a Option model.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//options//options.dart
 
 ##### talawa package

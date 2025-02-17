@@ -6,7 +6,7 @@
 </div>
 
 
-[MessageType](../../enums_enums/MessageType.html) messageType
+[MessageType](../../enums_enums/MessageType.md) messageType
 
 
 final
@@ -30,9 +30,9 @@ final MessageType messageType;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/)
-3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.html)
+3.  [TalawaErrorDialog](../../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)
 4.  messageType property
 
 ##### TalawaErrorDialog class

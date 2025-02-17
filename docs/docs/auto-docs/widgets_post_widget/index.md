@@ -1,3 +1,7 @@
+---
+title: "widgets_post_widget"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[NewsPost](../widgets_post_widget/NewsPost-class.html)]
+[[NewsPost](../widgets_post_widget/NewsPost-class.md)]
 :   Stateless class to show the fetched post.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//post_widget.dart
 
 ##### talawa package

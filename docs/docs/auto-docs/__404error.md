@@ -3,7 +3,7 @@
 
 
 You\'ve tried to visit a page that doesn\'t exist. Luckily this site has
-other [pages](index.html).
+other [pages](../index.md).
 
 If you were looking for something specific, try searching:
 

@@ -6,7 +6,7 @@
 </div>
 
 
-[MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.html)
+[MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
 mainScreenArgs
 
 
@@ -32,9 +32,9 @@ final MainScreenArgs mainScreenArgs;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen](../../views_main_screen/)
-3.  [MainScreen](../../views_main_screen/MainScreen-class.html)
+3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
 4.  mainScreenArgs property
 
 ##### MainScreen class

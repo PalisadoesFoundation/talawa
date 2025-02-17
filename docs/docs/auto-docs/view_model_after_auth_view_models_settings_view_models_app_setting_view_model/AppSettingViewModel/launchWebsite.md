@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
 launchWebsite(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     url]
 
 )
@@ -46,9 +46,9 @@ Future<bool> launchWebsite(String url) async => await launchUrlString(url);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_setting_view_model](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/)
-3.  [AppSettingViewModel](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.html)
+3.  [AppSettingViewModel](../../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.md)
 4.  launchWebsite method
 
 ##### AppSettingViewModel class

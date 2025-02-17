@@ -6,7 +6,7 @@
 </div>
 
 
-[Event](../../models_events_event_model/Event-class.html) event
+[Event](../../models_events_event_model/Event-class.md) event
 
 
 final
@@ -30,9 +30,9 @@ final Event event;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_card](../../widgets_event_card/)
-3.  [EventCard](../../widgets_event_card/EventCard-class.html)
+3.  [EventCard](../../widgets_event_card/EventCard-class.md)
 4.  event property
 
 ##### EventCard class

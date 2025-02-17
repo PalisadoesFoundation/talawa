@@ -1,2 +1,2 @@
-1.  [Classes](widgets_signup_progress_indicator/#classes)
-2.  [SignupProgressIndicator](widgets_signup_progress_indicator/SignupProgressIndicator-class.html)
+1.  [Classes](./#classes)
+2.  [SignupProgressIndicator](./SignupProgressIndicator-class.md)

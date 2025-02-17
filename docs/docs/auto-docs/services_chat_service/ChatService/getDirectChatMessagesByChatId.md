@@ -52,9 +52,9 @@ Future<void> getDirectChatMessagesByChatId(chatId) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [chat_service](../../services_chat_service/)
-3.  [ChatService](../../services_chat_service/ChatService-class.html)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
 4.  getDirectChatMessagesByChatId method
 
 ##### ChatService class

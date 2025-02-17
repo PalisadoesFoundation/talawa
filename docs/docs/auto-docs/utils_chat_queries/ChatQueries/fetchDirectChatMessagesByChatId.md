@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 fetchDirectChatMessagesByChatId(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     chatId]
 
 )
@@ -47,9 +47,9 @@ String fetchDirectChatMessagesByChatId(String chatId) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [chat_queries](../../utils_chat_queries/)
-3.  [ChatQueries](../../utils_chat_queries/ChatQueries-class.html)
+3.  [ChatQueries](../../utils_chat_queries/ChatQueries-class.md)
 4.  fetchDirectChatMessagesByChatId method
 
 ##### ChatQueries class

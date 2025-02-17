@@ -1,3 +1,7 @@
+---
+title: "widgets_pinned_post"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PinnedPost](../widgets_pinned_post/PinnedPost-class.html)]
+[[PinnedPost](../widgets_pinned_post/PinnedPost-class.md)]
 :   PinnedPost returns a widget that shows the pinned post.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//pinned_post.dart
 
 ##### talawa package

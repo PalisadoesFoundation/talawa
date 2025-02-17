@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_manage_volunteer_group"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ManageGroupScreen](../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html)]
+[[ManageGroupScreen](../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.md)]
 :   ManageGroupScreen handles the display and management of volunteers
     within a specific group.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//manage_volunteer_group.dart
 
 ##### talawa package

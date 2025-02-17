@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ManageVolunteerGroupViewModel](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.html)]
+[[ManageVolunteerGroupViewModel](../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.md)]
 :   A ViewModel for managing volunteer groups within an event.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//event_view_models//manage_volunteer_group_view_model.dart
 
 ##### talawa package

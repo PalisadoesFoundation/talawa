@@ -29,7 +29,7 @@ Available extensions
 
 ## Constructors
 
-[[PinnedPostCarousel](../widgets_pinned_carousel_widget/PinnedPostCarousel/PinnedPostCarousel.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][required [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.html)]\>]] pinnedPosts, ]required [dynamic , ][required [[Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)] navigateToIndividualPostPage]})]
+[[PinnedPostCarousel](../widgets_pinned_carousel_widget/PinnedPostCarousel/PinnedPostCarousel.md)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?] key, ][required [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]] pinnedPosts, ]required [dynamic , ][required [[Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)] navigateToIndividualPostPage]})]
 
 :   ::: 
     const
@@ -51,19 +51,19 @@ Available extensions
     finalinherited
     :::
 
-[[navigateToIndividualPostPage](../widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToIndividualPostPage.html)] [→ [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)]
+[[navigateToIndividualPostPage](../widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToIndividualPostPage.md)] [→ [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)]
 :   Function that navigates to an individual post page.
     ::: features
     final
     :::
 
-[[navigateToPinnedPostPage](../widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToPinnedPostPage.html)] → dynamic Function[()]
+[[navigateToPinnedPostPage](../widgets_pinned_carousel_widget/PinnedPostCarousel/navigateToPinnedPostPage.md)] → dynamic Function[()]
 :   Function that navigates to a page displaying pinned posts.
     ::: features
     final
     :::
 
-[[pinnedPosts](../widgets_pinned_carousel_widget/PinnedPostCarousel/pinnedPosts.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.html)]\>]]
+[[pinnedPosts](../widgets_pinned_carousel_widget/PinnedPostCarousel/pinnedPosts.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../models_post_post_model/Post-class.md)]\>]]
 :   List of \'Post\' objects representing pinned posts.
     ::: features
     final
@@ -79,7 +79,7 @@ Available extensions
 
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
+[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
 
 :   Available on
     [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
@@ -94,7 +94,7 @@ Available extensions
     instance, and returns the instance for chaining calls. Ex.
     `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
-[[build](../widgets_pinned_carousel_widget/PinnedPostCarousel/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../widgets_pinned_carousel_widget/PinnedPostCarousel/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
@@ -116,19 +116,19 @@ Available extensions
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -136,19 +136,19 @@ Available extensions
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
     :::
 
-[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a string representation of this node and its descendants.
     ::: features
     inherited
     :::
 
-[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a one-line detailed description of the object.
     ::: features
     inherited
@@ -164,7 +164,7 @@ Available extensions
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -176,7 +176,7 @@ Available extensions
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [pinned_carousel_widget](../widgets_pinned_carousel_widget/)
 3.  PinnedPostCarousel class
 

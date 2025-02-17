@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox/createState.html)
+[createState](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -64,9 +64,9 @@ _CustomAlertDialogWithCheckboxState  =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
-3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.html)
+3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)
 4.  createState method
 
 ##### CustomAlertDialogWithCheckbox class

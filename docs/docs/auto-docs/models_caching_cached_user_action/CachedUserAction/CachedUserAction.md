@@ -9,7 +9,7 @@
 CachedUserAction({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     id, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -21,13 +21,13 @@ CachedUserAction({
     [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
     timeStamp, ]
 5.  [required
-    [[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.html)]
+    [[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.md)]
     status, ]
 6.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]?]
     metaData, ]
 7.  [required
-    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+    [[CachedOperationType](../../enums_enums/CachedOperationType.md)]
     operationType, ]
 8.  [required
     [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
@@ -58,9 +58,9 @@ CachedUserAction({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
-3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.html)
+3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
 4.  CachedUserAction constructor
 
 ##### CachedUserAction class

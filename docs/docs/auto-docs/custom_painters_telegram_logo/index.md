@@ -1,3 +1,7 @@
+---
+title: "custom_painters_telegram_logo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TelegramLogo](../custom_painters_telegram_logo/TelegramLogo-class.html)]
+[[TelegramLogo](../custom_painters_telegram_logo/TelegramLogo-class.md)]
 :   This class draws the telegram logo using custom paint.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  custom_painters//telegram_logo.dart
 
 ##### talawa package

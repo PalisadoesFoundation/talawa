@@ -25,7 +25,7 @@ Called when this object is removed from the tree permanently.
 The framework calls this method when this
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 will never build again. After the framework calls
-[dispose](../../widgets_post_container/PostContainerState/dispose.html),
+[dispose](../../widgets_post_container/PostContainerState/dispose.md),
 the [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object is considered unmounted and the
 [mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)
@@ -41,27 +41,27 @@ by this object (e.g., stop any active animations).
 
 If a
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)\'s
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 method depends on an object that can itself change state, for example a
 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 or
 [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html),
 or some other object to which one can subscribe to receive
 notifications, then be sure to subscribe and unsubscribe properly in
-[initState](../../widgets_post_container/PostContainerState/initState.html),
+[initState](../../widgets_post_container/PostContainerState/initState.md),
 [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html),
 and
-[dispose](../../widgets_post_container/PostContainerState/dispose.html):
+[dispose](../../widgets_post_container/PostContainerState/dispose.md):
 
 -   In
-    [initState](../../widgets_post_container/PostContainerState/initState.html),
+    [initState](../../widgets_post_container/PostContainerState/initState.md),
     subscribe to the object.
 -   In
     [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
     unsubscribe from the old object and subscribe to the new one if the
     updated widget configuration requires replacing the object.
 -   In
-    [dispose](../../widgets_post_container/PostContainerState/dispose.html),
+    [dispose](../../widgets_post_container/PostContainerState/dispose.md),
     unsubscribe from the object.
 
 Implementations of this method should end with a call to the inherited
@@ -103,7 +103,7 @@ resources or not. The widget tree remains mounted and ready to render as
 soon as it is displayed again.
 
 See the method used to bootstrap the app (e.g.
-[runApp](https://api.flutter.dev/flutter/widgets/runApp.html) or
+[runApp](https://api.flutter.dev/flutter/widgets/runApp.md) or
 [runWidget](https://api.flutter.dev/flutter/widgets/runWidget.html)) for
 suggestions on how to release resources more eagerly.
 
@@ -111,7 +111,7 @@ See also:
 
 -   [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html),
     which is called prior to
-    [dispose](../../widgets_post_container/PostContainerState/dispose.html).
+    [dispose](../../widgets_post_container/PostContainerState/dispose.md).
 
 
 
@@ -131,9 +131,9 @@ void  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_container](../../widgets_post_container/)
-3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.html)
+3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.md)
 4.  dispose method
 
 ##### PostContainerState class

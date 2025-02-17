@@ -31,9 +31,9 @@ final VoidCallback onEdit;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
-3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.html)
+3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)
 4.  onEdit property
 
 ##### ExpandableAgendaItemTile class

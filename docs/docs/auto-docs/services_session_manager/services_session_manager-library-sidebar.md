@@ -1,2 +1,2 @@
-1.  [Classes](services_session_manager/#classes)
-2.  [SessionManager](services_session_manager/SessionManager-class.html)
+1.  [Classes](./#classes)
+2.  [SessionManager](./SessionManager-class.md)

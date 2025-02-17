@@ -6,7 +6,7 @@
 </div>
 
 
-[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.html)
+[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 connectivityService
 
 
@@ -31,7 +31,7 @@ final connectivityService = locator<ConnectivityService>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  connectivityService property
 

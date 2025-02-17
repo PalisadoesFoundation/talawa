@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]]
 getPhotoFromGallery({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)]
     camera = false,
     ]
 
@@ -73,9 +73,9 @@ Future<File?> getPhotoFromGallery({bool camera = false}) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [multi_media_pick_service](../../services_third_party_service_multi_media_pick_service/)
-3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.html)
+3.  [MultiMediaPickerService](../../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)
 4.  getPhotoFromGallery method
 
 ##### MultiMediaPickerService class

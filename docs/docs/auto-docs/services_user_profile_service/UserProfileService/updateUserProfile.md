@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 updateUserProfile(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]?]
     variables]
 
@@ -51,9 +51,9 @@ Future<QueryResult<Object?>> updateUserProfile(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_profile_service](../../services_user_profile_service/)
-3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.html)
+3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.md)
 4.  updateUserProfile method
 
 ##### UserProfileService class

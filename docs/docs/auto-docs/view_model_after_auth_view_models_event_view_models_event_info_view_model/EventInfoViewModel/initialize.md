@@ -10,7 +10,7 @@
 initialize({
 
 1.  [required
-    [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     args, ]
 
@@ -53,9 +53,9 @@ Future<void> initialize({required Map<String, dynamic> args}) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
-3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
 4.  initialize method
 
 ##### EventInfoViewModel class

@@ -8,7 +8,7 @@
 
 const AddPost({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [[[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)]\>]?]
     drawerKey, ]
@@ -29,9 +29,9 @@ const AddPost({super.key, this.drawerKey});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [add_post_page](../../views_after_auth_screens_add_post_page/)
-3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.html)
+3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
 4.  AddPost const constructor
 
 ##### AddPost class

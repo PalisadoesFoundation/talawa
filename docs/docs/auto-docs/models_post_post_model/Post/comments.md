@@ -12,7 +12,7 @@
 
 </div>
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.html)]\>]?
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.md)]\>]?
 comments
 
 
@@ -38,9 +38,9 @@ List<Comments>? comments;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [Post](../../models_post_post_model/Post-class.html)
+3.  [Post](../../models_post_post_model/Post-class.md)
 4.  comments property
 
 ##### Post class

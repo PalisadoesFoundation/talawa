@@ -8,11 +8,11 @@
 
 OrgInfo({
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?]
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[User](../../models_user_user_info/User-class.md)]\>]?]
     admins, ]
-2.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?]
+2.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]?]
     members, ]
-3.  [[[User](../../models_user_user_info/User-class.html)?]
+3.  [[[User](../../models_user_user_info/User-class.md)?]
     creatorInfo, ]
 4.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     description, ]
@@ -25,7 +25,7 @@ OrgInfo({
     ]
 8.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     name, ]
-9.  [[[Address](../../models_organization_org_info_address/Address-class.html)?]
+9.  [[[Address](../../models_organization_org_info_address/Address-class.md)?]
     address, ]
 
 })
@@ -54,9 +54,9 @@ OrgInfo({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  OrgInfo constructor
 
 ##### OrgInfo class

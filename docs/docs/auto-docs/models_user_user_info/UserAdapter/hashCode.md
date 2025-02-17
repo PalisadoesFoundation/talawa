@@ -26,19 +26,19 @@ The hash code for this object.
 
 A hash code is a single integer which represents the state of the object
 that affects [operator
-==](../../models_user_user_info/UserAdapter/operator_equals.html)
+==](../../models_user_user_info/UserAdapter/operator_equals.md)
 comparisons.
 
 All objects have hash codes. The default hash code implemented by
 [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
 represents only the identity of the object, the same way as the default
 [operator
-==](../../models_user_user_info/UserAdapter/operator_equals.html)
+==](../../models_user_user_info/UserAdapter/operator_equals.md)
 implementation only considers objects equal if they are identical (see
-[identityHashCode](https://api.flutter.dev/flutter/dart-core/identityHashCode.html)).
+[identityHashCode](https://api.flutter.dev/flutter/dart-core/identityHashCode.md)).
 
 If [operator
-==](../../models_user_user_info/UserAdapter/operator_equals.html) is
+==](../../models_user_user_info/UserAdapter/operator_equals.md) is
 overridden to use the object state instead, the hash code must also be
 changed to represent that state, otherwise the object cannot be used in
 hash based data structures like the default
@@ -48,7 +48,7 @@ implementations.
 
 Hash codes must be the same for objects that are equal to each other
 according to [operator
-==](../../models_user_user_info/UserAdapter/operator_equals.html). The
+==](../../models_user_user_info/UserAdapter/operator_equals.md). The
 hash code of an object should only change if the object changes in a way
 that affects equality. There are no further requirements for the hash
 codes. They need not be consistent between executions of the same
@@ -63,9 +63,9 @@ or
 [HashMap](https://api.flutter.dev/flutter/dart-collection/HashMap-class.html).
 
 If a subclass overrides
-[hashCode](../../models_user_user_info/UserAdapter/hashCode.html), it
+[hashCode](../../models_user_user_info/UserAdapter/hashCode.md), it
 should override the [operator
-==](../../models_user_user_info/UserAdapter/operator_equals.html)
+==](../../models_user_user_info/UserAdapter/operator_equals.md)
 operator as well to maintain consistency.
 
 
@@ -84,9 +84,9 @@ int get hashCode => typeId.hashCode;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
-3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.html)
+3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.md)
 4.  hashCode property
 
 ##### UserAdapter class

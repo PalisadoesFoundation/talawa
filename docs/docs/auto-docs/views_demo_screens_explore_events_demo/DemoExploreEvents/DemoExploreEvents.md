@@ -9,9 +9,9 @@
 const DemoExploreEvents({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
-2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]
+2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)?]
     homeModel, ]
 
 })
@@ -33,9 +33,9 @@ const DemoExploreEvents({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [explore_events_demo](../../views_demo_screens_explore_events_demo/)
-3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.html)
+3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.md)
 4.  DemoExploreEvents const constructor
 
 ##### DemoExploreEvents class

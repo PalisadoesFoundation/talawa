@@ -1,3 +1,7 @@
+---
+title: "utils_comment_queries"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CommentQueries](../utils_comment_queries/CommentQueries-class.html)]
+[[CommentQueries](../utils_comment_queries/CommentQueries-class.md)]
 :   This class creates the queries dealing with comments.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//comment_queries.dart
 
 ##### talawa package

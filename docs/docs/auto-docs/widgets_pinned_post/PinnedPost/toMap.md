@@ -10,7 +10,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
 toMap(
 
-1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.md)]
     index]
 
 )
@@ -50,9 +50,9 @@ Map<String, String> toMap(int index) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_post](../../widgets_pinned_post/)
-3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.html)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
 4.  toMap method
 
 ##### PinnedPost class

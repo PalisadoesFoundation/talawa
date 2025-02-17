@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_list_tile"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomListTile](../widgets_custom_list_tile/CustomListTile-class.html)]
+[[CustomListTile](../widgets_custom_list_tile/CustomListTile-class.md)]
 :   Returns a widget for rendering Customized tiles.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_list_tile.dart
 
 ##### talawa package

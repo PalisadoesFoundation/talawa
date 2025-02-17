@@ -8,10 +8,10 @@
 
 const PinnedPostCarousel({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]
     pinnedPosts, ]
 3.  required [dynamic
     ,
@@ -42,9 +42,9 @@ const PinnedPostCarousel({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_carousel_widget](../../widgets_pinned_carousel_widget/)
-3.  [PinnedPostCarousel](../../widgets_pinned_carousel_widget/PinnedPostCarousel-class.html)
+3.  [PinnedPostCarousel](../../widgets_pinned_carousel_widget/PinnedPostCarousel-class.md)
 4.  PinnedPostCarousel const constructor
 
 ##### PinnedPostCarousel class

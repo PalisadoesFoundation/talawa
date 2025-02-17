@@ -20,11 +20,11 @@ Annotations
 
 ## Constructors
 
-[[Comments](../models_post_post_model/Comments/Comments.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] sId]})]
+[[Comments](../models_post_post_model/Comments/Comments.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] sId]})]
 
 :   
 
-[[Comments.fromJson](../models_post_post_model/Comments/Comments.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[Comments.fromJson](../models_post_post_model/Comments/Comments.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Convert json to dart object.
 
 
@@ -43,7 +43,7 @@ Annotations
     no setterinherited
     :::
 
-[[sId](../models_post_post_model/Comments/sId.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[sId](../models_post_post_model/Comments/sId.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   these are dart object.
     ::: features
     getter/setter pair
@@ -53,13 +53,13 @@ Annotations
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toJson](../models_post_post_model/Comments/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_post_post_model/Comments/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 :   Convert dart object to json.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -72,7 +72,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -84,7 +84,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [post_model](../models_post_post_model/)
 3.  Comments class
 

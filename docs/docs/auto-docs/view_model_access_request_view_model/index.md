@@ -1,3 +1,7 @@
+---
+title: "view_model_access_request_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AccessScreenViewModel](../view_model_access_request_view_model/AccessScreenViewModel-class.html)]
+[[AccessScreenViewModel](../view_model_access_request_view_model/AccessScreenViewModel-class.md)]
 :   AccessScreenViewModel widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//access_request_view_model.dart
 
 ##### talawa package

@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen/createState.html)
+[createState](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<VolunteerGroupsScreen>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [volunteer_groups_screen](../../views_after_auth_screens_events_volunteer_groups_screen/)
-3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.html)
+3.  [VolunteerGroupsScreen](../../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)
 4.  createState method
 
 ##### VolunteerGroupsScreen class

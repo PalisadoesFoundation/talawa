@@ -1,3 +1,7 @@
+---
+title: "services_hive_manager"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[HiveManager](../services_hive_manager/HiveManager-class.html)]
+[[HiveManager](../services_hive_manager/HiveManager-class.md)]
 :   A manager class responsible for initializing and tearing down Hive,
     a local database for Flutter.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//hive_manager.dart
 
 ##### talawa package

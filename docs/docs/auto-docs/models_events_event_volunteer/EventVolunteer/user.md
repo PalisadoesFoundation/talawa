@@ -6,7 +6,7 @@
 </div>
 
 
-[User](../../models_user_user_info/User-class.html)? user
+[User](../../models_user_user_info/User-class.md)? user
 
 
 getter/setter pair
@@ -30,9 +30,9 @@ User? user;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer](../../models_events_event_volunteer/)
-3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)
+3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)
 4.  user property
 
 ##### EventVolunteer class

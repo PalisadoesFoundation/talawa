@@ -12,7 +12,7 @@
 
 </div>
 
-[User](../../models_user_user_info/User-class.html)? creator
+[User](../../models_user_user_info/User-class.md)? creator
 
 
 getter/setter pair
@@ -37,9 +37,9 @@ User? creator;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [Post](../../models_post_post_model/Post-class.html)
+3.  [Post](../../models_post_post_model/Post-class.md)
 4.  creator property
 
 ##### Post class

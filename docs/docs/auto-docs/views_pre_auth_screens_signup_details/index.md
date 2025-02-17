@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_signup_details"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SignUpDetails](../views_pre_auth_screens_signup_details/SignUpDetails-class.html)]
+[[SignUpDetails](../views_pre_auth_screens_signup_details/SignUpDetails-class.md)]
 :   This widget takes the user details for signup. The form includes
     first name, last name, email, password, and password confirmation
     inputs.
@@ -19,7 +23,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//signup_details.dart
 
 ##### talawa package

@@ -27,9 +27,9 @@ static const daily = 'DAILY';
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [recurrence_values](../../constants_recurrence_values/)
-3.  [Frequency](../../constants_recurrence_values/Frequency-class.html)
+3.  [Frequency](../../constants_recurrence_values/Frequency-class.md)
 4.  daily constant
 
 ##### Frequency class

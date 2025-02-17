@@ -12,10 +12,10 @@
 
 </div>
 
-[[LikedBy](../../models_post_post_model/LikedBy-class.html)]
+[[LikedBy](../../models_post_post_model/LikedBy-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -51,9 +51,9 @@ LikedBy read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [LikedByAdapter](../../models_post_post_model/LikedByAdapter-class.html)
+3.  [LikedByAdapter](../../models_post_post_model/LikedByAdapter-class.md)
 4.  read method
 
 ##### LikedByAdapter class

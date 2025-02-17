@@ -1,3 +1,7 @@
+---
+title: "services_caching_cache_service"
+---
+
 
 <div>
 
@@ -12,7 +16,7 @@ This class provides functionalities for caching GraphQL operations.
 
 ## Classes
 
-[[CacheService](../services_caching_cache_service/CacheService-class.html)]
+[[CacheService](../services_caching_cache_service/CacheService-class.md)]
 :   Service to handle caching routines.
 
 
@@ -21,7 +25,7 @@ This class provides functionalities for caching GraphQL operations.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//caching//cache_service.dart
 
 ##### talawa package

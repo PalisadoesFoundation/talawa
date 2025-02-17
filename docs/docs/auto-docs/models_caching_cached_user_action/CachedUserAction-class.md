@@ -34,11 +34,11 @@ Annotations
 
 ## Constructors
 
-[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.html)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] id, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] operation, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] timeStamp, ][required [[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)] status, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] metaData, ][required [[CachedOperationType](../enums_enums/CachedOperationType.html)] operationType, ][required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] expiry]})]
+[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.md)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] id, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] operation, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] timeStamp, ][required [[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)] status, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] metaData, ][required [[CachedOperationType](../enums_enums/CachedOperationType.md)] operationType, ][required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] expiry]})]
 
 :   
 
-[[CachedUserAction.fromJson](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[CachedUserAction.fromJson](../models_caching_cached_user_action/CachedUserAction/CachedUserAction.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creates a CachedUserAction from a JSON-compatible map.
     ::: 
     factory
@@ -55,7 +55,7 @@ Annotations
     no setterinherited
     :::
 
-[[expiry](../models_caching_cached_user_action/CachedUserAction/expiry.html)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+[[expiry](../models_caching_cached_user_action/CachedUserAction/expiry.md)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
 :   The expiry date and time for the cached user action.
     ::: features
     getter/setter pair
@@ -67,7 +67,7 @@ Annotations
     no setterinherited
     :::
 
-[[id](../models_caching_cached_user_action/CachedUserAction/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[id](../models_caching_cached_user_action/CachedUserAction/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The unique identifier for the cached user action.
     ::: features
     getter/setter pair
@@ -86,19 +86,19 @@ Annotations
     no setterinherited
     :::
 
-[[metaData](../models_caching_cached_user_action/CachedUserAction/metaData.html)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?]
+[[metaData](../models_caching_cached_user_action/CachedUserAction/metaData.md)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?]
 :   Any additional metadata related to the cached user action.
     ::: features
     getter/setter pair
     :::
 
-[[operation](../models_caching_cached_user_action/CachedUserAction/operation.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[operation](../models_caching_cached_user_action/CachedUserAction/operation.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The operation to be performed for the cached user action.
     ::: features
     getter/setter pair
     :::
 
-[[operationType](../models_caching_cached_user_action/CachedUserAction/operationType.html)] [↔ [CachedOperationType](../enums_enums/CachedOperationType.html)]
+[[operationType](../models_caching_cached_user_action/CachedUserAction/operationType.md)] [↔ [CachedOperationType](../enums_enums/CachedOperationType.md)]
 :   The type of operation for the cached user action.
     ::: features
     getter/setter pair
@@ -110,19 +110,19 @@ Annotations
     no setterinherited
     :::
 
-[[status](../models_caching_cached_user_action/CachedUserAction/status.html)] [↔ [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]
+[[status](../models_caching_cached_user_action/CachedUserAction/status.md)] [↔ [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)]
 :   The status of the cached user action.
     ::: features
     getter/setter pair
     :::
 
-[[timeStamp](../models_caching_cached_user_action/CachedUserAction/timeStamp.html)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+[[timeStamp](../models_caching_cached_user_action/CachedUserAction/timeStamp.md)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
 :   The timestamp when the action was cached.
     ::: features
     getter/setter pair
     :::
 
-[[variables](../models_caching_cached_user_action/CachedUserAction/variables.html)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?]
+[[variables](../models_caching_cached_user_action/CachedUserAction/variables.md)] [↔ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?]
 :   The variables required for the operation, if any.
     ::: features
     getter/setter pair
@@ -138,10 +138,10 @@ Annotations
     inherited
     :::
 
-[[execute](../models_caching_cached_user_action/CachedUserAction/execute.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[execute](../models_caching_cached_user_action/CachedUserAction/execute.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Executes the cached user action based on its operation type.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -153,10 +153,10 @@ Annotations
     inherited
     :::
 
-[[toJson](../models_caching_cached_user_action/CachedUserAction/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_caching_cached_user_action/CachedUserAction/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 :   Converts a CachedUserAction to a JSON-compatible map.
 
-[[toString](../models_caching_cached_user_action/CachedUserAction/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](../models_caching_cached_user_action/CachedUserAction/toString.md)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     override
@@ -166,7 +166,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -178,7 +178,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [cached_user_action](../models_caching_cached_user_action/)
 3.  CachedUserAction class
 

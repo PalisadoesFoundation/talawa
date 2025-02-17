@@ -8,7 +8,7 @@
 
 const CreateEventPage({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 
 })
@@ -27,9 +27,9 @@ const CreateEventPage({super.key});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
-3.  [CreateEventPage](../../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)
+3.  [CreateEventPage](../../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)
 4.  CreateEventPage const constructor
 
 ##### CreateEventPage class

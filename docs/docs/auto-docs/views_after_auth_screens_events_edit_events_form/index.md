@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_edit_events_form"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EditEventForm](../views_after_auth_screens_events_edit_events_form/EditEventForm-class.html)]
+[[EditEventForm](../views_after_auth_screens_events_edit_events_form/EditEventForm-class.md)]
 :   EditEventForm returns a widget of a Form for editing an event. This
     widget is used in EditEventPage widget.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//edit_events_form.dart
 
 ##### talawa package

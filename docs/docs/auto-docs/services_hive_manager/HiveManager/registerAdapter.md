@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 registerAdapter\<T\>(
 
-1.  [[[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)\<[T\>]]
+1.  [[[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.md)\<[T\>]]
     adapter]
 
 )
@@ -44,9 +44,9 @@ static Future<void> registerAdapter<T>(TypeAdapter<T> adapter) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [hive_manager](../../services_hive_manager/)
-3.  [HiveManager](../../services_hive_manager/HiveManager-class.html)
+3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
 4.  registerAdapter\<T\> static method
 
 ##### HiveManager class

@@ -9,9 +9,9 @@
 const ExploreEvents({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
-2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]
+2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)?]
     homeModel, ]
 
 })
@@ -33,9 +33,9 @@ const ExploreEvents({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [explore_events](../../views_after_auth_screens_events_explore_events/)
-3.  [ExploreEvents](../../views_after_auth_screens_events_explore_events/ExploreEvents-class.html)
+3.  [ExploreEvents](../../views_after_auth_screens_events_explore_events/ExploreEvents-class.md)
 4.  ExploreEvents const constructor
 
 ##### ExploreEvents class

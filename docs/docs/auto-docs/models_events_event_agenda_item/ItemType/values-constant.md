@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ItemType](../../models_events_event_agenda_item/ItemType.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ItemType](../../models_events_event_agenda_item/ItemType.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_agenda_item](../../models_events_event_agenda_item/)
-3.  [ItemType](../../models_events_event_agenda_item/ItemType.html)
+3.  [ItemType](../../models_events_event_agenda_item/ItemType.md)
 4.  values constant
 
 ##### ItemType enum

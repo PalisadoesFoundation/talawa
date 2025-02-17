@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 getPostsById(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     orgId, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     after, ]
@@ -104,9 +104,9 @@ String getPostsById(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_queries](../../utils_post_queries/)
-3.  [PostQueries](../../utils_post_queries/PostQueries-class.html)
+3.  [PostQueries](../../utils_post_queries/PostQueries-class.md)
 4.  getPostsById method
 
 ##### PostQueries class

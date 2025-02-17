@@ -8,10 +8,10 @@
 
 const EventCard({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[Event](../../models_events_event_model/Event-class.html)]
+    [[Event](../../models_events_event_model/Event-class.md)]
     event, ]
 3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     eventTitleHighlightedText,
@@ -45,9 +45,9 @@ const EventCard({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_card](../../widgets_event_card/)
-3.  [EventCard](../../widgets_event_card/EventCard-class.html)
+3.  [EventCard](../../widgets_event_card/EventCard-class.md)
 4.  EventCard const constructor
 
 ##### EventCard class

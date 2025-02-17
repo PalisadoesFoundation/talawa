@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
 updateUser(
 
-1.  [[[User](../../models_user_user_info/User-class.html)]
+1.  [[[User](../../models_user_user_info/User-class.md)]
     updatedUserDetails]
 
 )
@@ -52,9 +52,9 @@ Future<bool> updateUser(User updatedUserDetails) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  updateUser method
 
 ##### UserConfig class

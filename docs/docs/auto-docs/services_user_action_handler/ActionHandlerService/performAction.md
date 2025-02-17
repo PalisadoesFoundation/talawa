@@ -10,20 +10,20 @@
 performAction({
 
 1.  [required
-    [[ActionType](../../enums_enums/ActionType.html)]
+    [[ActionType](../../enums_enums/ActionType.md)]
     actionType, ]
 2.  [required
     [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]?]\>]]
     , ]
 3.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
     onValidResult(]
-    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
+    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.md)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
         result]
 
     )?,
 4.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
     onActionException(]
-    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.html)]
+    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.md)]
         e]
 
     )?,
@@ -123,9 +123,9 @@ Future<void> performAction({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_action_handler](../../services_user_action_handler/)
-3.  [ActionHandlerService](../../services_user_action_handler/ActionHandlerService-class.html)
+3.  [ActionHandlerService](../../services_user_action_handler/ActionHandlerService-class.md)
 4.  performAction method
 
 ##### ActionHandlerService class

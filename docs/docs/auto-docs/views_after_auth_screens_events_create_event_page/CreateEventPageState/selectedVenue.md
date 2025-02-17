@@ -6,7 +6,7 @@
 </div>
 
 
-[Venue](../../models_events_event_venue/Venue-class.html)?
+[Venue](../../models_events_event_venue/Venue-class.md)?
 selectedVenue
 
 
@@ -31,9 +31,9 @@ Venue? selectedVenue;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
-3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)
+3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
 4.  selectedVenue property
 
 ##### CreateEventPageState class

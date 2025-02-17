@@ -33,19 +33,19 @@ Annotations
 
 ## Values
 
-gqlAuthQuery [→ const [CachedOperationType](../enums_enums/CachedOperationType.html)]
+gqlAuthQuery [→ const [CachedOperationType](../enums_enums/CachedOperationType.md)]
 
 :   A GraphQL query that requires user authentication.
 
-gqlAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperationType.html)]
+gqlAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperationType.md)]
 
 :   A GraphQL mutation that requires user authentication.
 
-gqlNonAuthQuery [→ const [CachedOperationType](../enums_enums/CachedOperationType.html)]
+gqlNonAuthQuery [→ const [CachedOperationType](../enums_enums/CachedOperationType.md)]
 
 :   A GraphQL query that does not require user authentication.
 
-gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperationType.html)]
+gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperationType.md)]
 
 :   A GraphQL mutation that does not require user authentication.
 
@@ -89,7 +89,7 @@ gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperati
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -105,7 +105,7 @@ gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperati
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -115,7 +115,7 @@ gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperati
 
 ## Constants
 
-[[values](../enums_enums/CachedOperationType/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedOperationType](../enums_enums/CachedOperationType.html)]\>]]
+[[values](../enums_enums/CachedOperationType/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedOperationType](../enums_enums/CachedOperationType.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -125,7 +125,7 @@ gqlNonAuthMutation [→ const [CachedOperationType](../enums_enums/CachedOperati
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  CachedOperationType enum
 

@@ -1,2 +1,2 @@
-1.  [Classes](view_model_after_auth_view_models_settings_view_models_app_setting_view_model/#classes)
-2.  [AppSettingViewModel](view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.html)
+1.  [Classes](./#classes)
+2.  [AppSettingViewModel](./AppSettingViewModel-class.md)

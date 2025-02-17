@@ -12,10 +12,10 @@
 
 </div>
 
-[[AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.html)]
+[[AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -51,9 +51,9 @@ AsymetricKeys read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
-3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.html)
+3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.md)
 4.  read method
 
 ##### AsymetricKeysAdapter class

@@ -5,7 +5,7 @@
 
 
 
-1.  [talawa](index.html)
+1.  [talawa](../index.md)
 2.  Search
 
 ##### talawa package 

@@ -1,2 +1,2 @@
-1.  [Classes](custom_painters_whatsapp_logo/#classes)
-2.  [WhatsappLogo](custom_painters_whatsapp_logo/WhatsappLogo-class.html)
+1.  [Classes](./#classes)
+2.  [WhatsappLogo](./WhatsappLogo-class.md)

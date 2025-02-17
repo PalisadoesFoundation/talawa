@@ -40,7 +40,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_feed_individual_post/IndividualPostView/createState.html)
+[createState](../../views_after_auth_screens_feed_individual_post/IndividualPostView/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -62,9 +62,9 @@ _IndividualPostViewState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
-3.  [IndividualPostView](../../views_after_auth_screens_feed_individual_post/IndividualPostView-class.html)
+3.  [IndividualPostView](../../views_after_auth_screens_feed_individual_post/IndividualPostView-class.md)
 4.  createState method
 
 ##### IndividualPostView class

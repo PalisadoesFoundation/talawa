@@ -1,3 +1,7 @@
+---
+title: "models_asymetric_keys_asymetric_keys"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Classes
 
-[[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.html)]
+[[AsymetricKeys](../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)]
 :   Hive Type for `AssymetricKeys`.
 
-[[AsymetricKeysAdapter](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.html)]
+[[AsymetricKeysAdapter](../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.md)]
 
 :   
 
@@ -21,7 +25,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//asymetric_keys//asymetric_keys.dart
 
 ##### talawa package

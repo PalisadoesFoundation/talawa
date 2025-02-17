@@ -40,7 +40,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../widgets_raised_round_edge_button/RaisedRoundedButton/createState.html)
+[createState](../../widgets_raised_round_edge_button/RaisedRoundedButton/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -62,9 +62,9 @@ _RaisedRoundedButtonState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
-3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.html)
+3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
 4.  createState method
 
 ##### RaisedRoundedButton class

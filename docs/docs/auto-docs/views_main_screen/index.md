@@ -1,3 +1,7 @@
+---
+title: "views_main_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MainScreen](../views_main_screen/MainScreen-class.html)]
+[[MainScreen](../views_main_screen/MainScreen-class.md)]
 :   This widget is responsible for displaying the main screen of the
     application.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//main_screen.dart
 
 ##### talawa package

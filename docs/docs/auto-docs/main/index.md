@@ -1,3 +1,7 @@
+---
+title: "main"
+---
+
 
 <div>
 
@@ -8,14 +12,14 @@
 
 ## Classes
 
-[[DemoPageView](../main/DemoPageView-class.html)]
+[[DemoPageView](../main/DemoPageView-class.md)]
 :   PageView is a scrollable list that works page by page.
 
-[[DemoViewModel](../main/DemoViewModel-class.html)]
+[[DemoViewModel](../main/DemoViewModel-class.md)]
 :   ViewModel uses property-based data binding to establish a
     connection.
 
-[[MyApp](../main/MyApp-class.html)]
+[[MyApp](../main/MyApp-class.md)]
 :   Main widget that sets up the quick actions, internationalization,
     routing , notifications.
 
@@ -23,7 +27,7 @@
 
 ## Functions
 
-[[main](../main/main.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)/<[void/>]] ]
+[[main](../main/main.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)/<[void/>]] ]
 
 :   
 
@@ -33,7 +37,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  main.dart
 
 ##### talawa package

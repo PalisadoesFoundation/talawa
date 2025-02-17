@@ -8,10 +8,10 @@
 
 const VenueCard({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[Venue](../../models_events_event_venue/Venue-class.html)]
+    [[Venue](../../models_events_event_venue/Venue-class.md)]
     venue, ]
 3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
     isSelected = false,
@@ -37,9 +37,9 @@ const VenueCard({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [venue_card](../../widgets_venue_card/)
-3.  [VenueCard](../../widgets_venue_card/VenueCard-class.html)
+3.  [VenueCard](../../widgets_venue_card/VenueCard-class.md)
 4.  VenueCard const constructor
 
 ##### VenueCard class

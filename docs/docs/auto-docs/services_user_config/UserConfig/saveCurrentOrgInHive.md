@@ -8,7 +8,7 @@
 
 void saveCurrentOrgInHive(
 
-1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
     saveOrgAsCurrent]
 
 )
@@ -46,9 +46,9 @@ void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  saveCurrentOrgInHive method
 
 ##### UserConfig class

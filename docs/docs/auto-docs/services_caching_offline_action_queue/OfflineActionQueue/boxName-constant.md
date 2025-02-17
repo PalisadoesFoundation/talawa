@@ -27,9 +27,9 @@ static const String boxName = HiveKeys.offlineActionQueueKey;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [offline_action_queue](../../services_caching_offline_action_queue/)
-3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.html)
+3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
 4.  boxName constant
 
 ##### OfflineActionQueue class

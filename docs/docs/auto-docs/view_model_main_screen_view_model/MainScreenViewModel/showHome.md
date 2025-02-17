@@ -8,7 +8,7 @@
 
 void showHome(
 
-1.  [[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]
+1.  [[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)]
     clickedTarget]
 
 )
@@ -45,9 +45,9 @@ void showHome(TargetFocus clickedTarget) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
-3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  showHome method
 
 ##### MainScreenViewModel class

@@ -12,11 +12,11 @@ This class creates an event agenda category model.
 
 ## Constructors
 
-[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description]})]
+[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description]})]
 
 :   
 
-[[AgendaCategory.fromJson](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[AgendaCategory.fromJson](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creates a new `AgendaCategory` instance from a JSON map.
     ::: 
     factory
@@ -26,7 +26,7 @@ This class creates an event agenda category model.
 
 ## Properties
 
-[[description](../models_events_event_agenda_category/AgendaCategory/description.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[description](../models_events_event_agenda_category/AgendaCategory/description.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Description of the category.
     ::: features
     final
@@ -38,13 +38,13 @@ This class creates an event agenda category model.
     no setterinherited
     :::
 
-[[id](../models_events_event_agenda_category/AgendaCategory/id.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_events_event_agenda_category/AgendaCategory/id.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Id of the agenda category.
     ::: features
     final
     :::
 
-[[name](../models_events_event_agenda_category/AgendaCategory/name.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[name](../models_events_event_agenda_category/AgendaCategory/name.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Name of the category.
     ::: features
     final
@@ -60,7 +60,7 @@ This class creates an event agenda category model.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -76,7 +76,7 @@ This class creates an event agenda category model.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -88,7 +88,7 @@ This class creates an event agenda category model.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_agenda_category](../models_events_event_agenda_category/)
 3.  AgendaCategory class
 

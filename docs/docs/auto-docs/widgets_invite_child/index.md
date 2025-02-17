@@ -1,3 +1,7 @@
+---
+title: "widgets_invite_child"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Functions
 
-[[iconButton](../widgets_invite_child/iconButton.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] key, ][[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] icon, ][void ]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[iconButton](../widgets_invite_child/iconButton.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] key, ][[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] icon, ][void ]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   It prints /"tapped/" in the console for the developer to know that
     the button was tapped.
 
-[[invite](../widgets_invite_child/invite.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[invite](../widgets_invite_child/invite.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   We can use QR code scanner, social media platforms like twitter,
     whatsapp, telegram and many more..
 
@@ -22,7 +26,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//invite_child.dart
 
 ##### talawa package

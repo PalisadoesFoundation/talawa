@@ -1,3 +1,7 @@
+---
+title: "utils_chat_queries"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatQueries](../utils_chat_queries/ChatQueries-class.html)]
+[[ChatQueries](../utils_chat_queries/ChatQueries-class.md)]
 :   This class creates the queries dealing with chats.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//chat_queries.dart
 
 ##### talawa package

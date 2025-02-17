@@ -10,7 +10,7 @@
 customDatePicker({
 
 1.  [required
-    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)]
     initialDate,
     ]
 
@@ -50,7 +50,7 @@ Future<DateTime> customDatePicker({required DateTime initialDate}) async {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [date_time_picker](../widgets_date_time_picker/)
 3.  customDatePicker function
 

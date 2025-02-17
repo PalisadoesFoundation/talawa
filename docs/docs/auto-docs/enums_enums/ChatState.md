@@ -25,15 +25,15 @@ Available extensions
 
 ## Values
 
-initial [→ const [ChatState](../enums_enums/ChatState.html)]
+initial [→ const [ChatState](../enums_enums/ChatState.md)]
 
 :   The chat is at initial state.
 
-loading [→ const [ChatState](../enums_enums/ChatState.html)]
+loading [→ const [ChatState](../enums_enums/ChatState.md)]
 
 :   The chat is loading something.
 
-complete [→ const [ChatState](../enums_enums/ChatState.html)]
+complete [→ const [ChatState](../enums_enums/ChatState.md)]
 
 :   The chat state is complete.
 
@@ -77,7 +77,7 @@ complete [→ const [ChatState](../enums_enums/ChatState.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -93,7 +93,7 @@ complete [→ const [ChatState](../enums_enums/ChatState.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -103,7 +103,7 @@ complete [→ const [ChatState](../enums_enums/ChatState.html)]
 
 ## Constants
 
-[[values](../enums_enums/ChatState/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatState](../enums_enums/ChatState.html)]\>]]
+[[values](../enums_enums/ChatState/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatState](../enums_enums/ChatState.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -113,7 +113,7 @@ complete [→ const [ChatState](../enums_enums/ChatState.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  ChatState enum
 

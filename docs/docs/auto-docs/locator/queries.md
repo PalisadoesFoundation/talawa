@@ -6,7 +6,7 @@
 </div>
 
 
-[Queries](../utils_queries/Queries-class.html) queries
+[Queries](../utils_queries/Queries-class.md) queries
 
 
 final
@@ -30,7 +30,7 @@ final queries = locator<Queries>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  queries property
 

@@ -32,9 +32,9 @@ final int mainScreenIndex;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [splash_screen](../../splash_screen/)
-3.  [SplashScreen](../../splash_screen/SplashScreen-class.html)
+3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
 4.  mainScreenIndex property
 
 ##### SplashScreen class

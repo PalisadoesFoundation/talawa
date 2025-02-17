@@ -12,7 +12,7 @@ This class creates the queries dealing with comments.
 
 ## Constructors
 
-[CommentQueries](../utils_comment_queries/CommentQueries/CommentQueries.html)
+[CommentQueries](../utils_comment_queries/CommentQueries/CommentQueries.md)
 
 :   
 
@@ -36,13 +36,13 @@ This class creates the queries dealing with comments.
 
 ## Methods
 
-[[createComment](../utils_comment_queries/CommentQueries/createComment.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[createComment](../utils_comment_queries/CommentQueries/createComment.md)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Creating a comment.
 
-[[getPostsComments](../utils_comment_queries/CommentQueries/getPostsComments.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] postId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[getPostsComments](../utils_comment_queries/CommentQueries/getPostsComments.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] postId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Get all comments for a post.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -58,7 +58,7 @@ This class creates the queries dealing with comments.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -70,7 +70,7 @@ This class creates the queries dealing with comments.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [comment_queries](../utils_comment_queries/)
 3.  CommentQueries class
 

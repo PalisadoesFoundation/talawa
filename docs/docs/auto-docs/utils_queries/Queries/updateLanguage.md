@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 updateLanguage(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     languageCode]
 
 )
@@ -51,9 +51,9 @@ String updateLanguage(String languageCode) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [queries](../../utils_queries/)
-3.  [Queries](../../utils_queries/Queries-class.html)
+3.  [Queries](../../utils_queries/Queries-class.md)
 4.  updateLanguage method
 
 ##### Queries class

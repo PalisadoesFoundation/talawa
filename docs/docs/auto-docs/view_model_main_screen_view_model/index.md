@@ -1,3 +1,7 @@
+---
+title: "view_model_main_screen_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)]
+[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)]
 :   MainScreenViewModel class provide methods to interact with the modal
     to serve data in user/'s action in Main Screen Views.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//main_screen_view_model.dart
 
 ##### talawa package

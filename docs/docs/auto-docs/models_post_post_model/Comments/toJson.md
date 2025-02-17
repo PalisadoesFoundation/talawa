@@ -38,9 +38,9 @@ Map<String, dynamic>  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [Comments](../../models_post_post_model/Comments-class.html)
+3.  [Comments](../../models_post_post_model/Comments-class.md)
 4.  toJson method
 
 ##### Comments class

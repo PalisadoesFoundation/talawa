@@ -15,7 +15,7 @@
 [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 operator ==(
 
-1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]
+1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)]
     other]
 
 )
@@ -62,9 +62,9 @@ bool operator ==(Object other) =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/)
-3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.html)
+3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
 4.  operator == method
 
 ##### MainScreenArgs class

@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_set_url"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SetUrl](../views_pre_auth_screens_set_url/SetUrl-class.html)]
+[[SetUrl](../views_pre_auth_screens_set_url/SetUrl-class.md)]
 :   This widget lets a user sign in/up with the organization url.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//set_url.dart
 
 ##### talawa package

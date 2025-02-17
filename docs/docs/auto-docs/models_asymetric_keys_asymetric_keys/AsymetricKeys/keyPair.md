@@ -41,9 +41,9 @@ final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
-3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.html)
+3.  [AsymetricKeys](../../models_asymetric_keys_asymetric_keys/AsymetricKeys-class.md)
 4.  keyPair property
 
 ##### AsymetricKeys class

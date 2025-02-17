@@ -25,19 +25,19 @@ Available extensions
 
 ## Values
 
-error [→ const [MessageType](../enums_enums/MessageType.html)]
+error [→ const [MessageType](../enums_enums/MessageType.md)]
 
 :   Represents error message.
 
-warning [→ const [MessageType](../enums_enums/MessageType.html)]
+warning [→ const [MessageType](../enums_enums/MessageType.md)]
 
 :   Represents warning message.
 
-info [→ const [MessageType](../enums_enums/MessageType.html)]
+info [→ const [MessageType](../enums_enums/MessageType.md)]
 
 :   Represents info message.
 
-random [→ const [MessageType](../enums_enums/MessageType.html)]
+random [→ const [MessageType](../enums_enums/MessageType.md)]
 
 :   Represents random message.
 
@@ -81,7 +81,7 @@ random [→ const [MessageType](../enums_enums/MessageType.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -97,7 +97,7 @@ random [→ const [MessageType](../enums_enums/MessageType.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -107,7 +107,7 @@ random [→ const [MessageType](../enums_enums/MessageType.html)]
 
 ## Constants
 
-[[values](../enums_enums/MessageType/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[MessageType](../enums_enums/MessageType.html)]\>]]
+[[values](../enums_enums/MessageType/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[MessageType](../enums_enums/MessageType.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -117,7 +117,7 @@ random [→ const [MessageType](../enums_enums/MessageType.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  MessageType enum
 

@@ -1,3 +1,7 @@
+---
+title: "apptheme"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppTheme](../apptheme/AppTheme-class.html)]
+[[AppTheme](../apptheme/AppTheme-class.md)]
 :   Apptheme class.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  apptheme.dart
 
 ##### talawa package

@@ -1,3 +1,7 @@
+---
+title: "services_third_party_service_connectivity_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.html)]
+[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md)]
 :   This class provides services related to network connectivity
     monitoring and handling.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//third_party_service//connectivity_service.dart
 
 ##### talawa package

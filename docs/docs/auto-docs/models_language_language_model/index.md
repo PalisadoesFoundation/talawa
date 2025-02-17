@@ -1,3 +1,7 @@
+---
+title: "models_language_language_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Language](../models_language_language_model/Language-class.html)]
+[[Language](../models_language_language_model/Language-class.md)]
 :   This class creates an langauge model.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//language//language_model.dart
 
 ##### talawa package

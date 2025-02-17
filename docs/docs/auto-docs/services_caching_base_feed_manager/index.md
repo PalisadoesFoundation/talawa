@@ -1,3 +1,7 @@
+---
+title: "services_caching_base_feed_manager"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager-class.html)/<[T/>]]
+[[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager-class.md)/<[T/>]]
 :   An abstract base class for managing a feed of type `T` with caching
     and online data fetching capabilities.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//caching//base_feed_manager.dart
 
 ##### talawa package

@@ -8,10 +8,10 @@
 
 const ExpandableAgendaItemTile({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.html)]
+    [[EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)]
     item, ]
 3.  [required
     [[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]
@@ -41,9 +41,9 @@ const ExpandableAgendaItemTile({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
-3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.html)
+3.  [ExpandableAgendaItemTile](../../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)
 4.  ExpandableAgendaItemTile const constructor
 
 ##### ExpandableAgendaItemTile class

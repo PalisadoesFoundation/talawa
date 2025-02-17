@@ -27,7 +27,7 @@ Available extensions
 
 ## Constructors
 
-[[DateTimeTile](../widgets_event_date_time_tile/DateTimeTile/DateTimeTile.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] date, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] time, ]required [dynamic , ]required [dynamic , ][required [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isAllDay]})]
+[[DateTimeTile](../widgets_event_date_time_tile/DateTimeTile/DateTimeTile.md)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?] key, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] date, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] time, ]required [dynamic , ]required [dynamic , ][required [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isAllDay]})]
 
 :   ::: 
     const
@@ -37,7 +37,7 @@ Available extensions
 
 ## Properties
 
-[[date](../widgets_event_date_time_tile/DateTimeTile/date.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[date](../widgets_event_date_time_tile/DateTimeTile/date.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Represents a date in string format.
     ::: features
     final
@@ -49,7 +49,7 @@ Available extensions
     no setterinherited
     :::
 
-[[isAllDay](../widgets_event_date_time_tile/DateTimeTile/isAllDay.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isAllDay](../widgets_event_date_time_tile/DateTimeTile/isAllDay.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Represents a boolean value indicating if the event is all day.
     ::: features
     final
@@ -67,19 +67,19 @@ Available extensions
     no setterinherited
     :::
 
-[[setDate](../widgets_event_date_time_tile/DateTimeTile/setDate.html)] → dynamic Function[()]
+[[setDate](../widgets_event_date_time_tile/DateTimeTile/setDate.md)] → dynamic Function[()]
 :   Function that sets the date.
     ::: features
     final
     :::
 
-[[setTime](../widgets_event_date_time_tile/DateTimeTile/setTime.html)] → dynamic Function[()]
+[[setTime](../widgets_event_date_time_tile/DateTimeTile/setTime.md)] → dynamic Function[()]
 :   Function that sets the time.
     ::: features
     final
     :::
 
-[[time](../widgets_event_date_time_tile/DateTimeTile/time.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[time](../widgets_event_date_time_tile/DateTimeTile/time.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Represents a time in string format.
     ::: features
     final
@@ -89,7 +89,7 @@ Available extensions
 
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
+[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
 
 :   Available on
     [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
@@ -104,7 +104,7 @@ Available extensions
     instance, and returns the instance for chaining calls. Ex.
     `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
-[[build](../widgets_event_date_time_tile/DateTimeTile/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../widgets_event_date_time_tile/DateTimeTile/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
@@ -126,19 +126,19 @@ Available extensions
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -146,19 +146,19 @@ Available extensions
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
     :::
 
-[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a string representation of this node and its descendants.
     ::: features
     inherited
     :::
 
-[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a one-line detailed description of the object.
     ::: features
     inherited
@@ -174,7 +174,7 @@ Available extensions
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -186,7 +186,7 @@ Available extensions
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_date_time_tile](../widgets_event_date_time_tile/)
 3.  DateTimeTile class
 

@@ -9,7 +9,7 @@
 Post({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     sId, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     description, ]
@@ -22,13 +22,13 @@ Post({
 6.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     videoUrl, ]
 7.  [required
-    [[User](../../models_user_user_info/User-class.html)?]
+    [[User](../../models_user_user_info/User-class.md)?]
     creator, ]
-8.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+8.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)?]
     organization, ]
-9.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../../models_post_post_model/LikedBy-class.html)]\>]?]
+9.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../../models_post_post_model/LikedBy-class.md)]\>]?]
     likedBy, ]
-10. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.html)]\>]?]
+10. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.md)]\>]?]
     comments, ]
 
 })
@@ -58,9 +58,9 @@ Post({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [Post](../../models_post_post_model/Post-class.html)
+3.  [Post](../../models_post_post_model/Post-class.md)
 4.  Post constructor
 
 ##### Post class

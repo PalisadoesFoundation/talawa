@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_chat_message_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatMessageScreen](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.html)]
+[[ChatMessageScreen](../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)]
 :   ChatMessageScreen returns a StatelessWidget for showing the chat
     message screen.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//chat_message_screen.dart
 
 ##### talawa package

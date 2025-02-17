@@ -14,9 +14,9 @@
 
 void write(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]
+1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)]
     writer, ]
-2.  [[[User](../../models_user_user_info/User-class.html)]
+2.  [[[User](../../models_user_user_info/User-class.md)]
     obj]
 
 )
@@ -69,9 +69,9 @@ void write(BinaryWriter writer, User obj) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
-3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.html)
+3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.md)
 4.  write method
 
 ##### UserAdapter class

@@ -1,3 +1,7 @@
+---
+title: "widgets_post_modal"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PostBottomModal](../widgets_post_modal/PostBottomModal-class.html)]
+[[PostBottomModal](../widgets_post_modal/PostBottomModal-class.md)]
 :   To add options to the bottom nav bar, increase the height too.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//post_modal.dart
 
 ##### talawa package

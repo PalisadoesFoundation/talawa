@@ -31,9 +31,9 @@ final Function navigateToIndividualPostPage;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_carousel_widget](../../widgets_pinned_carousel_widget/)
-3.  [CustomCarouselScroller](../../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)
+3.  [CustomCarouselScroller](../../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)
 4.  navigateToIndividualPostPage property
 
 ##### CustomCarouselScroller class

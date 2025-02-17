@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../../enums_enums/CallFor.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../../enums_enums/CallFor.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CallFor](../../enums_enums/CallFor.html)
+3.  [CallFor](../../enums_enums/CallFor.md)
 4.  values constant
 
 ##### CallFor enum

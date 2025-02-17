@@ -1,3 +1,7 @@
+---
+title: "generated_plugin_registrant"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Functions
 
-[[registerPlugins](../generated_plugin_registrant/registerPlugins.html)][([[[Registrar](https://api.flutter.dev/flutter/flutter_web_plugins/Registrar-class.html)] registrar]) → void ]
+[[registerPlugins](../generated_plugin_registrant/registerPlugins.md)][([[[Registrar](https://api.flutter.dev/flutter/flutter_web_plugins/Registrar-class.md)] registrar]) → void ]
 
 :   
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  generated_plugin_registrant.dart
 
 ##### talawa package

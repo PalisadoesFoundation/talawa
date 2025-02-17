@@ -12,7 +12,7 @@ This class creates a MainScreenArgs model.
 
 ## Constructors
 
-[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] fromSignUp = false, ][required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] mainScreenIndex, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] toggleDemoMode = false]})]
+[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.md)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)] fromSignUp = false, ][required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] mainScreenIndex, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] toggleDemoMode = false]})]
 
 :   
 
@@ -20,21 +20,21 @@ This class creates a MainScreenArgs model.
 
 ## Properties
 
-[[fromSignUp](../models_mainscreen_navigation_args/MainScreenArgs/fromSignUp.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[fromSignUp](../models_mainscreen_navigation_args/MainScreenArgs/fromSignUp.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Indicates whether the user navigated to the main screen from the
     signup page.
     ::: features
     final
     :::
 
-[[hashCode](../models_mainscreen_navigation_args/MainScreenArgs/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../models_mainscreen_navigation_args/MainScreenArgs/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Overrides the hashCode getter to generate a hash code based on the
     properties of the MainScreenArgs instance.
     ::: features
     no setteroverride
     :::
 
-[[mainScreenIndex](../models_mainscreen_navigation_args/MainScreenArgs/mainScreenIndex.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[mainScreenIndex](../models_mainscreen_navigation_args/MainScreenArgs/mainScreenIndex.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Represents the index of the current page.
     ::: features
     final
@@ -46,7 +46,7 @@ This class creates a MainScreenArgs model.
     no setterinherited
     :::
 
-[[toggleDemoMode](../models_mainscreen_navigation_args/MainScreenArgs/toggleDemoMode.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[toggleDemoMode](../models_mainscreen_navigation_args/MainScreenArgs/toggleDemoMode.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Determines if the application is in demo mode.
     ::: features
     final
@@ -56,7 +56,7 @@ This class creates a MainScreenArgs model.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -72,7 +72,7 @@ This class creates a MainScreenArgs model.
 
 ## Operators
 
-[[operator ==](../models_mainscreen_navigation_args/MainScreenArgs/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../models_mainscreen_navigation_args/MainScreenArgs/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Overrides the equality operator to compare instances of the
     MainScreenArgs class.
     ::: features
@@ -85,7 +85,7 @@ This class creates a MainScreenArgs model.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [mainscreen_navigation_args](../models_mainscreen_navigation_args/)
 3.  MainScreenArgs class
 

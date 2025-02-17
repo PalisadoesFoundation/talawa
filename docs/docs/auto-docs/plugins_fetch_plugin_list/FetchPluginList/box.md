@@ -31,9 +31,9 @@ late Box box;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [fetch_plugin_list](../../plugins_fetch_plugin_list/)
-3.  [FetchPluginList](../../plugins_fetch_plugin_list/FetchPluginList-class.html)
+3.  [FetchPluginList](../../plugins_fetch_plugin_list/FetchPluginList-class.md)
 4.  box property
 
 ##### FetchPluginList class

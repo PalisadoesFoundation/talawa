@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_event_filter_bottomsheet"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Functions
 
-[[dropDownList](../views_after_auth_screens_events_event_filter_bottomsheet/dropDownList.html)][([[[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)] model, ][[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[dropDownList](../views_after_auth_screens_events_event_filter_bottomsheet/dropDownList.md)][([[[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)] model, ][[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Shows a list of dropdown taken from `model` and `context`.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//event_filter_bottomsheet.dart
 
 ##### talawa package

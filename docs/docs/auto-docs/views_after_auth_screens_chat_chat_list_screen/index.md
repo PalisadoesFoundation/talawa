@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_chat_list_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatPage](../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.html)]
+[[ChatPage](../views_after_auth_screens_chat_chat_list_screen/ChatPage-class.md)]
 :   ChatPage returns a stateless widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//chat_list_screen.dart
 
 ##### talawa package

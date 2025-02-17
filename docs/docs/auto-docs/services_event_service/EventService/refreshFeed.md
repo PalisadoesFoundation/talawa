@@ -39,9 +39,9 @@ Future<void>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_service](../../services_event_service/)
-3.  [EventService](../../services_event_service/EventService-class.html)
+3.  [EventService](../../services_event_service/EventService-class.md)
 4.  refreshFeed method
 
 ##### EventService class

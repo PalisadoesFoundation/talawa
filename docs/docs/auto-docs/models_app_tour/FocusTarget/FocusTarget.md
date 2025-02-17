@@ -9,7 +9,7 @@
 FocusTarget({
 
 1.  [required
-    [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+    [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.md)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
     key, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -18,7 +18,7 @@ FocusTarget({
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     description, ]
 4.  [required
-    [[AppTour](../../models_app_tour/AppTour-class.html)]
+    [[AppTour](../../models_app_tour/AppTour-class.md)]
     appTour, ]
 5.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
     isCircle = false,
@@ -147,9 +147,9 @@ FocusTarget({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_tour](../../models_app_tour/)
-3.  [FocusTarget](../../models_app_tour/FocusTarget-class.html)
+3.  [FocusTarget](../../models_app_tour/FocusTarget-class.md)
 4.  FocusTarget constructor
 
 ##### FocusTarget class

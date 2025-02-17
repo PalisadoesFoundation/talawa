@@ -1,3 +1,7 @@
+---
+title: "utils_queries"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Queries](../utils_queries/Queries-class.html)]
+[[Queries](../utils_queries/Queries-class.md)]
 :   This class returns some queries for the application.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//queries.dart
 
 ##### talawa package

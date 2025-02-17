@@ -8,7 +8,7 @@
 
 void registerPlugins(
 
-1.  [[[Registrar](https://api.flutter.dev/flutter/flutter_web_plugins/Registrar-class.html)]
+1.  [[[Registrar](https://api.flutter.dev/flutter/flutter_web_plugins/Registrar-class.md)]
     registrar]
 
 )
@@ -33,7 +33,7 @@ void registerPlugins(Registrar registrar) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [generated_plugin_registrant](../generated_plugin_registrant/)
 3.  registerPlugins function
 

@@ -1,3 +1,7 @@
+---
+title: "widgets_post_container"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Classes
 
-[[PostContainer](../widgets_post_container/PostContainer-class.html)]
+[[PostContainer](../widgets_post_container/PostContainer-class.md)]
 :   the widget which contains the actual image.
 
-[[PostContainerState](../widgets_post_container/PostContainerState-class.html)]
+[[PostContainerState](../widgets_post_container/PostContainerState-class.md)]
 
 :   
 
@@ -21,7 +25,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//post_container.dart
 
 ##### talawa package

@@ -12,7 +12,7 @@ Service to handle caching routines.
 
 ## Constructors
 
-[CacheService](../services_caching_cache_service/CacheService/CacheService.html)
+[CacheService](../services_caching_cache_service/CacheService/CacheService.md)
 :   Initializes the cache service and the offline action queue.
 
 
@@ -25,7 +25,7 @@ Service to handle caching routines.
     no setterinherited
     :::
 
-[[offlineActionQueue](../services_caching_cache_service/CacheService/offlineActionQueue.html)] [↔ [OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue-class.html)]
+[[offlineActionQueue](../services_caching_cache_service/CacheService/offlineActionQueue.md)] [↔ [OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue-class.md)]
 :   Queue for storing user actions to be executed offline.
     ::: features
     latefinal
@@ -41,10 +41,10 @@ Service to handle caching routines.
 
 ## Methods
 
-[[executeOrCacheOperation](../services_caching_cache_service/CacheService/executeOrCacheOperation.html)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] operation, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][required [[CachedOperationType](../enums_enums/CachedOperationType.html)] operationType, ][required [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[executeOrCacheOperation](../services_caching_cache_service/CacheService/executeOrCacheOperation.md)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] operation, ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][required [[CachedOperationType](../enums_enums/CachedOperationType.md)] operationType, ][required [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   Executes a GraphQL operation or caches it for offline execution.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -60,7 +60,7 @@ Service to handle caching routines.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -70,7 +70,7 @@ Service to handle caching routines.
 
 ## Static Properties
 
-[[offlineResult](../services_caching_cache_service/CacheService/offlineResult.html)] [→ [QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
+[[offlineResult](../services_caching_cache_service/CacheService/offlineResult.md)] [→ [QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
 :   static graphql result when device is offline.
     ::: features
     final
@@ -82,7 +82,7 @@ Service to handle caching routines.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [cache_service](../services_caching_cache_service/)
 3.  CacheService class
 

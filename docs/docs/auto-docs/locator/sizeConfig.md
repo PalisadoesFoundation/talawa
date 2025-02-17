@@ -6,7 +6,7 @@
 </div>
 
 
-[SizeConfig](../services_size_config/SizeConfig-class.html)
+[SizeConfig](../services_size_config/SizeConfig-class.md)
 sizeConfig
 
 
@@ -31,7 +31,7 @@ final sizeConfig = locator<SizeConfig>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  sizeConfig property
 

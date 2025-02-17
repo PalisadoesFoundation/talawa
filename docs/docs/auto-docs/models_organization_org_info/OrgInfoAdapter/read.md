@@ -12,10 +12,10 @@
 
 </div>
 
-[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -59,9 +59,9 @@ OrgInfo read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.html)
+3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.md)
 4.  read method
 
 ##### OrgInfoAdapter class

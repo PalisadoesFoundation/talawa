@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_create_event_form"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CreateEventForm](../views_after_auth_screens_events_create_event_form/CreateEventForm-class.html)]
+[[CreateEventForm](../views_after_auth_screens_events_create_event_form/CreateEventForm-class.md)]
 :   CreateEventForm returns a widget of a Form for creating events in
     the organization. This widget is used in CreateEventPage widget.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//create_event_form.dart
 
 ##### talawa package

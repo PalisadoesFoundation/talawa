@@ -10,14 +10,14 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[User](../models_user_user_info/User-class.html)]\>]
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[User](../models_user_user_info/User-class.md)]\>]
     -   UserAdapter
 
 
 
 ## Constructors
 
-[UserAdapter](../models_user_user_info/UserAdapter/UserAdapter.html)
+[UserAdapter](../models_user_user_info/UserAdapter/UserAdapter.md)
 
 :   
 
@@ -25,7 +25,7 @@ Inheritance
 
 ## Properties
 
-[[hashCode](../models_user_user_info/UserAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../models_user_user_info/UserAdapter/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
     no setteroverride
@@ -37,7 +37,7 @@ Inheritance
     no setterinherited
     :::
 
-[[typeId](../models_user_user_info/UserAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[typeId](../models_user_user_info/UserAdapter/typeId.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
     final
@@ -47,13 +47,13 @@ Inheritance
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[read](../models_user_user_info/UserAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [User](../models_user_user_info/User-class.html)] ]
+[[read](../models_user_user_info/UserAdapter/read.md)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)] reader]) [→ [User](../models_user_user_info/User-class.md)] ]
 :   Is called when a value has to be decoded.
     ::: features
     override
@@ -65,7 +65,7 @@ Inheritance
     inherited
     :::
 
-[[write](../models_user_user_info/UserAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[User](../models_user_user_info/User-class.html)] obj]) → void ]
+[[write](../models_user_user_info/UserAdapter/write.md)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)] writer, ][[[User](../models_user_user_info/User-class.md)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
     override
@@ -75,7 +75,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](../models_user_user_info/UserAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../models_user_user_info/UserAdapter/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     override
@@ -87,7 +87,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [user_info](../models_user_user_info/)
 3.  UserAdapter class
 

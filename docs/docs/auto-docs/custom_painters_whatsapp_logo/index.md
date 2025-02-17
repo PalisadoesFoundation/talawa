@@ -1,3 +1,7 @@
+---
+title: "custom_painters_whatsapp_logo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo-class.html)]
+[[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo-class.md)]
 :   This class draws the whatsapp logo using custom paint.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  custom_painters//whatsapp_logo.dart
 
 ##### talawa package

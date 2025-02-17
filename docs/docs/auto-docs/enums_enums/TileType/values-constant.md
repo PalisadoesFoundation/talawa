@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TileType](../../enums_enums/TileType.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TileType](../../enums_enums/TileType.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [TileType](../../enums_enums/TileType.html)
+3.  [TileType](../../enums_enums/TileType.md)
 4.  values constant
 
 ##### TileType enum

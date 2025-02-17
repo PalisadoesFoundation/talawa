@@ -1,3 +1,7 @@
+---
+title: "models_organization_org_info"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Classes
 
-[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]
+[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]
 :   This class creates an organization-information model and returns an
     OrgInfo instance.
 
-[[OrgInfoAdapter](../models_organization_org_info/OrgInfoAdapter-class.html)]
+[[OrgInfoAdapter](../models_organization_org_info/OrgInfoAdapter-class.md)]
 
 :   
 
@@ -22,7 +26,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//organization//org_info.dart
 
 ##### talawa package

@@ -27,9 +27,9 @@ static const small = 5;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [timeout](../../constants_timeout/)
-3.  [TimeOuts](../../constants_timeout/TimeOuts-class.html)
+3.  [TimeOuts](../../constants_timeout/TimeOuts-class.md)
 4.  small constant
 
 ##### TimeOuts class

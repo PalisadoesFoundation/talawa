@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_create_agenda_item_page"
+---
+
 
 <div>
 
@@ -8,12 +12,12 @@
 
 ## Classes
 
-[[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)]
+[[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)]
 :   A page for creating a new agenda item for events.
 
-[[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.html)]
+[[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)]
 :   State class for
-    [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html).
+    [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md).
 
 
 
@@ -21,7 +25,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//create_agenda_item_page.dart
 
 ##### talawa package

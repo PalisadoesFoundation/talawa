@@ -1,3 +1,7 @@
+---
+title: "view_model_pre_auth_view_models_login_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.html)]
+[[LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.md)]
 :   LoginViewModel class helps to interact with model to serve data.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//pre_auth_view_models//login_view_model.dart
 
 ##### talawa package

@@ -9,7 +9,7 @@
 const SplashScreen({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
 2.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
     mainScreenIndex = 0,
@@ -32,9 +32,9 @@ const SplashScreen({required Key key, this.mainScreenIndex = 0})
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [splash_screen](../../splash_screen/)
-3.  [SplashScreen](../../splash_screen/SplashScreen-class.html)
+3.  [SplashScreen](../../splash_screen/SplashScreen-class.md)
 4.  SplashScreen const constructor
 
 ##### SplashScreen class

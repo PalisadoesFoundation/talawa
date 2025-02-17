@@ -1,3 +1,7 @@
+---
+title: "views_demo_screens_explore_events_demo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DemoExploreEvents](../views_demo_screens_explore_events_demo/DemoExploreEvents-class.html)]
+[[DemoExploreEvents](../views_demo_screens_explore_events_demo/DemoExploreEvents-class.md)]
 :   Shows the list of events with options to categorize them.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//demo_screens//explore_events_demo.dart
 
 ##### talawa package

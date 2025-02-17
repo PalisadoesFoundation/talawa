@@ -1,3 +1,7 @@
+---
+title: "enums_enums"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Classes
 
-[[CachedOperationTypeAdapter](../enums_enums/CachedOperationTypeAdapter-class.html)]
+[[CachedOperationTypeAdapter](../enums_enums/CachedOperationTypeAdapter-class.md)]
 
 :   
 
-[[CachedUserActionStatusAdapter](../enums_enums/CachedUserActionStatusAdapter-class.html)]
+[[CachedUserActionStatusAdapter](../enums_enums/CachedUserActionStatusAdapter-class.md)]
 
 :   
 
@@ -20,31 +24,31 @@
 
 ## Enums
 
-[[ActionType](../enums_enums/ActionType.html)]
+[[ActionType](../enums_enums/ActionType.md)]
 :   Enum representing the types of actions that can be performed.
 
-[[CachedOperationType](../enums_enums/CachedOperationType.html)]
+[[CachedOperationType](../enums_enums/CachedOperationType.md)]
 :   This enum defines the different types of cached GraphQL operations.
 
-[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]
+[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)]
 :   This enum defines the possible statuses for a cached user action.
 
-[[CallFor](../enums_enums/CallFor.html)]
+[[CallFor](../enums_enums/CallFor.md)]
 :   Represents the type of CallFor.
 
-[[ChatState](../enums_enums/ChatState.html)]
+[[ChatState](../enums_enums/ChatState.md)]
 :   Represents the state of the chat.
 
-[[MessageType](../enums_enums/MessageType.html)]
+[[MessageType](../enums_enums/MessageType.md)]
 :   Represents the type of the Message.
 
-[[ModalSheet](../enums_enums/ModalSheet.html)]
+[[ModalSheet](../enums_enums/ModalSheet.md)]
 :   Represents the type of ModalSheet.
 
-[[TileType](../enums_enums/TileType.html)]
+[[TileType](../enums_enums/TileType.md)]
 :   Represents the type of the tile.
 
-[[ViewState](../enums_enums/ViewState.html)]
+[[ViewState](../enums_enums/ViewState.md)]
 :   Represents the state of the view.
 
 
@@ -53,7 +57,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  enums//enums.dart
 
 ##### talawa package

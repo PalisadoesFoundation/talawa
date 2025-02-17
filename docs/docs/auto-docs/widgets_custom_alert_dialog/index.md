@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_alert_dialog"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.html)]
+[[CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.md)]
 :   This Class returns CustomAlertDialog widget. Custom Alert Dialog is
     a popup.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_alert_dialog.dart
 
 ##### talawa package

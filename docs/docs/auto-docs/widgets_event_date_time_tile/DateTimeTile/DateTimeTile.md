@@ -8,7 +8,7 @@
 
 const DateTimeTile({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -47,9 +47,9 @@ const DateTimeTile({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
-3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.html)
+3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
 4.  DateTimeTile const constructor
 
 ##### DateTimeTile class

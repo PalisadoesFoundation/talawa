@@ -8,7 +8,7 @@
 
 const CustomAlertDialogWithCheckbox({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     successText = \'Confirm\',
@@ -27,7 +27,7 @@ const CustomAlertDialogWithCheckbox({
     ]
 7.  required [dynamic
     success(]
-    1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]]
+    1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)?]]
 
     ),
 8.  [required
@@ -67,9 +67,9 @@ const CustomAlertDialogWithCheckbox({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
-3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.html)
+3.  [CustomAlertDialogWithCheckbox](../../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)
 4.  CustomAlertDialogWithCheckbox const constructor
 
 ##### CustomAlertDialogWithCheckbox class

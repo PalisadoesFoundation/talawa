@@ -1,3 +1,7 @@
+---
+title: "widgets_talawa_error_snackbar"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TalawaErrorSnackBar](../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.html)]
+[[TalawaErrorSnackBar](../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)]
 :   Common Error Snack Bar for the whole talawa app.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//talawa_error_snackbar.dart
 
 ##### talawa package

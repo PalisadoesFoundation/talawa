@@ -1,3 +1,7 @@
+---
+title: "constants_constants"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[HiveKeys](../constants_constants/HiveKeys-class.html)]
+[[HiveKeys](../constants_constants/HiveKeys-class.md)]
 :   A class containing static constants representing the keys used to
     identify Hive boxes in the application.
 
@@ -16,14 +20,14 @@
 
 ## Properties
 
-[[languages](../constants_constants/languages.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Language](../models_language_language_model/Language-class.html)]/>]]
+[[languages](../constants_constants/languages.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Language](../models_language_language_model/Language-class.md)]/>]]
 :   This file contains the prototypes of all the supported languages and
     currencies used in the application.
     ::: features
     getter/setter pair
     :::
 
-[[supportedCurrencies](../constants_constants/supportedCurrencies.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]]
+[[supportedCurrencies](../constants_constants/supportedCurrencies.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]]
 :   A list of supported currency codes used in the application.
     ::: features
     getter/setter pair
@@ -35,7 +39,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//constants.dart
 
 ##### talawa package

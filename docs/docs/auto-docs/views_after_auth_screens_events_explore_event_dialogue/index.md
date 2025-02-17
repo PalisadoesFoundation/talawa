@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_explore_event_dialogue"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ExploreEventDialog](../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.html)]
+[[ExploreEventDialog](../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.md)]
 :   ExploreEventDialog returns a widget that has mutable state
     /_ExploreEventDialogState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//explore_event_dialogue.dart
 
 ##### talawa package

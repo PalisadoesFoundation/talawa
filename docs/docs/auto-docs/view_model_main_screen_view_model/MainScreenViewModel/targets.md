@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../../models_app_tour/FocusTarget-class.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../../models_app_tour/FocusTarget-class.md)]\>]
 targets
 
 
@@ -31,9 +31,9 @@ final List<FocusTarget> targets = [];
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
-3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  targets property
 
 ##### MainScreenViewModel class

@@ -14,14 +14,14 @@ This class returns a list of the events which match the search query.
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [SearchDelegate](https://api.flutter.dev/flutter/material/SearchDelegate-class.html)[\<[[Event](../models_events_event_model/Event-class.html)]\>]
+    -   [SearchDelegate](https://api.flutter.dev/flutter/material/SearchDelegate-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]
     -   EventSearch
 
 
 
 ## Constructors
 
-[[EventSearch](../widgets_event_search_delegate/EventSearch/EventSearch.html)][({[required [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.html)]\>]] eventList, ][required [[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)] exploreEventsViewModel]})]
+[[EventSearch](../widgets_event_search_delegate/EventSearch/EventSearch.md)][({[required [[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Event](../models_events_event_model/Event-class.md)]\>]] eventList, ][required [[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)] exploreEventsViewModel]})]
 
 :   
 
@@ -47,13 +47,13 @@ Inheritance
     finalinherited
     :::
 
-[[eventList](../widgets_event_search_delegate/EventSearch/eventList.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.html)]\>]]
+[[eventList](../widgets_event_search_delegate/EventSearch/eventList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.md)]\>]]
 
 :   ::: features
     final
     :::
 
-[[exploreEventsViewModel](../widgets_event_search_delegate/EventSearch/exploreEventsViewModel.html)] [↔ [ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)]
+[[exploreEventsViewModel](../widgets_event_search_delegate/EventSearch/exploreEventsViewModel.md)] [↔ [ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)]
 
 :   ::: features
     getter/setter pair
@@ -131,59 +131,59 @@ Inheritance
 
 ## Methods
 
-[[appBarTheme](https://api.flutter.dev/flutter/material/SearchDelegate/appBarTheme.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)] ]
+[[appBarTheme](https://api.flutter.dev/flutter/material/SearchDelegate/appBarTheme.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)] ]
 :   The theme used to configure the search page.
     ::: features
     inherited
     :::
 
-[[buildActions](../widgets_event_search_delegate/EventSearch/buildActions.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]\>]] ]
+[[buildActions](../widgets_event_search_delegate/EventSearch/buildActions.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]\>]] ]
 :   Widgets to display after the search query in the
     [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
     ::: features
     override
     :::
 
-[[buildBottom](https://api.flutter.dev/flutter/material/SearchDelegate/buildBottom.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [PreferredSizeWidget](https://api.flutter.dev/flutter/widgets/PreferredSizeWidget-class.html)?] ]
+[[buildBottom](https://api.flutter.dev/flutter/material/SearchDelegate/buildBottom.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [PreferredSizeWidget](https://api.flutter.dev/flutter/widgets/PreferredSizeWidget-class.html)?] ]
 :   Widget to display across the bottom of the
     [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
     ::: features
     inherited
     :::
 
-[[buildFlexibleSpace](https://api.flutter.dev/flutter/material/SearchDelegate/buildFlexibleSpace.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?] ]
+[[buildFlexibleSpace](https://api.flutter.dev/flutter/material/SearchDelegate/buildFlexibleSpace.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?] ]
 :   Widget to display a flexible space in the
     [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
     ::: features
     inherited
     :::
 
-[[buildLeading](../widgets_event_search_delegate/EventSearch/buildLeading.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[buildLeading](../widgets_event_search_delegate/EventSearch/buildLeading.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   A widget to display before the current query in the
     [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
     ::: features
     override
     :::
 
-[[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[buildResults](../widgets_event_search_delegate/EventSearch/buildResults.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   The results shown after the user submits a search from the search
     page.
     ::: features
     override
     :::
 
-[[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[buildSuggestions](../widgets_event_search_delegate/EventSearch/buildSuggestions.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Suggestions shown in the body of the search page while the user
     types a query into the search field.
     ::: features
     override
     :::
 
-[[buildSuggestionsSucess](../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../models_events_event_model/Event-class.html)]\>]] suggestions]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[buildSuggestionsSucess](../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Event](../models_events_event_model/Event-class.md)]\>]] suggestions]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 
 :   
 
-[[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context, ][[[Event](../models_events_event_model/Event-class.html)] result]) → void ]
+[[close](https://api.flutter.dev/flutter/material/SearchDelegate/close.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context, ][[[Event](../models_events_event_model/Event-class.md)] result]) → void ]
 :   Closes the search page and returns to the underlying route.
     ::: features
     inherited
@@ -195,13 +195,13 @@ Inheritance
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[showResults](https://api.flutter.dev/flutter/material/SearchDelegate/showResults.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
+[[showResults](https://api.flutter.dev/flutter/material/SearchDelegate/showResults.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
 :   Transition from the suggestions returned by
     [buildSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/buildSuggestions.html)
     to the
@@ -212,7 +212,7 @@ Inheritance
     inherited
     :::
 
-[[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
+[[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
 :   Transition from showing the results returned by
     [buildResults](https://api.flutter.dev/flutter/material/SearchDelegate/buildResults.html)
     to showing the suggestions returned by
@@ -231,7 +231,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -243,7 +243,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_search_delegate](../widgets_event_search_delegate/)
 3.  EventSearch class
 

@@ -27,9 +27,9 @@ static const thisAndFollowingInstances = 'ThisAndFollowingInstances';
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [recurrence_values](../../constants_recurrence_values/)
-3.  [RecurringEventMutationType](../../constants_recurrence_values/RecurringEventMutationType-class.html)
+3.  [RecurringEventMutationType](../../constants_recurrence_values/RecurringEventMutationType-class.md)
 4.  thisAndFollowingInstances constant
 
 ##### RecurringEventMutationType class

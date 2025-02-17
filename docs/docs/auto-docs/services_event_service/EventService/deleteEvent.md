@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 deleteEvent(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     eventId]
 
 )
@@ -45,9 +45,9 @@ Future<QueryResult<Object?>> deleteEvent(String eventId) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_service](../../services_event_service/)
-3.  [EventService](../../services_event_service/EventService-class.html)
+3.  [EventService](../../services_event_service/EventService-class.md)
 4.  deleteEvent method
 
 ##### EventService class

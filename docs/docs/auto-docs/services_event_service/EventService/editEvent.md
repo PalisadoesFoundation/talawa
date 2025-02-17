@@ -10,7 +10,7 @@
 editEvent({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     eventId, ]
 2.  [required
     [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
@@ -57,9 +57,9 @@ Future<QueryResult<Object?>> editEvent({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_service](../../services_event_service/)
-3.  [EventService](../../services_event_service/EventService-class.html)
+3.  [EventService](../../services_event_service/EventService-class.md)
 4.  editEvent method
 
 ##### EventService class

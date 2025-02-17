@@ -52,9 +52,9 @@ static final lightTheme = ThemeData(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_theme](../../constants_custom_theme/)
-3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.html)
+3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
 4.  lightTheme property
 
 ##### TalawaTheme class

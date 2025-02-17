@@ -8,10 +8,10 @@
 
 const CustomCarouselScroller({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]
     pinnedPosts, ]
 3.  [required
     [[Function](https://api.flutter.dev/flutter/dart-core/Function-class.html)]
@@ -38,9 +38,9 @@ const CustomCarouselScroller({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_carousel_widget](../../widgets_pinned_carousel_widget/)
-3.  [CustomCarouselScroller](../../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)
+3.  [CustomCarouselScroller](../../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)
 4.  CustomCarouselScroller const constructor
 
 ##### CustomCarouselScroller class

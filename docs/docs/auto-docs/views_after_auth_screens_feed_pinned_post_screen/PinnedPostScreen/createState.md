@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen/createState.html)
+[createState](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<PinnedPostScreen>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_post_screen](../../views_after_auth_screens_feed_pinned_post_screen/)
-3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)
+3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
 4.  createState method
 
 ##### PinnedPostScreen class

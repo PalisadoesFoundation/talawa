@@ -31,7 +31,7 @@ final connectivity = locator<Connectivity>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  connectivity property
 

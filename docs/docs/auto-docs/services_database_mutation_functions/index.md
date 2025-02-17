@@ -1,3 +1,7 @@
+---
+title: "services_database_mutation_functions"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.html)]
+[[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.md)]
 :   DataBaseMutationFunctions class provides different services that are
     under the context of graphQL mutations and queries.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//database_mutation_functions.dart
 
 ##### talawa package

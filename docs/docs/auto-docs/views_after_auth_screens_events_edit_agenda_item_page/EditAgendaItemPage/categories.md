@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.md)]\>]
 categories
 
 
@@ -31,9 +31,9 @@ final List<AgendaCategory> categories;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [edit_agenda_item_page](../../views_after_auth_screens_events_edit_agenda_item_page/)
-3.  [EditAgendaItemPage](../../views_after_auth_screens_events_edit_agenda_item_page/EditAgendaItemPage-class.html)
+3.  [EditAgendaItemPage](../../views_after_auth_screens_events_edit_agenda_item_page/EditAgendaItemPage-class.md)
 4.  categories property
 
 ##### EditAgendaItemPage class

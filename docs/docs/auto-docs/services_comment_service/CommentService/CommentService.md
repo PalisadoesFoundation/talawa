@@ -25,9 +25,9 @@
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_service](../../services_comment_service/)
-3.  [CommentService](../../services_comment_service/CommentService-class.html)
+3.  [CommentService](../../services_comment_service/CommentService-class.md)
 4.  CommentService constructor
 
 ##### CommentService class

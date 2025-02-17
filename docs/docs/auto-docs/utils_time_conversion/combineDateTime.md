@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 combineDateTime(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     date, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     time]
@@ -47,7 +47,7 @@ String combineDateTime(String date, String time) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [time_conversion](../utils_time_conversion/)
 3.  combineDateTime function
 

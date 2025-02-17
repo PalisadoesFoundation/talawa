@@ -1,2 +1,2 @@
-1.  [Classes](plugins_fetch_plugin_list/#classes)
-2.  [FetchPluginList](plugins_fetch_plugin_list/FetchPluginList-class.html)
+1.  [Classes](./#classes)
+2.  [FetchPluginList](./FetchPluginList-class.md)

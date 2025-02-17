@@ -1,3 +1,7 @@
+---
+title: "widgets_organization_list"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganizationList](../widgets_organization_list/OrganizationList-class.html)]
+[[OrganizationList](../widgets_organization_list/OrganizationList-class.md)]
 :   This class returns the OrganizationList widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//organization_list.dart
 
 ##### talawa package

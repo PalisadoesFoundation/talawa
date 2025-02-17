@@ -1,3 +1,7 @@
+---
+title: "services_chat_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatService](../services_chat_service/ChatService-class.html)]
+[[ChatService](../services_chat_service/ChatService-class.md)]
 :   Provides different services for direct chats of the user.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//chat_service.dart
 
 ##### talawa package

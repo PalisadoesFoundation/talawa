@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_profile_profile_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ProfilePage](../views_after_auth_screens_profile_profile_page/ProfilePage-class.html)]
+[[ProfilePage](../views_after_auth_screens_profile_profile_page/ProfilePage-class.md)]
 :   ProfilePage returns a widget that renders a page of user/'s profile.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//profile//profile_page.dart
 
 ##### talawa package

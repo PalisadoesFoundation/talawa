@@ -51,9 +51,9 @@ AsymmetricKeyPair<PublicKey, PrivateKey>  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [encryptor](../../utils_encryptor/)
-3.  [Encryptor](../../utils_encryptor/Encryptor-class.html)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  generateRSAKeyPair method
 
 ##### Encryptor class

@@ -1,3 +1,7 @@
+---
+title: "utils_post_queries"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PostQueries](../utils_post_queries/PostQueries-class.html)]
+[[PostQueries](../utils_post_queries/PostQueries-class.md)]
 :   This class creates queries related to posts.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//post_queries.dart
 
 ##### talawa package

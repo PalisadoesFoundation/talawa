@@ -12,7 +12,7 @@
 
 </div>
 
-[User](../../models_user_user_info/User-class.html)?
+[User](../../models_user_user_info/User-class.md)?
 creatorInfo
 
 
@@ -38,9 +38,9 @@ User? creatorInfo;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  creatorInfo property
 
 ##### OrgInfo class

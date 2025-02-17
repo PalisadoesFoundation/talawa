@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_event_calendar"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventCalendar](../views_after_auth_screens_events_event_calendar/EventCalendar-class.html)]
+[[EventCalendar](../views_after_auth_screens_events_event_calendar/EventCalendar-class.md)]
 :   EventCalendar returns a widget that has mutable state
     /_EventCalendarState.
 
@@ -16,7 +20,7 @@
 
 ## Functions
 
-[[parseTime](../views_after_auth_screens_events_event_calendar/parseTime.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] time]) [→ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] ]
+[[parseTime](../views_after_auth_screens_events_event_calendar/parseTime.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] time]) [→ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] ]
 :   a_line_ending_with_end_punctuation.
 
 
@@ -25,7 +29,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//event_calendar.dart
 
 ##### talawa package

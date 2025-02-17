@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 getUserProfileInfo(
 
-1.  [[[User](../../models_user_user_info/User-class.html)]
+1.  [[[User](../../models_user_user_info/User-class.md)]
     user]
 
 )
@@ -49,9 +49,9 @@ Future<QueryResult<Object?>> getUserProfileInfo(User user) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_profile_service](../../services_user_profile_service/)
-3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.html)
+3.  [UserProfileService](../../services_user_profile_service/UserProfileService-class.md)
 4.  getUserProfileInfo method
 
 ##### UserProfileService class

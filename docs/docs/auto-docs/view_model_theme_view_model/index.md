@@ -1,3 +1,7 @@
+---
+title: "view_model_theme_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppTheme](../view_model_theme_view_model/AppTheme-class.html)]
+[[AppTheme](../view_model_theme_view_model/AppTheme-class.md)]
 :   AppTheme class is a type of ViewModel to serve data from model to
     views in the context of App Themes.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//theme_view_model.dart
 
 ##### talawa package

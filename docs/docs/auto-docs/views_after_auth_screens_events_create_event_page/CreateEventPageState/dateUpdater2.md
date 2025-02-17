@@ -8,9 +8,9 @@
 
 void dateUpdater2(
 
-1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)]
     date, ]
-2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)]
     model]
 
 )
@@ -60,9 +60,9 @@ void dateUpdater2(DateTime date, CreateEventViewModel model) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
-3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)
+3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
 4.  dateUpdater2 method
 
 ##### CreateEventPageState class

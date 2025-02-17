@@ -28,14 +28,14 @@ Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
+    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
     -   AppLanguage
 
 
 
 ## Constructors
 
-[[AppLanguage](../view_model_lang_view_model/AppLanguage/AppLanguage.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isTest = false]})]
+[[AppLanguage](../view_model_lang_view_model/AppLanguage/AppLanguage.md)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)] isTest = false]})]
 
 :   
 
@@ -43,13 +43,13 @@ Inheritance
 
 ## Properties
 
-[[appLocal](../view_model_lang_view_model/AppLanguage/appLocal.html)] [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+[[appLocal](../view_model_lang_view_model/AppLanguage/appLocal.md)] [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
 :   getter for appLocal.
     ::: features
     no setter
     :::
 
-[[databaseFunctions](../view_model_lang_view_model/AppLanguage/databaseFunctions.html)] [→ [DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.html)]
+[[databaseFunctions](../view_model_lang_view_model/AppLanguage/databaseFunctions.md)] [→ [DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.md)]
 :   Functions related to database mutations.
     ::: features
     final
@@ -67,20 +67,20 @@ Inheritance
     no setterinherited
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
     :::
 
-[[isTest](../view_model_lang_view_model/AppLanguage/isTest.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isTest](../view_model_lang_view_model/AppLanguage/isTest.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Represents a boolean value indicating whether the current
     environment is a test environment.
     ::: features
     final
     :::
 
-[[navigationService](../view_model_lang_view_model/AppLanguage/navigationService.html)] [→ [NavigationService](../services_navigation_service/NavigationService-class.html)]
+[[navigationService](../view_model_lang_view_model/AppLanguage/navigationService.md)] [→ [NavigationService](../services_navigation_service/NavigationService-class.md)]
 :   A service that provides navigation-related functionalities.
     ::: features
     final
@@ -92,7 +92,7 @@ Inheritance
     no setterinherited
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
+[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
 
 :   ::: features
     no setterinherited
@@ -102,42 +102,42 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
     inherited
     :::
 
-[[appLanguageQuery](../view_model_lang_view_model/AppLanguage/appLanguageQuery.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[appLanguageQuery](../view_model_lang_view_model/AppLanguage/appLanguageQuery.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Queries the app language.
 
-[[changeLanguage](../view_model_lang_view_model/AppLanguage/changeLanguage.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] type]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[changeLanguage](../view_model_lang_view_model/AppLanguage/changeLanguage.md)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)] type]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function change the app default language.
 
-[[dbLanguageUpdate](../view_model_lang_view_model/AppLanguage/dbLanguageUpdate.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[dbLanguageUpdate](../view_model_lang_view_model/AppLanguage/dbLanguageUpdate.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function updates the Database Language by running the graphQL
     `mutations`.
 
 [dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
+    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
     will throw after the object is disposed).
     ::: features
     inherited
     :::
 
-[[fetchLocale](../view_model_lang_view_model/AppLanguage/fetchLocale.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[fetchLocale](../view_model_lang_view_model/AppLanguage/fetchLocale.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function fetch the language of the user\'s app.
 
-[[initialize](../view_model_lang_view_model/AppLanguage/initialize.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[initialize](../view_model_lang_view_model/AppLanguage/initialize.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   initialiser.
 
-[[localeResoultion](../view_model_lang_view_model/AppLanguage/localeResoultion.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)?] locale, ][[[Iterable](https://api.flutter.dev/flutter/dart-core/Iterable-class.html)[\<[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]\>]] supportedLocales]) [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] ]
+[[localeResoultion](../view_model_lang_view_model/AppLanguage/localeResoultion.md)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)?] locale, ][[[Iterable](https://api.flutter.dev/flutter/dart-core/Iterable-class.html)[\<[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]\>]] supportedLocales]) [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] ]
 :   This function fetches the appropriate locale for the user\'s app
     based on the provided locale and supported locales.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -149,17 +149,17 @@ Inheritance
     inherited
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
     inherited
     :::
 
-[[selectLanguagePress](../view_model_lang_view_model/AppLanguage/selectLanguagePress.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[selectLanguagePress](../view_model_lang_view_model/AppLanguage/selectLanguagePress.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Navigates the user after choosing lthe anguage.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
+[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
 
 :   ::: features
     inherited
@@ -171,7 +171,7 @@ Inheritance
     inherited
     :::
 
-[[userLanguageQuery](../view_model_lang_view_model/AppLanguage/userLanguageQuery.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] userId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[userLanguageQuery](../view_model_lang_view_model/AppLanguage/userLanguageQuery.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] userId]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function perform graphQL query to check the user\'s language in
     the database.
 
@@ -179,7 +179,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -191,7 +191,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [lang_view_model](../view_model_lang_view_model/)
 3.  AppLanguage class
 

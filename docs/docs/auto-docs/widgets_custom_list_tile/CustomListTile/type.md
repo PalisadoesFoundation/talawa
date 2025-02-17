@@ -6,7 +6,7 @@
 </div>
 
 
-[TileType](../../enums_enums/TileType.html) type
+[TileType](../../enums_enums/TileType.md) type
 
 
 final
@@ -30,9 +30,9 @@ final TileType type;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_list_tile](../../widgets_custom_list_tile/)
-3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.html)
+3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  type property
 
 ##### CustomListTile class

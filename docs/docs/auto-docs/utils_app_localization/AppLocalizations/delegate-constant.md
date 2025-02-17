@@ -6,7 +6,7 @@
 </div>
 
 
-[LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../../utils_app_localization/AppLocalizations-class.html)]\>]
+[LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)]\>]
 const delegate
 
 
@@ -24,9 +24,9 @@ static const LocalizationsDelegate<AppLocalizations> delegate =
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
-3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.html)
+3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  delegate constant
 
 ##### AppLocalizations class

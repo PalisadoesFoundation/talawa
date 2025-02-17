@@ -1,2 +1,2 @@
-1.  [Classes](views_after_auth_screens_join_org_after_auth_access_request_screen/#classes)
-2.  [SendAccessRequest](views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.html)
+1.  [Classes](./#classes)
+2.  [SendAccessRequest](./SendAccessRequest-class.md)

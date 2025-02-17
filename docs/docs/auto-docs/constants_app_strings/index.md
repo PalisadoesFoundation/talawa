@@ -1,3 +1,7 @@
+---
+title: "constants_app_strings"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TalawaErrors](../constants_app_strings/TalawaErrors-class.html)]
+[[TalawaErrors](../constants_app_strings/TalawaErrors-class.md)]
 :   Talawa Custom error strings.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//app_strings.dart
 
 ##### talawa package

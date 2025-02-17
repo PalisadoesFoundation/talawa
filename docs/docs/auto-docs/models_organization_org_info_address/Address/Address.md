@@ -8,7 +8,7 @@
 
 Address({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]
     city, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     countryCode, ]
@@ -54,9 +54,9 @@ Address({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info_address](../../models_organization_org_info_address/)
-3.  [Address](../../models_organization_org_info_address/Address-class.html)
+3.  [Address](../../models_organization_org_info_address/Address-class.md)
 4.  Address constructor
 
 ##### Address class

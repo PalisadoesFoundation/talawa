@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_widgets_chat_message_bubble"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Message](../views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.html)]
+[[Message](../views_after_auth_screens_chat_widgets_chat_message_bubble/Message-class.md)]
 :   Message returns a widget for chat message in the bubble form.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//widgets//chat_message_bubble.dart
 
 ##### talawa package

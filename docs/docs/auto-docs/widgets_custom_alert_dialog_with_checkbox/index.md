@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_alert_dialog_with_checkbox"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomAlertDialogWithCheckbox](../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.html)]
+[[CustomAlertDialogWithCheckbox](../widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class.md)]
 :   This Class returns CustomAlertDialogWithCheckbox widget . Custom
     Alert Dialog with check box is a popup.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_alert_dialog_with_checkbox.dart
 
 ##### talawa package

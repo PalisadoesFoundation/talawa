@@ -12,10 +12,10 @@
 
 </div>
 
-[[Comment](../../models_comment_comment_model/Comment-class.html)]
+[[Comment](../../models_comment_comment_model/Comment-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -55,9 +55,9 @@ Comment read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_model](../../models_comment_comment_model/)
-3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.html)
+3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.md)
 4.  read method
 
 ##### CommentAdapter class

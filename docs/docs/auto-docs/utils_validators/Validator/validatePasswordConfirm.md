@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 validatePasswordConfirm(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     value, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     comparator]
@@ -51,9 +51,9 @@ static String? validatePasswordConfirm(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [validators](../../utils_validators/)
-3.  [Validator](../../utils_validators/Validator-class.html)
+3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validatePasswordConfirm static method
 
 ##### Validator class

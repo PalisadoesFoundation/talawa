@@ -1,3 +1,7 @@
+---
+title: "widgets_from_palisadoes"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[FromPalisadoes](../widgets_from_palisadoes/FromPalisadoes-class.html)]
+[[FromPalisadoes](../widgets_from_palisadoes/FromPalisadoes-class.md)]
 :   This class generates the text /"From Palisadoes/" in a custom way.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//from_palisadoes.dart
 
 ##### talawa package

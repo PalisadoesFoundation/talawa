@@ -12,7 +12,7 @@
 
 </div>
 
-[[PostContainerState](../../widgets_post_container/PostContainerState-class.html)]
+[[PostContainerState](../../widgets_post_container/PostContainerState-class.md)]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../widgets_post_container/PostContainer/createState.html)
+[createState](../../widgets_post_container/PostContainer/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ PostContainerState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_container](../../widgets_post_container/)
-3.  [PostContainer](../../widgets_post_container/PostContainer-class.html)
+3.  [PostContainer](../../widgets_post_container/PostContainer-class.md)
 4.  createState method
 
 ##### PostContainer class

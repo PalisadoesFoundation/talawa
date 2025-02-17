@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_add_post_page/AddPost/createState.html)
+[createState](../../views_after_auth_screens_add_post_page/AddPost/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<AddPost>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [add_post_page](../../views_after_auth_screens_add_post_page/)
-3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.html)
+3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
 4.  createState method
 
 ##### AddPost class

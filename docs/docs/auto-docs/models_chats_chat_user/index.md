@@ -1,3 +1,7 @@
+---
+title: "models_chats_chat_user"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatUser](../models_chats_chat_user/ChatUser-class.html)]
+[[ChatUser](../models_chats_chat_user/ChatUser-class.md)]
 :   This class creates JSON code for chat user using the
     JsonSerializable package.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//chats//chat_user.dart
 
 ##### talawa package

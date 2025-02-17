@@ -1,3 +1,7 @@
+---
+title: "services_session_manager"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SessionManager](../services_session_manager/SessionManager-class.html)]
+[[SessionManager](../services_session_manager/SessionManager-class.md)]
 :   Manages user sessions and periodically refreshes access tokens.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//session_manager.dart
 
 ##### talawa package

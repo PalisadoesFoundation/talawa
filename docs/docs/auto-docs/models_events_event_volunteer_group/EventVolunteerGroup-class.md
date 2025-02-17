@@ -13,11 +13,11 @@ EventVolunteerGroup instance.
 
 ## Constructors
 
-[[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup/EventVolunteerGroup.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] createdAt, ][[[User](../models_user_user_info/User-class.html)?] creator, ][[[Event](../models_events_event_model/Event-class.html)?] event, ][[[User](../models_user_user_info/User-class.html)?] leader, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] updatedAt, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.html)]\>]?] volunteers, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] volunteersRequired]})]
+[[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup/EventVolunteerGroup.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] createdAt, ][[[User](../models_user_user_info/User-class.md)?] creator, ][[[Event](../models_events_event_model/Event-class.md)?] event, ][[[User](../models_user_user_info/User-class.md)?] leader, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] updatedAt, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.md)]\>]?] volunteers, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] volunteersRequired]})]
 
 :   
 
-[[EventVolunteerGroup.fromJson](../models_events_event_volunteer_group/EventVolunteerGroup/EventVolunteerGroup.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[EventVolunteerGroup.fromJson](../models_events_event_volunteer_group/EventVolunteerGroup/EventVolunteerGroup.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
 :   ::: 
     factory
@@ -27,19 +27,19 @@ EventVolunteerGroup instance.
 
 ## Properties
 
-[[createdAt](../models_events_event_volunteer_group/EventVolunteerGroup/createdAt.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[createdAt](../models_events_event_volunteer_group/EventVolunteerGroup/createdAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The creation date of the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[creator](../models_events_event_volunteer_group/EventVolunteerGroup/creator.html)] [↔ [User](../models_user_user_info/User-class.html)?]
+[[creator](../models_events_event_volunteer_group/EventVolunteerGroup/creator.md)] [↔ [User](../models_user_user_info/User-class.md)?]
 :   The creator of the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[event](../models_events_event_volunteer_group/EventVolunteerGroup/event.html)] [↔ [Event](../models_events_event_model/Event-class.html)?]
+[[event](../models_events_event_volunteer_group/EventVolunteerGroup/event.md)] [↔ [Event](../models_events_event_model/Event-class.md)?]
 :   The event associated with the event volunteer group.
     ::: features
     getter/setter pair
@@ -51,19 +51,19 @@ EventVolunteerGroup instance.
     no setterinherited
     :::
 
-[[id](../models_events_event_volunteer_group/EventVolunteerGroup/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_events_event_volunteer_group/EventVolunteerGroup/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Unique identifier for the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[leader](../models_events_event_volunteer_group/EventVolunteerGroup/leader.html)] [↔ [User](../models_user_user_info/User-class.html)?]
+[[leader](../models_events_event_volunteer_group/EventVolunteerGroup/leader.md)] [↔ [User](../models_user_user_info/User-class.md)?]
 :   The leader of the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[name](../models_events_event_volunteer_group/EventVolunteerGroup/name.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[name](../models_events_event_volunteer_group/EventVolunteerGroup/name.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The name of the event volunteer group.
     ::: features
     getter/setter pair
@@ -75,19 +75,19 @@ EventVolunteerGroup instance.
     no setterinherited
     :::
 
-[[updatedAt](../models_events_event_volunteer_group/EventVolunteerGroup/updatedAt.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[updatedAt](../models_events_event_volunteer_group/EventVolunteerGroup/updatedAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The last update date of the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[volunteers](../models_events_event_volunteer_group/EventVolunteerGroup/volunteers.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.html)]\>]?]
+[[volunteers](../models_events_event_volunteer_group/EventVolunteerGroup/volunteers.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../models_events_event_volunteer/EventVolunteer-class.md)]\>]?]
 :   The list of volunteers in the event volunteer group.
     ::: features
     getter/setter pair
     :::
 
-[[volunteersRequired](../models_events_event_volunteer_group/EventVolunteerGroup/volunteersRequired.html)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+[[volunteersRequired](../models_events_event_volunteer_group/EventVolunteerGroup/volunteersRequired.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
 :   The number of volunteers required for the event volunteer group.
     ::: features
     getter/setter pair
@@ -97,7 +97,7 @@ EventVolunteerGroup instance.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -113,7 +113,7 @@ EventVolunteerGroup instance.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -125,7 +125,7 @@ EventVolunteerGroup instance.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_volunteer_group](../models_events_event_volunteer_group/)
 3.  EventVolunteerGroup class
 

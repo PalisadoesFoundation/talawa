@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
 addAction(
 
-1.  [[[CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.html)]
+1.  [[[CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)]
     action]
 
 )
@@ -50,9 +50,9 @@ Future<bool> addAction(CachedUserAction action) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [offline_action_queue](../../services_caching_offline_action_queue/)
-3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.html)
+3.  [OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
 4.  addAction method
 
 ##### OfflineActionQueue class

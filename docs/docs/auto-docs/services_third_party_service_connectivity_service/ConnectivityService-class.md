@@ -12,21 +12,21 @@ and handling.
 It includes methods for:
 
 -   Initializing the network service -
-    [initConnectivity](../services_third_party_service_connectivity_service/ConnectivityService/initConnectivity.html)
+    [initConnectivity](../services_third_party_service_connectivity_service/ConnectivityService/initConnectivity.md)
 -   Monitoring connectivity changes -
-    [enableSubscription](../services_third_party_service_connectivity_service/ConnectivityService/enableSubscription.html)
+    [enableSubscription](../services_third_party_service_connectivity_service/ConnectivityService/enableSubscription.md)
 -   Handling online and offline states - `handleOnline`, `handleOffline`
 -   Checking reachability of a given URI -
-    [isReachable](../services_third_party_service_connectivity_service/ConnectivityService/isReachable.html)
+    [isReachable](../services_third_party_service_connectivity_service/ConnectivityService/isReachable.md)
 -   Handling the device\'s connectivity status - `handleConnection`
 -   Checking if the device has any type of network connection -
-    [hasConnection](../services_third_party_service_connectivity_service/ConnectivityService/hasConnection.html)
+    [hasConnection](../services_third_party_service_connectivity_service/ConnectivityService/hasConnection.md)
 
 
 
 ## Constructors
 
-[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.html)][([[[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)] connectivityInstance])]
+[[ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService/ConnectivityService.md)][([[[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.md)] connectivityInstance])]
 
 :   
 
@@ -34,19 +34,19 @@ It includes methods for:
 
 ## Properties
 
-[[connectionStatusController](../services_third_party_service_connectivity_service/ConnectivityService/connectionStatusController.html)] [↔ [StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
+[[connectionStatusController](../services_third_party_service_connectivity_service/ConnectivityService/connectionStatusController.md)] [↔ [StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
 :   Stream controller for network status changes.
     ::: features
     getter/setter pair
     :::
 
-[[connectionStream](../services_third_party_service_connectivity_service/ConnectivityService/connectionStream.html)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
+[[connectionStream](../services_third_party_service_connectivity_service/ConnectivityService/connectionStream.md)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
 :   Getter for the stream of connection status changes.
     ::: features
     no setter
     :::
 
-[[connectivityInstance](../services_third_party_service_connectivity_service/ConnectivityService/connectivityInstance.html)] [↔ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)]
+[[connectivityInstance](../services_third_party_service_connectivity_service/ConnectivityService/connectivityInstance.md)] [↔ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)]
 :   dependency injection connectivity.
     ::: features
     latefinal
@@ -68,24 +68,24 @@ It includes methods for:
 
 ## Methods
 
-[[enableSubscription](../services_third_party_service_connectivity_service/ConnectivityService/enableSubscription.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[enableSubscription](../services_third_party_service_connectivity_service/ConnectivityService/enableSubscription.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function enables the subscription to connectivity changes.
 
-[[getConnectionType](../services_third_party_service_connectivity_service/ConnectivityService/getConnectionType.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]] ]
+[[getConnectionType](../services_third_party_service_connectivity_service/ConnectivityService/getConnectionType.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]] ]
 :   Checks the current internet connectivity status of the device.
 
-[[hasConnection](../services_third_party_service_connectivity_service/ConnectivityService/hasConnection.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[hasConnection](../services_third_party_service_connectivity_service/ConnectivityService/hasConnection.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   This function checks if the device currently has any type of network
     connection.
 
-[[initConnectivity](../services_third_party_service_connectivity_service/ConnectivityService/initConnectivity.html)][({[required [[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.html)] client]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[initConnectivity](../services_third_party_service_connectivity_service/ConnectivityService/initConnectivity.md)][({[required [[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.md)] client]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function initializes connectivity monitoring.
 
-[[isReachable](../services_third_party_service_connectivity_service/ConnectivityService/isReachable.html)][({[[[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.html)?] client, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] uriString]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[isReachable](../services_third_party_service_connectivity_service/ConnectivityService/isReachable.md)][({[[[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.md)?] client, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] uriString]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   This function checks if a given URI is reachable within a specified
     timeout period.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -101,7 +101,7 @@ It includes methods for:
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -113,7 +113,7 @@ It includes methods for:
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [connectivity_service](../services_third_party_service_connectivity_service/)
 3.  ConnectivityService class
 

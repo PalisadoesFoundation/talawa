@@ -27,9 +27,9 @@ static const Color blue = Color(0xFF2196F3);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [apptheme](../../apptheme/)
-3.  [AppTheme](../../apptheme/AppTheme-class.html)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
 4.  blue constant
 
 ##### AppTheme class

@@ -15,7 +15,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -32,7 +32,7 @@ The framework calls this method when this widget is inserted into the
 tree in a given
 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)
 and when the dependencies of this widget change (e.g., an
-[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)
+[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.md)
 referenced by this widget changes). This method can potentially be
 called in every frame and should not have any side effects beyond
 building a widget.
@@ -66,7 +66,7 @@ The implementation of this method must only depend on:
 -   any ambient state obtained from the `context` using
     [BuildContext.dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html).
 
-If a widget\'s [build](../../main/DemoPageView/build.html) method is to
+If a widget\'s [build](../../main/DemoPageView/build.md) method is to
 depend on anything else, use a
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 instead.
@@ -104,9 +104,9 @@ Widget build(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main](../../main/)
-3.  [DemoPageView](../../main/DemoPageView-class.html)
+3.  [DemoPageView](../../main/DemoPageView-class.md)
 4.  build method
 
 ##### DemoPageView class

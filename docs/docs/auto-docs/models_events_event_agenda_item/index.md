@@ -1,3 +1,7 @@
+---
+title: "models_events_event_agenda_item"
+---
+
 
 <div>
 
@@ -8,14 +12,14 @@
 
 ## Classes
 
-[[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem-class.html)]
+[[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem-class.md)]
 :   Model for Event Agenda Item.
 
 
 
 ## Enums
 
-[[ItemType](../models_events_event_agenda_item/ItemType.html)]
+[[ItemType](../models_events_event_agenda_item/ItemType.md)]
 :   enum for agenda Item type.
 
 
@@ -24,7 +28,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//events//event_agenda_item.dart
 
 ##### talawa package

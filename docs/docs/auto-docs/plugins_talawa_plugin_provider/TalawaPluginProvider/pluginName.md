@@ -31,9 +31,9 @@ final String pluginName;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
-3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.html)
+3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)
 4.  pluginName property
 
 ##### TalawaPluginProvider class

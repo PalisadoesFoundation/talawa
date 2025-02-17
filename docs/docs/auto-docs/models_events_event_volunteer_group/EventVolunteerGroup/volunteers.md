@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)]\>]?
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)]\>]?
 volunteers
 
 
@@ -31,9 +31,9 @@ List<EventVolunteer>? volunteers;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer_group](../../models_events_event_volunteer_group/)
-3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
 4.  volunteers property
 
 ##### EventVolunteerGroup class

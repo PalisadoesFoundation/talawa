@@ -25,15 +25,15 @@ Available extensions
 
 ## Values
 
-login [→ const [CallFor](../enums_enums/CallFor.html)]
+login [→ const [CallFor](../enums_enums/CallFor.md)]
 
 :   Represents the call for login.
 
-signup [→ const [CallFor](../enums_enums/CallFor.html)]
+signup [→ const [CallFor](../enums_enums/CallFor.md)]
 
 :   Represents the call for signup.
 
-joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
+joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.md)]
 
 :   Represents the call for joining Public organization.
 
@@ -77,7 +77,7 @@ joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -93,7 +93,7 @@ joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -103,7 +103,7 @@ joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
 
 ## Constants
 
-[[values](../enums_enums/CallFor/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../enums_enums/CallFor.html)]\>]]
+[[values](../enums_enums/CallFor/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../enums_enums/CallFor.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -113,7 +113,7 @@ joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  CallFor enum
 

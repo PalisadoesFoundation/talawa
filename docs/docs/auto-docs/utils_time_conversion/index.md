@@ -1,3 +1,7 @@
+---
+title: "utils_time_conversion"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Constants
 
-[[dateTimeFields](../utils_time_conversion/dateTimeFields-constant.html)] [→ const [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
+[[dateTimeFields](../utils_time_conversion/dateTimeFields-constant.md)] [→ const [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
 :   Contains information about the date and time fields used for
     conversion.
 
@@ -16,24 +20,24 @@
 
 ## Functions
 
-[[combineDateTime](../utils_time_conversion/combineDateTime.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] date, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] time]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[combineDateTime](../utils_time_conversion/combineDateTime.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] date, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] time]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Combines the given date and time strings into a single string.
 
-[[convertLocalToUTC](../utils_time_conversion/convertLocalToUTC.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] localTime]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[convertLocalToUTC](../utils_time_conversion/convertLocalToUTC.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] localTime]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Converts the given local time to UTC time.
 
-[[convertUTCToLocal](../utils_time_conversion/convertUTCToLocal.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] utcTime]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[convertUTCToLocal](../utils_time_conversion/convertUTCToLocal.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] utcTime]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Converts the given UTC time to local time.
 
-[[splitDateTimeLocal](../utils_time_conversion/splitDateTimeLocal.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] dateTimeStr]) [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] ]
+[[splitDateTimeLocal](../utils_time_conversion/splitDateTimeLocal.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] dateTimeStr]) [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] ]
 :   Splits the given local date and time string into separate date and
     time strings.
 
-[[splitDateTimeUTC](../utils_time_conversion/splitDateTimeUTC.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] dateTimeStr]) [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] ]
+[[splitDateTimeUTC](../utils_time_conversion/splitDateTimeUTC.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] dateTimeStr]) [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] ]
 :   Splits the given UTC date and time string into separate date and
     time strings.
 
-[[traverseAndConvertDates](../utils_time_conversion/traverseAndConvertDates.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic/>]] obj, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] convertFn([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]]), ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] splitFn([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]])]) → void ]
+[[traverseAndConvertDates](../utils_time_conversion/traverseAndConvertDates.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic/>]] obj, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] convertFn([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]]), ][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]] splitFn([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]])]) → void ]
 :   Traverses a nested map and converts date and time fields to the
     desired format.
 
@@ -43,7 +47,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//time_conversion.dart
 
 ##### talawa package

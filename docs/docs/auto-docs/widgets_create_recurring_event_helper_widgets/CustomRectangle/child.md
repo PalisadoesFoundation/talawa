@@ -31,9 +31,9 @@ final Widget child;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
-3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.html)
+3.  [CustomRectangle](../../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)
 4.  child property
 
 ##### CustomRectangle class

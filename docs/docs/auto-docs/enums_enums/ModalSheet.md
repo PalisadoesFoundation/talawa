@@ -25,11 +25,11 @@ Available extensions
 
 ## Values
 
-donation [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
+donation [→ const [ModalSheet](../enums_enums/ModalSheet.md)]
 
 :   Represents the modal sheet for donation.
 
-invite [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
+invite [→ const [ModalSheet](../enums_enums/ModalSheet.md)]
 
 :   Represents the modal sheet for invite.
 
@@ -73,7 +73,7 @@ invite [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -89,7 +89,7 @@ invite [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -99,7 +99,7 @@ invite [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
 
 ## Constants
 
-[[values](../enums_enums/ModalSheet/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ModalSheet](../enums_enums/ModalSheet.html)]\>]]
+[[values](../enums_enums/ModalSheet/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ModalSheet](../enums_enums/ModalSheet.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -109,7 +109,7 @@ invite [→ const [ModalSheet](../enums_enums/ModalSheet.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  ModalSheet enum
 

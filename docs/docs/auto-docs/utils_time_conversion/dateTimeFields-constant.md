@@ -45,7 +45,7 @@ const dateTimeFields = {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [time_conversion](../utils_time_conversion/)
 3.  dateTimeFields constant
 

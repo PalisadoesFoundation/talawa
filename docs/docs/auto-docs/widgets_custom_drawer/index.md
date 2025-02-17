@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_drawer"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomDrawer](../widgets_custom_drawer/CustomDrawer-class.html)]
+[[CustomDrawer](../widgets_custom_drawer/CustomDrawer-class.md)]
 :   Creates a custom drawer for switching organizations.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_drawer.dart
 
 ##### talawa package

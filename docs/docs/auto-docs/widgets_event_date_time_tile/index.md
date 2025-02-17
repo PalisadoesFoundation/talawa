@@ -1,3 +1,7 @@
+---
+title: "widgets_event_date_time_tile"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DateTimeTile](../widgets_event_date_time_tile/DateTimeTile-class.html)]
+[[DateTimeTile](../widgets_event_date_time_tile/DateTimeTile-class.md)]
 :   Returns a widget tile(item) for displaying date and time.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//event_date_time_tile.dart
 
 ##### talawa package

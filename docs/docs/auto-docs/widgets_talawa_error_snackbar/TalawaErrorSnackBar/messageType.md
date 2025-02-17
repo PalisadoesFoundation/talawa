@@ -6,7 +6,7 @@
 </div>
 
 
-[MessageType](../../enums_enums/MessageType.html) messageType
+[MessageType](../../enums_enums/MessageType.md) messageType
 
 
 final
@@ -30,9 +30,9 @@ final MessageType messageType;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/)
-3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.html)
+3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)
 4.  messageType property
 
 ##### TalawaErrorSnackBar class

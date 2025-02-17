@@ -10,14 +10,14 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[CachedOperationType](../enums_enums/CachedOperationType.html)]\>]
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[CachedOperationType](../enums_enums/CachedOperationType.md)]\>]
     -   CachedOperationTypeAdapter
 
 
 
 ## Constructors
 
-[CachedOperationTypeAdapter](../enums_enums/CachedOperationTypeAdapter/CachedOperationTypeAdapter.html)
+[CachedOperationTypeAdapter](../enums_enums/CachedOperationTypeAdapter/CachedOperationTypeAdapter.md)
 
 :   
 
@@ -25,7 +25,7 @@ Inheritance
 
 ## Properties
 
-[[hashCode](../enums_enums/CachedOperationTypeAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../enums_enums/CachedOperationTypeAdapter/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
     no setteroverride
@@ -37,7 +37,7 @@ Inheritance
     no setterinherited
     :::
 
-[[typeId](../enums_enums/CachedOperationTypeAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[typeId](../enums_enums/CachedOperationTypeAdapter/typeId.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
     final
@@ -47,13 +47,13 @@ Inheritance
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[read](../enums_enums/CachedOperationTypeAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [CachedOperationType](../enums_enums/CachedOperationType.html)] ]
+[[read](../enums_enums/CachedOperationTypeAdapter/read.md)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)] reader]) [→ [CachedOperationType](../enums_enums/CachedOperationType.md)] ]
 :   Is called when a value has to be decoded.
     ::: features
     override
@@ -65,7 +65,7 @@ Inheritance
     inherited
     :::
 
-[[write](../enums_enums/CachedOperationTypeAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[CachedOperationType](../enums_enums/CachedOperationType.html)] obj]) → void ]
+[[write](../enums_enums/CachedOperationTypeAdapter/write.md)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)] writer, ][[[CachedOperationType](../enums_enums/CachedOperationType.md)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
     override
@@ -75,7 +75,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](../enums_enums/CachedOperationTypeAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../enums_enums/CachedOperationTypeAdapter/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     override
@@ -87,7 +87,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  CachedOperationTypeAdapter class
 

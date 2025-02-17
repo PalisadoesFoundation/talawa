@@ -1,3 +1,7 @@
+---
+title: "models_post_post_model"
+---
+
 
 <div>
 
@@ -8,24 +12,24 @@
 
 ## Classes
 
-[[Comments](../models_post_post_model/Comments-class.html)]
+[[Comments](../models_post_post_model/Comments-class.md)]
 :   This class convert between json and object for comments.
 
-[[CommentsAdapter](../models_post_post_model/CommentsAdapter-class.html)]
+[[CommentsAdapter](../models_post_post_model/CommentsAdapter-class.md)]
 
 :   
 
-[[LikedBy](../models_post_post_model/LikedBy-class.html)]
+[[LikedBy](../models_post_post_model/LikedBy-class.md)]
 :   This class convert between json and object for likedby.
 
-[[LikedByAdapter](../models_post_post_model/LikedByAdapter-class.html)]
+[[LikedByAdapter](../models_post_post_model/LikedByAdapter-class.md)]
 
 :   
 
-[[Post](../models_post_post_model/Post-class.html)]
+[[Post](../models_post_post_model/Post-class.md)]
 :   This class creates a Post model.
 
-[[PostAdapter](../models_post_post_model/PostAdapter-class.html)]
+[[PostAdapter](../models_post_post_model/PostAdapter-class.md)]
 
 :   
 
@@ -35,7 +39,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//post//post_model.dart
 
 ##### talawa package

@@ -10,7 +10,7 @@
 initializeHive({
 
 1.  [required
-    [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.html)]
+    [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.md)]
     dir, ]
 
 })
@@ -46,9 +46,9 @@ static Future<void> initializeHive({required Directory dir}) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [hive_manager](../../services_hive_manager/)
-3.  [HiveManager](../../services_hive_manager/HiveManager-class.html)
+3.  [HiveManager](../../services_hive_manager/HiveManager-class.md)
 4.  initializeHive static method
 
 ##### HiveManager class

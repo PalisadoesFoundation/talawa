@@ -8,7 +8,7 @@
 
 const CustomAlertDialog({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     successText = \'Confirm\',
@@ -36,7 +36,7 @@ const CustomAlertDialog({
 
 
 Constructs a
-[CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.html)
+[CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 widget.
 
 `reverse` indicates whether the order of action buttons should be
@@ -72,9 +72,9 @@ const CustomAlertDialog({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
-3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.html)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 4.  CustomAlertDialog const constructor
 
 ##### CustomAlertDialog class

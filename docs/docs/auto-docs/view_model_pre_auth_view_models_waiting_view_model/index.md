@@ -1,3 +1,7 @@
+---
+title: "view_model_pre_auth_view_models_waiting_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[WaitingViewModel](../view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel-class.html)]
+[[WaitingViewModel](../view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel-class.md)]
 :   WaitingViewModel class helps to interact with model to serve data
     and react to user/'s input for Waiting section.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//pre_auth_view_models//waiting_view_model.dart
 
 ##### talawa package

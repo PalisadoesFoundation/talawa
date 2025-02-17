@@ -20,11 +20,11 @@ Annotations
 
 ## Constructors
 
-[[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] firstName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] image]})]
+[[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] firstName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] image]})]
 
 :   
 
-[[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
 :   ::: 
     factory
@@ -34,7 +34,7 @@ Annotations
 
 ## Properties
 
-[[firstName](../models_chats_chat_user/ChatUser/firstName.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[firstName](../models_chats_chat_user/ChatUser/firstName.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
     getter/setter pair
@@ -46,13 +46,13 @@ Annotations
     no setterinherited
     :::
 
-[[id](../models_chats_chat_user/ChatUser/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_chats_chat_user/ChatUser/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[image](../models_chats_chat_user/ChatUser/image.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[image](../models_chats_chat_user/ChatUser/image.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
     getter/setter pair
@@ -68,13 +68,13 @@ Annotations
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toJson](../models_chats_chat_user/ChatUser/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_chats_chat_user/ChatUser/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 
 :   
 
@@ -88,7 +88,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -100,7 +100,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [chat_user](../models_chats_chat_user/)
 3.  ChatUser class
 

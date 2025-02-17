@@ -10,13 +10,13 @@ void showTutorial({
 
 1.  required [dynamic
     onClickTarget(]
-    1.  [[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]]
+    1.  [[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)]]
 
     ),
 2.  required [dynamic ,
     ]
 3.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../../models_app_tour/FocusTarget-class.html)]\>]]
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../../models_app_tour/FocusTarget-class.md)]\>]]
     targets, ]
 
 })
@@ -79,9 +79,9 @@ void showTutorial({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_tour](../../models_app_tour/)
-3.  [AppTour](../../models_app_tour/AppTour-class.html)
+3.  [AppTour](../../models_app_tour/AppTour-class.md)
 4.  showTutorial method
 
 ##### AppTour class

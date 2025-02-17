@@ -1,3 +1,7 @@
+---
+title: "widgets_organization_search_list"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganizationSearchList](../widgets_organization_search_list/OrganizationSearchList-class.html)]
+[[OrganizationSearchList](../widgets_organization_search_list/OrganizationSearchList-class.md)]
 :   This widget displays a list of organizations searched via the search
     bar.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//organization_search_list.dart
 
 ##### talawa package

@@ -8,7 +8,7 @@
 
 const PinnedPostScreen({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
     [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
@@ -33,9 +33,9 @@ const PinnedPostScreen({super.key, required this.post, this.cacheManager});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_post_screen](../../views_after_auth_screens_feed_pinned_post_screen/)
-3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)
+3.  [PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)
 4.  PinnedPostScreen const constructor
 
 ##### PinnedPostScreen class

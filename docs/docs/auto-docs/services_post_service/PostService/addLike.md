@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
 addLike(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     postID]
 
 )
@@ -61,9 +61,9 @@ Future<bool> addLike(String postID) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_service](../../services_post_service/)
-3.  [PostService](../../services_post_service/PostService-class.html)
+3.  [PostService](../../services_post_service/PostService-class.md)
 4.  addLike method
 
 ##### PostService class

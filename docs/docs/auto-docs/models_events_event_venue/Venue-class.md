@@ -12,10 +12,10 @@ The `Venue` class represents a venue for events.
 
 ## Constructors
 
-[[Venue](../models_events_event_venue/Venue/Venue.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] capacity, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] imageUrl, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] organizationId]})]
+[[Venue](../models_events_event_venue/Venue/Venue.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] capacity, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] imageUrl, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] organizationId]})]
 :   Constructs a `Venue` instance.
 
-[[Venue.fromJson](../models_events_event_venue/Venue/Venue.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[Venue.fromJson](../models_events_event_venue/Venue/Venue.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creates a `Venue` instance from a JSON object.
     ::: 
     factory
@@ -25,13 +25,13 @@ The `Venue` class represents a venue for events.
 
 ## Properties
 
-[[capacity](../models_events_event_venue/Venue/capacity.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+[[capacity](../models_events_event_venue/Venue/capacity.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
 :   The maximum number of people the venue can accommodate.
     ::: features
     final
     :::
 
-[[description](../models_events_event_venue/Venue/description.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[description](../models_events_event_venue/Venue/description.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Provides additional details about the venue.
     ::: features
     final
@@ -43,25 +43,25 @@ The `Venue` class represents a venue for events.
     no setterinherited
     :::
 
-[[id](../models_events_event_venue/Venue/id.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_events_event_venue/Venue/id.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The unique identifier of the venue.
     ::: features
     final
     :::
 
-[[imageUrl](../models_events_event_venue/Venue/imageUrl.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[imageUrl](../models_events_event_venue/Venue/imageUrl.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The URL of the venue\'s image.
     ::: features
     final
     :::
 
-[[name](../models_events_event_venue/Venue/name.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[name](../models_events_event_venue/Venue/name.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The name of the venue.
     ::: features
     final
     :::
 
-[[organizationId](../models_events_event_venue/Venue/organizationId.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[organizationId](../models_events_event_venue/Venue/organizationId.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The identifier of the organization to which the venue belongs.
     ::: features
     final
@@ -77,7 +77,7 @@ The `Venue` class represents a venue for events.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -93,7 +93,7 @@ The `Venue` class represents a venue for events.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -105,7 +105,7 @@ The `Venue` class represents a venue for events.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_venue](../models_events_event_venue/)
 3.  Venue class
 

@@ -8,7 +8,7 @@
 
 void initialize(
 
-1.  [[[Event](../../models_events_event_model/Event-class.html)]
+1.  [[[Event](../../models_events_event_model/Event-class.md)]
     event]
 
 )
@@ -41,9 +41,9 @@ void initialize(Event event) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
-3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.html)
+3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
 4.  initialize method
 
 ##### EditEventViewModel class

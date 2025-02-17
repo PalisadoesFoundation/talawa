@@ -1,3 +1,7 @@
+---
+title: "widgets_multi_reaction"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MultiReactButton](../widgets_multi_reaction/MultiReactButton-class.html)]
+[[MultiReactButton](../widgets_multi_reaction/MultiReactButton-class.md)]
 :   Reaction Button with multiple Emojis.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//multi_reaction.dart
 
 ##### talawa package

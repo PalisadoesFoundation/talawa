@@ -1,3 +1,7 @@
+---
+title: "custom_painters_language_icon"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[LanguageIcon](../custom_painters_language_icon/LanguageIcon-class.html)]
+[[LanguageIcon](../custom_painters_language_icon/LanguageIcon-class.md)]
 :   This class draws the language icon using custom paint.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  custom_painters//language_icon.dart
 
 ##### talawa package

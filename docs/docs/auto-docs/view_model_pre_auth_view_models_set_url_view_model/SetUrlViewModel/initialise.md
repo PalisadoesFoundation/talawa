@@ -8,7 +8,7 @@
 
 void initialise({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     inviteUrl = \'\',
     ]
 
@@ -86,9 +86,9 @@ void initialise({String inviteUrl = ''}) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
-3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.html)
+3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
 4.  initialise method
 
 ##### SetUrlViewModel class

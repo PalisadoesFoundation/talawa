@@ -6,7 +6,7 @@
 </div>
 
 
-[OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.html)
+[OfflineActionQueue](../../services_caching_offline_action_queue/OfflineActionQueue-class.md)
 offlineActionQueue
 
 
@@ -31,9 +31,9 @@ late final OfflineActionQueue offlineActionQueue;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cache_service](../../services_caching_cache_service/)
-3.  [CacheService](../../services_caching_cache_service/CacheService-class.html)
+3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
 4.  offlineActionQueue property
 
 ##### CacheService class

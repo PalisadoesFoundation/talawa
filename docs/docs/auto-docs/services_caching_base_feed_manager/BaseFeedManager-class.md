@@ -20,7 +20,7 @@ handles automatic cache refreshing when online.
 **methods**:
 
 -   `loadCachedData`: Loads the data cached in Hive for the specified
-    [cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.html).
+    [cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md).
 -   `saveDataToCache`: Saves a list of data to the cache, clearing any
     existing data in the process.
 -   `fetchDataFromApi`: Abstract method to be implemented by subclasses
@@ -34,14 +34,14 @@ handles automatic cache refreshing when online.
 
 Implementers
 
-:   -   [EventService](../services_event_service/EventService-class.html)
-    -   [PostService](../services_post_service/PostService-class.html)
+:   -   [EventService](../services_event_service/EventService-class.md)
+    -   [PostService](../services_post_service/PostService-class.md)
 
 
 
 ## Constructors
 
-[[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] cacheKey])]
+[[BaseFeedManager](../services_caching_base_feed_manager/BaseFeedManager/BaseFeedManager.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] cacheKey])]
 
 :   
 
@@ -49,7 +49,7 @@ Implementers
 
 ## Properties
 
-[[cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[cacheKey](../services_caching_base_feed_manager/BaseFeedManager/cacheKey.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   feed cacheBox key.
     ::: features
     final
@@ -71,24 +71,24 @@ Implementers
 
 ## Methods
 
-[[fetchDataFromApi](../services_caching_base_feed_manager/BaseFeedManager/fetchDataFromApi.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
+[[fetchDataFromApi](../services_caching_base_feed_manager/BaseFeedManager/fetchDataFromApi.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
 :   Abstract method to be implemented by subclasses to fetch data from
     an API.
 
-[[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
+[[getNewFeedAndRefreshCache](../services_caching_base_feed_manager/BaseFeedManager/getNewFeedAndRefreshCache.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
 :   Fetches new data from the API if online, updates the cache, and
     returns the data.
 
-[[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
+[[loadCachedData](../services_caching_base_feed_manager/BaseFeedManager/loadCachedData.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]\>]] ]
 :   Loads the data cached in Hive.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]] data]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[saveDataToCache](../services_caching_base_feed_manager/BaseFeedManager/saveDataToCache.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)\<[T\>]] data]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Saves a list of data to the cache, replacing any existing data.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -101,7 +101,7 @@ Implementers
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -113,7 +113,7 @@ Implementers
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [base_feed_manager](../services_caching_base_feed_manager/)
 3.  BaseFeedManager\<[T\>] class
 

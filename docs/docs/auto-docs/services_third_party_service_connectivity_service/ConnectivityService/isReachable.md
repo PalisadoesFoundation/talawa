@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
 isReachable({
 
-1.  [[[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.html)?]
+1.  [[[Client](https://pub.dev/documentation/http/1.2.2/http/Client-class.md)?]
     client, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     uriString, ]
@@ -61,9 +61,9 @@ Future<bool> isReachable({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
-3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.html)
+3.  [ConnectivityService](../../services_third_party_service_connectivity_service/ConnectivityService-class.md)
 4.  isReachable method
 
 ##### ConnectivityService class

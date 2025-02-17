@@ -12,14 +12,14 @@ This class fetch plugins list.
 
 ## Constructors
 
-[FetchPluginList](../plugins_fetch_plugin_list/FetchPluginList/FetchPluginList.html)
+[FetchPluginList](../plugins_fetch_plugin_list/FetchPluginList/FetchPluginList.md)
 :   Constructor of the class.
 
 
 
 ## Properties
 
-[[box](../plugins_fetch_plugin_list/FetchPluginList/box.html)] [↔ [Box](https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html)]
+[[box](../plugins_fetch_plugin_list/FetchPluginList/box.md)] [↔ [Box](https://pub.dev/documentation/hive/2.2.3/hive/Box-class.html)]
 :   late initialize the box.
     ::: features
     getter/setter pair
@@ -41,10 +41,10 @@ This class fetch plugins list.
 
 ## Methods
 
-[[fetchList](../plugins_fetch_plugin_list/FetchPluginList/fetchList.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[fetchList](../plugins_fetch_plugin_list/FetchPluginList/fetchList.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Fetches plugins from server and stores them in Hive `pluginBox`.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -60,7 +60,7 @@ This class fetch plugins list.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -72,7 +72,7 @@ This class fetch plugins list.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [fetch_plugin_list](../plugins_fetch_plugin_list/)
 3.  FetchPluginList class
 

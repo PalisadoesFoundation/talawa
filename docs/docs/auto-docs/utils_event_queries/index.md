@@ -1,3 +1,7 @@
+---
+title: "utils_event_queries"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventQueries](../utils_event_queries/EventQueries-class.html)]
+[[EventQueries](../utils_event_queries/EventQueries-class.md)]
 :   This class creates queries related to the events.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//event_queries.dart
 
 ##### talawa package

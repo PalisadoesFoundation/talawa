@@ -22,14 +22,14 @@ Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
+    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
     -   LikeButtonViewModel
 
 
 
 ## Constructors
 
-[LikeButtonViewModel](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/LikeButtonViewModel.html)
+[LikeButtonViewModel](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/LikeButtonViewModel.md)
 
 :   
 
@@ -49,25 +49,25 @@ Inheritance
     no setterinherited
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
     :::
 
-[[isLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/isLiked.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/isLiked.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Getters.
     ::: features
     no setter
     :::
 
-[[likedBy](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/likedBy.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]\>]]
+[[likedBy](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/likedBy.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.md)]\>]]
 
 :   ::: features
     no setter
     :::
 
-[[likesCount](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/likesCount.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[likesCount](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/likesCount.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 
 :   ::: features
     no setter
@@ -79,7 +79,7 @@ Inheritance
     no setterinherited
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
+[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
 
 :   ::: features
     no setterinherited
@@ -89,28 +89,28 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
     inherited
     :::
 
-[checkAndSetTheIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/checkAndSetTheIsLiked.html) [→ void ]
+[checkAndSetTheIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/checkAndSetTheIsLiked.md) [→ void ]
 :   function to set isLiked boolean and check.
 
-[dispose](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/dispose.html) [→ void ]
+[dispose](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/dispose.md) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
+    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
     will throw after the object is disposed).
     ::: features
     override
     :::
 
-[[initialize](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/initialize.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]\>]] likedBy, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] postID]) → void ]
+[[initialize](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/initialize.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[LikedBy](../models_post_post_model/LikedBy-class.md)]\>]] likedBy, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] postID]) → void ]
 :   First function to initialize the ViewModel.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -122,23 +122,23 @@ Inheritance
     inherited
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
     inherited
     :::
 
-[[setIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/setIsLiked.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] val = true]}) → void ]
+[[setIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/setIsLiked.md)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)] val = true]}) → void ]
 :   function to set isLiked boolean.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
+[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
 
 :   ::: features
     inherited
     :::
 
-[toggleIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/toggleIsLiked.html) [→ void ]
+[toggleIsLiked](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/toggleIsLiked.md) [→ void ]
 :   function to toggleisLiked boolean.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -147,14 +147,14 @@ Inheritance
     inherited
     :::
 
-[[updatePost](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/updatePost.html)][([[[Post](../models_post_post_model/Post-class.html)] post]) → void ]
+[[updatePost](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel/updatePost.md)][([[[Post](../models_post_post_model/Post-class.md)] post]) → void ]
 :   function to update the Post.
 
 
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -166,7 +166,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [like_button_view_model](../view_model_widgets_view_models_like_button_view_model/)
 3.  LikeButtonViewModel class
 

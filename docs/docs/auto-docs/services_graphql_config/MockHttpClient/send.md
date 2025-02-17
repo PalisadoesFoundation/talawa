@@ -15,7 +15,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[StreamedResponse](https://pub.dev/documentation/http/1.2.2/http/StreamedResponse-class.html)]\>]]
 send(
 
-1.  [[[BaseRequest](https://pub.dev/documentation/http/1.2.2/http/BaseRequest-class.html)?]
+1.  [[[BaseRequest](https://pub.dev/documentation/http/1.2.2/http/BaseRequest-class.md)?]
     request]
 
 )
@@ -53,9 +53,9 @@ Future<http.StreamedResponse> send(http.BaseRequest? request) =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [graphql_config](../../services_graphql_config/)
-3.  [MockHttpClient](../../services_graphql_config/MockHttpClient-class.html)
+3.  [MockHttpClient](../../services_graphql_config/MockHttpClient-class.md)
 4.  send method
 
 ##### MockHttpClient class

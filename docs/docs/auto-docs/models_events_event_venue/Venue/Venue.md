@@ -8,7 +8,7 @@
 
 Venue({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]
     id, ]
 2.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
     capacity, ]
@@ -54,9 +54,9 @@ Venue({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_venue](../../models_events_event_venue/)
-3.  [Venue](../../models_events_event_venue/Venue-class.html)
+3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  Venue constructor
 
 ##### Venue class

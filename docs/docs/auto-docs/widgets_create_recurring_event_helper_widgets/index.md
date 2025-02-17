@@ -1,3 +1,7 @@
+---
+title: "widgets_create_recurring_event_helper_widgets"
+---
+
 
 <div>
 
@@ -8,16 +12,16 @@
 
 ## Classes
 
-[[CustomRectangle](../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.html)]
+[[CustomRectangle](../widgets_create_recurring_event_helper_widgets/CustomRectangle-class.md)]
 :   Builds a rectangle with custom properties.
 
-[[CustomTextField](../widgets_create_recurring_event_helper_widgets/CustomTextField-class.html)]
+[[CustomTextField](../widgets_create_recurring_event_helper_widgets/CustomTextField-class.md)]
 :   Builds a TextField with custom properties.
 
-[[EventEndOptions](../widgets_create_recurring_event_helper_widgets/EventEndOptions-class.html)]
+[[EventEndOptions](../widgets_create_recurring_event_helper_widgets/EventEndOptions-class.md)]
 :   Event ending configuration options.
 
-[[RecurrenceFrequencyDropdown](../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.html)]
+[[RecurrenceFrequencyDropdown](../widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class.md)]
 :   Recurrence Frequency selection widget.
 
 
@@ -26,7 +30,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//create_recurring_event_helper_widgets.dart
 
 ##### talawa package

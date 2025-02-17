@@ -40,7 +40,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_pre_auth_screens_recover/Recover/createState.html)
+[createState](../../views_pre_auth_screens_recover/Recover/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -62,9 +62,9 @@ _RecoverState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [recover](../../views_pre_auth_screens_recover/)
-3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.html)
+3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
 4.  createState method
 
 ##### Recover class

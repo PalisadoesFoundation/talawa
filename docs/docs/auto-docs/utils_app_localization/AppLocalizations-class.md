@@ -13,7 +13,7 @@ be available to users with different languages.
 
 ## Constructors
 
-[[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale, {][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isTest = false]})]
+[[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.md)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)] locale, {][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isTest = false]})]
 
 :   
 
@@ -27,13 +27,13 @@ be available to users with different languages.
     no setterinherited
     :::
 
-[[isTest](../utils_app_localization/AppLocalizations/isTest.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isTest](../utils_app_localization/AppLocalizations/isTest.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[locale](../utils_app_localization/AppLocalizations/locale.html)] [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+[[locale](../utils_app_localization/AppLocalizations/locale.md)] [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
 
 :   ::: features
     final
@@ -49,21 +49,21 @@ be available to users with different languages.
 
 ## Methods
 
-[[load](../utils_app_localization/AppLocalizations/load.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[load](../utils_app_localization/AppLocalizations/load.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 
 :   
 
-[[loadTest](../utils_app_localization/AppLocalizations/loadTest.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]] ]
+[[loadTest](../utils_app_localization/AppLocalizations/loadTest.md)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)] locale]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)]\>]] ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[strictTranslate](../utils_app_localization/AppLocalizations/strictTranslate.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[strictTranslate](../utils_app_localization/AppLocalizations/strictTranslate.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
@@ -73,7 +73,7 @@ be available to users with different languages.
     inherited
     :::
 
-[[translate](../utils_app_localization/AppLocalizations/translate.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
+[[translate](../utils_app_localization/AppLocalizations/translate.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 
 :   
 
@@ -81,7 +81,7 @@ be available to users with different languages.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -91,7 +91,7 @@ be available to users with different languages.
 
 ## Static Methods
 
-[[of](../utils_app_localization/AppLocalizations/of.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.html)?] ]
+[[of](../utils_app_localization/AppLocalizations/of.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.md)?] ]
 
 :   
 
@@ -99,7 +99,7 @@ be available to users with different languages.
 
 ## Constants
 
-[[delegate](../utils_app_localization/AppLocalizations/delegate-constant.html)] [→ const [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]]
+[[delegate](../utils_app_localization/AppLocalizations/delegate-constant.md)] [→ const [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)]\>]]
 
 :   
 
@@ -109,7 +109,7 @@ be available to users with different languages.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [app_localization](../utils_app_localization/)
 3.  AppLocalizations class
 

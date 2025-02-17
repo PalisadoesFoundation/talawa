@@ -9,7 +9,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 invite(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -126,7 +126,7 @@ Widget invite(BuildContext context) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [invite_child](../widgets_invite_child/)
 3.  invite function
 

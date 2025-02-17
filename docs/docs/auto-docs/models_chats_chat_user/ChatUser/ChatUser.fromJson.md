@@ -8,7 +8,7 @@
 
 ChatUser.fromJson(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     json]
 
@@ -29,9 +29,9 @@ factory ChatUser.fromJson(Map<String, dynamic> json) =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [chat_user](../../models_chats_chat_user/)
-3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.html)
+3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
 4.  ChatUser.fromJson factory constructor
 
 ##### ChatUser class

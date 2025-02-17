@@ -6,7 +6,7 @@
 </div>
 
 
-[SessionManager](../services_session_manager/SessionManager-class.html)
+[SessionManager](../services_session_manager/SessionManager-class.md)
 sessionManager
 
 
@@ -31,7 +31,7 @@ final sessionManager = locator<SessionManager>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  sessionManager property
 

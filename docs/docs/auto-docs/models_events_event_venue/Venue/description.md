@@ -31,9 +31,9 @@ final String? description;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_venue](../../models_events_event_venue/)
-3.  [Venue](../../models_events_event_venue/Venue-class.html)
+3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  description property
 
 ##### Venue class

@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_create_event_page"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Classes
 
-[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]
+[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)]
 :   CreateEventPage returns a widget that has mutable state
     /_CreateEventPageState.
 
-[[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)]
+[[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)]
 :   /_CreateEventPageState returns a widget for a Page to Creatxe the
     Event in the Organization.
 
@@ -22,7 +26,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//create_event_page.dart
 
 ##### talawa package

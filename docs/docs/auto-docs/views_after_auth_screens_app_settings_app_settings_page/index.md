@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_app_settings_app_settings_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppSettingsPage](../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.html)]
+[[AppSettingsPage](../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)]
 :   Widget representing the App Settings page.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//app_settings//app_settings_page.dart
 
 ##### talawa package

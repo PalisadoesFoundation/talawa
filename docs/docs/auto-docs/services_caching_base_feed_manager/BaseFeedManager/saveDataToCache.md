@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 saveDataToCache(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)\<[T\>]]
     data]
 
 )
@@ -47,9 +47,9 @@ Future<void> saveDataToCache(List<T> data) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [base_feed_manager](../../services_caching_base_feed_manager/)
-3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.html)
+3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
 4.  saveDataToCache method
 
 ##### BaseFeedManager class

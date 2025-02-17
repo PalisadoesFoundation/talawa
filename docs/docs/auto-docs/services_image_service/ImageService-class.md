@@ -18,7 +18,7 @@ Services include:
 
 ## Constructors
 
-[ImageService](../services_image_service/ImageService/ImageService.html)
+[ImageService](../services_image_service/ImageService/ImageService.md)
 
 :   
 
@@ -42,13 +42,13 @@ Services include:
 
 ## Methods
 
-[[convertToBase64](../services_image_service/ImageService/convertToBase64.html)][([[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)] file]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]] ]
+[[convertToBase64](../services_image_service/ImageService/convertToBase64.md)][([[[File](https://api.flutter.dev/flutter/dart-io/File-class.md)] file]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]] ]
 :   Converts the image into Base64 format.
 
-[[cropImage](../services_image_service/ImageService/cropImage.html)][({[required [[File](https://api.flutter.dev/flutter/dart-io/File-class.html)] imageFile]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]] ]
+[[cropImage](../services_image_service/ImageService/cropImage.md)][({[required [[File](https://api.flutter.dev/flutter/dart-io/File-class.md)] imageFile]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]] ]
 :   Crops the image selected by the user.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -64,7 +64,7 @@ Services include:
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -76,7 +76,7 @@ Services include:
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [image_service](../services_image_service/)
 3.  ImageService class
 

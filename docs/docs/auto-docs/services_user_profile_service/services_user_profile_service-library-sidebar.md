@@ -1,2 +1,2 @@
-1.  [Classes](services_user_profile_service/#classes)
-2.  [UserProfileService](services_user_profile_service/UserProfileService-class.html)
+1.  [Classes](./#classes)
+2.  [UserProfileService](./UserProfileService-class.md)

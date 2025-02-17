@@ -12,7 +12,7 @@
 
 </div>
 
-[[CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.html)]
+[[CreateAgendaItemPageState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.md)]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage/createState.html)
+[createState](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ CreateAgendaItemPageState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
-3.  [CreateAgendaItemPage](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)
+3.  [CreateAgendaItemPage](../../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)
 4.  createState method
 
 ##### CreateAgendaItemPage class

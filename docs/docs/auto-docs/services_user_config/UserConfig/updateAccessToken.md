@@ -10,7 +10,7 @@
 updateAccessToken({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     accessToken,
     ]
 2.  [required
@@ -52,9 +52,9 @@ Future<void> updateAccessToken({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  updateAccessToken method
 
 ##### UserConfig class

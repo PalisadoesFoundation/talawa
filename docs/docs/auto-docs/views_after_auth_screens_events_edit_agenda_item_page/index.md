@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_edit_agenda_item_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EditAgendaItemPage](../views_after_auth_screens_events_edit_agenda_item_page/EditAgendaItemPage-class.html)]
+[[EditAgendaItemPage](../views_after_auth_screens_events_edit_agenda_item_page/EditAgendaItemPage-class.md)]
 :   Screen for edit agenda item.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//edit_agenda_item_page.dart
 
 ##### talawa package

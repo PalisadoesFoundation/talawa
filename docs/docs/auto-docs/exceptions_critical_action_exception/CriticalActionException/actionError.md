@@ -31,9 +31,9 @@ String actionError;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [critical_action_exception](../../exceptions_critical_action_exception/)
-3.  [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.html)
+3.  [CriticalActionException](../../exceptions_critical_action_exception/CriticalActionException-class.md)
 4.  actionError property
 
 ##### CriticalActionException class

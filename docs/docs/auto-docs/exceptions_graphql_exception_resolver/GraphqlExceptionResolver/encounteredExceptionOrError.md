@@ -9,7 +9,7 @@
 [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 encounteredExceptionOrError(
 
-1.  [[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)]
+1.  [[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.md)]
     exception,
     {]
 2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -179,9 +179,9 @@ static bool? encounteredExceptionOrError(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
-3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  encounteredExceptionOrError static method
 
 ##### GraphqlExceptionResolver class

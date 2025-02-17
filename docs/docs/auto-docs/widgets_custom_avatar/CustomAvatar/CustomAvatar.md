@@ -8,7 +8,7 @@
 
 const CustomAvatar({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
     [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -50,9 +50,9 @@ const CustomAvatar({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_avatar](../../widgets_custom_avatar/)
-3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.html)
+3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
 4.  CustomAvatar const constructor
 
 ##### CustomAvatar class

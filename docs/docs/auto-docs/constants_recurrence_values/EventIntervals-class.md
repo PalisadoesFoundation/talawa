@@ -12,7 +12,7 @@ Class containing constants for event intervals.
 
 ## Constructors
 
-[EventIntervals](../constants_recurrence_values/EventIntervals/EventIntervals.html)
+[EventIntervals](../constants_recurrence_values/EventIntervals/EventIntervals.md)
 
 :   
 
@@ -36,7 +36,7 @@ Class containing constants for event intervals.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ Class containing constants for event intervals.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,16 +62,16 @@ Class containing constants for event intervals.
 
 ## Constants
 
-[[daily](../constants_recurrence_values/EventIntervals/daily-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[daily](../constants_recurrence_values/EventIntervals/daily-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every day.
 
-[[monthly](../constants_recurrence_values/EventIntervals/monthly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[monthly](../constants_recurrence_values/EventIntervals/monthly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every month.
 
-[[weekly](../constants_recurrence_values/EventIntervals/weekly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[weekly](../constants_recurrence_values/EventIntervals/weekly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every week.
 
-[[yearly](../constants_recurrence_values/EventIntervals/yearly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[yearly](../constants_recurrence_values/EventIntervals/yearly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every year.
 
 
@@ -80,7 +80,7 @@ Class containing constants for event intervals.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [recurrence_values](../constants_recurrence_values/)
 3.  EventIntervals class
 

@@ -1,3 +1,7 @@
+---
+title: "constants_custom_theme"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TalawaTheme](../constants_custom_theme/TalawaTheme-class.html)]
+[[TalawaTheme](../constants_custom_theme/TalawaTheme-class.md)]
 :   This file contains various custom themes.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//custom_theme.dart
 
 ##### talawa package

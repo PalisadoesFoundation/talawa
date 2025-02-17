@@ -16,7 +16,7 @@
 shouldRepaint(
 
 1.  [covariant
-    [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)]
+    [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)]
     oldDelegate]
 
 )
@@ -41,18 +41,18 @@ instance, then the method should return true, otherwise it should return
 false.
 
 If the method returns false, then the
-[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.html)
+[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.md)
 call might be optimized away.
 
 It\'s possible that the
-[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.html)
+[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.md)
 method will get called even if
-[shouldRepaint](../../custom_painters_telegram_logo/TelegramLogo/shouldRepaint.html)
+[shouldRepaint](../../custom_painters_telegram_logo/TelegramLogo/shouldRepaint.md)
 returns false (e.g. if an ancestor or descendant needed to be
 repainted). It\'s also possible that the
-[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.html)
+[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.md)
 method will get called without
-[shouldRepaint](../../custom_painters_telegram_logo/TelegramLogo/shouldRepaint.html)
+[shouldRepaint](../../custom_painters_telegram_logo/TelegramLogo/shouldRepaint.md)
 being called at all (e.g. if the box changes size).
 
 If a custom delegate has a particularly expensive paint function such
@@ -61,7 +61,7 @@ that repaints should be avoided as much as possible, a
 or
 [RenderRepaintBoundary](https://api.flutter.dev/flutter/rendering/RenderRepaintBoundary-class.html)
 (or other render object with
-[RenderObject.isRepaintBoundary](https://api.flutter.dev/flutter/rendering/RenderObject/isRepaintBoundary.html)
+[RenderObject.isRepaintBoundary](https://api.flutter.dev/flutter/rendering/RenderObject/isRepaintBoundary.md)
 set to true) might be helpful.
 
 The `oldDelegate` argument will never be null.
@@ -83,9 +83,9 @@ bool shouldRepaint(covariant CustomPainter oldDelegate) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [telegram_logo](../../custom_painters_telegram_logo/)
-3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.html)
+3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.md)
 4.  shouldRepaint method
 
 ##### TelegramLogo class

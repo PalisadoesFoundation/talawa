@@ -9,7 +9,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 likedUserCircleAvatar(
 
-1.  [[[LikedBy](../models_post_post_model/LikedBy-class.html)]
+1.  [[[LikedBy](../models_post_post_model/LikedBy-class.md)]
     user]
 
 )
@@ -66,7 +66,7 @@ Widget likedUserCircleAvatar(LikedBy user) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [individual_post](../views_after_auth_screens_feed_individual_post/)
 3.  likedUserCircleAvatar function
 

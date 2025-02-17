@@ -12,7 +12,7 @@
 
 </div>
 
-[Address](../../models_organization_org_info_address/Address-class.html)?
+[Address](../../models_organization_org_info_address/Address-class.md)?
 address
 
 
@@ -38,9 +38,9 @@ Address? address;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  address property
 
 ##### OrgInfo class

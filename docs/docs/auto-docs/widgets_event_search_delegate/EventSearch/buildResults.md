@@ -15,7 +15,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 buildResults(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -33,7 +33,7 @@ The current value of
 can be used to determine what the user searched for.
 
 This method might be applied more than once to the same query. If your
-[buildResults](../../widgets_event_search_delegate/EventSearch/buildResults.html)
+[buildResults](../../widgets_event_search_delegate/EventSearch/buildResults.md)
 method is computationally expensive, you may want to cache the search
 results for one or more queries.
 
@@ -63,9 +63,9 @@ Widget buildResults(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
-3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.html)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildResults method
 
 ##### EventSearch class

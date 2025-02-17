@@ -1,2 +1,2 @@
-1.  [Classes](view_model_base_view_model/#classes)
-2.  [BaseModel](view_model_base_view_model/BaseModel-class.html)
+1.  [Classes](./#classes)
+2.  [BaseModel](./BaseModel-class.md)

@@ -12,7 +12,7 @@
 
 </div>
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]\>]]
 
 
 
@@ -71,9 +71,9 @@ Future<List<Post>>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_service](../../services_post_service/)
-3.  [PostService](../../services_post_service/PostService-class.html)
+3.  [PostService](../../services_post_service/PostService-class.md)
 4.  fetchDataFromApi method
 
 ##### PostService class

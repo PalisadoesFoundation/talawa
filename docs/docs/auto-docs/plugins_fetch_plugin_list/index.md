@@ -1,3 +1,7 @@
+---
+title: "plugins_fetch_plugin_list"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[FetchPluginList](../plugins_fetch_plugin_list/FetchPluginList-class.html)]
+[[FetchPluginList](../plugins_fetch_plugin_list/FetchPluginList-class.md)]
 :   This class fetch plugins list.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  plugins//fetch_plugin_list.dart
 
 ##### talawa package

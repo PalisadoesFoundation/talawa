@@ -1,3 +1,7 @@
+---
+title: "models_app_tour"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Classes
 
-[[AppTour](../models_app_tour/AppTour-class.html)]
+[[AppTour](../models_app_tour/AppTour-class.md)]
 :   Class that handles all the apptour routines.
 
-[[FocusTarget](../models_app_tour/FocusTarget-class.html)]
+[[FocusTarget](../models_app_tour/FocusTarget-class.md)]
 :   Class that represents FocusTarget.
 
 
@@ -20,7 +24,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//app_tour.dart
 
 ##### talawa package

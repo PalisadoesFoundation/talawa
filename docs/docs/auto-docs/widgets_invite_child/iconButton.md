@@ -9,7 +9,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 iconButton(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     key, ]
 2.  [[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
     icon, ]
@@ -60,7 +60,7 @@ Widget iconButton(String key, Widget icon, void  onTap) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [invite_child](../widgets_invite_child/)
 3.  iconButton function
 

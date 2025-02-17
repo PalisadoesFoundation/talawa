@@ -6,7 +6,7 @@
 </div>
 
 
-[ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)
+[ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.md)
 exploreEventsViewModel
 
 
@@ -27,9 +27,9 @@ ExploreEventsViewModel exploreEventsViewModel;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
-3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.html)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  exploreEventsViewModel property
 
 ##### EventSearch class

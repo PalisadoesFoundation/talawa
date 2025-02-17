@@ -1,3 +1,7 @@
+---
+title: "services_post_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PostService](../services_post_service/PostService-class.html)]
+[[PostService](../services_post_service/PostService-class.md)]
 :   PostService class provides functions in the context of a Post.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//post_service.dart
 
 ##### talawa package

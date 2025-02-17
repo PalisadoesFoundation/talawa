@@ -1,3 +1,7 @@
+---
+title: "widgets_agenda_item_tile"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ExpandableAgendaItemTile](../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.html)]
+[[ExpandableAgendaItemTile](../widgets_agenda_item_tile/ExpandableAgendaItemTile-class.md)]
 :   A widget that displays an expandable agenda item tile.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//agenda_item_tile.dart
 
 ##### talawa package

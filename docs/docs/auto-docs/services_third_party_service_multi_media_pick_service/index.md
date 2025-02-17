@@ -1,3 +1,7 @@
+---
+title: "services_third_party_service_multi_media_pick_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MultiMediaPickerService](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.html)]
+[[MultiMediaPickerService](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class.md)]
 :   This is a third party service which provide the service to select
     the image from.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//third_party_service//multi_media_pick_service.dart
 
 ##### talawa package

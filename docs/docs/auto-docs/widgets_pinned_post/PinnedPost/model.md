@@ -6,7 +6,7 @@
 </div>
 
 
-[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 model
 
 
@@ -31,9 +31,9 @@ final MainScreenViewModel model;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_post](../../widgets_pinned_post/)
-3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.html)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
 4.  model property
 
 ##### PinnedPost class

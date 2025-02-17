@@ -31,9 +31,9 @@ final String postID;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
-3.  [IndividualPostCommentSection](../../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.html)
+3.  [IndividualPostCommentSection](../../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.md)
 4.  postID property
 
 ##### IndividualPostCommentSection class

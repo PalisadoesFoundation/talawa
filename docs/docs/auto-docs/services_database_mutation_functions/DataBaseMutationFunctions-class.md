@@ -23,7 +23,7 @@ Services include:
 
 ## Constructors
 
-[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.html)
+[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions/DataBaseMutationFunctions.md)
 
 :   
 
@@ -31,13 +31,13 @@ Services include:
 
 ## Properties
 
-[[clientAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientAuth.html)] [↔ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
+[[clientAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientAuth.md)] [↔ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
 :   Client Auth for handling authenticated request.
     ::: features
     getter/setter pair
     :::
 
-[[clientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientNonAuth.html)] [↔ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
+[[clientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientNonAuth.md)] [↔ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
 :   Client Auth for handling non-authenticated request.
     ::: features
     getter/setter pair
@@ -49,7 +49,7 @@ Services include:
     no setterinherited
     :::
 
-[[noData](../services_database_mutation_functions/DataBaseMutationFunctions/noData.html)] [↔ [QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
+[[noData](../services_database_mutation_functions/DataBaseMutationFunctions/noData.md)] [↔ [QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
 :   when result has no data and null.
     ::: features
     getter/setter pair
@@ -65,39 +65,39 @@ Services include:
 
 ## Methods
 
-[[fetchOrgById](../services_database_mutation_functions/DataBaseMutationFunctions/fetchOrgById.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] id]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
+[[fetchOrgById](../services_database_mutation_functions/DataBaseMutationFunctions/fetchOrgById.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] id]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function fetch the organization using the `id` passed.
 
-[[gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] mutation, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[gqlAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthMutation.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] mutation, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to run the graph-ql mutation for authenticated
     user.
 
-[[gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] query, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[gqlAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlAuthQuery.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] query, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to run the graph-ql query for authentication.
 
-[[gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] mutation, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] reCall = true]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[gqlNonAuthMutation](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthMutation.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] mutation, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] reCall = true]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to run the graph-ql mutation to authenticate
     the non signed-in user.
 
-[[gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] query, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
+[[gqlNonAuthQuery](../services_database_mutation_functions/DataBaseMutationFunctions/gqlNonAuthQuery.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] query, {][[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]?] variables]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]] ]
 :   This function is used to run the graph-ql query for the non
     signed-in user.
 
-[init](../services_database_mutation_functions/DataBaseMutationFunctions/init.html) [→ void ]
+[init](../services_database_mutation_functions/DataBaseMutationFunctions/init.md) [→ void ]
 :   Initialization function.
 
-[initClientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/initClientNonAuth.html) [→ void ]
+[initClientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/initClientNonAuth.md) [→ void ]
 :   Initializes
-    [clientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientNonAuth.html)
+    [clientNonAuth](../services_database_mutation_functions/DataBaseMutationFunctions/clientNonAuth.md)
     function.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[refreshAccessToken](../services_database_mutation_functions/DataBaseMutationFunctions/refreshAccessToken.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] refreshToken]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[refreshAccessToken](../services_database_mutation_functions/DataBaseMutationFunctions/refreshAccessToken.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] refreshToken]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   This function is used to refresh the Authenication token to access
     the application.
 
@@ -111,7 +111,7 @@ Services include:
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -123,7 +123,7 @@ Services include:
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [database_mutation_functions](../services_database_mutation_functions/)
 3.  DataBaseMutationFunctions class
 

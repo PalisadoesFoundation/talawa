@@ -1,3 +1,7 @@
+---
+title: "exceptions_critical_action_exception"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Exceptions / Errors
 
-[[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.html)]
+[[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.md)]
 :   Exception thrown for critical actions that require special handling.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  exceptions//critical_action_exception.dart
 
 ##### talawa package

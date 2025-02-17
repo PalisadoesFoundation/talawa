@@ -1,3 +1,7 @@
+---
+title: "models_chats_chat_list_tile_data_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html)]
+[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)]
 :   This class creates JSON code using the JsonSerializable package.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//chats//chat_list_tile_data_model.dart
 
 ##### talawa package

@@ -38,9 +38,9 @@ String? likeCount;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_model](../../models_comment_comment_model/)
-3.  [Comment](../../models_comment_comment_model/Comment-class.html)
+3.  [Comment](../../models_comment_comment_model/Comment-class.md)
 4.  likeCount property
 
 ##### Comment class

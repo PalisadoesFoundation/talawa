@@ -8,19 +8,19 @@
 
 const NewsPost({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [required
-    [[Post](../../models_post_post_model/Post-class.html)]
+    [[Post](../../models_post_post_model/Post-class.md)]
     post, ]
 3.  [dynamic
     function(]
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
+    1.  [[[Post](../../models_post_post_model/Post-class.md)]]
 
     )?,
 4.  [dynamic
     deletePost(]
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
+    1.  [[[Post](../../models_post_post_model/Post-class.md)]]
 
     )?,
 
@@ -45,9 +45,9 @@ const NewsPost({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_widget](../../widgets_post_widget/)
-3.  [NewsPost](../../widgets_post_widget/NewsPost-class.html)
+3.  [NewsPost](../../widgets_post_widget/NewsPost-class.md)
 4.  NewsPost const constructor
 
 ##### NewsPost class

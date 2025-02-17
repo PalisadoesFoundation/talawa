@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_org_info_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganisationInfoScreen](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class.html)]
+[[OrganisationInfoScreen](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class.md)]
 :   A screen widget to display detailed information about an
     organization.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//org_info_screen.dart
 
 ##### talawa package

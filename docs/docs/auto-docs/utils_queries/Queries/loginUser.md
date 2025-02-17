@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 loginUser(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     email, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     password]
@@ -59,9 +59,9 @@ String loginUser(String email, String password) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [queries](../../utils_queries/)
-3.  [Queries](../../utils_queries/Queries-class.html)
+3.  [Queries](../../utils_queries/Queries-class.md)
 4.  loginUser method
 
 ##### Queries class

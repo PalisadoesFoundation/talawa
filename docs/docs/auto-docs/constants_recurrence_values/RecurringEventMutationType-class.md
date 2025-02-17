@@ -12,7 +12,7 @@ Class containing constants for recurrence end types.
 
 ## Constructors
 
-[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.html)
+[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType/RecurringEventMutationType.md)
 
 :   
 
@@ -36,7 +36,7 @@ Class containing constants for recurrence end types.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ Class containing constants for recurrence end types.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,13 +62,13 @@ Class containing constants for recurrence end types.
 
 ## Constants
 
-[[allInstances](../constants_recurrence_values/RecurringEventMutationType/allInstances-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[allInstances](../constants_recurrence_values/RecurringEventMutationType/allInstances-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   constant representing mutation of all instances.
 
-[[thisAndFollowingInstances](../constants_recurrence_values/RecurringEventMutationType/thisAndFollowingInstances-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[thisAndFollowingInstances](../constants_recurrence_values/RecurringEventMutationType/thisAndFollowingInstances-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   constant representing mutation of current and following instances.
 
-[[thisInstance](../constants_recurrence_values/RecurringEventMutationType/thisInstance-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[thisInstance](../constants_recurrence_values/RecurringEventMutationType/thisInstance-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing mutation of current instance only.
 
 
@@ -77,7 +77,7 @@ Class containing constants for recurrence end types.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [recurrence_values](../constants_recurrence_values/)
 3.  RecurringEventMutationType class
 

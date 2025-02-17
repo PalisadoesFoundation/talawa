@@ -8,7 +8,7 @@
 
 void addCommentLocally(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     postID]
 
 )
@@ -45,9 +45,9 @@ void addCommentLocally(String postID) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_service](../../services_post_service/)
-3.  [PostService](../../services_post_service/PostService-class.html)
+3.  [PostService](../../services_post_service/PostService-class.md)
 4.  addCommentLocally method
 
 ##### PostService class

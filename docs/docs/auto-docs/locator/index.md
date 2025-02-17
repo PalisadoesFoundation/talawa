@@ -1,3 +1,7 @@
+---
+title: "locator"
+---
+
 
 <div>
 
@@ -8,85 +12,85 @@
 
 ## Properties
 
-[[actionHandlerService](../locator/actionHandlerService.html)] [→ [ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.html)]
+[[actionHandlerService](../locator/actionHandlerService.md)] [→ [ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.md)]
 :   GetIt for ActonHandlerService.
     ::: features
     final
     :::
 
-[[cacheService](../locator/cacheService.html)] [→ [CacheService](../services_caching_cache_service/CacheService-class.html)]
+[[cacheService](../locator/cacheService.md)] [→ [CacheService](../services_caching_cache_service/CacheService-class.md)]
 :   GetIt for CacheService.
     ::: features
     final
     :::
 
-[[connectivity](../locator/connectivity.html)] [→ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)]
+[[connectivity](../locator/connectivity.md)] [→ [Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)]
 :   GetIt for Connectivity.
     ::: features
     final
     :::
 
-[[connectivityService](../locator/connectivityService.html)] [→ [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.html)]
+[[connectivityService](../locator/connectivityService.md)] [→ [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md)]
 :   GetIt for ConnectivityService.
     ::: features
     final
     :::
 
-[[databaseFunctions](../locator/databaseFunctions.html)] [→ [DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.html)]
+[[databaseFunctions](../locator/databaseFunctions.md)] [→ [DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.md)]
 :   GetIt for DataBaseMutationFunctions.
     ::: features
     final
     :::
 
-[[graphqlConfig](../locator/graphqlConfig.html)] [→ [GraphqlConfig](../services_graphql_config/GraphqlConfig-class.html)]
+[[graphqlConfig](../locator/graphqlConfig.md)] [→ [GraphqlConfig](../services_graphql_config/GraphqlConfig-class.md)]
 :   GetIt for GraphqlConfig.
     ::: features
     final
     :::
 
-[[imageService](../locator/imageService.html)] [→ [ImageService](../services_image_service/ImageService-class.html)]
+[[imageService](../locator/imageService.md)] [→ [ImageService](../services_image_service/ImageService-class.md)]
 :   GetIt for ImageService.
     ::: features
     final
     :::
 
-[[locator](../locator/locator.html)] [↔ [GetIt](https://pub.dev/documentation/get_it/8.0.3/get_it/GetIt-class.html)]
+[[locator](../locator/locator.md)] [↔ [GetIt](https://pub.dev/documentation/get_it/8.0.3/get_it/GetIt-class.html)]
 :   Intializaing the locator.
     ::: features
     getter/setter pair
     :::
 
-[[navigationService](../locator/navigationService.html)] [→ [NavigationService](../services_navigation_service/NavigationService-class.html)]
+[[navigationService](../locator/navigationService.md)] [→ [NavigationService](../services_navigation_service/NavigationService-class.md)]
 :   GetIt for NavigationService.
     ::: features
     final
     :::
 
-[[organizationService](../locator/organizationService.html)] [→ [OrganizationService](../services_org_service/OrganizationService-class.html)]
+[[organizationService](../locator/organizationService.md)] [→ [OrganizationService](../services_org_service/OrganizationService-class.md)]
 :   GetIt for OrganizationService.
     ::: features
     final
     :::
 
-[[queries](../locator/queries.html)] [→ [Queries](../utils_queries/Queries-class.html)]
+[[queries](../locator/queries.md)] [→ [Queries](../utils_queries/Queries-class.md)]
 :   GetIt for Queries.
     ::: features
     final
     :::
 
-[[sessionManager](../locator/sessionManager.html)] [→ [SessionManager](../services_session_manager/SessionManager-class.html)]
+[[sessionManager](../locator/sessionManager.md)] [→ [SessionManager](../services_session_manager/SessionManager-class.md)]
 :   GetIt for SessionManager.
     ::: features
     final
     :::
 
-[[sizeConfig](../locator/sizeConfig.html)] [→ [SizeConfig](../services_size_config/SizeConfig-class.html)]
+[[sizeConfig](../locator/sizeConfig.md)] [→ [SizeConfig](../services_size_config/SizeConfig-class.md)]
 :   GetIt for SizeConfig.
     ::: features
     final
     :::
 
-[[userConfig](../locator/userConfig.html)] [→ [UserConfig](../services_user_config/UserConfig-class.html)]
+[[userConfig](../locator/userConfig.md)] [→ [UserConfig](../services_user_config/UserConfig-class.md)]
 :   GetIt for UserConfig.
     ::: features
     final
@@ -96,7 +100,7 @@
 
 ## Functions
 
-[[setupLocator](../locator/setupLocator.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)/<[void/>]] ]
+[[setupLocator](../locator/setupLocator.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)/<[void/>]] ]
 :   This function registers the widgets/objects in /"GetIt/".
 
 
@@ -105,7 +109,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  locator.dart
 
 ##### talawa package

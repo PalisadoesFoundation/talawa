@@ -9,28 +9,28 @@
 const CustomListTile({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
 2.  [required
     [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
     index, ]
 3.  [required
-    [[TileType](../../enums_enums/TileType.html)]
+    [[TileType](../../enums_enums/TileType.md)]
     type, ]
 4.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
     showIcon = false,
     ]
-5.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+5.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)?]
     orgInfo, ]
-6.  [[[User](../../models_user_user_info/User-class.html)?]
+6.  [[[User](../../models_user_user_info/User-class.md)?]
     userInfo, ]
-7.  [[[Attendee](../../models_events_event_model/Attendee-class.html)?]
+7.  [[[Attendee](../../models_events_event_model/Attendee-class.md)?]
     attendeeInfo, ]
-8.  [[[Options](../../models_options_options/Options-class.html)?]
+8.  [[[Options](../../models_options_options/Options-class.md)?]
     option, ]
 9.  [dynamic
     onTapOrgInfo(]
-    1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]]
+    1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]]
 
     )?,
 10. [dynamic ?,
@@ -69,9 +69,9 @@ const CustomListTile({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_list_tile](../../widgets_custom_list_tile/)
-3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.html)
+3.  [CustomListTile](../../widgets_custom_list_tile/CustomListTile-class.md)
 4.  CustomListTile const constructor
 
 ##### CustomListTile class

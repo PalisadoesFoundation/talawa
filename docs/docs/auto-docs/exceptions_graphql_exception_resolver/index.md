@@ -1,3 +1,7 @@
+---
+title: "exceptions_graphql_exception_resolver"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html)]
+[[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)]
 :   static class to handle graphql exceptions.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  exceptions//graphql_exception_resolver.dart
 
 ##### talawa package

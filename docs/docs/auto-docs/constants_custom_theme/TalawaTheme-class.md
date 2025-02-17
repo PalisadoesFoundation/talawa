@@ -16,7 +16,7 @@ themes.
 
 ## Constructors
 
-[TalawaTheme](../constants_custom_theme/TalawaTheme/TalawaTheme.html)
+[TalawaTheme](../constants_custom_theme/TalawaTheme/TalawaTheme.md)
 
 :   
 
@@ -40,7 +40,7 @@ themes.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -56,7 +56,7 @@ themes.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -66,13 +66,13 @@ themes.
 
 ## Static Properties
 
-[[darkTheme](../constants_custom_theme/TalawaTheme/darkTheme.html)] [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)]
+[[darkTheme](../constants_custom_theme/TalawaTheme/darkTheme.md)] [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)]
 :   Theme for dark mode.
     ::: features
     final
     :::
 
-[[lightTheme](../constants_custom_theme/TalawaTheme/lightTheme.html)] [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)]
+[[lightTheme](../constants_custom_theme/TalawaTheme/lightTheme.md)] [→ [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)]
 :   Theme for light mode.
     ::: features
     final
@@ -84,7 +84,7 @@ themes.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [custom_theme](../constants_custom_theme/)
 3.  TalawaTheme class
 

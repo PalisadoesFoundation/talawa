@@ -1,3 +1,7 @@
+---
+title: "view_model_widgets_view_models_custom_drawer_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.html)]
+[[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)]
 :   CustomDrawerViewModel class helps to serve the data and to react to
     user/'s input for Custom Dialog Widget.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//widgets_view_models//custom_drawer_view_model.dart
 
 ##### talawa package

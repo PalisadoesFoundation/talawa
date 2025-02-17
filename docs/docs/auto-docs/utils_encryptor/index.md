@@ -1,3 +1,7 @@
+---
+title: "utils_encryptor"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Encryptor](../utils_encryptor/Encryptor-class.html)]
+[[Encryptor](../utils_encryptor/Encryptor-class.md)]
 :   Handles all of the encryption tasks in the codebase.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//encryptor.dart
 
 ##### talawa package

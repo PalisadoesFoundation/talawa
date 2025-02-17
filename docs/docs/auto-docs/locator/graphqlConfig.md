@@ -6,7 +6,7 @@
 </div>
 
 
-[GraphqlConfig](../services_graphql_config/GraphqlConfig-class.html)
+[GraphqlConfig](../services_graphql_config/GraphqlConfig-class.md)
 graphqlConfig
 
 
@@ -31,7 +31,7 @@ final graphqlConfig = locator<GraphqlConfig>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  graphqlConfig property
 

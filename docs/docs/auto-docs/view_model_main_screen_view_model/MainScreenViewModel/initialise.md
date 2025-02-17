@@ -8,7 +8,7 @@
 
 void initialise(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     ctx, {]
 2.  [required
     [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -88,9 +88,9 @@ void initialise(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
-3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  initialise method
 
 ##### MainScreenViewModel class

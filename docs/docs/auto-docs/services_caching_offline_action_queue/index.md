@@ -1,3 +1,7 @@
+---
+title: "services_caching_offline_action_queue"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue-class.html)]
+[[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue-class.md)]
 :   OfflineActionQueue class manages a queue for offline actions.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//caching//offline_action_queue.dart
 
 ##### talawa package

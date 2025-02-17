@@ -1,3 +1,7 @@
+---
+title: "widgets_talawa_error_dialog"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TalawaErrorDialog](../widgets_talawa_error_dialog/TalawaErrorDialog-class.html)]
+[[TalawaErrorDialog](../widgets_talawa_error_dialog/TalawaErrorDialog-class.md)]
 :   Common Error Dialog box for the whole talawa app.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//talawa_error_dialog.dart
 
 ##### talawa package

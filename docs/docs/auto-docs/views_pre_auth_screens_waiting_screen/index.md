@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_waiting_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[WaitingPage](../views_pre_auth_screens_waiting_screen/WaitingPage-class.html)]
+[[WaitingPage](../views_pre_auth_screens_waiting_screen/WaitingPage-class.md)]
 :   Displays a screen instructing the user to wait for approval.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//waiting_screen.dart
 
 ##### talawa package

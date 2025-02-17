@@ -15,7 +15,7 @@
 [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 operator ==(
 
-1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]
+1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)]
     other]
 
 )
@@ -53,7 +53,7 @@ are equal should only change if at least one of the objects was
 modified.
 
 If a subclass overrides the equality operator, it should override the
-[hashCode](../../models_caching_cached_user_action/CachedUserActionAdapter/hashCode.html)
+[hashCode](../../models_caching_cached_user_action/CachedUserActionAdapter/hashCode.md)
 method as well to maintain consistency.
 
 
@@ -75,9 +75,9 @@ bool operator ==(Object other) =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
-3.  [CachedUserActionAdapter](../../models_caching_cached_user_action/CachedUserActionAdapter-class.html)
+3.  [CachedUserActionAdapter](../../models_caching_cached_user_action/CachedUserActionAdapter-class.md)
 4.  operator == method
 
 ##### CachedUserActionAdapter class

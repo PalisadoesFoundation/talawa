@@ -36,9 +36,9 @@ static TextStyle subtitle2 = const TextStyle(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [apptheme](../../apptheme/)
-3.  [AppTheme](../../apptheme/AppTheme-class.html)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
 4.  subtitle2 property
 
 ##### AppTheme class

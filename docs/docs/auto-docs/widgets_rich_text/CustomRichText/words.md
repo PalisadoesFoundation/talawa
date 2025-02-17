@@ -28,9 +28,9 @@ final List<Map<String, dynamic>> words;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [rich_text](../../widgets_rich_text/)
-3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.html)
+3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
 4.  words property
 
 ##### CustomRichText class

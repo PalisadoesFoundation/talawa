@@ -1,3 +1,7 @@
+---
+title: "services_image_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ImageService](../services_image_service/ImageService-class.html)]
+[[ImageService](../services_image_service/ImageService-class.md)]
 :   ImageService class provides different functions as service in the
     context of Images.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//image_service.dart
 
 ##### talawa package

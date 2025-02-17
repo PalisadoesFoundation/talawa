@@ -17,7 +17,7 @@ and cached actions.
 
 ## Constructors
 
-[HiveKeys](../constants_constants/HiveKeys/HiveKeys.html)
+[HiveKeys](../constants_constants/HiveKeys/HiveKeys.md)
 
 :   
 
@@ -41,7 +41,7 @@ and cached actions.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -57,7 +57,7 @@ and cached actions.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -67,34 +67,34 @@ and cached actions.
 
 ## Constants
 
-[[asymetricKeyBoxKey](../constants_constants/HiveKeys/asymetricKeyBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[asymetricKeyBoxKey](../constants_constants/HiveKeys/asymetricKeyBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores asymmetric keys
     for the user.
 
-[[eventFeedKey](../constants_constants/HiveKeys/eventFeedKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[eventFeedKey](../constants_constants/HiveKeys/eventFeedKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the event feed
     data.
 
-[[offlineActionQueueKey](../constants_constants/HiveKeys/offlineActionQueueKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[offlineActionQueueKey](../constants_constants/HiveKeys/offlineActionQueueKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the offline action
     queue.
 
-[[orgBoxKey](../constants_constants/HiveKeys/orgBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[orgBoxKey](../constants_constants/HiveKeys/orgBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the current
     organization\'s information.
 
-[[pluginBoxKey](../constants_constants/HiveKeys/pluginBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[pluginBoxKey](../constants_constants/HiveKeys/pluginBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores plugin-related
     data.
 
-[[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the post feed
     data.
 
-[[urlBoxKey](../constants_constants/HiveKeys/urlBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[urlBoxKey](../constants_constants/HiveKeys/urlBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores URLs.
 
-[[userBoxKey](../constants_constants/HiveKeys/userBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[userBoxKey](../constants_constants/HiveKeys/userBoxKey-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the current user
     information.
 
@@ -104,7 +104,7 @@ and cached actions.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [constants](../constants_constants/)
 3.  HiveKeys class
 

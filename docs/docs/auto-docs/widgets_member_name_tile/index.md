@@ -1,3 +1,7 @@
+---
+title: "widgets_member_name_tile"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MemberNameTile](../widgets_member_name_tile/MemberNameTile-class.html)]
+[[MemberNameTile](../widgets_member_name_tile/MemberNameTile-class.md)]
 :   This widget returns a tile containing the name of the member.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//member_name_tile.dart
 
 ##### talawa package

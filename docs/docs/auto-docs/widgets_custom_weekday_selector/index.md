@@ -1,3 +1,7 @@
+---
+title: "widgets_custom_weekday_selector"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomWeekDaySelector](../widgets_custom_weekday_selector/CustomWeekDaySelector-class.html)]
+[[CustomWeekDaySelector](../widgets_custom_weekday_selector/CustomWeekDaySelector-class.md)]
 :   Custom Widget to select weekdays.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//custom_weekday_selector.dart
 
 ##### talawa package

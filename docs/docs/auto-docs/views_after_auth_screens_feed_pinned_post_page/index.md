@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_feed_pinned_post_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PinnedPostPage](../views_after_auth_screens_feed_pinned_post_page/PinnedPostPage-class.html)]
+[[PinnedPostPage](../views_after_auth_screens_feed_pinned_post_page/PinnedPostPage-class.md)]
 :   PinnedPostPage returns a widget that shows the list of all the
     pinned post.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//feed//pinned_post_page.dart
 
 ##### talawa package

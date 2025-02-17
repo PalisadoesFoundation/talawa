@@ -7,7 +7,7 @@
 
 
 
-[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)]\>]]
+[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)]\>]]
 get volunteers
 
 
@@ -29,9 +29,9 @@ List<EventVolunteer> get volunteers => _volunteers;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [manage_volunteer_group_view_model](../../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/)
-3.  [ManageVolunteerGroupViewModel](../../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.html)
+3.  [ManageVolunteerGroupViewModel](../../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class.md)
 4.  volunteers property
 
 ##### ManageVolunteerGroupViewModel class

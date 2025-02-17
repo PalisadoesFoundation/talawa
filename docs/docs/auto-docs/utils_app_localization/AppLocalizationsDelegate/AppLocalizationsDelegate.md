@@ -8,7 +8,7 @@
 
 const AppLocalizationsDelegate({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)]
     isTest = false,
     ]
 
@@ -30,9 +30,9 @@ const AppLocalizationsDelegate({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
-3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.html)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  AppLocalizationsDelegate const constructor
 
 ##### AppLocalizationsDelegate class

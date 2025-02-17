@@ -10,7 +10,7 @@
 cropImage({
 
 1.  [required
-    [[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]
+    [[File](https://api.flutter.dev/flutter/dart-io/File-class.md)]
     imageFile, ]
 
 })
@@ -91,9 +91,9 @@ Future<File?> cropImage({required File imageFile}) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [image_service](../../services_image_service/)
-3.  [ImageService](../../services_image_service/ImageService-class.html)
+3.  [ImageService](../../services_image_service/ImageService-class.md)
 4.  cropImage method
 
 ##### ImageService class

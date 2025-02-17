@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_widgets_chat_input_field"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ChatInputField](../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.html)]
+[[ChatInputField](../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)]
 :   ChatInputField returns a widget that has mutable state
     /_ChatInputFieldState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//widgets//chat_input_field.dart
 
 ##### talawa package

@@ -12,7 +12,7 @@ This class creates an langauge model.
 
 ## Constructors
 
-[[Language](../models_language_language_model/Language/Language.html)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] countryCode, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langCode, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langName, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langSample]})]
+[[Language](../models_language_language_model/Language/Language.md)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] countryCode, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langCode, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langName, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] langSample]})]
 
 :   
 
@@ -20,7 +20,7 @@ This class creates an langauge model.
 
 ## Properties
 
-[[countryCode](../models_language_language_model/Language/countryCode.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[countryCode](../models_language_language_model/Language/countryCode.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
     final
@@ -32,19 +32,19 @@ This class creates an langauge model.
     no setterinherited
     :::
 
-[[langCode](../models_language_language_model/Language/langCode.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[langCode](../models_language_language_model/Language/langCode.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
     final
     :::
 
-[[langName](../models_language_language_model/Language/langName.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[langName](../models_language_language_model/Language/langName.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
     final
     :::
 
-[[langSample](../models_language_language_model/Language/langSample.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[langSample](../models_language_language_model/Language/langSample.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
     final
@@ -60,7 +60,7 @@ This class creates an langauge model.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -76,7 +76,7 @@ This class creates an langauge model.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -88,7 +88,7 @@ This class creates an langauge model.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [language_model](../models_language_language_model/)
 3.  Language class
 

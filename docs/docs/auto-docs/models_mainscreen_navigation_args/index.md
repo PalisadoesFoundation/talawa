@@ -1,3 +1,7 @@
+---
+title: "models_mainscreen_navigation_args"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs-class.html)]
+[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs-class.md)]
 :   This class creates a MainScreenArgs model.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//mainscreen_navigation_args.dart
 
 ##### talawa package

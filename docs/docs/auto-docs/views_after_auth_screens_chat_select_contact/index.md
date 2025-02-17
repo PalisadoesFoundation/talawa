@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_chat_select_contact"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SelectContact](../views_after_auth_screens_chat_select_contact/SelectContact-class.html)]
+[[SelectContact](../views_after_auth_screens_chat_select_contact/SelectContact-class.md)]
 :   SelectContact returns a widget that has mutable state
     /_SelectContactState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//chat//select_contact.dart
 
 ##### talawa package

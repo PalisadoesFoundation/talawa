@@ -1,3 +1,7 @@
+---
+title: "services_user_profile_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[UserProfileService](../services_user_profile_service/UserProfileService-class.html)]
+[[UserProfileService](../services_user_profile_service/UserProfileService-class.md)]
 :   Service class for handling user profile operations, including
     updating and retrieving user profile information.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//user_profile_service.dart
 
 ##### talawa package

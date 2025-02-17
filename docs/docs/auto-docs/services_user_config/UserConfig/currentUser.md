@@ -7,7 +7,7 @@
 
 
 
-[[User](../../models_user_user_info/User-class.html)] get
+[[User](../../models_user_user_info/User-class.md)] get
 currentUser
 
 
@@ -27,7 +27,7 @@ User get currentUser => _currentUser!;
 
 
 set currentUser
-[([[[User](../../models_user_user_info/User-class.html)]
+[([[[User](../../models_user_user_info/User-class.md)]
 user])]
 
 
@@ -51,9 +51,9 @@ set currentUser(User user) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentUser property
 
 ##### UserConfig class

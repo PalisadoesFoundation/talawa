@@ -12,7 +12,7 @@ Class that handles all the apptour routines.
 
 ## Constructors
 
-[[AppTour](../models_app_tour/AppTour/AppTour.html)][({[required [[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)] model]})]
+[[AppTour](../models_app_tour/AppTour/AppTour.md)][({[required [[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)] model]})]
 
 :   
 
@@ -26,7 +26,7 @@ Class that handles all the apptour routines.
     no setterinherited
     :::
 
-[[model](../models_app_tour/AppTour/model.html)] [↔ [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)]
+[[model](../models_app_tour/AppTour/model.md)] [↔ [MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)]
 :   instance of mainscreenviewmodel.
     ::: features
     getter/setter pair
@@ -38,7 +38,7 @@ Class that handles all the apptour routines.
     no setterinherited
     :::
 
-[[tutorialCoachMark](../models_app_tour/AppTour/tutorialCoachMark.html)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
+[[tutorialCoachMark](../models_app_tour/AppTour/tutorialCoachMark.md)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
 :   instance of tutorialCoachMark.
     ::: features
     getter/setter pair
@@ -48,13 +48,13 @@ Class that handles all the apptour routines.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[showTutorial](../models_app_tour/AppTour/showTutorial.html)]({[required [dynamic onClickTarget([[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]]), ]required [dynamic , ][required [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../models_app_tour/FocusTarget-class.html)]\>]] targets]}) → void ]
+[[showTutorial](../models_app_tour/AppTour/showTutorial.md)]({[required [dynamic onClickTarget([[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.md)]]), ]required [dynamic , ][required [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../models_app_tour/FocusTarget-class.md)]\>]] targets]}) → void ]
 :   This function show tutorial to user.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -67,7 +67,7 @@ Class that handles all the apptour routines.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -79,7 +79,7 @@ Class that handles all the apptour routines.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [app_tour](../models_app_tour/)
 3.  AppTour class
 

@@ -13,7 +13,7 @@ call via Routes.splashScreen to access these string.
 
 ## Constructors
 
-[Routes](../constants_routing_constants/Routes/Routes.html)
+[Routes](../constants_routing_constants/Routes/Routes.md)
 
 :   
 
@@ -37,7 +37,7 @@ call via Routes.splashScreen to access these string.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -53,7 +53,7 @@ call via Routes.splashScreen to access these string.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -63,124 +63,124 @@ call via Routes.splashScreen to access these string.
 
 ## Constants
 
-[[addPostScreen](../constants_routing_constants/Routes/addPostScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[addPostScreen](../constants_routing_constants/Routes/addPostScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access addPostScreen.
 
-[[addTask](../constants_routing_constants/Routes/addTask-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[addTask](../constants_routing_constants/Routes/addTask-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[appSettings](../constants_routing_constants/Routes/appSettings-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[appSettings](../constants_routing_constants/Routes/appSettings-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[calendar](../constants_routing_constants/Routes/calendar-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[calendar](../constants_routing_constants/Routes/calendar-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[chatMessageScreen](../constants_routing_constants/Routes/chatMessageScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[chatMessageScreen](../constants_routing_constants/Routes/chatMessageScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[createEventPage](../constants_routing_constants/Routes/createEventPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[createEventPage](../constants_routing_constants/Routes/createEventPage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[customRecurrencePage](../constants_routing_constants/Routes/customRecurrencePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[customRecurrencePage](../constants_routing_constants/Routes/customRecurrencePage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoExploreEventsScreen](../constants_routing_constants/Routes/demoExploreEventsScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[demoExploreEventsScreen](../constants_routing_constants/Routes/demoExploreEventsScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoHomeScreen](../constants_routing_constants/Routes/demoHomeScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[demoHomeScreen](../constants_routing_constants/Routes/demoHomeScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoPageViewRoute](../constants_routing_constants/Routes/demoPageViewRoute-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[demoPageViewRoute](../constants_routing_constants/Routes/demoPageViewRoute-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoProfilePage](../constants_routing_constants/Routes/demoProfilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[demoProfilePage](../constants_routing_constants/Routes/demoProfilePage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editEventPage](../constants_routing_constants/Routes/editEventPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[editEventPage](../constants_routing_constants/Routes/editEventPage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editProfilePage](../constants_routing_constants/Routes/editProfilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[editProfilePage](../constants_routing_constants/Routes/editProfilePage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editTask](../constants_routing_constants/Routes/editTask-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[editTask](../constants_routing_constants/Routes/editTask-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[eventInfoPage](../constants_routing_constants/Routes/eventInfoPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[eventInfoPage](../constants_routing_constants/Routes/eventInfoPage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[eventTasks](../constants_routing_constants/Routes/eventTasks-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[eventTasks](../constants_routing_constants/Routes/eventTasks-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[individualPost](../constants_routing_constants/Routes/individualPost-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[individualPost](../constants_routing_constants/Routes/individualPost-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[joinOrg](../constants_routing_constants/Routes/joinOrg-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[joinOrg](../constants_routing_constants/Routes/joinOrg-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[languageSelectionRoute](../constants_routing_constants/Routes/languageSelectionRoute-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[languageSelectionRoute](../constants_routing_constants/Routes/languageSelectionRoute-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[loginScreen](../constants_routing_constants/Routes/loginScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[loginScreen](../constants_routing_constants/Routes/loginScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[mainScreen](../constants_routing_constants/Routes/mainScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[mainScreen](../constants_routing_constants/Routes/mainScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access Manage volunteer group screen.
 
-[[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access org info screen.
 
-[[pinnedPostPage](../constants_routing_constants/Routes/pinnedPostPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[pinnedPostPage](../constants_routing_constants/Routes/pinnedPostPage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[pinnedPostScreen](../constants_routing_constants/Routes/pinnedPostScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[pinnedPostScreen](../constants_routing_constants/Routes/pinnedPostScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access pinnedpostscreen.
 
-[[profilePage](../constants_routing_constants/Routes/profilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[profilePage](../constants_routing_constants/Routes/profilePage-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[progressDialog](../constants_routing_constants/Routes/progressDialog-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[progressDialog](../constants_routing_constants/Routes/progressDialog-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[recoverScreen](../constants_routing_constants/Routes/recoverScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[recoverScreen](../constants_routing_constants/Routes/recoverScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[requestAccess](../constants_routing_constants/Routes/requestAccess-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[requestAccess](../constants_routing_constants/Routes/requestAccess-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[selectContact](../constants_routing_constants/Routes/selectContact-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[selectContact](../constants_routing_constants/Routes/selectContact-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[selectOrgScreen](../constants_routing_constants/Routes/selectOrgScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[selectOrgScreen](../constants_routing_constants/Routes/selectOrgScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[setUrlScreen](../constants_routing_constants/Routes/setUrlScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[setUrlScreen](../constants_routing_constants/Routes/setUrlScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[signupDetailScreen](../constants_routing_constants/Routes/signupDetailScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[signupDetailScreen](../constants_routing_constants/Routes/signupDetailScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[splashScreen](../constants_routing_constants/Routes/splashScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[splashScreen](../constants_routing_constants/Routes/splashScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[updateScreen](../constants_routing_constants/Routes/updateScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[updateScreen](../constants_routing_constants/Routes/updateScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[userTasks](../constants_routing_constants/Routes/userTasks-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[userTasks](../constants_routing_constants/Routes/userTasks-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[volunteerGroupScreen](../constants_routing_constants/Routes/volunteerGroupScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[volunteerGroupScreen](../constants_routing_constants/Routes/volunteerGroupScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access volunteer groups screen.
 
-[[waitingScreen](../constants_routing_constants/Routes/waitingScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[waitingScreen](../constants_routing_constants/Routes/waitingScreen-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
 
@@ -189,7 +189,7 @@ call via Routes.splashScreen to access these string.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [routing_constants](../constants_routing_constants/)
 3.  Routes class
 

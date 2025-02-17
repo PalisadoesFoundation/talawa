@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_join_org_after_auth_join_organisation_after_auth"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[JoinOrganisationAfterAuth](../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth-class.html)]
+[[JoinOrganisationAfterAuth](../views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/JoinOrganisationAfterAuth-class.md)]
 :   JoinOrganisationAfterAuth returns a widget for page to join the
     organization just after user authentication.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//join_org_after_auth//join_organisation_after_auth.dart
 
 ##### talawa package

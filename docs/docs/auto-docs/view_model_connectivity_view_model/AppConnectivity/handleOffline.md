@@ -36,9 +36,9 @@ Future<void>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
-3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.html)
+3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  handleOffline method
 
 ##### AppConnectivity class

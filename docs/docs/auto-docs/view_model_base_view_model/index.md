@@ -1,3 +1,7 @@
+---
+title: "view_model_base_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[BaseModel](../view_model_base_view_model/BaseModel-class.html)]
+[[BaseModel](../view_model_base_view_model/BaseModel-class.md)]
 
 :   
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//base_view_model.dart
 
 ##### talawa package

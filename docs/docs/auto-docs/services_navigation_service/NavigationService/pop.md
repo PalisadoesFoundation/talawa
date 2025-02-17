@@ -34,9 +34,9 @@ void  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [navigation_service](../../services_navigation_service/)
-3.  [NavigationService](../../services_navigation_service/NavigationService-class.html)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  pop method
 
 ##### NavigationService class

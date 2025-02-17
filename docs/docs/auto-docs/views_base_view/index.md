@@ -1,3 +1,7 @@
+---
+title: "views_base_view"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[BaseView](../views_base_view/BaseView-class.html)[/<[T extends [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)]/>]]
+[[BaseView](../views_base_view/BaseView-class.md)[/<[T extends [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)]/>]]
 
 :   
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//base_view.dart
 
 ##### talawa package

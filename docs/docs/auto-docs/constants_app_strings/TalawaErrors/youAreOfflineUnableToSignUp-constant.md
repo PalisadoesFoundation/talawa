@@ -28,9 +28,9 @@ static const String youAreOfflineUnableToSignUp =
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_strings](../../constants_app_strings/)
-3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.html)
+3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.md)
 4.  youAreOfflineUnableToSignUp constant
 
 ##### TalawaErrors class

@@ -40,9 +40,9 @@ Future<bool>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [session_manager](../../services_session_manager/)
-3.  [SessionManager](../../services_session_manager/SessionManager-class.html)
+3.  [SessionManager](../../services_session_manager/SessionManager-class.md)
 4.  refreshSession method
 
 ##### SessionManager class

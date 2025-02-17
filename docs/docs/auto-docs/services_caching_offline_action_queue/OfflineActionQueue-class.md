@@ -24,7 +24,7 @@ This class provides the following functionalities:
 
 ## Constructors
 
-[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.html)
+[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.md)
 
 :   
 
@@ -48,31 +48,31 @@ This class provides the following functionalities:
 
 ## Methods
 
-[[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.html)][([[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)] action]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.md)][([[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.md)] action]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Adds an action to the queue with a TTL.
 
-[[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Clears all actions from the queue.
 
-[[getActions](../services_caching_offline_action_queue/OfflineActionQueue/getActions.html)][() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)]\>]] ]
+[[getActions](../services_caching_offline_action_queue/OfflineActionQueue/getActions.md)][() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.md)]\>]] ]
 :   Retrieves all valid actions from the queue.
 
-[initialize](../services_caching_offline_action_queue/OfflineActionQueue/initialize.html) [→ void ]
+[initialize](../services_caching_offline_action_queue/OfflineActionQueue/initialize.md) [→ void ]
 :   Initializes the queue by registering adapters and opening the queue.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[openQueue](../services_caching_offline_action_queue/OfflineActionQueue/openQueue.html) [→ void ]
+[openQueue](../services_caching_offline_action_queue/OfflineActionQueue/openQueue.md) [→ void ]
 :   Opens the Hive box for the offline action queue.
 
-[[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.html)]([[dynamic key]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.md)]([[dynamic key]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Removes a specific action from the queue.
 
-[[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
+[[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Removes expired actions from the queue.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -85,7 +85,7 @@ This class provides the following functionalities:
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -95,7 +95,7 @@ This class provides the following functionalities:
 
 ## Constants
 
-[[boxName](../services_caching_offline_action_queue/OfflineActionQueue/boxName-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[boxName](../services_caching_offline_action_queue/OfflineActionQueue/boxName-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Offline Action Queue box name.
 
 
@@ -104,7 +104,7 @@ This class provides the following functionalities:
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [offline_action_queue](../services_caching_offline_action_queue/)
 3.  OfflineActionQueue class
 

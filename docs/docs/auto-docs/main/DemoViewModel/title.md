@@ -33,9 +33,9 @@ String get title => _title;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main](../../main/)
-3.  [DemoViewModel](../../main/DemoViewModel-class.html)
+3.  [DemoViewModel](../../main/DemoViewModel-class.md)
 4.  title property
 
 ##### DemoViewModel class

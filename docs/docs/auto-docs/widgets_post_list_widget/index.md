@@ -1,3 +1,7 @@
+---
+title: "widgets_post_list_widget"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PostListWidget](../widgets_post_list_widget/PostListWidget-class.html)]
+[[PostListWidget](../widgets_post_list_widget/PostListWidget-class.md)]
 :   This class receives a List of all the Post widgets and returns a
     ListView.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//post_list_widget.dart
 
 ##### talawa package

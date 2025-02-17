@@ -7,7 +7,7 @@
 
 
 dynamic
-Function[([[[Post](../../models_post_post_model/Post-class.html)]])]? deletePost
+Function[([[[Post](../../models_post_post_model/Post-class.md)]])]? deletePost
 
 
 final
@@ -31,9 +31,9 @@ final Function(Post)? deletePost;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_list_widget](../../widgets_post_list_widget/)
-3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.html)
+3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
 4.  deletePost property
 
 ##### PostListWidget class

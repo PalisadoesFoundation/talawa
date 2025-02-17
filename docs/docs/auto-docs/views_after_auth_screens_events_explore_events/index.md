@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_explore_events"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ExploreEvents](../views_after_auth_screens_events_explore_events/ExploreEvents-class.html)]
+[[ExploreEvents](../views_after_auth_screens_events_explore_events/ExploreEvents-class.md)]
 :   Shows the list of events with options to categorize them.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//explore_events.dart
 
 ##### talawa package

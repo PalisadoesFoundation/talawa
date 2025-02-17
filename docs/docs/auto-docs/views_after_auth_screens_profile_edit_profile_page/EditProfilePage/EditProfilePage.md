@@ -8,7 +8,7 @@
 
 const EditProfilePage({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 
 })
@@ -27,9 +27,9 @@ const EditProfilePage({super.key});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [edit_profile_page](../../views_after_auth_screens_profile_edit_profile_page/)
-3.  [EditProfilePage](../../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.html)
+3.  [EditProfilePage](../../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.md)
 4.  EditProfilePage const constructor
 
 ##### EditProfilePage class

@@ -49,9 +49,9 @@ Future<List<T>>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [base_feed_manager](../../services_caching_base_feed_manager/)
-3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.html)
+3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.md)
 4.  getNewFeedAndRefreshCache method
 
 ##### BaseFeedManager class

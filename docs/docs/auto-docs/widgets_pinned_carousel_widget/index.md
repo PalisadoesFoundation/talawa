@@ -1,3 +1,7 @@
+---
+title: "widgets_pinned_carousel_widget"
+---
+
 
 <div>
 
@@ -8,14 +12,14 @@
 
 ## Classes
 
-[[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.html)]
+[[CustomCarouselScroller](../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)]
 :   Class defining custom carousel.
 
-[[CustomCarouselScrollerState](../widgets_pinned_carousel_widget/CustomCarouselScrollerState-class.html)]
+[[CustomCarouselScrollerState](../widgets_pinned_carousel_widget/CustomCarouselScrollerState-class.md)]
 
 :   
 
-[[PinnedPostCarousel](../widgets_pinned_carousel_widget/PinnedPostCarousel-class.html)]
+[[PinnedPostCarousel](../widgets_pinned_carousel_widget/PinnedPostCarousel-class.md)]
 :   Generates carousel for pinned posts on the Home Screen/'s top.
 
 
@@ -24,7 +28,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//pinned_carousel_widget.dart
 
 ##### talawa package

@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 handleConnection(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]
     result]
 
 )
@@ -51,9 +51,9 @@ Future<void> handleConnection(List<ConnectivityResult> result) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
-3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.html)
+3.  [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.md)
 4.  handleConnection method
 
 ##### AppConnectivity class

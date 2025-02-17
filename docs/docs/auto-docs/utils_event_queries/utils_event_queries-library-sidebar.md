@@ -1,2 +1,2 @@
-1.  [Classes](utils_event_queries/#classes)
-2.  [EventQueries](utils_event_queries/EventQueries-class.html)
+1.  [Classes](./#classes)
+2.  [EventQueries](./EventQueries-class.md)

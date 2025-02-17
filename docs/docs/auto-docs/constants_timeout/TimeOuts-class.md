@@ -12,7 +12,7 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Constructors
 
-[TimeOuts](../constants_timeout/TimeOuts/TimeOuts.html)
+[TimeOuts](../constants_timeout/TimeOuts/TimeOuts.md)
 
 :   
 
@@ -36,7 +36,7 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,13 +62,13 @@ Class to define constant timeout to bring consistency in the code.
 
 ## Constants
 
-[[large](../constants_timeout/TimeOuts/large-constant.html)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[large](../constants_timeout/TimeOuts/large-constant.md)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   For large timeout, used for large data fetch.
 
-[[mediums](../constants_timeout/TimeOuts/mediums-constant.html)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[mediums](../constants_timeout/TimeOuts/mediums-constant.md)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   For medium timeout, used for medium data fetch.
 
-[[small](../constants_timeout/TimeOuts/small-constant.html)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[small](../constants_timeout/TimeOuts/small-constant.md)] [→ const [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   For small timeout, used for small data fetch.
 
 
@@ -77,7 +77,7 @@ Class to define constant timeout to bring consistency in the code.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [timeout](../constants_timeout/)
 3.  TimeOuts class
 

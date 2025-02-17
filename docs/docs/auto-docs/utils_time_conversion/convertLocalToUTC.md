@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 convertLocalToUTC(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     localTime]
 
 )
@@ -49,7 +49,7 @@ String convertLocalToUTC(String localTime) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [time_conversion](../utils_time_conversion/)
 3.  convertLocalToUTC function
 

@@ -1,3 +1,7 @@
+---
+title: "view_model_widgets_view_models_progress_dialog_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ProgressDialogViewModel](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.html)]
+[[ProgressDialogViewModel](../view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class.md)]
 :   ProgressDialogViewModel class helps to serve the data.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//widgets_view_models//progress_dialog_view_model.dart
 
 ##### talawa package

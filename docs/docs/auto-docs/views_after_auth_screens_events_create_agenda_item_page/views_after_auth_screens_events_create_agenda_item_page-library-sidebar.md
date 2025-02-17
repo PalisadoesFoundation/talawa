@@ -1,3 +1,3 @@
-1.  [Classes](views_after_auth_screens_events_create_agenda_item_page/#classes)
-2.  [CreateAgendaItemPage](views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)
-3.  [CreateAgendaItemPageState](views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class.html)
+1.  [Classes](./#classes)
+2.  [CreateAgendaItemPage](./CreateAgendaItemPage-class.md)
+3.  [CreateAgendaItemPageState](./CreateAgendaItemPageState-class.md)

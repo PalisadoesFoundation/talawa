@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage/createState.html)
+[createState](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<AppSettingsPage>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_settings_page](../../views_after_auth_screens_app_settings_app_settings_page/)
-3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.html)
+3.  [AppSettingsPage](../../views_after_auth_screens_app_settings_app_settings_page/AppSettingsPage-class.md)
 4.  createState method
 
 ##### AppSettingsPage class

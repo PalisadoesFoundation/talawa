@@ -1,3 +1,7 @@
+---
+title: "utils_validators"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Validator](../utils_validators/Validator-class.html)]
+[[Validator](../utils_validators/Validator-class.md)]
 :   This class creats various validator methods for the application.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//validators.dart
 
 ##### talawa package

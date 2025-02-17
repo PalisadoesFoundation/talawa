@@ -1,3 +1,7 @@
+---
+title: "auto-docs"
+---
+
 
 
 # Talawa
@@ -61,12 +65,12 @@ for more details on its origin and activities.
 # Documentation
 
 1.  You can install the software for this repository using the steps in
-    our [INSTALLATION.md](INSTALLATION.md) file.
+    our [INSTALLATION.md](./INSTALLATION.md) file.
 2.  Do you want to contribute to our code base? Look at our
-    [CONTRIBUTING.md](CONTRIBUTING.md) file to get started. There
+    [CONTRIBUTING.md](./CONTRIBUTING.md) file to get started. There
     you/'ll also find links to:
     1.  Our code of conduct documentation in the
-        [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) file.
+        [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) file.
     2.  How we handle the processing of new and existing issues in our
         [ISSUE_GUIDELINES.md](ISSUE_GUIDELINES.md) file.
     3.  The methodologies we use to manage our pull requests in our

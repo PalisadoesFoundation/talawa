@@ -1,3 +1,7 @@
+---
+title: "widgets_date_time_picker"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Functions
 
-[[customDatePicker](../widgets_date_time_picker/customDatePicker.html)][({[required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] initialDate]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[/<[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]/>]] ]
+[[customDatePicker](../widgets_date_time_picker/customDatePicker.md)][({[required [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)] initialDate]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[/<[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]/>]] ]
 :   Shows a dialog containing a Material Design date picker.
 
-[[customTimePicker](../widgets_date_time_picker/customTimePicker.html)][({[required [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] initialTime]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[/<[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]/>]] ]
+[[customTimePicker](../widgets_date_time_picker/customTimePicker.md)][({[required [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)] initialTime]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[/<[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]/>]] ]
 :   Shows a dialog containing a material design time picker.
 
 
@@ -20,7 +24,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//date_time_picker.dart
 
 ##### talawa package

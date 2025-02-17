@@ -9,7 +9,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 demoOrganisationFeedPage(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -81,9 +81,9 @@ Widget demoOrganisationFeedPage(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
-3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.html)
+3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.md)
 4.  demoOrganisationFeedPage method
 
 ##### DemoOrganizationFeed class

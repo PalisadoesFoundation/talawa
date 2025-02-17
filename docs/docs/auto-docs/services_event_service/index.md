@@ -1,3 +1,7 @@
+---
+title: "services_event_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventService](../services_event_service/EventService-class.html)]
+[[EventService](../services_event_service/EventService-class.md)]
 :   EventService class provides different services in the context of
     Event.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//event_service.dart
 
 ##### talawa package

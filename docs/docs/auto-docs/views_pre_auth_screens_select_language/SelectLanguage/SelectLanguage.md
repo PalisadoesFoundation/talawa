@@ -9,7 +9,7 @@
 const SelectLanguage({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
 
 })
@@ -28,9 +28,9 @@ const SelectLanguage({required Key key}) : super(key: key);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [select_language](../../views_pre_auth_screens_select_language/)
-3.  [SelectLanguage](../../views_pre_auth_screens_select_language/SelectLanguage-class.html)
+3.  [SelectLanguage](../../views_pre_auth_screens_select_language/SelectLanguage-class.md)
 4.  SelectLanguage const constructor
 
 ##### SelectLanguage class

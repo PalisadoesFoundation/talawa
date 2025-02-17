@@ -12,7 +12,7 @@
 
 </div>
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]?
 members
 
 
@@ -38,9 +38,9 @@ List<User>? members;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  members property
 
 ##### OrgInfo class

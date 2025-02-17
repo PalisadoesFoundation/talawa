@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
 addVolunteerToGroup(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     variables]
 
@@ -48,9 +48,9 @@ Future<dynamic> addVolunteerToGroup(Map<String, dynamic> variables) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_service](../../services_event_service/)
-3.  [EventService](../../services_event_service/EventService-class.html)
+3.  [EventService](../../services_event_service/EventService-class.md)
 4.  addVolunteerToGroup method
 
 ##### EventService class

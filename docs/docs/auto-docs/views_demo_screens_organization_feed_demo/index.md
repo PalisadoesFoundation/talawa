@@ -1,3 +1,7 @@
+---
+title: "views_demo_screens_organization_feed_demo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DemoOrganizationFeed](../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.html)]
+[[DemoOrganizationFeed](../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.md)]
 :   OrganizationFeed returns a widget that shows the feed of the
     organization.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//demo_screens//organization_feed_demo.dart
 
 ##### talawa package

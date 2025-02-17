@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 pickAttachment({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)]
     fromCamera = false,
     ]
 
@@ -48,9 +48,9 @@ Future<void> pickAttachment({bool fromCamera = false}) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [edit_agenda_view_model](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
-3.  [EditAgendaItemViewModel](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class.html)
+3.  [EditAgendaItemViewModel](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class.md)
 4.  pickAttachment method
 
 ##### EditAgendaItemViewModel class

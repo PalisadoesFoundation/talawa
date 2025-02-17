@@ -25,12 +25,12 @@ Available extensions
 
 ## Values
 
-critical [→ const [ActionType](../enums_enums/ActionType.html)]
+critical [→ const [ActionType](../enums_enums/ActionType.md)]
 
 :   A critical action that requires immediate attention and cannot be
     delayed.
 
-optimistic [→ const [ActionType](../enums_enums/ActionType.html)]
+optimistic [→ const [ActionType](../enums_enums/ActionType.md)]
 
 :   An optimistic action that can be performed with the assumption that
     it will succeed.
@@ -77,7 +77,7 @@ optimistic [→ const [ActionType](../enums_enums/ActionType.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -93,7 +93,7 @@ optimistic [→ const [ActionType](../enums_enums/ActionType.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -103,7 +103,7 @@ optimistic [→ const [ActionType](../enums_enums/ActionType.html)]
 
 ## Constants
 
-[[values](../enums_enums/ActionType/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ActionType](../enums_enums/ActionType.html)]\>]]
+[[values](../enums_enums/ActionType/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ActionType](../enums_enums/ActionType.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -113,7 +113,7 @@ optimistic [→ const [ActionType](../enums_enums/ActionType.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  ActionType enum
 

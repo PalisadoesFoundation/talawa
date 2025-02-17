@@ -14,9 +14,9 @@
 
 void write(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]
+1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)]
     writer, ]
-2.  [[[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+2.  [[[CachedOperationType](../../enums_enums/CachedOperationType.md)]
     obj]
 
 )
@@ -59,9 +59,9 @@ void write(BinaryWriter writer, CachedOperationType obj) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CachedOperationTypeAdapter](../../enums_enums/CachedOperationTypeAdapter-class.html)
+3.  [CachedOperationTypeAdapter](../../enums_enums/CachedOperationTypeAdapter-class.md)
 4.  write method
 
 ##### CachedOperationTypeAdapter class

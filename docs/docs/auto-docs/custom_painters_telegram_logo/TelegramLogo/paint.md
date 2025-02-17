@@ -14,7 +14,7 @@
 
 void paint(
 
-1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]
+1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.md)]
     canvas, ]
 2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]
     size]
@@ -39,7 +39,7 @@ operation is inside the bounds (e.g., drawing a rectangle whose size is
 determined by user inputs). In that case, consider calling
 [Canvas.clipRect](https://api.flutter.dev/flutter/painting/Canvas/clipRect.html)
 at the beginning of
-[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.html) so
+[paint](../../custom_painters_telegram_logo/TelegramLogo/paint.md) so
 everything that follows will be guaranteed to only draw within the
 clipped area.
 
@@ -73,14 +73,14 @@ To paint an image on a
     underlying
     [ImageInfo](https://api.flutter.dev/flutter/painting/ImageInfo-class.html)
     object changes (see
-    [ImageStream.addListener](https://api.flutter.dev/flutter/painting/ImageStream/addListener.html)),
+    [ImageStream.addListener](https://api.flutter.dev/flutter/painting/ImageStream/addListener.md)),
     create a new instance of your custom paint delegate, giving it the
     new
     [ImageInfo](https://api.flutter.dev/flutter/painting/ImageInfo-class.html)
     object.
 
 3.  In your delegate\'s
-    [paint](../../custom_painters_telegram_logo/TelegramLogo/paint.html)
+    [paint](../../custom_painters_telegram_logo/TelegramLogo/paint.md)
     method, call the
     [Canvas.drawImage](https://api.flutter.dev/flutter/painting/Canvas/drawImage.html),
     [Canvas.drawImageRect](https://api.flutter.dev/flutter/painting/Canvas/drawImageRect.html),
@@ -209,9 +209,9 @@ void paint(Canvas canvas, Size size) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [telegram_logo](../../custom_painters_telegram_logo/)
-3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.html)
+3.  [TelegramLogo](../../custom_painters_telegram_logo/TelegramLogo-class.md)
 4.  paint method
 
 ##### TelegramLogo class

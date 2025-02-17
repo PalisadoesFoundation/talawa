@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 setImageInBase64(
 
-1.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]
+1.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.md)]
     file]
 
 )
@@ -41,9 +41,9 @@ Future<void> setImageInBase64(File file) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
-3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.html)
+3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
 4.  setImageInBase64 method
 
 ##### AddPostViewModel class

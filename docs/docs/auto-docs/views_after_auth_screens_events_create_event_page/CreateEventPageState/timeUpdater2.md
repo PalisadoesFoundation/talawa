@@ -8,9 +8,9 @@
 
 void timeUpdater2(
 
-1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)]
     time, ]
-2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)]
     model]
 
 )
@@ -56,9 +56,9 @@ void timeUpdater2(TimeOfDay time, CreateEventViewModel model) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
-3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)
+3.  [CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)
 4.  timeUpdater2 method
 
 ##### CreateEventPageState class

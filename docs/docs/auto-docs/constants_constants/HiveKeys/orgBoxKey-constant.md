@@ -28,9 +28,9 @@ static const orgBoxKey = 'currentOrg';
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [constants](../../constants_constants/)
-3.  [HiveKeys](../../constants_constants/HiveKeys-class.html)
+3.  [HiveKeys](../../constants_constants/HiveKeys-class.md)
 4.  orgBoxKey constant
 
 ##### HiveKeys class

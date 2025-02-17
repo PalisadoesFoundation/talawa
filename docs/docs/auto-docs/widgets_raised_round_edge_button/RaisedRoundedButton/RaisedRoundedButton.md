@@ -9,7 +9,7 @@
 const RaisedRoundedButton({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -55,9 +55,9 @@ const RaisedRoundedButton({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
-3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.html)
+3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
 4.  RaisedRoundedButton const constructor
 
 ##### RaisedRoundedButton class

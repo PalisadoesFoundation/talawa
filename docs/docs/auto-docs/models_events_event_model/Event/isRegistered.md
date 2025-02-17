@@ -38,9 +38,9 @@ bool? isRegistered;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_model](../../models_events_event_model/)
-3.  [Event](../../models_events_event_model/Event-class.html)
+3.  [Event](../../models_events_event_model/Event-class.md)
 4.  isRegistered property
 
 ##### Event class

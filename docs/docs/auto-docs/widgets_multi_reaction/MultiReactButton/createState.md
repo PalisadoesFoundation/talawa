@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[MultiReactButton](../../widgets_multi_reaction/MultiReactButton-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[MultiReactButton](../../widgets_multi_reaction/MultiReactButton-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../widgets_multi_reaction/MultiReactButton/createState.html)
+[createState](../../widgets_multi_reaction/MultiReactButton/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<MultiReactButton>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [multi_reaction](../../widgets_multi_reaction/)
-3.  [MultiReactButton](../../widgets_multi_reaction/MultiReactButton-class.html)
+3.  [MultiReactButton](../../widgets_multi_reaction/MultiReactButton-class.md)
 4.  createState method
 
 ##### MultiReactButton class

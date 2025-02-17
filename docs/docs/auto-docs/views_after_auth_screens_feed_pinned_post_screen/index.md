@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_feed_pinned_post_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[PinnedPostScreen](../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)]
+[[PinnedPostScreen](../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.md)]
 :   Pinned post screen.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//feed//pinned_post_screen.dart
 
 ##### talawa package

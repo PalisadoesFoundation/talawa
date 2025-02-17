@@ -31,9 +31,9 @@ String? name;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer_group](../../models_events_event_volunteer_group/)
-3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
 4.  name property
 
 ##### EventVolunteerGroup class

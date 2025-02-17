@@ -32,9 +32,9 @@ final String secondaryButtonText;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
-3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.html)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
 4.  secondaryButtonText property
 
 ##### CustomAlertDialog class

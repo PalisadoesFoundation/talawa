@@ -7,7 +7,7 @@
 
 
 
-[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]
 get updatedPostStream
 
 
@@ -29,9 +29,9 @@ Stream<Post> get updatedPostStream => _updatedPostStream;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_service](../../services_post_service/)
-3.  [PostService](../../services_post_service/PostService-class.html)
+3.  [PostService](../../services_post_service/PostService-class.md)
 4.  updatedPostStream property
 
 ##### PostService class

@@ -1,3 +1,7 @@
+---
+title: "widgets_venue_card"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[VenueCard](../widgets_venue_card/VenueCard-class.html)]
+[[VenueCard](../widgets_venue_card/VenueCard-class.md)]
 :   This class returns the VenueCard widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//venue_card.dart
 
 ##### talawa package

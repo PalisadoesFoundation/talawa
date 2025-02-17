@@ -6,7 +6,7 @@
 </div>
 
 
-[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?
+[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)?
 homeModel
 
 
@@ -16,7 +16,7 @@ final
 
 
 `homeModal` is a type of
-[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 which provides methods to handle the data for this component.
 
 
@@ -33,9 +33,9 @@ final MainScreenViewModel? homeModel;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [explore_events_demo](../../views_demo_screens_explore_events_demo/)
-3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.html)
+3.  [DemoExploreEvents](../../views_demo_screens_explore_events_demo/DemoExploreEvents-class.md)
 4.  homeModel property
 
 ##### DemoExploreEvents class

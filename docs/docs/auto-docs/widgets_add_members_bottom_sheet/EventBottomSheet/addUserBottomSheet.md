@@ -9,10 +9,10 @@
 void addUserBottomSheet({
 
 1.  [required
-    [[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    [[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context, ]
 2.  [required
-    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)]
     model, ]
 
 })
@@ -150,9 +150,9 @@ void addUserBottomSheet({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [add_members_bottom_sheet](../../widgets_add_members_bottom_sheet/)
-3.  [EventBottomSheet](../../widgets_add_members_bottom_sheet/EventBottomSheet-class.html)
+3.  [EventBottomSheet](../../widgets_add_members_bottom_sheet/EventBottomSheet-class.md)
 4.  addUserBottomSheet method
 
 ##### EventBottomSheet class

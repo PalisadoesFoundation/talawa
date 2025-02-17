@@ -6,7 +6,7 @@
 </div>
 
 
-[OrganizationService](../services_org_service/OrganizationService-class.html)
+[OrganizationService](../services_org_service/OrganizationService-class.md)
 organizationService
 
 
@@ -31,7 +31,7 @@ final organizationService = locator<OrganizationService>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  organizationService property
 

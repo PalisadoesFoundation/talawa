@@ -1,3 +1,7 @@
+---
+title: "splash_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SplashScreen](../splash_screen/SplashScreen-class.html)]
+[[SplashScreen](../splash_screen/SplashScreen-class.md)]
 :   This widget return the SplashScreen. Splash Screen is the first
     screen that we see when we run our application. It is also known as
     Launch Screen.
@@ -19,7 +23,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  splash_screen.dart
 
 ##### talawa package

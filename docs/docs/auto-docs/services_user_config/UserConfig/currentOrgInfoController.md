@@ -7,7 +7,7 @@
 
 
 
-[[StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]]
+[[StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]]
 get currentOrgInfoController
 
 
@@ -30,9 +30,9 @@ StreamController<OrgInfo> get currentOrgInfoController =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrgInfoController property
 
 ##### UserConfig class

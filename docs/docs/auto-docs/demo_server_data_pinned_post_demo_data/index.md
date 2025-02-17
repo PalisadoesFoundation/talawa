@@ -1,3 +1,7 @@
+---
+title: "demo_server_data_pinned_post_demo_data"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Constants
 
-[[pinnedPostsDemoData](../demo_server_data_pinned_post_demo_data/pinnedPostsDemoData-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
+[[pinnedPostsDemoData](../demo_server_data_pinned_post_demo_data/pinnedPostsDemoData-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
 :   This file contains demo data for pinned posts. It contains a list of
     type Map/<String, Object/> and sample data.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  demo_server_data//pinned_post_demo_data.dart
 
 ##### talawa package

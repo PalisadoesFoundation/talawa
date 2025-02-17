@@ -31,9 +31,9 @@ final String? duration;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_agenda_item](../../models_events_event_agenda_item/)
-3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.html)
+3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
 4.  duration property
 
 ##### EventAgendaItem class

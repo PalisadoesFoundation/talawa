@@ -31,9 +31,9 @@ bool inView = true;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_container](../../widgets_post_container/)
-3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.html)
+3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.md)
 4.  inView property
 
 ##### PostContainerState class

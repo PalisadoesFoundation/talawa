@@ -13,7 +13,7 @@ media.
 
 ## Constructors
 
-[SizeConfig](../services_size_config/SizeConfig/SizeConfig.html)
+[SizeConfig](../services_size_config/SizeConfig/SizeConfig.md)
 
 :   
 
@@ -37,17 +37,17 @@ media.
 
 ## Methods
 
-[[init](../services_size_config/SizeConfig/init.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
+[[init](../services_size_config/SizeConfig/init.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) → void ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[test](../services_size_config/SizeConfig/test.html) [→ void ]
+[test](../services_size_config/SizeConfig/test.md) [→ void ]
 
 :   
 
@@ -61,7 +61,7 @@ media.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -71,43 +71,43 @@ media.
 
 ## Static Properties
 
-[[blockSizeHorizontal](../services_size_config/SizeConfig/blockSizeHorizontal.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[blockSizeHorizontal](../services_size_config/SizeConfig/blockSizeHorizontal.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[blockSizeVertical](../services_size_config/SizeConfig/blockSizeVertical.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[blockSizeVertical](../services_size_config/SizeConfig/blockSizeVertical.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[paddingTop](../services_size_config/SizeConfig/paddingTop.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[paddingTop](../services_size_config/SizeConfig/paddingTop.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[safeBlockHorizontal](../services_size_config/SizeConfig/safeBlockHorizontal.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[safeBlockHorizontal](../services_size_config/SizeConfig/safeBlockHorizontal.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[safeBlockVertical](../services_size_config/SizeConfig/safeBlockVertical.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[safeBlockVertical](../services_size_config/SizeConfig/safeBlockVertical.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[screenHeight](../services_size_config/SizeConfig/screenHeight.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[screenHeight](../services_size_config/SizeConfig/screenHeight.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
     :::
 
-[[screenWidth](../services_size_config/SizeConfig/screenWidth.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+[[screenWidth](../services_size_config/SizeConfig/screenWidth.md)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
     getter/setter pair
@@ -119,7 +119,7 @@ media.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [size_config](../services_size_config/)
 3.  SizeConfig class
 

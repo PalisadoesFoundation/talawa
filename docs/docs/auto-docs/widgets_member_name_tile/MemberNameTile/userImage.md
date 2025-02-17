@@ -31,9 +31,9 @@ final String? userImage;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [member_name_tile](../../widgets_member_name_tile/)
-3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.html)
+3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
 4.  userImage property
 
 ##### MemberNameTile class

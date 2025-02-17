@@ -9,7 +9,7 @@
 [[PopupMenuButton](https://api.flutter.dev/flutter/material/PopupMenuButton-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
 calendarViewSelection(
 
-1.  [[[EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.html)]
+1.  [[[EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)]
     model]
 
 )
@@ -56,9 +56,9 @@ PopupMenuButton<String> calendarViewSelection(EventCalendarViewModel model) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_calendar](../../views_after_auth_screens_events_event_calendar/)
-3.  [EventCalendar](../../views_after_auth_screens_events_event_calendar/EventCalendar-class.html)
+3.  [EventCalendar](../../views_after_auth_screens_events_event_calendar/EventCalendar-class.md)
 4.  calendarViewSelection method
 
 ##### EventCalendar class

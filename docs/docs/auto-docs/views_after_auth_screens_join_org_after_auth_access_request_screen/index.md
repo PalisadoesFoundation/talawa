@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_join_org_after_auth_access_request_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SendAccessRequest](../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.html)]
+[[SendAccessRequest](../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.md)]
 :   requestAccess.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//join_org_after_auth//access_request_screen.dart
 
 ##### talawa package

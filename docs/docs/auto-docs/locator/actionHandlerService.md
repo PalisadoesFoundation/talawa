@@ -6,7 +6,7 @@
 </div>
 
 
-[ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.html)
+[ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.md)
 actionHandlerService
 
 
@@ -31,7 +31,7 @@ final actionHandlerService = locator<ActionHandlerService>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  actionHandlerService property
 

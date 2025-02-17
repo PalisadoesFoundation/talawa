@@ -7,7 +7,7 @@
 
 
 
-[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
 get currentOrg
 
 
@@ -33,9 +33,9 @@ OrgInfo get currentOrg => _currentOrg;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_service](../../services_event_service/)
-3.  [EventService](../../services_event_service/EventService-class.html)
+3.  [EventService](../../services_event_service/EventService-class.md)
 4.  currentOrg property
 
 ##### EventService class

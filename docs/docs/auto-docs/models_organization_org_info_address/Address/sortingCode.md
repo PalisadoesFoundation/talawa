@@ -31,9 +31,9 @@ final String? sortingCode;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info_address](../../models_organization_org_info_address/)
-3.  [Address](../../models_organization_org_info_address/Address-class.html)
+3.  [Address](../../models_organization_org_info_address/Address-class.md)
 4.  sortingCode property
 
 ##### Address class

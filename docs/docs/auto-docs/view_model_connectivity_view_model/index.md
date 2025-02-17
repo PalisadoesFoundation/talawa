@@ -1,3 +1,7 @@
+---
+title: "view_model_connectivity_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.html)]
+[[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.md)]
 :   This class provides services related to network connectivity
     monitoring and handling.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//connectivity_view_model.dart
 
 ##### talawa package

@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[MessageType](../../enums_enums/MessageType.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[MessageType](../../enums_enums/MessageType.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [MessageType](../../enums_enums/MessageType.html)
+3.  [MessageType](../../enums_enums/MessageType.md)
 4.  values constant
 
 ##### MessageType enum

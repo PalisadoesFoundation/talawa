@@ -12,7 +12,7 @@ static class to handle graphql exceptions.
 
 ## Constructors
 
-[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.html)
+[GraphqlExceptionResolver](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/GraphqlExceptionResolver.md)
 
 :   
 
@@ -36,7 +36,7 @@ static class to handle graphql exceptions.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ static class to handle graphql exceptions.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,49 +62,49 @@ static class to handle graphql exceptions.
 
 ## Static Properties
 
-[[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[emailAccountPresent](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/emailAccountPresent.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[memberRequestExist](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/memberRequestExist.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[notifFeatureNotInstalled](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/notifFeatureNotInstalled.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[organizationNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/organizationNotFound.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[refreshAccessTokenExpiredException](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/refreshAccessTokenExpiredException.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[userNotAuthenticated](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotAuthenticated.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[userNotFound](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/userNotFound.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
     :::
 
-[[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.html)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
+[[wrongCredentials](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/wrongCredentials.md)] [↔ [GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)]
 :   Graphql error for handling.
     ::: features
     getter/setter pair
@@ -114,7 +114,7 @@ static class to handle graphql exceptions.
 
 ## Static Methods
 
-[[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.html)][([[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)] exception, {][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] showSnackBar = true]}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
+[[encounteredExceptionOrError](../exceptions_graphql_exception_resolver/GraphqlExceptionResolver/encounteredExceptionOrError.md)][([[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.md)] exception, {][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] showSnackBar = true]}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
 :   This function is used to check if any exceptions or error
     encountered. The return type is `boolean`.
 
@@ -124,7 +124,7 @@ static class to handle graphql exceptions.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [graphql_exception_resolver](../exceptions_graphql_exception_resolver/)
 3.  GraphqlExceptionResolver class
 

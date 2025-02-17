@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 translate(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]
     key]
 
 )
@@ -36,9 +36,9 @@ String? translate(String? key) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
-3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.html)
+3.  [AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)
 4.  translate method
 
 ##### AppLocalizations class

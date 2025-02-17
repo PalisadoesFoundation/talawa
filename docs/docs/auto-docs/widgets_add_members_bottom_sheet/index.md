@@ -1,3 +1,7 @@
+---
+title: "widgets_add_members_bottom_sheet"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet-class.html)]
+[[EventBottomSheet](../widgets_add_members_bottom_sheet/EventBottomSheet-class.md)]
 :   Adds members to an event.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//add_members_bottom_sheet.dart
 
 ##### talawa package

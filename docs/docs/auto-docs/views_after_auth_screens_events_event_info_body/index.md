@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_event_info_body"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventInfoBody](../views_after_auth_screens_events_event_info_body/EventInfoBody-class.html)]
+[[EventInfoBody](../views_after_auth_screens_events_event_info_body/EventInfoBody-class.md)]
 :   EventInfoBody returns a stateless widget which describes the body of
     a particular event.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//event_info_body.dart
 
 ##### talawa package

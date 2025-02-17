@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_profile_edit_profile_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EditProfilePage](../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.html)]
+[[EditProfilePage](../views_after_auth_screens_profile_edit_profile_page/EditProfilePage-class.md)]
 :   EditProfilePage returns a widget that has mutable state
     /_EditProfilePageState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//profile//edit_profile_page.dart
 
 ##### talawa package

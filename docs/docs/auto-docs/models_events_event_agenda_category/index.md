@@ -1,3 +1,7 @@
+---
+title: "models_events_event_agenda_category"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]
+[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)]
 :   This class creates an event agenda category model.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//events//event_agenda_category.dart
 
 ##### talawa package

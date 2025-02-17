@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_select_language"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SelectLanguage](../views_pre_auth_screens_select_language/SelectLanguage-class.html)]
+[[SelectLanguage](../views_pre_auth_screens_select_language/SelectLanguage-class.md)]
 :   This widget enables us to select a different language.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//select_language.dart
 
 ##### talawa package

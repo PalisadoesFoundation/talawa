@@ -35,9 +35,9 @@ Future<void>  async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [directly_login](../../widgets_directly_login/)
-3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.html)
+3.  [DirectlyLogin](../../widgets_directly_login/DirectlyLogin-class.md)
 4.  loginUsingPrevCredentials method
 
 ##### DirectlyLogin class

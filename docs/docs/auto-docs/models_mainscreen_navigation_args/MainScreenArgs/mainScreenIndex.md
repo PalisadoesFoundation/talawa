@@ -31,9 +31,9 @@ final int mainScreenIndex;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/)
-3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.html)
+3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
 4.  mainScreenIndex property
 
 ##### MainScreenArgs class

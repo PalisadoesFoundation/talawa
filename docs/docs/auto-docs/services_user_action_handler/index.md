@@ -1,3 +1,7 @@
+---
+title: "services_user_action_handler"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.html)]
+[[ActionHandlerService](../services_user_action_handler/ActionHandlerService-class.md)]
 :   A service class to handle different types of actions, including API
     calls.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//user_action_handler.dart
 
 ##### talawa package

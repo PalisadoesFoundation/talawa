@@ -7,7 +7,7 @@
 
 
 dynamic
-Function[([[[Post](../../models_post_post_model/Post-class.html)]])]? function
+Function[([[[Post](../../models_post_post_model/Post-class.md)]])]? function
 
 
 final
@@ -32,9 +32,9 @@ final Function(Post)? function;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_modal](../../widgets_post_modal/)
-3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.html)
+3.  [PostBottomModal](../../widgets_post_modal/PostBottomModal-class.md)
 4.  function property
 
 ##### PostBottomModal class

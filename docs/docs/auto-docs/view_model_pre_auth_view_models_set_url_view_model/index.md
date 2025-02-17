@@ -1,3 +1,7 @@
+---
+title: "view_model_pre_auth_view_models_set_url_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SetUrlViewModel](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.html)]
+[[SetUrlViewModel](../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)]
 :   SetUrlViewModel class helps to interact with model to serve data.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//pre_auth_view_models//set_url_view_model.dart
 
 ##### talawa package

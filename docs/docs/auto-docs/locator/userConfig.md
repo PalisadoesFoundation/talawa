@@ -6,7 +6,7 @@
 </div>
 
 
-[UserConfig](../services_user_config/UserConfig-class.html)
+[UserConfig](../services_user_config/UserConfig-class.md)
 userConfig
 
 
@@ -31,7 +31,7 @@ final userConfig = locator<UserConfig>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  userConfig property
 

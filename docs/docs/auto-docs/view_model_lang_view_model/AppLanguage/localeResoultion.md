@@ -9,7 +9,7 @@
 [[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
 localeResoultion(
 
-1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)?]
+1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)?]
     locale, ]
 2.  [[[Iterable](https://api.flutter.dev/flutter/dart-core/Iterable-class.html)[\<[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]\>]]
     supportedLocales]
@@ -59,9 +59,9 @@ Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [lang_view_model](../../view_model_lang_view_model/)
-3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.html)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
 4.  localeResoultion method
 
 ##### AppLanguage class

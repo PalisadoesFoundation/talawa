@@ -8,7 +8,7 @@
 
 const WaitingPage({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 
 })
@@ -27,9 +27,9 @@ const WaitingPage({super.key});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [waiting_screen](../../views_pre_auth_screens_waiting_screen/)
-3.  [WaitingPage](../../views_pre_auth_screens_waiting_screen/WaitingPage-class.html)
+3.  [WaitingPage](../../views_pre_auth_screens_waiting_screen/WaitingPage-class.md)
 4.  WaitingPage const constructor
 
 ##### WaitingPage class

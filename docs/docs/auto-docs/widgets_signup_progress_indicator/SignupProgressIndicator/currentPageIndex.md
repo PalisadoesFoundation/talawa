@@ -31,9 +31,9 @@ final int currentPageIndex;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/)
-3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.html)
+3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
 4.  currentPageIndex property
 
 ##### SignupProgressIndicator class

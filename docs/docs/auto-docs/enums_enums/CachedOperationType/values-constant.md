@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedOperationType](../../enums_enums/CachedOperationType.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedOperationType](../../enums_enums/CachedOperationType.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CachedOperationType](../../enums_enums/CachedOperationType.html)
+3.  [CachedOperationType](../../enums_enums/CachedOperationType.md)
 4.  values constant
 
 ##### CachedOperationType enum

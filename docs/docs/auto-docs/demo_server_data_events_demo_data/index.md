@@ -1,3 +1,7 @@
+---
+title: "demo_server_data_events_demo_data"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Constants
 
-[[eventsDemoData](../demo_server_data_events_demo_data/eventsDemoData-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
+[[eventsDemoData](../demo_server_data_events_demo_data/eventsDemoData-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
 :   /'eventsDemoData/' is a list of events that are used to display the
     events in the app.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  demo_server_data//events_demo_data.dart
 
 ##### talawa package

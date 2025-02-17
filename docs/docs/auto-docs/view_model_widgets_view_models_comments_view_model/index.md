@@ -1,3 +1,7 @@
+---
+title: "view_model_widgets_view_models_comments_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.html)]
+[[CommentsViewModel](../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)]
 :   CommentsViewModel class helps to serve the data from model and to
     react to user/'s input for Comment Widget.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//widgets_view_models//comments_view_model.dart
 
 ##### talawa package

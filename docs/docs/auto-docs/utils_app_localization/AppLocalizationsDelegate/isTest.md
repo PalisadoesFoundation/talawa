@@ -27,9 +27,9 @@ final bool isTest;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
-3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.html)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  isTest property
 
 ##### AppLocalizationsDelegate class

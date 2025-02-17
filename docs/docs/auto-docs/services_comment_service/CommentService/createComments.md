@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 createComments(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     postId, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
     text]
@@ -64,9 +64,9 @@ Future<void> createComments(String postId, String text) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_service](../../services_comment_service/)
-3.  [CommentService](../../services_comment_service/CommentService-class.html)
+3.  [CommentService](../../services_comment_service/CommentService-class.md)
 4.  createComments method
 
 ##### CommentService class

@@ -1,2 +1,2 @@
-1.  [Classes](view_model_after_auth_view_models_event_view_models_event_info_view_model/#classes)
-2.  [EventInfoViewModel](view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html)
+1.  [Classes](./#classes)
+2.  [EventInfoViewModel](./EventInfoViewModel-class.md)

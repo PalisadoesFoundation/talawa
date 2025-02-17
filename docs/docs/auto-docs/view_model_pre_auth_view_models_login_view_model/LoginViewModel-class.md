@@ -21,14 +21,14 @@ Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
+    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
     -   LoginViewModel
 
 
 
 ## Constructors
 
-[LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/LoginViewModel.html)
+[LoginViewModel](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/LoginViewModel.md)
 
 :   
 
@@ -36,25 +36,25 @@ Inheritance
 
 ## Properties
 
-[[email](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/email.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[email](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/email.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   TextEditingController for handling email input field.
     ::: features
     getter/setter pair
     :::
 
-[[emailFocus](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/emailFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[emailFocus](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/emailFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   FocusNode to manage focus for the email input field.
     ::: features
     getter/setter pair
     :::
 
-[[formKey](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/formKey.html)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[FormState](https://api.flutter.dev/flutter/widgets/FormState-class.html)]\>]]
+[[formKey](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/formKey.md)] [→ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[FormState](https://api.flutter.dev/flutter/widgets/FormState-class.html)]\>]]
 :   GlobalKey to identify and manage the state of a form widget.
     ::: features
     final
     :::
 
-[[greeting](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/greeting.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]]\>]]
+[[greeting](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/greeting.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]]\>]]
 :   List of maps to store greetings..
     ::: features
     getter/setter pair
@@ -72,37 +72,37 @@ Inheritance
     no setterinherited
     :::
 
-[[hidePassword](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/hidePassword.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[hidePassword](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/hidePassword.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Toggles password visibility (true for hidden, false for visible).
     ::: features
     getter/setter pair
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
     :::
 
-[[password](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/password.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[password](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/password.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   TextEditingController for handling password input field.
     ::: features
     getter/setter pair
     :::
 
-[[passwordFocus](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/passwordFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[passwordFocus](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/passwordFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   FocusNode to manage focus for the password input field.
     ::: features
     getter/setter pair
     :::
 
-[[prevUserEmail](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/prevUserEmail.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[prevUserEmail](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/prevUserEmail.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   This field store previous user Email.
     ::: features
     getter/setter pair
     :::
 
-[[prevUserPassword](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/prevUserPassword.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[prevUserPassword](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/prevUserPassword.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   This field store previous user Password.
     ::: features
     getter/setter pair
@@ -114,19 +114,19 @@ Inheritance
     no setterinherited
     :::
 
-[[secureStorage](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/secureStorage.html)] [↔ [FlutterSecureStorage](https://pub.dev/documentation/flutter_secure_storage/9.2.4/flutter_secure_storage/FlutterSecureStorage-class.html)]
+[[secureStorage](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/secureStorage.md)] [↔ [FlutterSecureStorage](https://pub.dev/documentation/flutter_secure_storage/9.2.4/flutter_secure_storage/FlutterSecureStorage-class.html)]
 :   Secure local storage instance.
     ::: features
     getter/setter pair
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
+[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
 
 :   ::: features
     no setterinherited
     :::
 
-[[validate](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/validate.html)] [↔ [AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html)]
+[[validate](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/validate.md)] [↔ [AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html)]
 :   Determines when to perform automatic validation of form fields.
     ::: features
     getter/setter pair
@@ -136,7 +136,7 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
     inherited
@@ -145,22 +145,22 @@ Inheritance
 [dispose](https://api.flutter.dev/flutter/foundation/ChangeNotifier/dispose.html) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
+    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
     will throw after the object is disposed).
     ::: features
     inherited
     :::
 
-[[fetchPrevUser](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/fetchPrevUser.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[fetchPrevUser](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/fetchPrevUser.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Fetch the previous user credentials.
 
-[initialize](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/initialize.html) [→ void ]
+[initialize](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/initialize.md) [→ void ]
 :   Initializes the greeting message.
 
-[[login](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/login.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[login](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/login.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Performs the login operation.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -172,20 +172,20 @@ Inheritance
     inherited
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
     inherited
     :::
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
+[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
 
 :   ::: features
     inherited
     :::
 
-[[storingCredentialsInSecureStorage](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/storingCredentialsInSecureStorage.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[storingCredentialsInSecureStorage](../view_model_pre_auth_view_models_login_view_model/LoginViewModel/storingCredentialsInSecureStorage.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Storing credentials in secure storage.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -198,7 +198,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -210,7 +210,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [login_view_model](../view_model_pre_auth_view_models_login_view_model/)
 3.  LoginViewModel class
 

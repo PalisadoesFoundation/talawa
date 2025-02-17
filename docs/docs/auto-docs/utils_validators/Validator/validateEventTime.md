@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 validateEventTime(
 
-1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)]
     startTime, ]
 2.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
     endTime]
@@ -49,9 +49,9 @@ static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [validators](../../utils_validators/)
-3.  [Validator](../../utils_validators/Validator-class.html)
+3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateEventTime static method
 
 ##### Validator class

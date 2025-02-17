@@ -6,7 +6,7 @@
 </div>
 
 
-[CacheService](../services_caching_cache_service/CacheService-class.html)
+[CacheService](../services_caching_cache_service/CacheService-class.md)
 cacheService
 
 
@@ -31,7 +31,7 @@ final cacheService = locator<CacheService>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  cacheService property
 

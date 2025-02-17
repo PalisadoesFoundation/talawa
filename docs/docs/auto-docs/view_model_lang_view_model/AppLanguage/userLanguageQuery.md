@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 userLanguageQuery(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     userId]
 
 )
@@ -48,9 +48,9 @@ Future<void> userLanguageQuery(String userId) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [lang_view_model](../../view_model_lang_view_model/)
-3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.html)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
 4.  userLanguageQuery method
 
 ##### AppLanguage class

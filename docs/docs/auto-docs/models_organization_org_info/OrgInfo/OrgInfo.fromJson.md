@@ -8,7 +8,7 @@
 
 OrgInfo.fromJson(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     json1, {]
 2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
@@ -74,9 +74,9 @@ factory OrgInfo.fromJson(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_info](../../models_organization_org_info/)
-3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
 4.  OrgInfo.fromJson factory constructor
 
 ##### OrgInfo class

@@ -20,7 +20,7 @@ Services include:
 
 ## Constructors
 
-[MultiMediaPickerService](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/MultiMediaPickerService.html)
+[MultiMediaPickerService](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/MultiMediaPickerService.md)
 
 :   
 
@@ -28,7 +28,7 @@ Services include:
 
 ## Properties
 
-[[fileStream](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/fileStream.html)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)]
+[[fileStream](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/fileStream.md)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)]
 :   Provides a stream of selected multimedia files.
     ::: features
     no setter
@@ -50,17 +50,17 @@ Services include:
 
 ## Methods
 
-[[getPhotoFromGallery](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/getPhotoFromGallery.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] camera = false]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]] ]
+[[getPhotoFromGallery](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/getPhotoFromGallery.md)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)] camera = false]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]] ]
 :   Picks the image from gallery or to click the image from user\'s
     camera.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[permissionDeniedDialog](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/permissionDeniedDialog.html)][() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.html)] ]
+[[permissionDeniedDialog](../services_third_party_service_multi_media_pick_service/MultiMediaPickerService/permissionDeniedDialog.md)][() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.md)] ]
 :   Generates a custom alert dialog for permission denial.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -73,7 +73,7 @@ Services include:
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -85,7 +85,7 @@ Services include:
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [multi_media_pick_service](../services_third_party_service_multi_media_pick_service/)
 3.  MultiMediaPickerService class
 

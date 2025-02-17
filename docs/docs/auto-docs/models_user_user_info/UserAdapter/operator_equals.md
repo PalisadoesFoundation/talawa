@@ -15,7 +15,7 @@
 [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 operator ==(
 
-1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]
+1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)]
     other]
 
 )
@@ -53,7 +53,7 @@ are equal should only change if at least one of the objects was
 modified.
 
 If a subclass overrides the equality operator, it should override the
-[hashCode](../../models_user_user_info/UserAdapter/hashCode.html) method
+[hashCode](../../models_user_user_info/UserAdapter/hashCode.md) method
 as well to maintain consistency.
 
 
@@ -75,9 +75,9 @@ bool operator ==(Object other) =>
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
-3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.html)
+3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.md)
 4.  operator == method
 
 ##### UserAdapter class

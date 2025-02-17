@@ -6,7 +6,7 @@
 </div>
 
 
-[ImageService](../services_image_service/ImageService-class.html)
+[ImageService](../services_image_service/ImageService-class.md)
 imageService
 
 
@@ -31,7 +31,7 @@ final imageService = locator<ImageService>();
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [locator](../locator/)
 3.  imageService property
 

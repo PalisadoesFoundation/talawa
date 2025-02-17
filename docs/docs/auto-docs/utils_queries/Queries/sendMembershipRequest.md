@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 sendMembershipRequest(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     orgId]
 
 )
@@ -61,9 +61,9 @@ String sendMembershipRequest(String orgId) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [queries](../../utils_queries/)
-3.  [Queries](../../utils_queries/Queries-class.html)
+3.  [Queries](../../utils_queries/Queries-class.md)
 4.  sendMembershipRequest method
 
 ##### Queries class

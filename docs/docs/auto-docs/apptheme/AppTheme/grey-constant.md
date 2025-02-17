@@ -27,9 +27,9 @@ static const Color grey = Color(0xFFD2D2D2);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [apptheme](../../apptheme/)
-3.  [AppTheme](../../apptheme/AppTheme-class.html)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
 4.  grey constant
 
 ##### AppTheme class

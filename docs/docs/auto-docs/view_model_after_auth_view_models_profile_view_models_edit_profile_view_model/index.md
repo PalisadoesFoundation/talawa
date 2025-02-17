@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_profile_view_models_edit_profile_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EditProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class.html)]
+[[EditProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class.md)]
 :   EditProfilePageViewModel class helps to interact with model to serve
     data to edit profile views.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//profile_view_models//edit_profile_view_model.dart
 
 ##### talawa package

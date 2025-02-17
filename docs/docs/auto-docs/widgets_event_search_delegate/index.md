@@ -1,3 +1,7 @@
+---
+title: "widgets_event_search_delegate"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventSearch](../widgets_event_search_delegate/EventSearch-class.html)]
+[[EventSearch](../widgets_event_search_delegate/EventSearch-class.md)]
 :   This class returns a list of the events which match the search
     query.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//event_search_delegate.dart
 
 ##### talawa package

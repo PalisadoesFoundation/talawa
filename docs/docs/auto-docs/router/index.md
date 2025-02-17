@@ -1,3 +1,7 @@
+---
+title: "router"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Functions
 
-[[generateRoute](../router/generateRoute.html)][([[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.html)] settings]) [→ [Route](https://api.flutter.dev/flutter/widgets/Route-class.html)] ]
+[[generateRoute](../router/generateRoute.md)][([[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.md)] settings]) [→ [Route](https://api.flutter.dev/flutter/widgets/Route-class.html)] ]
 :   The MaterialApp provides us with a property called generateRoute
     where.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  router.dart
 
 ##### talawa package

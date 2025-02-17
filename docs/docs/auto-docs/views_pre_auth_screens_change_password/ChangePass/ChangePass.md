@@ -9,7 +9,7 @@
 const ChangePass({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
 
 })
@@ -28,9 +28,9 @@ const ChangePass({required Key key}) : super(key: key);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [change_password](../../views_pre_auth_screens_change_password/)
-3.  [ChangePass](../../views_pre_auth_screens_change_password/ChangePass-class.html)
+3.  [ChangePass](../../views_pre_auth_screens_change_password/ChangePass-class.md)
 4.  ChangePass const constructor
 
 ##### ChangePass class

@@ -25,7 +25,7 @@ Inheritance
 
 ## Constructors
 
-[AppLogo](../custom_painters_talawa_logo/AppLogo/AppLogo.html)
+[AppLogo](../custom_painters_talawa_logo/AppLogo/AppLogo.md)
 
 :   
 
@@ -56,26 +56,26 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be notified when it is time to repaint.
     ::: features
     inherited
     :::
 
-[[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)][([[[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.html)] position]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
+[[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)][([[[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.md)] position]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
 :   Called whenever a hit test is being performed on an object that is
     using this custom paint delegate.
     ::: features
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[paint](../custom_painters_talawa_logo/AppLogo/paint.html)][([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
+[[paint](../custom_painters_talawa_logo/AppLogo/paint.md)][([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.md)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
 :   Called whenever the object needs to paint. The given
     [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)
     has its coordinate space configured such that the origin is at the
@@ -85,14 +85,14 @@ Inheritance
     override
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that the object notifies when it is time to repaint.
     ::: features
     inherited
     :::
 
-[[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Called whenever a new instance of the custom painter delegate class
     is provided to the
     [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
@@ -105,7 +105,7 @@ Inheritance
     inherited
     :::
 
-[[shouldRepaint](../custom_painters_talawa_logo/AppLogo/shouldRepaint.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[shouldRepaint](../custom_painters_talawa_logo/AppLogo/shouldRepaint.md)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Called whenever a new instance of the custom painter delegate class
     is provided to the
     [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
@@ -128,7 +128,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -140,7 +140,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [talawa_logo](../custom_painters_talawa_logo/)
 3.  AppLogo class
 

@@ -27,9 +27,9 @@ static const Color blackSecondary = Color(0xFF636363);
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [apptheme](../../apptheme/)
-3.  [AppTheme](../../apptheme/AppTheme-class.html)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
 4.  blackSecondary constant
 
 ##### AppTheme class

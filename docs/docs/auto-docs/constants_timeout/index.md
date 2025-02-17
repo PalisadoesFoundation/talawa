@@ -1,3 +1,7 @@
+---
+title: "constants_timeout"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TimeOuts](../constants_timeout/TimeOuts-class.html)]
+[[TimeOuts](../constants_timeout/TimeOuts-class.md)]
 :   Class to define constant timeout to bring consistency in the code.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//timeout.dart
 
 ##### talawa package

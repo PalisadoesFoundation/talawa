@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_profile_user_event"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[UserEvents](../views_after_auth_screens_profile_user_event/UserEvents-class.html)]
+[[UserEvents](../views_after_auth_screens_profile_user_event/UserEvents-class.md)]
 :   UserEvents to show events created by user in current organisation .
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//profile//user_event.dart
 
 ##### talawa package

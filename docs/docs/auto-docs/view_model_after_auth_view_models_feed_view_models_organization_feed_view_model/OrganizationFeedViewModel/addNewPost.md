@@ -8,7 +8,7 @@
 
 void addNewPost(
 
-1.  [[[Post](../../models_post_post_model/Post-class.html)]
+1.  [[[Post](../../models_post_post_model/Post-class.md)]
     newPost]
 
 )
@@ -40,9 +40,9 @@ void addNewPost(Post newPost) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [organization_feed_view_model](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/)
-3.  [OrganizationFeedViewModel](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.html)
+3.  [OrganizationFeedViewModel](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class.md)
 4.  addNewPost method
 
 ##### OrganizationFeedViewModel class

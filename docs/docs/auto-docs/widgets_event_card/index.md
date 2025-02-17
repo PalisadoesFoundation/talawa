@@ -1,3 +1,7 @@
+---
+title: "widgets_event_card"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventCard](../widgets_event_card/EventCard-class.html)]
+[[EventCard](../widgets_event_card/EventCard-class.md)]
 :   This class returns the EventCard widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//event_card.dart
 
 ##### talawa package

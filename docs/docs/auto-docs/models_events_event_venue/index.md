@@ -1,3 +1,7 @@
+---
+title: "models_events_event_venue"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Venue](../models_events_event_venue/Venue-class.html)]
+[[Venue](../models_events_event_venue/Venue-class.md)]
 :   The `Venue` class represents a venue for events.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//events//event_venue.dart
 
 ##### talawa package

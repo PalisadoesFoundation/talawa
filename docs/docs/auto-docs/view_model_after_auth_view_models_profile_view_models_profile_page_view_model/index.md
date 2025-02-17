@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_profile_view_models_profile_page_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html)]
+[[ProfilePageViewModel](../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)]
 :   ProfilePageViewModel class helps to interact with model to serve
     data and react to user/'s input in Profile Page view.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//profile_view_models//profile_page_view_model.dart
 
 ##### talawa package

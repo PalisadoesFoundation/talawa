@@ -8,7 +8,7 @@
 
 EventAgendaItem({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]
     id, ]
 2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     title, ]
@@ -18,17 +18,17 @@ EventAgendaItem({
     duration, ]
 5.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
     attachments, ]
-6.  [[[User](../../models_user_user_info/User-class.html)?]
+6.  [[[User](../../models_user_user_info/User-class.md)?]
     createdBy, ]
 7.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
     urls, ]
-8.  [[[Event](../../models_events_event_model/Event-class.html)?]
+8.  [[[Event](../../models_events_event_model/Event-class.md)?]
     relatedEvent, ]
-9.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.html)]\>]?]
+9.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.md)]\>]?]
     categories, ]
 10. [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
     sequence, ]
-11. [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+11. [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)?]
     organization, ]
 
 })
@@ -61,9 +61,9 @@ EventAgendaItem({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_agenda_item](../../models_events_event_agenda_item/)
-3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.html)
+3.  [EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.md)
 4.  EventAgendaItem constructor
 
 ##### EventAgendaItem class

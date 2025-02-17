@@ -12,10 +12,10 @@
 
 </div>
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../../utils_app_localization/AppLocalizations-class.html)]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../../utils_app_localization/AppLocalizations-class.md)]\>]]
 load(
 
-1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.md)]
     locale]
 
 )
@@ -60,9 +60,9 @@ Future<AppLocalizations> load(Locale locale) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_localization](../../utils_app_localization/)
-3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.html)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
 4.  load method
 
 ##### AppLocalizationsDelegate class

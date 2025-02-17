@@ -8,13 +8,13 @@
 
 ChatMessage(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?]
     id, ]
-2.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]
+2.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.md)?]
     sender, ]
 3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
     messageContent, ]
-4.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]
+4.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.md)?]
     receiver, ]
 
 )
@@ -38,9 +38,9 @@ ChatMessage(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [chat_message](../../models_chats_chat_message/)
-3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.html)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
 4.  ChatMessage constructor
 
 ##### ChatMessage class

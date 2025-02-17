@@ -20,11 +20,11 @@ Annotations
 
 ## Constructors
 
-[[Attendee](../models_events_event_model/Attendee/Attendee.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] firstName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] lastName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] image]})]
+[[Attendee](../models_events_event_model/Attendee/Attendee.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] firstName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] lastName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] image]})]
 
 :   
 
-[[Attendee.fromJson](../models_events_event_model/Attendee/Attendee.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[Attendee.fromJson](../models_events_event_model/Attendee/Attendee.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
 :   
 
@@ -32,7 +32,7 @@ Annotations
 
 ## Properties
 
-[[firstName](../models_events_event_model/Attendee/firstName.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[firstName](../models_events_event_model/Attendee/firstName.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The first name of the attendee.
     ::: features
     getter/setter pair
@@ -44,19 +44,19 @@ Annotations
     no setterinherited
     :::
 
-[[id](../models_events_event_model/Attendee/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_events_event_model/Attendee/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Unique identifier for the attendee.
     ::: features
     getter/setter pair
     :::
 
-[[image](../models_events_event_model/Attendee/image.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[image](../models_events_event_model/Attendee/image.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The image URL of the attendee.
     ::: features
     getter/setter pair
     :::
 
-[[lastName](../models_events_event_model/Attendee/lastName.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[lastName](../models_events_event_model/Attendee/lastName.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The last name of the attendee.
     ::: features
     getter/setter pair
@@ -72,13 +72,13 @@ Annotations
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toJson](../models_events_event_model/Attendee/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_events_event_model/Attendee/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 :   Converts the Attendee instance to a map structure..
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -91,7 +91,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -103,7 +103,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_model](../models_events_event_model/)
 3.  Attendee class
 

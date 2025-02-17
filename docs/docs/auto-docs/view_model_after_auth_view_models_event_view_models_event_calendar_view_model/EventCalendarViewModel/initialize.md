@@ -8,7 +8,7 @@
 
 void initialize(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]\>]]
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[Event](../../models_events_event_model/Event-class.md)]\>]]
     eventList]
 
 )
@@ -40,9 +40,9 @@ void initialize(List<Event> eventList) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
-3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.html)
+3.  [EventCalendarViewModel](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class.md)
 4.  initialize method
 
 ##### EventCalendarViewModel class

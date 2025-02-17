@@ -8,7 +8,7 @@
 
 Venue.fromJson(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     json]
 
@@ -46,9 +46,9 @@ factory Venue.fromJson(Map<String, dynamic> json) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_venue](../../models_events_event_venue/)
-3.  [Venue](../../models_events_event_venue/Venue-class.html)
+3.  [Venue](../../models_events_event_venue/Venue-class.md)
 4.  Venue.fromJson factory constructor
 
 ##### Venue class

@@ -12,7 +12,7 @@ Class containing constants for week days.
 
 ## Constructors
 
-[WeekDays](../constants_recurrence_values/WeekDays/WeekDays.html)
+[WeekDays](../constants_recurrence_values/WeekDays/WeekDays.md)
 
 :   
 
@@ -36,7 +36,7 @@ Class containing constants for week days.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ Class containing constants for week days.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,25 +62,25 @@ Class containing constants for week days.
 
 ## Constants
 
-[[friday](../constants_recurrence_values/WeekDays/friday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[friday](../constants_recurrence_values/WeekDays/friday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Friday.
 
-[[monday](../constants_recurrence_values/WeekDays/monday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[monday](../constants_recurrence_values/WeekDays/monday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Monday.
 
-[[saturday](../constants_recurrence_values/WeekDays/saturday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[saturday](../constants_recurrence_values/WeekDays/saturday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Saturday.
 
-[[sunday](../constants_recurrence_values/WeekDays/sunday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[sunday](../constants_recurrence_values/WeekDays/sunday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Sunday.
 
-[[thursday](../constants_recurrence_values/WeekDays/thursday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[thursday](../constants_recurrence_values/WeekDays/thursday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Thursday.
 
-[[tuesday](../constants_recurrence_values/WeekDays/tuesday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[tuesday](../constants_recurrence_values/WeekDays/tuesday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Tuesday.
 
-[[wednesday](../constants_recurrence_values/WeekDays/wednesday-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[wednesday](../constants_recurrence_values/WeekDays/wednesday-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing Wednesday.
 
 
@@ -89,7 +89,7 @@ Class containing constants for week days.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [recurrence_values](../constants_recurrence_values/)
 3.  WeekDays class
 

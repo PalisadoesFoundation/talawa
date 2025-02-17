@@ -6,10 +6,10 @@
 </div>
 
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]]\>]]
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]]\>]]
 getOrgMembersList(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     orgId]
 
 )
@@ -57,9 +57,9 @@ Future<List<User>> getOrgMembersList(String orgId) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [org_service](../../services_org_service/)
-3.  [OrganizationService](../../services_org_service/OrganizationService-class.html)
+3.  [OrganizationService](../../services_org_service/OrganizationService-class.md)
 4.  getOrgMembersList method
 
 ##### OrganizationService class

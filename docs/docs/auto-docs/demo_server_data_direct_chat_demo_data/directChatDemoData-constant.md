@@ -194,7 +194,7 @@ const directChatDemoData = [
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/)
 3.  directChatDemoData constant
 

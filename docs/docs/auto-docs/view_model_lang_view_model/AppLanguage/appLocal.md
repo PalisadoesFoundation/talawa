@@ -29,9 +29,9 @@ Locale get appLocal => _appLocale;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [lang_view_model](../../view_model_lang_view_model/)
-3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.html)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
 4.  appLocal property
 
 ##### AppLanguage class

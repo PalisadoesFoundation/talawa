@@ -12,7 +12,7 @@
 
 </div>
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]?
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]?
 adminFor
 
 
@@ -38,9 +38,9 @@ List<OrgInfo>? adminFor = [];
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
-3.  [User](../../models_user_user_info/User-class.html)
+3.  [User](../../models_user_user_info/User-class.md)
 4.  adminFor property
 
 ##### User class

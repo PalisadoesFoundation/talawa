@@ -1,3 +1,7 @@
+---
+title: "constants_recurrence_values"
+---
+
 
 <div>
 
@@ -8,29 +12,29 @@
 
 ## Classes
 
-[[EventEndTypes](../constants_recurrence_values/EventEndTypes-class.html)]
+[[EventEndTypes](../constants_recurrence_values/EventEndTypes-class.md)]
 :   Class containing constants for event end types.
 
-[[EventIntervals](../constants_recurrence_values/EventIntervals-class.html)]
+[[EventIntervals](../constants_recurrence_values/EventIntervals-class.md)]
 :   Class containing constants for event intervals.
 
-[[Frequency](../constants_recurrence_values/Frequency-class.html)]
+[[Frequency](../constants_recurrence_values/Frequency-class.md)]
 :   Class containing constants for frequency options.
 
-[[RecurrenceUtils](../constants_recurrence_values/RecurrenceUtils-class.html)]
+[[RecurrenceUtils](../constants_recurrence_values/RecurrenceUtils-class.md)]
 :   conatins all neccessary utils.
 
-[[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType-class.html)]
+[[RecurringEventMutationType](../constants_recurrence_values/RecurringEventMutationType-class.md)]
 :   Class containing constants for recurrence end types.
 
-[[WeekDays](../constants_recurrence_values/WeekDays-class.html)]
+[[WeekDays](../constants_recurrence_values/WeekDays-class.md)]
 :   Class containing constants for week days.
 
 
 
 ## Properties
 
-[[days](../constants_recurrence_values/days.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]]
+[[days](../constants_recurrence_values/days.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]/>]]
 :   represents all the days in a week.
     ::: features
     getter/setter pair
@@ -42,7 +46,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//recurrence_values.dart
 
 ##### talawa package

@@ -32,11 +32,11 @@ Annotations
 
 ## Values
 
-pending [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]
+pending [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)]
 
 :   The user action is still waiting to be processed.
 
-completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]
+completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)]
 
 :   The user action has been successfully completed.
 
@@ -80,7 +80,7 @@ completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionSta
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -96,7 +96,7 @@ completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionSta
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -106,7 +106,7 @@ completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionSta
 
 ## Constants
 
-[[values](../enums_enums/CachedUserActionStatus/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]\>]]
+[[values](../enums_enums/CachedUserActionStatus/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -116,7 +116,7 @@ completed [→ const [CachedUserActionStatus](../enums_enums/CachedUserActionSta
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  CachedUserActionStatus enum
 

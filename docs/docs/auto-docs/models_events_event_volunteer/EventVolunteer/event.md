@@ -6,7 +6,7 @@
 </div>
 
 
-[Event](../../models_events_event_model/Event-class.html)?
+[Event](../../models_events_event_model/Event-class.md)?
 event
 
 
@@ -31,9 +31,9 @@ Event? event;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer](../../models_events_event_volunteer/)
-3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)
+3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)
 4.  event property
 
 ##### EventVolunteer class

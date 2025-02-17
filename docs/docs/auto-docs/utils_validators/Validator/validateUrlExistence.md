@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]\>]]
 validateUrlExistence(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     url]
 
 )
@@ -48,9 +48,9 @@ Future<bool?> validateUrlExistence(String url) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [validators](../../utils_validators/)
-3.  [Validator](../../utils_validators/Validator-class.html)
+3.  [Validator](../../utils_validators/Validator-class.md)
 4.  validateUrlExistence method
 
 ##### Validator class

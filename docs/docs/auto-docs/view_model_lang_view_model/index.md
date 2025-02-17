@@ -1,3 +1,7 @@
+---
+title: "view_model_lang_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppLanguage](../view_model_lang_view_model/AppLanguage-class.html)]
+[[AppLanguage](../view_model_lang_view_model/AppLanguage-class.md)]
 :   AppLanguage view model class interact with modal in the context of
     the App Language.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//lang_view_model.dart
 
 ##### talawa package

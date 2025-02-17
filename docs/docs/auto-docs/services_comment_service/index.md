@@ -1,3 +1,7 @@
+---
+title: "services_comment_service"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CommentService](../services_comment_service/CommentService-class.html)]
+[[CommentService](../services_comment_service/CommentService-class.md)]
 :   CommentService class have different member functions which provides
     service in the context of commenting.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//comment_service.dart
 
 ##### talawa package

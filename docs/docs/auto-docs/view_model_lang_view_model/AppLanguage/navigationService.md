@@ -6,7 +6,7 @@
 </div>
 
 
-[NavigationService](../../services_navigation_service/NavigationService-class.html)
+[NavigationService](../../services_navigation_service/NavigationService-class.md)
 navigationService
 
 
@@ -31,9 +31,9 @@ final navigationService = locator<NavigationService>();
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [lang_view_model](../../view_model_lang_view_model/)
-3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.html)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
 4.  navigationService property
 
 ##### AppLanguage class

@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_settings_view_models_app_setting_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppSettingViewModel](../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.html)]
+[[AppSettingViewModel](../view_model_after_auth_view_models_settings_view_models_app_setting_view_model/AppSettingViewModel-class.md)]
 :   ViewModel for the App Settings functionality.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//settings_view_models//app_setting_view_model.dart
 
 ##### talawa package

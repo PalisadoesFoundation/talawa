@@ -1,3 +1,7 @@
+---
+title: "models_organization_org_info_address"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Address](../models_organization_org_info_address/Address-class.html)]
+[[Address](../models_organization_org_info_address/Address-class.md)]
 :   Model for the address of an organisation.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//organization//org_info_address.dart
 
 ##### talawa package

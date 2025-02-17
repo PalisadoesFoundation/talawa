@@ -10,14 +10,14 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.html)]\>]
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.md)]\>]
     -   AttendeeAdapter
 
 
 
 ## Constructors
 
-[AttendeeAdapter](../models_events_event_model/AttendeeAdapter/AttendeeAdapter.html)
+[AttendeeAdapter](../models_events_event_model/AttendeeAdapter/AttendeeAdapter.md)
 
 :   
 
@@ -25,7 +25,7 @@ Inheritance
 
 ## Properties
 
-[[hashCode](../models_events_event_model/AttendeeAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../models_events_event_model/AttendeeAdapter/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
     no setteroverride
@@ -37,7 +37,7 @@ Inheritance
     no setterinherited
     :::
 
-[[typeId](../models_events_event_model/AttendeeAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[typeId](../models_events_event_model/AttendeeAdapter/typeId.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
     final
@@ -47,13 +47,13 @@ Inheritance
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[read](../models_events_event_model/AttendeeAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [Attendee](../models_events_event_model/Attendee-class.html)] ]
+[[read](../models_events_event_model/AttendeeAdapter/read.md)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)] reader]) [→ [Attendee](../models_events_event_model/Attendee-class.md)] ]
 :   Is called when a value has to be decoded.
     ::: features
     override
@@ -65,7 +65,7 @@ Inheritance
     inherited
     :::
 
-[[write](../models_events_event_model/AttendeeAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[Attendee](../models_events_event_model/Attendee-class.html)] obj]) → void ]
+[[write](../models_events_event_model/AttendeeAdapter/write.md)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)] writer, ][[[Attendee](../models_events_event_model/Attendee-class.md)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
     override
@@ -75,7 +75,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](../models_events_event_model/AttendeeAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../models_events_event_model/AttendeeAdapter/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     override
@@ -87,7 +87,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [event_model](../models_events_event_model/)
 3.  AttendeeAdapter class
 

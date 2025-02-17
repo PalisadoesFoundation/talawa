@@ -20,11 +20,11 @@ Annotations
 
 ## Constructors
 
-[[LikedBy](../models_post_post_model/LikedBy/LikedBy.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] sId]})]
+[[LikedBy](../models_post_post_model/LikedBy/LikedBy.md)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] sId]})]
 
 :   
 
-[[LikedBy.fromJson](../models_post_post_model/LikedBy/LikedBy.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[LikedBy.fromJson](../models_post_post_model/LikedBy/LikedBy.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   JSON factory constructor.
 
 
@@ -43,7 +43,7 @@ Annotations
     no setterinherited
     :::
 
-[[sId](../models_post_post_model/LikedBy/sId.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[sId](../models_post_post_model/LikedBy/sId.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   These are dart object.
     ::: features
     getter/setter pair
@@ -53,13 +53,13 @@ Annotations
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toJson](../models_post_post_model/LikedBy/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_post_post_model/LikedBy/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 :   Convert dart object to json.
 
 [[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
@@ -72,7 +72,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -84,7 +84,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [post_model](../models_post_post_model/)
 3.  LikedBy class
 

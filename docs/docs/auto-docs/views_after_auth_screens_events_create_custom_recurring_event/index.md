@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_create_custom_recurring_event"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[CustomRecurrencePage](../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.html)]
+[[CustomRecurrencePage](../views_after_auth_screens_events_create_custom_recurring_event/CustomRecurrencePage-class.md)]
 :   Widget to build custom recurrence page.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//create_custom_recurring_event.dart
 
 ##### talawa package

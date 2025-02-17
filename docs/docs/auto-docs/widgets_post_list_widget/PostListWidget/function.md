@@ -7,7 +7,7 @@
 
 
 dynamic
-Function[([[[Post](../../models_post_post_model/Post-class.html)]])]? function
+Function[([[[Post](../../models_post_post_model/Post-class.md)]])]? function
 
 
 final
@@ -32,9 +32,9 @@ final Function(Post)? function;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_list_widget](../../widgets_post_list_widget/)
-3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.html)
+3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
 4.  function property
 
 ##### PostListWidget class

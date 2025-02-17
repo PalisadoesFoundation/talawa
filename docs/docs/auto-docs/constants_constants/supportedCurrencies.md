@@ -129,7 +129,7 @@ List<String> supportedCurrencies = [
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [constants](../constants_constants/)
 3.  supportedCurrencies property
 

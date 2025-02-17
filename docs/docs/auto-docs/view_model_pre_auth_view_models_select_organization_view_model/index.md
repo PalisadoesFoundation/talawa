@@ -1,3 +1,7 @@
+---
+title: "view_model_pre_auth_view_models_select_organization_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SelectOrganizationViewModel](../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.html)]
+[[SelectOrganizationViewModel](../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)]
 :   SelectOrganizationViewModel class helps to interact with model to
     serve data and react to user/'s input in Select Organization View.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//pre_auth_view_models//select_organization_view_model.dart
 
 ##### talawa package

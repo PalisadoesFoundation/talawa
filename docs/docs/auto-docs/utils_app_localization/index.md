@@ -1,3 +1,7 @@
+---
+title: "utils_app_localization"
+---
+
 
 <div>
 
@@ -8,11 +12,11 @@
 
 ## Classes
 
-[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]
+[[AppLocalizations](../utils_app_localization/AppLocalizations-class.md)]
 :   This class provides methods to localize the application so that it
     can be available to users with different languages.
 
-[[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate-class.html)]
+[[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate-class.md)]
 
 :   
 
@@ -22,7 +26,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  utils//app_localization.dart
 
 ##### talawa package

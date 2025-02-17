@@ -14,9 +14,9 @@
 
 void write(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]
+1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)]
     writer, ]
-2.  [[[Comment](../../models_comment_comment_model/Comment-class.html)]
+2.  [[[Comment](../../models_comment_comment_model/Comment-class.md)]
     obj]
 
 )
@@ -57,9 +57,9 @@ void write(BinaryWriter writer, Comment obj) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_model](../../models_comment_comment_model/)
-3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.html)
+3.  [CommentAdapter](../../models_comment_comment_model/CommentAdapter-class.md)
 4.  write method
 
 ##### CommentAdapter class

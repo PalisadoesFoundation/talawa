@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 getRecurrenceRuleText(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     frequency,
     ]
 2.  [[[Set](https://api.flutter.dev/flutter/dart-core/Set-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
@@ -128,9 +128,9 @@ static String getRecurrenceRuleText(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [recurrence_values](../../constants_recurrence_values/)
-3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.html)
+3.  [RecurrenceUtils](../../constants_recurrence_values/RecurrenceUtils-class.md)
 4.  getRecurrenceRuleText static method
 
 ##### RecurrenceUtils class

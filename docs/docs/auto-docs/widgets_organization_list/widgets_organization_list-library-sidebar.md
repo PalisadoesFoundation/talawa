@@ -1,2 +1,2 @@
-1.  [Classes](widgets_organization_list/#classes)
-2.  [OrganizationList](widgets_organization_list/OrganizationList-class.html)
+1.  [Classes](./#classes)
+2.  [OrganizationList](./OrganizationList-class.md)

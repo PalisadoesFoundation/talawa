@@ -25,19 +25,19 @@ Available extensions
 
 ## Values
 
-user [→ const [TileType](../enums_enums/TileType.html)]
+user [→ const [TileType](../enums_enums/TileType.md)]
 
 :   Represents the tile of the user.
 
-attendee [→ const [TileType](../enums_enums/TileType.html)]
+attendee [→ const [TileType](../enums_enums/TileType.md)]
 
 :   Represents the tile of the attendee.
 
-org [→ const [TileType](../enums_enums/TileType.html)]
+org [→ const [TileType](../enums_enums/TileType.md)]
 
 :   Represents the tile of the organization.
 
-option [→ const [TileType](../enums_enums/TileType.html)]
+option [→ const [TileType](../enums_enums/TileType.md)]
 
 :   Represents the tile of the option.
 
@@ -81,7 +81,7 @@ option [→ const [TileType](../enums_enums/TileType.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -97,7 +97,7 @@ option [→ const [TileType](../enums_enums/TileType.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -107,7 +107,7 @@ option [→ const [TileType](../enums_enums/TileType.html)]
 
 ## Constants
 
-[[values](../enums_enums/TileType/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TileType](../enums_enums/TileType.html)]\>]]
+[[values](../enums_enums/TileType/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TileType](../enums_enums/TileType.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -117,7 +117,7 @@ option [→ const [TileType](../enums_enums/TileType.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  TileType enum
 

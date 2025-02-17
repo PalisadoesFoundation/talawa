@@ -15,14 +15,14 @@ in the Organization.
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]\>]
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)]\>]
     -   CreateEventPageState
 
 
 
 ## Constructors
 
-[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.html)
+[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.md)
 
 :   
 
@@ -56,13 +56,13 @@ Inheritance
     no setterinherited
     :::
 
-[[selectedVenue](../views_after_auth_screens_events_create_event_page/CreateEventPageState/selectedVenue.html)] [↔ [Venue](../models_events_event_venue/Venue-class.html)?]
+[[selectedVenue](../views_after_auth_screens_events_create_event_page/CreateEventPageState/selectedVenue.md)] [↔ [Venue](../models_events_event_venue/Venue-class.md)?]
 :   venue selected by the user.
     ::: features
     getter/setter pair
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)]
 :   The current configuration.
     ::: features
     no setterinherited
@@ -80,16 +80,16 @@ Inheritance
     inherited
     :::
 
-[[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
     :::
 
-[[dateUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater1.html)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
+[[dateUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater1.md)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[dateUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater2.html)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
+[[dateUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater2.md)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.md)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
 [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html) [→ void ]
@@ -98,7 +98,7 @@ Inheritance
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
@@ -112,7 +112,7 @@ Inheritance
     inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)] oldWidget]) → void ]
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
     inherited
@@ -130,7 +130,7 @@ Inheritance
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -143,20 +143,20 @@ Inheritance
     inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
     inherited
     :::
 
-[[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.html)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
+[[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.md)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.html)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
+[[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.md)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -164,7 +164,7 @@ Inheritance
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
@@ -183,7 +183,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -195,7 +195,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [create_event_page](../views_after_auth_screens_events_create_event_page/)
 3.  CreateEventPageState class
 

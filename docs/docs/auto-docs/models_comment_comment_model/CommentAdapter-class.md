@@ -10,14 +10,14 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Comment](../models_comment_comment_model/Comment-class.html)]\>]
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Comment](../models_comment_comment_model/Comment-class.md)]\>]
     -   CommentAdapter
 
 
 
 ## Constructors
 
-[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.html)
+[CommentAdapter](../models_comment_comment_model/CommentAdapter/CommentAdapter.md)
 
 :   
 
@@ -25,7 +25,7 @@ Inheritance
 
 ## Properties
 
-[[hashCode](../models_comment_comment_model/CommentAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[hashCode](../models_comment_comment_model/CommentAdapter/hashCode.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
     no setteroverride
@@ -37,7 +37,7 @@ Inheritance
     no setterinherited
     :::
 
-[[typeId](../models_comment_comment_model/CommentAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[typeId](../models_comment_comment_model/CommentAdapter/typeId.md)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
     final
@@ -47,13 +47,13 @@ Inheritance
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[read](../models_comment_comment_model/CommentAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [Comment](../models_comment_comment_model/Comment-class.html)] ]
+[[read](../models_comment_comment_model/CommentAdapter/read.md)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)] reader]) [→ [Comment](../models_comment_comment_model/Comment-class.md)] ]
 :   Is called when a value has to be decoded.
     ::: features
     override
@@ -65,7 +65,7 @@ Inheritance
     inherited
     :::
 
-[[write](../models_comment_comment_model/CommentAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[Comment](../models_comment_comment_model/Comment-class.html)] obj]) → void ]
+[[write](../models_comment_comment_model/CommentAdapter/write.md)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)] writer, ][[[Comment](../models_comment_comment_model/Comment-class.md)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
     override
@@ -75,7 +75,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](../models_comment_comment_model/CommentAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](../models_comment_comment_model/CommentAdapter/operator_equals.md)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     override
@@ -87,7 +87,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [comment_model](../models_comment_comment_model/)
 3.  CommentAdapter class
 

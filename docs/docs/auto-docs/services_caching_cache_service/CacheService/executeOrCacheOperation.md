@@ -10,7 +10,7 @@
 executeOrCacheOperation({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     operation,
     ]
 2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
@@ -18,7 +18,7 @@ executeOrCacheOperation({
     variables,
     ]
 3.  [required
-    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+    [[CachedOperationType](../../enums_enums/CachedOperationType.md)]
     operationType,
     ]
 4.  [required
@@ -91,9 +91,9 @@ Future<QueryResult<Object?>> executeOrCacheOperation({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cache_service](../../services_caching_cache_service/)
-3.  [CacheService](../../services_caching_cache_service/CacheService-class.html)
+3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
 4.  executeOrCacheOperation method
 
 ##### CacheService class

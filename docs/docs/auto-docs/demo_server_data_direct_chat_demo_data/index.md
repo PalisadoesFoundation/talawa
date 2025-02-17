@@ -1,3 +1,7 @@
+---
+title: "demo_server_data_direct_chat_demo_data"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Constants
 
-[[directChatDemoData](../demo_server_data_direct_chat_demo_data/directChatDemoData-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
+[[directChatDemoData](../demo_server_data_direct_chat_demo_data/directChatDemoData-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[/<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[/<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], [[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]/>]]/>]]
 :   This file contains demo data.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  demo_server_data//direct_chat_demo_data.dart
 
 ##### talawa package

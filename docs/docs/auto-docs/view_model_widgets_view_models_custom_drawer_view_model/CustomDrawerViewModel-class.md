@@ -22,14 +22,14 @@ Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
+    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
     -   CustomDrawerViewModel
 
 
 
 ## Constructors
 
-[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.html)
+[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.md)
 
 :   
 
@@ -37,7 +37,7 @@ Inheritance
 
 ## Properties
 
-[[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.html)] [→ [ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)]
+[[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.md)] [→ [ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)]
 :   Scroll controller for managing scrolling behavior.
     ::: features
     final
@@ -55,7 +55,7 @@ Inheritance
     no setterinherited
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
@@ -67,31 +67,31 @@ Inheritance
     no setterinherited
     :::
 
-[[selectedOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.html)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
+[[selectedOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.md)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.md)?]
 :   / Getter method to retrieve the selected organization.
     ::: features
     no setter
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
+[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
 
 :   ::: features
     no setterinherited
     :::
 
-[[switchAbleOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]]
+[[switchAbleOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)]\>]]
 :   Getter method to retrieve the switchAble organization.
     ::: features
     getter/setter pair
     :::
 
-[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]\>]]
+[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]\>]]
 :   List of TargetFocus objects used for tutorial coaching.
     ::: features
     final
     :::
 
-[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.html)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
+[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.md)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
 :   Instance of TutorialCoachMark responsible for providing tutorial
     guidance.
     ::: features
@@ -102,59 +102,59 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
     inherited
     :::
 
-[dispose](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.html) [→ void ]
+[dispose](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.md) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
+    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
     will throw after the object is disposed).
     ::: features
     override
     :::
 
-[[exitAlertDialog](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/exitAlertDialog.html)][() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.html)] ]
+[[exitAlertDialog](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/exitAlertDialog.md)][() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.md)] ]
 :   returns an exit alert dialog.
 
-[[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.html)][([[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)] homeModel, ][[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
+[[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.md)][([[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.md)] homeModel, ][[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
 :   initializer.
 
-[[isPresentinSwitchableOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] switchToOrg]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[isPresentinSwitchableOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] switchToOrg]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   This function checks `switchOrg` is present in the `switchAbleOrg`.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[notifyListeners](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.html) [→ void ]
+[notifyListeners](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.md) [→ void ]
 :   Call all the registered listeners.
     ::: features
     override
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
     inherited
     :::
 
-[[setSelectedOrganizationName](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] updatedOrganization]) → void ]
+[[setSelectedOrganizationName](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] updatedOrganization]) → void ]
 :   This function switches the current organization to new organization.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
+[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
 
 :   ::: features
     inherited
     :::
 
-[[switchOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] switchToOrg]) → void ]
+[[switchOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.md)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.md)] switchToOrg]) → void ]
 :   This function switches the organization to the specified
     `switchToOrg`.
 
@@ -168,7 +168,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -180,7 +180,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [custom_drawer_view_model](../view_model_widgets_view_models_custom_drawer_view_model/)
 3.  CustomDrawerViewModel class
 

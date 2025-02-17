@@ -1,3 +1,7 @@
+---
+title: "plugins_talawa_plugin_provider"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[TalawaPluginProvider](../plugins_talawa_plugin_provider/TalawaPluginProvider-class.html)]
+[[TalawaPluginProvider](../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)]
 :   TalwaPluginProvider provides ability to implement features as
     plugins.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  plugins//talawa_plugin_provider.dart
 
 ##### talawa package

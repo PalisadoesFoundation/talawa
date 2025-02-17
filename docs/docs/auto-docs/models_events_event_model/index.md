@@ -1,3 +1,7 @@
+---
+title: "models_events_event_model"
+---
+
 
 <div>
 
@@ -8,18 +12,18 @@
 
 ## Classes
 
-[[Attendee](../models_events_event_model/Attendee-class.html)]
+[[Attendee](../models_events_event_model/Attendee-class.md)]
 :   This class creates an attendee model and returns an Attendee
     instance.
 
-[[AttendeeAdapter](../models_events_event_model/AttendeeAdapter-class.html)]
+[[AttendeeAdapter](../models_events_event_model/AttendeeAdapter-class.md)]
 
 :   
 
-[[Event](../models_events_event_model/Event-class.html)]
+[[Event](../models_events_event_model/Event-class.md)]
 :   This class creates an event model and returns an Event instance.
 
-[[EventAdapter](../models_events_event_model/EventAdapter-class.html)]
+[[EventAdapter](../models_events_event_model/EventAdapter-class.md)]
 
 :   
 
@@ -29,7 +33,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//events//event_model.dart
 
 ##### talawa package

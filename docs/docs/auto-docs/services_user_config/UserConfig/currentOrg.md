@@ -7,7 +7,7 @@
 
 
 
-[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
 get currentOrg
 
 
@@ -27,7 +27,7 @@ OrgInfo get currentOrg => _currentOrg!;
 
 
 set currentOrg
-[([[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+[([[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
 org])]
 
 
@@ -49,9 +49,9 @@ set currentOrg(OrgInfo org) => _currentOrg = org;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_config](../../services_user_config/)
-3.  [UserConfig](../../services_user_config/UserConfig-class.html)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
 4.  currentOrg property
 
 ##### UserConfig class

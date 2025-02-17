@@ -12,7 +12,7 @@
 
 </div>
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]?
 admins
 
 
@@ -38,9 +38,9 @@ List<User>? admins;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_model](../../models_events_event_model/)
-3.  [Event](../../models_events_event_model/Event-class.html)
+3.  [Event](../../models_events_event_model/Event-class.md)
 4.  admins property
 
 ##### Event class

@@ -25,11 +25,11 @@ Available extensions
 
 ## Values
 
-idle [→ const [ViewState](../enums_enums/ViewState.html)]
+idle [→ const [ViewState](../enums_enums/ViewState.md)]
 
 :   The view is not doing anything.
 
-busy [→ const [ViewState](../enums_enums/ViewState.html)]
+busy [→ const [ViewState](../enums_enums/ViewState.md)]
 
 :   The view is loading something.
 
@@ -73,7 +73,7 @@ busy [→ const [ViewState](../enums_enums/ViewState.html)]
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -89,7 +89,7 @@ busy [→ const [ViewState](../enums_enums/ViewState.html)]
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -99,7 +99,7 @@ busy [→ const [ViewState](../enums_enums/ViewState.html)]
 
 ## Constants
 
-[[values](../enums_enums/ViewState/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ViewState](../enums_enums/ViewState.html)]\>]]
+[[values](../enums_enums/ViewState/values-constant.md)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ViewState](../enums_enums/ViewState.md)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
 
@@ -109,7 +109,7 @@ busy [→ const [ViewState](../enums_enums/ViewState.html)]
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [enums](../enums_enums/)
 3.  ViewState enum
 

@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_select_organization"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SelectOrganization](../views_pre_auth_screens_select_organization/SelectOrganization-class.html)]
+[[SelectOrganization](../views_pre_auth_screens_select_organization/SelectOrganization-class.md)]
 :   This widget lets the user select new organizations.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//select_organization.dart
 
 ##### talawa package

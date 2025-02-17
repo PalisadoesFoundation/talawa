@@ -32,9 +32,9 @@ static GraphQLError memberRequestExist =
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
-3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.html)
+3.  [GraphqlExceptionResolver](../../exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class.md)
 4.  memberRequestExist property
 
 ##### GraphqlExceptionResolver class

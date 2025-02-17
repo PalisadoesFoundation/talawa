@@ -1,3 +1,7 @@
+---
+title: "services_size_config"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[SizeConfig](../services_size_config/SizeConfig-class.html)]
+[[SizeConfig](../services_size_config/SizeConfig-class.md)]
 :   SizeConfig class is used to initialise the height and width of the
     media.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  services//size_config.dart
 
 ##### talawa package

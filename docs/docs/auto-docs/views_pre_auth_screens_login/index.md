@@ -1,3 +1,7 @@
+---
+title: "views_pre_auth_screens_login"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Login](../views_pre_auth_screens_login/Login-class.html)]
+[[Login](../views_pre_auth_screens_login/Login-class.md)]
 :   This is the login widget.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//pre_auth_screens//login.dart
 
 ##### talawa package

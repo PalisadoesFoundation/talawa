@@ -1,3 +1,7 @@
+---
+title: "models_user_user_info"
+---
+
 
 <div>
 
@@ -8,10 +12,10 @@
 
 ## Classes
 
-[[User](../models_user_user_info/User-class.html)]
+[[User](../models_user_user_info/User-class.md)]
 :   This class creates a User model and returns a user instance.
 
-[[UserAdapter](../models_user_user_info/UserAdapter-class.html)]
+[[UserAdapter](../models_user_user_info/UserAdapter-class.md)]
 
 :   
 
@@ -21,7 +25,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  models//user//user_info.dart
 
 ##### talawa package

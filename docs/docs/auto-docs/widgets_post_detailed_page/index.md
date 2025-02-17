@@ -1,3 +1,7 @@
+---
+title: "widgets_post_detailed_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DescriptionTextWidget](../widgets_post_detailed_page/DescriptionTextWidget-class.html)]
+[[DescriptionTextWidget](../widgets_post_detailed_page/DescriptionTextWidget-class.md)]
 :   This class sets up the post page.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//post_detailed_page.dart
 
 ##### talawa package

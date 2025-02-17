@@ -8,7 +8,7 @@
 
 const FromPalisadoes({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 
 })
@@ -27,9 +27,9 @@ const FromPalisadoes({super.key});
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [from_palisadoes](../../widgets_from_palisadoes/)
-3.  [FromPalisadoes](../../widgets_from_palisadoes/FromPalisadoes-class.html)
+3.  [FromPalisadoes](../../widgets_from_palisadoes/FromPalisadoes-class.md)
 4.  FromPalisadoes const constructor
 
 ##### FromPalisadoes class

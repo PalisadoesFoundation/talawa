@@ -31,9 +31,9 @@ final String? name;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_agenda_category](../../models_events_event_agenda_category/)
-3.  [AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.html)
+3.  [AgendaCategory](../../models_events_event_agenda_category/AgendaCategory-class.md)
 4.  name property
 
 ##### AgendaCategory class

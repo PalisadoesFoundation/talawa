@@ -15,7 +15,7 @@
 [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]\>]]
 buildActions(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -33,7 +33,7 @@ If the
 [query](https://api.flutter.dev/flutter/material/SearchDelegate/query.html)
 is not empty, this should typically contain a button to clear the query
 and show the suggestions again (via
-[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.html))
+[showSuggestions](https://api.flutter.dev/flutter/material/SearchDelegate/showSuggestions.md))
 if the results are currently shown.
 
 Returns null if no widget should be shown.
@@ -70,9 +70,9 @@ List<Widget> buildActions(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
-3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.html)
+3.  [EventSearch](../../widgets_event_search_delegate/EventSearch-class.md)
 4.  buildActions method
 
 ##### EventSearch class

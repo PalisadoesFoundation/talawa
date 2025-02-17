@@ -12,10 +12,10 @@
 
 </div>
 
-[[User](../../models_user_user_info/User-class.html)]
+[[User](../../models_user_user_info/User-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -61,9 +61,9 @@ User read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [user_info](../../models_user_user_info/)
-3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.html)
+3.  [UserAdapter](../../models_user_user_info/UserAdapter-class.md)
 4.  read method
 
 ##### UserAdapter class

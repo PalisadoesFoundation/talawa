@@ -1,3 +1,7 @@
+---
+title: "views_demo_screens_profile_page_demo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DemoProfilePage](../views_demo_screens_profile_page_demo/DemoProfilePage-class.html)]
+[[DemoProfilePage](../views_demo_screens_profile_page_demo/DemoProfilePage-class.md)]
 :   ProfilePage returns a widget that renders a page of user/'s profile.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//demo_screens//profile_page_demo.dart
 
 ##### talawa package

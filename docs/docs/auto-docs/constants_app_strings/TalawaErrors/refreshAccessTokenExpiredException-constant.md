@@ -29,9 +29,9 @@ static const String refreshAccessTokenExpiredException =
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_strings](../../constants_app_strings/)
-3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.html)
+3.  [TalawaErrors](../../constants_app_strings/TalawaErrors-class.md)
 4.  refreshAccessTokenExpiredException constant
 
 ##### TalawaErrors class

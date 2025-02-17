@@ -40,7 +40,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../widgets_organization_search_list/OrganizationSearchList/createState.html)
+[createState](../../widgets_organization_search_list/OrganizationSearchList/createState.md)
 again to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -62,9 +62,9 @@ _OrganizationSearchListState  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [organization_search_list](../../widgets_organization_search_list/)
-3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.html)
+3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.md)
 4.  createState method
 
 ##### OrganizationSearchList class

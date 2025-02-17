@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 receiveMessage(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
     dynamic\>]]
     message, ]
 2.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]
@@ -22,9 +22,9 @@ receiveMessage(
 Helper function to decrypt the message.
 
 Internally uses the
-[loadKeyPair](../../utils_encryptor/Encryptor/loadKeyPair.html) function
+[loadKeyPair](../../utils_encryptor/Encryptor/loadKeyPair.md) function
 to get private key and
-[assymetricDecryptString](../../utils_encryptor/Encryptor/assymetricDecryptString.html)
+[assymetricDecryptString](../../utils_encryptor/Encryptor/assymetricDecryptString.md)
 to decrypt the given message.
 
 **params**:
@@ -68,9 +68,9 @@ Future<void> receiveMessage(
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [encryptor](../../utils_encryptor/)
-3.  [Encryptor](../../utils_encryptor/Encryptor-class.html)
+3.  [Encryptor](../../utils_encryptor/Encryptor-class.md)
 4.  receiveMessage method
 
 ##### Encryptor class

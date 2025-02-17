@@ -10,7 +10,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
 splitDateTimeUTC(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     dateTimeStr]
 
 )
@@ -55,7 +55,7 @@ Map<String, String> splitDateTimeUTC(String dateTimeStr) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [time_conversion](../utils_time_conversion/)
 3.  splitDateTimeUTC function
 

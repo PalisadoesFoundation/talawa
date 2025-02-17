@@ -1,3 +1,7 @@
+---
+title: "widgets_directly_login"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[DirectlyLogin](../widgets_directly_login/DirectlyLogin-class.html)]
+[[DirectlyLogin](../widgets_directly_login/DirectlyLogin-class.md)]
 :   This class is used to display email of previous user if they select
     remember me while loggig out.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//directly_login.dart
 
 ##### talawa package

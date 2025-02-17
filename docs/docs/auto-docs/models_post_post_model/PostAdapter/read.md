@@ -12,10 +12,10 @@
 
 </div>
 
-[[Post](../../models_post_post_model/Post-class.html)]
+[[Post](../../models_post_post_model/Post-class.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -60,9 +60,9 @@ Post read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_model](../../models_post_post_model/)
-3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.html)
+3.  [PostAdapter](../../models_post_post_model/PostAdapter-class.md)
 4.  read method
 
 ##### PostAdapter class

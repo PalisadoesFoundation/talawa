@@ -38,9 +38,9 @@ final int typeId = 4;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.html)
+3.  [CachedUserActionStatusAdapter](../../enums_enums/CachedUserActionStatusAdapter-class.md)
 4.  typeId property
 
 ##### CachedUserActionStatusAdapter class

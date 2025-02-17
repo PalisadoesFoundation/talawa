@@ -10,14 +10,14 @@
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PostContainer](../widgets_post_container/PostContainer-class.html)]\>]
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PostContainer](../widgets_post_container/PostContainer-class.md)]\>]
     -   PostContainerState
 
 
 
 ## Constructors
 
-[PostContainerState](../widgets_post_container/PostContainerState/PostContainerState.html)
+[PostContainerState](../widgets_post_container/PostContainerState/PostContainerState.md)
 
 :   
 
@@ -31,7 +31,7 @@ Inheritance
     no setterinherited
     :::
 
-[[controller](../widgets_post_container/PostContainerState/controller.html)] [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]
+[[controller](../widgets_post_container/PostContainerState/controller.md)] [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]
 :   manage the carousel.
     ::: features
     final
@@ -43,7 +43,7 @@ Inheritance
     no setterinherited
     :::
 
-[[inView](../widgets_post_container/PostContainerState/inView.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[inView](../widgets_post_container/PostContainerState/inView.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   same as above.
     ::: features
     getter/setter pair
@@ -57,7 +57,7 @@ Inheritance
     no setterinherited
     :::
 
-[[pindex](../widgets_post_container/PostContainerState/pindex.html)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+[[pindex](../widgets_post_container/PostContainerState/pindex.md)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   to manage the image index in carousel.
     ::: features
     getter/setter pair
@@ -69,13 +69,13 @@ Inheritance
     no setterinherited
     :::
 
-[[startedPlaying](../widgets_post_container/PostContainerState/startedPlaying.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[startedPlaying](../widgets_post_container/PostContainerState/startedPlaying.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   video was removed for mvp.
     ::: features
     getter/setter pair
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [PostContainer](../widgets_post_container/PostContainer-class.html)]
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [PostContainer](../widgets_post_container/PostContainer-class.md)]
 :   The current configuration.
     ::: features
     no setterinherited
@@ -93,7 +93,7 @@ Inheritance
     inherited
     :::
 
-[[build](../widgets_post_container/PostContainerState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../widgets_post_container/PostContainerState/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
@@ -105,7 +105,7 @@ Inheritance
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
@@ -119,25 +119,25 @@ Inheritance
     inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[PostContainer](../widgets_post_container/PostContainer-class.html)] oldWidget]) → void ]
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[PostContainer](../widgets_post_container/PostContainer-class.md)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
     inherited
     :::
 
-[dispose](../widgets_post_container/PostContainerState/dispose.html) [→ void ]
+[dispose](../widgets_post_container/PostContainerState/dispose.md) [→ void ]
 :   Called when this object is removed from the tree permanently.
     ::: features
     override
     :::
 
-[initState](../widgets_post_container/PostContainerState/initState.html) [→ void ]
+[initState](../widgets_post_container/PostContainerState/initState.md) [→ void ]
 :   Called when this object is inserted into the tree.
     ::: features
     override
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -150,14 +150,14 @@ Inheritance
     inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
     inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -165,7 +165,7 @@ Inheritance
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
@@ -184,7 +184,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -196,7 +196,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [post_container](../widgets_post_container/)
 3.  PostContainerState class
 

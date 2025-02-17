@@ -14,7 +14,7 @@
 Initializes as session refresher.
 
 Invokes
-[refreshSession](../../services_session_manager/SessionManager/refreshSession.html)
+[refreshSession](../../services_session_manager/SessionManager/refreshSession.md)
 periodically at regular refresh intervals.
 
 **params**: None
@@ -44,9 +44,9 @@ Timer  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [session_manager](../../services_session_manager/)
-3.  [SessionManager](../../services_session_manager/SessionManager-class.html)
+3.  [SessionManager](../../services_session_manager/SessionManager-class.md)
 4.  initializeSessionRefresher method
 
 ##### SessionManager class

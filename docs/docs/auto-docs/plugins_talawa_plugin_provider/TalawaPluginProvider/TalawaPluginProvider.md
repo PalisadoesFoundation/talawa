@@ -8,7 +8,7 @@
 
 const TalawaPluginProvider({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)?]
     key, ]
 2.  [@[required](https://api.flutter.dev/flutter/material/required-constant.html)
     [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?]
@@ -41,9 +41,9 @@ const TalawaPluginProvider({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
-3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.html)
+3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)
 4.  TalawaPluginProvider const constructor
 
 ##### TalawaPluginProvider class

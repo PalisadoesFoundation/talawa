@@ -250,7 +250,7 @@ const eventsDemoData = [
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [events_demo_data](../demo_server_data_events_demo_data/)
 3.  eventsDemoData constant
 

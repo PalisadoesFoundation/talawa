@@ -6,7 +6,7 @@
 </div>
 
 
-[User](../../models_user_user_info/User-class.html) currentUser
+[User](../../models_user_user_info/User-class.md) currentUser
 
 
 getter/setter pair
@@ -30,9 +30,9 @@ late User currentUser;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
-3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html)
+3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
 4.  currentUser property
 
 ##### ProfilePageViewModel class

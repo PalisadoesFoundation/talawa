@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ActionType](../../enums_enums/ActionType.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ActionType](../../enums_enums/ActionType.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [ActionType](../../enums_enums/ActionType.html)
+3.  [ActionType](../../enums_enums/ActionType.md)
 4.  values constant
 
 ##### ActionType enum

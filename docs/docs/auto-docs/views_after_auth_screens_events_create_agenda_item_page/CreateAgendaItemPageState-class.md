@@ -7,7 +7,7 @@
 
 
 State class for
-[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html).
+[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md).
 
 
 
@@ -15,14 +15,14 @@ State class for
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)]\>]
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)]\>]
     -   CreateAgendaItemPageState
 
 
 
 ## Constructors
 
-[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.html)
+[CreateAgendaItemPageState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/CreateAgendaItemPageState.md)
 
 :   
 
@@ -30,7 +30,7 @@ Inheritance
 
 ## Properties
 
-[[attachments](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/attachments.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
+[[attachments](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/attachments.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
 :   List of base64 encoded attachments associated with the agenda item.
     ::: features
     getter/setter pair
@@ -42,25 +42,25 @@ Inheritance
     no setterinherited
     :::
 
-[[descController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descController.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[descController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   Controller for the agenda item description input field.
     ::: features
     getter/setter pair
     :::
 
-[[descFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[descFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/descFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   Focus node for the description input field.
     ::: features
     getter/setter pair
     :::
 
-[[durationController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationController.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[durationController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   Controller for the duration input field.
     ::: features
     getter/setter pair
     :::
 
-[[durationFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[durationFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/durationFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   Focus node for the duration input field.
     ::: features
     getter/setter pair
@@ -86,43 +86,43 @@ Inheritance
     no setterinherited
     :::
 
-[[selectedCategories](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/selectedCategories.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]\>]]
+[[selectedCategories](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/selectedCategories.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.md)]\>]]
 :   List of selected categories for the agenda item.
     ::: features
     getter/setter pair
     :::
 
-[[titleController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleController.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[titleController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   Controller for the agenda item title input field.
     ::: features
     getter/setter pair
     :::
 
-[[titleFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[titleFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/titleFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   Focus node for the title input field.
     ::: features
     getter/setter pair
     :::
 
-[[urlController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlController.html)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
+[[urlController](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlController.md)] [↔ [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)]
 :   Controller for the URL input field.
     ::: features
     getter/setter pair
     :::
 
-[[urlFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlFocus.html)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
+[[urlFocus](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urlFocus.md)] [↔ [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)]
 :   Focus node for the URL input field.
     ::: features
     getter/setter pair
     :::
 
-[[urls](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urls.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
+[[urls](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/urls.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
 :   List of URLs associated with the agenda item.
     ::: features
     getter/setter pair
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)]
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)]
 :   The current configuration.
     ::: features
     no setterinherited
@@ -140,7 +140,7 @@ Inheritance
     inherited
     :::
 
-[[build](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[build](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/build.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
     override
@@ -152,7 +152,7 @@ Inheritance
     inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.md)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
     inherited
@@ -166,7 +166,7 @@ Inheritance
     inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.html)] oldWidget]) → void ]
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateAgendaItemPage](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPage-class.md)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
     inherited
@@ -178,13 +178,13 @@ Inheritance
     inherited
     :::
 
-[initState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.html) [→ void ]
+[initState](../views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState/initState.md) [→ void ]
 :   Called when this object is inserted into the tree.
     ::: features
     override
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -197,14 +197,14 @@ Inheritance
     inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
     inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
@@ -212,7 +212,7 @@ Inheritance
     inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.md)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     inherited
@@ -231,7 +231,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -243,7 +243,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [create_agenda_item_page](../views_after_auth_screens_events_create_agenda_item_page/)
 3.  CreateAgendaItemPageState class
 

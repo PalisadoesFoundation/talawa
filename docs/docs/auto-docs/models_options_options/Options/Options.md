@@ -9,7 +9,7 @@
 Options({
 
 1.  [required
-    [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+    [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.md)]
     icon, ]
 2.  [required
     [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
@@ -41,9 +41,9 @@ Options({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [options](../../models_options_options/)
-3.  [Options](../../models_options_options/Options-class.html)
+3.  [Options](../../models_options_options/Options-class.md)
 4.  Options constructor
 
 ##### Options class

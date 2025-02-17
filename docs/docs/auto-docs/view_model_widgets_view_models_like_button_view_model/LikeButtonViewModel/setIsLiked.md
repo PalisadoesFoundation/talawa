@@ -8,7 +8,7 @@
 
 void setIsLiked({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)]
     val = true,
     ]
 
@@ -41,9 +41,9 @@ void setIsLiked({bool val = true}) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
-3.  [LikeButtonViewModel](../../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.html)
+3.  [LikeButtonViewModel](../../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)
 4.  setIsLiked method
 
 ##### LikeButtonViewModel class

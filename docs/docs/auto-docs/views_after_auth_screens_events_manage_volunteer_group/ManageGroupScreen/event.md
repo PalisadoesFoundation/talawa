@@ -6,7 +6,7 @@
 </div>
 
 
-[Event](../../models_events_event_model/Event-class.html) event
+[Event](../../models_events_event_model/Event-class.md) event
 
 
 final
@@ -30,9 +30,9 @@ final Event event;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [manage_volunteer_group](../../views_after_auth_screens_events_manage_volunteer_group/)
-3.  [ManageGroupScreen](../../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.html)
+3.  [ManageGroupScreen](../../views_after_auth_screens_events_manage_volunteer_group/ManageGroupScreen-class.md)
 4.  event property
 
 ##### ManageGroupScreen class

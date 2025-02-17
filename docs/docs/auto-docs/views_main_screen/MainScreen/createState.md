@@ -12,7 +12,7 @@
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[MainScreen](../../views_main_screen/MainScreen-class.html)]\>]]
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[MainScreen](../../views_main_screen/MainScreen-class.md)]\>]]
 
 
 
@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_main_screen/MainScreen/createState.html) again
+[createState](../../views_main_screen/MainScreen/createState.md) again
 to create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,9 +63,9 @@ State<MainScreen>  => ;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen](../../views_main_screen/)
-3.  [MainScreen](../../views_main_screen/MainScreen-class.html)
+3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
 4.  createState method
 
 ##### MainScreen class

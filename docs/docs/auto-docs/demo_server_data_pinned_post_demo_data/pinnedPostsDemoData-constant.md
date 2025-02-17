@@ -186,7 +186,7 @@ const pinnedPostsDemoData = [
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [pinned_post_demo_data](../demo_server_data_pinned_post_demo_data/)
 3.  pinnedPostsDemoData constant
 

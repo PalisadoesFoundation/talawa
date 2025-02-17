@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_feed_organization_feed"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[OrganizationFeed](../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.html)]
+[[OrganizationFeed](../views_after_auth_screens_feed_organization_feed/OrganizationFeed-class.md)]
 :   OrganizationFeed returns a widget that shows the feed of the
     organization.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//feed//organization_feed.dart
 
 ##### talawa package

@@ -1,3 +1,7 @@
+---
+title: "widgets_recurrence_dialog"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ShowRecurrenceDialog](../widgets_recurrence_dialog/ShowRecurrenceDialog-class.html)]
+[[ShowRecurrenceDialog](../widgets_recurrence_dialog/ShowRecurrenceDialog-class.md)]
 :   Dialog for showing recurrence options.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//recurrence_dialog.dart
 
 ##### talawa package

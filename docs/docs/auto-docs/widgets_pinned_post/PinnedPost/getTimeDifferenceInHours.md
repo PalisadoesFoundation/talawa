@@ -9,7 +9,7 @@
 [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 getTimeDifferenceInHours(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     createdAtString]
 
 )
@@ -46,9 +46,9 @@ String getTimeDifferenceInHours(String createdAtString) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [pinned_post](../../widgets_pinned_post/)
-3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.html)
+3.  [PinnedPost](../../widgets_pinned_post/PinnedPost-class.md)
 4.  getTimeDifferenceInHours method
 
 ##### PinnedPost class

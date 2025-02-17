@@ -13,16 +13,16 @@ It leverages the `connectivity` package to track the device\'s internet
 connection status. It offers methods to:
 
 -   Initialize the AppConnectivity:
-    [initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.html)
+    [initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)
 -   Subscribe to connectivity changes:
-    [enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.html)
+    [enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md)
 -   Handle online and offline states:
-    [handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.html),
-    [handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.html)
+    [handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md),
+    [handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)
 -   Handle the device\'s overall connectivity status:
-    [handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.html)
+    [handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)
 -   Triggers the snackbar UI to show online status.:
-    [showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.html)
+    [showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)
 
 
 
@@ -31,14 +31,14 @@ Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
-    -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
+    -   [BaseModel](../view_model_base_view_model/BaseModel-class.md)
     -   AppConnectivity
 
 
 
 ## Constructors
 
-[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.html)
+[AppConnectivity](../view_model_connectivity_view_model/AppConnectivity/AppConnectivity.md)
 
 :   
 
@@ -46,9 +46,9 @@ Inheritance
 
 ## Properties
 
-[[connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.html)] [↔ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
+[[connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)] [↔ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]]\>]]
 :   Stream from
-    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.html).
+    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
     ::: features
     latefinal
     :::
@@ -65,7 +65,7 @@ Inheritance
     no setterinherited
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.md)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
     no setterinherited
@@ -77,7 +77,7 @@ Inheritance
     no setterinherited
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
+[[state](../view_model_base_view_model/BaseModel/state.md)] [→ [ViewState](../enums_enums/ViewState.md)]
 
 :   ::: features
     no setterinherited
@@ -87,45 +87,45 @@ Inheritance
 
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
     inherited
     :::
 
-[dispose](../view_model_connectivity_view_model/AppConnectivity/dispose.html) [→ void ]
+[dispose](../view_model_connectivity_view_model/AppConnectivity/dispose.md) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
-    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
+    [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
     will throw after the object is disposed).
     ::: features
     override
     :::
 
-[enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.html) [→ void ]
+[enableSubscription](../view_model_connectivity_view_model/AppConnectivity/enableSubscription.md) [→ void ]
 :   Subscribes to
-    [connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.html)
+    [connectivityStream](../view_model_connectivity_view_model/AppConnectivity/connectivityStream.md)
     of
-    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.html).
+    [ConnectivityService](../services_third_party_service_connectivity_service/ConnectivityService-class.md).
 
-[[handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]] result]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[handleConnection](../view_model_connectivity_view_model/AppConnectivity/handleConnection.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[ConnectivityResult](https://pub.dev/documentation/connectivity_plus_platform_interface/2.0.1/connectivity_plus_platform_interface/ConnectivityResult.html)]\>]] result]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function handles the device\'s connectivity status based on the
     provided
     [List\<ConnectivityResult\>](https://api.flutter.dev/flutter/dart-core/List-class.html).
 
-[[handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[handleOffline](../view_model_connectivity_view_model/AppConnectivity/handleOffline.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function handles the actions to be taken when the device is
     offline.
 
-[[handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[handleOnline](../view_model_connectivity_view_model/AppConnectivity/handleOnline.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   This function handles the actions to be taken when the device is
     online.
 
-[[initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[initialise](../view_model_connectivity_view_model/AppConnectivity/initialise.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Initializes the
-    [AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.html).
+    [AppConnectivity](../view_model_connectivity_view_model/AppConnectivity-class.md).
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -137,14 +137,14 @@ Inheritance
     inherited
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
     inherited
     :::
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
+[[setState](../view_model_base_view_model/BaseModel/setState.md)][([[[ViewState](../enums_enums/ViewState.md)] viewState]) → void ]
 
 :   ::: features
     inherited
@@ -160,7 +160,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -170,7 +170,7 @@ Inheritance
 
 ## Static Properties
 
-[[isOnline](../view_model_connectivity_view_model/AppConnectivity/isOnline.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+[[isOnline](../view_model_connectivity_view_model/AppConnectivity/isOnline.md)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   flag to handle online status.
     ::: features
     getter/setter pair
@@ -180,7 +180,7 @@ Inheritance
 
 ## Static Methods
 
-[[showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.html)][({[required [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isOnline]}) → void ]
+[[showSnackbar](../view_model_connectivity_view_model/AppConnectivity/showSnackbar.md)][({[required [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.md)] isOnline]}) → void ]
 :   Triggers the snackbar UI to show online status.
 
 
@@ -189,7 +189,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [connectivity_view_model](../view_model_connectivity_view_model/)
 3.  AppConnectivity class
 

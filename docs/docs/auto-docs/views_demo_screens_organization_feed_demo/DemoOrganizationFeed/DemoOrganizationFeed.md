@@ -9,9 +9,9 @@
 const DemoOrganizationFeed({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.md)]
     key, ]
-2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]
+2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)?]
     homeModel, ]
 3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
     forTest = false,
@@ -37,9 +37,9 @@ const DemoOrganizationFeed({
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
-3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.html)
+3.  [DemoOrganizationFeed](../../views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class.md)
 4.  DemoOrganizationFeed const constructor
 
 ##### DemoOrganizationFeed class

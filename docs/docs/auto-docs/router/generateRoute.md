@@ -9,7 +9,7 @@
 [[Route](https://api.flutter.dev/flutter/widgets/Route-class.html)]
 generateRoute(
 
-1.  [[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.html)]
+1.  [[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.md)]
     settings]
 
 )
@@ -325,7 +325,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [router](../router/)
 3.  generateRoute function
 

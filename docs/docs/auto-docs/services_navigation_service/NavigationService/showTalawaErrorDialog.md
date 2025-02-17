@@ -8,10 +8,10 @@
 
 void showTalawaErrorDialog(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     errorMessage,
     ]
-2.  [[[MessageType](../../enums_enums/MessageType.html)]
+2.  [[[MessageType](../../enums_enums/MessageType.md)]
     messageType]
 
 )
@@ -53,9 +53,9 @@ void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [navigation_service](../../services_navigation_service/)
-3.  [NavigationService](../../services_navigation_service/NavigationService-class.html)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
 4.  showTalawaErrorDialog method
 
 ##### NavigationService class

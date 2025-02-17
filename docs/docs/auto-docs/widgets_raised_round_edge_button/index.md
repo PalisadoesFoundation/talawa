@@ -1,3 +1,7 @@
+---
+title: "widgets_raised_round_edge_button"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[RaisedRoundedButton](../widgets_raised_round_edge_button/RaisedRoundedButton-class.html)]
+[[RaisedRoundedButton](../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)]
 :   This class returns a widget for a raised rounded button, for
     example: login button in login screen.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  widgets//raised_round_edge_button.dart
 
 ##### talawa package

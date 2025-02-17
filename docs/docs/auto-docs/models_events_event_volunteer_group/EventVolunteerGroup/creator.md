@@ -6,7 +6,7 @@
 </div>
 
 
-[User](../../models_user_user_info/User-class.html)? creator
+[User](../../models_user_user_info/User-class.md)? creator
 
 
 getter/setter pair
@@ -30,9 +30,9 @@ User? creator;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer_group](../../models_events_event_volunteer_group/)
-3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)
+3.  [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)
 4.  creator property
 
 ##### EventVolunteerGroup class

@@ -14,9 +14,9 @@
 
 void write(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]
+1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.md)]
     writer, ]
-2.  [[[CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.html)]
+2.  [[[CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)]
     obj]
 
 )
@@ -63,9 +63,9 @@ void write(BinaryWriter writer, CachedUserAction obj) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
-3.  [CachedUserActionAdapter](../../models_caching_cached_user_action/CachedUserActionAdapter-class.html)
+3.  [CachedUserActionAdapter](../../models_caching_cached_user_action/CachedUserActionAdapter-class.md)
 4.  write method
 
 ##### CachedUserActionAdapter class

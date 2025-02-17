@@ -1,3 +1,7 @@
+---
+title: "view_model_widgets_view_models_event_card_view_model"
+---
+
 
 <div>
 
@@ -10,7 +14,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//widgets_view_models//event_card_view_model.dart
 
 ##### talawa package

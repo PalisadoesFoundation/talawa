@@ -41,7 +41,7 @@ locations, the framework will create a separate
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
 later inserted into the tree again, the framework will call
-[createState](../../views_base_view/BaseView/createState.html) again to
+[createState](../../views_base_view/BaseView/createState.md) again to
 create a fresh
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, simplifying the lifecycle of
@@ -63,10 +63,10 @@ _BaseViewState<T>  => _BaseViewState<T>();
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [base_view](../../views_base_view/)
 3.  BaseView[\<[T extends
-    ChangeNotifier\>]](../../views_base_view/BaseView-class.html)
+    ChangeNotifier\>]](../../views_base_view/BaseView-class.md)
 4.  createState method
 
 ##### BaseView class

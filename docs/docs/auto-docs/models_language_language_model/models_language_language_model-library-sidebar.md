@@ -1,2 +1,2 @@
-1.  [Classes](models_language_language_model/#classes)
-2.  [Language](models_language_language_model/Language-class.html)
+1.  [Classes](./#classes)
+2.  [Language](./Language-class.md)

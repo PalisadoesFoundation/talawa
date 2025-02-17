@@ -1,3 +1,7 @@
+---
+title: "constants_quick_actions"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[ShortCutMenu](../constants_quick_actions/ShortCutMenu-class.html)]
+[[ShortCutMenu](../constants_quick_actions/ShortCutMenu-class.md)]
 :   This file contains the shortcuts by which user can manage and
     interact with the application. quick_actions package is used for
     this purpose.
@@ -19,7 +23,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//quick_actions.dart
 
 ##### talawa package

@@ -12,7 +12,7 @@ Class containing constants for frequency options.
 
 ## Constructors
 
-[Frequency](../constants_recurrence_values/Frequency/Frequency.html)
+[Frequency](../constants_recurrence_values/Frequency/Frequency.md)
 
 :   
 
@@ -36,7 +36,7 @@ Class containing constants for frequency options.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -52,7 +52,7 @@ Class containing constants for frequency options.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -62,16 +62,16 @@ Class containing constants for frequency options.
 
 ## Constants
 
-[[daily](../constants_recurrence_values/Frequency/daily-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[daily](../constants_recurrence_values/Frequency/daily-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every day.
 
-[[monthly](../constants_recurrence_values/Frequency/monthly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[monthly](../constants_recurrence_values/Frequency/monthly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every month.
 
-[[weekly](../constants_recurrence_values/Frequency/weekly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[weekly](../constants_recurrence_values/Frequency/weekly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every week.
 
-[[yearly](../constants_recurrence_values/Frequency/yearly-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[yearly](../constants_recurrence_values/Frequency/yearly-constant.md)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Constant representing an event that occurs every year.
 
 
@@ -80,7 +80,7 @@ Class containing constants for frequency options.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [recurrence_values](../constants_recurrence_values/)
 3.  Frequency class
 

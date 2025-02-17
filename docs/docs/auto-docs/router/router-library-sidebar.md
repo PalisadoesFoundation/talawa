@@ -1,2 +1,2 @@
-1.  [Functions](router/#functions)
-2.  [generateRoute](router/generateRoute.html)
+1.  [Functions](./#functions)
+2.  [generateRoute](./generateRoute.md)

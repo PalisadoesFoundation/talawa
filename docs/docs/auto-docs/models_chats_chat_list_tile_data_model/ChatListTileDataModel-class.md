@@ -19,11 +19,11 @@ Annotations
 
 ## Constructors
 
-[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.html)]\>]?] users, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id])]
+[[ChatListTileDataModel](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.md)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.md)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.md)]\>]?] users, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id])]
 
 :   
 
-[[ChatListTileDataModel.fromJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
+[[ChatListTileDataModel.fromJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/ChatListTileDataModel.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
 :   ::: 
     factory
@@ -39,7 +39,7 @@ Annotations
     no setterinherited
     :::
 
-[[id](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+[[id](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
     getter/setter pair
@@ -51,7 +51,7 @@ Annotations
     no setterinherited
     :::
 
-[[users](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/users.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.html)]\>]?]
+[[users](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/users.md)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatUser](../models_chats_chat_user/ChatUser-class.md)]\>]?]
 
 :   ::: features
     getter/setter pair
@@ -61,13 +61,13 @@ Annotations
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/toJson.html)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
+[[toJson](../models_chats_chat_list_tile_data_model/ChatListTileDataModel/toJson.md)][() [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 
 :   
 
@@ -81,7 +81,7 @@ Annotations
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -93,7 +93,7 @@ Annotations
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [chat_list_tile_data_model](../models_chats_chat_list_tile_data_model/)
 3.  ChatListTileDataModel class
 

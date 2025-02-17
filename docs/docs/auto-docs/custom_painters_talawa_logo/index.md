@@ -1,3 +1,7 @@
+---
+title: "custom_painters_talawa_logo"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AppLogo](../custom_painters_talawa_logo/AppLogo-class.html)]
+[[AppLogo](../custom_painters_talawa_logo/AppLogo-class.md)]
 :   This class draws the app logo using custom paint.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  custom_painters//talawa_logo.dart
 
 ##### talawa package

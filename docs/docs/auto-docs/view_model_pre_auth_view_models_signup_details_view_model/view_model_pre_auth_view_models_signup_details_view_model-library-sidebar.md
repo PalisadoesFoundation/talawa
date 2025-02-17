@@ -1,2 +1,2 @@
-1.  [Classes](view_model_pre_auth_view_models_signup_details_view_model/#classes)
-2.  [SignupDetailsViewModel](view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.html)
+1.  [Classes](./#classes)
+2.  [SignupDetailsViewModel](./SignupDetailsViewModel-class.md)

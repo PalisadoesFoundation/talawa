@@ -1,3 +1,7 @@
+---
+title: "view_model_after_auth_view_models_add_post_view_models_add_post_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.html)]
+[[AddPostViewModel](../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)]
 :   AddPostViewModel class have different functions.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//after_auth_view_models//add_post_view_models//add_post_view_model.dart
 
 ##### talawa package

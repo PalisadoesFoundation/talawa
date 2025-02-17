@@ -12,7 +12,7 @@ This class creates the queries dealing with chats.
 
 ## Constructors
 
-[ChatQueries](../utils_chat_queries/ChatQueries/ChatQueries.html)
+[ChatQueries](../utils_chat_queries/ChatQueries/ChatQueries.md)
 
 :   
 
@@ -26,7 +26,7 @@ This class creates the queries dealing with chats.
     no setterinherited
     :::
 
-[[messageSentToDirectChatsubscription](../utils_chat_queries/ChatQueries/messageSentToDirectChatsubscription.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[messageSentToDirectChatsubscription](../utils_chat_queries/ChatQueries/messageSentToDirectChatsubscription.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
     no setter
@@ -42,21 +42,21 @@ This class creates the queries dealing with chats.
 
 ## Methods
 
-[[fetchDirectChatMessagesByChatId](../utils_chat_queries/ChatQueries/fetchDirectChatMessagesByChatId.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] chatId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[fetchDirectChatMessagesByChatId](../utils_chat_queries/ChatQueries/fetchDirectChatMessagesByChatId.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] chatId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[fetchDirectChatsByUserId](../utils_chat_queries/ChatQueries/fetchDirectChatsByUserId.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] userId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[fetchDirectChatsByUserId](../utils_chat_queries/ChatQueries/fetchDirectChatsByUserId.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] userId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[sendMessageToDirectChat](../utils_chat_queries/ChatQueries/sendMessageToDirectChat.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[sendMessageToDirectChat](../utils_chat_queries/ChatQueries/sendMessageToDirectChat.md)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
@@ -70,7 +70,7 @@ This class creates the queries dealing with chats.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -82,7 +82,7 @@ This class creates the queries dealing with chats.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [chat_queries](../utils_chat_queries/)
 3.  ChatQueries class
 

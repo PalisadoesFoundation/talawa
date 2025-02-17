@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatState](../../enums_enums/ChatState.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatState](../../enums_enums/ChatState.md)]\>]
 const values
 
 
@@ -20,9 +20,9 @@ declaration.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [ChatState](../../enums_enums/ChatState.html)
+3.  [ChatState](../../enums_enums/ChatState.md)
 4.  values constant
 
 ##### ChatState enum

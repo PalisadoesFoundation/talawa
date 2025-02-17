@@ -1,3 +1,7 @@
+---
+title: "constants_routing_constants"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[Routes](../constants_routing_constants/Routes-class.html)]
+[[Routes](../constants_routing_constants/Routes-class.md)]
 :   This file contains the routes. These can be used to make push screen
     call via Routes.splashScreen to access these string.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  constants//routing_constants.dart
 
 ##### talawa package

@@ -31,9 +31,9 @@ late TutorialCoachMark tutorialCoachMark;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [app_tour](../../models_app_tour/)
-3.  [AppTour](../../models_app_tour/AppTour-class.html)
+3.  [AppTour](../../models_app_tour/AppTour-class.md)
 4.  tutorialCoachMark property
 
 ##### AppTour class

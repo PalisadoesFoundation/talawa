@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_event_info_page"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[EventInfoPage](../views_after_auth_screens_events_event_info_page/EventInfoPage-class.html)]
+[[EventInfoPage](../views_after_auth_screens_events_event_info_page/EventInfoPage-class.md)]
 :   EventInfoPage returns a widget that has mutable state
     /_EventInfoPageState.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//event_info_page.dart
 
 ##### talawa package

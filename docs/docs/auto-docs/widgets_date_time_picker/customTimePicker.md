@@ -10,7 +10,7 @@
 customTimePicker({
 
 1.  [required
-    [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+    [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.md)]
     initialTime,
     ]
 
@@ -50,7 +50,7 @@ Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [date_time_picker](../widgets_date_time_picker/)
 3.  customTimePicker function
 

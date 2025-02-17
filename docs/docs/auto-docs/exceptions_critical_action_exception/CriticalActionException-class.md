@@ -25,15 +25,15 @@ Inheritance
 
 ## Constructors
 
-[[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] actionError])]
+[[CriticalActionException](../exceptions_critical_action_exception/CriticalActionException/CriticalActionException.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] actionError])]
 :   Constructor for
-    [CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.html).
+    [CriticalActionException](../exceptions_critical_action_exception/CriticalActionException-class.md).
 
 
 
 ## Properties
 
-[[actionError](../exceptions_critical_action_exception/CriticalActionException/actionError.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+[[actionError](../exceptions_critical_action_exception/CriticalActionException/actionError.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The error message associated with this critical action.
     ::: features
     getter/setter pair
@@ -79,19 +79,19 @@ Inheritance
 
 ## Methods
 
-[[addError](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/addError.html)][([[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.html)] error]) → void ]
+[[addError](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException/addError.html)][([[[GraphQLError](https://pub.dev/documentation/gql_exec/1.1.1-alpha+1699813812660/graphql_flutter/GraphQLError-class.md)] error]) → void ]
 
 :   ::: features
     inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
     :::
 
-[[toString](../exceptions_critical_action_exception/CriticalActionException/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+[[toString](../exceptions_critical_action_exception/CriticalActionException/toString.md)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
     override
@@ -101,7 +101,7 @@ Inheritance
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -113,7 +113,7 @@ Inheritance
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [critical_action_exception](../exceptions_critical_action_exception/)
 3.  CriticalActionException class
 

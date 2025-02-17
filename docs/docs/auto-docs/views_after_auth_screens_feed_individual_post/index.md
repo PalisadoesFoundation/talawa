@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_feed_individual_post"
+---
+
 
 <div>
 
@@ -8,18 +12,18 @@
 
 ## Classes
 
-[[CommentTemplate](../views_after_auth_screens_feed_individual_post/CommentTemplate-class.html)]
+[[CommentTemplate](../views_after_auth_screens_feed_individual_post/CommentTemplate-class.md)]
 :   CommentTemplate returns a widget of the individual user commented on
     the post.
 
-[[IndividualPageLikeSection](../views_after_auth_screens_feed_individual_post/IndividualPageLikeSection-class.html)]
+[[IndividualPageLikeSection](../views_after_auth_screens_feed_individual_post/IndividualPageLikeSection-class.md)]
 :   IndividualPageLikeSection returns a widget that show the list of all
     the users liked the post.
 
-[[IndividualPostCommentSection](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.html)]
+[[IndividualPostCommentSection](../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.md)]
 :   Widget representing the comment section of an individual post.
 
-[[IndividualPostView](../views_after_auth_screens_feed_individual_post/IndividualPostView-class.html)]
+[[IndividualPostView](../views_after_auth_screens_feed_individual_post/IndividualPostView-class.md)]
 :   IndividualPostView returns a widget that has mutable state
     /_IndividualPostViewState.
 
@@ -27,11 +31,11 @@
 
 ## Functions
 
-[[buildPadding](../views_after_auth_screens_feed_individual_post/buildPadding.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] text]) [→ [Padding](https://api.flutter.dev/flutter/widgets/Padding-class.html)] ]
+[[buildPadding](../views_after_auth_screens_feed_individual_post/buildPadding.md)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)] context, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] text]) [→ [Padding](https://api.flutter.dev/flutter/widgets/Padding-class.html)] ]
 :   Generates a `Padding` widget with customizable vertical padding
     around a text element.
 
-[[likedUserCircleAvatar](../views_after_auth_screens_feed_individual_post/likedUserCircleAvatar.html)][([[[LikedBy](../models_post_post_model/LikedBy-class.html)] user]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
+[[likedUserCircleAvatar](../views_after_auth_screens_feed_individual_post/likedUserCircleAvatar.md)][([[[LikedBy](../models_post_post_model/LikedBy-class.md)] user]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Generates a Circle Avatar representing a user who liked the post.
 
 
@@ -40,7 +44,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//feed//individual_post.dart
 
 ##### talawa package

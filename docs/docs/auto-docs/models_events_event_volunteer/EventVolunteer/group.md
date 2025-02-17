@@ -6,7 +6,7 @@
 </div>
 
 
-[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?
+[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.md)?
 group
 
 
@@ -31,9 +31,9 @@ EventVolunteerGroup? group;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_volunteer](../../models_events_event_volunteer/)
-3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)
+3.  [EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.md)
 4.  group property
 
 ##### EventVolunteer class

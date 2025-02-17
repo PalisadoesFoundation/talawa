@@ -1,3 +1,7 @@
+---
+title: "view_model_widgets_view_models_like_button_view_model"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[LikeButtonViewModel](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.html)]
+[[LikeButtonViewModel](../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)]
 :   LikeButtonViewModel class helps to serve the data and to react to
     user/'s input for Like Button Widget.
 
@@ -18,7 +22,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  view_model//widgets_view_models//like_button_view_model.dart
 
 ##### talawa package

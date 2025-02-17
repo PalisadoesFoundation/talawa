@@ -18,7 +18,7 @@ when they are no longer needed.
 
 ## Constructors
 
-[HiveManager](../services_hive_manager/HiveManager/HiveManager.html)
+[HiveManager](../services_hive_manager/HiveManager/HiveManager.md)
 
 :   
 
@@ -42,7 +42,7 @@ when they are no longer needed.
 
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
     inherited
@@ -58,7 +58,7 @@ when they are no longer needed.
 
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
     inherited
@@ -68,23 +68,23 @@ when they are no longer needed.
 
 ## Static Methods
 
-[[closeBox](../services_hive_manager/HiveManager/closeBox.html)]\<[T\>][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] boxName]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[closeBox](../services_hive_manager/HiveManager/closeBox.md)]\<[T\>][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] boxName]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Closes the `boxName` named box.
 
-[[initializeHive](../services_hive_manager/HiveManager/initializeHive.html)][({[required [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.html)] dir]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[initializeHive](../services_hive_manager/HiveManager/initializeHive.md)][({[required [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.md)] dir]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Initializes Hive with the specified directory.
 
-[[openBox](../services_hive_manager/HiveManager/openBox.html)]\<[T\>][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] boxName]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[openBox](../services_hive_manager/HiveManager/openBox.md)]\<[T\>][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] boxName]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Opens the `boxName` named box.
 
-[[registerAdapter](../services_hive_manager/HiveManager/registerAdapter.html)]\<[T\>][([[[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)\<[T\>]] adapter]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[registerAdapter](../services_hive_manager/HiveManager/registerAdapter.md)]\<[T\>][([[[TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.md)\<[T\>]] adapter]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Registers the `adapter` named adapter.
 
-[[registerAdapters](../services_hive_manager/HiveManager/registerAdapters.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[registerAdapters](../services_hive_manager/HiveManager/registerAdapters.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Registers the necessary Hive adapters for the models used in the
     application.
 
-[[teardownHive](../services_hive_manager/HiveManager/teardownHive.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
+[[teardownHive](../services_hive_manager/HiveManager/teardownHive.md)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Closes all opened Hive boxes and the Hive instance itself.
 
 
@@ -93,7 +93,7 @@ when they are no longer needed.
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [hive_manager](../services_hive_manager/)
 3.  HiveManager class
 

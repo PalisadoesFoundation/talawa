@@ -8,7 +8,7 @@
 
 void onTabTapped(
 
-1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.md)]
     index]
 
 )
@@ -41,9 +41,9 @@ void onTabTapped(int index) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
-3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
 4.  onTabTapped method
 
 ##### MainScreenViewModel class

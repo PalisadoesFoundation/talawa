@@ -25,7 +25,7 @@ A string representation of this object.
 
 Some classes have a default textual representation, often paired with a
 static `parse` function (like
-[int.parse](https://api.flutter.dev/flutter/dart-core/int/parse.html)).
+[int.parse](https://api.flutter.dev/flutter/dart-core/int/parse.md)).
 These classes will provide the textual representation as their string
 representation.
 
@@ -62,9 +62,9 @@ String  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
-3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.html)
+3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.md)
 4.  toString method
 
 ##### CachedUserAction class

@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 updateAgendaItemSequence(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     itemId, ]
 2.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
     newSequence]
@@ -59,9 +59,9 @@ Future<void> updateAgendaItemSequence(String itemId, int newSequence) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
-3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.html)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
 4.  updateAgendaItemSequence method
 
 ##### EventInfoViewModel class

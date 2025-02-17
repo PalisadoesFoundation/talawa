@@ -6,7 +6,7 @@
 </div>
 
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Language](../models_language_language_model/Language-class.html)]\>]
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Language](../models_language_language_model/Language-class.md)]\>]
 languages
 
 
@@ -19,10 +19,10 @@ This file contains the prototypes of all the supported languages and
 currencies used in the application.
 
 A list of
-[Language](../models_language_language_model/Language-class.html)
+[Language](../models_language_language_model/Language-class.md)
 objects representing the languages supported by the application.
 
-Each [Language](../models_language_language_model/Language-class.html)
+Each [Language](../models_language_language_model/Language-class.md)
 object contains the following properties:
 
 -   `countryCode`: The country code associated with the language.
@@ -94,7 +94,7 @@ List<Language> languages = [
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  [constants](../constants_constants/)
 3.  languages property
 

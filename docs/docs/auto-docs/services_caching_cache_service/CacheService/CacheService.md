@@ -28,9 +28,9 @@ Initializes the cache service and the offline action queue.
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [cache_service](../../services_caching_cache_service/)
-3.  [CacheService](../../services_caching_cache_service/CacheService-class.html)
+3.  [CacheService](../../services_caching_cache_service/CacheService-class.md)
 4.  CacheService constructor
 
 ##### CacheService class

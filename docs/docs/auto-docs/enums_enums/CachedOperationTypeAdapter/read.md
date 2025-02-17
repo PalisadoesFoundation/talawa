@@ -12,10 +12,10 @@
 
 </div>
 
-[[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+[[CachedOperationType](../../enums_enums/CachedOperationType.md)]
 read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.md)]
     reader]
 
 )
@@ -56,9 +56,9 @@ CachedOperationType read(BinaryReader reader) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [enums](../../enums_enums/)
-3.  [CachedOperationTypeAdapter](../../enums_enums/CachedOperationTypeAdapter-class.html)
+3.  [CachedOperationTypeAdapter](../../enums_enums/CachedOperationTypeAdapter-class.md)
 4.  read method
 
 ##### CachedOperationTypeAdapter class

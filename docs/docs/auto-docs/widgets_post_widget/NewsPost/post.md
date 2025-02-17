@@ -6,7 +6,7 @@
 </div>
 
 
-[Post](../../models_post_post_model/Post-class.html) post
+[Post](../../models_post_post_model/Post-class.md) post
 
 
 final
@@ -30,9 +30,9 @@ final Post post;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_widget](../../widgets_post_widget/)
-3.  [NewsPost](../../widgets_post_widget/NewsPost-class.html)
+3.  [NewsPost](../../widgets_post_widget/NewsPost-class.md)
 4.  post property
 
 ##### NewsPost class

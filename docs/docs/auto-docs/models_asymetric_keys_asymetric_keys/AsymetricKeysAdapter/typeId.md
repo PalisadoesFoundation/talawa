@@ -38,9 +38,9 @@ final int typeId = 7;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [asymetric_keys](../../models_asymetric_keys_asymetric_keys/)
-3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.html)
+3.  [AsymetricKeysAdapter](../../models_asymetric_keys_asymetric_keys/AsymetricKeysAdapter-class.md)
 4.  typeId property
 
 ##### AsymetricKeysAdapter class

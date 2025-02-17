@@ -9,7 +9,7 @@
 [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)]\>]]
 getCommentsForPost(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
     postId]
 
 )
@@ -56,9 +56,9 @@ Future<List<dynamic>> getCommentsForPost(String postId) async {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [comment_service](../../services_comment_service/)
-3.  [CommentService](../../services_comment_service/CommentService-class.html)
+3.  [CommentService](../../services_comment_service/CommentService-class.md)
 4.  getCommentsForPost method
 
 ##### CommentService class

@@ -15,7 +15,7 @@
 [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.md)]
     context]
 
 )
@@ -32,7 +32,7 @@ The framework calls this method in a number of different situations. For
 example:
 
 -   After calling
-    [initState](../../widgets_post_container/PostContainerState/initState.html).
+    [initState](../../widgets_post_container/PostContainerState/initState.md).
 -   After calling
     [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html).
 -   After receiving a call to
@@ -40,9 +40,9 @@ example:
 -   After a dependency of this
     [State](https://api.flutter.dev/flutter/widgets/State-class.html)
     object changes (e.g., an
-    [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)
+    [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.md)
     referenced by the previous
-    [build](../../widgets_post_container/PostContainerState/build.html)
+    [build](../../widgets_post_container/PostContainerState/build.md)
     changes).
 -   After calling
     [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)
@@ -84,7 +84,7 @@ signature for a
 
 ## Design discussion
 
-### Why is the [build](../../widgets_post_container/PostContainerState/build.html) method on [State](https://api.flutter.dev/flutter/widgets/State-class.html), and not [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)?
+### Why is the [build](../../widgets_post_container/PostContainerState/build.md) method on [State](https://api.flutter.dev/flutter/widgets/State-class.html), and not [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)?
 
 Putting a `Widget build(BuildContext context)` method on
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) rather
@@ -102,7 +102,7 @@ that introduces an abstract `Widget build(BuildContext context)` method
 for its subclasses to implement. If
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 already had a
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 method that took a
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 argument,
@@ -119,7 +119,7 @@ Conceptually,
 could also be implemented as a subclass of
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 in a similar manner. If the
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 method were on
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 rather than
@@ -127,14 +127,14 @@ rather than
 would not be possible anymore.
 
 Putting the
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 function on
 [State](https://api.flutter.dev/flutter/widgets/State-class.html) rather
 than
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
 also helps avoid a category of bugs related to closures implicitly
 capturing `this`. If you defined a closure in a
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 function on a
 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html),
 that closure would implicitly capture `this`, which is the current
@@ -166,11 +166,11 @@ been updated to green; should that closure outlive its widget, it would
 print outdated information.
 
 In contrast, with the
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 function on the
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 object, closures created during
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 implicitly capture the
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 instance instead of the widget instance:
@@ -238,9 +238,9 @@ Widget build(BuildContext context) {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_container](../../widgets_post_container/)
-3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.html)
+3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.md)
 4.  build method
 
 ##### PostContainerState class

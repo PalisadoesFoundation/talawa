@@ -28,33 +28,33 @@ it creates.
 
 Override this method to perform initialization that depends on the
 location at which this object was inserted into the tree (i.e.,
-[context](https://api.flutter.dev/flutter/widgets/State/context.html))
+[context](https://api.flutter.dev/flutter/widgets/State/context.md))
 or on the widget used to configure this object (i.e.,
-[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)).
+[widget](https://api.flutter.dev/flutter/widgets/State/widget.md)).
 
 If a
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)\'s
-[build](../../widgets_post_container/PostContainerState/build.html)
+[build](../../widgets_post_container/PostContainerState/build.md)
 method depends on an object that can itself change state, for example a
 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
 or
 [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html),
 or some other object to which one can subscribe to receive
 notifications, then be sure to subscribe and unsubscribe properly in
-[initState](../../widgets_post_container/PostContainerState/initState.html),
+[initState](../../widgets_post_container/PostContainerState/initState.md),
 [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html),
 and
-[dispose](../../widgets_post_container/PostContainerState/dispose.html):
+[dispose](../../widgets_post_container/PostContainerState/dispose.md):
 
 -   In
-    [initState](../../widgets_post_container/PostContainerState/initState.html),
+    [initState](../../widgets_post_container/PostContainerState/initState.md),
     subscribe to the object.
 -   In
     [didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)
     unsubscribe from the old object and subscribe to the new one if the
     updated widget configuration requires replacing the object.
 -   In
-    [dispose](../../widgets_post_container/PostContainerState/dispose.html),
+    [dispose](../../widgets_post_container/PostContainerState/dispose.md),
     unsubscribe from the object.
 
 You should not use
@@ -85,9 +85,9 @@ void  {
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [post_container](../../widgets_post_container/)
-3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.html)
+3.  [PostContainerState](../../widgets_post_container/PostContainerState-class.md)
 4.  initState method
 
 ##### PostContainerState class

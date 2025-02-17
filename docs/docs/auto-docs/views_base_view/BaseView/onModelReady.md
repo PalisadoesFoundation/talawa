@@ -26,10 +26,10 @@ final Function(T)? onModelReady;
 
 
 
-1.  [talawa](../../index.html)
+1.  [talawa](../../index.md)
 2.  [base_view](../../views_base_view/)
 3.  BaseView[\<[T extends
-    ChangeNotifier\>]](../../views_base_view/BaseView-class.html)
+    ChangeNotifier\>]](../../views_base_view/BaseView-class.md)
 4.  onModelReady property
 
 ##### BaseView class

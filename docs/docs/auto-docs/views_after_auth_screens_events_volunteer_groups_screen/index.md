@@ -1,3 +1,7 @@
+---
+title: "views_after_auth_screens_events_volunteer_groups_screen"
+---
+
 
 <div>
 
@@ -8,7 +12,7 @@
 
 ## Classes
 
-[[VolunteerGroupsScreen](../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.html)]
+[[VolunteerGroupsScreen](../views_after_auth_screens_events_volunteer_groups_screen/VolunteerGroupsScreen-class.md)]
 :   A screen that displays the volunteer groups for a specific event.
 
 
@@ -17,7 +21,7 @@
 
 
 
-1.  [talawa](../index.html)
+1.  [talawa](../index.md)
 2.  views//after_auth_screens//events//volunteer_groups_screen.dart
 
 ##### talawa package
