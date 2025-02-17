@@ -30,12 +30,11 @@ def flatten_nested_links(content):
     """Simplify [[alphabetical]] links to [alphabetical]."""
 
     # Match [[HiveKeys]] and turn it into [HiveKeys]
-    def print_match(match):
-        print(f"Found match: {match.group(0)}")  # Print only the matched content
+    def found_match(match):
         return f"[{match.group(1)}"  # Return the modified link
 
-    # Apply the transformation with the print_match function to print the matches
-    content = re.sub(r"\[\[([a-zA-Z]+)\]", print_match, content)
+    # Apply the transformation with the found_match function
+    content = re.sub(r"\[\[([a-zA-Z]+)\]", found_match, content)
 
     return content
 
@@ -44,15 +43,14 @@ def fix_nested_links(content):
     """Simplify [[alphabetical]] links to [alphabetical]."""
 
     # Match [[HiveKeys]] and turn it into [HiveKeys]
-    def print_match(match):
-        print(f"Found match: {match.group(0)}")  # Print only the matched content
+    def found_match(match):
         return match.group(1)  # Return the modified link
 
     # Keep applying the transformation until there are no more matches
     previous_content = ""
     while previous_content != content:
         previous_content = content
-        content = re.sub(r"\[\/<([^>]+)>\]", print_match, content)
+        content = re.sub(r"\[\/<([^>]+)>\]", found_match, content)
 
     return content
 
@@ -107,11 +105,6 @@ for root, _, files in os.walk(md_folder):
         content = re.sub(r"\(\)", "", content)
         # Remove # as this is not rendered correctly
         content = re.sub(r"#([^ )]+\.md)", r".md", content)  # #something.md -> .md
-        content = re.sub(r"#([^ )]+)", r")", content)  # #something) -> )
-        content = re.sub(r"/#([^ ]+)", r"/", content)  # /something -> /
-
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
-
-        print(f"✅ Fixed: {file_path}")
