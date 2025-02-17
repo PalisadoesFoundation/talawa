@@ -75,15 +75,23 @@ for root, _, files in os.walk(md_folder):
             if file.endswith("index.md") and "title:" not in content:
                 content = f'---\ntitle: "{parent_folder}"\n---\n\n' + content
 
-            # Address isolated issues
 
-            # Fix relative links in index.md
-            if file_path == "index.md" and parent_folder == "auto-docs":
-                content = re.sub(
-                    r"\((?!\./)(CONTRIBUTING.md|INSTALLATION.md|CODE_OF_CONDUCT.md|ISSUE_GUIDLINES.md|PR_GUIDLINES.md|DOCUMENTATION.md)\)",
-                    r"(./\1)",
-                    content,
-                )
+            #Address isolated issues
+
+            #Fix relative links in index.md
+            if file == 'index.md' and parent_folder == 'auto-docs':
+                content = re.sub(r'\((?!\./)(CONTRIBUTING.md|INSTALLATION.md|CODE_OF_CONDUCT.md|ISSUE_GUIDLINES.md|PR_GUIDLINES.md|DOCUMENTATION.md)\)', r'(./\1)', content)
+
+            #Fix link to .github/workflows/pull-request.yml in CONTRIBUTING.md
+            if file == 'CONTRIBUTING.md' and parent_folder == 'auto-docs':
+                content = re.sub(r'\((\.github/workflows/pull-request\.yml)\)', r'(https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/.github/workflows/pull-request.yml)', content)
+            
+            #Fix lowercase conversion causing broken links
+            if file == 'Message-class.md':
+                content = content.replace("message.md", "Message.md")
+            if file in ['PinnedPost-class.d', 'PinnedPost-class-sidebar.md']:
+                content = content.replace("pinnedPost.md", "PinnedPost.md")
+
 
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
