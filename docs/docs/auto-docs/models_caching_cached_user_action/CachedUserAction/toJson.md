@@ -1,0 +1,60 @@
+::::::: {#dartdoc-main-content .main-content above-sidebar="models_caching_cached_user_action/CachedUserAction-class-sidebar.html" below-sidebar=""}
+<div>
+
+# [toJson]{.kind-method} method
+
+</div>
+
+::: {.section .multi-line-signature}
+[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
+[dynamic]{.type-parameter}\>]{.signature}]{.returntype}
+[toJson]{.name}()
+:::
+
+::: {.section .desc .markdown}
+Converts a CachedUserAction to a JSON-compatible map.
+
+**params**: None
+
+**returns**:
+
+-   `Map<String, dynamic>`: a map representing the CachedUserAction.
+:::
+
+::: {#source .section .summary .source-code}
+## Implementation
+
+``` language-dart
+Map<String, dynamic> toJson() {
+  return {
+    'id': id,
+    'operation': operation,
+    'variables': variables,
+    'timeStamp': timeStamp.toIso8601String(),
+    'status': status,
+    'metaData': metaData,
+    'operationType': operationType,
+    'expiry': expiry.toIso8601String(),
+  };
+}
+```
+:::
+:::::::
+
+::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
+::: {#header-search-sidebar .hidden-l}
+:::
+
+1.  [talawa](../../index.html)
+2.  [cached_user_action](../../models_caching_cached_user_action/)
+3.  [CachedUserAction](../../models_caching_cached_user_action/CachedUserAction-class.html)
+4.  toJson method
+
+##### CachedUserAction class
+
+::: {#dartdoc-sidebar-left-content}
+:::
+:::::
+
+::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
+:::

@@ -1,0 +1,17 @@
+1.  [Values](enums_enums/ModalSheet.html#values)
+2.  [donation](enums_enums/ModalSheet.html#donation)
+3.  [invite](enums_enums/ModalSheet.html#invite)
+4.  [Properties](enums_enums/ModalSheet.html#instance-properties)
+5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6.  [index](https://api.flutter.dev/flutter/dart-core/Enum/index.html)
+7.  [name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)
+    ^(ext)^
+8.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+9.  [Methods](enums_enums/ModalSheet.html#instance-methods)
+10. [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+11. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+12. [Operators](enums_enums/ModalSheet.html#operators)
+13. [operator
+    ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
+14. [Constants](enums_enums/ModalSheet.html#constants)
+15. [values](enums_enums/ModalSheet/values-constant.html)
