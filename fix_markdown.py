@@ -9,6 +9,21 @@ def clean_markdown(content):
     content = re.sub(r"\[([^]]+)\]\s*\{[.#][^}]+\}", r"\1", content)
     return content
 
+def remove_curly_braces(content):
+    # Loop to repeatedly remove non-nested curly braces until none remain
+    while True:
+        # Match top-level curly braces (not nested)
+        new_content = re.sub(r'\{(?![^{}]*\{)[^}]*\}', '', content)
+        
+        # If the content has not changed, stop the loop
+        if new_content == content:
+            break
+        
+        # Otherwise, update content and continue removing
+        content = new_content
+        
+    return content
+
 
 # Loop through each Markdown file in the folder
 for root, _, files in os.walk(md_folder):
@@ -26,8 +41,8 @@ for root, _, files in os.walk(md_folder):
             )  # Convert backslashes to forward slashes
 
         content = clean_markdown(content)
-        # Remove any content inside curly braces that starts with either '#' or '.' (e.g., {#something} or {.something})
-        content = re.sub(r"\{[#.]([^{}]+)\}", "", content)
+        # Remove any content inside curly braces as docusaurus is not able to render {}
+        content = remove_curly_braces(content)
         # Remove lines that start with three or more colons (i.e., Dartdoc-specific syntax) and extend to the end of the line
         content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
         # Remove lines with empty ()
