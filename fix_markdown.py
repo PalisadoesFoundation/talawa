@@ -9,19 +9,20 @@ def clean_markdown(content):
     content = re.sub(r"\[([^]]+)\]\s*\{[.#][^}]+\}", r"\1", content)
     return content
 
+
 def remove_curly_braces(content):
     # Loop to repeatedly remove non-nested curly braces until none remain
     while True:
         # Match top-level curly braces (not nested)
-        new_content = re.sub(r'\{(?![^{}]*\{)[^}]*\}', '', content)
-        
+        new_content = re.sub(r"\{(?![^{}]*\{)[^}]*\}", "", content)
+
         # If the content has not changed, stop the loop
         if new_content == content:
             break
-        
+
         # Otherwise, update content and continue removing
         content = new_content
-        
+
     return content
 
 

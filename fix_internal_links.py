@@ -93,7 +93,7 @@ for root, _, files in os.walk(md_folder):
                 )
 
             # Fix lowercase conversion causing broken links
-            if file == ["Message-class.md", "Message-class-sidebar.md"]:
+            if file in ["Message-class.md", "Message-class-sidebar.md"]:
                 content = content.replace("message.md", "Message.md")
             if file in ["PinnedPost-class.md", "PinnedPost-class-sidebar.md"]:
                 content = content.replace("pinnedPost.md", "PinnedPost.md")
@@ -101,20 +101,18 @@ for root, _, files in os.walk(md_folder):
             # Fix index.md link in search.md
             if file == "search.md" and parent_folder == "auto-docs":
                 content = re.sub(r"\(\.\./index.md\)", r"(./index.md)", content)
-
-            # Fix warning for folders with index file as well as folder named file
-            if file == "index.md" and parent_folder in [
-                "locator",
-                "main",
-                "CustomListTile",
-            ]:
-                content = re.sub(
-                    r"^title:\s*(.*)",
-                    f'title: "{parent_folder}-index"',
-                    content,
-                    flags=re.MULTILINE,
-                )
-
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
+        # Fix warning for folders with index file as well as folder named file
+        expected_filename = f"{parent_folder}.md"
+
+        # Check if the current file matches the generated filename
+        if file == expected_filename and parent_folder in [
+            "locator",
+            "main",
+            "CustomListTile",
+        ]:
+            new_filename = f"{parent_folder}-overview.md"
+            new_path = os.path.join(root, new_filename)
+            os.rename(file_path, new_path)
