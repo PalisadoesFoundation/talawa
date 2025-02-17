@@ -104,7 +104,7 @@ for root, _, files in os.walk(md_folder):
         # Remove rest of empty ()
         content = re.sub(r"\(\)", "", content)
         # Remove # as this is not rendered correctly
-        content = re.sub(r"#([^ .]+\.md)", r".md", content)  # #something.md -> .md
+        content = re.sub(r"(#\S+\.md)", r".md", content)  # #something.md -> .md
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)

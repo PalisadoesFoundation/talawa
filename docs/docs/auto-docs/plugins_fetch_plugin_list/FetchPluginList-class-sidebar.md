@@ -1,0 +1,13 @@
+1.  [Constructors](./FetchPluginList-class.md)
+2.  [FetchPluginList](./FetchPluginList/FetchPluginList.md)
+3.  [Properties](./FetchPluginList-class.md)
+4.  [box](./FetchPluginList/box.md)
+5.  [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)
+6.  [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
+7.  [Methods](./FetchPluginList-class.md)
+8.  [fetchList](./FetchPluginList/fetchList.md)
+9.  [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)
+10. [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)
+11. [Operators](./FetchPluginList-class.md)
+12. [operator
+    ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)
