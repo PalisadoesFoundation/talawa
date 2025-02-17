@@ -19,7 +19,6 @@ def fix_links(content, parent_folder):
 
         # Rebuild the link and change .html to .md
         new_link = "/".join(parts) + (m.group(3) if m.group(3) else "") + ".md"
-        print(f"✅ Found: {new_link}")
         return f"[{m.group(1)}]({new_link})"  # Rebuild the link with the desired format
 
     content = re.sub(pattern, replace_link, content)
@@ -119,5 +118,3 @@ for root, _, files in os.walk(md_folder):
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
-
-        print(f"✅ Fixed: {file_path}")

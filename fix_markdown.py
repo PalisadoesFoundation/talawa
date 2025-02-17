@@ -56,5 +56,3 @@ for root, _, files in os.walk(md_folder):
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
-
-        print(f"✅ Fixed: {file_path}")
