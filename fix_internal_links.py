@@ -6,9 +6,7 @@ md_folder = "docs/docs/auto-docs"
 
 def fix_links(content, parent_folder):
     # Define the regex pattern to match links that don't start with http or https
-    pattern = (
-        r"\[([^\]]+)\]\((?!http|https|../)(.*)\.html(#.*)?\)"  # Matches the .html link
-    )
+    pattern = r"\[([^\]]+)\]\((?!http|https|../)(.*)\.html(#.*)?\)"
 
     def replace_link(m):
         # Split the path into parts
@@ -27,9 +25,7 @@ def fix_links(content, parent_folder):
     content = re.sub(pattern, replace_link, content)
 
     # Apply the fallback pattern to match links ending with .html and replace .html with .md
-    fallback_pattern = (
-        r"\((?!http|https)([^)]+)\.html(#.*)?\)"  # Matches only the .html link part
-    )
+    fallback_pattern = r"\((?!http|https)([^)]+)\.html(#.*)?\)"
     content = re.sub(
         fallback_pattern,
         lambda m: f"({m.group(1)}.md{m.group(2) if m.group(2) else ''})",
@@ -78,6 +74,16 @@ for root, _, files in os.walk(md_folder):
             # Add title to inde.md files to ensure proper sidebar entries
             if file.endswith("index.md") and "title:" not in content:
                 content = f'---\ntitle: "{parent_folder}"\n---\n\n' + content
+
+            # Address isolated issues
+
+            # Fix relative links in index.md
+            if file_path == "index.md" and parent_folder == "auto-docs":
+                content = re.sub(
+                    r"\((?!\./)(CONTRIBUTING.md|INSTALLATION.md|CODE_OF_CONDUCT.md|ISSUE_GUIDLINES.md|PR_GUIDLINES.md|DOCUMENTATION.md)\)",
+                    r"(./\1)",
+                    content,
+                )
 
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
