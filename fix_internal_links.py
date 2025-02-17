@@ -70,7 +70,7 @@ for root, _, files in os.walk(md_folder):
             content = fix_links(content, parent_folder)
             # Replace parent folder reference by .
             content = replace_parent_folder_links(content, parent_folder)
-            # Add title to index.md files to ensure proper sidebar entries
+            # Add title to inde.md files to ensure proper sidebar entries
             if file.endswith("index.md") and "title:" not in content:
                 content = f'---\ntitle: "{parent_folder}"\n---\n\n' + content
 
@@ -112,15 +112,3 @@ for root, _, files in os.walk(md_folder):
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
-        # # Fix warning for folders with index file as well as folder named file
-        # expected_filename = f"{parent_folder}.md"
-
-        # # Check if the current file matches the generated filename
-        # if file == expected_filename and parent_folder in [
-        #     "locator",
-        #     "main",
-        #     "CustomListTile",
-        # ]:
-        #     new_filename = f"{parent_folder}-overview.md"
-        #     new_path = os.path.join(root, new_filename)
-        #     os.rename(file_path, new_path)
