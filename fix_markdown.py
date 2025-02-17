@@ -31,10 +31,10 @@ def flatten_nested_links(content):
 
     # Match [[HiveKeys]] and turn it into [HiveKeys]
     def found_match(match):
-        return f"[{match.group(1)}"  # Return the modified link
+        return f"[{match.group(1)}]({match.group(2)})"  # Return the modified link
 
     # Apply the transformation with the found_match function
-    content = re.sub(r"\[\[([a-zA-Z]+)\]", found_match, content)
+    content = re.sub(r"\[\[([^\]]+)\]\(([^)]+)\)\]", found_match, content)
 
     return content
 
@@ -104,7 +104,7 @@ for root, _, files in os.walk(md_folder):
         # Remove rest of empty ()
         content = re.sub(r"\(\)", "", content)
         # Remove # as this is not rendered correctly
-        content = re.sub(r"#([^ )]+\.md)", r".md", content)  # #something.md -> .md
+        content = re.sub(r"#([^ .]+\.md)", r".md", content)  # #something.md -> .md
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
