@@ -3,10 +3,12 @@ import re
 
 md_folder = "docs/docs/auto-docs"  # Path to the docs folder
 
+
 # Function to remove dartdoc added styling
 def clean_markdown(content):
     content = re.sub(r"\[([^]]+)\]\s*\{[.#][^}]+\}", r"\1", content)
     return content
+
 
 def remove_curly_braces(content):
     # Loop to repeatedly remove non-nested curly braces until none remain
@@ -23,20 +25,24 @@ def remove_curly_braces(content):
 
     return content
 
+
 def flatten_nested_links(content):
     """Simplify [[alphabetical]] links to [alphabetical]."""
+
     # Match [[HiveKeys]] and turn it into [HiveKeys]
     def print_match(match):
         print(f"Found match: {match.group(0)}")  # Print only the matched content
         return f"[{match.group(1)}"  # Return the modified link
 
     # Apply the transformation with the print_match function to print the matches
-    content = re.sub(r'\[\[([a-zA-Z]+)\]', print_match, content)
+    content = re.sub(r"\[\[([a-zA-Z]+)\]", print_match, content)
 
     return content
-    
+
+
 def fix_nested_links(content):
     """Simplify [[alphabetical]] links to [alphabetical]."""
+
     # Match [[HiveKeys]] and turn it into [HiveKeys]
     def print_match(match):
         print(f"Found match: {match.group(0)}")  # Print only the matched content
@@ -46,7 +52,7 @@ def fix_nested_links(content):
     previous_content = ""
     while previous_content != content:
         previous_content = content
-        content = re.sub(r'\[\/<([^>]+)>\]', print_match, content)
+        content = re.sub(r"\[\/<([^>]+)>\]", print_match, content)
 
     return content
 
@@ -54,7 +60,7 @@ def fix_nested_links(content):
 def fix_mdx_syntax(content):
     """Fix MDX syntax errors related to `Map/<String, Object/>` patterns."""
     # Replace occurrences of Map/<something/> with escaped characters
-    content = re.sub(r'Map/<([^,]+),\s*([^>]+)\/>', r'Map/&lt;\1, \2/&gt;', content)
+    content = re.sub(r"Map/<([^,]+),\s*([^>]+)\/>", r"Map/&lt;\1, \2/&gt;", content)
 
     return content
 
@@ -70,22 +76,23 @@ for root, _, files in os.walk(md_folder):
 
         # If file is `index.md`, flatten nested `[[...]]` links first
         if file.endswith("index.md"):
-            content = content.replace("\\", "/")  # Convert backslashes to forward slashes
+            content = content.replace(
+                "\\", "/"
+            )  # Convert backslashes to forward slashes
             content = fix_nested_links(content)
             content = flatten_nested_links(content)
             content = fix_mdx_syntax(content)
-            
-            
+
         content = clean_markdown(content)
 
         # Fix nested {{...}} braces
         content = remove_curly_braces(content)
 
         # Fix Markdown inside Markdown (one-time pass)
-        content = re.sub(r'(\[[^\]]+\])(\[[^\]]+\])', r'\1\2', content)
+        content = re.sub(r"(\[[^\]]+\])(\[[^\]]+\])", r"\1\2", content)
 
         # Fix Angle Brackets (`<` and `>` inside links)
-        content = re.sub(r'<(\[[^\]]+\]\([^\)]+\))>', r'\1', content)
+        content = re.sub(r"<(\[[^\]]+\]\([^\)]+\))>", r"\1", content)
 
         # Remove lines that start with three or more colons (i.e., Dartdoc-specific syntax) and extend to the end of the line
         content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
@@ -104,4 +111,3 @@ for root, _, files in os.walk(md_folder):
             f.write(content)
 
         print(f"✅ Fixed: {file_path}")
-
