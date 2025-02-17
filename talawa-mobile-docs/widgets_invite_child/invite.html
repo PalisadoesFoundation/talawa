@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the invite function from the invite_child library, for the Dart programming language.">
+  <title>invite function - invite_child library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">talawa</a></li>
+    <li><a href="../widgets_invite_child/">widgets\invite_child.dart</a></li>
+    <li class="self-crumb">invite function</li>
+  </ol>
+  <div class="self-name">invite</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="widgets_invite_child&#47;widgets_invite_child-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">invite</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">invite</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="invite-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>We can use QR code scanner, social media platforms like twitter, whatsapp, telegram and many more..</p>
+<p>more_info_if_required</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>context</code>: Build Context</li>
+</ul>
+<p><strong>returns</strong>:</p>
+<ul>
+<li><code>Widget</code>: Returns Column with QR Code</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Widget invite(BuildContext context) {
+  _appLanguageService.initialize();
+
+  &#47;&#47; final String url =
+  &#47;&#47;     &#39;https:&#47;&#47;cyberwake.github.io&#47;applink&#47;invite?selectLang=${_appLanguageService.appLocal.languageCode}&amp;setUrl=${GraphqlConfig.orgURI}&amp;selectOrg=${userConfig.currentOrg.id!}&#39;;
+  const String qrData =
+      &#39;https:&#47;&#47;github.com&#47;PalisadoesFoundation&#47;talawa&#47;releases&#47;download&#47;automated&#47;app-release.apk&#39;;
+
+  &#47;&#47; print(url);
+  &#47;&#47; print(qrData);
+
+  return Column(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      &#47;&#47;Scan the below given QR code to join the organization.
+      QrImageView(
+        key: const Key(&quot;QRcode&quot;),
+        data: qrData,
+        version: QrVersions.auto,
+        size: 200.0,
+      ),
+      SizedBox(
+        height: SizeConfig.screenHeight! * 0.08,
+      ),
+      Text(
+        &#39;Scan the QR to join ${userConfig.currentOrg.name}&#39;,
+        style: const TextStyle(color: Colors.black),
+      ),
+      SizedBox(
+        height: SizeConfig.screenHeight! * 0.02,
+      ),
+      &#47;&#47;Tap on the Twitter icon to join the organization through Twitter.
+      &#47;&#47; Row(
+      &#47;&#47;   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      &#47;&#47;   mainAxisSize: MainAxisSize.min,
+      &#47;&#47;   children: [
+      &#47;&#47;     iconButton(
+      &#47;&#47;       &quot;Twitter&quot;,
+      &#47;&#47;       const FaIcon(
+      &#47;&#47;         FontAwesomeIcons.twitter,
+      &#47;&#47;         size: 35,
+      &#47;&#47;         color: Color(0xFF1DA1F2),
+      &#47;&#47;       ),
+      &#47;&#47;       () async =&gt; SocialShare.shareTwitter(&#39;Join us&#39;, url: url),
+      &#47;&#47;     ),
+      &#47;&#47;     &#47;&#47;Tap on the Whatsapp icon to join the organization through Whatsapp.
+      &#47;&#47;     iconButton(
+      &#47;&#47;       &quot;WhatsApp&quot;,
+      &#47;&#47;       CustomPaint(
+      &#47;&#47;         size: const Size(
+      &#47;&#47;           50,
+      &#47;&#47;           50 * 1.004,
+      &#47;&#47;         ), &#47;&#47;You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+      &#47;&#47;         painter: WhatsappLogo(),
+      &#47;&#47;       ),
+      &#47;&#47;       () async =&gt; SocialShare.shareWhatsapp(url),
+      &#47;&#47;     ),
+      &#47;&#47;     iconButton(
+      &#47;&#47;       &quot;Telegram&quot;,
+      &#47;&#47;       CustomPaint(
+      &#47;&#47;         size: Size(
+      &#47;&#47;           45,
+      &#47;&#47;           (45 * 1).toDouble(),
+      &#47;&#47;         ), &#47;&#47;You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+      &#47;&#47;         painter: TelegramLogo(),
+      &#47;&#47;       ),
+      &#47;&#47;       () async =&gt; SocialShare.shareTelegram(url),
+      &#47;&#47;     ),
+      &#47;&#47;     iconButton(
+      &#47;&#47;       &quot;Alt&quot;,
+      &#47;&#47;       const FaIcon(
+      &#47;&#47;         FontAwesomeIcons.shareNodes,
+      &#47;&#47;         size: 30,
+      &#47;&#47;         color: Color(0xff40c351),
+      &#47;&#47;       ),
+      &#47;&#47;       () async =&gt; SocialShare.shareOptions(url),
+      &#47;&#47;     ),
+      &#47;&#47;   ],
+      &#47;&#47; ),
+    ],
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">talawa</a></li>
+    <li><a href="../widgets_invite_child/">invite_child</a></li>
+    <li class="self-crumb">invite function</li>
+</ol>
+
+    <h5>invite_child library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

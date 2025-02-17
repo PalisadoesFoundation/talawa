@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="talawa API docs, for the Dart programming language.">
+  <title>talawa - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/PalisadoesFoundation/talawa">talawa package</a></li>
+  </ol>
+  <div class="self-name">talawa</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="talawa">Talawa</h1>
+<p>💬 Join the community on Slack from our <a href="https://github.com/PalisadoesFoundation">Palisadoes Foundation GitHub Home Page</a></p>
+<p><img src="https://github.com/PalisadoesFoundation/talawa-admin/assets/16875803/26291ec5-d3c1-4135-8bc7-80885dff613d" alt="talawa-logo-lite-200x200"></p>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
+<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&amp;label=Star&amp;maxAge=2592000" alt="GitHub stars"></a>
+<a href="https://github.com/PalisadoesFoundation/talawa"><img src="https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&amp;label=Fork&amp;maxAge=2592000" alt="GitHub forks"></a>
+<a href="https://codecov.io/gh/PalisadoesFoundation/talawa"><img src="https://codecov.io/gh/PalisadoesFoundation/talawa/graph/badge.svg?token=3PJXIKRS1S" alt="codecov"></a></p>
+<p><strong>Talawa</strong> is a comprehensive platform that aims to revolutionize the way organizations manage and interact with their data and content. Talawa empowers administrators to access and manage content with ease through the Talawa Admin interface, ensuring that information remains up-to-date and accessible to the platform's members.</p>
+<p>With the Talawa API facilitating smooth communication between all parts of the platform, Talawa offers a cohesive and exceptional user experience for both administrators and members, making it a powerful tool for data management and content delivery seamlessly. Talawa is a modular open source project to manage group activities of both non-profit organizations and businesses.</p>
+<p>Core features include:</p>
+<ol>
+<li>Membership management</li>
+<li>Groups management</li>
+<li>Event registrations</li>
+<li>Recurring meetings</li>
+<li>Facilities registrations</li>
+</ol>
+<p><code>talawa</code> is based on the original <code>quito</code> code created by the <a href="http://www.palisadoes.org">Palisadoes Foundation</a> as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit <a href="http://www.palisadoes.org/">The Palisadoes Foundation's website</a> for more details on its origin and activities.</p>
+<h1 id="talawa-components">Talawa Components</h1>
+<p><code>talawa</code> has these major software components:</p>
+<ol>
+<li><strong>talawa</strong>: <a href="https://github.com/PalisadoesFoundation/talawa">A mobile application with social media features</a></li>
+<li><strong>talawa-api</strong>: <a href="https://github.com/PalisadoesFoundation/talawa-api">An API providing access to user data and features</a></li>
+<li><strong>talawa-admin</strong>: <a href="https://github.com/PalisadoesFoundation/talawa-admin">A web based administrative portal</a></li>
+<li><strong>talawa-docs</strong>: <a href="https://github.com/PalisadoesFoundation/talawa-docs">The online documentation website</a></li>
+</ol>
+<h1 id="documentation">Documentation</h1>
+<ol>
+<li>You can install the software for this repository using the steps in our <a href="INSTALLATION.md">INSTALLATION.md</a> file.</li>
+<li>Do you want to contribute to our code base? Look at our <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> file to get started. There you'll also find links to:
+<ol>
+<li>Our code of conduct documentation in the <a href="CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> file.</li>
+<li>How we handle the processing of new and existing issues in our <a href="ISSUE_GUIDELINES.md">ISSUE_GUIDELINES.md</a> file.</li>
+<li>The methodologies we use to manage our pull requests in our <a href="PR_GUIDELINES.md">PR_GUIDELINES.md</a> file.</li>
+</ol>
+</li>
+<li>The <code>talawa</code> documentation can be found at our <a href="https://docs.talawa.io">docs.talawa.io</a> site.
+<ol>
+<li>It is automatically generated from the markdown files stored in our <a href="https://github.com/PalisadoesFoundation/talawa-docs">Talawa-Docs GitHub repository</a>. This makes it easy for you to update our documenation.</li>
+</ol>
+</li>
+</ol>
+<h1 id="videos">Videos</h1>
+<ol>
+<li>Visit our <a href="https://www.youtube.com/@PalisadoesOrganization/playlists">YouTube Channel playlists</a> for more insights
+<ol>
+<li>The "Getting Started - Developers" videos are extremely helpful for new open source contributors.</li>
+</ol>
+</li>
+</ol>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="apptheme">
+  <span class="name"><a href="apptheme/">apptheme</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_strings">
+  <span class="name"><a href="constants_app_strings/">constants\app_strings</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="constants">
+  <span class="name"><a href="constants_constants/">constants\constants</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_theme">
+  <span class="name"><a href="constants_custom_theme/">constants\custom_theme</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="quick_actions">
+  <span class="name"><a href="constants_quick_actions/">constants\quick_actions</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recurrence_values">
+  <span class="name"><a href="constants_recurrence_values/">constants\recurrence_values</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="routing_constants">
+  <span class="name"><a href="constants_routing_constants/">constants\routing_constants</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="timeout">
+  <span class="name"><a href="constants_timeout/">constants\timeout</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="language_icon">
+  <span class="name"><a href="custom_painters_language_icon/">custom_painters\language_icon</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="talawa_logo">
+  <span class="name"><a href="custom_painters_talawa_logo/">custom_painters\talawa_logo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="telegram_logo">
+  <span class="name"><a href="custom_painters_telegram_logo/">custom_painters\telegram_logo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="whatsapp_logo">
+  <span class="name"><a href="custom_painters_whatsapp_logo/">custom_painters\whatsapp_logo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="direct_chat_demo_data">
+  <span class="name"><a href="demo_server_data_direct_chat_demo_data/">demo_server_data\direct_chat_demo_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="events_demo_data">
+  <span class="name"><a href="demo_server_data_events_demo_data/">demo_server_data\events_demo_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="pinned_post_demo_data">
+  <span class="name"><a href="demo_server_data_pinned_post_demo_data/">demo_server_data\pinned_post_demo_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_demo_data">
+  <span class="name"><a href="demo_server_data_post_demo_data/">demo_server_data\post_demo_data</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="enums">
+  <span class="name"><a href="enums_enums/">enums\enums</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="critical_action_exception">
+  <span class="name"><a href="exceptions_critical_action_exception/">exceptions\critical_action_exception</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="graphql_exception_resolver">
+  <span class="name"><a href="exceptions_graphql_exception_resolver/">exceptions\graphql_exception_resolver</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="generated_plugin_registrant">
+  <span class="name"><a href="generated_plugin_registrant/">generated_plugin_registrant</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="locator">
+  <span class="name"><a href="locator/">locator</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="main">
+  <span class="name"><a href="main/">main</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_tour">
+  <span class="name"><a href="models_app_tour/">models\app_tour</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="asymetric_keys">
+  <span class="name"><a href="models_asymetric_keys_asymetric_keys/">models\asymetric_keys\asymetric_keys</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="cached_user_action">
+  <span class="name"><a href="models_caching_cached_user_action/">models\caching\cached_user_action</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_list_tile_data_model">
+  <span class="name"><a href="models_chats_chat_list_tile_data_model/">models\chats\chat_list_tile_data_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_message">
+  <span class="name"><a href="models_chats_chat_message/">models\chats\chat_message</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_user">
+  <span class="name"><a href="models_chats_chat_user/">models\chats\chat_user</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="comment_model">
+  <span class="name"><a href="models_comment_comment_model/">models\comment\comment_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_agenda_category">
+  <span class="name"><a href="models_events_event_agenda_category/">models\events\event_agenda_category</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_agenda_item">
+  <span class="name"><a href="models_events_event_agenda_item/">models\events\event_agenda_item</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_model">
+  <span class="name"><a href="models_events_event_model/">models\events\event_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_venue">
+  <span class="name"><a href="models_events_event_venue/">models\events\event_venue</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_volunteer">
+  <span class="name"><a href="models_events_event_volunteer/">models\events\event_volunteer</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_volunteer_group">
+  <span class="name"><a href="models_events_event_volunteer_group/">models\events\event_volunteer_group</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="language_model">
+  <span class="name"><a href="models_language_language_model/">models\language\language_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="mainscreen_navigation_args">
+  <span class="name"><a href="models_mainscreen_navigation_args/">models\mainscreen_navigation_args</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="options">
+  <span class="name"><a href="models_options_options/">models\options\options</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="org_info">
+  <span class="name"><a href="models_organization_org_info/">models\organization\org_info</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="org_info_address">
+  <span class="name"><a href="models_organization_org_info_address/">models\organization\org_info_address</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_model">
+  <span class="name"><a href="models_post_post_model/">models\post\post_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_info">
+  <span class="name"><a href="models_user_user_info/">models\user\user_info</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="fetch_plugin_list">
+  <span class="name"><a href="plugins_fetch_plugin_list/">plugins\fetch_plugin_list</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="talawa_plugin_provider">
+  <span class="name"><a href="plugins_talawa_plugin_provider/">plugins\talawa_plugin_provider</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="router">
+  <span class="name"><a href="router/">router</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="base_feed_manager">
+  <span class="name"><a href="services_caching_base_feed_manager/">services\caching\base_feed_manager</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="cache_service">
+  <span class="name"><a href="services_caching_cache_service/">services\caching\cache_service</a></span> 
+
+</dt>
+<dd>This class provides functionalities for caching GraphQL operations.
+</dd>
+
+          <dt id="offline_action_queue">
+  <span class="name"><a href="services_caching_offline_action_queue/">services\caching\offline_action_queue</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_service">
+  <span class="name"><a href="services_chat_service/">services\chat_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="comment_service">
+  <span class="name"><a href="services_comment_service/">services\comment_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="database_mutation_functions">
+  <span class="name"><a href="services_database_mutation_functions/">services\database_mutation_functions</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_service">
+  <span class="name"><a href="services_event_service/">services\event_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="graphql_config">
+  <span class="name"><a href="services_graphql_config/">services\graphql_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="hive_manager">
+  <span class="name"><a href="services_hive_manager/">services\hive_manager</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image_service">
+  <span class="name"><a href="services_image_service/">services\image_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="navigation_service">
+  <span class="name"><a href="services_navigation_service/">services\navigation_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="org_service">
+  <span class="name"><a href="services_org_service/">services\org_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_service">
+  <span class="name"><a href="services_post_service/">services\post_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="session_manager">
+  <span class="name"><a href="services_session_manager/">services\session_manager</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="size_config">
+  <span class="name"><a href="services_size_config/">services\size_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="connectivity_service">
+  <span class="name"><a href="services_third_party_service_connectivity_service/">services\third_party_service\connectivity_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="multi_media_pick_service">
+  <span class="name"><a href="services_third_party_service_multi_media_pick_service/">services\third_party_service\multi_media_pick_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_action_handler">
+  <span class="name"><a href="services_user_action_handler/">services\user_action_handler</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_config">
+  <span class="name"><a href="services_user_config/">services\user_config</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_profile_service">
+  <span class="name"><a href="services_user_profile_service/">services\user_profile_service</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="splash_screen">
+  <span class="name"><a href="splash_screen/">splash_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_localization">
+  <span class="name"><a href="utils_app_localization/">utils\app_localization</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_queries">
+  <span class="name"><a href="utils_chat_queries/">utils\chat_queries</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="comment_queries">
+  <span class="name"><a href="utils_comment_queries/">utils\comment_queries</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="encryptor">
+  <span class="name"><a href="utils_encryptor/">utils\encryptor</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_queries">
+  <span class="name"><a href="utils_event_queries/">utils\event_queries</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_queries">
+  <span class="name"><a href="utils_post_queries/">utils\post_queries</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="queries">
+  <span class="name"><a href="utils_queries/">utils\queries</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="time_conversion">
+  <span class="name"><a href="utils_time_conversion/">utils\time_conversion</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="validators">
+  <span class="name"><a href="utils_validators/">utils\validators</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="access_request_view_model">
+  <span class="name"><a href="view_model_access_request_view_model/">view_model\access_request_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="add_post_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/">view_model\after_auth_view_models\add_post_view_models\add_post_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="direct_chat_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/">view_model\after_auth_view_models\chat_view_models\direct_chat_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="select_contact_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_chat_view_models_select_contact_view_model/">view_model\after_auth_view_models\chat_view_models\select_contact_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_event_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_create_event_view_model/">view_model\after_auth_view_models\event_view_models\create_event_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_agenda_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/">view_model\after_auth_view_models\event_view_models\edit_agenda_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_event_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_edit_event_view_model/">view_model\after_auth_view_models\event_view_models\edit_event_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_calendar_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_event_calendar_view_model/">view_model\after_auth_view_models\event_view_models\event_calendar_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_info_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_event_info_view_model/">view_model\after_auth_view_models\event_view_models\event_info_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="explore_events_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_explore_events_view_model/">view_model\after_auth_view_models\event_view_models\explore_events_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="manage_volunteer_group_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/">view_model\after_auth_view_models\event_view_models\manage_volunteer_group_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="organization_feed_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/">view_model\after_auth_view_models\feed_view_models\organization_feed_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_profile_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/">view_model\after_auth_view_models\profile_view_models\edit_profile_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="profile_page_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/">view_model\after_auth_view_models\profile_view_models\profile_page_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_setting_view_model">
+  <span class="name"><a href="view_model_after_auth_view_models_settings_view_models_app_setting_view_model/">view_model\after_auth_view_models\settings_view_models\app_setting_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="base_view_model">
+  <span class="name"><a href="view_model_base_view_model/">view_model\base_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="connectivity_view_model">
+  <span class="name"><a href="view_model_connectivity_view_model/">view_model\connectivity_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="lang_view_model">
+  <span class="name"><a href="view_model_lang_view_model/">view_model\lang_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="main_screen_view_model">
+  <span class="name"><a href="view_model_main_screen_view_model/">view_model\main_screen_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="login_view_model">
+  <span class="name"><a href="view_model_pre_auth_view_models_login_view_model/">view_model\pre_auth_view_models\login_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="select_organization_view_model">
+  <span class="name"><a href="view_model_pre_auth_view_models_select_organization_view_model/">view_model\pre_auth_view_models\select_organization_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="set_url_view_model">
+  <span class="name"><a href="view_model_pre_auth_view_models_set_url_view_model/">view_model\pre_auth_view_models\set_url_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="signup_details_view_model">
+  <span class="name"><a href="view_model_pre_auth_view_models_signup_details_view_model/">view_model\pre_auth_view_models\signup_details_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="waiting_view_model">
+  <span class="name"><a href="view_model_pre_auth_view_models_waiting_view_model/">view_model\pre_auth_view_models\waiting_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="theme_view_model">
+  <span class="name"><a href="view_model_theme_view_model/">view_model\theme_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="comments_view_model">
+  <span class="name"><a href="view_model_widgets_view_models_comments_view_model/">view_model\widgets_view_models\comments_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_drawer_view_model">
+  <span class="name"><a href="view_model_widgets_view_models_custom_drawer_view_model/">view_model\widgets_view_models\custom_drawer_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_card_view_model">
+  <span class="name"><a href="view_model_widgets_view_models_event_card_view_model/">view_model\widgets_view_models\event_card_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="like_button_view_model">
+  <span class="name"><a href="view_model_widgets_view_models_like_button_view_model/">view_model\widgets_view_models\like_button_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="progress_dialog_view_model">
+  <span class="name"><a href="view_model_widgets_view_models_progress_dialog_view_model/">view_model\widgets_view_models\progress_dialog_view_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="add_post_page">
+  <span class="name"><a href="views_after_auth_screens_add_post_page/">views\after_auth_screens\add_post_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_settings_page">
+  <span class="name"><a href="views_after_auth_screens_app_settings_app_settings_page/">views\after_auth_screens\app_settings\app_settings_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_list_screen">
+  <span class="name"><a href="views_after_auth_screens_chat_chat_list_screen/">views\after_auth_screens\chat\chat_list_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_message_screen">
+  <span class="name"><a href="views_after_auth_screens_chat_chat_message_screen/">views\after_auth_screens\chat\chat_message_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="direct_chats">
+  <span class="name"><a href="views_after_auth_screens_chat_direct_chats/">views\after_auth_screens\chat\direct_chats</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="select_contact">
+  <span class="name"><a href="views_after_auth_screens_chat_select_contact/">views\after_auth_screens\chat\select_contact</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_input_field">
+  <span class="name"><a href="views_after_auth_screens_chat_widgets_chat_input_field/">views\after_auth_screens\chat\widgets\chat_input_field</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chat_message_bubble">
+  <span class="name"><a href="views_after_auth_screens_chat_widgets_chat_message_bubble/">views\after_auth_screens\chat\widgets\chat_message_bubble</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_agenda_item_page">
+  <span class="name"><a href="views_after_auth_screens_events_create_agenda_item_page/">views\after_auth_screens\events\create_agenda_item_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_custom_recurring_event">
+  <span class="name"><a href="views_after_auth_screens_events_create_custom_recurring_event/">views\after_auth_screens\events\create_custom_recurring_event</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_event_form">
+  <span class="name"><a href="views_after_auth_screens_events_create_event_form/">views\after_auth_screens\events\create_event_form</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_event_page">
+  <span class="name"><a href="views_after_auth_screens_events_create_event_page/">views\after_auth_screens\events\create_event_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_agenda_item_page">
+  <span class="name"><a href="views_after_auth_screens_events_edit_agenda_item_page/">views\after_auth_screens\events\edit_agenda_item_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_event_page">
+  <span class="name"><a href="views_after_auth_screens_events_edit_event_page/">views\after_auth_screens\events\edit_event_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_events_form">
+  <span class="name"><a href="views_after_auth_screens_events_edit_events_form/">views\after_auth_screens\events\edit_events_form</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_calendar">
+  <span class="name"><a href="views_after_auth_screens_events_event_calendar/">views\after_auth_screens\events\event_calendar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_filter_bottomsheet">
+  <span class="name"><a href="views_after_auth_screens_events_event_filter_bottomsheet/">views\after_auth_screens\events\event_filter_bottomsheet</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_info_body">
+  <span class="name"><a href="views_after_auth_screens_events_event_info_body/">views\after_auth_screens\events\event_info_body</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_info_page">
+  <span class="name"><a href="views_after_auth_screens_events_event_info_page/">views\after_auth_screens\events\event_info_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="explore_event_dialogue">
+  <span class="name"><a href="views_after_auth_screens_events_explore_event_dialogue/">views\after_auth_screens\events\explore_event_dialogue</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="explore_events">
+  <span class="name"><a href="views_after_auth_screens_events_explore_events/">views\after_auth_screens\events\explore_events</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="manage_agenda_items_screen">
+  <span class="name"><a href="views_after_auth_screens_events_manage_agenda_items_screen/">views\after_auth_screens\events\manage_agenda_items_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="manage_volunteer_group">
+  <span class="name"><a href="views_after_auth_screens_events_manage_volunteer_group/">views\after_auth_screens\events\manage_volunteer_group</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="venue_bottom_sheet">
+  <span class="name"><a href="views_after_auth_screens_events_venue_bottom_sheet/">views\after_auth_screens\events\venue_bottom_sheet</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="volunteer_groups_screen">
+  <span class="name"><a href="views_after_auth_screens_events_volunteer_groups_screen/">views\after_auth_screens\events\volunteer_groups_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="individual_post">
+  <span class="name"><a href="views_after_auth_screens_feed_individual_post/">views\after_auth_screens\feed\individual_post</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="organization_feed">
+  <span class="name"><a href="views_after_auth_screens_feed_organization_feed/">views\after_auth_screens\feed\organization_feed</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="pinned_post_page">
+  <span class="name"><a href="views_after_auth_screens_feed_pinned_post_page/">views\after_auth_screens\feed\pinned_post_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="pinned_post_screen">
+  <span class="name"><a href="views_after_auth_screens_feed_pinned_post_screen/">views\after_auth_screens\feed\pinned_post_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="access_request_screen">
+  <span class="name"><a href="views_after_auth_screens_join_org_after_auth_access_request_screen/">views\after_auth_screens\join_org_after_auth\access_request_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="join_organisation_after_auth">
+  <span class="name"><a href="views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/">views\after_auth_screens\join_org_after_auth\join_organisation_after_auth</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="org_info_screen">
+  <span class="name"><a href="views_after_auth_screens_org_info_screen/">views\after_auth_screens\org_info_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="edit_profile_page">
+  <span class="name"><a href="views_after_auth_screens_profile_edit_profile_page/">views\after_auth_screens\profile\edit_profile_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="profile_page">
+  <span class="name"><a href="views_after_auth_screens_profile_profile_page/">views\after_auth_screens\profile\profile_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_event">
+  <span class="name"><a href="views_after_auth_screens_profile_user_event/">views\after_auth_screens\profile\user_event</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="user_feed">
+  <span class="name"><a href="views_after_auth_screens_profile_user_feed/">views\after_auth_screens\profile\user_feed</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="base_view">
+  <span class="name"><a href="views_base_view/">views\base_view</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="explore_events_demo">
+  <span class="name"><a href="views_demo_screens_explore_events_demo/">views\demo_screens\explore_events_demo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="organization_feed_demo">
+  <span class="name"><a href="views_demo_screens_organization_feed_demo/">views\demo_screens\organization_feed_demo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="profile_page_demo">
+  <span class="name"><a href="views_demo_screens_profile_page_demo/">views\demo_screens\profile_page_demo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="main_screen">
+  <span class="name"><a href="views_main_screen/">views\main_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="change_password">
+  <span class="name"><a href="views_pre_auth_screens_change_password/">views\pre_auth_screens\change_password</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="login">
+  <span class="name"><a href="views_pre_auth_screens_login/">views\pre_auth_screens\login</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recover">
+  <span class="name"><a href="views_pre_auth_screens_recover/">views\pre_auth_screens\recover</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="select_language">
+  <span class="name"><a href="views_pre_auth_screens_select_language/">views\pre_auth_screens\select_language</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="select_organization">
+  <span class="name"><a href="views_pre_auth_screens_select_organization/">views\pre_auth_screens\select_organization</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="set_url">
+  <span class="name"><a href="views_pre_auth_screens_set_url/">views\pre_auth_screens\set_url</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="signup_details">
+  <span class="name"><a href="views_pre_auth_screens_signup_details/">views\pre_auth_screens\signup_details</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="waiting_screen">
+  <span class="name"><a href="views_pre_auth_screens_waiting_screen/">views\pre_auth_screens\waiting_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="add_members_bottom_sheet">
+  <span class="name"><a href="widgets_add_members_bottom_sheet/">widgets\add_members_bottom_sheet</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="agenda_item_tile">
+  <span class="name"><a href="widgets_agenda_item_tile/">widgets\agenda_item_tile</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="create_recurring_event_helper_widgets">
+  <span class="name"><a href="widgets_create_recurring_event_helper_widgets/">widgets\create_recurring_event_helper_widgets</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_alert_dialog">
+  <span class="name"><a href="widgets_custom_alert_dialog/">widgets\custom_alert_dialog</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_alert_dialog_with_checkbox">
+  <span class="name"><a href="widgets_custom_alert_dialog_with_checkbox/">widgets\custom_alert_dialog_with_checkbox</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_avatar">
+  <span class="name"><a href="widgets_custom_avatar/">widgets\custom_avatar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_drawer">
+  <span class="name"><a href="widgets_custom_drawer/">widgets\custom_drawer</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_list_tile">
+  <span class="name"><a href="widgets_custom_list_tile/">widgets\custom_list_tile</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_progress_dialog">
+  <span class="name"><a href="widgets_custom_progress_dialog/">widgets\custom_progress_dialog</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_weekday_selector">
+  <span class="name"><a href="widgets_custom_weekday_selector/">widgets\custom_weekday_selector</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="date_time_picker">
+  <span class="name"><a href="widgets_date_time_picker/">widgets\date_time_picker</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="directly_login">
+  <span class="name"><a href="widgets_directly_login/">widgets\directly_login</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_card">
+  <span class="name"><a href="widgets_event_card/">widgets\event_card</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_date_time_tile">
+  <span class="name"><a href="widgets_event_date_time_tile/">widgets\event_date_time_tile</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="event_search_delegate">
+  <span class="name"><a href="widgets_event_search_delegate/">widgets\event_search_delegate</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="from_palisadoes">
+  <span class="name"><a href="widgets_from_palisadoes/">widgets\from_palisadoes</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="invite_child">
+  <span class="name"><a href="widgets_invite_child/">widgets\invite_child</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="lang_switch">
+  <span class="name"><a href="widgets_lang_switch/">widgets\lang_switch</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="member_name_tile">
+  <span class="name"><a href="widgets_member_name_tile/">widgets\member_name_tile</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="multi_reaction">
+  <span class="name"><a href="widgets_multi_reaction/">widgets\multi_reaction</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="organization_list">
+  <span class="name"><a href="widgets_organization_list/">widgets\organization_list</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="organization_search_list">
+  <span class="name"><a href="widgets_organization_search_list/">widgets\organization_search_list</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="pinned_carousel_widget">
+  <span class="name"><a href="widgets_pinned_carousel_widget/">widgets\pinned_carousel_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="pinned_post">
+  <span class="name"><a href="widgets_pinned_post/">widgets\pinned_post</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_container">
+  <span class="name"><a href="widgets_post_container/">widgets\post_container</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_detailed_page">
+  <span class="name"><a href="widgets_post_detailed_page/">widgets\post_detailed_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_list_widget">
+  <span class="name"><a href="widgets_post_list_widget/">widgets\post_list_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_modal">
+  <span class="name"><a href="widgets_post_modal/">widgets\post_modal</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="post_widget">
+  <span class="name"><a href="widgets_post_widget/">widgets\post_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="raised_round_edge_button">
+  <span class="name"><a href="widgets_raised_round_edge_button/">widgets\raised_round_edge_button</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recurrence_dialog">
+  <span class="name"><a href="widgets_recurrence_dialog/">widgets\recurrence_dialog</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="rich_text">
+  <span class="name"><a href="widgets_rich_text/">widgets\rich_text</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="signup_progress_indicator">
+  <span class="name"><a href="widgets_signup_progress_indicator/">widgets\signup_progress_indicator</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="talawa_error_dialog">
+  <span class="name"><a href="widgets_talawa_error_dialog/">widgets\talawa_error_dialog</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="talawa_error_snackbar">
+  <span class="name"><a href="widgets_talawa_error_snackbar/">widgets\talawa_error_snackbar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="theme_switch">
+  <span class="name"><a href="widgets_theme_switch/">widgets\theme_switch</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="venue_card">
+  <span class="name"><a href="widgets_venue_card/">widgets\venue_card</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="video_widget">
+  <span class="name"><a href="widgets_video_widget/">widgets\video_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://github.com/PalisadoesFoundation/talawa">talawa package</a></li>
+</ol>
+
+    <h5 class="hidden-xs"><span class="package-name">talawa</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="apptheme/">apptheme</a></li>
+      <li><a href="constants_app_strings/">constants\app_strings</a></li>
+      <li><a href="constants_constants/">constants\constants</a></li>
+      <li><a href="constants_custom_theme/">constants\custom_theme</a></li>
+      <li><a href="constants_quick_actions/">constants\quick_actions</a></li>
+      <li><a href="constants_recurrence_values/">constants\recurrence_values</a></li>
+      <li><a href="constants_routing_constants/">constants\routing_constants</a></li>
+      <li><a href="constants_timeout/">constants\timeout</a></li>
+      <li><a href="custom_painters_language_icon/">custom_painters\language_icon</a></li>
+      <li><a href="custom_painters_talawa_logo/">custom_painters\talawa_logo</a></li>
+      <li><a href="custom_painters_telegram_logo/">custom_painters\telegram_logo</a></li>
+      <li><a href="custom_painters_whatsapp_logo/">custom_painters\whatsapp_logo</a></li>
+      <li><a href="demo_server_data_direct_chat_demo_data/">demo_server_data\direct_chat_demo_data</a></li>
+      <li><a href="demo_server_data_events_demo_data/">demo_server_data\events_demo_data</a></li>
+      <li><a href="demo_server_data_pinned_post_demo_data/">demo_server_data\pinned_post_demo_data</a></li>
+      <li><a href="demo_server_data_post_demo_data/">demo_server_data\post_demo_data</a></li>
+      <li><a href="enums_enums/">enums\enums</a></li>
+      <li><a href="exceptions_critical_action_exception/">exceptions\critical_action_exception</a></li>
+      <li><a href="exceptions_graphql_exception_resolver/">exceptions\graphql_exception_resolver</a></li>
+      <li><a href="generated_plugin_registrant/">generated_plugin_registrant</a></li>
+      <li><a href="locator/">locator</a></li>
+      <li><a href="main/">main</a></li>
+      <li><a href="models_app_tour/">models\app_tour</a></li>
+      <li><a href="models_asymetric_keys_asymetric_keys/">models\asymetric_keys\asymetric_keys</a></li>
+      <li><a href="models_caching_cached_user_action/">models\caching\cached_user_action</a></li>
+      <li><a href="models_chats_chat_list_tile_data_model/">models\chats\chat_list_tile_data_model</a></li>
+      <li><a href="models_chats_chat_message/">models\chats\chat_message</a></li>
+      <li><a href="models_chats_chat_user/">models\chats\chat_user</a></li>
+      <li><a href="models_comment_comment_model/">models\comment\comment_model</a></li>
+      <li><a href="models_events_event_agenda_category/">models\events\event_agenda_category</a></li>
+      <li><a href="models_events_event_agenda_item/">models\events\event_agenda_item</a></li>
+      <li><a href="models_events_event_model/">models\events\event_model</a></li>
+      <li><a href="models_events_event_venue/">models\events\event_venue</a></li>
+      <li><a href="models_events_event_volunteer/">models\events\event_volunteer</a></li>
+      <li><a href="models_events_event_volunteer_group/">models\events\event_volunteer_group</a></li>
+      <li><a href="models_language_language_model/">models\language\language_model</a></li>
+      <li><a href="models_mainscreen_navigation_args/">models\mainscreen_navigation_args</a></li>
+      <li><a href="models_options_options/">models\options\options</a></li>
+      <li><a href="models_organization_org_info/">models\organization\org_info</a></li>
+      <li><a href="models_organization_org_info_address/">models\organization\org_info_address</a></li>
+      <li><a href="models_post_post_model/">models\post\post_model</a></li>
+      <li><a href="models_user_user_info/">models\user\user_info</a></li>
+      <li><a href="plugins_fetch_plugin_list/">plugins\fetch_plugin_list</a></li>
+      <li><a href="plugins_talawa_plugin_provider/">plugins\talawa_plugin_provider</a></li>
+      <li><a href="router/">router</a></li>
+      <li><a href="services_caching_base_feed_manager/">services\caching\base_feed_manager</a></li>
+      <li><a href="services_caching_cache_service/">services\caching\cache_service</a></li>
+      <li><a href="services_caching_offline_action_queue/">services\caching\offline_action_queue</a></li>
+      <li><a href="services_chat_service/">services\chat_service</a></li>
+      <li><a href="services_comment_service/">services\comment_service</a></li>
+      <li><a href="services_database_mutation_functions/">services\database_mutation_functions</a></li>
+      <li><a href="services_event_service/">services\event_service</a></li>
+      <li><a href="services_graphql_config/">services\graphql_config</a></li>
+      <li><a href="services_hive_manager/">services\hive_manager</a></li>
+      <li><a href="services_image_service/">services\image_service</a></li>
+      <li><a href="services_navigation_service/">services\navigation_service</a></li>
+      <li><a href="services_org_service/">services\org_service</a></li>
+      <li><a href="services_post_service/">services\post_service</a></li>
+      <li><a href="services_session_manager/">services\session_manager</a></li>
+      <li><a href="services_size_config/">services\size_config</a></li>
+      <li><a href="services_third_party_service_connectivity_service/">services\third_party_service\connectivity_service</a></li>
+      <li><a href="services_third_party_service_multi_media_pick_service/">services\third_party_service\multi_media_pick_service</a></li>
+      <li><a href="services_user_action_handler/">services\user_action_handler</a></li>
+      <li><a href="services_user_config/">services\user_config</a></li>
+      <li><a href="services_user_profile_service/">services\user_profile_service</a></li>
+      <li><a href="splash_screen/">splash_screen</a></li>
+      <li><a href="utils_app_localization/">utils\app_localization</a></li>
+      <li><a href="utils_chat_queries/">utils\chat_queries</a></li>
+      <li><a href="utils_comment_queries/">utils\comment_queries</a></li>
+      <li><a href="utils_encryptor/">utils\encryptor</a></li>
+      <li><a href="utils_event_queries/">utils\event_queries</a></li>
+      <li><a href="utils_post_queries/">utils\post_queries</a></li>
+      <li><a href="utils_queries/">utils\queries</a></li>
+      <li><a href="utils_time_conversion/">utils\time_conversion</a></li>
+      <li><a href="utils_validators/">utils\validators</a></li>
+      <li><a href="view_model_access_request_view_model/">view_model\access_request_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/">view_model\after_auth_view_models\add_post_view_models\add_post_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/">view_model\after_auth_view_models\chat_view_models\direct_chat_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_chat_view_models_select_contact_view_model/">view_model\after_auth_view_models\chat_view_models\select_contact_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_create_event_view_model/">view_model\after_auth_view_models\event_view_models\create_event_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/">view_model\after_auth_view_models\event_view_models\edit_agenda_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_edit_event_view_model/">view_model\after_auth_view_models\event_view_models\edit_event_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_event_calendar_view_model/">view_model\after_auth_view_models\event_view_models\event_calendar_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_event_info_view_model/">view_model\after_auth_view_models\event_view_models\event_info_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_explore_events_view_model/">view_model\after_auth_view_models\event_view_models\explore_events_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/">view_model\after_auth_view_models\event_view_models\manage_volunteer_group_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/">view_model\after_auth_view_models\feed_view_models\organization_feed_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/">view_model\after_auth_view_models\profile_view_models\edit_profile_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/">view_model\after_auth_view_models\profile_view_models\profile_page_view_model</a></li>
+      <li><a href="view_model_after_auth_view_models_settings_view_models_app_setting_view_model/">view_model\after_auth_view_models\settings_view_models\app_setting_view_model</a></li>
+      <li><a href="view_model_base_view_model/">view_model\base_view_model</a></li>
+      <li><a href="view_model_connectivity_view_model/">view_model\connectivity_view_model</a></li>
+      <li><a href="view_model_lang_view_model/">view_model\lang_view_model</a></li>
+      <li><a href="view_model_main_screen_view_model/">view_model\main_screen_view_model</a></li>
+      <li><a href="view_model_pre_auth_view_models_login_view_model/">view_model\pre_auth_view_models\login_view_model</a></li>
+      <li><a href="view_model_pre_auth_view_models_select_organization_view_model/">view_model\pre_auth_view_models\select_organization_view_model</a></li>
+      <li><a href="view_model_pre_auth_view_models_set_url_view_model/">view_model\pre_auth_view_models\set_url_view_model</a></li>
+      <li><a href="view_model_pre_auth_view_models_signup_details_view_model/">view_model\pre_auth_view_models\signup_details_view_model</a></li>
+      <li><a href="view_model_pre_auth_view_models_waiting_view_model/">view_model\pre_auth_view_models\waiting_view_model</a></li>
+      <li><a href="view_model_theme_view_model/">view_model\theme_view_model</a></li>
+      <li><a href="view_model_widgets_view_models_comments_view_model/">view_model\widgets_view_models\comments_view_model</a></li>
+      <li><a href="view_model_widgets_view_models_custom_drawer_view_model/">view_model\widgets_view_models\custom_drawer_view_model</a></li>
+      <li><a href="view_model_widgets_view_models_event_card_view_model/">view_model\widgets_view_models\event_card_view_model</a></li>
+      <li><a href="view_model_widgets_view_models_like_button_view_model/">view_model\widgets_view_models\like_button_view_model</a></li>
+      <li><a href="view_model_widgets_view_models_progress_dialog_view_model/">view_model\widgets_view_models\progress_dialog_view_model</a></li>
+      <li><a href="views_after_auth_screens_add_post_page/">views\after_auth_screens\add_post_page</a></li>
+      <li><a href="views_after_auth_screens_app_settings_app_settings_page/">views\after_auth_screens\app_settings\app_settings_page</a></li>
+      <li><a href="views_after_auth_screens_chat_chat_list_screen/">views\after_auth_screens\chat\chat_list_screen</a></li>
+      <li><a href="views_after_auth_screens_chat_chat_message_screen/">views\after_auth_screens\chat\chat_message_screen</a></li>
+      <li><a href="views_after_auth_screens_chat_direct_chats/">views\after_auth_screens\chat\direct_chats</a></li>
+      <li><a href="views_after_auth_screens_chat_select_contact/">views\after_auth_screens\chat\select_contact</a></li>
+      <li><a href="views_after_auth_screens_chat_widgets_chat_input_field/">views\after_auth_screens\chat\widgets\chat_input_field</a></li>
+      <li><a href="views_after_auth_screens_chat_widgets_chat_message_bubble/">views\after_auth_screens\chat\widgets\chat_message_bubble</a></li>
+      <li><a href="views_after_auth_screens_events_create_agenda_item_page/">views\after_auth_screens\events\create_agenda_item_page</a></li>
+      <li><a href="views_after_auth_screens_events_create_custom_recurring_event/">views\after_auth_screens\events\create_custom_recurring_event</a></li>
+      <li><a href="views_after_auth_screens_events_create_event_form/">views\after_auth_screens\events\create_event_form</a></li>
+      <li><a href="views_after_auth_screens_events_create_event_page/">views\after_auth_screens\events\create_event_page</a></li>
+      <li><a href="views_after_auth_screens_events_edit_agenda_item_page/">views\after_auth_screens\events\edit_agenda_item_page</a></li>
+      <li><a href="views_after_auth_screens_events_edit_event_page/">views\after_auth_screens\events\edit_event_page</a></li>
+      <li><a href="views_after_auth_screens_events_edit_events_form/">views\after_auth_screens\events\edit_events_form</a></li>
+      <li><a href="views_after_auth_screens_events_event_calendar/">views\after_auth_screens\events\event_calendar</a></li>
+      <li><a href="views_after_auth_screens_events_event_filter_bottomsheet/">views\after_auth_screens\events\event_filter_bottomsheet</a></li>
+      <li><a href="views_after_auth_screens_events_event_info_body/">views\after_auth_screens\events\event_info_body</a></li>
+      <li><a href="views_after_auth_screens_events_event_info_page/">views\after_auth_screens\events\event_info_page</a></li>
+      <li><a href="views_after_auth_screens_events_explore_event_dialogue/">views\after_auth_screens\events\explore_event_dialogue</a></li>
+      <li><a href="views_after_auth_screens_events_explore_events/">views\after_auth_screens\events\explore_events</a></li>
+      <li><a href="views_after_auth_screens_events_manage_agenda_items_screen/">views\after_auth_screens\events\manage_agenda_items_screen</a></li>
+      <li><a href="views_after_auth_screens_events_manage_volunteer_group/">views\after_auth_screens\events\manage_volunteer_group</a></li>
+      <li><a href="views_after_auth_screens_events_venue_bottom_sheet/">views\after_auth_screens\events\venue_bottom_sheet</a></li>
+      <li><a href="views_after_auth_screens_events_volunteer_groups_screen/">views\after_auth_screens\events\volunteer_groups_screen</a></li>
+      <li><a href="views_after_auth_screens_feed_individual_post/">views\after_auth_screens\feed\individual_post</a></li>
+      <li><a href="views_after_auth_screens_feed_organization_feed/">views\after_auth_screens\feed\organization_feed</a></li>
+      <li><a href="views_after_auth_screens_feed_pinned_post_page/">views\after_auth_screens\feed\pinned_post_page</a></li>
+      <li><a href="views_after_auth_screens_feed_pinned_post_screen/">views\after_auth_screens\feed\pinned_post_screen</a></li>
+      <li><a href="views_after_auth_screens_join_org_after_auth_access_request_screen/">views\after_auth_screens\join_org_after_auth\access_request_screen</a></li>
+      <li><a href="views_after_auth_screens_join_org_after_auth_join_organisation_after_auth/">views\after_auth_screens\join_org_after_auth\join_organisation_after_auth</a></li>
+      <li><a href="views_after_auth_screens_org_info_screen/">views\after_auth_screens\org_info_screen</a></li>
+      <li><a href="views_after_auth_screens_profile_edit_profile_page/">views\after_auth_screens\profile\edit_profile_page</a></li>
+      <li><a href="views_after_auth_screens_profile_profile_page/">views\after_auth_screens\profile\profile_page</a></li>
+      <li><a href="views_after_auth_screens_profile_user_event/">views\after_auth_screens\profile\user_event</a></li>
+      <li><a href="views_after_auth_screens_profile_user_feed/">views\after_auth_screens\profile\user_feed</a></li>
+      <li><a href="views_base_view/">views\base_view</a></li>
+      <li><a href="views_demo_screens_explore_events_demo/">views\demo_screens\explore_events_demo</a></li>
+      <li><a href="views_demo_screens_organization_feed_demo/">views\demo_screens\organization_feed_demo</a></li>
+      <li><a href="views_demo_screens_profile_page_demo/">views\demo_screens\profile_page_demo</a></li>
+      <li><a href="views_main_screen/">views\main_screen</a></li>
+      <li><a href="views_pre_auth_screens_change_password/">views\pre_auth_screens\change_password</a></li>
+      <li><a href="views_pre_auth_screens_login/">views\pre_auth_screens\login</a></li>
+      <li><a href="views_pre_auth_screens_recover/">views\pre_auth_screens\recover</a></li>
+      <li><a href="views_pre_auth_screens_select_language/">views\pre_auth_screens\select_language</a></li>
+      <li><a href="views_pre_auth_screens_select_organization/">views\pre_auth_screens\select_organization</a></li>
+      <li><a href="views_pre_auth_screens_set_url/">views\pre_auth_screens\set_url</a></li>
+      <li><a href="views_pre_auth_screens_signup_details/">views\pre_auth_screens\signup_details</a></li>
+      <li><a href="views_pre_auth_screens_waiting_screen/">views\pre_auth_screens\waiting_screen</a></li>
+      <li><a href="widgets_add_members_bottom_sheet/">widgets\add_members_bottom_sheet</a></li>
+      <li><a href="widgets_agenda_item_tile/">widgets\agenda_item_tile</a></li>
+      <li><a href="widgets_create_recurring_event_helper_widgets/">widgets\create_recurring_event_helper_widgets</a></li>
+      <li><a href="widgets_custom_alert_dialog/">widgets\custom_alert_dialog</a></li>
+      <li><a href="widgets_custom_alert_dialog_with_checkbox/">widgets\custom_alert_dialog_with_checkbox</a></li>
+      <li><a href="widgets_custom_avatar/">widgets\custom_avatar</a></li>
+      <li><a href="widgets_custom_drawer/">widgets\custom_drawer</a></li>
+      <li><a href="widgets_custom_list_tile/">widgets\custom_list_tile</a></li>
+      <li><a href="widgets_custom_progress_dialog/">widgets\custom_progress_dialog</a></li>
+      <li><a href="widgets_custom_weekday_selector/">widgets\custom_weekday_selector</a></li>
+      <li><a href="widgets_date_time_picker/">widgets\date_time_picker</a></li>
+      <li><a href="widgets_directly_login/">widgets\directly_login</a></li>
+      <li><a href="widgets_event_card/">widgets\event_card</a></li>
+      <li><a href="widgets_event_date_time_tile/">widgets\event_date_time_tile</a></li>
+      <li><a href="widgets_event_search_delegate/">widgets\event_search_delegate</a></li>
+      <li><a href="widgets_from_palisadoes/">widgets\from_palisadoes</a></li>
+      <li><a href="widgets_invite_child/">widgets\invite_child</a></li>
+      <li><a href="widgets_lang_switch/">widgets\lang_switch</a></li>
+      <li><a href="widgets_member_name_tile/">widgets\member_name_tile</a></li>
+      <li><a href="widgets_multi_reaction/">widgets\multi_reaction</a></li>
+      <li><a href="widgets_organization_list/">widgets\organization_list</a></li>
+      <li><a href="widgets_organization_search_list/">widgets\organization_search_list</a></li>
+      <li><a href="widgets_pinned_carousel_widget/">widgets\pinned_carousel_widget</a></li>
+      <li><a href="widgets_pinned_post/">widgets\pinned_post</a></li>
+      <li><a href="widgets_post_container/">widgets\post_container</a></li>
+      <li><a href="widgets_post_detailed_page/">widgets\post_detailed_page</a></li>
+      <li><a href="widgets_post_list_widget/">widgets\post_list_widget</a></li>
+      <li><a href="widgets_post_modal/">widgets\post_modal</a></li>
+      <li><a href="widgets_post_widget/">widgets\post_widget</a></li>
+      <li><a href="widgets_raised_round_edge_button/">widgets\raised_round_edge_button</a></li>
+      <li><a href="widgets_recurrence_dialog/">widgets\recurrence_dialog</a></li>
+      <li><a href="widgets_rich_text/">widgets\rich_text</a></li>
+      <li><a href="widgets_signup_progress_indicator/">widgets\signup_progress_indicator</a></li>
+      <li><a href="widgets_talawa_error_dialog/">widgets\talawa_error_dialog</a></li>
+      <li><a href="widgets_talawa_error_snackbar/">widgets\talawa_error_snackbar</a></li>
+      <li><a href="widgets_theme_switch/">widgets\theme_switch</a></li>
+      <li><a href="widgets_venue_card/">widgets\venue_card</a></li>
+      <li><a href="widgets_video_widget/">widgets\video_widget</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

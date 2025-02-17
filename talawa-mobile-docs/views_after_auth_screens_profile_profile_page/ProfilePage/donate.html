@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the donate method from the ProfilePage class, for the Dart programming language.">
+  <title>donate method - ProfilePage class - profile_page library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/">views\after_auth_screens\profile\profile_page.dart</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html">ProfilePage</a></li>
+    <li class="self-crumb">donate method</li>
+  </ol>
+  <div class="self-name">donate</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="views_after_auth_screens_profile_profile_page&#47;ProfilePage-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">donate</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">donate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="donate-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="donate-param-model"><span class="type-annotation"><a href="../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html">ProfilePageViewModel</a></span> <span class="parameter-name">model</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>donate widget, this widget is used in donate custom tile.</p>
+<p><strong>params</strong>:</p>
+<ul>
+<li><code>context</code>: Build context to perform context related operation</li>
+<li><code>model</code>: Viewmodel</li>
+</ul>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void donate(BuildContext context, ProfilePageViewModel model) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
+      ),
+    ),
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (context, setState) {
+          model.attachListener(setState);
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            child: SizedBox(
+              height: model.bottomSheetHeight,
+              child: Scaffold(
+                &#47;&#47; background color set to Primary
+                backgroundColor:
+                    Theme.of(context).colorScheme.primaryContainer,
+                &#47;&#47; header
+                appBar: AppBar(
+                  centerTitle: true,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  toolbarHeight: SizeConfig.screenHeight! * 0.15,
+                  title: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    &#47;&#47; display title
+                    child: Text(
+                      &#39;${AppLocalizations.of(context)!.strictTranslate(&#39;Donating to&#39;)}\n${model.currentOrg.name}&#39;,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: 24),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  actions: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 8.0,
+                        top: SizeConfig.screenHeight! * 0.01,
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        onPressed: model.popBottomSheet,
+                      ),
+                    ),
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  &#47;&#47; SingleChildScrollView is a box in which a single widget can be scrolled.
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.screenWidth! * 0.05,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate(&#39;Please select any amount&#39;),
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenWidth! * 0.05,
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          &#47;&#47; looping through and renders button for donation amounts.
+                          children: List.generate(
+                            3,
+                            (index) =&gt; model.dominationButton(
+                              model.denomination[index],
+                              context,
+                              setState,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenWidth! * 0.05,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.strictTranslate(
+                          &#39;Or&#39;,
+                        ),
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .strictTranslate(&#39;Input custom amount&#39;),
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenWidth! * 0.05,
+                      ),
+                      &#47;&#47; containers for custom amount
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        child: TextField(
+                          key: const Key(&#39;custom_amt&#39;),
+                          controller: model.donationAmount,
+                          focusNode: model.donationField,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.number,
+                          autofillHints: const &lt;String&gt;[AutofillHints.email],
+                          enableSuggestions: true,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          onChanged: (text) {
+                            setState(() {});
+                          },
+                          decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!
+                                .translate(&quot;Enter donation amount&quot;),
+                            labelText: AppLocalizations.of(context)!
+                                .translate(&quot;Enter custom donation amount&quot;),
+                            labelStyle:
+                                Theme.of(context).textTheme.titleMedium,
+                            prefixIcon: GestureDetector(
+                              key: const Key(&#39;currency_btn&#39;),
+                              onTap: () {
+                                model.changeCurrency(context, setState);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      model.donationCurrency,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                    const Icon(
+                                      Icons.arrow_drop_down_circle_outlined,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12.0),
+                              ),
+                              borderSide: BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenWidth! * 0.05,
+                      ),
+                      ElevatedButton(
+                        key: const Key(&#39;DONATE&#39;),
+                        onPressed: () async {
+                          &#47;&#47;&#47;required fields for donation transaction
+                          &#47;&#47; late final String userId;
+                          &#47;&#47; late final String orgId;
+                          &#47;&#47; late final String nameOfOrg;
+                          &#47;&#47; late final String nameOfUser;
+                          &#47;&#47; late final String payPalId;
+                          &#47;&#47; late final double amount;
+                          &#47;&#47; orgId = model.currentOrg.id!;
+                          &#47;&#47; userId = model.currentUser.id!;
+                          &#47;&#47; nameOfUser =
+                          &#47;&#47;     &quot;${model.currentUser.firstName!} ${model.currentUser.lastName!}&quot;;
+                          &#47;&#47; nameOfOrg = model.currentOrg.name!;
+
+                          &#47;&#47; amount = double.parse(model.donationAmount.text);
+                          &#47;&#47; final request = BraintreeDropInRequest(
+                          &#47;&#47;   tokenizationKey:
+                          &#47;&#47;       &#39;&lt;YOUR_BRAINTREE_SANDBOX_API_KEY&gt;&#39;,
+                          &#47;&#47;   collectDeviceData: true,
+                          &#47;&#47;   paypalRequest: BraintreePayPalRequest(
+                          &#47;&#47;     amount: model.donationAmount.text,
+                          &#47;&#47;     displayName: &quot;Talawa&quot;,
+                          &#47;&#47;   ),
+                          &#47;&#47;   cardEnabled: true,
+                          &#47;&#47; );
+
+                          &#47;&#47; final BraintreeDropInResult? result =
+                          &#47;&#47;     await BraintreeDropIn.start(request);
+                          &#47;&#47; if (result != null) {
+                          &#47;&#47;   &#47;&#47;&#47;saving the donation in server
+                          &#47;&#47;   late final GraphQLClient client =
+                          &#47;&#47;       graphqlConfig.clientToQuery();
+
+                          &#47;&#47;   &#47;&#47;&#47;getting transaction id from `brainTree` API
+                          &#47;&#47;   payPalId = result.paymentMethodNonce.nonce;
+
+                          &#47;&#47;   final QueryResult donationResult =
+                          &#47;&#47;       await client.mutate(
+                          &#47;&#47;     MutationOptions(
+                          &#47;&#47;       document: gql(
+                          &#47;&#47;         queries.createDonation(
+                          &#47;&#47;           userId,
+                          &#47;&#47;           orgId,
+                          &#47;&#47;           nameOfOrg,
+                          &#47;&#47;           nameOfUser,
+                          &#47;&#47;           payPalId,
+                          &#47;&#47;           amount,
+                          &#47;&#47;         ),
+                          &#47;&#47;       ),
+                          &#47;&#47;     ),
+                          &#47;&#47;   );
+                          &#47;&#47;   if (donationResult.hasException) {
+                          &#47;&#47;     model.showSnackBar(
+                          &#47;&#47;       &quot;Error occurred while making a donation&quot;,
+                          &#47;&#47;     );
+                          &#47;&#47;   }
+
+                          &#47;&#47;   &#47;&#47;&#47; hiding the donation UI once it is successful
+                          &#47;&#47;   model.popBottomSheet();
+                          &#47;&#47;   model.showSnackBar(
+                          &#47;&#47;     &#39;Donation Successful,Thanks for the support !&#39;,
+                          &#47;&#47;   );
+                          &#47;&#47; }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(
+                            &#47;&#47; if the donation amount entered or selected is empty then renders grey color
+                            &#47;&#47; else render primary color
+                            model.donationAmount.text.isEmpty
+                                ? Colors.grey
+                                : Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.strictTranslate(
+                            &#39;DONATE&#39;,
+                          ),
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  ).then((value) =&gt; model.updateSheetHeight());
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/">profile_page</a></li>
+    <li><a href="../../views_after_auth_screens_profile_profile_page/ProfilePage-class.html">ProfilePage</a></li>
+    <li class="self-crumb">donate method</li>
+</ol>
+
+    <h5>ProfilePage class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

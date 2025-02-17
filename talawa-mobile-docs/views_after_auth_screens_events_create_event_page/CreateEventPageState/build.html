@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the CreateEventPageState class, for the Dart programming language.">
+  <title>build method - CreateEventPageState class - create_event_page library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../views_after_auth_screens_events_create_event_page/">views\after_auth_screens\events\create_event_page.dart</a></li>
+    <li><a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html">CreateEventPageState</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="views_after_auth_screens_events_create_event_page&#47;CreateEventPageState-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">build</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method in a number of different situations. For
+example:</p>
+<ul>
+<li>After calling <a href="https://api.flutter.dev/flutter/widgets/State/initState.html">initState</a>.</li>
+<li>After calling <a href="https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html">didUpdateWidget</a>.</li>
+<li>After receiving a call to <a href="https://api.flutter.dev/flutter/widgets/State/setState.html">setState</a>.</li>
+<li>After a dependency of this <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object changes (e.g., an
+<a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by the previous <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> changes).</li>
+<li>After calling <a href="https://api.flutter.dev/flutter/widgets/State/deactivate.html">deactivate</a> and then reinserting the <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object into
+the tree at another location.</li>
+</ul>
+<p>This method can potentially be called in every frame and should not have
+any side effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor, the
+given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>, and the internal state of this <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object.</p>
+<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. The
+<a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> argument is always the same as the <code>context</code> property of
+this <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object and will remain the same for the lifetime of this
+object. The <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> argument is provided redundantly here so that
+this method matches the signature for a <a href="https://api.flutter.dev/flutter/widgets/WidgetBuilder.html">WidgetBuilder</a>.</p>
+<h2 id="design-discussion">Design discussion</h2>
+<h3 id="why-is-the-build-method-on-state-and-not-statefulwidget">Why is the <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> method on <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a>, and not <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>?</h3>
+<p>Putting a <code>Widget build(BuildContext context)</code> method on <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> rather
+than putting a <code>Widget build(BuildContext context, State state)</code> method
+on <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> gives developers more flexibility when subclassing
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>.</p>
+<p>For example, <a href="https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html">AnimatedWidget</a> is a subclass of <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> that
+introduces an abstract <code>Widget build(BuildContext context)</code> method for its
+subclasses to implement. If <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> already had a <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> method
+that took a <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> argument, <a href="https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html">AnimatedWidget</a> would be forced to provide
+its <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object to subclasses even though its <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object is an
+internal implementation detail of <a href="https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html">AnimatedWidget</a>.</p>
+<p>Conceptually, <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a> could also be implemented as a subclass of
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> in a similar manner. If the <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> method were on
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> rather than <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a>, that would not be possible anymore.</p>
+<p>Putting the <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> function on <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> rather than <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> also
+helps avoid a category of bugs related to closures implicitly capturing
+<code>this</code>. If you defined a closure in a <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> function on a
+<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>, that closure would implicitly capture <code>this</code>, which is
+the current widget instance, and would have the (immutable) fields of that
+instance in scope:</p>
+<pre class="language-dart"><code class="language-dart">// (this is not valid Flutter code)
+class MyButton extends StatefulWidgetX {
+  MyButton({super.key, required this.color});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context, State state) {
+    return SpecialWidget(
+      handler: () { print('color: $color'); },
+    );
+  }
+}
+</code></pre>
+<p>For example, suppose the parent builds <code>MyButton</code> with <code>color</code> being blue,
+the <code>$color</code> in the print function refers to blue, as expected. Now,
+suppose the parent rebuilds <code>MyButton</code> with green. The closure created by
+the first build still implicitly refers to the original widget and the
+<code>$color</code> still prints blue even through the widget has been updated to
+green; should that closure outlive its widget, it would print outdated
+information.</p>
+<p>In contrast, with the <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> function on the <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object, closures
+created during <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html">build</a> implicitly capture the <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> instance instead of
+the widget instance:</p>
+<pre class="language-dart"><code class="language-dart">class MyButton extends StatefulWidget {
+  const MyButton({super.key, this.color = Colors.teal});
+
+  final Color color;
+  // ...
+}
+
+class MyButtonState extends State&lt;MyButton&gt; {
+  // ...
+  @override
+  Widget build(BuildContext context) {
+    return SpecialWidget(
+      handler: () { print('color: ${widget.color}'); },
+    );
+  }
+}
+</code></pre>
+<p>Now when the parent rebuilds <code>MyButton</code> with green, the closure created by
+the first build still refers to <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object, which is preserved across
+rebuilds, but the framework has updated that <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object's <a href="https://api.flutter.dev/flutter/widgets/State/widget.html">widget</a>
+property to refer to the new <code>MyButton</code> instance and <code>${widget.color}</code>
+prints green, as expected.</p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  final TextStyle subtitleTextStyle =
+      Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
+  final navigationServiceLocal = locator&lt;NavigationService&gt;();
+  return BaseView&lt;CreateEventViewModel&gt;(
+    onModelReady: (model) =&gt; model.initialize(),
+    builder: (context, model, child) {
+      return Scaffold(
+        &#47;&#47; AppBar is the header of the page
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          elevation: 1,
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () =&gt; navigationServiceLocal.pop(),
+            child: const Icon(Icons.close),
+          ),
+          title: Text(
+            AppLocalizations.of(context)!.strictTranslate(&#39;Add Event&#39;),
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+          ),
+          actions: [
+            TextButton(
+              key: const Key(&#39;addButton&#39;),
+              onPressed: () {
+                if (userConfig.loggedIn) {
+                  model.createEvent();
+                } else {
+                  navigationService.pop();
+                  MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+                }
+              },
+              child: Text(
+                AppLocalizations.of(context)!.strictTranslate(&#39;Add&#39;),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+              ),
+            ),
+          ],
+        ),
+        body: Scrollbar(
+          thickness: 2,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.image,
+                      ),
+                      SizedBox(
+                        width: SizeConfig.screenWidth! * 0.036,
+                      ),
+                      TextButton(
+                        key: const Key(&#39;txt_btn_cep&#39;),
+                        onPressed: () {
+                          model.getImageFromGallery();
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .strictTranslate(&quot;Add Image&quot;),
+                          style: subtitleTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                  model.imageFile != null
+                      ? Container(
+                          height: 300,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Stack(
+                            children: [
+                              Image.file(
+                                model.imageFile!,
+                                fit: BoxFit.fitWidth,
+                                width: MediaQuery.of(context).size.width,
+                              ),
+                              Positioned(
+                                right: 5,
+                                top: 5,
+                                child: IconButton(
+                                  onPressed: () =&gt; model.removeImage(),
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
+                  const Divider(),
+                  CreateEventForm(
+                    model: model,
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight! * 0.013),
+                  const Divider(),
+                  GestureDetector(
+                    onTap: () async {
+                      final List&lt;Venue&gt; venues = await model.fetchVenues();
+                      if (!context.mounted) return;
+                      final Venue? selected =
+                          await showModalBottomSheet&lt;Venue&gt;(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return VenueBottomSheet(venues: venues);
+                        },
+                      );
+                      if (selected != null) {
+                        setState(() {
+                          selectedVenue = selected;
+                        });
+                      }
+                    },
+                    child: selectedVenue == null
+                        ? Container(
+                            height: 50.0,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.add_location),
+                                const SizedBox(width: 10.0),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate(&#39;Add Venue&#39;),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            height: 100.0,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                if (selectedVenue!.imageUrl!.isNotEmpty)
+                                  Image.network(
+                                    selectedVenue!.imageUrl!.replaceAll(
+                                      &#39;http:&#47;&#47;localhost:4000&#39;,
+                                      GraphqlConfig.orgURI!
+                                          .replaceFirst(&#39;&#47;graphql&#39;, &#39;&#39;),
+                                    ),
+                                  )
+                                else
+                                  Image.asset(
+                                    &#39;assets&#47;images&#47;defaultImg.png&#39;,
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
+                                const SizedBox(width: 10.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        selectedVenue!.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                      Text(
+                                        &#39;Capacity: ${selectedVenue!.capacity}&#39;,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          selectedVenue = null;
+                                        });
+                                      },
+                                      icon: const Icon(Icons.cancel),
+                                    ),
+                                    const Icon(Icons.edit),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                  const Divider(),
+                  SizedBox(
+                    width: SizeConfig.screenWidth,
+                    child: Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Keep Registerable&#39;),
+                              style: subtitleTextStyle,
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.005,
+                            ),
+                            Switch(
+                              value: model.isRegisterableSwitch,
+                              onChanged: (value) {
+                                setState(() {
+                                  model.isRegisterableSwitch = value;
+                                });
+                              },
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;All day&#39;),
+                              style: subtitleTextStyle,
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.005,
+                            ),
+                            Switch(
+                              &#47;&#47; Switch to select the visibility of the event.
+                              value: model.isAllDay,
+                              onChanged: (value) {
+                                setState(() {
+                                  model.isAllDay = value;
+                                });
+                              },
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate(&#39;Keep Public&#39;),
+                              style: subtitleTextStyle,
+                            ),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.005,
+                            ),
+                            Switch(
+                              value: model.isPublicSwitch,
+                              onChanged: (value) {
+                                setState(() {
+                                  model.isPublicSwitch = value;
+                                });
+                              },
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.013,
+                  ),
+                  const Divider(),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.013,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.strictTranslate(
+                      model.isAllDay
+                          ? &#39;Select Start Date&#39;
+                          : &#39;Select Start Date and Time&#39;,
+                    ),
+                    style: subtitleTextStyle,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.013,
+                  ),
+                  &#47;&#47; DateTimeTile is custom widget that returns a tile to select date and time.
+                  DateTimeTile(
+                    key: const Key(&quot;dateTimeTileFirst&quot;),
+                    isAllDay: model.isAllDay,
+                    date: &quot;${model.eventStartDate.toLocal()}&quot;.split(&#39; &#39;)[0],
+                    time: model.eventStartTime.format(context),
+                    setDate: () async {
+                      final date = await customDatePicker(
+                        initialDate: model.eventStartDate,
+                      );
+                      dateUpdater1(date, model);
+                    },
+                    setTime: () async {
+                      final time = await customTimePicker(
+                        initialTime: model.eventStartTime,
+                      );
+                      timeUpdater1(time, model);
+                    },
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.026,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.strictTranslate(
+                      model.isAllDay
+                          ? &#39;Select End Date&#39;
+                          : &#39;Select End Date and Time&#39;,
+                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.013,
+                  ),
+                  DateTimeTile(
+                    key: const Key(&#39;key for test cep&#39;),
+                    isAllDay: model.isAllDay,
+                    date: &quot;${model.eventEndDate.toLocal()}&quot;.split(&#39; &#39;)[0],
+                    time: model.eventEndTime.format(context),
+                    setDate: () async {
+                      final date = await customDatePicker(
+                        initialDate: model.eventEndDate,
+                      );
+                      dateUpdater2(date, model);
+                    },
+                    setTime: () async {
+                      final time = await customTimePicker(
+                        initialTime: model.eventEndTime,
+                      );
+                      timeUpdater2(time, model);
+                    },
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.026,
+                  ),
+                  InkWell(
+                    key: const Key(&#39;inkwell_recurrLabel&#39;),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.restore),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.045,
+                        ),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate(model.recurrenceLabel),
+                            style: subtitleTextStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () async {
+                      final String? selectedReccurence;
+                      selectedReccurence = await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ShowRecurrenceDialog(
+                            model: model,
+                          );
+                        },
+                      );
+                      setState(() {
+                        if (selectedReccurence != null) {
+                          model.recurrenceLabel = selectedReccurence;
+                        }
+                      });
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight! * 0.026),
+                  const Divider(),
+                  InkWell(
+                    key: const Key(&#39;inwell_cep2&#39;),
+                    onTap: () {
+                      EventBottomSheet().addUserBottomSheet(
+                        context: context,
+                        model: model,
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .strictTranslate(&quot;Add Members&quot;),
+                          style: subtitleTextStyle,
+                        ),
+                        Icon(
+                          Icons.add,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Wrap(
+                    children: model.selectedMembers
+                        .map(
+                          (user) =&gt; MemberNameTile(
+                            userName: &quot;${user.firstName!} ${user.lastName!}&quot;,
+                            userImage: user.image,
+                            onDelete: () {
+                              model.removeUserFromList(
+                                userId: user.id!,
+                              );
+                            },
+                          ),
+                        )
+                        .toList()
+                        .cast&lt;Widget&gt;(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../views_after_auth_screens_events_create_event_page/">create_event_page</a></li>
+    <li><a href="../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html">CreateEventPageState</a></li>
+    <li class="self-crumb">build method</li>
+</ol>
+
+    <h5>CreateEventPageState class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the createEvent method from the CreateEventViewModel class, for the Dart programming language.">
+  <title>createEvent method - CreateEventViewModel class - create_event_view_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_event_view_models_create_event_view_model/">view_model\after_auth_view_models\event_view_models\create_event_view_model.dart</a></li>
+    <li><a href="../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html">CreateEventViewModel</a></li>
+    <li class="self-crumb">createEvent method</li>
+  </ol>
+  <div class="self-name">createEvent</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="view_model_after_auth_view_models_event_view_models_create_event_view_model&#47;CreateEventViewModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">createEvent</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">createEvent</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>This function is used to create the event for the organization.</p>
+<p>The function uses <code>database_mutation_functions</code> services to call the graphQL mutation
+for creating an event and passes the required variables for the event.</p>
+<p><strong>params</strong>:
+  None</p>
+<p><strong>returns</strong>:
+  None</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; createEvent() async {
+  await actionHandlerService.performAction(
+    actionType: ActionType.critical,
+    criticalActionFailureMessage: TalawaErrors.eventCreationFailed,
+    action: () async {
+      titleFocus.unfocus();
+      locationFocus.unfocus();
+      descriptionFocus.unfocus();
+      validate = AutovalidateMode.always;
+      if (formKey.currentState!.validate()) {
+        validate = AutovalidateMode.disabled;
+
+        &#47;&#47; variables initialisation
+        final DateTime startTime = DateTime(
+          eventStartDate.year,
+          eventStartDate.month,
+          eventStartDate.day,
+          eventStartTime.hour,
+          eventStartTime.minute,
+        );
+        final DateTime endTime = DateTime(
+          eventEndDate.year,
+          eventEndDate.month,
+          eventEndDate.day,
+          eventEndTime.hour,
+          eventEndTime.minute,
+        );
+        &#47;&#47; all required data for creating an event
+        final Map&lt;String, dynamic&gt; variables = {
+          &quot;data&quot;: {
+            &#39;title&#39;: eventTitleTextController.text,
+            &#39;description&#39;: eventDescriptionTextController.text,
+            &#39;location&#39;: eventLocationTextController.text,
+            &#39;isPublic&#39;: isPublicSwitch,
+            &#39;isRegisterable&#39;: isRegisterableSwitch,
+            &#39;recurring&#39;: isRecurring,
+            &#39;allDay&#39;: isAllDay,
+            &#39;organizationId&#39;: _currentOrg.id,
+            &#39;startDate&#39;: DateFormat(&#39;yyyy-MM-dd&#39;).format(eventStartDate),
+            &#39;endDate&#39;: DateFormat(&#39;yyyy-MM-dd&#39;).format(eventEndDate),
+            &#39;startTime&#39;:
+                isAllDay ? null : DateFormat(&#39;HH:mm:ss&#39;).format(startTime),
+            &#39;endTime&#39;:
+                isAllDay ? null : DateFormat(&#39;HH:mm:ss&#39;).format(endTime),
+          },
+          if (isRecurring)
+            &#39;recurrenceRuleData&#39;: {
+              &#39;recurrenceStartDate&#39;: DateFormat(&#39;yyyy-MM-dd&#39;).format(
+                recurrenceStartDate,
+              ),
+              &#39;recurrenceEndDate&#39;: recurrenceEndDate != null
+                  ? DateFormat(&#39;yyyy-MM-dd&#39;).format(recurrenceEndDate!)
+                  : null,
+              &#39;frequency&#39;: frequency,
+              &#39;weekDays&#39;: (frequency == Frequency.weekly ||
+                      (frequency == Frequency.monthly &amp;&amp;
+                          weekDayOccurenceInMonth != null))
+                  ? weekDays.toList()
+                  : null,
+              &#39;interval&#39;: interval,
+              &#39;count&#39;: count,
+              &#39;weekDayOccurenceInMonth&#39;: weekDayOccurenceInMonth,
+            },
+        };
+
+        print(variables);
+
+        navigationService.pushDialog(
+          const CustomProgressDialog(key: Key(&#39;EventCreationProgress&#39;)),
+        );
+        &#47;&#47; invoke the `gqlAuthMutation` function of `databaseFunctions`
+        &#47;&#47; service along with the mutation query and variable map.
+        final result = await _eventService.createEvent(variables: variables);
+        return result;
+      }
+      return databaseFunctions.noData;
+    },
+    onValidResult: (result) async {
+      await _eventService.getEvents();
+    },
+    updateUI: () {
+      navigationService.pop();
+    },
+    apiCallSuccessUpdateUI: () {
+      navigationService.pop();
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../view_model_after_auth_view_models_event_view_models_create_event_view_model/">create_event_view_model</a></li>
+    <li><a href="../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html">CreateEventViewModel</a></li>
+    <li class="self-crumb">createEvent method</li>
+</ol>
+
+    <h5>CreateEventViewModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
