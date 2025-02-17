@@ -1,26 +1,26 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_base_view/BaseView-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createState]{.kind-method} method
+# createState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[\_BaseViewState[\<[T]{.type-parameter}\>]{.signature}]{.returntype}
-[createState]{.name}()
+\_BaseViewState[\<[T\>]]
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+
+override
+
+
+
+
 Creates the mutable state for this widget at a given location in the
 tree.
 
@@ -31,7 +31,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget> createState() => _SomeWidgetState();
+State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -47,33 +47,33 @@ create a fresh
 object, simplifying the lifecycle of
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 objects.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-_BaseViewState<T> createState() => _BaseViewState<T>();
+_BaseViewState<T>  => _BaseViewState<T>();
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [base_view](../../views_base_view/)
-3.  [BaseView[\<[T extends
-    ChangeNotifier]{.type-parameter}\>]{.signature}](../../views_base_view/BaseView-class.html)
+3.  BaseView[\<[T extends
+    ChangeNotifier\>]](../../views_base_view/BaseView-class.html)
 4.  createState method
 
 ##### BaseView class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

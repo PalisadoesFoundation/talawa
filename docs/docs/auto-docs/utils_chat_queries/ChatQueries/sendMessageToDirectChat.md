@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="utils_chat_queries/ChatQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [sendMessageToDirectChat]{.kind-method} method
+# sendMessageToDirectChat method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[sendMessageToDirectChat]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 ## Implementation
 
 ``` language-dart
-String sendMessageToDirectChat() {
+String  {
   return '''
     mutation sendMessageToDirectChat(
       \$chatId: ID!
@@ -36,12 +36,12 @@ String sendMessageToDirectChat() {
   ''';
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_queries](../../utils_chat_queries/)
@@ -50,9 +50,9 @@ String sendMessageToDirectChat() {
 
 ##### ChatQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

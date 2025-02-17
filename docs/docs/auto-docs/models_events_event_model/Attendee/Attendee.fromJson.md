@@ -1,21 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_model/Attendee-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [Attendee.fromJson]{.kind-constructor} constructor
+# Attendee.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[Attendee.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+Attendee.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,12 +26,12 @@ Attendee.fromJson(Map<String, dynamic> json) {
   image = json['image'] as String?;
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_model](../../models_events_event_model/)
@@ -40,9 +40,9 @@ Attendee.fromJson(Map<String, dynamic> json) {
 
 ##### Attendee class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

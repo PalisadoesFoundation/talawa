@@ -1,53 +1,49 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CustomAlertDialogWithCheckbox]{.kind-constructor} constructor
+# CustomAlertDialogWithCheckbox constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [CustomAlertDialogWithCheckbox]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [successText]{.parameter-name} = [\'Confirm\']{.default-value},
-    ]{#-param-successText .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [dialogTitle]{.parameter-name} = [\'Confirmation\']{.default-value},
-    ]{#-param-dialogTitle .parameter}
-4.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [reverse]{.parameter-name} = [false]{.default-value},
-    ]{#-param-reverse .parameter}
-5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [secondaryButtonText]{.parameter-name} =
-    [\'Close\']{.default-value}, ]{#-param-secondaryButtonText
-    .parameter}
-6.  [[dynamic]{.type-annotation}
-    [secondaryButtonTap]{.parameter-name}()?,
-    ]{#-param-secondaryButtonTap .parameter}
-7.  [required [dynamic]{.type-annotation}
-    [success]{.parameter-name}(]{#-param-success .parameter}
-    1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}]{#param-
-        .parameter}
+const CustomAlertDialogWithCheckbox({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    successText = \'Confirm\',
+    ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    dialogTitle = \'Confirmation\',
+    ]
+4.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    reverse = false,
+    ]
+5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    secondaryButtonText =
+    \'Close\', ]
+6.  [dynamic
+    ?,
+    ]
+7.  required [dynamic
+    success(]
+    1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]]
 
     ),
 8.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [dialogSubTitle]{.parameter-name}, ]{#-param-dialogSubTitle
-    .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    dialogSubTitle, ]
 9.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [checkboxLabel]{.parameter-name}, ]{#-param-checkboxLabel
-    .parameter}
-10. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [initialCheckboxValue]{.parameter-name} = [false]{.default-value},
-    ]{#-param-initialCheckboxValue .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    checkboxLabel, ]
+10. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    initialCheckboxValue = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -64,12 +60,12 @@ const CustomAlertDialogWithCheckbox({
   this.initialCheckboxValue = false,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
@@ -78,9 +74,9 @@ const CustomAlertDialogWithCheckbox({
 
 ##### CustomAlertDialogWithCheckbox class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

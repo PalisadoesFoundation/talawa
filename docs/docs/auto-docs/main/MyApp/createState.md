@@ -1,25 +1,25 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="main/MyApp-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createState]{.kind-method} method
+# createState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[\_MyAppState]{.returntype} [createState]{.name}()
+\_MyAppState 
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Creates the mutable state for this widget at a given location in the
 tree.
 
@@ -30,7 +30,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget> createState() => _SomeWidgetState();
+State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -45,21 +45,21 @@ later inserted into the tree again, the framework will call
 object, simplifying the lifecycle of
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 objects.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-_MyAppState createState() => _MyAppState();
+_MyAppState  => ;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main](../../main/)
@@ -68,9 +68,9 @@ _MyAppState createState() => _MyAppState();
 
 ##### MyApp class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

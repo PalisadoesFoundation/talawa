@@ -1,29 +1,29 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="plugins_talawa_plugin_provider/TalawaPluginProvider-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [TalawaPluginProvider]{.kind-constructor} constructor
+# TalawaPluginProvider constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [TalawaPluginProvider]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const TalawaPluginProvider({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [@[required](https://api.flutter.dev/flutter/material/required-constant.html)
-    [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?]{.type-annotation}
-    [child]{.parameter-name}, ]{#-param-child .parameter}
+    [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)?]
+    child, ]
 3.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [visible]{.parameter-name}, ]{#-param-visible .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    visible, ]
 4.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [pluginName]{.parameter-name}, ]{#-param-pluginName .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    pluginName, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -34,12 +34,12 @@ const TalawaPluginProvider({
   required this.pluginName,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
@@ -48,9 +48,9 @@ const TalawaPluginProvider({
 
 ##### TalawaPluginProvider class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

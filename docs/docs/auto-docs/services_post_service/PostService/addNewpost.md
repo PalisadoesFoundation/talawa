@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [addNewpost]{.kind-method} method
+# addNewpost method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [addNewpost]{.name}(
 
-1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}
-    [newPost]{.parameter-name}]{#addNewpost-param-newPost .parameter}
+void addNewpost(
+
+1.  [[[Post](../../models_post_post_model/Post-class.html)]
+    newPost]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to add newly created post at the very top of the feed.
 
 **params**:
@@ -22,9 +22,9 @@ Method to add newly created post at the very top of the feed.
 -   `newPost`: new post made by user to add in feed
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -35,12 +35,12 @@ void addNewpost(Post newPost) {
   _postStreamController.add(_posts);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -49,9 +49,9 @@ void addNewpost(Post newPost) {
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,25 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_encryptor/Encryptor-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [receiveMessage]{.kind-method} method
+# receiveMessage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[receiveMessage]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [message]{.parameter-name}, ]{#receiveMessage-param-message
-    .parameter}
-2.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]{.type-annotation}
-    [hive]{.parameter-name}]{#receiveMessage-param-hive .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+receiveMessage(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    message, ]
+2.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]
+    hive]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Helper function to decrypt the message.
 
 Internally uses the
@@ -38,9 +37,9 @@ to decrypt the given message.
     to store things in.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -62,12 +61,12 @@ Future<void> receiveMessage(
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [encryptor](../../utils_encryptor/)
@@ -76,9 +75,9 @@ Future<void> receiveMessage(
 
 ##### Encryptor class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

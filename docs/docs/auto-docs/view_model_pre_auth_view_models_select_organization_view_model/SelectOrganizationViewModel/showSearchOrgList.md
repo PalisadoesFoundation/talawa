@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showSearchOrgList]{.kind-property} property
+# showSearchOrgList property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-[showSearchOrgList]{.name}
+showSearchOrgList
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Organization selection required data.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-late Widget showSearchOrgList = Container();
+late Widget showSearchOrgList = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
@@ -38,9 +38,9 @@ late Widget showSearchOrgList = Container();
 
 ##### SelectOrganizationViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

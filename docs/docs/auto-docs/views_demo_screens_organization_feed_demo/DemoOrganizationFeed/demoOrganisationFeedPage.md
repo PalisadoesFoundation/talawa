@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [demoOrganisationFeedPage]{.kind-method} method
+# demoOrganisationFeedPage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[demoOrganisationFeedPage]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#demoOrganisationFeedPage-param-context
-    .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+demoOrganisationFeedPage(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 function returns a widget that shows the feed of the organization.
 
 **params**:
@@ -26,9 +25,9 @@ function returns a widget that shows the feed of the organization.
 **returns**:
 
 -   `Widget`: returns a widget that shows the feed of the organization.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,7 +54,7 @@ Widget demoOrganisationFeedPage(BuildContext context) {
           color: Theme.of(context).iconTheme.color,
         ),
         onPressed: () {
-          MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+          MainScreenViewModel.scaffoldKey.currentState!.;
         },
       ),
     ),
@@ -65,22 +64,22 @@ Widget demoOrganisationFeedPage(BuildContext context) {
       children: [
         // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
         PinnedPost(
-          pinnedPost: pinnedPosts.map((map) => Post.fromJson(map)).toList(),
+          pinnedPost: pinnedPosts.map((map) => Post.fromJson(map)).,
           model: homeModel!,
         ),
         // If the organization has posts then renders PostListWidget widget else Container.
-        Container(),
+        ,
       ],
     ),
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
@@ -89,9 +88,9 @@ Widget demoOrganisationFeedPage(BuildContext context) {
 
 ##### DemoOrganizationFeed class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

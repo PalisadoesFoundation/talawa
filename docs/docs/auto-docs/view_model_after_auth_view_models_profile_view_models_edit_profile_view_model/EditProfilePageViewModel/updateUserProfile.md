@@ -1,28 +1,25 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateUserProfile]{.kind-method} method
+# updateUserProfile method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[updateUserProfile]{.name}({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [firstName]{.parameter-name}, ]{#updateUserProfile-param-firstName
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [lastName]{.parameter-name}, ]{#updateUserProfile-param-lastName
-    .parameter}
-3.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]{.type-annotation}
-    [newImage]{.parameter-name}, ]{#updateUserProfile-param-newImage
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+updateUserProfile({
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    firstName, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    lastName, ]
+3.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]
+    newImage, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to update user profile.
 
 **params**:
@@ -32,9 +29,9 @@ Method to update user profile.
 -   `newImage`: New profile picture that is to be updated.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -91,7 +88,7 @@ Future<void> updateUserProfile({
       lastNameTextController.text = user.lastName!;
     },
     apiCallSuccessUpdateUI: () {
-      notifyListeners();
+      ;
       navigationService.showTalawaErrorSnackBar(
         "Profile updated successfully",
         MessageType.info,
@@ -107,12 +104,12 @@ Future<void> updateUserProfile({
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
@@ -121,9 +118,9 @@ Future<void> updateUserProfile({
 
 ##### EditProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

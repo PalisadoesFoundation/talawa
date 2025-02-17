@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_date_time_picker/widgets_date_time_picker-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [customTimePicker]{.kind-function} function
+# customTimePicker function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[customTimePicker]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]\>]]
+customTimePicker({
 
 1.  [required
-    [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation}
-    [initialTime]{.parameter-name},
-    ]{#customTimePicker-param-initialTime .parameter}
+    [[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+    initialTime,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Shows a dialog containing a material design time picker.
 
 The returned Future resolves to the time selected by the user when the
 user closes the dialog. If the user cancels the dialog, null is
 returned.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -43,12 +43,12 @@ Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
   return initialTime;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [date_time_picker](../widgets_date_time_picker/)
@@ -56,9 +56,9 @@ Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
 
 ##### date_time_picker library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

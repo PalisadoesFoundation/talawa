@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateUserProfile]{.kind-method} method
+# updateUserProfile method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[updateUserProfile]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 to update user profile.
 
 **params**: None
@@ -18,13 +18,13 @@ to update user profile.
 **returns**:
 
 -   `String`: return a mutation
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String updateUserProfile() {
+String  {
   return """
     mutation UpdateUserProfile(
       \$firstName: String
@@ -42,12 +42,12 @@ String updateUserProfile() {
   """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -56,9 +56,9 @@ String updateUserProfile() {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

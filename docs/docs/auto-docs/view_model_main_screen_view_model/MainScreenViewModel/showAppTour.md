@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showAppTour]{.kind-property} property
+# showAppTour property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-[showAppTour]{.name}
+showAppTour
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 bool to determine if we wanna show the apptour.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late bool showAppTour;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -38,9 +38,9 @@ late bool showAppTour;
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

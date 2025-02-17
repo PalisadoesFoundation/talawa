@@ -1,123 +1,123 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="services_size_config/services_size_config-library-sidebar.html" below-sidebar="services_size_config/SizeConfig-class-sidebar.html"}
+
 <div>
 
-# [SizeConfig]{.kind-class} class
+# SizeConfig class
 
 </div>
 
-::: {.section .desc .markdown}
+
 SizeConfig class is used to initialise the height and width of the
 media.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[SizeConfig](../services_size_config/SizeConfig/SizeConfig.html)]{.name}[()]{.signature}
+[SizeConfig](../services_size_config/SizeConfig/SizeConfig.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[init](../services_size_config/SizeConfig/init.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#init-param-context .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[init](../services_size_config/SizeConfig/init.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[test](../services_size_config/SizeConfig/test.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[test](../services_size_config/SizeConfig/test.html) [→ void ]
 
 :   
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-properties .section .summary .offset-anchor}
+
+
 ## Static Properties
 
-[[blockSizeHorizontal](../services_size_config/SizeConfig/blockSizeHorizontal.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[blockSizeHorizontal](../services_size_config/SizeConfig/blockSizeHorizontal.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[blockSizeVertical](../services_size_config/SizeConfig/blockSizeVertical.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[blockSizeVertical](../services_size_config/SizeConfig/blockSizeVertical.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[paddingTop](../services_size_config/SizeConfig/paddingTop.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[paddingTop](../services_size_config/SizeConfig/paddingTop.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[safeBlockHorizontal](../services_size_config/SizeConfig/safeBlockHorizontal.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[safeBlockHorizontal](../services_size_config/SizeConfig/safeBlockHorizontal.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[safeBlockVertical](../services_size_config/SizeConfig/safeBlockVertical.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[safeBlockVertical](../services_size_config/SizeConfig/safeBlockVertical.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[screenHeight](../services_size_config/SizeConfig/screenHeight.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[screenHeight](../services_size_config/SizeConfig/screenHeight.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[screenWidth](../services_size_config/SizeConfig/screenWidth.html)]{.name} [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.signature}
+[[screenWidth](../services_size_config/SizeConfig/screenWidth.html)] [↔ [double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [size_config](../services_size_config/)
@@ -125,9 +125,9 @@ media.
 
 ##### size_config library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

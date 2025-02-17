@@ -1,25 +1,25 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_pre_auth_screens_select_organization/SelectOrganization-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createState]{.kind-method} method
+# createState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[\_SelectOrganizationState]{.returntype} [createState]{.name}()
+\_SelectOrganizationState 
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Creates the mutable state for this widget at a given location in the
 tree.
 
@@ -30,7 +30,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget> createState() => _SomeWidgetState();
+State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -46,21 +46,21 @@ again to create a fresh
 object, simplifying the lifecycle of
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 objects.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-_SelectOrganizationState createState() => _SelectOrganizationState();
+_SelectOrganizationState  => ;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization](../../views_pre_auth_screens_select_organization/)
@@ -69,9 +69,9 @@ _SelectOrganizationState createState() => _SelectOrganizationState();
 
 ##### SelectOrganization class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

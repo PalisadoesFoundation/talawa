@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [orgURI]{.kind-property} property
+# orgURI property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-[orgURI]{.name}
+orgURI
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 static String? orgURI = ' ';
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -34,9 +34,9 @@ static String? orgURI = ' ';
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

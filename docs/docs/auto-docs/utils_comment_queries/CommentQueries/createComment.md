@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_comment_queries/CommentQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createComment]{.kind-method} method
+# createComment method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[createComment]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Creating a comment.
 
 **params**: None
@@ -18,13 +18,13 @@ Creating a comment.
 **returns**:
 
 -   `String`: The query for creating a comment
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String createComment() {
+String  {
   return """
    mutation createComment(\$postId: ID!, \$text: String!) {
     createComment(postId: \$postId,
@@ -38,12 +38,12 @@ String createComment() {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [comment_queries](../../utils_comment_queries/)
@@ -52,9 +52,9 @@ String createComment() {
 
 ##### CommentQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

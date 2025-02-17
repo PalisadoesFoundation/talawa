@@ -1,21 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_profile_user_event/UserEvents-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [UserEvents]{.kind-constructor} constructor
+# UserEvents constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [UserEvents]{.name}({
+
+const UserEvents({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -23,12 +23,12 @@ const UserEvents({
   required super.key,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_event](../../views_after_auth_screens_profile_user_event/)
@@ -37,9 +37,9 @@ const UserEvents({
 
 ##### UserEvents class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

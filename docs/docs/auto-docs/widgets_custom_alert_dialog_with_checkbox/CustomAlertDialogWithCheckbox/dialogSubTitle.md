@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dialogSubTitle]{.kind-property} property
+# dialogSubTitle property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-[dialogSubTitle]{.name}
+dialogSubTitle
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 Subtitle or message content of the dialog.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final String dialogSubTitle;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
@@ -38,9 +38,9 @@ final String dialogSubTitle;
 
 ##### CustomAlertDialogWithCheckbox class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

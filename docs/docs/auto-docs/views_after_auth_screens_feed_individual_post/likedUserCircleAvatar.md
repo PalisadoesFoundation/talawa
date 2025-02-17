@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_feed_individual_post/views_after_auth_screens_feed_individual_post-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [likedUserCircleAvatar]{.kind-function} function
+# likedUserCircleAvatar function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[likedUserCircleAvatar]{.name}(
 
-1.  [[[LikedBy](../models_post_post_model/LikedBy-class.html)]{.type-annotation}
-    [user]{.parameter-name}]{#likedUserCircleAvatar-param-user
-    .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+likedUserCircleAvatar(
+
+1.  [[[LikedBy](../models_post_post_model/LikedBy-class.html)]
+    user]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Generates a Circle Avatar representing a user who liked the post.
 
 **params**:
@@ -27,9 +26,9 @@ Generates a Circle Avatar representing a user who liked the post.
 **returns**:
 
 -   `Widget`: Circle Avatar of the user who liked the post.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -60,12 +59,12 @@ Widget likedUserCircleAvatar(LikedBy user) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [individual_post](../views_after_auth_screens_feed_individual_post/)
@@ -73,9 +72,9 @@ Widget likedUserCircleAvatar(LikedBy user) {
 
 ##### individual_post library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

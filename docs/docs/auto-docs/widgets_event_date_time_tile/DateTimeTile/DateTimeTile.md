@@ -1,33 +1,33 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_date_time_tile/DateTimeTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [DateTimeTile]{.kind-constructor} constructor
+# DateTimeTile constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [DateTimeTile]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const DateTimeTile({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [date]{.parameter-name}, ]{#-param-date .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    date, ]
 3.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [time]{.parameter-name}, ]{#-param-time .parameter}
-4.  [required [dynamic]{.type-annotation} [setDate]{.parameter-name}(),
-    ]{#-param-setDate .parameter}
-5.  [required [dynamic]{.type-annotation} [setTime]{.parameter-name}(),
-    ]{#-param-setTime .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    time, ]
+4.  required [dynamic ,
+    ]
+5.  required [dynamic ,
+    ]
 6.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isAllDay]{.parameter-name}, ]{#-param-isAllDay .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isAllDay, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -40,12 +40,12 @@ const DateTimeTile({
   required this.isAllDay,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
@@ -54,9 +54,9 @@ const DateTimeTile({
 
 ##### DateTimeTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,101 +1,101 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/utils_validators-library-sidebar.html" below-sidebar="utils_validators/Validator-class-sidebar.html"}
+
 <div>
 
-# [Validator]{.kind-class} class
+# Validator class
 
 </div>
 
-::: {.section .desc .markdown}
+
 This class creats various validator methods for the application.
 
 They are used to validate information given by the users.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[Validator](../utils_validators/Validator/Validator.html)]{.name}[()]{.signature}
+[Validator](../utils_validators/Validator/Validator.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[validateUrlExistence](../utils_validators/Validator/validateUrlExistence.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [url]{.parameter-name}]{#validateUrlExistence-param-url .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[validateUrlExistence](../utils_validators/Validator/validateUrlExistence.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] url]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]\>]] ]
 :   Method to validate already exisiting URL.
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-methods .section .summary .offset-anchor}
+
+
 ## Static Methods
 
-[[validateEmail](../utils_validators/Validator/validateEmail.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [email]{.parameter-name}]{#validateEmail-param-email .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateEmail](../utils_validators/Validator/validateEmail.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] email]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate a user\'s email.
 
-[[validateEventForm](../utils_validators/Validator/validateEventForm.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [value]{.parameter-name}, ]{#validateEventForm-param-value .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [label]{.parameter-name}]{#validateEventForm-param-label .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateEventForm](../utils_validators/Validator/validateEventForm.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] value, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] label]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate event form.
 
-[[validateEventTime](../utils_validators/Validator/validateEventTime.html)]{.name}[([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation} [startTime]{.parameter-name}, ]{#validateEventTime-param-startTime .parameter}[[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation} [endTime]{.parameter-name}]{#validateEventTime-param-endTime .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateEventTime](../utils_validators/Validator/validateEventTime.html)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] startTime, ][[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] endTime]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate event time.
 
-[[validateFirstName](../utils_validators/Validator/validateFirstName.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [value]{.parameter-name}]{#validateFirstName-param-value .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateFirstName](../utils_validators/Validator/validateFirstName.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] value]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate a user\'s first name.
 
-[[validateLastName](../utils_validators/Validator/validateLastName.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [value]{.parameter-name}]{#validateLastName-param-value .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateLastName](../utils_validators/Validator/validateLastName.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] value]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate a user\'s last name.
 
-[[validatePassword](../utils_validators/Validator/validatePassword.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [password]{.parameter-name}]{#validatePassword-param-password .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validatePassword](../utils_validators/Validator/validatePassword.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] password]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate password.
 
-[[validatePasswordConfirm](../utils_validators/Validator/validatePasswordConfirm.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [value]{.parameter-name}, ]{#validatePasswordConfirm-param-value .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [comparator]{.parameter-name}]{#validatePasswordConfirm-param-comparator .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validatePasswordConfirm](../utils_validators/Validator/validatePasswordConfirm.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] value, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] comparator]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to valid password re-entered for confirmation.
 
-[[validateURL](../utils_validators/Validator/validateURL.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [value]{.parameter-name}]{#validateURL-param-value .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[validateURL](../utils_validators/Validator/validateURL.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] value]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 :   Method to validate an organization\'s URL.
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [validators](../utils_validators/)
@@ -103,9 +103,9 @@ They are used to validate information given by the users.
 
 ##### validators library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

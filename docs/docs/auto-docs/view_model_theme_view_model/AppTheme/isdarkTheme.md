@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_theme_view_model/AppTheme-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [isdarkTheme]{.kind-property} property
+# isdarkTheme property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-get [isdarkTheme]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+get isdarkTheme
+
+
+
 flag to check darkMode.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 bool get isdarkTheme => _isDarkMode;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [theme_view_model](../../view_model_theme_view_model/)
@@ -36,9 +36,9 @@ bool get isdarkTheme => _isDarkMode;
 
 ##### AppTheme class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

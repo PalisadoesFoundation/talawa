@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validatePassword]{.kind-method} static method
+# validatePassword static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[validatePassword]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [password]{.parameter-name}]{#validatePassword-param-password
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+validatePassword(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    password]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to validate password.
 
 **params**:
@@ -26,9 +25,9 @@ Method to validate password.
 **returns**:
 
 -   `String?`: error message if password is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -57,12 +56,12 @@ static String? validatePassword(
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -71,9 +70,9 @@ static String? validatePassword(
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

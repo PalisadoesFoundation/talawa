@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_raised_round_edge_button/RaisedRoundedButton-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showArrow]{.kind-property} property
+# showArrow property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-[showArrow]{.name}
+showArrow
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+final
+
+
+
+
 ## Implementation
 
 ``` language-dart
 final bool showArrow;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
@@ -34,9 +34,9 @@ final bool showArrow;
 
 ##### RaisedRoundedButton class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,32 +1,32 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_pre_auth_screens_recover/Recover-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [Recover]{.kind-constructor} constructor
+# Recover constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [Recover]{.name}({
+
+const Recover({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const Recover({required Key key}) : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recover](../../views_pre_auth_screens_recover/)
@@ -35,9 +35,9 @@ const Recover({required Key key}) : super(key: key);
 
 ##### Recover class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

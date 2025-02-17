@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validateURL]{.kind-method} static method
+# validateURL static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[validateURL]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [value]{.parameter-name}]{#validateURL-param-value .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+validateURL(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    value]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to validate an organization\'s URL.
 
 **params**:
@@ -25,9 +25,9 @@ Method to validate an organization\'s URL.
 **returns**:
 
 -   `String?`: error message if URL is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +44,12 @@ static String? validateURL(
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -58,9 +58,9 @@ static String? validateURL(
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

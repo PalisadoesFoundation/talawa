@@ -1,42 +1,42 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/OrgInfo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [members]{.kind-property} property
+# members property
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(4)
 
 </div>
 
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]{.type-parameter}\>]{.signature}?
-[members]{.name}
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?
+members
 
-::: features
-[getter/setter pair]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 The org name.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @HiveField(4)
 List<User>? members;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info](../../models_organization_org_info/)
@@ -45,9 +45,9 @@ List<User>? members;
 
 ##### OrgInfo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

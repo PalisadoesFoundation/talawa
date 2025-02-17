@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [signUp]{.kind-method} method
+# signUp method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[signUp]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Initiates the sign-up process.
 
 Handles the sign-up process by performing the following steps:
@@ -39,18 +39,18 @@ corresponding message.
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> signUp() async {
-  FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
+Future<void>  async {
+  FocusScope.of(navigationService.navigatorKey.currentContext!).;
   setState(ViewState.busy);
   validate = AutovalidateMode.always;
   setState(ViewState.idle);
-  if (formKey.currentState!.validate()) {
+  if (formKey.currentState!.) {
     validate = AutovalidateMode.disabled;
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
@@ -61,7 +61,7 @@ Future<void> signUp() async {
             key: Key('SignUpProgress'),
           ),
         );
-        databaseFunctions.init();
+        databaseFunctions.;
         final String query;
         if (selectedOrganization != null) {
           query = queries.registerUser(
@@ -86,7 +86,7 @@ Future<void> signUp() async {
         }
 
         final result = await databaseFunctions.gqlNonAuthMutation(query);
-        navigationService.pop();
+        navigationService.;
         return result;
       },
       onValidResult: (result) async {
@@ -95,7 +95,7 @@ Future<void> signUp() async {
             result.data!['signUp'] as Map<String, dynamic>,
           );
           final bool userSaved = await userConfig.updateUser(signedInUser);
-          final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+          final bool tokenRefreshed = await graphqlConfig. as bool;
           // if user successfully saved and access token is also generated.
           if (userSaved && tokenRefreshed) {
             // if the selected organization userRegistration not required.
@@ -108,7 +108,7 @@ Future<void> signUp() async {
                   fromSignUp: false,
                 ),
               );
-              await storingCredentialsInSecureStorage();
+              await ;
             } else {
               if (selectedOrganization!.userRegistrationRequired!) {
                 final query = queries.joinOrgById(selectedOrganization!.id!);
@@ -122,7 +122,7 @@ Future<void> signUp() async {
                 final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
                         'joinedOrganizations'] as List<dynamic>?)
                     ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-                    .toList();
+                    .;
                 await userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
                   userConfig.currentUser.joinedOrganizations![0],
@@ -145,13 +145,13 @@ Future<void> signUp() async {
                       as Map<String, dynamic>,
                 );
                 userConfig.updateUserMemberRequestOrg([membershipRequest]);
-                navigationService.pop();
+                navigationService.;
                 navigationService.removeAllAndPush(
                   Routes.waitingScreen,
                   Routes.splashScreen,
                 );
               }
-              await storingCredentialsInSecureStorage();
+              await ;
             }
           }
         }
@@ -167,12 +167,12 @@ Future<void> signUp() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
@@ -181,9 +181,9 @@ Future<void> signUp() async {
 
 ##### SignupDetailsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

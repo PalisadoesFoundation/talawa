@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeVolunteerMutation]{.kind-method} method
+# removeVolunteerMutation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[removeVolunteerMutation]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Creates a GraphQL mutation for deleting a volunteer from a group.
 
 **params**: None
@@ -22,13 +22,13 @@ Creates a GraphQL mutation for deleting a volunteer from a group.
 
 This function generates a GraphQL mutation string for deleting a
 volunteer to a group.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String removeVolunteerMutation() {
+String  {
   return '''
 mutation RemoveEventVolunteer(\$id: ID!) {
   removeEventVolunteer(id: \$id) {
@@ -38,12 +38,12 @@ mutation RemoveEventVolunteer(\$id: ID!) {
 ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -52,9 +52,9 @@ mutation RemoveEventVolunteer(\$id: ID!) {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

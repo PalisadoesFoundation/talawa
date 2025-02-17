@@ -1,23 +1,23 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_directly_login/DirectlyLogin-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [DirectlyLogin]{.kind-constructor} constructor
+# DirectlyLogin constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [DirectlyLogin]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const DirectlyLogin({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[LoginViewModel](../../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}, ]{#-param-model .parameter}
+    [[LoginViewModel](../../view_model_pre_auth_view_models_login_view_model/LoginViewModel-class.html)]
+    model, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,12 +26,12 @@ const DirectlyLogin({
   required this.model,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [directly_login](../../widgets_directly_login/)
@@ -40,9 +40,9 @@ const DirectlyLogin({
 
 ##### DirectlyLogin class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

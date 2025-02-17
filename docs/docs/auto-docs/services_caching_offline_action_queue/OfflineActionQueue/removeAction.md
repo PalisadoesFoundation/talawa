@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_caching_offline_action_queue/OfflineActionQueue-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeAction]{.kind-method} method
+# removeAction method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[removeAction]{.name}(
 
-1.  [[dynamic]{.type-annotation}
-    [key]{.parameter-name}]{#removeAction-param-key .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+removeAction(
+
+1.  [dynamic
+    key]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Removes a specific action from the queue.
 
 **params**:
@@ -26,9 +26,9 @@ Removes a specific action from the queue.
 
 -   `Future<bool>`: returns true if the action was removed successfully,
     otherwise false.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -43,12 +43,12 @@ Future<bool> removeAction(dynamic key) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [offline_action_queue](../../services_caching_offline_action_queue/)
@@ -57,9 +57,9 @@ Future<bool> removeAction(dynamic key) async {
 
 ##### OfflineActionQueue class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

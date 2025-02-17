@@ -1,26 +1,26 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createState]{.kind-method} method
+# createState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[createState]{.name}()
+[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PinnedPostScreen](../../views_after_auth_screens_feed_pinned_post_screen/PinnedPostScreen-class.html)]\>]]
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+
+override
+
+
+
+
 Creates the mutable state for this widget at a given location in the
 tree.
 
@@ -31,7 +31,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget> createState() => _SomeWidgetState();
+State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -47,21 +47,21 @@ again to create a fresh
 object, simplifying the lifecycle of
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 objects.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-State<PinnedPostScreen> createState() => _PinnedPostScreenState();
+State<PinnedPostScreen>  => ;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [pinned_post_screen](../../views_after_auth_screens_feed_pinned_post_screen/)
@@ -70,9 +70,9 @@ State<PinnedPostScreen> createState() => _PinnedPostScreenState();
 
 ##### PinnedPostScreen class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

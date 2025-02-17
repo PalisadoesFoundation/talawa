@@ -1,11 +1,11 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/services_navigation_service-library-sidebar.html" below-sidebar="services_navigation_service/NavigationService-class-sidebar.html"}
+
 <div>
 
-# [NavigationService]{.kind-class} class
+# NavigationService class
 
 </div>
 
-::: {.section .desc .markdown}
+
 NavigationService class provides different functions as service in the
 context of navigation.
 
@@ -20,105 +20,105 @@ Services include:
 -   `showTalawaErrorWidget`
 -   `showTalawaErrorDialog`
 -   `pop`
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[NavigationService](../services_navigation_service/NavigationService/NavigationService.html)]{.name}[()]{.signature}
+[NavigationService](../services_navigation_service/NavigationService/NavigationService.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[navigatorKey](../services_navigation_service/NavigationService/navigatorKey.html)]{.name} [↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[navigatorKey](../services_navigation_service/NavigationService/navigatorKey.html)] [↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)]\>]]
 :   Key for Navigator State.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[pop](../services_navigation_service/NavigationService/pop.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[pop](../services_navigation_service/NavigationService/pop.html) [→ void ]
 :   This function pops the current state.
 
-[[popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [routeName]{.parameter-name}, {]{#popAndPushScreen-param-routeName .parameter}[[dynamic]{.type-annotation} [arguments]{.parameter-name}]{#popAndPushScreen-param-arguments .parameter}}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype .parameter} ]{.signature}
+[[popAndPushScreen](../services_navigation_service/NavigationService/popAndPushScreen.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] routeName, {][dynamic arguments]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function pop the initial route and push the new route to the
     navigator.
 
-[[printNavigatorState](../services_navigation_service/NavigationService/printNavigatorState.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[printNavigatorState](../services_navigation_service/NavigationService/printNavigatorState.html) [→ void ]
 :   This function prints current navigation state.
 
-[[pushDialog](../services_navigation_service/NavigationService/pushDialog.html)]{.name}[([[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.type-annotation} [dialog]{.parameter-name}]{#pushDialog-param-dialog .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[pushDialog](../services_navigation_service/NavigationService/pushDialog.html)][([[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] dialog]) → void ]
 :   This function remove all the routes till the particular route and
     add new route.
 
-[[pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [routeName]{.parameter-name}, {]{#pushReplacementScreen-param-routeName .parameter}[[dynamic]{.type-annotation} [arguments]{.parameter-name}]{#pushReplacementScreen-param-arguments .parameter}}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype .parameter} ]{.signature}
+[[pushReplacementScreen](../services_navigation_service/NavigationService/pushReplacementScreen.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] routeName, {][dynamic arguments]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function push the route and replace the screen.
 
-[[pushScreen](../services_navigation_service/NavigationService/pushScreen.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [routeName]{.parameter-name}, {]{#pushScreen-param-routeName .parameter}[[dynamic]{.type-annotation} [arguments]{.parameter-name}]{#pushScreen-param-arguments .parameter}}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype .parameter} ]{.signature}
+[[pushScreen](../services_navigation_service/NavigationService/pushScreen.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] routeName, {][dynamic arguments]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   Pushes a Screen.
 
-[[removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [routeName]{.parameter-name}, ]{#removeAllAndPush-param-routeName .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [tillRoute]{.parameter-name}, {]{#removeAllAndPush-param-tillRoute .parameter}[[dynamic]{.type-annotation} [arguments]{.parameter-name}]{#removeAllAndPush-param-arguments .parameter}}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype .parameter} ]{.signature}
+[[removeAllAndPush](../services_navigation_service/NavigationService/removeAllAndPush.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] routeName, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] tillRoute, {][dynamic arguments]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function remove all the routes till the particular route and
     add new route.
 
-[[showCustomToast](../services_navigation_service/NavigationService/showCustomToast.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [msg]{.parameter-name}]{#showCustomToast-param-msg .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[showCustomToast](../services_navigation_service/NavigationService/showCustomToast.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] msg]) → void ]
 :   Shows an Custom Toast.
 
-[[showSnackBar](../services_navigation_service/NavigationService/showSnackBar.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [message]{.parameter-name}, {]{#showSnackBar-param-message .parameter}[[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)]{.type-annotation} [duration]{.parameter-name} = [const Duration(seconds: 2)]{.default-value}]{#showSnackBar-param-duration .parameter}}) [→ void]{.returntype .parameter} ]{.signature}
+[[showSnackBar](../services_navigation_service/NavigationService/showSnackBar.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] message, {][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)] duration = const Duration(seconds: 2)]}) → void ]
 :   This is used for the quick alert of `duration: 2 seconds` with text
     message(passed).
 
-[[showTalawaErrorDialog](../services_navigation_service/NavigationService/showTalawaErrorDialog.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [errorMessage]{.parameter-name}, ]{#showTalawaErrorDialog-param-errorMessage .parameter}[[[MessageType](../enums_enums/MessageType.html)]{.type-annotation} [messageType]{.parameter-name}]{#showTalawaErrorDialog-param-messageType .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[showTalawaErrorDialog](../services_navigation_service/NavigationService/showTalawaErrorDialog.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] errorMessage, ][[[MessageType](../enums_enums/MessageType.html)] messageType]) → void ]
 :   Shows an Error Dialog Box.
 
-[[showTalawaErrorSnackBar](../services_navigation_service/NavigationService/showTalawaErrorSnackBar.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [errorMessage]{.parameter-name}, ]{#showTalawaErrorSnackBar-param-errorMessage .parameter}[[[MessageType](../enums_enums/MessageType.html)]{.type-annotation} [messageType]{.parameter-name}]{#showTalawaErrorSnackBar-param-messageType .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[showTalawaErrorSnackBar](../services_navigation_service/NavigationService/showTalawaErrorSnackBar.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] errorMessage, ][[[MessageType](../enums_enums/MessageType.html)] messageType]) → void ]
 :   This is used for the quick error of `duration: 2 seconds`.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [navigation_service](../services_navigation_service/)
@@ -126,9 +126,9 @@ Services include:
 
 ##### navigation_service library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

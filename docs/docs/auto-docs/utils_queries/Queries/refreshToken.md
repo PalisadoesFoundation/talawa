@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [refreshToken]{.kind-method} method
+# refreshToken method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[refreshToken]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [refreshToken]{.parameter-name}]{#refreshToken-param-refreshToken
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+refreshToken(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    refreshToken]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 mutation for refresh token.
 
 **params**:
@@ -28,9 +27,9 @@ mutation for refresh token.
 
 -   `String`: mutation in string form, to be passed on to graphql
     client.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -45,12 +44,12 @@ String refreshToken(String refreshToken) {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -59,9 +58,9 @@ String refreshToken(String refreshToken) {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

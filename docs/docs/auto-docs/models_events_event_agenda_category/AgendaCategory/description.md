@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_agenda_category/AgendaCategory-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [description]{.kind-property} property
+# description property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-[description]{.name}
+description
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 Description of the category.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final String? description;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_agenda_category](../../models_events_event_agenda_category/)
@@ -38,9 +38,9 @@ final String? description;
 
 ##### AgendaCategory class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

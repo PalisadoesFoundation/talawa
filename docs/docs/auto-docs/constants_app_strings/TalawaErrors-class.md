@@ -1,139 +1,139 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="constants_app_strings/constants_app_strings-library-sidebar.html" below-sidebar="constants_app_strings/TalawaErrors-class-sidebar.html"}
+
 <div>
 
-# [TalawaErrors]{.kind-class} class
+# TalawaErrors class
 
 </div>
 
-::: {.section .desc .markdown}
-Talawa Custom error strings.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Talawa Custom error strings.
+
+
+
 ## Constructors
 
-[[TalawaErrors](../constants_app_strings/TalawaErrors/TalawaErrors.html)]{.name}[()]{.signature}
+[TalawaErrors](../constants_app_strings/TalawaErrors/TalawaErrors.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[chatMessageDeletionFailed](../constants_app_strings/TalawaErrors/chatMessageDeletionFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[chatMessageDeletionFailed](../constants_app_strings/TalawaErrors/chatMessageDeletionFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for deleting a chat message.
 
-[[chatMessageSendFailed](../constants_app_strings/TalawaErrors/chatMessageSendFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[chatMessageSendFailed](../constants_app_strings/TalawaErrors/chatMessageSendFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for sending a chat message.
 
-[[emailAccountPresent](../constants_app_strings/TalawaErrors/emailAccountPresent-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[emailAccountPresent](../constants_app_strings/TalawaErrors/emailAccountPresent-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Email address already exists.
 
-[[eventCreationFailed](../constants_app_strings/TalawaErrors/eventCreationFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventCreationFailed](../constants_app_strings/TalawaErrors/eventCreationFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for creating an event.
 
-[[eventDeletionFailed](../constants_app_strings/TalawaErrors/eventDeletionFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventDeletionFailed](../constants_app_strings/TalawaErrors/eventDeletionFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for deleting an event.
 
-[[eventUpdateFailed](../constants_app_strings/TalawaErrors/eventUpdateFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventUpdateFailed](../constants_app_strings/TalawaErrors/eventUpdateFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for updating an event.
 
-[[failedToDetermineProject](../constants_app_strings/TalawaErrors/failedToDetermineProject-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[failedToDetermineProject](../constants_app_strings/TalawaErrors/failedToDetermineProject-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Failed to determine project ID.
 
-[[memberRequestExist](../constants_app_strings/TalawaErrors/memberRequestExist-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[memberRequestExist](../constants_app_strings/TalawaErrors/memberRequestExist-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Membership Request already exists.
 
-[[organizationNotFound](../constants_app_strings/TalawaErrors/organizationNotFound-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[organizationNotFound](../constants_app_strings/TalawaErrors/organizationNotFound-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Organization not found.
 
-[[postCreationFailed](../constants_app_strings/TalawaErrors/postCreationFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[postCreationFailed](../constants_app_strings/TalawaErrors/postCreationFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for creating a post.
 
-[[postDeletionFailed](../constants_app_strings/TalawaErrors/postDeletionFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[postDeletionFailed](../constants_app_strings/TalawaErrors/postDeletionFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for deleting a post.
 
-[[postUpdateFailed](../constants_app_strings/TalawaErrors/postUpdateFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[postUpdateFailed](../constants_app_strings/TalawaErrors/postUpdateFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for updating a post.
 
-[[refreshAccessTokenExpiredException](../constants_app_strings/TalawaErrors/refreshAccessTokenExpiredException-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[refreshAccessTokenExpiredException](../constants_app_strings/TalawaErrors/refreshAccessTokenExpiredException-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Access Token has expired. Please refresh
     session.
 
-[[userActionNotSaved](../constants_app_strings/TalawaErrors/userActionNotSaved-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userActionNotSaved](../constants_app_strings/TalawaErrors/userActionNotSaved-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for saving user action.
 
-[[userNotAuthenticated](../constants_app_strings/TalawaErrors/userNotAuthenticated-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userNotAuthenticated](../constants_app_strings/TalawaErrors/userNotAuthenticated-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: User is not authenticated.
 
-[[userNotFound](../constants_app_strings/TalawaErrors/userNotFound-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userNotFound](../constants_app_strings/TalawaErrors/userNotFound-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: User not found.
 
-[[userProfileDeletionFailed](../constants_app_strings/TalawaErrors/userProfileDeletionFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userProfileDeletionFailed](../constants_app_strings/TalawaErrors/userProfileDeletionFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for deleting user profile.
 
-[[userProfileUpdateFailed](../constants_app_strings/TalawaErrors/userProfileUpdateFailed-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userProfileUpdateFailed](../constants_app_strings/TalawaErrors/userProfileUpdateFailed-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for updating user profile.
 
-[[wrongCredentials](../constants_app_strings/TalawaErrors/wrongCredentials-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[wrongCredentials](../constants_app_strings/TalawaErrors/wrongCredentials-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   GraphQL error for handling: Invalid credentials.
 
-[[youAreOfflineUnableToLogin](../constants_app_strings/TalawaErrors/youAreOfflineUnableToLogin-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[youAreOfflineUnableToLogin](../constants_app_strings/TalawaErrors/youAreOfflineUnableToLogin-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for login attempt when offline.
 
-[[youAreOfflineUnableToLogout](../constants_app_strings/TalawaErrors/youAreOfflineUnableToLogout-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[youAreOfflineUnableToLogout](../constants_app_strings/TalawaErrors/youAreOfflineUnableToLogout-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for logout attempt when offline.
 
-[[youAreOfflineUnableToSignUp](../constants_app_strings/TalawaErrors/youAreOfflineUnableToSignUp-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[youAreOfflineUnableToSignUp](../constants_app_strings/TalawaErrors/youAreOfflineUnableToSignUp-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Error for signup attempt when offline.
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [app_strings](../constants_app_strings/)
@@ -141,9 +141,9 @@ Talawa Custom error strings.
 
 ##### app_strings library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,39 +1,39 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_user_config/UserConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [userLogOut]{.kind-method} method
+# userLogOut method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[userLogOut]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Logs out the current user.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> userLogOut() async {
+Future<void>  async {
   await actionHandlerService.performAction(
     actionType: ActionType.critical,
     criticalActionFailureMessage: TalawaErrors.youAreOfflineUnableToLogout,
     action: () async {
-      navigationService.pop();
+      navigationService.;
       navigationService.pushDialog(
         const CustomProgressDialog(
           key: Key('LogoutProgress'),
         ),
       );
-      return await databaseFunctions.gqlAuthMutation(queries.logout());
+      return await databaseFunctions.gqlAuthMutation(queries.);
     },
     onValidResult: (result) async {
       if (result.data != null && result.data!['logout'] == true) {
@@ -44,14 +44,14 @@ Future<void> userLogOut() async {
         final organisation = Hive.box<OrgInfo>('currentOrg');
         // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
         // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
-        await user.clear();
-        await url.clear();
-        await organisation.clear();
-        // androidFirebaseOptionsBox.clear();
-        // iosFirebaseOptionsBox.clear();
+        await user.;
+        await url.;
+        await organisation.;
+        // androidFirebaseOptionsBox.;
+        // iosFirebaseOptionsBox.;
         // try {
-        //   Firebase.app()
-        //       .delete(); // Deleting app will stop all Firebase plugins
+        //   Firebase.
+        //       .; // Deleting app will stop all Firebase plugins
         // } catch (e) {
         //   debugPrint("ERROR: Unable to delete firebase app $e");
         // }
@@ -68,7 +68,7 @@ Future<void> userLogOut() async {
       );
     },
     updateUI: () {
-      navigationService.pop();
+      navigationService.;
     },
     apiCallSuccessUpdateUI: () {
       navigationService.removeAllAndPush(
@@ -80,12 +80,12 @@ Future<void> userLogOut() async {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_config](../../services_user_config/)
@@ -94,9 +94,9 @@ Future<void> userLogOut() async {
 
 ##### UserConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

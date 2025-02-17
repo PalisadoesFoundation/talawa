@@ -1,15 +1,15 @@
-::::::::::: {#dartdoc-main-content .main-content above-sidebar="enums_enums/enums_enums-library-sidebar.html" below-sidebar="enums_enums/CallFor-enum-sidebar.html"}
+
 <div>
 
-# [CallFor]{.kind-enum} enum
+# CallFor enum
 
 </div>
 
-::: {.section .desc .markdown}
-Represents the type of CallFor.
-:::
 
-::: section
+Represents the type of CallFor.
+
+
+
 
 Inheritance
 
@@ -20,40 +20,40 @@ Inheritance
 Available extensions
 
 :   -   [EnumName](https://api.flutter.dev/flutter/dart-core/EnumName.html)
-:::
 
-::: {#values .section .summary .offset-anchor}
+
+
 ## Values
 
-[login]{.name} [→ const [CallFor](../enums_enums/CallFor.html)]{.signature}
+login [→ const [CallFor](../enums_enums/CallFor.html)]
 
 :   Represents the call for login.
 
-[signup]{.name} [→ const [CallFor](../enums_enums/CallFor.html)]{.signature}
+signup [→ const [CallFor](../enums_enums/CallFor.html)]
 
 :   Represents the call for signup.
 
-[joinPublicOrg]{.name} [→ const [CallFor](../enums_enums/CallFor.html)]{.signature}
+joinPublicOrg [→ const [CallFor](../enums_enums/CallFor.html)]
 
 :   Represents the call for joining Public organization.
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[index](https://api.flutter.dev/flutter/dart-core/Enum/index.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[index](https://api.flutter.dev/flutter/dart-core/Enum/index.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   A numeric identifier for the enumerated value.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[name](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   Available on
     [Enum](https://api.flutter.dev/flutter/dart-core/Enum-class.html),
@@ -64,54 +64,54 @@ Available extensions
     The name of the enum value.
 
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[values](../enums_enums/CallFor/values-constant.html)]{.name} [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../enums_enums/CallFor.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[values](../enums_enums/CallFor/values-constant.html)] [→ const [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CallFor](../enums_enums/CallFor.html)]\>]]
 :   A constant List of the values in this enum, in order of their
     declaration.
-:::
-:::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [enums](../enums_enums/)
@@ -119,9 +119,9 @@ Available extensions
 
 ##### enums library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

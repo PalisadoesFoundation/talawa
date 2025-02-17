@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_member_name_tile/MemberNameTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onDelete]{.kind-property} property
+# onDelete property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature} [onDelete]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+dynamic  onDelete
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 Triggers the deletion of the user.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-final Function() onDelete;
+final  onDelete;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [member_name_tile](../../widgets_member_name_tile/)
@@ -37,9 +37,9 @@ final Function() onDelete;
 
 ##### MemberNameTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

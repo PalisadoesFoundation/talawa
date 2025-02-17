@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/AppLocalizations-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [load]{.kind-method} method
+# load method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[load]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+
+
+
+
 ## Implementation
 
 ``` language-dart
-Future<bool> load() async {
+Future<bool>  async {
   // Load the language JSON file from the "lang" folder
   final String jsonString =
       await rootBundle.loadString('lang/${locale.languageCode}.json');
@@ -22,18 +22,18 @@ Future<bool> load() async {
       json.decode(jsonString) as Map<String, dynamic>;
 
   _localizedStrings = jsonMap.map((key, value) {
-    return MapEntry(key, value.toString());
+    return MapEntry(key, value.);
   });
 
   return true;
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_localization](../../utils_app_localization/)
@@ -42,9 +42,9 @@ Future<bool> load() async {
 
 ##### AppLocalizations class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

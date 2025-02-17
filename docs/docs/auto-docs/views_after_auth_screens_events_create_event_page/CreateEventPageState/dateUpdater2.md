@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_event_page/CreateEventPageState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dateUpdater2]{.kind-method} method
+# dateUpdater2 method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [dateUpdater2]{.name}(
 
-1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [date]{.parameter-name}, ]{#dateUpdater2-param-date .parameter}
-2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}]{#dateUpdater2-param-model .parameter}
+void dateUpdater2(
+
+1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    date, ]
+2.  [[[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+    model]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Handles the selection and deselection of categories.
 
 **params**:
@@ -25,9 +25,9 @@ Handles the selection and deselection of categories.
 -   `model`: Model to be updated
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -53,12 +53,12 @@ void dateUpdater2(DateTime date, CreateEventViewModel model) {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
@@ -67,9 +67,9 @@ void dateUpdater2(DateTime date, CreateEventViewModel model) {
 
 ##### CreateEventPageState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

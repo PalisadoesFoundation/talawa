@@ -1,200 +1,200 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_container/widgets_post_container-library-sidebar.html" below-sidebar="widgets_post_container/PostContainerState-class-sidebar.html"}
+
 <div>
 
-# [PostContainerState]{.kind-class} class
+# PostContainerState class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PostContainer](../widgets_post_container/PostContainer-class.html)]{.type-parameter}\>]{.signature}
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[PostContainer](../widgets_post_container/PostContainer-class.html)]\>]
     -   PostContainerState
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[PostContainerState](../widgets_post_container/PostContainerState/PostContainerState.html)]{.name}[()]{.signature}
+[PostContainerState](../widgets_post_container/PostContainerState/PostContainerState.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[context](https://api.flutter.dev/flutter/widgets/State/context.html)]{.name} [→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.signature}
+[[context](https://api.flutter.dev/flutter/widgets/State/context.html)] [→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
 :   The location in the tree where this widget builds.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[controller](../widgets_post_container/PostContainerState/controller.html)]{.name} [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]{.signature}
+[[controller](../widgets_post_container/PostContainerState/controller.html)] [→ [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)]
 :   manage the carousel.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[inView](../widgets_post_container/PostContainerState/inView.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[inView](../widgets_post_container/PostContainerState/inView.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   same as above.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Whether this
     [State](https://api.flutter.dev/flutter/widgets/State-class.html)
     object is currently in a tree.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[pindex](../widgets_post_container/PostContainerState/pindex.html)]{.name} [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[pindex](../widgets_post_container/PostContainerState/pindex.html)] [↔ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   to manage the image index in carousel.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[startedPlaying](../widgets_post_container/PostContainerState/startedPlaying.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[startedPlaying](../widgets_post_container/PostContainerState/startedPlaying.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   video was removed for mvp.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)]{.name} [→ [PostContainer](../widgets_post_container/PostContainer-class.html)]{.signature}
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [PostContainer](../widgets_post_container/PostContainer-class.html)]
 :   The current configuration.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[activate](https://api.flutter.dev/flutter/widgets/State/activate.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[activate](https://api.flutter.dev/flutter/widgets/State/activate.html) [→ void ]
 :   Called when this object is reinserted into the tree after having
     been removed via
     [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[build](../widgets_post_container/PostContainerState/build.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#build-param-context .parameter}) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype .parameter} ]{.signature}
+[[build](../widgets_post_container/PostContainerState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html) [→ void ]
 :   Called when this object is removed from the tree.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)]{.name}[([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)]{.type-annotation} [properties]{.parameter-name}]{#debugFillProperties-param-properties .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html) [→ void ]
 :   Called when a dependency of this
     [State](https://api.flutter.dev/flutter/widgets/State-class.html)
     object changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)]{.name}[([covariant [[PostContainer](../widgets_post_container/PostContainer-class.html)]{.type-annotation} [oldWidget]{.parameter-name}]{#didUpdateWidget-param-oldWidget .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[PostContainer](../widgets_post_container/PostContainer-class.html)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[dispose](../widgets_post_container/PostContainerState/dispose.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[dispose](../widgets_post_container/PostContainerState/dispose.html) [→ void ]
 :   Called when this object is removed from the tree permanently.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[initState](../widgets_post_container/PostContainerState/initState.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[initState](../widgets_post_container/PostContainerState/initState.html) [→ void ]
 :   Called when this object is inserted into the tree.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html) [→ void ]
 :   Called whenever the application is reassembled during debugging, for
     example during hot reload.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [fn]{.parameter-name}]{#setState-param-fn .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#toDiagnosticsNode-param-name .parameter}[[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?]{.type-annotation} [style]{.parameter-name}]{#toDiagnosticsNode-param-style .parameter}}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.returntype .parameter} ]{.signature}
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)]{.name}[({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.info]{.default-value}]{#toString-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A brief description of this object, usually just the
     [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
     and the
     [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [post_container](../widgets_post_container/)
@@ -202,9 +202,9 @@ Inheritance
 
 ##### post_container library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,43 +1,43 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_comment_comment_model/CommentAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [read]{.kind-method} method
+# read method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Comment](../../models_comment_comment_model/Comment-class.html)]{.returntype}
-[read]{.name}(
+[[Comment](../../models_comment_comment_model/Comment-class.html)]
+read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation}
-    [reader]{.parameter-name}]{#read-param-reader .parameter}
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+    reader]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Is called when a value has to be decoded.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 Comment read(BinaryReader reader) {
-  final numOfFields = reader.readByte();
+  final numOfFields = reader.;
   final fields = <int, dynamic>{
-    for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    for (int i = 0; i < numOfFields; i++) reader.: reader.,
   };
   return Comment(
     text: fields[0] as String?,
@@ -48,12 +48,12 @@ Comment read(BinaryReader reader) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [comment_model](../../models_comment_comment_model/)
@@ -62,9 +62,9 @@ Comment read(BinaryReader reader) {
 
 ##### CommentAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

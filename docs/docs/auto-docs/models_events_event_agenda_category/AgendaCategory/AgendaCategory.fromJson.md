@@ -1,25 +1,25 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_agenda_category/AgendaCategory-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [AgendaCategory.fromJson]{.kind-constructor} constructor
+# AgendaCategory.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[AgendaCategory.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+AgendaCategory.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Creates a new `AgendaCategory` instance from a JSON map.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -31,12 +31,12 @@ factory AgendaCategory.fromJson(Map<String, dynamic> json) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_agenda_category](../../models_events_event_agenda_category/)
@@ -45,9 +45,9 @@ factory AgendaCategory.fromJson(Map<String, dynamic> json) {
 
 ##### AgendaCategory class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

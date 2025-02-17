@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_chat_direct_chats/ChatTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [chat]{.kind-property} property
+# chat property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html)
-[chat]{.name}
+chat
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+final
+
+
+
+
 ## Implementation
 
 ``` language-dart
 final ChatListTileDataModel chat;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [direct_chats](../../views_after_auth_screens_chat_direct_chats/)
@@ -34,9 +34,9 @@ final ChatListTileDataModel chat;
 
 ##### ChatTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initialise]{.name}(
 
-1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation}
-    [org]{.parameter-name}]{#initialise-param-org .parameter}
+void initialise(
+
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+    org]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Initializes the greeting message for a selected organization.
 
 **params**:
@@ -22,9 +22,9 @@ Initializes the greeting message for a selected organization.
 -   `org`: OrgInfo - the organization information to set as selected.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -60,12 +60,12 @@ void initialise(OrgInfo? org) {
   ];
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
@@ -74,9 +74,9 @@ void initialise(OrgInfo? org) {
 
 ##### SignupDetailsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

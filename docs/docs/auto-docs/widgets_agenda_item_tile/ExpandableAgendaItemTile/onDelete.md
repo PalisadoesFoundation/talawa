@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_agenda_item_tile/ExpandableAgendaItemTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onDelete]{.kind-property} property
+# onDelete property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)
-[onDelete]{.name}
+onDelete
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 on delete callback for agenda item.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final VoidCallback onDelete;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
@@ -38,9 +38,9 @@ final VoidCallback onDelete;
 
 ##### ExpandableAgendaItemTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

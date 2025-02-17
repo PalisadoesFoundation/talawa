@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/EventIntervals-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [yearly]{.kind-property} constant
+# yearly constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-const [yearly]{.name}
-:::
+const yearly
 
-::: {.section .desc .markdown}
+
+
 Constant representing an event that occurs every year.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const yearly = 'year';
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -34,9 +34,9 @@ static const yearly = 'year';
 
 ##### EventIntervals class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

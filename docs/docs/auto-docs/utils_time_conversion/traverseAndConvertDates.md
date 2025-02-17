@@ -1,37 +1,32 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_time_conversion/utils_time_conversion-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [traverseAndConvertDates]{.kind-function} function
+# traverseAndConvertDates function
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [traverseAndConvertDates]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [obj]{.parameter-name}, ]{#traverseAndConvertDates-param-obj
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [convertFn]{.parameter-name}(]{#traverseAndConvertDates-param-convertFn
-    .parameter}
-    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}]{#param-
-        .parameter}
+void traverseAndConvertDates(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    obj, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    convertFn(]
+    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]]
 
     ),
-3.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [splitFn]{.parameter-name}(]{#traverseAndConvertDates-param-splitFn
-    .parameter}
-    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}]{#param-
-        .parameter}
+3.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
+    splitFn(]
+    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]]
 
     )
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Traverses a nested map and converts date and time fields to the desired
 format.
 
@@ -44,9 +39,9 @@ format.
     into separate date and time strings.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -92,12 +87,12 @@ void traverseAndConvertDates(
   });
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [time_conversion](../utils_time_conversion/)
@@ -105,9 +100,9 @@ void traverseAndConvertDates(
 
 ##### time_conversion library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

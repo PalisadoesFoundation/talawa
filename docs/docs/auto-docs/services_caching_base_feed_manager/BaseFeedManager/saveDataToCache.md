@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_caching_base_feed_manager/BaseFeedManager-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [saveDataToCache]{.kind-method} method
+# saveDataToCache method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[saveDataToCache]{.name}(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[T]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [data]{.parameter-name}]{#saveDataToCache-param-data .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+saveDataToCache(
+
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)\<[T\>]]
+    data]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Saves a list of data to the cache, replacing any existing data.
 
 **params**:
@@ -23,40 +23,40 @@ Saves a list of data to the cache, replacing any existing data.
 -   `data`: The list of data to be saved to the cache.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> saveDataToCache(List<T> data) async {
   debugPrint('saveToCache1');
-  await _box.clear();
-  debugPrint(_box.values.length.toString());
+  await _box.;
+  debugPrint(_box.values.length.);
   debugPrint('saveToCache2');
   await _box.addAll(data);
   debugPrint('saveToCache');
-  debugPrint(_box.values.length.toString());
-  debugPrint(_box.values.length.toString());
+  debugPrint(_box.values.length.);
+  debugPrint(_box.values.length.);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [base_feed_manager](../../services_caching_base_feed_manager/)
-3.  [BaseFeedManager[\<[T]{.type-parameter}\>]{.signature}](../../services_caching_base_feed_manager/BaseFeedManager-class.html)
+3.  BaseFeedManager[\<[T\>]](../../services_caching_base_feed_manager/BaseFeedManager-class.html)
 4.  saveDataToCache method
 
 ##### BaseFeedManager class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

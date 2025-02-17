@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/WeekDays-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [sunday]{.kind-property} constant
+# sunday constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-const [sunday]{.name}
-:::
+const sunday
 
-::: {.section .desc .markdown}
+
+
 Constant representing Sunday.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const sunday = 'SUNDAY';
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -34,9 +34,9 @@ static const sunday = 'SUNDAY';
 
 ##### WeekDays class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

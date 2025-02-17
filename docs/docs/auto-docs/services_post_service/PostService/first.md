@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [first]{.kind-property} property
+# first property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?
-[first]{.name}
+first
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 int? first = 5;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -34,9 +34,9 @@ int? first = 5;
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

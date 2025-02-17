@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[initialise]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [initialData]{.parameter-name}]{#initialise-param-initialData
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+initialise(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    initialData]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 initializer.
 
 **params**:
@@ -26,16 +25,16 @@ initializer.
 **returns**:
 
 -   `Future<void>`: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> initialise(String initialData) async {
   searchFocus.addListener(searchActive);
   if (!initialData.contains('-1')) {
-    databaseFunctions.init();
+    databaseFunctions.;
     final fetch = await databaseFunctions.fetchOrgById(initialData);
     if (fetch.runtimeType == OrgInfo) {
       selectedOrganization = fetch as OrgInfo;
@@ -52,12 +51,12 @@ Future<void> initialise(String initialData) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
@@ -66,9 +65,9 @@ Future<void> initialise(String initialData) async {
 
 ##### SelectOrganizationViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

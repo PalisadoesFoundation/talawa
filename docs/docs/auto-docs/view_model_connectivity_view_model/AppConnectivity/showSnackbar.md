@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_connectivity_view_model/AppConnectivity-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showSnackbar]{.kind-method} static method
+# showSnackbar static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [showSnackbar]{.name}({
+
+void showSnackbar({
 
 1.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isOnline]{.parameter-name}, ]{#showSnackbar-param-isOnline
-    .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isOnline, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Triggers the snackbar UI to show online status.
 
 **params**:
@@ -24,9 +23,9 @@ Triggers the snackbar UI to show online status.
 -   `isOnline`: online status of the device.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -73,12 +72,12 @@ static void showSnackbar({required bool isOnline}) {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
@@ -87,9 +86,9 @@ static void showSnackbar({required bool isOnline}) {
 
 ##### AppConnectivity class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

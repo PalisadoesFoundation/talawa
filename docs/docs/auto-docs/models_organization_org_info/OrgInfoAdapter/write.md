@@ -1,36 +1,36 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/OrgInfoAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [write]{.kind-method} method
+# write method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [write]{.name}(
+void write(
 
-1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]{.type-annotation}
-    [writer]{.parameter-name}, ]{#write-param-writer .parameter}
-2.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-annotation}
-    [obj]{.parameter-name}]{#write-param-obj .parameter}
+1.  [[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]
+    writer, ]
+2.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+    obj]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Is called when a value has to be encoded.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -58,12 +58,12 @@ void write(BinaryWriter writer, OrgInfo obj) {
     ..write(obj.address);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info](../../models_organization_org_info/)
@@ -72,9 +72,9 @@ void write(BinaryWriter writer, OrgInfo obj) {
 
 ##### OrgInfoAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

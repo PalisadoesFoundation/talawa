@@ -1,35 +1,33 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_list_widget/PostListWidget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [PostListWidget]{.kind-constructor} constructor
+# PostListWidget constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [PostListWidget]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const PostListWidget({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [posts]{.parameter-name}, ]{#-param-posts .parameter}
-3.  [[dynamic]{.type-annotation}
-    [function]{.parameter-name}(]{#-param-function .parameter}
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}]{#param-
-        .parameter}
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]
+    posts, ]
+3.  [dynamic
+    function(]
+    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
 
     )?,
-4.  [[dynamic]{.type-annotation}
-    [deletePost]{.parameter-name}(]{#-param-deletePost .parameter}
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}]{#param-
-        .parameter}
+4.  [dynamic
+    deletePost(]
+    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
 
     )?,
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -40,12 +38,12 @@ const PostListWidget({
   this.deletePost,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_list_widget](../../widgets_post_list_widget/)
@@ -54,9 +52,9 @@ const PostListWidget({
 
 ##### PostListWidget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

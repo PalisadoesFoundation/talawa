@@ -1,20 +1,20 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="constants_constants/constants_constants-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [languages]{.kind-top-level-property} top-level property
+# languages top-level property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Language](../models_language_language_model/Language-class.html)]{.type-parameter}\>]{.signature}
-[languages]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Language](../models_language_language_model/Language-class.html)]\>]
+languages
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 This file contains the prototypes of all the supported languages and
 currencies used in the application.
 
@@ -30,9 +30,9 @@ object contains the following properties:
 -   `langName`: The name of the language in its native script.
 -   `langSample`: A sample text phrase in the language, used for display
     purposes.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -87,12 +87,12 @@ List<Language> languages = [
   ),
 ];
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [constants](../constants_constants/)
@@ -100,9 +100,9 @@ List<Language> languages = [
 
 ##### constants library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [switchOrg]{.kind-method} method
+# switchOrg method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [switchOrg]{.name}(
 
-1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-annotation}
-    [switchToOrg]{.parameter-name}]{#switchOrg-param-switchToOrg
-    .parameter}
+void switchOrg(
+
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]
+    switchToOrg]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function switches the organization to the specified `switchToOrg`.
 
 If `selectedOrg` is equal to `switchToOrg` and `switchToOrg` is present,
@@ -29,9 +28,9 @@ a custom Snackbar.
 -   `switchToOrg`: The organization to switch to.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,7 +38,7 @@ void switchOrg(OrgInfo switchToOrg) {
   // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
   if ((selectedOrg == switchToOrg) &&
       (isPresentinSwitchableOrg(switchToOrg))) {
-    // _navigationService.pop();
+    // _navigationService.;
     navigationService.showTalawaErrorSnackBar(
       '${switchToOrg.name} already selected',
       MessageType.warning,
@@ -52,15 +51,15 @@ void switchOrg(OrgInfo switchToOrg) {
       MessageType.info,
     );
   }
-  navigationService.pop();
+  navigationService.;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/)
@@ -69,9 +68,9 @@ void switchOrg(OrgInfo switchToOrg) {
 
 ##### CustomDrawerViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

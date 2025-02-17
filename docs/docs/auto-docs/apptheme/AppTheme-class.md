@@ -1,202 +1,202 @@
-::::::::::: {#dartdoc-main-content .main-content above-sidebar="apptheme/apptheme-library-sidebar.html" below-sidebar="apptheme/AppTheme-class-sidebar.html"}
+
 <div>
 
-# [AppTheme]{.kind-class} class
+# AppTheme class
 
 </div>
 
-::: {.section .desc .markdown}
-Apptheme class.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Apptheme class.
+
+
+
 ## Constructors
 
-[[AppTheme](../apptheme/AppTheme/AppTheme.html)]{.name}[()]{.signature}
+[AppTheme](../apptheme/AppTheme/AppTheme.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-properties .section .summary .offset-anchor}
+
+
 ## Static Properties
 
-[[bodyText1](../apptheme/AppTheme/bodyText1.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[bodyText1](../apptheme/AppTheme/bodyText1.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[bodyText2](../apptheme/AppTheme/bodyText2.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[bodyText2](../apptheme/AppTheme/bodyText2.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[bodyText3](../apptheme/AppTheme/bodyText3.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[bodyText3](../apptheme/AppTheme/bodyText3.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[button](../apptheme/AppTheme/button.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[button](../apptheme/AppTheme/button.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline1](../apptheme/AppTheme/headline1.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline1](../apptheme/AppTheme/headline1.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline2](../apptheme/AppTheme/headline2.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline2](../apptheme/AppTheme/headline2.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline3](../apptheme/AppTheme/headline3.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline3](../apptheme/AppTheme/headline3.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline4](../apptheme/AppTheme/headline4.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline4](../apptheme/AppTheme/headline4.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline5](../apptheme/AppTheme/headline5.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline5](../apptheme/AppTheme/headline5.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[headline6](../apptheme/AppTheme/headline6.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[headline6](../apptheme/AppTheme/headline6.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[overline](../apptheme/AppTheme/overline.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[overline](../apptheme/AppTheme/overline.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[subtitle1](../apptheme/AppTheme/subtitle1.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[subtitle1](../apptheme/AppTheme/subtitle1.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[subtitle2](../apptheme/AppTheme/subtitle2.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[subtitle2](../apptheme/AppTheme/subtitle2.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[title](../apptheme/AppTheme/title.html)]{.name} [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]{.signature}
+[[title](../apptheme/AppTheme/title.html)] [↔ [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)]
 :   Custom theme for the app.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[blackPrimary](../apptheme/AppTheme/blackPrimary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[blackPrimary](../apptheme/AppTheme/blackPrimary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[blackSecondary](../apptheme/AppTheme/blackSecondary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[blackSecondary](../apptheme/AppTheme/blackSecondary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[blackTertiary](../apptheme/AppTheme/blackTertiary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[blackTertiary](../apptheme/AppTheme/blackTertiary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[blue](../apptheme/AppTheme/blue-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[blue](../apptheme/AppTheme/blue-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[green](../apptheme/AppTheme/green-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[green](../apptheme/AppTheme/green-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[grey](../apptheme/AppTheme/grey-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[grey](../apptheme/AppTheme/grey-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[lightGrey](../apptheme/AppTheme/lightGrey-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[lightGrey](../apptheme/AppTheme/lightGrey-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[primary](../apptheme/AppTheme/primary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[primary](../apptheme/AppTheme/primary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Colors.
 
-[[red](../apptheme/AppTheme/red-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[red](../apptheme/AppTheme/red-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[secondary](../apptheme/AppTheme/secondary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[secondary](../apptheme/AppTheme/secondary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[shadow](../apptheme/AppTheme/shadow-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[shadow](../apptheme/AppTheme/shadow-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[tertiary](../apptheme/AppTheme/tertiary-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[tertiary](../apptheme/AppTheme/tertiary-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[white](../apptheme/AppTheme/white-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[white](../apptheme/AppTheme/white-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
 
-[[yellow](../apptheme/AppTheme/yellow-constant.html)]{.name} [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]{.signature}
+[[yellow](../apptheme/AppTheme/yellow-constant.html)] [→ const [Color](https://api.flutter.dev/flutter/painting/Color-class.html)]
 :   Custom colors for the app.
-:::
-:::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [apptheme](../apptheme/)
@@ -204,9 +204,9 @@ Apptheme class.
 
 ##### apptheme library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

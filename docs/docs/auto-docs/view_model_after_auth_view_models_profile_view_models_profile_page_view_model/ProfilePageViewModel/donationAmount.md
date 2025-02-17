@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [donationAmount]{.kind-property} property
+# donationAmount property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-[donationAmount]{.name}
+donationAmount
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Text Controller for donation Amount.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-TextEditingController donationAmount = TextEditingController();
+TextEditingController donationAmount = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
@@ -38,9 +38,9 @@ TextEditingController donationAmount = TextEditingController();
 
 ##### ProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeAttachment]{.kind-method} method
+# removeAttachment method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [removeAttachment]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [image]{.parameter-name}]{#removeAttachment-param-image .parameter}
+void removeAttachment(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    image]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Removes an attachment from the agenda item.
 
 **params**:
@@ -23,23 +23,23 @@ Removes an attachment from the agenda item.
     removed.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 void removeAttachment(String image) {
   _currentAttachments.remove(image);
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_agenda_view_model](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
@@ -48,9 +48,9 @@ void removeAttachment(String image) {
 
 ##### EditAgendaItemViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

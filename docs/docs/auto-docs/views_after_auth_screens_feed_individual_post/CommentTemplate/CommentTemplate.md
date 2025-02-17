@@ -1,23 +1,23 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_feed_individual_post/CommentTemplate-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CommentTemplate]{.kind-constructor} constructor
+# CommentTemplate constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [CommentTemplate]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const CommentTemplate({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[Comment](../../models_comment_comment_model/Comment-class.html)]{.type-annotation}
-    [comment]{.parameter-name}, ]{#-param-comment .parameter}
+    [[Comment](../../models_comment_comment_model/Comment-class.html)]
+    comment, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,12 +26,12 @@ const CommentTemplate({
   required this.comment,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
@@ -40,9 +40,9 @@ const CommentTemplate({
 
 ##### CommentTemplate class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

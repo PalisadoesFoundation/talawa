@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_hive_manager/HiveManager-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initializeHive]{.kind-method} static method
+# initializeHive static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[initializeHive]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+initializeHive({
 
 1.  [required
-    [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.html)]{.type-annotation}
-    [dir]{.parameter-name}, ]{#initializeHive-param-dir .parameter}
+    [[Directory](https://api.flutter.dev/flutter/dart-io/Directory-class.html)]
+    dir, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Initializes Hive with the specified directory.
 
 **params**:
@@ -27,24 +27,24 @@ Initializes Hive with the specified directory.
     files.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static Future<void> initializeHive({required Directory dir}) async {
   _initHive(dir);
-  await registerAdapters();
-  await _openBoxes();
+  await ;
+  await ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [hive_manager](../../services_hive_manager/)
@@ -53,9 +53,9 @@ static Future<void> initializeHive({required Directory dir}) async {
 
 ##### HiveManager class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

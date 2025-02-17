@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="services_size_config/SizeConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [init]{.kind-method} method
+# init method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [init]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#init-param-context .parameter}
+void init(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -35,12 +35,12 @@ void init(BuildContext context) {
   debugPrint("safeBlockVertical: $safeBlockVertical");
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [size_config](../../services_size_config/)
@@ -49,9 +49,9 @@ void init(BuildContext context) {
 
 ##### SizeConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

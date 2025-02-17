@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [userName]{.kind-property} property
+# userName property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-get [userName]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get userName
+
+
+
 The username of the currentUser.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 String get userName =>
     userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
@@ -37,9 +37,9 @@ String get userName =>
 
 ##### AddPostViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

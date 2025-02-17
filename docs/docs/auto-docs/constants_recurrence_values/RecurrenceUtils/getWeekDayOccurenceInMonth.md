@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/RecurrenceUtils-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getWeekDayOccurenceInMonth]{.kind-method} static method
+# getWeekDayOccurenceInMonth static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.returntype}
-[getWeekDayOccurenceInMonth]{.name}(
 
-1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [date]{.parameter-name}]{#getWeekDayOccurenceInMonth-param-date
-    .parameter}
+[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+getWeekDayOccurenceInMonth(
+
+1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    date]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 \'getWeekDayOccurenceInMonth\' returns the week day occurence in month.
 
 **params**:
@@ -26,9 +25,9 @@
 **returns**:
 
 -   `int`: Week day occurence in month.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -36,17 +35,17 @@ static int getWeekDayOccurenceInMonth(DateTime date) {
   final dayOfMonth = date.day;
 
   // Calculate the current occurrence
-  final occurrence = (dayOfMonth / 7).ceil();
+  final occurrence = (dayOfMonth / 7).;
 
   return occurrence;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -55,9 +54,9 @@ static int getWeekDayOccurenceInMonth(DateTime date) {
 
 ##### RecurrenceUtils class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

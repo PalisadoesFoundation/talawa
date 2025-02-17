@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [descController]{.kind-property} property
+# descController property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-[descController]{.name}
+descController
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Controller for the agenda item description input field.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-TextEditingController descController = TextEditingController();
+TextEditingController descController = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
@@ -38,9 +38,9 @@ TextEditingController descController = TextEditingController();
 
 ##### CreateAgendaItemPageState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

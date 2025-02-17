@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_profile_profile_page/ProfilePage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method when this widget is inserted into the
@@ -76,16 +76,16 @@ See also:
 
 -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 Widget build(BuildContext context) {
   return BaseView<ProfilePageViewModel>(
-    onModelReady: (model) => model.initialize(),
+    onModelReady: (model) => model.,
     builder: (context, model, child) {
       return Scaffold(
         key: model.scaffoldKey,
@@ -97,7 +97,7 @@ Widget build(BuildContext context) {
             color: Colors.white,
             icon: const Icon(Icons.menu),
             onPressed: () =>
-                MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+                MainScreenViewModel.scaffoldKey.currentState!.,
           ),
           key: const Key("ProfilePageAppBar"),
           title: Text(
@@ -124,9 +124,9 @@ Widget build(BuildContext context) {
         // if data fetching is under process then renders Circular Progress Icon
         // else renders the widget.
         body: model.isBusy
-            ? const CircularProgressIndicator()
+            ? const 
             : RefreshIndicator(
-                onRefresh: () async => model.initialize(),
+                onRefresh: () async => model.,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -240,12 +240,12 @@ Widget build(BuildContext context) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page](../../views_after_auth_screens_profile_profile_page/)
@@ -254,9 +254,9 @@ Widget build(BuildContext context) {
 
 ##### ProfilePage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [refreshAccessToken]{.kind-method} method
+# refreshAccessToken method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[refreshAccessToken]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [refreshToken]{.parameter-name}]{#refreshAccessToken-param-refreshToken
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+refreshAccessToken(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    refreshToken]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to refresh the Authenication token to access the
 application.
 
@@ -27,9 +26,9 @@ application.
 **returns**:
 
 -   `Future<bool>`: it returns Future of dynamic
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -50,29 +49,29 @@ Future<bool> refreshAccessToken(String refreshToken) async {
     if (exception!) {
       refreshAccessToken(refreshToken);
     } else {
-      navigationService.pop();
+      navigationService.;
     }
   } else if (result.data != null && result.isConcrete) {
     userConfig.updateAccessToken(
       refreshToken: (result.data!['refreshToken']
               as Map<String, dynamic>)['refreshToken']
-          .toString(),
+          .,
       accessToken: (result.data!['refreshToken']
               as Map<String, dynamic>)['accessToken']
-          .toString(),
+          .,
     );
-    databaseFunctions.init();
+    databaseFunctions.;
     return true;
   }
   return false;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -81,9 +80,9 @@ Future<bool> refreshAccessToken(String refreshToken) async {
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [viewChanged]{.kind-method} method
+# viewChanged method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [viewChanged]{.name}(
 
-1.  [[[ViewChangedDetails](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/ViewChangedDetails-class.html)]{.type-annotation}
-    [viewChangedDetails]{.parameter-name}]{#viewChanged-param-viewChangedDetails
-    .parameter}
+void viewChanged(
+
+1.  [[[ViewChangedDetails](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/ViewChangedDetails-class.html)]
+    viewChangedDetails]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 The function to triggered when the view is changed.
 
 **params**:
@@ -24,9 +23,9 @@ The function to triggered when the view is changed.
     SfCalendar. type is ViewChangedDetails
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,12 +38,12 @@ void viewChanged(ViewChangedDetails viewChangedDetails) {
   });
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
@@ -53,9 +52,9 @@ void viewChanged(ViewChangedDetails viewChangedDetails) {
 
 ##### EventCalendarViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

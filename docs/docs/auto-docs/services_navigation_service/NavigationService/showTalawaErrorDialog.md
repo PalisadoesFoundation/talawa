@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/NavigationService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showTalawaErrorDialog]{.kind-method} method
+# showTalawaErrorDialog method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [showTalawaErrorDialog]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [errorMessage]{.parameter-name},
-    ]{#showTalawaErrorDialog-param-errorMessage .parameter}
-2.  [[[MessageType](../../enums_enums/MessageType.html)]{.type-annotation}
-    [messageType]{.parameter-name}]{#showTalawaErrorDialog-param-messageType
-    .parameter}
+void showTalawaErrorDialog(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    errorMessage,
+    ]
+2.  [[[MessageType](../../enums_enums/MessageType.html)]
+    messageType]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Shows an Error Dialog Box.
 
 **params**:
@@ -27,9 +26,9 @@ Shows an Error Dialog Box.
 -   `messageType`: Type of Message
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -47,12 +46,12 @@ void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [navigation_service](../../services_navigation_service/)
@@ -61,9 +60,9 @@ void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
 
 ##### NavigationService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,23 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [loginUser]{.kind-method} method
+# loginUser method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[loginUser]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [email]{.parameter-name}, ]{#loginUser-param-email .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [password]{.parameter-name}]{#loginUser-param-password .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+loginUser(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    email, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    password]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 mutation to login the user.
 
 **params**:
@@ -29,9 +29,9 @@ mutation to login the user.
 
 -   `String`: mutation in string form, to be passed on to graphql
     client.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -52,12 +52,12 @@ String loginUser(String email, String password) {
   """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -66,9 +66,9 @@ String loginUser(String email, String password) {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

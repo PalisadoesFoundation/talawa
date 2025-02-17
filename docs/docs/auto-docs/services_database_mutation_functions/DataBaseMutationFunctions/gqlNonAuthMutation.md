@@ -1,29 +1,27 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [gqlNonAuthMutation]{.kind-method} method
+# gqlNonAuthMutation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[gqlNonAuthMutation]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [mutation]{.parameter-name}, {]{#gqlNonAuthMutation-param-mutation
-    .parameter}
-2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [variables]{.parameter-name}, ]{#gqlNonAuthMutation-param-variables
-    .parameter}
-3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [reCall]{.parameter-name} = [true]{.default-value},
-    ]{#gqlNonAuthMutation-param-reCall .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlNonAuthMutation(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    mutation, {]
+2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    variables, ]
+3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    reCall = true,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to run the graph-ql mutation to authenticate the
 non signed-in user.
 
@@ -37,9 +35,9 @@ non signed-in user.
 **returns**:
 
 -   `Future<QueryResult<Object?>>`: it returns Future of dynamic
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -77,12 +75,12 @@ Future<QueryResult<Object?>> gqlNonAuthMutation(
   return response;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -91,9 +89,9 @@ Future<QueryResult<Object?>> gqlNonAuthMutation(
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

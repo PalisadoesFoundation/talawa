@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method when this widget is inserted into the
@@ -76,16 +76,16 @@ See also:
 
 -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 Widget build(BuildContext context) {
   final double imageHeight = SizeConfig.screenHeight! * 0.38;
-  final SelectOrganizationViewModel model = SelectOrganizationViewModel();
+  final SelectOrganizationViewModel model = ;
   final Map<String, OrgInfo> joinedOrgsMap = {};
   for (final org
       in userConfig.currentUser.joinedOrganizations ?? <OrgInfo>[]) {
@@ -129,7 +129,7 @@ Widget build(BuildContext context) {
     appBar: AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Navigator.of(context).,
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -167,7 +167,7 @@ Widget build(BuildContext context) {
                     height: imageHeight,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.black.withAlpha((0.55 * 255).toInt()),
+                      color: Colors.black.withAlpha((0.55 * 255).),
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
@@ -328,12 +328,12 @@ Widget build(BuildContext context) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info_screen](../../views_after_auth_screens_org_info_screen/)
@@ -342,9 +342,9 @@ Widget build(BuildContext context) {
 
 ##### OrganisationInfoScreen class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

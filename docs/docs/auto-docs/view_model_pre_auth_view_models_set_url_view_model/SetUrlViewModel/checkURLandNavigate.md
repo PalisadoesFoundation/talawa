@@ -1,25 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [checkURLandNavigate]{.kind-method} method
+# checkURLandNavigate method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[checkURLandNavigate]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [navigateTo]{.parameter-name},
-    ]{#checkURLandNavigate-param-navigateTo .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [argument]{.parameter-name}]{#checkURLandNavigate-param-argument
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+checkURLandNavigate(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    navigateTo,
+    ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    argument]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function check the URL and navigate to the respective URL.
 
 **params**:
@@ -28,18 +27,18 @@ This function check the URL and navigate to the respective URL.
 -   `argument`: message
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> checkURLandNavigate(String navigateTo, String argument) async {
-  urlFocus.unfocus();
+  urlFocus.;
   validate = AutovalidateMode.always;
 
   /// if the url is valid.
-  if (formKey.currentState!.validate()) {
+  if (formKey.currentState!.) {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
       criticalActionFailureMessage: navigateTo == '/login'
@@ -52,18 +51,18 @@ Future<void> checkURLandNavigate(String navigateTo, String argument) async {
           ),
         );
         validate = AutovalidateMode.disabled;
-        final String uri = url.text.trim();
+        final String uri = url.text.;
         final bool? urlPresent =
             await locator<Validator>().validateUrlExistence(uri);
         if (urlPresent! == true) {
           final box = Hive.box('url');
           box.put(urlKey, uri);
           box.put(imageUrlKey, "$uri/talawa/");
-          navigationService.pop();
-          graphqlConfig.getOrgUrl();
+          navigationService.;
+          graphqlConfig.;
           navigationService.pushScreen(navigateTo, arguments: argument);
         } else {
-          navigationService.pop();
+          navigationService.;
           navigationService.showTalawaErrorSnackBar(
             "URL doesn't exist/no connection please check",
             MessageType.error,
@@ -75,12 +74,12 @@ Future<void> checkURLandNavigate(String navigateTo, String argument) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
@@ -89,9 +88,9 @@ Future<void> checkURLandNavigate(String navigateTo, String argument) async {
 
 ##### SetUrlViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

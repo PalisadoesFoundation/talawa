@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_card/EventCard-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method when this widget is inserted into the
@@ -75,9 +75,9 @@ See also:
 
 -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -109,7 +109,7 @@ Widget build(BuildContext context) {
                   height: SizeConfig.screenHeight! * 0.11,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.grey.withAlpha((0.3 * 255).toInt()),
+                    color: Colors.grey.withAlpha((0.3 * 255).),
                     image: const DecorationImage(
                       fit: BoxFit.fitWidth,
                       alignment: FractionalOffset.topCenter,
@@ -121,7 +121,7 @@ Widget build(BuildContext context) {
                       filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withAlpha((0.0 * 255).toInt()),
+                          color: Colors.white.withAlpha((0.0 * 255).),
                         ),
                       ),
                     ),
@@ -168,12 +168,12 @@ Widget build(BuildContext context) {
                                       .headlineSmall,
                                 ),
                         ),
-                        const Spacer(),
+                        const ,
                         const Icon(
                           Icons.calendar_today,
                           size: 13,
                         ),
-                        const Spacer(),
+                        const ,
                         Expanded(
                           child: Text(
                             "${event.startDate} - ${event.endDate}",
@@ -199,7 +199,7 @@ Widget build(BuildContext context) {
                             "${event.startTime} - ${event.endTime!}",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const Spacer(),
+                          const ,
                           const Icon(
                             Icons.place,
                             size: 12,
@@ -264,8 +264,8 @@ Widget build(BuildContext context) {
                                   ),
                                 ],
                               )
-                            : const SizedBox(),
-                        const Spacer(),
+                            : const ,
+                        const ,
                         event.isPublic!
                             ? Icon(
                                 Icons.lock_open,
@@ -303,7 +303,7 @@ Widget build(BuildContext context) {
                           width: SizeConfig.screenWidth! * 0.013,
                         ),
                         Text(
-                          (event.attendees?.length ?? 0).toString(),
+                          (event.attendees?.length ?? 0).,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -341,19 +341,19 @@ Widget build(BuildContext context) {
                     ),
                   ),
                 )
-              : const SizedBox(),
+              : const ,
         ),
       ],
     ),
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_card](../../widgets_event_card/)
@@ -362,9 +362,9 @@ Widget build(BuildContext context) {
 
 ##### EventCard class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

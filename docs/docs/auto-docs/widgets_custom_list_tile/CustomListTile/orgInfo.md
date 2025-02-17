@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_list_tile/CustomListTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [orgInfo]{.kind-property} property
+# orgInfo property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?
-[orgInfo]{.name}
+orgInfo
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 Object containing all the necessary info regarding the org.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final OrgInfo? orgInfo;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_list_tile](../../widgets_custom_list_tile/)
@@ -38,9 +38,9 @@ final OrgInfo? orgInfo;
 
 ##### CustomListTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

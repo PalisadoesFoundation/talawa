@@ -1,80 +1,80 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="services_session_manager/services_session_manager-library-sidebar.html" below-sidebar="services_session_manager/SessionManager-class-sidebar.html"}
+
 <div>
 
-# [SessionManager]{.kind-class} class
+# SessionManager class
 
 </div>
 
-::: {.section .desc .markdown}
-Manages user sessions and periodically refreshes access tokens.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Manages user sessions and periodically refreshes access tokens.
+
+
+
 ## Constructors
 
-[[SessionManager](../services_session_manager/SessionManager/SessionManager.html)]{.name}[()]{.signature}
+[SessionManager](../services_session_manager/SessionManager/SessionManager.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[refreshInterval](../services_session_manager/SessionManager/refreshInterval.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[refreshInterval](../services_session_manager/SessionManager/refreshInterval.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   returns refresh interval of Session Manager.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[initializeSessionRefresher](../services_session_manager/SessionManager/initializeSessionRefresher.html)]{.name}[() [→ [Timer](https://api.flutter.dev/flutter/dart-async/Timer-class.html)]{.returntype .parameter} ]{.signature}
+[[initializeSessionRefresher](../services_session_manager/SessionManager/initializeSessionRefresher.html)][() [→ [Timer](https://api.flutter.dev/flutter/dart-async/Timer-class.html)] ]
 :   Initializes as session refresher.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[refreshSession](../services_session_manager/SessionManager/refreshSession.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[refreshSession](../services_session_manager/SessionManager/refreshSession.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Asynchronously refreshes the user session.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [session_manager](../services_session_manager/)
@@ -82,9 +82,9 @@ Manages user sessions and periodically refreshes access tokens.
 
 ##### session_manager library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

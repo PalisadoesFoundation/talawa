@@ -1,18 +1,18 @@
-::::: {#dartdoc-main-content .main-content above-sidebar="enums_enums/CachedUserActionStatusAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CachedUserActionStatusAdapter]{.kind-constructor} constructor
+# CachedUserActionStatusAdapter constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[CachedUserActionStatusAdapter]{.name}()
-:::
-:::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [enums](../../enums_enums/)
@@ -21,9 +21,9 @@
 
 ##### CachedUserActionStatusAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

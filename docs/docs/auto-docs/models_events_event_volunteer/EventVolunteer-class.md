@@ -1,135 +1,135 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_volunteer/models_events_event_volunteer-library-sidebar.html" below-sidebar="models_events_event_volunteer/EventVolunteer-class-sidebar.html"}
+
 <div>
 
-# [EventVolunteer]{.kind-class} class
+# EventVolunteer class
 
 </div>
 
-::: {.section .desc .markdown}
+
 This class creates an event volunteer model and returns an
 EventVolunteer instance.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[EventVolunteer](../models_events_event_volunteer/EventVolunteer/EventVolunteer.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [id]{.parameter-name}, ]{#-param-id .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [creator]{.parameter-name}, ]{#-param-creator .parameter}[[[Event](../models_events_event_model/Event-class.html)?]{.type-annotation} [event]{.parameter-name}, ]{#-param-event .parameter}[[[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?]{.type-annotation} [group]{.parameter-name}, ]{#-param-group .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [isAssigned]{.parameter-name}, ]{#-param-isAssigned .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [isInvited]{.parameter-name}, ]{#-param-isInvited .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [response]{.parameter-name}, ]{#-param-response .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [user]{.parameter-name}]{#-param-user .parameter}})]{.signature}
+[[EventVolunteer](../models_events_event_volunteer/EventVolunteer/EventVolunteer.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[User](../models_user_user_info/User-class.html)?] creator, ][[[Event](../models_events_event_model/Event-class.html)?] event, ][[[EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?] group, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] isAssigned, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] isInvited, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] response, ][[[User](../models_user_user_info/User-class.html)?] user]})]
 
 :   
 
-[[EventVolunteer.fromJson](../models_events_event_volunteer/EventVolunteer/EventVolunteer.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[EventVolunteer.fromJson](../models_events_event_volunteer/EventVolunteer/EventVolunteer.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[createdAt](../models_events_event_volunteer/EventVolunteer/createdAt.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[createdAt](../models_events_event_volunteer/EventVolunteer/createdAt.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The creation date of the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[creator](../models_events_event_volunteer/EventVolunteer/creator.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[creator](../models_events_event_volunteer/EventVolunteer/creator.html)] [↔ [User](../models_user_user_info/User-class.html)?]
 :   The creator of the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[event](../models_events_event_volunteer/EventVolunteer/event.html)]{.name} [↔ [Event](../models_events_event_model/Event-class.html)?]{.signature}
+[[event](../models_events_event_volunteer/EventVolunteer/event.html)] [↔ [Event](../models_events_event_model/Event-class.html)?]
 :   The event associated with the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[group](../models_events_event_volunteer/EventVolunteer/group.html)]{.name} [↔ [EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?]{.signature}
+[[group](../models_events_event_volunteer/EventVolunteer/group.html)] [↔ [EventVolunteerGroup](../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?]
 :   The group associated with the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[id](../models_events_event_volunteer/EventVolunteer/id.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[id](../models_events_event_volunteer/EventVolunteer/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Unique identifier for the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isAssigned](../models_events_event_volunteer/EventVolunteer/isAssigned.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[isAssigned](../models_events_event_volunteer/EventVolunteer/isAssigned.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the volunteer is assigned.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isInvited](../models_events_event_volunteer/EventVolunteer/isInvited.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[isInvited](../models_events_event_volunteer/EventVolunteer/isInvited.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the volunteer is invited.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[response](../models_events_event_volunteer/EventVolunteer/response.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[response](../models_events_event_volunteer/EventVolunteer/response.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The response of the volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[updatedAt](../models_events_event_volunteer/EventVolunteer/updatedAt.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[updatedAt](../models_events_event_volunteer/EventVolunteer/updatedAt.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The last update date of the event volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[user](../models_events_event_volunteer/EventVolunteer/user.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[user](../models_events_event_volunteer/EventVolunteer/user.html)] [↔ [User](../models_user_user_info/User-class.html)?]
 :   The user who is the volunteer.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_volunteer](../models_events_event_volunteer/)
@@ -137,9 +137,9 @@ EventVolunteer instance.
 
 ##### event_volunteer library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

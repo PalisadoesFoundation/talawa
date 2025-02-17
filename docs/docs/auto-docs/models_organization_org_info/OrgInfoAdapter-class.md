@@ -1,91 +1,91 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/models_organization_org_info-library-sidebar.html" below-sidebar="models_organization_org_info/OrgInfoAdapter-class-sidebar.html"}
+
 <div>
 
-# [OrgInfoAdapter]{.kind-class} class
+# OrgInfoAdapter class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]
     -   OrgInfoAdapter
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[OrgInfoAdapter](../models_organization_org_info/OrgInfoAdapter/OrgInfoAdapter.html)]{.name}[()]{.signature}
+[OrgInfoAdapter](../models_organization_org_info/OrgInfoAdapter/OrgInfoAdapter.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](../models_organization_org_info/OrgInfoAdapter/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](../models_organization_org_info/OrgInfoAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[override]{.feature}
+    no setteroverride
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[typeId](../models_organization_org_info/OrgInfoAdapter/typeId.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[typeId](../models_organization_org_info/OrgInfoAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[read](../models_organization_org_info/OrgInfoAdapter/read.html)]{.name}[([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation} [reader]{.parameter-name}]{#read-param-reader .parameter}) [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.returntype .parameter} ]{.signature}
+[[read](../models_organization_org_info/OrgInfoAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)] ]
 :   Is called when a value has to be decoded.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[write](../models_organization_org_info/OrgInfoAdapter/write.html)]{.name}[([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]{.type-annotation} [writer]{.parameter-name}, ]{#write-param-writer .parameter}[[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [obj]{.parameter-name}]{#write-param-obj .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[write](../models_organization_org_info/OrgInfoAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor}
+
+
 ## Operators
 
-[[operator ==](../models_organization_org_info/OrgInfoAdapter/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](../models_organization_org_info/OrgInfoAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [org_info](../models_organization_org_info/)
@@ -93,9 +93,9 @@ Inheritance
 
 ##### org_info library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

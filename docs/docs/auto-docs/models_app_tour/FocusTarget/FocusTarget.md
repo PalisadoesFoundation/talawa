@@ -1,53 +1,49 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/FocusTarget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [FocusTarget]{.kind-constructor} constructor
+# FocusTarget constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[FocusTarget]{.name}({
+
+FocusTarget({
 
 1.  [required
-    [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
+    key, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [keyName]{.parameter-name}, ]{#-param-keyName .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    keyName, ]
 3.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [description]{.parameter-name}, ]{#-param-description .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    description, ]
 4.  [required
-    [[AppTour](../../models_app_tour/AppTour-class.html)]{.type-annotation}
-    [appTour]{.parameter-name}, ]{#-param-appTour .parameter}
-5.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isCircle]{.parameter-name} = [false]{.default-value},
-    ]{#-param-isCircle .parameter}
-6.  [[[ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]{.type-annotation}
-    [align]{.parameter-name} = [ContentAlign.bottom]{.default-value},
-    ]{#-param-align .parameter}
-7.  [[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.type-annotation}
-    [crossAlign]{.parameter-name} =
-    [CrossAxisAlignment.start]{.default-value}, ]{#-param-crossAlign
-    .parameter}
-8.  [[[Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)]{.type-annotation}
-    [skipAlignment]{.parameter-name} =
-    [Alignment.topRight]{.default-value}, ]{#-param-skipAlignment
-    .parameter}
-9.  [[dynamic]{.type-annotation} [next]{.parameter-name}()?,
-    ]{#-param-next .parameter}
-10. [[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.type-annotation}
-    [nextCrossAlign]{.parameter-name} =
-    [CrossAxisAlignment.end]{.default-value}, ]{#-param-nextCrossAlign
-    .parameter}
-11. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isEnd]{.parameter-name} = [false]{.default-value}, ]{#-param-isEnd
-    .parameter}
+    [[AppTour](../../models_app_tour/AppTour-class.html)]
+    appTour, ]
+5.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isCircle = false,
+    ]
+6.  [[[ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]
+    align = ContentAlign.bottom,
+    ]
+7.  [[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]
+    crossAlign =
+    CrossAxisAlignment.start, ]
+8.  [[[Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)]
+    skipAlignment =
+    Alignment.topRight, ]
+9.  [dynamic ?,
+    ]
+10. [[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]
+    nextCrossAlign =
+    CrossAxisAlignment.end, ]
+11. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isEnd = false, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This returns a widget for a step in a tutorial.
 
 **params**:
@@ -65,9 +61,9 @@ This returns a widget for a step in a tutorial.
 -   `isEnd`: true if last step of the tour.
 -   `tutorialCoachMark`: instance of tutorialCoachMark to which this
     focusTarget is linked.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -120,8 +116,8 @@ FocusTarget({
         builder: (context, controller) {
           return GestureDetector(
             onTap: () {
-              next?.call();
-              appTour.tutorialCoachMark.next();
+              next?.;
+              appTour.tutorialCoachMark.;
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -144,12 +140,12 @@ FocusTarget({
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_tour](../../models_app_tour/)
@@ -158,9 +154,9 @@ FocusTarget({
 
 ##### FocusTarget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

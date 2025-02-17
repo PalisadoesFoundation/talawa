@@ -1,36 +1,35 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_avatar/CustomAvatar-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CustomAvatar]{.kind-constructor} constructor
+# CustomAvatar constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [CustomAvatar]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const CustomAvatar({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isImageNull]{.parameter-name}, ]{#-param-isImageNull .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [firstAlphabet]{.parameter-name}, ]{#-param-firstAlphabet
-    .parameter}
-4.  [[[BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?]{.type-annotation}
-    [cacheManager]{.parameter-name}, ]{#-param-cacheManager .parameter}
-5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [imageUrl]{.parameter-name}, ]{#-param-imageUrl .parameter}
-6.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation}
-    [fontSize]{.parameter-name} = [40]{.default-value},
-    ]{#-param-fontSize .parameter}
-7.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation}
-    [maxRadius]{.parameter-name} = [16]{.default-value},
-    ]{#-param-maxRadius .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isImageNull, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    firstAlphabet, ]
+4.  [[[BaseCacheManager](https://pub.dev/documentation/flutter_cache_manager/3.4.1/flutter_cache_manager/BaseCacheManager-class.html)?]
+    cacheManager, ]
+5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    imageUrl, ]
+6.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+    fontSize = 40,
+    ]
+7.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]
+    maxRadius = 16,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +43,12 @@ const CustomAvatar({
   this.maxRadius = 16,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_avatar](../../widgets_custom_avatar/)
@@ -58,9 +57,9 @@ const CustomAvatar({
 
 ##### CustomAvatar class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

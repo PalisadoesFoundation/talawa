@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_comment_service/CommentService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createComments]{.kind-method} method
+# createComments method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[createComments]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [postId]{.parameter-name}, ]{#createComments-param-postId
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [text]{.parameter-name}]{#createComments-param-text .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+createComments(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    postId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    text]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to add comment on the post.
 
 To verify things are working, check out the native platform logs.
@@ -28,14 +27,14 @@ To verify things are working, check out the native platform logs.
 -   `text`: The comment text.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> createComments(String postId, String text) async {
-  final String createCommentQuery = CommentQueries().createComment();
+  final String createCommentQuery = .;
 
   try {
     await _dbFunctions.gqlAuthMutation(
@@ -58,12 +57,12 @@ Future<void> createComments(String postId, String text) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [comment_service](../../services_comment_service/)
@@ -72,9 +71,9 @@ Future<void> createComments(String postId, String text) async {
 
 ##### CommentService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

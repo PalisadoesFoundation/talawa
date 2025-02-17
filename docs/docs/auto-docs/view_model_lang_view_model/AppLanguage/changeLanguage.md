@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_lang_view_model/AppLanguage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [changeLanguage]{.kind-method} method
+# changeLanguage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[changeLanguage]{.name}(
 
-1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation}
-    [type]{.parameter-name}]{#changeLanguage-param-type .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+changeLanguage(
+
+1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+    type]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function change the app default language.
 
 **params**:
@@ -23,9 +23,9 @@ This function change the app default language.
 -   `type`: `Locale` type, the language need to be updated with.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -38,7 +38,7 @@ Future<void> changeLanguage(Locale type) async {
   if (isTest) {
     _appLocale = type;
   } else {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.;
     if (type == const Locale("es")) {
       //If selected language is spanish
       _appLocale = const Locale("es");
@@ -83,15 +83,15 @@ Future<void> changeLanguage(Locale type) async {
   }
 
   /// notifying the consumers
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [lang_view_model](../../view_model_lang_view_model/)
@@ -100,9 +100,9 @@ Future<void> changeLanguage(Locale type) async {
 
 ##### AppLanguage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/OrganizationFeedViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [navigateToIndividualPage]{.kind-method} method
+# navigateToIndividualPage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [navigateToIndividualPage]{.name}(
 
-1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}
-    [post]{.parameter-name}]{#navigateToIndividualPage-param-post
-    .parameter}
+void navigateToIndividualPage(
+
+1.  [[[Post](../../models_post_post_model/Post-class.html)]
+    post]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function navigate to individual post page..
 
 **params**:
@@ -23,9 +22,9 @@ This function navigate to individual post page..
 -   `post`: define_the_param
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -34,12 +33,12 @@ void navigateToIndividualPage(Post post) {
   _navigationService.pushScreen(Routes.individualPost, arguments: post);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [organization_feed_view_model](../../view_model_after_auth_view_models_feed_view_models_organization_feed_view_model/)
@@ -48,9 +47,9 @@ void navigateToIndividualPage(Post post) {
 
 ##### OrganizationFeedViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

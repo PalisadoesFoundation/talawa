@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [firstNameTextController]{.kind-property} property
+# firstNameTextController property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-[firstNameTextController]{.name}
+firstNameTextController
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 first name controller.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late TextEditingController firstNameTextController;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
@@ -38,9 +38,9 @@ late TextEditingController firstNameTextController;
 
 ##### EditProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,11 +1,11 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_widgets_view_models_custom_drawer_view_model/view_model_widgets_view_models_custom_drawer_view_model-library-sidebar.html" below-sidebar="view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class-sidebar.html"}
+
 <div>
 
-# [CustomDrawerViewModel]{.kind-class} class
+# CustomDrawerViewModel class
 
 </div>
 
-::: {.section .desc .markdown}
+
 CustomDrawerViewModel class helps to serve the data and to react to
 user\'s input for Custom Dialog Widget.
 
@@ -14,9 +14,9 @@ Functions include:
 -   `switchOrg`
 -   `isPresentinSwitchableOrg`
 -   `setSelectedOrganizationName`
-:::
 
-::: section
+
+
 
 Inheritance
 
@@ -24,161 +24,161 @@ Inheritance
     -   [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
     -   [BaseModel](../view_model_base_view_model/BaseModel-class.html)
     -   CustomDrawerViewModel
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.html)]{.name}[()]{.signature}
+[CustomDrawerViewModel](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/CustomDrawerViewModel.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.html)]{.name} [→ [ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)]{.signature}
+[[controller](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/controller.html)] [→ [ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)]
 :   Scroll controller for managing scrolling behavior.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[hasListeners](https://api.flutter.dev/flutter/foundation/ChangeNotifier/hasListeners.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Whether any listeners are currently registered.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[isBusy](../view_model_base_view_model/BaseModel/isBusy.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[selectedOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.html)]{.name} [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.signature}
+[[selectedOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/selectedOrg.html)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
 :   / Getter method to retrieve the selected organization.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[state](../view_model_base_view_model/BaseModel/state.html)]{.name} [→ [ViewState](../enums_enums/ViewState.html)]{.signature}
+[[state](../view_model_base_view_model/BaseModel/state.html)] [→ [ViewState](../enums_enums/ViewState.html)]
 
 :   ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[switchAbleOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.html)]{.name} [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[switchAbleOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchAbleOrg.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]]
 :   Getter method to retrieve the switchAble organization.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.html)]{.name} [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[targets](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/targets.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]\>]]
 :   List of TargetFocus objects used for tutorial coaching.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.html)]{.name} [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]{.signature}
+[[tutorialCoachMark](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/tutorialCoachMark.html)] [↔ [TutorialCoachMark](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TutorialCoachMark-class.html)]
 :   Instance of TutorialCoachMark responsible for providing tutorial
     guidance.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [listener]{.parameter-name}]{#addListener-param-listener .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
 :   Register a closure to be called when the object changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[dispose](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[dispose](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/dispose.html) [→ void ]
 :   Discards any resources used by the object. After this is called, the
     object is not in a usable state and should be discarded (calls to
     [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
     will throw after the object is disposed).
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[exitAlertDialog](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/exitAlertDialog.html)]{.name}[() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.html)]{.returntype .parameter} ]{.signature}
+[[exitAlertDialog](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/exitAlertDialog.html)][() [→ [CustomAlertDialog](../widgets_custom_alert_dialog/CustomAlertDialog-class.html)] ]
 :   returns an exit alert dialog.
 
-[[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.html)]{.name}[([[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)]{.type-annotation} [homeModel]{.parameter-name}, ]{#initialize-param-homeModel .parameter}[[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#initialize-param-context .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[initialize](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/initialize.html)][([[[MainScreenViewModel](../view_model_main_screen_view_model/MainScreenViewModel-class.html)] homeModel, ][[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) → void ]
 :   initializer.
 
-[[isPresentinSwitchableOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.html)]{.name}[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [switchToOrg]{.parameter-name}]{#isPresentinSwitchableOrg-param-switchToOrg .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[isPresentinSwitchableOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/isPresentinSwitchableOrg.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] switchToOrg]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   This function checks `switchOrg` is present in the `switchAbleOrg`.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[notifyListeners](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[notifyListeners](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/notifyListeners.html) [→ void ]
 :   Call all the registered listeners.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [listener]{.parameter-name}]{#removeListener-param-listener .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[removeListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that are notified when the object changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[setSelectedOrganizationName](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.html)]{.name}[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [updatedOrganization]{.parameter-name}]{#setSelectedOrganizationName-param-updatedOrganization .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[setSelectedOrganizationName](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/setSelectedOrganizationName.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] updatedOrganization]) → void ]
 :   This function switches the current organization to new organization.
 
-[[setState](../view_model_base_view_model/BaseModel/setState.html)]{.name}[([[[ViewState](../enums_enums/ViewState.html)]{.type-annotation} [viewState]{.parameter-name}]{#setState-param-viewState .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[setState](../view_model_base_view_model/BaseModel/setState.html)][([[[ViewState](../enums_enums/ViewState.html)] viewState]) → void ]
 
 :   ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[switchOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.html)]{.name}[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [switchToOrg]{.parameter-name}]{#switchOrg-param-switchToOrg .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[switchOrg](../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel/switchOrg.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] switchToOrg]) → void ]
 :   This function switches the organization to the specified
     `switchToOrg`.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [custom_drawer_view_model](../view_model_widgets_view_models_custom_drawer_view_model/)
@@ -186,9 +186,9 @@ Inheritance
 
 ##### custom_drawer_view_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

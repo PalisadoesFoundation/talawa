@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [registerForAnEvent]{.kind-method} method
+# registerForAnEvent method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype}
-[registerForAnEvent]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [eventId]{.parameter-name}]{#registerForAnEvent-param-eventId
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+registerForAnEvent(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    eventId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to register user for an event.
 
 **params**:
@@ -26,27 +25,27 @@ This function is used to register user for an event.
 **returns**:
 
 -   `Future<dynamic>`: Information about the event registration.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<dynamic> registerForAnEvent(String eventId) async {
   final Map<String, dynamic> variables = {'eventId': eventId};
   final result = await _dbFunctions.gqlAuthMutation(
-    EventQueries().registerForEvent(),
+    .,
     variables: variables,
   );
   return result;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -55,9 +54,9 @@ Future<dynamic> registerForAnEvent(String eventId) async {
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [appTour]{.kind-property} property
+# appTour property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[AppTour](../../models_app_tour/AppTour-class.html) [appTour]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[AppTour](../../models_app_tour/AppTour-class.html) appTour
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 tutorialCoachMark consist of coach used to give tutorial.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late AppTour appTour = AppTour(model: this);
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -37,9 +37,9 @@ late AppTour appTour = AppTour(model: this);
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

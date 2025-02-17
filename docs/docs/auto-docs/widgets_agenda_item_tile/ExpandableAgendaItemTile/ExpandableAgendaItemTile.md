@@ -1,29 +1,29 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_agenda_item_tile/ExpandableAgendaItemTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [ExpandableAgendaItemTile]{.kind-constructor} constructor
+# ExpandableAgendaItemTile constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [ExpandableAgendaItemTile]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const ExpandableAgendaItemTile({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.html)]{.type-annotation}
-    [item]{.parameter-name}, ]{#-param-item .parameter}
+    [[EventAgendaItem](../../models_events_event_agenda_item/EventAgendaItem-class.html)]
+    item, ]
 3.  [required
-    [[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation}
-    [onEdit]{.parameter-name}, ]{#-param-onEdit .parameter}
+    [[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]
+    onEdit, ]
 4.  [required
-    [[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation}
-    [onDelete]{.parameter-name}, ]{#-param-onDelete .parameter}
+    [[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]
+    onDelete, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -34,12 +34,12 @@ const ExpandableAgendaItemTile({
   required this.onDelete,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
@@ -48,9 +48,9 @@ const ExpandableAgendaItemTile({
 
 ##### ExpandableAgendaItemTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,26 +1,26 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_event_page/CreateEventPage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createState]{.kind-method} method
+# createState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)]{.returntype}
-[createState]{.name}()
+[[CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.html)]
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+
+override
+
+
+
+
 Creates the mutable state for this widget at a given location in the
 tree.
 
@@ -31,7 +31,7 @@ subclass:
 
 ``` language-dart
 @override
-State<SomeWidget> createState() => _SomeWidgetState();
+State<SomeWidget>  => ;
 ```
 
 The framework can call this method multiple times over the lifetime of a
@@ -47,21 +47,21 @@ again to create a fresh
 object, simplifying the lifecycle of
 [State](https://api.flutter.dev/flutter/widgets/State-class.html)
 objects.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-CreateEventPageState createState() => CreateEventPageState();
+CreateEventPageState  => ;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
@@ -70,9 +70,9 @@ CreateEventPageState createState() => CreateEventPageState();
 
 ##### CreateEventPage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchOrgEvents]{.kind-method} method
+# fetchOrgEvents method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[fetchOrgEvents]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [orgId]{.parameter-name}]{#fetchOrgEvents-param-orgId .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+fetchOrgEvents(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    orgId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Fetches events by organization ID.
 
 **params**:
@@ -29,9 +29,9 @@ Fetches events by organization ID.
 
 This function generates a GraphQL query string to retrieve events based
 on the provided organization ID.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -80,12 +80,12 @@ String fetchOrgEvents(String orgId) {
   """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -94,9 +94,9 @@ String fetchOrgEvents(String orgId) {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

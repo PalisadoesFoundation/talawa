@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_agenda_item_tile/ExpandableAgendaItemTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onEdit]{.kind-property} property
+# onEdit property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)
-[onEdit]{.name}
+onEdit
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 edit callback for the agenda item.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final VoidCallback onEdit;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [agenda_item_tile](../../widgets_agenda_item_tile/)
@@ -38,9 +38,9 @@ final VoidCallback onEdit;
 
 ##### ExpandableAgendaItemTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

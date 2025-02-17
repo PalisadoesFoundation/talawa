@@ -1,25 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_encryptor/Encryptor-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [assymetricEncryptString]{.kind-method} method
+# assymetricEncryptString method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[assymetricEncryptString]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [data]{.parameter-name}, ]{#assymetricEncryptString-param-data
-    .parameter}
-2.  [[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)]{.type-annotation}
-    [recipientPublicKey]{.parameter-name}]{#assymetricEncryptString-param-recipientPublicKey
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+assymetricEncryptString(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    data, ]
+2.  [[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)]
+    recipientPublicKey]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Encrypts the given string data with Recipient\'s Public Key.
 
 **params**:
@@ -31,26 +29,26 @@ Encrypts the given string data with Recipient\'s Public Key.
 **returns**:
 
 -   `String`: Encrypted string
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 String assymetricEncryptString(String data, RSAPublicKey recipientPublicKey) {
-  final cipher = OAEPEncoding(RSAEngine())
+  final cipher = OAEPEncoding()
     ..init(true, PublicKeyParameter<RSAPublicKey>(recipientPublicKey));
 
   final encryptedBytes = cipher.process(Uint8List.fromList(data.codeUnits));
   return base64Encode(encryptedBytes);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [encryptor](../../utils_encryptor/)
@@ -59,9 +57,9 @@ String assymetricEncryptString(String data, RSAPublicKey recipientPublicKey) {
 
 ##### Encryptor class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

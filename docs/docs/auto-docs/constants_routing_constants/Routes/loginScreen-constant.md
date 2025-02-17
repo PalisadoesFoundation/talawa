@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_routing_constants/Routes-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [loginScreen]{.kind-property} constant
+# loginScreen constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-const [loginScreen]{.name}
-:::
+const loginScreen
 
-::: {.section .desc .markdown}
+
+
 static variables.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const String loginScreen = "/login";
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [routing_constants](../../constants_routing_constants/)
@@ -34,9 +34,9 @@ static const String loginScreen = "/login";
 
 ##### Routes class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

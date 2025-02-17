@@ -1,18 +1,18 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_list_tile/widgets_custom_list_tile-library-sidebar.html" below-sidebar="widgets_custom_list_tile/CustomListTile-class-sidebar.html"}
+
 <div>
 
-# [CustomListTile]{.kind-class} class
+# CustomListTile class
 
 </div>
 
-::: {.section .desc .markdown}
+
 Returns a widget for rendering Customized tiles.
 
 A Tile shows the org info, user info, options that on tap user & org
 info.
-:::
 
-::: section
+
+
 
 Inheritance
 
@@ -25,110 +25,110 @@ Inheritance
 Available extensions
 
 :   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[CustomListTile](../widgets_custom_list_tile/CustomListTile/CustomListTile.html)]{.name}[({[required [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation} [key]{.parameter-name}, ]{#-param-key .parameter}[required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation} [index]{.parameter-name}, ]{#-param-index .parameter}[required [[TileType](../enums_enums/TileType.html)]{.type-annotation} [type]{.parameter-name}, ]{#-param-type .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [showIcon]{.parameter-name} = [false]{.default-value}, ]{#-param-showIcon .parameter}[[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation} [orgInfo]{.parameter-name}, ]{#-param-orgInfo .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [userInfo]{.parameter-name}, ]{#-param-userInfo .parameter}[[[Attendee](../models_events_event_model/Attendee-class.html)?]{.type-annotation} [attendeeInfo]{.parameter-name}, ]{#-param-attendeeInfo .parameter}[[[Options](../models_options_options/Options-class.html)?]{.type-annotation} [option]{.parameter-name}, ]{#-param-option .parameter}[[dynamic]{.type-annotation} [onTapOrgInfo]{.parameter-name}([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation}]{#param- .parameter})?, ]{#-param-onTapOrgInfo .parameter}[[dynamic]{.type-annotation} [onTapUserInfo]{.parameter-name}()?, ]{#-param-onTapUserInfo .parameter}[[dynamic]{.type-annotation} [onTapAttendeeInfo]{.parameter-name}()?, ]{#-param-onTapAttendeeInfo .parameter}[[dynamic]{.type-annotation} [onTapOption]{.parameter-name}()?]{#-param-onTapOption .parameter}})]{.signature}
+[[CustomListTile](../widgets_custom_list_tile/CustomListTile/CustomListTile.html)][({[required [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)] key, ][required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] index, ][required [[TileType](../enums_enums/TileType.html)] type, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] showIcon = false, ][[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?] orgInfo, ][[[User](../models_user_user_info/User-class.html)?] userInfo, ][[[Attendee](../models_events_event_model/Attendee-class.html)?] attendeeInfo, ][[[Options](../models_options_options/Options-class.html)?] option, ][dynamic onTapOrgInfo([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]])?, ][dynamic ?, ][dynamic ?, ][dynamic ?]})]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     const
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[attendeeInfo](../widgets_custom_list_tile/CustomListTile/attendeeInfo.html)]{.name} [→ [Attendee](../models_events_event_model/Attendee-class.html)?]{.signature}
+[[attendeeInfo](../widgets_custom_list_tile/CustomListTile/attendeeInfo.html)] [→ [Attendee](../models_events_event_model/Attendee-class.html)?]
 :   Object containing all the necessary info regarding the Attendee.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[index](../widgets_custom_list_tile/CustomListTile/index.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[index](../widgets_custom_list_tile/CustomListTile/index.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Index int of tiles.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)]{.name} [→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.signature}
+[[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)] [→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
 :   Controls how one widget replaces another widget in the tree.
     ::: features
-    [final]{.feature}[inherited]{.feature}
+    finalinherited
     :::
 
-[[onTapAttendeeInfo](../widgets_custom_list_tile/CustomListTile/onTapAttendeeInfo.html)]{.name} [→ dynamic Function[()]{.signature}?]{.signature}
+[[onTapAttendeeInfo](../widgets_custom_list_tile/CustomListTile/onTapAttendeeInfo.html)] → dynamic Function[()?]
 :   Function to handle the tap on attendee info.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[onTapOption](../widgets_custom_list_tile/CustomListTile/onTapOption.html)]{.name} [→ dynamic Function[()]{.signature}?]{.signature}
+[[onTapOption](../widgets_custom_list_tile/CustomListTile/onTapOption.html)] → dynamic Function[()?]
 :   Object containing all the necessary info regarding the onTapOption.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[onTapOrgInfo](../widgets_custom_list_tile/CustomListTile/onTapOrgInfo.html)]{.name} [→ dynamic Function[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation}]{#param- .parameter})]{.signature}?]{.signature}
+[[onTapOrgInfo](../widgets_custom_list_tile/CustomListTile/onTapOrgInfo.html)] [→ dynamic Function[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]])]?]
 :   Function to handle the tap on org info.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[onTapUserInfo](../widgets_custom_list_tile/CustomListTile/onTapUserInfo.html)]{.name} [→ dynamic Function[()]{.signature}?]{.signature}
+[[onTapUserInfo](../widgets_custom_list_tile/CustomListTile/onTapUserInfo.html)] → dynamic Function[()?]
 :   Function to handle the tap on user info.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[option](../widgets_custom_list_tile/CustomListTile/option.html)]{.name} [→ [Options](../models_options_options/Options-class.html)?]{.signature}
+[[option](../widgets_custom_list_tile/CustomListTile/option.html)] [→ [Options](../models_options_options/Options-class.html)?]
 :   Object containing all the necessary info regarding the options.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[orgInfo](../widgets_custom_list_tile/CustomListTile/orgInfo.html)]{.name} [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.signature}
+[[orgInfo](../widgets_custom_list_tile/CustomListTile/orgInfo.html)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
 :   Object containing all the necessary info regarding the org.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[showIcon](../widgets_custom_list_tile/CustomListTile/showIcon.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[showIcon](../widgets_custom_list_tile/CustomListTile/showIcon.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Flag to determine whether thge Icons should be shown.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[type](../widgets_custom_list_tile/CustomListTile/type.html)]{.name} [→ [TileType](../enums_enums/TileType.html)]{.signature}
+[[type](../widgets_custom_list_tile/CustomListTile/type.html)] [→ [TileType](../enums_enums/TileType.html)]
 :   Tiletype object to specify tle type.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[userInfo](../widgets_custom_list_tile/CustomListTile/userInfo.html)]{.name} [→ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[userInfo](../widgets_custom_list_tile/CustomListTile/userInfo.html)] [→ [User](../models_user_user_info/User-class.html)?]
 :   Object containing all the necessary info regarding the user.
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)]{.name}[({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation} [key]{.parameter-name}, ]{#animate-param-key .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [effects]{.parameter-name}, ]{#animate-param-effects .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onInit]{.parameter-name}, ]{#animate-param-onInit .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onPlay]{.parameter-name}, ]{#animate-param-onPlay .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onComplete]{.parameter-name}, ]{#animate-param-onComplete .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [autoPlay]{.parameter-name}, ]{#animate-param-autoPlay .parameter}[[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?]{.type-annotation} [delay]{.parameter-name}, ]{#animate-param-delay .parameter}[[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?]{.type-annotation} [controller]{.parameter-name}, ]{#animate-param-controller .parameter}[[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?]{.type-annotation} [adapter]{.parameter-name}, ]{#animate-param-adapter .parameter}[[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation} [target]{.parameter-name}, ]{#animate-param-target .parameter}[[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation} [value]{.parameter-name}]{#animate-param-value .parameter}}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)]{.returntype .parameter} ]{.signature}
+[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
 
 :   Available on
     [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
@@ -141,89 +141,89 @@ Available extensions
     in an
     [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
     instance, and returns the instance for chaining calls. Ex.
-    `myWidget.animate()` is equivalent to `Animate(child: myWidget)`.
+    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
-[[build](../widgets_custom_list_tile/CustomListTile/build.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#build-param-context .parameter}) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype .parameter} ]{.signature}
+[[build](../widgets_custom_list_tile/CustomListTile/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)]{.name}[() [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)]{.returntype .parameter} ]{.signature}
+[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)][() [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)] ]
 :   Creates a
     [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
     to manage this widget\'s location in the tree.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)]{.name}[() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)][() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]\>]] ]
 :   Returns a list of
     [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
     objects describing this node\'s children.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)]{.name}[([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)]{.type-annotation} [properties]{.parameter-name}]{#debugFillProperties-param-properties .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#toDiagnosticsNode-param-name .parameter}[[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?]{.type-annotation} [style]{.parameter-name}]{#toDiagnosticsNode-param-style .parameter}}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.returntype .parameter} ]{.signature}
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)]{.name}[({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.info]{.default-value}]{#toString-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [prefixLineOne]{.parameter-name} = [\'\']{.default-value}, ]{#toStringDeep-param-prefixLineOne .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [prefixOtherLines]{.parameter-name}, ]{#toStringDeep-param-prefixOtherLines .parameter}[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.debug]{.default-value}, ]{#toStringDeep-param-minLevel .parameter}[[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation} [wrapWidth]{.parameter-name} = [65]{.default-value}]{#toStringDeep-param-wrapWidth .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a string representation of this node and its descendants.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [joiner]{.parameter-name} = [\', \']{.default-value}, ]{#toStringShallow-param-joiner .parameter}[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.debug]{.default-value}]{#toStringShallow-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a one-line detailed description of the object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A short, textual description of this widget.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [custom_list_tile](../widgets_custom_list_tile/)
@@ -231,9 +231,9 @@ Available extensions
 
 ##### custom_list_tile library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

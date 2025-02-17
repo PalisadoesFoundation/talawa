@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_caching_cached_user_action/CachedUserAction-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [execute]{.kind-method} method
+# execute method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[execute]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+
+
+
+
 Executes the cached user action based on its operation type.
 
 **params**: None
@@ -18,13 +18,13 @@ Executes the cached user action based on its operation type.
 **returns**:
 
 -   `Future<QueryResult<Object?>>`: result.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<QueryResult<Object?>> execute() async {
+Future<QueryResult<Object?>>  async {
   switch (operationType) {
     case CachedOperationType.gqlAuthQuery:
       return await databaseFunctions.gqlAuthQuery(
@@ -51,12 +51,12 @@ Future<QueryResult<Object?>> execute() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
@@ -65,9 +65,9 @@ Future<QueryResult<Object?>> execute() async {
 
 ##### CachedUserAction class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

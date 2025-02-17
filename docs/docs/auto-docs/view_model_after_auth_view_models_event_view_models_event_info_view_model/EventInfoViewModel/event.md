@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [event]{.kind-property} property
+# event property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[Event](../../models_events_event_model/Event-class.html) [event]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[Event](../../models_events_event_model/Event-class.html) event
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 Event instance to store the event data.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late Event event;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
@@ -37,9 +37,9 @@ late Event event;
 
 ##### EventInfoViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

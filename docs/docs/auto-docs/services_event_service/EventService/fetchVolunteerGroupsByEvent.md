@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchVolunteerGroupsByEvent]{.kind-method} method
+# fetchVolunteerGroupsByEvent method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[fetchVolunteerGroupsByEvent]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [eventId]{.parameter-name}]{#fetchVolunteerGroupsByEvent-param-eventId
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]\>]]\>]]
+fetchVolunteerGroupsByEvent(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    eventId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to fetch all volunteer groups for an event.
 
 **params**:
@@ -27,9 +26,9 @@ This function is used to fetch all volunteer groups for an event.
 
 -   `Future<List<EventVolunteerGroup>>`: returns the list of volunteer
     groups
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -41,7 +40,7 @@ Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
       "where": {"eventId": eventId},
     };
     final result = await _dbFunctions.gqlAuthQuery(
-      EventQueries().fetchVolunteerGroups(),
+      .,
       variables: variables,
     );
     final List groupsJson = result.data!['getEventVolunteerGroups'] as List;
@@ -51,19 +50,19 @@ Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
           (groupJson) =>
               EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
         )
-        .toList();
+        .;
   } catch (e) {
     print('Error fetching volunteer groups: $e');
     rethrow;
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -72,9 +71,9 @@ Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

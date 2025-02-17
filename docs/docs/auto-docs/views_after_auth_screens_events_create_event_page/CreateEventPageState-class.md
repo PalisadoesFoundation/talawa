@@ -1,199 +1,199 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_event_page/views_after_auth_screens_events_create_event_page-library-sidebar.html" below-sidebar="views_after_auth_screens_events_create_event_page/CreateEventPageState-class-sidebar.html"}
+
 <div>
 
-# [CreateEventPageState]{.kind-class} class
+# CreateEventPageState class
 
 </div>
 
-::: {.section .desc .markdown}
+
 \_CreateEventPageState returns a widget for a Page to Creatxe the Event
 in the Organization.
-:::
 
-::: section
+
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]{.type-parameter}\>]{.signature}
+    -   [State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]\>]
     -   CreateEventPageState
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.html)]{.name}[()]{.signature}
+[CreateEventPageState](../views_after_auth_screens_events_create_event_page/CreateEventPageState/CreateEventPageState.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[context](https://api.flutter.dev/flutter/widgets/State/context.html)]{.name} [→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.signature}
+[[context](https://api.flutter.dev/flutter/widgets/State/context.html)] [→ [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
 :   The location in the tree where this widget builds.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[mounted](https://api.flutter.dev/flutter/widgets/State/mounted.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Whether this
     [State](https://api.flutter.dev/flutter/widgets/State-class.html)
     object is currently in a tree.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[selectedVenue](../views_after_auth_screens_events_create_event_page/CreateEventPageState/selectedVenue.html)]{.name} [↔ [Venue](../models_events_event_venue/Venue-class.html)?]{.signature}
+[[selectedVenue](../views_after_auth_screens_events_create_event_page/CreateEventPageState/selectedVenue.html)] [↔ [Venue](../models_events_event_venue/Venue-class.html)?]
 :   venue selected by the user.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)]{.name} [→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]{.signature}
+[[widget](https://api.flutter.dev/flutter/widgets/State/widget.html)] [→ [CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]
 :   The current configuration.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[activate](https://api.flutter.dev/flutter/widgets/State/activate.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[activate](https://api.flutter.dev/flutter/widgets/State/activate.html) [→ void ]
 :   Called when this object is reinserted into the tree after having
     been removed via
     [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#build-param-context .parameter}) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype .parameter} ]{.signature}
+[[build](../views_after_auth_screens_events_create_event_page/CreateEventPageState/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[dateUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater1.html)]{.name}[([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation} [date]{.parameter-name}, ]{#dateUpdater1-param-date .parameter}[[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation} [model]{.parameter-name}]{#dateUpdater1-param-model .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[dateUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater1.html)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[dateUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater2.html)]{.name}[([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation} [date]{.parameter-name}, ]{#dateUpdater2-param-date .parameter}[[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation} [model]{.parameter-name}]{#dateUpdater2-param-model .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[dateUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/dateUpdater2.html)][([[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)] date, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html) [→ void ]
 :   Called when this object is removed from the tree.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)]{.name}[([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)]{.type-annotation} [properties]{.parameter-name}]{#debugFillProperties-param-properties .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/State/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[didChangeDependencies](https://api.flutter.dev/flutter/widgets/State/didChangeDependencies.html) [→ void ]
 :   Called when a dependency of this
     [State](https://api.flutter.dev/flutter/widgets/State-class.html)
     object changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)]{.name}[([covariant [[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)]{.type-annotation} [oldWidget]{.parameter-name}]{#didUpdateWidget-param-oldWidget .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[didUpdateWidget](https://api.flutter.dev/flutter/widgets/State/didUpdateWidget.html)][([covariant [[CreateEventPage](../views_after_auth_screens_events_create_event_page/CreateEventPage-class.html)] oldWidget]) → void ]
 :   Called whenever the widget configuration changes.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html) [→ void ]
 :   Called when this object is removed from the tree permanently.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[initState](https://api.flutter.dev/flutter/widgets/State/initState.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[initState](https://api.flutter.dev/flutter/widgets/State/initState.html) [→ void ]
 :   Called when this object is inserted into the tree.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[reassemble](https://api.flutter.dev/flutter/widgets/State/reassemble.html) [→ void ]
 :   Called whenever the application is reassembled during debugging, for
     example during hot reload.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [fn]{.parameter-name}]{#setState-param-fn .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[setState](https://api.flutter.dev/flutter/widgets/State/setState.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] fn]) → void ]
 :   Notify the framework that the internal state of this object has
     changed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.html)]{.name}[([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation} [time]{.parameter-name}, ]{#timeUpdater1-param-time .parameter}[[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation} [model]{.parameter-name}]{#timeUpdater1-param-model .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[timeUpdater1](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater1.html)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.html)]{.name}[([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation} [time]{.parameter-name}, ]{#timeUpdater2-param-time .parameter}[[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation} [model]{.parameter-name}]{#timeUpdater2-param-model .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[timeUpdater2](../views_after_auth_screens_events_create_event_page/CreateEventPageState/timeUpdater2.html)][([[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)] time, ][[[CreateEventViewModel](../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)] model]) → void ]
 :   Handles the selection and deselection of categories.
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#toDiagnosticsNode-param-name .parameter}[[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?]{.type-annotation} [style]{.parameter-name}]{#toDiagnosticsNode-param-style .parameter}}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.returntype .parameter} ]{.signature}
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/Diagnosticable/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)]{.name}[({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.info]{.default-value}]{#toString-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShort](https://api.flutter.dev/flutter/foundation/Diagnosticable/toStringShort.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A brief description of this object, usually just the
     [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)
     and the
     [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [create_event_page](../views_after_auth_screens_events_create_event_page/)
@@ -201,9 +201,9 @@ Inheritance
 
 ##### create_event_page library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

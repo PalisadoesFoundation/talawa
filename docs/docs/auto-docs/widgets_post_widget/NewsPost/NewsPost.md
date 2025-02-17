@@ -1,35 +1,33 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_widget/NewsPost-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [NewsPost]{.kind-constructor} constructor
+# NewsPost constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [NewsPost]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const NewsPost({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}
-    [post]{.parameter-name}, ]{#-param-post .parameter}
-3.  [[dynamic]{.type-annotation}
-    [function]{.parameter-name}(]{#-param-function .parameter}
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}]{#param-
-        .parameter}
+    [[Post](../../models_post_post_model/Post-class.html)]
+    post, ]
+3.  [dynamic
+    function(]
+    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
 
     )?,
-4.  [[dynamic]{.type-annotation}
-    [deletePost]{.parameter-name}(]{#-param-deletePost .parameter}
-    1.  [[[Post](../../models_post_post_model/Post-class.html)]{.type-annotation}]{#param-
-        .parameter}
+4.  [dynamic
+    deletePost(]
+    1.  [[[Post](../../models_post_post_model/Post-class.html)]]
 
     )?,
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -40,12 +38,12 @@ const NewsPost({
   this.deletePost,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_widget](../../widgets_post_widget/)
@@ -54,9 +52,9 @@ const NewsPost({
 
 ##### NewsPost class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,27 +1,26 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [editEvent]{.kind-method} method
+# editEvent method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[editEvent]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+editEvent({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [eventId]{.parameter-name}, ]{#editEvent-param-eventId .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    eventId, ]
 2.  [required
-    [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [variables]{.parameter-name}, ]{#editEvent-param-variables
-    .parameter}
+    [[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    variables, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to edit an event.
 
 **params**:
@@ -34,9 +33,9 @@ This function is used to edit an event.
 
 -   `Future<QueryResult<Object?>>`: Information about the event
     deletion.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -45,18 +44,18 @@ Future<QueryResult<Object?>> editEvent({
   required Map<String, dynamic> variables,
 }) async {
   final result = await _dbFunctions.gqlAuthMutation(
-    EventQueries().updateEvent(eventId: eventId),
+    .updateEvent(eventId: eventId),
     variables: variables,
   );
   return result;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -65,9 +64,9 @@ Future<QueryResult<Object?>> editEvent({
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [selectOrg]{.kind-method} method
+# selectOrg method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[selectOrg]{.name}(
 
-1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation}
-    [item]{.parameter-name}]{#selectOrg-param-item .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+selectOrg(
+
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+    item]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function select the organization.
 
 **params**:
@@ -25,9 +25,9 @@ This function select the organization.
 **returns**:
 
 -   `Future<void>`: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -51,8 +51,8 @@ Future<void> selectOrg(OrgInfo? item) async {
     // if not already joined and not memebrship request.
     if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
       selectedOrganization = item;
-      notifyListeners();
-      onTapJoin();
+      ;
+      ;
 
       if (selectedOrganization!.userRegistrationRequired == true) {
         navigationService.pushScreen(
@@ -74,7 +74,7 @@ Future<void> selectOrg(OrgInfo? item) async {
     }
   } else {
     selectedOrganization = item;
-    notifyListeners();
+    ;
     navigationService.pushScreen(
       Routes.signupDetailScreen,
       arguments: selectedOrganization,
@@ -82,12 +82,12 @@ Future<void> selectOrg(OrgInfo? item) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
@@ -96,9 +96,9 @@ Future<void> selectOrg(OrgInfo? item) async {
 
 ##### SelectOrganizationViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

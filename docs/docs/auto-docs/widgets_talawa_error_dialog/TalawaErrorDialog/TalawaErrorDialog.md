@@ -1,25 +1,25 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_talawa_error_dialog/TalawaErrorDialog-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [TalawaErrorDialog]{.kind-constructor} constructor
+# TalawaErrorDialog constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [TalawaErrorDialog]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [errorMessage]{.parameter-name}, {]{#-param-errorMessage .parameter}
-2.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const TalawaErrorDialog(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    errorMessage, {]
+2.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 3.  [required
-    [[MessageType](../../enums_enums/MessageType.html)]{.type-annotation}
-    [messageType]{.parameter-name}, ]{#-param-messageType .parameter}
+    [[MessageType](../../enums_enums/MessageType.html)]
+    messageType, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -29,12 +29,12 @@ const TalawaErrorDialog(
   required this.messageType,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/)
@@ -43,9 +43,9 @@ const TalawaErrorDialog(
 
 ##### TalawaErrorDialog class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

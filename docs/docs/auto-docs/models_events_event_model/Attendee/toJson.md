@@ -1,17 +1,17 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_model/Attendee-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [toJson]{.kind-method} method
+# toJson method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[dynamic]{.type-parameter}\>]{.signature}]{.returntype}
-[toJson]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+dynamic\>]]
+
+
+
+
 Converts the Attendee instance to a map structure..
 
 This method is used to convert the Attendee instance to a map structure
@@ -23,13 +23,13 @@ that can be converted to a JSON object.
 
 -   `Map<String, dynamic>`: A map structure that can be converted to a
     JSON object.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic> toJson() {
+Map<String, dynamic>  {
   final Map<String, dynamic> data = <String, dynamic>{};
   data['_id'] = this.id;
   data['firstName'] = this.firstName;
@@ -38,12 +38,12 @@ Map<String, dynamic> toJson() {
   return data;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_model](../../models_events_event_model/)
@@ -52,9 +52,9 @@ Map<String, dynamic> toJson() {
 
 ##### Attendee class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

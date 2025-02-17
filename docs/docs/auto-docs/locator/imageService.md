@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="locator/locator-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [imageService]{.kind-top-level-property} top-level property
+# imageService top-level property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [ImageService](../services_image_service/ImageService-class.html)
-[imageService]{.name}
+imageService
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 GetIt for ImageService.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final imageService = locator<ImageService>();
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [locator](../locator/)
@@ -37,9 +37,9 @@ final imageService = locator<ImageService>();
 
 ##### locator library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

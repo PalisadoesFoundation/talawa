@@ -1,112 +1,112 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/utils_app_localization-library-sidebar.html" below-sidebar="utils_app_localization/AppLocalizationsDelegate-class-sidebar.html"}
+
 <div>
 
-# [AppLocalizationsDelegate]{.kind-class} class
+# AppLocalizationsDelegate class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]{.type-parameter}\>]{.signature}
+    -   [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]
     -   AppLocalizationsDelegate
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.html)]{.name}[({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [isTest]{.parameter-name} = [false]{.default-value}]{#-param-isTest .parameter}})]{.signature}
+[[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate/AppLocalizationsDelegate.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isTest = false]})]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     const
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[isTest](../utils_app_localization/AppLocalizationsDelegate/isTest.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[isTest](../utils_app_localization/AppLocalizationsDelegate/isTest.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[type](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/type.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[type](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/type.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   The type of the object returned by the
     [load](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/load.html)
     method, T by default.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[isSupported](../utils_app_localization/AppLocalizationsDelegate/isSupported.html)]{.name}[([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation} [locale]{.parameter-name}]{#isSupported-param-locale .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[isSupported](../utils_app_localization/AppLocalizationsDelegate/isSupported.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Whether resources for the given locale can be loaded by this
     delegate.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[load](../utils_app_localization/AppLocalizationsDelegate/load.html)]{.name}[([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation} [locale]{.parameter-name}]{#load-param-locale .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[load](../utils_app_localization/AppLocalizationsDelegate/load.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]] ]
 :   Start loading the resources for `locale`. The returned future
     completes when the resources have finished loading.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[shouldReload](../utils_app_localization/AppLocalizationsDelegate/shouldReload.html)]{.name}[([covariant [[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate-class.html)]{.type-annotation} [old]{.parameter-name}]{#shouldReload-param-old .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[shouldReload](../utils_app_localization/AppLocalizationsDelegate/shouldReload.html)][([covariant [[AppLocalizationsDelegate](../utils_app_localization/AppLocalizationsDelegate-class.html)] old]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Returns true if the resources for this delegate should be loaded
     again by calling the
     [load](../utils_app_localization/AppLocalizationsDelegate/load.html)
     method.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [app_localization](../utils_app_localization/)
@@ -114,9 +114,9 @@ Inheritance
 
 ##### app_localization library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

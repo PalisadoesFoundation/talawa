@@ -1,31 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateVolunteerGroup]{.kind-method} method
+# updateVolunteerGroup method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[updateVolunteerGroup]{.name}(
 
-1.  [[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]{.type-annotation}
-    [group]{.parameter-name}, ]{#updateVolunteerGroup-param-group
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [eventId]{.parameter-name}, ]{#updateVolunteerGroup-param-eventId
-    .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [name]{.parameter-name}, ]{#updateVolunteerGroup-param-name
-    .parameter}
-4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation}
-    [volunteersRequired]{.parameter-name},
-    ]{#updateVolunteerGroup-param-volunteersRequired .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+updateVolunteerGroup(
+
+1.  [[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]
+    group, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    eventId, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    name, ]
+4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+    volunteersRequired,
+    ]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Updates the details of a volunteer group.
 
 **params**:
@@ -36,9 +33,9 @@ Updates the details of a volunteer group.
 -   `volunteersRequired`: The new number of volunteers required.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -64,19 +61,19 @@ Future<void> updateVolunteerGroup(
     if (result.data != null) {
       group.name = name;
       group.volunteersRequired = volunteersRequired;
-      notifyListeners();
+      ;
     }
   } catch (e) {
     print('Error updating volunteer group: $e');
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [manage_volunteer_group_view_model](../../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/)
@@ -85,9 +82,9 @@ Future<void> updateVolunteerGroup(
 
 ##### ManageVolunteerGroupViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

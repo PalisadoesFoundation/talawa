@@ -1,29 +1,29 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_talawa_error_snackbar/TalawaErrorSnackBar-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [TalawaErrorSnackBar]{.kind-constructor} constructor
+# TalawaErrorSnackBar constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [TalawaErrorSnackBar]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const TalawaErrorSnackBar({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)]{.type-annotation}
-    [duration]{.parameter-name}, ]{#-param-duration .parameter}
+    [[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)]
+    duration, ]
 3.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [errorMessage]{.parameter-name}, ]{#-param-errorMessage .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    errorMessage, ]
 4.  [required
-    [[MessageType](../../enums_enums/MessageType.html)]{.type-annotation}
-    [messageType]{.parameter-name}, ]{#-param-messageType .parameter}
+    [[MessageType](../../enums_enums/MessageType.html)]
+    messageType, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -34,12 +34,12 @@ const TalawaErrorSnackBar({
   required this.messageType,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/)
@@ -48,9 +48,9 @@ const TalawaErrorSnackBar({
 
 ##### TalawaErrorSnackBar class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

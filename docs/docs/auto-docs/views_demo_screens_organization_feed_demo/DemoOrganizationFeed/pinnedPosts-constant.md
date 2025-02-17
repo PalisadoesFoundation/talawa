@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [pinnedPosts]{.kind-property} constant
+# pinnedPosts constant
 
 </div>
 
-::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}
-const [pinnedPosts]{.name}
-:::
 
-::: {.section .desc .markdown}
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]\>]
+const pinnedPosts
+
+
+
 List of dummy pinned posts.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -85,12 +85,12 @@ static const List<Map<String, String>> pinnedPosts = [
   },
 ];
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
@@ -99,9 +99,9 @@ static const List<Map<String, String>> pinnedPosts = [
 
 ##### DemoOrganizationFeed class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

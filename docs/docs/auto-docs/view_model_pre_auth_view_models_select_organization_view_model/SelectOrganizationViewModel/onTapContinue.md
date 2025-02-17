@@ -1,27 +1,27 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onTapContinue]{.kind-method} method
+# onTapContinue method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [onTapContinue]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 Helper for listener to check if user can tap on continue option or not.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void onTapContinue() {
+void  {
   // if user selected any organization.
   if (selectedOrganization?.id != '-1') {
     navigationService.pushScreen(
@@ -36,12 +36,12 @@ void onTapContinue() {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
@@ -50,9 +50,9 @@ void onTapContinue() {
 
 ##### SelectOrganizationViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="router/router-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [generateRoute]{.kind-function} function
+# generateRoute function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Route](https://api.flutter.dev/flutter/widgets/Route-class.html)]{.returntype}
-[generateRoute]{.name}(
 
-1.  [[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.html)]{.type-annotation}
-    [settings]{.parameter-name}]{#generateRoute-param-settings
-    .parameter}
+[[Route](https://api.flutter.dev/flutter/widgets/Route-class.html)]
+generateRoute(
+
+1.  [[[RouteSettings](https://api.flutter.dev/flutter/widgets/RouteSettings-class.html)]
+    settings]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 The MaterialApp provides us with a property called generateRoute where.
 
 we can pass in a Function that returns a Route and takes in
@@ -30,9 +29,9 @@ generateRoute
 **returns**:
 
 -   `Route<dynamic>`: Return a Route
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -59,7 +58,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the SetUrl Widget
     case Routes.setUrlScreen:
-      final String uri = settings.arguments!.toString();
+      final String uri = settings.arguments!.;
       return MaterialPageRoute(
         builder: (context) => SetUrl(
           key: const Key('SetUrl'),
@@ -75,7 +74,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the SelectOrganization Widget
     case Routes.selectOrgScreen:
-      final String id = settings.arguments!.toString();
+      final String id = settings.arguments!.;
       return CupertinoPageRoute(
         builder: (context) => SelectOrganization(
           key: const Key('Signup'),
@@ -213,7 +212,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the JoinOrganizationAfterAuth Widget
     case Routes.joinOrg:
-      final String id = settings.arguments!.toString();
+      final String id = settings.arguments!.;
       return MaterialPageRoute(
         builder: (context) => JoinOrganisationAfterAuth(
           key: const Key('JoinOrganisationAfterAuth'),
@@ -319,12 +318,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [router](../router/)
@@ -332,9 +331,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
 ##### router library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

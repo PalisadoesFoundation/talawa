@@ -1,29 +1,29 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getPostsById]{.kind-method} method
+# getPostsById method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[getPostsById]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [orgId]{.parameter-name}, ]{#getPostsById-param-orgId .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [after]{.parameter-name}, ]{#getPostsById-param-after .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [before]{.parameter-name}, ]{#getPostsById-param-before .parameter}
-4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation}
-    [first]{.parameter-name}, ]{#getPostsById-param-first .parameter}
-5.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation}
-    [last]{.parameter-name}, ]{#getPostsById-param-last .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+getPostsById(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    orgId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    after, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    before, ]
+4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    first, ]
+5.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    last, ]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Getting Posts by Id.
 
 **params**:
@@ -37,9 +37,9 @@ Getting Posts by Id.
 **returns**:
 
 -   `String`: The query related to gettingPostsbyId
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -97,12 +97,12 @@ String getPostsById(
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -111,9 +111,9 @@ String getPostsById(
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

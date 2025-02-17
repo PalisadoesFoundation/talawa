@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_caching_offline_action_queue/OfflineActionQueue-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeExpiredActions]{.kind-method} method
+# removeExpiredActions method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[removeExpiredActions]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+
+
+
+
 Removes expired actions from the queue.
 
 **params**: None
@@ -19,19 +19,19 @@ Removes expired actions from the queue.
 
 -   `Future<bool>`: returns true if expired actions were removed
     successfully, otherwise false.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<bool> removeExpiredActions() async {
+Future<bool>  async {
   try {
-    final now = DateTime.now();
+    final now = DateTime.;
     final expiredKeys = _actionsBox.keys.where((key) {
       final CachedUserAction action = _actionsBox.get(key)!;
       return action.expiry.isBefore(now);
-    }).toList();
+    }).;
     for (final key in expiredKeys) {
       await _actionsBox.delete(key);
     }
@@ -43,12 +43,12 @@ Future<bool> removeExpiredActions() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [offline_action_queue](../../services_caching_offline_action_queue/)
@@ -57,9 +57,9 @@ Future<bool> removeExpiredActions() async {
 
 ##### OfflineActionQueue class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,24 +1,24 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_user_user_info/User-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [User.fromJson]{.kind-constructor} constructor
+# User.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[User.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}, {]{#fromJson-param-json .parameter}
-2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [fromOrg]{.parameter-name} = [false]{.default-value},
-    ]{#fromJson-param-fromOrg .parameter}
+User.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json, {]
+2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    fromOrg = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -50,17 +50,17 @@ factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
     joinedOrganizations: userData['joinedOrganizations'] != null
         ? (userData['joinedOrganizations'] as List<dynamic>)
             .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList()
+            .
         : [],
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_info](../../models_user_user_info/)
@@ -69,9 +69,9 @@ factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
 
 ##### User class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

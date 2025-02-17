@@ -1,32 +1,32 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_talawa_logo/AppLogo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [paint]{.kind-method} method
+# paint method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [paint]{.name}(
+void paint(
 
-1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]{.type-annotation}
-    [canvas]{.parameter-name}, ]{#paint-param-canvas .parameter}
-2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]{.type-annotation}
-    [size]{.parameter-name}]{#paint-param-size .parameter}
+1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]
+    canvas, ]
+2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]
+    size]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called whenever the object needs to paint. The given
 [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html) has
 its coordinate space configured such that the origin is at the top left
@@ -91,15 +91,15 @@ To paint an image on a
     object, applying the
     [ImageInfo.scale](https://api.flutter.dev/flutter/painting/ImageInfo/scale.html)
     value to obtain the correct rendering size.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 void paint(Canvas canvas, Size size) {
-  final Path path_0 = Path();
+  final Path path_0 = ;
   path_0.moveTo(size.width * 0.6581984, size.height * 0.6200040);
   path_0.cubicTo(
     size.width * 0.6951984,
@@ -253,13 +253,13 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.6581984,
     size.height * 0.6200040,
   );
-  path_0.close();
+  path_0.;
 
-  final Paint paint0fill = Paint()..style = PaintingStyle.fill;
-  paint0fill.color = const Color(0xff31BB6B).withAlpha((1.0 * 255).toInt());
+  final Paint paint0fill = ..style = PaintingStyle.fill;
+  paint0fill.color = const Color(0xff31BB6B).withAlpha((1.0 * 255).);
   canvas.drawPath(path_0, paint0fill);
 
-  final Path path_1 = Path();
+  final Path path_1 = ;
   path_1.moveTo(size.width * 0.5405992, size.height * 0.4396032);
   path_1.cubicTo(
     size.width * 0.5084008,
@@ -357,13 +357,13 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.5405992,
     size.height * 0.4396032,
   );
-  path_1.close();
+  path_1.;
 
-  final Paint paint1fill = Paint()..style = PaintingStyle.fill;
-  paint1fill.color = const Color(0xffFEBC59).withAlpha((1.0 * 255).toInt());
+  final Paint paint1fill = ..style = PaintingStyle.fill;
+  paint1fill.color = const Color(0xffFEBC59).withAlpha((1.0 * 255).);
   canvas.drawPath(path_1, paint1fill);
 
-  final Path path_2 = Path();
+  final Path path_2 = ;
   path_2.moveTo(size.width * 0.5405992, size.height * 0.4395992);
   path_2.cubicTo(
     size.width * 0.5880000,
@@ -429,13 +429,13 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.5405992,
     size.height * 0.4395992,
   );
-  path_2.close();
+  path_2.;
 
-  final Paint paint2fill = Paint()..style = PaintingStyle.fill;
-  paint2fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
+  final Paint paint2fill = ..style = PaintingStyle.fill;
+  paint2fill.color = const Color(0xff737373).withAlpha((1.0 * 255).);
   canvas.drawPath(path_2, paint2fill);
 
-  final Path path_3 = Path();
+  final Path path_3 = ;
   path_3.moveTo(size.width * 0.3277992, size.height * 0.3651976);
   path_3.cubicTo(
     size.width * 0.3541992,
@@ -509,19 +509,19 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.3277992,
     size.height * 0.3651976,
   );
-  path_3.close();
+  path_3.;
 
-  final Paint paint3fill = Paint()..style = PaintingStyle.fill;
-  paint3fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
+  final Paint paint3fill = ..style = PaintingStyle.fill;
+  paint3fill.color = const Color(0xff737373).withAlpha((1.0 * 255).);
   canvas.drawPath(path_3, paint3fill);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_logo](../../custom_painters_talawa_logo/)
@@ -530,9 +530,9 @@ void paint(Canvas canvas, Size size) {
 
 ##### AppLogo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

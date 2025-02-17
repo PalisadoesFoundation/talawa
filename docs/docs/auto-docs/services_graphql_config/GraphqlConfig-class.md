@@ -1,137 +1,137 @@
-::::::::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/services_graphql_config-library-sidebar.html" below-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html"}
+
 <div>
 
-# [GraphqlConfig]{.kind-class} class
+# GraphqlConfig class
 
 </div>
 
-::: {.section .desc .markdown}
+
 GraphQL is a query language for APIs and a runtime for fulfilling those
 queries with your existing data. Talawa uses graphQL for the integrating
 with the API\'s. You can go through talawa-api,
 [here](https://github.com/PalisadoesFoundation/talawa-api).
 GraphqlConfig class provides service to configure graph ql API with
 talawa mobile-app.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[GraphqlConfig](../services_graphql_config/GraphqlConfig/GraphqlConfig.html)]{.name}[()]{.signature}
+[GraphqlConfig](../services_graphql_config/GraphqlConfig/GraphqlConfig.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[displayImgRoute](../services_graphql_config/GraphqlConfig/displayImgRoute.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[displayImgRoute](../services_graphql_config/GraphqlConfig/displayImgRoute.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[httpLink](../services_graphql_config/GraphqlConfig/httpLink.html)]{.name} [↔ [HttpLink](https://pub.dev/documentation/gql_http_link/1.0.1+1/gql_http_link/HttpLink-class.html)]{.signature}
+[[httpLink](../services_graphql_config/GraphqlConfig/httpLink.html)] [↔ [HttpLink](https://pub.dev/documentation/gql_http_link/1.0.1+1/gql_http_link/HttpLink-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[webSocketLink](../services_graphql_config/GraphqlConfig/webSocketLink.html)]{.name} [↔ [WebSocketLink](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/WebSocketLink-class.html)]{.signature}
+[[webSocketLink](../services_graphql_config/GraphqlConfig/webSocketLink.html)] [↔ [WebSocketLink](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/WebSocketLink-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[authClient](../services_graphql_config/GraphqlConfig/authClient.html)]{.name}[() [→ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]{.returntype .parameter} ]{.signature}
+[[authClient](../services_graphql_config/GraphqlConfig/authClient.html)][() [→ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)] ]
 
 :   
 
-[[clientToQuery](../services_graphql_config/GraphqlConfig/clientToQuery.html)]{.name}[() [→ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]{.returntype .parameter} ]{.signature}
+[[clientToQuery](../services_graphql_config/GraphqlConfig/clientToQuery.html)][() [→ [GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)] ]
 
 :   
 
-[[getOrgUrl](../services_graphql_config/GraphqlConfig/getOrgUrl.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[getOrgUrl](../services_graphql_config/GraphqlConfig/getOrgUrl.html) [→ void ]
 :   This function is used to get the organization URL.
 
-[[getToken](../services_graphql_config/GraphqlConfig/getToken.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype .parameter} ]{.signature}
+[[getToken](../services_graphql_config/GraphqlConfig/getToken.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)] ]
 :   This function is used to get user the access token.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[test](../services_graphql_config/GraphqlConfig/test.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[test](../services_graphql_config/GraphqlConfig/test.html) [→ void ]
 
 :   
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-properties .section .summary .offset-anchor}
+
+
 ## Static Properties
 
-[[orgURI](../services_graphql_config/GraphqlConfig/orgURI.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[orgURI](../services_graphql_config/GraphqlConfig/orgURI.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[token](../services_graphql_config/GraphqlConfig/token.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[token](../services_graphql_config/GraphqlConfig/token.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[imageUrlKey](../services_graphql_config/GraphqlConfig/imageUrlKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[imageUrlKey](../services_graphql_config/GraphqlConfig/imageUrlKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   
 
-[[urlKey](../services_graphql_config/GraphqlConfig/urlKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[urlKey](../services_graphql_config/GraphqlConfig/urlKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   
-:::
-:::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [graphql_config](../services_graphql_config/)
@@ -139,9 +139,9 @@ talawa mobile-app.
 
 ##### graphql_config library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

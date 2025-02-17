@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_talawa_error_dialog/TalawaErrorDialog-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method when this widget is inserted into the
@@ -76,9 +76,9 @@ See also:
 
 -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -179,7 +179,7 @@ Widget build(BuildContext context) {
             style: const TextStyle(color: Color.fromRGBO(202, 202, 202, 1)),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).;
           },
         ),
       ],
@@ -187,12 +187,12 @@ Widget build(BuildContext context) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_error_dialog](../../widgets_talawa_error_dialog/)
@@ -201,9 +201,9 @@ Widget build(BuildContext context) {
 
 ##### TalawaErrorDialog class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

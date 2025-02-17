@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_caching_cached_user_action/CachedUserAction-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CachedUserAction.fromJson]{.kind-constructor} constructor
+# CachedUserAction.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[CachedUserAction.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+CachedUserAction.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Creates a CachedUserAction from a JSON-compatible map.
 
 **params**:
@@ -25,9 +25,9 @@ Creates a CachedUserAction from a JSON-compatible map.
 **returns**:
 
 -   `CachedUserAction` : a new instance of CachedUserAction.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +44,12 @@ factory CachedUserAction.fromJson(Map<String, dynamic> json) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
@@ -58,9 +58,9 @@ factory CachedUserAction.fromJson(Map<String, dynamic> json) {
 
 ##### CachedUserAction class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

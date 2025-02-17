@@ -1,23 +1,23 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_demo_screens_profile_page_demo/DemoProfilePage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [DemoProfilePage]{.kind-constructor} constructor
+# DemoProfilePage constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [DemoProfilePage]{.name}({
+
+const DemoProfilePage({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
-2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]{.type-annotation}
-    [homeModel]{.parameter-name}, ]{#-param-homeModel .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
+2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]
+    homeModel, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,12 +26,12 @@ const DemoProfilePage({
   this.homeModel,
 }) : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
@@ -40,9 +40,9 @@ const DemoProfilePage({
 
 ##### DemoProfilePage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

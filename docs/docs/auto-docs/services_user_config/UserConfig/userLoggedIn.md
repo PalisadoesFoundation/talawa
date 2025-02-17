@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_user_config/UserConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [userLoggedIn]{.kind-method} method
+# userLoggedIn method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[userLoggedIn]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+
+
+
+
 This function is used to log in the user.
 
 **params**: None
@@ -18,14 +18,14 @@ This function is used to log in the user.
 **returns**:
 
 -   `Future<bool>`: returns future of bool type.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<bool> userLoggedIn() async {
-  initialiseStream();
+Future<bool>  async {
+  ;
   final boxUser = Hive.box<User>('currentUser');
   final boxOrg = Hive.box<OrgInfo>('currentOrg');
   _currentOrg =
@@ -40,11 +40,11 @@ Future<bool> userLoggedIn() async {
     return false;
   }
   // generate access token
-  graphqlConfig.getToken().then((value) async {
+  graphqlConfig..then((value) async {
     try {
-      databaseFunctions.init();
-      await sessionManager.refreshSession();
-      databaseFunctions.init();
+      databaseFunctions.;
+      await sessionManager.;
+      databaseFunctions.;
       final QueryResult result = await databaseFunctions.gqlAuthQuery(
         queries.fetchUserInfo,
         variables: {'id': currentUser.id},
@@ -59,7 +59,7 @@ Future<bool> userLoggedIn() async {
       userConfig.updateUser(userInfo);
       _currentOrg ??= _currentUser!.joinedOrganizations![0];
       _currentOrgInfoController.add(_currentOrg!);
-      saveUserInHive();
+      ;
       return true;
     } on Exception catch (e) {
       print(e);
@@ -72,12 +72,12 @@ Future<bool> userLoggedIn() async {
   return true;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_config](../../services_user_config/)
@@ -86,9 +86,9 @@ Future<bool> userLoggedIn() async {
 
 ##### UserConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

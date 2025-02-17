@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [checkIfExistsAndAddNewEvents]{.kind-method} method
+# checkIfExistsAndAddNewEvents method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[checkIfExistsAndAddNewEvents]{.name}(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [newEvents]{.parameter-name}]{#checkIfExistsAndAddNewEvents-param-newEvents
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+checkIfExistsAndAddNewEvents(
+
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]\>]]
+    newEvents]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function add a new event if the event not exist.
 
 **params**:
@@ -25,9 +24,9 @@ This function add a new event if the event not exist.
     event.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,15 +43,15 @@ Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
       _userEvents.insert(0, newEvent);
     }
   });
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
@@ -61,9 +60,9 @@ Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
 
 ##### ExploreEventsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

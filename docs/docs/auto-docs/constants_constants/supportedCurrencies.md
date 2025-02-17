@@ -1,28 +1,28 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="constants_constants/constants_constants-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [supportedCurrencies]{.kind-top-level-property} top-level property
+# supportedCurrencies top-level property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}
-[supportedCurrencies]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+supportedCurrencies
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 A list of supported currency codes used in the application.
 
 Each currency code is represented as a string in the list. This list is
 used to ensure that the application supports various currencies for
 transactions, conversions, or displays.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -122,12 +122,12 @@ List<String> supportedCurrencies = [
   'ZAR',
 ];
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [constants](../constants_constants/)
@@ -135,9 +135,9 @@ List<String> supportedCurrencies = [
 
 ##### constants library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

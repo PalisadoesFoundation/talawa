@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/RecurrenceUtils-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [isLastOccurenceOfWeekDay]{.kind-method} static method
+# isLastOccurenceOfWeekDay static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-[isLastOccurenceOfWeekDay]{.name}(
 
-1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [date]{.parameter-name}]{#isLastOccurenceOfWeekDay-param-date
-    .parameter}
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+isLastOccurenceOfWeekDay(
+
+1.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    date]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Function to check whether cuurent event instance is Last occurence of
 Week Day.
 
@@ -28,9 +27,9 @@ Week Day.
 
 -   `bool`: Returns true if the current event instance is the last
     occurence of the week day.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,12 +54,12 @@ static bool isLastOccurenceOfWeekDay(DateTime date) {
   return date.day == lastOccurenceInMonth.day;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -69,9 +68,9 @@ static bool isLastOccurenceOfWeekDay(DateTime date) {
 
 ##### RecurrenceUtils class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

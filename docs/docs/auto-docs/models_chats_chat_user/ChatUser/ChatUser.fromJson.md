@@ -1,33 +1,33 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_chats_chat_user/ChatUser-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [ChatUser.fromJson]{.kind-constructor} constructor
+# ChatUser.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[ChatUser.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+ChatUser.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 factory ChatUser.fromJson(Map<String, dynamic> json) =>
     _$ChatUserFromJson(json);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_user](../../models_chats_chat_user/)
@@ -36,9 +36,9 @@ factory ChatUser.fromJson(Map<String, dynamic> json) =>
 
 ##### ChatUser class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

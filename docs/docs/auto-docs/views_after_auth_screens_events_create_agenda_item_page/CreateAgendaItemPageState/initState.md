@@ -1,25 +1,25 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initState]{.kind-method} method
+# initState method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [initState]{.name}()
+void 
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called when this object is inserted into the tree.
 
 The framework will call this method exactly once for each
@@ -66,26 +66,26 @@ will be called immediately following this method, and
 can be used there.
 
 Implementations of this method should start with a call to the inherited
-method, as in `super.initState()`.
-:::
+method, as in `super.`.
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-void initState() {
-  super.initState();
+void  {
+  super.;
   // Initialize the multimedia picker service.
   _multiMediaPickerService = locator<MultiMediaPickerService>();
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
@@ -94,9 +94,9 @@ void initState() {
 
 ##### CreateAgendaItemPageState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

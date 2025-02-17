@@ -1,193 +1,193 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="constants_routing_constants/constants_routing_constants-library-sidebar.html" below-sidebar="constants_routing_constants/Routes-class-sidebar.html"}
+
 <div>
 
-# [Routes]{.kind-class} class
+# Routes class
 
 </div>
 
-::: {.section .desc .markdown}
+
 This file contains the routes. These can be used to make push screen
 call via Routes.splashScreen to access these string.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[Routes](../constants_routing_constants/Routes/Routes.html)]{.name}[()]{.signature}
+[Routes](../constants_routing_constants/Routes/Routes.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[addPostScreen](../constants_routing_constants/Routes/addPostScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[addPostScreen](../constants_routing_constants/Routes/addPostScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access addPostScreen.
 
-[[addTask](../constants_routing_constants/Routes/addTask-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[addTask](../constants_routing_constants/Routes/addTask-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[appSettings](../constants_routing_constants/Routes/appSettings-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[appSettings](../constants_routing_constants/Routes/appSettings-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[calendar](../constants_routing_constants/Routes/calendar-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[calendar](../constants_routing_constants/Routes/calendar-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[chatMessageScreen](../constants_routing_constants/Routes/chatMessageScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[chatMessageScreen](../constants_routing_constants/Routes/chatMessageScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[createEventPage](../constants_routing_constants/Routes/createEventPage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[createEventPage](../constants_routing_constants/Routes/createEventPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[customRecurrencePage](../constants_routing_constants/Routes/customRecurrencePage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[customRecurrencePage](../constants_routing_constants/Routes/customRecurrencePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoExploreEventsScreen](../constants_routing_constants/Routes/demoExploreEventsScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[demoExploreEventsScreen](../constants_routing_constants/Routes/demoExploreEventsScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoHomeScreen](../constants_routing_constants/Routes/demoHomeScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[demoHomeScreen](../constants_routing_constants/Routes/demoHomeScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoPageViewRoute](../constants_routing_constants/Routes/demoPageViewRoute-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[demoPageViewRoute](../constants_routing_constants/Routes/demoPageViewRoute-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[demoProfilePage](../constants_routing_constants/Routes/demoProfilePage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[demoProfilePage](../constants_routing_constants/Routes/demoProfilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editEventPage](../constants_routing_constants/Routes/editEventPage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[editEventPage](../constants_routing_constants/Routes/editEventPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editProfilePage](../constants_routing_constants/Routes/editProfilePage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[editProfilePage](../constants_routing_constants/Routes/editProfilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[editTask](../constants_routing_constants/Routes/editTask-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[editTask](../constants_routing_constants/Routes/editTask-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[eventInfoPage](../constants_routing_constants/Routes/eventInfoPage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventInfoPage](../constants_routing_constants/Routes/eventInfoPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[eventTasks](../constants_routing_constants/Routes/eventTasks-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventTasks](../constants_routing_constants/Routes/eventTasks-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[exploreEventsScreen](../constants_routing_constants/Routes/exploreEventsScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[homeScreen](../constants_routing_constants/Routes/homeScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[individualPost](../constants_routing_constants/Routes/individualPost-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[individualPost](../constants_routing_constants/Routes/individualPost-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[joinOrg](../constants_routing_constants/Routes/joinOrg-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[joinOrg](../constants_routing_constants/Routes/joinOrg-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[languageSelectionRoute](../constants_routing_constants/Routes/languageSelectionRoute-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[languageSelectionRoute](../constants_routing_constants/Routes/languageSelectionRoute-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[loginScreen](../constants_routing_constants/Routes/loginScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[loginScreen](../constants_routing_constants/Routes/loginScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[mainScreen](../constants_routing_constants/Routes/mainScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[mainScreen](../constants_routing_constants/Routes/mainScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[manageVolunteerGroup](../constants_routing_constants/Routes/manageVolunteerGroup-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access Manage volunteer group screen.
 
-[[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[orgInfoScreen](../constants_routing_constants/Routes/orgInfoScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access org info screen.
 
-[[pinnedPostPage](../constants_routing_constants/Routes/pinnedPostPage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[pinnedPostPage](../constants_routing_constants/Routes/pinnedPostPage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[pinnedPostScreen](../constants_routing_constants/Routes/pinnedPostScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[pinnedPostScreen](../constants_routing_constants/Routes/pinnedPostScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access pinnedpostscreen.
 
-[[profilePage](../constants_routing_constants/Routes/profilePage-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[profilePage](../constants_routing_constants/Routes/profilePage-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[progressDialog](../constants_routing_constants/Routes/progressDialog-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[progressDialog](../constants_routing_constants/Routes/progressDialog-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[recoverScreen](../constants_routing_constants/Routes/recoverScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[recoverScreen](../constants_routing_constants/Routes/recoverScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[requestAccess](../constants_routing_constants/Routes/requestAccess-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[requestAccess](../constants_routing_constants/Routes/requestAccess-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[selectContact](../constants_routing_constants/Routes/selectContact-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[selectContact](../constants_routing_constants/Routes/selectContact-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[selectOrgScreen](../constants_routing_constants/Routes/selectOrgScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[selectOrgScreen](../constants_routing_constants/Routes/selectOrgScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[setUrlScreen](../constants_routing_constants/Routes/setUrlScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[setUrlScreen](../constants_routing_constants/Routes/setUrlScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[signupDetailScreen](../constants_routing_constants/Routes/signupDetailScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[signupDetailScreen](../constants_routing_constants/Routes/signupDetailScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[splashScreen](../constants_routing_constants/Routes/splashScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[splashScreen](../constants_routing_constants/Routes/splashScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[updateScreen](../constants_routing_constants/Routes/updateScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[updateScreen](../constants_routing_constants/Routes/updateScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[userTasks](../constants_routing_constants/Routes/userTasks-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userTasks](../constants_routing_constants/Routes/userTasks-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
 
-[[volunteerGroupScreen](../constants_routing_constants/Routes/volunteerGroupScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[volunteerGroupScreen](../constants_routing_constants/Routes/volunteerGroupScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variable to access volunteer groups screen.
 
-[[waitingScreen](../constants_routing_constants/Routes/waitingScreen-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[waitingScreen](../constants_routing_constants/Routes/waitingScreen-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   static variables.
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [routing_constants](../constants_routing_constants/)
@@ -195,9 +195,9 @@ call via Routes.splashScreen to access these string.
 
 ##### routing_constants library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

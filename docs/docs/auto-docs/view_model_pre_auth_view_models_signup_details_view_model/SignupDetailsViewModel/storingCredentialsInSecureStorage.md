@@ -1,28 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [storingCredentialsInSecureStorage]{.kind-method} method
+# storingCredentialsInSecureStorage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[storingCredentialsInSecureStorage]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Storing credentials in secure storage.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> storingCredentialsInSecureStorage() async {
+Future<void>  async {
   try {
     await secureStorage.write(
       key: "userEmail",
@@ -38,12 +38,12 @@ Future<void> storingCredentialsInSecureStorage() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
@@ -52,9 +52,9 @@ Future<void> storingCredentialsInSecureStorage() async {
 
 ##### SignupDetailsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

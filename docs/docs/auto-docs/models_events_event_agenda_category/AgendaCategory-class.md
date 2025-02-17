@@ -1,92 +1,92 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_agenda_category/models_events_event_agenda_category-library-sidebar.html" below-sidebar="models_events_event_agenda_category/AgendaCategory-class-sidebar.html"}
+
 <div>
 
-# [AgendaCategory]{.kind-class} class
+# AgendaCategory class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates an event agenda category model.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+This class creates an event agenda category model.
+
+
+
 ## Constructors
 
-[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [id]{.parameter-name}, ]{#-param-id .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#-param-name .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [description]{.parameter-name}]{#-param-description .parameter}})]{.signature}
+[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description]})]
 
 :   
 
-[[AgendaCategory.fromJson](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[AgendaCategory.fromJson](../models_events_event_agenda_category/AgendaCategory/AgendaCategory.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creates a new `AgendaCategory` instance from a JSON map.
-    ::: {.constructor-modifier .features}
+    ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[description](../models_events_event_agenda_category/AgendaCategory/description.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[description](../models_events_event_agenda_category/AgendaCategory/description.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Description of the category.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[id](../models_events_event_agenda_category/AgendaCategory/id.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[id](../models_events_event_agenda_category/AgendaCategory/id.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Id of the agenda category.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[name](../models_events_event_agenda_category/AgendaCategory/name.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[name](../models_events_event_agenda_category/AgendaCategory/name.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Name of the category.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_agenda_category](../models_events_event_agenda_category/)
@@ -94,9 +94,9 @@ This class creates an event agenda category model.
 
 ##### event_agenda_category library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

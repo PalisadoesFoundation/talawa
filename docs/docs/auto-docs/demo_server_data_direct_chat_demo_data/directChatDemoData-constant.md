@@ -1,24 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="demo_server_data_direct_chat_demo_data/demo_server_data_direct_chat_demo_data-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [directChatDemoData]{.kind-top-level-property} top-level constant
+# directChatDemoData top-level constant
 
 </div>
 
-::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}
-const [directChatDemoData]{.name}
-:::
 
-::: {.section .desc .markdown}
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]\>]]\>]
+const directChatDemoData
+
+
+
 This file contains demo data.
 
 It contains a list of type Map\<String, Object\> and sample data of
 chats.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -187,12 +187,12 @@ const directChatDemoData = [
   },
 ];
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [direct_chat_demo_data](../demo_server_data_direct_chat_demo_data/)
@@ -200,9 +200,9 @@ const directChatDemoData = [
 
 ##### direct_chat_demo_data library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

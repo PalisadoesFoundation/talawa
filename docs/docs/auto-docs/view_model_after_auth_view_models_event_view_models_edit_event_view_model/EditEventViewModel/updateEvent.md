@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateEvent]{.kind-method} method
+# updateEvent method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[updateEvent]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Updates an existing event with the data from the form.
 
 This method performs the following actions:
@@ -26,22 +26,22 @@ This method performs the following actions:
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> updateEvent() async {
+Future<void>  async {
   await actionHandlerService.performAction(
     actionType: ActionType.critical,
     criticalActionFailureMessage: TalawaErrors.eventUpdateFailed,
     action: () async {
-      titleFocus.unfocus();
-      locationFocus.unfocus();
-      descriptionFocus.unfocus();
+      titleFocus.;
+      locationFocus.;
+      descriptionFocus.;
       validate = AutovalidateMode.always;
-      if (formKey.currentState?.validate() ?? false) {
+      if (formKey.currentState?. ?? false) {
         validate = AutovalidateMode.disabled;
         final DateTime startTime = DateTime(
           eventStartDate.year,
@@ -92,17 +92,17 @@ Future<void> updateEvent() async {
       );
     },
     apiCallSuccessUpdateUI: () {
-      navigationService.pop();
+      navigationService.;
     },
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
@@ -111,9 +111,9 @@ Future<void> updateEvent() async {
 
 ##### EditEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

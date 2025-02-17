@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [attachListener]{.kind-method} method
+# attachListener method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [attachListener]{.name}(
 
-1.  [[void]{.type-annotation}
-    [setter]{.parameter-name}(]{#attachListener-param-setter .parameter}
-    1.  [[void]{.type-annotation} []{.parameter-name}()]{#param-
-        .parameter}
+void attachListener(
+
+1.  [void
+    setter(]
+    1.  [void []()]
 
     )
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This widget returns button for domination.
 
 **params**:
@@ -26,13 +25,13 @@ This widget returns button for domination.
 -   `setter`: SetState holder.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void attachListener(void Function(void Function()) setter) {
+void attachListener(void Function(void ) setter) {
   donationField.addListener(() {
     if (donationField.hasFocus) {
       setter(() {
@@ -50,12 +49,12 @@ void attachListener(void Function(void Function()) setter) {
   });
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
@@ -64,9 +63,9 @@ void attachListener(void Function(void Function()) setter) {
 
 ##### ProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

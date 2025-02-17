@@ -1,113 +1,113 @@
-::::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/utils_app_localization-library-sidebar.html" below-sidebar="utils_app_localization/AppLocalizations-class-sidebar.html"}
+
 <div>
 
-# [AppLocalizations]{.kind-class} class
+# AppLocalizations class
 
 </div>
 
-::: {.section .desc .markdown}
+
 This class provides methods to localize the application so that it can
 be available to users with different languages.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.html)]{.name}[([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation} [locale]{.parameter-name}, {]{#-param-locale .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [isTest]{.parameter-name} = [false]{.default-value}]{#-param-isTest .parameter}})]{.signature}
+[[AppLocalizations](../utils_app_localization/AppLocalizations/AppLocalizations.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale, {][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isTest = false]})]
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[isTest](../utils_app_localization/AppLocalizations/isTest.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[isTest](../utils_app_localization/AppLocalizations/isTest.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[locale](../utils_app_localization/AppLocalizations/locale.html)]{.name} [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.signature}
+[[locale](../utils_app_localization/AppLocalizations/locale.html)] [→ [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
 
 :   ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[load](../utils_app_localization/AppLocalizations/load.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[load](../utils_app_localization/AppLocalizations/load.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 
 :   
 
-[[loadTest](../utils_app_localization/AppLocalizations/loadTest.html)]{.name}[([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation} [locale]{.parameter-name}]{#loadTest-param-locale .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[loadTest](../utils_app_localization/AppLocalizations/loadTest.html)][([[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)] locale]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]] ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[strictTranslate](../utils_app_localization/AppLocalizations/strictTranslate.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [key]{.parameter-name}]{#strictTranslate-param-key .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[strictTranslate](../utils_app_localization/AppLocalizations/strictTranslate.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[translate](../utils_app_localization/AppLocalizations/translate.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [key]{.parameter-name}]{#translate-param-key .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype .parameter} ]{.signature}
+[[translate](../utils_app_localization/AppLocalizations/translate.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] key]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] ]
 
 :   
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-methods .section .summary .offset-anchor}
+
+
 ## Static Methods
 
-[[of](../utils_app_localization/AppLocalizations/of.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#of-param-context .parameter}) [→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.html)?]{.returntype .parameter} ]{.signature}
+[[of](../utils_app_localization/AppLocalizations/of.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [AppLocalizations](../utils_app_localization/AppLocalizations-class.html)?] ]
 
 :   
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[delegate](../utils_app_localization/AppLocalizations/delegate-constant.html)]{.name} [→ const [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[delegate](../utils_app_localization/AppLocalizations/delegate-constant.html)] [→ const [LocalizationsDelegate](https://api.flutter.dev/flutter/widgets/LocalizationsDelegate-class.html)[\<[[AppLocalizations](../utils_app_localization/AppLocalizations-class.html)]\>]]
 
 :   
-:::
-:::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [app_localization](../utils_app_localization/)
@@ -115,9 +115,9 @@ be available to users with different languages.
 
 ##### app_localization library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

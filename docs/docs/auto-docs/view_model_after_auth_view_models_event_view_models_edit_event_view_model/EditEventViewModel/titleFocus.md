@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [titleFocus]{.kind-property} property
+# titleFocus property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)
-[titleFocus]{.name}
+titleFocus
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 FocusNode to manage focus for the event title text input field.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-FocusNode titleFocus = FocusNode();
+FocusNode titleFocus = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
@@ -38,9 +38,9 @@ FocusNode titleFocus = FocusNode();
 
 ##### EditEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

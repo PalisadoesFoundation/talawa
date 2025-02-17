@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [eventStartTime]{.kind-property} property
+# eventStartTime property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)
-[eventStartTime]{.name}
+eventStartTime
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 TimeOfDay to store the selected start time for the event.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-TimeOfDay eventStartTime = TimeOfDay.now();
+TimeOfDay eventStartTime = TimeOfDay.;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
@@ -38,9 +38,9 @@ TimeOfDay eventStartTime = TimeOfDay.now();
 
 ##### EditEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [pendingRequestOrg]{.kind-property} property
+# pendingRequestOrg property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}
-[pendingRequestOrg]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]
+pendingRequestOrg
 
-::: {#source .section .summary .source-code}
+
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 late List<OrgInfo> pendingRequestOrg;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [waiting_view_model](../../view_model_pre_auth_view_models_waiting_view_model/)
@@ -34,9 +34,9 @@ late List<OrgInfo> pendingRequestOrg;
 
 ##### WaitingViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

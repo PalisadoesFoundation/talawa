@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/NavigationService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [pushScreen]{.kind-method} method
+# pushScreen method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype}
-[pushScreen]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [routeName]{.parameter-name}, {]{#pushScreen-param-routeName
-    .parameter}
-2.  [[dynamic]{.type-annotation} [arguments]{.parameter-name},
-    ]{#pushScreen-param-arguments .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+pushScreen(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    routeName, {]
+2.  [dynamic arguments,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Pushes a Screen.
 
 **params**:
@@ -29,9 +28,9 @@ Pushes a Screen.
 **returns**:
 
 -   `Future<dynamic>`: resolves if the Screen was succesfully pushed.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -40,12 +39,12 @@ Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
       .pushNamed(routeName, arguments: arguments);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [navigation_service](../../services_navigation_service/)
@@ -54,9 +53,9 @@ Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
 
 ##### NavigationService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

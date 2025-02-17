@@ -1,25 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_lang_view_model/AppLanguage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [localeResoultion]{.kind-method} method
+# localeResoultion method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.returntype}
-[localeResoultion]{.name}(
 
-1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)?]{.type-annotation}
-    [locale]{.parameter-name}, ]{#localeResoultion-param-locale
-    .parameter}
-2.  [[[Iterable](https://api.flutter.dev/flutter/dart-core/Iterable-class.html)[\<[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [supportedLocales]{.parameter-name}]{#localeResoultion-param-supportedLocales
-    .parameter}
+[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+localeResoultion(
+
+1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)?]
+    locale, ]
+2.  [[[Iterable](https://api.flutter.dev/flutter/dart-core/Iterable-class.html)[\<[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]\>]]
+    supportedLocales]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function fetches the appropriate locale for the user\'s app based
 on the provided locale and supported locales.
 
@@ -34,9 +32,9 @@ on the provided locale and supported locales.
 -   `Locale`: The resolved locale that matches either the language code
     or the country code of the provided locale. If no match is found or
     the provided locale is null, the first supported locale is returned.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -54,12 +52,12 @@ Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) {
   return supportedLocales.first;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [lang_view_model](../../view_model_lang_view_model/)
@@ -68,9 +66,9 @@ Locale localeResoultion(Locale? locale, Iterable<Locale> supportedLocales) {
 
 ##### AppLanguage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

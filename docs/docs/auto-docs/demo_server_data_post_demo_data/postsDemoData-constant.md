@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="demo_server_data_post_demo_data/demo_server_data_post_demo_data-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [postsDemoData]{.kind-top-level-property} top-level constant
+# postsDemoData top-level constant
 
 </div>
 
-::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}
-const [postsDemoData]{.name}
-:::
 
-::: {.section .desc .markdown}
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]\>]]\>]
+const postsDemoData
+
+
+
 This file contains demo data for posts. It contains a list of type
 Map\<String, Object\> and sample data of posts.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -199,12 +199,12 @@ const postsDemoData = [
   },
 ];
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [post_demo_data](../demo_server_data_post_demo_data/)
@@ -212,9 +212,9 @@ const postsDemoData = [
 
 ##### post_demo_data library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

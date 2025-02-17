@@ -1,139 +1,139 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/models_app_tour-library-sidebar.html" below-sidebar="models_app_tour/FocusTarget-class-sidebar.html"}
+
 <div>
 
-# [FocusTarget]{.kind-class} class
+# FocusTarget class
 
 </div>
 
-::: {.section .desc .markdown}
-Class that represents FocusTarget.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Class that represents FocusTarget.
+
+
+
 ## Constructors
 
-[[FocusTarget](../models_app_tour/FocusTarget/FocusTarget.html)]{.name}[({[required [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.type-annotation} [key]{.parameter-name}, ]{#-param-key .parameter}[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [keyName]{.parameter-name}, ]{#-param-keyName .parameter}[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [description]{.parameter-name}, ]{#-param-description .parameter}[required [[AppTour](../models_app_tour/AppTour-class.html)]{.type-annotation} [appTour]{.parameter-name}, ]{#-param-appTour .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [isCircle]{.parameter-name} = [false]{.default-value}, ]{#-param-isCircle .parameter}[[[ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]{.type-annotation} [align]{.parameter-name} = [ContentAlign.bottom]{.default-value}, ]{#-param-align .parameter}[[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.type-annotation} [crossAlign]{.parameter-name} = [CrossAxisAlignment.start]{.default-value}, ]{#-param-crossAlign .parameter}[[[Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)]{.type-annotation} [skipAlignment]{.parameter-name} = [Alignment.topRight]{.default-value}, ]{#-param-skipAlignment .parameter}[[dynamic]{.type-annotation} [next]{.parameter-name}()?, ]{#-param-next .parameter}[[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.type-annotation} [nextCrossAlign]{.parameter-name} = [CrossAxisAlignment.end]{.default-value}, ]{#-param-nextCrossAlign .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [isEnd]{.parameter-name} = [false]{.default-value}]{#-param-isEnd .parameter}})]{.signature}
+[[FocusTarget](../models_app_tour/FocusTarget/FocusTarget.html)][({[required [[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]] key, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] keyName, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] description, ][required [[AppTour](../models_app_tour/AppTour-class.html)] appTour, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isCircle = false, ][[[ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)] align = ContentAlign.bottom, ][[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)] crossAlign = CrossAxisAlignment.start, ][[[Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)] skipAlignment = Alignment.topRight, ][dynamic ?, ][[[CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)] nextCrossAlign = CrossAxisAlignment.end, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] isEnd = false]})]
 :   This returns a widget for a step in a tutorial.
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[align](../models_app_tour/FocusTarget/align.html)]{.name} [↔ [ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]{.signature}
+[[align](../models_app_tour/FocusTarget/align.html)] [↔ [ContentAlign](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/ContentAlign.html)]
 :   alignment of description text.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[appTour](../models_app_tour/FocusTarget/appTour.html)]{.name} [↔ [AppTour](../models_app_tour/AppTour-class.html)]{.signature}
+[[appTour](../models_app_tour/FocusTarget/appTour.html)] [↔ [AppTour](../models_app_tour/AppTour-class.html)]
 :   instance of AppTour.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[crossAlign](../models_app_tour/FocusTarget/crossAlign.html)]{.name} [↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.signature}
+[[crossAlign](../models_app_tour/FocusTarget/crossAlign.html)] [↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]
 :   crossAxisAlignment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[description](../models_app_tour/FocusTarget/description.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[description](../models_app_tour/FocusTarget/description.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   description of the target.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[focusWidget](../models_app_tour/FocusTarget/focusWidget.html)]{.name} [↔ [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]{.signature}
+[[focusWidget](../models_app_tour/FocusTarget/focusWidget.html)] [↔ [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)]
 :   Target focus widget with all above properties.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[isCircle](../models_app_tour/FocusTarget/isCircle.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[isCircle](../models_app_tour/FocusTarget/isCircle.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   true if focusing shape is circle.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isEnd](../models_app_tour/FocusTarget/isEnd.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[isEnd](../models_app_tour/FocusTarget/isEnd.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   true current target ends ths appTour.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[key](../models_app_tour/FocusTarget/key.html)]{.name} [↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.signature}
+[[key](../models_app_tour/FocusTarget/key.html)] [↔ [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[State](https://api.flutter.dev/flutter/widgets/State-class.html)[\<[[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)]\>]]\>]]
 :   represents the key of the target that is intended to be focused.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[keyName](../models_app_tour/FocusTarget/keyName.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[keyName](../models_app_tour/FocusTarget/keyName.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   keyName of the target in mainScreenViewModel.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[next](../models_app_tour/FocusTarget/next.html)]{.name} [↔ dynamic Function[()]{.signature}?]{.signature}
+[[next](../models_app_tour/FocusTarget/next.html)] ↔ dynamic Function[()?]
 :   next callback that is executed on pressing this target.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[nextCrossAlign](../models_app_tour/FocusTarget/nextCrossAlign.html)]{.name} [↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]{.signature}
+[[nextCrossAlign](../models_app_tour/FocusTarget/nextCrossAlign.html)] [↔ [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)]
 :   next target\'s crossAxisAlignment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[skipAlignment](../models_app_tour/FocusTarget/skipAlignment.html)]{.name} [↔ [Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)]{.signature}
+[[skipAlignment](../models_app_tour/FocusTarget/skipAlignment.html)] [↔ [Alignment](https://api.flutter.dev/flutter/painting/Alignment-class.html)]
 :   skip alignment configuration.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [app_tour](../models_app_tour/)
@@ -141,9 +141,9 @@ Class that represents FocusTarget.
 
 ##### app_tour library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

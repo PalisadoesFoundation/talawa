@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_container/PostContainerState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [inView]{.kind-property} property
+# inView property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-[inView]{.name}
+inView
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 same as above.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 bool inView = true;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_container](../../widgets_post_container/)
@@ -38,9 +38,9 @@ bool inView = true;
 
 ##### PostContainerState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

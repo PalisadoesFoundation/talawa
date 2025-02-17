@@ -1,26 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_add_members_bottom_sheet/EventBottomSheet-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [addUserBottomSheet]{.kind-method} method
+# addUserBottomSheet method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [addUserBottomSheet]{.name}({
+
+void addUserBottomSheet({
 
 1.  [required
-    [[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}, ]{#addUserBottomSheet-param-context
-    .parameter}
+    [[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context, ]
 2.  [required
-    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}, ]{#addUserBottomSheet-param-model
-    .parameter}
+    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+    model, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function creates a modal material design bottom sheet.
 
 to let the user add admin or members to an organization. **params**:
@@ -29,9 +27,9 @@ to let the user add admin or members to an organization. **params**:
 -   `model`: CreateEventViewModel
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -75,24 +73,24 @@ void addUserBottomSheet({
                     TextButton(
                       key: const Key('text_btn_ambs1'),
                       onPressed: () {
-                        model.buildUserList();
+                        model.;
                         Navigator.pop(context);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.strictTranslate('Done'),
                       ),
                     ),
-                    const Divider(),
+                    const ,
                     FutureBuilder(
                       // an admin can access the list of the members in an organization
-                      future: model.getCurrentOrgUsersList(),
+                      future: model.,
                       builder: (
                         BuildContext context,
                         AsyncSnapshot<List<User>> snapshot,
                       ) {
                         if (snapshot.data == null) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: ,
                           );
                         } else {
                           return snapshot.data!.isEmpty
@@ -145,12 +143,12 @@ void addUserBottomSheet({
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [add_members_bottom_sheet](../../widgets_add_members_bottom_sheet/)
@@ -159,9 +157,9 @@ void addUserBottomSheet({
 
 ##### EventBottomSheet class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

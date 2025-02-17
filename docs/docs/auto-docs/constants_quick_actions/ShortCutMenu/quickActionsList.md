@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_quick_actions/ShortCutMenu-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [quickActionsList]{.kind-property} property
+# quickActionsList property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]{.type-parameter}\>]{.signature}
-[quickActionsList]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]\>]
+quickActionsList
 
-::: {#source .section .summary .source-code}
+
+final
+
+
+
+
 ## Implementation
 
 ``` language-dart
@@ -24,12 +24,12 @@ static final quickActionsList = <ShortcutItem>[
   chatAction,
 ];
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [quick_actions](../../constants_quick_actions/)
@@ -38,9 +38,9 @@ static final quickActionsList = <ShortcutItem>[
 
 ##### ShortCutMenu class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

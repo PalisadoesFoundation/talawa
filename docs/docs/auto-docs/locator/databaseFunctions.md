@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="locator/locator-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [databaseFunctions]{.kind-top-level-property} top-level property
+# databaseFunctions top-level property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.html)
-[databaseFunctions]{.name}
+databaseFunctions
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 GetIt for DataBaseMutationFunctions.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final databaseFunctions = locator<DataBaseMutationFunctions>();
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [locator](../locator/)
@@ -37,9 +37,9 @@ final databaseFunctions = locator<DataBaseMutationFunctions>();
 
 ##### locator library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

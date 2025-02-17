@@ -1,40 +1,36 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_user_action_handler/ActionHandlerService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [executeApiCall]{.kind-method} method
+# executeApiCall method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-parameter}\>]{.signature}]{.returntype}
-[executeApiCall]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]\>]]
+executeApiCall({
 
 1.  [required
-    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}?]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [action]{.parameter-name}(), ]{#executeApiCall-param-action
-    .parameter}
-2.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onValidResult]{.parameter-name}(]{#executeApiCall-param-onValidResult
-    .parameter}
-    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-annotation}]{#param-
-        .parameter}
+    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]?]\>]]
+    , ]
+2.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    onValidResult(]
+    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]]
 
     )?,
-3.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onActionException]{.parameter-name}(]{#executeApiCall-param-onActionException
-    .parameter}
-    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.html)]{.type-annotation}
-        [e]{.parameter-name}]{#param-e .parameter}
+3.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    onActionException(]
+    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.html)]
+        e]
 
     )?,
-4.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onActionFinally]{.parameter-name}()?,
-    ]{#executeApiCall-param-onActionFinally .parameter}
+4.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    ?,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to execute an API action.
 
 **params**:
@@ -52,20 +48,20 @@ Method to execute an API action.
 
 -   `Future<bool?>`: that indicates the success (`true`), failure
     (`false`), or null if the result is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<bool?> executeApiCall({
-  required Future<QueryResult<Object?>?> Function() action,
+  required Future<QueryResult<Object?>?>  action,
   Future<void> Function(QueryResult<Object?>)? onValidResult,
   Future<void> Function(Exception e)? onActionException,
-  Future<void> Function()? onActionFinally,
+  Future<void> ? onActionFinally,
 }) async {
   try {
-    final result = await action();
+    final result = await ;
     print(result);
     if (result == null || result.data == null) return null;
 
@@ -77,16 +73,16 @@ Future<bool?> executeApiCall({
     await onActionException?.call(e as Exception);
     return false;
   } finally {
-    await onActionFinally?.call();
+    await onActionFinally?.;
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_action_handler](../../services_user_action_handler/)
@@ -95,9 +91,9 @@ Future<bool?> executeApiCall({
 
 ##### ActionHandlerService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

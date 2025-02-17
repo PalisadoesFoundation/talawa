@@ -1,32 +1,32 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_telegram_logo/TelegramLogo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [paint]{.kind-method} method
+# paint method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [paint]{.name}(
+void paint(
 
-1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]{.type-annotation}
-    [canvas]{.parameter-name}, ]{#paint-param-canvas .parameter}
-2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]{.type-annotation}
-    [size]{.parameter-name}]{#paint-param-size .parameter}
+1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]
+    canvas, ]
+2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]
+    size]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called whenever the object needs to paint. The given
 [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html) has
 its coordinate space configured such that the origin is at the top left
@@ -91,20 +91,20 @@ To paint an image on a
     object, applying the
     [ImageInfo.scale](https://api.flutter.dev/flutter/painting/ImageInfo/scale.html)
     value to obtain the correct rendering size.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 void paint(Canvas canvas, Size size) {
-  final Paint paint0Fill = Paint()..style = PaintingStyle.fill;
+  final Paint paint0Fill = ..style = PaintingStyle.fill;
   paint0Fill.shader = ui.Gradient.linear(
       Offset(size.width * 0.6670000, size.height * 0.1670000),
       Offset(size.width * 0.4170000, size.height * 0.7500000), [
-    const Color(0xff37aee2).withAlpha((1.0 * 255).toInt()),
-    const Color(0xff1e96c8).withAlpha((1.0 * 255).toInt()),
+    const Color(0xff37aee2).withAlpha((1.0 * 255).),
+    const Color(0xff1e96c8).withAlpha((1.0 * 255).),
   ], [
     0,
     1,
@@ -115,7 +115,7 @@ void paint(Canvas canvas, Size size) {
     paint0Fill,
   );
 
-  final Path path_1 = Path();
+  final Path path_1 = ;
   path_1.moveTo(size.width * 0.4083333, size.height * 0.7291667);
   path_1.cubicTo(
     size.width * 0.3921333,
@@ -128,11 +128,11 @@ void paint(Canvas canvas, Size size) {
   path_1.lineTo(size.width * 0.3416667, size.height * 0.5508625);
   path_1.lineTo(size.width * 0.7083333, size.height * 0.3333333);
 
-  final Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-  paint1Fill.color = const Color(0xffc8daea).withAlpha((1.0 * 255).toInt());
+  final Paint paint1Fill = ..style = PaintingStyle.fill;
+  paint1Fill.color = const Color(0xffc8daea).withAlpha((1.0 * 255).);
   canvas.drawPath(path_1, paint1Fill);
 
-  final Path path_2 = Path();
+  final Path path_2 = ;
   path_2.moveTo(size.width * 0.4083333, size.height * 0.7291667);
   path_2.cubicTo(
     size.width * 0.4208333,
@@ -145,11 +145,11 @@ void paint(Canvas canvas, Size size) {
   path_2.lineTo(size.width * 0.5000000, size.height * 0.6518417);
   path_2.lineTo(size.width * 0.4168417, size.height * 0.6016958);
 
-  final Paint paint2Fill = Paint()..style = PaintingStyle.fill;
-  paint2Fill.color = const Color(0xffa9c9dd).withAlpha((1.0 * 255).toInt());
+  final Paint paint2Fill = ..style = PaintingStyle.fill;
+  paint2Fill.color = const Color(0xffa9c9dd).withAlpha((1.0 * 255).);
   canvas.drawPath(path_2, paint2Fill);
 
-  final Path path_3 = Path();
+  final Path path_3 = ;
   path_3.moveTo(size.width * 0.4168333, size.height * 0.6017083);
   path_3.lineTo(size.width * 0.6183333, size.height * 0.7505792);
   path_3.cubicTo(
@@ -189,12 +189,12 @@ void paint(Canvas canvas, Size size) {
     size.height * 0.3924792,
   );
 
-  final Paint paint3Fill = Paint()..style = PaintingStyle.fill;
+  final Paint paint3Fill = ..style = PaintingStyle.fill;
   paint3Fill.shader = ui.Gradient.linear(
       Offset(size.width * 0.6600000, size.height * 0.4370000),
       Offset(size.width * 0.8510000, size.height * 0.8020000), [
-    const Color(0xffeff7fc).withAlpha((1.0 * 255).toInt()),
-    const Color(0xffffffff).withAlpha((1.0 * 255).toInt()),
+    const Color(0xffeff7fc).withAlpha((1.0 * 255).),
+    const Color(0xffffffff).withAlpha((1.0 * 255).),
   ], [
     0,
     1,
@@ -202,12 +202,12 @@ void paint(Canvas canvas, Size size) {
   canvas.drawPath(path_3, paint3Fill);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [telegram_logo](../../custom_painters_telegram_logo/)
@@ -216,9 +216,9 @@ void paint(Canvas canvas, Size size) {
 
 ##### TelegramLogo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

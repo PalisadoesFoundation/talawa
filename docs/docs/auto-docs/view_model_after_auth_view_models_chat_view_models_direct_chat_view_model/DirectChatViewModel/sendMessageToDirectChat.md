@@ -1,34 +1,32 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [sendMessageToDirectChat]{.kind-method} method
+# sendMessageToDirectChat method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[sendMessageToDirectChat]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [chatId]{.parameter-name}, ]{#sendMessageToDirectChat-param-chatId
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [messageContent]{.parameter-name}]{#sendMessageToDirectChat-param-messageContent
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+sendMessageToDirectChat(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    chatId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    messageContent]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function send the message to Direct Chat.
 
 params:
 
 -   `chatId` : id of a chat where message need to be send.
 -   `messageContent` : content of a message.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +42,12 @@ Future<void> sendMessageToDirectChat(
   chatState = ChatState.complete;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
@@ -58,9 +56,9 @@ Future<void> sendMessageToDirectChat(
 
 ##### DirectChatViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

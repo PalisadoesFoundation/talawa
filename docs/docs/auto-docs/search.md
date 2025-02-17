@@ -1,14 +1,14 @@
-::: {#dartdoc-main-content .main-content}
-:::
 
-:::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](index.html)
 2.  Search
 
-##### [talawa]{.package-name} [package]{.package-kind} {#talawa-package .hidden-xs}
+##### talawa package 
 
 1.  Libraries
 2.  [apptheme](apptheme/)
@@ -203,7 +203,7 @@
 191. [widgets\\theme_switch](widgets_theme_switch/)
 192. [widgets\\venue_card](widgets_venue_card/)
 193. [widgets\\video_widget](widgets_video_widget/)
-::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+

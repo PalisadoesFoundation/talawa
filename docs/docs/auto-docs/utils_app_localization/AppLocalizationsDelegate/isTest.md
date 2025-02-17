@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/AppLocalizationsDelegate-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [isTest]{.kind-property} property
+# isTest property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-[isTest]{.name}
+isTest
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+final
+
+
+
+
 ## Implementation
 
 ``` language-dart
 final bool isTest;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_localization](../../utils_app_localization/)
@@ -34,9 +34,9 @@ final bool isTest;
 
 ##### AppLocalizationsDelegate class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

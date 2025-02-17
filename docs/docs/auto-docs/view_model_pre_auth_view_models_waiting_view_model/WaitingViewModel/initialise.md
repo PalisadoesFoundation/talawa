@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initialise]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#initialise-param-context .parameter}
+void initialise(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,12 +39,12 @@ void initialise(BuildContext context) {
   ];
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [waiting_view_model](../../view_model_pre_auth_view_models_waiting_view_model/)
@@ -53,9 +53,9 @@ void initialise(BuildContext context) {
 
 ##### WaitingViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

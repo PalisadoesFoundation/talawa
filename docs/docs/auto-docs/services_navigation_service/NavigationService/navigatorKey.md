@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/NavigationService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [navigatorKey]{.kind-property} property
+# navigatorKey property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)]{.type-parameter}\>]{.signature}
-[navigatorKey]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[NavigatorState](https://api.flutter.dev/flutter/widgets/NavigatorState-class.html)]\>]
+navigatorKey
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 Key for Navigator State.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [navigation_service](../../services_navigation_service/)
@@ -38,9 +38,9 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 ##### NavigationService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

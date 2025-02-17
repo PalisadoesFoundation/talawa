@@ -1,35 +1,35 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_caching_cache_service/CacheService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [executeOrCacheOperation]{.kind-method} method
+# executeOrCacheOperation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[executeOrCacheOperation]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+executeOrCacheOperation({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [operation]{.parameter-name},
-    ]{#executeOrCacheOperation-param-operation .parameter}
-2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [variables]{.parameter-name},
-    ]{#executeOrCacheOperation-param-variables .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    operation,
+    ]
+2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    variables,
+    ]
 3.  [required
-    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]{.type-annotation}
-    [operationType]{.parameter-name},
-    ]{#executeOrCacheOperation-param-operationType .parameter}
+    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+    operationType,
+    ]
 4.  [required
-    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [whenOnline]{.parameter-name}(),
-    ]{#executeOrCacheOperation-param-whenOnline .parameter}
+    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+    ,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Executes a GraphQL operation or caches it for offline execution.
 
 This function checks internet connectivity. If online, it executes the
@@ -50,9 +50,9 @@ stores it in the `offlineActionQueue`. It then returns null.
 **returns**:
 
 -   `Future<QueryResult<Object?>>`: Returns the result of the operation.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -60,14 +60,14 @@ Future<QueryResult<Object?>> executeOrCacheOperation({
   required String operation,
   Map<String, dynamic>? variables,
   required CachedOperationType operationType,
-  required Future<QueryResult<Object?>> Function() whenOnline,
+  required Future<QueryResult<Object?>>  whenOnline,
 }) async {
   if (AppConnectivity.isOnline) {
-    final result = await whenOnline();
+    final result = await ;
     return result;
   } else {
     // Create a CachedUserAction for offline execution
-    final timeStamp = DateTime.now();
+    final timeStamp = DateTime.;
     final expiry = timeStamp.add(_timeToLive);
     final cachedAction = CachedUserAction(
       id: 'PlaceHolder', // Placeholder for actual ID generation
@@ -84,12 +84,12 @@ Future<QueryResult<Object?>> executeOrCacheOperation({
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [cache_service](../../services_caching_cache_service/)
@@ -98,9 +98,9 @@ Future<QueryResult<Object?>> executeOrCacheOperation({
 
 ##### CacheService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

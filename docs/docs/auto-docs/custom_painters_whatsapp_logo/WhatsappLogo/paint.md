@@ -1,32 +1,32 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_whatsapp_logo/WhatsappLogo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [paint]{.kind-method} method
+# paint method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [paint]{.name}(
+void paint(
 
-1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]{.type-annotation}
-    [canvas]{.parameter-name}, ]{#paint-param-canvas .parameter}
-2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]{.type-annotation}
-    [size]{.parameter-name}]{#paint-param-size .parameter}
+1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]
+    canvas, ]
+2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]
+    size]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called whenever the object needs to paint. The given
 [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html) has
 its coordinate space configured such that the origin is at the top left
@@ -91,15 +91,15 @@ To paint an image on a
     object, applying the
     [ImageInfo.scale](https://api.flutter.dev/flutter/painting/ImageInfo/scale.html)
     value to obtain the correct rendering size.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 void paint(Canvas canvas, Size size) {
-  final Path path_0 = Path();
+  final Path path_0 = ;
   path_0.moveTo(size.width * 0.3580000, size.height * 0.1673307);
   path_0.cubicTo(
     size.width * 0.4170000,
@@ -192,11 +192,11 @@ void paint(Canvas canvas, Size size) {
     size.height * 0.1665339,
   );
 
-  final Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-  paint0Fill.color = const Color(0xff40c351).withAlpha((1.0 * 255).toInt());
+  final Paint paint0Fill = ..style = PaintingStyle.fill;
+  paint0Fill.color = const Color(0xff40c351).withAlpha((1.0 * 255).);
   canvas.drawPath(path_0, paint0Fill);
 
-  final Path path_1 = Path();
+  final Path path_1 = ;
   path_1.moveTo(size.width * 0.3760000, size.height * 0.2908367);
   path_1.cubicTo(
     size.width * 0.3854000,
@@ -319,7 +319,7 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.3766000,
     size.height * 0.2902390,
   );
-  path_1.close();
+  path_1.;
   path_1.moveTo(size.width * 0.2580000, size.height * 0.1422311);
   path_1.cubicTo(
     size.width * 0.3504000,
@@ -509,19 +509,19 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.3570000,
     size.height * 0.1681275,
   );
-  path_1.close();
+  path_1.;
 
-  final Paint paint1fill = Paint()..style = PaintingStyle.fill;
-  paint1fill.color = const Color(0xfffcfcfc).withAlpha((1.0 * 255).toInt());
+  final Paint paint1fill = ..style = PaintingStyle.fill;
+  paint1fill.color = const Color(0xfffcfcfc).withAlpha((1.0 * 255).);
   canvas.drawPath(path_1, paint1fill);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [whatsapp_logo](../../custom_painters_whatsapp_logo/)
@@ -530,9 +530,9 @@ void paint(Canvas canvas, Size size) {
 
 ##### WhatsappLogo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

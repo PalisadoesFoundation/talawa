@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_search_delegate/EventSearch-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [exploreEventsViewModel]{.kind-property} property
+# exploreEventsViewModel property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [ExploreEventsViewModel](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)
-[exploreEventsViewModel]{.name}
+exploreEventsViewModel
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 ExploreEventsViewModel exploreEventsViewModel;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
@@ -34,9 +34,9 @@ ExploreEventsViewModel exploreEventsViewModel;
 
 ##### EventSearch class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,34 +1,33 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initialise]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [ctx]{.parameter-name}, {]{#initialise-param-ctx .parameter}
+void initialise(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    ctx, {]
 2.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [fromSignUp]{.parameter-name}, ]{#initialise-param-fromSignUp
-    .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    fromSignUp, ]
 3.  [required
-    [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation}
-    [mainScreenIndex]{.parameter-name},
-    ]{#initialise-param-mainScreenIndex .parameter}
-4.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [demoMode]{.parameter-name} = [false]{.default-value},
-    ]{#initialise-param-demoMode .parameter}
-5.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [testMode]{.parameter-name} = [false]{.default-value},
-    ]{#initialise-param-testMode .parameter}
+    [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+    mainScreenIndex,
+    ]
+4.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    demoMode = false,
+    ]
+5.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    testMode = false,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Initalizing function.
 
 **params**:
@@ -40,9 +39,9 @@ Initalizing function.
 -   `testMode`: Whether the app is in test mode
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -64,11 +63,11 @@ void initialise(
   pluginPrototypeData = {
     "Donation": {
       "icon": Icons.attach_money_outlined,
-      "page": const ChangeThemeTile(),
+      "page": const ,
     },
   };
 
-  notifyListeners();
+  ;
   if (!showAppTour) {
     tourComplete = true;
     tourSkipped = false;
@@ -82,12 +81,12 @@ void initialise(
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -96,9 +95,9 @@ void initialise(
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

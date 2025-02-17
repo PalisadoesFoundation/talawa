@@ -1,33 +1,32 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_talawa_logo/AppLogo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [shouldRepaint]{.kind-method} method
+# shouldRepaint method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-[shouldRepaint]{.name}(
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+shouldRepaint(
 
 1.  [covariant
-    [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)]{.type-annotation}
-    [oldDelegate]{.parameter-name}]{#shouldRepaint-param-oldDelegate
-    .parameter}
+    [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)]
+    oldDelegate]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called whenever a new instance of the custom painter delegate class is
 provided to the
 [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
@@ -66,9 +65,9 @@ or
 set to true) might be helpful.
 
 The `oldDelegate` argument will never be null.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -77,12 +76,12 @@ bool shouldRepaint(covariant CustomPainter oldDelegate) {
   return true;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_logo](../../custom_painters_talawa_logo/)
@@ -91,9 +90,9 @@ bool shouldRepaint(covariant CustomPainter oldDelegate) {
 
 ##### AppLogo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

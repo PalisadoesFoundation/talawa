@@ -1,24 +1,24 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="constants_custom_theme/TalawaTheme-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [lightTheme]{.kind-property} property
+# lightTheme property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)
-[lightTheme]{.name}
+lightTheme
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 Theme for light mode.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -45,12 +45,12 @@ static final lightTheme = ThemeData(
   ).copyWith(secondary: _lightAccentColor),
 );
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_theme](../../constants_custom_theme/)
@@ -59,9 +59,9 @@ static final lightTheme = ThemeData(
 
 ##### TalawaTheme class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

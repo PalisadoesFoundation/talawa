@@ -1,36 +1,36 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getToken]{.kind-method} method
+# getToken method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype}
-[getToken]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+
+
+
+
 This function is used to get user the access token.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future getToken() async {
+Future  async {
   final authToken = userConfig.currentUser.authToken;
   token = authToken;
-  getOrgUrl();
+  ;
   return true;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -39,9 +39,9 @@ Future getToken() async {
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

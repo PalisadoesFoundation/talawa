@@ -1,142 +1,142 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/models_post_post_model-library-sidebar.html" below-sidebar="models_post_post_model/Post-class-sidebar.html"}
+
 <div>
 
-# [Post]{.kind-class} class
+# Post class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates a Post model.
-:::
 
-::: section
+This class creates a Post model.
+
+
+
 
 Annotations
 
 :   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
         6)
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[Post](../models_post_post_model/Post/Post.html)]{.name}[({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [sId]{.parameter-name}, ]{#-param-sId .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [description]{.parameter-name}, ]{#-param-description .parameter}[[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]{.type-annotation} [createdAt]{.parameter-name}, ]{#-param-createdAt .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [imageUrl]{.parameter-name}, ]{#-param-imageUrl .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [base64String]{.parameter-name}, ]{#-param-base64String .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [videoUrl]{.parameter-name}, ]{#-param-videoUrl .parameter}[required [[User](../models_user_user_info/User-class.html)?]{.type-annotation} [creator]{.parameter-name}, ]{#-param-creator .parameter}[[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation} [organization]{.parameter-name}, ]{#-param-organization .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [likedBy]{.parameter-name}, ]{#-param-likedBy .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [comments]{.parameter-name}]{#-param-comments .parameter}})]{.signature}
+[[Post](../models_post_post_model/Post/Post.html)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] sId, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?] createdAt, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] imageUrl, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] base64String, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] videoUrl, ][required [[User](../models_user_user_info/User-class.html)?] creator, ][[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?] organization, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]\>]?] likedBy, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]\>]?] comments]})]
 
 :   
 
-[[Post.fromJson](../models_post_post_model/Post/Post.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[Post.fromJson](../models_post_post_model/Post/Post.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creating a new Post instance from a map structure.
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[base64String](../models_post_post_model/Post/base64String.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[base64String](../models_post_post_model/Post/base64String.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Base64 encoded string of an image attached to the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[comments](../models_post_post_model/Post/comments.html)]{.name} [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[comments](../models_post_post_model/Post/comments.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]\>]?]
 :   List of comments on the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[createdAt](../models_post_post_model/Post/createdAt.html)]{.name} [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]{.signature}
+[[createdAt](../models_post_post_model/Post/createdAt.html)] [↔ [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]
 :   Creation timestamp of the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[creator](../models_post_post_model/Post/creator.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[creator](../models_post_post_model/Post/creator.html)] [↔ [User](../models_user_user_info/User-class.html)?]
 :   User who created the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[description](../models_post_post_model/Post/description.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[description](../models_post_post_model/Post/description.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Description of the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[imageUrl](../models_post_post_model/Post/imageUrl.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[imageUrl](../models_post_post_model/Post/imageUrl.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   URL of the image attached to the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[likedBy](../models_post_post_model/Post/likedBy.html)]{.name} [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[likedBy](../models_post_post_model/Post/likedBy.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[LikedBy](../models_post_post_model/LikedBy-class.html)]\>]?]
 :   List of users who liked the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[organization](../models_post_post_model/Post/organization.html)]{.name} [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.signature}
+[[organization](../models_post_post_model/Post/organization.html)] [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
 :   Organization associated with the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[sId](../models_post_post_model/Post/sId.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[sId](../models_post_post_model/Post/sId.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   unique identifier for post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[videoUrl](../models_post_post_model/Post/videoUrl.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[videoUrl](../models_post_post_model/Post/videoUrl.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   URL of a video attached to the post.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[getPostCreatedDuration](../models_post_post_model/Post/getPostCreatedDuration.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[getPostCreatedDuration](../models_post_post_model/Post/getPostCreatedDuration.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   this is to get duration of post.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [post_model](../models_post_post_model/)
@@ -144,9 +144,9 @@ Annotations
 
 ##### post_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

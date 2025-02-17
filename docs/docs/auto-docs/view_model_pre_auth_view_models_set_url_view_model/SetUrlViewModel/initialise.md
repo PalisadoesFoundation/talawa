@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initialise]{.name}({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [inviteUrl]{.parameter-name} = [\'\']{.default-value},
-    ]{#initialise-param-inviteUrl .parameter}
+void initialise({
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    inviteUrl = \'\',
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function initialises the variables.
 
 **params**:
@@ -23,9 +23,9 @@ This function initialises the variables.
 -   `inviteUrl`: url
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -37,7 +37,7 @@ void initialise({String inviteUrl = ''}) {
     final box = Hive.box('url');
     box.put(urlKey, uri);
     box.put(imageUrlKey, "$uri/talawa/");
-    graphqlConfig.getOrgUrl();
+    graphqlConfig.;
   }
 
   /// greeting message.
@@ -76,15 +76,15 @@ void initialise({String inviteUrl = ''}) {
           .copyWith(fontSize: 24, color: const Color(0xFF4285F4)),
     },
   ];
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
@@ -93,9 +93,9 @@ void initialise({String inviteUrl = ''}) {
 
 ##### SetUrlViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

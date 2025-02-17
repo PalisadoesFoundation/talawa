@@ -1,26 +1,26 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchDataFromApi]{.kind-method} method
+# fetchDataFromApi method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[fetchDataFromApi]{.name}()
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]\>]]
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+
+override
+
+
+
+
 Abstract method to be implemented by subclasses to fetch data from an
 API.
 
@@ -30,18 +30,18 @@ API.
 
 -   `Future<List<T>>`: A Future containing a list of data fetched from
     the API.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-Future<List<Post>> fetchDataFromApi() async {
+Future<List<Post>>  async {
   // variables
   final String currentOrgID = _currentOrg.id!;
   final String query =
-      PostQueries().getPostsById(currentOrgID, after, before, first, last);
+      .getPostsById(currentOrgID, after, before, first, last);
   final result = await _dbFunctions.gqlAuthQuery(query);
   //Checking if the dbFunctions return the postJSON, if not return.
   if (result.data == null) {
@@ -54,7 +54,7 @@ Future<List<Post>> fetchDataFromApi() async {
       as Map<String, dynamic>)['posts'] as Map<String, dynamic>;
   final List<Post> newPosts = [];
   postInfo = posts['pageInfo'] as Map<String, dynamic>;
-  debugPrint(postInfo.toString());
+  debugPrint(postInfo.);
   (posts['edges'] as List).forEach((postJson) {
     final post = Post.fromJson(
       (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
@@ -64,12 +64,12 @@ Future<List<Post>> fetchDataFromApi() async {
   return newPosts;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -78,9 +78,9 @@ Future<List<Post>> fetchDataFromApi() async {
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

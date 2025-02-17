@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateLanguage]{.kind-method} method
+# updateLanguage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[updateLanguage]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [languageCode]{.parameter-name}]{#updateLanguage-param-languageCode
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+updateLanguage(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    languageCode]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 lang update mutation.
 
 **params**:
@@ -27,9 +26,9 @@ lang update mutation.
 
 -   `String`: mutation in string form, to be passed on to graphql
     client.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -45,12 +44,12 @@ String updateLanguage(String languageCode) {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -59,9 +58,9 @@ String updateLanguage(String languageCode) {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

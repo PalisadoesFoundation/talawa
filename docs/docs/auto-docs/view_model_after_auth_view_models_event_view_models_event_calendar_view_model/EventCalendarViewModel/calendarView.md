@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_calendar_view_model/EventCalendarViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [calendarView]{.kind-property} property
+# calendarView property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[CalendarView](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/CalendarView.html)]{.returntype}
-get [calendarView]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[CalendarView](https://pub.dev/documentation/syncfusion_flutter_calendar/28.2.3/calendar/CalendarView.html)]
+get calendarView
+
+
+
 Getter for accessing the current view of the calendar.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 CalendarView get calendarView => _calendarView;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_calendar_view_model](../../view_model_after_auth_view_models_event_view_models_event_calendar_view_model/)
@@ -36,9 +36,9 @@ CalendarView get calendarView => _calendarView;
 
 ##### EventCalendarViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

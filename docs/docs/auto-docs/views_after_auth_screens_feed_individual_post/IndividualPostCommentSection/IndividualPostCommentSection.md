@@ -1,26 +1,26 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [IndividualPostCommentSection]{.kind-constructor} constructor
+# IndividualPostCommentSection constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [IndividualPostCommentSection]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const IndividualPostCommentSection({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [comments]{.parameter-name}, ]{#-param-comments .parameter}
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Comments](../../models_post_post_model/Comments-class.html)]\>]]
+    comments, ]
 3.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [postID]{.parameter-name}, ]{#-param-postID .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    postID, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -30,12 +30,12 @@ const IndividualPostCommentSection({
   required this.postID,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
@@ -44,9 +44,9 @@ const IndividualPostCommentSection({
 
 ##### IndividualPostCommentSection class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_third_party_service_multi_media_pick_service/MultiMediaPickerService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getPhotoFromGallery]{.kind-method} method
+# getPhotoFromGallery method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]{.type-parameter}\>]{.signature}]{.returntype}
-[getPhotoFromGallery]{.name}({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [camera]{.parameter-name} = [false]{.default-value},
-    ]{#getPhotoFromGallery-param-camera .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]]
+getPhotoFromGallery({
+
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    camera = false,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Picks the image from gallery or to click the image from user\'s camera.
 
 First ask for the permission to access the camera, if denied then
@@ -31,9 +31,9 @@ returns a message in. custom Dialog Box. Returns a File type for which
 **returns**:
 
 -   `Future<File?>`: the image the user choosed.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,7 +55,7 @@ Future<File?> getPhotoFromGallery({bool camera = false}) async {
     if (e is PlatformException && e.code == 'camera_access_denied') {
       // push the dialog alert with the message.
       locator<NavigationService>().pushDialog(
-        permissionDeniedDialog(),
+        ,
       );
     }
     debugPrint(
@@ -66,12 +66,12 @@ Future<File?> getPhotoFromGallery({bool camera = false}) async {
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [multi_media_pick_service](../../services_third_party_service_multi_media_pick_service/)
@@ -80,9 +80,9 @@ Future<File?> getPhotoFromGallery({bool camera = false}) async {
 
 ##### MultiMediaPickerService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

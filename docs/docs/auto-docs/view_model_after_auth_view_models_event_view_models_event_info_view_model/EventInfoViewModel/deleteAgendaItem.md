@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [deleteAgendaItem]{.kind-method} method
+# deleteAgendaItem method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[deleteAgendaItem]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [id]{.parameter-name}]{#deleteAgendaItem-param-id .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+deleteAgendaItem(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    id]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to delete an agenda item.
 
 more_info_if_required
@@ -25,9 +25,9 @@ more_info_if_required
 -   `id`: id of the gaenda item that is to be deleted
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -36,18 +36,18 @@ Future<void> deleteAgendaItem(String id) async {
     await locator<EventService>()
         .deleteAgendaItem({"removeAgendaItemId": id});
     _agendaItems.removeWhere((item) => item.id == id);
-    notifyListeners();
+    ;
   } catch (e) {
     print('Error deleting agenda item: $e');
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
@@ -56,9 +56,9 @@ Future<void> deleteAgendaItem(String id) async {
 
 ##### EventInfoViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,18 +1,18 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_talawa_logo/custom_painters_talawa_logo-library-sidebar.html" below-sidebar="custom_painters_talawa_logo/AppLogo-class-sidebar.html"}
+
 <div>
 
-# [AppLogo]{.kind-class} class
+# AppLogo class
 
 </div>
 
-::: {.section .desc .markdown}
+
 This class draws the app logo using custom paint.
 
 CustomPaint is a widget from the Flutter SDK, which enables you to use a
 canvas to draw different shapes.
-:::
 
-::: section
+
+
 
 Inheritance
 
@@ -20,79 +20,79 @@ Inheritance
     -   [Listenable](https://api.flutter.dev/flutter/foundation/Listenable-class.html)
     -   [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)
     -   AppLogo
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[AppLogo](../custom_painters_talawa_logo/AppLogo/AppLogo.html)]{.name}[()]{.signature}
+[AppLogo](../custom_painters_talawa_logo/AppLogo/AppLogo.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[semanticsBuilder](https://api.flutter.dev/flutter/rendering/CustomPainter/semanticsBuilder.html)]{.name} [→ [SemanticsBuilderCallback](https://api.flutter.dev/flutter/rendering/SemanticsBuilderCallback.html)?]{.signature}
+[[semanticsBuilder](https://api.flutter.dev/flutter/rendering/CustomPainter/semanticsBuilder.html)] [→ [SemanticsBuilderCallback](https://api.flutter.dev/flutter/rendering/SemanticsBuilderCallback.html)?]
 :   Returns a function that builds semantic information for the picture
     drawn by this painter.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [listener]{.parameter-name}]{#addListener-param-listener .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
 :   Register a closure to be notified when it is time to repaint.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)]{.name}[([[[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.html)]{.type-annotation} [position]{.parameter-name}]{#hitTest-param-position .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.returntype .parameter} ]{.signature}
+[[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)][([[[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.html)] position]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
 :   Called whenever a hit test is being performed on an object that is
     using this custom paint delegate.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[paint](../custom_painters_talawa_logo/AppLogo/paint.html)]{.name}[([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]{.type-annotation} [canvas]{.parameter-name}, ]{#paint-param-canvas .parameter}[[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]{.type-annotation} [size]{.parameter-name}]{#paint-param-size .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[paint](../custom_painters_talawa_logo/AppLogo/paint.html)][([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
 :   Called whenever the object needs to paint. The given
     [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)
     has its coordinate space configured such that the origin is at the
     top left of the box. The area of the box is the size of the `size`
     argument.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)]{.name}[([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)]{.type-annotation} [listener]{.parameter-name}]{#removeListener-param-listener .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html)] listener]) → void ]
 :   Remove a previously registered closure from the list of closures
     that the object notifies when it is time to repaint.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)]{.name}[([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)]{.type-annotation} [oldDelegate]{.parameter-name}]{#shouldRebuildSemantics-param-oldDelegate .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Called whenever a new instance of the custom painter delegate class
     is provided to the
     [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
@@ -102,10 +102,10 @@ Inheritance
     class (which amounts to the same thing, because the latter is
     implemented in terms of the former).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[shouldRepaint](../custom_painters_talawa_logo/AppLogo/shouldRepaint.html)]{.name}[([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)]{.type-annotation} [oldDelegate]{.parameter-name}]{#shouldRepaint-param-oldDelegate .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[shouldRepaint](../custom_painters_talawa_logo/AppLogo/shouldRepaint.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Called whenever a new instance of the custom painter delegate class
     is provided to the
     [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
@@ -115,30 +115,30 @@ Inheritance
     class (which amounts to the same thing, because the latter is
     implemented in terms of the former).
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/rendering/CustomPainter/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/rendering/CustomPainter/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [talawa_logo](../custom_painters_talawa_logo/)
@@ -146,9 +146,9 @@ Inheritance
 
 ##### talawa_logo library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

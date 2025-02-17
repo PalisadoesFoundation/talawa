@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_access_request_view_model/AccessScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [optionalMessageController]{.kind-property} property
+# optionalMessageController property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-[optionalMessageController]{.name}
+optionalMessageController
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 text controller for optional message during the request.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-final optionalMessageController = TextEditingController();
+final optionalMessageController = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [access_request_view_model](../../view_model_access_request_view_model/)
@@ -38,9 +38,9 @@ final optionalMessageController = TextEditingController();
 
 ##### AccessScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

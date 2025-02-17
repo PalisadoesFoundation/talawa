@@ -1,27 +1,26 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_chats_chat_message/ChatMessage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [ChatMessage]{.kind-constructor} constructor
+# ChatMessage constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[ChatMessage]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [id]{.parameter-name}, ]{#-param-id .parameter}
-2.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]{.type-annotation}
-    [sender]{.parameter-name}, ]{#-param-sender .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [messageContent]{.parameter-name}, ]{#-param-messageContent
-    .parameter}
-4.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]{.type-annotation}
-    [receiver]{.parameter-name}, ]{#-param-receiver .parameter}
+ChatMessage(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    id, ]
+2.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]
+    sender, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    messageContent, ]
+4.  [[[ChatUser](../../models_chats_chat_user/ChatUser-class.html)?]
+    receiver, ]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -32,12 +31,12 @@ ChatMessage(
   this.receiver,
 );
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_message](../../models_chats_chat_message/)
@@ -46,9 +45,9 @@ ChatMessage(
 
 ##### ChatMessage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

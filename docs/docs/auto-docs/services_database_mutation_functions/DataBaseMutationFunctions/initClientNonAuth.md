@@ -1,15 +1,15 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initClientNonAuth]{.kind-method} method
+# initClientNonAuth method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initClientNonAuth]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 Initializes
 [clientNonAuth](../../services_database_mutation_functions/DataBaseMutationFunctions/clientNonAuth.html)
 function.
@@ -17,24 +17,24 @@ function.
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void initClientNonAuth() {
-  graphqlConfig.getOrgUrl();
-  clientNonAuth = graphqlConfig.clientToQuery();
-  _query = Queries();
+void  {
+  graphqlConfig.;
+  clientNonAuth = graphqlConfig.;
+  _query = ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -43,9 +43,9 @@ void initClientNonAuth() {
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

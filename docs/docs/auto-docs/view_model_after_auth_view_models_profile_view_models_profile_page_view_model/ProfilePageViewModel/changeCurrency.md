@@ -1,27 +1,25 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [changeCurrency]{.kind-method} method
+# changeCurrency method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [changeCurrency]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}, ]{#changeCurrency-param-context
-    .parameter}
-2.  [[void]{.type-annotation}
-    [setter]{.parameter-name}(]{#changeCurrency-param-setter .parameter}
-    1.  [[void]{.type-annotation} []{.parameter-name}()]{#param-
-        .parameter}
+void changeCurrency(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context, ]
+2.  [void
+    setter(]
+    1.  [void []()]
 
     )
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This method changes the currency of the user for donation purpose.
 
 **params**:
@@ -30,15 +28,15 @@ This method changes the currency of the user for donation purpose.
 -   `setter`: Setter Function
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 void changeCurrency(
   BuildContext context,
-  void Function(void Function()) setter,
+  void Function(void ) setter,
 ) {
   showCurrencyPicker(
     context: context,
@@ -52,12 +50,12 @@ void changeCurrency(
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
@@ -66,9 +64,9 @@ void changeCurrency(
 
 ##### ProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

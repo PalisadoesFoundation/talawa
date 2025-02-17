@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [eventEndDate]{.kind-property} property
+# eventEndDate property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)
-[eventEndDate]{.name}
+eventEndDate
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 DateTime to store the selected end date for the event.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-DateTime eventEndDate = DateTime.now();
+DateTime eventEndDate = DateTime.;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
@@ -38,9 +38,9 @@ DateTime eventEndDate = DateTime.now();
 
 ##### EditEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

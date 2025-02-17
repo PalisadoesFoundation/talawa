@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/FocusTarget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [crossAlign]{.kind-property} property
+# crossAlign property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [CrossAxisAlignment](https://api.flutter.dev/flutter/rendering/CrossAxisAlignment.html)
-[crossAlign]{.name}
+crossAlign
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 crossAxisAlignment.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 CrossAxisAlignment crossAlign;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_tour](../../models_app_tour/)
@@ -38,9 +38,9 @@ CrossAxisAlignment crossAlign;
 
 ##### FocusTarget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

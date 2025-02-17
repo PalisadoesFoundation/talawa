@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [eventLocationTextController]{.kind-property} property
+# eventLocationTextController property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
-[eventLocationTextController]{.name}
+eventLocationTextController
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 TextEditingController to handle the text input for the event location.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-TextEditingController eventLocationTextController = TextEditingController();
+TextEditingController eventLocationTextController = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
@@ -38,9 +38,9 @@ TextEditingController eventLocationTextController = TextEditingController();
 
 ##### EditEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

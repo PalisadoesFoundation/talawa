@@ -1,19 +1,19 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="services_size_config/SizeConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [test]{.kind-method} method
+# test method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [test]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+void 
+
+
+
 ## Implementation
 
 ``` language-dart
-void test() {
+void  {
   _mediaQueryData =
       const MediaQueryData(size: Size(360, 684), padding: EdgeInsets.zero);
   screenWidth = _mediaQueryData.size.width;
@@ -29,12 +29,12 @@ void test() {
   safeBlockVertical = (screenHeight! - _safeAreaVertical) / 100;
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [size_config](../../services_size_config/)
@@ -43,9 +43,9 @@ void test() {
 
 ##### SizeConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

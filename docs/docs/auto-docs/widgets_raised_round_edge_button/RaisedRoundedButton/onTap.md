@@ -1,30 +1,30 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_raised_round_edge_button/RaisedRoundedButton-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onTap]{.kind-property} property
+# onTap property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature} [onTap]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+dynamic  onTap
 
-::: {#source .section .summary .source-code}
+
+final
+
+
+
+
 ## Implementation
 
 ``` language-dart
-final Function() onTap;
+final  onTap;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
@@ -33,9 +33,9 @@ final Function() onTap;
 
 ##### RaisedRoundedButton class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

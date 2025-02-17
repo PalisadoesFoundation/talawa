@@ -1,18 +1,18 @@
-::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [DataBaseMutationFunctions]{.kind-constructor} constructor
+# DataBaseMutationFunctions constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[DataBaseMutationFunctions]{.name}()
-:::
-:::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -21,9 +21,9 @@
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_options_options/Options-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [trailingIconButton]{.kind-property} property
+# trailingIconButton property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?
-[trailingIconButton]{.name}
+trailingIconButton
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 IconButton? trailingIconButton;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [options](../../models_options_options/)
@@ -34,9 +34,9 @@ IconButton? trailingIconButton;
 
 ##### Options class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

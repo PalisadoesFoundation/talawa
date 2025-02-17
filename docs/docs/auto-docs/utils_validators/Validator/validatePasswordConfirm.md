@@ -1,25 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validatePasswordConfirm]{.kind-method} static method
+# validatePasswordConfirm static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[validatePasswordConfirm]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [value]{.parameter-name}, ]{#validatePasswordConfirm-param-value
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [comparator]{.parameter-name}]{#validatePasswordConfirm-param-comparator
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+validatePasswordConfirm(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    value, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    comparator]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to valid password re-entered for confirmation.
 
 **params**:
@@ -30,9 +28,9 @@ Method to valid password re-entered for confirmation.
 **returns**:
 
 -   `String?`: error message if password is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -46,12 +44,12 @@ static String? validatePasswordConfirm(
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -60,9 +58,9 @@ static String? validatePasswordConfirm(
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

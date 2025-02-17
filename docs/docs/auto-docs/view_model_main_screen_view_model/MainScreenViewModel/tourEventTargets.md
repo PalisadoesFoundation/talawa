@@ -1,28 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [tourEventTargets]{.kind-method} method
+# tourEventTargets method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [tourEventTargets]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 This function show the tutorial for Events.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void tourEventTargets() {
-  targets.clear();
+void  {
+  targets.;
   targets.add(
     FocusTarget(
       key: keyBNEvents,
@@ -77,7 +77,7 @@ void tourEventTargets() {
     onFinish: () {
       onTabTapped(currentPageIndex + 1);
       if (!tourComplete && !tourSkipped) {
-        tourProfile();
+        ;
       }
     },
     onClickTarget: (TargetFocus a) {},
@@ -85,12 +85,12 @@ void tourEventTargets() {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -99,9 +99,9 @@ void tourEventTargets() {
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

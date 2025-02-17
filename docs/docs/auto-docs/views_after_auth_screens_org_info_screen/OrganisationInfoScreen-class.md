@@ -1,15 +1,15 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_org_info_screen/views_after_auth_screens_org_info_screen-library-sidebar.html" below-sidebar="views_after_auth_screens_org_info_screen/OrganisationInfoScreen-class-sidebar.html"}
+
 <div>
 
-# [OrganisationInfoScreen]{.kind-class} class
+# OrganisationInfoScreen class
 
 </div>
 
-::: {.section .desc .markdown}
-A screen widget to display detailed information about an organization.
-:::
 
-::: section
+A screen widget to display detailed information about an organization.
+
+
+
 
 Inheritance
 
@@ -22,50 +22,50 @@ Inheritance
 Available extensions
 
 :   -   [AnimateWidgetExtensions](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions.html)
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[OrganisationInfoScreen](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/OrganisationInfoScreen.html)]{.name}[({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation} [key]{.parameter-name}, ]{#-param-key .parameter}[required [[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [orgInfo]{.parameter-name}]{#-param-orgInfo .parameter}})]{.signature}
+[[OrganisationInfoScreen](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/OrganisationInfoScreen.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][required [[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] orgInfo]})]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     const
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)]{.name} [→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.signature}
+[[key](https://api.flutter.dev/flutter/widgets/Widget/key.html)] [→ [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
 :   Controls how one widget replaces another widget in the tree.
     ::: features
-    [final]{.feature}[inherited]{.feature}
+    finalinherited
     :::
 
-[[orgInfo](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/orgInfo.html)]{.name} [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.signature}
+[[orgInfo](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/orgInfo.html)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)]
 :   The organization information to be displayed on the screen.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)]{.name}[({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation} [key]{.parameter-name}, ]{#animate-param-key .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [effects]{.parameter-name}, ]{#animate-param-effects .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onInit]{.parameter-name}, ]{#animate-param-onInit .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onPlay]{.parameter-name}, ]{#animate-param-onPlay .parameter}[[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?]{.type-annotation} [onComplete]{.parameter-name}, ]{#animate-param-onComplete .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [autoPlay]{.parameter-name}, ]{#animate-param-autoPlay .parameter}[[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?]{.type-annotation} [delay]{.parameter-name}, ]{#animate-param-delay .parameter}[[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?]{.type-annotation} [controller]{.parameter-name}, ]{#animate-param-controller .parameter}[[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?]{.type-annotation} [adapter]{.parameter-name}, ]{#animate-param-adapter .parameter}[[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation} [target]{.parameter-name}, ]{#animate-param-target .parameter}[[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?]{.type-annotation} [value]{.parameter-name}]{#animate-param-value .parameter}}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)]{.returntype .parameter} ]{.signature}
+[[animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateWidgetExtensions/animate.html)][({[[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?] key, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Effect](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Effect-class.html)]\>]?] effects, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onInit, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onPlay, ][[[AnimateCallback](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/AnimateCallback.html)?] onComplete, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] autoPlay, ][[[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html)?] delay, ][[[AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html)?] controller, ][[[Adapter](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Adapter-class.html)?] adapter, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] target, ][[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?] value]}) [→ [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)] ]
 
 :   Available on
     [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html),
@@ -78,89 +78,89 @@ Available extensions
     in an
     [Animate](https://pub.dev/documentation/flutter_animate/4.5.0/flutter_animate/Animate-class.html)
     instance, and returns the instance for chaining calls. Ex.
-    `myWidget.animate()` is equivalent to `Animate(child: myWidget)`.
+    `myWidget.` is equivalent to `Animate(child: myWidget)`.
 
-[[build](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/build.html)]{.name}[([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation} [context]{.parameter-name}]{#build-param-context .parameter}) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype .parameter} ]{.signature}
+[[build](../views_after_auth_screens_org_info_screen/OrganisationInfoScreen/build.html)][([[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)] context]) [→ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] ]
 :   Describes the part of the user interface represented by this widget.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)]{.name}[() [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)]{.returntype .parameter} ]{.signature}
+[[createElement](https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html)][() [→ [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)] ]
 :   Creates a
     [StatelessElement](https://api.flutter.dev/flutter/widgets/StatelessElement-class.html)
     to manage this widget\'s location in the tree.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)]{.name}[() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[debugDescribeChildren](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html)][() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]\>]] ]
 :   Returns a list of
     [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)
     objects describing this node\'s children.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)]{.name}[([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)]{.type-annotation} [properties]{.parameter-name}]{#debugFillProperties-param-properties .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[debugFillProperties](https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html)][([[[DiagnosticPropertiesBuilder](https://api.flutter.dev/flutter/foundation/DiagnosticPropertiesBuilder-class.html)] properties]) → void ]
 :   Add additional properties associated with the node.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#toDiagnosticsNode-param-name .parameter}[[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?]{.type-annotation} [style]{.parameter-name}]{#toDiagnosticsNode-param-style .parameter}}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)]{.returntype .parameter} ]{.signature}
+[[toDiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[DiagnosticsTreeStyle](https://api.flutter.dev/flutter/foundation/DiagnosticsTreeStyle.html)?] style]}) [→ [DiagnosticsNode](https://api.flutter.dev/flutter/foundation/DiagnosticsNode-class.html)] ]
 :   Returns a debug representation of the object that is used by
     debugging tools and by
     [DiagnosticsNode.toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticsNode/toStringDeep.html).
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)]{.name}[({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.info]{.default-value}]{#toString-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html)][({[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.info]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [prefixLineOne]{.parameter-name} = [\'\']{.default-value}, ]{#toStringDeep-param-prefixLineOne .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [prefixOtherLines]{.parameter-name}, ]{#toStringDeep-param-prefixOtherLines .parameter}[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.debug]{.default-value}, ]{#toStringDeep-param-minLevel .parameter}[[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation} [wrapWidth]{.parameter-name} = [65]{.default-value}]{#toStringDeep-param-wrapWidth .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringDeep](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] prefixLineOne = \'\', ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] prefixOtherLines, ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] wrapWidth = 65]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a string representation of this node and its descendants.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [joiner]{.parameter-name} = [\', \']{.default-value}, ]{#toStringShallow-param-joiner .parameter}[[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)]{.type-annotation} [minLevel]{.parameter-name} = [DiagnosticLevel.debug]{.default-value}]{#toStringShallow-param-minLevel .parameter}}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShallow](https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] joiner = \', \', ][[[DiagnosticLevel](https://api.flutter.dev/flutter/foundation/DiagnosticLevel.html)] minLevel = DiagnosticLevel.debug]}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Returns a one-line detailed description of the object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toStringShort](https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A short, textual description of this widget.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [org_info_screen](../views_after_auth_screens_org_info_screen/)
@@ -168,9 +168,9 @@ Available extensions
 
 ##### org_info_screen library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

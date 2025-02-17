@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/NavigationService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showTalawaErrorSnackBar]{.kind-method} method
+# showTalawaErrorSnackBar method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [showTalawaErrorSnackBar]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [errorMessage]{.parameter-name},
-    ]{#showTalawaErrorSnackBar-param-errorMessage .parameter}
-2.  [[[MessageType](../../enums_enums/MessageType.html)]{.type-annotation}
-    [messageType]{.parameter-name}]{#showTalawaErrorSnackBar-param-messageType
-    .parameter}
+void showTalawaErrorSnackBar(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    errorMessage,
+    ]
+2.  [[[MessageType](../../enums_enums/MessageType.html)]
+    messageType]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This is used for the quick error of `duration: 2 seconds`.
 
 **params**:
@@ -28,9 +27,9 @@ This is used for the quick error of `duration: 2 seconds`.
 -   `duration`: Duration of snackbar
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -53,12 +52,12 @@ void showTalawaErrorSnackBar(
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [navigation_service](../../services_navigation_service/)
@@ -67,9 +66,9 @@ void showTalawaErrorSnackBar(
 
 ##### NavigationService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

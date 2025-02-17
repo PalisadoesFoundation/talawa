@@ -1,21 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/AppLocalizations-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [translate]{.kind-method} method
+# translate method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[translate]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [key]{.parameter-name}]{#translate-param-key .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+translate(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    key]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -29,12 +29,12 @@ String? translate(String? key) {
   return _localizedStrings[key];
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_localization](../../utils_app_localization/)
@@ -43,9 +43,9 @@ String? translate(String? key) {
 
 ##### AppLocalizations class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

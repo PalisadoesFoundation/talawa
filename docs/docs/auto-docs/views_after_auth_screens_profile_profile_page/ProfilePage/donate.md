@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_profile_profile_page/ProfilePage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [donate]{.kind-method} method
+# donate method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [donate]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}, ]{#donate-param-context .parameter}
-2.  [[[ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}]{#donate-param-model .parameter}
+void donate(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context, ]
+2.  [[[ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.html)]
+    model]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 donate widget, this widget is used in donate custom tile.
 
 **params**:
@@ -25,9 +25,9 @@ donate widget, this widget is used in donate custom tile.
 -   `model`: Viewmodel
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -249,7 +249,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                           // if (result != null) {
                           //   ///saving the donation in server
                           //   late final GraphQLClient client =
-                          //       graphqlConfig.clientToQuery();
+                          //       graphqlConfig.;
 
                           //   ///getting transaction id from `brainTree` API
                           //   payPalId = result.paymentMethodNonce.nonce;
@@ -276,7 +276,7 @@ void donate(BuildContext context, ProfilePageViewModel model) {
                           //   }
 
                           //   /// hiding the donation UI once it is successful
-                          //   model.popBottomSheet();
+                          //   model.;
                           //   model.showSnackBar(
                           //     'Donation Successful,Thanks for the support !',
                           //   );
@@ -307,15 +307,15 @@ void donate(BuildContext context, ProfilePageViewModel model) {
         },
       );
     },
-  ).then((value) => model.updateSheetHeight());
+  ).then((value) => model.);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page](../../views_after_auth_screens_profile_profile_page/)
@@ -324,9 +324,9 @@ void donate(BuildContext context, ProfilePageViewModel model) {
 
 ##### ProfilePage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

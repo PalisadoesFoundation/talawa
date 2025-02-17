@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [setIsLiked]{.kind-method} method
+# setIsLiked method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [setIsLiked]{.name}({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [val]{.parameter-name} = [true]{.default-value},
-    ]{#setIsLiked-param-val .parameter}
+void setIsLiked({
+
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    val = true,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 function to set isLiked boolean.
 
 **params**:
@@ -23,23 +23,23 @@ function to set isLiked boolean.
 -   `val`: value to set bool to.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 void setIsLiked({bool val = true}) {
   _isLiked = val;
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
@@ -48,9 +48,9 @@ void setIsLiked({bool val = true}) {
 
 ##### LikeButtonViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

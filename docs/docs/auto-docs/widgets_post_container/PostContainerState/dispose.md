@@ -1,25 +1,25 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_container/PostContainerState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dispose]{.kind-method} method
+# dispose method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [dispose]{.name}()
+void 
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called when this object is removed from the tree permanently.
 
 The framework calls this method when this
@@ -65,7 +65,7 @@ and
     unsubscribe from the object.
 
 Implementations of this method should end with a call to the inherited
-method, as in `super.dispose()`.
+method, as in `super.`.
 
 ## Caveats
 
@@ -112,24 +112,24 @@ See also:
 -   [deactivate](https://api.flutter.dev/flutter/widgets/State/deactivate.html),
     which is called prior to
     [dispose](../../widgets_post_container/PostContainerState/dispose.html).
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-void dispose() {
-  controller.dispose();
-  super.dispose();
+void  {
+  controller.;
+  super.;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_container](../../widgets_post_container/)
@@ -138,9 +138,9 @@ void dispose() {
 
 ##### PostContainerState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

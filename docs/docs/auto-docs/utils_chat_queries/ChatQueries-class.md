@@ -1,86 +1,86 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_chat_queries/utils_chat_queries-library-sidebar.html" below-sidebar="utils_chat_queries/ChatQueries-class-sidebar.html"}
+
 <div>
 
-# [ChatQueries]{.kind-class} class
+# ChatQueries class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates the queries dealing with chats.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+This class creates the queries dealing with chats.
+
+
+
 ## Constructors
 
-[[ChatQueries](../utils_chat_queries/ChatQueries/ChatQueries.html)]{.name}[()]{.signature}
+[ChatQueries](../utils_chat_queries/ChatQueries/ChatQueries.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[messageSentToDirectChatsubscription](../utils_chat_queries/ChatQueries/messageSentToDirectChatsubscription.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[messageSentToDirectChatsubscription](../utils_chat_queries/ChatQueries/messageSentToDirectChatsubscription.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[fetchDirectChatMessagesByChatId](../utils_chat_queries/ChatQueries/fetchDirectChatMessagesByChatId.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [chatId]{.parameter-name}]{#fetchDirectChatMessagesByChatId-param-chatId .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[fetchDirectChatMessagesByChatId](../utils_chat_queries/ChatQueries/fetchDirectChatMessagesByChatId.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] chatId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[fetchDirectChatsByUserId](../utils_chat_queries/ChatQueries/fetchDirectChatsByUserId.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [userId]{.parameter-name}]{#fetchDirectChatsByUserId-param-userId .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[fetchDirectChatsByUserId](../utils_chat_queries/ChatQueries/fetchDirectChatsByUserId.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] userId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[sendMessageToDirectChat](../utils_chat_queries/ChatQueries/sendMessageToDirectChat.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[sendMessageToDirectChat](../utils_chat_queries/ChatQueries/sendMessageToDirectChat.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 
 :   
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [chat_queries](../utils_chat_queries/)
@@ -88,9 +88,9 @@ This class creates the queries dealing with chats.
 
 ##### chat_queries library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,53 +1,52 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_model/Event-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [Event]{.kind-constructor} constructor
+# Event constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[Event]{.name}({
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [id]{.parameter-name}, ]{#-param-id .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [title]{.parameter-name}, ]{#-param-title .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [description]{.parameter-name}, ]{#-param-description .parameter}
-4.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../../models_events_event_model/Attendee-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [attendees]{.parameter-name}, ]{#-param-attendees .parameter}
-5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [location]{.parameter-name}, ]{#-param-location .parameter}
-6.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}
-    [recurring]{.parameter-name}, ]{#-param-recurring .parameter}
-7.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}
-    [allDay]{.parameter-name}, ]{#-param-allDay .parameter}
-8.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [startDate]{.parameter-name}, ]{#-param-startDate .parameter}
-9.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [endDate]{.parameter-name}, ]{#-param-endDate .parameter}
-10. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [startTime]{.parameter-name}, ]{#-param-startTime .parameter}
-11. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [endTime]{.parameter-name}, ]{#-param-endTime .parameter}
-12. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}
-    [isPublic]{.parameter-name}, ]{#-param-isPublic .parameter}
-13. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}
-    [isRegistered]{.parameter-name}, ]{#-param-isRegistered .parameter}
-14. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation}
-    [isRegisterable]{.parameter-name}, ]{#-param-isRegisterable
-    .parameter}
-15. [[[User](../../models_user_user_info/User-class.html)?]{.type-annotation}
-    [creator]{.parameter-name}, ]{#-param-creator .parameter}
-16. [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation}
-    [organization]{.parameter-name}, ]{#-param-organization .parameter}
-17. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [admins]{.parameter-name}, ]{#-param-admins .parameter}
+Event({
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    id, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    title, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    description, ]
+4.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../../models_events_event_model/Attendee-class.html)]\>]?]
+    attendees, ]
+5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    location, ]
+6.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+    recurring, ]
+7.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+    allDay, ]
+8.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    startDate, ]
+9.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    endDate, ]
+10. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    startTime, ]
+11. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    endTime, ]
+12. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+    isPublic, ]
+13. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+    isRegistered, ]
+14. [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+    isRegisterable, ]
+15. [[[User](../../models_user_user_info/User-class.html)?]
+    creator, ]
+16. [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)?]
+    organization, ]
+17. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.html)]\>]?]
+    admins, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -71,12 +70,12 @@ Event({
   this.admins,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_model](../../models_events_event_model/)
@@ -85,9 +84,9 @@ Event({
 
 ##### Event class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

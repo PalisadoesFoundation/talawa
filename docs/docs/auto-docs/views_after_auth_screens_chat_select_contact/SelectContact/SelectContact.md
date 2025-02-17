@@ -1,31 +1,31 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_chat_select_contact/SelectContact-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [SelectContact]{.kind-constructor} constructor
+# SelectContact constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [SelectContact]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const SelectContact({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const SelectContact({super.key});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_contact](../../views_after_auth_screens_chat_select_contact/)
@@ -34,9 +34,9 @@ const SelectContact({super.key});
 
 ##### SelectContact class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

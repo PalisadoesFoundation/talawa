@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [onTapJoin]{.kind-method} method
+# onTapJoin method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[onTapJoin]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 This function make user to join the selected organization.
 
 The function uses `joinOrgById` graph QL query
@@ -20,13 +20,13 @@ The function uses `joinOrgById` graph QL query
 **returns**:
 
 -   `Future<void>`: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> onTapJoin() async {
+Future<void>  async {
   // if `selectedOrganization` registrations is not required.
   if (selectedOrganization!.userRegistrationRequired == false) {
     try {
@@ -40,7 +40,7 @@ Future<void> onTapJoin() async {
                       as Map<String, dynamic>)['joinedOrganizations']
                   as List<dynamic>?)
               ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-              .toList();
+              .;
       userConfig.updateUserJoinedOrg(joinedOrg!);
       // if user joined organization length is 1
       if (userConfig.currentUser.joinedOrganizations!.length == 1) {
@@ -53,7 +53,7 @@ Future<void> onTapJoin() async {
           arguments: MainScreenArgs(mainScreenIndex: 0),
         );
       } else {
-        navigationService.pop();
+        navigationService.;
         navigationService.showTalawaErrorSnackBar(
           'Joined ${selectedOrganization?.name} successfully',
           MessageType.info,
@@ -80,12 +80,12 @@ Future<void> onTapJoin() async {
   // }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
@@ -94,9 +94,9 @@ Future<void> onTapJoin() async {
 
 ##### SelectOrganizationViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

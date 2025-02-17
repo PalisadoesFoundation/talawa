@@ -1,24 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validateEventForm]{.kind-method} static method
+# validateEventForm static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[validateEventForm]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [value]{.parameter-name}, ]{#validateEventForm-param-value
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [label]{.parameter-name}]{#validateEventForm-param-label .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+validateEventForm(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    value, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    label]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to validate event form.
 
 **params**:
@@ -29,9 +28,9 @@ Method to validate event form.
 **returns**:
 
 -   `String?`: error message if field is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -48,12 +47,12 @@ static String? validateEventForm(String value, String? label) {
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -62,9 +61,9 @@ static String? validateEventForm(String value, String? label) {
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

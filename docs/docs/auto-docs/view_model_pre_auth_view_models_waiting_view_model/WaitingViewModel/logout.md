@@ -1,28 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_waiting_view_model/WaitingViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [logout]{.kind-method} method
+# logout method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [logout]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 This function ends the session for the user or logout the user from the
 application.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void logout() {
+void  {
   final user = Hive.box<User>('currentUser');
   final url = Hive.box('url');
-  user.clear();
-  url.clear();
+  user.;
+  url.;
   navigationService.removeAllAndPush(
     Routes.languageSelectionRoute,
     Routes.splashScreen,
@@ -30,12 +30,12 @@ void logout() {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [waiting_view_model](../../view_model_pre_auth_view_models_waiting_view_model/)
@@ -44,9 +44,9 @@ void logout() {
 
 ##### WaitingViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

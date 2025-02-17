@@ -1,39 +1,39 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="main/main-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [main]{.kind-function} function
+# main function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[main]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> main() async {
+Future<void>  async {
   // Returns an instance of the binding that implements WidgetsBinding.
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.;
 
-  final Directory dir = await path.getApplicationDocumentsDirectory();
+  final Directory dir = await path.;
 
   await HiveManager.initializeHive(dir: dir);
 
-  setupLocator();
+  ;
 
-  // The runApp() function takes the given Widget and makes it the root of the widget tree.
-  runApp(MyApp());
+  // The  function takes the given Widget and makes it the root of the widget tree.
+  runApp();
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [main](../main/)
@@ -41,9 +41,9 @@ Future<void> main() async {
 
 ##### main library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

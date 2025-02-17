@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [volunteerGroups]{.kind-property} property
+# volunteerGroups property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-get [volunteerGroups]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)]\>]]
+get volunteerGroups
+
+
+
 List of volunteer groups of an event.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 List<EventVolunteerGroup> get volunteerGroups => _volunteerGroups;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
@@ -36,9 +36,9 @@ List<EventVolunteerGroup> get volunteerGroups => _volunteerGroups;
 
 ##### EventInfoViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [descriptionFocus]{.kind-property} property
+# descriptionFocus property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)
-[descriptionFocus]{.name}
+descriptionFocus
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 DescriptionFocus FocusNode.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-FocusNode descriptionFocus = FocusNode();
+FocusNode descriptionFocus = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_event_view_model](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/)
@@ -38,9 +38,9 @@ FocusNode descriptionFocus = FocusNode();
 
 ##### CreateEventViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

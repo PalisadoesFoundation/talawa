@@ -1,21 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchAndAddPlugins]{.kind-method} method
+# fetchAndAddPlugins method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [fetchAndAddPlugins]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#fetchAndAddPlugins-param-context
-    .parameter}
+void fetchAndAddPlugins(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Dynamically adds `BottomNavigationBarItems` in `BottomNavigationBar`.
 
 by mapping over the data received from the server.
@@ -26,9 +25,9 @@ by mapping over the data received from the server.
     framework refer flutter docs for more info.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -122,14 +121,14 @@ void fetchAndAddPlugins(
     ///
     /// updated and re-render the navbar
     Timer.periodic(Duration(seconds: (testMode ? 1 : 300)), (timer) {
-      FetchPluginList();
+      ;
       final newPluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
 
       if (listEquals(pluginList, newPluginList)) {
-        // notifyListeners();
+        // ;
       }
-      if (testMode) timer.cancel();
+      if (testMode) timer.;
     });
   } else {
     pages = [
@@ -156,12 +155,12 @@ void fetchAndAddPlugins(
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -170,9 +169,9 @@ void fetchAndAddPlugins(
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

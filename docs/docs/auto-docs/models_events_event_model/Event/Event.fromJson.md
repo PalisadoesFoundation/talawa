@@ -1,21 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_model/Event-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [Event.fromJson]{.kind-constructor} constructor
+# Event.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[Event.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+Event.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -51,23 +51,23 @@ factory Event.fromJson(
             ?.map(
               (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
             )
-            .toList(),
+            .,
     attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
         ? null
         : (json['attendees'] as List<dynamic>?)
             ?.map(
               (e) => Attendee.fromJson(e as Map<String, dynamic>),
             )
-            .toList(),
+            .,
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_model](../../models_events_event_model/)
@@ -76,9 +76,9 @@ factory Event.fromJson(
 
 ##### Event class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

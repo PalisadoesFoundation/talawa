@@ -1,55 +1,55 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/LikedByAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [read]{.kind-method} method
+# read method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[LikedBy](../../models_post_post_model/LikedBy-class.html)]{.returntype}
-[read]{.name}(
+[[LikedBy](../../models_post_post_model/LikedBy-class.html)]
+read(
 
-1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation}
-    [reader]{.parameter-name}]{#read-param-reader .parameter}
+1.  [[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]
+    reader]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Is called when a value has to be decoded.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 LikedBy read(BinaryReader reader) {
-  final numOfFields = reader.readByte();
+  final numOfFields = reader.;
   final fields = <int, dynamic>{
-    for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    for (int i = 0; i < numOfFields; i++) reader.: reader.,
   };
   return LikedBy(
     sId: fields[0] as String?,
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_model](../../models_post_post_model/)
@@ -58,9 +58,9 @@ LikedBy read(BinaryReader reader) {
 
 ##### LikedByAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

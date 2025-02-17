@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [httpLink]{.kind-property} property
+# httpLink property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [HttpLink](https://pub.dev/documentation/gql_http_link/1.0.1+1/gql_http_link/HttpLink-class.html)
-[httpLink]{.name}
+httpLink
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 late HttpLink httpLink;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -34,9 +34,9 @@ late HttpLink httpLink;
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

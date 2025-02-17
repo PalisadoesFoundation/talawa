@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/FocusTarget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [focusWidget]{.kind-property} property
+# focusWidget property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.12/tutorial_coach_mark/TargetFocus-class.html)
-[focusWidget]{.name}
+focusWidget
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Target focus widget with all above properties.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late TargetFocus focusWidget;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_tour](../../models_app_tour/)
@@ -38,9 +38,9 @@ late TargetFocus focusWidget;
 
 ##### FocusTarget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

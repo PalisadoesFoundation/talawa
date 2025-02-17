@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_time_conversion/utils_time_conversion-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dateTimeFields]{.kind-top-level-property} top-level constant
+# dateTimeFields top-level constant
 
 </div>
 
-::: {.section .multi-line-signature}
-[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}
-const [dateTimeFields]{.name}
-:::
 
-::: {.section .desc .markdown}
+[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]\>]]\>]
+const dateTimeFields
+
+
+
 Contains information about the date and time fields used for conversion.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -38,12 +38,12 @@ const dateTimeFields = {
   ],
 };
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [time_conversion](../utils_time_conversion/)
@@ -51,9 +51,9 @@ const dateTimeFields = {
 
 ##### time_conversion library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

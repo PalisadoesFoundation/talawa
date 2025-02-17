@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [addLike]{.kind-method} method
+# addLike method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[addLike]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [postID]{.parameter-name}]{#addLike-param-postID .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+addLike(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    postID]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to add like on a Post.
 
 This method basically update likedBy list of a Post in database.
@@ -27,9 +27,9 @@ This method basically update likedBy list of a Post in database.
 **returns**:
 
 -   `Future<void>`: define_the_return
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -38,7 +38,7 @@ Future<bool> addLike(String postID) async {
   await actionHandlerService.performAction(
     actionType: ActionType.optimistic,
     action: () async {
-      final String mutation = PostQueries().addLike();
+      final String mutation = .;
       // run the graphQl mutation.
       return await _dbFunctions
           .gqlAuthMutation(mutation, variables: {"postID": postID});
@@ -54,12 +54,12 @@ Future<bool> addLike(String postID) async {
   return isLiked;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -68,9 +68,9 @@ Future<bool> addLike(String postID) async {
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

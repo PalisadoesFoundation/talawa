@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_alert_dialog_with_checkbox/CustomAlertDialogWithCheckbox-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [secondaryButtonTap]{.kind-property} property
+# secondaryButtonTap property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature}? [secondaryButtonTap]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+dynamic ? secondaryButtonTap
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 Function triggered upon tapping the secondary action button.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-final Function()? secondaryButtonTap;
+final ? secondaryButtonTap;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_alert_dialog_with_checkbox](../../widgets_custom_alert_dialog_with_checkbox/)
@@ -37,9 +37,9 @@ final Function()? secondaryButtonTap;
 
 ##### CustomAlertDialogWithCheckbox class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

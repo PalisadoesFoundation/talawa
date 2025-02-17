@@ -1,26 +1,26 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_demo_screens_organization_feed_demo/DemoOrganizationFeed-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [DemoOrganizationFeed]{.kind-constructor} constructor
+# DemoOrganizationFeed constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [DemoOrganizationFeed]{.name}({
+
+const DemoOrganizationFeed({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
-2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]{.type-annotation}
-    [homeModel]{.parameter-name}, ]{#-param-homeModel .parameter}
-3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [forTest]{.parameter-name} = [false]{.default-value},
-    ]{#-param-forTest .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
+2.  [[[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)?]
+    homeModel, ]
+3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    forTest = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -30,12 +30,12 @@ const DemoOrganizationFeed({
   this.forTest = false,
 }) : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [organization_feed_demo](../../views_demo_screens_organization_feed_demo/)
@@ -44,9 +44,9 @@ const DemoOrganizationFeed({
 
 ##### DemoOrganizationFeed class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

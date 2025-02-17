@@ -1,17 +1,17 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_encryptor/Encryptor-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [generateRSAKeyPair]{.kind-method} method
+# generateRSAKeyPair method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)]{.type-parameter},
-[[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[generateRSAKeyPair]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)],
+[[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]
+
+
+
+
 Generates RSA Key Pairs (Public/Private).
 
 Should be called only during app\'s first initialization, and any future
@@ -23,15 +23,15 @@ usage should be done by getting the keys from the local storage.
 
 -   `AsymmetricKeyPair<PublicKey, PrivateKey>`: The generated public and
     private keys.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAKeyPair() {
-  final secureRandom = FortunaRandom();
-  final random = Random.secure();
+AsymmetricKeyPair<PublicKey, PrivateKey>  {
+  final secureRandom = ;
+  final random = Random.;
   final List<int> seeds = [];
   for (int i = 0; i < 32; i++) {
     seeds.add(random.nextInt(255));
@@ -39,17 +39,17 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAKeyPair() {
   secureRandom.seed(KeyParameter(Uint8List.fromList(seeds)));
   final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 64);
   final params = ParametersWithRandom(rsapars, secureRandom);
-  final keyGenerator = RSAKeyGenerator();
+  final keyGenerator = ;
   keyGenerator.init(params);
-  return keyGenerator.generateKeyPair();
+  return keyGenerator.;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [encryptor](../../utils_encryptor/)
@@ -58,9 +58,9 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAKeyPair() {
 
 ##### Encryptor class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

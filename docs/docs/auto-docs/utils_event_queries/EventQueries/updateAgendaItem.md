@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateAgendaItem]{.kind-method} method
+# updateAgendaItem method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[updateAgendaItem]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Creates a GraphQL mutation for updating an agenda item.
 
 **params**: None
@@ -19,13 +19,13 @@ Creates a GraphQL mutation for updating an agenda item.
 
 -   `String`: Returns a GraphQL mutation string to update an agenda
     item.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String updateAgendaItem() {
+String  {
   return """
   mutation UpdateAgendaItem(\$updateAgendaItemId: ID!
   \$input: UpdateAgendaItemInput!
@@ -52,12 +52,12 @@ String updateAgendaItem() {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -66,9 +66,9 @@ String updateAgendaItem() {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

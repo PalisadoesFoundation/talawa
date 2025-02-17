@@ -1,36 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createDonation]{.kind-method} method
+# createDonation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[createDonation]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [userId]{.parameter-name}, ]{#createDonation-param-userId
-    .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [orgId]{.parameter-name}, ]{#createDonation-param-orgId .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [nameOfOrg]{.parameter-name}, ]{#createDonation-param-nameOfOrg
-    .parameter}
-4.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [nameOfUser]{.parameter-name}, ]{#createDonation-param-nameOfUser
-    .parameter}
-5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [payPalId]{.parameter-name}, ]{#createDonation-param-payPalId
-    .parameter}
-6.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)]{.type-annotation}
-    [amount]{.parameter-name}, ]{#createDonation-param-amount
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+createDonation(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    userId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    orgId, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    nameOfOrg, ]
+4.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    nameOfUser, ]
+5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    payPalId, ]
+6.  [[[double](https://api.flutter.dev/flutter/dart-core/double-class.html)]
+    amount, ]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 `createDonation` creates a new donation transaction by taking the userId
 ,orgId ,nameOfOrg ,nameOfUser as parameters.
 
@@ -49,9 +44,9 @@ more_info_if_required
 
 -   `String`: mutation in string form, to be passed on to graphql
     client.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -83,12 +78,12 @@ String createDonation(
     ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -97,9 +92,9 @@ String createDonation(
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

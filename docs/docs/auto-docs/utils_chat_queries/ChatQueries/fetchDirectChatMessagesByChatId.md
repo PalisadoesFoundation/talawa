@@ -1,22 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="utils_chat_queries/ChatQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchDirectChatMessagesByChatId]{.kind-method} method
+# fetchDirectChatMessagesByChatId method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[fetchDirectChatMessagesByChatId]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [chatId]{.parameter-name}]{#fetchDirectChatMessagesByChatId-param-chatId
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+fetchDirectChatMessagesByChatId(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    chatId]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -41,12 +40,12 @@ String fetchDirectChatMessagesByChatId(String chatId) {
   ''';
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_queries](../../utils_chat_queries/)
@@ -55,9 +54,9 @@ String fetchDirectChatMessagesByChatId(String chatId) {
 
 ##### ChatQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

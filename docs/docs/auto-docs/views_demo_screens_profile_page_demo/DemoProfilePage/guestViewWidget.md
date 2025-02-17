@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_demo_screens_profile_page_demo/DemoProfilePage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [guestViewWidget]{.kind-method} method
+# guestViewWidget method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[guestViewWidget]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#guestViewWidget-param-context
-    .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+guestViewWidget(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 guestViewWidget, this widget is shown if user is not logged in.
 
 **params**:
@@ -26,9 +25,9 @@ guestViewWidget, this widget is shown if user is not logged in.
 **returns**:
 
 -   `Widget`: Widget
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -90,7 +89,7 @@ Widget guestViewWidget(BuildContext context) {
             'Donate to the Community',
           ),
           onTap: () {
-            MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+            MainScreenViewModel.scaffoldKey.currentState?.;
           },
           textColor: Theme.of(context)
               .inputDecorationTheme
@@ -210,12 +209,12 @@ Widget guestViewWidget(BuildContext context) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_demo](../../views_demo_screens_profile_page_demo/)
@@ -224,9 +223,9 @@ Widget guestViewWidget(BuildContext context) {
 
 ##### DemoProfilePage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

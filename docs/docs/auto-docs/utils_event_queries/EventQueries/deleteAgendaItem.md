@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [deleteAgendaItem]{.kind-method} method
+# deleteAgendaItem method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[deleteAgendaItem]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Creates a GraphQL mutation for deleting an agenda item.
 
 **params**: None
@@ -19,13 +19,13 @@ Creates a GraphQL mutation for deleting an agenda item.
 
 -   `String`: Returns a GraphQL mutation string to delete an agenda
     item.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String deleteAgendaItem() {
+String  {
   return """
   mutation RemoveAgendaItem(\$removeAgendaItemId: ID!) {
     removeAgendaItem(id: \$removeAgendaItemId) {
@@ -35,12 +35,12 @@ String deleteAgendaItem() {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -49,9 +49,9 @@ String deleteAgendaItem() {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

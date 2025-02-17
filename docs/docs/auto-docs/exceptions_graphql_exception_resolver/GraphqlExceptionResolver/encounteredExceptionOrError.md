@@ -1,25 +1,25 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="exceptions_graphql_exception_resolver/GraphqlExceptionResolver-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [encounteredExceptionOrError]{.kind-method} static method
+# encounteredExceptionOrError static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.returntype}
-[encounteredExceptionOrError]{.name}(
 
-1.  [[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)]{.type-annotation}
-    [exception]{.parameter-name},
-    {]{#encounteredExceptionOrError-param-exception .parameter}
-2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [showSnackBar]{.parameter-name} = [true]{.default-value},
-    ]{#encounteredExceptionOrError-param-showSnackBar .parameter}
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
+encounteredExceptionOrError(
+
+1.  [[[OperationException](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/OperationException-class.html)]
+    exception,
+    {]
+2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    showSnackBar = true,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to check if any exceptions or error encountered.
 The return type is `boolean`.
 
@@ -33,9 +33,9 @@ The return type is `boolean`.
 **returns**:
 
 -   `bool?`: returns a bool whether or not their is error, can be null
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -45,7 +45,7 @@ static bool? encounteredExceptionOrError(
 }) {
   // If server link is wrong.
   if (exception.linkException != null) {
-    debugPrint(exception.linkException.toString());
+    debugPrint(exception.linkException.);
     if (showSnackBar) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => navigationService.showTalawaErrorSnackBar(
@@ -58,7 +58,7 @@ static bool? encounteredExceptionOrError(
   }
 
   if (exception is CriticalActionException) {
-    debugPrint(exception.toString());
+    debugPrint(exception.);
     if (showSnackBar) {
       navigationService.showCustomToast(exception.actionError);
     }
@@ -66,7 +66,7 @@ static bool? encounteredExceptionOrError(
   }
 
   /// Looping through graphQL errors.
-  debugPrint(exception.graphqlErrors.toString());
+  debugPrint(exception.graphqlErrors.);
   for (int i = 0; i < exception.graphqlErrors.length; i++) {
     // if the error message is "Access Token has expired. Please refresh session.: Undefined location"
     if (exception.graphqlErrors[i].message ==
@@ -76,8 +76,8 @@ static bool? encounteredExceptionOrError(
           .refreshAccessToken(userConfig.currentUser.refreshToken!)
           .then(
             (value) => graphqlConfig
-                .getToken()
-                .then((value) => databaseFunctions.init()),
+                .
+                .then((value) => databaseFunctions.),
           );
       print('client refreshed');
       return true;
@@ -90,8 +90,8 @@ static bool? encounteredExceptionOrError(
           .refreshAccessToken(userConfig.currentUser.refreshToken!)
           .then(
             (value) => graphqlConfig
-                .getToken()
-                .then((value) => databaseFunctions.init()),
+                .
+                .then((value) => databaseFunctions.),
           );
       return true;
     }
@@ -172,12 +172,12 @@ static bool? encounteredExceptionOrError(
   return false;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_exception_resolver](../../exceptions_graphql_exception_resolver/)
@@ -186,9 +186,9 @@ static bool? encounteredExceptionOrError(
 
 ##### GraphqlExceptionResolver class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

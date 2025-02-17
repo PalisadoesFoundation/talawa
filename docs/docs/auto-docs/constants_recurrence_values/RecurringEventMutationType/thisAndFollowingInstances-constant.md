@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/RecurringEventMutationType-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [thisAndFollowingInstances]{.kind-property} constant
+# thisAndFollowingInstances constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-const [thisAndFollowingInstances]{.name}
-:::
+const thisAndFollowingInstances
 
-::: {.section .desc .markdown}
+
+
 constant representing mutation of current and following instances.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const thisAndFollowingInstances = 'ThisAndFollowingInstances';
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -34,9 +34,9 @@ static const thisAndFollowingInstances = 'ThisAndFollowingInstances';
 
 ##### RecurringEventMutationType class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

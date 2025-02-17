@@ -1,25 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validateEventTime]{.kind-method} static method
+# validateEventTime static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-[validateEventTime]{.name}(
 
-1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation}
-    [startTime]{.parameter-name}, ]{#validateEventTime-param-startTime
-    .parameter}
-2.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]{.type-annotation}
-    [endTime]{.parameter-name}]{#validateEventTime-param-endTime
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+validateEventTime(
+
+1.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+    startTime, ]
+2.  [[[TimeOfDay](https://api.flutter.dev/flutter/material/TimeOfDay-class.html)]
+    endTime]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to validate event time.
 
 **params**:
@@ -30,9 +28,9 @@ Method to validate event time.
 **returns**:
 
 -   `String?`: error message if time is invalid.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +42,12 @@ static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -58,9 +56,9 @@ static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

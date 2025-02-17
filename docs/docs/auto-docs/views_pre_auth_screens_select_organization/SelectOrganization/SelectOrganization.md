@@ -1,37 +1,36 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_pre_auth_screens_select_organization/SelectOrganization-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [SelectOrganization]{.kind-constructor} constructor
+# SelectOrganization constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [SelectOrganization]{.name}({
+
+const SelectOrganization({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [selectedOrgId]{.parameter-name}, ]{#-param-selectedOrgId
-    .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    selectedOrgId, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const SelectOrganization({required Key key, required this.selectedOrgId})
     : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_organization](../../views_pre_auth_screens_select_organization/)
@@ -40,9 +39,9 @@ const SelectOrganization({required Key key, required this.selectedOrgId})
 
 ##### SelectOrganization class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

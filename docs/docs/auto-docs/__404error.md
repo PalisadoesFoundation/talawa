@@ -1,21 +1,21 @@
-:::: {#dartdoc-main-content .main-content}
+
 # 404: Something\'s gone wrong :-(
 
-::: {.section .desc}
+
 You\'ve tried to visit a page that doesn\'t exist. Luckily this site has
 other [pages](index.html).
 
 If you were looking for something specific, try searching:
-:::
-::::
 
-:::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa package](https://github.com/PalisadoesFoundation/talawa)
 
-##### [talawa]{.package-name} [package]{.package-kind}
+##### talawa package
 
 1.  Libraries
 2.  [apptheme](apptheme/)
@@ -210,7 +210,7 @@ If you were looking for something specific, try searching:
 191. [widgets\\theme_switch](widgets_theme_switch/)
 192. [widgets\\venue_card](widgets_venue_card/)
 193. [widgets\\video_widget](widgets_video_widget/)
-::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+

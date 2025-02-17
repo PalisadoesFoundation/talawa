@@ -1,140 +1,140 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_agenda_item/models_events_event_agenda_item-library-sidebar.html" below-sidebar="models_events_event_agenda_item/EventAgendaItem-class-sidebar.html"}
+
 <div>
 
-# [EventAgendaItem]{.kind-class} class
+# EventAgendaItem class
 
 </div>
 
-::: {.section .desc .markdown}
-Model for Event Agenda Item.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Model for Event Agenda Item.
+
+
+
 ## Constructors
 
-[[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [id]{.parameter-name}, ]{#-param-id .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [title]{.parameter-name}, ]{#-param-title .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [description]{.parameter-name}, ]{#-param-description .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [duration]{.parameter-name}, ]{#-param-duration .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [attachments]{.parameter-name}, ]{#-param-attachments .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [createdBy]{.parameter-name}, ]{#-param-createdBy .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [urls]{.parameter-name}, ]{#-param-urls .parameter}[[[Event](../models_events_event_model/Event-class.html)?]{.type-annotation} [relatedEvent]{.parameter-name}, ]{#-param-relatedEvent .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [categories]{.parameter-name}, ]{#-param-categories .parameter}[[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation} [sequence]{.parameter-name}, ]{#-param-sequence .parameter}[[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation} [organization]{.parameter-name}]{#-param-organization .parameter}})]{.signature}
+[[EventAgendaItem](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] title, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] duration, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?] attachments, ][[[User](../models_user_user_info/User-class.html)?] createdBy, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?] urls, ][[[Event](../models_events_event_model/Event-class.html)?] relatedEvent, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]\>]?] categories, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] sequence, ][[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?] organization]})]
 
 :   
 
-[[EventAgendaItem.fromJson](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[EventAgendaItem.fromJson](../models_events_event_agenda_item/EventAgendaItem/EventAgendaItem.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[attachments](../models_events_event_agenda_item/EventAgendaItem/attachments.html)]{.name} [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[attachments](../models_events_event_agenda_item/EventAgendaItem/attachments.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
 :   Optional array of attachment URLs.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[categories](../models_events_event_agenda_item/EventAgendaItem/categories.html)]{.name} [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[categories](../models_events_event_agenda_item/EventAgendaItem/categories.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[AgendaCategory](../models_events_event_agenda_category/AgendaCategory-class.html)]\>]?]
 :   Optional array of agenda categories.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[createdBy](../models_events_event_agenda_item/EventAgendaItem/createdBy.html)]{.name} [→ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[createdBy](../models_events_event_agenda_item/EventAgendaItem/createdBy.html)] [→ [User](../models_user_user_info/User-class.html)?]
 :   Reference to the user who created the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[description](../models_events_event_agenda_item/EventAgendaItem/description.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[description](../models_events_event_agenda_item/EventAgendaItem/description.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Optional description.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[duration](../models_events_event_agenda_item/EventAgendaItem/duration.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[duration](../models_events_event_agenda_item/EventAgendaItem/duration.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Duration of the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[id](../models_events_event_agenda_item/EventAgendaItem/id.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[id](../models_events_event_agenda_item/EventAgendaItem/id.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Unique identifier for the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[organization](../models_events_event_agenda_item/EventAgendaItem/organization.html)]{.name} [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.signature}
+[[organization](../models_events_event_agenda_item/EventAgendaItem/organization.html)] [→ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
 :   Reference to the organization associated with the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[relatedEvent](../models_events_event_agenda_item/EventAgendaItem/relatedEvent.html)]{.name} [→ [Event](../models_events_event_model/Event-class.html)?]{.signature}
+[[relatedEvent](../models_events_event_agenda_item/EventAgendaItem/relatedEvent.html)] [→ [Event](../models_events_event_model/Event-class.html)?]
 :   Reference to the event associated with the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[sequence](../models_events_event_agenda_item/EventAgendaItem/sequence.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.signature}
+[[sequence](../models_events_event_agenda_item/EventAgendaItem/sequence.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
 :   Sequence number of the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[title](../models_events_event_agenda_item/EventAgendaItem/title.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[title](../models_events_event_agenda_item/EventAgendaItem/title.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Title of the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[urls](../models_events_event_agenda_item/EventAgendaItem/urls.html)]{.name} [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[urls](../models_events_event_agenda_item/EventAgendaItem/urls.html)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
 :   Optional array of URLs related to the agenda item.
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_agenda_item](../models_events_event_agenda_item/)
@@ -142,9 +142,9 @@ Model for Event Agenda Item.
 
 ##### event_agenda_item library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

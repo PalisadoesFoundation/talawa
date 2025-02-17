@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/FocusTarget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [next]{.kind-property} property
+# next property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature}? [next]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+dynamic ? next
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 next callback that is executed on pressing this target.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Function()? next;
+? next;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_tour](../../models_app_tour/)
@@ -37,9 +37,9 @@ Function()? next;
 
 ##### FocusTarget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

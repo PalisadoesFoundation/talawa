@@ -1,25 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [reorderAgendaItems]{.kind-method} method
+# reorderAgendaItems method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[reorderAgendaItems]{.name}(
 
-1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation}
-    [oldIndex]{.parameter-name}, ]{#reorderAgendaItems-param-oldIndex
-    .parameter}
-2.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation}
-    [newIndex]{.parameter-name}]{#reorderAgendaItems-param-newIndex
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+reorderAgendaItems(
+
+1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+    oldIndex, ]
+2.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+    newIndex]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to redorder the sequence of agenda items.
 
 **params**:
@@ -28,9 +26,9 @@ Method to redorder the sequence of agenda items.
 -   `newIndex`: new index of the item
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -52,15 +50,15 @@ Future<void> reorderAgendaItems(int oldIndex, int newIndex) async {
     }
   }
 
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
@@ -69,9 +67,9 @@ Future<void> reorderAgendaItems(int oldIndex, int newIndex) async {
 
 ##### EventInfoViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

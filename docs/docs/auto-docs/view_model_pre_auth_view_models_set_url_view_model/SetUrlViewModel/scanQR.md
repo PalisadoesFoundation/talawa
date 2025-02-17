@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [scanQR]{.kind-method} method
+# scanQR method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [scanQR]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#scanQR-param-context .parameter}
+void scanQR(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function create a widget which is used to scan the QR-code.
 
 **params**:
@@ -22,9 +22,9 @@ This function create a widget which is used to scan the QR-code.
 -   `context`: BuildContext
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -82,12 +82,12 @@ void scanQR(BuildContext context) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
@@ -96,9 +96,9 @@ void scanQR(BuildContext context) {
 
 ##### SetUrlViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

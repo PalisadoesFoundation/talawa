@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_volunteer/EventVolunteer-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [group]{.kind-property} property
+# group property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [EventVolunteerGroup](../../models_events_event_volunteer_group/EventVolunteerGroup-class.html)?
-[group]{.name}
+group
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 The group associated with the event volunteer.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 EventVolunteerGroup? group;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_volunteer](../../models_events_event_volunteer/)
@@ -38,9 +38,9 @@ EventVolunteerGroup? group;
 
 ##### EventVolunteer class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

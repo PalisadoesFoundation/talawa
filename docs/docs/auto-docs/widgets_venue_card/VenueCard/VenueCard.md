@@ -1,26 +1,26 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_venue_card/VenueCard-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [VenueCard]{.kind-constructor} constructor
+# VenueCard constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [VenueCard]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const VenueCard({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[Venue](../../models_events_event_venue/Venue-class.html)]{.type-annotation}
-    [venue]{.parameter-name}, ]{#-param-venue .parameter}
-3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isSelected]{.parameter-name} = [false]{.default-value},
-    ]{#-param-isSelected .parameter}
+    [[Venue](../../models_events_event_venue/Venue-class.html)]
+    venue, ]
+3.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isSelected = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -30,12 +30,12 @@ const VenueCard({
   this.isSelected = false,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [venue_card](../../widgets_venue_card/)
@@ -44,9 +44,9 @@ const VenueCard({
 
 ##### VenueCard class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,24 +1,24 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="apptheme/AppTheme-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [title]{.kind-property} property
+# title property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
-[title]{.name}
+title
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Custom theme for the app.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -30,12 +30,12 @@ static TextStyle title = const TextStyle(
   decorationThickness: 0,
 );
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [apptheme](../../apptheme/)
@@ -44,9 +44,9 @@ static TextStyle title = const TextStyle(
 
 ##### AppTheme class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

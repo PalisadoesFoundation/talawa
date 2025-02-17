@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_event_page/CreateEventPageState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method in a number of different situations. For
@@ -209,9 +209,9 @@ See also:
 
 -   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -221,7 +221,7 @@ Widget build(BuildContext context) {
       Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
   final navigationServiceLocal = locator<NavigationService>();
   return BaseView<CreateEventViewModel>(
-    onModelReady: (model) => model.initialize(),
+    onModelReady: (model) => model.,
     builder: (context, model, child) {
       return Scaffold(
         // AppBar is the header of the page
@@ -230,7 +230,7 @@ Widget build(BuildContext context) {
           elevation: 1,
           centerTitle: true,
           leading: GestureDetector(
-            onTap: () => navigationServiceLocal.pop(),
+            onTap: () => navigationServiceLocal.,
             child: const Icon(Icons.close),
           ),
           title: Text(
@@ -245,10 +245,10 @@ Widget build(BuildContext context) {
               key: const Key('addButton'),
               onPressed: () {
                 if (userConfig.loggedIn) {
-                  model.createEvent();
+                  model.;
                 } else {
-                  navigationService.pop();
-                  MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+                  navigationService.;
+                  MainScreenViewModel.scaffoldKey.currentState?.;
                 }
               },
               child: Text(
@@ -280,7 +280,7 @@ Widget build(BuildContext context) {
                       TextButton(
                         key: const Key('txt_btn_cep'),
                         onPressed: () {
-                          model.getImageFromGallery();
+                          model.;
                         },
                         child: Text(
                           AppLocalizations.of(context)!
@@ -305,7 +305,7 @@ Widget build(BuildContext context) {
                                 right: 5,
                                 top: 5,
                                 child: IconButton(
-                                  onPressed: () => model.removeImage(),
+                                  onPressed: () => model.,
                                   icon: const Icon(
                                     Icons.cancel,
                                     color: Colors.black,
@@ -315,16 +315,16 @@ Widget build(BuildContext context) {
                             ],
                           ),
                         )
-                      : Container(),
-                  const Divider(),
+                      : ,
+                  const ,
                   CreateEventForm(
                     model: model,
                   ),
                   SizedBox(height: SizeConfig.screenHeight! * 0.013),
-                  const Divider(),
+                  const ,
                   GestureDetector(
                     onTap: () async {
-                      final List<Venue> venues = await model.fetchVenues();
+                      final List<Venue> venues = await model.;
                       if (!context.mounted) return;
                       final Venue? selected =
                           await showModalBottomSheet<Venue>(
@@ -419,7 +419,7 @@ Widget build(BuildContext context) {
                             ),
                           ),
                   ),
-                  const Divider(),
+                  const ,
                   SizedBox(
                     width: SizeConfig.screenWidth,
                     child: Wrap(
@@ -501,7 +501,7 @@ Widget build(BuildContext context) {
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
-                  const Divider(),
+                  const ,
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
@@ -520,7 +520,7 @@ Widget build(BuildContext context) {
                   DateTimeTile(
                     key: const Key("dateTimeTileFirst"),
                     isAllDay: model.isAllDay,
-                    date: "${model.eventStartDate.toLocal()}".split(' ')[0],
+                    date: "${model.eventStartDate.}".split(' ')[0],
                     time: model.eventStartTime.format(context),
                     setDate: () async {
                       final date = await customDatePicker(
@@ -555,7 +555,7 @@ Widget build(BuildContext context) {
                   DateTimeTile(
                     key: const Key('key for test cep'),
                     isAllDay: model.isAllDay,
-                    date: "${model.eventEndDate.toLocal()}".split(' ')[0],
+                    date: "${model.eventEndDate.}".split(' ')[0],
                     time: model.eventEndTime.format(context),
                     setDate: () async {
                       final date = await customDatePicker(
@@ -609,11 +609,11 @@ Widget build(BuildContext context) {
                     },
                   ),
                   SizedBox(height: SizeConfig.screenHeight! * 0.026),
-                  const Divider(),
+                  const ,
                   InkWell(
                     key: const Key('inwell_cep2'),
                     onTap: () {
-                      EventBottomSheet().addUserBottomSheet(
+                      .addUserBottomSheet(
                         context: context,
                         model: model,
                       );
@@ -646,7 +646,7 @@ Widget build(BuildContext context) {
                             },
                           ),
                         )
-                        .toList()
+                        .
                         .cast<Widget>(),
                   ),
                 ],
@@ -659,12 +659,12 @@ Widget build(BuildContext context) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
@@ -673,9 +673,9 @@ Widget build(BuildContext context) {
 
 ##### CreateEventPageState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

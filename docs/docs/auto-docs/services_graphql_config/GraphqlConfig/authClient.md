@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [authClient]{.kind-method} method
+# authClient method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]{.returntype}
-[authClient]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+[[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
+
+
+
+
 ## Implementation
 
 ``` language-dart
-GraphQLClient authClient() {
+GraphQLClient  {
   final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
   final Link finalAuthLink = authLink.concat(httpLink);
   return GraphQLClient(
@@ -23,12 +23,12 @@ GraphQLClient authClient() {
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -37,9 +37,9 @@ GraphQLClient authClient() {
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

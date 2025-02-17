@@ -1,23 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_image_service/ImageService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [cropImage]{.kind-method} method
+# cropImage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]{.type-parameter}\>]{.signature}]{.returntype}
-[cropImage]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)?]\>]]
+cropImage({
 
 1.  [required
-    [[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]{.type-annotation}
-    [imageFile]{.parameter-name}, ]{#cropImage-param-imageFile
-    .parameter}
+    [[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]
+    imageFile, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Crops the image selected by the user.
 
 **params**:
@@ -31,9 +30,9 @@ Crops the image selected by the user.
 **throws**:
 
 -   `Exception`: If an error occurs during the image cropping process.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -85,12 +84,12 @@ Future<File?> cropImage({required File imageFile}) async {
   return null;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [image_service](../../services_image_service/)
@@ -99,9 +98,9 @@ Future<File?> cropImage({required File imageFile}) async {
 
 ##### ImageService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

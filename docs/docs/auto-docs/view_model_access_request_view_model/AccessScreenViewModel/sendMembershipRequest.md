@@ -1,28 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_access_request_view_model/AccessScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [sendMembershipRequest]{.kind-method} method
+# sendMembershipRequest method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[sendMembershipRequest]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Sending member ship request function.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> sendMembershipRequest() async {
+Future<void>  async {
   //TODO: Implement Message arg for below function
   final result = await databaseFunctions.gqlAuthMutation(
     queries.sendMembershipRequest(selectedOrganization.id!),
@@ -39,7 +39,7 @@ Future<void> sendMembershipRequest() async {
         Routes.splashScreen,
       );
     } else {
-      navigationService.pop();
+      navigationService.;
       navigationService.showTalawaErrorSnackBar(
         'Join in request sent to ${selectedOrganization.name} successfully',
         MessageType.info,
@@ -48,12 +48,12 @@ Future<void> sendMembershipRequest() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [access_request_view_model](../../view_model_access_request_view_model/)
@@ -62,9 +62,9 @@ Future<void> sendMembershipRequest() async {
 
 ##### AccessScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

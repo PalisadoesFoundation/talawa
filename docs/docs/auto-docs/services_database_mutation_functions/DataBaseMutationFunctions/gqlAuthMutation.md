@@ -1,26 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [gqlAuthMutation]{.kind-method} method
+# gqlAuthMutation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[gqlAuthMutation]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [mutation]{.parameter-name}, {]{#gqlAuthMutation-param-mutation
-    .parameter}
-2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [variables]{.parameter-name}, ]{#gqlAuthMutation-param-variables
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlAuthMutation(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    mutation, {]
+2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    variables, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to run the graph-ql mutation for authenticated
 user.
 
@@ -33,9 +31,9 @@ user.
 **returns**:
 
 -   `Future<QueryResult<Object?>>`: it returns Future of dynamic
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -73,12 +71,12 @@ Future<QueryResult<Object?>> gqlAuthMutation(
   return response;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -87,9 +85,9 @@ Future<QueryResult<Object?>> gqlAuthMutation(
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

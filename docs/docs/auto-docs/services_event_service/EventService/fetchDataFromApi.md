@@ -1,26 +1,26 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchDataFromApi]{.kind-method} method
+# fetchDataFromApi method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[fetchDataFromApi]{.name}()
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]\>]]\>]]
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+
+override
+
+
+
+
 Abstract method to be implemented by subclasses to fetch data from an
 API.
 
@@ -30,18 +30,18 @@ API.
 
 -   `Future<List<T>>`: A Future containing a list of data fetched from
     the API.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-Future<List<Event>> fetchDataFromApi() async {
+Future<List<Event>>  async {
   // get current organization id
   final String currentOrgID = _currentOrg.id!;
   // mutation to fetch the events
-  final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
+  final String mutation = .fetchOrgEvents(currentOrgID);
   final result = await _dbFunctions.gqlAuthQuery(mutation);
 
   if (result.data == null) {
@@ -61,12 +61,12 @@ Future<List<Event>> fetchDataFromApi() async {
   return _events;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -75,9 +75,9 @@ Future<List<Event>> fetchDataFromApi() async {
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

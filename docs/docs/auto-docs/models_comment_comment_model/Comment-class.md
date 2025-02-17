@@ -1,112 +1,112 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="models_comment_comment_model/models_comment_comment_model-library-sidebar.html" below-sidebar="models_comment_comment_model/Comment-class-sidebar.html"}
+
 <div>
 
-# [Comment]{.kind-class} class
+# Comment class
 
 </div>
 
-::: {.section .desc .markdown}
-This class returns a Comment instance.
-:::
 
-::: section
+This class returns a Comment instance.
+
+
+
 
 Annotations
 
 :   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
         12)
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[Comment](../models_comment_comment_model/Comment/Comment.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [text]{.parameter-name}, ]{#-param-text .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [createdAt]{.parameter-name}, ]{#-param-createdAt .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [creator]{.parameter-name}, ]{#-param-creator .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [post]{.parameter-name}, ]{#-param-post .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [likeCount]{.parameter-name}]{#-param-likeCount .parameter}})]{.signature}
+[[Comment](../models_comment_comment_model/Comment/Comment.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] text, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] createdAt, ][[[User](../models_user_user_info/User-class.html)?] creator, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] post, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] likeCount]})]
 
 :   
 
-[[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[createdAt](../models_comment_comment_model/Comment/createdAt.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[createdAt](../models_comment_comment_model/Comment/createdAt.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The creation date of the comment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[creator](../models_comment_comment_model/Comment/creator.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[creator](../models_comment_comment_model/Comment/creator.html)] [↔ [User](../models_user_user_info/User-class.html)?]
 :   The creator of the comment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[likeCount](../models_comment_comment_model/Comment/likeCount.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[likeCount](../models_comment_comment_model/Comment/likeCount.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The like count of the comment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[post](../models_comment_comment_model/Comment/post.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[post](../models_comment_comment_model/Comment/post.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The post associated with the comment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[text](../models_comment_comment_model/Comment/text.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[text](../models_comment_comment_model/Comment/text.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The text of the comment.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [comment_model](../models_comment_comment_model/)
@@ -114,9 +114,9 @@ Annotations
 
 ##### comment_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

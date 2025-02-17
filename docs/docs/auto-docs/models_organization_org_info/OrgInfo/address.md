@@ -1,11 +1,11 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/OrgInfo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [address]{.kind-property} property
+# address property
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(8)
@@ -13,30 +13,30 @@
 </div>
 
 [Address](../../models_organization_org_info_address/Address-class.html)?
-[address]{.name}
+address
 
-::: features
-[getter/setter pair]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Address of the Organisation.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @HiveField(8)
 Address? address;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info](../../models_organization_org_info/)
@@ -45,9 +45,9 @@ Address? address;
 
 ##### OrgInfo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

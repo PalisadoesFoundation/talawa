@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [newUserLanguage]{.kind-method} method
+# newUserLanguage method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[newUserLanguage]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [userId]{.parameter-name}]{#newUserLanguage-param-userId .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+newUserLanguage(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    userId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 query for new user language .
 
 **params**:
@@ -25,9 +25,9 @@ query for new user language .
 **returns**:
 
 -   `String`: query in string form, to be passed on to graphql client.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,12 +39,12 @@ String newUserLanguage(String userId) {
 ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -53,9 +53,9 @@ String newUserLanguage(String userId) {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

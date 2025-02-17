@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [options]{.kind-property} property
+# options property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}
-[options]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+options
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 Options to be shown in dropdown.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final List<String> options;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
@@ -38,9 +38,9 @@ final List<String> options;
 
 ##### RecurrenceFrequencyDropdown class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

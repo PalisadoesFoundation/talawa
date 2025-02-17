@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_venue/Venue-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [capacity]{.kind-property} property
+# capacity property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?
-[capacity]{.name}
+capacity
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 The maximum number of people the venue can accommodate.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final int? capacity;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_venue](../../models_events_event_venue/)
@@ -38,9 +38,9 @@ final int? capacity;
 
 ##### Venue class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

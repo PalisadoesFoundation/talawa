@@ -1,103 +1,103 @@
-::::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_encryptor/utils_encryptor-library-sidebar.html" below-sidebar="utils_encryptor/Encryptor-class-sidebar.html"}
+
 <div>
 
-# [Encryptor]{.kind-class} class
+# Encryptor class
 
 </div>
 
-::: {.section .desc .markdown}
-Handles all of the encryption tasks in the codebase.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Handles all of the encryption tasks in the codebase.
+
+
+
 ## Constructors
 
-[[Encryptor](../utils_encryptor/Encryptor/Encryptor.html)]{.name}[()]{.signature}
+[Encryptor](../utils_encryptor/Encryptor/Encryptor.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [data]{.parameter-name}, ]{#assymetricDecryptString-param-data .parameter}[[[RSAPrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPrivateKey-class.html)]{.type-annotation} [privateKey]{.parameter-name}]{#assymetricDecryptString-param-privateKey .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[assymetricDecryptString](../utils_encryptor/Encryptor/assymetricDecryptString.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] data, ][[[RSAPrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPrivateKey-class.html)] privateKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Encrypts the given string data with user\'s Private Key.
 
-[[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [data]{.parameter-name}, ]{#assymetricEncryptString-param-data .parameter}[[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)]{.type-annotation} [recipientPublicKey]{.parameter-name}]{#assymetricEncryptString-param-recipientPublicKey .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[assymetricEncryptString](../utils_encryptor/Encryptor/assymetricEncryptString.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] data, ][[[RSAPublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/RSAPublicKey-class.html)] recipientPublicKey]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Encrypts the given string data with Recipient\'s Public Key.
 
-[[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.html)]{.name}[() [→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)]{.type-parameter}, [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[generateRSAKeyPair](../utils_encryptor/Encryptor/generateRSAKeyPair.html)][() [→ [AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]] ]
 :   Generates RSA Key Pairs (Public/Private).
 
-[[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.html)]{.name}[([[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]{.type-annotation} [hive]{.parameter-name}]{#loadKeyPair-param-hive .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)]{.type-parameter}, [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[loadKeyPair](../utils_encryptor/Encryptor/loadKeyPair.html)][([[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]\>]] ]
 :   Loads secret keys from the Hive db.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[receiveMessage](../utils_encryptor/Encryptor/receiveMessage.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [message]{.parameter-name}, ]{#receiveMessage-param-message .parameter}[[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]{.type-annotation} [hive]{.parameter-name}]{#receiveMessage-param-hive .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[receiveMessage](../utils_encryptor/Encryptor/receiveMessage.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] message, ][[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Helper function to decrypt the message.
 
-[[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.html)]{.name}[([[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)]{.type-parameter}, [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation} [keyPair]{.parameter-name}, ]{#saveKeyPair-param-keyPair .parameter}[[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]{.type-annotation} [hive]{.parameter-name}]{#saveKeyPair-param-hive .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[saveKeyPair](../utils_encryptor/Encryptor/saveKeyPair.html)][([[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)], [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]] keyPair, ][[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)] hive]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Saves the generated key pair to local storage.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#static-properties .section .summary .offset-anchor}
+
+
 ## Static Properties
 
-[[shouldEncrypt](../utils_encryptor/Encryptor/shouldEncrypt.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[shouldEncrypt](../utils_encryptor/Encryptor/shouldEncrypt.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   A global switch to flag the encryption.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#static-methods .section .summary .offset-anchor}
+
+
 ## Static Methods
 
-[[encryptString](../utils_encryptor/Encryptor/encryptString.html)]{.name}[([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [data]{.parameter-name}]{#encryptString-param-data .parameter}) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[encryptString](../utils_encryptor/Encryptor/encryptString.html)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] data]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   Encrypts a given string with SHA256 Encryption.
-:::
-:::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [encryptor](../utils_encryptor/)
@@ -105,9 +105,9 @@ Handles all of the encryption tasks in the codebase.
 
 ##### encryptor library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

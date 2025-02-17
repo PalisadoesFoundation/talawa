@@ -1,11 +1,11 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="services_caching_offline_action_queue/services_caching_offline_action_queue-library-sidebar.html" below-sidebar="services_caching_offline_action_queue/OfflineActionQueue-class-sidebar.html"}
+
 <div>
 
-# [OfflineActionQueue]{.kind-class} class
+# OfflineActionQueue class
 
 </div>
 
-::: {.section .desc .markdown}
+
 OfflineActionQueue class manages a queue for offline actions.
 
 This class provides the following functionalities:
@@ -19,90 +19,90 @@ This class provides the following functionalities:
 -   `removeAction` : removes a specific action from the queue.
 -   `clearActions` : clears all actions from the queue.
 -   `removeExpiredActions` : removes expired actions from the queue.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.html)]{.name}[()]{.signature}
+[OfflineActionQueue](../services_caching_offline_action_queue/OfflineActionQueue/OfflineActionQueue.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.html)]{.name}[([[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)]{.type-annotation} [action]{.parameter-name}]{#addAction-param-action .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[addAction](../services_caching_offline_action_queue/OfflineActionQueue/addAction.html)][([[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)] action]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Adds an action to the queue with a TTL.
 
-[[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[clearActions](../services_caching_offline_action_queue/OfflineActionQueue/clearActions.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Clears all actions from the queue.
 
-[[getActions](../services_caching_offline_action_queue/OfflineActionQueue/getActions.html)]{.name}[() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[getActions](../services_caching_offline_action_queue/OfflineActionQueue/getActions.html)][() [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[CachedUserAction](../models_caching_cached_user_action/CachedUserAction-class.html)]\>]] ]
 :   Retrieves all valid actions from the queue.
 
-[[initialize](../services_caching_offline_action_queue/OfflineActionQueue/initialize.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[initialize](../services_caching_offline_action_queue/OfflineActionQueue/initialize.html) [→ void ]
 :   Initializes the queue by registering adapters and opening the queue.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[openQueue](../services_caching_offline_action_queue/OfflineActionQueue/openQueue.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[openQueue](../services_caching_offline_action_queue/OfflineActionQueue/openQueue.html) [→ void ]
 :   Opens the Hive box for the offline action queue.
 
-[[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.html)]{.name}[([[dynamic]{.type-annotation} [key]{.parameter-name}]{#removeAction-param-key .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[removeAction](../services_caching_offline_action_queue/OfflineActionQueue/removeAction.html)]([[dynamic key]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Removes a specific action from the queue.
 
-[[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[removeExpiredActions](../services_caching_offline_action_queue/OfflineActionQueue/removeExpiredActions.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Removes expired actions from the queue.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[boxName](../services_caching_offline_action_queue/OfflineActionQueue/boxName-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[boxName](../services_caching_offline_action_queue/OfflineActionQueue/boxName-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Offline Action Queue box name.
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [offline_action_queue](../services_caching_offline_action_queue/)
@@ -110,9 +110,9 @@ This class provides the following functionalities:
 
 ##### offline_action_queue library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

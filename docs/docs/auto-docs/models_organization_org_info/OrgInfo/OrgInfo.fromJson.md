@@ -1,24 +1,24 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/OrgInfo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [OrgInfo.fromJson]{.kind-constructor} constructor
+# OrgInfo.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[OrgInfo.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json1]{.parameter-name}, {]{#fromJson-param-json1 .parameter}
-2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [memberRequest]{.parameter-name} = [false]{.default-value},
-    ]{#fromJson-param-memberRequest .parameter}
+OrgInfo.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json1, {]
+2.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    memberRequest = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -52,14 +52,14 @@ factory OrgInfo.fromJson(
             ?.map(
               (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
             )
-            .toList()
+            .
         : null,
     admins: json['admins'] != null
         ? (json['admins'] as List<dynamic>?)
             ?.map(
               (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
             )
-            .toList()
+            .
         : null,
     address: json['address'] != null
         ? Address.fromJson(json['address'] as Map<String, dynamic>)
@@ -67,12 +67,12 @@ factory OrgInfo.fromJson(
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info](../../models_organization_org_info/)
@@ -81,9 +81,9 @@ factory OrgInfo.fromJson(
 
 ##### OrgInfo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

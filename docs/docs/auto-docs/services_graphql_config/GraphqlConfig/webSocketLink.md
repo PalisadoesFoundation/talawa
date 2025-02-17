@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [webSocketLink]{.kind-property} property
+# webSocketLink property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [WebSocketLink](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/WebSocketLink-class.html)
-[webSocketLink]{.name}
+webSocketLink
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 late WebSocketLink webSocketLink;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -34,9 +34,9 @@ late WebSocketLink webSocketLink;
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

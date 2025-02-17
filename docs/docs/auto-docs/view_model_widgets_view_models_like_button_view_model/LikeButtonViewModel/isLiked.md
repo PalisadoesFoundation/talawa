@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [isLiked]{.kind-property} property
+# isLiked property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-get [isLiked]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+get isLiked
+
+
+
 Getters.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 bool get isLiked => _isLiked;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
@@ -36,9 +36,9 @@ bool get isLiked => _isLiked;
 
 ##### LikeButtonViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [refreshFeed]{.kind-method} method
+# refreshFeed method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[refreshFeed]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Refreshes the event feed by fetching the latest events from the API and
 updating the event stream.
 
@@ -21,23 +21,23 @@ stream.
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> refreshFeed() async {
-  _events = await getNewFeedAndRefreshCache();
+Future<void>  async {
+  _events = await ;
   _eventStreamController.add(_events);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -46,9 +46,9 @@ Future<void> refreshFeed() async {
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

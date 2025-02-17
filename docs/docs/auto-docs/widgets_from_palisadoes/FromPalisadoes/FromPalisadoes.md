@@ -1,31 +1,31 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_from_palisadoes/FromPalisadoes-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [FromPalisadoes]{.kind-constructor} constructor
+# FromPalisadoes constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [FromPalisadoes]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const FromPalisadoes({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const FromPalisadoes({super.key});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [from_palisadoes](../../widgets_from_palisadoes/)
@@ -34,9 +34,9 @@ const FromPalisadoes({super.key});
 
 ##### FromPalisadoes class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

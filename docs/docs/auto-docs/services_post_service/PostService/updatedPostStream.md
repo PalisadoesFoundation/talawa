@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updatedPostStream]{.kind-property} property
+# updatedPostStream property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-get [updatedPostStream]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Post](../../models_post_post_model/Post-class.html)]\>]]
+get updatedPostStream
+
+
+
 Getter for Stream of update in any post.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Stream<Post> get updatedPostStream => _updatedPostStream;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -36,9 +36,9 @@ Stream<Post> get updatedPostStream => _updatedPostStream;
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

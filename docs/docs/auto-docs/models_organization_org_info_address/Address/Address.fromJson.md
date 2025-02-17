@@ -1,25 +1,25 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info_address/Address-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [Address.fromJson]{.kind-constructor} constructor
+# Address.fromJson constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[Address.fromJson]{.name}(
 
-1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [json]{.parameter-name}]{#fromJson-param-json .parameter}
+Address.fromJson(
+
+1.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]
+    json]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Factory method to construct an Address from a JSON object.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -36,12 +36,12 @@ factory Address.fromJson(Map<String, dynamic> json) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info_address](../../models_organization_org_info_address/)
@@ -50,9 +50,9 @@ factory Address.fromJson(Map<String, dynamic> json) {
 
 ##### Address class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

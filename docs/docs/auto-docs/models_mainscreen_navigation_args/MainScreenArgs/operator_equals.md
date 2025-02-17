@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_mainscreen_navigation_args/MainScreenArgs-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [operator ==]{.kind-method} method
+# operator == method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-[operator ==]{.name}(
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+operator ==(
 
-1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation}
-    [other]{.parameter-name}]{#==-param-other .parameter}
+1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]
+    other]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Overrides the equality operator to compare instances of the
 MainScreenArgs class.
 
@@ -41,9 +41,9 @@ properties: If all properties match, returns `true`; otherwise, returns
 
 -   `bool`: Returns `true` if the properties of both instances match;
     otherwise, `false`.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,12 +55,12 @@ bool operator ==(Object other) =>
         other.mainScreenIndex == mainScreenIndex &&
         other.toggleDemoMode == toggleDemoMode;
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/)
@@ -69,9 +69,9 @@ bool operator ==(Object other) =>
 
 ##### MainScreenArgs class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

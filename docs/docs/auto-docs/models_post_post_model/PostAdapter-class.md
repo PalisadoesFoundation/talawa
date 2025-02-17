@@ -1,91 +1,91 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/models_post_post_model-library-sidebar.html" below-sidebar="models_post_post_model/PostAdapter-class-sidebar.html"}
+
 <div>
 
-# [PostAdapter]{.kind-class} class
+# PostAdapter class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Post](../models_post_post_model/Post-class.html)]{.type-parameter}\>]{.signature}
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Post](../models_post_post_model/Post-class.html)]\>]
     -   PostAdapter
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[PostAdapter](../models_post_post_model/PostAdapter/PostAdapter.html)]{.name}[()]{.signature}
+[PostAdapter](../models_post_post_model/PostAdapter/PostAdapter.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](../models_post_post_model/PostAdapter/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](../models_post_post_model/PostAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[override]{.feature}
+    no setteroverride
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[typeId](../models_post_post_model/PostAdapter/typeId.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[typeId](../models_post_post_model/PostAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[read](../models_post_post_model/PostAdapter/read.html)]{.name}[([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation} [reader]{.parameter-name}]{#read-param-reader .parameter}) [→ [Post](../models_post_post_model/Post-class.html)]{.returntype .parameter} ]{.signature}
+[[read](../models_post_post_model/PostAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [Post](../models_post_post_model/Post-class.html)] ]
 :   Is called when a value has to be decoded.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[write](../models_post_post_model/PostAdapter/write.html)]{.name}[([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]{.type-annotation} [writer]{.parameter-name}, ]{#write-param-writer .parameter}[[[Post](../models_post_post_model/Post-class.html)]{.type-annotation} [obj]{.parameter-name}]{#write-param-obj .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[write](../models_post_post_model/PostAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[Post](../models_post_post_model/Post-class.html)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor}
+
+
 ## Operators
 
-[[operator ==](../models_post_post_model/PostAdapter/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](../models_post_post_model/PostAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [post_model](../models_post_post_model/)
@@ -93,9 +93,9 @@ Inheritance
 
 ##### post_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

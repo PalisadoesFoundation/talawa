@@ -1,41 +1,41 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_connectivity_view_model/AppConnectivity-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[initialise]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Initializes the
 [AppConnectivity](../../view_model_connectivity_view_model/AppConnectivity-class.html).
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> initialise() async {
-  await connectivityService.initConnectivity(client: http.Client());
+Future<void>  async {
+  await connectivityService.initConnectivity(client: http.);
   connectivityStream = connectivityService.connectionStream;
-  enableSubscription();
-  handleConnection(await connectivityService.getConnectionType());
+  ;
+  handleConnection(await connectivityService.);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
@@ -44,9 +44,9 @@ Future<void> initialise() async {
 
 ##### AppConnectivity class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

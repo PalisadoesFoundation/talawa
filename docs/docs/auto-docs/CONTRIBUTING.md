@@ -225,7 +225,7 @@ Please also follow these general rules.
   ```
   -- constructor
   -- explicitly defined variables using its type (private if possible)
-  -- build method (Inside build(), use sub methods like _buildAppBar()
+  -- build method (Inside , use sub methods like 
   -- sub-build methods
   -- other methods
   -- utility methods

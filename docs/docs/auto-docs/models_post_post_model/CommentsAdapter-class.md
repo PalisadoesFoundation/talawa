@@ -1,91 +1,91 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/models_post_post_model-library-sidebar.html" below-sidebar="models_post_post_model/CommentsAdapter-class-sidebar.html"}
+
 <div>
 
-# [CommentsAdapter]{.kind-class} class
+# CommentsAdapter class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]{.type-parameter}\>]{.signature}
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[Comments](../models_post_post_model/Comments-class.html)]\>]
     -   CommentsAdapter
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[CommentsAdapter](../models_post_post_model/CommentsAdapter/CommentsAdapter.html)]{.name}[()]{.signature}
+[CommentsAdapter](../models_post_post_model/CommentsAdapter/CommentsAdapter.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](../models_post_post_model/CommentsAdapter/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](../models_post_post_model/CommentsAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[override]{.feature}
+    no setteroverride
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[typeId](../models_post_post_model/CommentsAdapter/typeId.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[typeId](../models_post_post_model/CommentsAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[read](../models_post_post_model/CommentsAdapter/read.html)]{.name}[([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation} [reader]{.parameter-name}]{#read-param-reader .parameter}) [→ [Comments](../models_post_post_model/Comments-class.html)]{.returntype .parameter} ]{.signature}
+[[read](../models_post_post_model/CommentsAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [Comments](../models_post_post_model/Comments-class.html)] ]
 :   Is called when a value has to be decoded.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[write](../models_post_post_model/CommentsAdapter/write.html)]{.name}[([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]{.type-annotation} [writer]{.parameter-name}, ]{#write-param-writer .parameter}[[[Comments](../models_post_post_model/Comments-class.html)]{.type-annotation} [obj]{.parameter-name}]{#write-param-obj .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[write](../models_post_post_model/CommentsAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[Comments](../models_post_post_model/Comments-class.html)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor}
+
+
 ## Operators
 
-[[operator ==](../models_post_post_model/CommentsAdapter/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](../models_post_post_model/CommentsAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [post_model](../models_post_post_model/)
@@ -93,9 +93,9 @@ Inheritance
 
 ##### post_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

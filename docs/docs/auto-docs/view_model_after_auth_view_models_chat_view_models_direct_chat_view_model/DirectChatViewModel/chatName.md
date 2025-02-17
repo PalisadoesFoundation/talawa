@@ -1,20 +1,20 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [chatName]{.kind-method} method
+# chatName method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [chatName]{.name}(
 
-1.  [[dynamic]{.type-annotation}
-    [chatId]{.parameter-name}]{#chatName-param-chatId .parameter}
+void chatName(
+
+1.  [dynamic
+    chatId]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -29,12 +29,12 @@ void chatName(chatId) {
   });
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
@@ -43,9 +43,9 @@ void chatName(chatId) {
 
 ##### DirectChatViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

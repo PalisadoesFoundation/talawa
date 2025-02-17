@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [firstNameFocus]{.kind-property} property
+# firstNameFocus property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)
-[firstNameFocus]{.name}
+firstNameFocus
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 Focus node tpo control focus.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-FocusNode firstNameFocus = FocusNode();
+FocusNode firstNameFocus = ;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
@@ -38,9 +38,9 @@ FocusNode firstNameFocus = FocusNode();
 
 ##### EditProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

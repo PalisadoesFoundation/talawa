@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_container/PostContainerState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [controller]{.kind-property} property
+# controller property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [PageController](https://api.flutter.dev/flutter/widgets/PageController-class.html)
-[controller]{.name}
+controller
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 manage the carousel.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final PageController controller = PageController(initialPage: 0);
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_container](../../widgets_post_container/)
@@ -38,9 +38,9 @@ final PageController controller = PageController(initialPage: 0);
 
 ##### PostContainerState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

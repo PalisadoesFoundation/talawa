@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_widgets_view_models_progress_dialog_view_model/ProgressDialogViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[initialise]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Initializes the state of the component by checking the online status and
 updating the view accordingly.
 
@@ -29,13 +29,13 @@ This method performs the following actions:
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> initialise() async {
+Future<void>  async {
   setState(ViewState.busy);
   if (!AppConnectivity.isOnline) {
     connectivityPresent = false;
@@ -45,12 +45,12 @@ Future<void> initialise() async {
   setState(ViewState.idle);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [progress_dialog_view_model](../../view_model_widgets_view_models_progress_dialog_view_model/)
@@ -59,9 +59,9 @@ Future<void> initialise() async {
 
 ##### ProgressDialogViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

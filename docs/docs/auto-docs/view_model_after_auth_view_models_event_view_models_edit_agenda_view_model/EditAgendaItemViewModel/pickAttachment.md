@@ -1,22 +1,22 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [pickAttachment]{.kind-method} method
+# pickAttachment method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[pickAttachment]{.name}({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [fromCamera]{.parameter-name} = [false]{.default-value},
-    ]{#pickAttachment-param-fromCamera .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+pickAttachment({
+
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    fromCamera = false,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Picks an attachment for the agenda item from the gallery or camera.
 
 **params**:
@@ -25,9 +25,9 @@ Picks an attachment for the agenda item from the gallery or camera.
     otherwise opens the gallery.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -37,16 +37,16 @@ Future<void> pickAttachment({bool fromCamera = false}) async {
   if (pickedFile != null) {
     final base64PickedFile = await imageService.convertToBase64(pickedFile);
     _currentAttachments.add(base64PickedFile);
-    notifyListeners();
+    ;
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_agenda_view_model](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
@@ -55,9 +55,9 @@ Future<void> pickAttachment({bool fromCamera = false}) async {
 
 ##### EditAgendaItemViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

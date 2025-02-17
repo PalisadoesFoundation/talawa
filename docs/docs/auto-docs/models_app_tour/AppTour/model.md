@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_app_tour/AppTour-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [model]{.kind-property} property
+# model property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.html)
-[model]{.name}
+model
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+getter/setter pair
+
+
+
+
 instance of mainscreenviewmodel.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 MainScreenViewModel model;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_tour](../../models_app_tour/)
@@ -38,9 +38,9 @@ MainScreenViewModel model;
 
 ##### AppTour class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

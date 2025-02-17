@@ -1,35 +1,34 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_main_screen/MainScreen-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [MainScreen]{.kind-constructor} constructor
+# MainScreen constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [MainScreen]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const MainScreen({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.html)]{.type-annotation}
-    [mainScreenArgs]{.parameter-name}, ]{#-param-mainScreenArgs
-    .parameter}
+    [[MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.html)]
+    mainScreenArgs, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const MainScreen({super.key, required this.mainScreenArgs});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen](../../views_main_screen/)
@@ -38,9 +37,9 @@ const MainScreen({super.key, required this.mainScreenArgs});
 
 ##### MainScreen class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

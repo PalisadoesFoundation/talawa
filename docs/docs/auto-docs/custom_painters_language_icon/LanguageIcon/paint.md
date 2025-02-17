@@ -1,32 +1,32 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="custom_painters_language_icon/LanguageIcon-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [paint]{.kind-method} method
+# paint method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [paint]{.name}(
+void paint(
 
-1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]{.type-annotation}
-    [canvas]{.parameter-name}, ]{#paint-param-canvas .parameter}
-2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]{.type-annotation}
-    [size]{.parameter-name}]{#paint-param-size .parameter}
+1.  [[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)]
+    canvas, ]
+2.  [[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)]
+    size]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Called whenever the object needs to paint. The given
 [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html) has
 its coordinate space configured such that the origin is at the top left
@@ -91,15 +91,15 @@ To paint an image on a
     object, applying the
     [ImageInfo.scale](https://api.flutter.dev/flutter/painting/ImageInfo/scale.html)
     value to obtain the correct rendering size.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 void paint(Canvas canvas, Size size) {
-  final Path path_0 = Path();
+  final Path path_0 = ;
   path_0.moveTo(size.width * 0.2376568, size.height * 0.4381250);
   path_0.cubicTo(
     size.width * 0.2321886,
@@ -121,7 +121,7 @@ void paint(Canvas canvas, Size size) {
   path_0.lineTo(size.width * 0.1951561, size.height * 0.5553136);
   path_0.lineTo(size.width * 0.2546886, size.height * 0.5553136);
   path_0.lineTo(size.width * 0.2376568, size.height * 0.4381250);
-  path_0.close();
+  path_0.;
   path_0.moveTo(size.width * 0.9625000, 0);
   path_0.lineTo(size.width * 0.5250000, 0);
   path_0.lineTo(size.width * 0.5250000, size.height);
@@ -143,7 +143,7 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.9625000,
     0,
   );
-  path_0.close();
+  path_0.;
   path_0.moveTo(size.width * 0.9250000, size.height * 0.3750000);
   path_0.cubicTo(
     size.width * 0.9250000,
@@ -318,7 +318,7 @@ void paint(Canvas canvas, Size size) {
     size.height * 0.3250000,
   );
   path_0.lineTo(size.width * 0.9250000, size.height * 0.3750000);
-  path_0.close();
+  path_0.;
   path_0.moveTo(0, size.height * 0.07500000);
   path_0.lineTo(0, size.height * 0.9250000);
   path_0.cubicTo(
@@ -340,7 +340,7 @@ void paint(Canvas canvas, Size size) {
     0,
     size.height * 0.07500000,
   );
-  path_0.close();
+  path_0.;
   path_0.moveTo(size.width * 0.09203136, size.height * 0.7503136);
   path_0.lineTo(size.width * 0.1818750, size.height * 0.2218750);
   path_0.cubicTo(
@@ -406,19 +406,19 @@ void paint(Canvas canvas, Size size) {
     size.width * 0.09203136,
     size.height * 0.7503136,
   );
-  path_0.close();
+  path_0.;
 
-  final Paint paint0fill = Paint()..style = PaintingStyle.fill;
-  paint0fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
+  final Paint paint0fill = ..style = PaintingStyle.fill;
+  paint0fill.color = const Color(0xff737373).withAlpha((1.0 * 255).);
   canvas.drawPath(path_0, paint0fill);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [language_icon](../../custom_painters_language_icon/)
@@ -427,9 +427,9 @@ void paint(Canvas canvas, Size size) {
 
 ##### LanguageIcon class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

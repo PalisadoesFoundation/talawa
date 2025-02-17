@@ -1,43 +1,42 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_caching_cached_user_action/CachedUserAction-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CachedUserAction]{.kind-constructor} constructor
+# CachedUserAction constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[CachedUserAction]{.name}({
+
+CachedUserAction({
 
 1.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [id]{.parameter-name}, ]{#-param-id .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    id, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [operation]{.parameter-name}, ]{#-param-operation .parameter}
-3.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [variables]{.parameter-name}, ]{#-param-variables .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    operation, ]
+3.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    variables, ]
 4.  [required
-    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [timeStamp]{.parameter-name}, ]{#-param-timeStamp .parameter}
+    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    timeStamp, ]
 5.  [required
-    [[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.html)]{.type-annotation}
-    [status]{.parameter-name}, ]{#-param-status .parameter}
-6.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [metaData]{.parameter-name}, ]{#-param-metaData .parameter}
+    [[CachedUserActionStatus](../../enums_enums/CachedUserActionStatus.html)]
+    status, ]
+6.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    metaData, ]
 7.  [required
-    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]{.type-annotation}
-    [operationType]{.parameter-name}, ]{#-param-operationType
-    .parameter}
+    [[CachedOperationType](../../enums_enums/CachedOperationType.html)]
+    operationType, ]
 8.  [required
-    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [expiry]{.parameter-name}, ]{#-param-expiry .parameter}
+    [[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    expiry, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -52,12 +51,12 @@ CachedUserAction({
   required this.expiry,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [cached_user_action](../../models_caching_cached_user_action/)
@@ -66,9 +65,9 @@ CachedUserAction({
 
 ##### CachedUserAction class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,32 +1,32 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_pre_auth_screens_select_language/SelectLanguage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [SelectLanguage]{.kind-constructor} constructor
+# SelectLanguage constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [SelectLanguage]{.name}({
+
+const SelectLanguage({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const SelectLanguage({required Key key}) : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [select_language](../../views_pre_auth_screens_select_language/)
@@ -35,9 +35,9 @@ const SelectLanguage({required Key key}) : super(key: key);
 
 ##### SelectLanguage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,23 +1,23 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_post_container/PostContainer-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [PostContainer]{.kind-constructor} constructor
+# PostContainer constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [PostContainer]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const PostContainer({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [photoUrl]{.parameter-name}, ]{#-param-photoUrl .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    photoUrl, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,12 +26,12 @@ const PostContainer({
   required this.photoUrl,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_container](../../widgets_post_container/)
@@ -40,9 +40,9 @@ const PostContainer({
 
 ##### PostContainer class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

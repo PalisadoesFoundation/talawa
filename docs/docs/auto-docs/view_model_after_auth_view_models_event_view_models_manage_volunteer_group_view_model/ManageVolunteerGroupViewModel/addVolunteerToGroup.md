@@ -1,28 +1,26 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/ManageVolunteerGroupViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [addVolunteerToGroup]{.kind-method} method
+# addVolunteerToGroup method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[addVolunteerToGroup]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [volunteerId]{.parameter-name},
-    ]{#addVolunteerToGroup-param-volunteerId .parameter}
-2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [eventId]{.parameter-name}, ]{#addVolunteerToGroup-param-eventId
-    .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [groupId]{.parameter-name}]{#addVolunteerToGroup-param-groupId
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+addVolunteerToGroup(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    volunteerId,
+    ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    eventId, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    groupId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Adds a volunteer to the specified group.
 
 **params**:
@@ -32,9 +30,9 @@ Adds a volunteer to the specified group.
 -   `groupId`: The ID of the group.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -56,18 +54,18 @@ Future<void> addVolunteerToGroup(
         data['createEventVolunteer'] as Map<String, dynamic>;
     final addedVolunteer = EventVolunteer.fromJson(addedVolunteerData);
     _volunteers.add(addedVolunteer);
-    notifyListeners();
+    ;
   } catch (e) {
     print('Error adding volunteer to group: $e');
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [manage_volunteer_group_view_model](../../view_model_after_auth_view_models_event_view_models_manage_volunteer_group_view_model/)
@@ -76,9 +74,9 @@ Future<void> addVolunteerToGroup(
 
 ##### ManageVolunteerGroupViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

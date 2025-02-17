@@ -1,29 +1,29 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [uploadPost]{.kind-method} method
+# uploadPost method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[uploadPost]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 This function uploads the post finally, and navigate the success message
 or error message in Snack Bar.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> uploadPost() async {
+Future<void>  async {
   await actionHandlerService.performAction(
     actionType: ActionType.critical,
     criticalActionFailureMessage: TalawaErrors.postCreationFailed,
@@ -41,7 +41,7 @@ Future<void> uploadPost() async {
         ),
       );
       final result = await _dbFunctions.gqlAuthMutation(
-        PostQueries().uploadPost(),
+        .,
         variables: variables,
       );
       return result;
@@ -51,7 +51,7 @@ Future<void> uploadPost() async {
         result.data!['createPost'] as Map<String, dynamic>,
       );
       locator<PostService>().addNewpost(newPost);
-      navigationService.pop();
+      navigationService.;
     },
     apiCallSuccessUpdateUI: () {
       _navigationService.showTalawaErrorSnackBar(
@@ -67,20 +67,20 @@ Future<void> uploadPost() async {
       );
     },
     onActionFinally: () async {
-      removeImage();
+      ;
       _controller.text = "";
       _titleController.text = "";
-      notifyListeners();
+      ;
     },
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
@@ -89,9 +89,9 @@ Future<void> uploadPost() async {
 
 ##### AddPostViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

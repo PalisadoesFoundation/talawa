@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/EditProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [convertToBase64]{.kind-method} method
+# convertToBase64 method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[convertToBase64]{.name}(
 
-1.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]{.type-annotation}
-    [file]{.parameter-name}]{#convertToBase64-param-file .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
+convertToBase64(
+
+1.  [[[File](https://api.flutter.dev/flutter/dart-io/File-class.html)]
+    file]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to convert the image into Base64 format.
 
 **params**:
@@ -25,9 +25,9 @@ This function is used to convert the image into Base64 format.
 **returns**:
 
 -   `Future<String>`: image in string format
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -41,12 +41,12 @@ Future<String> convertToBase64(File file) async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_profile_view_model](../../view_model_after_auth_view_models_profile_view_models_edit_profile_view_model/)
@@ -55,9 +55,9 @@ Future<String> convertToBase64(File file) async {
 
 ##### EditProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [uploadPost]{.kind-method} method
+# uploadPost method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[uploadPost]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Upload a post to database.
 
 **params**: None
@@ -18,13 +18,13 @@ Upload a post to database.
 **returns**:
 
 -   `String`: The query related to uploadingPost.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String uploadPost() {
+String  {
   return '''
   mutation CreatePost(
   \$text: String!
@@ -72,12 +72,12 @@ String uploadPost() {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -86,9 +86,9 @@ String uploadPost() {
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

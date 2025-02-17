@@ -1,28 +1,28 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_chats_chat_message/ChatMessage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [toJson]{.kind-method} method
+# toJson method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[dynamic]{.type-parameter}\>]{.signature}]{.returntype}
-[toJson]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+dynamic\>]]
+
+
+
+
 ## Implementation
 
 ``` language-dart
-Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
+Map<String, dynamic>  => _$ChatMessageToJson(this);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_message](../../models_chats_chat_message/)
@@ -31,9 +31,9 @@ Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 
 ##### ChatMessage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

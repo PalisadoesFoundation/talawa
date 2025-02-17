@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_invite_child/widgets_invite_child-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [invite]{.kind-function} function
+# invite function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[invite]{.name}(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#invite-param-context .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+invite(
+
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 We can use QR code scanner, social media platforms like twitter,
 whatsapp, telegram and many more..
 
@@ -28,14 +28,14 @@ more_info_if_required
 **returns**:
 
 -   `Widget`: Returns Column with QR Code
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Widget invite(BuildContext context) {
-  _appLanguageService.initialize();
+  _appLanguageService.;
 
   // final String url =
   //     'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
@@ -89,7 +89,7 @@ Widget invite(BuildContext context) {
       //           50,
       //           50 * 1.004,
       //         ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-      //         painter: WhatsappLogo(),
+      //         painter: ,
       //       ),
       //       () async => SocialShare.shareWhatsapp(url),
       //     ),
@@ -98,9 +98,9 @@ Widget invite(BuildContext context) {
       //       CustomPaint(
       //         size: Size(
       //           45,
-      //           (45 * 1).toDouble(),
+      //           (45 * 1).,
       //         ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-      //         painter: TelegramLogo(),
+      //         painter: ,
       //       ),
       //       () async => SocialShare.shareTelegram(url),
       //     ),
@@ -119,12 +119,12 @@ Widget invite(BuildContext context) {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [invite_child](../widgets_invite_child/)
@@ -132,9 +132,9 @@ Widget invite(BuildContext context) {
 
 ##### invite_child library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,18 +1,18 @@
-::::: {#dartdoc-main-content .main-content above-sidebar="main/MyApp-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [MyApp]{.kind-constructor} constructor
+# MyApp constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[MyApp]{.name}()
-:::
-:::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main](../../main/)
@@ -21,9 +21,9 @@
 
 ##### MyApp class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

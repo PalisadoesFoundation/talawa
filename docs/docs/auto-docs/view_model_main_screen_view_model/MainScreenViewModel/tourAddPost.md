@@ -1,28 +1,28 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [tourAddPost]{.kind-method} method
+# tourAddPost method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [tourAddPost]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 This function show the tutorial to add Post in the organization.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void tourAddPost() {
-  targets.clear();
+void  {
+  targets.;
   targets.add(
     FocusTarget(
       key: keyBNPost,
@@ -38,8 +38,8 @@ void tourAddPost() {
     onFinish: () {
       onTabTapped(currentPageIndex + 1);
       if (!tourComplete && !tourSkipped) {
-        // tourChat();
-        tourProfile();
+        // ;
+        ;
       }
     },
     onClickTarget: (TargetFocus a) {},
@@ -47,12 +47,12 @@ void tourAddPost() {
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -61,9 +61,9 @@ void tourAddPost() {
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

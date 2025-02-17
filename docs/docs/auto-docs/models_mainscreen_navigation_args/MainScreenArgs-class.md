@@ -1,89 +1,89 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_mainscreen_navigation_args/models_mainscreen_navigation_args-library-sidebar.html" below-sidebar="models_mainscreen_navigation_args/MainScreenArgs-class-sidebar.html"}
+
 <div>
 
-# [MainScreenArgs]{.kind-class} class
+# MainScreenArgs class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates a MainScreenArgs model.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+This class creates a MainScreenArgs model.
+
+
+
 ## Constructors
 
-[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.html)]{.name}[({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [fromSignUp]{.parameter-name} = [false]{.default-value}, ]{#-param-fromSignUp .parameter}[required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.type-annotation} [mainScreenIndex]{.parameter-name}, ]{#-param-mainScreenIndex .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation} [toggleDemoMode]{.parameter-name} = [false]{.default-value}]{#-param-toggleDemoMode .parameter}})]{.signature}
+[[MainScreenArgs](../models_mainscreen_navigation_args/MainScreenArgs/MainScreenArgs.html)][({[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] fromSignUp = false, ][required [[int](https://api.flutter.dev/flutter/dart-core/int-class.html)] mainScreenIndex, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] toggleDemoMode = false]})]
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[fromSignUp](../models_mainscreen_navigation_args/MainScreenArgs/fromSignUp.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[fromSignUp](../models_mainscreen_navigation_args/MainScreenArgs/fromSignUp.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Indicates whether the user navigated to the main screen from the
     signup page.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](../models_mainscreen_navigation_args/MainScreenArgs/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](../models_mainscreen_navigation_args/MainScreenArgs/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Overrides the hashCode getter to generate a hash code based on the
     properties of the MainScreenArgs instance.
     ::: features
-    [no setter]{.feature}[override]{.feature}
+    no setteroverride
     :::
 
-[[mainScreenIndex](../models_mainscreen_navigation_args/MainScreenArgs/mainScreenIndex.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[mainScreenIndex](../models_mainscreen_navigation_args/MainScreenArgs/mainScreenIndex.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Represents the index of the current page.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[toggleDemoMode](../models_mainscreen_navigation_args/MainScreenArgs/toggleDemoMode.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[toggleDemoMode](../models_mainscreen_navigation_args/MainScreenArgs/toggleDemoMode.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Determines if the application is in demo mode.
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor}
+
+
 ## Operators
 
-[[operator ==](../models_mainscreen_navigation_args/MainScreenArgs/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](../models_mainscreen_navigation_args/MainScreenArgs/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   Overrides the equality operator to compare instances of the
     MainScreenArgs class.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [mainscreen_navigation_args](../models_mainscreen_navigation_args/)
@@ -91,9 +91,9 @@ This class creates a MainScreenArgs model.
 
 ##### mainscreen_navigation_args library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

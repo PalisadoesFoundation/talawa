@@ -1,21 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/AppLocalizations-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [strictTranslate]{.kind-method} method
+# strictTranslate method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[strictTranslate]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [key]{.parameter-name}]{#strictTranslate-param-key .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+strictTranslate(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    key]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -31,12 +31,12 @@ String strictTranslate(String key) {
   return translate;
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_localization](../../utils_app_localization/)
@@ -45,9 +45,9 @@ String strictTranslate(String key) {
 
 ##### AppLocalizations class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

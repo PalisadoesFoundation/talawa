@@ -1,32 +1,32 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="view_model_lang_view_model/AppLanguage-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [AppLanguage]{.kind-constructor} constructor
+# AppLanguage constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[AppLanguage]{.name}({
 
-1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [isTest]{.parameter-name} = [false]{.default-value},
-    ]{#-param-isTest .parameter}
+AppLanguage({
+
+1.  [[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    isTest = false,
+    ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 AppLanguage({this.isTest = false});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [lang_view_model](../../view_model_lang_view_model/)
@@ -35,9 +35,9 @@ AppLanguage({this.isTest = false});
 
 ##### AppLanguage class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

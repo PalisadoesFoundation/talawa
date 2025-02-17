@@ -1,39 +1,39 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="utils_app_localization/AppLocalizationsDelegate-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [isSupported]{.kind-method} method
+# isSupported method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-[isSupported]{.name}(
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+isSupported(
 
-1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]{.type-annotation}
-    [locale]{.parameter-name}]{#isSupported-param-locale .parameter}
+1.  [[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+    locale]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Whether resources for the given locale can be loaded by this delegate.
 
 Return true if the instance of `T` loaded by this delegate\'s
 [load](../../utils_app_localization/AppLocalizationsDelegate/load.html)
 method supports the given `locale`\'s language.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -44,12 +44,12 @@ bool isSupported(Locale locale) {
       .contains(locale.languageCode);
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [app_localization](../../utils_app_localization/)
@@ -58,9 +58,9 @@ bool isSupported(Locale locale) {
 
 ##### AppLocalizationsDelegate class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

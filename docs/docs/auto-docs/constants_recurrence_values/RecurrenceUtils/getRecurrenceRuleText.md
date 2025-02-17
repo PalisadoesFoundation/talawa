@@ -1,40 +1,36 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_recurrence_values/RecurrenceUtils-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getRecurrenceRuleText]{.kind-method} static method
+# getRecurrenceRuleText static method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[getRecurrenceRuleText]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [frequency]{.parameter-name},
-    ]{#getRecurrenceRuleText-param-frequency .parameter}
-2.  [[[Set](https://api.flutter.dev/flutter/dart-core/Set-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [weekDays]{.parameter-name}, ]{#getRecurrenceRuleText-param-weekDays
-    .parameter}
-3.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation}
-    [interval]{.parameter-name}, ]{#getRecurrenceRuleText-param-interval
-    .parameter}
-4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation}
-    [count]{.parameter-name}, ]{#getRecurrenceRuleText-param-count
-    .parameter}
-5.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation}
-    [weekDayOccurenceInMonth]{.parameter-name},
-    ]{#getRecurrenceRuleText-param-weekDayOccurenceInMonth .parameter}
-6.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]{.type-annotation}
-    [startDate]{.parameter-name},
-    ]{#getRecurrenceRuleText-param-startDate .parameter}
-7.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]{.type-annotation}
-    [endDate]{.parameter-name}, ]{#getRecurrenceRuleText-param-endDate
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+getRecurrenceRuleText(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    frequency,
+    ]
+2.  [[[Set](https://api.flutter.dev/flutter/dart-core/Set-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]?]
+    weekDays, ]
+3.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    interval, ]
+4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    count, ]
+5.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    weekDayOccurenceInMonth,
+    ]
+6.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)]
+    startDate,
+    ]
+7.  [[[DateTime](https://api.flutter.dev/flutter/dart-core/DateTime-class.html)?]
+    endDate, ]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 \'getRecurrenceRuleText\' return text for various recurrence rules.
 
 **params**:
@@ -50,9 +46,9 @@
 **returns**:
 
 -   `String`: Recurrence rule text.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -84,7 +80,7 @@ static String getRecurrenceRuleText(
       } else {
         recurrenceRuleText = 'Weekly on ';
       }
-      recurrenceRuleText += getWeekDaysString(weekDays.toList());
+      recurrenceRuleText += getWeekDaysString(weekDays.);
       break;
     case Frequency.monthly:
       if (interval != null && interval > 1) {
@@ -125,12 +121,12 @@ static String getRecurrenceRuleText(
   return recurrenceRuleText;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [recurrence_values](../../constants_recurrence_values/)
@@ -139,9 +135,9 @@ static String getRecurrenceRuleText(
 
 ##### RecurrenceUtils class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

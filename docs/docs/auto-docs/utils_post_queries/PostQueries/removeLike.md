@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeLike]{.kind-method} method
+# removeLike method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[removeLike]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Remove Like from a post.
 
 **params**: None
@@ -18,13 +18,13 @@ Remove Like from a post.
 **returns**:
 
 -   `String`: The query related to removingLike
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String removeLike() {
+String  {
   return """
    mutation unlikePost(\$postID: ID!) {
     unlikePost( id: \$postID,)
@@ -38,12 +38,12 @@ String removeLike() {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -52,9 +52,9 @@ String removeLike() {
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

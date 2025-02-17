@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_date_time_tile/DateTimeTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [setDate]{.kind-property} property
+# setDate property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature} [setDate]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+dynamic  setDate
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 Function that sets the date.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-final Function() setDate;
+final  setDate;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
@@ -37,9 +37,9 @@ final Function() setDate;
 
 ##### DateTimeTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

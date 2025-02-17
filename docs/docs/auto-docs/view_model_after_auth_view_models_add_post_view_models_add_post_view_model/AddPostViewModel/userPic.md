@@ -1,33 +1,33 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [userPic]{.kind-property} property
+# userPic property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.returntype}
-get [userPic]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+get userPic
+
+
+
 User profile picture.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 String? get userPic => userConfig.currentUser.image;
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
@@ -36,9 +36,9 @@ String? get userPic => userConfig.currentUser.image;
 
 ##### AddPostViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

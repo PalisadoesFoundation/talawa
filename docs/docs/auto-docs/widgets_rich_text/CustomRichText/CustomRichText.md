@@ -1,37 +1,37 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_rich_text/CustomRichText-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [CustomRichText]{.kind-constructor} constructor
+# CustomRichText constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [CustomRichText]{.name}({
+
+const CustomRichText({
 
 1.  [required
-    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+    [[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)]
+    key, ]
 2.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [words]{.parameter-name}, ]{#-param-words .parameter}
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]]\>]]
+    words, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const CustomRichText({required Key key, required this.words})
     : super(key: key);
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [rich_text](../../widgets_rich_text/)
@@ -40,9 +40,9 @@ const CustomRichText({required Key key, required this.words})
 
 ##### CustomRichText class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

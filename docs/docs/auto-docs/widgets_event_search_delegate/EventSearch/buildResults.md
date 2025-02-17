@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_search_delegate/EventSearch-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [buildResults]{.kind-method} method
+# buildResults method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[buildResults]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+buildResults(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#buildResults-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 The results shown after the user submits a search from the search page.
 
 The current value of
@@ -45,23 +45,23 @@ result,
 should be called with the selected result as argument. This will close
 the search page and communicate the result back to the initial caller of
 [showSearch](https://api.flutter.dev/flutter/material/showSearch.html).
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 Widget buildResults(BuildContext context) {
-  return Container();
+  return ;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
@@ -70,9 +70,9 @@ Widget buildResults(BuildContext context) {
 
 ##### EventSearch class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

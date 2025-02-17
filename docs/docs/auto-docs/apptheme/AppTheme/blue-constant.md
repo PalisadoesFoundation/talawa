@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="apptheme/AppTheme-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [blue]{.kind-property} constant
+# blue constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [Color](https://api.flutter.dev/flutter/painting/Color-class.html) const
-[blue]{.name}
-:::
+blue
 
-::: {.section .desc .markdown}
+
+
 Custom colors for the app.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const Color blue = Color(0xFF2196F3);
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [apptheme](../../apptheme/)
@@ -34,9 +34,9 @@ static const Color blue = Color(0xFF2196F3);
 
 ##### AppTheme class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

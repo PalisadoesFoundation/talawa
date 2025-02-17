@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchOrgById]{.kind-method} method
+# fetchOrgById method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]{.returntype}
-[fetchOrgById]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [id]{.parameter-name}]{#fetchOrgById-param-id .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+fetchOrgById(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    id]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function fetch the organization using the `id` passed.
 
 **params**:
@@ -25,9 +25,9 @@ This function fetch the organization using the `id` passed.
 **returns**:
 
 -   `Future<dynamic>`: it returns Future of dynamic
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -54,12 +54,12 @@ Future<dynamic> fetchOrgById(String id) async {
   return false;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -68,9 +68,9 @@ Future<dynamic> fetchOrgById(String id) async {
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

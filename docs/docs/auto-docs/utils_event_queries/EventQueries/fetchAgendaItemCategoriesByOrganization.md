@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchAgendaItemCategoriesByOrganization]{.kind-method} method
+# fetchAgendaItemCategoriesByOrganization method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[fetchAgendaItemCategoriesByOrganization]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [organizationId]{.parameter-name}]{#fetchAgendaItemCategoriesByOrganization-param-organizationId
-    .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+fetchAgendaItemCategoriesByOrganization(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    organizationId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Creates a GraphQL query for fetching agenda item categories by
 organization.
 
@@ -29,9 +28,9 @@ organization.
 
 -   `String`: Returns a GraphQL query string to fetch agenda item
     categories.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -48,12 +47,12 @@ String fetchAgendaItemCategoriesByOrganization(String organizationId) {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -62,9 +61,9 @@ String fetchAgendaItemCategoriesByOrganization(String organizationId) {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

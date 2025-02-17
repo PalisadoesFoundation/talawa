@@ -1,91 +1,91 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="enums_enums/enums_enums-library-sidebar.html" below-sidebar="enums_enums/CachedUserActionStatusAdapter-class-sidebar.html"}
+
 <div>
 
-# [CachedUserActionStatusAdapter]{.kind-class} class
+# CachedUserActionStatusAdapter class
 
 </div>
 
-::: section
+
 
 Inheritance
 
 :   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]{.type-parameter}\>]{.signature}
+    -   [TypeAdapter](https://pub.dev/documentation/hive/2.2.3/hive/TypeAdapter-class.html)[\<[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]\>]
     -   CachedUserActionStatusAdapter
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[CachedUserActionStatusAdapter](../enums_enums/CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.html)]{.name}[()]{.signature}
+[CachedUserActionStatusAdapter](../enums_enums/CachedUserActionStatusAdapter/CachedUserActionStatusAdapter.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](../enums_enums/CachedUserActionStatusAdapter/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](../enums_enums/CachedUserActionStatusAdapter/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[override]{.feature}
+    no setteroverride
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[typeId](../enums_enums/CachedUserActionStatusAdapter/typeId.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[typeId](../enums_enums/CachedUserActionStatusAdapter/typeId.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   Called for type registration
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[read](../enums_enums/CachedUserActionStatusAdapter/read.html)]{.name}[([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)]{.type-annotation} [reader]{.parameter-name}]{#read-param-reader .parameter}) [→ [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]{.returntype .parameter} ]{.signature}
+[[read](../enums_enums/CachedUserActionStatusAdapter/read.html)][([[[BinaryReader](https://pub.dev/documentation/hive/2.2.3/hive/BinaryReader-class.html)] reader]) [→ [CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)] ]
 :   Is called when a value has to be decoded.
     ::: features
-    [override]{.feature}
+    override
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[write](../enums_enums/CachedUserActionStatusAdapter/write.html)]{.name}[([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)]{.type-annotation} [writer]{.parameter-name}, ]{#write-param-writer .parameter}[[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)]{.type-annotation} [obj]{.parameter-name}]{#write-param-obj .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[write](../enums_enums/CachedUserActionStatusAdapter/write.html)][([[[BinaryWriter](https://pub.dev/documentation/hive/2.2.3/hive/BinaryWriter-class.html)] writer, ][[[CachedUserActionStatus](../enums_enums/CachedUserActionStatus.html)] obj]) → void ]
 :   Is called when a value has to be encoded.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor}
+
+
 ## Operators
 
-[[operator ==](../enums_enums/CachedUserActionStatusAdapter/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](../enums_enums/CachedUserActionStatusAdapter/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [override]{.feature}
+    override
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [enums](../enums_enums/)
@@ -93,9 +93,9 @@ Inheritance
 
 ##### enums library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

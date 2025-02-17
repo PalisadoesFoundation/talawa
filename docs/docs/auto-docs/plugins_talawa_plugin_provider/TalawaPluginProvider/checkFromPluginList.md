@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="plugins_talawa_plugin_provider/TalawaPluginProvider-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [checkFromPluginList]{.kind-method} method
+# checkFromPluginList method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype}
-[checkFromPluginList]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+
+
+
+
 This function checks if the plugin is insatlled and therefore determine
 visibility of the plugin.
 
@@ -19,13 +19,13 @@ visibility of the plugin.
 **returns**:
 
 -   `bool`: define_the_return
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-bool checkFromPluginList() {
+bool  {
   final UserConfig userConfig = locator<UserConfig>();
   final Box box;
   bool res = false;
@@ -44,12 +44,12 @@ bool checkFromPluginList() {
   return res;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
@@ -58,9 +58,9 @@ bool checkFromPluginList() {
 
 ##### TalawaPluginProvider class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

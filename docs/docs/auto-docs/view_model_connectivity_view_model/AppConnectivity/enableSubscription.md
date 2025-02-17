@@ -1,15 +1,15 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_connectivity_view_model/AppConnectivity-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [enableSubscription]{.kind-method} method
+# enableSubscription method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [enableSubscription]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 Subscribes to
 [connectivityStream](../../view_model_connectivity_view_model/AppConnectivity/connectivityStream.html)
 of
@@ -18,13 +18,13 @@ of
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void enableSubscription() {
+void  {
   try {
     _subscription =
         connectivityStream.listen((List<ConnectivityResult> result) {
@@ -35,12 +35,12 @@ void enableSubscription() {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [connectivity_view_model](../../view_model_connectivity_view_model/)
@@ -49,9 +49,9 @@ void enableSubscription() {
 
 ##### AppConnectivity class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

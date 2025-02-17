@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [createVolunteerGroup]{.kind-method} method
+# createVolunteerGroup method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[createVolunteerGroup]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Creates a GraphQL mutation for creating an event volunteer group.
 
 **params**: None
@@ -22,13 +22,13 @@ Creates a GraphQL mutation for creating an event volunteer group.
 
 This function generates a GraphQL mutation string for creating an event
 volunteer group.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String createVolunteerGroup() {
+String  {
   return '''
 mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
   createEventVolunteerGroup(data: \$data) {
@@ -47,12 +47,12 @@ mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
 ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -61,9 +61,9 @@ mutation CreateEventVolunteerGroup(\$data: EventVolunteerGroupInput!) {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

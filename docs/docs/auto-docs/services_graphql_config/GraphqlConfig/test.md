@@ -1,31 +1,31 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="services_graphql_config/GraphqlConfig-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [test]{.kind-method} method
+# test method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [test]{.name}()
-:::
 
-::: {#source .section .summary .source-code}
+void 
+
+
+
 ## Implementation
 
 ``` language-dart
-void test() {
+void  {
   httpLink = HttpLink(
     'https://talawa-graphql-api.herokuapp.com/graphql',
-    httpClient: MockHttpClient(),
+    httpClient: ,
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [graphql_config](../../services_graphql_config/)
@@ -34,9 +34,9 @@ void test() {
 
 ##### GraphqlConfig class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

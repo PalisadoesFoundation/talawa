@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_pinned_carousel_widget/PinnedPostCarousel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [navigateToPinnedPostPage]{.kind-property} property
+# navigateToPinnedPostPage property
 
 </div>
 
-:::: {.section .multi-line-signature}
-dynamic Function[()]{.signature} [navigateToPinnedPostPage]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+dynamic  navigateToPinnedPostPage
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 Function that navigates to a page displaying pinned posts.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-final Function() navigateToPinnedPostPage;
+final  navigateToPinnedPostPage;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [pinned_carousel_widget](../../widgets_pinned_carousel_widget/)
@@ -37,9 +37,9 @@ final Function() navigateToPinnedPostPage;
 
 ##### PinnedPostCarousel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_third_party_service_connectivity_service/ConnectivityService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [hasConnection]{.kind-method} method
+# hasConnection method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[hasConnection]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+
+
+
+
 This function checks if the device currently has any type of network
 connection.
 
@@ -20,15 +20,15 @@ connection.
 
 -   `Future<bool>`: indicating whether the device has a network
     connection.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<bool> hasConnection() async {
+Future<bool>  async {
   try {
-    final results = await getConnectionType();
+    final results = await ;
     return results.isNotEmpty &&
         results.any((result) => result != ConnectivityResult.none);
   } catch (e) {
@@ -36,12 +36,12 @@ Future<bool> hasConnection() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [connectivity_service](../../services_third_party_service_connectivity_service/)
@@ -50,9 +50,9 @@ Future<bool> hasConnection() async {
 
 ##### ConnectivityService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

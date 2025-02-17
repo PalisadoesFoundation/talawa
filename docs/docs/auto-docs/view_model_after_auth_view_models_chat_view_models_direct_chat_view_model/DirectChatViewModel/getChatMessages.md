@@ -1,36 +1,36 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getChatMessages]{.kind-method} method
+# getChatMessages method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[getChatMessages]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [chatId]{.parameter-name}]{#getChatMessages-param-chatId .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+getChatMessages(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    chatId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function get all messages for a chat.
 
 params:
 
 -   `chatId` : id of a chat for which messages need to be fetched.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> getChatMessages(String chatId) async {
-  _chatMessagesByUser.clear();
+  _chatMessagesByUser.;
   chatState = ChatState.loading;
-  // await _chatService.getMessagesFromDirectChat();
+  // await _chatService.;
   // variable
   final List<ChatMessage> messages = [];
   _chatMessageSubscription =
@@ -41,15 +41,15 @@ Future<void> getChatMessages(String chatId) async {
   // use `chatService` services
   await _chatService.getDirectChatMessagesByChatId(chatId);
   chatState = ChatState.complete;
-  notifyListeners();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
@@ -58,9 +58,9 @@ Future<void> getChatMessages(String chatId) async {
 
 ##### DirectChatViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

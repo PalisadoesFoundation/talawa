@@ -1,108 +1,108 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="constants_constants/constants_constants-library-sidebar.html" below-sidebar="constants_constants/HiveKeys-class-sidebar.html"}
+
 <div>
 
-# [HiveKeys]{.kind-class} class
+# HiveKeys class
 
 </div>
 
-::: {.section .desc .markdown}
+
 A class containing static constants representing the keys used to
 identify Hive boxes in the application.
 
 These keys are used to open or access specific Hive boxes, which store
 various types of data such as user information, organization details,
 and cached actions.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[HiveKeys](../constants_constants/HiveKeys/HiveKeys.html)]{.name}[()]{.signature}
+[HiveKeys](../constants_constants/HiveKeys/HiveKeys.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor .inherited}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#constants .section .summary .offset-anchor}
+
+
 ## Constants
 
-[[asymetricKeyBoxKey](../constants_constants/HiveKeys/asymetricKeyBoxKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[asymetricKeyBoxKey](../constants_constants/HiveKeys/asymetricKeyBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores asymmetric keys
     for the user.
 
-[[eventFeedKey](../constants_constants/HiveKeys/eventFeedKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[eventFeedKey](../constants_constants/HiveKeys/eventFeedKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the event feed
     data.
 
-[[offlineActionQueueKey](../constants_constants/HiveKeys/offlineActionQueueKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[offlineActionQueueKey](../constants_constants/HiveKeys/offlineActionQueueKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the offline action
     queue.
 
-[[orgBoxKey](../constants_constants/HiveKeys/orgBoxKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[orgBoxKey](../constants_constants/HiveKeys/orgBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the current
     organization\'s information.
 
-[[pluginBoxKey](../constants_constants/HiveKeys/pluginBoxKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[pluginBoxKey](../constants_constants/HiveKeys/pluginBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores plugin-related
     data.
 
-[[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[postFeedKey](../constants_constants/HiveKeys/postFeedKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the post feed
     data.
 
-[[urlBoxKey](../constants_constants/HiveKeys/urlBoxKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[urlBoxKey](../constants_constants/HiveKeys/urlBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores URLs.
 
-[[userBoxKey](../constants_constants/HiveKeys/userBoxKey-constant.html)]{.name} [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[userBoxKey](../constants_constants/HiveKeys/userBoxKey-constant.html)] [→ const [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   The key used to identify the Hive box that stores the current user
     information.
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [constants](../constants_constants/)
@@ -110,9 +110,9 @@ and cached actions.
 
 ##### constants library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

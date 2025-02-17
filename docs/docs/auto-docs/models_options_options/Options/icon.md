@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_options_options/Options-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [icon]{.kind-property} property
+# icon property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
-[icon]{.name}
+icon
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 Widget icon;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [options](../../models_options_options/)
@@ -34,9 +34,9 @@ Widget icon;
 
 ##### Options class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

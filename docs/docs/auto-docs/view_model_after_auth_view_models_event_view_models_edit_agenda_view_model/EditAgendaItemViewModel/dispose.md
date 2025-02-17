@@ -1,25 +1,25 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/EditAgendaItemViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dispose]{.kind-method} method
+# dispose method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[void]{.returntype} [dispose]{.name}()
+void 
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
 [addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html)
@@ -30,27 +30,27 @@ This method should only be called by the object\'s owner.
 This method does not notify listeners, and clears the listener list once
 it is called. Consumers of this class must decide on whether to notify
 listeners or not immediately before disposal.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
-void dispose() {
-  titleController.dispose();
-  descriptionController.dispose();
-  urlController.dispose();
-  durationController.dispose();
-  super.dispose();
+void  {
+  titleController.;
+  descriptionController.;
+  urlController.;
+  durationController.;
+  super.;
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [edit_agenda_view_model](../../view_model_after_auth_view_models_event_view_models_edit_agenda_view_model/)
@@ -59,9 +59,9 @@ void dispose() {
 
 ##### EditAgendaItemViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

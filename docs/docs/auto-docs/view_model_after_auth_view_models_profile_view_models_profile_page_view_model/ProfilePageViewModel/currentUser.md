@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [currentUser]{.kind-property} property
+# currentUser property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[User](../../models_user_user_info/User-class.html) [currentUser]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[User](../../models_user_user_info/User-class.html) currentUser
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 Holds Current user.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 late User currentUser;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
@@ -37,9 +37,9 @@ late User currentUser;
 
 ##### ProfilePageViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

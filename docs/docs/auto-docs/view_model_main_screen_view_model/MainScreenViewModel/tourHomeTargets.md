@@ -1,21 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_main_screen_view_model/MainScreenViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [tourHomeTargets]{.kind-method} method
+# tourHomeTargets method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [tourHomeTargets]{.name}(\[
 
-1.  [[[UserConfig](../../services_user_config/UserConfig-class.html)?]{.type-annotation}
-    [givenUserConfig]{.parameter-name}]{#tourHomeTargets-param-givenUserConfig
-    .parameter}
+void tourHomeTargets(\[
+
+1.  [[[UserConfig](../../services_user_config/UserConfig-class.html)?]
+    givenUserConfig]
 
 \])
-:::
 
-::: {.section .desc .markdown}
+
+
 Starts the tour and info to be displayed is mentioned in this functions.
 
 **params**:
@@ -23,15 +22,15 @@ Starts the tour and info to be displayed is mentioned in this functions.
 -   `givenUserConfig`: Mock user config that helps in testing.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 void tourHomeTargets([UserConfig? givenUserConfig]) {
   final UserConfig localUserConfig = givenUserConfig ?? userConfig;
-  targets.clear();
+  targets.;
   targets.add(
     FocusTarget(
       key: keySHOrgName,
@@ -47,7 +46,7 @@ void tourHomeTargets([UserConfig? givenUserConfig]) {
       description:
           'Click this button to see options related to switching, joining and leaving organization(s)',
       isCircle: true,
-      next: () => scaffoldKey.currentState!.openDrawer(),
+      next: () => scaffoldKey.currentState!.,
       appTour: appTour,
     ),
   );
@@ -80,7 +79,7 @@ void tourHomeTargets([UserConfig? givenUserConfig]) {
       align: ContentAlign.top,
       next: () {
         if (!localUserConfig.loggedIn) {
-          navigationService.pop();
+          navigationService.;
         }
       },
     ),
@@ -94,7 +93,7 @@ void tourHomeTargets([UserConfig? givenUserConfig]) {
         description:
             "To leave the current organization you can use this option",
         align: ContentAlign.top,
-        next: () => navigationService.pop(),
+        next: () => navigationService.,
         appTour: appTour,
       ),
     );
@@ -138,19 +137,19 @@ void tourHomeTargets([UserConfig? givenUserConfig]) {
     onFinish: () {
       onTabTapped(currentPageIndex + 1);
       if (!tourComplete && !tourSkipped) {
-        tourEventTargets();
+        ;
       }
     },
     targets: targets,
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
@@ -159,9 +158,9 @@ void tourHomeTargets([UserConfig? givenUserConfig]) {
 
 ##### MainScreenViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

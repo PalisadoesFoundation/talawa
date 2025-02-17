@@ -1,31 +1,31 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_lang_switch/LanguageTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [LanguageTile]{.kind-constructor} constructor
+# LanguageTile constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [LanguageTile]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const LanguageTile({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const LanguageTile({super.key});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [lang_switch](../../widgets_lang_switch/)
@@ -34,9 +34,9 @@ const LanguageTile({super.key});
 
 ##### LanguageTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

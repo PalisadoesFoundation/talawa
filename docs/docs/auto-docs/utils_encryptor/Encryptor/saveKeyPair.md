@@ -1,24 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_encryptor/Encryptor-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [saveKeyPair]{.kind-method} method
+# saveKeyPair method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[saveKeyPair]{.name}(
 
-1.  [[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)]{.type-parameter},
-    [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [keyPair]{.parameter-name}, ]{#saveKeyPair-param-keyPair .parameter}
-2.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]{.type-annotation}
-    [hive]{.parameter-name}]{#saveKeyPair-param-hive .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+saveKeyPair(
+
+1.  [[[AsymmetricKeyPair](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/AsymmetricKeyPair-class.html)[\<[[PublicKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PublicKey-class.html)],
+    [[PrivateKey](https://pub.dev/documentation/pointycastle/3.9.1/pointycastle/PrivateKey-class.html)]\>]]
+    keyPair, ]
+2.  [[[HiveInterface](https://pub.dev/documentation/hive/2.2.3/hive/HiveInterface-class.html)]
+    hive]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Saves the generated key pair to local storage.
 
 Any future usage of the keys must be initiated from here.
@@ -33,9 +33,9 @@ Any future usage of the keys must be initiated from here.
     to store keys in.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -49,12 +49,12 @@ Future<void> saveKeyPair(
   keysBox.put('key_pair', AsymetricKeys(keyPair: keyPair));
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [encryptor](../../utils_encryptor/)
@@ -63,9 +63,9 @@ Future<void> saveKeyPair(
 
 ##### Encryptor class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

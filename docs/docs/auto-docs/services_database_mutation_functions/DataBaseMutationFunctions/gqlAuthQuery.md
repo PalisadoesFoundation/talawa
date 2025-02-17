@@ -1,25 +1,24 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [gqlAuthQuery]{.kind-method} method
+# gqlAuthQuery method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}]{.returntype}
-[gqlAuthQuery]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [query]{.parameter-name}, {]{#gqlAuthQuery-param-query .parameter}
-2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-    [dynamic]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [variables]{.parameter-name}, ]{#gqlAuthQuery-param-variables
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlAuthQuery(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    query, {]
+2.  [[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+    dynamic\>]?]
+    variables, ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 This function is used to run the graph-ql query for authentication.
 
 **params**:
@@ -31,9 +30,9 @@ This function is used to run the graph-ql query for authentication.
 **returns**:
 
 -   `Future<QueryResult<Object?>>`: it returns Future of dynamic
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -77,12 +76,12 @@ Future<QueryResult<Object?>> gqlAuthQuery(
   return response;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -91,9 +90,9 @@ Future<QueryResult<Object?>> gqlAuthQuery(
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

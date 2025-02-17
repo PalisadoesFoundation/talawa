@@ -1,109 +1,109 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_venue/models_events_event_venue-library-sidebar.html" below-sidebar="models_events_event_venue/Venue-class-sidebar.html"}
+
 <div>
 
-# [Venue]{.kind-class} class
+# Venue class
 
 </div>
 
-::: {.section .desc .markdown}
-The `Venue` class represents a venue for events.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+The `Venue` class represents a venue for events.
+
+
+
 ## Constructors
 
-[[Venue](../models_events_event_venue/Venue/Venue.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [id]{.parameter-name}, ]{#-param-id .parameter}[[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.type-annotation} [capacity]{.parameter-name}, ]{#-param-capacity .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [description]{.parameter-name}, ]{#-param-description .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [imageUrl]{.parameter-name}, ]{#-param-imageUrl .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [name]{.parameter-name}, ]{#-param-name .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [organizationId]{.parameter-name}]{#-param-organizationId .parameter}})]{.signature}
+[[Venue](../models_events_event_venue/Venue/Venue.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?] capacity, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] imageUrl, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] name, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] organizationId]})]
 :   Constructs a `Venue` instance.
 
-[[Venue.fromJson](../models_events_event_venue/Venue/Venue.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[Venue.fromJson](../models_events_event_venue/Venue/Venue.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Creates a `Venue` instance from a JSON object.
-    ::: {.constructor-modifier .features}
+    ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[capacity](../models_events_event_venue/Venue/capacity.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]{.signature}
+[[capacity](../models_events_event_venue/Venue/capacity.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
 :   The maximum number of people the venue can accommodate.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[description](../models_events_event_venue/Venue/description.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[description](../models_events_event_venue/Venue/description.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Provides additional details about the venue.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[id](../models_events_event_venue/Venue/id.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[id](../models_events_event_venue/Venue/id.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The unique identifier of the venue.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[imageUrl](../models_events_event_venue/Venue/imageUrl.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[imageUrl](../models_events_event_venue/Venue/imageUrl.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The URL of the venue\'s image.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[name](../models_events_event_venue/Venue/name.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[name](../models_events_event_venue/Venue/name.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The name of the venue.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[organizationId](../models_events_event_venue/Venue/organizationId.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[organizationId](../models_events_event_venue/Venue/organizationId.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The identifier of the organization to which the venue belongs.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_venue](../models_events_event_venue/)
@@ -111,9 +111,9 @@ The `Venue` class represents a venue for events.
 
 ##### event_venue library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

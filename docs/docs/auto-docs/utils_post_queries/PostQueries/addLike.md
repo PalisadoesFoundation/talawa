@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [addLike]{.kind-method} method
+# addLike method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[addLike]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Add Like to a post.
 
 **params**: None
@@ -18,13 +18,13 @@ Add Like to a post.
 **returns**:
 
 -   `String`: The query related to addingLike
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String addLike() {
+String  {
   return """
    mutation likePost(\$postID: ID!) {
     likePost( id: \$postID,)
@@ -35,12 +35,12 @@ String addLike() {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -49,9 +49,9 @@ String addLike() {
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateEvent]{.kind-method} method
+# updateEvent method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[updateEvent]{.name}({
 
-1.  [[dynamic]{.type-annotation} [eventId]{.parameter-name},
-    ]{#updateEvent-param-eventId .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+updateEvent({
+
+1.  [dynamic eventId,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Creates a GraphQL mutation for updating an event.
 
 **params**:
@@ -31,9 +31,9 @@ This function generates a GraphQL mutation string for updating an event
 based on the provided parameters. It takes the event ID along with
 updated details. The mutation updates the event details and returns the
 ID, title, and description of the updated event.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -72,12 +72,12 @@ String updateEvent({
     }""";
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -86,9 +86,9 @@ String updateEvent({
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

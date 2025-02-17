@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info/OrgInfo-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fromJsonToList]{.kind-method} method
+# fromJsonToList method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[fromJsonToList]{.name}(
 
-1.  [[dynamic]{.type-annotation}
-    [json]{.parameter-name}]{#fromJsonToList-param-json .parameter}
+[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]]
+fromJsonToList(
+
+1.  [dynamic
+    json]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 The conventional function to parse json, check flutter docs to know
 more.
 
@@ -27,9 +27,9 @@ more.
 
 -   `List<OrgInfo>`: returning the OrgInfo object containing the json
     data
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,12 +55,12 @@ List<OrgInfo> fromJsonToList(dynamic json) {
   return orgList;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [org_info](../../models_organization_org_info/)
@@ -69,9 +69,9 @@ List<OrgInfo> fromJsonToList(dynamic json) {
 
 ##### OrgInfo class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

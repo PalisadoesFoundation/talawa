@@ -1,20 +1,20 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_navigation_service/NavigationService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [showCustomToast]{.kind-method} method
+# showCustomToast method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [showCustomToast]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [msg]{.parameter-name}]{#showCustomToast-param-msg .parameter}
+void showCustomToast(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    msg]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Shows an Custom Toast.
 
 **params**:
@@ -22,9 +22,9 @@ Shows an Custom Toast.
 -   `msg`: Message shown in Toast
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -43,18 +43,18 @@ void showCustomToast(String msg) {
           Icons.error_outline,
           color: Colors.redAccent,
         ),
-        color: Colors.black.withAlpha((1.0 * 255).toInt()),
+        color: Colors.black.withAlpha((1.0 * 255).),
       );
     },
   ).show(navigatorKey.currentContext!);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [navigation_service](../../services_navigation_service/)
@@ -63,9 +63,9 @@ void showCustomToast(String msg) {
 
 ##### NavigationService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

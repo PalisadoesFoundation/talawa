@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_create_agenda_item_page/CreateAgendaItemPageState-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method in a number of different situations. For
@@ -209,9 +209,9 @@ See also:
 
 -   [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -239,7 +239,7 @@ Widget build(BuildContext context) {
           key: const Key('addButton'),
           onPressed: () {
             final List<String> categoryIds =
-                selectedCategories.map((category) => category.id!).toList();
+                selectedCategories.map((category) => category.id!).;
 
             widget.model.createAgendaItem(
               title: titleController.text,
@@ -249,7 +249,7 @@ Widget build(BuildContext context) {
               categories: categoryIds,
               attachments: attachments,
             );
-            Navigator.of(context).pop();
+            Navigator.of(context).;
           },
           child: Text(
             key: const Key('add_agenda'),
@@ -283,7 +283,7 @@ Widget build(BuildContext context) {
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!
                       .strictTranslate('Select Categories'),
-                  border: const OutlineInputBorder(),
+                  border: const ,
                 ),
                 items: widget.model.categories
                     .map<DropdownMenuItem<AgendaCategory>>(
@@ -292,7 +292,7 @@ Widget build(BuildContext context) {
                     value: category,
                     child: Text(category.name!),
                   );
-                }).toList(),
+                }).,
               ),
               const SizedBox(height: 10),
               Wrap(
@@ -304,7 +304,7 @@ Widget build(BuildContext context) {
                     onDeleted: () => _removeCategory(category),
                     deleteIconColor: Colors.redAccent,
                   );
-                }).toList(),
+                }).,
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.013),
               TextFormField(
@@ -380,7 +380,7 @@ Widget build(BuildContext context) {
                       .strictTranslate('Duration (mm:ss)'),
                   hintText: '00:00',
                   labelStyle: Theme.of(context).textTheme.titleMedium,
-                  border: const OutlineInputBorder(),
+                  border: const ,
                   prefixIcon: Container(
                     transform: Matrix4.translationValues(
                       -SizeConfig.screenWidth! * 0.027,
@@ -415,7 +415,7 @@ Widget build(BuildContext context) {
                         labelText: AppLocalizations.of(context)!
                             .strictTranslate('Add URL'),
                         labelStyle: Theme.of(context).textTheme.titleMedium,
-                        border: const OutlineInputBorder(),
+                        border: const ,
                         prefixIcon: Container(
                           transform: Matrix4.translationValues(
                             -SizeConfig.screenWidth! * 0.027,
@@ -450,7 +450,7 @@ Widget build(BuildContext context) {
                     onDeleted: () => _removeUrl(url),
                     deleteIconColor: Colors.redAccent,
                   );
-                }).toList(),
+                }).,
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.013),
               ElevatedButton.icon(
@@ -462,12 +462,12 @@ Widget build(BuildContext context) {
                       .strictTranslate('Add Attachments'),
                 ),
               ),
-              const Divider(),
+              const ,
               const SizedBox(height: 10),
               GridView.builder(
                 key: const Key('attachmentGridView'),
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 10,
@@ -523,12 +523,12 @@ Widget build(BuildContext context) {
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_agenda_item_page](../../views_after_auth_screens_events_create_agenda_item_page/)
@@ -537,9 +537,9 @@ Widget build(BuildContext context) {
 
 ##### CreateAgendaItemPageState class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

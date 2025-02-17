@@ -1,35 +1,35 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_volunteer_group/EventVolunteerGroup-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [volunteers]{.kind-property} property
+# volunteers property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)]{.type-parameter}\>]{.signature}?
-[volunteers]{.name}
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[EventVolunteer](../../models_events_event_volunteer/EventVolunteer-class.html)]\>]?
+volunteers
 
-::: {.section .desc .markdown}
+
+getter/setter pair
+
+
+
+
 The list of volunteers in the event volunteer group.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 List<EventVolunteer>? volunteers;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_volunteer_group](../../models_events_event_volunteer_group/)
@@ -38,9 +38,9 @@ List<EventVolunteer>? volunteers;
 
 ##### EventVolunteerGroup class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

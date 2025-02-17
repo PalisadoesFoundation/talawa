@@ -1,37 +1,37 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_chat_direct_chats/ChatTile-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [ChatTile]{.kind-constructor} constructor
+# ChatTile constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [ChatTile]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const ChatTile({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html)]{.type-annotation}
-    [chat]{.parameter-name}, ]{#-param-chat .parameter}
+    [[ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.html)]
+    chat, ]
 3.  [required
-    [[DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}, ]{#-param-model .parameter}
+    [[DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.html)]
+    model, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const ChatTile({super.key, required this.chat, required this.model});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [direct_chats](../../views_after_auth_screens_chat_direct_chats/)
@@ -40,9 +40,9 @@ const ChatTile({super.key, required this.chat, required this.model});
 
 ##### ChatTile class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

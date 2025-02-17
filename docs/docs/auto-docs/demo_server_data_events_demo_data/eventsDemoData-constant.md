@@ -1,17 +1,17 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="demo_server_data_events_demo_data/demo_server_data_events_demo_data-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [eventsDemoData]{.kind-top-level-property} top-level constant
+# eventsDemoData top-level constant
 
 </div>
 
-::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter},
-[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-parameter}\>]{.signature}]{.type-parameter}\>]{.signature}
-const [eventsDemoData]{.name}
-:::
 
-::: {.section .desc .markdown}
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]\>]]\>]
+const eventsDemoData
+
+
+
 \'eventsDemoData\' is a list of events that are used to display the
 events in the app.
 
@@ -34,9 +34,9 @@ Each event has the following properties:
 -   attendees: The attendees of the event.
 -   admins: The admins of the event.
 -   organization: The organization of the event.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -243,12 +243,12 @@ const eventsDemoData = [
   }
 ];
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [events_demo_data](../demo_server_data_events_demo_data/)
@@ -256,9 +256,9 @@ const eventsDemoData = [
 
 ##### events_demo_data library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

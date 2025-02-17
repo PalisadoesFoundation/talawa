@@ -1,121 +1,121 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_organization_org_info_address/models_organization_org_info_address-library-sidebar.html" below-sidebar="models_organization_org_info_address/Address-class-sidebar.html"}
+
 <div>
 
-# [Address]{.kind-class} class
+# Address class
 
 </div>
 
-::: {.section .desc .markdown}
-Model for the address of an organisation.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+Model for the address of an organisation.
+
+
+
 ## Constructors
 
-[[Address](../models_organization_org_info_address/Address/Address.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [city]{.parameter-name}, ]{#-param-city .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [countryCode]{.parameter-name}, ]{#-param-countryCode .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [dependentLocality]{.parameter-name}, ]{#-param-dependentLocality .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [line1]{.parameter-name}, ]{#-param-line1 .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [line2]{.parameter-name}, ]{#-param-line2 .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [postalCode]{.parameter-name}, ]{#-param-postalCode .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [sortingCode]{.parameter-name}, ]{#-param-sortingCode .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [state]{.parameter-name}]{#-param-state .parameter}})]{.signature}
+[[Address](../models_organization_org_info_address/Address/Address.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] city, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] countryCode, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] dependentLocality, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] line1, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] line2, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] postalCode, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] sortingCode, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] state]})]
 :   Constructs an Address object.
 
-[[Address.fromJson](../models_organization_org_info_address/Address/Address.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[Address.fromJson](../models_organization_org_info_address/Address/Address.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 :   Factory method to construct an Address from a JSON object.
-    ::: {.constructor-modifier .features}
+    ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[city](../models_organization_org_info_address/Address/city.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[city](../models_organization_org_info_address/Address/city.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The city of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[countryCode](../models_organization_org_info_address/Address/countryCode.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[countryCode](../models_organization_org_info_address/Address/countryCode.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The country code of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[dependentLocality](../models_organization_org_info_address/Address/dependentLocality.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[dependentLocality](../models_organization_org_info_address/Address/dependentLocality.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The dependent locality of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[line1](../models_organization_org_info_address/Address/line1.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[line1](../models_organization_org_info_address/Address/line1.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The first line of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[line2](../models_organization_org_info_address/Address/line2.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[line2](../models_organization_org_info_address/Address/line2.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The second line of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[postalCode](../models_organization_org_info_address/Address/postalCode.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[postalCode](../models_organization_org_info_address/Address/postalCode.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The postal code of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[sortingCode](../models_organization_org_info_address/Address/sortingCode.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[sortingCode](../models_organization_org_info_address/Address/sortingCode.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The sorting code of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
 
-[[state](../models_organization_org_info_address/Address/state.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[state](../models_organization_org_info_address/Address/state.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The state of the address.
     ::: features
-    [final]{.feature}
+    final
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [org_info_address](../models_organization_org_info_address/)
@@ -123,9 +123,9 @@ Model for the address of an organisation.
 
 ##### org_info_address library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

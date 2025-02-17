@@ -1,34 +1,32 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_create_recurring_event_helper_widgets/RecurrenceFrequencyDropdown-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [RecurrenceFrequencyDropdown]{.kind-constructor} constructor
+# RecurrenceFrequencyDropdown constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [RecurrenceFrequencyDropdown]{.name}({
+
+const RecurrenceFrequencyDropdown({
 
 1.  [required
-    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}, ]{#-param-model .parameter}
-2.  [required [void]{.type-annotation}
-    [onSelected]{.parameter-name}(]{#-param-onSelected .parameter}
-    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}]{#param-
-        .parameter}
+    [[CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.html)]
+    model, ]
+2.  required [void
+    onSelected(]
+    1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]]
 
     )?,
 3.  [required
-    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [options]{.parameter-name}, ]{#-param-options .parameter}
+    [[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]]
+    options, ]
 4.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [selectedOption]{.parameter-name}, ]{#-param-selectedOption
-    .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    selectedOption, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,12 +37,12 @@ const RecurrenceFrequencyDropdown({
   required this.selectedOption,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [create_recurring_event_helper_widgets](../../widgets_create_recurring_event_helper_widgets/)
@@ -53,9 +51,9 @@ const RecurrenceFrequencyDropdown({
 
 ##### RecurrenceFrequencyDropdown class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

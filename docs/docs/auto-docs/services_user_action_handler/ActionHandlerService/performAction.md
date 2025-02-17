@@ -1,53 +1,49 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_user_action_handler/ActionHandlerService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [performAction]{.kind-method} method
+# performAction method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[performAction]{.name}({
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+performAction({
 
 1.  [required
-    [[ActionType](../../enums_enums/ActionType.html)]{.type-annotation}
-    [actionType]{.parameter-name}, ]{#performAction-param-actionType
-    .parameter}
+    [[ActionType](../../enums_enums/ActionType.html)]
+    actionType, ]
 2.  [required
-    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}?]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [action]{.parameter-name}(), ]{#performAction-param-action
-    .parameter}
-3.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onValidResult]{.parameter-name}(]{#performAction-param-onValidResult
-    .parameter}
-    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]{.type-parameter}\>]{.signature}]{.type-annotation}
-        [result]{.parameter-name}]{#param-result .parameter}
+    [[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]?]\>]]
+    , ]
+3.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    onValidResult(]
+    1.  [[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]
+        result]
 
     )?,
-4.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onActionException]{.parameter-name}(]{#performAction-param-onActionException
-    .parameter}
-    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.html)]{.type-annotation}
-        [e]{.parameter-name}]{#param-e .parameter}
+4.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    onActionException(]
+    1.  [[[Exception](https://api.flutter.dev/flutter/dart-core/Exception-class.html)]
+        e]
 
     )?,
-5.  [[void]{.type-annotation} [updateUI]{.parameter-name}()?,
-    ]{#performAction-param-updateUI .parameter}
-6.  [[void]{.type-annotation}
-    [apiCallSuccessUpdateUI]{.parameter-name}()?,
-    ]{#performAction-param-apiCallSuccessUpdateUI .parameter}
-7.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [criticalActionFailureMessage]{.parameter-name} =
-    [TalawaErrors.userActionNotSaved]{.default-value},
-    ]{#performAction-param-criticalActionFailureMessage .parameter}
-8.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [onActionFinally]{.parameter-name}()?,
-    ]{#performAction-param-onActionFinally .parameter}
+5.  [void ?,
+    ]
+6.  [void
+    ?,
+    ]
+7.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    criticalActionFailureMessage =
+    TalawaErrors.userActionNotSaved,
+    ]
+8.  [[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+    ?,
+    ]
 
 })
-:::
 
-::: {.section .desc .markdown}
+
+
 Processes a user action based on its type, with error handling and UI
 update.
 
@@ -71,27 +67,27 @@ update.
     or failure of the action.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> performAction({
   required ActionType actionType,
-  required Future<QueryResult<Object?>?> Function() action,
+  required Future<QueryResult<Object?>?>  action,
   Future<void> Function(QueryResult<Object?> result)? onValidResult,
   Future<void> Function(Exception e)? onActionException,
-  void Function()? updateUI,
-  void Function()? apiCallSuccessUpdateUI,
+  void ? updateUI,
+  void ? apiCallSuccessUpdateUI,
   String? criticalActionFailureMessage = TalawaErrors.userActionNotSaved,
-  Future<void> Function()? onActionFinally,
+  Future<void> ? onActionFinally,
 }) async {
   bool? success;
   // optimistic
   if (actionType == ActionType.optimistic) {
     // Update UI immediately for optimistic actions
-    updateUI?.call();
+    updateUI?.;
     success = await executeApiCall(
       action: action,
       onValidResult: onValidResult,
@@ -107,12 +103,12 @@ Future<void> performAction({
         onActionException: onActionException,
         onActionFinally: onActionFinally,
       );
-      updateUI?.call();
+      updateUI?.;
       if (success ?? false) {
-        apiCallSuccessUpdateUI?.call();
+        apiCallSuccessUpdateUI?.;
       }
     } else {
-      updateUI?.call();
+      updateUI?.;
       GraphqlExceptionResolver.encounteredExceptionOrError(
         CriticalActionException(criticalActionFailureMessage!),
       );
@@ -120,12 +116,12 @@ Future<void> performAction({
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_action_handler](../../services_user_action_handler/)
@@ -134,9 +130,9 @@ Future<void> performAction({
 
 ##### ActionHandlerService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

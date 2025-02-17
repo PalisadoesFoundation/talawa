@@ -1,43 +1,42 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="models_user_user_info/User-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [User]{.kind-constructor} constructor
+# User constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[User]{.name}({
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [adminFor]{.parameter-name}, ]{#-param-adminFor .parameter}
-2.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [createdOrganizations]{.parameter-name},
-    ]{#-param-createdOrganizations .parameter}
-3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [email]{.parameter-name}, ]{#-param-email .parameter}
-4.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [firstName]{.parameter-name}, ]{#-param-firstName .parameter}
-5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [id]{.parameter-name}, ]{#-param-id .parameter}
-6.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [image]{.parameter-name}, ]{#-param-image .parameter}
-7.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [joinedOrganizations]{.parameter-name},
-    ]{#-param-joinedOrganizations .parameter}
-8.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [lastName]{.parameter-name}, ]{#-param-lastName .parameter}
-9.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [authToken]{.parameter-name}, ]{#-param-authToken .parameter}
-10. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation}
-    [refreshToken]{.parameter-name}, ]{#-param-refreshToken .parameter}
-11. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation}
-    [membershipRequests]{.parameter-name}, ]{#-param-membershipRequests
-    .parameter}
+User({
+
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]?]
+    adminFor, ]
+2.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]?]
+    createdOrganizations,
+    ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    email, ]
+4.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    firstName, ]
+5.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    id, ]
+6.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    image, ]
+7.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]?]
+    joinedOrganizations,
+    ]
+8.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    lastName, ]
+9.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    authToken, ]
+10. [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    refreshToken, ]
+11. [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.html)]\>]?]
+    membershipRequests, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -55,12 +54,12 @@ User({
   this.membershipRequests,
 });
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [user_info](../../models_user_user_info/)
@@ -69,9 +68,9 @@ User({
 
 ##### User class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

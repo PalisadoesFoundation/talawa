@@ -1,31 +1,31 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_custom_alert_dialog/CustomAlertDialog-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [build]{.kind-method} method
+# build method
 
 </div>
 
-::::: {.section .multi-line-signature}
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[build]{.name}(
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+build(
 
-1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#build-param-context .parameter}
+1.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 Describes the part of the user interface represented by this widget.
 
 The framework calls this method when this widget is inserted into the
@@ -76,9 +76,9 @@ See also:
 
 -   [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html),
     which contains the discussion on performance considerations.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -90,7 +90,7 @@ Widget build(BuildContext context) {
       onTap: () {
         secondaryButtonTap != null
             ? secondaryButtonTap!()
-            : navigationService.pop();
+            : navigationService.;
       },
       buttonLabel:
           AppLocalizations.of(context)!.strictTranslate(secondaryButtonText),
@@ -101,7 +101,7 @@ Widget build(BuildContext context) {
     ),
     RaisedRoundedButton(
       key: Key(successText),
-      onTap: () => success(),
+      onTap: () => ,
       buttonLabel: AppLocalizations.of(context)!.strictTranslate(successText),
       textColor: const Color(0xFF008A37),
       backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -125,16 +125,16 @@ Widget build(BuildContext context) {
       horizontal: SizeConfig.screenWidth! * 0.05,
       vertical: SizeConfig.screenHeight! * 0.05,
     ),
-    actions: reverse ? actions.reversed.toList() : actions,
+    actions: reverse ? actions.reversed. : actions,
   );
 }
 ```
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
@@ -143,9 +143,9 @@ Widget build(BuildContext context) {
 
 ##### CustomAlertDialog class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

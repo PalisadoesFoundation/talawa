@@ -1,38 +1,38 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_database_mutation_functions/DataBaseMutationFunctions-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [init]{.kind-method} method
+# init method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [init]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 Initialization function.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void init() {
-  clientNonAuth = graphqlConfig.clientToQuery();
-  clientAuth = graphqlConfig.authClient();
-  _query = Queries();
+void  {
+  clientNonAuth = graphqlConfig.;
+  clientAuth = graphqlConfig.;
+  _query = ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [database_mutation_functions](../../services_database_mutation_functions/)
@@ -41,9 +41,9 @@ void init() {
 
 ##### DataBaseMutationFunctions class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

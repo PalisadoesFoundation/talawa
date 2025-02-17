@@ -1,37 +1,37 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_event_service/EventService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dispose]{.kind-method} method
+# dispose method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [dispose]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 This function is used to cancel the stream subscription of an
 organization.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void dispose() {
-  _currentOrganizationStreamSubscription.cancel();
+void  {
+  _currentOrganizationStreamSubscription.;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_service](../../services_event_service/)
@@ -40,9 +40,9 @@ void dispose() {
 
 ##### EventService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

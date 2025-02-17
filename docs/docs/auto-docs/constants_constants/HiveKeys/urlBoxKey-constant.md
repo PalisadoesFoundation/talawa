@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="constants_constants/HiveKeys-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [urlBoxKey]{.kind-property} constant
+# urlBoxKey constant
 
 </div>
 
-::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-const [urlBoxKey]{.name}
-:::
+const urlBoxKey
 
-::: {.section .desc .markdown}
+
+
 The key used to identify the Hive box that stores URLs.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 static const urlBoxKey = 'url';
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [constants](../../constants_constants/)
@@ -34,9 +34,9 @@ static const urlBoxKey = 'url';
 
 ##### HiveKeys class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

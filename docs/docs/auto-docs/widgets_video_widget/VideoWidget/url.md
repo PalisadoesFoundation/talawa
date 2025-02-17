@@ -1,37 +1,37 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_video_widget/VideoWidget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [url]{.kind-property} property
+# url property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-[url]{.name}
+url
 
-::: features
-[final]{.feature}
-:::
-::::
 
-::: {.section .desc .markdown}
+final
+
+
+
+
 a_line_ending_with_end_punctuation.
 
 more_info_if_required
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final String url;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [video_widget](../../widgets_video_widget/)
@@ -40,9 +40,9 @@ final String url;
 
 ##### VideoWidget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,37 +1,37 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_theme_view_model/AppTheme-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialize]{.kind-method} method
+# initialize method
 
 </div>
 
-::: {.section .multi-line-signature}
-[void]{.returntype} [initialize]{.name}()
-:::
 
-::: {.section .desc .markdown}
+void 
+
+
+
 Initializes the theme settings.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-void initialize() {
+void  {
   _isDarkMode = true;
-  _loadFromPrefs();
+  ;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [theme_view_model](../../view_model_theme_view_model/)
@@ -40,9 +40,9 @@ void initialize() {
 
 ##### AppTheme class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

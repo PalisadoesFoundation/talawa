@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_post_service/PostService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removeLike]{.kind-method} method
+# removeLike method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype}
-[removeLike]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [postID]{.parameter-name}]{#removeLike-param-postID .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+removeLike(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    postID]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to remove like in a Post.
 
 This method basically update likedBy list of a Post and removes the like
@@ -28,9 +28,9 @@ of a user in database.
 **returns**:
 
 -   `Future<void>`: nothing
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -39,7 +39,7 @@ Future<bool> removeLike(String postID) async {
   await actionHandlerService.performAction(
     actionType: ActionType.optimistic,
     action: () async {
-      final String mutation = PostQueries().removeLike();
+      final String mutation = .;
       return await _dbFunctions
           .gqlAuthMutation(mutation, variables: {"postID": postID});
     },
@@ -53,12 +53,12 @@ Future<bool> removeLike(String postID) async {
   return isLiked;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_service](../../services_post_service/)
@@ -67,9 +67,9 @@ Future<bool> removeLike(String postID) async {
 
 ##### PostService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

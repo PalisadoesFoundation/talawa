@@ -1,185 +1,185 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="models_events_event_model/models_events_event_model-library-sidebar.html" below-sidebar="models_events_event_model/Event-class-sidebar.html"}
+
 <div>
 
-# [Event]{.kind-class} class
+# Event class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates an event model and returns an Event instance.
-:::
 
-::: section
+This class creates an event model and returns an Event instance.
+
+
+
 
 Annotations
 
 :   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
         10)
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[Event](../models_events_event_model/Event/Event.html)]{.name}[({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [id]{.parameter-name}, ]{#-param-id .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [title]{.parameter-name}, ]{#-param-title .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [description]{.parameter-name}, ]{#-param-description .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [attendees]{.parameter-name}, ]{#-param-attendees .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [location]{.parameter-name}, ]{#-param-location .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [recurring]{.parameter-name}, ]{#-param-recurring .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [allDay]{.parameter-name}, ]{#-param-allDay .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [startDate]{.parameter-name}, ]{#-param-startDate .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [endDate]{.parameter-name}, ]{#-param-endDate .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [startTime]{.parameter-name}, ]{#-param-startTime .parameter}[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.type-annotation} [endTime]{.parameter-name}, ]{#-param-endTime .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [isPublic]{.parameter-name}, ]{#-param-isPublic .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [isRegistered]{.parameter-name}, ]{#-param-isRegistered .parameter}[[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-annotation} [isRegisterable]{.parameter-name}, ]{#-param-isRegisterable .parameter}[[[User](../models_user_user_info/User-class.html)?]{.type-annotation} [creator]{.parameter-name}, ]{#-param-creator .parameter}[[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.type-annotation} [organization]{.parameter-name}, ]{#-param-organization .parameter}[[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.html)]{.type-parameter}\>]{.signature}?]{.type-annotation} [admins]{.parameter-name}]{#-param-admins .parameter}})]{.signature}
+[[Event](../models_events_event_model/Event/Event.html)][({[[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] id, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] title, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] description, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.html)]\>]?] attendees, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] location, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] recurring, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] allDay, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] startDate, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] endDate, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] startTime, ][[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?] endTime, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] isPublic, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] isRegistered, ][[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] isRegisterable, ][[[User](../models_user_user_info/User-class.html)?] creator, ][[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)?] organization, ][[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.html)]\>]?] admins]})]
 
 :   
 
-[[Event.fromJson](../models_events_event_model/Event/Event.fromJson.html)]{.name}[([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}, [dynamic]{.type-parameter}\>]{.signature}]{.type-annotation} [json]{.parameter-name}]{#fromJson-param-json .parameter})]{.signature}
+[[Event.fromJson](../models_events_event_model/Event/Event.fromJson.html)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-:   ::: {.constructor-modifier .features}
+:   ::: 
     factory
     :::
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[admins](../models_events_event_model/Event/admins.html)]{.name} [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[admins](../models_events_event_model/Event/admins.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../models_user_user_info/User-class.html)]\>]?]
 :   The admins of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[allDay](../models_events_event_model/Event/allDay.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[allDay](../models_events_event_model/Event/allDay.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the event is an all-day event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[attendees](../models_events_event_model/Event/attendees.html)]{.name} [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.html)]{.type-parameter}\>]{.signature}?]{.signature}
+[[attendees](../models_events_event_model/Event/attendees.html)] [↔ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Attendee](../models_events_event_model/Attendee-class.html)]\>]?]
 :   The attendees of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[creator](../models_events_event_model/Event/creator.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)?]{.signature}
+[[creator](../models_events_event_model/Event/creator.html)] [↔ [User](../models_user_user_info/User-class.html)?]
 :   The creator of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[description](../models_events_event_model/Event/description.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[description](../models_events_event_model/Event/description.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The description of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[endDate](../models_events_event_model/Event/endDate.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[endDate](../models_events_event_model/Event/endDate.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The end date of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[endTime](../models_events_event_model/Event/endTime.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[endTime](../models_events_event_model/Event/endTime.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The end time of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[id](../models_events_event_model/Event/id.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[id](../models_events_event_model/Event/id.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   Unique identifier for the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isPublic](../models_events_event_model/Event/isPublic.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[isPublic](../models_events_event_model/Event/isPublic.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the event is public.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isRegisterable](../models_events_event_model/Event/isRegisterable.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[isRegisterable](../models_events_event_model/Event/isRegisterable.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the event is registerable.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[isRegistered](../models_events_event_model/Event/isRegistered.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[isRegistered](../models_events_event_model/Event/isRegistered.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the user is registered for the
     event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[location](../models_events_event_model/Event/location.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[location](../models_events_event_model/Event/location.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The location of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[organization](../models_events_event_model/Event/organization.html)]{.name} [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]{.signature}
+[[organization](../models_events_event_model/Event/organization.html)] [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)?]
 :   The organization of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[recurring](../models_events_event_model/Event/recurring.html)]{.name} [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.signature}
+[[recurring](../models_events_event_model/Event/recurring.html)] [↔ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]
 :   A boolean value that indicates if the event is recurring.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[startDate](../models_events_event_model/Event/startDate.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[startDate](../models_events_event_model/Event/startDate.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The start date of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[startTime](../models_events_event_model/Event/startTime.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[startTime](../models_events_event_model/Event/startTime.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The start time of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[title](../models_events_event_model/Event/title.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]{.signature}
+[[title](../models_events_event_model/Event/title.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 :   The title of the event.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_model](../models_events_event_model/)
@@ -187,9 +187,9 @@ Annotations
 
 ##### event_model library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

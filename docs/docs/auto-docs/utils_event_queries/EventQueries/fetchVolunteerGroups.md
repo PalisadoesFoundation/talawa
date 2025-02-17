@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchVolunteerGroups]{.kind-method} method
+# fetchVolunteerGroups method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[fetchVolunteerGroups]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Fetches event volunteer groups based on criteria such as event ID.
 
 **params**: None
@@ -19,13 +19,13 @@ Fetches event volunteer groups based on criteria such as event ID.
 
 -   `String`: Returns a GraphQL query string to fetch event volunteer
     groups that match the provided criteria.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String fetchVolunteerGroups() {
+String  {
   return '''
     query GetEventVolunteerGroups(\$where: EventVolunteerGroupWhereInput) {
       getEventVolunteerGroups(where: \$where) {
@@ -47,12 +47,12 @@ String fetchVolunteerGroups() {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -61,9 +61,9 @@ String fetchVolunteerGroups() {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

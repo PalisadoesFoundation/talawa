@@ -1,23 +1,23 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="views_after_auth_screens_events_event_filter_bottomsheet/views_after_auth_screens_events_event_filter_bottomsheet-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [dropDownList]{.kind-function} function
+# dropDownList function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[dropDownList]{.name}(
 
-1.  [[[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)]{.type-annotation}
-    [model]{.parameter-name}, ]{#dropDownList-param-model .parameter}
-2.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]{.type-annotation}
-    [context]{.parameter-name}]{#dropDownList-param-context .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+dropDownList(
+
+1.  [[[ExploreEventsViewModel](../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html)]
+    model, ]
+2.  [[[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)]
+    context]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Shows a list of dropdown taken from `model` and `context`.
 
 **params**:
@@ -28,9 +28,9 @@ Shows a list of dropdown taken from `model` and `context`.
 **returns**:
 
 -   `Widget`: the dropdown
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -97,17 +97,17 @@ Widget dropDownList(
                       child: GestureDetector(
                         onTap: () {
                           model.choseValueFromDropdown(
-                            filters.keys.toList()[index],
+                            filters.keys.[index],
                           );
                           setState(() {});
                         },
                         child: Container(
                           key: Key(
-                            filters.keys.toList()[index],
+                            filters.keys.[index],
                           ),
                           decoration: BoxDecoration(
                             color: model.chosenValue ==
-                                    filters.keys.toList()[index]
+                                    filters.keys.[index]
                                 ? Theme.of(context).colorScheme.secondary
                                 : AppTheme.white,
                             borderRadius: BorderRadius.all(
@@ -128,28 +128,28 @@ Widget dropDownList(
                               children: [
                                 Text(
                                   AppLocalizations.of(context)!.strictTranslate(
-                                    filters.keys.toList()[index],
+                                    filters.keys.[index],
                                   ),
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelLarge!
                                       .copyWith(
                                         color: model.chosenValue ==
-                                                filters.keys.toList()[index]
+                                                filters.keys.[index]
                                             ? AppTheme.white
                                             : AppTheme.blackPrimary,
                                       ),
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.strictTranslate(
-                                    filters.values.toList()[index],
+                                    filters.values.[index],
                                   ),
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall!
                                       .copyWith(
                                         color: model.chosenValue ==
-                                                filters.keys.toList()[index]
+                                                filters.keys.[index]
                                             ? AppTheme.white
                                             : AppTheme.blackSecondary,
                                       ),
@@ -171,12 +171,12 @@ Widget dropDownList(
   );
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [event_filter_bottomsheet](../views_after_auth_screens_events_event_filter_bottomsheet/)
@@ -184,9 +184,9 @@ Widget dropDownList(
 
 ##### event_filter_bottomsheet library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

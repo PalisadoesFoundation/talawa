@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [removePost]{.kind-method} method
+# removePost method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[removePost]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Mutation to remove the post.
 
 **params**: None
@@ -18,13 +18,13 @@ Mutation to remove the post.
 **returns**:
 
 -   `String`: query is returned
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String removePost() {
+String  {
   return '''
   mutation RemovePost(\$id: ID!) {
     removePost(id: \$id) {
@@ -34,12 +34,12 @@ String removePost() {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -48,9 +48,9 @@ String removePost() {
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

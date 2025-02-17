@@ -1,21 +1,21 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="utils_queries/Queries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [fetchJoinInOrgByName]{.kind-property} property
+# fetchJoinInOrgByName property
 
 </div>
 
-:::::: {#getter .section}
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-get [fetchJoinInOrgByName]{.name}
-:::
 
-::: {.section .desc .markdown}
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get fetchJoinInOrgByName
+
+
+
 getter for fetchJoinInOrgByName.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -50,13 +50,13 @@ String get fetchJoinInOrgByName {
 """;
 }
 ```
-:::
-::::::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [queries](../../utils_queries/)
@@ -65,9 +65,9 @@ String get fetchJoinInOrgByName {
 
 ##### Queries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

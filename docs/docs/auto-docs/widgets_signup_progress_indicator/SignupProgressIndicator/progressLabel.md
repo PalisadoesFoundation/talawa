@@ -1,24 +1,24 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_signup_progress_indicator/SignupProgressIndicator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [progressLabel]{.kind-property} property
+# progressLabel property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-parameter}\>]{.signature}
-[progressLabel]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+progressLabel
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 The list of labels for each step in the progress indicator.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -28,12 +28,12 @@ final List<String> progressLabel = [
   'Final',
 ];
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/)
@@ -42,9 +42,9 @@ final List<String> progressLabel = [
 
 ##### SignupProgressIndicator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

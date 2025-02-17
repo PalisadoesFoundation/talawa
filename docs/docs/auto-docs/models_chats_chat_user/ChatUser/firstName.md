@@ -1,31 +1,31 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="models_chats_chat_user/ChatUser-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [firstName]{.kind-property} property
+# firstName property
 
 </div>
 
-:::: {.section .multi-line-signature}
+
 [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-[firstName]{.name}
+firstName
 
-::: features
-[getter/setter pair]{.feature}
-:::
-::::
 
-::: {#source .section .summary .source-code}
+getter/setter pair
+
+
+
+
 ## Implementation
 
 ``` language-dart
 String? firstName;
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_user](../../models_chats_chat_user/)
@@ -34,9 +34,9 @@ String? firstName;
 
 ##### ChatUser class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

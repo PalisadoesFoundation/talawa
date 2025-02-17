@@ -1,58 +1,58 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="locator/locator-library-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [setupLocator]{.kind-function} function
+# setupLocator function
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[setupLocator]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 This function registers the widgets/objects in \"GetIt\".
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> setupLocator() async {
-  locator.registerSingleton(DataBaseMutationFunctions());
+Future<void>  async {
+  locator.registerSingleton();
 
-  locator.registerSingleton(GraphqlConfig());
+  locator.registerSingleton();
   //services
-  locator.registerSingleton(NavigationService());
+  locator.registerSingleton();
 
   //sizeConfig
-  locator.registerSingleton(SizeConfig());
+  locator.registerSingleton();
 
-  locator.registerSingleton(Validator());
+  locator.registerSingleton();
 
   //userConfig
-  locator.registerSingleton(UserConfig());
+  locator.registerSingleton();
 
   //sessionManager
-  locator.registerSingleton(SessionManager());
+  locator.registerSingleton();
 
-  locator.registerSingleton(CacheService());
+  locator.registerSingleton();
 
   //Services
-  locator.registerLazySingleton(() => PostService());
-  locator.registerLazySingleton(() => EventService());
-  locator.registerLazySingleton(() => CommentService());
-  locator.registerLazySingleton(() => OrganizationService());
-  locator.registerLazySingleton(() => MultiMediaPickerService());
-  locator.registerLazySingleton(() => Connectivity());
-  locator.registerLazySingleton(() => ChatService());
-  locator.registerLazySingleton(() => ImageService());
-  locator.registerLazySingleton(() => ImagePicker());
-  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
+  locator.registerLazySingleton(() => );
 
   //graphql
 
@@ -61,55 +61,55 @@ Future<void> setupLocator() async {
   locator.registerSingleton(ConnectivityService(connectivity));
 
   //queries
-  locator.registerSingleton(Queries());
+  locator.registerSingleton();
 
-  locator.registerSingleton(ActionHandlerService());
+  locator.registerSingleton();
 
-  locator.registerFactory(() => AppConnectivity());
+  locator.registerFactory(() => );
 
   //Page viewModels
-  locator.registerFactory(() => DemoViewModel());
-  // locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => SetUrlViewModel());
-  locator.registerFactory(() => LoginViewModel());
-  locator.registerFactory(() => ManageVolunteerGroupViewModel());
-  locator.registerFactory(() => EditAgendaItemViewModel());
-  locator.registerFactory(() => SelectOrganizationViewModel());
-  locator.registerFactory(() => SignupDetailsViewModel());
-  locator.registerFactory(() => WaitingViewModel());
-  locator.registerFactory(() => ExploreEventsViewModel());
-  locator.registerFactory(() => MainScreenViewModel());
-  locator.registerFactory(() => ProfilePageViewModel());
-  locator.registerFactory(() => EditProfilePageViewModel());
-  locator.registerFactory(() => CreateEventViewModel());
-  locator.registerFactory(() => EditEventViewModel());
-  locator.registerFactory(() => EventCalendarViewModel());
-  locator.registerFactory(() => AddPostViewModel());
-  locator.registerFactory(() => EventInfoViewModel());
-  locator.registerFactory(() => AppSettingViewModel());
+  locator.registerFactory(() => );
+  // locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
 
   //Widgets viewModels
-  locator.registerFactory(() => ProgressDialogViewModel());
-  locator.registerFactory(() => CustomDrawerViewModel());
-  locator.registerFactory(() => LikeButtonViewModel());
-  locator.registerFactory(() => AppLanguage());
-  locator.registerFactory(() => CommentsViewModel());
-  locator.registerFactory(() => AppTheme());
-  locator.registerFactory(() => DirectChatViewModel());
-  locator.registerFactory(() => AccessScreenViewModel());
-  locator.registerFactory(() => UserProfileService());
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
+  locator.registerFactory(() => );
 
   //AppLinks
-  locator.registerSingleton(AppLinks());
+  locator.registerSingleton();
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [locator](../locator/)
@@ -117,9 +117,9 @@ Future<void> setupLocator() async {
 
 ##### locator library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

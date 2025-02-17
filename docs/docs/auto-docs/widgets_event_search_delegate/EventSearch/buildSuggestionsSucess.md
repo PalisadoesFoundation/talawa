@@ -1,22 +1,21 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_event_search_delegate/EventSearch-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [buildSuggestionsSucess]{.kind-method} method
+# buildSuggestionsSucess method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.returntype}
-[buildSuggestionsSucess]{.name}(
 
-1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation}
-    [suggestions]{.parameter-name}]{#buildSuggestionsSucess-param-suggestions
-    .parameter}
+[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
+buildSuggestionsSucess(
+
+1.  [[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Event](../../models_events_event_model/Event-class.html)]\>]]
+    suggestions]
 
 )
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -26,7 +25,7 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
   /// SingleChildScrollView is box in which a single widget can be scrolled.
   return SingleChildScrollView(
     child: ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const ,
       shrinkWrap: true,
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
@@ -59,12 +58,12 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
   );
 }
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_search_delegate](../../widgets_event_search_delegate/)
@@ -73,9 +72,9 @@ Widget buildSuggestionsSucess(List<Event> suggestions) {
 
 ##### EventSearch class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

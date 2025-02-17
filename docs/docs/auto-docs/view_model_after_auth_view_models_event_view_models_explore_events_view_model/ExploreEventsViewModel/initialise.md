@@ -1,48 +1,48 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [initialise]{.kind-method} method
+# initialise method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[initialise]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 initialiser.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> initialise() async {
+Future<void>  async {
   setState(ViewState.busy);
   if (!demoMode) {
     _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
-        .listen((updatedOrganization) => refreshEvents());
+        .listen((updatedOrganization) => );
 
     _eventStreamSubscription = _eventService.eventStream.listen(
       (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
     );
-    await _eventService.fetchEventsInitial();
+    await _eventService.;
     _bufferEvents = _events;
   }
   setState(ViewState.idle);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
@@ -51,9 +51,9 @@ Future<void> initialise() async {
 
 ##### ExploreEventsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

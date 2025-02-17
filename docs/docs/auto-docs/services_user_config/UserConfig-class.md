@@ -1,11 +1,11 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="services_user_config/services_user_config-library-sidebar.html" below-sidebar="services_user_config/UserConfig-class-sidebar.html"}
+
 <div>
 
-# [UserConfig]{.kind-class} class
+# UserConfig class
 
 </div>
 
-::: {.section .desc .markdown}
+
 Provides different services in the context of the User.
 
 Services include:
@@ -21,132 +21,132 @@ Services include:
     Organization.
 -   `updateAccessToken` : helps to update the access token of an user.
 -   `updateUser` : helps to update the user.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+
+
 ## Constructors
 
-[[UserConfig](../services_user_config/UserConfig/UserConfig.html)]{.name}[()]{.signature}
+[UserConfig](../services_user_config/UserConfig/UserConfig.html)
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[currentOrg](../services_user_config/UserConfig/currentOrg.html)]{.name} [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.signature}
+[[currentOrg](../services_user_config/UserConfig/currentOrg.html)] [↔ [OrgInfo](../models_organization_org_info/OrgInfo-class.html)]
 :   Retrieves the current organization information.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[currentOrgInfoController](../services_user_config/UserConfig/currentOrgInfoController.html)]{.name} [→ [StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[currentOrgInfoController](../services_user_config/UserConfig/currentOrgInfoController.html)] [→ [StreamController](https://api.flutter.dev/flutter/dart-async/StreamController-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]]
 :   Retrieves the stream controller for current organization
     information.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[currentOrgInfoStream](../services_user_config/UserConfig/currentOrgInfoStream.html)]{.name} [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.signature}
+[[currentOrgInfoStream](../services_user_config/UserConfig/currentOrgInfoStream.html)] [→ [Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]]
 :   Retrieves the stream of current organization information.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[currentOrgName](../services_user_config/UserConfig/currentOrgName.html)]{.name} [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[currentOrgName](../services_user_config/UserConfig/currentOrgName.html)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 :   Retrieves the name of the current organization.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[currentUser](../services_user_config/UserConfig/currentUser.html)]{.name} [↔ [User](../models_user_user_info/User-class.html)]{.signature}
+[[currentUser](../services_user_config/UserConfig/currentUser.html)] [↔ [User](../models_user_user_info/User-class.html)]
 :   Retrieves the current user.
     ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[loggedIn](../services_user_config/UserConfig/loggedIn.html)]{.name} [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.signature}
+[[loggedIn](../services_user_config/UserConfig/loggedIn.html)] [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 :   Checks if a user is logged in.
     ::: features
-    [no setter]{.feature}
+    no setter
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor}
+
+
 ## Methods
 
-[[initialiseStream](../services_user_config/UserConfig/initialiseStream.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[initialiseStream](../services_user_config/UserConfig/initialiseStream.html) [→ void ]
 :   initialise.
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[saveCurrentOrgInHive](../services_user_config/UserConfig/saveCurrentOrgInHive.html)]{.name}[([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-annotation} [saveOrgAsCurrent]{.parameter-name}]{#saveCurrentOrgInHive-param-saveOrgAsCurrent .parameter}) [→ void]{.returntype .parameter} ]{.signature}
+[[saveCurrentOrgInHive](../services_user_config/UserConfig/saveCurrentOrgInHive.html)][([[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)] saveOrgAsCurrent]) → void ]
 :   save current organization details in hive.
 
-[[saveUserInHive](../services_user_config/UserConfig/saveUserInHive.html)]{.name}[() [→ void]{.returntype .parameter} ]{.signature}
+[saveUserInHive](../services_user_config/UserConfig/saveUserInHive.html) [→ void ]
 :   save user in hive.
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[updateAccessToken](../services_user_config/UserConfig/updateAccessToken.html)]{.name}[({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [accessToken]{.parameter-name}, ]{#updateAccessToken-param-accessToken .parameter}[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [refreshToken]{.parameter-name}]{#updateAccessToken-param-refreshToken .parameter}}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateAccessToken](../services_user_config/UserConfig/updateAccessToken.html)][({[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] accessToken, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] refreshToken]}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the access token of the user.
 
-[[updateUser](../services_user_config/UserConfig/updateUser.html)]{.name}[([[[User](../models_user_user_info/User-class.html)]{.type-annotation} [updatedUserDetails]{.parameter-name}]{#updateUser-param-updatedUserDetails .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateUser](../services_user_config/UserConfig/updateUser.html)][([[[User](../models_user_user_info/User-class.html)] updatedUserDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   Updates the user details.
 
-[[updateUserAdminOrg](../services_user_config/UserConfig/updateUserAdminOrg.html)]{.name}[([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation} [orgDetails]{.parameter-name}]{#updateUserAdminOrg-param-orgDetails .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateUserAdminOrg](../services_user_config/UserConfig/updateUserAdminOrg.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the organization admin.
 
-[[updateUserCreatedOrg](../services_user_config/UserConfig/updateUserCreatedOrg.html)]{.name}[([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation} [orgDetails]{.parameter-name}]{#updateUserCreatedOrg-param-orgDetails .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateUserCreatedOrg](../services_user_config/UserConfig/updateUserCreatedOrg.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the user created organization.
 
-[[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.html)]{.name}[([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation} [orgDetails]{.parameter-name}]{#updateUserJoinedOrg-param-orgDetails .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateUserJoinedOrg](../services_user_config/UserConfig/updateUserJoinedOrg.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the user joined organization.
 
-[[updateUserMemberRequestOrg](../services_user_config/UserConfig/updateUserMemberRequestOrg.html)]{.name}[([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]{.type-parameter}\>]{.signature}]{.type-annotation} [orgDetails]{.parameter-name}]{#updateUserMemberRequestOrg-param-orgDetails .parameter}) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[updateUserMemberRequestOrg](../services_user_config/UserConfig/updateUserMemberRequestOrg.html)][([[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../models_organization_org_info/OrgInfo-class.html)]\>]] orgDetails]) [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Updates the user request to join the organization.
 
-[[userLoggedIn](../services_user_config/UserConfig/userLoggedIn.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[userLoggedIn](../services_user_config/UserConfig/userLoggedIn.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]] ]
 :   This function is used to log in the user.
 
-[[userLogOut](../services_user_config/UserConfig/userLogOut.html)]{.name}[() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype .parameter} ]{.signature}
+[[userLogOut](../services_user_config/UserConfig/userLogOut.html)][() [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]] ]
 :   Logs out the current user.
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [user_config](../services_user_config/)
@@ -154,9 +154,9 @@ Services include:
 
 ##### user_config library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

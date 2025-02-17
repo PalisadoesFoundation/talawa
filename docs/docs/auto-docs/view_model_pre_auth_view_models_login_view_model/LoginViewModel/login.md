@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_pre_auth_view_models_login_view_model/LoginViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [login]{.kind-method} method
+# login method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[login]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Performs the login operation.
 
 Handles the login process by performing the following steps:
@@ -36,18 +36,18 @@ catches and prints the error.
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> login() async {
-  emailFocus.unfocus();
-  passwordFocus.unfocus();
+Future<void>  async {
+  emailFocus.;
+  passwordFocus.;
   validate = AutovalidateMode.always;
   // if the email and password are not empty.
-  if (formKey.currentState!.validate()) {
+  if (formKey.currentState!.) {
     validate = AutovalidateMode.disabled;
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
@@ -58,7 +58,7 @@ Future<void> login() async {
             key: Key('LoginProgress'),
           ),
         );
-        databaseFunctions.init();
+        databaseFunctions.;
         // run the graph QL query to login the user,
         // passing `email` and `password`.
         final result = await databaseFunctions.gqlNonAuthMutation(
@@ -69,7 +69,7 @@ Future<void> login() async {
             ),
           ),
         );
-        navigationService.pop();
+        navigationService.;
 
         return result;
       },
@@ -106,7 +106,7 @@ Future<void> login() async {
             arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
           );
         }
-        await storingCredentialsInSecureStorage();
+        await ;
       },
       onActionException: (e) async {
         print('here');
@@ -116,12 +116,12 @@ Future<void> login() async {
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [login_view_model](../../view_model_pre_auth_view_models_login_view_model/)
@@ -130,9 +130,9 @@ Future<void> login() async {
 
 ##### LoginViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

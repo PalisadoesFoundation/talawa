@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_post_queries/PostQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getPostById]{.kind-method} method
+# getPostById method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[getPostById]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [postId]{.parameter-name}]{#getPostById-param-postId .parameter}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+getPostById(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    postId]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Getting Post by Post Id.
 
 **params**:
@@ -25,9 +25,9 @@ Getting Post by Post Id.
 **returns**:
 
 -   `String`: The query related to gettingPostsbyId
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -70,12 +70,12 @@ String getPostById(String postId) {
 """;
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_queries](../../utils_post_queries/)
@@ -84,9 +84,9 @@ String getPostById(String postId) {
 
 ##### PostQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

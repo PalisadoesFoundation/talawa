@@ -1,21 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_validators/Validator-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [validateUrlExistence]{.kind-method} method
+# validateUrlExistence method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]{.type-parameter}\>]{.signature}]{.returntype}
-[validateUrlExistence]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [url]{.parameter-name}]{#validateUrlExistence-param-url .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?]\>]]
+validateUrlExistence(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    url]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 Method to validate already exisiting URL.
 
 **params**:
@@ -25,9 +25,9 @@ Method to validate already exisiting URL.
 **returns**:
 
 -   `Future<bool?>`: true if URL exists, false otherwise.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
@@ -36,17 +36,17 @@ Future<bool?> validateUrlExistence(String url) async {
     await http.get(Uri.parse(url));
     return true;
   } on Exception catch (e) {
-    debugPrint(e.toString());
+    debugPrint(e.);
     return false;
   }
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [validators](../../utils_validators/)
@@ -55,9 +55,9 @@ Future<bool?> validateUrlExistence(String url) async {
 
 ##### Validator class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

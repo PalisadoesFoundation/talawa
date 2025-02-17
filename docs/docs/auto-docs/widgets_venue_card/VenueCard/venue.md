@@ -1,34 +1,34 @@
-:::::::: {#dartdoc-main-content .main-content above-sidebar="widgets_venue_card/VenueCard-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [venue]{.kind-property} property
+# venue property
 
 </div>
 
-:::: {.section .multi-line-signature}
-[Venue](../../models_events_event_venue/Venue-class.html) [venue]{.name}
 
-::: features
-[final]{.feature}
-:::
-::::
+[Venue](../../models_events_event_venue/Venue-class.html) venue
 
-::: {.section .desc .markdown}
+
+final
+
+
+
+
 The venue object containing details about the venue.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 final Venue venue;
 ```
-:::
-::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [venue_card](../../widgets_venue_card/)
@@ -37,9 +37,9 @@ final Venue venue;
 
 ##### VenueCard class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

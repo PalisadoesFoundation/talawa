@@ -1,22 +1,21 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [choseValueFromDropdown]{.kind-method} method
+# choseValueFromDropdown method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[choseValueFromDropdown]{.name}(
 
-1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [value]{.parameter-name}]{#choseValueFromDropdown-param-value
-    .parameter}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+choseValueFromDropdown(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    value]
 
 )
-:::
 
-::: {.section .desc .markdown}
+
+
 This function takes the choosen value from dropdown and return the
 filter events, if empty list then return relevant message.
 
@@ -25,15 +24,15 @@ filter events, if empty list then return relevant message.
 -   `value`: choosen value from dropdown.
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 Future<void> choseValueFromDropdown(String value) async {
   _chosenValue = value;
-  notifyListeners();
+  ;
   setState(ViewState.busy);
 
   if (!demoMode) {
@@ -84,7 +83,7 @@ Future<void> choseValueFromDropdown(String value) async {
           // with the `isPublic` as true.
           _events = _bufferEvents
               .where((element) => element.isPublic == true)
-              .toList();
+              .;
 
           // if list is empty
           _emptyListMessage = "There aren't any public events.";
@@ -96,7 +95,7 @@ Future<void> choseValueFromDropdown(String value) async {
           // with the `isPublic` as false.
           _events = _bufferEvents
               .where((element) => element.isPublic == false)
-              .toList();
+              .;
           // if list is empty
           _emptyListMessage = "There aren't any private events.";
         }
@@ -112,12 +111,12 @@ Future<void> choseValueFromDropdown(String value) async {
   setState(ViewState.idle);
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [explore_events_view_model](../../view_model_after_auth_view_models_event_view_models_explore_events_view_model/)
@@ -126,9 +125,9 @@ Future<void> choseValueFromDropdown(String value) async {
 
 ##### ExploreEventsViewModel class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,37 +1,37 @@
-:::::: {#dartdoc-main-content .main-content above-sidebar="widgets_video_widget/VideoWidget-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [VideoWidget]{.kind-constructor} constructor
+# VideoWidget constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-const [VideoWidget]{.name}({
 
-1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]{.type-annotation}
-    [key]{.parameter-name}, ]{#-param-key .parameter}
+const VideoWidget({
+
+1.  [[[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)?]
+    key, ]
 2.  [required
-    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation}
-    [url]{.parameter-name}, ]{#-param-url .parameter}
+    [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    url, ]
 3.  [required
-    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.type-annotation}
-    [play]{.parameter-name}, ]{#-param-play .parameter}
+    [[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+    play, ]
 
 })
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 const VideoWidget({super.key, required this.url, required this.play});
 ```
-:::
-::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [video_widget](../../widgets_video_widget/)
@@ -40,9 +40,9 @@ const VideoWidget({super.key, required this.url, required this.play});
 
 ##### VideoWidget class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

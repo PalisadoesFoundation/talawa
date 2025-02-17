@@ -1,16 +1,16 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="utils_event_queries/EventQueries-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [updateVolunteerGroupMutation]{.kind-method} method
+# updateVolunteerGroupMutation method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype}
-[updateVolunteerGroupMutation]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+
+
+
+
 Mutation to update volunteer group insatnce.
 
 **params**: None
@@ -19,13 +19,13 @@ Mutation to update volunteer group insatnce.
 
 -   `String`: Returns a GraphQL mutation string to update a volunteer
     group
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-String updateVolunteerGroupMutation() {
+String  {
   return '''
     mutation UpdateEventVolunteerGroup(\$id: ID!, \$data: UpdateEventVolunteerGroupInput!) {
       updateEventVolunteerGroup(id: \$id, data: \$data) {
@@ -37,12 +37,12 @@ String updateVolunteerGroupMutation() {
   ''';
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [event_queries](../../utils_event_queries/)
@@ -51,9 +51,9 @@ String updateVolunteerGroupMutation() {
 
 ##### EventQueries class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

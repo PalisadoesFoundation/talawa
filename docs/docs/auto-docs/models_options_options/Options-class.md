@@ -1,92 +1,92 @@
-::::::::: {#dartdoc-main-content .main-content above-sidebar="models_options_options/models_options_options-library-sidebar.html" below-sidebar="models_options_options/Options-class-sidebar.html"}
+
 <div>
 
-# [Options]{.kind-class} class
+# Options class
 
 </div>
 
-::: {.section .desc .markdown}
-This class creates a Option model.
-:::
 
-::: {#constructors .section .summary .offset-anchor}
+This class creates a Option model.
+
+
+
 ## Constructors
 
-[[Options](../models_options_options/Options/Options.html)]{.name}[({[required [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.type-annotation} [icon]{.parameter-name}, ]{#-param-icon .parameter}[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [title]{.parameter-name}, ]{#-param-title .parameter}[required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.type-annotation} [subtitle]{.parameter-name}, ]{#-param-subtitle .parameter}[[[IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?]{.type-annotation} [trailingIconButton]{.parameter-name}]{#-param-trailingIconButton .parameter}})]{.signature}
+[[Options](../models_options_options/Options/Options.html)][({[required [[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)] icon, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] title, ][required [[String](https://api.flutter.dev/flutter/dart-core/String-class.html)] subtitle, ][[[IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?] trailingIconButton]})]
 
 :   
-:::
 
-::: {#instance-properties .section .summary .offset-anchor}
+
+
 ## Properties
 
-[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)]{.name} [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.signature}
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
 :   The hash code for this object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[icon](../models_options_options/Options/icon.html)]{.name} [↔ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]{.signature}
+[[icon](../models_options_options/Options/icon.html)] [↔ [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)]{.name} [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]{.signature}
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
 :   A representation of the runtime type of the object.
     ::: features
-    [no setter]{.feature}[inherited]{.feature}
+    no setterinherited
     :::
 
-[[subtitle](../models_options_options/Options/subtitle.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[subtitle](../models_options_options/Options/subtitle.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[title](../models_options_options/Options/title.html)]{.name} [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.signature}
+[[title](../models_options_options/Options/title.html)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
 
-[[trailingIconButton](../models_options_options/Options/trailingIconButton.html)]{.name} [↔ [IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?]{.signature}
+[[trailingIconButton](../models_options_options/Options/trailingIconButton.html)] [↔ [IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)?]
 
 :   ::: features
-    [getter/setter pair]{.feature}
+    getter/setter pair
     :::
-:::
 
-::: {#instance-methods .section .summary .offset-anchor .inherited}
+
+
 ## Methods
 
-[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)]{.name}[([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)]{.type-annotation} [invocation]{.parameter-name}]{#noSuchMethod-param-invocation .parameter}) [→ dynamic]{.returntype .parameter} ]{.signature}
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html)] invocation]) → dynamic ]
 :   Invoked when a nonexistent method or property is accessed.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
 
-[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)]{.name}[() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]{.returntype .parameter} ]{.signature}
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][() [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
 :   A string representation of this object.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
 
-::: {#operators .section .summary .offset-anchor .inherited}
+
+
 ## Operators
 
-[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)]{.name}[([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)]{.type-annotation} [other]{.parameter-name}]{#==-param-other .parameter}) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]{.returntype .parameter} ]{.signature}
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
 :   The equality operator.
     ::: features
-    [inherited]{.feature}
+    inherited
     :::
-:::
-:::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../index.html)
 2.  [options](../models_options_options/)
@@ -94,9 +94,9 @@ This class creates a Option model.
 
 ##### options library
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

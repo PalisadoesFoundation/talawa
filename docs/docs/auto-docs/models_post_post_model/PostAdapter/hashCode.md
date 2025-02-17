@@ -1,27 +1,27 @@
-:::::::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/PostAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [hashCode]{.kind-property} property
+# hashCode property
 
 </div>
 
-:::::::: {#getter .section}
-::::: {.section .multi-line-signature}
+
+
 <div>
 
 1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
 
 </div>
 
-[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]{.returntype}
-get [hashCode]{.name}
+[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+get hashCode
 
-::: features
-[override]{.feature}
-:::
-:::::
 
-::: {.section .desc .markdown}
+override
+
+
+
+
 The hash code for this object.
 
 A hash code is a single integer which represents the state of the object
@@ -67,22 +67,22 @@ If a subclass overrides
 should override the [operator
 ==](../../models_post_post_model/PostAdapter/operator_equals.html)
 operator as well to maintain consistency.
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
 @override
 int get hashCode => typeId.hashCode;
 ```
-:::
-::::::::
-::::::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_model](../../models_post_post_model/)
@@ -91,9 +91,9 @@ int get hashCode => typeId.hashCode;
 
 ##### PostAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,33 +1,33 @@
-::::::: {#dartdoc-main-content .main-content above-sidebar="services_chat_service/ChatService-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [getDirectChatsByUserId]{.kind-method} method
+# getDirectChatsByUserId method
 
 </div>
 
-::: {.section .multi-line-signature}
-[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[void]{.type-parameter}\>]{.signature}]{.returntype}
-[getDirectChatsByUserId]{.name}()
-:::
 
-::: {.section .desc .markdown}
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+
+
+
+
 Retrieves direct chats by user ID.
 
 **params**: None
 
 **returns**: None
-:::
 
-::: {#source .section .summary .source-code}
+
+
 ## Implementation
 
 ``` language-dart
-Future<void> getDirectChatsByUserId() async {
+Future<void>  async {
   final userId = _userConfig.currentUser.id;
 
   // trigger graphQL query to get all the chats
   // of the user using [userId].
-  final String query = ChatQueries().fetchDirectChatsByUserId(userId!);
+  final String query = .fetchDirectChatsByUserId(userId!);
 
   final result = await _dbFunctions.gqlAuthQuery(query);
 
@@ -45,12 +45,12 @@ Future<void> getDirectChatsByUserId() async {
   });
 }
 ```
-:::
-:::::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [chat_service](../../services_chat_service/)
@@ -59,9 +59,9 @@ Future<void> getDirectChatsByUserId() async {
 
 ##### ChatService class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+

@@ -1,18 +1,18 @@
-::::: {#dartdoc-main-content .main-content above-sidebar="models_post_post_model/PostAdapter-class-sidebar.html" below-sidebar=""}
+
 <div>
 
-# [PostAdapter]{.kind-constructor} constructor
+# PostAdapter constructor
 
 </div>
 
-::: {.section .multi-line-signature}
-[PostAdapter]{.name}()
-:::
-:::::
 
-::::: {#dartdoc-sidebar-left .sidebar .sidebar-offcanvas-left}
-::: {#header-search-sidebar .hidden-l}
-:::
+
+
+
+
+
+
+
 
 1.  [talawa](../../index.html)
 2.  [post_model](../../models_post_post_model/)
@@ -21,9 +21,9 @@
 
 ##### PostAdapter class
 
-::: {#dartdoc-sidebar-left-content}
-:::
-:::::
 
-::: {#dartdoc-sidebar-right .sidebar .sidebar-offcanvas-right}
-:::
+
+
+
+
+
