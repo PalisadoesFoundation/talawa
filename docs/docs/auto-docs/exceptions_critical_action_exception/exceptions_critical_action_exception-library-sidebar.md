@@ -1,2 +1,2 @@
-1.  [Exceptions](./#exceptions)
+1.  [Exceptions](./)
 2.  [CriticalActionException](./CriticalActionException-class.md)
