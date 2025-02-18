@@ -79,9 +79,10 @@ for root, _, files in os.walk(md_folder):
             # Fix relative links in index.md
             if file == "index.md" and parent_folder == "auto-docs":
                 content = re.sub(
-                    r"\((?!\./)(CONTRIBUTING.md|INSTALLATION.md|CODE_OF_CONDUCT.md|ISSUE_GUIDLINES.md|PR_GUIDLINES.md|DOCUMENTATION.md)\)",
-                    r"(./\1)",
-                    content,
+                    r"\((?!(\./|\.\./))"  # Ensure it doesn’t start with ./ or ../
+                    r"(CONTRIBUTING\.md|INSTALLATION\.md|CODE_OF_CONDUCT\.md|ISSUE_GUIDLINES\.md|PR_GUIDLINES\.md|DOCUMENTATION\.md)\)",  
+                    r"(../../../\1)",  
+                    content
                 )
 
             # Fix link to .github/workflows/pull-request.yml in CONTRIBUTING.md
