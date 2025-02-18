@@ -79,9 +79,8 @@ for root, _, files in os.walk(md_folder):
             # Fix relative links in index.md
             if file == "index.md" and parent_folder == "auto-docs":
                 content = re.sub(
-                    r"\((?!(\./|\.\./))"  # Ensure it doesn’t start with ./ or ../
-                    r"(CONTRIBUTING\.md|INSTALLATION\.md|CODE_OF_CONDUCT\.md|ISSUE_GUIDLINES\.md|PR_GUIDLINES\.md|DOCUMENTATION\.md)\)",  
-                    r"(../../../\1)",  
+                    r"\((CONTRIBUTING\.md|INSTALLATION\.md|CODE_OF_CONDUCT\.md|ISSUE_GUIDELINES\.md|PR_GUIDELINES\.md|DOCUMENTATION\.md)\)",  
+                    r"(https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/\1)",
                     content
                 )
 
@@ -106,6 +105,21 @@ for root, _, files in os.walk(md_folder):
             #Fix relative link in CustomListTile.md
             if file == "CustomListTile.md":
                 content = re.sub(r"^\.\./widgets_custom_list_tile/CustomListTile/CustomListTile.md", r"./CustomListTile/CustomListTile.md", content)
+
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
+
+        # Rename index.md files to fix duplicate routes issue
+        file_rename_map = {
+            "locator.md": "locator-guide.md",
+            "main.md": "overview.md",
+            "CustomListTile.md": "custom-list-tile.md"
+        }
+        # Check if the file matches one of the specified filenames
+        if file in file_rename_map:
+            # Get the current file path and the new file name
+            new_file_name = file_rename_map[file]
+            new_file_path = os.path.join(root, new_file_name)
+            # Rename the file
+            os.rename(file_path, new_file_path)
