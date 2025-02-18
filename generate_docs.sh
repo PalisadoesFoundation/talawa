@@ -2,12 +2,12 @@
 
 # Run the Flutter command to generate the docs
 echo "Generating Flutter documentation..."
-flutter pub global run dartdoc --output talawa-mobile-docs lib
+flutter pub global run dartdoc --output docs/docs/auto-docs lib
 
 # Convert HTML files to Markdown
 echo "Converting HTML files to Markdown..."
-find talawa-mobile-docs -type f -name "*.html" | while read file; do
-  output_dir="docs/docs/auto-docs/$(dirname "$file" | sed 's|talawa-mobile-docs||')"
+find docs/docs/auto-docs -type f -name "*.html" | while read file; do
+  output_dir="docs/docs/auto-docs/$(dirname "$file")"
   mkdir -p "$output_dir"
 
   # Ensure filename case is preserved
