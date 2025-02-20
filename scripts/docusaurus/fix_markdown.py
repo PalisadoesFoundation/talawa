@@ -120,51 +120,62 @@ for root, _, files in os.walk(md_folder):
         file_path = os.path.join(root, file)
         # Get the parent folder of the current file
         parent_folder = os.path.basename(root)
+        if not file_path.endswith(".md"):
+            print(f"Deleting non-Markdown file: {file_path}")
+            os.remove(file_path)  # Deletes the file
+            continue  # Skip further processing for this file
+        
+        # Rename index.md files to fix duplicate routes issue
+        file_rename_map = {
+            "locator.md": "locator-guide.md",
+            "main.md": "overview.md",
+            "CustomListTile.md": "custom-list-tile.md"
+        }
 
         # Read the file content
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # If file is `index.md`, flatten nested `[[...]]` links first
-        if file.endswith("index.md"):
-            content = content.replace(
-                "\\", "/"
-            )  # Convert backslashes to forward slashes
-            content = fix_nested_links(content)
-            content = flatten_nested_links(content)
-            content = fix_mdx_syntax(content)
+            # If file is `index.md`, flatten nested `[[...]]` links first
+            if file.endswith("index.md"):
+                content = content.replace(
+                    "\\", "/"
+                )  # Convert backslashes to forward slashes
+                content = fix_nested_links(content)
+                content = flatten_nested_links(content)
+                content = fix_mdx_syntax(content)
 
-        content = clean_markdown(content)
+            content = clean_markdown(content)
 
-        # Fix nested {{...}} braces
-        content = remove_curly_braces(content)
+            # Fix nested {{...}} braces
+            content = remove_curly_braces(content)
 
-        # Fix Markdown inside Markdown (one-time pass)
-        content = re.sub(r"(\[[^\]]+\])(\[[^\]]+\])", r"\1\2", content)
+            # Fix Markdown inside Markdown (one-time pass)
+            content = re.sub(r"(\[[^\]]+\])(\[[^\]]+\])", r"\1\2", content)
 
-        # Fix Angle Brackets (`<` and `>` inside links)
-        content = re.sub(r"<(\[[^\]]+\]\([^\)]+\))>", r"\1", content)
+            # Fix Angle Brackets (`<` and `>` inside links)
+            content = re.sub(r"<(\[[^\]]+\]\([^\)]+\))>", r"\1", content)
 
-        # Remove lines that start with three or more colons (i.e., Dartdoc-specific syntax) and extend to the end of the line
-        content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
-        # Remove lines with empty ()
-        content = re.sub(r"\w+\(\)", "", content)
-        # This regular expression removes unnecessary empty parentheses `()`
-        # after markdown links formatted as `[[text](url)]()`. It keeps the
-        # link text and URL intact while removing the trailing `()` and extra outer [], which
-        # may appear due to a conversion process.
-        content = re.sub(r"\[\[([^\]]+)\]\(([^)]+)\)\]\(\)", r"[\1](\2)", content)
-        # Remove rest of empty ()
-        content = re.sub(r"\(\)", "", content)
-        # Remove # as this is not rendered correctly
-        content = re.sub(r"(#\S+\.md)", r".md", content)  # #something.md -> .md
-        # Remove broken anchor from exceptions_critical_action_exception-library-sidebar.md
-        if file == "exceptions_critical_action_exception-library-sidebar.md":
-            content = re.sub(r"/#\S+\)", r"/)", content)
+            # Remove lines that start with three or more colons (i.e., Dartdoc-specific syntax) and extend to the end of the line
+            content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
+            # Remove lines with empty ()
+            content = re.sub(r"\w+\(\)", "", content)
+            # This regular expression removes unnecessary empty parentheses `()`
+            # after markdown links formatted as `[[text](url)]()`. It keeps the
+            # link text and URL intact while removing the trailing `()` and extra outer [], which
+            # may appear due to a conversion process.
+            content = re.sub(r"\[\[([^\]]+)\]\(([^)]+)\)\]\(\)", r"[\1](\2)", content)
+            # Remove rest of empty ()
+            content = re.sub(r"\(\)", "", content)
+            # Remove # as this is not rendered correctly
+            content = re.sub(r"(#\S+\.md)", r".md", content)  # #something.md -> .md
+            # Remove broken anchor from exceptions_critical_action_exception-library-sidebar.md
+            if file == "exceptions_critical_action_exception-library-sidebar.md":
+                content = re.sub(r"/#\S+\)", r"/)", content)
         
-        #Fix links logic
+            #Fix links logic
 
-        # Replace .html with .md for internal links
+            # Replace .html with .md for internal links
             content = fix_links(content, parent_folder)
             # Replace parent folder reference by .
             content = replace_parent_folder_links(content, parent_folder)
@@ -204,16 +215,12 @@ for root, _, files in os.walk(md_folder):
             if file == "CustomListTile.md":
                 content = re.sub(r"^\.\./widgets_custom_list_tile/CustomListTile/CustomListTile.md", r"./CustomListTile/CustomListTile.md", content)
 
+            # Replace occurrences of links to renamed files
+            content = re.sub(r'/(locator.md|main.md|CustomListTile.md)', '', content)
+            
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
-
-        # Rename index.md files to fix duplicate routes issue
-        file_rename_map = {
-            "locator.md": "locator-guide.md",
-            "main.md": "overview.md",
-            "CustomListTile.md": "custom-list-tile.md"
-        }
         # Check if the file matches one of the specified filenames
         if file in file_rename_map:
             # Get the current file path and the new file name
@@ -221,3 +228,5 @@ for root, _, files in os.walk(md_folder):
             new_file_path = os.path.join(root, new_file_name)
             # Rename the file
             os.rename(file_path, new_file_path)
+
+        
