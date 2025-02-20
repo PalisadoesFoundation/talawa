@@ -6,7 +6,7 @@
 6.  [databaseFunctions](./databaseFunctions.md)
 7.  [graphqlConfig](./graphqlConfig.md)
 8.  [imageService](./imageService.md)
-9.  [locator](./locator.md)
+9.  [locator](.)
 10. [navigationService](./navigationService.md)
 11. [organizationService](./organizationService.md)
 12. [queries](./queries.md)

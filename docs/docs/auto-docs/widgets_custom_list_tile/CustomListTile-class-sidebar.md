@@ -1,5 +1,5 @@
 1.  [Constructors](./CustomListTile-class.md)
-2.  [CustomListTile](./CustomListTile/CustomListTile.md)
+2.  [CustomListTile](./CustomListTile)
 3.  [Properties](./CustomListTile-class.md)
 4.  [attendeeInfo](./CustomListTile/attendeeInfo.md)
 5.  [hashCode](https://api.flutter.dev/flutter/widgets/Widget/hashCode.html)

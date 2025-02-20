@@ -30,7 +30,7 @@ Available extensions
 
 ## Constructors
 
-[[CustomListTile](../widgets_custom_list_tile/CustomListTile/CustomListTile.md)][]
+[[CustomListTile](../widgets_custom_list_tile/CustomListTile)][]
 
 :   ::: 
     const

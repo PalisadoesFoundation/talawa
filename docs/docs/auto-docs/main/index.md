@@ -27,7 +27,7 @@ title: "main"
 
 ## Functions
 
-[main](../main/main.md)[ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)void/] ]
+[main](../main)[ [→ [Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)void/] ]
 
 :   
 

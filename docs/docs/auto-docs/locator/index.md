@@ -54,7 +54,7 @@ title: "locator"
     final
     :::
 
-[locator](../locator/locator.md) [↔ [GetIt](https://pub.dev/documentation/get_it/8.0.3/get_it/GetIt-class.html)]
+[locator](../locator) [↔ [GetIt](https://pub.dev/documentation/get_it/8.0.3/get_it/GetIt-class.html)]
 :   Intializaing the locator.
     ::: features
     getter/setter pair

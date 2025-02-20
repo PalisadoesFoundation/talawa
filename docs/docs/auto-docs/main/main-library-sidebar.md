@@ -3,4 +3,4 @@
 3.  [DemoViewModel](./DemoViewModel-class.md)
 4.  [MyApp](./MyApp-class.md)
 5.  [Functions](./#functions)
-6.  [main](./main.md)
+6.  [main](.)
