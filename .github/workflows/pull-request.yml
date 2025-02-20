@@ -310,12 +310,12 @@ jobs:
       - name: Run Flake8 Linter
         run: |
           source venv/bin/activate
-          flake8 --docstring-convention google --ignore E402,E722,E203,F401,W503 .github
+          flake8 --docstring-convention google --ignore E402,E722,E203,F401,W503 .github scripts
 
       - name: Run pydocstyle
         run: |
           source venv/bin/activate
-          pydocstyle --convention=google --add-ignore=D415,D205 .github
+          pydocstyle --convention=google --add-ignore=D415,D205 .github scripts
 
       - name: Run docstring compliance check
         run: |
