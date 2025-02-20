@@ -1,4 +1,5 @@
-"""Script to encourage documentation addition of changes incurred
+#!/usr/bin/env python3
+"""Script to encourage documentation addition of changes incurred.
 
 Methodology:
 
@@ -8,30 +9,40 @@ Methodology:
 
     This script is to help better document the functionality
 
-NOTE:
+Other:
 
     This script complies with our python3 coding and documentation standards
     and should be used as a reference guide. It complies with:
 
-        1) Pylint
-        2) Pydocstyle
-        3) Pycodestyle
-        4) Flake8
+    1) Pylint
+    2) Pydocstyle
+    3) Pycodestyle
+    4) Flake8
 
     Run these commands from the CLI to ensure the code is compliant for all
     your pull requests.
-"""
 
+"""
 # Standard imports
 import argparse
 import os
 import sys
+import enum
 
 import git
-import enum
 
 
 class DocumentationStatus(enum.Enum):
+    """Define the documentation status.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    """
+
     unknown = 0
     updated = 1
     not_updated = 2
@@ -52,30 +63,40 @@ def _arg_parser_resolver():
     parser = argparse.ArgumentParser()
     # getting merge branch name
     parser.add_argument(
-        '--merge_branch_name', type=str, required=True,
-        help='Name of the merging to branch')
+        "--merge_branch_name",
+        type=str,
+        required=True,
+        help="Name of the merging to branch",
+    )
     # Github repository
     parser.add_argument(
-        '--repository', type=str, required=True,
-        help='Name of the GitHub repository in the format "<USERNAME>/<REPO_NAME>"')
+        "--repository",
+        type=str,
+        required=True,
+        help='''\
+Name of the GitHub repository in the format "<USERNAME>/<REPO_NAME>"''',
+    )
     # getting root directory of repository
     parser.add_argument(
-        '--directory', type=str, required=False,
+        "--directory",
+        type=str,
+        required=False,
         default=os.getcwd(),
-        help='The parent directory of files to analyze.')
+        help="The parent directory of files to analyze.",
+    )
     # Return parser
     result = parser.parse_args()
     return result
 
 
 def check_for_documentation(diff_item):
-    """Determine the documentation status
+    """Determine the documentation status.
 
-        Args:
-            diff_item: Diff to check
+    Args:
+        diff_item: Diff to check
 
-        Returns:
-            doc_status: DocumentationStatus
+    Returns:
+        doc_status: DocumentationStatus
 
     """
     # Extracting the changes made
@@ -83,13 +104,13 @@ def check_for_documentation(diff_item):
     # Setting documentation status flag to unknown
     doc_status = DocumentationStatus.unknown
     # Splitting the changes for line by line iteration
-    lines = file_diffs.split('\n')
+    lines = file_diffs.split("\n")
     # Setting updated doc line count
     edited_doc_line_count = 0
     # Looping over differences
     for line in lines:
         # checking if the line was updated and contains documentation
-        if line.strip() and line.startswith('+') and line.__contains__('///'):
+        if line.strip() and line.startswith("+") and line.__contains__("///"):
             # updating the flag by one
             edited_doc_line_count += 1
     # Checking if no doc was changed
@@ -99,15 +120,15 @@ def check_for_documentation(diff_item):
 
         # Reading complete file to check if not documentation exist
         # Reading the complete file
-        file = diff_item.b_blob.data_stream.read().decode('utf-8')
+        file = diff_item.b_blob.data_stream.read().decode("utf-8")
         # Splitting the line to check if documentation is present or not
-        lines = file.split('\n')
+        lines = file.split("\n")
         # Setting the documentation line count flag
         doc_lines = 0
         # Looping over the file lines
         for line in lines:
             # Checking if the line contains any documentation or not
-            if line.strip() and line.__contains__('///'):
+            if line.strip() and line.__contains__("///"):
                 # updating the flag by 1
                 doc_lines += 1
         # Checking if the documentation lines were present or not
@@ -128,6 +149,9 @@ def main():
     This function finds, and prints the files that exceed the CLI
     defined defaults.
 
+    Args:
+        None
+
     Returns:
         None
 
@@ -137,12 +161,15 @@ def main():
     # Getting the git repo
     repo_feature = git.Repo(args.directory)
     (_, repository_directory) = args.repository.split("/")
-    repo_merge = git.Repo.clone_from("https://github.com/{}.git".format(args.repository), "{}/{}".format(args.directory, repository_directory))
+    repo_merge = git.Repo.clone_from(
+        "https://github.com/{}.git".format(args.repository),
+        "{}/{}".format(args.directory, repository_directory),
+    )
 
     # Do nothing if the branch has a "/" in it
-    if '/' in args.merge_branch_name:
+    if "/" in args.merge_branch_name:
         return
-    
+
     # Getting latest commit on latest branch
     commit_dev = repo_merge.commit(args.merge_branch_name)
     # Getting latest commit on feature branch
@@ -152,35 +179,44 @@ def main():
     # Setting a flag to keep record of files and their documentation
     lookup = {}
     # Lopping over differences in modified files
-    for diff_item in diff_index.iter_change_type('M'):
+    for diff_item in diff_index.iter_change_type("M"):
         # Getting file path of difference
         file_path = diff_item.b_path
         # Checking if a file under codebase(lib) directory was modified
-        if file_path.startswith('lib'):
+        if file_path.startswith("lib"):
             # Getting file documentation status
             lookup[file_path] = check_for_documentation(diff_item)
     # Lopping over differences in added files
-    for diff_item in diff_index.iter_change_type('A'):
+    for diff_item in diff_index.iter_change_type("A"):
         # Getting file path of difference
         file_path = diff_item.b_path
         # Checking if a file under codebase(lib) directory was added
-        if file_path.startswith('lib'):
+        if file_path.startswith("lib"):
             # Getting file documentation status
             lookup[file_path] = check_for_documentation(diff_item)
     # Filtering files whose documentation status != updated
-    filtered_lookup = {k: v for (k, v) in lookup.items() if DocumentationStatus.updated != v}
+    filtered_lookup = {
+        k: v for (k, v) in lookup.items() if DocumentationStatus.updated != v
+    }
     # Checking if documentation was updated for all changed files
     if len(filtered_lookup) == 0:
-        print('''🚀 {} Hurrah! documentation was updated in all modified/added files'''.format('\033[92m'))
+        print(
+            """Hurrah! documentation was updated in all modified/added files"""
+        )
         sys.exit(0)
     else:
         print(
-            '''🔍 {}DOCUMENTATION NOT UPDATED: Files with missing or not updated DartDoc documentation found'''.format(
-                '\033[91m'))
+            """\
+DOCUMENTATION NOT UPDATED: Files with missing or not updated \
+DartDoc documentation found"""
+        )
         for failing_file in filtered_lookup:
-            print('''>>> File name: {}\n\t{}\n'''.format(failing_file, filtered_lookup[failing_file]))
+            print(
+                f"""\
+>>> File name: {failing_file}\n\t{filtered_lookup[failing_file]}\n"""
+            )
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
