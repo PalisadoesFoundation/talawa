@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-"""
-Script to adjust Dart documentation for MDX compatibility in Docusaurus.
+"""Script to adjust Dart documentation for MDX compatibility in Docusaurus.
 
-This script scans Dart-generated Markdown files and modifies special characters, 
-code blocks, and Dart-specific symbols to comply with the MDX syntax used in 
-Docusaurus v3. It ensures compatibility with the markdown processor by making 
+This script scans Dart-generated Markdown files and modifies special characters,
+code blocks, and Dart-specific symbols to comply with the MDX syntax used in
+Docusaurus v3. It ensures compatibility with the markdown processor by making
 adjustments like escaping certain characters and modifying code blocks.
 
 This script complies with:
@@ -18,9 +16,11 @@ import os
 import argparse
 import re
 
+
 def escape_mdx_characters(text):
-    """
-    Escape special characters (<, >, {, }) in Dart docs to make them MDX compatible.
+    """Escape special characters.
+
+    Includes (<, >, {, }) in Dart docs to make them MDX compatible.
 
     Args:
         text (str): The text content to be processed.
@@ -33,19 +33,19 @@ def escape_mdx_characters(text):
         "<": r"(?<!\\)<",
         ">": r"(?<!\\)>",
         "{": r"(?<!\\){",
-        "}": r"(?<!\\)}"
+        "}": r"(?<!\\)}",
     }
-    
+
     for char, pattern in patterns.items():
         text = re.sub(pattern, f"\\{char}", text)
 
     return text
 
-def adjust_dart_code_blocks(text):
-    """
-    Modify Dart code blocks to ensure they are correctly formatted in MDX.
 
-    This function replaces Dart code block annotations like `///` or `//` 
+def adjust_dart_code_blocks(text):
+    """Modify Dart code blocks to ensure they are correctly formatted in MDX.
+
+    This function replaces Dart code block annotations like `///` or `//`
     and adjusts code block syntax.
 
     Args:
@@ -62,17 +62,20 @@ def adjust_dart_code_blocks(text):
 
     return text
 
+
 def process_file(filepath):
-    """
-    Process a single Dart Markdown file for MDX compatibility.
+    """Process a single Dart Markdown file for MDX compatibility.
+
+    Writes the processed content back to the file if any changes occur.
 
     Args:
         filepath (str): The path to the Markdown file to be processed.
 
     Returns:
-        None: Writes the processed content back to the file if any changes occur.
+        None
+
     """
-    with open(filepath, 'r', encoding='utf-8') as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         content = file.read()
 
     # Escape MDX special characters
@@ -81,14 +84,14 @@ def process_file(filepath):
     content = adjust_dart_code_blocks(content)
 
     # Write back to the file only if changes were made
-    with open(filepath, 'w', encoding='utf-8') as file:
+    with open(filepath, "w", encoding="utf-8") as file:
         file.write(content)
 
-def main():
-    """
-    Main function to process all Dart Markdown files in a specified directory.
 
-    Scans for Markdown files and processes them for MDX compatibility, 
+def main():
+    """Process all Dart Markdown files in a specified directory.
+
+    Scans for Markdown files and processes them for MDX compatibility,
     especially focusing on Dart-specific docs.
 
     Args:
@@ -97,12 +100,14 @@ def main():
     Returns:
         None
     """
-    parser = argparse.ArgumentParser(description="Adjust Dart Markdown files for MDX compatibility.")
+    parser = argparse.ArgumentParser(
+        description="Adjust Dart Markdown files for MDX compatibility."
+    )
     parser.add_argument(
         "--directory",
         type=str,
         required=True,
-        help="Directory containing Markdown files to process."
+        help="Directory containing Markdown files to process.",
     )
 
     args = parser.parse_args()
@@ -112,6 +117,7 @@ def main():
         for file in files:
             if file.lower().endswith(".md"):
                 process_file(os.path.join(root, file))
+
 
 if __name__ == "__main__":
     main()

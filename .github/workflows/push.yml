@@ -50,7 +50,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v5
       - name: Check for presence of ignore directives corresponding to custom lints
-        run: chmod +x ./.github/workflows/check_ignore.py
+        run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
         run: |
           git branch
@@ -59,7 +59,7 @@ jobs:
           git branch
           git checkout -
           pip install GitPython
-          python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+          python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
