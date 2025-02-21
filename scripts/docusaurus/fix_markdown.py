@@ -1,3 +1,10 @@
+"""This script contains functions for cleaning up markdown files
+by removing dartdoc-specific styling and fixing links.
+
+It processes files in the specified markdown folder and applies various
+transformations to clean up the content.
+"""
+
 import os
 import re
 
@@ -6,11 +13,30 @@ md_folder = "docs/docs/auto-docs"  # Path to the docs folder
 
 # Function to remove dartdoc added styling
 def clean_markdown(content):
+    """Removes dartdoc-specific styling from markdown links.
+
+    Args:
+        content (str): The markdown content to be cleaned.
+
+    Returns:
+        str: The cleaned markdown content with dartdoc-specific styling removed.
+    """
     content = re.sub(r"\[([^]]+)\]\s*\{[.#][^}]+\}", r"\1", content)
     return content
 
 
 def remove_curly_braces(content):
+    """Removes non-nested curly braces from the markdown content.
+
+    This function repeatedly removes top-level curly braces (those not
+    containing other curly braces inside them) until none remain.
+
+    Args:
+        content (str): The markdown content to be processed.
+
+    Returns:
+        str: The content with all non-nested curly braces removed.
+    """
     # Loop to repeatedly remove non-nested curly braces until none remain
     while True:
         # Match top-level curly braces (not nested)
@@ -26,12 +52,14 @@ def remove_curly_braces(content):
     return content
 
 
+# fmt: off
 def flatten_nested_links(content):
-    """Simplify [[alphabetical]] links to [alphabetical]."""
-
-    # Match [[HiveKeys]] and turn it into [HiveKeys]
+    """Simplify [[reference](url)] links to [reference](url)."""
+    # Match [[HiveKeys](link)] and turn it into [HiveKeys](link)
     def found_match(match):
-        return f"[{match.group(1)}]({match.group(2)})"  # Return the modified link
+        return (
+            f"[{match.group(1)}]({match.group(2)})"  # Return the modified link
+        )
 
     # Apply the transformation with the found_match function
     content = re.sub(r"\[\[([^\]]+)\]\(([^)]+)\)\]", found_match, content)
@@ -40,8 +68,7 @@ def flatten_nested_links(content):
 
 
 def fix_nested_links(content):
-    """Simplify [[alphabetical]] links to [alphabetical]."""
-
+    """Simplify [[reference]] links to [reference]."""
     # Match [[HiveKeys]] and turn it into [HiveKeys]
     def found_match(match):
         return match.group(1)  # Return the modified link
@@ -53,17 +80,24 @@ def fix_nested_links(content):
         content = re.sub(r"\[\/<([^>]+)>\]", found_match, content)
 
     return content
+# fmt: on
 
 
 def fix_mdx_syntax(content):
     """Fix MDX syntax errors related to `Map/<String, Object/>` patterns."""
     # Replace occurrences of Map/<something/> with escaped characters
-    content = re.sub(r"Map/<([^,]+),\s*([^>]+)\/>", r"Map/&lt;\1, \2/&gt;", content)
+    content = re.sub(
+        r"Map/<([^,]+),\s*([^>]+)\/>", r"Map/&lt;\1, \2/&gt;", content
+    )
 
     return content
 
+
 def fix_links(content, parent_folder):
-    # Define the regex pattern to match links that don't start with http or https
+    """Update links from .html to .md and adjust relative paths."""
+    # Define the regex pattern to match links
+    # that don't start with http or https
+
     pattern = r"\[([^\]]+)\]\((?!http|https|../)(.*)\.html(#.*)?\)"
 
     def replace_link(m):
@@ -77,11 +111,12 @@ def fix_links(content, parent_folder):
 
         # Rebuild the link and change .html to .md
         new_link = "/".join(parts) + (m.group(3) if m.group(3) else "") + ".md"
-        return f"[{m.group(1)}]({new_link})"  # Rebuild the link with the desired format
+        return f"[{m.group(1)}]({new_link})"  # Rebuild the link
 
     content = re.sub(pattern, replace_link, content)
 
-    # Apply the fallback pattern to match links ending with .html and replace .html with .md
+    # Apply the fallback pattern to match links
+    # ending with .html and replace .html with .md
     fallback_pattern = r"\((?!http|https)([^)]+)\.html(#.*)?\)"
     content = re.sub(
         fallback_pattern,
@@ -93,13 +128,14 @@ def fix_links(content, parent_folder):
 
 
 def replace_parent_folder_links(content, parent_folder):
+    """Replace parent folder links with relative path '.'."""
     pattern = r"\[([^\]]+)\]\(([^)]+)\)"
 
     def replace_parent_link(m):
         # Get the link URL and split it by "/"
         url_parts = m.group(2).split("/")
 
-        # If the first part matches the parent_, replace it with "."
+        # If the first part matches the parent, replace it with "."
         if url_parts[0] == parent_folder:
             url_parts[0] = "."
 
@@ -113,7 +149,6 @@ def replace_parent_folder_links(content, parent_folder):
     return content
 
 
-
 # Loop through each Markdown file in the folder
 for root, _, files in os.walk(md_folder):
     for file in files:
@@ -124,12 +159,12 @@ for root, _, files in os.walk(md_folder):
             print(f"Deleting non-Markdown file: {file_path}")
             os.remove(file_path)  # Deletes the file
             continue  # Skip further processing for this file
-        
+
         # Rename index.md files to fix duplicate routes issue
         file_rename_map = {
             "locator.md": "locator-guide.md",
             "main.md": "overview.md",
-            "CustomListTile.md": "custom-list-tile.md"
+            "CustomListTile.md": "custom-list-tile.md",
         }
 
         # Read the file content
@@ -156,24 +191,33 @@ for root, _, files in os.walk(md_folder):
             # Fix Angle Brackets (`<` and `>` inside links)
             content = re.sub(r"<(\[[^\]]+\]\([^\)]+\))>", r"\1", content)
 
-            # Remove lines that start with three or more colons (i.e., Dartdoc-specific syntax) and extend to the end of the line
+            # Remove lines that start with three or more colons
+            # (i.e., Dartdoc-specific syntax) and extend to the end of the line
             content = re.sub(r"^:::+.*$", "", content, flags=re.MULTILINE)
             # Remove lines with empty ()
             content = re.sub(r"\w+\(\)", "", content)
             # This regular expression removes unnecessary empty parentheses `()`
             # after markdown links formatted as `[[text](url)]()`. It keeps the
-            # link text and URL intact while removing the trailing `()` and extra outer [], which
-            # may appear due to a conversion process.
-            content = re.sub(r"\[\[([^\]]+)\]\(([^)]+)\)\]\(\)", r"[\1](\2)", content)
+            # link text and URL intact while removing the trailing `()`
+            # and extra outer [], which may appear due to a conversion process.
+            content = re.sub(
+                r"\[\[([^\]]+)\]\(([^)]+)\)\]\(\)", r"[\1](\2)", content
+            )
             # Remove rest of empty ()
             content = re.sub(r"\(\)", "", content)
             # Remove # as this is not rendered correctly
-            content = re.sub(r"(#\S+\.md)", r".md", content)  # #something.md -> .md
-            # Remove broken anchor from exceptions_critical_action_exception-library-sidebar.md
-            if file == "exceptions_critical_action_exception-library-sidebar.md":
+            content = re.sub(
+                r"(#\S+\.md)", r".md", content
+            )  # #something.md -> .md
+            # Remove broken anchor from
+            # exceptions_critical_action_exception-library-sidebar.md
+            if (
+                file
+                == "exceptions_critical_action_exception-library-sidebar.md"
+            ):
                 content = re.sub(r"/#\S+\)", r"/)", content)
-        
-            #Fix links logic
+
+            # Fix links logic
 
             # Replace .html with .md for internal links
             content = fix_links(content, parent_folder)
@@ -188,16 +232,26 @@ for root, _, files in os.walk(md_folder):
             # Fix relative links in index.md
             if file == "index.md" and parent_folder == "auto-docs":
                 content = re.sub(
-                    r"\((CONTRIBUTING\.md|INSTALLATION\.md|CODE_OF_CONDUCT\.md|ISSUE_GUIDELINES\.md|PR_GUIDELINES\.md|DOCUMENTATION\.md)\)",  
-                    r"(https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/\1)",
-                    content
+                    r"\(("
+                    "(CONTRIBUTING\\.md|"
+                    "INSTALLATION\\.md|"
+                    "CODE_OF_CONDUCT\\.md|"
+                    "ISSUE_GUIDELINES\\.md|"
+                    "PR_GUIDELINES\\.md|"
+                    "DOCUMENTATION\\.md"
+                    ")"
+                    ")",
+                    r"(https://github.com/PalisadoesFoundation/talawa/blob/"
+                    "develop-postgres/\1)",
+                    content,
                 )
 
             # Fix link to .github/workflows/pull-request.yml in CONTRIBUTING.md
             if file == "CONTRIBUTING.md" and parent_folder == "auto-docs":
                 content = re.sub(
                     r"\((\.github/workflows/pull-request\.yml)\)",
-                    r"(https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/.github/workflows/pull-request.yml)",
+                    r"(https://github.com/PalisadoesFoundation/talawa/blob/"
+                    "develop-postgres/.github/workflows/pull-request.yml)",
                     content,
                 )
 
@@ -209,15 +263,24 @@ for root, _, files in os.walk(md_folder):
 
             # Fix index.md link in search.md
             if file == "search.md" and parent_folder == "auto-docs":
-                content = re.sub(r"\(\.\./index.md\)", r"(./index.md)", content)
+                content = re.sub(
+                    r"\(\.\./index.md\)", r"(./index.md)", content
+                )
 
-            #Fix relative link in CustomListTile.md
+            # Fix relative link in CustomListTile.md
             if file == "CustomListTile.md":
-                content = re.sub(r"^\.\./widgets_custom_list_tile/CustomListTile/CustomListTile.md", r"./CustomListTile/CustomListTile.md", content)
+                content = re.sub(
+                    r"^\.\./widgets_custom_list_tile/CustomListTile/"
+                    "CustomListTile.md",
+                    r"./CustomListTile/CustomListTile.md",
+                    content,
+                )
 
             # Replace occurrences of links to renamed files
-            content = re.sub(r'/(locator.md|main.md|CustomListTile.md)', '', content)
-            
+            content = re.sub(
+                r"/(locator.md|main.md|CustomListTile.md)", "", content
+            )
+
         # Write the cleaned-up content back to the file
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -228,5 +291,3 @@ for root, _, files in os.walk(md_folder):
             new_file_path = os.path.join(root, new_file_name)
             # Rename the file
             os.rename(file_path, new_file_path)
-
-        
