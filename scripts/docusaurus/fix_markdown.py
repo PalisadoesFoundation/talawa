@@ -1,6 +1,6 @@
-"""This script contains functions for cleaning up markdown files
-by removing dartdoc-specific styling and fixing links.
+"""This script contains functions for cleaning up markdown files.
 
+It removes dartdoc-specific styling and fixes links.
 It processes files in the specified markdown folder and applies various
 transformations to clean up the content.
 """
