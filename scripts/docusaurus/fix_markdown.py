@@ -148,7 +148,7 @@ def fix_links(content, parent_folder):
     pattern = r"\[([^\]]+)\]\((?!http|https|../)(.*)\.html(#.*)?\)"
 
     def replace_link(m):
-        """Replace the parent folder reference in the link with '.'
+        """Replace the parent folder reference in the link with '.'.
 
         Args:
             m (re.Match): The match object returned by the regular expression.
