@@ -1,50 +1,52 @@
 
-
+<div>
 
 # sendMembershipRequest method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+sendMembershipRequest(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    orgId]
+
+)
 
 
 
+mutation to send the member request.
 
+**params**:
 
+-   `orgId`: refer org object
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) sendMembershipRequest
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId)
-
-
-
-
-
+-   `String`: mutation in string form, to be passed on to graphql
+    client.
 
 
 
 ## Implementation
 
-```dart
-String sendMembershipRequest(String orgId) \{
-  return '''
-    mutation \{
-        sendMembershipRequest(organizationId: "$orgId")\{
-          organization\{
-            _id
-            name
-            image
-            description
-            isPublic
-            creator\{
-              _id
-              firstName
-              lastName
-              image
-            \}
-          \}
-       \}
-  \}
-''';
-\}
+``` language-dart
+String sendMembershipRequest(String orgId) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  sendMembershipRequest method
+
+##### Queries class
 
 
 

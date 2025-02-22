@@ -1,179 +1,150 @@
 
-
+<div>
 
 # WhatsappLogo class
 
+</div>
+
+
+This class draws the whatsapp logo using custom paint.
+
+CustomPaint is a widget from the Flutter SDK, which enables you to use a
+canvas to draw different shapes.
 
 
 
 
+Inheritance
 
-
-
-
-<p>This class draws the whatsapp logo using custom paint.
-CustomPaint is a widget from the Flutter SDK, which enables
-you to use a canvas to draw different shapes.</p>
-
-
-
-**Inheritance**
-
-- [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
-- [Listenable](https://api.flutter.dev/flutter/foundation/Listenable-class.html)
-- [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)
-- WhatsappLogo
-
-
-
-
-
+:   -   [Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)
+    -   [Listenable](https://api.flutter.dev/flutter/foundation/Listenable-class.html)
+    -   [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)
+    -   WhatsappLogo
 
 
 
 ## Constructors
 
-[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md) ()
+[WhatsappLogo](../custom_painters_whatsapp_logo/WhatsappLogo/WhatsappLogo.md)
 
-   
+:   
+
 
 
 ## Properties
 
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
-
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [semanticsBuilder](https://api.flutter.dev/flutter/rendering/CustomPainter/semanticsBuilder.html) &#8594; [SemanticsBuilderCallback](https://api.flutter.dev/flutter/rendering/SemanticsBuilderCallback.html)?
-
-
-
-Returns a function that builds semantic information for the picture drawn
-by this painter.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
+[[semanticsBuilder](https://api.flutter.dev/flutter/rendering/CustomPainter/semanticsBuilder.html)] [→ [SemanticsBuilderCallback](https://api.flutter.dev/flutter/rendering/SemanticsBuilderCallback.html)?]
+:   Returns a function that builds semantic information for the picture
+    drawn by this painter.
+    ::: features
+    no setterinherited
+    :::
 
 
 
 ## Methods
 
-##### [addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)([VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html) listener) void
+[[addListener](https://api.flutter.dev/flutter/rendering/CustomPainter/addListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
+:   Register a closure to be notified when it is time to repaint.
+    ::: features
+    inherited
+    :::
 
+[[hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)][([[[Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.md)] position]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?] ]
+:   Called whenever a hit test is being performed on an object that is
+    using this custom paint delegate.
+    ::: features
+    inherited
+    :::
 
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
-Register a closure to be notified when it is time to repaint.  
-_<span class="feature">inherited</span>_
+[[paint](../custom_painters_whatsapp_logo/WhatsappLogo/paint.md)][([[[Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.md)] canvas, ][[[Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html)] size]) → void ]
+:   Called whenever the object needs to paint. The given
+    [Canvas](https://api.flutter.dev/flutter/painting/Canvas-class.html)
+    has its coordinate space configured such that the origin is at the
+    top left of the box. The area of the box is the size of the `size`
+    argument.
+    ::: features
+    override
+    :::
 
+[[removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)][([[[VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.md)] listener]) → void ]
+:   Remove a previously registered closure from the list of closures
+    that the object notifies when it is time to repaint.
+    ::: features
+    inherited
+    :::
 
+[[shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   Called whenever a new instance of the custom painter delegate class
+    is provided to the
+    [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
+    object, or any time that a new
+    [CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)
+    object is created with a new instance of the custom painter delegate
+    class (which amounts to the same thing, because the latter is
+    implemented in terms of the former).
+    ::: features
+    inherited
+    :::
 
-##### [hitTest](https://api.flutter.dev/flutter/rendering/CustomPainter/hitTest.html)([Offset](https://api.flutter.dev/flutter/dart-ui/Offset-class.html) position) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)?
+[[shouldRepaint](../custom_painters_whatsapp_logo/WhatsappLogo/shouldRepaint.md)][([covariant [[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.md)] oldDelegate]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   Called whenever a new instance of the custom painter delegate class
+    is provided to the
+    [RenderCustomPaint](https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html)
+    object, or any time that a new
+    [CustomPaint](https://api.flutter.dev/flutter/widgets/CustomPaint-class.html)
+    object is created with a new instance of the custom painter delegate
+    class (which amounts to the same thing, because the latter is
+    implemented in terms of the former).
+    ::: features
+    override
+    :::
 
-
-
-Called whenever a hit test is being performed on an object that is using
-this custom paint delegate.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
-
-
-
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [paint](../custom_painters_whatsapp_logo/WhatsappLogo/paint.md)([Canvas](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html) canvas, [Size](https://api.flutter.dev/flutter/dart-ui/Size-class.html) size) void
-
-
-
-Called whenever the object needs to paint. The given <a href="https://api.flutter.dev/flutter/dart-ui/Canvas-class.html">Canvas</a> has its
-coordinate space configured such that the origin is at the top left of the
-box. The area of the box is the size of the ```dartsize``` argument.  
-_<span class="feature">override</span>_
-
-
-
-##### [removeListener](https://api.flutter.dev/flutter/rendering/CustomPainter/removeListener.html)([VoidCallback](https://api.flutter.dev/flutter/dart-ui/VoidCallback.html) listener) void
-
-
-
-Remove a previously registered closure from the list of closures that the
-object notifies when it is time to repaint.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [shouldRebuildSemantics](https://api.flutter.dev/flutter/rendering/CustomPainter/shouldRebuildSemantics.html)(covariant [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html) oldDelegate) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-Called whenever a new instance of the custom painter delegate class is
-provided to the <a href="https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html">RenderCustomPaint</a> object, or any time that a new
-<a href="https://api.flutter.dev/flutter/widgets/CustomPaint-class.html">CustomPaint</a> object is created with a new instance of the custom painter
-delegate class (which amounts to the same thing, because the latter is
-implemented in terms of the former).  
-_<span class="feature">inherited</span>_
-
-
-
-##### [shouldRepaint](../custom_painters_whatsapp_logo/WhatsappLogo/shouldRepaint.md)(covariant [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html) oldDelegate) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-Called whenever a new instance of the custom painter delegate class is
-provided to the <a href="https://api.flutter.dev/flutter/rendering/RenderCustomPaint-class.html">RenderCustomPaint</a> object, or any time that a new
-<a href="https://api.flutter.dev/flutter/widgets/CustomPaint-class.html">CustomPaint</a> object is created with a new instance of the custom painter
-delegate class (which amounts to the same thing, because the latter is
-implemented in terms of the former).  
-_<span class="feature">override</span>_
-
-
-
-##### [toString](https://api.flutter.dev/flutter/rendering/CustomPainter/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
+[[toString](https://api.flutter.dev/flutter/rendering/CustomPainter/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 
 
 
+
+1.  [talawa](../index.md)
+2.  [whatsapp_logo](../custom_painters_whatsapp_logo/)
+3.  WhatsappLogo class
+
+##### whatsapp_logo library
 
 
 

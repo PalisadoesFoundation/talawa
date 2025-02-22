@@ -1,29 +1,42 @@
 
-
+<div>
 
 # currentPageIndex property
 
+</div>
+
+
+[int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+currentPageIndex
+
+
+getter/setter pair
 
 
 
 
-
-
-[int](https://api.flutter.dev/flutter/dart-core/int-class.html) currentPageIndex
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>var for current page in index.</p>
+var for current page in index.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 int currentPageIndex = 0;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  currentPageIndex property
+
+##### MainScreenViewModel class
 
 
 

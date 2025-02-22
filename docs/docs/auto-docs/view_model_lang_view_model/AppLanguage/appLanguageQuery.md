@@ -1,38 +1,45 @@
 
-
+<div>
 
 # appLanguageQuery method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+Queries the app language.
 
+Performs graphQL query to check the app language. The function uses
+`gqlAuthQuery` method provided by Database Functions Services.
 
+**params**: None
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> appLanguageQuery
-()
-
-
-
-
-
-<p>This function perform graphQL query to check the app language.
-The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> appLanguageQuery() async \{
-  try \{
-    await databaseFunctions.gqlAuthQuery(queries.userLanguage());
-  \} catch (e) \{
-    print(e);
-  \}
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  appLanguageQuery method
+
+##### AppLanguage class
 
 
 

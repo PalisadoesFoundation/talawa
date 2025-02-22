@@ -1,25 +1,33 @@
 
-
+<div>
 
 # PinnedPostPage constructor
 
+</div>
 
 
-
-
-
-const
-PinnedPostPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> pinnedPosts\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const PinnedPostPage(\{Key? key, required this.pinnedPosts\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [pinned_post_page](../../views_after_auth_screens_feed_pinned_post_page/)
+3.  [PinnedPostPage](../../views_after_auth_screens_feed_pinned_post_page/PinnedPostPage-class.md)
+4.  PinnedPostPage const constructor
+
+##### PinnedPostPage class
 
 
 

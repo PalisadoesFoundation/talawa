@@ -1,38 +1,41 @@
 
-
+<div>
 
 # toggleIsLiked method
 
+</div>
+
+
+void 
 
 
 
+function to toggleisLiked boolean.
 
+**params**: None
 
-
-
-void toggleIsLiked
-()
-
-
-
-
-
-<p>This function add like to the post if not liked and
-remove the like from the post if liked.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void toggleIsLiked() \{
-  if (!_isLiked) \{
-    _postService.addLike(_postID);
-  \} else \{
-    _postService.removeLike(_postID);
-  \}
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
+3.  [LikeButtonViewModel](../../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)
+4.  toggleIsLiked method
+
+##### LikeButtonViewModel class
 
 
 

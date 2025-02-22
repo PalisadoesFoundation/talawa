@@ -1,15 +1,10 @@
 
-
+<div>
 
 # CommentService constructor
 
+</div>
 
-
-
-
-
-
-CommentService()
 
 
 
@@ -17,11 +12,22 @@ CommentService()
 
 ## Implementation
 
-```dart
-CommentService() \{
-  _dbFunctions = locator<DataBaseMutationFunctions>();
-\}
+``` language-dart
+ 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [comment_service](../../services_comment_service/)
+3.  [CommentService](../../services_comment_service/CommentService-class.md)
+4.  CommentService constructor
+
+##### CommentService class
 
 
 

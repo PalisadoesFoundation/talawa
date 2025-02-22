@@ -1,28 +1,42 @@
 
-
+<div>
 
 # donationAmount property
 
+</div>
+
+
+[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
+donationAmount
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html) donationAmount
-  
-_<span class="feature">read / write</span>_
-
-
-
+Text Controller for donation Amount.
 
 
 
 ## Implementation
 
-```dart
-TextEditingController donationAmount = TextEditingController();
+``` language-dart
+TextEditingController donationAmount = ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
+3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
+4.  donationAmount property
+
+##### ProfilePageViewModel class
 
 
 

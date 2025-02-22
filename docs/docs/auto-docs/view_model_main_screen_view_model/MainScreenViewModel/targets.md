@@ -1,29 +1,42 @@
 
-
+<div>
 
 # targets property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[FocusTarget](../../models_app_tour/FocusTarget-class.md)]\>]
+targets
+
+
+final
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[TargetFocus](https://pub.dev/documentation/tutorial_coach_mark/1.2.9/tutorial_coach_mark/TargetFocus-class.html)> targets
-  
-_<span class="feature">final</span>_
-
-
-
-<p>array of target.</p>
+array of target.
 
 
 
 ## Implementation
 
-```dart
-final List<TargetFocus> targets = [];
+``` language-dart
+final List<FocusTarget> targets = [];
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  targets property
+
+##### MainScreenViewModel class
 
 
 

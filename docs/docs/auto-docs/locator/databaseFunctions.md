@@ -1,32 +1,41 @@
 
-
+<div>
 
 # databaseFunctions top-level property
 
+</div>
+
+
+[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+databaseFunctions
+
+
+final
 
 
 
 
-
-
-
-
-[DataBaseMutationFunctions](../services_database_mutation_functions/DataBaseMutationFunctions-class.md) databaseFunctions
-  
-_<span class="feature">final</span>_
-
-
-
-<p>creating GetIt for DataBaseMutationFunctions.</p>
+GetIt for DataBaseMutationFunctions.
 
 
 
 ## Implementation
 
-```dart
-final databaseFunctions = locator<DataBaseMutationFunctions>();
+``` language-dart
+final databaseFunctions = locator<DataBaseMutationFunctions>;
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [locator](../locator/)
+3.  databaseFunctions property
+
+##### locator library
 
 
 

@@ -1,82 +1,44 @@
 
-
+<div>
 
 # fetchUserInfo property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+fetchUserInfo
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) fetchUserInfo
-  
-_<span class="feature">read / write</span>_
-
-
-
+mutation in string form, to be passed on to graphql client..
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String fetchUserInfo = '''
-     query Users(\$id: ID!)\{
-        users(where: \{ id: \$id \}) \{
-          _id
-          firstName
-          lastName
-          email
-          image
-          joinedOrganizations\{
-            _id
-            name
-            image
-            description
-            isPublic
-            creator\{
-              _id
-              firstName
-              lastName
-              image
-            \}
-
-          \}
-          createdOrganizations\{
-            _id
-            name
-            image
-            description
-            isPublic
-            creator\{
-              _id
-              firstName
-              lastName
-              image
-            \}
-          \}
-          membershipRequests\{
-            organization\{
-              _id
-              name
-              image
-              isPublic
-              creator\{
-                _id
-                firstName
-                lastName
-                image
-              \}
-            \}
-          \}
-          adminFor\{
-           _id
-          \}
-        \}
-      \}
+     query Users(\$id: ID!)
   ''';
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  fetchUserInfo property
+
+##### Queries class
 
 
 

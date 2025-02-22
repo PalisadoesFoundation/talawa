@@ -1,42 +1,49 @@
 
-
+<div>
 
 # showSnackBar method
 
+</div>
+
+
+void showSnackBar(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    message, )
 
 
 
+This is used for the quick alert of `duration: 2 seconds` with text
+message(passed).
 
+**params**:
 
+-   `message`: Message would be shown on snackbar
+-   `duration`: Duration of Snackbar
 
-
-void showSnackBar
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) message, \{[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)\})
-
-
-
-
-
-<p>This is used for the quick alert of ```dartduration: 2 seconds``` with text message(passed).</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 void showSnackBar(
-  String message, \{
-  Duration duration = const Duration(seconds: 2),
-\}) \{
-  ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-    SnackBar(
-      behavior: SnackBarBehavior.floating,
-      duration: duration,
-      content: Text(message),
-    ),
-  );
-\}
+  String message, ) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [navigation_service](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  showSnackBar method
+
+##### NavigationService class
 
 
 

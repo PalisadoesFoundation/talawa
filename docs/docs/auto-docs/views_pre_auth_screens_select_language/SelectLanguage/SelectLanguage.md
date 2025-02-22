@@ -1,25 +1,33 @@
 
-
+<div>
 
 # SelectLanguage constructor
 
+</div>
 
 
-
-
-
-const
-SelectLanguage(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const SelectLanguage(\{required Key key\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [select_language](../../views_pre_auth_screens_select_language/)
+3.  [SelectLanguage](../../views_pre_auth_screens_select_language/SelectLanguage-class.md)
+4.  SelectLanguage const constructor
+
+##### SelectLanguage class
 
 
 

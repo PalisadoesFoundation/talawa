@@ -1,31 +1,40 @@
 
-
+<div>
 
 # appLocal property
 
+</div>
 
 
 
+[[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html)]
+get appLocal
 
 
 
-
-
-[Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html) appLocal
-  
-
-
-
-
+getter for appLocal.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Locale get appLocal => _appLocale;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  appLocal property
+
+##### AppLanguage class
 
 
 

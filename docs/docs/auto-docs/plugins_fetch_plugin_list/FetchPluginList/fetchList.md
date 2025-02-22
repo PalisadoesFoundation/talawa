@@ -1,46 +1,42 @@
 
-
+<div>
 
 # fetchList method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+Fetches plugins from server and stores them in Hive `pluginBox`.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> fetchList
-()
-
-
-
-
-
-<p>Fetches plugins from server and stores them in Hive ```dartpluginBox```.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;void&gt;```: it returns Future of void</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> fetchList() async \{
-  late final GraphQLClient client = graphqlConfig.clientToQuery();
-  final QueryResult result = await client.query(
-    QueryOptions(
-      document: gql(queries.getPluginsList()),
-    ),
-  );
-  box = Hive.box('pluginBox');
-  box.put('plugins', result.data!["getPlugins"]);
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [fetch_plugin_list](../../plugins_fetch_plugin_list/)
+3.  [FetchPluginList](../../plugins_fetch_plugin_list/FetchPluginList-class.md)
+4.  fetchList method
+
+##### FetchPluginList class
 
 
 

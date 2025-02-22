@@ -1,26 +1,27 @@
 
-
+<div>
 
 # darkTheme property
 
+</div>
+
+
+[ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)
+darkTheme
+
+
+final
 
 
 
 
-
-
-[ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html) darkTheme
-  
-_<span class="feature">final</span>_
-
-
-
+Theme for dark mode.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static final darkTheme = ThemeData(
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: _darkCursorColor,
@@ -37,10 +38,26 @@ static final darkTheme = ThemeData(
     primaryContainer: _darkPrimaryVariantColor,
     primary: _darkColorSchemePrimary,
     secondary: Colors.black,
+    onSecondary: Colors.white,
     secondaryContainer: _lightScaffoldColor,
+    tertiary: Colors.white70,
+    tertiaryContainer: Color.fromARGB(255, 61, 61, 61),
   ).copyWith(secondary: _darkAccentColor),
 );
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_theme](../../constants_custom_theme/)
+3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
+4.  darkTheme property
+
+##### TalawaTheme class
 
 
 

@@ -1,26 +1,33 @@
 
-
+<div>
 
 # OrganizationSearchList constructor
 
+</div>
 
 
-
-
-
-const
-OrganizationSearchList(\{required [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md) model, [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const OrganizationSearchList(\{required this.model, Key? key\})
-    : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [organization_search_list](../../widgets_organization_search_list/)
+3.  [OrganizationSearchList](../../widgets_organization_search_list/OrganizationSearchList-class.md)
+4.  OrganizationSearchList const constructor
+
+##### OrganizationSearchList class
 
 
 

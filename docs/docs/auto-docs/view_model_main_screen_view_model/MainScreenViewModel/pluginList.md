@@ -1,29 +1,42 @@
 
-
+<div>
 
 # pluginList property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)
+pluginList
+
+
+getter/setter pair
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html) pluginList
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>list of all the pluginList.</p>
+list of all the pluginList.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 List<dynamic> pluginList = [];
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  pluginList property
+
+##### MainScreenViewModel class
 
 
 

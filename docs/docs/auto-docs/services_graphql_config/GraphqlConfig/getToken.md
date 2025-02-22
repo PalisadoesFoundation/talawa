@@ -1,36 +1,38 @@
 
-
+<div>
 
 # getToken method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
 
 
 
 
-
-
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) getToken
-()
-
-
-
-
-
-<p>This function is used to get user the access token.</p>
+This function is used to get user the access token.
 
 
 
 ## Implementation
 
-```dart
-Future getToken() async \{
-  final authToken = userConfig.currentUser.authToken;
-  token = authToken;
-  getOrgUrl();
-  return true;
-\}
+``` language-dart
+Future  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [graphql_config](../../services_graphql_config/)
+3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
+4.  getToken method
+
+##### GraphqlConfig class
 
 
 

@@ -1,46 +1,53 @@
 
-
+<div>
 
 # sendMessageToDirectChat method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+sendMessageToDirectChat(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    chatId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    messageContent]
+
+)
 
 
 
+This function send the message to Direct Chat.
 
+params:
 
-
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> sendMessageToDirectChat
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) chatId, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) messageContent)
-
-
-
-
-
-<p>This function send the message to Direct Chat.</p>
-<p>params:</p>
-<ul>
-<li>```dartchatId``` : id of a chat where message need to be send.</li>
-<li>```dartmessageContent``` : content of a message.</li>
-</ul>
+-   `chatId` : id of a chat where message need to be send.
+-   `messageContent` : content of a message.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Future<void> sendMessageToDirectChat(
   String chatId,
   String messageContent,
-) async \{
-  chatState = ChatState.loading;
-  _chatService.chatMessagesStream.listen((newMessage) \{
-    _chatMessagesByUser[chatId]!.add(newMessage);
-  \});
-  await _chatService.sendMessageToDirectChat(chatId, messageContent);
-  chatState = ChatState.complete;
-\}
+) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  sendMessageToDirectChat method
+
+##### DirectChatViewModel class
 
 
 

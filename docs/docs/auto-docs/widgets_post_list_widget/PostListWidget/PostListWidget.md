@@ -1,29 +1,33 @@
 
-
+<div>
 
 # PostListWidget constructor
 
+</div>
 
 
-
-
-
-const
-PostListWidget(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> posts, dynamic function([Post](../../models_post_post_model/Post-class.md))?\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const PostListWidget(\{
-  Key? key,
-  required this.posts,
-  this.function,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_list_widget](../../widgets_post_list_widget/)
+3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
+4.  PostListWidget const constructor
+
+##### PostListWidget class
 
 
 

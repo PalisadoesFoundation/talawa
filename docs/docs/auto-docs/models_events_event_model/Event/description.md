@@ -1,28 +1,49 @@
 
-
+<div>
 
 # description property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(2)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+description
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description
-  
-_<span class="feature">read / write</span>_
-
-
-
+The description of the event.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
+@HiveField(2)
 String? description;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_model](../../models_events_event_model/)
+3.  [Event](../../models_events_event_model/Event-class.md)
+4.  description property
+
+##### Event class
 
 
 

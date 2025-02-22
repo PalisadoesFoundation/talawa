@@ -1,25 +1,33 @@
 
-
+<div>
 
 # CreateEventPage constructor
 
+</div>
 
 
-
-
-
-const
-CreateEventPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const CreateEventPage(\{Key? key\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
+3.  [CreateEventPage](../../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)
+4.  CreateEventPage const constructor
+
+##### CreateEventPage class
 
 
 

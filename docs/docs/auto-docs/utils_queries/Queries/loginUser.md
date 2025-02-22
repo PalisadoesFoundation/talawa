@@ -1,106 +1,55 @@
 
-
+<div>
 
 # loginUser method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+loginUser(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    email, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    password]
+
+)
 
 
 
+mutation to login the user.
 
+**params**:
 
+-   `email`: user\'s data
+-   `password`: user\'s data
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) loginUser
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) email, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) password)
-
-
-
-
-
+-   `String`: mutation in string form, to be passed on to graphql
+    client.
 
 
 
 ## Implementation
 
-```dart
-String loginUser(String email, String password) \{
-  return """
-      mutation \{
-        login(data: \{email: "$email", password: "$password"\})\{
-          accessToken
-          user\{
-            _id
-            firstName
-            lastName
-            email
-            image
-            joinedOrganizations\{
-              _id
-              name
-              image
-              description
-              isPublic
-              creator\{
-                _id
-                firstName
-                lastName
-                image
-              \}
-            \}
-            createdOrganizations\{
-              _id
-              name
-              image
-              description
-              isPublic
-              creator\{
-                _id
-                firstName
-                lastName
-                image
-              \}
-            \}
-            membershipRequests\{
-              organization\{
-                _id
-                name
-                image
-                description
-                isPublic
-                creator\{
-                  _id
-                  firstName
-                  lastName
-                  image
-                \}
-              \}
-            \}
-            adminFor\{
-              _id
-            \}
-          \}
-          refreshToken
-          androidFirebaseOptions \{
-            apiKey
-            appId
-            messagingSenderId
-            projectId
-            storageBucket
-          \}
-          iosFirebaseOptions \{
-            apiKey
-            appId
-            messagingSenderId
-            projectId
-            storageBucket
-            iosClientId
-            iosBundleId
-          \}
-        \}
-      \}
-  """;
-\}
+``` language-dart
+String loginUser(String email, String password) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  loginUser method
+
+##### Queries class
 
 
 

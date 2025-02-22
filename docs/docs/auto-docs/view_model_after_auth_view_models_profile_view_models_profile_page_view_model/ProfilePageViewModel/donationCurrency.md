@@ -1,28 +1,42 @@
 
-
+<div>
 
 # donationCurrency property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+donationCurrency
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) donationCurrency
-  
-_<span class="feature">read / write</span>_
-
-
-
+donationCurrency.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String donationCurrency = "USD";
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [profile_page_view_model](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/)
+3.  [ProfilePageViewModel](../../view_model_after_auth_view_models_profile_view_models_profile_page_view_model/ProfilePageViewModel-class.md)
+4.  donationCurrency property
+
+##### ProfilePageViewModel class
 
 
 

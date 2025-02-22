@@ -1,29 +1,38 @@
 
-
+<div>
 
 # calendar constant
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+const calendar
 
 
 
-
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) const calendar
-  
-
-
-
-
-<p>static variables.</p>
+static variables.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static const String calendar = '/calendar';
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [routing_constants](../../constants_routing_constants/)
+3.  [Routes](../../constants_routing_constants/Routes-class.md)
+4.  calendar constant
+
+##### Routes class
 
 
 

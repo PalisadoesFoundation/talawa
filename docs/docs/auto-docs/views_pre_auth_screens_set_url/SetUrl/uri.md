@@ -1,29 +1,42 @@
 
-
+<div>
 
 # uri property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+uri
+
+
+final
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) uri
-  
-_<span class="feature">final</span>_
-
-
-
-<p>Variable.</p>
+Variable.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final String uri;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [set_url](../../views_pre_auth_screens_set_url/)
+3.  [SetUrl](../../views_pre_auth_screens_set_url/SetUrl-class.md)
+4.  uri property
+
+##### SetUrl class
 
 
 

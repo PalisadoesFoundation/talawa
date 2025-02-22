@@ -1,47 +1,47 @@
 
-
+<div>
 
 # getImageFromGallery method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+This function is used to get the image from gallery.
 
+The function uses the `_multiMediaPickerService` services.
 
+**params**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> getImageFromGallery
-(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) camera = false\})
+-   `camera`: if true then open camera for image, else open gallery to
+    select image.
 
-
-
-
-
-<p>This function is used to get the image from gallery.</p>
-<p>The function uses the ```dart_multiMediaPickerService``` services.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartcamera```: if true then open camera for image, else open gallery to select image.</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;void&gt;```: Asynchronous function for getting image from gallery</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> getImageFromGallery(\{bool camera = false\}) async \{
-  final image =
-      await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
-  if (image != null) \{
-    _imageFile = image;
-    notifyListeners();
-  \}
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [create_event_view_model](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/)
+3.  [CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
+4.  getImageFromGallery method
+
+##### CreateEventViewModel class
 
 
 

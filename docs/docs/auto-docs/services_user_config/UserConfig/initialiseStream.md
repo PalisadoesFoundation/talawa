@@ -1,33 +1,41 @@
 
-
+<div>
 
 # initialiseStream method
 
+</div>
+
+
+void 
 
 
 
+initialise.
 
+**params**: None
 
-
-
-void initialiseStream
-()
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void initialiseStream() \{
-  _currentOrgInfoStream =
-      _currentOrgInfoController.stream.asBroadcastStream();
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_config](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  initialiseStream method
+
+##### UserConfig class
 
 
 

@@ -1,55 +1,41 @@
 
-
+<div>
 
 # tourChat method
 
+</div>
+
+
+void 
 
 
 
+This function show the tour of chats.
 
+**params**: None
 
-
-
-void tourChat
-()
-
-
-
-
-
-<p>This function show the tour of chats.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void tourChat() \{
-  targets.clear();
-  targets.add(
-    focusTarget(
-      keyBNChat,
-      'keyBNChat',
-      'This is the Chat tab here you can see all your messages of the current selected organization',
-      isCircle: true,
-      align: ContentAlign.top,
-    ),
-  );
-  showTutorial(
-    onFinish: () \{
-      onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) \{
-        tourProfile();
-      \}
-    \},
-    onClickTarget: (TargetFocus a) \{\},
-  );
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  tourChat method
+
+##### MainScreenViewModel class
 
 
 

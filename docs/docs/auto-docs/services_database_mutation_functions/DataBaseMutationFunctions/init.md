@@ -1,39 +1,41 @@
 
-
+<div>
 
 # init method
 
+</div>
+
+
+void 
 
 
 
+Initialization function.
 
+**params**: None
 
-
-
-void init
-()
-
-
-
-
-
-<p>initialization function.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void init() \{
-  clientNonAuth = graphqlConfig.clientToQuery();
-  clientAuth = graphqlConfig.authClient();
-  _query = Queries();
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  init method
+
+##### DataBaseMutationFunctions class
 
 
 

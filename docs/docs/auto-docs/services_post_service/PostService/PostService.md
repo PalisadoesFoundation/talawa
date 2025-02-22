@@ -1,15 +1,10 @@
 
-
+<div>
 
 # PostService constructor
 
+</div>
 
-
-
-
-
-
-PostService()
 
 
 
@@ -17,16 +12,22 @@ PostService()
 
 ## Implementation
 
-```dart
-PostService() \{
-  _postStream = _postStreamController.stream.asBroadcastStream();
-  _updatedPostStream =
-      _updatedPostStreamController.stream.asBroadcastStream();
-  _currentOrg = _userConfig.currentOrg;
-  setOrgStreamSubscription();
-  getPosts();
-\}
+``` language-dart
+ : super(HiveKeys.postFeedKey) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  PostService constructor
+
+##### PostService class
 
 
 

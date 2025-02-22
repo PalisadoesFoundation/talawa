@@ -1,39 +1,42 @@
 
-
+<div>
 
 # setOrgStreamSubscription method
 
+</div>
+
+
+void 
 
 
 
+This method sets up a stream that constantly listens to change in
+current org.
 
+**params**: None
 
-
-
-void setOrgStreamSubscription
-()
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void setOrgStreamSubscription() \{
-  _userConfig.currentOrgInfoStream.listen((updatedOrganization) \{
-    if (updatedOrganization != _currentOrg) \{
-      print("org changes from post service");
-      _renderedPostID.clear();
-      _currentOrg = updatedOrganization;
-      getPosts();
-    \}
-  \});
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  setOrgStreamSubscription method
+
+##### PostService class
 
 
 

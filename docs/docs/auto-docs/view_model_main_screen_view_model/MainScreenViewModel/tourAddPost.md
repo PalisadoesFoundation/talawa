@@ -1,55 +1,41 @@
 
-
+<div>
 
 # tourAddPost method
 
+</div>
+
+
+void 
 
 
 
+This function show the tutorial to add Post in the organization.
 
+**params**: None
 
-
-
-void tourAddPost
-()
-
-
-
-
-
-<p>This function show the tutorial to add Post in the organization.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void tourAddPost() \{
-  targets.clear();
-  targets.add(
-    focusTarget(
-      keyBNPost,
-      'keyBNPost',
-      'This is the Create post tab here you can add post to the current selected organization',
-      isCircle: true,
-      align: ContentAlign.top,
-    ),
-  );
-  showTutorial(
-    onFinish: () \{
-      onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) \{
-        tourChat();
-      \}
-    \},
-    onClickTarget: (TargetFocus a) \{\},
-  );
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  tourAddPost method
+
+##### MainScreenViewModel class
 
 
 

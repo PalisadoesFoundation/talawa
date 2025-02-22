@@ -1,25 +1,33 @@
 
-
+<div>
 
 # Recover constructor
 
+</div>
 
 
-
-
-
-const
-Recover(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const Recover(\{required Key key\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [recover](../../views_pre_auth_screens_recover/)
+3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
+4.  Recover const constructor
+
+##### Recover class
 
 
 

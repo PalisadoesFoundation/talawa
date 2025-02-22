@@ -1,39 +1,52 @@
 
-
+<div>
 
 # popAndPushScreen method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+popAndPushScreen(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    routeName, )
 
 
 
+This function pop the initial route and push the new route to the
+navigator.
 
+**params**:
 
+-   `routeName`: Name of the Route
+-   `arguments`: Set of arguments
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) popAndPushScreen
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, \{dynamic arguments\})
-
-
-
-
-
-<p>This function pop the initial route and push the new route to the navigator.</p>
-<p>params:</p>
-<ul>
-<li>```dartrouteName```</li>
-<li>```dartarguments``` : necessary data for the route</li>
-</ul>
+-   `Future<dynamic>`: resolves if the Screen was succesfully
+    popAndPushed.
 
 
 
 ## Implementation
 
-```dart
-Future<dynamic> popAndPushScreen(String routeName, \{dynamic arguments\}) \{
-  navigatorKey.currentState!.pop();
-  return pushScreen(routeName, arguments: arguments);
-\}
+``` language-dart
+Future<dynamic> popAndPushScreen(String routeName, ) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [navigation_service](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  popAndPushScreen method
+
+##### NavigationService class
 
 
 

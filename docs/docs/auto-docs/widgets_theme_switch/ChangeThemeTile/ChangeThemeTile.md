@@ -1,25 +1,33 @@
 
-
+<div>
 
 # ChangeThemeTile constructor
 
+</div>
 
 
-
-
-
-const
-ChangeThemeTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const ChangeThemeTile(\{Key? key\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [theme_switch](../../widgets_theme_switch/)
+3.  [ChangeThemeTile](../../widgets_theme_switch/ChangeThemeTile-class.md)
+4.  ChangeThemeTile const constructor
+
+##### ChangeThemeTile class
 
 
 

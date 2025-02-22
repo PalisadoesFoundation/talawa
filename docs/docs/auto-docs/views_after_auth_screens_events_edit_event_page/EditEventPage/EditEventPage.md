@@ -1,25 +1,33 @@
 
-
+<div>
 
 # EditEventPage constructor
 
+</div>
 
 
-
-
-
-const
-EditEventPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Event](../../models_events_event_model/Event-class.md) event\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const EditEventPage(\{Key? key, required this.event\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [edit_event_page](../../views_after_auth_screens_events_edit_event_page/)
+3.  [EditEventPage](../../views_after_auth_screens_events_edit_event_page/EditEventPage-class.md)
+4.  EditEventPage const constructor
+
+##### EditEventPage class
 
 
 

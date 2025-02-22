@@ -1,25 +1,33 @@
 
-
+<div>
 
 # AddPost constructor
 
+</div>
 
 
-
-
-
-const
-AddPost(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, [GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)>? drawerKey\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const AddPost(\{Key? key, this.drawerKey\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [add_post_page](../../views_after_auth_screens_add_post_page/)
+3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
+4.  AddPost const constructor
+
+##### AddPost class
 
 
 

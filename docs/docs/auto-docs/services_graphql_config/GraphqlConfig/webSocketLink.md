@@ -1,28 +1,38 @@
 
-
+<div>
 
 # webSocketLink property
 
+</div>
 
 
+[WebSocketLink](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/WebSocketLink-class.html)
+webSocketLink
 
 
-
-
-[WebSocketLink](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/WebSocketLink-class.html) webSocketLink
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 late WebSocketLink webSocketLink;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [graphql_config](../../services_graphql_config/)
+3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
+4.  webSocketLink property
+
+##### GraphqlConfig class
 
 
 

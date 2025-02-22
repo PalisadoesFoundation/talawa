@@ -1,59 +1,44 @@
 
-
+<div>
 
 # uploadPost method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 
 
 
+Upload a post to database.
 
+**params**: None
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) uploadPost
-()
-
-
-
-
-
-<p>Upload a post to database.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartString```: The query related to uploadingPost.</li>
-</ul>
+-   `String`: The query related to uploadingPost.
 
 
 
 ## Implementation
 
-```dart
-String uploadPost() \{
-  return '''
-  mutation CreatePost(
-  \$text: String!
-  \$title: String!
-  \$imageUrl: URL
-  \$videoUrl: URL
-  \$organizationId: ID!
-) \{
-  createPost(
-    data: \{
-      text: \$text
-      title: \$title
-      imageUrl: \$imageUrl
-      videoUrl: \$videoUrl
-      organizationId: \$organizationId
-    \}
-  ) \{
-    _id
-  \}
-\}
-  ''';
-\}
+``` language-dart
+String  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_queries](../../utils_post_queries/)
+3.  [PostQueries](../../utils_post_queries/PostQueries-class.md)
+4.  uploadPost method
+
+##### PostQueries class
 
 
 

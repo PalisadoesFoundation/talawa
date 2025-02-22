@@ -1,28 +1,37 @@
 
-
+<div>
 
 # FetchPluginList constructor
 
+</div>
 
 
 
 
 
 
-FetchPluginList()
-
-
-<p>Constructor of the class.</p>
+Constructor of the class.
 
 
 
 ## Implementation
 
-```dart
-FetchPluginList() \{
-  fetchList();
-\}
+``` language-dart
+ 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [fetch_plugin_list](../../plugins_fetch_plugin_list/)
+3.  [FetchPluginList](../../plugins_fetch_plugin_list/FetchPluginList-class.md)
+4.  FetchPluginList constructor
+
+##### FetchPluginList class
 
 
 

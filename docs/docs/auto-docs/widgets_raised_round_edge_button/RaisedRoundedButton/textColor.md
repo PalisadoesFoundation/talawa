@@ -1,28 +1,38 @@
 
-
+<div>
 
 # textColor property
 
+</div>
 
 
+[Color](https://api.flutter.dev/flutter/painting/Color-class.html)
+textColor
 
 
-
-
-[Color](https://api.flutter.dev/flutter/dart-ui/Color-class.html) textColor
-  
-_<span class="feature">final</span>_
-
-
+final
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final Color textColor;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [raised_round_edge_button](../../widgets_raised_round_edge_button/)
+3.  [RaisedRoundedButton](../../widgets_raised_round_edge_button/RaisedRoundedButton-class.md)
+4.  textColor property
+
+##### RaisedRoundedButton class
 
 
 

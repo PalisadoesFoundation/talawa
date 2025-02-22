@@ -1,45 +1,73 @@
 
-
+<div>
 
 # createState method
 
+</div>
+
+
+<div>
+
+1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
+
+</div>
+
+\_RecoverState 
+
+
+override
 
 
 
 
+Creates the mutable state for this widget at a given location in the
+tree.
 
+Subclasses should override this method to return a newly created
+instance of their associated
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+subclass:
 
-- @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
-
-_RecoverState createState
-()
-
-_<span class="feature">override</span>_
-
-
-
-<p>Creates the mutable state for this widget at a given location in the tree.</p>
-<p>Subclasses should override this method to return a newly created
-instance of their associated <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> subclass:</p>
-```dart@override
-State&lt;SomeWidget&gt; createState() =&gt; _SomeWidgetState();
+``` language-dart
+@override
+State<SomeWidget>  => ;
 ```
-<p>The framework can call this method multiple times over the lifetime of
-a ```dartStatefulWidget```. For example, if the widget is inserted into the tree
-in multiple locations, the framework will create a separate <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object
+
+The framework can call this method multiple times over the lifetime of a
+[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
+For example, if the widget is inserted into the tree in multiple
+locations, the framework will create a separate
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
-later inserted into the tree again, the framework will call <a href="../../views_pre_auth_screens_recover/Recover/createState.md">createState</a>
-again to create a fresh <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object, simplifying the lifecycle of
-<a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> objects.</p>
+later inserted into the tree again, the framework will call
+[createState](../../views_pre_auth_screens_recover/Recover/createState.md)
+again to create a fresh
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+object, simplifying the lifecycle of
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+objects.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @override
-_RecoverState createState() => _RecoverState();
+_RecoverState  => ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [recover](../../views_pre_auth_screens_recover/)
+3.  [Recover](../../views_pre_auth_screens_recover/Recover-class.md)
+4.  createState method
+
+##### Recover class
 
 
 

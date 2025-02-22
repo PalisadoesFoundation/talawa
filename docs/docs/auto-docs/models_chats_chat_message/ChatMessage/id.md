@@ -1,28 +1,38 @@
 
-
+<div>
 
 # id property
 
+</div>
 
 
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+id
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String? id;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_message](../../models_chats_chat_message/)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
+4.  id property
+
+##### ChatMessage class
 
 
 

@@ -1,67 +1,46 @@
 
-
+<div>
 
 # addEvent method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 
 
 
+Creates a GraphQL mutation for adding an event.
 
+**params**: None
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) addEvent
-()
+-   `String`: Returns a GraphQL mutation string to create an event.
 
-
-
-
-
+This function generates a GraphQL mutation string for creating an event.
 
 
 
 ## Implementation
 
-```dart
-String addEvent() \{
-  return """
-   mutation createEvent( \$organizationId: ID!,
-      \$title:String!,
-      \$description: String!,
-      \$startTime: Time,
-      \$endTime: Time,
-      \$allDay: Boolean!,
-      \$recurring: Boolean!,
-      \$isPublic: Boolean!,
-      \$isRegisterable: Boolean!,
-      \$location: String,
-      \$startDate : Date!,
-      \$endDate : Date!,
-    ) \{
-    createEvent(
-      data:\{
-        organizationId: \$organizationId,
-         title: \$title,
-         description: \$description,
-         isPublic: \$isPublic,
-         isRegisterable: \$isRegisterable,
-         recurring: \$recurring,
-         allDay: \$allDay,
-         startTime: \$startTime,
-         endTime: \$endTime,
-         startDate: \$startDate,
-         endDate: \$endDate,
-         location: \$location,
-      \}
-    )\{
-      _id
-      title
-      description
-    \}
-  \}
-""";
-\}
+``` language-dart
+String  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_queries](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  addEvent method
+
+##### EventQueries class
 
 
 

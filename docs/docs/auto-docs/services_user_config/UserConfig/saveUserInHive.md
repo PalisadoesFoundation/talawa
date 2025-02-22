@@ -1,37 +1,41 @@
 
-
+<div>
 
 # saveUserInHive method
 
+</div>
+
+
+void 
 
 
 
+save user in hive.
 
+**params**: None
 
-
-
-void saveUserInHive
-()
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void saveUserInHive() \{
-  final box = Hive.box<User>('currentUser');
-  if (box.get('user') == null) \{
-    box.put('user', _currentUser!);
-  \} else \{
-    box.put('user', _currentUser!);
-  \}
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_config](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  saveUserInHive method
+
+##### UserConfig class
 
 
 

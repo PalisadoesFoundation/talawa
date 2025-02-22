@@ -1,28 +1,43 @@
 
-
+<div>
 
 # isRegisterableSwitch property
 
+</div>
+
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+isRegisterableSwitch
+
+
+getter/setter pair
 
 
 
 
-
-
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isRegisterableSwitch
-  
-_<span class="feature">read / write</span>_
-
-
-
+Boolean to indicate if the event requires registration. True means
+registration is required.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 bool isRegisterableSwitch = false;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
+3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
+4.  isRegisterableSwitch property
+
+##### EditEventViewModel class
 
 
 

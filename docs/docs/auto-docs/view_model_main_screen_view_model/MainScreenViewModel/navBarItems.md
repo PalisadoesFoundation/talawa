@@ -1,29 +1,44 @@
 
-
+<div>
 
 # navBarItems property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html)]\>]
+navBarItems
+
+
+getter/setter pair
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html)> navBarItems
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>Actual ```dartBottomNavigationBarItem```s that show up on the screen.</p>
+Actual
+[BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html)s
+that show up on the screen.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 List<BottomNavigationBarItem> navBarItems = [];
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  navBarItems property
+
+##### MainScreenViewModel class
 
 
 

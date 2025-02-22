@@ -1,25 +1,33 @@
 
-
+<div>
 
 # EventInfoBody constructor
 
+</div>
 
 
-
-
-
-const
-EventInfoBody(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const EventInfoBody(\{Key? key\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_info_body](../../views_after_auth_screens_events_event_info_body/)
+3.  [EventInfoBody](../../views_after_auth_screens_events_event_info_body/EventInfoBody-class.md)
+4.  EventInfoBody const constructor
+
+##### EventInfoBody class
 
 
 

@@ -1,28 +1,42 @@
 
-
+<div>
 
 # successText property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+successText
+
+
+final
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? successText
-  
-_<span class="feature">final</span>_
-
-
-
+Text displayed on the primary action button.
 
 
 
 ## Implementation
 
-```dart
-final String? successText;
+``` language-dart
+final String successText;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
+4.  successText property
+
+##### CustomAlertDialog class
 
 
 

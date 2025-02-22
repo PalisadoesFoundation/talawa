@@ -1,31 +1,40 @@
 
-
+<div>
 
 # updatedPostStream property
 
+</div>
 
 
 
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]]
+get updatedPostStream
 
 
 
-
-
-[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> updatedPostStream
-  
-
-
-
-
+Getter for Stream of update in any post.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Stream<Post> get updatedPostStream => _updatedPostStream;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  updatedPostStream property
+
+##### PostService class
 
 
 

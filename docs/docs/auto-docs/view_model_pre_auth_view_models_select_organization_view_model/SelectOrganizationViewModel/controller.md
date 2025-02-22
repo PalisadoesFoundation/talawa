@@ -1,28 +1,42 @@
 
-
+<div>
 
 # controller property
 
+</div>
+
+
+[ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html)
+controller
+
+
+final
 
 
 
 
-
-
-[ScrollController](https://api.flutter.dev/flutter/widgets/ScrollController-class.html) controller
-  
-_<span class="feature">final</span>_
-
-
-
+Organization selection required data.
 
 
 
 ## Implementation
 
-```dart
-final ScrollController controller = ScrollController();
+``` language-dart
+final ScrollController controller = ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
+3.  [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
+4.  controller property
+
+##### SelectOrganizationViewModel class
 
 
 

@@ -1,29 +1,33 @@
 
-
+<div>
 
 # ChatInputField constructor
 
+</div>
 
 
-
-
-
-const
-ChatInputField(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) chatId, required [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md) model, [Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const ChatInputField(\{
-  required this.chatId,
-  required this.model,
-  Key? key,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_input_field](../../views_after_auth_screens_chat_widgets_chat_input_field/)
+3.  [ChatInputField](../../views_after_auth_screens_chat_widgets_chat_input_field/ChatInputField-class.md)
+4.  ChatInputField const constructor
+
+##### ChatInputField class
 
 
 

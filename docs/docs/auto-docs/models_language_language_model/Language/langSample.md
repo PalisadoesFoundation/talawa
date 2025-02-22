@@ -1,28 +1,38 @@
 
-
+<div>
 
 # langSample property
 
+</div>
 
 
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+langSample
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) langSample
-  
-_<span class="feature">final</span>_
-
-
+final
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final String langSample;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [language_model](../../models_language_language_model/)
+3.  [Language](../../models_language_language_model/Language-class.md)
+4.  langSample property
+
+##### Language class
 
 
 

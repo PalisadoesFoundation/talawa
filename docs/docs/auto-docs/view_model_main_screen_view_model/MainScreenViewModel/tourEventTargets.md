@@ -1,84 +1,41 @@
 
-
+<div>
 
 # tourEventTargets method
 
+</div>
+
+
+void 
 
 
 
+This function show the tutorial for Events.
 
+**params**: None
 
-
-
-void tourEventTargets
-()
-
-
-
-
-
-<p>This function show the tutorial for Events.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void tourEventTargets() \{
-  targets.clear();
-  targets.add(
-    focusTarget(
-      keyBNEvents,
-      'keyBNEvents',
-      'This is the Events tab here you can see all event related information of the current selected organization',
-      isCircle: true,
-      align: ContentAlign.top,
-    ),
-  );
-  targets.add(
-    focusTarget(
-      keySECategoryMenu,
-      'keySECategoryMenu',
-      'Filter Events based on categories',
-    ),
-  );
-  targets.add(
-    focusTarget(
-      keySEDateFilter,
-      'keySEDateFilter',
-      'Filter Events between selected dates',
-    ),
-  );
-  targets.add(
-    focusTarget(
-      keySECard,
-      'keySECard',
-      'Description of event to see more details click on the card',
-    ),
-  );
-  targets.add(
-    focusTarget(
-      keySEAdd,
-      'keySEAdd',
-      'You can create a new event from here',
-      align: ContentAlign.top,
-    ),
-  );
-  showTutorial(
-    onFinish: () \{
-      onTabTapped(currentPageIndex + 1);
-      if (!tourComplete && !tourSkipped) \{
-        tourAddPost();
-      \}
-    \},
-    onClickTarget: (TargetFocus a) \{\},
-  );
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  tourEventTargets method
+
+##### MainScreenViewModel class
 
 
 

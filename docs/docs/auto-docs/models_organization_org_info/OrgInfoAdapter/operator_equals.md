@@ -1,56 +1,66 @@
 
-
+<div>
 
 # operator == method
 
+</div>
+
+
+<div>
+
+1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
+
+</div>
+
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
+operator ==(
+
+1.  [[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)]
+    other]
+
+)
+
+
+override
 
 
 
 
+The equality operator.
 
+The default behavior for all
+[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)s
+is to return true if and only if this object and `other` are the same
+object.
 
-- @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
+Override this method to specify a different equality relation on a
+class. The overriding method must still be an equivalence relation. That
+is, it must be:
 
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) operator ==
-([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other)
+-   Total: It must return a boolean for all arguments. It should never
+    throw.
 
-_<span class="feature">override</span>_
+-   Reflexive: For all objects `o`, `o == o` must be true.
 
+-   Symmetric: For all objects `o1` and `o2`, `o1 == o2` and `o2 == o1`
+    must either both be true, or both be false.
 
+-   Transitive: For all objects `o1`, `o2`, and `o3`, if `o1 == o2` and
+    `o2 == o3` are true, then `o1 == o3` must be true.
 
-<p>The equality operator.</p>
-<p>The default behavior for all <a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>s is to return true if and
-only if this object and ```dartother``` are the same object.</p>
-<p>Override this method to specify a different equality relation on
-a class. The overriding method must still be an equivalence relation.
-That is, it must be:</p>
-<ul>
-<li>
-<p>Total: It must return a boolean for all arguments. It should never throw.</p>
-</li>
-<li>
-<p>Reflexive: For all objects ```darto```, ```darto == o``` must be true.</p>
-</li>
-<li>
-<p>Symmetric: For all objects ```darto1``` and ```darto2```, ```darto1 == o2``` and ```darto2 == o1``` must
-either both be true, or both be false.</p>
-</li>
-<li>
-<p>Transitive: For all objects ```darto1```, ```darto2```, and ```darto3```, if ```darto1 == o2``` and
-```darto2 == o3``` are true, then ```darto1 == o3``` must be true.</p>
-</li>
-</ul>
-<p>The method should also be consistent over time,
-so whether two objects are equal should only change
-if at least one of the objects was modified.</p>
-<p>If a subclass overrides the equality operator, it should override
-the <a href="../../models_organization_org_info/OrgInfoAdapter/hashCode.md">hashCode</a> method as well to maintain consistency.</p>
+The method should also be consistent over time, so whether two objects
+are equal should only change if at least one of the objects was
+modified.
+
+If a subclass overrides the equality operator, it should override the
+[hashCode](../../models_organization_org_info/OrgInfoAdapter/hashCode.md)
+method as well to maintain consistency.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @override
 bool operator ==(Object other) =>
     identical(this, other) ||
@@ -58,6 +68,19 @@ bool operator ==(Object other) =>
         runtimeType == other.runtimeType &&
         typeId == other.typeId;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [org_info](../../models_organization_org_info/)
+3.  [OrgInfoAdapter](../../models_organization_org_info/OrgInfoAdapter-class.md)
+4.  operator == method
+
+##### OrgInfoAdapter class
 
 
 

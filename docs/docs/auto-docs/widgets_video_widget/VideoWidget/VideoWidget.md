@@ -1,26 +1,33 @@
 
-
+<div>
 
 # VideoWidget constructor
 
+</div>
 
 
-
-
-
-const
-VideoWidget(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) url, required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) play\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const VideoWidget(\{Key? key, required this.url, required this.play\})
-    : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [video_widget](../../widgets_video_widget/)
+3.  [VideoWidget](../../widgets_video_widget/VideoWidget-class.md)
+4.  VideoWidget const constructor
+
+##### VideoWidget class
 
 
 

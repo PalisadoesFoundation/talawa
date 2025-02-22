@@ -1,28 +1,42 @@
 
-
+<div>
 
 # dialogTitle property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+dialogTitle
+
+
+final
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? dialogTitle
-  
-_<span class="feature">final</span>_
-
-
-
+Title displayed in the dialog (default value is \'Confirmation\').
 
 
 
 ## Implementation
 
-```dart
-final String? dialogTitle;
+``` language-dart
+final String dialogTitle;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_alert_dialog](../../widgets_custom_alert_dialog/)
+3.  [CustomAlertDialog](../../widgets_custom_alert_dialog/CustomAlertDialog-class.md)
+4.  dialogTitle property
+
+##### CustomAlertDialog class
 
 
 

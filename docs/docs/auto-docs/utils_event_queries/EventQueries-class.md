@@ -1,142 +1,126 @@
 
-
+<div>
 
 # EventQueries class
 
+</div>
 
 
-
-
-
-
-
-
-<p>This class creates queries related to the events.</p>
-
+This class creates queries related to the events.
 
 
 
 ## Constructors
 
-[EventQueries](../utils_event_queries/EventQueries/EventQueries.md) ()
+[EventQueries](../utils_event_queries/EventQueries/EventQueries.md)
 
-   
+:   
+
 
 
 ## Properties
 
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
-
-
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
 
 
 ## Methods
 
-##### [addEvent](../utils_event_queries/EventQueries/addEvent.md)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+[[addEvent](../utils_event_queries/EventQueries/addEvent.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for adding an event.
 
+[[addVolunteerToGroup](../utils_event_queries/EventQueries/addVolunteerToGroup.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for adding a volunteer to a group.
 
+[[attendeesByEvent](../utils_event_queries/EventQueries/attendeesByEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] eventId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Fetches attendees by event ID.
 
-  
+[[createAgendaItem](../utils_event_queries/EventQueries/createAgendaItem.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for creating an agenda item.
 
+[[createVolunteerGroup](../utils_event_queries/EventQueries/createVolunteerGroup.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for creating an event volunteer group.
 
+[[deleteAgendaItem](../utils_event_queries/EventQueries/deleteAgendaItem.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for deleting an agenda item.
 
+[[deleteEvent](../utils_event_queries/EventQueries/deleteEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] id]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for deleting an event.
 
-##### [deleteEvent](../utils_event_queries/EventQueries/deleteEvent.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) id) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+[[fetchAgendaItemCategoriesByOrganization](../utils_event_queries/EventQueries/fetchAgendaItemCategoriesByOrganization.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] organizationId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL query for fetching agenda item categories by
+    organization.
 
+[[fetchAgendaItemsByEvent](../utils_event_queries/EventQueries/fetchAgendaItemsByEvent.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] relatedEventId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL query for fetching agenda items by organization.
 
+[[fetchOrgEvents](../utils_event_queries/EventQueries/fetchOrgEvents.md)][([[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)] orgId]) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Fetches events by organization ID.
 
-  
+[[fetchVolunteerGroups](../utils_event_queries/EventQueries/fetchVolunteerGroups.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Fetches event volunteer groups based on criteria such as event ID.
 
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
+[[registerForEvent](../utils_event_queries/EventQueries/registerForEvent.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for registering for an event.
 
+[[removeEventVolunteerGroup](../utils_event_queries/EventQueries/removeEventVolunteerGroup.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for removing an event volunteer group.
 
-##### [fetchOrgEvents](../utils_event_queries/EventQueries/fetchOrgEvents.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+[[removeVolunteerMutation](../utils_event_queries/EventQueries/removeVolunteerMutation.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for deleting a volunteer from a group.
 
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
+[[updateAgendaItem](../utils_event_queries/EventQueries/updateAgendaItem.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for updating an agenda item.
 
-  
+[updateEvent](../utils_event_queries/EventQueries/updateEvent.md) [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Creates a GraphQL mutation for updating an event.
 
-
-
-
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
-
-
-
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [registerForEvent](../utils_event_queries/EventQueries/registerForEvent.md)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-
-
-
-
-##### [registrantsByEvent](../utils_event_queries/EventQueries/registrantsByEvent.md)([String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-
-
-
-
-##### [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [updateEvent](../utils_event_queries/EventQueries/updateEvent.md)(\{dynamic eventId\}) [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-
-
-
+[[updateVolunteerGroupMutation](../utils_event_queries/EventQueries/updateVolunteerGroupMutation.md)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   Mutation to update volunteer group insatnce.
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 
 
 
+
+1.  [talawa](../index.md)
+2.  [event_queries](../utils_event_queries/)
+3.  EventQueries class
+
+##### event_queries library
 
 
 

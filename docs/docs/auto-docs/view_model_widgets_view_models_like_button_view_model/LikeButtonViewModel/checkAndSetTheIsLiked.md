@@ -1,37 +1,41 @@
 
-
+<div>
 
 # checkAndSetTheIsLiked method
 
+</div>
+
+
+void 
 
 
 
+function to set isLiked boolean and check.
 
+**params**: None
 
-
-
-void checkAndSetTheIsLiked
-()
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void checkAndSetTheIsLiked() \{
-  setIsLiked(val: false);
-  for (var i = 0; i < _likedBy.length; i++) \{
-    if (_likedBy[i].sId == _user.id) \{
-      setIsLiked();
-    \}
-  \}
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
+3.  [LikeButtonViewModel](../../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)
+4.  checkAndSetTheIsLiked method
+
+##### LikeButtonViewModel class
 
 
 

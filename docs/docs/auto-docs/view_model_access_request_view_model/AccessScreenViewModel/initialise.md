@@ -1,32 +1,49 @@
 
-
+<div>
 
 # initialise method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+initialise(
+
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
+    org]
+
+)
 
 
 
+Initialization function.
 
+**params**:
 
+-   `org`: Org to send request to.
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> initialise
-([OrgInfo](../../models_organization_org_info/OrgInfo-class.md) org)
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> initialise(OrgInfo org) async \{
-  selectedOrganization = org;
-\}
+``` language-dart
+Future<void> initialise(OrgInfo org) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [access_request_view_model](../../view_model_access_request_view_model/)
+3.  [AccessScreenViewModel](../../view_model_access_request_view_model/AccessScreenViewModel-class.md)
+4.  initialise method
+
+##### AccessScreenViewModel class
 
 
 

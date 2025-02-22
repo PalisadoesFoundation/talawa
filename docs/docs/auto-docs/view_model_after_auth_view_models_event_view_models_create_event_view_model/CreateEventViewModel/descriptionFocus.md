@@ -1,29 +1,42 @@
 
-
+<div>
 
 # descriptionFocus property
 
+</div>
+
+
+[FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html)
+descriptionFocus
+
+
+getter/setter pair
 
 
 
 
-
-
-[FocusNode](https://api.flutter.dev/flutter/widgets/FocusNode-class.html) descriptionFocus
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>DescriptionFocus FocusNode.</p>
+DescriptionFocus FocusNode.
 
 
 
 ## Implementation
 
-```dart
-FocusNode descriptionFocus = FocusNode();
+``` language-dart
+FocusNode descriptionFocus = ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [create_event_view_model](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/)
+3.  [CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
+4.  descriptionFocus property
+
+##### CreateEventViewModel class
 
 
 

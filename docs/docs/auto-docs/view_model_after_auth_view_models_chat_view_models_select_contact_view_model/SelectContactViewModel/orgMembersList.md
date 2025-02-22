@@ -1,28 +1,42 @@
 
-
+<div>
 
 # orgMembersList property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]
+orgMembersList
+
+
+getter/setter pair
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)> orgMembersList
-  
-_<span class="feature">read / write</span>_
-
-
-
+orgMembersList is used to store all users of current organization.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 late List<User> orgMembersList = [];
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [select_contact_view_model](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/)
+3.  [SelectContactViewModel](../../view_model_after_auth_view_models_chat_view_models_select_contact_view_model/SelectContactViewModel-class.md)
+4.  orgMembersList property
+
+##### SelectContactViewModel class
 
 
 

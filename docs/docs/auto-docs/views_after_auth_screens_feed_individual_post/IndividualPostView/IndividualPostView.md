@@ -1,25 +1,33 @@
 
-
+<div>
 
 # IndividualPostView constructor
 
+</div>
 
 
-
-
-
-const
-IndividualPostView(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Post](../../models_post_post_model/Post-class.md) post\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const IndividualPostView(\{Key? key, required this.post\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
+3.  [IndividualPostView](../../views_after_auth_screens_feed_individual_post/IndividualPostView-class.md)
+4.  IndividualPostView const constructor
+
+##### IndividualPostView class
 
 
 

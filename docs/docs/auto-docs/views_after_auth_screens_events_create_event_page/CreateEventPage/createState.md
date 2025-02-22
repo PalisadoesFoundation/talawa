@@ -1,45 +1,74 @@
 
-
+<div>
 
 # createState method
 
+</div>
+
+
+<div>
+
+1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
+
+</div>
+
+[[CreateEventPageState](../../views_after_auth_screens_events_create_event_page/CreateEventPageState-class.md)]
+
+
+
+override
 
 
 
 
+Creates the mutable state for this widget at a given location in the
+tree.
 
+Subclasses should override this method to return a newly created
+instance of their associated
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+subclass:
 
-- @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
-
-_CreateEventPageState createState
-()
-
-_<span class="feature">override</span>_
-
-
-
-<p>Creates the mutable state for this widget at a given location in the tree.</p>
-<p>Subclasses should override this method to return a newly created
-instance of their associated <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> subclass:</p>
-```dart@override
-State&lt;SomeWidget&gt; createState() =&gt; _SomeWidgetState();
+``` language-dart
+@override
+State<SomeWidget>  => ;
 ```
-<p>The framework can call this method multiple times over the lifetime of
-a ```dartStatefulWidget```. For example, if the widget is inserted into the tree
-in multiple locations, the framework will create a separate <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object
+
+The framework can call this method multiple times over the lifetime of a
+[StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
+For example, if the widget is inserted into the tree in multiple
+locations, the framework will create a separate
+[State](https://api.flutter.dev/flutter/widgets/State-class.html) object
 for each location. Similarly, if the widget is removed from the tree and
-later inserted into the tree again, the framework will call <a href="../../views_after_auth_screens_events_create_event_page/CreateEventPage/createState.md">createState</a>
-again to create a fresh <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> object, simplifying the lifecycle of
-<a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a> objects.</p>
+later inserted into the tree again, the framework will call
+[createState](../../views_after_auth_screens_events_create_event_page/CreateEventPage/createState.md)
+again to create a fresh
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+object, simplifying the lifecycle of
+[State](https://api.flutter.dev/flutter/widgets/State-class.html)
+objects.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @override
-_CreateEventPageState createState() => _CreateEventPageState();
+CreateEventPageState  => ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [create_event_page](../../views_after_auth_screens_events_create_event_page/)
+3.  [CreateEventPage](../../views_after_auth_screens_events_create_event_page/CreateEventPage-class.md)
+4.  createState method
+
+##### CreateEventPage class
 
 
 

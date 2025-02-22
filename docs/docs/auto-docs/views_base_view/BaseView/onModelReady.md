@@ -1,28 +1,38 @@
 
-
+<div>
 
 # onModelReady property
 
+</div>
 
 
+dynamic Function([[T])]? onModelReady
 
 
-
-
-(dynamic Function(T)?) onModelReady
-  
-_<span class="feature">final</span>_
-
-
+final
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final Function(T)? onModelReady;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [base_view](../../views_base_view/)
+3.  BaseView[\<[T extends
+    ChangeNotifier\>]](../../views_base_view/BaseView-class.md)
+4.  onModelReady property
+
+##### BaseView class
 
 
 

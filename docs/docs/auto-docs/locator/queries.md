@@ -1,32 +1,40 @@
 
-
+<div>
 
 # queries top-level property
 
-
-
-
-
-
-
+</div>
 
 
 [Queries](../utils_queries/Queries-class.md) queries
-  
-_<span class="feature">final</span>_
+
+
+final
 
 
 
-<p>creating GetIt for Queries.</p>
+
+GetIt for Queries.
 
 
 
 ## Implementation
 
-```dart
-final queries = locator<Queries>();
+``` language-dart
+final queries = locator<Queries>;
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [locator](../locator/)
+3.  queries property
+
+##### locator library
 
 
 

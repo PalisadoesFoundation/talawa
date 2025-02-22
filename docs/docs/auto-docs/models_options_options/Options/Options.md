@@ -1,15 +1,10 @@
 
-
+<div>
 
 # Options constructor
 
+</div>
 
-
-
-
-
-
-Options(\{required [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html) icon, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) title, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) subtitle, [IconButton](https://api.flutter.dev/flutter/material/IconButton-class.html)? trailingIconButton\})
 
 
 
@@ -17,14 +12,22 @@ Options(\{required [Widget](https://api.flutter.dev/flutter/widgets/Widget-class
 
 ## Implementation
 
-```dart
-Options(\{
-  required this.icon,
-  required this.title,
-  required this.subtitle,
-  this.trailingIconButton,
-\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [options](../../models_options_options/)
+3.  [Options](../../models_options_options/Options-class.md)
+4.  Options constructor
+
+##### Options class
 
 
 

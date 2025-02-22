@@ -1,25 +1,33 @@
 
-
+<div>
 
 # MainScreen constructor
 
+</div>
 
 
-
-
-
-const
-MainScreen(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md) mainScreenArgs\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const MainScreen(\{Key? key, required this.mainScreenArgs\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen](../../views_main_screen/)
+3.  [MainScreen](../../views_main_screen/MainScreen-class.md)
+4.  MainScreen const constructor
+
+##### MainScreen class
 
 
 

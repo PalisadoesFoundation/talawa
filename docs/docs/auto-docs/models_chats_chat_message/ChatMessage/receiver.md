@@ -1,28 +1,38 @@
 
-
+<div>
 
 # receiver property
 
+</div>
 
 
+[ChatUser](../../models_chats_chat_user/ChatUser-class.md)?
+receiver
 
 
-
-
-[ChatUser](../../models_chats_chat_user/ChatUser-class.md)? receiver
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 ChatUser? receiver;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_message](../../models_chats_chat_message/)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
+4.  receiver property
+
+##### ChatMessage class
 
 
 

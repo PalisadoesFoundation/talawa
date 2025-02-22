@@ -1,28 +1,38 @@
 
-
+<div>
 
 # users property
 
+</div>
 
 
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ChatUser](../../models_chats_chat_user/ChatUser-class.md)]\>]?
+users
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[ChatUser](../../models_chats_chat_user/ChatUser-class.md)>? users
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 List<ChatUser>? users;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_list_tile_data_model](../../models_chats_chat_list_tile_data_model/)
+3.  [ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)
+4.  users property
+
+##### ChatListTileDataModel class
 
 
 

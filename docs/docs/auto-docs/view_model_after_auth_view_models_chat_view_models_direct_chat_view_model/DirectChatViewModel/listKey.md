@@ -1,28 +1,38 @@
 
-
+<div>
 
 # listKey property
 
+</div>
 
 
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[AnimatedListState](https://api.flutter.dev/flutter/widgets/AnimatedListState-class.html)]\>]
+listKey
 
 
-
-
-[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[AnimatedListState](https://api.flutter.dev/flutter/widgets/AnimatedListState-class.html)> listKey
-  
-_<span class="feature">final</span>_
-
-
+final
 
 
 
 
 ## Implementation
 
-```dart
-final listKey = GlobalKey<AnimatedListState>();
+``` language-dart
+final listKey = GlobalKey<AnimatedListState>;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  listKey property
+
+##### DirectChatViewModel class
 
 
 

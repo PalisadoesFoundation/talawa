@@ -1,138 +1,110 @@
 
-
+<div>
 
 # ChatUser class
 
+</div>
+
+
+This class creates JSON code for chat user using the JsonSerializable
+package.
 
 
 
 
+Annotations
 
+:   -   @[JsonSerializable](https://pub.dev/documentation/json_annotation/4.9.0/json_annotation/JsonSerializable-class.html)
 
-
-
-<p>This class creates JSON code for chat user using the JsonSerializable package.</p>
-
-
-
-
-
-
-
-
-
-**Annotations**
-
-- @[JsonSerializable](https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonSerializable-class.html)()
 
 
 ## Constructors
 
-[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md) (\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image\})
+[[ChatUser](../models_chats_chat_user/ChatUser/ChatUser.md)][]
 
-   
+:   
 
-[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json)
+[[ChatUser.fromJson](../models_chats_chat_user/ChatUser/ChatUser.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-   _factory_
+:   ::: 
+    factory
+    :::
+
 
 
 ## Properties
 
-##### [firstName](../models_chats_chat_user/ChatUser/firstName.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+[[firstName](../models_chats_chat_user/ChatUser/firstName.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
+:   ::: features
+    getter/setter pair
+    :::
 
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
-  
-_<span class="feature">read / write</span>_
+[[id](../models_chats_chat_user/ChatUser/id.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
+:   ::: features
+    getter/setter pair
+    :::
 
+[[image](../models_chats_chat_user/ChatUser/image.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
 
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+:   ::: features
+    getter/setter pair
+    :::
 
-
-
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [id](../models_chats_chat_user/ChatUser/id.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
-
-##### [image](../models_chats_chat_user/ChatUser/image.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
 
 
 ## Methods
 
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
+[[toJson](../models_chats_chat_user/ChatUser/toJson.md)][ [→ [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] ]
 
+:   
 
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [toJson](../models_chats_chat_user/ChatUser/toJson.md)() [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>
-
-
-
-  
-
-
-
-
-##### [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 
 
 
+
+1.  [talawa](../index.md)
+2.  [chat_user](../models_chats_chat_user/)
+3.  ChatUser class
+
+##### chat_user library
 
 
 

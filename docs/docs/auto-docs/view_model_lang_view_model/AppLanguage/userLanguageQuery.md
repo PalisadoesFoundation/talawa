@@ -1,42 +1,53 @@
 
-
+<div>
 
 # userLanguageQuery method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+userLanguageQuery(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    userId]
+
+)
 
 
 
+This function perform graphQL query to check the user\'s language in the
+database.
 
+The function uses `gqlAuthQuery` method provided by Database Functions
+Services.
 
+**params**:
 
+-   `userId`: user for which language need to be fetch.
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> userLanguageQuery
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) userId)
-
-
-
-
-
-<p>This function perform graphQL query to check the user's language in the database.
-The function uses ```dartgqlAuthQuery``` method provided by Database Functions Services.</p>
-<p>params:</p>
-<ul>
-<li>```dartuserId``` : user for which language need to be fetch.</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> userLanguageQuery(String userId) async \{
-  try \{
-    await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
-  \} catch (e) \{
-    print(e);
-  \}
-\}
+``` language-dart
+Future<void> userLanguageQuery(String userId) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  userLanguageQuery method
+
+##### AppLanguage class
 
 
 

@@ -1,28 +1,33 @@
 
-
+<div>
 
 # ProfilePage constructor
 
+</div>
 
 
-
-
-
-const
-ProfilePage(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)? homeModel\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const ProfilePage(\{
-  required Key key,
-  this.homeModel,
-\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [profile_page](../../views_after_auth_screens_profile_profile_page/)
+3.  [ProfilePage](../../views_after_auth_screens_profile_profile_page/ProfilePage-class.md)
+4.  ProfilePage const constructor
+
+##### ProfilePage class
 
 
 

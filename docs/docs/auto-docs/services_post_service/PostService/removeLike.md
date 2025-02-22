@@ -1,42 +1,54 @@
 
-
+<div>
 
 # removeLike method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+removeLike(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    postID]
+
+)
 
 
 
+Method to remove like in a Post.
 
+This method basically update likedBy list of a Post and removes the like
+of a user in database.
 
+**params**:
 
+-   `postID`: ID of the post to remove like in database.
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> removeLike
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) postID)
+**returns**:
 
-
-
-
-
-<p>This function is used to remove like from the Post.</p>
-<p>params:</p>
-<ul>
-<li>```dartpostId``` : id of the post where like need to be removed.</li>
-</ul>
+-   `Future<void>`: nothing
 
 
 
 ## Implementation
 
-```dart
-Future<void> removeLike(String postID) async \{
-  _removeLocal(postID);
-  final String mutation = PostQueries().removeLike();
-  final result = await _dbFunctions
-      .gqlAuthMutation(mutation, variables: \{"postID": postID\});
-  print(result);
-  return result;
-\}
+``` language-dart
+Future<bool> removeLike(String postID) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  removeLike method
+
+##### PostService class
 
 
 

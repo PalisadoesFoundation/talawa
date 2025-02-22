@@ -1,28 +1,38 @@
 
-
+<div>
 
 # chatId property
 
+</div>
 
 
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+chatId
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) chatId
-  
-_<span class="feature">final</span>_
-
-
+final
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final String chatId;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_message_screen](../../views_after_auth_screens_chat_chat_message_screen/)
+3.  [ChatMessageScreen](../../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)
+4.  chatId property
+
+##### ChatMessageScreen class
 
 
 

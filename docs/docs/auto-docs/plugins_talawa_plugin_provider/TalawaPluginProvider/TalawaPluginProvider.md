@@ -1,30 +1,33 @@
 
-
+<div>
 
 # TalawaPluginProvider constructor
 
+</div>
 
 
-
-
-
-const
-TalawaPluginProvider(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, @[required](https://pub.dev/documentation/meta/1.8.0/meta/required-constant.html) [Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)? child, required [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) visible, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) pluginName\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const TalawaPluginProvider(\{
-  Key? key,
-  @required this.child,
-  required this.visible,
-  required this.pluginName,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
+3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)
+4.  TalawaPluginProvider const constructor
+
+##### TalawaPluginProvider class
 
 
 

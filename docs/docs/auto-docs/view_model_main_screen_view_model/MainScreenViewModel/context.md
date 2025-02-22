@@ -1,29 +1,42 @@
 
-
+<div>
 
 # context property
 
+</div>
+
+
+[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html)
+context
+
+
+getter/setter pair
 
 
 
 
-
-
-[BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) context
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>context consist of parent info.</p>
+context consist of parent info.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 late BuildContext context;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  context property
+
+##### MainScreenViewModel class
 
 
 

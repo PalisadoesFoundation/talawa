@@ -1,38 +1,34 @@
 
-
+<div>
 
 # clientToQuery method
 
+</div>
 
 
-
-
-
-
-
-[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/GraphQLClient-class.html) clientToQuery
-()
-
-
-
-
+[[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)]
 
 
 
 
 ## Implementation
 
-```dart
-GraphQLClient clientToQuery() \{
-  //TODO: Implement websocket link from OrgUrl
-  // final link = Link.split(
-  //     (request) => request.isSubscription, webSocketLink, httpLink);
-  return GraphQLClient(
-    cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-    link: httpLink,
-  );
-\}
+``` language-dart
+GraphQLClient  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [graphql_config](../../services_graphql_config/)
+3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
+4.  clientToQuery method
+
+##### GraphqlConfig class
 
 
 

@@ -1,26 +1,27 @@
 
-
+<div>
 
 # overline property
 
+</div>
+
+
+[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
+overline
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html) overline
-  
-_<span class="feature">read / write</span>_
-
-
-
+Custom theme for the app.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static TextStyle overline = const TextStyle(
   fontSize: 6,
   fontWeight: FontWeight.w400,
@@ -28,6 +29,19 @@ static TextStyle overline = const TextStyle(
   fontFamily: 'OpenSans',
 );
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [apptheme](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  overline property
+
+##### AppTheme class
 
 
 

@@ -1,32 +1,49 @@
 
-
+<div>
 
 # admins property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(3)
+
+</div>
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]?
+admins
+
+
+getter/setter pair
 
 
 
 
-
-
-**Annotations**
-
-- @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(3)
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)>? admins
-  
-_<span class="feature">read / write</span>_
-
-
-
+The org admins.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @HiveField(3)
 List<User>? admins;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [org_info](../../models_organization_org_info/)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
+4.  admins property
+
+##### OrgInfo class
 
 
 

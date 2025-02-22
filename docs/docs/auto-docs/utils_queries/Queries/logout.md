@@ -1,36 +1,44 @@
 
-
+<div>
 
 # logout method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 
 
 
+logout muiation.
 
+**params**: None
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) logout
-()
-
-
-
-
-
+-   `String`: simple mutation
 
 
 
 ## Implementation
 
-```dart
-String logout() \{
-  return """
-      mutation \{
-        logout
-      \}
-  """;
-\}
+``` language-dart
+String  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  logout method
+
+##### Queries class
 
 
 

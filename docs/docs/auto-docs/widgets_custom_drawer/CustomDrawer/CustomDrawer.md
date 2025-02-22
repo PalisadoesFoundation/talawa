@@ -1,28 +1,33 @@
 
-
+<div>
 
 # CustomDrawer constructor
 
+</div>
 
 
-
-
-
-const
-CustomDrawer(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md) homeModel\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const CustomDrawer(\{
-  Key? key,
-  required this.homeModel,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_drawer](../../widgets_custom_drawer/)
+3.  [CustomDrawer](../../widgets_custom_drawer/CustomDrawer-class.md)
+4.  CustomDrawer const constructor
+
+##### CustomDrawer class
 
 
 

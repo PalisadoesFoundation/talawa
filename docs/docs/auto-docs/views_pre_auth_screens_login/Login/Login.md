@@ -1,25 +1,33 @@
 
-
+<div>
 
 # Login constructor
 
+</div>
 
 
-
-
-
-const
-Login(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const Login(\{required Key key\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [login](../../views_pre_auth_screens_login/)
+3.  [Login](../../views_pre_auth_screens_login/Login-class.md)
+4.  Login const constructor
+
+##### Login class
 
 
 

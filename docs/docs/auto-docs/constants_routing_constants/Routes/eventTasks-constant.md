@@ -1,29 +1,38 @@
 
-
+<div>
 
 # eventTasks constant
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+const eventTasks
 
 
 
-
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) const eventTasks
-  
-
-
-
-
-<p>static variables.</p>
+static variables.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static const String eventTasks = '/event_tasks';
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [routing_constants](../../constants_routing_constants/)
+3.  [Routes](../../constants_routing_constants/Routes-class.md)
+4.  eventTasks constant
+
+##### Routes class
 
 
 

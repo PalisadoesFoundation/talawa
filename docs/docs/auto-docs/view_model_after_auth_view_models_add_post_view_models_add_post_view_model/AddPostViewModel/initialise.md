@@ -1,42 +1,41 @@
 
-
+<div>
 
 # initialise method
 
+</div>
+
+
+void 
 
 
 
+This function is usedto do initialisation of stuff in the view model.
 
+**params**: None
 
-
-
-void initialise
-()
-
-
-
-
-
-<p>This function is usedto do initialisation of stuff in the view model.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void initialise() \{
-  _currentUser = locator<UserConfig>().currentUser;
-  _navigationService = locator<NavigationService>();
-  _selectedOrg = locator<UserConfig>().currentOrg;
-  _imageFile = null;
-  _multiMediaPickerService = locator<MultiMediaPickerService>();
-  _dbFunctions = locator<DataBaseMutationFunctions>();
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
+3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+4.  initialise method
+
+##### AddPostViewModel class
 
 
 

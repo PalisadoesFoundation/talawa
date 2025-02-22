@@ -1,28 +1,42 @@
 
-
+<div>
 
 # posts property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[Post](../../models_post_post_model/Post-class.md)]\>]
+posts
+
+
+final
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> posts
-  
-_<span class="feature">final</span>_
-
-
-
+list of all the post.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final List<Post> posts;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_list_widget](../../widgets_post_list_widget/)
+3.  [PostListWidget](../../widgets_post_list_widget/PostListWidget-class.md)
+4.  posts property
+
+##### PostListWidget class
 
 
 

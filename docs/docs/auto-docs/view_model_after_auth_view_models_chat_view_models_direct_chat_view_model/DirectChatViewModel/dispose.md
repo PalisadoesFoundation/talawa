@@ -1,43 +1,57 @@
 
-
+<div>
 
 # dispose method
 
+</div>
+
+
+<div>
+
+1.  @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
+
+</div>
+
+void 
+
+
+override
 
 
 
 
-
-
-- @[override](https://api.flutter.dev/flutter/dart-core/override-constant.html)
-
-void dispose
-()
-
-_<span class="feature">override</span>_
-
-
-
-<p>Discards any resources used by the object. After this is called, the
+Discards any resources used by the object. After this is called, the
 object is not in a usable state and should be discarded (calls to
-<a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.html">addListener</a> will throw after the object is disposed).</p>
-<p>This method should only be called by the object's owner.</p>
-<p>This method does not notify listeners, and clears the listener list once
+[addListener](https://api.flutter.dev/flutter/foundation/ChangeNotifier/addListener.md)
+will throw after the object is disposed).
+
+This method should only be called by the object\'s owner.
+
+This method does not notify listeners, and clears the listener list once
 it is called. Consumers of this class must decide on whether to notify
-listeners or not immediately before disposal.</p>
+listeners or not immediately before disposal.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @override
-void dispose() \{
-  _chatMessageSubscription?.cancel();
-  _chatListSubscription.cancel();
-  super.dispose();
-\}
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [direct_chat_view_model](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/)
+3.  [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md)
+4.  dispose method
+
+##### DirectChatViewModel class
 
 
 

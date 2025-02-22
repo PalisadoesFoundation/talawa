@@ -1,27 +1,33 @@
 
-
+<div>
 
 # AppLocalizationsDelegate constructor
 
+</div>
 
 
-
-
-
-const
-AppLocalizationsDelegate(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const AppLocalizationsDelegate(\{
-  this.isTest = false,
-\});
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [app_localization](../../utils_app_localization/)
+3.  [AppLocalizationsDelegate](../../utils_app_localization/AppLocalizationsDelegate-class.md)
+4.  AppLocalizationsDelegate const constructor
+
+##### AppLocalizationsDelegate class
 
 
 
