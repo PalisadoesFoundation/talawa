@@ -54,9 +54,26 @@ def remove_curly_braces(content):
 
 # fmt: off
 def flatten_nested_links(content):
-    """Simplify [[reference](url)] links to [reference](url)."""
+    """Simplify [[reference](url)] links to [reference](url).
+
+    Args:
+        content (str): Markdown content with nested links.
+
+    Returns:
+        str: Modified content with simplified links.
+    """
     # Match [[HiveKeys](link)] and turn it into [HiveKeys](link)
     def found_match(match):
+        """Convert [[text](url)] links to [text](url).
+
+        Args:
+            match (re.Match): The match object containing the captured groups
+                            from the regex.The first group is the text, and
+                            the second is the URL.
+
+        Returns:
+            str: The modified link in the format [text](url).
+        """
         return (
             f"[{match.group(1)}]({match.group(2)})"  # Return the modified link
         )
@@ -68,9 +85,24 @@ def flatten_nested_links(content):
 
 
 def fix_nested_links(content):
-    """Simplify [[reference]] links to [reference]."""
+    """Simplify [[reference]] links to [reference].
+
+    Args:
+        content (str): Markdown content with nested links.
+
+    Returns:
+        str: Content with simplified links.
+    """
     # Match [[HiveKeys]] and turn it into [HiveKeys]
     def found_match(match):
+        """Return the modified link without nested brackets.
+
+        Args:
+            match (re.Match): The match object containing the captured group.
+
+        Returns:
+            str: The link text without nested brackets.
+        """
         return match.group(1)  # Return the modified link
 
     # Keep applying the transformation until there are no more matches
@@ -84,7 +116,14 @@ def fix_nested_links(content):
 
 
 def fix_mdx_syntax(content):
-    """Fix MDX syntax errors related to `Map/<String, Object/>` patterns."""
+    """Fix MDX syntax errors related to `Map/<String, Object/>` patterns.
+
+    Args:
+        content (str): Markdown content with MDX syntax errors.
+
+    Returns:
+        str: Content with fixed MDX syntax.
+    """
     # Replace occurrences of Map/<something/> with escaped characters
     content = re.sub(
         r"Map/<([^,]+),\s*([^>]+)\/>", r"Map/&lt;\1, \2/&gt;", content
@@ -94,13 +133,30 @@ def fix_mdx_syntax(content):
 
 
 def fix_links(content, parent_folder):
-    """Update links from .html to .md and adjust relative paths."""
+    """Update links from .html to .md and adjust relative paths.
+
+    Args:
+        content (str): The markdown content with links to be updated.
+        parent_folder (str): The parent folder used to adjust relative paths.
+
+    Returns:
+        str: The updated content with fixed links.
+    """
     # Define the regex pattern to match links
     # that don't start with http or https
 
     pattern = r"\[([^\]]+)\]\((?!http|https|../)(.*)\.html(#.*)?\)"
 
     def replace_link(m):
+        """Replace the parent folder reference in the link with '.'
+
+        Args:
+            m (re.Match): The match object returned by the regular expression.
+
+        Returns:
+            str: The updated link with the parent folder replaced by '.'
+            and the .html extension changed to .md.
+        """
         # Split the path into parts
         parts = m.group(2).split("/")
         if parts[0] == parent_folder:
@@ -128,10 +184,26 @@ def fix_links(content, parent_folder):
 
 
 def replace_parent_folder_links(content, parent_folder):
-    """Replace parent folder links with relative path '.'."""
+    """Replace parent folder links with relative path '.'.
+
+    Args:
+        content (str): The markdown content containing links to be updated.
+        parent_folder (str): The parent folder name to be replaced.
+
+    Returns:
+        str: The updated content with replaced links.
+    """
     pattern = r"\[([^\]]+)\]\(([^)]+)\)"
 
     def replace_parent_link(m):
+        """Replace the parent folder in the link with '.'.
+
+        Args:
+            m (re.Match): The match object from the regular expression search.
+
+        Returns:
+            str: The updated link with the parent folder replaced by '.'.
+        """
         # Get the link URL and split it by "/"
         url_parts = m.group(2).split("/")
 
@@ -170,6 +242,21 @@ for root, _, files in os.walk(md_folder):
         # Read the file content
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
+            """Apply a series of transformations to Markdown content.
+
+            This function performs the following fixes:
+                - Fixes Markdown inside Markdown (e.g., nested links).
+                - Fixes angle brackets inside links.
+                - Removes lines with Dartdoc-specific syntax.
+                - Removes empty parentheses in Markdown links.
+                - Normalizes Markdown links with extra parentheses.
+
+            Args:
+                content (str): The Markdown content to be processed.
+
+            Returns:
+                str: The processed Markdown content with fixes applied.
+            """
 
             # If file is `index.md`, flatten nested `[[...]]` links first
             if file.endswith("index.md"):
