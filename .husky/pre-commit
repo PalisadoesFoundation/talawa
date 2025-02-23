@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Runs the Generate Docs script before committing
+scripts/docusaurus/generate_docs.sh
+
+# Add the generated docs to the commit
+git add docs/docs/auto-docs
+
