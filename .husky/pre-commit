@@ -5,7 +5,10 @@ if git diff --name-only --cached | grep -q '\.dart$'; then
   echo "Dart files changed. Generating docs..."
   
   # Run the Generate Docs script
-  scripts/docusaurus/generate_docs.sh
+  if ! scripts/docusaurus/generate_docs.sh; then
+    echo "Error: Documentation generation failed. Aborting commit."
+    exit 1
+  fi
   
   # Add the generated docs to the commit
   git add docs/docs/auto-docs
