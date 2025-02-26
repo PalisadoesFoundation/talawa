@@ -34,7 +34,7 @@ jobs:
         close-pr-message: 'This pull request did not get any activity in the past 180 days and thus has been closed.'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
-        days-before-stale: 10
+        days-before-stale: 7
         days-before-close: 180
         remove-stale-when-updated: true
         exempt-all-milestones: true
