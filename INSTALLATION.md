@@ -11,6 +11,7 @@ Welcome to our installation guide for developers. Jump in and contribute!
     - [Talawa Mobile App](#talawa-mobile-app)
 - [Installation](#installation)
   - [Manual Build and Installation](#manual-build-and-installation)
+  - [Installing Dependencies](#installing-dependencies)
   - [Installing Pandoc](#installing-pandoc)
     - [Windows](#windows)
     - [macOS](#macos)
@@ -61,6 +62,15 @@ You can start using Talawa by any of the two methods:
 
 We have tried to make the process simple. Here's what you need to do.
 
+Before proceeding with the installation, ensure you have **Node.js** and **npm** installed on your system. You can check this by running:  
+
+```sh
+node -v
+npm -v
+```
+
+If not installed, download and install them from [Node.js official website](https://nodejs.org/).  
+
 1. Clone and change into the project.
    ```sh
    $ git clone https://github.com/PalisadoesFoundation/talawa.git
@@ -74,6 +84,16 @@ We have tried to make the process simple. Here's what you need to do.
    $ flutter pub get
    ```
 1. Start developing!
+
+## Installing Dependencies  
+
+Since the repository contains a `package.json` file in the root directory, you can install all dependencies, including **Husky**, by running:  
+
+```sh
+npm install
+```
+
+This will automatically install **Husky** along with other project dependencies.  
 
 ## Installing Pandoc
 
