@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as fs;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/hive_manager.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -58,11 +56,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     initQuickActions();
-
-    final urlBox = Hive.box('url');
-    if (urlBox.get('url') != null) {
-      FetchPluginList();
-    }
 
     fs.SystemChrome.setPreferredOrientations(
       [
@@ -164,7 +157,6 @@ class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    FetchPluginList();
     return BaseView<DemoViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(

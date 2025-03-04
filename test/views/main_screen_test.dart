@@ -103,23 +103,6 @@ void main() async {
         .registerFactory<MainScreenViewModel>(() => MockMainScreenViewModel());
 
     graphQLClient = locator<GraphQLClient>();
-    when(
-      graphQLClient.query(
-        QueryOptions(
-          document: gql(queries.getPluginsList()),
-        ),
-      ),
-    ).thenAnswer(
-      (realInvocation) async {
-        return QueryResult.internal(
-          source: QueryResultSource.network,
-          parserFn: (data) => {},
-          data: {
-            "getPlugins": [],
-          },
-        );
-      },
-    );
   });
 
   tearDownAll(() {
@@ -153,75 +136,6 @@ void main() async {
     //   // await tester.pumpAndSettle();
     //
     //   expect(find.byType(MainScreen), findsOneWidget);
-    // });
-    //
-    // testWidgets("Check if all children shows up", (tester) async {
-    //   // This stub shows its effect in the next test
-    //
-    //   when(
-    //     graphQLClient.query(
-    //       QueryOptions(
-    //         document: gql(queries.getPluginsList()),
-    //       ),
-    //     ),
-    //   ).thenAnswer(
-    //     (realInvocation) async {
-    //       return QueryResult.internal(
-    //         source: QueryResultSource.network,
-    //         parserFn: (data) => {},
-    //         data: {
-    //           "getPlugins": null,
-    //         },
-    //       );
-    //     },
-    //   );
-    //
-    //   await tester.pumpWidget(createMainScreen());
-    //   await tester.pump();
-    //
-    //   expect(
-    //     find.byWidgetPredicate(
-    //       (widget) =>
-    //           widget is Scaffold &&
-    //           widget.drawer is CustomDrawer &&
-    //           widget.body is IndexedStack &&
-    //           widget.bottomNavigationBar is BottomNavigationBar,
-    //     ),
-    //     findsOneWidget,
-    //   );
-    //
-    //   expect(find.byIcon(Icons.home), findsOneWidget);
-    //   expect(find.byIcon(Icons.event_note), findsOneWidget);
-    //   expect(find.byIcon(Icons.add_box), findsOneWidget);
-    //   expect(find.byIcon(Icons.chat_outlined), findsOneWidget);
-    //   expect(find.byIcon(Icons.account_circle), findsOneWidget);
-    //
-    //   expect(find.byType(OrganizationFeed), findsOneWidget);
-    //   expect(find.byType(ExploreEvents), findsOneWidget);
-    //   expect(find.byType(AddPost), findsOneWidget);
-    //   expect(find.byType(ProfilePage), findsOneWidget);
-    // });
-    //
-    // testWidgets("Check if plugin loading works", (tester) async {
-    //   mockNetworkImages(() async {
-    //     await tester.pumpWidget(createMainScreen());
-    //     await tester.pump();
-    //
-    //     expect(find.byIcon(Icons.home), findsOneWidget);
-    //     expect(find.byIcon(Icons.event_note), findsOneWidget);
-    //     expect(find.byIcon(Icons.add_box), findsOneWidget);
-    //     expect(find.byIcon(Icons.chat_outlined), findsOneWidget);
-    //     expect(find.byIcon(Icons.account_circle), findsOneWidget);
-    //
-    //     expect(find.byType(OrganizationFeed), findsOneWidget);
-    //     expect(find.byType(ExploreEvents), findsOneWidget);
-    //     expect(find.byType(AddPost), findsOneWidget);
-    //     expect(find.byType(ProfilePage), findsOneWidget);
-    //
-    //     // If MainScreen finds some plugins, it will add them dynamically
-    //
-    //     // expect(find.byType(ChangeThemeTile), findsOneWidget);
-    //   });
     // });
     //
     // testWidgets("Check if changing pages works", (tester) async {

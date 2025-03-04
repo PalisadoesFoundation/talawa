@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
-import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -17,7 +14,6 @@ import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// MainScreenViewModel class provide methods to interact with the modal to serve data in user's action in Main Screen Views.
@@ -181,12 +177,6 @@ class MainScreenViewModel extends BaseModel {
     final appTourDialogWidget = appTourDialog(ctx);
     print(ctx);
     print(context);
-    pluginPrototypeData = {
-      "Donation": {
-        "icon": Icons.attach_money_outlined,
-        "page": const ChangeThemeTile(),
-      },
-    };
 
     notifyListeners();
     if (!showAppTour) {
@@ -203,23 +193,10 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// Contains the Widgets to be rendered for corresponding navbar items.
-  ///
-  /// Features that should be implemented as plugins should be kept here.
   List<Widget> pages = [];
 
   /// Actual [BottomNavigationBarItem]s that show up on the screen.
   List<BottomNavigationBarItem> navBarItems = [];
-
-  /// Maps the feature names with their proper Icon and Page.
-  ///
-  /// `icon` contains the [IconData] corresponding to plugin's icon.
-  /// `page` contains the corresponding page to be displayed.
-  /// Name of the feature provided by the admin must [exactly] match with the.
-  /// name stored here.
-  Map<dynamic, dynamic> pluginPrototypeData = {};
-
-  /// list of all the pluginList.
-  List<dynamic> pluginList = [];
 
   /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
   ///
@@ -230,7 +207,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void fetchAndAddPlugins(
+  void setupNavigationItems(
     BuildContext context,
   ) {
     navBarItems = [
@@ -289,46 +266,6 @@ class MainScreenViewModel extends BaseModel {
           homeModel: this,
         ),
       ];
-      pluginList =
-          (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
-
-      print(pluginPrototypeData);
-      pluginList.forEach((plugin) {
-        if (pluginPrototypeData.containsKey(
-              (plugin as Map<String, dynamic>)["pluginName"] as String,
-            ) &&
-            plugin["pluginInstallStatus"] as bool) {
-          navBarItems.add(
-            BottomNavigationBarItem(
-              icon: Icon(
-                (pluginPrototypeData[plugin["pluginName"]]
-                    as Map<String, dynamic>)["icon"] as IconData,
-              ),
-              label: AppLocalizations.of(context)!.strictTranslate(
-                plugin["pluginName"] as String,
-              ),
-            ),
-          );
-          pages.add(
-            (pluginPrototypeData[plugin["pluginName"]]
-                as Map<String, dynamic>)["class"] as StatelessWidget,
-          );
-        }
-      });
-
-      /// Causes the app check the plugins updates in every 300 sec
-      ///
-      /// updated and re-render the navbar
-      Timer.periodic(Duration(seconds: (testMode ? 1 : 300)), (timer) {
-        FetchPluginList();
-        final newPluginList =
-            (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
-
-        if (listEquals(pluginList, newPluginList)) {
-          // notifyListeners();
-        }
-        if (testMode) timer.cancel();
-      });
     } else {
       pages = [
         DemoOrganizationFeed(
