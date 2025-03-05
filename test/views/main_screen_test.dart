@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 // import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:provider/provider.dart';
@@ -90,8 +89,6 @@ class Test extends StatelessWidget {
 }
 
 void main() async {
-  late GraphQLClient graphQLClient;
-
   setUpAll(() async {
     testSetupLocator();
     registerServices();
@@ -101,8 +98,6 @@ void main() async {
     locator.unregister<MainScreenViewModel>();
     locator
         .registerFactory<MainScreenViewModel>(() => MockMainScreenViewModel());
-
-    graphQLClient = locator<GraphQLClient>();
   });
 
   tearDownAll(() {
