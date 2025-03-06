@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -125,28 +124,24 @@ class ProfilePage extends StatelessWidget {
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.02,
                         ),
-                        TalawaPluginProvider(
-                          pluginName: "Donation",
-                          visible: true,
-                          child: Column(
-                            children: [
-                              RaisedRoundedButton(
-                                key: homeModel!.keySPDonateUs,
-                                buttonLabel: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  'Donate to the Community',
-                                ),
-                                onTap: () => donate(context, model),
-                                textColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .focusedBorder!
-                                    .borderSide
-                                    .color,
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.tertiary,
+                        Column(
+                          children: [
+                            RaisedRoundedButton(
+                              key: homeModel!.keySPDonateUs,
+                              buttonLabel:
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                'Donate to the Community',
                               ),
-                            ],
-                          ),
+                              onTap: () => donate(context, model),
+                              textColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .focusedBorder!
+                                  .borderSide
+                                  .color,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.tertiary,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.68,

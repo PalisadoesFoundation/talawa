@@ -189,8 +189,6 @@ class DemoProfilePage extends StatelessWidget {
                   height: SizeConfig.screenHeight! * 0.05,
                 ),
 
-                /// `Donation` acts as plugin. If visible is true the it will be always visible.
-                /// even if it's uninstalled by the admin (for development purposes)
                 //TODO: custom tile for Invitation.
                 // CustomListTile(
                 //   key: homeModel!.keySPInvite,
