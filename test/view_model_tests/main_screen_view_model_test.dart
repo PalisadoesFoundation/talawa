@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/router.dart' as router;
@@ -18,7 +17,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
-import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 // import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -92,16 +90,8 @@ Widget createAppTourDialog({bool demoMode = true}) => BaseView<AppLanguage>(
             builder: (context, model2, child) {
               model2.context = context;
               model2.appTour = MockAppTour(model: model2);
-              model2.pluginPrototypeData.putIfAbsent(
-                "Plugin1",
-                () => {
-                  "pluginName": "Plugin1",
-                  "pluginInstallStatus": true,
-                  'icon': Icons.abc,
-                  'class': const ChangeThemeTile(),
-                },
-              );
-              model2.fetchAndAddPlugins(context);
+
+              model2.setupNavigationItems(context);
               return Scaffold(
                 drawer: CustomDrawer(homeModel: model2),
                 key: MainScreenViewModel.scaffoldKey,
@@ -140,19 +130,6 @@ void verifyInteraction(dynamic x, {required String mockName}) {
 }
 
 void main() async {
-  final pluginBox = Hive.box('pluginBox');
-
-  final List<Map<String, dynamic>> samplePluginData = [
-    {
-      "pluginName": "Plugin1",
-      "pluginInstallStatus": true,
-    },
-    // Add more sample plugin data as needed
-  ];
-
-  // Store the sample data in the 'plugins' key of 'pluginBox'
-  pluginBox.put('plugins', samplePluginData);
-
   // No need to change
   setUpAll(() {
     locator.registerFactory(() => CustomDrawerViewModel());
@@ -302,7 +279,7 @@ void main() async {
       await tester.pumpAndSettle(const Duration(seconds: 2));
     });
 
-    testWidgets('Test for fetchAndAddPlugins when not in demoMode',
+    testWidgets('Test for setupNavigationItems when not in demoMode',
         (tester) async {
       final app = createAppTourDialog(demoMode: false);
 
