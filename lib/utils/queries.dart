@@ -434,29 +434,6 @@ class Queries {
   ''';
   }
 
-  ///`getPluginList` queries all properties of  pluginList from the server.
-  ///
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: query in string form, to be passed on to graphql client.
-  String getPluginsList() {
-    return '''
-query  {
-  getPlugins {
-    _id
-    pluginName
-    pluginCreatedBy
-    pluginDesc 
-    pluginInstallStatus
-    installedOrgs
-  }
-}
-  ''';
-  }
-
   /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters.
   ///
   /// more_info_if_required
