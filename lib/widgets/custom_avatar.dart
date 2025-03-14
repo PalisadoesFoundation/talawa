@@ -48,7 +48,7 @@ class CustomAvatar extends StatelessWidget {
             maxRadius: maxRadius,
             child: Center(
               child: Text(
-                firstAlphabet!,
+                firstAlphabet ?? '?',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: fontSize,
                       color: Theme.of(context).colorScheme.onSecondary,
