@@ -1,4 +1,5 @@
-"""This script contains functions for cleaning up markdown files.
+"""
+This script contains functions for cleaning up markdown files.
 
 It removes dartdoc-specific styling and fixes links.
 It processes files in the specified markdown folder and applies various
@@ -13,7 +14,7 @@ md_folder = "docs/docs/auto-docs"  # Path to the docs folder
 
 # Function to remove dartdoc added styling
 def clean_markdown(content):
-    """Removes dartdoc-specific styling from markdown links.
+    """Remove dartdoc-specific styling from markdown links.
 
     Args:
         content (str): The markdown content to be cleaned.
@@ -26,7 +27,7 @@ def clean_markdown(content):
 
 
 def remove_curly_braces(content):
-    """Removes non-nested curly braces from the markdown content.
+    """Remove non-nested curly braces from the markdown content.
 
     This function repeatedly removes top-level curly braces (those not
     containing other curly braces inside them) until none remain.
