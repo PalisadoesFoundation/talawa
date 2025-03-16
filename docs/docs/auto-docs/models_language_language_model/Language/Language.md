@@ -1,15 +1,10 @@
 
-
+<div>
 
 # Language constructor
 
+</div>
 
-
-
-
-
-
-Language(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) countryCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langName, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langSample\})
 
 
 
@@ -17,14 +12,22 @@ Language(\{required [String](https://api.flutter.dev/flutter/dart-core/String-cl
 
 ## Implementation
 
-```dart
-Language(\{
-  required this.countryCode,
-  required this.langCode,
-  required this.langName,
-  required this.langSample,
-\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [language_model](../../models_language_language_model/)
+3.  [Language](../../models_language_language_model/Language-class.md)
+4.  Language constructor
+
+##### Language class
 
 
 

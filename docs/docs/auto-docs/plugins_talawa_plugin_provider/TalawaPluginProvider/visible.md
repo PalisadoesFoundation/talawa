@@ -1,29 +1,42 @@
 
-
+<div>
 
 # visible property
 
+</div>
+
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+visible
+
+
+final
 
 
 
 
-
-
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) visible
-  
-_<span class="feature">final</span>_
-
-
-
-<p>visible is the property that decides visibility of the UI.</p>
+visible is the property that decides visibility of the UI.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final bool visible;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
+3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)
+4.  visible property
+
+##### TalawaPluginProvider class
 
 
 

@@ -1,25 +1,33 @@
 
-
+<div>
 
 # DescriptionTextWidget constructor
 
+</div>
 
 
-
-
-
-const
-DescriptionTextWidget(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) text\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const DescriptionTextWidget(\{required this.text\});
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_detailed_page](../../widgets_post_detailed_page/)
+3.  [DescriptionTextWidget](../../widgets_post_detailed_page/DescriptionTextWidget-class.md)
+4.  DescriptionTextWidget const constructor
+
+##### DescriptionTextWidget class
 
 
 

@@ -1,28 +1,49 @@
 
-
+<div>
 
 # createdAt property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(1)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+createdAt
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? createdAt
-  
-_<span class="feature">read / write</span>_
-
-
-
+The creation date of the comment.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
+@HiveField(1)
 String? createdAt;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [comment_model](../../models_comment_comment_model/)
+3.  [Comment](../../models_comment_comment_model/Comment-class.md)
+4.  createdAt property
+
+##### Comment class
 
 
 

@@ -1,31 +1,33 @@
 
-
+<div>
 
 # DateTimeTile constructor
 
+</div>
 
 
-
-
-
-const
-DateTimeTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) date, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) time, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) setDate, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) setTime\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const DateTimeTile(\{
-  Key? key,
-  required this.date,
-  required this.time,
-  required this.setDate,
-  required this.setTime,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_date_time_tile](../../widgets_event_date_time_tile/)
+3.  [DateTimeTile](../../widgets_event_date_time_tile/DateTimeTile-class.md)
+4.  DateTimeTile const constructor
+
+##### DateTimeTile class
 
 
 

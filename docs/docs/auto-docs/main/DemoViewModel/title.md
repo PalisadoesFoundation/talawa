@@ -1,38 +1,44 @@
 
-
+<div>
 
 # title property
 
+</div>
 
 
 
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get title
 
 
 
+Getter function of the title.
 
+params: None returns:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) title
-  
-
-
-
-
-<p>Getter function of the title.</p>
-<p>params:
-None
-returns:</p>
-<ul>
-<li>```dartString```: title  of the model</li>
-</ul>
+-   `String`: title of the model
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String get title => _title;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main](../../main/)
+3.  [DemoViewModel](../../main/DemoViewModel-class.md)
+4.  title property
+
+##### DemoViewModel class
 
 
 

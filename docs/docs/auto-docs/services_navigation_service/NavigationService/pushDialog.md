@@ -1,40 +1,49 @@
 
-
+<div>
 
 # pushDialog method
 
+</div>
+
+
+void pushDialog(
+
+1.  [[[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.md)]
+    dialog]
+
+)
 
 
 
+This function remove all the routes till the particular route and add
+new route.
 
+**params**:
 
+-   `dialog`: Widget to show
 
-
-void pushDialog
-([Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html) dialog)
-
-
-
-
-
-<p>This function is used to show the custom Dialog.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void pushDialog(Widget dialog) \{
-  showDialog(
-    context: navigatorKey.currentContext!,
-    barrierColor: Colors.transparent,
-    barrierDismissible: false,
-    builder: (BuildContext context) \{
-      return dialog;
-    \},
-  );
-\}
+``` language-dart
+void pushDialog(Widget dialog) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [navigation_service](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  pushDialog method
+
+##### NavigationService class
 
 
 

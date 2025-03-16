@@ -1,50 +1,45 @@
 
-
+<div>
 
 # getCurrentOrgUsersList method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]]\>]]
 
 
 
 
+This function fetch all the users in the current organization and return
+`List`.
 
+**params**: None
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)>> getCurrentOrgUsersList
-()
-
-
-
-
-
-<p>This function fetch all the users in the current organization and return ```dartList```.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;List&lt;User&gt;&gt;```: Current Organization Users List</li>
-</ul>
+-   `Future<List<User>>`: Current Organization Users List
 
 
 
 ## Implementation
 
-```dart
-Future<List<User>> getCurrentOrgUsersList() async \{
-  if (orgMembersList.isEmpty) \{
-    orgMembersList = await organizationService
-        .getOrgMembersList(userConfig.currentOrg.id!);
-  \}
-
-  // loop through list
-  orgMembersList.forEach((orgMember) \{
-    _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-    _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-  \});
-  // return list
-  return orgMembersList;
-\}
+``` language-dart
+Future<List<User>>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [create_event_view_model](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/)
+3.  [CreateEventViewModel](../../view_model_after_auth_view_models_event_view_models_create_event_view_model/CreateEventViewModel-class.md)
+4.  getCurrentOrgUsersList method
+
+##### CreateEventViewModel class
 
 
 

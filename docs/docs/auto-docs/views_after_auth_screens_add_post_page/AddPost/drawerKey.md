@@ -1,29 +1,42 @@
 
-
+<div>
 
 # drawerKey property
 
+</div>
+
+
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)]\>]?
+drawerKey
+
+
+final
 
 
 
 
-
-
-[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[ScaffoldState](https://api.flutter.dev/flutter/material/ScaffoldState-class.html)>? drawerKey
-  
-_<span class="feature">final</span>_
-
-
-
-<p>DrawerKey.</p>
+DrawerKey.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final GlobalKey<ScaffoldState>? drawerKey;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [add_post_page](../../views_after_auth_screens_add_post_page/)
+3.  [AddPost](../../views_after_auth_screens_add_post_page/AddPost-class.md)
+4.  drawerKey property
+
+##### AddPost class
 
 
 

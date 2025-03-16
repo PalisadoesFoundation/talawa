@@ -1,64 +1,49 @@
 
-
+<div>
 
 # editEvent method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
 
 
 
 
+This function is used to edit an event.
 
+**params**:
 
+-   `eventId`: id of an event
+-   `variables`: this will be `map` type and contain all the event
+    details need to be update.
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> editEvent
-(\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) eventId, required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> variables\})
+**returns**:
 
-
-
-
-
-<p>This function is used to edit an event.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```darteventId```: id of an event</li>
-<li>```dartvariables```: this will be ```dartmap``` type and contain all the event details need to be update.</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;void&gt;```: void return</li>
-</ul>
+-   `Future<QueryResult<Object?>>`: Information about the event
+    deletion.
 
 
 
 ## Implementation
 
-```dart
-Future<void> editEvent(\{
-  required String eventId,
-  required Map<String, dynamic> variables,
-\}) async \{
-  navigationService.pushDialog(
-    const CustomProgressDialog(
-      key: Key('EditEventProgress'),
-    ),
-  );
-  final tokenResult = await _dbFunctions
-      .refreshAccessToken(userConfig.currentUser.refreshToken!);
-  debugPrint(tokenResult.toString());
-  final result = await _dbFunctions.gqlAuthMutation(
-    EventQueries().updateEvent(eventId: eventId),
-    variables: variables,
-  );
-  navigationService.pop();
-  if (result != null) \{
-    navigationService.removeAllAndPush(
-      Routes.exploreEventsScreen,
-      Routes.mainScreen,
-      arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
-    );
-  \}
-\}
+``` language-dart
+Future<QueryResult<Object?>>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_service](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  editEvent method
+
+##### EventService class
 
 
 

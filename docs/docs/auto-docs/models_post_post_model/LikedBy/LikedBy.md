@@ -1,15 +1,10 @@
 
-
+<div>
 
 # LikedBy constructor
 
+</div>
 
-
-
-
-
-
-LikedBy(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId\})
 
 
 
@@ -17,9 +12,22 @@ LikedBy(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
 
 ## Implementation
 
-```dart
-LikedBy(\{this.sId\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/)
+3.  [LikedBy](../../models_post_post_model/LikedBy-class.md)
+4.  LikedBy constructor
+
+##### LikedBy class
 
 
 

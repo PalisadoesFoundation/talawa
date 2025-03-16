@@ -1,33 +1,49 @@
 
-
+<div>
 
 # initialize method
 
+</div>
+
+
+void initialize(
+
+1.  [[[Event](../../models_events_event_model/Event-class.md)]
+    event]
+
+)
 
 
 
+Method to initialize the event and fill the edit form.
 
+**params**:
 
+-   `event`: An instance of `Event` that contains the details to
+    initialize and fill the form.
 
-
-void initialize
-([Event](../../models_events_event_model/Event-class.md) event)
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void initialize(Event event) \{
-  _event = event;
-  _fillEditForm();
-\}
+``` language-dart
+void initialize(Event event) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
+3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
+4.  initialize method
+
+##### EditEventViewModel class
 
 
 

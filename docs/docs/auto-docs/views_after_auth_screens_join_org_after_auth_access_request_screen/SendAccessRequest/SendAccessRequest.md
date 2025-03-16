@@ -1,29 +1,33 @@
 
-
+<div>
 
 # SendAccessRequest constructor
 
+</div>
 
 
-
-
-
-const
-SendAccessRequest(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [OrgInfo](../../models_organization_org_info/OrgInfo-class.md) org\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const SendAccessRequest(\{
-  Key? key,
-  required this.org,
-  // required this.model
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [access_request_screen](../../views_after_auth_screens_join_org_after_auth_access_request_screen/)
+3.  [SendAccessRequest](../../views_after_auth_screens_join_org_after_auth_access_request_screen/SendAccessRequest-class.md)
+4.  SendAccessRequest const constructor
+
+##### SendAccessRequest class
 
 
 

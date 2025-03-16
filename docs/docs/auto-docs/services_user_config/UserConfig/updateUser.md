@@ -1,46 +1,52 @@
 
-
+<div>
 
 # updateUser method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]\>]]
+updateUser(
+
+1.  [[[User](../../models_user_user_info/User-class.md)]
+    updatedUserDetails]
+
+)
 
 
 
+Updates the user details.
 
+**params**:
 
+-   `updatedUserDetails`: `User` type variable containing all the
+    details of an user need to be updated.
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)> updateUser
-([User](../../models_user_user_info/User-class.md) updatedUserDetails)
-
-
-
-
-
-<p>This function is used to update the user details.</p>
-<p>params:</p>
-<ul>
-<li>```dartupdatedUserDetails``` : ```dartUser``` type variable containing all the details of an user need to be updated.</li>
-</ul>
+-   `Future<bool>`: returns future of bool type.
 
 
 
 ## Implementation
 
-```dart
-Future<bool> updateUser(User updatedUserDetails) async \{
-  try \{
-    _currentUser = updatedUserDetails;
-    saveUserInHive();
-    graphqlConfig.getToken();
-    databaseFunctions.init();
-    return true;
-  \} on Exception catch (e) \{
-    debugPrint(e.toString());
-    return false;
-  \}
-\}
+``` language-dart
+Future<bool> updateUser(User updatedUserDetails) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_config](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  updateUser method
+
+##### UserConfig class
 
 
 

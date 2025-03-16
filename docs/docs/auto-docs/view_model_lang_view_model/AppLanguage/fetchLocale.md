@@ -1,37 +1,42 @@
 
-
+<div>
 
 # fetchLocale method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+This function fetch the language of the user\'s app.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> fetchLocale
-()
-
-
-
-
-
-<p>This function fetch the language of the user's app.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> fetchLocale() async \{
-  final prefs = await SharedPreferences.getInstance();
-  final String langCode = prefs.getString('language_code') ?? 'en';
-  _appLocale = Locale(langCode);
-
-  notifyListeners();
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  fetchLocale method
+
+##### AppLanguage class
 
 
 

@@ -1,15 +1,10 @@
 
-
+<div>
 
 # AppLanguage constructor
 
+</div>
 
-
-
-
-
-
-AppLanguage(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) isTest = false\})
 
 
 
@@ -17,9 +12,22 @@ AppLanguage(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) 
 
 ## Implementation
 
-```dart
-AppLanguage(\{this.isTest = false\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  AppLanguage constructor
+
+##### AppLanguage class
 
 
 

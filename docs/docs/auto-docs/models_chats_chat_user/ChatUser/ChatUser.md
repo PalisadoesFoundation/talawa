@@ -1,15 +1,10 @@
 
-
+<div>
 
 # ChatUser constructor
 
+</div>
 
-
-
-
-
-
-ChatUser(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? firstName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image\})
 
 
 
@@ -17,9 +12,22 @@ ChatUser(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 ## Implementation
 
-```dart
-ChatUser(\{this.firstName, this.id, this.image\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_user](../../models_chats_chat_user/)
+3.  [ChatUser](../../models_chats_chat_user/ChatUser-class.md)
+4.  ChatUser constructor
+
+##### ChatUser class
 
 
 

@@ -1,31 +1,40 @@
 
-
+<div>
 
 # currentOrgInfoStream property
 
+</div>
 
 
 
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]]
+get currentOrgInfoStream
 
 
 
-
-
-[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)&lt;[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)> currentOrgInfoStream
-  
-
-
-
-
+Retrieves the stream of current organization information.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_config](../../services_user_config/)
+3.  [UserConfig](../../services_user_config/UserConfig-class.md)
+4.  currentOrgInfoStream property
+
+##### UserConfig class
 
 
 

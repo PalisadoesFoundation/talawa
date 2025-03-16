@@ -1,58 +1,42 @@
 
-
+<div>
 
 # getEvents method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+This function is used to fetch all the events of an organization.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> getEvents
-()
-
-
-
-
-
-<p>This function is used to fetch all the events of an organization.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;void&gt;```: void</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> getEvents() async \{
-  // refresh user's access token
-  await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
-  _dbFunctions.init();
-
-  // get current organization id
-  final String currentOrgID = _currentOrg.id!;
-  // mutation to fetch the events
-  final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-  final result = await _dbFunctions.gqlAuthMutation(mutation);
-
-  if (result == null) return;
-  final List eventsJson = result.data!["eventsByOrganization"] as List;
-  eventsJson.forEach((eventJsonData) \{
-    final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-    event.isRegistered = event.registrants?.any(
-          (registrant) => registrant.id == _userConfig.currentUser.id,
-        ) ??
-        false;
-    _eventStreamController.add(event);
-  \});
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_service](../../services_event_service/)
+3.  [EventService](../../services_event_service/EventService-class.md)
+4.  getEvents method
+
+##### EventService class
 
 
 

@@ -1,129 +1,101 @@
 
-
+<div>
 
 # ShortCutMenu class
 
+</div>
 
 
-
-
-
-
-
-
-<p>This file contains the shortcuts by which user can manage and interact with the
-application. quick_actions package is used for this purpose.</p>
-
+This file contains the shortcuts by which user can manage and interact
+with the application. quick_actions package is used for this purpose.
 
 
 
 ## Constructors
 
-[ShortCutMenu](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md) ()
+[ShortCutMenu](../constants_quick_actions/ShortCutMenu/ShortCutMenu.md)
 
-   
+:   
+
 
 
 ## Properties
 
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
-
-
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
 
 
 ## Methods
 
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
-
-
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Static Properties
 
-##### [quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md) &#8594; [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.0.4/types_types/ShortcutItem-class.html)>
+[[quickActionsList](../constants_quick_actions/ShortCutMenu/quickActionsList.md)] [→ [List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]\>]]
 
-
-
-  
-_<span class="feature">final</span>_
-
-
-
-
-
+:   ::: features
+    final
+    :::
 
 
 
 ## Constants
 
-##### [chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md) const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.0.4/types_types/ShortcutItem-class.html)
+[[chatAction](../constants_quick_actions/ShortCutMenu/chatAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+
+:   
+
+[[eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+
+:   
+
+[[feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md)] [→ const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.1.0/quick_actions_platform_interface/ShortcutItem-class.html)]
+
+:   
 
 
 
-  
 
 
 
 
-##### [eventAction](../constants_quick_actions/ShortCutMenu/eventAction-constant.md) const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.0.4/types_types/ShortcutItem-class.html)
+1.  [talawa](../index.md)
+2.  [quick_actions](../constants_quick_actions/)
+3.  ShortCutMenu class
 
-
-
-  
-
-
-
-
-##### [feedAction](../constants_quick_actions/ShortCutMenu/feedAction-constant.md) const [ShortcutItem](https://pub.dev/documentation/quick_actions_platform_interface/1.0.4/types_types/ShortcutItem-class.html)
-
-
-
-  
-
-
+##### quick_actions library
 
 
 

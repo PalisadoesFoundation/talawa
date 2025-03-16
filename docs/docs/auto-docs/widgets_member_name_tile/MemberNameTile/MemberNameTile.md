@@ -1,30 +1,33 @@
 
-
+<div>
 
 # MemberNameTile constructor
 
+</div>
 
 
-
-
-
-const
-MemberNameTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) userName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? userImage, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) onDelete\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const MemberNameTile(\{
-  Key? key,
-  required this.userName,
-  this.userImage,
-  required this.onDelete,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [member_name_tile](../../widgets_member_name_tile/)
+3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
+4.  MemberNameTile const constructor
+
+##### MemberNameTile class
 
 
 

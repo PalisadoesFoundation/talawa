@@ -1,40 +1,49 @@
 
-
+<div>
 
 # onTabTapped method
 
+</div>
+
+
+void onTabTapped(
+
+1.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.md)]
+    index]
+
+)
 
 
 
+Handles click on
+[BottomNavigationBarItem](https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html).
 
+**params**:
 
+-   `index`: it is track of current page index.
 
-
-void onTabTapped
-([int](https://api.flutter.dev/flutter/dart-core/int-class.html) index)
-
-
-
-
-
-<p>Handles click on <a href="https://api.flutter.dev/flutter/widgets/BottomNavigationBarItem-class.html">BottomNavigationBarItem</a>.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartindex```: it is track of current page index.</li>
-</ul>
-<p><strong>returns</strong>:
-  None</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void onTabTapped(int index) \{
-  currentPageIndex = index;
-  notifyListeners();
-\}
+``` language-dart
+void onTabTapped(int index) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  onTabTapped method
+
+##### MainScreenViewModel class
 
 
 

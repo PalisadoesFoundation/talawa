@@ -1,25 +1,33 @@
 
-
+<div>
 
 # EditEventForm constructor
 
+</div>
 
 
-
-
-
-const
-EditEventForm(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md) model\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const EditEventForm(\{Key? key, required this.model\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [edit_events_form](../../views_after_auth_screens_events_edit_events_form/)
+3.  [EditEventForm](../../views_after_auth_screens_events_edit_events_form/EditEventForm-class.md)
+4.  EditEventForm const constructor
+
+##### EditEventForm class
 
 
 

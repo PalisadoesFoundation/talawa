@@ -1,137 +1,118 @@
 
-
+<div>
 
 # Comment class
 
+</div>
+
+
+This class returns a Comment instance.
 
 
 
 
+Annotations
 
-
-
-
-<p>This class returns a Comment instance.</p>
-
+:   -   @[HiveType](https://pub.dev/documentation/hive/2.2.3/hive/HiveType-class.html)(typeId:
+        12)
 
 
 
 ## Constructors
 
-[Comment](../models_comment_comment_model/Comment/Comment.md) (\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? text, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? createdAt, [User](../models_user_user_info/User-class.md)? creator, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? post, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? likeCount\})
+[[Comment](../models_comment_comment_model/Comment/Comment.md)][]
 
-   
+:   
 
-[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.md) ([Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> json)
+[[Comment.fromJson](../models_comment_comment_model/Comment/Comment.fromJson.md)][([[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.md)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)], dynamic\>]] json])]
 
-   _factory_
+:   ::: 
+    factory
+    :::
+
 
 
 ## Properties
 
-##### [createdAt](../models_comment_comment_model/Comment/createdAt.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+[[createdAt](../models_comment_comment_model/Comment/createdAt.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The creation date of the comment.
+    ::: features
+    getter/setter pair
+    :::
 
+[[creator](../models_comment_comment_model/Comment/creator.md)] [↔ [User](../models_user_user_info/User-class.md)?]
+:   The creator of the comment.
+    ::: features
+    getter/setter pair
+    :::
 
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
-  
-_<span class="feature">read / write</span>_
+[[likeCount](../models_comment_comment_model/Comment/likeCount.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The like count of the comment.
+    ::: features
+    getter/setter pair
+    :::
 
+[[post](../models_comment_comment_model/Comment/post.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The post associated with the comment.
+    ::: features
+    getter/setter pair
+    :::
 
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
-##### [creator](../models_comment_comment_model/Comment/creator.md) &#8596; [User](../models_user_user_info/User-class.md)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
-
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
-
-
-
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [likeCount](../models_comment_comment_model/Comment/likeCount.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
-
-##### [post](../models_comment_comment_model/Comment/post.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [text](../models_comment_comment_model/Comment/text.md) &#8596; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
-
-
-
-  
-_<span class="feature">read / write</span>_
-
-
+[[text](../models_comment_comment_model/Comment/text.md)] [↔ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+:   The text of the comment.
+    ::: features
+    getter/setter pair
+    :::
 
 
 
 ## Methods
 
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
-
-
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 
 
 
+
+1.  [talawa](../index.md)
+2.  [comment_model](../models_comment_comment_model/)
+3.  Comment class
+
+##### comment_model library
 
 
 

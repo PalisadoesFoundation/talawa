@@ -1,28 +1,38 @@
 
-
+<div>
 
 # safeBlockHorizontal property
 
+</div>
 
 
+[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?
+safeBlockHorizontal
 
 
-
-
-[double](https://api.flutter.dev/flutter/dart-core/double-class.html)? safeBlockHorizontal
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static double? safeBlockHorizontal;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [size_config](../../services_size_config/)
+3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
+4.  safeBlockHorizontal property
+
+##### SizeConfig class
 
 
 

@@ -1,28 +1,31 @@
 
-
+<div>
 
 # supportedCurrencies top-level property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]\>]
+supportedCurrencies
+
+
+getter/setter pair
 
 
 
 
+A list of supported currency codes used in the application.
 
-
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html)> supportedCurrencies
-  
-_<span class="feature">read / write</span>_
-
-
-
+Each currency code is represented as a string in the list. This list is
+used to ensure that the application supports various currencies for
+transactions, conversions, or displays.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 List<String> supportedCurrencies = [
   'AED',
   'ALL',
@@ -120,6 +123,17 @@ List<String> supportedCurrencies = [
 ];
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [constants](../constants_constants/)
+3.  supportedCurrencies property
+
+##### constants library
 
 
 

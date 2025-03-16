@@ -1,28 +1,43 @@
 
-
+<div>
 
 # fromSignUp property
 
+</div>
+
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+fromSignUp
+
+
+final
 
 
 
 
-
-
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) fromSignUp
-  
-_<span class="feature">final</span>_
-
-
-
+Indicates whether the user navigated to the main screen from the signup
+page.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final bool fromSignUp;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [mainscreen_navigation_args](../../models_mainscreen_navigation_args/)
+3.  [MainScreenArgs](../../models_mainscreen_navigation_args/MainScreenArgs-class.md)
+4.  fromSignUp property
+
+##### MainScreenArgs class
 
 
 

@@ -1,26 +1,27 @@
 
-
+<div>
 
 # lightTheme property
 
+</div>
+
+
+[ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html)
+lightTheme
+
+
+final
 
 
 
 
-
-
-[ThemeData](https://api.flutter.dev/flutter/material/ThemeData-class.html) lightTheme
-  
-_<span class="feature">final</span>_
-
-
-
+Theme for light mode.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static final lightTheme = ThemeData(
   scaffoldBackgroundColor: _lightScaffoldColor,
   textSelectionTheme: const TextSelectionThemeData(
@@ -37,10 +38,26 @@ static final lightTheme = ThemeData(
     primaryContainer: _lightPrimaryVariantColor,
     primary: _lightColorSchemePrimary,
     secondary: Color(0xffF5F5F5),
+    onSecondary: Colors.black,
     secondaryContainer: _darkScaffoldColor,
+    tertiary: Colors.black26,
+    tertiaryContainer: Color.fromARGB(255, 231, 231, 231),
   ).copyWith(secondary: _lightAccentColor),
 );
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_theme](../../constants_custom_theme/)
+3.  [TalawaTheme](../../constants_custom_theme/TalawaTheme-class.md)
+4.  lightTheme property
+
+##### TalawaTheme class
 
 
 

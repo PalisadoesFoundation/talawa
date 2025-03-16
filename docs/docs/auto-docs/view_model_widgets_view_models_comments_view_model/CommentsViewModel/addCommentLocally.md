@@ -1,40 +1,48 @@
 
-
+<div>
 
 # addCommentLocally method
 
+</div>
+
+
+void addCommentLocally(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    msg]
+
+)
 
 
 
+This function add comment locally.
 
+**params**:
 
+-   `msg`: BuildContext, contain parent info
 
-
-void addCommentLocally
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) msg)
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void addCommentLocally(String msg) \{
-  _postService.addCommentLocally(_postID);
-  final creator = _userConfig.currentUser;
-  final Comment localComment = Comment(
-    text: msg,
-    createdAt: DateTime.now().toString(),
-    creator: creator,
-  );
-  _commentlist.insert(0, localComment);
-  notifyListeners();
-\}
+``` language-dart
+void addCommentLocally(String msg) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [comments_view_model](../../view_model_widgets_view_models_comments_view_model/)
+3.  [CommentsViewModel](../../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)
+4.  addCommentLocally method
+
+##### CommentsViewModel class
 
 
 

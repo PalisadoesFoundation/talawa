@@ -1,29 +1,42 @@
 
-
+<div>
 
 # tourSkipped property
 
+</div>
+
+
+[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
+tourSkipped
+
+
+getter/setter pair
 
 
 
 
-
-
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) tourSkipped
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>bool to determine if apptour is skipped.</p>
+bool to determine if apptour is skipped.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 bool tourSkipped = false;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [main_screen_view_model](../../view_model_main_screen_view_model/)
+3.  [MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)
+4.  tourSkipped property
+
+##### MainScreenViewModel class
 
 
 

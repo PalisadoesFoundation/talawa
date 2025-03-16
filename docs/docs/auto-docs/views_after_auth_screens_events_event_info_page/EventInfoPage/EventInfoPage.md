@@ -1,25 +1,33 @@
 
-
+<div>
 
 # EventInfoPage constructor
 
+</div>
 
 
-
-
-
-const
-EventInfoPage(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> args\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const EventInfoPage(\{Key? key, required this.args\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_info_page](../../views_after_auth_screens_events_event_info_page/)
+3.  [EventInfoPage](../../views_after_auth_screens_events_event_info_page/EventInfoPage-class.md)
+4.  EventInfoPage const constructor
+
+##### EventInfoPage class
 
 
 

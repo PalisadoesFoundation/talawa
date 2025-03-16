@@ -1,15 +1,10 @@
 
-
+<div>
 
 # SignupProgressIndicator constructor
 
+</div>
 
-
-
-
-
-
-SignupProgressIndicator(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [int](https://api.flutter.dev/flutter/dart-core/int-class.html) currentPageIndex\})
 
 
 
@@ -17,10 +12,23 @@ SignupProgressIndicator(\{required [Key](https://api.flutter.dev/flutter/foundat
 
 ## Implementation
 
-```dart
-SignupProgressIndicator(\{required Key key, required this.currentPageIndex\})
+``` language-dart
+
     : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [signup_progress_indicator](../../widgets_signup_progress_indicator/)
+3.  [SignupProgressIndicator](../../widgets_signup_progress_indicator/SignupProgressIndicator-class.md)
+4.  SignupProgressIndicator constructor
+
+##### SignupProgressIndicator class
 
 
 

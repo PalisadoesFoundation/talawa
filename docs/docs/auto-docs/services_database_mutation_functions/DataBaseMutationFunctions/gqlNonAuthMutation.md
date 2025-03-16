@@ -1,62 +1,54 @@
 
-
+<div>
 
 # gqlNonAuthMutation method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlNonAuthMutation(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    mutation, )
 
 
 
+This function is used to run the graph-ql mutation to authenticate the
+non signed-in user.
 
+**params**:
 
+-   `mutation`: mutation is used to change/add/delete data in graphql,
+    for more info read graphql docs
+-   `variables`: variables to be passed with mutation
+-   `reCall`: when not first fetch call
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) gqlNonAuthMutation
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) mutation, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) reCall = true\})
-
-
-
-
-
-<p>This function is used to run the graph-ql mutation to authenticate the non signed-in user.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartmutation```: mutation is used to change/add/delete data in graphql, for more info read graphql docs</li>
-<li>```dartvariables```: variables to be passed with mutation</li>
-<li>```dartreCall```: when not first fetch call</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;dynamic&gt;```: it returns Future of dynamic</li>
-</ul>
+-   `Future<QueryResult<Object?>>`: it returns Future of dynamic
 
 
 
 ## Implementation
 
-```dart
-Future<dynamic> gqlNonAuthMutation(
-  String mutation, \{
-  Map<String, dynamic>? variables,
-  bool reCall = true,
-\}) async \{
-  final QueryResult result = await clientNonAuth.mutate(
-    MutationOptions(
-      document: gql(mutation),
-      variables: variables ?? <String, dynamic>\{\},
-    ),
-  );
-  // if there is an error or exception in [result]
-  if (result.hasException) \{
-    final exception = encounteredExceptionOrError(result.exception!);
-    if (exception! && reCall) \{
-      gqlNonAuthMutation(mutation, variables: variables);
-    \}
-  \} else if (result.data != null && result.isConcrete) \{
-    return result;
-  \}
-  return null;
-\}
+``` language-dart
+Future<QueryResult<Object?>> gqlNonAuthMutation(
+  String mutation, ) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  gqlNonAuthMutation method
+
+##### DataBaseMutationFunctions class
 
 
 

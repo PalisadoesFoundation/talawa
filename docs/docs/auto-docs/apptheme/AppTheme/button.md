@@ -1,26 +1,27 @@
 
-
+<div>
 
 # button property
 
+</div>
+
+
+[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
+button
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html) button
-  
-_<span class="feature">read / write</span>_
-
-
-
+Custom theme for the app.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static TextStyle button = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w600,
@@ -28,6 +29,19 @@ static TextStyle button = const TextStyle(
   fontFamily: 'OpenSans',
 );
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [apptheme](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  button property
+
+##### AppTheme class
 
 
 

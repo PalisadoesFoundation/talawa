@@ -149,7 +149,6 @@ const dateTimeFields = {
     'updatedAt',
     'recurrenceStartDate',
     'recurrenceEndDate',
-    'pluginCreatedBy',
     'dueDate',
     'completionDate',
     'startCursor',

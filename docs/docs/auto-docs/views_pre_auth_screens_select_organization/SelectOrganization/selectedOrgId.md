@@ -1,29 +1,42 @@
 
-
+<div>
 
 # selectedOrgId property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+selectedOrgId
+
+
+final
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) selectedOrgId
-  
-_<span class="feature">final</span>_
-
-
-
-<p>Contains Integer value for selected org id.</p>
+Contains Integer value for selected org id.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final String selectedOrgId;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [select_organization](../../views_pre_auth_screens_select_organization/)
+3.  [SelectOrganization](../../views_pre_auth_screens_select_organization/SelectOrganization-class.md)
+4.  selectedOrgId property
+
+##### SelectOrganization class
 
 
 

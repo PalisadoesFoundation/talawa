@@ -1,59 +1,52 @@
 
-
+<div>
 
 # gqlAuthQuery method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlAuthQuery(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    query, )
 
 
 
+This function is used to run the graph-ql query for authentication.
 
+**params**:
 
+-   `query`: query is used to fetch data in graphql, for more info read
+    graphql docs
+-   `variables`: variables to be passed with query
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) gqlAuthQuery
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables\})
-
-
-
-
-
-<p>This function is used to run the graph-ql query for authentication.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartquery```: query is used to fetch data in graphql, for more info read graphql docs</li>
-<li>```dartvariables```: variables to be passed with query</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;dynamic&gt;```: it returns Future of dynamic</li>
-</ul>
+-   `Future<QueryResult<Object?>>`: it returns Future of dynamic
 
 
 
 ## Implementation
 
-```dart
-Future<dynamic> gqlAuthQuery(
-  String query, \{
-  Map<String, dynamic>? variables,
-\}) async \{
-  final QueryOptions options = QueryOptions(
-    document: gql(query),
-    variables: variables ?? <String, dynamic>\{\},
-  );
-  final QueryResult result = await clientAuth.query(options);
-  // if there is an error or exception in [result]
-  if (result.hasException) \{
-    final exception = encounteredExceptionOrError(result.exception!);
-    if (exception!) \{
-      gqlAuthQuery(query, variables: variables);
-    \}
-  \} else if (result.data != null && result.isConcrete) \{
-    return result;
-  \}
-  return null;
-\}
+``` language-dart
+Future<QueryResult<Object?>> gqlAuthQuery(
+  String query, ) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  gqlAuthQuery method
+
+##### DataBaseMutationFunctions class
 
 
 

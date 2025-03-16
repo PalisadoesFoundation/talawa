@@ -1,29 +1,42 @@
 
-
+<div>
 
 # orgId property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+orgId
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>organizationID.</p>
+organizationID.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String orgId = '-1';
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [set_url_view_model](../../view_model_pre_auth_view_models_set_url_view_model/)
+3.  [SetUrlViewModel](../../view_model_pre_auth_view_models_set_url_view_model/SetUrlViewModel-class.md)
+4.  orgId property
+
+##### SetUrlViewModel class
 
 
 

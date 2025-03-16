@@ -1,15 +1,10 @@
 
-
+<div>
 
 # OrgInfo constructor
 
+</div>
 
-
-
-
-
-
-OrgInfo(\{[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)>? admins, [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)>? members, [User](../../models_user_user_info/User-class.md)? creatorInfo, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? description, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? id, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image, [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)? isPublic, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? name\})
 
 
 
@@ -17,18 +12,22 @@ OrgInfo(\{[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[
 
 ## Implementation
 
-```dart
-OrgInfo(\{
-  this.admins,
-  this.members,
-  this.creatorInfo,
-  this.description,
-  this.id,
-  this.image,
-  this.isPublic,
-  this.name,
-\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [org_info](../../models_organization_org_info/)
+3.  [OrgInfo](../../models_organization_org_info/OrgInfo-class.md)
+4.  OrgInfo constructor
+
+##### OrgInfo class
 
 
 

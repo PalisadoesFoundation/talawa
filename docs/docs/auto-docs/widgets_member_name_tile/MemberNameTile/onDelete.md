@@ -1,28 +1,41 @@
 
-
+<div>
 
 # onDelete property
 
+</div>
+
+
+dynamic  onDelete
+
+
+final
 
 
 
 
-
-
-[Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) onDelete
-  
-_<span class="feature">final</span>_
-
-
-
+Triggers the deletion of the user.
 
 
 
 ## Implementation
 
-```dart
-final Function onDelete;
+``` language-dart
+final  onDelete;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [member_name_tile](../../widgets_member_name_tile/)
+3.  [MemberNameTile](../../widgets_member_name_tile/MemberNameTile-class.md)
+4.  onDelete property
+
+##### MemberNameTile class
 
 
 

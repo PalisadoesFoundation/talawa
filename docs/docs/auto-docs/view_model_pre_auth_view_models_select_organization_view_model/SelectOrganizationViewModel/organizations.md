@@ -1,28 +1,42 @@
 
-
+<div>
 
 # organizations property
 
+</div>
+
+
+[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]\>]
+organizations
+
+
+getter/setter pair
 
 
 
 
-
-
-[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)> organizations
-  
-_<span class="feature">read / write</span>_
-
-
-
+Organization selection required data.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 late List<OrgInfo> organizations = [];
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [select_organization_view_model](../../view_model_pre_auth_view_models_select_organization_view_model/)
+3.  [SelectOrganizationViewModel](../../view_model_pre_auth_view_models_select_organization_view_model/SelectOrganizationViewModel-class.md)
+4.  organizations property
+
+##### SelectOrganizationViewModel class
 
 
 

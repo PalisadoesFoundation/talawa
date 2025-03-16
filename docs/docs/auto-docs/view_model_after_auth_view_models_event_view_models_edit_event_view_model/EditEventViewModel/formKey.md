@@ -1,28 +1,42 @@
 
-
+<div>
 
 # formKey property
 
+</div>
+
+
+[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)[\<[[FormState](https://api.flutter.dev/flutter/widgets/FormState-class.html)]\>]
+formKey
+
+
+final
 
 
 
 
-
-
-[GlobalKey](https://api.flutter.dev/flutter/widgets/GlobalKey-class.html)&lt;[FormState](https://api.flutter.dev/flutter/widgets/FormState-class.html)> formKey
-  
-_<span class="feature">final</span>_
-
-
-
+Form key for edit event.
 
 
 
 ## Implementation
 
-```dart
-final formKey = GlobalKey<FormState>();
+``` language-dart
+final formKey = GlobalKey<FormState>;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [edit_event_view_model](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/)
+3.  [EditEventViewModel](../../view_model_after_auth_view_models_event_view_models_edit_event_view_model/EditEventViewModel-class.md)
+4.  formKey property
+
+##### EditEventViewModel class
 
 
 

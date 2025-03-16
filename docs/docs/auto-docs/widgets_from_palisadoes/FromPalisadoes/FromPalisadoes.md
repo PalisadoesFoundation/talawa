@@ -1,25 +1,33 @@
 
-
+<div>
 
 # FromPalisadoes constructor
 
+</div>
 
 
-
-
-
-const
-FromPalisadoes(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const FromPalisadoes(\{Key? key\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [from_palisadoes](../../widgets_from_palisadoes/)
+3.  [FromPalisadoes](../../widgets_from_palisadoes/FromPalisadoes-class.md)
+4.  FromPalisadoes const constructor
+
+##### FromPalisadoes class
 
 
 

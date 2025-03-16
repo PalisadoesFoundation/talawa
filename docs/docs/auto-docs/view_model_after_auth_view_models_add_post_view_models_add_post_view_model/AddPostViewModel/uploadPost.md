@@ -1,64 +1,43 @@
 
-
+<div>
 
 # uploadPost method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+This function uploads the post finally, and navigate the success message
+or error message in Snack Bar.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> uploadPost
-()
-
-
-
-
-
-<p>This function uploads the post finally, and navigate the success message or error message in Snack Bar.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;void&gt;```: Uploading post by contacting queries</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> uploadPost() async \{
-  // \{TODO: \}
-  if (_imageFile == null) \{
-    try \{
-      await _dbFunctions.gqlAuthMutation(
-        PostQueries().uploadPost(),
-        variables: \{
-          "text": _controller.text,
-          "organizationId": _selectedOrg.id,
-          "title": _titleController.text
-        \},
-      );
-      _navigationService.showTalawaErrorSnackBar(
-        "Post is uploaded",
-        MessageType.info,
-      );
-    \} on Exception catch (_) \{
-      _navigationService.showTalawaErrorSnackBar(
-        "Something went wrong",
-        MessageType.error,
-      );
-    \}
-  \}
-  removeImage();
-  _controller.text = "";
-  _titleController.text = "";
-  notifyListeners();
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
+3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+4.  uploadPost method
+
+##### AddPostViewModel class
 
 
 

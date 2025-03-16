@@ -1,29 +1,33 @@
 
-
+<div>
 
 # IndividualPostCommentSection constructor
 
+</div>
 
 
-
-
-
-const
-IndividualPostCommentSection(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Comments](../../models_post_post_model/Comments-class.md)> comments, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) postID\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const IndividualPostCommentSection(\{
-  Key? key,
-  required this.comments,
-  required this.postID,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [individual_post](../../views_after_auth_screens_feed_individual_post/)
+3.  [IndividualPostCommentSection](../../views_after_auth_screens_feed_individual_post/IndividualPostCommentSection-class.md)
+4.  IndividualPostCommentSection const constructor
+
+##### IndividualPostCommentSection class
 
 
 

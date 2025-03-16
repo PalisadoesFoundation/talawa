@@ -1,68 +1,55 @@
 
-
+<div>
 
 # fetchOrgEvents method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+fetchOrgEvents(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    orgId]
+
+)
 
 
 
+Fetches events by organization ID.
 
+**params**:
 
+-   `orgId`: The ID of the organization to fetch events for.
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) fetchOrgEvents
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId)
+-   `String`: Returns a GraphQL query string to fetch events associated
+    with the specified organization ID.
 
-
-
-
-
+This function generates a GraphQL query string to retrieve events based
+on the provided organization ID.
 
 
 
 ## Implementation
 
-```dart
-String fetchOrgEvents(String orgId) \{
-  return """
-    query \{
-      eventsByOrganization(id: "$orgId")\{
-        _id
-        organization \{
-          _id
-          image
-        \}
-        title
-        description
-        isPublic
-        isRegisterable
-        recurring
-        recurrance
-        startDate
-        endDate
-        allDay
-        startTime
-        endTime
-        location
-        creator\{
-          _id
-          firstName
-          lastName
-        \}
-        admins \{
-          firstName
-          lastName
-        \}
-        registrants \{
-          user \{
-            _id
-          \}
-        \}
-      \}
-    \}
-  """;
-\}
+``` language-dart
+String fetchOrgEvents(String orgId) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_queries](../../utils_event_queries/)
+3.  [EventQueries](../../utils_event_queries/EventQueries-class.md)
+4.  fetchOrgEvents method
+
+##### EventQueries class
 
 
 

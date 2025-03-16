@@ -1,32 +1,41 @@
 
-
+<div>
 
 # organizationService top-level property
 
+</div>
+
+
+[OrganizationService](../services_org_service/OrganizationService-class.md)
+organizationService
+
+
+final
 
 
 
 
-
-
-
-
-[OrganizationService](../services_org_service/OrganizationService-class.md) organizationService
-  
-_<span class="feature">final</span>_
-
-
-
-<p>creating GetIt for OrganizationService.</p>
+GetIt for OrganizationService.
 
 
 
 ## Implementation
 
-```dart
-final organizationService = locator<OrganizationService>();
+``` language-dart
+final organizationService = locator<OrganizationService>;
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [locator](../locator/)
+3.  organizationService property
+
+##### locator library
 
 
 

@@ -1,28 +1,42 @@
 
-
+<div>
 
 # eventTitleNormalText property
 
+</div>
+
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+eventTitleNormalText
+
+
+final
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? eventTitleNormalText
-  
-_<span class="feature">final</span>_
-
-
-
+Eventtile normal text.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final String? eventTitleNormalText;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_card](../../widgets_event_card/)
+3.  [EventCard](../../widgets_event_card/EventCard-class.md)
+4.  eventTitleNormalText property
+
+##### EventCard class
 
 
 

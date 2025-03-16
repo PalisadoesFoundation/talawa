@@ -31,9 +31,8 @@ class _MainScreenState extends State<MainScreen> {
         );
       },
       builder: (context, model, child) {
-        // Checks for updates in plugins from the server.
-        // Will continously hit the server and fetch plugin information.
-        model.fetchAndAddPlugins(context);
+        // Setup navigation items and pages for the bottom navigation bar
+        model.setupNavigationItems(context);
         return Scaffold(
           key: MainScreenViewModel.scaffoldKey,
           drawer: CustomDrawer(

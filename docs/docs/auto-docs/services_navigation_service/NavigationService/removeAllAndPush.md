@@ -1,47 +1,57 @@
 
-
+<div>
 
 # removeAllAndPush method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)]
+removeAllAndPush(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    routeName, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    tillRoute, )
 
 
 
+This function remove all the routes till the particular route and add
+new route.
 
+**params**:
 
+-   `routeName`: Name of the Route
+-   `tillRoute`: Route till we want to remove
+-   `arguments`: Set of arguments
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) removeAllAndPush
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) routeName, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) tillRoute, \{dynamic arguments\})
-
-
-
-
-
-<p>This function remove all the routes till the particular route and add new route.</p>
-<p>params:</p>
-<ul>
-<li>```dartrouteName``` : route that need to add</li>
-<li>```darttillRoute``` : remove all route until this route.</li>
-<li>```dartarguments``` : necessary data for the route</li>
-</ul>
+-   `Future<dynamic>`: resolves if the Screen was succesfully
+    removeAllAndPushed.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Future<dynamic> removeAllAndPush(
   String routeName,
-  String tillRoute, \{
-  dynamic arguments,
-\}) \{
-  return navigatorKey.currentState!.pushNamedAndRemoveUntil(
-    routeName,
-    ModalRoute.withName(tillRoute),
-    arguments: arguments,
-  );
-\}
+  String tillRoute, ) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [navigation_service](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  removeAllAndPush method
+
+##### NavigationService class
 
 
 

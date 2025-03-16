@@ -1,28 +1,43 @@
 
-
+<div>
 
 # validate property
 
+</div>
+
+
+[AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html)
+validate
+
+
+getter/setter pair
 
 
 
 
-
-
-[AutovalidateMode](https://api.flutter.dev/flutter/widgets/AutovalidateMode.html) validate
-  
-_<span class="feature">read / write</span>_
-
-
-
+AutovalidateMode to determine when to perform automatic validation of
+form fields.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 AutovalidateMode validate = AutovalidateMode.disabled;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
+3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
+4.  validate property
+
+##### SignupDetailsViewModel class
 
 
 

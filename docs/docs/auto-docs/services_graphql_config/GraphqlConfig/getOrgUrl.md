@@ -1,40 +1,37 @@
 
-
+<div>
 
 # getOrgUrl method
 
+</div>
+
+
+void 
 
 
 
-
-
-
-
-void getOrgUrl
-()
-
-
-
-
-
-<p>This function is used to get the organization URL.</p>
+This function is used to get the organization URL.
 
 
 
 ## Implementation
 
-```dart
-void getOrgUrl() \{
-  final box = Hive.box('url');
-  final String? url = box.get(urlKey) as String?;
-  final String? imgUrl = box.get(imageUrlKey) as String?;
-  orgURI = url ?? ' ';
-  displayImgRoute = imgUrl ?? ' ';
-  httpLink = HttpLink(orgURI!);
-  clientToQuery();
-  authClient();
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [graphql_config](../../services_graphql_config/)
+3.  [GraphqlConfig](../../services_graphql_config/GraphqlConfig-class.md)
+4.  getOrgUrl method
+
+##### GraphqlConfig class
 
 
 

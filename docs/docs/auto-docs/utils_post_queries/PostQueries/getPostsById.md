@@ -1,70 +1,69 @@
 
-
+<div>
 
 # getPostsById method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+getPostsById(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    orgId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    after, ]
+3.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?]
+    before, ]
+4.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    first, ]
+5.  [[[int](https://api.flutter.dev/flutter/dart-core/int-class.html)?]
+    last, ]
+
+)
 
 
 
+Getting Posts by Id.
 
+**params**:
 
+-   `orgId`: The organisation id
+-   `after`: The cursor after which the posts are to be fetched
+-   `before`: The cursor before which the posts are to be fetched
+-   `first`: The number of posts to be fetched from the start
+-   `last`: The number of posts to be fetched from the end
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) getPostsById
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId)
-
-
-
-
-
-<p>Getting Posts by Id.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartorgId```: The organisation id</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartString```: The query related to gettingPostsbyId</li>
-</ul>
+-   `String`: The query related to gettingPostsbyId
 
 
 
 ## Implementation
 
-```dart
-String getPostsById(String orgId) \{
-  return """
-    query \{
-      postsByOrganization(id: "$orgId",orderBy: createdAt_DESC )
-      \{
-        _id
-        text
-        createdAt
-        imageUrl
-        videoUrl
-        title
-        commentCount
-        likeCount
-        creator\{
-          _id
-          firstName
-          lastName
-          image
-        \}
-        organization\{
-          _id
-        \}
-        likedBy\{
-          _id
-        \}
-        comments\{
-          _id
-        \}
-      \}
-    \}
-""";
-\}
+``` language-dart
+String getPostsById(
+  String orgId,
+  String? after,
+  String? before,
+  int? first,
+  int? last,
+) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_queries](../../utils_post_queries/)
+3.  [PostQueries](../../utils_post_queries/PostQueries-class.md)
+4.  getPostsById method
+
+##### PostQueries class
 
 
 

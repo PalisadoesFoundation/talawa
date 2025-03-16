@@ -1,15 +1,10 @@
 
-
+<div>
 
 # ChatService constructor
 
+</div>
 
-
-
-
-
-
-ChatService()
 
 
 
@@ -17,13 +12,22 @@ ChatService()
 
 ## Implementation
 
-```dart
-ChatService() \{
-  _dbFunctions = locator<DataBaseMutationFunctions>();
-  _chatListStream = _chatController.stream.asBroadcastStream();
-  _chatMessagesStream = _chatMessageController.stream.asBroadcastStream();
-\}
+``` language-dart
+ 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_service](../../services_chat_service/)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
+4.  ChatService constructor
+
+##### ChatService class
 
 
 

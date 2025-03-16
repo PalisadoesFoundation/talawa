@@ -1,43 +1,48 @@
 
-
+<div>
 
 # setSelectedOrganizationName method
 
+</div>
+
+
+void setSelectedOrganizationName(
+
+1.  [[[OrgInfo](../../models_organization_org_info/OrgInfo-class.md)]
+    updatedOrganization]
+
+)
 
 
 
+This function switches the current organization to new organization.
 
+**params**:
 
+-   `updatedOrganization`: `OrgInfo` type, new organization.
 
-
-void setSelectedOrganizationName
-([OrgInfo](../../models_organization_org_info/OrgInfo-class.md) updatedOrganization)
-
-
-
-
-
-<p>This function switches the current organization to new organization.</p>
-<p>params:</p>
-<ul>
-<li>```dartupdatedOrganization``` : ```dartOrgInfo``` type, new organization.</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void setSelectedOrganizationName(OrgInfo updatedOrganization) \{
-  // if current and updated organization are not same.
-  if (_selectedOrg != updatedOrganization) \{
-    _selectedOrg = updatedOrganization;
-    // update in `UserConfig` variable.
-    userConfig.currentOrgInfoController.add(_selectedOrg!);
-    notifyListeners();
-  \}
-\}
+``` language-dart
+void setSelectedOrganizationName(OrgInfo updatedOrganization) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_drawer_view_model](../../view_model_widgets_view_models_custom_drawer_view_model/)
+3.  [CustomDrawerViewModel](../../view_model_widgets_view_models_custom_drawer_view_model/CustomDrawerViewModel-class.md)
+4.  setSelectedOrganizationName method
+
+##### CustomDrawerViewModel class
 
 
 

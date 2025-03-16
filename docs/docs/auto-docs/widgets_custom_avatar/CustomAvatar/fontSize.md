@@ -1,28 +1,42 @@
 
-
+<div>
 
 # fontSize property
 
+</div>
+
+
+[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?
+fontSize
+
+
+final
 
 
 
 
-
-
-[double](https://api.flutter.dev/flutter/dart-core/double-class.html)? fontSize
-  
-_<span class="feature">final</span>_
-
-
-
+Custom avatar data.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final double? fontSize;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_avatar](../../widgets_custom_avatar/)
+3.  [CustomAvatar](../../widgets_custom_avatar/CustomAvatar-class.md)
+4.  fontSize property
+
+##### CustomAvatar class
 
 
 

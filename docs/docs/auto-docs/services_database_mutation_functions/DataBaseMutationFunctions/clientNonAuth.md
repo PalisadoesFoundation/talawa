@@ -1,29 +1,42 @@
 
-
+<div>
 
 # clientNonAuth property
 
+</div>
+
+
+[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/GraphQLClient-class.html)
+clientNonAuth
+
+
+getter/setter pair
 
 
 
 
-
-
-[GraphQLClient](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/GraphQLClient-class.html) clientNonAuth
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>Client Auth for handling non-authenticated request.</p>
+Client Auth for handling non-authenticated request.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 late GraphQLClient clientNonAuth;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  clientNonAuth property
+
+##### DataBaseMutationFunctions class
 
 
 

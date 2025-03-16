@@ -1,39 +1,53 @@
 
-
+<div>
 
 # refreshToken method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+refreshToken(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    refreshToken]
+
+)
 
 
 
+mutation for refresh token.
 
+**params**:
 
+-   `refreshToken`: related to auth, token based authentication,
+    mutation to refresh the token
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) refreshToken
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) refreshToken)
-
-
-
-
-
+-   `String`: mutation in string form, to be passed on to graphql
+    client.
 
 
 
 ## Implementation
 
-```dart
-String refreshToken(String refreshToken) \{
-  return '''
-      mutation\{
-        refreshToken(refreshToken: "$refreshToken")\{
-          accessToken
-          refreshToken
-        \}
-      \}
-  ''';
-\}
+``` language-dart
+String refreshToken(String refreshToken) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  refreshToken method
+
+##### Queries class
 
 
 

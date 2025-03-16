@@ -1,38 +1,41 @@
 
-
+<div>
 
 # userName property
 
+</div>
 
 
 
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+get userName
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) userName
-  
-
-
-
-
-<p>The Username.</p>
-<p>params:
-None
-returns:</p>
-<ul>
-<li>```dartString```: The username of the currentUser</li>
-</ul>
+The username of the currentUser.
 
 
 
 ## Implementation
 
-```dart
-String get userName => _currentUser.firstName! + _currentUser.lastName!;
+``` language-dart
+String get userName =>
+    userConfig.currentUser.firstName! + userConfig.currentUser.lastName!;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [add_post_view_model](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/)
+3.  [AddPostViewModel](../../view_model_after_auth_view_models_add_post_view_models_add_post_view_model/AddPostViewModel-class.md)
+4.  userName property
+
+##### AddPostViewModel class
 
 
 

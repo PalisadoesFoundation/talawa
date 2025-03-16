@@ -1,45 +1,56 @@
 
-
+<div>
 
 # showTalawaErrorSnackBar method
 
+</div>
+
+
+void showTalawaErrorSnackBar(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    errorMessage,
+    ]
+2.  [[[MessageType](../../enums_enums/MessageType.md)]
+    messageType]
+
+)
 
 
 
+This is used for the quick error of `duration: 2 seconds`.
 
+**params**:
 
+-   `errorMessage`: Error Message shown in snackbar
+-   `messageType`: Type of Message
+-   `duration`: Duration of snackbar
 
-
-void showTalawaErrorSnackBar
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, [MessageType](../../enums_enums/MessageType.md) messageType, \{[Duration](https://api.flutter.dev/flutter/dart-core/Duration-class.html) duration = const Duration(seconds: 2)\})
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 void showTalawaErrorSnackBar(
   String errorMessage,
-  MessageType messageType, \{
-  Duration duration = const Duration(seconds: 2),
-\}) \{
-  ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
-    SnackBar(
-      padding: EdgeInsets.zero,
-      content: TalawaErrorSnackBar(
-        messageType: messageType,
-        errorMessage: errorMessage,
-      ),
-      backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
-    ),
-  );
-\}
+  MessageType messageType,
+) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [navigation_service](../../services_navigation_service/)
+3.  [NavigationService](../../services_navigation_service/NavigationService-class.md)
+4.  showTalawaErrorSnackBar method
+
+##### NavigationService class
 
 
 

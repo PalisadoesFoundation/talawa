@@ -1,28 +1,38 @@
 
-
+<div>
 
 # messageContent property
 
+</div>
 
 
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+messageContent
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? messageContent
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 String? messageContent;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_message](../../models_chats_chat_message/)
+3.  [ChatMessage](../../models_chats_chat_message/ChatMessage-class.md)
+4.  messageContent property
+
+##### ChatMessage class
 
 
 

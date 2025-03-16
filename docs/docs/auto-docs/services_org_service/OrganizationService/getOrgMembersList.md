@@ -1,50 +1,52 @@
 
-
+<div>
 
 # getOrgMembersList method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[List](https://api.flutter.dev/flutter/dart-core/List-class.html)[\<[[User](../../models_user_user_info/User-class.md)]\>]]\>]]
+getOrgMembersList(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    orgId]
+
+)
 
 
 
+Retrieves a list of organization members.
 
+**params**:
 
+-   `orgId`: The ID of the organization to fetch members from.
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[User](../../models_user_user_info/User-class.md)>> getOrgMembersList
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) orgId)
-
-
-
-
-
-<p>This function fetch and returns the list of organization members.</p>
-<p>params:</p>
-<ul>
-<li>```dartorgId``` : id of the organization for which members list need be fetched.</li>
-</ul>
+-   `Future<List<User>>`: A promise that will be fulfilled with the list
+    of organization members.
 
 
 
 ## Implementation
 
-```dart
-Future<List<User>> getOrgMembersList(String orgId) async \{
-  final String query = Queries().fetchOrgDetailsById(orgId);
-  // fetching from database using graphQL mutations.
-  final result = await _dbFunctions.gqlAuthMutation(query);
-  final List orgMembersResult =
-      result.data['organizations'][0]['members'] as List;
-  final List<User> orgMembersList = [];
-  orgMembersResult.forEach((jsonElement) \{
-    final User member =
-        User.fromJson(jsonElement as Map<String, dynamic>, fromOrg: true);
-    orgMembersList.add(member);
-  \});
-
-  // return list
-  return orgMembersList;
-\}
+``` language-dart
+Future<List<User>> getOrgMembersList(String orgId) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [org_service](../../services_org_service/)
+3.  [OrganizationService](../../services_org_service/OrganizationService-class.md)
+4.  getOrgMembersList method
+
+##### OrganizationService class
 
 
 

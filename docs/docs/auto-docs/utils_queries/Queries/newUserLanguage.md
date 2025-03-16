@@ -1,36 +1,51 @@
 
-
+<div>
 
 # newUserLanguage method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+newUserLanguage(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    userId]
+
+)
 
 
 
+query for new user language .
 
+**params**:
 
+-   `userId`: user identifier
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) newUserLanguage
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) userId)
-
-
-
-
-
+-   `String`: query in string form, to be passed on to graphql client.
 
 
 
 ## Implementation
 
-```dart
-String newUserLanguage(String userId) \{
-  return '''
-  query\{
-    userLanguage(userId:"$userId")
-  \}
-''';
-\}
+``` language-dart
+String newUserLanguage(String userId) 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  newUserLanguage method
+
+##### Queries class
 
 
 

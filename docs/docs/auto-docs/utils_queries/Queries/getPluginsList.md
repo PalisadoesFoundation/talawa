@@ -1,44 +1,44 @@
 
-
+<div>
 
 # getPluginsList method
 
+</div>
+
+
+[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
 
 
 
+`getPluginList` queries all properties of pluginList from the server.
 
+**params**: None
 
+**returns**:
 
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html) getPluginsList
-()
-
-
-
-
-
-<p>```dartgetPluginList``` queries all properties of  pluginList from the server</p>
+-   `String`: query in string form, to be passed on to graphql client.
 
 
 
 ## Implementation
 
-```dart
-String getPluginsList() \{
-  return '''
-query  \{
-getPlugins \{
-  _id
-  pluginName
-  pluginCreatedBy
-  pluginDesc
-  pluginInstallStatus
-  installedOrgs
-\}
-\}
-''';
-\}
+``` language-dart
+String  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [queries](../../utils_queries/)
+3.  [Queries](../../utils_queries/Queries-class.md)
+4.  getPluginsList method
+
+##### Queries class
 
 
 

@@ -1,51 +1,44 @@
 
-
+<div>
 
 # getPosts method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+Method used to fetch all posts of the current organisation.
 
+**params**: None
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> getPosts
-()
-
-
-
-
-
-<p>This function used to get all posts of an organization.
-The function reference the organization Id from ```dart_currentOrg```.</p>
+-   `Future<void>`: returns future void
 
 
 
 ## Implementation
 
-```dart
-Future<void> getPosts() async \{
-  // variables
-  final String currentOrgID = _currentOrg.id!;
-  final String query = PostQueries().getPostsById(currentOrgID);
-  final result = await _dbFunctions.gqlAuthQuery(query);
-
-  //Checking if the dbFunctions return the postJSON, if not return.
-  if (result.data!['postsByOrganization'] == null) return;
-
-  final List postsJson = result.data!['postsByOrganization'] as List;
-
-  postsJson.forEach((postJson) \{
-    final Post post = Post.fromJson(postJson as Map<String, dynamic>);
-    if (!_renderedPostID.contains(post.sId)) \{
-      _posts.insert(0, post);
-      _renderedPostID.add(post.sId);
-    \}
-  \});
-  _postStreamController.add(_posts);
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_service](../../services_post_service/)
+3.  [PostService](../../services_post_service/PostService-class.md)
+4.  getPosts method
+
+##### PostService class
 
 
 

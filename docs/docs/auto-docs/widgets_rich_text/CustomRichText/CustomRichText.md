@@ -1,26 +1,34 @@
 
-
+<div>
 
 # CustomRichText constructor
 
+</div>
 
 
-
-
-
-const
-CustomRichText(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>> words\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const CustomRichText(\{required Key key, required this.words\})
+``` language-dart
+const 
     : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [rich_text](../../widgets_rich_text/)
+3.  [CustomRichText](../../widgets_rich_text/CustomRichText-class.md)
+4.  CustomRichText const constructor
+
+##### CustomRichText class
 
 
 

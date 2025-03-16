@@ -1,32 +1,49 @@
 
-
+<div>
 
 # refreshToken property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(1)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+refreshToken
+
+
+getter/setter pair
 
 
 
 
-
-
-**Annotations**
-
-- @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(1)
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? refreshToken
-  
-_<span class="feature">read / write</span>_
-
-
-
+HiveField for refreshToken.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @HiveField(1)
 String? refreshToken;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_info](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  refreshToken property
+
+##### User class
 
 
 

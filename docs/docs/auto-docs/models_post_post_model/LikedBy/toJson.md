@@ -1,41 +1,45 @@
 
-
+<div>
 
 # toJson method
 
+</div>
+
+
+[[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)[\<[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)],
+dynamic\>]]
 
 
 
 
+Convert dart object to json.
 
+**params**: None
 
+**returns**:
 
-[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic> toJson
-()
-
-
-
-
-
-<p>Convert dart object to json.</p>
-<p><strong>params</strong>:
-  None</p>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartMap&lt;String, dynamic&gt;```: json is returned.</li>
-</ul>
+-   `Map<String, dynamic>`: json is returned.
 
 
 
 ## Implementation
 
-```dart
-Map<String, dynamic> toJson() \{
-  final Map<String, dynamic> data = <String, dynamic>\{\};
-  data['_id'] = this.sId;
-  return data;
-\}
+``` language-dart
+Map<String, dynamic>  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/)
+3.  [LikedBy](../../models_post_post_model/LikedBy-class.md)
+4.  toJson method
+
+##### LikedBy class
 
 
 

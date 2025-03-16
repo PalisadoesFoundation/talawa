@@ -1,33 +1,42 @@
 
-
+<div>
 
 # initialize method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+initialiser.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> initialize
-()
-
-
-
-
-
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> initialize() async \{
-  _appLocale = const Locale('en');
-  await fetchLocale();
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_view_model](../../view_model_lang_view_model/)
+3.  [AppLanguage](../../view_model_lang_view_model/AppLanguage-class.md)
+4.  initialize method
+
+##### AppLanguage class
 
 
 

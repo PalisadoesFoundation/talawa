@@ -1,40 +1,50 @@
 
-
+<div>
 
 # createComment method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+createComment(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    msg]
+
+)
 
 
 
+This function add comment on the post. The function uses
+`createComments` method provided by Comment Service.
 
+**params**:
 
+-   `msg`: The comment text.
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html) createComment
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) msg)
-
-
-
-
-
-<p>This function add comment on the post.
-The function uses ```dartcreateComments``` method provided by Comment Service.</p>
-<p>params:</p>
-<ul>
-<li>```dartmsg``` : text of the comment to add.</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future createComment(String msg) async \{
-  print("comment viewModel called");
-  await _commentService.createComments(_postID, msg);
-  addCommentLocally(msg);
-\}
+``` language-dart
+Future<void> createComment(String msg) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [comments_view_model](../../view_model_widgets_view_models_comments_view_model/)
+3.  [CommentsViewModel](../../view_model_widgets_view_models_comments_view_model/CommentsViewModel-class.md)
+4.  createComment method
+
+##### CommentsViewModel class
 
 
 

@@ -1,34 +1,43 @@
 
-
+<div>
 
 # setIsLiked method
 
+</div>
+
+
+void 
 
 
 
+function to set isLiked boolean.
 
+**params**:
 
+-   `val`: value to set bool to.
 
-
-void setIsLiked
-(\{[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) val = true\})
-
-
-
-
-
-<p>This function set ```dart_isLike``` to true.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-void setIsLiked(\{bool val = true\}) \{
-  _isLiked = val;
-  notifyListeners();
-\}
+``` language-dart
+void  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [like_button_view_model](../../view_model_widgets_view_models_like_button_view_model/)
+3.  [LikeButtonViewModel](../../view_model_widgets_view_models_like_button_view_model/LikeButtonViewModel-class.md)
+4.  setIsLiked method
+
+##### LikeButtonViewModel class
 
 
 

@@ -174,9 +174,6 @@ class HiveKeys {
   /// The key used to identify the Hive box that stores asymmetric keys for the user.
   static const asymetricKeyBoxKey = 'user_keys';
 
-  /// The key used to identify the Hive box that stores plugin-related data.
-  static const pluginBoxKey = 'pluginBox';
-
   /// The key used to identify the Hive box that stores URLs.
   static const urlBoxKey = 'url';
 

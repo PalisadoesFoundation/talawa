@@ -1,28 +1,42 @@
 
-
+<div>
 
 # lastName property
 
+</div>
+
+
+[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
+lastName
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html) lastName
-  
-_<span class="feature">read / write</span>_
-
-
-
+TextEditingController for handling last name input field.
 
 
 
 ## Implementation
 
-```dart
-TextEditingController lastName = TextEditingController();
+``` language-dart
+TextEditingController lastName = ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
+3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
+4.  lastName property
+
+##### SignupDetailsViewModel class
 
 
 

@@ -1,29 +1,49 @@
 
-
+<div>
 
 # videoUrl property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(5)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+videoUrl
+
+
+getter/setter pair
 
 
 
 
-
-
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? videoUrl
-  
-_<span class="feature">read / write</span>_
-
-
-
-<p>videoUrl for post.</p>
+URL of a video attached to the post.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
+@HiveField(5)
 String? videoUrl;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/)
+3.  [Post](../../models_post_post_model/Post-class.md)
+4.  videoUrl property
+
+##### Post class
 
 
 

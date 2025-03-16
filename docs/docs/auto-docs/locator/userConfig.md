@@ -1,32 +1,41 @@
 
-
+<div>
 
 # userConfig top-level property
 
+</div>
+
+
+[UserConfig](../services_user_config/UserConfig-class.md)
+userConfig
+
+
+final
 
 
 
 
-
-
-
-
-[UserConfig](../services_user_config/UserConfig-class.md) userConfig
-  
-_<span class="feature">final</span>_
-
-
-
-<p>creating GetIt for UserConfig.</p>
+GetIt for UserConfig.
 
 
 
 ## Implementation
 
-```dart
-final userConfig = locator<UserConfig>();
+``` language-dart
+final userConfig = locator<UserConfig>;
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [locator](../locator/)
+3.  userConfig property
+
+##### locator library
 
 
 

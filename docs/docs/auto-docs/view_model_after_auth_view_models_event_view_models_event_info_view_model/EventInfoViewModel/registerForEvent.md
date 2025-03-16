@@ -1,54 +1,42 @@
 
-
+<div>
 
 # registerForEvent method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
 
 
 
 
+The function allows user to register for an event.
 
+**params**: None
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> registerForEvent
-()
-
-
-
-
-
-<p>This function helps the user to register for an event.</p>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
-Future<void> registerForEvent() async \{
-  // if event registration is open and user not already registered for the event.
-  if (event.isRegisterable == true && event.isRegistered == false) \{
-    navigationService.pushDialog(
-      const CustomProgressDialog(
-        key: Key('RegisterEvent'),
-      ),
-    );
-
-    // use `registerForAnEvent` function provided by `EventService` service.
-    final registerResult =
-        await locator<EventService>().registerForAnEvent(event.id!);
-    //final registerResult = await EventService().registerForAnEvent(event.id!);
-    // if the registration is successful.
-    if (registerResult != null) \{
-      event.isRegistered = true;
-      registrants.add(locator<UserConfig>().currentUser);
-    \}
-    print(registerResult);
-    fabTitle = getFabTitle();
-    navigationService.pop();
-    notifyListeners();
-  \}
-\}
+``` language-dart
+Future<void>  async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [event_info_view_model](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/)
+3.  [EventInfoViewModel](../../view_model_after_auth_view_models_event_view_models_event_info_view_model/EventInfoViewModel-class.md)
+4.  registerForEvent method
+
+##### EventInfoViewModel class
 
 
 

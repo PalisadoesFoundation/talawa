@@ -1,28 +1,38 @@
 
-
+<div>
 
 # screenHeight property
 
+</div>
 
 
+[double](https://api.flutter.dev/flutter/dart-core/double-class.html)?
+screenHeight
 
 
-
-
-[double](https://api.flutter.dev/flutter/dart-core/double-class.html)? screenHeight
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static double? screenHeight;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [size_config](../../services_size_config/)
+3.  [SizeConfig](../../services_size_config/SizeConfig-class.md)
+4.  screenHeight property
+
+##### SizeConfig class
 
 
 

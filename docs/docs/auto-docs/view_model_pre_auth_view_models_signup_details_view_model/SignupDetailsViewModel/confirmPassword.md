@@ -1,28 +1,42 @@
 
-
+<div>
 
 # confirmPassword property
 
+</div>
+
+
+[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html)
+confirmPassword
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextEditingController](https://api.flutter.dev/flutter/widgets/TextEditingController-class.html) confirmPassword
-  
-_<span class="feature">read / write</span>_
-
-
-
+TextEditingController for handling confirmation password input field.
 
 
 
 ## Implementation
 
-```dart
-TextEditingController confirmPassword = TextEditingController();
+``` language-dart
+TextEditingController confirmPassword = ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [signup_details_view_model](../../view_model_pre_auth_view_models_signup_details_view_model/)
+3.  [SignupDetailsViewModel](../../view_model_pre_auth_view_models_signup_details_view_model/SignupDetailsViewModel-class.md)
+4.  confirmPassword property
+
+##### SignupDetailsViewModel class
 
 
 

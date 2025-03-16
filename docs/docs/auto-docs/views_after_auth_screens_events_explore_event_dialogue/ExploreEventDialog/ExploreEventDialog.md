@@ -1,25 +1,33 @@
 
-
+<div>
 
 # ExploreEventDialog constructor
 
+</div>
 
 
-
-
-
-const
-ExploreEventDialog(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const ExploreEventDialog(\{required Key key\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [explore_event_dialogue](../../views_after_auth_screens_events_explore_event_dialogue/)
+3.  [ExploreEventDialog](../../views_after_auth_screens_events_explore_event_dialogue/ExploreEventDialog-class.md)
+4.  ExploreEventDialog const constructor
+
+##### ExploreEventDialog class
 
 
 

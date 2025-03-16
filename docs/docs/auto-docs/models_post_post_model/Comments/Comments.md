@@ -1,15 +1,10 @@
 
-
+<div>
 
 # Comments constructor
 
+</div>
 
-
-
-
-
-
-Comments(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? sId\})
 
 
 
@@ -17,9 +12,22 @@ Comments(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)
 
 ## Implementation
 
-```dart
-Comments(\{this.sId\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_model](../../models_post_post_model/)
+3.  [Comments](../../models_post_post_model/Comments-class.md)
+4.  Comments constructor
+
+##### Comments class
 
 
 

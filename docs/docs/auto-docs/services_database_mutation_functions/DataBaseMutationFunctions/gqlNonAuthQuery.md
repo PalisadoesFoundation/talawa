@@ -1,60 +1,54 @@
 
-
+<div>
 
 # gqlNonAuthQuery method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)[\<[[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.9/graphql/QueryResult-class.html)[\<[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?]\>]]\>]]
+gqlNonAuthQuery(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    query, )
 
 
 
+This function is used to run the graph-ql query for the non signed-in
+user.
 
+**params**:
 
+-   `query`: query is used to fetch data in graphql, for more info read
+    graphql docs
+-   `variables`: variables to be passed with query
 
+**returns**:
 
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;[QueryResult](https://pub.dev/documentation/graphql/5.2.0-beta.4/graphql/QueryResult-class.html)&lt;[Object](https://api.flutter.dev/flutter/dart-core/Object-class.html)?>?> gqlNonAuthQuery
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) query, \{[Map](https://api.flutter.dev/flutter/dart-core/Map-class.html)&lt;[String](https://api.flutter.dev/flutter/dart-core/String-class.html), dynamic>? variables\})
-
-
-
-
-
-<p>This function is used to run the graph-ql query for the non signed-in user.</p>
-<p><strong>params</strong>:</p>
-<ul>
-<li>```dartquery```: query is used to fetch data in graphql, for more info read graphql docs</li>
-<li>```dartvariables```: variables to be passed with query</li>
-</ul>
-<p><strong>returns</strong>:</p>
-<ul>
-<li>```dartFuture&lt;QueryResult&lt;Object?&gt;?&gt;```: it returns Future of QueryResult, contains all data</li>
-</ul>
+-   `Future<QueryResult<Object?>>`: it returns Future of QueryResult,
+    contains all data
 
 
 
 ## Implementation
 
-```dart
-Future<QueryResult<Object?>?> gqlNonAuthQuery(
-  String query, \{
-  Map<String, dynamic>? variables,
-\}) async \{
-  final queryOptions = QueryOptions(
-    document: gql(query),
-    variables: variables ?? <String, dynamic>\{\},
-  );
-  final result = await clientNonAuth.query(queryOptions);
-  QueryResult? finalRes;
-  // if there is an error or exception in [result]
-  if (result.hasException) \{
-    final exception = encounteredExceptionOrError(result.exception!);
-    if (exception!) \{
-      finalRes = await gqlNonAuthQuery(query, variables: variables);
-    \}
-  \} else if (result.data != null && result.isConcrete) \{
-    return result;
-  \}
-  return finalRes;
-\}
+``` language-dart
+Future<QueryResult<Object?>> gqlNonAuthQuery(
+  String query, ) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [database_mutation_functions](../../services_database_mutation_functions/)
+3.  [DataBaseMutationFunctions](../../services_database_mutation_functions/DataBaseMutationFunctions-class.md)
+4.  gqlNonAuthQuery method
+
+##### DataBaseMutationFunctions class
 
 
 

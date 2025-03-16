@@ -1,53 +1,55 @@
 
-
+<div>
 
 # sendMessageToDirectChat method
 
+</div>
+
+
+[[Future](https://api.flutter.dev/flutter/dart-core/Future-class.html)\<[void\>]]
+sendMessageToDirectChat(
+
+1.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.md)]
+    chatId, ]
+2.  [[[String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
+    messageContent]
+
+)
 
 
 
+Sends a message to a direct chat.
 
+**params**:
 
+-   `chatId`: The ID of the chat where the message will be sent.
+-   `messageContent`: The content of the message to be sent.
 
-
-[Future](https://api.flutter.dev/flutter/dart-async/Future-class.html)&lt;void> sendMessageToDirectChat
-([String](https://api.flutter.dev/flutter/dart-core/String-class.html) chatId, [String](https://api.flutter.dev/flutter/dart-core/String-class.html) messageContent)
-
-
-
-
-
-<p>This function is used to send the message in the direct chats.</p>
-<p>parameters required:</p>
-<ul>
-<li>```dartchatId``` - id of the direct chat where message need to be send.</li>
-<li>```dartmessageContent``` - the text that need to be send.</li>
-</ul>
+**returns**: None
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Future<void> sendMessageToDirectChat(
   String chatId,
   String messageContent,
-) async \{
-  // trigger graphQL mutation to push the message in the Database.
-  final result = await _dbFunctions.gqlAuthMutation(
-    ChatQueries().sendMessageToDirectChat(),
-    variables: \{"chatId": chatId, "messageContent": messageContent\},
-  );
-
-  final message = ChatMessage.fromJson(
-    result.data['sendMessageToDirectChat'] as Map<String, dynamic>,
-  );
-
-  _chatMessageController.add(message);
-
-  debugPrint(result.data.toString());
-\}
+) async 
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_service](../../services_chat_service/)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
+4.  sendMessageToDirectChat method
+
+##### ChatService class
 
 
 

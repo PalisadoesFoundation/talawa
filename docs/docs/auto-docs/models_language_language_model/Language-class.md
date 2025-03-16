@@ -1,124 +1,98 @@
 
-
+<div>
 
 # Language class
 
+</div>
 
 
-
-
-
-
-
-
-<p>This class creates an langauge model.</p>
-
+This class creates an langauge model.
 
 
 
 ## Constructors
 
-[Language](../models_language_language_model/Language/Language.md) (\{required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) countryCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langCode, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langName, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) langSample\})
+[[Language](../models_language_language_model/Language/Language.md)][]
 
-   
+:   
+
 
 
 ## Properties
 
-##### [countryCode](../models_language_language_model/Language/countryCode.md) &#8594; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
+[[countryCode](../models_language_language_model/Language/countryCode.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
+:   ::: features
+    final
+    :::
 
+[[hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html)] [→ [int](https://api.flutter.dev/flutter/dart-core/int-class.html)]
+:   The hash code for this object.
+    ::: features
+    no setterinherited
+    :::
 
-  
-_<span class="feature">final</span>_
+[[langCode](../models_language_language_model/Language/langCode.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
+:   ::: features
+    final
+    :::
 
+[[langName](../models_language_language_model/Language/langName.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
-##### [hashCode](https://api.flutter.dev/flutter/dart-core/Object/hashCode.html) &#8594; [int](https://api.flutter.dev/flutter/dart-core/int-class.html)
+:   ::: features
+    final
+    :::
 
+[[langSample](../models_language_language_model/Language/langSample.md)] [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)]
 
+:   ::: features
+    final
+    :::
 
-The hash code for this object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
-
-##### [langCode](../models_language_language_model/Language/langCode.md) &#8594; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-_<span class="feature">final</span>_
-
-
-
-##### [langName](../models_language_language_model/Language/langName.md) &#8594; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-_<span class="feature">final</span>_
-
-
-
-##### [langSample](../models_language_language_model/Language/langSample.md) &#8594; [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-  
-_<span class="feature">final</span>_
-
-
-
-##### [runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html) &#8594; [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)
-
-
-
-A representation of the runtime type of the object.  
-_<span class="feature">read-only</span><span class="feature">inherited</span>_
-
-
+[[runtimeType](https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html)] [→ [Type](https://api.flutter.dev/flutter/dart-core/Type-class.html)]
+:   A representation of the runtime type of the object.
+    ::: features
+    no setterinherited
+    :::
 
 
 
 ## Methods
 
-##### [noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)([Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.html) invocation) dynamic
+[[noSuchMethod](https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html)][([[[Invocation](https://api.flutter.dev/flutter/dart-core/Invocation-class.md)] invocation]) → dynamic ]
+:   Invoked when a nonexistent method or property is accessed.
+    ::: features
+    inherited
+    :::
 
-
-
-Invoked when a non-existent method or property is accessed.  
-_<span class="feature">inherited</span>_
-
-
-
-##### [toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)() [String](https://api.flutter.dev/flutter/dart-core/String-class.html)
-
-
-
-A string representation of this object.  
-_<span class="feature">inherited</span>_
-
-
+[[toString](https://api.flutter.dev/flutter/dart-core/Object/toString.html)][ [→ [String](https://api.flutter.dev/flutter/dart-core/String-class.html)] ]
+:   A string representation of this object.
+    ::: features
+    inherited
+    :::
 
 
 
 ## Operators
 
-##### [operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)([Object](https://api.flutter.dev/flutter/dart-core/Object-class.html) other) [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)
-
-
-
-The equality operator.  
-_<span class="feature">inherited</span>_
-
-
+[[operator ==](https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html)][([[[Object](https://api.flutter.dev/flutter/dart-core/Object-class.md)] other]) [→ [bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)] ]
+:   The equality operator.
+    ::: features
+    inherited
+    :::
 
 
 
 
 
 
+
+1.  [talawa](../index.md)
+2.  [language_model](../models_language_language_model/)
+3.  Language class
+
+##### language_model library
 
 
 

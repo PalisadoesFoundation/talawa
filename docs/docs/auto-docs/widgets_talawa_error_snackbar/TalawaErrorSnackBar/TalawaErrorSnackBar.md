@@ -1,29 +1,33 @@
 
-
+<div>
 
 # TalawaErrorSnackBar constructor
 
+</div>
 
 
-
-
-
-const
-TalawaErrorSnackBar(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) errorMessage, required [MessageType](../../enums_enums/MessageType.md) messageType\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const TalawaErrorSnackBar(\{
-  Key? key,
-  required this.errorMessage,
-  required this.messageType,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [talawa_error_snackbar](../../widgets_talawa_error_snackbar/)
+3.  [TalawaErrorSnackBar](../../widgets_talawa_error_snackbar/TalawaErrorSnackBar-class.md)
+4.  TalawaErrorSnackBar const constructor
+
+##### TalawaErrorSnackBar class
 
 
 

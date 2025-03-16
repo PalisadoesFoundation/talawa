@@ -1,29 +1,42 @@
 
-
+<div>
 
 # homeModel property
 
+</div>
+
+
+[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)?
+homeModel
+
+
+final
 
 
 
 
-
-
-[MainScreenViewModel](../../view_model_main_screen_view_model/MainScreenViewModel-class.md)? homeModel
-  
-_<span class="feature">final</span>_
-
-
-
-<p>```darthomeModal``` is a type of <a href="../../view_model_main_screen_view_model/MainScreenViewModel-class.md">MainScreenViewModel</a> which provides methods to handle the data for this component.</p>
+Represents the view model for the home screen.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 final MainScreenViewModel? homeModel;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [explore_events](../../views_after_auth_screens_events_explore_events/)
+3.  [ExploreEvents](../../views_after_auth_screens_events_explore_events/ExploreEvents-class.md)
+4.  homeModel property
+
+##### ExploreEvents class
 
 
 

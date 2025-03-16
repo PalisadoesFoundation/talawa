@@ -78,17 +78,17 @@ Widget createEventScreen({
     );
 
 void main() {
-  setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-    SizeConfig().test();
-    testSetupLocator();
-    registerServices();
-  });
-
-  tearDownAll(() {
-    unregisterServices();
-  });
   group('testing -> CreateEventPage', () {
+    setUpAll(() {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      SizeConfig().test();
+      testSetupLocator();
+      registerServices();
+    });
+
+    tearDownAll(() {
+      unregisterServices();
+    });
     testWidgets("Checking if add venue button shows up", (tester) async {
       await tester.pumpWidget(
         createEventScreen(
@@ -253,6 +253,78 @@ void main() {
 
       await tester.tap(inkwellFinder.at(1));
       await tester.pump();
+    });
+
+    testWidgets(
+        "Checking if placeholder image is visible when no venue image is available",
+        (tester) async {
+      final query = queries.venueListQuery();
+      final variables = {
+        "orgId": 'XYZ',
+      };
+
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getVenueByOrgId': [
+            {
+              'id': '1',
+              'name': 'Mock Venue 1',
+              'capacity': 100,
+              'imageUrl': null,
+              'description': 'aaa',
+            },
+          ],
+        },
+        options: QueryOptions(document: gql(queries.venueListQuery())),
+      );
+
+      when(databaseFunctions.gqlAuthQuery(query, variables: variables))
+          .thenAnswer((_) async => mockQueryResult);
+
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Add Venue'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VenueBottomSheet), findsOneWidget);
+        expect(find.text('Mock Venue 1'), findsOneWidget);
+
+        await tester.tap(find.text('Mock Venue 1'));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.check));
+        await tester.pumpAndSettle();
+
+        final placeholderImageFinder = find.byWidgetPredicate(
+          (widget) =>
+              widget is Image &&
+              widget.image is AssetImage &&
+              (widget.image as AssetImage).assetName ==
+                  'assets/images/defaultImg.png',
+        );
+
+        expect(
+          placeholderImageFinder,
+          findsOneWidget,
+        );
+
+        final imageWidget = tester.widget<Image>(placeholderImageFinder);
+        expect(imageWidget.width, 50);
+        expect(imageWidget.height, 50);
+
+        await tester.tap(find.byIcon(Icons.cancel));
+        await tester.pumpAndSettle();
+
+        expect(placeholderImageFinder, findsNothing);
+      });
     });
 
     testWidgets("Checking tap Inkwell for setTime 1 datetime", (tester) async {
@@ -427,7 +499,6 @@ void main() {
 
       expect(finder, findsOneWidget);
     });
-
     testWidgets(
         'checks if the uploaded photo from gallery button is removed after pressing remove button',
         (tester) async {
@@ -635,7 +706,44 @@ void main() {
         expect(find.text('Does not repeat'), findsOneWidget);
       });
 
-      testWidgets('Tap on DateTimeTile date', (tester) async {
+      testWidgets('Tap on DateTimeTile date first', (tester) async {
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
+
+        await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
+        await tester.pump();
+
+        await tester.ensureVisible(find.byKey(const Key('dateTimeTileFirst')));
+        await tester.pump();
+
+        expect(find.byType(DatePickerDialog), findsOneWidget);
+        expect(find.byType(CalendarDatePicker), findsOneWidget);
+
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+        expect(
+          find.text(DateTime.now().toString().split(' ').first),
+          findsNWidgets(2),
+        );
+      });
+      testWidgets('Tap on DateTimeTile date second', (tester) async {
         await tester.pumpWidget(
           createEventScreen(
             themeMode: ThemeMode.dark,
@@ -672,7 +780,8 @@ void main() {
           findsNWidgets(2),
         );
       });
-      testWidgets('Tap on DateTimeTile time', (tester) async {
+
+      testWidgets('Tap on DateTimeTile time first', (tester) async {
         final currentTime = DateTime.now();
         final futureTime = currentTime.add(const Duration(minutes: 30));
         await tester.pumpWidget(
@@ -694,6 +803,44 @@ void main() {
 
         await tester.pump();
         await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
+        await tester.pump();
+
+        expect(find.byType(TimePickerDialog), findsOneWidget);
+
+        await tester.tap(find.text('OK'));
+        await tester.pump();
+        expect(
+          find.text(DateFormat.jm().format(currentTime)),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text(DateFormat.jm().format(futureTime)),
+          findsOneWidget,
+        );
+      });
+      testWidgets('Tap on DateTimeTile time second', (tester) async {
+        final currentTime = DateTime.now();
+        final futureTime = currentTime.add(const Duration(minutes: 30));
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final switches = find.descendant(
+          of: find.byType(Row),
+          matching: find.byType(Switch),
+        );
+        expect(switches, findsNWidgets(3));
+        expect((tester.widgetList(switches).toList()[0] as Switch).value, true);
+        await tester.ensureVisible(switches.at(0));
+        await tester.tap(switches.at(1));
+
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
         await tester.pump();
 
         expect(find.byType(TimePickerDialog), findsOneWidget);

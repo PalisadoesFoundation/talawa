@@ -1,28 +1,38 @@
 
-
+<div>
 
 # icon property
 
+</div>
 
 
+[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html)
+icon
 
 
-
-
-[Widget](https://api.flutter.dev/flutter/widgets/Widget-class.html) icon
-  
-_<span class="feature">read / write</span>_
-
-
+getter/setter pair
 
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Widget icon;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [options](../../models_options_options/)
+3.  [Options](../../models_options_options/Options-class.md)
+4.  icon property
+
+##### Options class
 
 
 

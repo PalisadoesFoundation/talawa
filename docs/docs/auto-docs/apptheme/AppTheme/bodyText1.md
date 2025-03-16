@@ -1,26 +1,27 @@
 
-
+<div>
 
 # bodyText1 property
 
+</div>
+
+
+[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
+bodyText1
+
+
+getter/setter pair
 
 
 
 
-
-
-[TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html) bodyText1
-  
-_<span class="feature">read / write</span>_
-
-
-
+Custom theme for the app.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 static TextStyle bodyText1 = const TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
@@ -28,6 +29,19 @@ static TextStyle bodyText1 = const TextStyle(
   fontFamily: 'OpenSans',
 );
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [apptheme](../../apptheme/)
+3.  [AppTheme](../../apptheme/AppTheme-class.md)
+4.  bodyText1 property
+
+##### AppTheme class
 
 
 

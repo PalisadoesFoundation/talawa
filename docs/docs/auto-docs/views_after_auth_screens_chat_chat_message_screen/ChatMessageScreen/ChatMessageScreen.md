@@ -1,26 +1,33 @@
 
-
+<div>
 
 # ChatMessageScreen constructor
 
+</div>
 
 
-
-
-
-const
-ChatMessageScreen(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [String](https://api.flutter.dev/flutter/dart-core/String-class.html) chatId, required [DirectChatViewModel](../../view_model_after_auth_view_models_chat_view_models_direct_chat_view_model/DirectChatViewModel-class.md) model\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const ChatMessageScreen(\{Key? key, required this.chatId, required this.model\})
-    : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_message_screen](../../views_after_auth_screens_chat_chat_message_screen/)
+3.  [ChatMessageScreen](../../views_after_auth_screens_chat_chat_message_screen/ChatMessageScreen-class.md)
+4.  ChatMessageScreen const constructor
+
+##### ChatMessageScreen class
 
 
 

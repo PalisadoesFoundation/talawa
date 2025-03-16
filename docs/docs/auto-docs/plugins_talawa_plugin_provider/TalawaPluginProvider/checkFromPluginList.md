@@ -1,56 +1,45 @@
 
-
+<div>
 
 # checkFromPluginList method
 
+</div>
+
+
+[[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html)]
 
 
 
 
+This function checks if the plugin is insatlled and therefore determine
+visibility of the plugin.
 
+**params**: None
 
+**returns**:
 
-[bool](https://api.flutter.dev/flutter/dart-core/bool-class.html) checkFromPluginList
-()
-
-
-
-
-
-<p>return ```dartbool``` decides the final visibility of the verifying from database and current OrgId</p>
+-   `bool`: define_the_return
 
 
 
 ## Implementation
 
-```dart
-bool checkFromPluginList() \{
-  final UserConfig userConfig = locator<UserConfig>();
-  final Box box;
-  bool res = false;
-  box = Hive.box('pluginBox');
-  var pluginList = box.get('plugins');
-  pluginList ??= []; // if null then make it  []
-
-  ///mapping over the list from the server
-  pluginList
-      .map(
-        (plugin) => \{
-          if (plugin["pluginName"] == pluginName)
-            \{
-              if (plugin["pluginInstallStatus"] as bool)
-                \{
-                  res = plugin["pluginInstallStatus"] as bool ||
-                      plugin["installedOrgs"]
-                          .contains(userConfig.currentOrg.id) as bool
-                \}
-            \}
-        \},
-      )
-      .toList();
-  return res;
-\}
+``` language-dart
+bool  
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [talawa_plugin_provider](../../plugins_talawa_plugin_provider/)
+3.  [TalawaPluginProvider](../../plugins_talawa_plugin_provider/TalawaPluginProvider-class.md)
+4.  checkFromPluginList method
+
+##### TalawaPluginProvider class
 
 
 

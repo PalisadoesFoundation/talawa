@@ -1,29 +1,33 @@
 
-
+<div>
 
 # CustomCarouselScroller constructor
 
+</div>
 
 
-
-
-
-const
-CustomCarouselScroller(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [List](https://api.flutter.dev/flutter/dart-core/List-class.html)&lt;[Post](../../models_post_post_model/Post-class.md)> pinnedPosts, required [Function](https://api.flutter.dev/flutter/dart-core/Function-class.html) navigateToIndividualPostPage\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const CustomCarouselScroller(\{
-  Key? key,
-  required this.pinnedPosts,
-  required this.navigateToIndividualPostPage,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [pinned_carousel_widget](../../widgets_pinned_carousel_widget/)
+3.  [CustomCarouselScroller](../../widgets_pinned_carousel_widget/CustomCarouselScroller-class.md)
+4.  CustomCarouselScroller const constructor
+
+##### CustomCarouselScroller class
 
 
 

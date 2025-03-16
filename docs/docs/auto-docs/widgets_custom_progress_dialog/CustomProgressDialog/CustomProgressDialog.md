@@ -1,25 +1,33 @@
 
-
+<div>
 
 # CustomProgressDialog constructor
 
+</div>
 
 
-
-
-
-const
-CustomProgressDialog(\{required [Key](https://api.flutter.dev/flutter/foundation/Key-class.html) key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const CustomProgressDialog(\{required Key key\}) : super(key: key);
+``` language-dart
+const  : super(key: key);
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [custom_progress_dialog](../../widgets_custom_progress_dialog/)
+3.  [CustomProgressDialog](../../widgets_custom_progress_dialog/CustomProgressDialog-class.md)
+4.  CustomProgressDialog const constructor
+
+##### CustomProgressDialog class
 
 
 

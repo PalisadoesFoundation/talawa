@@ -1,15 +1,10 @@
 
-
+<div>
 
 # Comment constructor
 
+</div>
 
-
-
-
-
-
-Comment(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? text, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? createdAt, [User](../../models_user_user_info/User-class.md)? creator, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? post, [String](https://api.flutter.dev/flutter/dart-core/String-class.html)? likeCount\})
 
 
 
@@ -17,9 +12,22 @@ Comment(\{[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
 
 ## Implementation
 
-```dart
-Comment(\{this.text, this.createdAt, this.creator, this.post, this.likeCount\});
+``` language-dart
+;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [comment_model](../../models_comment_comment_model/)
+3.  [Comment](../../models_comment_comment_model/Comment-class.md)
+4.  Comment constructor
+
+##### Comment class
 
 
 

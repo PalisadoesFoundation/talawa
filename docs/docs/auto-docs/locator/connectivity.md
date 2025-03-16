@@ -1,32 +1,41 @@
 
-
+<div>
 
 # connectivity top-level property
 
+</div>
+
+
+[Connectivity](https://pub.dev/documentation/connectivity_plus/6.1.2/connectivity_plus/Connectivity-class.html)
+connectivity
+
+
+final
 
 
 
 
-
-
-
-
-[Connectivity](https://pub.dev/documentation/connectivity_plus/4.0.2/connectivity_plus/Connectivity-class.html) connectivity
-  
-_<span class="feature">final</span>_
-
-
-
-<p>creating GetIt for Connectivity.</p>
+GetIt for Connectivity.
 
 
 
 ## Implementation
 
-```dart
-final connectivity = locator<Connectivity>();
+``` language-dart
+final connectivity = locator<Connectivity>;
 ```
 
+
+
+
+
+
+
+1.  [talawa](../index.md)
+2.  [locator](../locator/)
+3.  connectivity property
+
+##### locator library
 
 
 

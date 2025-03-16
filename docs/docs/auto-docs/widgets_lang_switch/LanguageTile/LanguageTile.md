@@ -1,25 +1,33 @@
 
-
+<div>
 
 # LanguageTile constructor
 
+</div>
 
 
-
-
-
-const
-LanguageTile(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const LanguageTile(\{Key? key\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [lang_switch](../../widgets_lang_switch/)
+3.  [LanguageTile](../../widgets_lang_switch/LanguageTile-class.md)
+4.  LanguageTile const constructor
+
+##### LanguageTile class
 
 
 

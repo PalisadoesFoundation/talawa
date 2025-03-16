@@ -1,31 +1,40 @@
 
-
+<div>
 
 # chatListStream property
 
+</div>
 
 
 
+[[Stream](https://api.flutter.dev/flutter/dart-core/Stream-class.html)[\<[[ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)]\>]]
+get chatListStream
 
 
 
-
-
-[Stream](https://api.flutter.dev/flutter/dart-async/Stream-class.html)&lt;[ChatListTileDataModel](../../models_chats_chat_list_tile_data_model/ChatListTileDataModel-class.md)> chatListStream
-  
-
-
-
-
+Getter for chat list stream.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
 ```
 
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [chat_service](../../services_chat_service/)
+3.  [ChatService](../../services_chat_service/ChatService-class.md)
+4.  chatListStream property
+
+##### ChatService class
 
 
 

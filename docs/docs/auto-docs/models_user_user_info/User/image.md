@@ -1,32 +1,49 @@
 
-
+<div>
 
 # image property
 
+</div>
+
+
+<div>
+
+1.  @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(6)
+
+</div>
+
+[String](https://api.flutter.dev/flutter/dart-core/String-class.html)?
+image
+
+
+getter/setter pair
 
 
 
 
-
-
-**Annotations**
-
-- @[HiveField](https://pub.dev/documentation/hive/2.2.3/hive/HiveField-class.html)(6)
-[String](https://api.flutter.dev/flutter/dart-core/String-class.html)? image
-  
-_<span class="feature">read / write</span>_
-
-
-
+HiveField for user\'s avatar.
 
 
 
 ## Implementation
 
-```dart
+``` language-dart
 @HiveField(6)
 String? image;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [user_info](../../models_user_user_info/)
+3.  [User](../../models_user_user_info/User-class.md)
+4.  image property
+
+##### User class
 
 
 

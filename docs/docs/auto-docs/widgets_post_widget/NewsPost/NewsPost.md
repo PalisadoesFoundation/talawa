@@ -1,29 +1,33 @@
 
-
+<div>
 
 # NewsPost constructor
 
+</div>
 
 
-
-
-
-const
-NewsPost(\{[Key](https://api.flutter.dev/flutter/foundation/Key-class.html)? key, required [Post](../../models_post_post_model/Post-class.md) post, dynamic function([Post](../../models_post_post_model/Post-class.md))?\})
-
-
+const 
 
 
 
 ## Implementation
 
-```dart
-const NewsPost(\{
-  Key? key,
-  required this.post,
-  this.function,
-\}) : super(key: key);
+``` language-dart
+const ;
 ```
+
+
+
+
+
+
+
+1.  [talawa](../../index.md)
+2.  [post_widget](../../widgets_post_widget/)
+3.  [NewsPost](../../widgets_post_widget/NewsPost-class.md)
+4.  NewsPost const constructor
+
+##### NewsPost class
 
 
 
