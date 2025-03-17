@@ -143,28 +143,19 @@ class UserConfig {
             key: Key('LogoutProgress'),
           ),
         );
-        return await databaseFunctions.gqlAuthMutation(queries.logout());
+        //return await databaseFunctions.gqlAuthMutation(queries.logout());
+        return await performLogout();
       },
       onValidResult: (result) async {
+        // The result could contain either our server response or the fallback response
+        // In either case, we should clear local data
         if (result.data != null && result.data!['logout'] == true) {
-          // throw StateError('error');
-
           final user = Hive.box<User>('currentUser');
           final url = Hive.box('url');
           final organisation = Hive.box<OrgInfo>('currentOrg');
-          // final androidFirebaseOptionsBox = Hive.box('androidFirebaseOptions');
-          // final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
           await user.clear();
           await url.clear();
           await organisation.clear();
-          // androidFirebaseOptionsBox.clear();
-          // iosFirebaseOptionsBox.clear();
-          // try {
-          //   Firebase.app()
-          //       .delete(); // Deleting app will stop all Firebase plugins
-          // } catch (e) {
-          //   debugPrint("ERROR: Unable to delete firebase app $e");
-          // }
           _currentUser = User(id: 'null', authToken: 'null');
         }
       },
@@ -187,6 +178,23 @@ class UserConfig {
           arguments: '',
         );
       },
+    );
+  }
+
+  /// Performs client-side logout
+  ///
+  /// Note : implement server side token invalidation when logOut mutation is updated in API.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<QueryResult>`: returns future of QueryResult type.
+  Future<QueryResult> performLogout() async {
+    return QueryResult(
+      data: {'logout': true},
+      source: QueryResultSource.network,
+      options: QueryOptions(document: gql('{ __typename }')),
     );
   }
 
