@@ -88,10 +88,13 @@ jobs:
       - name: Analysing codebase for custom linting
         run: dart run custom_lint
       - name: Check if branches are different
-        if: ${{ github.event.pull_request.base.ref == github.event.pull_request.head.ref }}
+        env:
+          SOURCE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
+        if: ${{ env.SOURCE_BRANCH == env.TARGET_BRANCH }}
         run: |
-          echo "Source Branch ${{ github.event.pull_request.head.ref }}"
-          echo "Target Branch ${{ github.event.pull_request.base.ref }}"
+          echo "Source Branch ${SOURCE_BRANCH}"
+          echo "Target Branch ${TARGET_BRANCH}"
           echo "Error: Source and Target Branches are the same"
           exit 1
 
@@ -323,4 +326,3 @@ jobs:
         run: |
           source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
-          
