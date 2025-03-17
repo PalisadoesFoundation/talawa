@@ -7,17 +7,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 class MockBox<T> extends Mock implements Box<T> {}
 
+class TestUserConfig extends UserConfig {
+  bool performLogoutWasCalled = false;
+
+  @override
+  Future<QueryResult> performLogout() async {
+    performLogoutWasCalled = true;
+
+    throw Exception("Unable to logOut");
+  }
+}
 // class MockUser extends Mock implements User {
 //   @override
 //   void updateJoinedOrg(List<OrgInfo> orgList) {
@@ -381,6 +393,31 @@ void main() async {
       expect(result, isA<QueryResult>());
       expect(result.data, isNotNull);
       expect(result.data!['logout'], true);
+    });
+    test('userLogOut shows error dialog when exception occurs', () async {
+      final userConfig = TestUserConfig();
+
+      // Set up mocks
+      when(navigationService.pop()).thenAnswer((_) async {});
+      when(
+        navigationService.pushDialog(
+          const TalawaErrorDialog(
+            'Unable to logout, please try again.',
+            key: Key('TalawaError'),
+            messageType: MessageType.error,
+          ),
+        ),
+      ).thenAnswer((_) async {});
+
+      // Execute logout which should trigger our exception
+      await userConfig.userLogOut();
+
+      // Verify performLogout was called
+      expect(
+        userConfig.performLogoutWasCalled,
+        true,
+        reason: 'performLogout was not called',
+      );
     });
   });
 }
