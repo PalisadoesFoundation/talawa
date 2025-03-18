@@ -159,7 +159,6 @@ void main() async {
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
       expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-      expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
     test('fetchOrgById test in case of exception', () async {
@@ -400,7 +399,6 @@ void main() async {
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
       expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-      expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
     test('Testing gqlAuthQuery with false exception', () async {
@@ -561,7 +559,6 @@ void main() async {
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
       expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-      expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
     test('Test for gql auth mutation with false exception', () async {
@@ -689,7 +686,6 @@ void main() async {
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
       expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-      expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
     test('Test for gql non auth mutation', () async {
@@ -724,7 +720,6 @@ void main() async {
       expect(org.name, testOrg.name);
       expect(org.image, testOrg.image);
       expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-      expect(org.creatorInfo!.firstName, testOrg.creatorInfo!.firstName);
     });
 
     test('Test for gql non auth mutation with false exception', () async {

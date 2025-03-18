@@ -172,21 +172,21 @@ class CustomListTile extends StatelessWidget {
                         ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: type != TileType.user && type != TileType.attendee
-                    ? type == TileType.org
-                        ? Icon(
-                            !orgInfo!.userRegistrationRequired!
-                                ? Icons.lock_open
-                                : Icons.lock,
-                            color: !orgInfo!.userRegistrationRequired!
-                                ? const Color(0xFF34AD64)
-                                : const Color(0xffFABC57),
-                          )
-                        : option!.trailingIconButton ?? const SizedBox()
-                    : const SizedBox(),
-              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: type != TileType.user && type != TileType.attendee
+              //       ? type == TileType.org
+              //           ? Icon(
+              //               !orgInfo!.userRegistrationRequired!
+              //                   ? Icons.lock_open
+              //                   : Icons.lock,
+              //               color: !orgInfo!.userRegistrationRequired!
+              //                   ? const Color(0xFF34AD64)
+              //                   : const Color(0xffFABC57),
+              //             )
+              //           : option!.trailingIconButton ?? const SizedBox()
+              //       : const SizedBox(),
+              // ),
             ],
           ),
         ),

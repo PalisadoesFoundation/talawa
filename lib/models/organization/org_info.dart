@@ -10,7 +10,6 @@ class OrgInfo {
   OrgInfo({
     this.admins,
     this.members,
-    this.creatorInfo,
     this.description,
     this.id,
     this.image,
@@ -68,12 +67,6 @@ class OrgInfo {
       userRegistrationRequired: json['userRegistrationRequired'] != null
           ? json['userRegistrationRequired'] as bool?
           : null,
-      creatorInfo: json['creator'] != null
-          ? User.fromJson(
-              json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
-            )
-          : null,
       members: members,
       admins: admins,
       city: json['city'] as String?,
@@ -114,6 +107,26 @@ class OrgInfo {
     return orgList;
   }
 
+  /// Converts a JSON array to a list of OrgInfo instances.
+  ///
+  /// **params**:
+  /// * `data`: The JSON array to be parsed.
+  ///
+  /// **returns**:
+  /// * `List<OrgInfo>`: A list of OrgInfo objects containing the parsed data.
+  List<OrgInfo> fromBasicJsonToList(Map<String, dynamic>? data) {
+    final List<OrgInfo> orgList = [];
+    if (data != null && data['organizations'] is List) {
+      for (final dynamic orgJson in (data['organizations'] as List)) {
+        if (orgJson is Map<String, dynamic>) {
+          final OrgInfo org = OrgInfo.fromJson(orgJson);
+          orgList.add(org);
+        }
+      }
+    }
+    return orgList;
+  }
+
   /// The URL of the organization's image.
   @HiveField(0)
   String? image;
@@ -141,10 +154,6 @@ class OrgInfo {
   /// Indicates if user registration is required for the organization.
   @HiveField(6)
   bool? userRegistrationRequired;
-
-  /// Information about the creator of the organization.
-  @HiveField(7)
-  User? creatorInfo;
 
   /// The city of the organization's address.
   @HiveField(8)

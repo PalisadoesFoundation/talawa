@@ -91,10 +91,6 @@ void main() {
       _orgInfo = OrgInfo(
         name: 'Test Name',
         userRegistrationRequired: false,
-        creatorInfo: User(
-          firstName: 'Test firstname',
-          lastName: 'Test lastname',
-        ),
         city: 'Test City',
         countryCode: 'TC',
       );
@@ -147,10 +143,6 @@ void main() {
       _orgInfo = OrgInfo(
         name: 'Test Name',
         userRegistrationRequired: true,
-        creatorInfo: User(
-          firstName: 'Test firstname',
-          lastName: 'Test lastname',
-        ),
       );
       _tileType = TileType.org;
 

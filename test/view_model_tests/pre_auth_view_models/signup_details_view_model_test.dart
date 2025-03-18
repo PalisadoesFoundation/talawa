@@ -56,7 +56,6 @@ OrgInfo get org => OrgInfo(
       id: 'id',
       name: 'test org 3',
       userRegistrationRequired: userRegistrationRequired,
-      creatorInfo: User(firstName: 'test', lastName: '1'),
     );
 
 void main() {

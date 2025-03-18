@@ -158,40 +158,19 @@ class Queries {
   ///
   String get fetchJoinInOrg {
     return """
-    query organizationsConnection(\$first: Int, \$skip: Int){
-      organizationsConnection(
-        first: \$first,
-        skip: \$skip,
-        orderBy: name_ASC
-      ){
-        image
-        _id
-        name
-        image
-        description
-        address{
-        city
-        countryCode
-        state
-      }
-        userRegistrationRequired
-        creator{
-          firstName
-          lastName
-        }
-        members{
-              firstName
-              lastName
-              image
-              }
-              admins{
-              firstName
-              lastName
-              image
-              }
+    query {
+      organizations{
+        id,
+        name,
+        addressLine1,
+        addressLine2,
+        description,
+        avatarURL,
+        countryCode,
+        state,
       }
     }
-""";
+    """;
   }
 
   /// getter for fetchJoinInOrgByName.

@@ -138,6 +138,8 @@ class SignupDetailsViewModel extends BaseModel {
             ),
           );
           databaseFunctions.init();
+          print("heelo");
+          print(selectedOrganization?.id);
           final String query;
           if (selectedOrganization != null) {
             query = queries.registerUser(
@@ -186,47 +188,49 @@ class SignupDetailsViewModel extends BaseModel {
                 );
                 await storingCredentialsInSecureStorage();
               } else {
-                if (selectedOrganization!.userRegistrationRequired!) {
-                  final query = queries.joinOrgById(selectedOrganization!.id!);
-                  print(query);
-                  final QueryResult result =
-                      await databaseFunctions.gqlAuthMutation(
-                    query,
-                  );
-                  final joinPublicOrganization = result
-                      .data!['joinPublicOrganization'] as Map<String, dynamic>;
-                  final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
-                          'joinedOrganizations'] as List<dynamic>?)
-                      ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-                      .toList();
-                  await userConfig.updateUserJoinedOrg(joinedOrg!);
-                  userConfig.saveCurrentOrgInHive(
-                    userConfig.currentUser.joinedOrganizations![0],
-                  );
-                  navigationService.removeAllAndPush(
-                    Routes.mainScreen,
-                    Routes.splashScreen,
-                    arguments:
-                        MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-                  );
-                } else {
-                  final QueryResult result =
-                      await databaseFunctions.gqlAuthMutation(
-                    queries.sendMembershipRequest(selectedOrganization!.id!),
-                  );
-                  final sendMembershipRequest = result
-                      .data!['sendMembershipRequest'] as Map<String, dynamic>;
-                  final OrgInfo membershipRequest = OrgInfo.fromJson(
-                    sendMembershipRequest['organization']
-                        as Map<String, dynamic>,
-                  );
-                  userConfig.updateUserMemberRequestOrg([membershipRequest]);
-                  navigationService.pop();
-                  navigationService.removeAllAndPush(
-                    Routes.waitingScreen,
-                    Routes.splashScreen,
-                  );
-                }
+                // the query here will be changes according to if and else once memebership function available
+                final query = queries.joinOrgById(selectedOrganization!.id!);
+                print(query);
+                final QueryResult result =
+                    await databaseFunctions.gqlAuthMutation(
+                  query,
+                );
+                final joinPublicOrganization = result
+                    .data!['joinPublicOrganization'] as Map<String, dynamic>;
+                final List<OrgInfo>? joinedOrg = (joinPublicOrganization[
+                        'joinedOrganizations'] as List<dynamic>?)
+                    ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                    .toList();
+                await userConfig.updateUserJoinedOrg(joinedOrg!);
+                userConfig.saveCurrentOrgInHive(
+                  userConfig.currentUser.joinedOrganizations![0],
+                );
+                navigationService.removeAllAndPush(
+                  Routes.mainScreen,
+                  Routes.splashScreen,
+                  arguments:
+                      MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+                );
+                // if (selectedOrganization!.userRegistrationRequired!) {
+
+                // } else {
+                //   final QueryResult result =
+                //       await databaseFunctions.gqlAuthMutation(
+                //     queries.sendMembershipRequest(selectedOrganization!.id!),
+                //   );
+                //   final sendMembershipRequest = result
+                //       .data!['sendMembershipRequest'] as Map<String, dynamic>;
+                //   final OrgInfo membershipRequest = OrgInfo.fromJson(
+                //     sendMembershipRequest['organization']
+                //         as Map<String, dynamic>,
+                //   );
+                //   userConfig.updateUserMemberRequestOrg([membershipRequest]);
+                //   navigationService.pop();
+                //   navigationService.removeAllAndPush(
+                //     Routes.waitingScreen,
+                //     Routes.splashScreen,
+                //   );
+                // }
                 await storingCredentialsInSecureStorage();
               }
             }

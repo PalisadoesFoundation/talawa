@@ -123,10 +123,6 @@ final fakeOrgInfo = OrgInfo(
   name: "Organization Name",
   members: members,
   admins: admins,
-  creatorInfo: User(
-    firstName: "ravidi",
-    lastName: "shaikh",
-  ),
   userRegistrationRequired: true,
 );
 
@@ -444,13 +440,11 @@ UserConfig getAndRegisterUserConfig() {
           id: '3',
           name: 'test org 3',
           userRegistrationRequired: false,
-          creatorInfo: User(firstName: 'test', lastName: '1'),
         ),
         OrgInfo(
           id: '4',
           name: 'test org 4',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: '2'),
         ),
         OrgInfo(
           id: "XYZ",
@@ -462,13 +456,11 @@ UserConfig getAndRegisterUserConfig() {
           id: '1',
           name: 'test org',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
         OrgInfo(
           id: '2',
           name: 'test org',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
       ],
     ),

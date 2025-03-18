@@ -19,7 +19,6 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
     return OrgInfo(
       admins: (fields[3] as List?)?.cast<User>(),
       members: (fields[4] as List?)?.cast<User>(),
-      creatorInfo: fields[7] as User?,
       description: fields[5] as String?,
       id: fields[1] as String?,
       image: fields[0] as String?,
@@ -52,8 +51,6 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       ..write(obj.description)
       ..writeByte(6)
       ..write(obj.userRegistrationRequired)
-      ..writeByte(7)
-      ..write(obj.creatorInfo)
       ..writeByte(8)
       ..write(obj.city)
       ..writeByte(9)

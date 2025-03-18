@@ -84,7 +84,6 @@ void main() {
       id: '3',
       name: 'test org 3',
       userRegistrationRequired: false,
-      creatorInfo: User(firstName: 'test', lastName: '1'),
     );
     locator.registerSingleton(Queries());
     registerServices();
