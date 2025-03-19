@@ -29,7 +29,7 @@ class _MultiReactionButtonState extends State<MultiReactButton> {
             height: (MediaQuery.sizeOf(context).width / 392) * 35,
             width: (MediaQuery.sizeOf(context).width / 392) * 35,
             child: SvgPicture.asset(
-              'assets/images/🦆 icon _like_.svg',
+              'assets/images/icon_like_.svg',
             ),
           ),
         ),
