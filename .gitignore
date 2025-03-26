@@ -83,6 +83,7 @@ fabric.properties
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/
+.fvmrc
 .packages
 .pub-cache/
 .pub/
