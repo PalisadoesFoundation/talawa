@@ -121,12 +121,12 @@ class OrganisationInfoScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      if (orgInfo.address != null)
+                      if (orgInfo.city != null && orgInfo.countryCode != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 8, left: 8),
                           child: Center(
                             child: Text(
-                              '${orgInfo.address?.city}, ${orgInfo.address?.countryCode}',
+                              '${orgInfo.city}, ${orgInfo.countryCode}',
                               style: const TextStyle(
                                 fontSize: 16.0,
                                 color: Color.fromARGB(255, 179, 168, 168),
@@ -137,26 +137,14 @@ class OrganisationInfoScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: 24,
-                  left: 16,
-                  child: Text(
-                    'Created by: ${orgInfo.creatorInfo?.firstName ?? 'User name'} ${orgInfo.creatorInfo?.lastName ?? ''}',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 20),
+            const Padding(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Description',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
@@ -164,43 +152,43 @@ class OrganisationInfoScreen extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      !orgInfo.userRegistrationRequired!
-                          ? const Icon(
-                              Icons.lock_open,
-                              size: 18,
-                              color: Colors.green,
-                            )
-                          : Icon(
-                              Icons.lock,
-                              size: 18,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                      const SizedBox(width: 8),
-                      !orgInfo.userRegistrationRequired!
-                          ? Text(
-                              "Public",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color:
-                                        const Color.fromARGB(255, 98, 98, 98),
-                                  ),
-                            )
-                          : Text(
-                              "Private",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      103,
-                                      103,
-                                      103,
-                                    ),
-                                  ),
-                            ),
+                      // !orgInfo.userRegistrationRequired!
+                      //     ? const Icon(
+                      //         Icons.lock_open,
+                      //         size: 18,
+                      //         color: Colors.green,
+                      //       )
+                      //     : Icon(
+                      //         Icons.lock,
+                      //         size: 18,
+                      //         color: Theme.of(context).colorScheme.primary,
+                      //       ),
+                      // const SizedBox(width: 8),
+                      // !orgInfo.userRegistrationRequired!
+                      //     ? Text(
+                      //         "Public",
+                      //         style: Theme.of(context)
+                      //             .textTheme
+                      //             .bodySmall!
+                      //             .copyWith(
+                      //               color:
+                      //                   const Color.fromARGB(255, 98, 98, 98),
+                      //             ),
+                      //       )
+                      //     : Text(
+                      //         "Private",
+                      //         style: Theme.of(context)
+                      //             .textTheme
+                      //             .bodySmall!
+                      //             .copyWith(
+                      //               color: const Color.fromARGB(
+                      //                 255,
+                      //                 103,
+                      //                 103,
+                      //                 103,
+                      //               ),
+                      //             ),
+                      //       ),
                     ],
                   ),
                 ],

@@ -110,6 +110,7 @@ class SelectOrganizationViewModel extends BaseModel {
           orgAlreadyJoined = true;
         }
       });
+      print("org1");
       // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests!.forEach((element) {
         if (item != null && element.id! == item.id) {

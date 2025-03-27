@@ -8,7 +8,6 @@ import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -232,18 +231,10 @@ void main() {
     testWidgets("Check if model related functions work", (tester) async {
       final orgOne = OrgInfo(
         name: "org_one",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
         userRegistrationRequired: true,
       );
       final orgTwo = OrgInfo(
         name: "org_two",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
         userRegistrationRequired: true,
       );
 
