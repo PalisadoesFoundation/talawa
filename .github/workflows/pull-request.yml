@@ -148,10 +148,8 @@ jobs:
           # Check if any unauthorized files changed
           if [ ! -z "$CHANGED_UNAUTH_FILES" ]; then
             echo "any_changed=true" >> $GITHUB_OUTPUT
-            echo "any_deleted=true" >> $GITHUB_OUTPUT
           else
             echo "any_changed=false" >> $GITHUB_OUTPUT
-            echo "any_deleted=false" >> $GITHUB_OUTPUT
           fi
        
           
@@ -191,7 +189,7 @@ jobs:
 
           if [ -z "$BASE_SHA" ]; then
             echo "Error: BASE_SHA is empty. Git merge-base failed."
-          exit 1
+            exit 1
           fi
 
           #Get all changed files
