@@ -132,13 +132,12 @@ jobs:
 
           # Check for changes in sensitive files
           CHANGED_UNAUTH_FILES=""
-          for pattern in $SENSITIVE_FILES; do
-            FILES=$(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }} | grep -E "$pattern" || true)
-
-            if [ ! -z "$FILES" ]; then
-              CHANGED_UNAUTH_FILES="$CHANGED_UNAUTH_FILES $FILES"
-            fi
+          for file in $(git diff --name-only --diff-filter=ACMRD $BASE_SHA ${{ github.event.pull_request.head.sha }}); do
+           if echo "$file" | grep -qE "$pattern"; then
+             CHANGED_UNAUTH_FILES="$CHANGED_UNAUTH_FILES $file"
+           fi
           done
+
 
           # Trim and format output
           CHANGED_UNAUTH_FILES=$(echo "$CHANGED_UNAUTH_FILES" | xargs)
