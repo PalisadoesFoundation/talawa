@@ -175,16 +175,27 @@ jobs:
         with:
           fetch-depth: 0 #Fetch all history for all branches and tags
 
+
+      - name: Changed Files
+        id: changed-files
+        run: | 
+          echo "Base SHA: ${{ github.event.pull_request.base.sha }}"
+          echo "Head SHA: ${{ github.event.pull_request.head.sha }}"
+
       - name: Get changed files
         id: changed-files
         run: |
           #Get the base branch ref
           BASE_SHA=$(git merge-base ${{github.event.pull_request.base.sha}} ${{github.event.pull_request.head.sha}})
 
+          if [ -z "$BASE_SHA" ]; then
+            echo "Error: BASE_SHA is empty. Git merge-base failed."
+            exit 1
+          fi
+
           #Get all changed files
           ALL_CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{github.event.pull_request.head.sha}} | tr '\n' ' ')
-                      echo "all_changed_files=${ALL_CHANGED_FILES}" >>
-          $GITHUB_OUTPUT
+          echo "all_changed_files=${ALL_CHANGED_FILES}" >> $GITHUB_OUTPUT
 
       - name: Echo number of changed files
         env:
