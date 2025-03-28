@@ -84,8 +84,7 @@ jobs:
 
           # Get all changed files
           ALL_CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{ github.event.pull_request.head.sha }} | tr '\n' ' ')
-                       echo "all_changed_files=${ALL_CHANGED_FILES}" >>
-          $GITHUB_OUTPUT
+                       echo "all_changed_files=${ALL_CHANGED_FILES}" >> $GITHUB_OUTPUT
 
       - name: List all changed files
         run: |
@@ -120,6 +119,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags
       - name: Get Changed Unauthorized files
         id: changed-unauth-files
         run : | 
@@ -171,6 +172,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 #Fetch all history for all branches and tags
 
       - name: Get changed files
         id: changed-files
