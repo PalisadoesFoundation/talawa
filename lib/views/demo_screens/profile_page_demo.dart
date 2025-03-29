@@ -93,15 +93,13 @@ class DemoProfilePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'User',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontFamily: 'open-sans',
                     ),
                   ),
