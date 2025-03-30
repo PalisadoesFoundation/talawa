@@ -22,7 +22,7 @@ jobs:
               pull_number: context.issue.number
             });
 
-            const codeRabbitReviews = reviews.filter(review => 
+            const codeRabbitReviews = reviews.filter(review =>
               review.user.login.toLowerCase().includes('coderabbit') || review.user.login.toLowerCase().includes('coderabbitai')
             );
 
