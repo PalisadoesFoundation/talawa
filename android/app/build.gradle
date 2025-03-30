@@ -42,7 +42,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.talawa"
-        minSdkVersion 21
+        minSdkVersion 22
 
         targetSdkVersion 35
         multiDexEnabled true
