@@ -738,6 +738,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
     _i3.GraphQLCache? cache,
     _i3.DefaultPolicies? defaultPolicies,
     bool? alwaysRebroadcast,
+    Duration? queryRequestTimeout,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -748,6 +749,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
             #cache: cache,
             #defaultPolicies: defaultPolicies,
             #alwaysRebroadcast: alwaysRebroadcast,
+            #queryRequestTimeout: queryRequestTimeout,
           },
         ),
         returnValue: _FakeGraphQLClient_3(
@@ -760,6 +762,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
               #cache: cache,
               #defaultPolicies: defaultPolicies,
               #alwaysRebroadcast: alwaysRebroadcast,
+              #queryRequestTimeout: queryRequestTimeout,
             },
           ),
         ),
@@ -773,6 +776,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
               #cache: cache,
               #defaultPolicies: defaultPolicies,
               #alwaysRebroadcast: alwaysRebroadcast,
+              #queryRequestTimeout: queryRequestTimeout,
             },
           ),
         ),
@@ -1872,6 +1876,30 @@ class MockUserConfig extends _i2.Mock implements _i27.UserConfig {
       ) as _i6.Future<void>);
 
   @override
+  _i6.Future<_i3.QueryResult<Object?>> performLogout() => (super.noSuchMethod(
+        Invocation.method(
+          #performLogout,
+          [],
+        ),
+        returnValue: _i6.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_9<Object?>(
+          this,
+          Invocation.method(
+            #performLogout,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i6.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_9<Object?>(
+          this,
+          Invocation.method(
+            #performLogout,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i3.QueryResult<Object?>>);
+
+  @override
   _i6.Future<void> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2219,19 +2247,6 @@ class MockSignupDetailsViewModel extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i5.OrgInfo get selectedOrganization => (super.noSuchMethod(
-        Invocation.getter(#selectedOrganization),
-        returnValue: _FakeOrgInfo_11(
-          this,
-          Invocation.getter(#selectedOrganization),
-        ),
-        returnValueForMissingStub: _FakeOrgInfo_11(
-          this,
-          Invocation.getter(#selectedOrganization),
-        ),
-      ) as _i5.OrgInfo);
 
   @override
   set selectedOrganization(_i5.OrgInfo? _selectedOrganization) =>
