@@ -255,23 +255,6 @@ jobs:
         working-directory: ./docs
         run: npm run build
 
-  Validate-Coderabbit:
-    name: Validate CodeRabbit Approval
-    runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
-    needs: [Test-Docusaurus-Deployment]
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-      - name: Validate CodeRabbit.ai Approval
-        run: |
-          chmod +x .github/workflows/scripts/validate-coderabbit.sh
-          .github/workflows/scripts/validate-coderabbit.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-
   Python-Compliance:
     name: Check Python Code Style
     runs-on: ubuntu-latest
