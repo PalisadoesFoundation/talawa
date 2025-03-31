@@ -175,7 +175,6 @@ jobs:
         with:
           fetch-depth: 0 #Fetch all history for all branches and tags
 
-
       - name: Get changed files
         id: changed-files
         run: |
