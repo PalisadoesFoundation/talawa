@@ -3,14 +3,6 @@ import 'package:talawa/models/organization/org_info.dart';
 
 void main() {
   group('OrgInfo model tests', () {
-    final Map<String, dynamic> userJson = {
-      'user': {
-        'id': 'user_id',
-      },
-      'authenticationToken': ' ',
-      'refreshToken': ' ',
-    };
-
     final Map<String, dynamic> json1 = {
       "id": "123",
       "name": "Name",
