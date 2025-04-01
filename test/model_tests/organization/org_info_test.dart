@@ -35,27 +35,6 @@ void main() {
       },
     };
 
-    final Map<String, dynamic> json2 = {
-      '_id': '321',
-      'image': 'image_url',
-      'name': 'Name',
-      'description': 'Description',
-      'userRegistrationRequired': false,
-      'creator': userJson,
-      'members': [userJson],
-      'admins': [userJson],
-      'address': {
-        "city": "Delhi",
-        "countryCode": "IN",
-        "dependentLocality": "Some Dependent Locality",
-        "line1": "123 Random Street",
-        "line2": "Apartment 456",
-        "postalCode": "110001",
-        "sortingCode": "ABC-123",
-        "state": "Delhi",
-      },
-    };
-
     test('Test fromJson function', () {
       final OrgInfo result = OrgInfo.fromJson(json1);
 
