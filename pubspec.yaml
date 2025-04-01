@@ -87,7 +87,7 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^2.0.1
 
-  json_serializable: ^6.8.0
+  json_serializable: ^6.9.0
   lint: ^2.3.0
 
   mocktail_image_network: ^1.2.0
