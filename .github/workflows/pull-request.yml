@@ -184,6 +184,17 @@ jobs:
           #Get all changed files
           ALL_CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRT $BASE_SHA ${{github.event.pull_request.head.sha}} | tr '\n' ' ')
           echo "all_changed_files=${ALL_CHANGED_FILES}" >> $GITHUB_OUTPUT
+      - env:
+          CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
+        if: steps.changed_files.outputs.any_changed == 'true' || steps.changed_files.outputs.any_deleted == 'true'
+        name: Show changed files
+        run: |
+          echo "Unauthorized changes were made in the following files:"
+          for FILE in ${CHANGED_FILES}; do
+            echo "$FILE"
+          done
+          echo "To override this, apply the 'ignore-sensitive-files-pr' label"
+          exit 1
 
       - name: Echo number of changed files
         env:
@@ -333,4 +344,3 @@ jobs:
         run: |
           source venv/bin/activate
           python .github/workflows/scripts/check_docstrings.py --directories .github scripts
-          
