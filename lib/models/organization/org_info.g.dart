@@ -36,7 +36,7 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
   @override
   void write(BinaryWriter writer, OrgInfo obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)

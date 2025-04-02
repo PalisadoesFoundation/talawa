@@ -147,10 +147,7 @@ bool isPrivate(Token? name) =>
 class TalawaLintHelpers {
   static bool isVoid(Declaration node) {
     return returnType(node) is VoidType ||
-        returnType(node)?.getDisplayString(
-              withNullability: true,
-            ) ==
-            "Future<void>";
+        returnType(node)?.getDisplayString() == "Future<void>";
   }
 
   static bool isImplicitReturn(Declaration node) {
