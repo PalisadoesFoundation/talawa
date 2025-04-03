@@ -67,7 +67,7 @@ dependencies:
   qr_code_scanner_plus: ^2.0.9+1
   qr_flutter: 4.1.0
   quick_actions: ^1.1.0
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.5.3
   shimmer: ^3.0.0
   stack_trace: ^1.11.1
   syncfusion_flutter_calendar: ^28.2.3
