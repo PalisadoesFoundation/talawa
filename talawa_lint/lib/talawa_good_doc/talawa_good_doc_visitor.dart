@@ -141,9 +141,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
 
     final doc = node.documentationComment!.tokens;
     if (!doc[0].lexeme.endsWith('.')) {
-      reporter.reportErrorForToken(
-        TalawaGoodDocLintRules.firstLineEndCode,
+      reporter.atToken(
         doc[0],
+        TalawaGoodDocLintRules.firstLineEndCode,
       );
     }
 
@@ -155,9 +155,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
 
     if (doc.length == 1) {
       if (node is FunctionDeclaration || node is MethodDeclaration) {
-        reporter.reportErrorForNode(
-          TalawaGoodDocLintRules.includeParamsKeywordCode,
+        reporter.atNode(
           node.documentationComment!,
+          TalawaGoodDocLintRules.includeParamsKeywordCode,
         );
 
         return false;
@@ -175,9 +175,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     //    space at the end when formatted
 
     if (doc[1].lexeme.trim() != '///') {
-      reporter.reportErrorForToken(
-        TalawaGoodDocLintRules.secondLineEmptyCode,
+      reporter.atToken(
         doc[1],
+        TalawaGoodDocLintRules.secondLineEmptyCode,
       );
     }
 
@@ -218,9 +218,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     }
 
     if (!containsParamsKeyword) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.includeParamsKeywordCode,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.includeParamsKeywordCode,
       );
 
       return false;
@@ -232,9 +232,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
       if (currentDocLine == doc.length) {
         return false;
       } else if (doc[currentDocLine].lexeme != "///   None") {
-        reporter.reportErrorForToken(
-          TalawaGoodDocLintRules.noParamNone,
+        reporter.atToken(
           doc[currentDocLine],
+          TalawaGoodDocLintRules.noParamNone,
         );
         return false;
       }
@@ -257,25 +257,25 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
         // TODO: RegExp.hasMatch() doesn't work for some reason.
         if (!line.lexeme.startsWith(paramRegex.pattern)) {
           if (line.lexeme.trim() == '/// **returns**:') {
-            reporter.reportErrorForToken(
-              TalawaGoodDocLintRules.allParamsNotDocumented,
+            reporter.atToken(
               line,
+              TalawaGoodDocLintRules.allParamsNotDocumented,
             );
 
             return false;
           }
 
-          reporter.reportErrorForToken(
-            TalawaGoodDocLintRules.startShouldFollowParam,
+          reporter.atToken(
             line,
+            TalawaGoodDocLintRules.startShouldFollowParam,
           );
 
           return false;
         } else {
           if (line.lexeme.trim() == paramRegex.pattern) {
-            reporter.reportErrorForToken(
-              TalawaGoodDocLintRules.emptyParamDoc,
+            reporter.atToken(
               line,
+              TalawaGoodDocLintRules.emptyParamDoc,
             );
 
             return false;
@@ -289,9 +289,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     }
 
     if (currentParam != paramList.length) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.allParamsNotDocumented,
+      reporter.atNode(
         node,
+        TalawaGoodDocLintRules.allParamsNotDocumented,
       );
 
       return false;
@@ -324,9 +324,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     final isVoid = TalawaLintHelpers.isVoid(node);
 
     if (!containsReturn) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.doesNotContainReturn,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.doesNotContainReturn,
       );
 
       return;
@@ -335,9 +335,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     // Check if there is atleast one blank line above
 
     if (doc[currentDocLine - 1].lexeme.trim() != '///') {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
       );
 
       return;
@@ -349,9 +349,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     // if (isVoid && currentDocLine == doc.length) return;
 
     if (doc[currentDocLine].lexeme.trim() != '/// **returns**:') {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.wrongReturnsDoc,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.wrongReturnsDoc,
       );
 
       return;
@@ -362,9 +362,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     currentDocLine++;
 
     if (currentDocLine == doc.length) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noReturnDoc,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.noReturnDoc,
       );
 
       return;
@@ -379,9 +379,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
     if (isVoid &&
         (doc[currentDocLine - 1].lexeme != '///   None' ||
             currentDocLine != doc.length)) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.noEndWithNoneForVoid,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.noEndWithNoneForVoid,
       );
 
       return;
@@ -399,9 +399,9 @@ class TalawaGoodDocVisitor extends SimpleAstVisitor {
         !doc[currentDocLine - 1].lexeme.startsWith(
               returnTypeDocPattern.pattern,
             )) {
-      reporter.reportErrorForNode(
-        TalawaGoodDocLintRules.wrongReturnsDoc,
+      reporter.atNode(
         node.documentationComment!,
+        TalawaGoodDocLintRules.wrongReturnsDoc,
       );
 
       return;
