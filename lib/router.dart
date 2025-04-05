@@ -48,7 +48,7 @@ import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 /// The MaterialApp provides us with a property called generateRoute where.
 ///
 ///
-/// we can pass in a Function that returns a Route<dynamic> and takes in RouteSettings
+/// we can pass in a Function that returns a `Route<dynamic>` and takes in RouteSettings
 /// Thus for this purpose, we create a function named generateRoute
 ///
 /// **params**:

@@ -101,7 +101,7 @@ class EventCalendar extends StatelessWidget {
   }
 }
 
-/// function to convert List<event> to Appointment object.
+/// function to convert `List<event>` to Appointment object.
 ///
 /// Appointment is provided by the calender external library
 ///
@@ -109,7 +109,7 @@ class EventCalendar extends StatelessWidget {
 /// * `eventsList`: list of events to be converted
 ///
 /// **returns**:
-/// * `_AppointmentDataSource`: Entire data in <Appointment>[](list) format
+/// * `_AppointmentDataSource`: Entire data in `<Appointment>[]`(list) format
 _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   final appointments = <Appointment>[];
   final colors = [
