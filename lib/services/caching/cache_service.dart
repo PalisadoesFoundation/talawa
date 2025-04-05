@@ -40,9 +40,9 @@ class CacheService {
   ///
   /// **params**:
   /// * `operation`: The GraphQL operation string.
-  /// * `variables`: Optional variables for the operation (Map<String, dynamic>).
+  /// * `variables`: Optional variables for the operation (`Map<String, dynamic>`).
   /// * `operationType`: The type of the GraphQL operation (from `CachedOperationType` enum).
-  /// * `whenOnline`: A function that executes the operation online and returns the result (Future<QueryResult<Object?>?>).
+  /// * `whenOnline`: A function that executes the operation online and returns the result (`Future<QueryResult<Object?>?>`).
   ///
   /// **returns**:
   /// * `Future<QueryResult<Object?>>`: Returns the result of the operation.

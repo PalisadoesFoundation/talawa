@@ -1,4 +1,4 @@
-///This file contains demo data for pinned posts. It contains a list of type Map<String, Object> and sample data.
+///This file contains demo data for pinned posts. It contains a list of type `Map<String, Object>` and sample data.
 
 const pinnedPostsDemoData = [
   {
