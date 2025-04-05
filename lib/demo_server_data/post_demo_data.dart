@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-///This file contains demo data for posts. It contains a list of type `Map<String, Object>`
-/// and sample data of posts.
+/// This file contains demo data for posts. It contains a list of type `Map<String, Object>`  and sample data of posts.
 const postsDemoData = [
   {
     "_id": "asdasdasd",
