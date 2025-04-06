@@ -58,20 +58,37 @@ jobs:
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
         run: |
+          set -e
+          # Check for uncommitted changes in pubspec.lock
           if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
             echo "Uncommitted changes detected in pubspec.lock. Stashing changes..."
             git stash --include-untracked
           fi
+
+          # Switch to develop-postgres branch and pull latest changes
           git branch
           git checkout develop-postgres
           git pull
           git branch
           git checkout -
+
+          # Install GitPython and run the check_ignore script
           pip install GitPython
           python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+
+          # Restore stashed changes if needed
           if git stash list | grep -q "stash@{0}"; then
             echo "Restoring stashed changes..."
             git stash pop
+          fi
+
+          # Ensure no new changes were introduced
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Error: New changes were introduced after running the script."
+            git status
+            exit 1
+          else
+            echo "No new changes were introduced."
           fi
       - name: Compare translation files
         run: |
