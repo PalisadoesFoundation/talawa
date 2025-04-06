@@ -53,6 +53,10 @@ jobs:
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
         run: |
+          if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
+            echo "Uncommitted changes detected in pubspec.lock. Stashing changes..."
+            git stash --include-untracked
+          fi
           git branch
           git checkout develop-postgres
           git pull
@@ -60,6 +64,10 @@ jobs:
           git checkout -
           pip install GitPython
           python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+          if git stash list | grep -q "stash@{0}"; then
+            echo "Restoring stashed changes..."
+            git stash pop
+          fi
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
