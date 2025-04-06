@@ -35,10 +35,10 @@ class TalawaApiDocVisitor extends SimpleAstVisitor {
         !isMain) {
       final errorNode = getNodeToAnnotate(node);
 
-      reporter.reportErrorForOffset(
-        rule.code,
-        errorNode.offset,
-        errorNode.length,
+      reporter.atOffset(
+        errorCode: rule.code,
+        offset: errorNode.offset,
+        length: errorNode.length,
       );
 
       return true;
