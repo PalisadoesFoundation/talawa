@@ -83,7 +83,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                 Text(
                   // If the flag is true, we only display the firstHalf.
                   // If it is false, we display the entire text.
-                  flag ? ("$firstHalf...") : (firstHalf + secondHalf),
+                  flag ? "$firstHalf..." : (firstHalf + secondHalf),
                   textAlign: TextAlign.justify,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontFamily: 'open-sans',
