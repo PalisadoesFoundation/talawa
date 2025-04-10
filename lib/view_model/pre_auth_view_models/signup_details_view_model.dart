@@ -159,6 +159,9 @@ class SignupDetailsViewModel extends BaseModel {
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
             // if user successfully saved and access token is also generated.
             if (userSaved && tokenRefreshed) {
+              userConfig.saveCurrentOrgInHive(
+                userConfig.currentUser.joinedOrganizations![0],
+              );
               navigationService.removeAllAndPush(
                 Routes.mainScreen,
                 Routes.splashScreen,
