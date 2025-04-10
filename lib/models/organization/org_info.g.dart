@@ -16,6 +16,7 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+    // coverage:ignore-start
     return OrgInfo(
       admins: (fields[3] as List?)?.cast<User>(),
       members: (fields[4] as List?)?.cast<User>(),
@@ -31,6 +32,7 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       postalCode: fields[11] as String?,
       state: fields[12] as String?,
     );
+    // coverage:ignore-end
   }
 
   @override
