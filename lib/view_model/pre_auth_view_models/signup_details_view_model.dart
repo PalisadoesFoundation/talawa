@@ -167,7 +167,7 @@ class SignupDetailsViewModel extends BaseModel {
                 Routes.splashScreen,
                 arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
               );
-              await storingCredentialsInSecureStorage();
+              storingCredentialsInSecureStorage();
             } else if (userSaved && !tokenRefreshed) {
               navigationService.showTalawaErrorSnackBar(
                 TalawaErrors.refreshAccessTokenExpiredException,
