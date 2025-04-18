@@ -19,7 +19,7 @@ class Queries {
     String lastName,
     String email,
     String password,
-    String? selectedOrganization,
+    String selectedOrganization,
   ) {
     return """
             mutation {
@@ -27,6 +27,7 @@ class Queries {
                 emailAddress: "$email"
                 name: "$firstName $lastName"
                 password: "$password"
+                selectedOrganization: "$selectedOrganization"
                 
               }) {
                 authenticationToken,

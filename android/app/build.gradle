@@ -33,7 +33,7 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
     
-    compileSdkVersion 34
+    compileSdkVersion 35
     namespace "com.example.talawa"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -44,7 +44,7 @@ android {
         applicationId "com.example.talawa"
         minSdkVersion 21
 
-        targetSdkVersion 34
+        targetSdkVersion 35
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
