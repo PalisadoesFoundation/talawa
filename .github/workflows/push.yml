@@ -54,8 +54,8 @@ jobs:
       - name: Run check_ignore
         run: |
           if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
-            echo "Uncommitted changes detected in pubspec.lock. Stashing changes..."
-            git stash --include-untracked
+            echo "Uncommitted changes detected in pubspec.lock. Stashing just that file..."
+            git stash push -u -- "pubspec.lock"
           fi
           git branch
           git checkout develop-postgres
