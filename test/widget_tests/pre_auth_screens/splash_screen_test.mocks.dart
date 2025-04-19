@@ -5,12 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i2;
 
-import 'package:app_links/src/app_links.dart' as _i5;
+import 'package:app_links/src/app_links.dart' as _i6;
+import 'package:graphql_flutter/graphql_flutter.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i8;
 import 'package:talawa/models/organization/org_info.dart' as _i3;
 import 'package:talawa/models/user/user_info.dart' as _i4;
-import 'package:talawa/services/user_config.dart' as _i6;
+import 'package:talawa/services/user_config.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -56,10 +57,21 @@ class _FakeUser_2 extends _i1.SmartFake implements _i4.User {
         );
 }
 
+class _FakeQueryResult_3<TParsed extends Object?> extends _i1.SmartFake
+    implements _i5.QueryResult<TParsed> {
+  _FakeQueryResult_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [AppLinks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppLinks extends _i1.Mock implements _i5.AppLinks {
+class MockAppLinks extends _i1.Mock implements _i6.AppLinks {
   @override
   _i2.Stream<String> get stringLinkStream => (super.noSuchMethod(
         Invocation.getter(#stringLinkStream),
@@ -118,7 +130,7 @@ class MockAppLinks extends _i1.Mock implements _i5.AppLinks {
 /// A class which mocks [UserConfig].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserConfig extends _i1.Mock implements _i6.UserConfig {
+class MockUserConfig extends _i1.Mock implements _i7.UserConfig {
   @override
   _i2.Stream<_i3.OrgInfo> get currentOrgInfoStream => (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoStream),
@@ -156,11 +168,11 @@ class MockUserConfig extends _i1.Mock implements _i6.UserConfig {
   @override
   String get currentOrgName => (super.noSuchMethod(
         Invocation.getter(#currentOrgName),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#currentOrgName),
         ),
-        returnValueForMissingStub: _i7.dummyValue<String>(
+        returnValueForMissingStub: _i8.dummyValue<String>(
           this,
           Invocation.getter(#currentOrgName),
         ),
@@ -232,6 +244,30 @@ class MockUserConfig extends _i1.Mock implements _i6.UserConfig {
         returnValue: _i2.Future<void>.value(),
         returnValueForMissingStub: _i2.Future<void>.value(),
       ) as _i2.Future<void>);
+
+  @override
+  _i2.Future<_i5.QueryResult<Object?>> performLogout() => (super.noSuchMethod(
+        Invocation.method(
+          #performLogout,
+          [],
+        ),
+        returnValue: _i2.Future<_i5.QueryResult<Object?>>.value(
+            _FakeQueryResult_3<Object?>(
+          this,
+          Invocation.method(
+            #performLogout,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i2.Future<_i5.QueryResult<Object?>>.value(
+            _FakeQueryResult_3<Object?>(
+          this,
+          Invocation.method(
+            #performLogout,
+            [],
+          ),
+        )),
+      ) as _i2.Future<_i5.QueryResult<Object?>>);
 
   @override
   _i2.Future<void> updateUserJoinedOrg(List<_i3.OrgInfo>? orgDetails) =>

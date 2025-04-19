@@ -58,6 +58,10 @@ jobs:
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
         run: |
+          if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
+            echo "Uncommitted changes detected in pubspec.lock. Stashing just that file..."
+            git stash push -u -- "pubspec.lock"
+          fi
           git branch
           git checkout -b temp_branch
           git branch
@@ -68,6 +72,10 @@ jobs:
           git checkout temp_branch
           pip install GitPython
           python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
+          if git stash list | grep -q "stash@{0}"; then
+            echo "Restoring stashed changes..."
+            git stash pop
+          fi
       - name: Compare translation files
         run: |
           chmod +x .github/workflows/scripts/compare_translations.py
