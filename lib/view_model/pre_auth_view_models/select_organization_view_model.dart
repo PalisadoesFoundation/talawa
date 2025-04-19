@@ -105,7 +105,7 @@ class SelectOrganizationViewModel extends BaseModel {
     // if user session not expirec
     if (userConfig.loggedIn) {
       // check if user has already joined the selected organization.
-      userConfig.currentUser.joinedOrganizations!.forEach((element) {
+      userConfig.currentUser.joinedOrganizations?.forEach((element) {
         if (item != null && element.id! == item.id) {
           orgAlreadyJoined = true;
         }
@@ -123,7 +123,7 @@ class SelectOrganizationViewModel extends BaseModel {
         notifyListeners();
         onTapJoin();
 
-        if (selectedOrganization!.userRegistrationRequired == true) {
+        if (selectedOrganization?.userRegistrationRequired == true) {
           navigationService.pushScreen(
             Routes.requestAccess,
             arguments: selectedOrganization,
@@ -185,7 +185,7 @@ class SelectOrganizationViewModel extends BaseModel {
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
     // if `selectedOrganization` registrations is not required.
-    if (selectedOrganization!.userRegistrationRequired == false) {
+    if (selectedOrganization?.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
@@ -193,14 +193,14 @@ class SelectOrganizationViewModel extends BaseModel {
         );
 
         final List<OrgInfo>? joinedOrg =
-            ((result.data!['joinPublicOrganization']
+            ((result.data?['joinPublicOrganization']
                         as Map<String, dynamic>)['joinedOrganizations']
                     as List<dynamic>?)
                 ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
                 .toList();
         userConfig.updateUserJoinedOrg(joinedOrg!);
         // if user joined organization length is 1
-        if (userConfig.currentUser.joinedOrganizations!.length == 1) {
+        if (userConfig.currentUser.joinedOrganizations?.length == 1) {
           userConfig.saveCurrentOrgInHive(
             userConfig.currentUser.joinedOrganizations![0],
           );
@@ -256,9 +256,9 @@ class SelectOrganizationViewModel extends BaseModel {
         updateQuery: (existingOrganizations, newOrganizations) {
           return {
             'organizationsConnection':
-                (existingOrganizations!["organizationsConnection"]
+                (existingOrganizations?["organizationsConnection"]
                         as List<Object?>) +
-                    (newOrganizations!['organizationsConnection']
+                    (newOrganizations?['organizationsConnection']
                         as List<dynamic>),
           };
         },
