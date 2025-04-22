@@ -156,26 +156,26 @@ class OrgInfo {
   bool? userRegistrationRequired;
 
   /// The city of the organization's address.
-  @HiveField(8)
+  @HiveField(7)
   String? city;
 
   /// The country code of the organization's address.
-  @HiveField(9)
+  @HiveField(8)
   String? countryCode;
 
   /// The first line of the organization's address.
-  @HiveField(10)
+  @HiveField(9)
   String? line1;
 
   /// The second line of the organization's address.
-  @HiveField(11)
+  @HiveField(10)
   String? line2;
 
   /// The postal code of the organization's address.
-  @HiveField(12)
+  @HiveField(11)
   String? postalCode;
 
   /// The state of the organization's address.
-  @HiveField(13)
+  @HiveField(12)
   String? state;
 }
