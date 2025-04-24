@@ -59,24 +59,22 @@ OrgInfo get org => OrgInfo(
     );
 
 void main() {
-  testSetupLocator();
-  setUp(() async {
-    registerServices();
-    locator<Queries>();
-    userSaved = true;
-    empty = true;
-    userRegistrationRequired = false;
-    await locator.unregister<UserConfig>();
-    locator.registerSingleton<UserConfig>(MockUserConfig());
-    FlutterSecureStorage.setMockInitialValues(
-      {"userEmail": "mocked_value", "userPassword": "mocked_value"},
-    );
-  });
-  // tearDown(() async {
-  //   await locator.unregister<Queries>();
-  // });
-
   group('SignupDetailsViewModel Test -', () {
+    setUp(() async {
+      registerServices();
+      locator<Queries>();
+      userSaved = true;
+      empty = true;
+      userRegistrationRequired = false;
+      await locator.unregister<UserConfig>();
+      locator.registerSingleton<UserConfig>(MockUserConfig());
+      FlutterSecureStorage.setMockInitialValues(
+        {"userEmail": "mocked_value", "userPassword": "mocked_value"},
+      );
+    });
+    setUpAll(() {
+      testSetupLocator();
+    });
     testWidgets(
         'Check if signup() is working fine when credentials are invalid',
         (tester) async {
@@ -318,13 +316,19 @@ void main() {
         contains("Storing error"),
       );
     });
-
+  });
+  group('SignupDetailsViewModel Navigation Tests -', () {
+    setUp(() async {
+      registerServices();
+      getAndRegisterGraphqlConfig();
+    });
+    setUpAll(() {
+      testSetupLocator();
+    });
     testWidgets(
         'Should navigate to main screen when userSaved and tokenRefreshed are true',
         (tester) async {
-      getAndRegisterGraphqlConfig();
       final model = SignupDetailsViewModel();
-      getAndRegisterGraphqlConfig();
       final mockUserConfig = getAndRegisterUserConfig();
       await tester.pumpWidget(SignUpMock(formKey: model.formKey));
       model.initialise(org);
@@ -337,13 +341,13 @@ void main() {
               'id': 'user-id',
               'name': 'Test User',
               'avatarURL': null,
-              'emailAddress': 'testuser@example.com',
+              'emailAddress': 'testuser@gmail.com',
               'organizationsWhereMember': {
                 'edges': [
                   {
                     'node': {
                       'id': 'organization-id',
-                      'name': 'Test Organization',
+                      'name': 'test org 3',
                       'addressLine1': '123 Test Street',
                       'addressLine2': 'Suite 789',
                       'avatarMimeType': null,
@@ -386,32 +390,17 @@ void main() {
         ),
       ).thenAnswer((_) async => result);
       when(mockUserConfig.updateUser(mockUserConfig.currentUser))
-          .thenAnswer((_) async => true); // userSaved = true
-      when(mockUserConfig.currentUser).thenReturn(
-        User(
-          id: 'user-id',
-          firstName: 'Test',
-          lastName: 'User',
-          email: 'testuser@example.com',
-          joinedOrganizations: [
-            OrgInfo(
-              id: 'organization-id',
-              name: 'Test Organization',
-              userRegistrationRequired: false,
-            ),
-          ],
-        ),
-      );
+          .thenAnswer((_) async => true);
       await tester.runAsync(() async {
         model.signUp();
       });
       await tester.pumpAndSettle();
       expect(mockUserConfig.currentUser.firstName, 'Test');
       expect(mockUserConfig.currentUser.lastName, 'User');
-      expect(mockUserConfig.currentUser.email, 'testuser@example.com');
+      expect(mockUserConfig.currentUser.email, 'testuser@gmail.com');
       expect(
         mockUserConfig.currentUser.joinedOrganizations?[0].name,
-        'Test Organization',
+        'test org 3',
       );
     });
   });
