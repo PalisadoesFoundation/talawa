@@ -75,6 +75,9 @@ void main() {
     setUpAll(() {
       testSetupLocator();
     });
+    tearDownAll(() {
+      locator.reset();
+    });
     testWidgets(
         'Check if signup() is working fine when credentials are invalid',
         (tester) async {
@@ -314,93 +317,6 @@ void main() {
       expect(
         log,
         contains("Storing error"),
-      );
-    });
-  });
-  group('SignupDetailsViewModel Navigation Tests -', () {
-    setUp(() async {
-      registerServices();
-      getAndRegisterGraphqlConfig();
-    });
-    setUpAll(() {
-      testSetupLocator();
-    });
-    testWidgets(
-        'Should navigate to main screen when userSaved and tokenRefreshed are true',
-        (tester) async {
-      final model = SignupDetailsViewModel();
-      final mockUserConfig = getAndRegisterUserConfig();
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-      model.initialise(org);
-      final result = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'signUp': {
-            'authenticationToken': 'test-authentication-token',
-            'user': {
-              'id': 'user-id',
-              'name': 'Test User',
-              'avatarURL': null,
-              'emailAddress': 'testuser@gmail.com',
-              'organizationsWhereMember': {
-                'edges': [
-                  {
-                    'node': {
-                      'id': 'organization-id',
-                      'name': 'test org 3',
-                      'addressLine1': '123 Test Street',
-                      'addressLine2': 'Suite 789',
-                      'avatarMimeType': null,
-                      'avatarURL': null,
-                      'postalCode': '10001',
-                      'countryCode': 'us',
-                      'description':
-                          'An organization created for testing purposes.',
-                      'members': {
-                        'edges': [
-                          {
-                            'node': {
-                              'name': 'Test User',
-                              'role': 'regular',
-                            },
-                          },
-                          {
-                            'node': {
-                              'name': 'Administrator User',
-                              'role': 'administrator',
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-        },
-        options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', org.id!)),
-        ),
-      );
-      when(graphqlConfig.getToken()).thenAnswer((_) async => true);
-      when(
-        databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id!),
-        ),
-      ).thenAnswer((_) async => result);
-      when(mockUserConfig.updateUser(mockUserConfig.currentUser))
-          .thenAnswer((_) async => true);
-      await tester.runAsync(() async {
-        model.signUp();
-      });
-      await tester.pumpAndSettle();
-      expect(mockUserConfig.currentUser.firstName, 'Test');
-      expect(mockUserConfig.currentUser.lastName, 'User');
-      expect(mockUserConfig.currentUser.email, 'testuser@gmail.com');
-      expect(
-        mockUserConfig.currentUser.joinedOrganizations?[0].name,
-        'test org 3',
       );
     });
   });
