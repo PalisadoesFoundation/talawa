@@ -47,7 +47,7 @@ dependencies:
   flutter_reaction_button: ^3.0.0+3
   flutter_secure_storage: ^9.2.4
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.0.16
+  flutter_svg: ^2.1.0
   font_awesome_flutter: ^10.8.0
   get_it: ^8.0.3
   graphql_flutter: ^5.2.0-beta.8
