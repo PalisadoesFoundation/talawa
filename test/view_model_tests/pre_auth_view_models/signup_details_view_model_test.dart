@@ -59,24 +59,25 @@ OrgInfo get org => OrgInfo(
     );
 
 void main() {
-  testSetupLocator();
-  setUp(() async {
-    registerServices();
-    locator<Queries>();
-    userSaved = true;
-    empty = true;
-    userRegistrationRequired = false;
-    await locator.unregister<UserConfig>();
-    locator.registerSingleton<UserConfig>(MockUserConfig());
-    FlutterSecureStorage.setMockInitialValues(
-      {"userEmail": "mocked_value", "userPassword": "mocked_value"},
-    );
-  });
-  // tearDown(() async {
-  //   await locator.unregister<Queries>();
-  // });
-
   group('SignupDetailsViewModel Test -', () {
+    setUp(() async {
+      registerServices();
+      locator<Queries>();
+      userSaved = true;
+      empty = true;
+      userRegistrationRequired = false;
+      await locator.unregister<UserConfig>();
+      locator.registerSingleton<UserConfig>(MockUserConfig());
+      FlutterSecureStorage.setMockInitialValues(
+        {"userEmail": "mocked_value", "userPassword": "mocked_value"},
+      );
+    });
+    setUpAll(() {
+      testSetupLocator();
+    });
+    tearDownAll(() {
+      locator.reset();
+    });
     testWidgets(
         'Check if signup() is working fine when credentials are invalid',
         (tester) async {
@@ -141,7 +142,7 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', org.id)),
+          document: gql(queries.registerUser('', '', '', '', org.id!)),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => false);
@@ -150,7 +151,7 @@ void main() {
         '',
         '',
         '',
-        org.id,
+        org.id!,
       );
       when(
         databaseFunctions.gqlAuthMutation(
@@ -251,7 +252,7 @@ void main() {
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', '', org.id!),
         ),
       ).thenThrow(Exception());
 
@@ -261,7 +262,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', '', org.id!),
         ),
       );
       verifyNever(
