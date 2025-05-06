@@ -231,6 +231,14 @@ class _SplashScreenState extends State<SplashScreen> {
         return;
       }
 
+      if (currentUser.membershipRequests == null) {
+        final mainScreenArgs = MainScreenArgs(
+          mainScreenIndex: widget.mainScreenIndex,
+          fromSignUp: false,
+        );
+        pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+        return;
+      }
       if (currentUser.membershipRequests!.isNotEmpty) {
         pushReplacementScreen(Routes.waitingScreen, arguments: '0');
         return;
