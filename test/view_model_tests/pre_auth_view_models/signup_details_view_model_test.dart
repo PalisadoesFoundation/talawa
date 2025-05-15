@@ -141,7 +141,7 @@ void main() {
         source: QueryResultSource.network,
         data: data,
         options: QueryOptions(
-          document: gql(queries.registerUser('', '', '', '', org.id)),
+          document: gql(queries.registerUser('', '', '', '', org.id!)),
         ),
       );
       when(graphqlConfig.getToken()).thenAnswer((_) async => false);
@@ -150,7 +150,7 @@ void main() {
         '',
         '',
         '',
-        org.id,
+        org.id!,
       );
       when(
         databaseFunctions.gqlAuthMutation(
@@ -251,7 +251,7 @@ void main() {
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', '', org.id!),
         ),
       ).thenThrow(Exception());
 
@@ -261,7 +261,7 @@ void main() {
 
       verify(
         databaseFunctions.gqlNonAuthMutation(
-          queries.registerUser('', '', '', '', org.id),
+          queries.registerUser('', '', '', '', org.id!),
         ),
       );
       verifyNever(
