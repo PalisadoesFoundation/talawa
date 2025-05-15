@@ -68,6 +68,8 @@ jobs:
             echo "Restoring stashed changes..."
             git stash pop
           fi
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
