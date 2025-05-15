@@ -79,11 +79,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     // Returns the SetUrl Widget
     case Routes.setUrlScreen:
-      final String uri = settings.arguments!.toString();
       return MaterialPageRoute(
-        builder: (context) => SetUrl(
-          key: const Key('SetUrl'),
-          uri: uri,
+        builder: (context) => const SetUrl(
+          key: Key('SetUrl'),
         ),
       );
 

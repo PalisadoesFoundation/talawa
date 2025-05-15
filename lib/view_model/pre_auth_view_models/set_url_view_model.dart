@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -45,10 +46,7 @@ class SetUrlViewModel extends BaseModel {
   static const urlKey = "url";
 
   /// url.
-  TextEditingController url = TextEditingController();
-
-  /// urlFocus.
-  FocusNode urlFocus = FocusNode();
+  final url = dotenv.get("API_URL");
 
   /// qrController.
   late List<Map<String, dynamic>> greeting;
@@ -59,21 +57,16 @@ class SetUrlViewModel extends BaseModel {
   /// This function initialises the variables.
   ///
   /// **params**:
-  /// * `inviteUrl`: url
+  ///   None
   ///
   /// **returns**:
   ///   None
 
-  void initialise({String inviteUrl = ''}) {
-    final uri = inviteUrl;
-    if (uri.isNotEmpty) {
-      /// assigning the invite server url to the url text controller.
-      url.text = uri;
-      final box = Hive.box('url');
-      box.put(urlKey, uri);
-      box.put(imageUrlKey, "$uri/talawa/");
-      graphqlConfig.getOrgUrl();
-    }
+  void initialise() {
+    final box = Hive.box('url');
+    box.put(urlKey, url);
+    box.put(imageUrlKey, "$url/talawa/");
+    graphqlConfig.getOrgUrl();
 
     /// greeting message.
     greeting = [
@@ -124,7 +117,6 @@ class SetUrlViewModel extends BaseModel {
   ///   None
 
   Future<void> checkURLandNavigate(String navigateTo, String argument) async {
-    urlFocus.unfocus();
     validate = AutovalidateMode.always;
 
     /// if the url is valid.
@@ -141,7 +133,7 @@ class SetUrlViewModel extends BaseModel {
             ),
           );
           validate = AutovalidateMode.disabled;
-          final String uri = url.text.trim();
+          final String uri = url;
           final bool? urlPresent =
               await locator<Validator>().validateUrlExistence(uri);
           if (urlPresent! == true) {
@@ -161,46 +153,6 @@ class SetUrlViewModel extends BaseModel {
           return null;
         },
       );
-    }
-  }
-
-  /// This function check the URL and navigate to the respective URL.
-  ///
-  /// **params**:
-  /// * `argument`: message
-  ///
-  /// **returns**:
-  ///   None
-
-  Future<void> checkURLandShowPopUp(String argument) async {
-    urlFocus.unfocus();
-    validate = AutovalidateMode.always;
-
-    // if the url is valid.
-    if (formKey.currentState!.validate()) {
-      navigationService.pushDialog(
-        const CustomProgressDialog(
-          key: Key('UrlCheckProgress'),
-        ),
-      );
-      validate = AutovalidateMode.disabled;
-      final String uri = url.text.trim();
-      final bool? urlPresent =
-          await locator<Validator>().validateUrlExistence(uri);
-      if (urlPresent! == true) {
-        final box = Hive.box('url');
-        box.put(urlKey, uri);
-        box.put(imageUrlKey, "$uri/talawa/");
-        navigationService.pop();
-        graphqlConfig.getOrgUrl();
-        navigationService.showSnackBar("Url is valid");
-      } else {
-        navigationService.pop();
-        navigationService.showTalawaErrorDialog(
-          "URL doesn't exist/no connection please check",
-          MessageType.info,
-        );
-      }
     }
   }
 
@@ -281,14 +233,13 @@ class SetUrlViewModel extends BaseModel {
         print(scanData.code);
         try {
           final List<String> data = scanData.code!.split('?');
-          url.text = data[0];
           final List<String> queries = data[1].split('&');
           orgId = queries[0].split('=')[1];
           Vibration.vibrate(duration: 100);
           controller.stopCamera();
           final box = Hive.box('url');
-          box.put(urlKey, url.text);
-          box.put(imageUrlKey, "${url.text}/talawa/");
+          box.put(urlKey, url);
+          box.put(imageUrlKey, "$url/talawa/");
           graphqlConfig.getOrgUrl();
           Navigator.pop(navigationService.navigatorKey.currentContext!);
           navigationService.pushScreen('/selectOrg', arguments: orgId);

@@ -47,7 +47,6 @@ Widget createSetUrlScreen({
         darkTheme: TalawaTheme.darkTheme,
         home: const SetUrl(
           key: Key('SetUrl'),
-          uri: 'null',
         ),
         navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
