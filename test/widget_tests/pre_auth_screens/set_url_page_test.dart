@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -66,6 +67,9 @@ Future<void> main() async {
     //initializing test functions
     locator<GraphqlConfig>().test();
     locator<SizeConfig>().test();
+  });
+  setUp(() {
+    dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
   //Testing in light mode/normal mode
@@ -203,57 +207,6 @@ Future<void> main() async {
         greeting,
       );
     });
-    testWidgets("Testing the Url Input text form field", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the url input field widget Finder
-      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
-      //initializing the text field suffix button widget Finder
-      final findVerifyButton = find.byKey(const Key('VerifyButton'));
-      //initializing the nullUrlSubmission widget Finder
-      final nullErrorUrlSubmission = find.text('Please verify URL first');
-      //initializing the invalidUrlSubmission widget Finder
-      final invalidUrlSubmission = find.text('Enter a valid URL');
-
-      //finding the url input text field
-      expect(urlInputFieldWidget, findsOneWidget);
-      //finding the verify suffix button in text form field
-      expect(findVerifyButton, findsOneWidget);
-
-      /*//submitting the field with null url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the nullErrorUrlSubmission widget appears
-      expect(nullErrorUrlSubmission, findsOneWidget);*/
-
-      //inputting a non url text in the field
-      await tester.enterText(urlInputFieldWidget, 'non-url text');
-      //submitting the field with non url input
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the invalidUrlSubmission widget appears
-      expect(invalidUrlSubmission, findsOneWidget);
-
-      //inputting an existing url text in the field
-      await tester.enterText(
-        urlInputFieldWidget,
-        'https://<org_url_here>/graphql',
-      );
-      //submitting the field with a existing url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing nullErrorUrlSubmission is not found
-      expect(nullErrorUrlSubmission, findsNothing);
-      //testing invalidUrlSubmission is not found
-      expect(invalidUrlSubmission, findsNothing);
-    });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -330,11 +283,6 @@ Future<void> main() async {
       await tester.pump();
       expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
 
-      await tester.enterText(
-        find.byKey(const Key('UrlInputField')),
-        'https://<org_url_here>/graphql',
-      );
-
       final finder = find.byKey(const Key('LoginButton'));
       await tester.ensureVisible(finder);
       await tester.tap(finder);
@@ -375,31 +323,6 @@ Future<void> main() async {
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
-    });
-    testWidgets(
-        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
-        (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final formFinder = find.ancestor(
-        of: find.byKey(const Key('UrlInputField')),
-        matching: find.byType(Form),
-      );
-      final formWidget = tester.firstWidget(formFinder) as Form;
-      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
-
-      final textFinder = find.byKey(const Key('UrlInputField'));
-      await tester.tap(textFinder);
-      await tester.pump();
-      await tester.showKeyboard(textFinder);
-      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen
@@ -605,57 +528,6 @@ Future<void> main() async {
         greeting,
       );
     });
-    testWidgets("Testing the Url Input text form field", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the url input field widget Finder
-      final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
-      //initializing the text field suffix button widget Finder
-      final findVerifyButton = find.byKey(const Key('VerifyButton'));
-      //initializing the nullUrlSubmission widget Finder
-      final nullErrorUrlSubmission = find.text('Please verify URL first');
-      //initializing the invalidUrlSubmission widget Finder
-      final invalidUrlSubmission = find.text('Enter a valid URL');
-
-      //finding the url input text field
-      expect(urlInputFieldWidget, findsOneWidget);
-      //finding the verify suffix button in text form field
-      expect(findVerifyButton, findsOneWidget);
-
-      /* //submitting the field with null url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing the nullErrorUrlSubmission widget appears
-      expect(nullErrorUrlSubmission, findsOneWidget);*/
-
-      //inputting a non url text in the field
-      await tester.enterText(urlInputFieldWidget, 'non-url text');
-      //submitting the field with non url input
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing the invalidUrlSubmission widget appears
-      expect(invalidUrlSubmission, findsOneWidget);
-
-      //inputting an existing url text in the field
-      await tester.enterText(
-        urlInputFieldWidget,
-        'https://<org_url_here>/graphql',
-      );
-      //submitting the field with a existing url
-      await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle();
-      //testing nullErrorUrlSubmission is not found
-      expect(nullErrorUrlSubmission, findsNothing);
-      //testing invalidUrlSubmission is not found
-      expect(invalidUrlSubmission, findsNothing);
-    });
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -755,31 +627,6 @@ Future<void> main() async {
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
-    });
-    testWidgets(
-        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
-        (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final formFinder = find.ancestor(
-        of: find.byKey(const Key('UrlInputField')),
-        matching: find.byType(Form),
-      );
-      final formWidget = tester.firstWidget(formFinder) as Form;
-      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
-
-      final textFinder = find.byKey(const Key('UrlInputField'));
-      await tester.tap(textFinder);
-      await tester.pump();
-      await tester.showKeyboard(textFinder);
-      await tester.testTextInput.receiveAction(TextInputAction.done);
     });
     testWidgets("Testing onTap in sign up button", (tester) async {
       //pushing setUrlScreen

@@ -1,5 +1,6 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -97,12 +98,13 @@ Future<void> main() async {
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
-  setUp(() async {
+  setUp(() {
+    dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
   });
-  tearDown(() async {
+  tearDown(() {
     unregisterViewModels();
   });
 
@@ -132,8 +134,9 @@ Future<void> main() async {
       verify(graphqlConfig.getOrgUrl());
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'http://<IPv4>:4000/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'http://<IPv4>:4000/graphql/talawa/');
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
@@ -161,7 +164,8 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandNavigate('/', 'arguments');
 
