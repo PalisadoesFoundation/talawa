@@ -39,6 +39,8 @@ jobs:
         with:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Set default branch.
         run: git remote set-head origin --auto
         shell: bash
@@ -233,6 +235,8 @@ jobs:
         with:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -264,6 +268,8 @@ jobs:
         with:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -280,6 +286,8 @@ jobs:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
 
