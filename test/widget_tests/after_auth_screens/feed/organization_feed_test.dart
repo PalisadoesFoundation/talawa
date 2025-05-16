@@ -175,7 +175,7 @@ void main() {
       await tester.pump();
 
       bool refreshed = false;
-      when(mockViewModel.fetchNewPosts()).thenAnswer((_) async {
+      when(mockViewModel.fetchNewPosts()).thenAnswer((_) {
         refreshed = true;
       });
       await tester.drag(
@@ -262,7 +262,7 @@ void main() {
           .thenReturn([post, post, post, post, post, post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
       bool nextPageCalled = false;
-      when(mockViewModel.nextPage()).thenAnswer((_) async {
+      when(mockViewModel.nextPage()).thenAnswer((_) {
         nextPageCalled = true;
       });
 

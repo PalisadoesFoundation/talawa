@@ -349,7 +349,7 @@ void main() {
       expect(model.base64Image, null);
     });
 
-    test('Check if removeImage() is working fine', () async {
+    test('Check if removeImage() is working fine', () {
       final notifyListenerCallback = MockCallbackFunction();
       final model = EditProfilePageViewModel()
         ..addListener(notifyListenerCallback);

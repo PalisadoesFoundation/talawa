@@ -108,7 +108,7 @@ class DirectChatViewModel extends BaseModel {
   }
 
   // return chat name.
-  void chatName(chatId) {
+  void chatName(String chatId) {
     final List<ChatUser> users =
         _chats.firstWhere((element) => element.id == chatId).users!;
 

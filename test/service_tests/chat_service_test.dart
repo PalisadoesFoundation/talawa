@@ -189,7 +189,7 @@ void main() {
       expect(service.chatListStream, isA<Stream<ChatListTileDataModel>>());
     });
 
-    test('chatMessagesStream returns a stream of ChatMessage', () async {
+    test('chatMessagesStream returns a stream of ChatMessage', () {
       final chatService = ChatService();
       expect(chatService.chatMessagesStream, isA<Stream<ChatMessage>>());
     });

@@ -24,7 +24,7 @@ class TestUserConfig extends UserConfig {
   bool performLogoutWasCalled = false;
 
   @override
-  Future<QueryResult> performLogout() async {
+  Future<QueryResult> performLogout() {
     performLogoutWasCalled = true;
 
     throw Exception("Unable to logOut");
@@ -50,7 +50,7 @@ class MockSessionManger extends Mock implements SessionManager {
   }
 }
 
-void main() async {
+void main() {
   final userBox = Hive.box<User>('currentUser');
   final urlBox = Hive.box('url');
   final orgBox = Hive.box<OrgInfo>('currentOrg');
@@ -107,14 +107,14 @@ void main() async {
         );
       });
 
-      when(navigationService.pop()).thenAnswer((_) async {});
+      when(navigationService.pop()).thenAnswer((_) {});
       when(
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('LogoutProgress'),
           ),
         ),
-      ).thenAnswer((realInvocation) async {});
+      ).thenAnswer((realInvocation) {});
 
       await UserConfig().userLogOut();
 
@@ -123,7 +123,7 @@ void main() async {
       expect(orgBox.isEmpty, true);
 
       when(databaseFunctions.gqlAuthMutation(queries.logout()))
-          .thenAnswer((realInvocation) async {
+          .thenAnswer((realInvocation) {
         throw Exception('test exception');
       });
 
@@ -144,14 +144,14 @@ void main() async {
         );
       });
 
-      when(navigationService.pop()).thenAnswer((_) async {});
+      when(navigationService.pop()).thenAnswer((_) {});
       when(
         navigationService.pushDialog(
           const CustomProgressDialog(
             key: Key('LogoutProgress'),
           ),
         ),
-      ).thenAnswer((realInvocation) async {});
+      ).thenAnswer((realInvocation) {});
 
       await UserConfig().userLogOut();
 
@@ -160,7 +160,7 @@ void main() async {
       expect(orgBox.isEmpty, true);
 
       when(databaseFunctions.gqlAuthMutation(queries.logout()))
-          .thenAnswer((realInvocation) async {
+          .thenAnswer((realInvocation) {
         throw Exception('test exception');
       });
 
@@ -252,7 +252,7 @@ void main() async {
           queries.fetchUserInfo,
           variables: anyNamed('variables'),
         ),
-      ).thenAnswer((_) async {
+      ).thenAnswer((_) {
         throw Exception('Simulated Exception.');
       });
 
@@ -312,7 +312,7 @@ void main() async {
       expect(mockUser.refreshToken, newRefreshToken);
     });
 
-    test('Test for saveCurrentOrgInHive method.', () async {
+    test('Test for saveCurrentOrgInHive method.', () {
       final model = UserConfig();
       model.currentUser = mockUser;
 
@@ -398,7 +398,7 @@ void main() async {
       final userConfig = TestUserConfig();
 
       // Set up mocks
-      when(navigationService.pop()).thenAnswer((_) async {});
+      when(navigationService.pop()).thenAnswer((_) {});
       when(
         navigationService.pushDialog(
           const TalawaErrorDialog(
@@ -407,7 +407,7 @@ void main() async {
             messageType: MessageType.error,
           ),
         ),
-      ).thenAnswer((_) async {});
+      ).thenAnswer((_) {});
 
       // Execute logout which should trigger our exception
       await userConfig.userLogOut();

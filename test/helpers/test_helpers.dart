@@ -155,7 +155,7 @@ NavigationService getAndRegisterNavigationService() {
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
-  when(service.pushDialog(any)).thenAnswer((_) async {});
+  when(service.pushDialog(any)).thenAnswer((_) {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -737,7 +737,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   );
 
   when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
-      .thenAnswer((realInvocation) async {
+      .thenAnswer((realInvocation) {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 

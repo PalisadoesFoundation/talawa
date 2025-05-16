@@ -126,11 +126,10 @@ class ChatService {
   ///
   /// **returns**:
   ///   None
-  Future<void> getDirectChatMessagesByChatId(chatId) async {
+  Future<void> getDirectChatMessagesByChatId(String chatId) async {
     // trigger graphQL query to get all the chat messages
     // of a particular chat using [chatId].
-    final String query =
-        ChatQueries().fetchDirectChatMessagesByChatId(chatId as String);
+    final String query = ChatQueries().fetchDirectChatMessagesByChatId(chatId);
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 

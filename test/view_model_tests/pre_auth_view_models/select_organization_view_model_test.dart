@@ -58,7 +58,7 @@ late OrgInfo org;
 
 class _MockUserConfig extends Mock implements UserConfig {
   @override
-  Future<dynamic> updateUserMemberRequestOrg(List<OrgInfo>? orgDetails) async =>
+  Future<dynamic> updateUserMemberRequestOrg(List<OrgInfo>? orgDetails) =>
       Future.value(1);
 
   @override
@@ -79,7 +79,7 @@ class _MockUserConfig extends Mock implements UserConfig {
 
 void main() {
   SizeConfig().test();
-  setUp(() async {
+  setUp(() {
     org = OrgInfo(
       id: '3',
       name: 'test org 3',
@@ -773,7 +773,7 @@ void main() {
       Map<String, dynamic>? expected;
 
       selectOrganizationViewModel.fetchMoreHelper(
-        (FetchMoreOptions options) async {
+        (FetchMoreOptions options) {
           expected = options.updateQuery(
             <String, dynamic>{
               "organizationsConnection": [

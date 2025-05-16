@@ -39,7 +39,7 @@ void main() {
         'PostContainer should display an image when photoUrl is provided',
         (tester) async {
       await mockNetworkImages(
-        () async => tester.pumpWidget(
+        () => tester.pumpWidget(
           const MaterialApp(
             home: PostContainer(
               photoUrl: photoUrl,

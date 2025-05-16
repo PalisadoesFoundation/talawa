@@ -53,7 +53,7 @@ final testDataNotFromOrg = {
 
 void main() {
   group("Tests for UserInfo.dart", () {
-    test('Check if UserInfo.fromJson works with fromOrg', () async {
+    test('Check if UserInfo.fromJson works with fromOrg', () {
       final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
 
       expect(userInfo.firstName, "ravidi");
@@ -63,7 +63,7 @@ void main() {
       expect(userInfo.authToken, " ");
     });
 
-    test('Check if UserInfo.fromJson works without fromOrg', () async {
+    test('Check if UserInfo.fromJson works without fromOrg', () {
       final userInfo = User.fromJson(testDataNotFromOrg);
 
       expect(userInfo.firstName, "ravidi");
@@ -73,7 +73,7 @@ void main() {
       expect(userInfo.authToken, ' ');
     });
 
-    test('Check if the method "update" works', () async {
+    test('Check if the method "update" works', () {
       final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
 
       expect(userInfo.firstName, "ravidi");
@@ -99,7 +99,7 @@ void main() {
       expect(userInfo.authToken, "randomAuthToken_updated");
     });
 
-    test('Check if print method works', () async {
+    test('Check if print method works', () {
       final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
 
       // No way to test this. Calling here to increase

@@ -179,7 +179,7 @@ void main() {
       //run default block
       await model.choseValueFromDropdown("Events");
     });
-    test("Test get event service", () async {
+    test("Test get event service", () {
       final model = ExploreEventsViewModel();
       expect(model.eventService, isA<EventService>());
     });
@@ -201,7 +201,7 @@ void main() {
     });
     test(
         "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
-        () async {
+        () {
       final model = ExploreEventsViewModel();
       final List<Event> userEvents = model.userEvents;
       expect(userEvents, []);
