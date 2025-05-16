@@ -19,7 +19,7 @@ class SplashScreen extends StatefulWidget {
   final int mainScreenIndex;
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 /// This return state for the SplashScreen Widget.

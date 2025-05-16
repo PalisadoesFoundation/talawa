@@ -1,30 +1,36 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// ignore_for_file: unused_import
-
 import 'package:app_links/app_links.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'splash_screen_test.mocks.dart';
+import '../../helpers/test_helpers.mocks.dart';
+import 'splash_screen_test.mocks.dart' as splash_screen_mocks;
 
-@GenerateNiceMocks([MockSpec<AppLinks>(), MockSpec<UserConfig>()])
+@GenerateNiceMocks([
+  MockSpec<AppLinks>(),
+  MockSpec<UserConfig>(),
+])
+GlobalKey<NavigatorState> mockNavigatorKey = GlobalKey<NavigatorState>();
+
 Widget _createSplashScreen({
   required ThemeMode themeMode,
   ThemeData? theme,
@@ -47,7 +53,7 @@ Widget _createSplashScreen({
           home: const SplashScreen(
             key: Key('SplashScreen'),
           ),
-          navigatorKey: navigationService.navigatorKey,
+          navigatorKey: mockNavigatorKey,
           onGenerateRoute: router.generateRoute,
         );
       },
@@ -75,30 +81,50 @@ Future<void> main() async {
     return stack;
   };
 
-  late MockAppLinks mockAppLinks;
-  late MockUserConfig mockUserConfig;
+  late splash_screen_mocks.MockAppLinks mockAppLinks;
+  late splash_screen_mocks.MockUserConfig mockUserConfig;
+  late MockNavigationService mockNavigationService;
 
-  setUp(() {
-    mockAppLinks = MockAppLinks();
-    mockUserConfig = MockUserConfig();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    graphqlConfig.test();
+    SharedPreferences.setMockInitialValues({});
+  });
 
-    // Unregister and re-register AppLinks for each test
-    if (locator.isRegistered<AppLinks>()) {
-      locator.unregister<AppLinks>();
-    }
+  setUp(() async {
+    print('===== Setting up test =====');
+    // Clear Hive before each test
+    final boxUser = await Hive.openBox<User>('currentUser');
+    final boxOrg = await Hive.openBox<OrgInfo>('currentOrg');
+    await boxUser.clear();
+    await boxOrg.clear();
+    await boxUser.close();
+    await boxOrg.close();
+
+    // re‐register AppLinks & UserConfig as mocks
+    mockAppLinks = splash_screen_mocks.MockAppLinks();
+    if (locator.isRegistered<AppLinks>()) locator.unregister<AppLinks>();
     locator.registerSingleton<AppLinks>(mockAppLinks);
 
-    // Unregister and re-register UserConfig for each test
-    if (locator.isRegistered<UserConfig>()) {
-      locator.unregister<UserConfig>();
-    }
+    mockUserConfig = splash_screen_mocks.MockUserConfig();
+    if (locator.isRegistered<UserConfig>()) locator.unregister<UserConfig>();
     locator.registerSingleton<UserConfig>(mockUserConfig);
 
+    mockNavigationService = MockNavigationService();
+    if (locator.isRegistered<NavigationService>()) {
+      locator.unregister<NavigationService>();
+    }
+    locator.registerSingleton<NavigationService>(mockNavigationService);
+
+    // default: no deep link
     when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
     when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
   });
 
   tearDown(() {
+    print('===== Tearing down test =====');
+
     // Clean up after each test
     if (locator.isRegistered<AppLinks>()) {
       locator.unregister<AppLinks>();
@@ -106,15 +132,6 @@ Future<void> main() async {
     if (locator.isRegistered<UserConfig>()) {
       locator.unregister<UserConfig>();
     }
-  });
-
-  setUpAll(() {
-    // Set up shared preferences
-    SharedPreferences.setMockInitialValues({});
-    // Set up any other test configurations
-    TestWidgetsFlutterBinding.ensureInitialized();
-    setupLocator();
-    graphqlConfig.test();
   });
 
   group('Splash Screen Widget Test in light mode', () {
@@ -397,6 +414,77 @@ Future<void> main() async {
 
         // No explicit assert needed - test will fail if subscription isn't properly canceled
       });
+    });
+  });
+
+  group("splash screen navigation tests", () {
+    testWidgets('membershipRequests==null → mainScreen', (tester) async {
+      final u = User(
+        id: 'foo',
+        firstName: 'Foo',
+        lastName: 'Bar',
+        email: 'foo@bar.com',
+      )
+        ..joinedOrganizations = <OrgInfo>[] // empty list
+        ..membershipRequests = null; // null requests
+
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      when(mockUserConfig.currentUser).thenReturn(u);
+      when(
+        mockNavigationService.pushReplacementScreen(
+          Routes.mainScreen,
+          arguments: isA<MainScreenArgs>(),
+        ),
+      ).thenAnswer((_) async {});
+
+      await tester.pumpWidget(createSplashScreenLight());
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(
+        const Duration(milliseconds: 750),
+      );
+      await tester.pumpAndSettle();
+
+      verify(
+        mockNavigationService.pushReplacementScreen(
+          Routes.mainScreen,
+          arguments: isA<MainScreenArgs>(),
+        ),
+      ).called(1);
+    });
+
+    testWidgets('membershipRequests.isNotEmpty → waitingScreen',
+        (tester) async {
+      final u = User(
+        id: 'foo',
+        firstName: 'Foo',
+        lastName: 'Bar',
+        email: 'foo@bar.com',
+      )
+        ..joinedOrganizations = <OrgInfo>[]
+        ..membershipRequests = [OrgInfo(id: 'o1', name: 'Org One')];
+
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      when(mockUserConfig.currentUser).thenReturn(u);
+      when(
+        mockNavigationService.pushReplacementScreen(
+          Routes.waitingScreen,
+          arguments: '0',
+        ),
+      ).thenAnswer((_) async {});
+
+      await tester.pumpWidget(createSplashScreenLight());
+      await tester.pump(); // Build the widget tree
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(
+        const Duration(milliseconds: 750),
+      );
+
+      verifyNever(
+        mockNavigationService.pushReplacementScreen(
+          Routes.waitingScreen,
+          arguments: '0',
+        ),
+      ).called(0);
     });
   });
 }
