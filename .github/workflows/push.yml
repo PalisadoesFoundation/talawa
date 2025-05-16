@@ -95,6 +95,8 @@ jobs:
         with:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -127,6 +129,8 @@ jobs:
         with:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -161,6 +165,8 @@ jobs:
           flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
         # '--no-codesign' is used for building without code signing.
