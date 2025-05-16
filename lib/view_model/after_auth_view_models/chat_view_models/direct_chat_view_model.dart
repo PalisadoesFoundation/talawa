@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
@@ -23,22 +20,37 @@ class DirectChatViewModel extends BaseModel {
   late StreamSubscription<ChatListTileDataModel> _chatListSubscription;
   StreamSubscription<ChatMessage>? _chatMessageSubscription;
 
+  /// This is the key for the AnimatedList widget.
   final listKey = GlobalKey<AnimatedListState>();
 
+  /// State of the chat.
   ChatState chatState = ChatState.initial;
 
+  /// Name of the chat.
   String? name;
 
+  /// Set to store unique chat IDs.
   final Set<String> _uniqueChatIds = {};
+
+  /// List to store chat data.
   final List<ChatListTileDataModel> _chats = [];
 
+  /// This is the getter for the unique chat IDs.
   List<ChatListTileDataModel> get chats => _chats;
 
+  /// Map to store chat messages by user.
   final Map<String, List<ChatMessage>> _chatMessagesByUser = {};
 
+  /// This is the getter for the chat messages by user.
   Map<String, List<ChatMessage>> get chatMessagesByUser => _chatMessagesByUser;
 
   /// This function refresh the chats.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void refreshChats() {
     _chats.clear();
     _uniqueChatIds.clear();
@@ -46,7 +58,13 @@ class DirectChatViewModel extends BaseModel {
     _chatService.getDirectChatsByUserId();
   }
 
-  // initialise
+  /// This function is used to initialise the states.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   Future<void> initialise() async {
     setState(ViewState.busy);
     chatState = ChatState.loading;
@@ -64,8 +82,11 @@ class DirectChatViewModel extends BaseModel {
 
   /// This function get all messages for a chat.
   ///
-  /// params:
-  /// * [chatId] : id of a chat for which messages need to be fetched.
+  /// **params**:
+  /// * `chatId`: id of a chat for which messages need to be fetched.
+  ///
+  /// **returns**:
+  ///   None
   Future<void> getChatMessages(String chatId) async {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
@@ -85,9 +106,12 @@ class DirectChatViewModel extends BaseModel {
 
   /// This function send the message to Direct Chat.
   ///
-  /// params:
-  /// * [chatId] : id of a chat where message need to be send.
-  /// * [messageContent] : content of a message.
+  /// **params**:
+  /// * `chatId`: id of a chat where message need to be send.
+  /// * `messageContent`: content of a message.
+  ///
+  /// **returns**:
+  ///   None
   Future<void> sendMessageToDirectChat(
     String chatId,
     String messageContent,
@@ -107,7 +131,13 @@ class DirectChatViewModel extends BaseModel {
     super.dispose();
   }
 
-  // return chat name.
+  /// Method to return chat name based on the chatId.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat for which the name needs to be fetched.
+  ///
+  /// **returns**:
+  ///   None
   void chatName(String chatId) {
     final List<ChatUser> users =
         _chats.firstWhere((element) => element.id == chatId).users!;
