@@ -44,7 +44,7 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       onGenerateRoute: router.generateRoute,
     );
 
-void main() async {
+void main() {
   SizeConfig().test();
 
   final mockEvents = <Event>[

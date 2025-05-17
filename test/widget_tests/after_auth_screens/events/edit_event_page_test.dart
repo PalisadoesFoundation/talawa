@@ -72,8 +72,8 @@ Widget editEventScreen({
       },
     );
 
-void main() async {
-  setUpAll(() async {
+void main() {
+  setUpAll(() {
     SizeConfig().test();
     setupLocator();
     graphqlConfig.test();

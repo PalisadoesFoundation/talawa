@@ -64,7 +64,7 @@ Widget _createCustomListTile() {
 
 void main() {
   SizeConfig().test();
-  setUp(() async {
+  setUp(() {
     _tileType = TileType.org;
     _orgInfo = OrgInfo();
     _index = 0;

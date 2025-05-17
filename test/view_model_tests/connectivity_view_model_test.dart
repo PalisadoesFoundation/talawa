@@ -62,7 +62,7 @@ Widget createMainScreen({bool demoMode = true, bool? isOnline}) {
 
 void main() {
   late AppConnectivity model;
-  setUpAll(() async {
+  setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
@@ -117,7 +117,7 @@ void main() {
           .add([ConnectivityResult.none]);
     });
 
-    test('enableSubscirption exception', () async {
+    test('enableSubscirption exception', () {
       model.enableSubscription();
     });
   });

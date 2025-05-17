@@ -39,7 +39,7 @@ Widget buildBaseScreen({required Function() onClick}) {
   );
 }
 
-void main() async {
+void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() {
     setupLocator();
@@ -55,7 +55,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               criticalActionException,
               showSnackBar: true,
@@ -75,7 +75,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,
@@ -102,7 +102,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,
@@ -125,7 +125,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,
@@ -148,7 +148,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,
@@ -173,7 +173,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,
@@ -196,7 +196,7 @@ void main() async {
       late final bool? result;
       await tester.pumpWidget(
         buildBaseScreen(
-          onClick: () async {
+          onClick: () {
             result = GraphqlExceptionResolver.encounteredExceptionOrError(
               operationException,
               showSnackBar: true,

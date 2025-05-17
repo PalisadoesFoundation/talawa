@@ -206,7 +206,7 @@ class _SplashScreenState extends State<SplashScreen> {
   /// **returns**:
   ///   None
   void _handleUserLogIn(bool userLoggedIn) {
-    Future.delayed(const Duration(milliseconds: 750)).then((value) async {
+    Future.delayed(const Duration(milliseconds: 750)).then((value) {
       final pushReplacementScreen = navigationService.pushReplacementScreen;
       if (!userLoggedIn) {
         pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');

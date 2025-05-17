@@ -34,7 +34,7 @@ void main() {
   });
 
   group('Language View Model Tests', () {
-    test("test change language", () async {
+    test("test change language", () {
       final model = AppLanguage(isTest: true);
       model.initialize();
 

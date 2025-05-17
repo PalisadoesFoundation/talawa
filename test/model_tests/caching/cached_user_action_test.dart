@@ -13,7 +13,7 @@ class MockBinaryReader extends Mock implements BinaryReader {}
 
 void main() {
   late final Box<CachedUserAction> cacheBox;
-  setUpAll(() async {
+  setUpAll(() {
     testSetupLocator();
     getAndRegisterDatabaseMutationFunctions();
     cacheBox = Hive.box<CachedUserAction>(OfflineActionQueue.boxName);

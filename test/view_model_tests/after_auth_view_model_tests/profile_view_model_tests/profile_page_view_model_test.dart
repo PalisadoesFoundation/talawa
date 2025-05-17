@@ -32,7 +32,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
