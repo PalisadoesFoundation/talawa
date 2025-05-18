@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -15,8 +14,6 @@ class MockNavigationService extends Mock implements NavigationService {
   @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 }
-
-class MockSecureStorage extends Mock implements FlutterSecureStorage {}
 
 void main() {
   setUpAll(() {
@@ -50,13 +47,29 @@ void main() {
       expect(model.greeting, isNotNull);
     });
 
+    // testWidgets("check if signup is working as expected", (tester) async {
+    //   final model = SignupDetailsViewModel();
+    //   await tester.pumpWidget(
+    //     MaterialApp(
+    //       home: Builder(
+    //         builder: (context) {
+    //           return const SizedBox();
+    //         },
+    //       ),
+    //     ),
+    //   );
+
+    //   await tester.runAsync(() async {
+    //     model.initialise(null);
+    //   });
+    //   await tester.pumpAndSettle();
+
+    //   expect(model.greeting, isNotEmpty);
+    //   expect(model.greeting, isNotNull);
+    // });
+
     test('Should handle exception while storing data', () async {
       final model = SignupDetailsViewModel();
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      final mockSecureStorage = MockSecureStorage();
-      model.secureStorage = mockSecureStorage;
 
       String log = "";
 
