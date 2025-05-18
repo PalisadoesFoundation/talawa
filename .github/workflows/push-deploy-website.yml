@@ -14,7 +14,9 @@ name: PUSH Workflow - Website Deployment
 on:
   push:
     branches:
-      - 'develop-postgres'   
+      - 'develop-postgres'
+    paths:
+      - docs/**
       
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
@@ -24,7 +26,7 @@ jobs:
     name: Deploy https://docs-mobile.talawa.io website
     runs-on: ubuntu-latest
     # Run only if the develop-postgres branch and not dependabot
-    if: ${{ github.actor != 'dependabot[bot]' && github.event.pull_request.base.ref == 'develop-postgres' }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
     environment:
       # This "name" has to be the repos' branch that contains 
       # the current active website. There must be an entry for
@@ -38,9 +40,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: yarn
-          cache-dependency-path: 'docs/'
+          node-version: '20.x' 
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_GITHUB_PAGES }}

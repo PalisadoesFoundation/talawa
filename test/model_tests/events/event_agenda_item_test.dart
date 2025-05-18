@@ -11,9 +11,10 @@ void main() {
         'duration': '00:30',
         'attachments': ['https://example.com/attachment1.pdf'],
         'createdBy': {
-          '_id': 'user1',
-          'firstName': 'John',
-          'lastName': 'Doe',
+          'user': {
+            'id': 'user1',
+            'name': 'John Doe',
+          },
         },
         'urls': ['https://example.com/agenda'],
         'relatedEvent': {
@@ -28,7 +29,7 @@ void main() {
         ],
         'sequence': 1,
         'organization': {
-          '_id': 'org1',
+          'id': 'org1',
           'name': 'Tech Conference Org',
         },
       };

@@ -132,7 +132,6 @@ void main() async {
     //
     //   expect(find.byType(MainScreen), findsOneWidget);
     // });
-
     //
     // testWidgets("Check if changing pages works", (tester) async {
     //   mockNetworkImages(() async {

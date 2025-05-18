@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -36,7 +36,7 @@ class SelectOrganizationViewModel extends BaseModel {
   final TextEditingController searchController = TextEditingController();
 
   /// Organization selection required data.
-  late OrgInfo selectedOrganization = OrgInfo(id: '-1');
+  late OrgInfo? selectedOrganization = OrgInfo(id: '-1');
 
   /// Organization selection required data.
   late List<OrgInfo> organizations = [];
@@ -99,20 +99,21 @@ class SelectOrganizationViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `Future<void>`: None
-  Future<void> selectOrg(OrgInfo item) async {
+  Future<void> selectOrg(OrgInfo? item) async {
     bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
     // if user session not expirec
     if (userConfig.loggedIn) {
       // check if user has already joined the selected organization.
       userConfig.currentUser.joinedOrganizations!.forEach((element) {
-        if (element.id! == item.id) {
+        if (item != null && element.id! == item.id) {
           orgAlreadyJoined = true;
         }
       });
+      print("org1");
       // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests!.forEach((element) {
-        if (element.id! == item.id) {
+        if (item != null && element.id! == item.id) {
           orgRequestAlreadyPresent = true;
         }
       });
@@ -122,7 +123,7 @@ class SelectOrganizationViewModel extends BaseModel {
         notifyListeners();
         onTapJoin();
 
-        if (selectedOrganization.userRegistrationRequired!) {
+        if (selectedOrganization!.userRegistrationRequired == true) {
           navigationService.pushScreen(
             Routes.requestAccess,
             arguments: selectedOrganization,
@@ -159,7 +160,7 @@ class SelectOrganizationViewModel extends BaseModel {
   ///   None
   void onTapContinue() {
     // if user selected any organization.
-    if (selectedOrganization.id != '-1') {
+    if (selectedOrganization?.id != '-1') {
       navigationService.pushScreen(
         Routes.signupDetailScreen,
         arguments: selectedOrganization,
@@ -184,11 +185,11 @@ class SelectOrganizationViewModel extends BaseModel {
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
     // if `selectedOrganization` registrations is not required.
-    if (selectedOrganization.userRegistrationRequired == false) {
+    if (selectedOrganization!.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
-          queries.joinOrgById(selectedOrganization.id!),
+          queries.joinOrgById(selectedOrganization!.id!),
         );
 
         final List<OrgInfo>? joinedOrg =
@@ -211,7 +212,7 @@ class SelectOrganizationViewModel extends BaseModel {
         } else {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
-            'Joined ${selectedOrganization.name} successfully',
+            'Joined ${selectedOrganization?.name} successfully',
             MessageType.info,
           );
         }

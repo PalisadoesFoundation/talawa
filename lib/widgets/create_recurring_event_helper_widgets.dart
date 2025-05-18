@@ -235,7 +235,7 @@ class _EventEndOptionsState extends State<EventEndOptions> {
                           : TextStyle(
                               color: Theme.of(context)
                                   .dividerColor
-                                  .withOpacity(0.4),
+                                  .withAlpha((0.4 * 255).toInt()),
                             ),
                     ),
                   ),

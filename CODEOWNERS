@@ -1,2 +1,3 @@
-* @palisadoes @noman2002
-CODEOWNERS @palisadoes @noman2002
+/.github/ @palisadoes
+* @noman2002
+# CODEOWNERS @palisadoes @noman2002

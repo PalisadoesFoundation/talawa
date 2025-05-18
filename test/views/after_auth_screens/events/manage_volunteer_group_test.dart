@@ -240,9 +240,10 @@ void main() {
         'createEventVolunteer': {
           '_id': "fakeUser1",
           'user': {
-            '_id': "fakeUser1",
-            'firstName': 'Parag',
-            'lastName': 'xoxo',
+            'user': {
+              'id': "fakeUser1",
+              'name': 'Parag xoxo',
+            },
           },
           'response': null,
         },
@@ -252,9 +253,10 @@ void main() {
         'createEventVolunteer': {
           '_id': "fakeUser2",
           'user': {
-            '_id': "fakeUser2",
-            'firstName': 'Parag1',
-            'lastName': 'xoxo',
+            'user': {
+              'id': "fakeUser2",
+              'name': 'Parag1 xoxo',
+            },
           },
           'response': null,
         },

@@ -22,67 +22,46 @@ class Queries {
     String? selectedOrganization,
   ) {
     return """
-        mutation{
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password", selectedOrganization: "$selectedOrganization"})
-          {
-            appUserProfile{
-              adminFor{
-                _id
-                name
-              }
-              createdOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-            }
-            user{
-                _id
-                firstName
-                lastName
-                email
-                image
-                joinedOrganizations{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
-                }
-                membershipRequests{
-                  organization{
-                    _id
-                    name
-                    image
-                    description
-                    userRegistrationRequired
-                    creator{
-                      _id
-                      firstName
-                      lastName
-                      image
-                    } 
+            mutation {
+              signUp(input: {
+                emailAddress: "$email"
+                name: "$firstName $lastName"
+                password: "$password"
+                
+              }) {
+                authenticationToken,
+                user{
+                  id
+                  name,
+                  avatarURL,
+                  emailAddress,
+                  organizationsWhereMember(first:32){
+                    edges{
+                      node{
+                        id,
+                        name,
+                        addressLine1,
+                        addressLine2,
+                        avatarMimeType,
+                        avatarURL,
+                        postalCode,
+                        countryCode,
+                        description,
+                        members(first:32){
+                          edges{
+                            node{
+                              name
+                              role
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
+                
               }
-              refreshToken
-              accessToken
             }
-        }
     """;
   }
 
@@ -97,66 +76,41 @@ class Queries {
   /// * `String`: mutation in string form, to be passed on to graphql client.
   String loginUser(String email, String password) {
     return """
-        mutation {
-          login(data: {email: "$email", password: "$password"}){
-            appUserProfile{
-              adminFor{
-                _id
-                name
-              }
-              createdOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-            }
-            user{
-              _id
-              firstName
-              lastName
-              email
-              image
-              joinedOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-              membershipRequests{
-                organization{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
+      query {
+      signIn(input: { emailAddress: "$email", password: "$password" }) {
+        authenticationToken,
+        user {
+          id,
+          name,
+          emailAddress,
+          name,
+          avatarURL,
+          organizationsWhereMember(first:32){
+            edges{
+              node{
+                id,
+                name,
+                addressLine1,
+                addressLine2,
+                avatarMimeType,
+                avatarURL,
+                postalCode,
+                countryCode,
+                description,
+                members(first:32){
+                  edges{
+                    node{
+                      name
+                      role
+                    }
+                  }
                 }
               }
             }
-            refreshToken
-            accessToken
           }
         }
+      }
+    }
     """;
   }
 
@@ -204,40 +158,19 @@ class Queries {
   ///
   String get fetchJoinInOrg {
     return """
-    query organizationsConnection(\$first: Int, \$skip: Int){
-      organizationsConnection(
-        first: \$first,
-        skip: \$skip,
-        orderBy: name_ASC
-      ){
-        image
-        _id
-        name
-        image
-        description
-        address{
-        city
-        countryCode
-        state
-      }
-        userRegistrationRequired
-        creator{
-          firstName
-          lastName
-        }
-        members{
-              firstName
-              lastName
-              image
-              }
-              admins{
-              firstName
-              lastName
-              image
-              }
+    query {
+      organizations{
+        id,
+        name,
+        addressLine1,
+        addressLine2,
+        description,
+        avatarURL,
+        countryCode,
+        state,
       }
     }
-""";
+    """;
   }
 
   /// getter for fetchJoinInOrgByName.

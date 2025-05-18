@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -232,18 +231,10 @@ void main() {
     testWidgets("Check if model related functions work", (tester) async {
       final orgOne = OrgInfo(
         name: "org_one",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
         userRegistrationRequired: true,
       );
       final orgTwo = OrgInfo(
         name: "org_two",
-        creatorInfo: User(
-          firstName: "ravidi",
-          lastName: "shaikh",
-        ),
         userRegistrationRequired: true,
       );
 

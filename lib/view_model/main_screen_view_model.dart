@@ -174,7 +174,7 @@ class MainScreenViewModel extends BaseModel {
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
-
+    final appTourDialogWidget = appTourDialog(ctx);
     print(ctx);
     print(context);
 
@@ -186,7 +186,7 @@ class MainScreenViewModel extends BaseModel {
       Future.delayed(
         const Duration(seconds: 1),
         () => navigationService.pushDialog(
-          appTourDialog(ctx),
+          appTourDialogWidget,
         ),
       );
     }

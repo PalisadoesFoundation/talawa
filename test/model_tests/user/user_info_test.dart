@@ -19,61 +19,36 @@ final updatedOrg = OrgInfo.fromJson({
   "userRegistrationRequired": false,
 });
 
-/// Membership Request Organization.
-final membershipRequestOrg = {
-  "organization": encodedOrg,
-};
-
-/// Updated Membership Request Organization.
-final updatedMembershipRequestOrg = {
-  "organization": updatedOrg,
-};
-
 /// Test Organization List.
 final testOrgList = [
   encodedOrg,
   encodedOrg,
 ];
 
-/// Membership Request Organization List.
-final membershipRequestOrgList = [
-  membershipRequestOrg,
-  membershipRequestOrg,
-];
-
 /// Test Data From Organization.
 final testDataFromOrg = <String, dynamic>{
-  "firstName": "ravidi",
-  "lastName": "sheikh",
-  "email": "ravidisheikh@test.com",
-  "image": "https://testimg.com",
-  "accessToken": "randomAccessToken",
-  "authToken": "randomAuthToken",
-  "refreshToken": "randomRefreshToken",
-  "adminFor": testOrgList,
-  'createdOrganizations': testOrgList,
-  'joinedOrganizations': testOrgList,
-  'membershipRequests': membershipRequestOrgList,
+  'user': {
+    'id': '1234567890',
+    'name': 'ravidi sheikh',
+    'emailAddress': 'ravidisheikh@test.com',
+    'avatarURL': 'https://testimg.com',
+    'joinedOrganizations': testOrgList,
+  },
+  'authenticationToken': ' ',
+  'refreshToken': ' ',
 };
 
 /// Test Data Not From Organization.
 final testDataNotFromOrg = {
-  "user": {
-    "id": "1234567890",
-    "firstName": "ravidi",
-    "lastName": "sheikh",
-    "email": "ravidisheikh@test.com",
-    "image": "https://testimg.com",
-    "accessToken": "randomAccessToken",
-    "authToken": "randomAuthToken",
-    "refreshToken": "randomRefreshToken",
+  'user': {
+    'id': '1234567890',
+    'name': 'ravidi sheikh',
+    'emailAddress': 'ravidisheikh@test.com',
+    'avatarURL': 'https://testimg.com',
     'joinedOrganizations': testOrgList,
-    'membershipRequests': membershipRequestOrgList,
   },
-  'appUserProfile': {
-    'createdOrganizations': testOrgList,
-    "adminFor": testOrgList,
-  },
+  'authenticationToken': ' ',
+  'refreshToken': ' ',
 };
 
 void main() {
@@ -95,7 +70,7 @@ void main() {
       expect(userInfo.lastName, "sheikh");
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
-      expect(userInfo.authToken, null);
+      expect(userInfo.authToken, ' ');
     });
 
     test('Check if the method "update" works', () async {
@@ -129,79 +104,6 @@ void main() {
 
       // No way to test this. Calling here to increase
       userInfo.print();
-    });
-
-    test('Check if the method updateJoinedOrg works', () async {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
-
-      expect(userInfo.joinedOrganizations!.length, 2);
-      expect(userInfo.joinedOrganizations![0].name, 'test_org');
-      expect(userInfo.joinedOrganizations![0].image, 'https://testimg.com');
-      expect(userInfo.joinedOrganizations![0].userRegistrationRequired, true);
-
-      userInfo.updateJoinedOrg([updatedOrg, updatedOrg, updatedOrg]);
-
-      expect(userInfo.joinedOrganizations!.length, 3);
-      expect(userInfo.joinedOrganizations![0].name, 'test_org_updated');
-      expect(
-        userInfo.joinedOrganizations![0].image,
-        'https://testimg_updated.com',
-      );
-      expect(userInfo.joinedOrganizations![0].userRegistrationRequired, false);
-    });
-
-    test('Check if the method updateCreatedOrg works', () async {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
-
-      expect(userInfo.createdOrganizations!.length, 2);
-      expect(userInfo.createdOrganizations![0].name, 'test_org');
-      expect(userInfo.createdOrganizations![0].image, 'https://testimg.com');
-      expect(userInfo.createdOrganizations![0].userRegistrationRequired, true);
-
-      userInfo.updateCreatedOrg([updatedOrg, updatedOrg, updatedOrg]);
-
-      expect(userInfo.createdOrganizations!.length, 3);
-      expect(userInfo.createdOrganizations![0].name, 'test_org_updated');
-      expect(
-        userInfo.createdOrganizations![0].image,
-        'https://testimg_updated.com',
-      );
-      expect(userInfo.createdOrganizations![0].userRegistrationRequired, false);
-    });
-
-    test('Check if the method updateMemberRequestOrg works', () async {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
-
-      expect(userInfo.membershipRequests!.length, 2);
-      expect(userInfo.membershipRequests![0].name, 'test_org');
-      expect(userInfo.membershipRequests![0].image, 'https://testimg.com');
-      expect(userInfo.membershipRequests![0].userRegistrationRequired, true);
-
-      userInfo.updateMemberRequestOrg([updatedOrg, updatedOrg, updatedOrg]);
-
-      expect(userInfo.membershipRequests!.length, 5);
-      expect(userInfo.membershipRequests![3].name, 'test_org_updated');
-      expect(
-        userInfo.membershipRequests![3].image,
-        'https://testimg_updated.com',
-      );
-      expect(userInfo.membershipRequests![3].userRegistrationRequired, false);
-    });
-
-    test('Check if the method updateAdminFor works', () async {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
-
-      expect(userInfo.adminFor!.length, 2);
-      expect(userInfo.adminFor![0].name, 'test_org');
-      expect(userInfo.adminFor![0].image, 'https://testimg.com');
-      expect(userInfo.adminFor![0].userRegistrationRequired, true);
-
-      userInfo.updateAdminFor([updatedOrg, updatedOrg, updatedOrg]);
-
-      expect(userInfo.adminFor!.length, 3);
-      expect(userInfo.adminFor![0].name, 'test_org_updated');
-      expect(userInfo.adminFor![0].image, 'https://testimg_updated.com');
-      expect(userInfo.adminFor![0].userRegistrationRequired, false);
     });
 
     test('Check if Hive storage works', () async {

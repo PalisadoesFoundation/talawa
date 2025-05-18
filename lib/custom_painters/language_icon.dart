@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 
 ///This class draws the language icon using custom paint.
+///
 ///CustomPaint is a widget from the Flutter SDK, which enables
 /// you to use a canvas to draw different shapes.
 class LanguageIcon extends CustomPainter {
@@ -319,7 +317,7 @@ class LanguageIcon extends CustomPainter {
     path_0.close();
 
     final Paint paint0fill = Paint()..style = PaintingStyle.fill;
-    paint0fill.color = const Color(0xff737373).withOpacity(1.0);
+    paint0fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_0, paint0fill);
   }
 

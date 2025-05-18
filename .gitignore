@@ -1,3 +1,6 @@
+# Gitignore files
+!.gitignore
+
 # Docusaurus related
 .docusaurus
 
@@ -80,6 +83,7 @@ fabric.properties
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/
+.fvmrc
 .packages
 .pub-cache/
 .pub/
@@ -138,6 +142,14 @@ lib/generated_plugin_registrant.dart
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
 ###############################################################################
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

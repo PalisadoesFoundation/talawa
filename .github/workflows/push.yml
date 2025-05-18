@@ -3,7 +3,7 @@
 #
 # NOTE!
 #
-# Please read the README.md file in this directory that defines what should 
+# Please read the README.md file in this directory that defines what should
 # be placed in this file
 #
 ##############################################################################
@@ -13,16 +13,15 @@ name: PUSH Workflow
 on:
   push:
     branches-ignore:
-      - 'master'
+      - "master"
 
     tags:
       - "*"
 
 env:
-    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-    
-jobs:
+  CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
 
+jobs:
   Flutter-Codebase-Check:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: Checking Codebase
@@ -36,12 +35,12 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.27.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -51,25 +50,32 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v5
       - name: Check for presence of ignore directives corresponding to custom lints
-        run: chmod +x ./.github/workflows/check_ignore.py
+        run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Run check_ignore
         run: |
+          if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
+            echo "Uncommitted changes detected in pubspec.lock. Stashing just that file..."
+            git stash push -u -- "pubspec.lock"
+          fi
           git branch
-          git checkout develop
+          git checkout develop-postgres
           git pull
           git branch
           git checkout -
           pip install GitPython
-          python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+          python ./.github/workflows/scripts/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
+          if git stash list | grep -q "stash@{0}"; then
+            echo "Restoring stashed changes..."
+            git stash pop
+          fi
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: dart run custom_lint
-#       - name: Echo the GitHub environment for troubleshooting
-#         run: echo "$GITHUB_CONTEXT"
-#       - name: Echo the GitHub context for troubleshooting
-#         run: echo "${{ toJSON(github) }}"
-
+  #     - name: Echo the GitHub environment for troubleshooting
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Echo the GitHub context for troubleshooting
+  #       run: echo "${{ toJSON(github) }}"
 
   Flutter-Testing:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -81,12 +87,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'          
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.27.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -99,7 +105,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
           fail_ci_if_error: false
-          name: '${{env.CODECOV_UNIQUE_NAME}}'     
+          name: "${{env.CODECOV_UNIQUE_NAME}}"
 
   Android-Build-and-Release:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -113,12 +119,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17.0'          
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.27.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
@@ -150,8 +156,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          flutter-version: "3.27.3"
+          channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign
@@ -161,7 +167,6 @@ jobs:
       ########################################################
       ## Package the app as an .ipa and create a release ##
       ########################################################
-
       - name: Releasing for iOS
         run: |
           mkdir Payload

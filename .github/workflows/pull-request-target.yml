@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add the PR Review Policy
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
-          comment_tag: pr_review_policy
+          comment-tag: pr_review_policy
           message: |
             ## Our Pull Request Approval Process
 
@@ -66,4 +66,4 @@ jobs:
         uses: actions/first-interaction@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/PR_GUIDELINES.md) to ensure that you are following our guidelines for contributing and creating PR."
+          pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/PR_GUIDELINES.md) to ensure that you are following our guidelines for contributing and creating PR."

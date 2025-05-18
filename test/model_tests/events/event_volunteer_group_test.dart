@@ -41,7 +41,9 @@ void main() {
         '_id': 'group1',
         'createdAt': '2024-08-01',
         'creator': {
-          '_id': 'fakeCreatorId',
+          'user': {
+            'id': 'fakeCreatorId',
+          },
         },
         'event': {
           '_id': 'fakeEventId',
@@ -54,7 +56,9 @@ void main() {
           'endTime': '12:00 PM',
         },
         'leader': {
-          '_id': 'fakeLeaderId',
+          'user': {
+            'id': 'fakeLeaderId',
+          },
         },
         'name': 'Group Name',
         'updatedAt': '2024-08-05',

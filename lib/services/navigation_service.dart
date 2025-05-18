@@ -204,7 +204,7 @@ class NavigationService {
             Icons.error_outline,
             color: Colors.redAccent,
           ),
-          color: Colors.black.withOpacity(0.8),
+          color: Colors.black.withAlpha((1.0 * 255).toInt()),
         );
       },
     ).show(navigatorKey.currentContext!);

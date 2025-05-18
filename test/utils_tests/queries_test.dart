@@ -45,15 +45,23 @@ void main() {
       expect(fnData, data);
     });
     test("Check if fetchJoinInOrg works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
       final fnData = Queries();
       final ff = fnData.fetchJoinInOrg;
-      if (ff.contains('query organizationsConnection')) {
-        mutation = true;
+      const data = """
+    query {
+      organizations{
+        id,
+        name,
+        addressLine1,
+        addressLine2,
+        description,
+        avatarURL,
+        countryCode,
+        state,
       }
-      expect(mutation, true);
+    }
+    """;
+      expect(data, ff);
     });
     test("Check if newUserLanguage works correctly", () {
       var mutation = false;

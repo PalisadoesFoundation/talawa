@@ -6,7 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
@@ -61,7 +61,10 @@ import 'test_helpers.mocks.dart';
   [],
   customMocks: [
     MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<GraphqlConfig>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GraphqlConfig>(
+      as: #MockGraphqlConfig,
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
     MockSpec<GraphQLClient>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PostService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<MultiMediaPickerService>(
@@ -120,10 +123,6 @@ final fakeOrgInfo = OrgInfo(
   name: "Organization Name",
   members: members,
   admins: admins,
-  creatorInfo: User(
-    firstName: "ravidi",
-    lastName: "shaikh",
-  ),
   userRegistrationRequired: true,
 );
 
@@ -302,12 +301,13 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
 
-  when(service.httpLink).thenReturn(
-    HttpLink(
-      'https://talawa-graphql-api.herokuapp.com/graphql',
-      httpClient: MockHttpClient(),
-    ),
+  final mockLink = HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: MockHttpClient(),
   );
+
+  // Use stub instead of when for better null safety handling
+  when(service.httpLink).thenReturn(mockLink);
 
   when(service.clientToQuery()).thenAnswer((realInvocation) {
     // return GraphQLClient(
@@ -440,13 +440,11 @@ UserConfig getAndRegisterUserConfig() {
           id: '3',
           name: 'test org 3',
           userRegistrationRequired: false,
-          creatorInfo: User(firstName: 'test', lastName: '1'),
         ),
         OrgInfo(
           id: '4',
           name: 'test org 4',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: '2'),
         ),
         OrgInfo(
           id: "XYZ",
@@ -458,13 +456,11 @@ UserConfig getAndRegisterUserConfig() {
           id: '1',
           name: 'test org',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
         OrgInfo(
           id: '2',
           name: 'test org',
           userRegistrationRequired: true,
-          creatorInfo: User(firstName: 'test', lastName: 'test'),
         ),
       ],
     ),

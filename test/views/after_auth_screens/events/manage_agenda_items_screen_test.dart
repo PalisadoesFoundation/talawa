@@ -305,7 +305,7 @@ void main() {
       // Verify toast styling
       final ToastCard toastCard =
           tester.widget<ToastCard>(find.byType(ToastCard));
-      expect(toastCard.color, Colors.black.withOpacity(0.8));
+      expect(toastCard.color, Colors.black.withAlpha((0.8 * 255).toInt()));
 
       // Wait for auto-dismiss
       await tester.pump(const Duration(seconds: 2));

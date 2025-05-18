@@ -1,11 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
 ///This class draws the telegram logo using custom paint.
+///
 ///CustomPaint is a widget from the Flutter SDK, which enables
 /// you to use a canvas to draw different shapes.
 
@@ -17,8 +15,8 @@ class TelegramLogo extends CustomPainter {
     paint0Fill.shader = ui.Gradient.linear(
         Offset(size.width * 0.6670000, size.height * 0.1670000),
         Offset(size.width * 0.4170000, size.height * 0.7500000), [
-      const Color(0xff37aee2).withOpacity(1),
-      const Color(0xff1e96c8).withOpacity(1),
+      const Color(0xff37aee2).withAlpha((1.0 * 255).toInt()),
+      const Color(0xff1e96c8).withAlpha((1.0 * 255).toInt()),
     ], [
       0,
       1,
@@ -43,7 +41,7 @@ class TelegramLogo extends CustomPainter {
     path_1.lineTo(size.width * 0.7083333, size.height * 0.3333333);
 
     final Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-    paint1Fill.color = const Color(0xffc8daea).withOpacity(1.0);
+    paint1Fill.color = const Color(0xffc8daea).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_1, paint1Fill);
 
     final Path path_2 = Path();
@@ -60,7 +58,7 @@ class TelegramLogo extends CustomPainter {
     path_2.lineTo(size.width * 0.4168417, size.height * 0.6016958);
 
     final Paint paint2Fill = Paint()..style = PaintingStyle.fill;
-    paint2Fill.color = const Color(0xffa9c9dd).withOpacity(1.0);
+    paint2Fill.color = const Color(0xffa9c9dd).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_2, paint2Fill);
 
     final Path path_3 = Path();
@@ -107,8 +105,8 @@ class TelegramLogo extends CustomPainter {
     paint3Fill.shader = ui.Gradient.linear(
         Offset(size.width * 0.6600000, size.height * 0.4370000),
         Offset(size.width * 0.8510000, size.height * 0.8020000), [
-      const Color(0xffeff7fc).withOpacity(1),
-      const Color(0xffffffff).withOpacity(1),
+      const Color(0xffeff7fc).withAlpha((1.0 * 255).toInt()),
+      const Color(0xffffffff).withAlpha((1.0 * 255).toInt()),
     ], [
       0,
       1,

@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 
 ///This class draws the whatsapp logo using custom paint.
+///
 ///CustomPaint is a widget from the Flutter SDK, which enables
 /// you to use a canvas to draw different shapes.
 class WhatsappLogo extends CustomPainter {
@@ -103,7 +101,7 @@ class WhatsappLogo extends CustomPainter {
     );
 
     final Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = const Color(0xff40c351).withOpacity(1.0);
+    paint0Fill.color = const Color(0xff40c351).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_0, paint0Fill);
 
     final Path path_1 = Path();
@@ -422,7 +420,7 @@ class WhatsappLogo extends CustomPainter {
     path_1.close();
 
     final Paint paint1fill = Paint()..style = PaintingStyle.fill;
-    paint1fill.color = const Color(0xfffcfcfc).withOpacity(1.0);
+    paint1fill.color = const Color(0xfffcfcfc).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_1, paint1fill);
   }
 

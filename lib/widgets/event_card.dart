@@ -56,7 +56,7 @@ class EventCard extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.11,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withAlpha((0.3 * 255).toInt()),
                       image: const DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.topCenter,
@@ -68,7 +68,7 @@ class EventCard extends StatelessWidget {
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.0),
+                            color: Colors.white.withAlpha((0.0 * 255).toInt()),
                           ),
                         ),
                       ),

@@ -90,6 +90,7 @@ Widget createAppTourDialog({bool demoMode = true}) => BaseView<AppLanguage>(
             builder: (context, model2, child) {
               model2.context = context;
               model2.appTour = MockAppTour(model: model2);
+
               model2.setupNavigationItems(context);
               return Scaffold(
                 drawer: CustomDrawer(homeModel: model2),

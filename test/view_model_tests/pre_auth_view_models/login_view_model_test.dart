@@ -64,14 +64,13 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
 }
 
 final data = {
-  'login': {
+  'signIn': {
     'user': {
-      '_id': 'xzy1',
-      'firstName': 'Test',
-      'lastName': 'User',
-      'email': 'testuser@gmail.com',
+      'id': 'xzy1',
+      'name': 'Test User',
+      'emailAddress': 'testuser@gmail.com',
     },
-    'accessToken': 'testtoken',
+    'authenticationToken': 'testtoken',
     'refreshToken': 'testtoken',
   },
 };
@@ -293,7 +292,6 @@ class MockUserConfig extends Mock implements UserConfig {
                   id: '3',
                   name: 'test org 3',
                   userRegistrationRequired: false,
-                  creatorInfo: User(firstName: 'test', lastName: '1'),
                 ),
               ],
       );
