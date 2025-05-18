@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -37,6 +36,7 @@ import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organis
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/demo_page_view.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
