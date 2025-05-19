@@ -19,7 +19,7 @@ dependencies:
   # analyzer_plugin:
   ################################
 
-  app_links: ^6.3.3
+  app_links: ^6.4.0
   app_links_platform_interface: ^2.0.2
   auto_size_text: ^3.0.0
   cached_network_image: ^3.4.1
