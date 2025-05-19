@@ -14,7 +14,7 @@ name: PUSH Workflow - Website Deployment
 on:
   push:
     branches:
-      - 'develop-postgres'
+      - 'develop'
     paths:
       - docs/**
       
@@ -25,7 +25,7 @@ jobs:
   Deploy-Docusaurus:
     name: Deploy https://docs-mobile.talawa.io website
     runs-on: ubuntu-latest
-    # Run only if the develop-postgres branch and not dependabot
+    # Run only if the develop branch and not dependabot
     if: ${{ github.actor != 'dependabot[bot]' }}
     environment:
       # This "name" has to be the repos' branch that contains 
@@ -34,7 +34,7 @@ jobs:
       # "Code and automation > Environments > gigithub-pages"
       # menu. The branch "name" must match the branch in the 
       # "on.push.branches" section at the top of this file
-      name: develop-postgres
+      name: develop
       url: https://docs-mobile.talawa.io
     steps:
       - uses: actions/checkout@v4
