@@ -7,7 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/queries.dart';
@@ -93,7 +92,6 @@ void main() {
         (i) => OrgInfo(
           admins: [],
           members: [],
-          creatorInfo: User(id: 'user$i'),
           id: '$i',
           description: 'Organization $i description',
           name: 'Organization $i',

@@ -23,11 +23,11 @@ class CreateAgendaItemPage extends StatefulWidget {
   final EventInfoViewModel model;
 
   @override
-  _CreateAgendaItemPageState createState() => _CreateAgendaItemPageState();
+  CreateAgendaItemPageState createState() => CreateAgendaItemPageState();
 }
 
 /// State class for [CreateAgendaItemPage].
-class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
+class CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
   /// Controller for the agenda item title input field.
   TextEditingController titleController = TextEditingController();
 
@@ -176,7 +176,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
         elevation: 1,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () => navigationServiceLocal.pop(),
+          onTap: navigationServiceLocal.pop,
           child: const Icon(Icons.close),
         ),
         title: Text(
@@ -406,6 +406,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                 ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.013),
                 ElevatedButton.icon(
+                  key: const Key('addAttachmentButton'),
                   onPressed: () => _pickAttachment(fromCamera: false),
                   icon: const Icon(Icons.attach_file),
                   label: Text(
@@ -416,6 +417,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                 const Divider(),
                 const SizedBox(height: 10),
                 GridView.builder(
+                  key: const Key('attachmentGridView'),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -428,9 +430,11 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                     final base64String = attachments[index];
                     final imageData = base64Decode(base64String);
                     return Stack(
+                      key: Key('attachmentItem_$index'),
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
+                          key: Key('attachmentImage_$index'),
                           child: Image.memory(
                             imageData,
                             fit: BoxFit.cover,
@@ -442,6 +446,7 @@ class _CreateAgendaItemPageState extends State<CreateAgendaItemPage> {
                           top: 0,
                           right: 0,
                           child: GestureDetector(
+                            key: Key('attachmentCloseButton_$index'),
                             onTap: () => _removeAttachment(base64String),
                             child: Container(
                               padding: const EdgeInsets.all(4),

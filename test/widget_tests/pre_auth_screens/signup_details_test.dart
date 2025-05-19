@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -28,7 +27,6 @@ Widget createApp() {
           id: '2',
           name: 'test org',
           userRegistrationRequired: false,
-          creatorInfo: User(firstName: 'test', lastName: 'test'),
         );
 
         await navigationService.pushScreen('/signupDetails', arguments: org);

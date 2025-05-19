@@ -37,7 +37,9 @@ void main() {
       final eventVolunteerJson = {
         '_id': 'volunteer1',
         'creator': {
-          '_id': 'fakeCreatorId',
+          'user': {
+            'id': 'fakeCreatorId',
+          },
         },
         'event': {
           '_id': 'fakeEventId',
@@ -57,7 +59,9 @@ void main() {
         'isInvited': false,
         'response': 'Accepted',
         'user': {
-          '_id': 'fakeUserId',
+          'user': {
+            'id': 'fakeUserId',
+          },
         },
       };
 

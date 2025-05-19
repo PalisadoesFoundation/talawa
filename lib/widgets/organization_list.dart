@@ -3,16 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/constants/timeout.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 /// This class returns the OrganizationList widget.
 ///
@@ -25,7 +22,6 @@ class OrganizationList extends StatelessWidget {
   final SelectOrganizationViewModel model;
   @override
   Widget build(BuildContext context) {
-    final navigationServiceLocal = locator<NavigationService>();
     model.organizations = [];
     int noOfRefetch = 0;
     const int maxRefetch = 10;
@@ -65,19 +61,17 @@ class OrganizationList extends StatelessWidget {
             // If the result is still loading!
             if (!result.isLoading) {
               // print(result.data!['organizationsConnection']);
-              model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'],
-              );
+              model.organizations = OrgInfo().fromBasicJsonToList(result.data);
             }
 
-            Timer(const Duration(seconds: TimeOuts.small), () {
-              if (model.organizations.isEmpty) {
-                navigationServiceLocal.showTalawaErrorDialog(
-                  "No organizations found Please contact your admin",
-                  MessageType.error,
-                );
-              }
-            });
+            // Timer(const Duration(seconds: TimeOuts.small), () {
+            //   if (model.organizations.isEmpty) {
+            //     navigationServiceLocal.showTalawaErrorDialog(
+            //       "No organizations found Please contact your admin",
+            //       MessageType.error,
+            //     );
+            //   }
+            // });
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
@@ -103,31 +97,31 @@ class OrganizationList extends StatelessWidget {
                     );
                   }
                   // If the index is at the 3rd last item in the organization list.
-                  if (index == model.organizations.length - 3) {
-                    // return VisibilityDetector and fetch more items in the list to show up!
-                    return VisibilityDetector(
-                      key: const Key('OrgSelItem'),
-                      onVisibilityChanged: (VisibilityInfo info) {
-                        if (info.visibleFraction > 0) {
-                          model.fetchMoreHelper(
-                            fetchMore!,
-                            model.organizations,
-                          );
-                        }
-                      },
-                      child: CustomListTile(
-                        index: index,
-                        type: TileType.org,
-                        orgInfo: model.organizations[index],
-                        onTapOrgInfo: (item) => Navigator.pushNamed(
-                          context,
-                          '/OrganisationInfoScreen',
-                          arguments: model.organizations[index],
-                        ),
-                        key: Key('OrgSelItem$index'),
-                      ),
-                    );
-                  }
+                  // if (index == model.organizations.length - 3) {
+                  //   // return VisibilityDetector and fetch more items in the list to show up!
+                  //   return VisibilityDetector(
+                  //     key: const Key('OrgSelItem'),
+                  //     onVisibilityChanged: (VisibilityInfo info) {
+                  //       if (info.visibleFraction > 0) {
+                  //         model.fetchMoreHelper(
+                  //           fetchMore!,
+                  //           model.organizations,
+                  //         );
+                  //       }
+                  //     },
+                  //     child: CustomListTile(
+                  //       index: index,
+                  //       type: TileType.org,
+                  //       orgInfo: model.organizations[index],
+                  //       onTapOrgInfo: (item) => Navigator.pushNamed(
+                  //         context,
+                  //         '/OrganisationInfoScreen',
+                  //         arguments: model.organizations[index],
+                  //       ),
+                  //       key: Key('OrgSelItem$index'),
+                  //     ),
+                  //   );
+                  // }
                   // return CustomeTile that shows a particular item in the list!
                   return CustomListTile(
                     index: index,

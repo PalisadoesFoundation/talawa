@@ -151,17 +151,24 @@ class LoginViewModel extends BaseModel {
           // if user found.
           if (result.data != null) {
             final User loggedInUser = User.fromJson(
-              result.data!['login'] as Map<String, dynamic>,
+              result.data!['signIn'] as Map<String, dynamic>,
             );
             userConfig.updateUser(loggedInUser);
           }
         },
         apiCallSuccessUpdateUI: () async {
           // if user has not already joined any organization.
-          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+          if (userConfig.currentUser.joinedOrganizations == null) {
             navigationService.removeAllAndPush(
-              Routes.waitingScreen,
+              Routes.mainScreen,
               Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+            );
+          } else if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+            navigationService.removeAllAndPush(
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           } else {
             userConfig.saveCurrentOrgInHive(

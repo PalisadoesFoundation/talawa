@@ -134,7 +134,7 @@ void main() {
       Theme.of(tester.element(circleAvatarFinder))
           .iconTheme
           .color!
-          .withOpacity(0.2),
+          .withAlpha((0.2 * 255).toInt()),
     );
   });
 
@@ -322,7 +322,7 @@ void main() {
                 Theme.of(widgetTester.binding.rootElement!)
                     .iconTheme
                     .color!
-                    .withOpacity(0.2),
+                    .withAlpha((0.2 * 255).toInt()),
       ),
       findsOneWidget,
     );

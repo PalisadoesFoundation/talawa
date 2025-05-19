@@ -167,7 +167,6 @@ void main() {
         id: '5',
         name: 'fake org 1',
         userRegistrationRequired: true,
-        creatorInfo: User(firstName: 'fake', lastName: 'user'),
       );
       //check if the mocked org is present or not
 

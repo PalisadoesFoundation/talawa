@@ -24,51 +24,40 @@ class User extends HiveObject {
     this.membershipRequests,
   });
 
-  factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
-    Map<String, dynamic> json;
-    Map<String, dynamic>? appUserProfile;
-    if (fromOrg) {
-      json = json1;
-      appUserProfile = json1;
-    } else {
-      json = json1['user'] as Map<String, dynamic>;
-      appUserProfile = json1['appUserProfile'] as Map<String, dynamic>?;
-    }
-
+  factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
+    final Map<String, dynamic> userData =
+        json['user'] != null ? json['user'] as Map<String, dynamic> : {};
+    final String? fullName = userData['name'] as String?;
+    final List<String>? nameParts = fullName?.split(' ');
+    final String? firstName =
+        nameParts != null && nameParts.isNotEmpty ? nameParts[0] : null;
+    final String? lastName = nameParts != null && nameParts.length > 1
+        ? nameParts.sublist(1).join(' ')
+        : null;
+    final Map<String, dynamic>? org =
+        userData['organizationsWhereMember'] as Map<String, dynamic>?;
+    final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
+    final List<Map<String, dynamic>>? orgList =
+        edges?.map((e) => e as Map<String, dynamic>).toList();
     return User(
-      authToken: fromOrg ? ' ' : json1['accessToken'] as String?,
-      refreshToken: fromOrg ? ' ' : json1['refreshToken'] as String?,
-      id: json['_id'] as String?,
-      firstName:
-          json['firstName'] != null ? json['firstName'] as String? : null,
-      lastName: json['lastName'] != null ? json['lastName'] as String? : null,
-      email: json['email'] != null ? json['email'] as String? : null,
-      image: json['image'] != null ? json['image'] as String? : null,
-      adminFor: appUserProfile?['adminFor'] != null
-          ? (appUserProfile!['adminFor'] as List<dynamic>)
-              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-              .toList()
+      authToken: json['authenticationToken'] != null
+          ? json['authenticationToken'] as String?
           : null,
-      createdOrganizations: appUserProfile?['createdOrganizations'] != null
-          ? (appUserProfile!['createdOrganizations'] as List<dynamic>)
-              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-              .toList()
+      refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
+      id: userData['id'] as String?,
+      firstName: firstName,
+      lastName: lastName,
+      email: userData['emailAddress'] != null
+          ? userData['emailAddress'] as String?
           : null,
-      joinedOrganizations: json['joinedOrganizations'] != null
-          ? (json['joinedOrganizations'] as List<dynamic>)
-              .map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-              .toList()
+      image: userData['avatarURL'] != null
+          ? userData['avatarURL'] as String?
           : null,
-      membershipRequests: json['membershipRequests'] != null
-          ? (json['membershipRequests'] as List<dynamic>)
-              .map(
-                (e) => OrgInfo.fromJson(
-                  e as Map<String, dynamic>,
-                  memberRequest: true,
-                ),
-              )
+      joinedOrganizations: orgList != null
+          ? orgList
+              .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
               .toList()
-          : null,
+          : [],
     );
   }
 
@@ -194,10 +183,10 @@ class User extends HiveObject {
     this.email = details.email;
     this.image = details.image;
     this.authToken = details.authToken;
-    this.refreshToken = details.refreshToken;
-    this.joinedOrganizations = details.joinedOrganizations;
-    this.createdOrganizations = details.createdOrganizations;
-    this.membershipRequests = details.membershipRequests;
-    this.adminFor = details.adminFor;
+    // this.refreshToken = details.refreshToken;
+    // this.joinedOrganizations = details.joinedOrganizations;
+    // this.createdOrganizations = details.createdOrganizations;
+    // this.membershipRequests = details.membershipRequests;
+    // this.adminFor = details.adminFor;
   }
 }

@@ -2,7 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/error/error.dart' as analyzer;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/talawa_good_doc/talawa_good_doc_visitor.dart';
@@ -18,7 +18,7 @@ class TalawaGoodDocComments extends DartLintRule {
     correctionMessage:
         'Use "/// ..." for public api and "// ..." for other cases.',
     url: "https://docs.talawa.io/docs/developers/talawa/talawa-lint/",
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: analyzer.ErrorSeverity.WARNING,
   );
 
   @override

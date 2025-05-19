@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 Widget createSignupProgressIndicator() {
   return MaterialApp(

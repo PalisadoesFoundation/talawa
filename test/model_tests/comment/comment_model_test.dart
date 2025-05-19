@@ -22,10 +22,13 @@ void main() {
 
   final commentJson = {
     'creator': {
-      '_id': '123',
-      'firstName': 'John',
-      'lastName': 'Doe',
-      'email': 'test@test.com',
+      'user': {
+        'id': '123',
+        'name': 'John Doe',
+        'emailAddress': 'test@test.com',
+        'avatarURL': null,
+      },
+      'authenticationToken': 'authToken123',
     },
     'createdAt': '123456',
     'text': 'test text',

@@ -1,9 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 
 ///This class draws the app logo using custom paint.
+///
 ///CustomPaint is a widget from the Flutter SDK, which enables
 /// you to use a canvas to draw different shapes.
 class AppLogo extends CustomPainter {
@@ -166,7 +164,7 @@ class AppLogo extends CustomPainter {
     path_0.close();
 
     final Paint paint0fill = Paint()..style = PaintingStyle.fill;
-    paint0fill.color = const Color(0xff31BB6B).withOpacity(1.0);
+    paint0fill.color = const Color(0xff31BB6B).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_0, paint0fill);
 
     final Path path_1 = Path();
@@ -270,7 +268,7 @@ class AppLogo extends CustomPainter {
     path_1.close();
 
     final Paint paint1fill = Paint()..style = PaintingStyle.fill;
-    paint1fill.color = const Color(0xffFEBC59).withOpacity(1.0);
+    paint1fill.color = const Color(0xffFEBC59).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_1, paint1fill);
 
     final Path path_2 = Path();
@@ -342,7 +340,7 @@ class AppLogo extends CustomPainter {
     path_2.close();
 
     final Paint paint2fill = Paint()..style = PaintingStyle.fill;
-    paint2fill.color = const Color(0xff737373).withOpacity(1.0);
+    paint2fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_2, paint2fill);
 
     final Path path_3 = Path();
@@ -422,7 +420,7 @@ class AppLogo extends CustomPainter {
     path_3.close();
 
     final Paint paint3fill = Paint()..style = PaintingStyle.fill;
-    paint3fill.color = const Color(0xff737373).withOpacity(1.0);
+    paint3fill.color = const Color(0xff737373).withAlpha((1.0 * 255).toInt());
     canvas.drawPath(path_3, paint3fill);
   }
 

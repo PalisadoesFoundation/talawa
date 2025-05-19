@@ -119,7 +119,6 @@ class HiveManager {
     await openBox<User>(HiveKeys.userBoxKey);
     await openBox<OrgInfo>(HiveKeys.orgBoxKey);
     await openBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
-    await openBox(HiveKeys.pluginBoxKey);
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
@@ -152,7 +151,6 @@ class HiveManager {
     await closeBox<User>(HiveKeys.userBoxKey);
     await closeBox<OrgInfo>(HiveKeys.orgBoxKey);
     await closeBox<AsymetricKeys>(HiveKeys.asymetricKeyBoxKey);
-    await closeBox(HiveKeys.pluginBoxKey);
     await closeBox(HiveKeys.urlBoxKey);
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);

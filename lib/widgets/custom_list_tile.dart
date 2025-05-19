@@ -87,7 +87,7 @@ class CustomListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withAlpha((0.5 * 255).toInt()),
                 spreadRadius: 1,
                 blurRadius: 6,
                 offset: const Offset(0, 3),
@@ -116,11 +116,12 @@ class CustomListTile extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                             children: <TextSpan>[
-                              if (orgInfo!.address != null) ...[
+                              if (orgInfo?.city != null &&
+                                  orgInfo?.countryCode != null) ...[
                                 const TextSpan(text: ' '),
                                 TextSpan(
                                   text:
-                                      '(${orgInfo!.address!.city}, ${orgInfo!.address!.countryCode})',
+                                      '(${orgInfo!.city}, ${orgInfo!.countryCode})',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
@@ -171,21 +172,21 @@ class CustomListTile extends StatelessWidget {
                         ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: type != TileType.user && type != TileType.attendee
-                    ? type == TileType.org
-                        ? Icon(
-                            !orgInfo!.userRegistrationRequired!
-                                ? Icons.lock_open
-                                : Icons.lock,
-                            color: !orgInfo!.userRegistrationRequired!
-                                ? const Color(0xFF34AD64)
-                                : const Color(0xffFABC57),
-                          )
-                        : option!.trailingIconButton ?? const SizedBox()
-                    : const SizedBox(),
-              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: type != TileType.user && type != TileType.attendee
+              //       ? type == TileType.org
+              //           ? Icon(
+              //               !orgInfo!.userRegistrationRequired!
+              //                   ? Icons.lock_open
+              //                   : Icons.lock,
+              //               color: !orgInfo!.userRegistrationRequired!
+              //                   ? const Color(0xFF34AD64)
+              //                   : const Color(0xffFABC57),
+              //             )
+              //           : option!.trailingIconButton ?? const SizedBox()
+              //       : const SizedBox(),
+              // ),
             ],
           ),
         ),

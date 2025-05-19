@@ -280,5 +280,6 @@
   "Post was deleted if you had the rights!": "権限がある場合、投稿は削除されました！",
   "Members": " メンバー ",
   "Remember me": "ログイン情報を保存",
-  "Login directly with": "直接ログイン"
+  "Login directly with": "直接ログイン",
+  "Continue Without Organization": "組織なしで続行"
 }

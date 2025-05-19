@@ -84,7 +84,6 @@ void main() {
       id: '3',
       name: 'test org 3',
       userRegistrationRequired: false,
-      creatorInfo: User(firstName: 'test', lastName: '1'),
     );
     locator.registerSingleton(Queries());
     registerServices();
@@ -393,7 +392,7 @@ void main() {
       await selectOrganizationViewModel.selectOrg(org);
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
-      expect(orgTest.id, '-1');
+      expect(orgTest?.id, '-1');
       verify(
         navigationService.showTalawaErrorSnackBar(
           'Organisation already joined',
@@ -425,7 +424,7 @@ void main() {
       await selectOrganizationViewModel.selectOrg(org);
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
-      expect(orgTest.id, '-1');
+      expect(orgTest?.id, '-1');
       verify(
         navigationService.showTalawaErrorSnackBar(
           'Membership request already sent',

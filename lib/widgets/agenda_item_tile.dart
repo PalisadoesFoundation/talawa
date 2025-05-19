@@ -181,7 +181,7 @@ class ExpandableAgendaItemTile extends StatelessWidget {
         return GestureDetector(
           onTap: () => Navigator.of(context).pop(),
           child: ColoredBox(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withAlpha((0.5 * 255).toInt()),
             child: Center(
               child: InteractiveViewer(
                 panEnabled: true,

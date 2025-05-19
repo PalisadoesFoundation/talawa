@@ -45,15 +45,23 @@ void main() {
       expect(fnData, data);
     });
     test("Check if fetchJoinInOrg works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
       final fnData = Queries();
       final ff = fnData.fetchJoinInOrg;
-      if (ff.contains('query organizationsConnection')) {
-        mutation = true;
+      const data = """
+    query {
+      organizations{
+        id,
+        name,
+        addressLine1,
+        addressLine2,
+        description,
+        avatarURL,
+        countryCode,
+        state,
       }
-      expect(mutation, true);
+    }
+    """;
+      expect(data, ff);
     });
     test("Check if newUserLanguage works correctly", () {
       var mutation = false;
@@ -119,16 +127,6 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("Check if getPluginsList works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().getPluginsList();
-      if (fnData.contains('getPlugins')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if fetchOrgById works correctly", () {
       var mutation = false;
       expect(mutation, false);
@@ -182,16 +180,6 @@ void main() {
       expect(mutation, true);
     });
 
-    test("Check if getPluginsList works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().getPluginsList();
-      if (fnData.contains('getPlugins')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if createDonation works correctly", () {
       var mutation = false;
       expect(mutation, false);

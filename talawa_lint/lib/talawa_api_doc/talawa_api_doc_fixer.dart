@@ -82,7 +82,9 @@ class TalawaAPIDocFixer extends DartFix {
             node.offset,
             node.leftBracket.offset - node.offset,
           ),
-        )) return;
+        )) {
+      return;
+    }
 
     // The same issue exists for Functions and Methods. We can define functions
     // inside functions, and the same overlap of [SourceRange] occurs due to that
@@ -95,7 +97,9 @@ class TalawaAPIDocFixer extends DartFix {
                     node.name.length + node.name.offset) -
                 node.offset,
           ),
-        )) return;
+        )) {
+      return;
+    }
 
     if (node is MethodDeclaration &&
         !analysisError.sourceRange.intersects(
@@ -104,7 +108,9 @@ class TalawaAPIDocFixer extends DartFix {
             (node.parameters?.offset ?? node.name.length + node.name.offset) -
                 node.offset,
           ),
-        )) return;
+        )) {
+      return;
+    }
 
     final changeBuilder = reporter.createChangeBuilder(
       message: 'Insert Doc skeleton',

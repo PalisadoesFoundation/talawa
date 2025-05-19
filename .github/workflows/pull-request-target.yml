@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add the PR Review Policy
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
-          comment_tag: pr_review_policy
+          comment-tag: pr_review_policy
           message: |
             ## Our Pull Request Approval Process
 

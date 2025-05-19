@@ -216,7 +216,7 @@ class _SetUrlState extends State<SetUrl> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .surface
-                                          .withOpacity(0.8),
+                                          .withAlpha((0.8 * 255).toInt()),
                                     ),
                               ),
                             ],

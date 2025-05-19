@@ -1,6 +1,6 @@
 // ignore_for_file: talawa_api_doc, talawa_good_doc_comments
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -166,7 +166,6 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             final List<String> queries = data[1].split('&');
             model.orgId = queries[0].split('=')[1];
             controller.stopCamera();
-            controller.dispose();
             Navigator.pop(navigationService.navigatorKey.currentContext!);
             model.initialise(model.orgId);
           } else {
