@@ -329,7 +329,7 @@ for root, _, files in os.walk(md_folder):
                     ")"
                     ")",
                     r"(https://github.com/PalisadoesFoundation/talawa/blob/"
-                    "develop-postgres/\1)",
+                    "develop/\1)",
                     content,
                 )
 
@@ -338,7 +338,7 @@ for root, _, files in os.walk(md_folder):
                 content = re.sub(
                     r"\((\.github/workflows/pull-request\.yml)\)",
                     r"(https://github.com/PalisadoesFoundation/talawa/blob/"
-                    "develop-postgres/.github/workflows/pull-request.yml)",
+                    "develop/.github/workflows/pull-request.yml)",
                     content,
                 )
 

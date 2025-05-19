@@ -16,7 +16,7 @@ reviews:
     enabled: true
     drafts: false
     base_branches:
-      - develop-postgres
+      - develop
       - develop
       - main
   path_filters: 
