@@ -1,4 +1,0 @@
-# Do not delete. This file is used to configure 
-# python black formatting
-[tool.black]
-line-length = 79

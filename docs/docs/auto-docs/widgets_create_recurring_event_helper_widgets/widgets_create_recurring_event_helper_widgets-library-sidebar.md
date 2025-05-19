@@ -1,5 +1,0 @@
-1.  [Classes](./#classes)
-2.  [CustomRectangle](./CustomRectangle-class.md)
-3.  [CustomTextField](./CustomTextField-class.md)
-4.  [EventEndOptions](./EventEndOptions-class.md)
-5.  [RecurrenceFrequencyDropdown](./RecurrenceFrequencyDropdown-class.md)
