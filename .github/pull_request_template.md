@@ -3,7 +3,7 @@ This section can be deleted after reading.
 
 We employ the following branching strategy to simplify the development process and to ensure that only stable code is pushed to the `master` branch:
 
-- `develop-postgres`: For unstable code: New features and bug fixes.
+- `develop`: For unstable code: New features and bug fixes.
 - `master`: Where the stable production-ready code lies. Only security-related bugs.
 
 NOTE!!!

@@ -65,16 +65,16 @@ for more details on its origin and activities.
 # Documentation
 
 1.  You can install the software for this repository using the steps in
-    our [INSTALLATION.md](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/INSTALLATION.md) file.
+    our [INSTALLATION.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/INSTALLATION.md) file.
 2.  Do you want to contribute to our code base? Look at our
-    [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/CONTRIBUTING.md) file to get started. There
+    [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/CONTRIBUTING.md) file to get started. There
     you/'ll also find links to:
     1.  Our code of conduct documentation in the
-        [CODE_OF_CONDUCT.md](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/CODE_OF_CONDUCT.md) file.
+        [CODE_OF_CONDUCT.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/CODE_OF_CONDUCT.md) file.
     2.  How we handle the processing of new and existing issues in our
-        [ISSUE_GUIDELINES.md](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/ISSUE_GUIDELINES.md) file.
+        [ISSUE_GUIDELINES.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/ISSUE_GUIDELINES.md) file.
     3.  The methodologies we use to manage our pull requests in our
-        [PR_GUIDELINES.md](https://github.com/PalisadoesFoundation/talawa/blob/develop-postgres/PR_GUIDELINES.md) file.
+        [PR_GUIDELINES.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/PR_GUIDELINES.md) file.
 3.  The `talawa` documentation can be found at our
     [docs.talawa.io](https://docs.talawa.io) site.
     1.  It is automatically generated from the markdown files stored in

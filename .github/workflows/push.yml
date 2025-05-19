@@ -58,7 +58,7 @@ jobs:
             git stash push -u -- "pubspec.lock"
           fi
           git branch
-          git checkout develop-postgres
+          git checkout develop
           git pull
           git branch
           git checkout -

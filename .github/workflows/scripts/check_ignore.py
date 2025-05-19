@@ -103,7 +103,7 @@ def _check_for_ignore_directive(filePath):
 
     """
     # Either it is a non-code file, or the file does not exist.
-    # This can happen when `develop-postgres` gets ahead of your branch and
+    # This can happen when `develop` gets ahead of your branch and
     # has some files which you don't have
 
     if (
@@ -222,7 +222,7 @@ def main():
     print(current_branch)
     changed_files = (
         subprocess.check_output(
-            ["git", "diff", "--name-only", "develop-postgres", current_branch]
+            ["git", "diff", "--name-only", "develop", current_branch]
         )
         .decode("utf-8")
         .splitlines()
