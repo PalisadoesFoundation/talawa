@@ -39,7 +39,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -91,7 +91,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -123,7 +123,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -156,7 +156,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios
