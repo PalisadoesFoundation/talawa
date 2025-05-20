@@ -1,5 +1,6 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -98,6 +99,7 @@ Future<void> main() async {
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
   setUp(() {
+    dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
@@ -132,8 +134,9 @@ Future<void> main() async {
       verify(graphqlConfig.getOrgUrl());
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+      expect(box.get(SetUrlViewModel.urlKey), 'http://<IPv4>:4000/graphql');
+      expect(box.get(SetUrlViewModel.imageUrlKey),
+          'http://<IPv4>:4000/graphql/talawa/');
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
@@ -148,7 +151,7 @@ Future<void> main() async {
 
       await tester.pumpWidget(SetUrlMock(formKey: model.formKey));
 
-      model.initialise(inviteUrl: "http://www.youtube.com");
+      model.initialise();
     });
 
     testWidgets(
@@ -161,7 +164,8 @@ Future<void> main() async {
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+      when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
+          .thenAnswer((_) async => false);
 
       await model.checkURLandNavigate('/', 'arguments');
 
@@ -173,57 +177,6 @@ Future<void> main() async {
       );
 
       locator.unregister<Validator>();
-    });
-
-    testWidgets(
-        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
-        (tester) async {
-      locator.registerSingleton(Validator());
-
-      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
-
-      await model.checkURLandShowPopUp('arguments');
-
-      final captured = verify(
-        (navigationService as MockNavigationService).pushDialog(captureAny),
-      ).captured;
-      expect(
-        captured[0],
-        isA<CustomProgressDialog>().having(
-          (e) => e.key,
-          'key',
-          const Key('UrlCheckProgress'),
-        ),
-      );
-      verify(navigationService.pop());
-      verify(graphqlConfig.getOrgUrl());
-      verify(navigationService.showSnackBar("Url is valid"));
-
-      final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), '');
-      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
-    });
-
-    testWidgets(
-        'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
-        (tester) async {
-      //await locator.unregister<Validator>();
-      final service = MockValidator();
-      //locator.registerSingleton<Validator>(service);
-
-      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
-
-      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
-
-      await model.checkURLandShowPopUp('arguments');
-
-      verify(navigationService.pop());
-      verifyNever(
-        navigationService.showTalawaErrorSnackBar(
-          "URL doesn't exist/no connection please check",
-          MessageType.info,
-        ),
-      );
     });
 
     testWidgets('Check if scanQR() is working fine', (tester) async {

@@ -3,7 +3,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -50,6 +49,7 @@ import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+import 'package:talawa/views/demo_page_view.dart';
 
 // Instance of GetIt and storing it in a global variable
 /// Intializaing the locator.

@@ -62,14 +62,14 @@ You can start using Talawa by any of the two methods:
 
 We have tried to make the process simple. Here's what you need to do.
 
-Before proceeding with the installation, ensure you have **Node.js** and **npm** installed on your system. You can check this by running:  
+Before proceeding with the installation, ensure you have **Node.js** and **npm** installed on your system. You can check this by running:
 
 ```sh
 node -v
 npm -v
 ```
 
-If not installed, download and install them from [Node.js official website](https://nodejs.org/).  
+If not installed, download and install them from [Node.js official website](https://nodejs.org/).
 
 1. Clone and change into the project.
    ```sh
@@ -83,17 +83,45 @@ If not installed, download and install them from [Node.js official website](http
    $ cd ..
    $ flutter pub get
    ```
+1. **Create your own `.env` file:**
+
+   Copy the provided example file and update it with your local configuration:
+
+   ```sh
+   cp .env.example .env
+   ```
+
+1. **Edit `.env` as needed:**
+
+   Open `.env` in your favorite editor and set the correct values, for example:
+
+   For **development**:
+
+   ```
+   API_URL=http://<your-local-ip>:4000/graphql
+   ```
+
+   Replace `<your-local-ip>` with the actual IP address of your Talawa-API server.
+
+   For **production**:
+
+   ```
+   API_URL=https://<your-production-domain>/graphql
+   ```
+
+   Replace `<your-production-domain>` with your actual production API domain.
+
 1. Start developing!
 
-## Installing Dependencies  
+## Installing Dependencies
 
-Since the repository contains a `package.json` file in the root directory, you can install all dependencies, including **Husky**, by running:  
+Since the repository contains a `package.json` file in the root directory, you can install all dependencies, including **Husky**, by running:
 
 ```sh
 npm install
 ```
 
-This will automatically install **Husky** along with other project dependencies.  
+This will automatically install **Husky** along with other project dependencies.
 
 ## Installing Pandoc
 
