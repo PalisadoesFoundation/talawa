@@ -151,7 +151,7 @@ class ExploreEventsViewModel extends BaseModel {
           await actionHandlerService.performAction(
             actionType: ActionType.critical,
             criticalActionFailureMessage: TalawaErrors.eventDeletionFailed,
-            action: () async {
+            action: () {
               Future<QueryResult<Object?>>? result;
               result = _eventService.deleteEvent(eventId);
               return result;
@@ -165,7 +165,7 @@ class ExploreEventsViewModel extends BaseModel {
               navigationService.pop(); // Dismiss progress dialog
               setState(ViewState.idle);
             },
-            updateUI: () async {
+            updateUI: () {
               navigationService
                   .pop(); // Ensure progress dialog is popped in case of error
             },

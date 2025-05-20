@@ -129,7 +129,7 @@ void verifyInteraction(dynamic x, {required String mockName}) {
   }
 }
 
-void main() async {
+void main() {
   // No need to change
   setUpAll(() {
     locator.registerFactory(() => CustomDrawerViewModel());
@@ -227,7 +227,7 @@ void main() async {
     });
 
     test("When fromSignUp is false, App Tour dialog should not be displayed",
-        () async {
+        () {
       final mocknav = getAndRegisterNavigationService();
       final mainTestModel = getModel();
 

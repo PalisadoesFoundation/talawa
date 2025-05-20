@@ -444,7 +444,7 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) async => 1);
+      when(navigationService.pop()).thenAnswer((_) => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
@@ -824,7 +824,7 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pop()).thenAnswer((_) async => 1);
+      when(navigationService.pop()).thenAnswer((_) => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();

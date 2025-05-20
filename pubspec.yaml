@@ -10,7 +10,7 @@ homepage: https://github.com/PalisadoesFoundation/talawa
 
 repository: https://github.com/PalisadoesFoundation/talawa
 environment:
-  sdk: ">=2.17.0 <=3.6.2"
+  sdk: ">=2.17.0 <=3.7.2"
 
 dependencies:
   ############# Remove ###########
@@ -39,7 +39,6 @@ dependencies:
 
   flutter:
     sdk: flutter
-  flutter_braintree: ^4.0.0
   flutter_cache_manager: ^3.4.1
   flutter_local_notifications: ^18.0.1
   flutter_localizations:

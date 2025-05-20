@@ -80,7 +80,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
           themeMode: themeMode,
           theme: TalawaTheme.darkTheme,
           home: FloatingActionButton(
-            onPressed: () async {
+            onPressed: () {
               model1.initialise();
             },
           ),
@@ -97,12 +97,12 @@ Future<void> main() async {
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
-  setUp(() async {
+  setUp(() {
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
   });
-  tearDown(() async {
+  tearDown(() {
     unregisterViewModels();
   });
 

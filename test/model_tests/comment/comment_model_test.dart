@@ -57,7 +57,7 @@ void main() {
     tearDownAll(() async {
       await commentBox.close();
     });
-    test('put and get', () async {
+    test('put and get', () {
       commentBox.put('key', comment);
       final Comment fetchedComment = commentBox.get('key')!;
       expect(

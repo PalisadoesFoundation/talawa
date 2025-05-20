@@ -38,7 +38,7 @@ Widget createHomeScreen({required bool demoMode}) {
   );
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();

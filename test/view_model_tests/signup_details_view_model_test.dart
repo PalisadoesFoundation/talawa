@@ -114,7 +114,7 @@ void main() {
       expect(matchingPassword, null);
     });
 
-    test('Test sign up function', () async {
+    test('Test sign up function', () {
       // final User newUser = User();
 
       // NOTE: This test is entirely WRONG.

@@ -143,7 +143,7 @@ void main() {
       final file = await model.getPhotoFromGallery(camera: false);
       expect(file?.path, null);
     });
-    test("camera access denied", () async {
+    test("camera access denied", () {
       final mockPicker = locator<ImagePicker>();
       final model = MultiMediaPickerService();
       final printed = <String>[];
@@ -204,7 +204,7 @@ void main() {
       verify(navigationService.pop());
     });
 
-    test("test get fileStream", () async {
+    test("test get fileStream", () {
       final model = MultiMediaPickerService();
       expect(
         model.fileStream.toString(),

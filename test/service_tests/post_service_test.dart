@@ -186,7 +186,7 @@ void main() {
   const postID = '65e1aac38836aa003e4b8318';
 
   group('Test PostService', () {
-    test('deletePost', () async {
+    test('deletePost', () {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query =
           PostQueries().getPostsById(currentOrgID, null, null, 5, null);

@@ -88,8 +88,8 @@ class Test extends StatelessWidget {
   }
 }
 
-void main() async {
-  setUpAll(() async {
+void main() {
+  setUpAll(() {
     testSetupLocator();
     registerServices();
     locator<GraphqlConfig>().test();
