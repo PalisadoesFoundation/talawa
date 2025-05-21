@@ -5,7 +5,6 @@ import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
@@ -19,10 +18,7 @@ import 'package:talawa/widgets/rich_text.dart';
 /// to select an organization.
 /// At the bottom, there is also a gesture detector for changing the language.
 class SetUrl extends StatefulWidget {
-  const SetUrl({required Key key, required this.uri}) : super(key: key);
-
-  /// Variable.
-  final String uri;
+  const SetUrl({required Key key}) : super(key: key);
 
   @override
   _SetUrlState createState() => _SetUrlState();
@@ -33,7 +29,7 @@ class _SetUrlState extends State<SetUrl> {
   Widget build(BuildContext context) {
     print("built");
     return BaseView<SetUrlViewModel>(
-      onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
+      onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('SetUrlScreenScaffold'),
@@ -90,53 +86,6 @@ class _SetUrlState extends State<SetUrl> {
                       CustomRichText(
                         key: const Key('UrlPageText'),
                         words: model.greeting,
-                      ),
-                      //Form input for entering the organization URL
-                      TextFormField(
-                        key: const Key('UrlInputField'),
-                        controller: model.url,
-                        focusNode: model.urlFocus,
-                        textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.text,
-                        enableSuggestions: true,
-                        validator: (value) {
-                          final String? msg = Validator.validateURL(value!);
-                          if (msg == null) {
-                            return null;
-                          }
-
-                          return AppLocalizations.of(context)!.translate(msg);
-                        },
-                        onFieldSubmitted: (value) =>
-                            AppLocalizations.of(context)!
-                                .translate(Validator.validateURL(value)),
-                        decoration: InputDecoration(
-                          labelText:
-                              '${AppLocalizations.of(context)!.translate("Enter Community URL")} *',
-                          labelStyle: Theme.of(context).textTheme.titleMedium,
-                          suffixIcon: InkWell(
-                            key: const Key('VerifyButton'),
-                            onTap: () async {
-                              model.urlFocus.unfocus();
-                              model.validate = AutovalidateMode.always;
-                              model.formKey.currentState!.validate();
-
-                              /// Checking url. If valid, than show the pop-up
-                              await model.checkURLandShowPopUp('');
-                            },
-                            child: Container(
-                              height: 48,
-                              width: 48,
-                              alignment: Alignment.center,
-                              child: Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate("Verify"),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.086,

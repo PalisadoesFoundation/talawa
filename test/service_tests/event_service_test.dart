@@ -158,7 +158,7 @@ void main() {
       await services.registerForAnEvent('eventId');
     });
 
-    test('Test fetchAttendeesByEvent method', () async {
+    test('Test fetchAttendeesByEvent method', () {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       when(
@@ -178,7 +178,7 @@ void main() {
       services.fetchAttendeesByEvent('eventId');
     });
 
-    test('Test getEvents method', () async {
+    test('Test getEvents method', () {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       userConfig.currentOrg = OrgInfo(name: 'org', id: 'id');

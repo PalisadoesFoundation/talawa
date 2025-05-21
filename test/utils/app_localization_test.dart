@@ -85,7 +85,7 @@ void main() {
       expect(testAppLocalization.strictTranslate("Recover"), "votre mot");
     });
 
-    test("App Localization Delegate should not reload", () async {
+    test("App Localization Delegate should not reload", () {
       expect(
         appLocalizationsDelgate.shouldReload(appLocalizationsDelgate),
         false,

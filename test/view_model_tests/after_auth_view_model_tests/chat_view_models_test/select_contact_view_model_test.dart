@@ -27,7 +27,7 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
-  test("test initialise function of model", () async {
+  test("test initialise function of model", () {
     final model = SelectContactViewModel();
     model.initialise();
   });

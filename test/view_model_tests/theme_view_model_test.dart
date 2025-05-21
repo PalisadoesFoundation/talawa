@@ -32,7 +32,7 @@ void main() {
       expect(model.isdarkTheme, prefs.getBool("DynamicTheme") ?? true);
     });
 
-    test("test switch theme function", () async {
+    test("test switch theme function", () {
       final model = AppTheme();
       model.initialize();
       model.switchTheme(isOn: false);

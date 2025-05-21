@@ -19,7 +19,7 @@ import '../helpers/test_locator.dart';
 ///
 /// **returns**:
 ///   None
-void main() async {
+void main() {
   late DataBaseMutationFunctions functionsClass;
 
   const userNotAuthenticated =

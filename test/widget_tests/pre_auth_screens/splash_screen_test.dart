@@ -77,6 +77,14 @@ Future<void> main() async {
 
   late MockAppLinks mockAppLinks;
   late MockUserConfig mockUserConfig;
+  setUpAll(() {
+    // Set up shared preferences
+    SharedPreferences.setMockInitialValues({});
+    // Set up any other test configurations
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    graphqlConfig.test();
+  });
 
   setUp(() {
     mockAppLinks = MockAppLinks();
@@ -106,15 +114,6 @@ Future<void> main() async {
     if (locator.isRegistered<UserConfig>()) {
       locator.unregister<UserConfig>();
     }
-  });
-
-  setUpAll(() {
-    // Set up shared preferences
-    SharedPreferences.setMockInitialValues({});
-    // Set up any other test configurations
-    TestWidgetsFlutterBinding.ensureInitialized();
-    setupLocator();
-    graphqlConfig.test();
   });
 
   group('Splash Screen Widget Test in light mode', () {
@@ -394,6 +393,8 @@ Future<void> main() async {
         // Act
         await tester.pumpWidget(createSplashScreenLight());
         await tester.pumpWidget(Container()); // Force dispose
+
+        await tester.pumpAndSettle();
 
         // No explicit assert needed - test will fail if subscription isn't properly canceled
       });

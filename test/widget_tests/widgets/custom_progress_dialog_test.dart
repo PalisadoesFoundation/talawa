@@ -42,7 +42,7 @@ void main() {
     registerViewModels();
   });
 
-  tearDown(() async {
+  tearDown(() {
     unregisterViewModels();
     unregisterServices();
   });
