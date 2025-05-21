@@ -10,18 +10,11 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
-
-class MockNavigationService extends Mock implements NavigationService {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  @override
-  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
-}
 
 class MockUserConfig extends Mock implements UserConfig {
   @override
@@ -94,6 +87,10 @@ var mockSignUpData = {
     }
   }
 };
+Future<void> mockFlutterSecureStorageWrite(
+  String key,
+  String value,
+) async {}
 
 class SignUpMock extends StatelessWidget {
   const SignUpMock({required this.formKey, super.key});
@@ -172,9 +169,11 @@ void main() {
         queries.registerUser('', '', '', '', org.id),
       )).thenAnswer((_) async => queryResult);
 
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-      model.initialise(org);
-      await model.signUp();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
 
       expect(model.validate, AutovalidateMode.disabled);
 
@@ -205,9 +204,11 @@ void main() {
         ),
       );
 
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-      model.initialise(org);
-      await model.signUp();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
 
       expect(model.validate, AutovalidateMode.disabled);
 
@@ -245,9 +246,11 @@ void main() {
         queries.registerUser('', '', '', '', org.id),
       )).thenAnswer((_) async => queryResult);
 
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
-      model.initialise(org);
-      await model.signUp();
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
 
       expect(model.validate, AutovalidateMode.disabled);
 
@@ -293,7 +296,7 @@ void main() {
         id: "xyz1",
         name: "Test Org",
       );
-      await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+
       final queryResult = QueryResult(
         options: QueryOptions(
           document: gql(
@@ -303,7 +306,7 @@ void main() {
         data: null,
         source: QueryResultSource.network,
       );
-      model.initialise(org);
+
       when(
         databaseFunctions.gqlNonAuthMutation(
           queries.registerUser('', '', '', '', org.id),
@@ -311,7 +314,13 @@ void main() {
       ).thenAnswer(
         (_) async => queryResult,
       );
-      await model.signUp();
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(SignUpMock(formKey: model.formKey));
+        model.initialise(org);
+        await model.signUp();
+      });
+
       expect(model.validate, AutovalidateMode.disabled);
 
       verify(
@@ -350,6 +359,7 @@ void main() {
 
       String log = "";
 
+      /// Always get exception as no plugin  is registered for storing credentials using secure storage
       await runZonedGuarded(
         () async {
           model.email.text = "test.user@example.com";
