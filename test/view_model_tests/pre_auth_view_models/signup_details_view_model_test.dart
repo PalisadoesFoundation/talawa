@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -87,10 +88,6 @@ var mockSignUpData = {
     }
   }
 };
-Future<void> mockFlutterSecureStorageWrite(
-  String key,
-  String value,
-) async {}
 
 class SignUpMock extends StatelessWidget {
   const SignUpMock({required this.formKey, super.key});
@@ -230,15 +227,18 @@ void main() {
         id: "xyz2",
         name: "Test Org",
       );
-      (mockSignUpData['signUp']!['user']! as Map<String, dynamic>)['id'] =
-          'xyz2';
+      final modifiedSignUpData =
+          jsonDecode(jsonEncode(mockSignUpData)) as Map<String, dynamic>;
+      final signUpMap = modifiedSignUpData['signUp'] as Map<String, dynamic>;
+      final userMap = signUpMap['user'] as Map<String, dynamic>;
+      userMap['id'] = 'xyz2';
       final queryResult = QueryResult(
         options: QueryOptions(
           document: gql(
             queries.registerUser('', '', '', '', org.id),
           ),
         ),
-        data: mockSignUpData,
+        data: modifiedSignUpData,
         source: QueryResultSource.network,
       );
 
