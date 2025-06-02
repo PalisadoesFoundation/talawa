@@ -373,7 +373,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           key: const Key('DONATE'),
-                          onPressed: () async {
+                          onPressed: () {
                             ///required fields for donation transaction
                             // late final String userId;
                             // late final String orgId;

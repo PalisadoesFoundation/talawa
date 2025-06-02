@@ -190,7 +190,7 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
                                     Icons.edit,
                                     color: Colors.green,
                                   ),
-                                  onPressed: () async {
+                                  onPressed: () {
                                     navigationService.pushScreen(
                                       "/manageVolunteerScreen",
                                       arguments: [

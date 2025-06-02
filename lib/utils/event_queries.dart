@@ -157,7 +157,7 @@ class EventQueries {
   /// The mutation updates the event details and returns the ID, title, and description
   /// of the updated event.
   String updateEvent({
-    eventId,
+    String? eventId,
   }) {
     return """mutation updateEvent( 
         \$title:String!,

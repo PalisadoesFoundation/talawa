@@ -39,7 +39,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
+  }) {
     if (key == "userEmail" || key == "userPassword") {
       throw Exception("Storing error");
     }
@@ -55,7 +55,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
+  }) {
     if (key == "userEmail" || key == "userPassword") {
       throw Exception("Unable to read");
     }

@@ -83,7 +83,7 @@ class ExploreEvents extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : RefreshIndicator(
-                  onRefresh: () async => model.refreshEvents(),
+                  onRefresh: () => model.refreshEvents(),
                   child: Stack(
                     children: [
                       SingleChildScrollView(

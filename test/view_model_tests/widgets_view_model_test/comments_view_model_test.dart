@@ -91,8 +91,7 @@ void main() {
       when(commentsService.createComments(mockPost.sId, "fakeMsg"))
           .thenAnswer((_) async {});
 
-      when(postService.addCommentLocally(mockPost.sId))
-          .thenAnswer((_) async {});
+      when(postService.addCommentLocally(mockPost.sId)).thenAnswer((_) {});
 
 // Simulate adding the comment manually for testing
       final newComment = Comment(

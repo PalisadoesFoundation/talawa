@@ -19,7 +19,7 @@ class MockUrlLauncher extends Mock
   }
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SizeConfig().test();
@@ -27,7 +27,7 @@ void main() async {
   });
 
   group('Test for appSettingviewModel', () {
-    setUpAll(() async {
+    setUpAll(() {
       getAndRegisterNavigationService();
       getAndRegisterUserConfig();
       final mock = MockUrlLauncher();
