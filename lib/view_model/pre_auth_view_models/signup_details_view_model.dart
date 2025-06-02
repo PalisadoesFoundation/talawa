@@ -23,7 +23,7 @@ class SignupDetailsViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
 
   /// Represents information about the selected organization.
-  late OrgInfo? selectedOrganization;
+  late OrgInfo selectedOrganization;
 
   /// Secure local storage instance.
   FlutterSecureStorage secureStorage = const FlutterSecureStorage();
@@ -59,7 +59,7 @@ class SignupDetailsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise(OrgInfo? org) {
+  void initialise(OrgInfo org) {
     selectedOrganization = org;
     // greeting message
     greeting = [
@@ -144,7 +144,7 @@ class SignupDetailsViewModel extends BaseModel {
             Encryptor.encryptString(
               password.text,
             ),
-            selectedOrganization!.id,
+            selectedOrganization.id,
           );
           final result = await databaseFunctions.gqlNonAuthMutation(query);
           navigationService.pop();
@@ -158,7 +158,10 @@ class SignupDetailsViewModel extends BaseModel {
             final bool userSaved = await userConfig.updateUser(signedInUser);
             final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
             // if user successfully saved and access token is also generated.
-            if (userSaved && tokenRefreshed) {
+            if (userSaved &&
+                tokenRefreshed &&
+                userConfig.currentUser.joinedOrganizations != null &&
+                userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
               userConfig.saveCurrentOrgInHive(
                 userConfig.currentUser.joinedOrganizations![0],
               );

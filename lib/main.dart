@@ -28,7 +28,7 @@ Future<void> main() async {
   // Load environment variables from .env file
   await dotenv.load(fileName: ".env").then((value) {
     debugPrint("Environment variables loaded");
-    print(dotenv.get('API_URL'));
+    debugPrint(dotenv.get('API_URL'));
   }).catchError((error) {
     debugPrint("Error loading environment variables: $error");
     throw Exception("Failed to load environment variables: $error");
