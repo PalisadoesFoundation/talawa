@@ -65,8 +65,9 @@ class _UserFeedState extends State<UserFeed>
                       child: PostListWidget(
                         key: const Key('UserPostWidget'),
                         posts: model.userPosts,
-                        function: model.navigateToIndividualPage,
-                        deletePost: model.removePost,
+                        redirectToIndividualPage:
+                            model.navigateToIndividualPage,
+                        deletePost: model.deletePost,
                       ),
                     )),
         );

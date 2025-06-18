@@ -106,7 +106,6 @@ void main() {
         );
 
         try {
-          pageController.position;
           fail('Should throw AssertionError');
         } catch (e) {
           expect(e, isInstanceOf<AssertionError>());

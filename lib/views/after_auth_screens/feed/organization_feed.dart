@@ -13,14 +13,10 @@ class OrganizationFeed extends StatefulWidget {
   const OrganizationFeed({
     required Key key,
     this.homeModel,
-    this.forTest = false,
   }) : super(key: key);
 
   /// MainScreenViewModel.
   final MainScreenViewModel? homeModel;
-
-  /// To implement the test.
-  final bool forTest;
 
   @override
   State<OrganizationFeed> createState() => _OrganizationFeedState();
@@ -43,7 +39,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) => model.initialise(isTest: widget.forTest),
+      onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -130,6 +126,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                             key: const Key('pinnedPosts'),
                             pinnedPost: model.pinnedPosts,
                             model: widget.homeModel!,
+                            fetchNextPinnedPosts: model.nextPinnedPostPage,
                           ),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.01,
@@ -138,8 +135,9 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                             ? PostListWidget(
                                 key: widget.homeModel?.keySHPost,
                                 posts: model.posts,
-                                function: model.navigateToIndividualPage,
-                                deletePost: model.removePost,
+                                redirectToIndividualPage:
+                                    model.navigateToIndividualPage,
+                                deletePost: model.deletePost,
                               )
                             : // if there is no post in an organisation then show text button to create a post.
                             Column(

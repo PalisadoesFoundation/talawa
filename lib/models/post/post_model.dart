@@ -1,6 +1,11 @@
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/utils/post_queries.dart';
 
 part 'post_model.g.dart';
 
@@ -9,16 +14,15 @@ part 'post_model.g.dart';
 @HiveType(typeId: 6)
 class Post {
   Post({
-    required this.sId,
-    this.description,
+    this.id,
+    this.caption,
     this.createdAt,
-    this.imageUrl,
-    this.base64String,
-    this.videoUrl,
-    required this.creator,
+    this.attachments,
+    this.creator,
     this.organization,
-    this.likedBy,
-    this.comments,
+    this.commentsCount,
+    this.upvotesCount,
+    this.downvotesCount,
   });
 
   ///Creating a new Post instance from a map structure.
@@ -29,71 +33,83 @@ class Post {
   /// returns:
   /// * `PostObject`: Dart Object for posts
   Post.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'] as String;
-    description = json['text'] as String?;
-    createdAt = DateTime.parse(json['createdAt'] as String);
-    imageUrl = json['imageUrl'] as String?;
-    base64String = json['base64String'] as String?;
-    videoUrl = json['videoUrl'] as String?;
+    id = json['id'] as String?;
+    caption = json['caption'] as String?;
+    createdAt = json["createdAt"] != null
+        ? DateTime.tryParse(json['createdAt'] as String)
+        : null;
     creator = json['creator'] != null
-        ? User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true)
+        ? User.fromJson(json['creator'] as Map<String, dynamic>)
         : null;
     organization = json['organization'] != null
         ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
         : null;
-    if (json['likedBy'] != null) {
-      likedBy = <LikedBy>[];
-      (json['likedBy'] as List).forEach((v) {
-        likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
-      });
-    }
-    if (json['comments'] != null) {
-      comments = <Comments>[];
-      (json['comments'] as List).forEach((v) {
-        comments?.add(Comments.fromJson(v as Map<String, dynamic>));
-      });
-    }
+    attachments = (json['attachments'] as List?)
+        ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+    commentsCount = json['commentsCount'] as int?;
+    upvotesCount = json['upvotesCount'] as int?;
+    downvotesCount = json['downvotesCount'] as int?;
+    hasVoted = json['hasVoted'] as bool? ?? false;
+    voteType = json['voteType'] as String?;
+    isPinned = json['isPinned'] as bool?;
+    pinnedAt = json['pinnedAt'] != null
+        ? DateTime.tryParse(json['pinnedAt'] as String)
+        : null;
   }
 
   /// unique identifier for post.
   @HiveField(0)
-  late String sId;
+  String? id;
 
-  /// Description of the post.
+  /// Caption of the post.
   @HiveField(1)
-  String? description;
+  String? caption;
+
+  /// Number of Comments on the post.
+  @HiveField(2)
+  int? commentsCount;
+
+  /// Number of upvotes on the post.
+  @HiveField(3)
+  int? upvotesCount;
+
+  @HiveField(4)
+
+  /// Number of downvotes on the post.
+  int? downvotesCount;
+
+  /// Attachments associated with the post.
+  @HiveField(5)
+  List<AttachmentModel>? attachments;
 
   /// Creation timestamp of the post.
-  @HiveField(2)
+  @HiveField(6)
   DateTime? createdAt;
 
-  /// URL of the image attached to the post.
-  @HiveField(3)
-  String? imageUrl;
-
-  /// Base64 encoded string of an image attached to the post.
-  @HiveField(4)
-  String? base64String;
-
-  /// URL of a video attached to the post.
-  @HiveField(5)
-  String? videoUrl;
-
   /// User who created the post.
-  @HiveField(6)
+  @HiveField(7)
   User? creator;
 
+  /// Variable to check if post is voted by the user.
+  @HiveField(8)
+  bool hasVoted = false;
+
+  /// Variable to check the type of vote on the post by the user (if not voted then null).
+  @HiveField(9)
+  String? voteType;
+
   /// Organization associated with the post.
-  @HiveField(7)
+  @HiveField(10)
   OrgInfo? organization;
 
-  /// List of users who liked the post.
-  @HiveField(8)
-  List<LikedBy>? likedBy;
+  /// Variable to check if post is pinned by the user.
+  @HiveField(11)
+  bool? isPinned;
 
-  /// List of comments on the post.
-  @HiveField(9)
-  List<Comments>? comments;
+  /// Timestamp when the post was pinned.
+  @HiveField(12)
+  DateTime? pinnedAt;
 
   /// this is to get duration of post.
   ///
@@ -103,6 +119,9 @@ class Post {
   /// **returns**:
   /// * `String`: date is returned in ago form.
   String getPostCreatedDuration() {
+    if (this.createdAt == null) {
+      return "unknown date";
+    }
     if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
       return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';
     } else if (DateTime.now().difference(this.createdAt!).inMinutes < 60) {
@@ -117,71 +136,74 @@ class Post {
       return '${DateTime.now().difference(this.createdAt!).inDays ~/ 365} Years Ago';
     }
   }
-}
 
-/// This class convert between json and object for likedby.
-@HiveType(typeId: 8)
-class LikedBy {
-  LikedBy({this.sId});
-
-  /// JSON factory constructor.
-  LikedBy.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'] as String?;
-  }
-
-  /// These are dart object.
-  ///
-  /// params:
-  /// * `sId` : unique identifier for post
-  @HiveField(0)
-  String? sId;
-
-  /// Convert dart object to json.
+  /// this is to get duration of pinned post.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `Map<String, dynamic>`: json is returned.
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = this.sId;
-    return data;
-  }
-}
-
-/// This class convert between json and object for comments.
-@HiveType(typeId: 9)
-class Comments {
-  Comments({this.sId});
-
-  /// Convert json to dart object.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// * `Map<String, dynamic>`: Dart object is returned.
-  Comments.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'] as String?;
+  /// * `String`: date is returned in ago form.
+  String getPostPinnedDuration() {
+    if (this.pinnedAt == null) {
+      return "unknown date";
+    }
+    if (DateTime.now().difference(this.pinnedAt!).inSeconds < 60) {
+      return '${DateTime.now().difference(this.pinnedAt!).inSeconds} Seconds Ago';
+    } else if (DateTime.now().difference(this.pinnedAt!).inMinutes < 60) {
+      return '${DateTime.now().difference(this.pinnedAt!).inMinutes} Minutes Ago';
+    } else if (DateTime.now().difference(this.pinnedAt!).inHours < 24) {
+      return '${DateTime.now().difference(this.pinnedAt!).inHours} Hours Ago';
+    } else if (DateTime.now().difference(this.pinnedAt!).inDays < 30) {
+      return '${DateTime.now().difference(this.pinnedAt!).inDays} Days Ago';
+    } else if (DateTime.now().difference(this.pinnedAt!).inDays < 365) {
+      return '${DateTime.now().difference(this.pinnedAt!).inDays ~/ 30} Months Ago';
+    } else {
+      return '${DateTime.now().difference(this.pinnedAt!).inDays ~/ 365} Years Ago';
+    }
   }
 
-  /// these are dart object.
-  ///
-  /// params:
-  /// * `sId` : unique identifier for post
-  @HiveField(0)
-  String? sId;
-
-  /// Convert dart object to json.
+  /// Method to get the presigned URL for a file attachment.
   ///
   /// **params**:
-  ///   None
+  /// * `id`:  The ID of the post for which to fetch the presigned URL.
   ///
   /// **returns**:
-  /// * `Map<String, dynamic>`: json is returned.
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = this.sId;
-    return data;
+  ///   None
+  Future<void> getPresignedUrl(String? id) async {
+    if (id == null || id.isEmpty) {
+      return;
+    }
+
+    /// If the post has attachments, fetch presigned URLs for each attachment.
+    if (this.attachments != null && this.attachments!.isNotEmpty) {
+      for (final attachment in this.attachments!) {
+        if ((attachment.url == null || attachment.url!.isEmpty) &&
+            attachment.name != null) {
+          final query = PostQueries().getPresignedUrl();
+          final variables = {
+            "objectName": attachment.name,
+            "organizationId": id
+          };
+          final QueryResult<Object?>? result;
+          try {
+            result = await locator<DataBaseMutationFunctions>()
+                .gqlAuthMutation(query, variables: variables);
+          } catch (e) {
+            return;
+          }
+
+          if (result.data != null &&
+              result.data!.containsKey('createGetfileUrl')) {
+            final containsUrl =
+                result.data?['createGetfileUrl'] as Map<String, dynamic>;
+            final url = containsUrl['presignedUrl'] as String?;
+            if (url != null && url.isNotEmpty) {
+              attachment.url = url;
+            }
+          }
+        }
+      }
+    }
   }
 }

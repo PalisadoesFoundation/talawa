@@ -13,7 +13,7 @@ import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dar
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_container.dart';
-import 'package:talawa/widgets/post_detailed_page.dart';
+import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/post_modal.dart';
 import 'package:talawa/widgets/post_widget.dart';
 // import 'package:talawa/widgets/video_widget.dart';

@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -102,10 +103,9 @@ class HiveManager {
     registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
     registerAdapter<Post>(PostAdapter());
     registerAdapter<Event>(EventAdapter());
-    registerAdapter<LikedBy>(LikedByAdapter());
     registerAdapter<Attendee>(AttendeeAdapter());
     registerAdapter<Comment>(CommentAdapter());
-    registerAdapter<Comments>(CommentsAdapter());
+    registerAdapter<AttachmentModel>(AttachmentModelAdapter());
   }
 
   /// Opens the necessary Hive boxes for storing various types of data.
@@ -123,6 +123,7 @@ class HiveManager {
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
     await openBox<Event>(HiveKeys.eventFeedKey);
+    await openBox<Post>(HiveKeys.pinnedPostKey);
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -155,5 +156,6 @@ class HiveManager {
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);
     await closeBox<Event>(HiveKeys.eventFeedKey);
+    await closeBox<Post>(HiveKeys.pinnedPostKey);
   }
 }

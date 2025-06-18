@@ -5,6 +5,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
 // Global State, should be removed in next few iterations
@@ -102,7 +103,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
       body: ListView(
         children: [
           // Post
-          NewsPost(
+          PostWidget(
             post: widget.post,
           ),
           Padding(
@@ -112,14 +113,9 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // renders the number of users liked the post.
-                IndividualPageLikeSection(
-                  usersLiked: widget.post.likedBy!,
-                ),
                 // renders the number of users commented on the post.
                 IndividualPostCommentSection(
-                  comments: widget.post.comments!,
-                  postID: widget.post.sId,
+                  postID: widget.post.id!,
                 ),
                 const SizedBox(
                   height: 200,
@@ -151,52 +147,18 @@ Padding buildPadding(BuildContext context, String text) {
   );
 }
 
-/// IndividualPageLikeSection returns a widget that show the list of all the users liked the post.
-class IndividualPageLikeSection extends StatelessWidget {
-  const IndividualPageLikeSection({
-    super.key,
-    required this.usersLiked,
-  });
-
-  /// Represents a list of users who have liked a post.
-  final List<LikedBy> usersLiked;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildPadding(
-          context,
-          AppLocalizations.of(context)!.strictTranslate(
-            "Liked by",
-          ),
-        ),
-        Row(
-          children: [
-            // Looping through the usersLiked list,
-            for (int i = 0; i < usersLiked.length; i++)
-              // renders the custom widget for invidual user.
-              likedUserCircleAvatar(usersLiked[i]),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
 /// Widget representing the comment section of an individual post.
 ///
 /// The `IndividualPostCommentSection` widget displays a list of comments on a post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
     super.key,
-    required this.comments,
+    // required this.comments,
     required this.postID,
   });
 
-  /// List of comments on a post.
-  final List<Comments> comments;
+  // /// List of comments on a post.
+  // final List<Comments> comments;
 
   /// ID of a post with associated comments.
   final String postID;
@@ -217,6 +179,11 @@ class IndividualPostCommentSection extends StatelessWidget {
           for (int i = 0; i < model.commentList.length; i++)
             // renders the custom widget for invidual user.
             CommentTemplate(comment: model.commentList[i]),
+          if (model.hasNextPage)
+            TextButton(
+              onPressed: () => model.fetchNextPage(),
+              child: const Text('Load More....'),
+            ),
         ],
       ),
     );
@@ -238,7 +205,13 @@ class CommentTemplate extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CircleAvatar(),
+        CustomAvatar(
+          isImageNull: comment.creator?.image == null,
+          firstAlphabet:
+              comment.creator?.firstName?.substring(0, 1).toUpperCase(),
+          imageUrl: comment.creator?.image,
+          fontSize: 20,
+        ),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
@@ -256,12 +229,12 @@ class CommentTemplate extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "${comment.creator!.firstName!} ${comment.creator!.lastName!}",
+                    "${comment.creator?.firstName} ${comment.creator?.lastName}",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 Text(
-                  comment.text!,
+                  comment.body!,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -274,38 +247,4 @@ class CommentTemplate extends StatelessWidget {
       ],
     );
   }
-}
-
-/// Generates a Circle Avatar representing a user who liked the post.
-///
-/// **params**:
-/// * `user`: The user who liked the post, represented by the `LikedBy` class.
-///
-/// **returns**:
-/// * `Widget`: Circle Avatar of the user who liked the post.
-Widget likedUserCircleAvatar(LikedBy user) {
-  return const Padding(
-    padding: EdgeInsets.only(right: 10.0, bottom: 16.0),
-    child: Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        CircleAvatar(
-          backgroundColor: Color(0xfff2f2f2),
-          radius: 20,
-        ),
-        Positioned(
-          top: 30,
-          right: 0,
-          bottom: 20,
-          left: 20,
-          child: Icon(
-            Icons.thumb_up,
-            color: Colors.blue,
-            size: 20,
-          ),
-        ),
-      ],
-    ),
-  );
 }

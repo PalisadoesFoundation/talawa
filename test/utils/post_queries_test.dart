@@ -50,7 +50,7 @@ void main() {
         }
       }
 """;
-      final fnData = PostQueries().getPostsById("sampleID", "1", "2", 5, 5);
+      final fnData = PostQueries().getPostsByOrgID("sampleID", "1", "2", 5, 5);
       expect(fnData, data);
     });
 

@@ -162,7 +162,7 @@ void main() {
     });
 
     testWidgets('Test PinnedPostPage route', (WidgetTester tester) async {
-      final List<Post> pinnedPosts = [Post(sId: "testId", creator: User())];
+      final List<Post> pinnedPosts = [Post(id: "testId", creator: User())];
 
       final route = generateRoute(
         RouteSettings(name: Routes.pinnedPostPage, arguments: pinnedPosts),

@@ -10,49 +10,50 @@ import 'dart:ui' as _i10;
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i11;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i42;
+import 'package:image_cropper/src/cropper.dart' as _i43;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i43;
+    as _i44;
 import 'package:image_picker/image_picker.dart' as _i14;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i19;
-import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i34;
-import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i35;
-import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i36;
+import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i35;
+import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i36;
+import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i37;
 import 'package:qr_code_scanner_plus/src/types/features.dart' as _i13;
 import 'package:talawa/enums/enums.dart' as _i15;
+import 'package:talawa/models/attachments/attachment_model.dart' as _i30;
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart' as _i25;
 import 'package:talawa/models/chats/chat_message.dart' as _i26;
 import 'package:talawa/models/events/event_model.dart' as _i22;
-import 'package:talawa/models/events/event_venue.dart' as _i40;
+import 'package:talawa/models/events/event_venue.dart' as _i41;
 import 'package:talawa/models/events/event_volunteer_group.dart' as _i23;
 import 'package:talawa/models/organization/org_info.dart' as _i5;
 import 'package:talawa/models/post/post_model.dart' as _i18;
 import 'package:talawa/models/user/user_info.dart' as _i7;
 import 'package:talawa/services/chat_service.dart' as _i24;
-import 'package:talawa/services/comment_service.dart' as _i37;
+import 'package:talawa/services/comment_service.dart' as _i38;
 import 'package:talawa/services/database_mutation_functions.dart' as _i9;
 import 'package:talawa/services/event_service.dart' as _i12;
 import 'package:talawa/services/graphql_config.dart' as _i16;
 import 'package:talawa/services/navigation_service.dart' as _i8;
-import 'package:talawa/services/org_service.dart' as _i30;
+import 'package:talawa/services/org_service.dart' as _i31;
 import 'package:talawa/services/post_service.dart' as _i17;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i20;
 import 'package:talawa/services/user_config.dart' as _i27;
-import 'package:talawa/utils/validators.dart' as _i33;
+import 'package:talawa/utils/validators.dart' as _i34;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
-    as _i41;
+    as _i42;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
-    as _i39;
+    as _i40;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
-    as _i31;
-import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart'
     as _i32;
+import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart'
+    as _i33;
 import 'package:talawa/view_model/lang_view_model.dart' as _i28;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i29;
-import 'package:talawa/view_model/theme_view_model.dart' as _i38;
+import 'package:talawa/view_model/theme_view_model.dart' as _i39;
 import 'package:talawa/widgets/custom_alert_dialog.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -1181,9 +1182,9 @@ class MockPostService extends _i2.Mock implements _i17.PostService {
       ) as _i6.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i6.Future<bool> addLike(String? postID) => (super.noSuchMethod(
+  _i6.Future<bool> addVote(String? postID) => (super.noSuchMethod(
         Invocation.method(
-          #addLike,
+          #addVote,
           [postID],
         ),
         returnValue: _i6.Future<bool>.value(false),
@@ -2257,6 +2258,19 @@ class MockSignupDetailsViewModel extends _i2.Mock
       );
 
   @override
+  _i5.OrgInfo get selectedOrganization => (super.noSuchMethod(
+        Invocation.getter(#selectedOrganization),
+        returnValue: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#selectedOrganization),
+        ),
+        returnValueForMissingStub: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#selectedOrganization),
+        ),
+      ) as _i5.OrgInfo);
+
+  @override
   set selectedOrganization(_i5.OrgInfo? _selectedOrganization) =>
       super.noSuchMethod(
         Invocation.setter(
@@ -2555,32 +2569,56 @@ class MockSignupDetailsViewModel extends _i2.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockPost extends _i2.Mock implements _i18.Post {
   @override
-  String get sId => (super.noSuchMethod(
-        Invocation.getter(#sId),
-        returnValue: _i19.dummyValue<String>(
-          this,
-          Invocation.getter(#sId),
-        ),
-        returnValueForMissingStub: _i19.dummyValue<String>(
-          this,
-          Invocation.getter(#sId),
-        ),
-      ) as String);
-
-  @override
-  set sId(String? _sId) => super.noSuchMethod(
+  set id(String? _id) => super.noSuchMethod(
         Invocation.setter(
-          #sId,
-          _sId,
+          #id,
+          _id,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  set description(String? _description) => super.noSuchMethod(
+  set caption(String? _caption) => super.noSuchMethod(
         Invocation.setter(
-          #description,
-          _description,
+          #caption,
+          _caption,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set commentsCount(int? _commentsCount) => super.noSuchMethod(
+        Invocation.setter(
+          #commentsCount,
+          _commentsCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set upvotesCount(int? _upvotesCount) => super.noSuchMethod(
+        Invocation.setter(
+          #upvotesCount,
+          _upvotesCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set downvotesCount(int? _downvotesCount) => super.noSuchMethod(
+        Invocation.setter(
+          #downvotesCount,
+          _downvotesCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set attachments(List<_i30.AttachmentModel>? _attachments) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #attachments,
+          _attachments,
         ),
         returnValueForMissingStub: null,
       );
@@ -2595,33 +2633,6 @@ class MockPost extends _i2.Mock implements _i18.Post {
       );
 
   @override
-  set imageUrl(String? _imageUrl) => super.noSuchMethod(
-        Invocation.setter(
-          #imageUrl,
-          _imageUrl,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set base64String(String? _base64String) => super.noSuchMethod(
-        Invocation.setter(
-          #base64String,
-          _base64String,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set videoUrl(String? _videoUrl) => super.noSuchMethod(
-        Invocation.setter(
-          #videoUrl,
-          _videoUrl,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   set creator(_i7.User? _creator) => super.noSuchMethod(
         Invocation.setter(
           #creator,
@@ -2631,28 +2642,35 @@ class MockPost extends _i2.Mock implements _i18.Post {
       );
 
   @override
+  bool get hasVoted => (super.noSuchMethod(
+        Invocation.getter(#hasVoted),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasVoted(bool? _hasVoted) => super.noSuchMethod(
+        Invocation.setter(
+          #hasVoted,
+          _hasVoted,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set voteType(String? _voteType) => super.noSuchMethod(
+        Invocation.setter(
+          #voteType,
+          _voteType,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   set organization(_i5.OrgInfo? _organization) => super.noSuchMethod(
         Invocation.setter(
           #organization,
           _organization,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set likedBy(List<_i18.LikedBy>? _likedBy) => super.noSuchMethod(
-        Invocation.setter(
-          #likedBy,
-          _likedBy,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  set comments(List<_i18.Comments>? _comments) => super.noSuchMethod(
-        Invocation.setter(
-          #comments,
-          _comments,
         ),
         returnValueForMissingStub: null,
       );
@@ -2929,7 +2947,7 @@ class MockDataBaseMutationFunctions extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizationService extends _i2.Mock
-    implements _i30.OrganizationService {
+    implements _i31.OrganizationService {
   @override
   _i6.Future<List<_i7.User>> getOrgMembersList(String? orgId) =>
       (super.noSuchMethod(
@@ -2947,7 +2965,7 @@ class MockOrganizationService extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockExploreEventsViewModel extends _i2.Mock
-    implements _i31.ExploreEventsViewModel {
+    implements _i32.ExploreEventsViewModel {
   @override
   bool get demoMode => (super.noSuchMethod(
         Invocation.getter(#demoMode),
@@ -3151,7 +3169,7 @@ class MockExploreEventsViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizationFeedViewModel extends _i2.Mock
-    implements _i32.OrganizationFeedViewModel {
+    implements _i33.OrganizationFeedViewModel {
   @override
   bool get istest => (super.noSuchMethod(
         Invocation.getter(#istest),
@@ -3381,7 +3399,7 @@ class MockOrganizationFeedViewModel extends _i2.Mock
 /// A class which mocks [Validator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockValidator extends _i2.Mock implements _i33.Validator {
+class MockValidator extends _i2.Mock implements _i34.Validator {
   @override
   _i6.Future<bool?> validateUrlExistence(String? url) => (super.noSuchMethod(
         Invocation.method(
@@ -3396,7 +3414,7 @@ class MockValidator extends _i2.Mock implements _i33.Validator {
 /// A class which mocks [QRViewController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockQRViewController extends _i2.Mock implements _i34.QRViewController {
+class MockQRViewController extends _i2.Mock implements _i35.QRViewController {
   @override
   bool get disposed => (super.noSuchMethod(
         Invocation.getter(#disposed),
@@ -3414,11 +3432,11 @@ class MockQRViewController extends _i2.Mock implements _i34.QRViewController {
       );
 
   @override
-  _i6.Stream<_i35.Barcode> get scannedDataStream => (super.noSuchMethod(
+  _i6.Stream<_i36.Barcode> get scannedDataStream => (super.noSuchMethod(
         Invocation.getter(#scannedDataStream),
-        returnValue: _i6.Stream<_i35.Barcode>.empty(),
-        returnValueForMissingStub: _i6.Stream<_i35.Barcode>.empty(),
-      ) as _i6.Stream<_i35.Barcode>);
+        returnValue: _i6.Stream<_i36.Barcode>.empty(),
+        returnValueForMissingStub: _i6.Stream<_i36.Barcode>.empty(),
+      ) as _i6.Stream<_i36.Barcode>);
 
   @override
   bool get hasPermissions => (super.noSuchMethod(
@@ -3428,28 +3446,28 @@ class MockQRViewController extends _i2.Mock implements _i34.QRViewController {
       ) as bool);
 
   @override
-  _i6.Future<_i36.CameraFacing> getCameraInfo() => (super.noSuchMethod(
+  _i6.Future<_i37.CameraFacing> getCameraInfo() => (super.noSuchMethod(
         Invocation.method(
           #getCameraInfo,
           [],
         ),
         returnValue:
-            _i6.Future<_i36.CameraFacing>.value(_i36.CameraFacing.back),
+            _i6.Future<_i37.CameraFacing>.value(_i37.CameraFacing.back),
         returnValueForMissingStub:
-            _i6.Future<_i36.CameraFacing>.value(_i36.CameraFacing.back),
-      ) as _i6.Future<_i36.CameraFacing>);
+            _i6.Future<_i37.CameraFacing>.value(_i37.CameraFacing.back),
+      ) as _i6.Future<_i37.CameraFacing>);
 
   @override
-  _i6.Future<_i36.CameraFacing> flipCamera() => (super.noSuchMethod(
+  _i6.Future<_i37.CameraFacing> flipCamera() => (super.noSuchMethod(
         Invocation.method(
           #flipCamera,
           [],
         ),
         returnValue:
-            _i6.Future<_i36.CameraFacing>.value(_i36.CameraFacing.back),
+            _i6.Future<_i37.CameraFacing>.value(_i37.CameraFacing.back),
         returnValueForMissingStub:
-            _i6.Future<_i36.CameraFacing>.value(_i36.CameraFacing.back),
-      ) as _i6.Future<_i36.CameraFacing>);
+            _i6.Future<_i37.CameraFacing>.value(_i37.CameraFacing.back),
+      ) as _i6.Future<_i37.CameraFacing>);
 
   @override
   _i6.Future<bool?> getFlashStatus() => (super.noSuchMethod(
@@ -3548,18 +3566,18 @@ class MockQRViewController extends _i2.Mock implements _i34.QRViewController {
 /// A class which mocks [CommentService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCommentService extends _i2.Mock implements _i37.CommentService {
+class MockCommentService extends _i2.Mock implements _i38.CommentService {
   @override
   _i6.Future<void> createComments(
     String? postId,
-    String? text,
+    String? body,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #createComments,
           [
             postId,
-            text,
+            body,
           ],
         ),
         returnValue: _i6.Future<void>.value(),
@@ -3567,21 +3585,36 @@ class MockCommentService extends _i2.Mock implements _i37.CommentService {
       ) as _i6.Future<void>);
 
   @override
-  _i6.Future<List<dynamic>> getCommentsForPost(String? postId) =>
+  _i6.Future<Map<String, dynamic>> getCommentsForPost({
+    required String? postId,
+    int? first = 10,
+    String? after,
+    int? last,
+    String? before,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCommentsForPost,
-          [postId],
+          [],
+          {
+            #postId: postId,
+            #first: first,
+            #after: after,
+            #last: last,
+            #before: before,
+          },
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+        returnValueForMissingStub:
+            _i6.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i6.Future<Map<String, dynamic>>);
 }
 
 /// A class which mocks [AppTheme].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppTheme extends _i2.Mock implements _i38.AppTheme {
+class MockAppTheme extends _i2.Mock implements _i39.AppTheme {
   @override
   String get key => (super.noSuchMethod(
         Invocation.getter(#key),
@@ -3705,7 +3738,7 @@ class MockAppTheme extends _i2.Mock implements _i38.AppTheme {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCreateEventViewModel extends _i2.Mock
-    implements _i39.CreateEventViewModel {
+    implements _i40.CreateEventViewModel {
   @override
   _i1.TextEditingController get eventTitleTextController => (super.noSuchMethod(
         Invocation.getter(#eventTitleTextController),
@@ -4377,15 +4410,15 @@ class MockCreateEventViewModel extends _i2.Mock
       );
 
   @override
-  _i6.Future<List<_i40.Venue>> fetchVenues() => (super.noSuchMethod(
+  _i6.Future<List<_i41.Venue>> fetchVenues() => (super.noSuchMethod(
         Invocation.method(
           #fetchVenues,
           [],
         ),
-        returnValue: _i6.Future<List<_i40.Venue>>.value(<_i40.Venue>[]),
+        returnValue: _i6.Future<List<_i41.Venue>>.value(<_i41.Venue>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i40.Venue>>.value(<_i40.Venue>[]),
-      ) as _i6.Future<List<_i40.Venue>>);
+            _i6.Future<List<_i41.Venue>>.value(<_i41.Venue>[]),
+      ) as _i6.Future<List<_i41.Venue>>);
 
   @override
   void setState(_i15.ViewState? viewState) => super.noSuchMethod(
@@ -4437,7 +4470,7 @@ class MockCreateEventViewModel extends _i2.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDirectChatViewModel extends _i2.Mock
-    implements _i41.DirectChatViewModel {
+    implements _i42.DirectChatViewModel {
   @override
   _i1.GlobalKey<_i1.AnimatedListState> get listKey => (super.noSuchMethod(
         Invocation.getter(#listKey),
@@ -4616,16 +4649,16 @@ class MockDirectChatViewModel extends _i2.Mock
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i42.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i43.ImageCropper {
   @override
-  _i6.Future<_i43.CroppedFile?> cropImage({
+  _i6.Future<_i44.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i43.CropAspectRatio? aspectRatio,
-    _i43.ImageCompressFormat? compressFormat = _i43.ImageCompressFormat.jpg,
+    _i44.CropAspectRatio? aspectRatio,
+    _i44.ImageCompressFormat? compressFormat = _i44.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i43.PlatformUiSettings>? uiSettings,
+    List<_i44.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -4641,19 +4674,19 @@ class MockImageCropper extends _i2.Mock implements _i42.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i6.Future<_i43.CroppedFile?>.value(),
-        returnValueForMissingStub: _i6.Future<_i43.CroppedFile?>.value(),
-      ) as _i6.Future<_i43.CroppedFile?>);
+        returnValue: _i6.Future<_i44.CroppedFile?>.value(),
+        returnValueForMissingStub: _i6.Future<_i44.CroppedFile?>.value(),
+      ) as _i6.Future<_i44.CroppedFile?>);
 
   @override
-  _i6.Future<_i43.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i6.Future<_i44.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i6.Future<_i43.CroppedFile?>.value(),
-        returnValueForMissingStub: _i6.Future<_i43.CroppedFile?>.value(),
-      ) as _i6.Future<_i43.CroppedFile?>);
+        returnValue: _i6.Future<_i44.CroppedFile?>.value(),
+        returnValueForMissingStub: _i6.Future<_i44.CroppedFile?>.value(),
+      ) as _i6.Future<_i44.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].

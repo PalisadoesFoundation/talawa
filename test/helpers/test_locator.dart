@@ -48,7 +48,7 @@ import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/demo_page_view.dart';
 
@@ -143,7 +143,7 @@ void testSetupLocator() {
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
-  locator.registerFactory(() => LikeButtonViewModel());
+  locator.registerFactory(() => InteractionsViewModel());
   locator.registerFactory(() => AppLanguage(isTest: true));
   locator.registerFactory(() => CommentsViewModel());
   locator.registerFactory(() => AppTheme());

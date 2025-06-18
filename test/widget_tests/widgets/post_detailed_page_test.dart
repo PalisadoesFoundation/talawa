@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/widgets/post_detailed_page.dart';
+import 'package:talawa/widgets/caption_text_widget.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
