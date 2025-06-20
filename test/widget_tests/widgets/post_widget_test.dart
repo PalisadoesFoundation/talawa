@@ -9,13 +9,14 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_container.dart';
-import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/post_modal.dart';
 import 'package:talawa/widgets/post_widget.dart';
+
 // import 'package:talawa/widgets/video_widget.dart';
 // import 'package:visibility_detector/visibility_detector.dart';
 
@@ -46,10 +47,10 @@ Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
     themeMode: ThemeMode.light,
     theme: TalawaTheme.lightTheme,
     home: Scaffold(
-      body: NewsPost(
+      body: PostWidget(
         key: newsPostKey,
         post: post ?? getPostMockModel(),
-        function: function,
+        redirectToIndividualPage: function,
       ),
     ),
   );
@@ -85,7 +86,6 @@ void main() {
           (WidgetTester tester) async {
         await tester.runAsync(() async {
           final Post post = getPostMockModel();
-          when(post.likedBy).thenReturn([LikedBy(sId: "xzy1")]);
           await tester.pumpWidget(
             createNewsPostWidget(
               null,
@@ -101,20 +101,6 @@ void main() {
           final secondColumnWidget =
               tester.firstWidget(column2Finder) as Column;
           print(secondColumnWidget);
-
-          // final thirdPaddingWidget = secondColumnWidget.children[2] as Padding;
-          //
-          // final first3GestureDetectorFinder = find.descendant(
-          //   of: find.byWidget(thirdPaddingWidget),
-          //   matching: find.byType(GestureDetector),
-          // );
-          // final first3GestureDetectorWidget = tester
-          //     .firstWidget(first3GestureDetectorFinder) as GestureDetector;
-
-          // expect(
-          //   (first3GestureDetectorWidget.child! as Icon).color,
-          //   TalawaTheme.lightTheme.colorScheme.secondary,
-          // );
         });
       });
 
@@ -160,11 +146,11 @@ void main() {
 
           // Testing if all direct children of column are there
           expect(firstColumnWidget.children[0], isA<ListTile>());
-          expect(firstColumnWidget.children[1], isA<DescriptionTextWidget>());
+          expect(firstColumnWidget.children[1], isA<CaptionTextWidget>());
           // expect(firstColumnWidget.children[2], isA<Container>());
           expect(
             firstColumnWidget.children[2],
-            isA<BaseView<LikeButtonViewModel>>(),
+            isA<BaseView<InteractionsViewModel>>(),
           );
         });
       });
@@ -246,18 +232,17 @@ void main() {
               .first;
           final descriptionTextWidgetFinder = find.descendant(
             of: columnFinder,
-            matching: find.byType(DescriptionTextWidget),
+            matching: find.byType(CaptionTextWidget),
           );
 
           // Testing if DescriptionTextWidget shows
           expect(descriptionTextWidgetFinder, findsOneWidget);
 
-          final descriptionTextWidget =
-              tester.firstWidget(descriptionTextWidgetFinder)
-                  as DescriptionTextWidget;
+          final descriptionTextWidget = tester
+              .firstWidget(descriptionTextWidgetFinder) as CaptionTextWidget;
 
           // Testing if the text description is correct
-          expect(descriptionTextWidget.text, "TestDescription");
+          expect(descriptionTextWidget.caption, "TestDescription");
         });
       });
 
@@ -270,7 +255,7 @@ void main() {
               find.descendant(of: postFinder, matching: find.byType(Column));
 
           final baseViewWidget = (tester.firstWidget(columnFinder) as Column)
-              .children[2] as BaseView<LikeButtonViewModel>;
+              .children[2] as BaseView<InteractionsViewModel>;
 
           // Testing if the text description is correct
           expect(baseViewWidget.onModelReady, isNotNull);
@@ -284,148 +269,111 @@ void main() {
         });
       });
 
-      group('Test props of children for baseview', () {
-        // testWidgets(
-        //     'Test MultiReactButton presence and onReactionChanged property in NewsPostWidget',
-        //     (WidgetTester tester) async {
-        //   await tester.runAsync(() async {
-        //     // Variable to check if onReactionChanged is called
-        //     bool reactionChangedCalled = false;
-
-        //     // Build the NewsPostWidget containing the MultiReactButton
-        //     await tester.pumpWidget(
-        //       MultiReactButton(
-        //         toggle: () {
-        //           // Set the flag when onReactionChanged is called
-        //           reactionChangedCalled = true;
-        //         },
-        //       ),
-        //     );
-
-        //     // Find the MultiReactButton widget within the NewsPostWidget
-        //     final multiReactButtonFinder = find.byType(MultiReactButton);
-
-        //     // Ensure the MultiReactButton widget is present in the widget tree
-        //     expect(multiReactButtonFinder, findsOneWidget);
-
-        //     // Simulate a reaction change on the MultiReactButton
-        //     await tester.tap(
-        //       multiReactButtonFinder,
-        //     ); // Replace with your actual tap action
-        //     await tester.pump();
-
-        //     // Ensure that onReactionChanged callback was triggered
-        //     expect(reactionChangedCalled, true);
-        //   });
-        // });
-        testWidgets('Test props first padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            final firstPaddingWidget =
-                secondColumnWidget.children[0] as Padding;
-
-            final firstGestureDetectorFinder = find.descendant(
-              of: find.byWidget(firstPaddingWidget),
-              matching: find.byType(GestureDetector),
-            );
-            print(firstGestureDetectorFinder);
-
-            final secondGestureDetectorFinder = find.descendant(
-              of: find.byWidget(firstPaddingWidget),
-              matching: find.byType(GestureDetector),
-            );
-            print(secondGestureDetectorFinder);
-          });
-        });
-
-        testWidgets('Test props second padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            final secondPaddingWidget =
-                secondColumnWidget.children[1] as Padding;
-            print(secondPaddingWidget);
-          });
-        });
-
-        testWidgets('Test props third padding widget',
-            (WidgetTester tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidget(createNewsPostWidget());
-            await tester.pump();
-            final postFinder = find.byKey(newsPostKey);
-            final columnFinder =
-                find.descendant(of: postFinder, matching: find.byType(Column));
-            final column2Finder = columnFinder.at(2);
-            final secondColumnWidget =
-                tester.firstWidget(column2Finder) as Column;
-            print(secondColumnWidget);
-          });
-        });
-
-        testWidgets('Test if report button opens modal bottom sheet',
-            (WidgetTester tester) async {
+      testWidgets('Test props first padding widget',
+          (WidgetTester tester) async {
+        await tester.runAsync(() async {
           await tester.pumpWidget(createNewsPostWidget());
           await tester.pump();
+          final postFinder = find.byKey(newsPostKey);
+          final columnFinder =
+              find.descendant(of: postFinder, matching: find.byType(Column));
+          final column2Finder = columnFinder.at(2);
+          final secondColumnWidget =
+              tester.firstWidget(column2Finder) as Column;
+          final firstPaddingWidget = secondColumnWidget.children[0] as Padding;
 
-          final reportButtonFinder = find.byKey(const Key('reportButton'));
-          expect(reportButtonFinder, findsOneWidget);
+          final firstGestureDetectorFinder = find.descendant(
+            of: find.byWidget(firstPaddingWidget),
+            matching: find.byType(GestureDetector),
+          );
+          print(firstGestureDetectorFinder);
 
-          await tester.tap(reportButtonFinder);
-          await tester.pumpAndSettle();
-
-          final modalBottomSheetFinder =
-              find.byKey(const Key('reportPost')).first;
-          expect(modalBottomSheetFinder, findsOneWidget);
-
-          final postBottomModalFinder = find.byType(PostBottomModal);
-          expect(postBottomModalFinder, findsOneWidget);
+          final secondGestureDetectorFinder = find.descendant(
+            of: find.byWidget(firstPaddingWidget),
+            matching: find.byType(GestureDetector),
+          );
+          print(secondGestureDetectorFinder);
         });
+      });
 
-        testWidgets("Test post image", (tester) async {
-          await tester.runAsync(() async {
-            await mockNetworkImagesFor(() async {
-              final Post post = getPostMockModel();
-              when(post.imageUrl).thenReturn(
-                "testImageUrl",
-              );
+      testWidgets('Test props second padding widget',
+          (WidgetTester tester) async {
+        await tester.runAsync(() async {
+          await tester.pumpWidget(createNewsPostWidget());
+          await tester.pump();
+          final postFinder = find.byKey(newsPostKey);
+          final columnFinder =
+              find.descendant(of: postFinder, matching: find.byType(Column));
+          final column2Finder = columnFinder.at(2);
+          final secondColumnWidget =
+              tester.firstWidget(column2Finder) as Column;
+          final secondPaddingWidget = secondColumnWidget.children[1] as Padding;
+          print(secondPaddingWidget);
+        });
+      });
 
-              await tester.pumpWidget(
-                createNewsPostWidget(
-                  null,
-                  post,
-                ),
-              );
+      testWidgets('Test props third padding widget',
+          (WidgetTester tester) async {
+        await tester.runAsync(() async {
+          await tester.pumpWidget(createNewsPostWidget());
+          await tester.pump();
+          final postFinder = find.byKey(newsPostKey);
+          final columnFinder =
+              find.descendant(of: postFinder, matching: find.byType(Column));
+          final column2Finder = columnFinder.at(2);
+          final secondColumnWidget =
+              tester.firstWidget(column2Finder) as Column;
+          print(secondColumnWidget);
+        });
+      });
 
-              await tester.pumpAndSettle();
+      testWidgets('Test if report button opens modal bottom sheet',
+          (WidgetTester tester) async {
+        await tester.pumpWidget(createNewsPostWidget());
+        await tester.pump();
 
-              final postParentContainer =
-                  find.byKey(const Key('postParentContainer'));
-              expect(postParentContainer, findsOneWidget);
-              final postContainer = find
-                  .descendant(
-                    of: postParentContainer,
-                    matching: find.byType(PostContainer),
-                  )
-                  .first;
+        final reportButtonFinder = find.byKey(const Key('reportButton'));
+        expect(reportButtonFinder, findsOneWidget);
 
-              expect(postContainer, findsOneWidget);
-            });
+        await tester.tap(reportButtonFinder);
+        await tester.pumpAndSettle();
+
+        final modalBottomSheetFinder =
+            find.byKey(const Key('reportPost')).first;
+        expect(modalBottomSheetFinder, findsOneWidget);
+
+        final postBottomModalFinder = find.byType(PostBottomModal);
+        expect(postBottomModalFinder, findsOneWidget);
+      });
+
+      testWidgets("Test post image", (tester) async {
+        await tester.runAsync(() async {
+          await mockNetworkImagesFor(() async {
+            final Post post = getPostMockModel();
+            when(post.attachments?[0].url).thenReturn(
+              "testImageUrl",
+            );
+
+            await tester.pumpWidget(
+              createNewsPostWidget(
+                null,
+                post,
+              ),
+            );
+
+            await tester.pumpAndSettle();
+
+            final postParentContainer =
+                find.byKey(const Key('postParentContainer'));
+            expect(postParentContainer, findsOneWidget);
+            final postContainer = find
+                .descendant(
+                  of: postParentContainer,
+                  matching: find.byType(PostContainer),
+                )
+                .first;
+
+            expect(postContainer, findsOneWidget);
           });
         });
       });

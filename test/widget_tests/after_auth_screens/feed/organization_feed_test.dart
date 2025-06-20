@@ -82,7 +82,6 @@ Widget createOrganizationFeedScreen2({
           body: OrganizationFeed(
             homeModel: homeModel,
             key: const Key('test_key'),
-            forTest: true,
           ),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
@@ -95,11 +94,9 @@ Widget createOrganizationFeedScreen2({
 }
 
 final post = Post(
-  sId: "test_post_id",
+  id: "test_post_id",
   creator: userConfig.currentUser,
-  likedBy: [],
-  description: 'Testing',
-  comments: [Comments(sId: 'cmmnt1')],
+  caption: 'Testing',
   createdAt: DateTime.now(),
   organization: userConfig.currentOrg,
 );

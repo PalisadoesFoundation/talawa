@@ -81,7 +81,6 @@ class CommentsViewModel extends BaseModel {
 
     final List edges = result['comments'] as List;
     pageInfo = PageInfo.fromJson(result['pageInfo'] as Map<String, dynamic>);
-    print("testing page info: ${pageInfo.endCursor}");
     for (final edge in edges) {
       final node =
           (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>;

@@ -18,6 +18,9 @@ class InteractionsViewModel extends BaseModel {
   final _postService = locator<PostService>();
   String? _postID;
 
+  /// Getter of Post ID of the Post.
+  String get postID => _postID ?? '';
+
   // ignore: unused_field
   late StreamSubscription _updatePostSubscription;
 

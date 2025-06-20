@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -53,7 +54,7 @@ class HiveManager {
     try {
       Hive.registerAdapter<T>(adapter);
     } catch (e) {
-      print('Failed to register Hive adapters: $e');
+      debugPrint('Failed to register Hive adapters: $e');
     }
   }
 
@@ -68,7 +69,7 @@ class HiveManager {
     try {
       await Hive.openBox<T>(boxName);
     } catch (e) {
-      print('Failed to open box $boxName');
+      debugPrint('Failed to open box $boxName');
     }
   }
 
@@ -83,7 +84,7 @@ class HiveManager {
     try {
       await Hive.box<T>(boxName).close();
     } catch (e) {
-      print('Failed to close the box $boxName');
+      debugPrint('Failed to close the box $boxName');
     }
   }
 

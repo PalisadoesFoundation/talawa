@@ -31,169 +31,160 @@ void main() {
     locator.unregister<ActionHandlerService>();
   });
   final demoJson = {
-    '__typename': 'Query',
-    'organizations': [
-      {
-        '__typename': 'Organization',
-        'posts': {
-          '__typename': 'PostsConnection',
-          'edges': [
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8318',
-                'title': 'testing',
-                'text': 'test post',
-                'imageUrl':
-                    'http://10.0.2.2:4000/images/5vFxR-8xE2GD-5Tu3E1QYimage.png',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': '65378abd85008f171cf2990d',
-                  'firstName': 'Vyvyan',
-                  'lastName': 'Kerry',
-                  'email': 'testadmin1@example.com',
-                },
-                'createdAt': '2024-03-01T10:15:31.168Z',
-                'likeCount': 0,
-                'commentCount': 0,
-                'likedBy': [],
-                'comments': [],
-                'pinned': true,
+    'organization': {
+      'posts': {
+        'edges': [
+          {
+            'node': {
+              'id': 'post1',
+              'caption': 'Welcome to the event!',
+              'upVotesCount': 17,
+              'downVotesCount': 3,
+              'commentsCount': 8,
+              'createdAt': '2025-06-20T12:00:00Z',
+              'creator': {
+                'id': 'user1',
+                'name': 'Alice',
+                'avatarURL': 'https://example.com/avatar1.png'
               },
-              'cursor': '65e1aac38836aa003e4b8318',
+              'organization': {'id': 'org1'},
+              'attachments': [
+                {
+                  'id': 'att1',
+                  'fileHash': 'abc123',
+                  'mimeType': 'image/png',
+                  'name': 'banner.png',
+                  'objectName': 'banner_2025.png'
+                },
+                {
+                  'id': 'att2',
+                  'fileHash': 'def456',
+                  'mimeType': 'application/pdf',
+                  'name': 'agenda.pdf',
+                  'objectName': 'agenda_2025.pdf'
+                }
+              ]
             },
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '6589bdd92caa9d8d69087515',
-                'title': 'Winter Wonderland: Ice Skating Extravaganza',
-                'text':
-                    'Gliding gracefully on frozen lakes, surrounded by enchanting winter landscape—ice skating extravaganza, a dance in a winter wonderland.',
-                'imageUrl': null,
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': '658938ba2caa9d8d6908748a',
-                  'firstName': 'Peggy',
-                  'lastName': 'Bowers',
-                  'email': 'testuser11@example.com',
-                },
-                'createdAt': '2024-03-01T10:15:31.168Z',
-                'likeCount': 0,
-                'commentCount': 0,
-                'likedBy': [],
-                'comments': [],
-              },
-              'cursor': '6589bdd92caa9d8d69087515',
-            }
-          ],
-          'pageInfo': {
-            '__typename': 'DefaultConnectionPageInfo',
-            'startCursor': '65e1aac38836aa003e4b8318',
-            'endCursor': '6589bd9b2caa9d8d6908750f',
-            'hasNextPage': true,
-            'hasPreviousPage': false,
+            'cursor': 'cursor1'
           },
-        },
-      }
-    ],
-  };
-  final demoJsonPage2 = {
-    '__typename': 'Query',
-    'organizations': [
-      {
-        '__typename': 'Organization',
-        'posts': {
-          '__typename': 'PostsConnection',
-          'edges': [
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8319',
-                'title': 'Second Page Post 1',
-                'text': 'This is the first post on the second page',
-                'imageUrl': 'http://example.com/image2.jpg',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': 'user_id_2',
-                  'firstName': 'John',
-                  'lastName': 'Doe',
-                  'email': 'john.doe@example.com',
-                },
-                'createdAt': '2024-03-02T10:15:31.168Z',
-                'likeCount': 5,
-                'commentCount': 2,
-                'likedBy': [],
-                'comments': [
-                  {'commentId': 'comment_id_1', 'text': 'Comment 1'},
-                  {'commentId': 'comment_id_2', 'text': 'Comment 2'},
-                ],
-                'pinned': false,
+          {
+            'node': {
+              'id': 'post2',
+              'caption': "Don't miss our next meetup!",
+              'upVotesCount': 5,
+              'downVotesCount': 1,
+              'commentsCount': 2,
+              'createdAt': '2025-06-19T09:30:00Z',
+              'creator': {
+                'id': 'user2',
+                'name': 'Bob',
+                'avatarURL': 'https://example.com/avatar2.png'
               },
-              'cursor': '65e1aac38836aa003e4b8319',
+              'organization': {'id': 'org1'},
+              'attachments': [
+                {
+                  'id': 'att3',
+                  'fileHash': 'ghi789',
+                  'mimeType': 'image/jpeg',
+                  'name': 'photo.jpg',
+                  'objectName': 'photo_2025.jpg'
+                }
+              ]
             },
-            {
-              '__typename': 'PostEdge',
-              'node': {
-                '__typename': 'Post',
-                '_id': '65e1aac38836aa003e4b8320',
-                'title': 'Second Page Post 2',
-                'text': 'This is the second post on the second page',
-                'imageUrl': 'http://example.com/image3.jpg',
-                'videoUrl': null,
-                'creator': {
-                  '__typename': 'User',
-                  '_id': 'user_id_3',
-                  'firstName': 'Jane',
-                  'lastName': 'Doe',
-                  'email': 'jane.doe@example.com',
-                },
-                'createdAt': '2024-03-02T10:30:00.000Z',
-                'likeCount': 10,
-                'commentCount': 3,
-                'likedBy': [],
-                'comments': [
-                  {'commentId': 'comment_id_3', 'text': 'Comment 3'},
-                  {'commentId': 'comment_id_4', 'text': 'Comment 4'},
-                  {'commentId': 'comment_id_5', 'text': 'Comment 5'},
-                ],
-                'pinned': false,
-              },
-              'cursor': '65e1aac38836aa003e4b8320',
-            },
-            // Add more posts as needed
-          ],
-          'pageInfo': {
-            '__typename': 'DefaultConnectionPageInfo',
-            'startCursor': '65e1aac38836aa003e4b8319',
-            'endCursor': '65e1aac38836aa003e4b8320',
-            'hasNextPage': false,
-            'hasPreviousPage': true,
-          },
-        },
+            'cursor': 'cursor2'
+          }
+        ],
+        'pageInfo': {
+          'endCursor': 'cursor2',
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': 'cursor1'
+        }
       }
-    ],
+    }
   };
 
-  //Fake CurrentOrgID
-  const currentOrgID = 'XYZ';
-  //Fake PostID
+  final demoJsonPage2 = {
+    'organization': {
+      'posts': {
+        'edges': [
+          {
+            'node': {
+              'id': 'post3',
+              'caption': 'Second Page Post 1',
+              'upVotesCount': 9,
+              'downVotesCount': 0,
+              'commentsCount': 4,
+              'createdAt': '2025-06-18T15:00:00Z',
+              'creator': {
+                'id': 'user3',
+                'name': 'Carol',
+                'avatarURL': 'https://example.com/avatar3.png'
+              },
+              'organization': {'id': 'org2'},
+              'attachments': [
+                {
+                  'id': 'att4',
+                  'fileHash': 'jkl012',
+                  'mimeType': 'image/gif',
+                  'name': 'funny.gif',
+                  'objectName': 'funny_2025.gif'
+                }
+              ]
+            },
+            'cursor': 'cursor3'
+          },
+          {
+            'node': {
+              'id': 'post4',
+              'caption': 'Second Page Post 2',
+              'upVotesCount': 2,
+              'downVotesCount': 2,
+              'commentsCount': 1,
+              'createdAt': '2025-06-18T16:30:00Z',
+              'creator': {
+                'id': 'user4',
+                'name': 'Dave',
+                'avatarURL': 'https://example.com/avatar4.png'
+              },
+              'organization': {'id': 'org1'},
+              'attachments': [
+                {
+                  'id': 'att5',
+                  'fileHash': 'mno345',
+                  'mimeType': 'image/png',
+                  'name': 'slide.png',
+                  'objectName': 'slide_2025.png'
+                }
+              ]
+            },
+            'cursor': 'cursor4'
+          }
+        ],
+        'pageInfo': {
+          'endCursor': 'cursor4',
+          'hasNextPage': false,
+          'hasPreviousPage': true,
+          'startCursor': 'cursor3'
+        }
+      }
+    }
+  };
+  const currentOrgID = 'org1';
   const postID = '65e1aac38836aa003e4b8318';
 
   group('Test PostService', () {
     test('deletePost', () {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
+        dataBaseMutationFunctions.gqlAuthQuery(query, variables: {
+          'orgID': currentOrgID,
+          'after': null,
+          'before': null,
+          'first': 5,
+          'last': null,
+        }),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
@@ -203,31 +194,37 @@ void main() {
       );
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().removePost(),
+          PostQueries().deletePost(),
           variables: {
             'id': 'azad',
           },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
-          options: QueryOptions(document: gql(PostQueries().removePost())),
+          options: QueryOptions(document: gql(PostQueries().deletePost())),
           data: demoJson,
           source: QueryResultSource.network,
         ),
       );
       final service = PostService();
-      final post = Post(sId: 'id', creator: User(id: 'azad'));
+      final post = Post(id: 'id', creator: User(id: 'azad'));
       service.deletePost(post);
     });
     test('Test refreshFeed method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       //Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -238,22 +235,35 @@ void main() {
       );
 
       final service = PostService();
-      // Populating refreshing feed
+
       await service.refreshFeed();
       verify(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).called(1);
     });
 
     test('Test addNewPost method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -276,7 +286,7 @@ void main() {
 
       final service = PostService();
       await service.getPosts();
-      service.addNewpost(Post(sId: '1', creator: User()));
+      service.addNewpost(Post(id: '1', creator: User()));
 
       final List<Post> posts = await service.postStream.first;
       expect(posts.length, 3);
@@ -284,12 +294,15 @@ void main() {
     test('Test getPosts Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       //Setting up Demo data to be returned
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
+        dataBaseMutationFunctions.gqlAuthQuery(query, variables: {
+          'orgID': currentOrgID,
+          'after': null,
+          'before': null,
+          'first': 5,
+          'last': null,
+        }),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
@@ -313,136 +326,21 @@ void main() {
       // expect(posts.length, 2);
     });
 
-    test('Test addLike Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().addLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: null,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      //Populating posts Stream
-      await service.getPosts();
-      //Calling AddLike
-      await service.addLike(postID);
-      //Fetching Post Stream
-      final List<Post> posts = await service.postStream.first;
-      //Finding The Post which is supposed to be Liked
-      final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
-      //Testing if the post got liked
-      expect(likedPost.likedBy!.length, 1);
-    });
-
-    test('Test removeLike Method', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
-      //Mocking GetPosts
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: demoJson,
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().addLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: {
-            '_id': 'azad',
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(
-          PostQueries().removeLike(),
-          variables: {"postID": postID},
-        ),
-      ).thenAnswer(
-        (realInvocation) async => QueryResult(
-          options: QueryOptions(
-            document: gql(
-              PostQueries().addLike(),
-            ),
-          ),
-          data: {
-            '_id': 'azad',
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = PostService();
-      //Populating posts Stream
-      await service.getPosts();
-      //Liking Post which is to be Unliked
-      await service.addLike(postID);
-      //Unliking Post
-      await service.removeLike(postID);
-      //Fetching Post Stream
-      final List<Post> posts = await service.postStream.first;
-      //Finding The Post which is supposed to be Unliked
-      final Post likedPost =
-          posts.firstWhere((element) => element.sId == postID);
-      //Testing if the post got unliked
-      expect(likedPost.likedBy!.length, 0);
-    });
-
     test('Test addCommentLocally Method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       //Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -461,19 +359,25 @@ void main() {
       final List<Post> posts = await service.postStream.first;
       //Finding The Post which is supposed to be commented
       final Post commentedPost =
-          posts.firstWhere((element) => element.sId == postID);
+          posts.firstWhere((element) => element.id == postID);
       //Testing if the post got a comment
-      expect(commentedPost.comments!.length, 1);
+      expect(commentedPost.commentsCount, 1);
     });
     test('Test updatedPostStream Stream', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -511,7 +415,6 @@ void main() {
       });
 
       // Trigger an event that should update the post
-      await service.addLike(postID);
 
       // Wait for the stream to emit values
       await Future.delayed(
@@ -520,7 +423,7 @@ void main() {
 
       // Verify that the correct post was emitted
       expect(updatedPosts.length, 1);
-      expect(updatedPosts[0].sId, postID);
+      expect(updatedPosts[0].id, postID);
       // Cancel the subscription to avoid memory leaks
       await subscription.cancel();
     });
@@ -529,15 +432,20 @@ void main() {
         () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final queryNewOrg =
-          PostQueries().getPostsById("newOrgId", null, null, 5, null);
+      final queryNewOrg = PostQueries().getPostsByOrgID();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -607,12 +515,18 @@ void main() {
     test("Test the nextPage  and previous page funcitonality", () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
-      final query =
-          PostQueries().getPostsById(currentOrgID, null, null, 5, null);
+      final query = PostQueries().getPostsByOrgID();
       // Mocking GetPosts
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': null,
+            'first': 5,
+            'last': null,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(
@@ -621,17 +535,15 @@ void main() {
           source: QueryResultSource.network,
         ),
       );
-      final query2 = PostQueries().getPostsById(
-        currentOrgID,
-        "6589bd9b2caa9d8d6908750f",
-        null,
-        5,
-        null,
-      );
+      final query2 = PostQueries().getPostsByOrgID();
       when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query2,
-        ),
+        dataBaseMutationFunctions.gqlAuthQuery(query2, variables: {
+          'orgID': currentOrgID,
+          'after': '6589bd9b2caa9d8d6908750f',
+          'before': null,
+          'first': 5,
+          'last': null,
+        }),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query2)),
@@ -655,16 +567,17 @@ void main() {
         ),
       );
 
-      final query3 = PostQueries().getPostsById(
-        currentOrgID,
-        null,
-        "65e1aac38836aa003e4b8319",
-        null,
-        5,
-      );
+      final query3 = PostQueries().getPostsByOrgID();
       when(
         dataBaseMutationFunctions.gqlAuthQuery(
           query3,
+          variables: {
+            'orgID': currentOrgID,
+            'after': null,
+            'before': '65e1aac38836aa003e4b8319',
+            'first': null,
+            'last': 5,
+          },
         ),
       ).thenAnswer(
         (_) async => QueryResult(

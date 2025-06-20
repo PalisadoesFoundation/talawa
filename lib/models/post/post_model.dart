@@ -23,6 +23,10 @@ class Post {
     this.commentsCount,
     this.upvotesCount,
     this.downvotesCount,
+    this.voteType,
+    this.isPinned,
+    this.pinnedAt,
+    this.hasVoted = false,
   });
 
   ///Creating a new Post instance from a map structure.

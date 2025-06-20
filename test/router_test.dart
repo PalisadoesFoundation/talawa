@@ -148,7 +148,7 @@ void main() {
     });
 
     testWidgets('Test IndividualPostView route', (WidgetTester tester) async {
-      final post = Post(sId: "testId", creator: User());
+      final post = Post(id: "testId", creator: User());
 
       final route = generateRoute(
         RouteSettings(name: Routes.individualPost, arguments: post),

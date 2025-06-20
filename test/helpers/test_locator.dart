@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talawa/services/caching/cache_service.dart';
+import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
@@ -14,6 +15,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/pinned_post_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/size_config.dart';
@@ -23,6 +25,7 @@ import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
@@ -74,6 +77,7 @@ final imagePicker = locator<ImagePicker>();
 final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
+final pinnedPostService = locator<PinnedPostService>();
 
 void testSetupLocator() {
   locator.registerSingleton(CacheService());
@@ -104,6 +108,9 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => ImagePicker());
   locator.registerLazySingleton(() => ImageCropper());
   locator.registerSingleton(() => OrganizationService());
+  locator.registerSingleton(Validator());
+  locator.registerLazySingleton(() => ChatService());
+  locator.registerLazySingleton(() => PinnedPostService());
 
   //graphql
 

@@ -54,21 +54,17 @@ void main() {
     });
 
     test('Test pinnedPosts getter when istest is true', () {
-      model.istest = true;
-
       final pinnedPosts = model.pinnedPosts;
 
       expect(pinnedPosts, isEmpty);
     });
 
     test('Test pinnedPosts getter when istest is false', () {
-      model.istest = false;
-
       final pinnedPosts = model.pinnedPosts;
 
       expect(pinnedPosts.length, 4);
 
-      expect(pinnedPosts[0].sId, '1');
+      expect(pinnedPosts[0].id, '1');
     });
 
     test('Test setCurrentOrganizationName function', () {
@@ -83,20 +79,8 @@ void main() {
       verify(locator<PostService>().refreshFeed());
     });
 
-    test('Test buildNewPosts function', () {
-      when(userConfig.currentUser).thenReturn(User(id: 'a'));
-      model.buildNewPosts([
-        Post(sId: '1', creator: User(id: 'a')),
-        Post(sId: '2', creator: User(id: 'a')),
-      ]);
-
-      expect(model.posts.length, 2);
-      expect(model.userPosts.length, 2);
-      verify(notifyListenerCallback());
-    });
-
     test('Test navigateToIndividualPage function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
 
       model.navigateToIndividualPage(post);
 
@@ -122,7 +106,7 @@ void main() {
     });
 
     test('Test addNewPost function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
 
       model.addNewPost(post);
 
@@ -131,12 +115,12 @@ void main() {
     });
 
     test('Test updatedPost function', () {
-      final post = Post(sId: '1', creator: User());
+      final post = Post(id: '1', creator: User());
       model.addNewPost(post);
 
       final updatedPost = Post(
-        sId: '1',
-        description: 'updated',
+        id: '1',
+        caption: 'updated',
         creator: User(),
       );
       model.updatedPost(updatedPost);
@@ -147,13 +131,13 @@ void main() {
   });
 
   test('Test removePost function', () async {
-    final post = Post(sId: '1', creator: User());
+    final post = Post(id: '1', creator: User());
     model.addNewPost(post);
     model.initialise();
 
     when(locator<PostService>().deletePost(post)).thenAnswer(
       (realInvocation) async => QueryResult(
-        options: QueryOptions(document: gql(PostQueries().removePost())),
+        options: QueryOptions(document: gql(PostQueries().deletePost())),
         data: {
           'test': 'data',
         },
@@ -161,7 +145,7 @@ void main() {
       ),
     );
 
-    await model.removePost(post);
+    await model.deletePost(post);
 
     expect(model.posts.isEmpty, true);
   });

@@ -94,23 +94,17 @@ class PostService extends BaseFeedManager<Post> {
       throw Exception('unable to fetch data');
     }
     final organizations = result.data!['organization'] as Map<String, dynamic>;
-    print("data ${result.data}");
-    print("data this isc ${result.exception}");
     final Map<String, dynamic> posts =
         organizations['posts'] as Map<String, dynamic>;
 
-    print("posts: ${posts['pageInfo']}");
     postInfo = PageInfo.fromJson(posts['pageInfo'] as Map<String, dynamic>);
 
-    print("cursor: ${postInfo.endCursor}");
-    print(postInfo.endCursor);
     final List<Post> newPosts = [];
     for (final postJson in posts['edges'] as List) {
       final post = Post.fromJson(
         (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
       );
-      print("cursor is ${postJson['cursor']}");
-      postInfo.endCursor  = '${postJson['cursor']}';
+      postInfo.endCursor = '${postJson['cursor']}';
       // Fetch presigned URL for attachments if they exist
       await post.getPresignedUrl(userConfig.currentOrg.id);
 
@@ -271,14 +265,12 @@ class PostService extends BaseFeedManager<Post> {
   ///   None
   Future<void> nextPage() async {
     if (postInfo.hasNextPage == true) {
-      print("Fetching next page of posts...");
       final nextCursor = postInfo.endCursor;
       if (nextCursor != null && nextCursor.isNotEmpty) {
         after = nextCursor;
         before = null;
         first = 5;
         last = null;
-        print("Next cursor: $after");
         await getPosts();
       }
     }

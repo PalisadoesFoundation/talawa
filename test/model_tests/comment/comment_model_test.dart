@@ -15,9 +15,8 @@ void main() {
       email: 'test@test.com',
     ),
     createdAt: '123456',
-    text: 'test text',
-    post: 'test post',
-    likeCount: 'test count',
+    body: 'test text',
+    post: null,
   );
 
   final commentJson = {
@@ -28,12 +27,10 @@ void main() {
         'emailAddress': 'test@test.com',
         'avatarURL': null,
       },
-      'authenticationToken': 'authToken123',
     },
     'createdAt': '123456',
-    'text': 'test text',
-    'post': 'test post',
-    'likeCount': 'test count',
+    'body': 'test text',
+    'post': null,
   };
   group('Test Comment model', () {
     test('Test task json', () {
@@ -43,9 +40,8 @@ void main() {
       expect(comment.creator?.lastName, commentFromJson.creator?.lastName);
       expect(comment.creator?.email, commentFromJson.creator?.email);
       expect(comment.createdAt, commentFromJson.createdAt);
-      expect(comment.text, commentFromJson.text);
+      expect(comment.body, commentFromJson.body);
       expect(comment.post, commentFromJson.post);
-      expect(comment.likeCount, commentFromJson.likeCount);
     });
   });
 
@@ -64,10 +60,9 @@ void main() {
         fetchedComment,
         isNotNull,
       ); // Check that the fetched comment is not null
-      expect(fetchedComment.text, comment.text);
+      expect(fetchedComment.body, comment.body);
       expect(fetchedComment.createdAt, comment.createdAt);
       expect(fetchedComment.post, comment.post);
-      expect(fetchedComment.likeCount, comment.likeCount);
     });
 
     test('adapter equality', () {

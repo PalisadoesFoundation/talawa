@@ -38,8 +38,8 @@ Widget createDescriptionTextWidgetWithShortText() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-      body: DescriptionTextWidget(
-        text: shortString,
+      body: CaptionTextWidget(
+        caption: shortString,
       ),
     ),
   );
@@ -66,8 +66,8 @@ Widget createDescriptionTextWidgetWithLongText() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-      body: DescriptionTextWidget(
-        text: longString,
+      body: CaptionTextWidget(
+        caption: longString,
       ),
     ),
   );
@@ -94,8 +94,8 @@ Widget createDescriptionTextWidgetWithTag() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-      body: DescriptionTextWidget(
-        text: tagString,
+      body: CaptionTextWidget(
+        caption: tagString,
       ),
     ),
   );
@@ -122,8 +122,8 @@ Widget createDescriptionTextWidgetWithMultiTag() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-      body: DescriptionTextWidget(
-        text: multiTagString,
+      body: CaptionTextWidget(
+        caption: multiTagString,
       ),
     ),
   );
@@ -149,7 +149,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createDescriptionTextWidgetWithShortText());
         await tester.pump();
-        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+        expect(find.byType(CaptionTextWidget), findsOneWidget);
       });
     });
     testWidgets(
@@ -158,7 +158,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createDescriptionTextWidgetWithLongText());
         await tester.pump();
-        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+        expect(find.byType(CaptionTextWidget), findsOneWidget);
       });
     });
     testWidgets(
@@ -167,7 +167,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createDescriptionTextWidgetWithTag());
         await tester.pump();
-        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+        expect(find.byType(CaptionTextWidget), findsOneWidget);
       });
     });
     testWidgets(
@@ -176,7 +176,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createDescriptionTextWidgetWithMultiTag());
         await tester.pump();
-        expect(find.byType(DescriptionTextWidget), findsOneWidget);
+        expect(find.byType(CaptionTextWidget), findsOneWidget);
       });
     });
     testWidgets("Test if 1 text Widget is displayed with text less than 150",

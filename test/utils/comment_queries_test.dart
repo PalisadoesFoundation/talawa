@@ -20,7 +20,7 @@ void main() {
         }
       }
 """;
-      final fnData = CommentQueries().getPostsComments("abc");
+      final fnData = CommentQueries().getPostsComments();
       expect(fnData, data);
     });
 

@@ -26,7 +26,6 @@ class MockNavigationService extends Mock implements NavigationService {}
 
 //test data
 final MockFunction mockDeletePost = MockFunction();
-final LikedBy user = LikedBy(sId: "test_id");
 
 //fake user data
 final u1 = User(
@@ -43,15 +42,6 @@ final u2 = User(
 );
 final List<User> users = [u1, u2];
 
-List<Comments> comments = [
-  Comments(sId: 'comment1'),
-  Comments(sId: 'comment2'),
-  Comments(sId: 'comment3'),
-  Comments(sId: 'comment4'),
-  Comments(sId: 'comment5'),
-  Comments(sId: 'comment6'),
-];
-
 //fake comment data
 final comment = Comment(
   creator: User(
@@ -61,19 +51,8 @@ final comment = Comment(
     email: 'test@test.com',
   ),
   createdAt: '123456',
-  text: 'test text',
-  post: 'test post',
-  likeCount: 'test count',
+  body: 'test text',
 );
-
-final LikedBy l1 = LikedBy(sId: 'test1');
-final LikedBy l2 = LikedBy(sId: 'test2');
-final List<LikedBy> likeby = [l1, l2];
-
-final comment1 = Comments(sId: 'comment1');
-final comment2 = Comments(sId: 'comment2');
-final comment3 = Comments(sId: 'comment3');
-final List<Comments> comments1 = [comment1, comment2, comment3];
 
 final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
 
@@ -85,12 +64,10 @@ final post = Post(
     lastName: 'Doe',
     email: 'test@test.com',
   ),
-  sId: "sid",
+  id: "sid",
   createdAt: myBirthday,
-  description: 'test description',
+  caption: 'test description',
   organization: OrgInfo(admins: users),
-  likedBy: likeby,
-  comments: comments1,
 );
 
 Widget createPostBottomModal() {

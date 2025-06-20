@@ -1,69 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
-
-/// List of pinned posts.
-///
-/// This file contains demo data for pinned posts. It contains a list of type `Map<String, Object>` and sample data.
-const pinnedPostsDemoData = [
-  {
-    "_id": "1",
-    "text": "church meeting",
-    "createdAt": "2023-03-15T15:28:52.122Z",
-    "imageUrl":
-        "https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw",
-    "creator": {
-      "firstName": "Rutvik",
-      "lastName": "Chandla",
-      "id": "asdasdasd",
-    },
-    "likedBy": [
-      {"firstName": "User", "lastName": "1", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "2", "id": "asdasdasdas"},
-      {"firstName": "User", "lastName": "3", "id": "asdasdasdas"},
-    ],
-    "comments": [
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"},
-      },
-    ],
-  },
-];
-
-///List of pinned post.
-List<Post> _pinnedPosts =
-    pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
-
-/// getter for pinned post.
-///
-/// **params**:
-
-List<Post> get pinnedPosts {
-  return _pinnedPosts;
-}
 
 /// main function.
 ///
@@ -73,12 +17,36 @@ List<Post> get pinnedPosts {
 /// **returns**:
 ///   None
 void main() {
+  late List<Post> pinnedPosts;
   setUpAll(() {
+    pinnedPosts = [
+      Post(
+        id: '1',
+        caption: 'Church Meeting',
+        attachments: [
+          AttachmentModel(
+            url:
+                'https://i2-prod.manchestereveningnews.co.uk/incoming/article25630061.ece/ALTERNATES/s615/2_Church-PA.jpg',
+          ),
+        ],
+        createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+      ),
+      Post(
+        id: '2',
+        caption: 'Russia-Ukraine war leads to Hike in Gas prices in Europe.',
+        attachments: [
+          AttachmentModel(
+            url:
+                'https://gdb.voanews.com/3B960F7F-786C-452C-8ABD-9D5AEEAED9D9.jpg',
+          ),
+        ],
+        createdAt: DateTime.tryParse('2023-12-14T08:30:00Z'),
+      ),
+    ];
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     locator<SizeConfig>().test();
     registerServices();
-    locator<SizeConfig>().test();
   });
   tearDownAll(() {
     unregisterServices();
@@ -90,6 +58,7 @@ void main() {
       MaterialApp(
         home: PinnedPost(
           pinnedPost: pinnedPosts,
+          fetchNextPinnedPosts: () {},
           model: mainScreenViewModel,
         ),
       ),
@@ -105,6 +74,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -118,6 +88,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -131,6 +102,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -145,7 +117,11 @@ void main() {
   testWidgets('Container comes if list is empty', (widgetTester) async {
     await widgetTester.pumpWidget(
       MaterialApp(
-        home: PinnedPost(pinnedPost: [], model: mainScreenViewModel),
+        home: PinnedPost(
+          pinnedPost: [],
+          model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
+        ),
       ),
     );
     await widgetTester.pump();
@@ -158,6 +134,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -178,6 +155,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -206,6 +184,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -215,7 +194,7 @@ void main() {
       find.byWidgetPredicate(
         (widget) =>
             widget is CachedNetworkImage &&
-            widget.imageUrl == pinnedPosts[0].imageUrl,
+            widget.imageUrl == pinnedPosts[0].attachments![0].url,
       ),
       findsOneWidget,
     );
@@ -228,6 +207,7 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
+          fetchNextPinnedPosts: () {},
         ),
       ),
     );
@@ -236,7 +216,7 @@ void main() {
     final imageWidget = find.byWidgetPredicate(
       (widget) =>
           widget is CachedNetworkImage &&
-          widget.imageUrl == pinnedPosts[0].imageUrl,
+          widget.imageUrl == pinnedPosts[0].attachments![0].url,
     );
 
     expect(imageWidget, findsOneWidget);

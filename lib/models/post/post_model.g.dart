@@ -28,13 +28,15 @@ class PostAdapter extends TypeAdapter<Post> {
       downvotesCount: fields[4] as int?,
     )
       ..hasVoted = fields[8] as bool
-      ..voteType = fields[9] as String?;
+      ..voteType = fields[9] as String?
+      ..isPinned = fields[11] as bool?
+      ..pinnedAt = fields[12] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Post obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +58,11 @@ class PostAdapter extends TypeAdapter<Post> {
       ..writeByte(9)
       ..write(obj.voteType)
       ..writeByte(10)
-      ..write(obj.organization);
+      ..write(obj.organization)
+      ..writeByte(11)
+      ..write(obj.isPinned)
+      ..writeByte(12)
+      ..write(obj.pinnedAt);
   }
 
   @override

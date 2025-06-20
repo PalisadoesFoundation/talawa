@@ -29,11 +29,10 @@ Widget createPinnedPostPage() {
     home: PinnedPostPage(
       pinnedPosts: [
         Post(
-          sId: 'post1',
+          id: 'post1',
           creator: User(firstName: 'firstName1'),
           createdAt: DateTime.now(),
-          description: 'description1',
-          comments: [],
+          caption: 'description1',
         ),
       ],
     ),
@@ -55,7 +54,7 @@ void main() {
 
       expect(find.byType(PinnedPostPage), findsOneWidget);
       expect(find.byType(PostListWidget), findsOneWidget);
-      expect(find.byType(NewsPost), findsOneWidget);
+      expect(find.byType(PostWidget), findsOneWidget);
       expect(find.textContaining('firstName1'), findsOneWidget);
     });
   });

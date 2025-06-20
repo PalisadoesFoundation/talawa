@@ -93,17 +93,6 @@ Widget userFeedScreen1({
   // );
 }
 
-final List<LikedBy> likedBy0 = [
-  LikedBy(sId: 'Test user 1'),
-  LikedBy(sId: 'Test user 2'),
-];
-
-final post = Post(
-  sId: "test_post_id",
-  creator: userConfig.currentUser,
-  likedBy: likedBy0,
-);
-
 void main() {
   late MockOrganizationFeedViewModel mockViewModel;
 
@@ -176,11 +165,9 @@ void main() {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
       when(mockViewModel.userPosts).thenReturn([
         Post(
-          sId: "test_post_id",
+          id: "test_post_id",
           creator: userConfig.currentUser,
-          likedBy: likedBy0,
-          description: 'Testing',
-          comments: [Comments(sId: 'cmmnt1')],
+          caption: 'Testing',
           createdAt: DateTime.now(),
           organization: userConfig.currentOrg,
         ),
@@ -193,7 +180,7 @@ void main() {
       expect(finder, findsNothing);
       final finder1 = find.byType(PostListWidget);
       expect(finder1, findsOneWidget);
-      expect(find.byType(NewsPost), findsOneWidget);
+      expect(find.byType(PostWidget), findsOneWidget);
     });
   });
 }
