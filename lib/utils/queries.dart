@@ -27,6 +27,7 @@ class Queries {
                 emailAddress: "$email"
                 name: "$firstName $lastName"
                 password: "$password"
+                selectedOrganization: "$selectedOrganization"
                 
               }) {
                 authenticationToken,

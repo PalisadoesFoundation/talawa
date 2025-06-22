@@ -49,7 +49,7 @@ class GraphqlConfig {
   }
 
   GraphQLClient authClient() {
-    final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
+    final AuthLink authLink = AuthLink(getToken: () => 'Bearer $token');
     final Link finalAuthLink = authLink.concat(httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),

@@ -176,7 +176,7 @@ void main() {
         expect(endDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
       });
     });
-    test("dateRangePickerController getter", () async {
+    test("dateRangePickerController getter", () {
       final EventCalendarViewModel model = EventCalendarViewModel();
       expect(model.dateRangePickerController, isA<DateRangePickerController>());
       expect(model.eventList, isA<List<Event>>());

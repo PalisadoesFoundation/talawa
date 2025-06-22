@@ -12,10 +12,11 @@ import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget takes the user details for signup. The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
-  const SignUpDetails({required Key key, this.selectedOrg}) : super(key: key);
+  const SignUpDetails({required Key key, required this.selectedOrg})
+      : super(key: key);
 
   /// Details of selected Organisation.
-  final OrgInfo? selectedOrg;
+  final OrgInfo selectedOrg;
   @override
   _SignUpDetailsState createState() => _SignUpDetailsState();
 }

@@ -27,7 +27,7 @@ class SessionManager {
   Timer initializeSessionRefresher() {
     return Timer.periodic(
       const Duration(seconds: _refreshInterval),
-      (Timer timer) async {
+      (Timer timer) {
         refreshSession();
       },
     );

@@ -37,7 +37,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) async {
+  }) {
     if (key == "userEmail" || key == "userPassword") {
       throw Exception("Deletion error");
     }

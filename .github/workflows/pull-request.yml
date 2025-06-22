@@ -37,7 +37,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
@@ -56,6 +56,8 @@ jobs:
         run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart
       - name: Check for presence of ignore directives corresponding to custom lints
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Run check_ignore
         run: |
           if [[ -n "$(git status --porcelain pubspec.lock)" ]]; then
@@ -131,7 +133,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for all branches and tags
       - name: Get Changed Unauthorized files
         id: changed-unauth-files
-        run : | 
+        run: |
           # Get the base branch ref
           BASE_SHA=$(git merge-base ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
 
@@ -160,8 +162,7 @@ jobs:
             echo "any_changed=false" >> $GITHUB_OUTPUT
             echo "any_deleted=false" >> $GITHUB_OUTPUT
           fi
-       
-          
+
       - name: List all changed unauthorized files
         if: steps.changed-unauth-files.outputs.any_changed == 'true' || steps.changed-unauth-files.outputs.any_deleted == 'true'
         env:
@@ -232,8 +233,10 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -263,8 +266,10 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android
@@ -278,9 +283,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.3"
+          flutter-version: "3.29.3"
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
 

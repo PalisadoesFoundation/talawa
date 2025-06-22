@@ -41,7 +41,7 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
   );
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();

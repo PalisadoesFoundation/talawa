@@ -73,7 +73,7 @@ Widget createHomePageScreen({required bool demoMode}) {
   );
 }
 
-void main() async {
+void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
@@ -177,7 +177,7 @@ void main() async {
 
       when(
         navigationService.pushDialog(tmp),
-      ).thenAnswer((realInvocation) async {});
+      ).thenAnswer((realInvocation) {});
 
       await tester.ensureVisible(buttonFinder);
       await tester.pumpAndSettle();
