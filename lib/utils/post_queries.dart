@@ -179,7 +179,7 @@ class PostQueries {
   String deletePost() {
     return '''
     mutation DeletePost(\$id: ID!) {
-      deletePost(creatorId: \$id) {
+      deletePost(input: {id: \$id}) {
         id
       }
     }

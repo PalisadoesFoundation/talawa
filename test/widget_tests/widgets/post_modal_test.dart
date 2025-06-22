@@ -1,95 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/models/comment/comment_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_modal.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
-
-//Mock classes
-class MockFunction extends Mock {
-  void call(Post post);
-}
-
-class MockNavigationService extends Mock implements NavigationService {}
-
-//test data
-final MockFunction mockDeletePost = MockFunction();
-
-//fake user data
-final u1 = User(
-  id: '123',
-  firstName: 'Lakshay',
-  lastName: 'Gupta',
-  email: 'test@test.com',
-);
-final u2 = User(
-  id: '123',
-  firstName: 'Ankit',
-  lastName: 'Varshney',
-  email: 'test@test.com',
-);
-final List<User> users = [u1, u2];
-
-//fake comment data
-final comment = Comment(
-  creator: User(
-    id: '123',
-    firstName: 'Ankit',
-    lastName: 'Varshney',
-    email: 'test@test.com',
-  ),
-  createdAt: '123456',
-  body: 'test text',
-);
-
-final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
-
-//fake post data
-final post = Post(
-  creator: User(
-    id: '123',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@test.com',
-  ),
-  id: "sid",
-  createdAt: myBirthday,
-  caption: 'test description',
-  organization: OrgInfo(admins: users),
-);
-
-Widget createPostBottomModal() {
-  return BaseView<AppLanguage>(
-    onModelReady: (model) => model.initialize(),
-    builder: (context, model, child) {
-      return MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: const [
-          AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        home: PostBottomModal(
-          post: post,
-          deletePost: mockDeletePost,
-        ),
-        navigatorKey: navigationService.navigatorKey,
-      );
-    },
-  );
-}
 
 void main() {
   setUpAll(() {
@@ -103,7 +22,21 @@ void main() {
 
   group('PostBottomModalTest -', () {
     testWidgets('has a post widget', (tester) async {
-      await tester.pumpWidget(createPostBottomModal());
+      final post = Post(
+        id: 'post2',
+        caption: 'Test Caption',
+        creator: User(id: 'test'), // Same as current user
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostBottomModal(
+              post: post,
+              deletePost: (_) => () {},
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Verify the existence of PostBottomModal widget and reportPost button
@@ -122,36 +55,74 @@ void main() {
       ).called(1);
     });
 
-    testWidgets('Testing the delete Post button', (tester) async {
-      await tester.pumpWidget(createPostBottomModal());
-      await tester.pumpAndSettle();
+    testWidgets('shows delete button if post is by current user',
+        (tester) async {
+      bool deleteCalled = false;
+      final currUserId = userConfig.currentUser.id;
+      final post = Post(
+        id: 'post2',
+        caption: 'Test Caption',
+        creator: User(id: currUserId), // Same as current user
+      );
 
-      // Verify the existence of delete Post button
-      expect(find.byIcon(Icons.delete), findsOneWidget);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostBottomModal(
+              post: post,
+              deletePost: (_) => deleteCalled = true,
+            ),
+          ),
+        ),
+      );
+
       expect(find.byKey(const Key('deletePost')), findsOneWidget);
-
-      // Tap the delete Post button and verify the behavior
       await tester.tap(find.byKey(const Key('deletePost')));
       await tester.pumpAndSettle();
 
-      // verify(mockDeletePost.call(post)).called(1);
-
-      // Verify the presence of AlertDialog and its elements
-      expect(find.byType(AlertDialog), findsOneWidget);
-      expect(find.byKey(const Key('alert_dialog_yes_btn')), findsOneWidget);
-      expect(find.text('The post was deleted'), findsOneWidget);
-
-      // Tap the yes button in AlertDialog and verify the behavior
+      // Tap "Yes" on the AlertDialog
       await tester.tap(find.byKey(const Key('alert_dialog_yes_btn')));
       await tester.pumpAndSettle();
 
-      verify(
-        navigationService.navigatorKey,
-      ).called(2);
+      expect(deleteCalled, isTrue);
     });
 
-    testWidgets("Testing no button of alertDialogBox", (tester) async {
-      await tester.pumpWidget(createPostBottomModal());
+    testWidgets('does not show delete button if post is not by current user',
+        (tester) async {
+      final post = Post(
+        id: 'post3',
+        caption: 'Test Caption',
+        creator: User(id: 'someone_else'),
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostBottomModal(post: post),
+          ),
+        ),
+      );
+
+      expect(find.byKey(const Key('deletePost')), findsNothing);
+    });
+    testWidgets("Testing `no` button of alertDialogBox", (tester) async {
+      final currUserId = userConfig.currentUser.id;
+      final post = Post(
+        id: 'post2',
+        caption: 'Test Caption',
+        creator: User(id: currUserId), // Same as current user
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: PostBottomModal(
+              post: post,
+              deletePost: (_) => () {},
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Tap the delete Post button and verify the behavior

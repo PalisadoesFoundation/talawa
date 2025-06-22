@@ -24,7 +24,6 @@ import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.da
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
-import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
@@ -162,13 +161,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           key: const Key('IndividualPost'),
           post: post,
         ),
-      );
-
-    // Returns the PinnedPostPgae Widget
-    case Routes.pinnedPostPage:
-      final List<Post> pinnedPosts = settings.arguments! as List<Post>;
-      return MaterialPageRoute(
-        builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts),
       );
 
     // Returns the ExploreEvents Widget

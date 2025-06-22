@@ -6,61 +6,31 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 
 /// PinnedPost returns a widget that shows the pinned post.
-class PinnedPost extends StatefulWidget {
-  const PinnedPost(
-      {super.key,
-      required this.pinnedPost,
-      required this.model,
-      required this.fetchNextPinnedPosts});
+class PinnedPost extends StatelessWidget {
+  const PinnedPost({
+    super.key,
+    required this.pinnedPost,
+    required this.model,
+  });
 
   /// contains the pinned post.
   final List<Post> pinnedPost;
 
   /// gives access mainScreenViewModel's attributes.
   final MainScreenViewModel model;
-
-  /// Callback function to fetch the next set of pinned posts.
-  final VoidCallback fetchNextPinnedPosts;
-
-  @override
-  State<PinnedPost> createState() => _PinnedPostState();
-}
-
-class _PinnedPostState extends State<PinnedPost> {
-  late ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        widget.fetchNextPinnedPosts();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       key: const Key('hello'),
-      child: widget.pinnedPost.isNotEmpty
+      child: pinnedPost.isNotEmpty
           ? SizedBox(
               height: SizeConfig.screenHeight! * 0.28,
               child: ListView.builder(
-                itemCount: widget.pinnedPost.length,
+                itemCount: pinnedPost.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
-                  key:
-                      index == 0 ? widget.model.keySHPinnedPost : const Key(''),
+                  key: index == 0 ? model.keySHPinnedPost : const Key(''),
                   padding: const EdgeInsets.only(
                     left: 10,
                     top: 7,
@@ -70,7 +40,7 @@ class _PinnedPostState extends State<PinnedPost> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => PinnedPostScreen(
-                            post: widget.pinnedPost[index],
+                            post: pinnedPost[index],
                           ),
                         ),
                       );
@@ -81,17 +51,19 @@ class _PinnedPostState extends State<PinnedPost> {
                         children: [
                           Expanded(
                             child: CachedNetworkImage(
-                              cacheKey: widget.pinnedPost[index].id,
-                              imageUrl: widget.pinnedPost[index].attachments
+                              cacheKey: pinnedPost[index].id,
+                              imageUrl: pinnedPost[index]
+                                          .attachments
                                           ?.isNotEmpty ==
                                       true
-                                  ? widget.pinnedPost[index].attachments![0]
-                                          .url ??
-                                      ''
+                                  ? pinnedPost[index].attachments![0].url ?? ''
                                   : '',
                               errorWidget: (context, url, error) {
                                 return const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: Icon(
+                                    Icons.broken_image,
+                                    color: Colors.grey,
+                                  ),
                                 );
                               },
                               fit: BoxFit.cover,
@@ -100,14 +72,15 @@ class _PinnedPostState extends State<PinnedPost> {
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Text(
-                                  widget.pinnedPost[index]
-                                      .getPostPinnedDuration(),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w200,
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: Text(
+                                    pinnedPost[index].getPostPinnedDuration(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w200,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -115,7 +88,7 @@ class _PinnedPostState extends State<PinnedPost> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            widget.pinnedPost[index].caption ?? '',
+                            pinnedPost[index].caption ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

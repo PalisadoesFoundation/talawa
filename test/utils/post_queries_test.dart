@@ -50,6 +50,6 @@ void main() {
     final query = postQueries.deletePost();
     expect(query, contains('mutation DeletePost'));
     expect(query, contains('\$id'));
-    expect(query, contains('deletePost(creatorId: \$id)'));
+    expect(query, contains('deletePost(input: {id: \$id})'));
   });
 }

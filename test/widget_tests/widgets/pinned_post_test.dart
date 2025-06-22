@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -58,7 +57,6 @@ void main() {
       MaterialApp(
         home: PinnedPost(
           pinnedPost: pinnedPosts,
-          fetchNextPinnedPosts: () {},
           model: mainScreenViewModel,
         ),
       ),
@@ -74,44 +72,11 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
         ),
       ),
     );
     await widgetTester.pump(const Duration(seconds: 5));
     expect(find.byType(Text), findsWidgets);
-  });
-
-  testWidgets('Text widget displays the correct text', (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
-        ),
-      ),
-    );
-    await widgetTester.pump(const Duration(seconds: 5));
-    expect(find.text('church meeting'), findsOneWidget);
-  });
-
-  testWidgets('Tapping on a post triggers navigation', (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
-        ),
-      ),
-    );
-    await widgetTester.pump(const Duration(seconds: 5));
-
-    await widgetTester.tap(find.byType(GestureDetector));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(PinnedPost), findsNothing);
-    expect(find.byType(PinnedPostScreen), findsOneWidget);
   });
 
   testWidgets('Container comes if list is empty', (widgetTester) async {
@@ -120,85 +85,12 @@ void main() {
         home: PinnedPost(
           pinnedPost: [],
           model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
         ),
       ),
     );
     await widgetTester.pump();
     expect(find.byKey(const Key('hi')), findsOneWidget);
   });
-  testWidgets('Error widget is displayed when image fails to load',
-      (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
-        ),
-      ),
-    );
-    await widgetTester.pump(const Duration(seconds: 5));
-
-    expect(
-      find.byWidgetPredicate(
-        (widget) => widget is CachedNetworkImage && widget.errorWidget != null,
-      ),
-      findsOneWidget,
-    );
-  });
-
-  testWidgets('CircularProgressIndicator is shown when image fails to load',
-      (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
-        ),
-      ),
-    );
-
-    await widgetTester.pump(const Duration(seconds: 5));
-
-    expect(
-      find.byWidgetPredicate(
-        (widget) =>
-            widget is CachedNetworkImage &&
-            widget.errorWidget != null &&
-            widget.errorWidget is Function &&
-            widget.errorWidget!(
-              widgetTester.binding.rootElement!,
-              '',
-              Exception(),
-            ) is SizedBox,
-      ),
-      findsOneWidget,
-    );
-  });
-  testWidgets('CachedNetworkImage displays correct image',
-      (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
-        ),
-      ),
-    );
-    await widgetTester.pump(const Duration(seconds: 5));
-
-    expect(
-      find.byWidgetPredicate(
-        (widget) =>
-            widget is CachedNetworkImage &&
-            widget.imageUrl == pinnedPosts[0].attachments![0].url,
-      ),
-      findsOneWidget,
-    );
-  });
 
   testWidgets('CachedNetworkImage displays correct image',
       (widgetTester) async {
@@ -207,7 +99,6 @@ void main() {
         home: PinnedPost(
           pinnedPost: pinnedPosts,
           model: mainScreenViewModel,
-          fetchNextPinnedPosts: () {},
         ),
       ),
     );

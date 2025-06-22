@@ -56,7 +56,7 @@ class OrganizationFeedViewModel extends BaseModel {
   /// getter for the currentOrgName.
   String get currentOrgName => _currentOrgName;
 
-  bool _isFetchingPosts = false;
+  bool _isFetchingPosts = true;
 
   /// getter for isFetchingPosts to show loading indicator.
   bool get isFetchingPosts => _isFetchingPosts;
@@ -165,12 +165,12 @@ class OrganizationFeedViewModel extends BaseModel {
   /// This function initialise `_pinnedPosts` with `newPosts`.
   ///
   /// **params**:
-  /// * `newPosts`: new post
+  /// * `newPinPosts`: new post
   ///
   /// **returns**:
   ///   None
-  void setPinnedPosts(List<Post> newPosts) {
-    _pinnedPosts = newPosts;
+  void setPinnedPosts(List<Post> newPinPosts) {
+    _pinnedPosts = newPinPosts;
     notifyListeners();
   }
 
@@ -268,25 +268,6 @@ class OrganizationFeedViewModel extends BaseModel {
         notifyListeners();
       },
     );
-    await actionHandlerService.performAction(
-      actionType: ActionType.critical,
-      criticalActionFailureMessage: TalawaErrors.postDeletionFailed,
-      action: () async {
-        final result = await _postService.deletePost(post);
-        return result;
-      },
-      onValidResult: (result) async {
-        _posts.remove(post);
-      },
-      apiCallSuccessUpdateUI: () {
-        navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
-          'Post was deleted if you had the rights!',
-          MessageType.info,
-        );
-        notifyListeners();
-      },
-    );
   }
 
   /// Method to fetch next posts.
@@ -298,17 +279,6 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   void nextPage() {
     _postService.nextPage();
-  }
-
-  /// Method to fetch next pinned posts.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void nextPinnedPostPage() {
-    _pinnedPostService.nextPage();
   }
 
   /// Method to fetch previous posts.

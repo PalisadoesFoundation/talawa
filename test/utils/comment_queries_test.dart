@@ -2,42 +2,25 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/comment_queries.dart';
 
 void main() {
-  group("Tests for comment_queries.dart", () {
-    test("Check if getPostsComments works correctly", () {
-      const data = """
-     query {
-        post(id: "abc")
-        {  _id,
-          comments{
-             _id,
-            text,
-             createdAt
-        creator{
-          firstName
-          lastName
-        }
-          }
-        }
-      }
-""";
-      final fnData = CommentQueries().getPostsComments();
-      expect(fnData, data);
+  group('CommentQueries', () {
+    final queries = CommentQueries();
+
+    test('createComment returns correct mutation', () {
+      final mutation =
+          queries.createComment().replaceAll(RegExp(r'\s+'), ' ').trim();
+      expect(
+          mutation,
+          contains(
+              'mutation CreateComment(\$postId: ID!, \$body: String!) { createComment(input: { postId: \$postId, body: \$body }) { body id } }'));
     });
 
-    test("Check if createComment works correctly", () {
-      const data = """
-     mutation createComment(\$postId: ID!, \$text: String!) { 
-      createComment(postId: \$postId, 
-        data:{
-          text: \$text,
-        }
-      ){
-        _id
-      }
-    }
-  """;
-      final fnData = CommentQueries().createComment();
-      expect(fnData, data);
+    test('getPostsComments returns correct query', () {
+      final query =
+          queries.getPostsComments().replaceAll(RegExp(r'\s+'), ' ').trim();
+      expect(
+          query,
+          contains(
+              'query GetPostComments(\$postId: String!, \$first: Int, \$after: String, \$before: String, \$last: Int) { post(input: { id: \$postId }) { comments(first: \$first, after: \$after, before: \$before, last: \$last) { edges { node { body id post { id } createdAt creator { name avatarURL } } } pageInfo { endCursor hasNextPage hasPreviousPage startCursor } } } }'));
     });
   });
 }

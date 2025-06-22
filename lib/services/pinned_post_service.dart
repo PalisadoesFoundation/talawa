@@ -41,9 +41,9 @@ class PinnedPostService extends BaseFeedManager<Post> {
   String? before;
 
   /// `first` is used to limit the number of posts fetched in a single request.
-  int? first = 5;
+  int? first = 10;
 
-  /// `last` is used to limit the number of posts fetched in a single request from the end.
+  /// `last` is used to limit the number of posts fetched so i dont thinkin a single request from the end.
   int? last;
 
   /// Returns a stream of pinned posts.
@@ -103,18 +103,6 @@ class PinnedPostService extends BaseFeedManager<Post> {
     _pinnedPostStreamController.add(_pinnedPosts);
   }
 
-  /// Fetches pinned posts and updates the stream.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> getPinnedPosts() async {
-    _pinnedPosts = await getNewFeedAndRefreshCache();
-    _pinnedPostStreamController.add(_pinnedPosts);
-  }
-
   ///  Method to load cached data from Hive database.
   ///
   /// **params**:
@@ -126,25 +114,6 @@ class PinnedPostService extends BaseFeedManager<Post> {
     _pinnedPosts = await loadCachedData();
     _pinnedPostStreamController.add(_pinnedPosts);
     await refreshPinnedPosts();
-  }
-
-  /// Fetches the next page of pinned posts if available.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> nextPage() async {
-    if (pinnedPostInfo.hasNextPage == true) {
-      final nextCursor = pinnedPostInfo.endCursor;
-      if (nextCursor != null && nextCursor.isNotEmpty) {
-        after = nextCursor;
-        first = 5;
-        _pinnedPosts = await getNewFeedAndRefreshCache();
-        _pinnedPostStreamController.add(_pinnedPosts);
-      }
-    }
   }
 
   /// Updates the current organization and refreshes pinned posts if the organization has changed.

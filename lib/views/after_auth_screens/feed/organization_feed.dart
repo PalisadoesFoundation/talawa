@@ -126,7 +126,6 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                             key: const Key('pinnedPosts'),
                             pinnedPost: model.pinnedPosts,
                             model: widget.homeModel!,
-                            fetchNextPinnedPosts: model.nextPinnedPostPage,
                           ),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.01,

@@ -61,7 +61,7 @@ Widget createApp() {
           post: Post(
             caption: 'Sample Title',
             createdAt: DateTime(2023, 10, 1, 23, 0),
-            pinnedAt: DateTime(2023, 10, 1, 23, 0),
+            pinnedAt: DateTime.now().subtract(const Duration(minutes: 5)),
             id: 'postId',
             attachments: [
               AttachmentModel(url: 'https://example.com/image.jpg'),
@@ -125,25 +125,8 @@ void main() {
   testWidgets('Check if CachedNetworkImage is working', (tester) async {
     await mockNetworkImagesFor(() async {
       await showPinnedPostScreen(tester);
+      await tester.pumpAndSettle();
       expect(find.byType(CachedNetworkImage), findsOneWidget);
     });
-  });
-
-  testWidgets('Check if CachedNetworkImage shows CircularProgressIndicator',
-      (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: PinnedPostScreen(
-          post: Post(
-              caption: 'Sample Title',
-              createdAt: DateTime.now(),
-              id: 'postId',
-              attachments: [AttachmentModel(url: 'invalid')]),
-          cacheManager: GetIt.instance.get<BaseCacheManager>(),
-        ),
-      ),
-    );
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 }

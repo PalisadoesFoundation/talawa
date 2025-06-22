@@ -65,10 +65,8 @@ class _PinnedPostScreenState extends State<PinnedPostScreen> {
                   ? widget.post.attachments![0].url ?? ''
                   : '',
               errorWidget: (context, url, error) {
-                return const SizedBox(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                return const Center(
+                  child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
                 );
               },
               height: SizeConfig.screenHeight! * .75,

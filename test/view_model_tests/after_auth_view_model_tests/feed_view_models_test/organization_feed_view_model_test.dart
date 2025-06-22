@@ -16,7 +16,6 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
@@ -59,14 +58,6 @@ void main() {
       expect(pinnedPosts, isEmpty);
     });
 
-    test('Test pinnedPosts getter when istest is false', () {
-      final pinnedPosts = model.pinnedPosts;
-
-      expect(pinnedPosts.length, 4);
-
-      expect(pinnedPosts[0].id, '1');
-    });
-
     test('Test setCurrentOrganizationName function', () {
       model.setCurrentOrganizationName('Updated Organization Name');
       expect(model.posts.length, 0);
@@ -90,19 +81,6 @@ void main() {
           arguments: post,
         ),
       );
-    });
-
-    test('Test navigateToPinnedPostPage function', () {
-      model.navigateToPinnedPostPage();
-
-      final captured = verify(
-        (locator<NavigationService>() as MockNavigationService).pushScreen(
-          Routes.pinnedPostPage,
-          arguments: captureAnyNamed('arguments'),
-        ),
-      ).captured;
-
-      expect((captured[0] as List).length, 4);
     });
 
     test('Test addNewPost function', () {

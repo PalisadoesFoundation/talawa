@@ -181,10 +181,10 @@ class PostService extends BaseFeedManager<Post> {
   ///   None
   Future<void> getPosts() async {
     final List<Post> newPosts = await getNewFeedAndRefreshCache();
-    _posts = newPosts;
+    _posts.addAll(newPosts);
     _renderedPostID.addAll(newPosts.map((post) => post.id ?? ''));
     _postStreamController.add(_posts);
-    await saveDataToCache(_posts);
+    saveDataToCache(_posts);
   }
 
   /// Method to refresh feed of current selected organisation.
@@ -231,12 +231,14 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   /// * `Future<QueryResult<Object?>>`: returns the result of the GraphQL mutation to delete the post.
   Future<QueryResult<Object?>> deletePost(Post post) async {
-    return await _dbFunctions.gqlAuthMutation(
+    final res = await _dbFunctions.gqlAuthMutation(
       PostQueries().deletePost(),
       variables: {
         "id": post.id,
       },
     );
+
+    return res;
   }
 
   ///Method to add comment of a user and update comments using updated Post Stream.
