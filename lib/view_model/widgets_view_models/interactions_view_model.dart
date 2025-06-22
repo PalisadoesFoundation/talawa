@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'dart:async';
 
 import 'package:talawa/locator.dart';
@@ -21,7 +20,7 @@ class InteractionsViewModel extends BaseModel {
   /// Getter of Post ID of the Post.
   String get postID => _postID ?? '';
 
-  // ignore: unused_field
+  /// Setter of Post ID of the Post.
   late StreamSubscription _updatePostSubscription;
 
   /// First function to initialize the ViewModel.
