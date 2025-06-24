@@ -27,14 +27,9 @@ void main() {
           ),
         ),
       );
-      // CachedNetworkImage will show CircularProgressIndicator while loading
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    });
 
-    testWidgets('renders video player if attachment is video', (tester) async {
-      // The video_player plugin does not support widget tests.
-      // You can skip this test or use a mock implementation.
-      return;
+      expect(find.byType(Image), findsOneWidget);
+      expect(find.byType(Image).evaluate().first.widget, isA<Image>());
     });
 
     testWidgets('shows indicator dots for multiple attachments',
@@ -96,10 +91,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Find the PageView
       final pageViewFinder = find.byType(PageView);
 
-      // Find the SizedBox that is a descendant of PageView
       final sizedBoxInPageView = find.descendant(
         of: pageViewFinder,
         matching: find.byType(SizedBox),

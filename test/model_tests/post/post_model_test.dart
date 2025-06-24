@@ -1,8 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/post_queries.dart';
+
+import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
 
 void main() {
   group('Post Model', () {
@@ -66,16 +72,115 @@ void main() {
       expect(post.getPostCreatedDuration(), 'unknown date');
     });
 
-    test('getPostPinnedDuration returns correct string', () {
+    test('getPostPinnedDuration returns correct string for hours', () {
       final now = DateTime.now();
       final post = Post(pinnedAt: now.subtract(const Duration(hours: 2)));
       final duration = post.getPostPinnedDuration();
       expect(duration, contains('Hours Ago'));
     });
+    test('getPostPinnedDuration returns correct string for minutes', () {
+      final now = DateTime.now();
+      final post = Post(pinnedAt: now.subtract(const Duration(minutes: 2)));
+      final duration = post.getPostPinnedDuration();
+      expect(duration, contains('Minutes Ago'));
+    });
+    test('getPostPinnedDuration returns correct string for days', () {
+      final now = DateTime.now();
+      final post = Post(pinnedAt: now.subtract(const Duration(days: 5)));
+      final duration = post.getPostPinnedDuration();
+      expect(duration, contains('Days Ago'));
+    });
+
+    test('getPostPinnedDuration returns correct string for months', () {
+      final now = DateTime.now();
+      final post = Post(pinnedAt: now.subtract(const Duration(days: 65)));
+      final duration = post.getPostPinnedDuration();
+      expect(duration, contains('Months Ago'));
+    });
+
+    test('getPostPinnedDuration returns correct string for years', () {
+      final now = DateTime.now();
+      final post = Post(pinnedAt: now.subtract(const Duration(days: 800)));
+      final duration = post.getPostPinnedDuration();
+      expect(duration, contains('Years Ago'));
+    });
 
     test('getPostPinnedDuration returns "unknown date" if null', () {
       final post = Post();
       expect(post.getPostPinnedDuration(), 'unknown date');
+    });
+  });
+  group("getPresignedUrl functions tests", () {
+    setUpAll(() {
+      registerServices();
+    });
+
+    test('getPresignedUrl sets attachment.url if presignedUrl is returned',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {'presignedUrl': 'https://example.com/file.txt'}
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(post.attachments!.first.url, 'https://example.com/file.txt');
+    });
+
+    test('getPresignedUrl does not set url if presignedUrl is missing',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': null,
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(post.attachments!.first.url, isNull);
+    });
+
+    test('getPresignedUrl returns early if id is null or empty', () async {
+      final post =
+          Post(attachments: [AttachmentModel(name: 'file.txt', url: null)]);
+      // Should not throw or call gqlAuthMutation
+      await post.getPresignedUrl(null);
+      await post.getPresignedUrl('');
+      // No assertion needed, just checking for no exceptions
+    });
+
+    test('getPresignedUrl returns early if attachments is null or empty',
+        () async {
+      final post = Post(attachments: null);
+      await post.getPresignedUrl('org1');
+      final post2 = Post(attachments: []);
+      await post2.getPresignedUrl('org1');
+      // No assertion needed, just checking for no exceptions
     });
   });
 }
