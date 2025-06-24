@@ -75,6 +75,9 @@ class PostService extends BaseFeedManager<Post> {
   /// Getter for Stream of update in any post.
   Stream<Post> get updatedPostStream => _updatedPostStream;
 
+  /// Getter for the current organization.
+  OrgInfo get currentOrg => _currentOrg;
+
   @override
   Future<List<Post>> fetchDataFromApi() async {
     // variables
@@ -109,7 +112,7 @@ class PostService extends BaseFeedManager<Post> {
       await post.getPresignedUrl(userConfig.currentOrg.id);
 
       // Fetch and set user's vote status for the post
-      await _fetchAndSetUserVoteStatus(post);
+      await fetchAndSetUserVoteStatus(post);
 
       newPosts.insert(0, post);
     }
@@ -123,7 +126,7 @@ class PostService extends BaseFeedManager<Post> {
   ///
   /// **returns**:
   ///   None
-  Future<void> _fetchAndSetUserVoteStatus(Post post) async {
+  Future<void> fetchAndSetUserVoteStatus(Post post) async {
     final query = PostQueries().hasUserVoted();
     final variables = {'postId': post.id};
 

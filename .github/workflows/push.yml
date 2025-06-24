@@ -103,6 +103,9 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
+      - name: Remove generated files from coverage
+        run: |
+          sed -i '/\.g\.dart/d' coverage/lcov.info
       - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v5
         with:

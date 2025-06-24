@@ -48,9 +48,6 @@ class _PostContainerState extends State<PostContainer> {
                 return CachedNetworkImage(
                   imageUrl: att.url ?? '',
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
                   errorWidget: (context, url, error) => const Center(
                     child:
                         Icon(Icons.broken_image, size: 48, color: Colors.grey),
