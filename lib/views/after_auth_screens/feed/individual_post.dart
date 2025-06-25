@@ -8,11 +8,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
-// Global State, should be removed in next few iterations
-
-/// Comment view model.
-late CommentsViewModel _commentViewModel;
-
 /// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
   const IndividualPostView({super.key, required this.post});
@@ -34,72 +29,75 @@ class _IndividualPostViewState extends State<IndividualPostView> {
       appBar: AppBar(
         elevation: 0.0,
       ),
-      bottomSheet: Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            Expanded(
-              // TextField to send the comment on the post.
-              child: TextField(
-                key: const Key('indi_post_tf_key'),
-                controller: _controller,
-                textInputAction: TextInputAction.send,
-                onChanged: (msg) {
-                  if (msg.isEmpty && _isCommentValid == true) {
-                    setState(() {
-                      _isCommentValid = false;
-                    });
-                  }
-                  if (msg.isEmpty == false && _isCommentValid == false) {
-                    setState(() {
-                      _isCommentValid = true;
-                    });
-                  }
-                },
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.strictTranslate(
-                    "Write your comment here..",
-                  ),
-                  contentPadding: const EdgeInsets.all(8.0),
-                  focusColor: Colors.black,
-                  border: InputBorder.none,
-                ),
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            // Button to send the comment.
-            TextButton(
-              key: const Key('sendButton'),
-              style: _isCommentValid == false
-                  ? ButtonStyle(
-                      overlayColor: WidgetStateProperty.all(Colors.transparent),
-                    )
-                  : null,
-              //check if button is enabled when comment is valid
-              onPressed: _isCommentValid
-                  ? () {
-                      _commentViewModel.createComment(_controller.text);
-                      _controller.text = "";
-
+      bottomSheet:
+          BaseView<CommentsViewModel>(builder: (context, model, child) {
+        return Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  key: const Key('indi_post_tf_key'),
+                  controller: _controller,
+                  textInputAction: TextInputAction.send,
+                  onChanged: (msg) {
+                    if (msg.isEmpty && _isCommentValid == true) {
                       setState(() {
                         _isCommentValid = false;
                       });
                     }
-                  : null,
-              child: Text(
-                AppLocalizations.of(context)!.strictTranslate(
-                  "Send",
+                    if (msg.isEmpty == false && _isCommentValid == false) {
+                      setState(() {
+                        _isCommentValid = true;
+                      });
+                    }
+                  },
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.strictTranslate(
+                      "Write your comment here..",
+                    ),
+                    contentPadding: const EdgeInsets.all(8.0),
+                    focusColor: Colors.black,
+                    border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.text,
                 ),
-                style: !_isCommentValid
-                    ? const TextStyle(color: Colors.grey)
-                    : null,
               ),
-            ),
-          ],
-        ),
-      ),
+              // Button to send the comment.
+              TextButton(
+                key: const Key('sendButton'),
+                style: _isCommentValid == false
+                    ? ButtonStyle(
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
+                      )
+                    : null,
+                //check if button is enabled when comment is valid
+                onPressed: _isCommentValid
+                    ? () {
+                        model.createComment(_controller.text);
+                        _controller.text = "";
+
+                        setState(() {
+                          _isCommentValid = false;
+                        });
+                      }
+                    : null,
+                child: Text(
+                  AppLocalizations.of(context)!.strictTranslate(
+                    "Send",
+                  ),
+                  style: !_isCommentValid
+                      ? const TextStyle(color: Colors.grey)
+                      : null,
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
       body: ListView(
         children: [
           // Post
@@ -168,8 +166,6 @@ class IndividualPostCommentSection extends StatelessWidget {
     return BaseView<CommentsViewModel>(
       onModelReady: (model) async {
         await model.initialise(postID);
-        // print(model.commentList.first.creator);
-        _commentViewModel = model;
       },
       builder: (context, model, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

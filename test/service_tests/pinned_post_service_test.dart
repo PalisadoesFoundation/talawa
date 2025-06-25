@@ -14,6 +14,9 @@ void main() {
     testSetupLocator();
     registerServices();
   });
+  tearDown(() {
+    locator.reset();
+  });
 
   test('fetchDataFromApi returns pinned posts if data is valid', () async {
     final dbFunctions = locator<DataBaseMutationFunctions>();
@@ -56,5 +59,48 @@ void main() {
     expect(posts, isA<List<Post>>());
     expect(posts.first.caption, 'Pinned Post');
     expect(posts.first.isPinned, true);
+  });
+  test('fetchDataFromApi throws if organization is missing', () {
+    final mockDbFunctions = locator<DataBaseMutationFunctions>();
+    final service = PinnedPostService();
+
+    final query = PinnedPostQueries().getPinnedPostsByOrgID();
+
+    when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
+        .thenAnswer((_) async => QueryResult(
+              options: QueryOptions(document: gql('')),
+              data: {}, // No 'organization' key
+              source: QueryResultSource.network,
+            ));
+
+    expect(
+      () async => await service.fetchDataFromApi(),
+      throwsA(predicate((e) =>
+          e is Exception && e.toString().contains('Organization not found'))),
+    );
+  });
+
+  test('fetchDataFromApi throws if pinnedPosts is missing', () {
+    final mockDbFunctions = locator<DataBaseMutationFunctions>();
+    final service = PinnedPostService();
+    final query = PinnedPostQueries().getPinnedPostsByOrgID();
+
+    when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
+        .thenAnswer((_) async => QueryResult(
+              options: QueryOptions(document: gql('')),
+              data: {
+                'organization': {
+                  'id': 'org1',
+                  // No 'pinnedPosts' key
+                },
+              },
+              source: QueryResultSource.network,
+            ));
+
+    expect(
+      () async => await service.fetchDataFromApi(),
+      throwsA(predicate((e) =>
+          e is Exception && e.toString().contains('Pinned posts not found'))),
+    );
   });
 }

@@ -36,16 +36,6 @@ Future<void> main() async {
 
   setupLocator();
 
-  // Load environment variables from .env file
-  await dotenv.load(fileName: ".env").then((value) {
-    debugPrint("Environment variables loaded");
-    debugPrint(dotenv.get('API_URL'));
-    graphqlConfig.getOrgUrl();
-  }).catchError((error) {
-    debugPrint("Error loading environment variables: $error");
-    throw Exception("Failed to load environment variables: $error");
-  });
-
   // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }

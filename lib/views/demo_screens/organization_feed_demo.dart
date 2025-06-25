@@ -163,7 +163,6 @@ class DemoOrganizationFeed extends StatelessWidget {
           // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
           PinnedPost(
             pinnedPost: pinnedPosts,
-            model: homeModel!,
           ),
           // If the organization has posts then renders PostListWidget widget else Container.
           Container(),

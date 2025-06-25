@@ -54,7 +54,7 @@ class AttachmentModel {
     return {
       'name': name,
       'fileHash': fileHash,
-      'mimetype': mimetype?.toString().split('.').last,
+      'mimetype': mimetype,
       'objectName': objectName,
     };
   }

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/widgets/pinned_post.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -57,7 +58,6 @@ void main() {
       MaterialApp(
         home: PinnedPost(
           pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
         ),
       ),
     );
@@ -71,7 +71,6 @@ void main() {
       MaterialApp(
         home: PinnedPost(
           pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
         ),
       ),
     );
@@ -81,10 +80,9 @@ void main() {
 
   testWidgets('Container comes if list is empty', (widgetTester) async {
     await widgetTester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: PinnedPost(
           pinnedPost: [],
-          model: mainScreenViewModel,
         ),
       ),
     );
@@ -98,7 +96,6 @@ void main() {
       MaterialApp(
         home: PinnedPost(
           pinnedPost: pinnedPosts,
-          model: mainScreenViewModel,
         ),
       ),
     );

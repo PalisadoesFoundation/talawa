@@ -44,6 +44,53 @@ void main() {
       expect(comment.post, commentFromJson.post);
     });
   });
+  test('Comment.fromJson sets post when json["post"] is not null', () {
+    final commentJson = {
+      'id': 'comment1',
+      'body': 'This is a comment',
+      'post': {
+        'id': 'post1',
+        'caption': 'Test Post',
+        'createdAt': '2024-06-24T12:00:00Z',
+        'commentsCount': 2,
+        'upVotesCount': 5,
+        'downVotesCount': 1,
+        'attachments': [],
+        'isPinned': false,
+        'pinnedAt': null,
+      },
+      'creator': {
+        'id': 'user2',
+        'image': null,
+      },
+      'createdAt': '2024-06-24T12:01:00Z',
+    };
+
+    final comment = Comment.fromJson(commentJson);
+
+    expect(comment.post, isNotNull);
+    expect(comment.post!.id, 'post1');
+    expect(comment.post!.caption, 'Test Post');
+    expect(comment.body, 'This is a comment');
+  });
+
+  test('Comment.fromJson sets post to null when json["post"] is null', () {
+    final commentJson = {
+      'id': 'comment2',
+      'body': 'Another comment',
+      'post': null,
+      'creator': {
+        'id': 'user3',
+        'image': null,
+      },
+      'createdAt': '2024-06-24T12:02:00Z',
+    };
+
+    final comment = Comment.fromJson(commentJson);
+
+    expect(comment.post, isNull);
+    expect(comment.body, 'Another comment');
+  });
 
   group('Test caching part of comment', () {
     late final Box<Comment> commentBox;

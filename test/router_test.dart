@@ -30,6 +30,7 @@ import 'package:talawa/views/after_auth_screens/events/manage_volunteer_group.da
 import 'package:talawa/views/after_auth_screens/events/volunteer_groups_screen.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/access_request_screen.dart';
 import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
@@ -198,6 +199,19 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<CustomRecurrencePage>());
+      }
+    });
+
+    testWidgets('Test for pinnedPost route', (WidgetTester tester) async {
+      final route = generateRoute(
+        RouteSettings(
+            name: Routes.pinnedPostScreen, arguments: Post(id: "testId")),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<PinnedPostScreen>());
       }
     });
 

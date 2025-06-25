@@ -60,54 +60,92 @@ void main() {
       expect(post.pinnedAt, DateTime.parse('2024-06-18T12:00:00Z'));
     });
 
-    test('getPostCreatedDuration returns correct string', () {
+    test(
+        'getPostCreatedDuration returns correct strings for all time units and null',
+        () {
       final now = DateTime.now();
-      final post = Post(createdAt: now.subtract(const Duration(minutes: 5)));
-      final duration = post.getPostCreatedDuration();
-      expect(duration, contains('Minutes Ago'));
+
+      final cases = [
+        {
+          'post': Post(createdAt: now.subtract(const Duration(seconds: 2))),
+          'expected': 'Seconds Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(minutes: 2))),
+          'expected': 'Minutes Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(hours: 2))),
+          'expected': 'Hours Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 5))),
+          'expected': 'Days Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 65))),
+          'expected': 'Months Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 800))),
+          'expected': 'Years Ago',
+        },
+        {
+          'post': Post(),
+          'expected': 'unknown date',
+        },
+      ];
+
+      for (final testCase in cases) {
+        final post = testCase['post']! as Post;
+        final expected = testCase['expected']! as String;
+        final duration = post.getPostCreatedDuration();
+        expect(duration, contains(expected), reason: 'Failed for $expected');
+      }
     });
 
-    test('getPostCreatedDuration returns "unknown date" if null', () {
-      final post = Post();
-      expect(post.getPostCreatedDuration(), 'unknown date');
-    });
+    test(
+        'getPostPinnedDuration returns correct strings for all time units and null',
+        () {
+      final now = DateTime.now();
 
-    test('getPostPinnedDuration returns correct string for hours', () {
-      final now = DateTime.now();
-      final post = Post(pinnedAt: now.subtract(const Duration(hours: 2)));
-      final duration = post.getPostPinnedDuration();
-      expect(duration, contains('Hours Ago'));
-    });
-    test('getPostPinnedDuration returns correct string for minutes', () {
-      final now = DateTime.now();
-      final post = Post(pinnedAt: now.subtract(const Duration(minutes: 2)));
-      final duration = post.getPostPinnedDuration();
-      expect(duration, contains('Minutes Ago'));
-    });
-    test('getPostPinnedDuration returns correct string for days', () {
-      final now = DateTime.now();
-      final post = Post(pinnedAt: now.subtract(const Duration(days: 5)));
-      final duration = post.getPostPinnedDuration();
-      expect(duration, contains('Days Ago'));
-    });
+      final cases = [
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(seconds: 2))),
+          'expected': 'Seconds Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(minutes: 2))),
+          'expected': 'Minutes Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(hours: 2))),
+          'expected': 'Hours Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 5))),
+          'expected': 'Days Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 65))),
+          'expected': 'Months Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 800))),
+          'expected': 'Years Ago',
+        },
+        {
+          'post': Post(),
+          'expected': 'unknown date',
+        },
+      ];
 
-    test('getPostPinnedDuration returns correct string for months', () {
-      final now = DateTime.now();
-      final post = Post(pinnedAt: now.subtract(const Duration(days: 65)));
-      final duration = post.getPostPinnedDuration();
-      expect(duration, contains('Months Ago'));
-    });
-
-    test('getPostPinnedDuration returns correct string for years', () {
-      final now = DateTime.now();
-      final post = Post(pinnedAt: now.subtract(const Duration(days: 800)));
-      final duration = post.getPostPinnedDuration();
-      expect(duration, contains('Years Ago'));
-    });
-
-    test('getPostPinnedDuration returns "unknown date" if null', () {
-      final post = Post();
-      expect(post.getPostPinnedDuration(), 'unknown date');
+      for (final testCase in cases) {
+        final post = testCase['post']! as Post;
+        final expected = testCase['expected']! as String;
+        final duration = post.getPostPinnedDuration();
+        expect(duration, contains(expected), reason: 'Failed for $expected');
+      }
     });
   });
   group("getPresignedUrl functions tests", () {

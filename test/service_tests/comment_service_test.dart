@@ -2,65 +2,50 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/comment_queries.dart';
 import '../helpers/test_helpers.dart';
+import '../helpers/test_locator.dart';
+
+class MockNavigationService extends NavigationService with Mock {}
 
 void main() {
-  setUp(() {
-    registerServices();
-  });
-  group('test for comment servicce', () {
-    test('test for createComments', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query = CommentQueries().createComment();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(query,
-            variables: anyNamed('variables')),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'text': 'hey Ayush here!',
-            'postId': 'ayush post',
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = CommentService();
-
-      await service.createComments(
-        'post id',
-        'body:hey Ayush here!',
-      );
+  group('Test for get comment function', () {
+    setUp(() async {
+      await locator.reset();
+      registerServices();
     });
+    tearDown(() async {
+      unregisterServices();
+      await locator.reset();
+    });
+    test(
+        'getCommentsForPost returns empty map and shows error when gqlAuthMutation throws',
+        () async {
+      final databaseFunctions = locator<DataBaseMutationFunctions>();
+      final query = CommentQueries().getPostsComments();
 
-    test('test for createComments when throws exception', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final variables = {
+        'postId': 'test',
+        'first': 10,
+        'after': null,
+        'last': null,
+        'before': null,
+      };
 
-      final query = CommentQueries().createComment();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(query,
-            variables: anyNamed('variables')),
-      ).thenThrow(Exception('Your error message here'));
-
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenThrow(Exception('Network error'));
       final service = CommentService();
+      final result = await service.getCommentsForPost(postId: 'test');
 
-      await service.createComments(
-        'post id',
-        'body!',
-      );
+      verify(navigationService.showTalawaErrorSnackBar(
+        "Something went wrong while fetching comments",
+        MessageType.error,
+      )).called(1);
 
-      verify(
-        navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
-          MessageType.error,
-        ),
-      ).called(1);
+      expect(result, {'comments': [], 'pageInfo': {}});
     });
     test('test for getCommentsForPost', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
@@ -93,6 +78,7 @@ void main() {
       expect(result['pageInfo'], contains('hasNextPage'));
     });
 
+    //////this needs to be further tested with more complex data structures
     test('test for zero comments on post', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
@@ -166,6 +152,63 @@ void main() {
 
       expect(result['comments'], isEmpty);
       expect(result['pageInfo'], isEmpty);
+    });
+  });
+  group('test for comment servicce', () {
+    setUp(() async {
+      await locator.reset();
+      registerServices();
+    });
+    tearDown(() async {
+      unregisterServices();
+      await locator.reset();
+    });
+    test('test for createComments', () async {
+      final query = CommentQueries().createComment();
+      when(
+        databaseFunctions.gqlAuthMutation(query,
+            variables: anyNamed('variables')),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'text': 'hey Ayush here!',
+            'postId': 'ayush post',
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = CommentService();
+
+      await service.createComments(
+        'post id',
+        'body:hey Ayush here!',
+      );
+    });
+
+    test('test for createComments when throws exception', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query = CommentQueries().createComment();
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(query,
+            variables: anyNamed('variables')),
+      ).thenThrow(Exception('Your error message here'));
+
+      final service = CommentService();
+
+      await service.createComments(
+        'post id',
+        'body!',
+      );
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        ),
+      ).called(1);
     });
   });
 }
