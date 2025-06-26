@@ -149,7 +149,8 @@ void _removeRegistrationIfExists<T extends Object>() {
 NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
-  when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
+  final key = GlobalKey<NavigatorState>();
+  when(service.navigatorKey).thenReturn(key);
   when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.pushScreen(any, arguments: anyNamed('arguments')))

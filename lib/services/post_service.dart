@@ -78,6 +78,9 @@ class PostService extends BaseFeedManager<Post> {
   /// Getter for the current organization.
   OrgInfo get currentOrg => _currentOrg;
 
+  /// Getter for the list of posts.
+  List<Post> get posts => _posts;
+
   @override
   Future<List<Post>> fetchDataFromApi() async {
     // variables

@@ -4,22 +4,40 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/comment_queries.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-class MockNavigationService extends NavigationService with Mock {}
-
 void main() {
   group('Test for get comment function', () {
-    setUp(() async {
-      await locator.reset();
+    setUpAll(() {
       registerServices();
     });
-    tearDown(() async {
+    tearDownAll(() {
       unregisterServices();
-      await locator.reset();
+    });
+    test('test for createComments when throws exception', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+
+      final query = CommentQueries().createComment();
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(query,
+            variables: anyNamed('variables')),
+      ).thenThrow(Exception('Your error message here'));
+
+      final service = CommentService();
+
+      await service.createComments(
+        'post id',
+        'body!',
+      );
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        ),
+      ).called(1);
     });
     test(
         'getCommentsForPost returns empty map and shows error when gqlAuthMutation throws',
@@ -153,16 +171,6 @@ void main() {
       expect(result['comments'], isEmpty);
       expect(result['pageInfo'], isEmpty);
     });
-  });
-  group('test for comment servicce', () {
-    setUp(() async {
-      await locator.reset();
-      registerServices();
-    });
-    tearDown(() async {
-      unregisterServices();
-      await locator.reset();
-    });
     test('test for createComments', () async {
       final query = CommentQueries().createComment();
       when(
@@ -185,30 +193,6 @@ void main() {
         'post id',
         'body:hey Ayush here!',
       );
-    });
-
-    test('test for createComments when throws exception', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-
-      final query = CommentQueries().createComment();
-      when(
-        dataBaseMutationFunctions.gqlAuthMutation(query,
-            variables: anyNamed('variables')),
-      ).thenThrow(Exception('Your error message here'));
-
-      final service = CommentService();
-
-      await service.createComments(
-        'post id',
-        'body!',
-      );
-
-      verify(
-        navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
-          MessageType.error,
-        ),
-      ).called(1);
     });
   });
 }

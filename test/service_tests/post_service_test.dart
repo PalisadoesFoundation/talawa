@@ -405,6 +405,20 @@ void main() {
 
       expect(postService.getPostsCalled, isFalse);
     });
+
+    test('refreshFeed resets state, fetches new posts, and emits them',
+        () async {
+      final postService = TestablePostService();
+
+      final emittedPosts = <List<Post>>[];
+      postService.postStream.listen(emittedPosts.add);
+
+      await postService.refreshFeed();
+
+      // Use public getters to check state
+      expect(postService.posts, isNotEmpty);
+      expect(emittedPosts.last, postService.posts);
+    });
   });
 }
 
@@ -415,5 +429,25 @@ class TestablePostService extends PostService {
   @override
   Future<void> getPosts() async {
     getPostsCalled = true;
+  }
+
+  @override
+  Future<List<Post>> getNewFeedAndRefreshCache() async {
+    return [
+      Post(
+        id: 'test_post',
+        caption: 'Test Post',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+      Post(
+        id: 'test_post2',
+        caption: 'Test Post 2',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+    ];
   }
 }
