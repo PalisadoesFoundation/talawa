@@ -25,6 +25,7 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
@@ -167,6 +168,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => AppSettingViewModel());
+  locator.registerFactory(() => SelectContactViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());

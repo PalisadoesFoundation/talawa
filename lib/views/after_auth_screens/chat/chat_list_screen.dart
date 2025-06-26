@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
@@ -38,7 +39,7 @@ class ChatPage extends StatelessWidget {
             DirectChats(),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           // onPressed to FloatingActionButton renders SelectContact Widget to chat with other users in the connection.
           onPressed: () {
             Navigator.push(
@@ -46,7 +47,17 @@ class ChatPage extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const SelectContact()),
             );
           },
-          child: const Icon(Icons.add),
+          icon: const Icon(
+            Icons.contacts,
+            color: Colors.white,
+          ),
+          label: Text(
+            AppLocalizations.of(context)!.strictTranslate("Chat"),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
+          ),
         ),
       ),
     );

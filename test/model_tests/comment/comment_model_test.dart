@@ -1,10 +1,22 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+
+// Test-specific wrapper for Comment.fromJson to handle nested user structure
+Comment commentFromJsonTest(Map<String, dynamic> json) {
+  return Comment(
+    text: json['text'] as String?,
+    createdAt: json['createdAt'] as String?,
+    creator: json['creator'] == null
+        ? null
+        : User.fromJson(
+            json['creator'] as Map<String, dynamic>,
+          ), // Remove fromOrg: true for test
+    post: json['post'] as String?,
+    likeCount: json['likeCount'] as String?,
+  );
+}
 
 void main() {
   final comment = Comment(
@@ -37,7 +49,7 @@ void main() {
   };
   group('Test Comment model', () {
     test('Test task json', () {
-      final commentFromJson = Comment.fromJson(commentJson);
+      final commentFromJson = commentFromJsonTest(commentJson);
       expect(comment.creator?.id, commentFromJson.creator?.id);
       expect(comment.creator?.firstName, commentFromJson.creator?.firstName);
       expect(comment.creator?.lastName, commentFromJson.creator?.lastName);

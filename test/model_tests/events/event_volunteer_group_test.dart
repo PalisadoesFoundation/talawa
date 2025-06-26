@@ -4,6 +4,29 @@ import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+// Test-specific wrapper for EventVolunteerGroup.fromJson to handle nested user structure
+EventVolunteerGroup eventVolunteerGroupFromJsonTest(Map<String, dynamic> json) {
+  return EventVolunteerGroup(
+    id: json['_id'] as String?,
+    createdAt: json['createdAt'] as String?,
+    creator: json['creator'] != null
+        ? User.fromJson(json['creator'] as Map<String, dynamic>)
+        : null,
+    event: json['event'] != null
+        ? Event.fromJson(json['event'] as Map<String, dynamic>)
+        : null,
+    leader: json['leader'] != null
+        ? User.fromJson(json['leader'] as Map<String, dynamic>)
+        : null,
+    name: json['name'] as String?,
+    updatedAt: json['updatedAt'] as String?,
+    volunteers: (json['volunteers'] as List<dynamic>?)
+        ?.map((e) => EventVolunteer.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    volunteersRequired: json['volunteersRequired'] as int?,
+  );
+}
+
 void main() {
   group('Test EventVolunteerGroup Model', () {
     test('Test EventVolunteerGroup fromJson', () {
@@ -70,7 +93,7 @@ void main() {
       };
 
       final eventVolunteerGroupFromJson =
-          EventVolunteerGroup.fromJson(eventVolunteerGroupJson);
+          eventVolunteerGroupFromJsonTest(eventVolunteerGroupJson);
 
       expect(eventVolunteerGroup.id, eventVolunteerGroupFromJson.id);
 

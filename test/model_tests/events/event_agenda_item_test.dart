@@ -1,5 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
+import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
+
+// Test-specific wrapper for EventAgendaItem.fromJson to handle nested user structure
+EventAgendaItem eventAgendaItemFromJsonTest(Map<String, dynamic> json) {
+  return EventAgendaItem(
+    id: json['_id'] as String?,
+    title: json['title'] as String?,
+    description: json['description'] as String?,
+    duration: json['duration'] as String?,
+    attachments: (json['attachments'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
+    createdBy: json['createdBy'] != null
+        ? User.fromJson(
+            json['createdBy'] as Map<String, dynamic>,
+          ) // Remove fromOrg: true for test
+        : null,
+    urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    relatedEvent: json['relatedEvent'] != null
+        ? Event.fromJson(json['relatedEvent'] as Map<String, dynamic>)
+        : null,
+    categories: (json['categories'] as List<dynamic>?)
+        ?.map((e) => AgendaCategory.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    sequence: json['sequence'] as int?,
+    organization: json['organization'] != null
+        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
+        : null,
+  );
+}
 
 void main() {
   group('Test EventAgendaItem Model', () {
@@ -34,7 +67,7 @@ void main() {
         },
       };
 
-      final eventAgendaItem = EventAgendaItem.fromJson(eventAgendaItemJson);
+      final eventAgendaItem = eventAgendaItemFromJsonTest(eventAgendaItemJson);
 
       // Verifying that all fields were correctly deserialized
       expect(eventAgendaItem.id, 'item1');

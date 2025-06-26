@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
@@ -32,24 +29,11 @@ void main() {
       expect(mutation, false);
 
       final fnData = ChatQueries().fetchDirectChatMessagesByChatId('Ayush');
-      if (fnData.contains('''
-        query {
-          directChatsMessagesByChatID(id: "Ayush") {
-            _id
-            messageContent
-            sender {
-              _id
-              firstName
-              image
-            }
-            receiver {
-              _id
-              firstName
-              image
-            }
-          }
-        }
-    ''')) {
+      if (fnData.contains('query getChat(\$input: QueryChatInput!)') &&
+          fnData.contains('chat(input: \$input)') &&
+          fnData.contains('messages(first: 50)') &&
+          fnData.contains('body') &&
+          fnData.contains('creator')) {
         mutation = true;
       }
       expect(mutation, true);
@@ -81,34 +65,7 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("Check if sendMessageToDirectChat works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
 
-      final fnData = ChatQueries().sendMessageToDirectChat();
-      if (fnData.contains('''
-      mutation sendMessageToDirectChat(
-        \$chatId: ID!
-        \$messageContent: String!
-        ){
-        sendMessageToDirectChat(
-          chatId: \$chatId
-          messageContent: \$messageContent
-        ) {
-          messageContent
-            sender{
-              firstName
-            }
-            receiver{
-              firstName
-            }
-          }
-        }
-    ''')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if sendMessageToDirectChat works correctly", () {
       var mutation = false;
       expect(mutation, false);

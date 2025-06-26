@@ -25,40 +25,72 @@ class User extends HiveObject {
   });
 
   factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
-    final Map<String, dynamic> userData =
-        json['user'] != null ? json['user'] as Map<String, dynamic> : {};
-    final String? fullName = userData['name'] as String?;
-    final List<String>? nameParts = fullName?.split(' ');
-    final String? firstName =
-        nameParts != null && nameParts.isNotEmpty ? nameParts[0] : null;
-    final String? lastName = nameParts != null && nameParts.length > 1
-        ? nameParts.sublist(1).join(' ')
-        : null;
-    final Map<String, dynamic>? org =
-        userData['organizationsWhereMember'] as Map<String, dynamic>?;
-    final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
-    final List<Map<String, dynamic>>? orgList =
-        edges?.map((e) => e as Map<String, dynamic>).toList();
-    return User(
-      authToken: json['authenticationToken'] != null
-          ? json['authenticationToken'] as String?
-          : null,
-      refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
-      id: userData['id'] as String?,
-      firstName: firstName,
-      lastName: lastName,
-      email: userData['emailAddress'] != null
-          ? userData['emailAddress'] as String?
-          : null,
-      image: userData['avatarURL'] != null
-          ? userData['avatarURL'] as String?
-          : null,
-      joinedOrganizations: orgList != null
-          ? orgList
-              .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
-              .toList()
-          : [],
-    );
+    if (fromOrg) {
+      // For usersByOrganizationId - direct user data from PostgreSQL
+      final String? fullName = json['name'] as String?;
+      final List<String>? nameParts = fullName?.split(' ');
+      final String? firstName =
+          nameParts != null && nameParts.isNotEmpty ? nameParts[0] : null;
+      final String? lastName = nameParts != null && nameParts.length > 1
+          ? nameParts.sublist(1).join(' ')
+          : null;
+
+      return User(
+        id: json['id'] as String?,
+        firstName: firstName,
+        lastName: lastName,
+        email: json['emailAddress'] as String?,
+        image: json['avatarURL'] as String?,
+        joinedOrganizations: [],
+      );
+    } else {
+      // For signIn and other queries - nested user data
+      final Map<String, dynamic> userData =
+          json['user'] as Map<String, dynamic>;
+      final String? fullName = userData['name'] as String?;
+      final List<String>? nameParts = fullName?.split(' ');
+      final String? firstName =
+          nameParts != null && nameParts.isNotEmpty ? nameParts[0] : null;
+      final String? lastName = nameParts != null && nameParts.length > 1
+          ? nameParts.sublist(1).join(' ')
+          : null;
+
+      final Map<String, dynamic>? org =
+          userData['organizationsWhereMember'] as Map<String, dynamic>?;
+      final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
+      final List<Map<String, dynamic>>? orgList =
+          edges?.map((e) => e as Map<String, dynamic>).toList();
+
+      return User(
+        authToken: json['authenticationToken'] as String?,
+        refreshToken: json['refreshToken'] as String?,
+        id: userData['id'] as String?,
+        firstName: firstName,
+        lastName: lastName,
+        email: userData['emailAddress'] as String?,
+        image: userData['avatarURL'] as String?,
+        joinedOrganizations: orgList != null
+            ? orgList
+                .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
+                .toList()
+            : [],
+      );
+    }
+  }
+
+  /// Computed property to get the full name of the user.
+  String? get name {
+    final hasFirstName = firstName != null && firstName!.isNotEmpty;
+    final hasLastName = lastName != null && lastName!.isNotEmpty;
+
+    if (hasFirstName && hasLastName) {
+      return '$firstName $lastName';
+    } else if (hasFirstName) {
+      return firstName;
+    } else if (hasLastName) {
+      return lastName;
+    }
+    return null;
   }
 
   /// Method to print the User details.

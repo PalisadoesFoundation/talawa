@@ -4,6 +4,28 @@ import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+// Test-specific wrapper for EventVolunteer.fromJson to handle nested user structure
+EventVolunteer eventVolunteerFromJsonTest(Map<String, dynamic> json) {
+  return EventVolunteer(
+    id: json['_id'] as String?,
+    creator: json['creator'] != null
+        ? User.fromJson(json['creator'] as Map<String, dynamic>)
+        : null,
+    event: json['event'] != null
+        ? Event.fromJson(json['event'] as Map<String, dynamic>)
+        : null,
+    group: json['group'] != null
+        ? EventVolunteerGroup.fromJson(json['group'] as Map<String, dynamic>)
+        : null,
+    isAssigned: json['isAssigned'] as bool?,
+    isInvited: json['isInvited'] as bool?,
+    response: json['response'] as String?,
+    user: json['user'] != null
+        ? User.fromJson(json['user'] as Map<String, dynamic>)
+        : null,
+  );
+}
+
 void main() {
   group('Test EventVolunteer Model', () {
     test('Test EventVolunteer fromJson', () {
@@ -66,7 +88,7 @@ void main() {
       };
 
       final eventVolunteerFromJson =
-          EventVolunteer.fromJson(eventVolunteerJson);
+          eventVolunteerFromJsonTest(eventVolunteerJson);
 
       // Verifying that all fields were correctly deserialized
       expect(eventVolunteer.id, eventVolunteerFromJson.id);

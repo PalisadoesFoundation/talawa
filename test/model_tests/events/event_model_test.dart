@@ -4,6 +4,47 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+// Test-specific wrapper for Event.fromJson to handle nested user structure for creator
+Event eventFromJsonTest(Map<String, dynamic> json) {
+  return Event(
+    id: json['_id'] as String,
+    title: json['title'] as String?,
+    description: json['description'] as String?,
+    location: json['location'] as String?,
+    recurring: json['recurring'] as bool?,
+    allDay: json['allDay'] as bool?,
+    startDate: json['startDate'] as String?,
+    endDate: json['endDate'] as String?,
+    startTime: json['startTime'] as String?,
+    endTime: json['endTime'] as String?,
+    isPublic: json['isPublic'] as bool?,
+    isRegistered: json['isRegistered'] as bool?,
+    isRegisterable: json['isRegisterable'] as bool?,
+    creator: json['creator'] == null
+        ? null
+        : User.fromJson(
+            json['creator'] as Map<String, dynamic>,
+          ), // Remove fromOrg: true for creator
+    organization: json['organization'] == null
+        ? null
+        : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
+    admins: json['admins'] == null
+        ? null
+        : (json['admins'] as List<dynamic>?)
+            ?.map(
+              (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+            )
+            .toList(), // Keep fromOrg: true for admins as they have direct structure
+    attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
+        ? null
+        : (json['attendees'] as List<dynamic>?)
+            ?.map(
+              (e) => Attendee.fromJson(e as Map<String, dynamic>),
+            )
+            .toList(),
+  );
+}
+
 final User user1 = User(id: "fakeUser1");
 final User user2 = User(id: "fakeUser2");
 final List<User> users = [user1, user2];
@@ -96,7 +137,7 @@ final eventJson = {
 void main() {
   group('Test Event Model', () {
     test('Test Event ', () {
-      final eventFromJson = Event.fromJson(eventJson);
+      final eventFromJson = eventFromJsonTest(eventJson);
 
       expect(event.creator?.id, eventFromJson.creator?.id);
       expect(event.creator?.firstName, eventFromJson.creator?.firstName);

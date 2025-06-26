@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -55,8 +52,12 @@ void main() {
     });
 
     test('Test getChatMessages', () async {
-      final ChatMessage chatMessage =
-          ChatMessage('11', null, 'message11', null);
+      final ChatMessage chatMessage = ChatMessage(
+        id: '11',
+        sender: null,
+        messageContent: 'message11',
+        receiver: null,
+      );
       final StreamController<ChatMessage> chatMessageController =
           StreamController<ChatMessage>();
       final Stream<ChatMessage> messagestream =
@@ -81,8 +82,18 @@ void main() {
 
     test('Test sendMessageToDirectChat', () async {
       final List<ChatMessage> chatMessages = [
-        ChatMessage('11', null, 'message11', null),
-        ChatMessage('22', null, 'message22', null),
+        ChatMessage(
+          id: '11',
+          sender: null,
+          messageContent: 'message11',
+          receiver: null,
+        ),
+        ChatMessage(
+          id: '22',
+          sender: null,
+          messageContent: 'message22',
+          receiver: null,
+        ),
       ];
       final StreamController<ChatMessage> chatMessageController =
           StreamController<ChatMessage>();

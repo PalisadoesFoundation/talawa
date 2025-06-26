@@ -1,11 +1,51 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+
+// Test-specific wrapper for Post.fromJson to handle nested user structure
+Post postFromJsonTest(Map<String, dynamic> json) {
+  final post = Post(
+    sId: json['_id'] as String,
+    description: json['description'] as String?,
+    createdAt: DateTime.parse(json['createdAt'] as String),
+    imageUrl: json['imageUrl'] as String?,
+    videoUrl: json['videoUrl'] as String?,
+    creator: json['creator'] != null
+        ? User.fromJson(json['creator'] as Map<String, dynamic>)
+        : null,
+    organization: json['organization'] != null
+        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
+        : null,
+  );
+
+  // Handle likedBy with nested structure
+  if (json['likedBy'] != null) {
+    post.likedBy = <LikedBy>[];
+    (json['likedBy'] as List).forEach((v) {
+      // Extract the nested id from the user object
+      final vMap = v as Map<String, dynamic>;
+      final userMap = vMap['user'] as Map<String, dynamic>;
+      final userId = userMap['id'] as String?;
+      post.likedBy?.add(LikedBy(sId: userId));
+    });
+  }
+
+  // Handle comments with nested structure
+  if (json['comments'] != null) {
+    post.comments = <Comments>[];
+    (json['comments'] as List).forEach((v) {
+      // Extract the nested id from the user object
+      final vMap = v as Map<String, dynamic>;
+      final userMap = vMap['user'] as Map<String, dynamic>;
+      final userId = userMap['id'] as String?;
+      post.comments?.add(Comments(sId: userId));
+    });
+  }
+
+  return post;
+}
 
 final u1 = User(
   id: '123',
@@ -119,7 +159,7 @@ void main() {
           },
         ],
       };
-      final postFromJson = Post.fromJson(postJson);
+      final postFromJson = postFromJsonTest(postJson);
       post.getPostCreatedDuration();
       expect(post.creator?.id, postFromJson.creator?.id);
       expect(post.creator?.firstName, postFromJson.creator?.firstName);

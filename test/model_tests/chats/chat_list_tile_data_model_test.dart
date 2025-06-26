@@ -46,7 +46,7 @@ void main() {
         return {
           'id': '$index',
           'firstName': 'First$index',
-          'image': 'Image$index',
+          'avatarURL': 'Image$index',
         };
       }),
     };
@@ -71,7 +71,13 @@ void main() {
       final Map<String, dynamic> json = chatListTileDataModel.toJson();
 
       expect(json['id'], chatListTileDataModel.id);
-      checkUsers(json['users'] as List<ChatUser>, chatListTileDataModel.users);
+
+      // The toJson method returns ChatUser objects directly, not their JSON representation
+      // So we need to compare them directly
+      final List<ChatUser> usersFromJson =
+          (json['users'] as List<dynamic>).cast<ChatUser>();
+
+      checkUsers(usersFromJson, chatListTileDataModel.users);
     });
   });
 }

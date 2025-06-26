@@ -131,13 +131,42 @@ class ChatService {
     // of a particular chat using [chatId].
     final String query = ChatQueries().fetchDirectChatMessagesByChatId(chatId);
 
-    final result = await _dbFunctions.gqlAuthQuery(query);
+    final result = await _dbFunctions.gqlAuthQuery(
+      query,
+      variables: {
+        "input": {
+          "id": chatId,
+        },
+      },
+    );
 
-    final messages = result.data?['directChatsMessagesByChatID'] as List;
+    if (result.hasException) {
+      debugPrint('Error fetching chat messages: ${result.exception}');
+      return;
+    }
 
-    messages.forEach((message) {
-      final chatMessage = ChatMessage.fromJson(message as Map<String, dynamic>);
+    final Map<String, dynamic>? chatData =
+        result.data?['chat'] as Map<String, dynamic>?;
+    if (chatData == null) {
+      debugPrint('No chat data found for chatId: $chatId');
+      return;
+    }
+
+    final Map<String, dynamic>? messagesConnection =
+        chatData['messages'] as Map<String, dynamic>?;
+    if (messagesConnection == null || messagesConnection['edges'] == null) {
+      debugPrint('No messages found for chatId: $chatId');
+      return;
+    }
+
+    final List<dynamic> messageEdges =
+        messagesConnection['edges'] as List<dynamic>;
+
+    for (final dynamic edge in messageEdges) {
+      final Map<String, dynamic> messageNode =
+          (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>;
+      final chatMessage = ChatMessage.fromJson(messageNode);
       _chatMessageController.add(chatMessage);
-    });
+    }
   }
 }
