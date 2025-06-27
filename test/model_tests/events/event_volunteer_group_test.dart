@@ -6,10 +6,17 @@ import 'package:talawa/models/user/user_info.dart';
 
 /// Creates EventVolunteerGroup from test JSON with proper nested user handling.
 ///
-/// **Purpose:** Handles nested user structures in creator, leader, and volunteer fields.
+/// **Purpose:**
+/// Constructs an EventVolunteerGroup instance from test JSON, handling nested
+/// user structures in creator, leader, and volunteer fields for test scenarios.
+///
+/// **Implementation Details:**
+/// - Uses standard user parsing (omits fromOrg: true) for consistent nested data handling
+/// - Processes complex nested structures including events and volunteer arrays
+/// - Handles null values gracefully across all optional fields
 ///
 /// **params**:
-/// * `json`: The test JSON data containing nested user structures
+/// * `json`: Map containing test JSON data with nested user structures
 ///
 /// **returns**:
 /// * `EventVolunteerGroup`: Properly constructed EventVolunteerGroup with extracted user data

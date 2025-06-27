@@ -6,11 +6,18 @@ import 'package:talawa/models/user/user_info.dart';
 
 /// Creates Post from test JSON with proper nested user handling.
 ///
-/// **Purpose:** Handles complex nested structures in posts including creator, likedBy, and comments.
-/// This method manually extracts user IDs from nested structures that don't match model expectations.
+/// **Purpose:**
+/// Constructs a Post instance from test JSON data, handling complex nested structures
+/// in posts including creator, likedBy, and comments fields.
+///
+/// **Implementation Details:**
+/// - Uses standard user parsing (omits fromOrg: true) for creator field
+/// - Manually extracts user IDs from deeply nested likedBy and comments structures
+/// - Handles complex nested data that doesn't match standard model expectations
+/// - Processes arrays of nested user objects in likedBy and comments
 ///
 /// **params**:
-/// * `json`: The test JSON data containing nested user structures in multiple fields
+/// * `json`: Map containing test JSON data with nested user structures in multiple fields
 ///
 /// **returns**:
 /// * `Post`: Properly constructed Post with extracted nested data

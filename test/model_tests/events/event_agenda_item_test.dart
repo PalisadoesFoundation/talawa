@@ -7,10 +7,18 @@ import 'package:talawa/models/user/user_info.dart';
 
 /// Creates EventAgendaItem from test JSON with proper nested user handling.
 ///
-/// **Purpose:** Handles complex nested structures in agenda items including user references.
+/// **Purpose:**
+/// Constructs an EventAgendaItem instance from test JSON data, handling complex
+/// nested structures including user references, events, and categories.
+///
+/// **Implementation Details:**
+/// - Uses standard user parsing (omits fromOrg: true) for createdBy field
+/// - Processes nested event and organization structures
+/// - Handles arrays of attachments, URLs, and categories
+/// - Manages null values gracefully across all optional fields
 ///
 /// **params**:
-/// * `json`: The test JSON data containing nested user and category structures
+/// * `json`: Map containing test JSON data with nested user and category structures
 ///
 /// **returns**:
 /// * `EventAgendaItem`: Properly constructed EventAgendaItem with extracted nested data
@@ -26,7 +34,7 @@ EventAgendaItem eventAgendaItemFromJsonTest(Map<String, dynamic> json) {
     createdBy: json['createdBy'] != null
         ? User.fromJson(
             json['createdBy'] as Map<String, dynamic>,
-          ) // Remove fromOrg: true for test
+          ) // fromOrg: true omitted for nested user structure
         : null,
     urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
     relatedEvent: json['relatedEvent'] != null

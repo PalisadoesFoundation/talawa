@@ -6,10 +6,17 @@ import 'package:talawa/models/user/user_info.dart';
 
 /// Creates Event from test JSON with proper nested user handling for creator.
 ///
-/// **Purpose:** Handles nested creator and organization structures in event data.
+/// **Purpose:**
+/// Constructs an Event instance from test JSON data, handling different user
+/// parsing requirements for creator vs admins fields based on their data structures.
+///
+/// **Implementation Details:**
+/// - Omits `fromOrg: true` for creator parsing to use standard user flow with nested data
+/// - Retains `fromOrg: true` for admins parsing as they have direct user structure
+/// - Handles null values gracefully across all nested fields
 ///
 /// **params**:
-/// * `json`: The test JSON data containing nested creator and organization structures
+/// * `json`: Map containing test JSON data with nested creator and organization structures
 ///
 /// **returns**:
 /// * `Event`: Properly constructed Event with extracted nested data
@@ -32,7 +39,7 @@ Event eventFromJsonTest(Map<String, dynamic> json) {
         ? null
         : User.fromJson(
             json['creator'] as Map<String, dynamic>,
-          ), // Remove fromOrg: true for creator
+          ), // fromOrg: true omitted for nested creator structure
     organization: json['organization'] == null
         ? null
         : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
