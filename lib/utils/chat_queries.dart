@@ -1,10 +1,12 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-///This class creates the queries dealing with chats.
-
+/// This class creates the queries dealing with chats.
 class ChatQueries {
-  //Returns a query to fetch direct chat using userId
+  /// Fetches all direct chats associated with a specific user ID.
+  ///
+  /// **params**:
+  /// * `userId`: The unique identifier of the user whose direct chats to fetch
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL query string for fetching direct chats by user ID
   String fetchDirectChatsByUserId(String userId) {
     return '''
       query {
@@ -20,29 +22,55 @@ class ChatQueries {
    ''';
   }
 
-  //Returns query to fetch direct chat messages using chatId
+  /// Fetches direct chat messages for a specific chat using chat ID.
+  ///
+  /// **params**:
+  /// * `chatId`: The unique identifier of the chat to fetch messages for
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL query string for fetching direct chat messages by chat ID
   String fetchDirectChatMessagesByChatId(String chatId) {
     return '''
-        query {
-          directChatsMessagesByChatID(id: "$chatId") {
-            _id
-            messageContent
-            sender {
-              _id
-              firstName
-              image
-            }
-            receiver {
-              _id
-              firstName
-              image
+        query getChat(\$input: QueryChatInput!) {
+          chat(input: \$input) {
+            id
+            name
+            description
+            createdAt
+            updatedAt
+            messages(first: 50) {
+              edges {
+                node {
+                  id
+                  body
+                  creator {
+                    id
+                    name
+                  }
+                  createdAt
+                  updatedAt
+                }
+                cursor
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
+                hasPreviousPage
+                startCursor
+              }
             }
           }
         }
     ''';
   }
 
-  //Gets messages sent to direct chat subscription
+  /// Gets the GraphQL subscription for messages sent to direct chat.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL subscription string for listening to direct chat messages
   String get messageSentToDirectChatsubscription => '''
       subscription{
         messageSentToDirectChat{
@@ -62,7 +90,13 @@ class ChatQueries {
       }
   ''';
 
-  //Send message to direct chat.
+  /// Sends a message to a direct chat.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL mutation string for sending a message to direct chat
   String sendMessageToDirectChat() {
     return '''
       mutation sendMessageToDirectChat(

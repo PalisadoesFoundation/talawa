@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/queries.dart';
 
@@ -217,6 +214,17 @@ void main() {
 
       if (fnData.contains('GetVenueByOrgId') &&
           fnData.contains('GetVenueByOrgId')) {
+        mutation = true;
+      }
+      expect(mutation, true);
+    });
+    test("Check if fetchUsersByOrganizationId works correctly", () {
+      var mutation = false;
+      expect(mutation, false);
+
+      final fnData = Queries().fetchUsersByOrganizationId('orgId123');
+      if (fnData.contains('orgId123') &&
+          fnData.contains('usersByOrganizationId')) {
         mutation = true;
       }
       expect(mutation, true);

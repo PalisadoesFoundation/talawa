@@ -1,41 +1,13 @@
-// ignore_for_file: talawa_api_doc
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-
-/// Encoded Organization.
-final encodedOrg = {
-  "name": 'test_org',
-  "image": 'https://testimg.com',
-  "userRegistrationRequired": true,
-};
-
-/// Updated Organization.
-final updatedOrg = OrgInfo.fromJson({
-  "name": 'test_org_updated',
-  "image": 'https://testimg_updated.com',
-  "userRegistrationRequired": false,
-});
-
-/// Test Organization List.
-final testOrgList = [
-  encodedOrg,
-  encodedOrg,
-];
 
 /// Test Data From Organization.
 final testDataFromOrg = <String, dynamic>{
-  'user': {
-    'id': '1234567890',
-    'name': 'ravidi sheikh',
-    'emailAddress': 'ravidisheikh@test.com',
-    'avatarURL': 'https://testimg.com',
-    'joinedOrganizations': testOrgList,
-  },
-  'authenticationToken': ' ',
-  'refreshToken': ' ',
+  'id': '1234567890',
+  'name': 'ravidi sheikh',
+  'emailAddress': 'ravidisheikh@test.com',
+  'avatarURL': 'https://testimg.com',
 };
 
 /// Test Data Not From Organization.
@@ -45,10 +17,20 @@ final testDataNotFromOrg = {
     'name': 'ravidi sheikh',
     'emailAddress': 'ravidisheikh@test.com',
     'avatarURL': 'https://testimg.com',
-    'joinedOrganizations': testOrgList,
+    'organizationsWhereMember': {
+      'edges': [
+        {
+          'node': {
+            'id': 'org1',
+            'name': 'Test Organization',
+            'avatarURL': 'https://testorg.com/avatar.jpg',
+          },
+        }
+      ],
+    },
   },
-  'authenticationToken': ' ',
-  'refreshToken': ' ',
+  'authenticationToken': 'test_auth_token',
+  'refreshToken': 'test_refresh_token',
 };
 
 void main() {
@@ -60,7 +42,14 @@ void main() {
       expect(userInfo.lastName, "sheikh");
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
-      expect(userInfo.authToken, " ");
+      expect(
+        userInfo.authToken,
+        null,
+      ); // No auth token in organization user data
+      expect(
+        userInfo.refreshToken,
+        null,
+      ); // No refresh token in organization user data
     });
 
     test('Check if UserInfo.fromJson works without fromOrg', () {
@@ -70,7 +59,8 @@ void main() {
       expect(userInfo.lastName, "sheikh");
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
-      expect(userInfo.authToken, ' ');
+      expect(userInfo.authToken, 'test_auth_token');
+      expect(userInfo.refreshToken, 'test_refresh_token');
     });
 
     test('Check if the method "update" works', () {
@@ -80,7 +70,7 @@ void main() {
       expect(userInfo.lastName, "sheikh");
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
-      expect(userInfo.authToken, " ");
+      expect(userInfo.authToken, null);
 
       userInfo.update(
         User(
@@ -120,7 +110,7 @@ void main() {
       expect(loadedUserInfo.lastName, "sheikh");
       expect(loadedUserInfo.email, "ravidisheikh@test.com");
       expect(loadedUserInfo.image, "https://testimg.com");
-      expect(loadedUserInfo.authToken, " ");
+      expect(loadedUserInfo.authToken, null);
     });
 
     test('Test hashCode', () {
@@ -135,6 +125,32 @@ void main() {
       final userAdapter2 = UserAdapter();
 
       expect(userAdapter1 == userAdapter2, true);
+    });
+
+    test('Test name computed property edge cases', () {
+      // Both names present
+      final userBoth = User(firstName: 'John', lastName: 'Doe');
+      expect(userBoth.name, 'John Doe');
+
+      // Only first name
+      final userFirst = User(firstName: 'John', lastName: null);
+      expect(userFirst.name, 'John');
+
+      // Only last name
+      final userLast = User(firstName: null, lastName: 'Doe');
+      expect(userLast.name, 'Doe');
+
+      // Empty strings
+      final userEmpty = User(firstName: '', lastName: '');
+      expect(userEmpty.name, null);
+
+      // Null names
+      final userNull = User(firstName: null, lastName: null);
+      expect(userNull.name, null);
+
+      // Mixed empty/null
+      final userMixed = User(firstName: '', lastName: null);
+      expect(userMixed.name, null);
     });
   });
 }

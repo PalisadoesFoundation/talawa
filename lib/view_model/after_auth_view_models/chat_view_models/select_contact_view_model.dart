@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/org_service.dart';
@@ -34,9 +36,19 @@ class SelectContactViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> getCurrentOrgUsersList() async {
-    if (orgMembersList.isEmpty) {
-      orgMembersList = await _organizationService
-          .getOrgMembersList(userConfig.currentOrg.id!);
+    try {
+      setState(ViewState.busy);
+      if (orgMembersList.isEmpty) {
+        orgMembersList = await _organizationService
+            .getOrgMembersList(userConfig.currentOrg.id!);
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Error fetching organization users: $e');
+      // Set empty list on error
+      orgMembersList = [];
+    } finally {
+      setState(ViewState.idle);
       notifyListeners();
     }
   }

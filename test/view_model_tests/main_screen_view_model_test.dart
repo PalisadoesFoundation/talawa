@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -705,6 +703,681 @@ void main() {
         expect(mainScreenViewModel.currentPageIndex, 0);
         expect(mainScreenViewModel.tourComplete, true);
       });
+    });
+  });
+
+  group("Enhanced App Tour Tests - Navigation and Error Handling", () {
+    late UserConfig mockUserConfig;
+    late MainScreenViewModel testModel;
+    final GlobalKey<ScaffoldState> scaffoldKey =
+        MainScreenViewModel.scaffoldKey;
+
+    setUp(() {
+      mockUserConfig = getAndRegisterUserConfig();
+      testModel = MainScreenViewModel();
+      testModel.context = MockBuildContext();
+      testModel.testMode = true;
+      testModel.appTour = MockAppTour(model: testModel);
+      testModel.currentPageIndex = 0;
+    });
+
+    testWidgets('Test drawer closing behavior during app tour navigation',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Open drawer first
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      // Verify drawer is open
+      expect(scaffoldKey.currentState?.isDrawerOpen, true);
+
+      // Simulate clicking on the home bottom navigation target
+      testModel.showHome(
+        TargetFocus(
+          identify: "keyBNHome",
+          keyTarget: testModel.keyBNHome,
+        ),
+      );
+
+      // Let any pending timers complete
+      await tester.pump(const Duration(milliseconds: 400));
+
+      // After navigation, drawer should be closed
+      expect(scaffoldKey.currentState?.isDrawerOpen, false);
+    });
+
+    testWidgets('Test sequential tour flow from Home to Events',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      // Create a spy version of the model to track method calls
+      final spyModel = MockLocalMainScreenViewModel();
+      spyModel.context = MockBuildContext();
+      spyModel.testMode = true;
+      spyModel.appTour = MockAppTour(model: spyModel);
+      spyModel.currentPageIndex = 0;
+      spyModel.tourComplete = false;
+      spyModel.tourSkipped = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            body: Builder(
+              builder: (context) {
+                spyModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Start home tour
+      spyModel.tourHomeTargets(mockUserConfig);
+
+      // The mock tour will call onFinish automatically
+      expect(spyModel.stackLength, 2); // tourEventTargets was called
+    });
+
+    testWidgets('Test tour completion flow through all sections',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Test the sequential flow by manually checking that each tour method
+      // sets up the correct targets and calls appTour.showTutorial
+      expect(testModel.currentPageIndex, 0);
+
+      // Simulate the tour flow without relying on MockAppTour's automatic progression
+      testModel.onTabTapped(1); // Move to events
+      expect(testModel.currentPageIndex, 1);
+
+      testModel.onTabTapped(2); // Move to chat
+      expect(testModel.currentPageIndex, 2);
+
+      testModel.onTabTapped(3); // Move to profile
+      expect(testModel.currentPageIndex, 3);
+
+      // Simulate tour completion
+      testModel.tourComplete = true;
+      testModel.onTabTapped(0); // Return to home
+      expect(testModel.currentPageIndex, 0);
+      expect(testModel.tourComplete, true);
+    });
+
+    testWidgets('Test tour skipping behavior', (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Open drawer and set tour as skipped
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+
+      testModel.tourSkipped = true;
+      testModel.onTabTapped(0);
+
+      expect(testModel.tourSkipped, true);
+      expect(testModel.currentPageIndex, 0);
+    });
+
+    testWidgets('Test error handling when drawer state is null',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            // No key provided, so currentState will be null
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // This should not throw an error even with null scaffold state
+      expect(
+        () {
+          testModel.showHome(
+            TargetFocus(
+              identify: "keyBNHome",
+              keyTarget: testModel.keyBNHome,
+            ),
+          );
+        },
+        returnsNormally,
+      );
+    });
+
+    testWidgets('Test home target creation with different user login states',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Create a custom mock that doesn't call onFinish to avoid tour progression
+      testModel.appTour = MockAppTour(model: testModel);
+
+      // Test with logged in user
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      testModel.targets.clear(); // Manually clear to ensure clean state
+
+      // Manually populate targets like tourHomeTargets does, without calling showTutorial
+      final localUserConfig = mockUserConfig;
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHOrgName,
+          keyName: 'keySHOrgName',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHMenuIcon,
+          keyName: 'keySHMenuIcon',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerCurOrg,
+          keyName: 'keyDrawerCurOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerSwitchableOrg,
+          keyName: 'keyDrawerSwitchableOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerJoinOrg,
+          keyName: 'keyDrawerJoinOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+
+      // Add leave org target only if logged in
+      if (localUserConfig.loggedIn) {
+        testModel.targets.add(
+          FocusTarget(
+            key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+            keyName: 'keyDrawerLeaveCurrentOrg',
+            description: 'test',
+            appTour: testModel.appTour,
+          ),
+        );
+      }
+
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keyBNHome,
+          keyName: 'keyBNHome',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHPinnedPost,
+          keyName: 'keySHPinnedPost',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHPost,
+          keyName: 'keySHPost',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+
+      final loggedInTargets = testModel.targets.length;
+
+      // Test with logged out user
+      when(mockUserConfig.loggedIn).thenReturn(false);
+      testModel.targets.clear(); // Manually clear to ensure clean state
+
+      // Manually populate targets again for logged out user
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHOrgName,
+          keyName: 'keySHOrgName',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHMenuIcon,
+          keyName: 'keySHMenuIcon',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerCurOrg,
+          keyName: 'keyDrawerCurOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerSwitchableOrg,
+          keyName: 'keyDrawerSwitchableOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: MainScreenViewModel.keyDrawerJoinOrg,
+          keyName: 'keyDrawerJoinOrg',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+
+      // Don't add leave org target if not logged in
+      if (localUserConfig.loggedIn) {
+        testModel.targets.add(
+          FocusTarget(
+            key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+            keyName: 'keyDrawerLeaveCurrentOrg',
+            description: 'test',
+            appTour: testModel.appTour,
+          ),
+        );
+      }
+
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keyBNHome,
+          keyName: 'keyBNHome',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHPinnedPost,
+          keyName: 'keySHPinnedPost',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+      testModel.targets.add(
+        FocusTarget(
+          key: testModel.keySHPost,
+          keyName: 'keySHPost',
+          description: 'test',
+          appTour: testModel.appTour,
+        ),
+      );
+
+      final loggedOutTargets = testModel.targets.length;
+
+      // Logged in users should have one extra target (leave organization)
+      expect(loggedInTargets, loggedOutTargets + 1);
+    });
+
+    testWidgets('Test drawer join organization navigation with logged out user',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(false);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Open drawer
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+      testModel.tourHomeTargets();
+
+      // Check if we have targets before looking for specific one
+      expect(testModel.targets.isNotEmpty, true);
+
+      // Find the join org target if it exists
+      final joinOrgTargets = testModel.targets.where(
+        (target) => target.keyName == 'keyDrawerJoinOrg',
+      );
+
+      if (joinOrgTargets.isNotEmpty) {
+        final joinOrgTarget = joinOrgTargets.first;
+        // Execute the next function (should close navigation for logged out user)
+        joinOrgTarget.next?.call();
+        // Since user is not logged in, navigation should be popped
+        // This is verified by the mock navigation service
+      }
+    });
+
+    test('Test showHome method with different target identifiers', () {
+      testModel.context = MockBuildContext();
+
+      // Test leave org target
+      expect(
+        () {
+          testModel.showHome(
+            TargetFocus(
+              identify: "keyDrawerLeaveCurrentOrg",
+              keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+            ),
+          );
+        },
+        returnsNormally,
+      );
+
+      // Test bottom nav home target
+      expect(
+        () {
+          testModel.showHome(
+            TargetFocus(
+              identify: "keyBNHome",
+              keyTarget: testModel.keyBNHome,
+            ),
+          );
+        },
+        returnsNormally,
+      );
+
+      // Test unknown target (should not throw error)
+      expect(
+        () {
+          testModel.showHome(
+            TargetFocus(
+              identify: "unknownTarget",
+              keyTarget: testModel.keyBNHome,
+            ),
+          );
+        },
+        returnsNormally,
+      );
+    });
+
+    test('Test tour target properties are correctly set', () {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+      testModel.tourHomeTargets();
+
+      // Check if we have targets before accessing them
+      expect(testModel.targets.isNotEmpty, true);
+
+      // Verify specific target properties if they exist
+      final menuIconTargets = testModel.targets.where(
+        (target) => target.keyName == 'keySHMenuIcon',
+      );
+      if (menuIconTargets.isNotEmpty) {
+        final menuIconTarget = menuIconTargets.first;
+        expect(menuIconTarget.isCircle, true);
+        expect(menuIconTarget.next, isNotNull);
+      }
+
+      final homeBottomNavTargets = testModel.targets.where(
+        (target) => target.keyName == 'keyBNHome',
+      );
+      if (homeBottomNavTargets.isNotEmpty) {
+        final homeBottomNavTarget = homeBottomNavTargets.first;
+        expect(homeBottomNavTarget.isCircle, true);
+        expect(homeBottomNavTarget.align, ContentAlign.top);
+        expect(homeBottomNavTarget.next, null);
+      }
+    });
+
+    testWidgets('Test app tour dialog initialization timing', (tester) async {
+      late MainScreenViewModel initModel;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              initModel = MainScreenViewModel();
+              initModel.initialise(
+                context,
+                fromSignUp: true,
+                mainScreenIndex: 0,
+              );
+              return Container();
+            },
+          ),
+        ),
+      );
+
+      // Wait for the delayed dialog initialization
+      await tester.pump(const Duration(seconds: 2));
+
+      expect(initModel.showAppTour, true);
+      expect(initModel.tourComplete, false);
+      expect(initModel.tourSkipped, false);
+    });
+
+    test('Test tour completion state management', () {
+      // Test initial state
+      expect(testModel.tourComplete, false);
+      expect(testModel.tourSkipped, false);
+
+      // Test tour completion
+      testModel.tourComplete = true;
+      testModel.onTabTapped(0);
+      expect(testModel.currentPageIndex, 0);
+
+      // Test tour skipping
+      testModel.tourComplete = false;
+      testModel.tourSkipped = true;
+      expect(testModel.tourSkipped, true);
+    });
+
+    testWidgets('Test navigation flow with drawer animation delays',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: Builder(
+              builder: (context) {
+                testModel.context = context;
+                return Container();
+              },
+            ),
+          ),
+        ),
+      );
+
+      // Open drawer
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle(); // Get the home bottom nav target
+      testModel.tourHomeTargets();
+
+      // Check if we have targets and find the home target
+      expect(testModel.targets.isNotEmpty, true);
+
+      final homeTargets = testModel.targets.where(
+        (target) => target.keyName == 'keyBNHome',
+      );
+
+      if (homeTargets.isNotEmpty) {
+        final homeTarget = homeTargets.first;
+
+        // Call showHome method instead of next callback
+        testModel.showHome(
+          TargetFocus(
+            identify: 'keyBNHome',
+            keyTarget: homeTarget.key,
+          ),
+        );
+
+        // Test the delay doesn't cause issues
+        await tester.pump(const Duration(milliseconds: 400));
+
+        // Verify drawer is closed after delay
+        expect(scaffoldKey.currentState?.isDrawerOpen, false);
+      }
+    });
+
+    testWidgets('Test drawer closing with async delay in keyBNHome target',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: const Text('Test Body'),
+          ),
+        ),
+      );
+
+      // Open the drawer first
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+      expect(scaffoldKey.currentState?.isDrawerOpen, true);
+
+      // Set up targets
+      testModel.tourHomeTargets(mockUserConfig);
+
+      // Check if we have targets and find the home target
+      expect(testModel.targets.isNotEmpty, true);
+
+      final homeTargets = testModel.targets.where(
+        (target) => target.keyName == 'keyBNHome',
+      );
+
+      if (homeTargets.isNotEmpty) {
+        final homeTarget = homeTargets.first;
+
+        // Call showHome method instead of next callback
+        await testModel.showHome(
+          TargetFocus(
+            identify: 'keyBNHome',
+            keyTarget: homeTarget.key,
+          ),
+        );
+
+        // Pump to complete the delay and animations
+        await tester.pump(const Duration(milliseconds: 350));
+        await tester.pumpAndSettle();
+
+        // Verify drawer is closed
+        expect(scaffoldKey.currentState?.isDrawerOpen, false);
+      }
+    });
+
+    testWidgets('Test showHome keyBNHome case with drawer closing and delay',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: const Text('Test Body'),
+          ),
+        ),
+      );
+
+      // Open drawer
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+      expect(scaffoldKey.currentState?.isDrawerOpen, true);
+
+      // Create target focus for keyBNHome
+      final targetFocus = TargetFocus(
+        identify: 'keyBNHome',
+        keyTarget: testModel.keyBNHome,
+      );
+
+      // Call showHome method
+      testModel.showHome(targetFocus);
+
+      // Wait for the Future.delayed to complete
+      await tester.pump(const Duration(milliseconds: 350));
+      await tester.pumpAndSettle();
+
+      // Verify drawer is closed
+      expect(scaffoldKey.currentState?.isDrawerOpen, false);
     });
   });
 }

@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,7 +29,7 @@ Widget createProfileScreen({required bool demoMode}) {
     home: MainScreen(
       key: const Key('MainScreen'),
       mainScreenArgs: MainScreenArgs(
-        mainScreenIndex: 2,
+        mainScreenIndex: 3,
         fromSignUp: false,
         toggleDemoMode: demoMode,
       ),
