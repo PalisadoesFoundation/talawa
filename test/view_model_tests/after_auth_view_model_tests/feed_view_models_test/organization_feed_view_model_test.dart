@@ -38,11 +38,41 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
+  test('setPosts sets posts, userPosts, and notifies listeners', () {
+    // Arrange
+
+    final viewModel = OrganizationFeedViewModel();
+    when(userConfig.currentUser).thenReturn(User(id: 'user1'));
+    // Listen for notifyListeners
+    var notified = false;
+    viewModel.addListener(() {
+      notified = true;
+    });
+
+    final posts = [
+      Post(id: '1', caption: 'A', creator: User(id: 'user1')),
+      Post(id: '2', caption: 'B', creator: User(id: 'user2')),
+      Post(id: '3', caption: 'C', creator: User(id: 'user1')),
+      Post(id: '1', caption: 'A', creator: User(id: 'user1')), // duplicate
+    ];
+
+    // Act
+    viewModel.setPosts(posts);
+
+    // Assert
+    expect(viewModel.posts, posts);
+    // Only posts by user1, no duplicates
+    expect(viewModel.userPosts.length, 2);
+    expect(viewModel.userPosts[0].id, '3');
+    expect(viewModel.userPosts[1].id, '1');
+    expect(viewModel.isFetchingPosts, isFalse);
+    expect(notified, isTrue);
+  });
 
   group('OrganizationFeedViewModel Tests:', () {
     test('Test initialise function', () {
       expect(model.currentOrgName, '');
-      model.initialise(isTest: true);
+      model.initialise();
       expect(model.currentOrgName, 'Organization Name');
 
       locator<UserConfig>()
@@ -52,7 +82,7 @@ void main() {
       expect(model.posts.length, 0);
     });
 
-    test('Test pinnedPosts getter when istest is true', () {
+    test('Test pinnedPosts getter when  is true', () {
       final pinnedPosts = model.pinnedPosts;
 
       expect(pinnedPosts, isEmpty);
@@ -134,5 +164,26 @@ void main() {
   test("test previousPage", () {
     model.previousPage();
     expect(model.posts.isEmpty, true);
+  });
+
+  test('navigateToPinnedPostPage calls pushScreen with pinned posts', () {
+    final navigationService = locator<NavigationService>();
+    final viewModel = OrganizationFeedViewModel();
+
+    // Set up pinned posts
+    final pinnedPosts = [
+      Post(id: '1', caption: 'Pinned 1'),
+      Post(id: '2', caption: 'Pinned 2'),
+    ];
+    viewModel.setPinnedPosts(pinnedPosts);
+
+    // Act
+    viewModel.navigateToPinnedPostPage();
+
+    // Assert
+    verify(navigationService.pushScreen(
+      Routes.pinnedPostPage,
+      arguments: pinnedPosts,
+    )).called(1);
   });
 }

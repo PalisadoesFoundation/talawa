@@ -39,6 +39,38 @@ void main() {
         ),
       ).called(1);
     });
+    test('getCommentsForPost returns empty when commentsData is null',
+        () async {
+      // Simulate result.data['post']['comments'] == null
+      final queryResult = QueryResult(
+        data: {
+          'post': {
+            'comments': null,
+          }
+        },
+        source: QueryResultSource.network,
+        options: QueryOptions(document: gql('')),
+      );
+
+      final query = CommentQueries().getPostsComments();
+
+      final variables = {
+        'postId': 'postID',
+        'first': 10,
+        'after': null,
+        'last': null,
+        'before': null,
+      };
+
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer((_) async => queryResult);
+      final service = CommentService();
+
+      final result = await service.getCommentsForPost(postId: 'postID');
+      expect(result, isNotNull);
+      expect(result['comments'], []);
+      expect(result['pageInfo'], {});
+    });
     test(
         'getCommentsForPost returns empty map and shows error when gqlAuthMutation throws',
         () async {

@@ -450,6 +450,40 @@ void main() {
 
       verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
     });
+
+    test(
+      'fetchPostsInitial loads cached posts, emits them, and calls refreshFeed',
+      () async {
+        final postService = PostService();
+        final posts = [
+          Post(id: 'cache1', caption: 'Cache Test'),
+          Post(id: 'cache2', caption: 'Cache Test 2')
+        ];
+
+        // Save to cache
+        await postService.saveDataToCache(posts);
+
+        // Listen for the first emission from the stream
+        final emitted = <List<Post>>[];
+        final sub = postService.postStream.listen(emitted.add);
+
+        // Act
+        await postService.fetchPostsInitial();
+        await Future.delayed(Duration.zero); // Allow stream to emit
+
+        // Assert: posts loaded
+        expect(postService.posts, isNotEmpty);
+        expect(postService.posts.length, 2);
+        expect(postService.posts.first.caption, 'Cache Test');
+        expect(postService.posts.last.caption, 'Cache Test 2');
+
+        // Assert: posts emitted on stream
+        expect(emitted, isNotEmpty);
+        expect(emitted.last, posts);
+
+        await sub.cancel();
+      },
+    );
   });
 }
 

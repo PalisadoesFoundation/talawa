@@ -29,7 +29,7 @@ class _UserFeedState extends State<UserFeed>
   Widget build(BuildContext context) {
     super.build(context);
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) => model.initialise(isTest: widget.forTest),
+      onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         model.userPosts.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
         return Scaffold(

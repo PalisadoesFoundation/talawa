@@ -101,13 +101,11 @@ class OrganizationFeedViewModel extends BaseModel {
   /// more_info_if_required
   ///
   /// **params**:
-  /// * `isTest`: for test
+  ///   None
   ///
   /// **returns**:
   ///   None
-  void initialise({
-    bool isTest = false,
-  }) {
+  void initialise() {
     _isFetchingPosts = true;
 
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
