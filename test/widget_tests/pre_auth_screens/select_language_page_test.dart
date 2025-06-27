@@ -3,18 +3,22 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 
+import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 Widget createSelectLanguageScreenLight({
@@ -290,6 +294,52 @@ Future<void> main() async {
         // Just verify button is found and is tappable
         expect(findAppNameWidget, findsOneWidget);
       });
+    });
+  });
+
+  group('selectLanguagePress() onPressed behavior tests', () {
+    late NavigationService mockNavigationService;
+    late UserConfig mockUserConfig;
+
+    setUp(() {
+      mockNavigationService = getAndRegisterNavigationService();
+      mockUserConfig = getAndRegisterUserConfig();
+    });
+
+    tearDown(() {
+      unregisterServices();
+    });
+
+    testWidgets(
+        "Testing Select button onPressed - authenticated user navigation",
+        (tester) async {
+      // Setup: Mock authenticated user (id != 'null')
+      when(mockUserConfig.currentUser).thenReturn(
+        User(
+          id: "authenticated_user_id",
+          firstName: "Test",
+          lastName: "User",
+          email: "test@example.com",
+        ),
+      );
+
+      await tester.pumpWidget(createSelectLanguageScreenLight());
+      await tester.pumpAndSettle();
+
+      final selectButton = find.byKey(const Key('NavigateToMainScreen'));
+      expect(selectButton, findsOneWidget);
+
+      // Tap the Select button
+      await tester.tap(selectButton);
+      await tester.pumpAndSettle();
+
+      // Verify navigation to app settings page
+      verify(
+        mockNavigationService.popAndPushScreen(
+          '/appSettingsPage',
+          arguments: '',
+        ),
+      ).called(1);
     });
   });
 }
