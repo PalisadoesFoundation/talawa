@@ -1,54 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
-import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 
-/// Creates EventAgendaItem from test JSON with proper nested user handling.
-///
-/// **Purpose:**
-/// Constructs an EventAgendaItem instance from test JSON data, handling complex
-/// nested structures including user references, events, and categories.
-///
-/// **Implementation Details:**
-/// - Uses standard user parsing (omits fromOrg: true) for createdBy field
-/// - Processes nested event and organization structures
-/// - Handles arrays of attachments, URLs, and categories
-/// - Manages null values gracefully across all optional fields
-///
-/// **params**:
-/// * `json`: Map containing test JSON data with nested user and category structures
-///
-/// **returns**:
-/// * `EventAgendaItem`: Properly constructed EventAgendaItem with extracted nested data
-EventAgendaItem eventAgendaItemFromJsonTest(Map<String, dynamic> json) {
-  return EventAgendaItem(
-    id: json['_id'] as String?,
-    title: json['title'] as String?,
-    description: json['description'] as String?,
-    duration: json['duration'] as String?,
-    attachments: (json['attachments'] as List<dynamic>?)
-        ?.map((e) => e as String)
-        .toList(),
-    createdBy: json['createdBy'] != null
-        ? User.fromJson(
-            json['createdBy'] as Map<String, dynamic>,
-          ) // fromOrg: true omitted for nested user structure
-        : null,
-    urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    relatedEvent: json['relatedEvent'] != null
-        ? Event.fromJson(json['relatedEvent'] as Map<String, dynamic>)
-        : null,
-    categories: (json['categories'] as List<dynamic>?)
-        ?.map((e) => AgendaCategory.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    sequence: json['sequence'] as int?,
-    organization: json['organization'] != null
-        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
-        : null,
-  );
-}
+import '../../helpers/test_json_utils.dart';
 
 void main() {
   group('Test EventAgendaItem Model', () {
@@ -83,7 +36,8 @@ void main() {
         },
       };
 
-      final eventAgendaItem = eventAgendaItemFromJsonTest(eventAgendaItemJson);
+      final eventAgendaItem =
+          TestJsonUtils.createEventAgendaItemFromJson(eventAgendaItemJson);
 
       // Verifying that all fields were correctly deserialized
       expect(eventAgendaItem.id, 'item1');

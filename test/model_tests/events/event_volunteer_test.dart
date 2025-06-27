@@ -4,46 +4,7 @@ import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-/// Test-specific wrapper for EventVolunteer.fromJson to handle nested user structure.
-///
-/// **Why this helper is needed:**
-/// The production API returns user data in a nested structure like:
-/// ```json
-/// {
-///   "creator": {
-///     "user": {
-///       "id": "123",
-///       "name": "John Doe"
-///     }
-///   }
-/// }
-/// ```
-///
-/// However, the User.fromJson method expects different structures depending on the
-/// `fromOrg` parameter. This test helper manually constructs the EventVolunteer
-/// object with the correct User instances to avoid the complexity of mocking
-/// the exact API response structure in tests.
-
-EventVolunteer eventVolunteerFromJsonTest(Map<String, dynamic> json) {
-  return EventVolunteer(
-    id: json['_id'] as String?,
-    creator: json['creator'] != null
-        ? User.fromJson(json['creator'] as Map<String, dynamic>)
-        : null,
-    event: json['event'] != null
-        ? Event.fromJson(json['event'] as Map<String, dynamic>)
-        : null,
-    group: json['group'] != null
-        ? EventVolunteerGroup.fromJson(json['group'] as Map<String, dynamic>)
-        : null,
-    isAssigned: json['isAssigned'] as bool?,
-    isInvited: json['isInvited'] as bool?,
-    response: json['response'] as String?,
-    user: json['user'] != null
-        ? User.fromJson(json['user'] as Map<String, dynamic>)
-        : null,
-  );
-}
+import '../../helpers/test_json_utils.dart';
 
 void main() {
   group('Test EventVolunteer Model', () {
@@ -107,7 +68,7 @@ void main() {
       };
 
       final eventVolunteerFromJson =
-          eventVolunteerFromJsonTest(eventVolunteerJson);
+          TestJsonUtils.createEventVolunteerFromJson(eventVolunteerJson);
 
       // Verifying that all fields were correctly deserialized
       expect(eventVolunteer.id, eventVolunteerFromJson.id);

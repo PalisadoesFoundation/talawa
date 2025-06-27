@@ -4,64 +4,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-/// Creates Post from test JSON with proper nested user handling.
-///
-/// **Purpose:**
-/// Constructs a Post instance from test JSON data, handling complex nested structures
-/// in posts including creator, likedBy, and comments fields.
-///
-/// **Implementation Details:**
-/// - Uses standard user parsing (omits fromOrg: true) for creator field
-/// - Manually extracts user IDs from deeply nested likedBy and comments structures
-/// - Handles complex nested data that doesn't match standard model expectations
-/// - Processes arrays of nested user objects in likedBy and comments
-///
-/// **params**:
-/// * `json`: Map containing test JSON data with nested user structures in multiple fields
-///
-/// **returns**:
-/// * `Post`: Properly constructed Post with extracted nested data
-Post postFromJsonTest(Map<String, dynamic> json) {
-  final post = Post(
-    sId: json['_id'] as String,
-    description: json['description'] as String?,
-    createdAt: DateTime.parse(json['createdAt'] as String),
-    imageUrl: json['imageUrl'] as String?,
-    videoUrl: json['videoUrl'] as String?,
-    creator: json['creator'] != null
-        ? User.fromJson(json['creator'] as Map<String, dynamic>)
-        : null,
-    organization: json['organization'] != null
-        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
-        : null,
-  );
-
-  // Handle likedBy with nested structure
-  if (json['likedBy'] != null) {
-    post.likedBy = <LikedBy>[];
-    (json['likedBy'] as List).forEach((v) {
-      // Extract the nested id from the user object
-      final vMap = v as Map<String, dynamic>;
-      final userMap = vMap['user'] as Map<String, dynamic>;
-      final userId = userMap['id'] as String?;
-      post.likedBy?.add(LikedBy(sId: userId));
-    });
-  }
-
-  // Handle comments with nested structure
-  if (json['comments'] != null) {
-    post.comments = <Comments>[];
-    (json['comments'] as List).forEach((v) {
-      // Extract the nested id from the user object
-      final vMap = v as Map<String, dynamic>;
-      final userMap = vMap['user'] as Map<String, dynamic>;
-      final userId = userMap['id'] as String?;
-      post.comments?.add(Comments(sId: userId));
-    });
-  }
-
-  return post;
-}
+import '../../helpers/test_json_utils.dart';
 
 final u1 = User(
   id: '123',
@@ -175,29 +118,14 @@ void main() {
           },
         ],
       };
-      final postFromJson = postFromJsonTest(postJson);
+      final postFromJson = TestJsonUtils.createPostFromJson(postJson);
       post.getPostCreatedDuration();
       expect(post.creator?.id, postFromJson.creator?.id);
       expect(post.creator?.firstName, postFromJson.creator?.firstName);
       expect(post.creator?.lastName, postFromJson.creator?.lastName);
       expect(post.creator?.email, postFromJson.creator?.email);
     });
-    // final post = Post(
-    //   creator: User(
-    //     id: '123',
-    //     firstName: 'John',
-    //     lastName: 'Doe',
-    //     email: 'test@test.com',
-    //   ),
-    //   sId: "sid",
-    //   createdAt: myBirthday,
-    //   description: 'test description',
-    //   imageUrl: 'https://image.com',
-    //   videoUrl: 'https://image.com',
-    //   organization: OrgInfo(admins: users),
-    //   likedBy: likeby,
-    //   comments: comments,
-    // );
+
     group('check if getPostCreatedBuration is working', () {
       test('check if getPostCreatedBuration is working', () {
         final myBirthday =

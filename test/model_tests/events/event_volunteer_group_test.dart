@@ -4,43 +4,7 @@ import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-/// Creates EventVolunteerGroup from test JSON with proper nested user handling.
-///
-/// **Purpose:**
-/// Constructs an EventVolunteerGroup instance from test JSON, handling nested
-/// user structures in creator, leader, and volunteer fields for test scenarios.
-///
-/// **Implementation Details:**
-/// - Uses standard user parsing (omits fromOrg: true) for consistent nested data handling
-/// - Processes complex nested structures including events and volunteer arrays
-/// - Handles null values gracefully across all optional fields
-///
-/// **params**:
-/// * `json`: Map containing test JSON data with nested user structures
-///
-/// **returns**:
-/// * `EventVolunteerGroup`: Properly constructed EventVolunteerGroup with extracted user data
-EventVolunteerGroup eventVolunteerGroupFromJsonTest(Map<String, dynamic> json) {
-  return EventVolunteerGroup(
-    id: json['_id'] as String?,
-    createdAt: json['createdAt'] as String?,
-    creator: json['creator'] != null
-        ? User.fromJson(json['creator'] as Map<String, dynamic>)
-        : null,
-    event: json['event'] != null
-        ? Event.fromJson(json['event'] as Map<String, dynamic>)
-        : null,
-    leader: json['leader'] != null
-        ? User.fromJson(json['leader'] as Map<String, dynamic>)
-        : null,
-    name: json['name'] as String?,
-    updatedAt: json['updatedAt'] as String?,
-    volunteers: (json['volunteers'] as List<dynamic>?)
-        ?.map((e) => EventVolunteer.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    volunteersRequired: json['volunteersRequired'] as int?,
-  );
-}
+import '../../helpers/test_json_utils.dart';
 
 void main() {
   group('Test EventVolunteerGroup Model', () {
@@ -108,7 +72,9 @@ void main() {
       };
 
       final eventVolunteerGroupFromJson =
-          eventVolunteerGroupFromJsonTest(eventVolunteerGroupJson);
+          TestJsonUtils.createEventVolunteerGroupFromJson(
+        eventVolunteerGroupJson,
+      );
 
       expect(eventVolunteerGroup.id, eventVolunteerGroupFromJson.id);
 
