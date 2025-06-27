@@ -27,7 +27,7 @@ import 'package:talawa/models/chats/chat_message.dart' as _i27;
 import 'package:talawa/models/events/event_model.dart' as _i23;
 import 'package:talawa/models/events/event_venue.dart' as _i42;
 import 'package:talawa/models/events/event_volunteer_group.dart' as _i24;
-import 'package:talawa/models/organization/org_info.dart' as _i6;
+import 'package:talawa/models/organization/org_info.dart' as _i5;
 import 'package:talawa/models/page_info/page_info.dart' as _i4;
 import 'package:talawa/models/post/post_model.dart' as _i19;
 import 'package:talawa/models/user/user_info.dart' as _i8;
@@ -55,7 +55,7 @@ import 'package:talawa/view_model/lang_view_model.dart' as _i29;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i30;
 import 'package:talawa/view_model/theme_view_model.dart' as _i40;
-import 'package:talawa/widgets/custom_alert_dialog.dart' as _i5;
+import 'package:talawa/widgets/custom_alert_dialog.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -185,9 +185,19 @@ class _FakePageInfo_10 extends _i2.SmartFake implements _i4.PageInfo {
         );
 }
 
-class _FakeCustomAlertDialog_11 extends _i2.SmartFake
-    implements _i5.CustomAlertDialog {
-  _FakeCustomAlertDialog_11(
+class _FakeOrgInfo_11 extends _i2.SmartFake implements _i5.OrgInfo {
+  _FakeOrgInfo_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCustomAlertDialog_12 extends _i2.SmartFake
+    implements _i6.CustomAlertDialog {
+  _FakeCustomAlertDialog_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -198,16 +208,6 @@ class _FakeCustomAlertDialog_11 extends _i2.SmartFake
   @override
   String toString({_i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info}) =>
       super.toString();
-}
-
-class _FakeOrgInfo_12 extends _i2.SmartFake implements _i6.OrgInfo {
-  _FakeOrgInfo_12(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
 }
 
 class _FakeStreamController_13<T> extends _i2.SmartFake
@@ -1109,6 +1109,26 @@ class MockPostService extends _i2.Mock implements _i18.PostService {
       ) as _i7.Stream<_i19.Post>);
 
   @override
+  _i5.OrgInfo get currentOrg => (super.noSuchMethod(
+        Invocation.getter(#currentOrg),
+        returnValue: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#currentOrg),
+        ),
+        returnValueForMissingStub: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#currentOrg),
+        ),
+      ) as _i5.OrgInfo);
+
+  @override
+  List<_i19.Post> get posts => (super.noSuchMethod(
+        Invocation.getter(#posts),
+        returnValue: <_i19.Post>[],
+        returnValueForMissingStub: <_i19.Post>[],
+      ) as List<_i19.Post>);
+
+  @override
   String get cacheKey => (super.noSuchMethod(
         Invocation.getter(#cacheKey),
         returnValue: _i20.dummyValue<String>(
@@ -1131,6 +1151,17 @@ class MockPostService extends _i2.Mock implements _i18.PostService {
         returnValueForMissingStub:
             _i7.Future<List<_i19.Post>>.value(<_i19.Post>[]),
       ) as _i7.Future<List<_i19.Post>>);
+
+  @override
+  _i7.Future<void> fetchAndSetUserVoteStatus(_i19.Post? post) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchAndSetUserVoteStatus,
+          [post],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   void setOrgStreamSubscription() => super.noSuchMethod(
@@ -1294,26 +1325,26 @@ class MockMultiMediaPickerService extends _i2.Mock
       ) as _i7.Future<_i22.File?>);
 
   @override
-  _i5.CustomAlertDialog permissionDeniedDialog() => (super.noSuchMethod(
+  _i6.CustomAlertDialog permissionDeniedDialog() => (super.noSuchMethod(
         Invocation.method(
           #permissionDeniedDialog,
           [],
         ),
-        returnValue: _FakeCustomAlertDialog_11(
+        returnValue: _FakeCustomAlertDialog_12(
           this,
           Invocation.method(
             #permissionDeniedDialog,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeCustomAlertDialog_11(
+        returnValueForMissingStub: _FakeCustomAlertDialog_12(
           this,
           Invocation.method(
             #permissionDeniedDialog,
             [],
           ),
         ),
-      ) as _i5.CustomAlertDialog);
+      ) as _i6.CustomAlertDialog);
 }
 
 /// A class which mocks [EventService].
@@ -1328,17 +1359,17 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
       ) as _i7.Stream<List<_i23.Event>>);
 
   @override
-  _i6.OrgInfo get currentOrg => (super.noSuchMethod(
+  _i5.OrgInfo get currentOrg => (super.noSuchMethod(
         Invocation.getter(#currentOrg),
-        returnValue: _FakeOrgInfo_12(
+        returnValue: _FakeOrgInfo_11(
           this,
           Invocation.getter(#currentOrg),
         ),
-        returnValueForMissingStub: _FakeOrgInfo_12(
+        returnValueForMissingStub: _FakeOrgInfo_11(
           this,
           Invocation.getter(#currentOrg),
         ),
-      ) as _i6.OrgInfo);
+      ) as _i5.OrgInfo);
 
   @override
   String get cacheKey => (super.noSuchMethod(
@@ -1775,38 +1806,38 @@ class MockChatService extends _i2.Mock implements _i25.ChatService {
 /// See the documentation for Mockito's code generation for more information.
 class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
   @override
-  _i7.Stream<_i6.OrgInfo> get currentOrgInfoStream => (super.noSuchMethod(
+  _i7.Stream<_i5.OrgInfo> get currentOrgInfoStream => (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoStream),
-        returnValue: _i7.Stream<_i6.OrgInfo>.empty(),
-        returnValueForMissingStub: _i7.Stream<_i6.OrgInfo>.empty(),
-      ) as _i7.Stream<_i6.OrgInfo>);
+        returnValue: _i7.Stream<_i5.OrgInfo>.empty(),
+        returnValueForMissingStub: _i7.Stream<_i5.OrgInfo>.empty(),
+      ) as _i7.Stream<_i5.OrgInfo>);
 
   @override
-  _i7.StreamController<_i6.OrgInfo> get currentOrgInfoController =>
+  _i7.StreamController<_i5.OrgInfo> get currentOrgInfoController =>
       (super.noSuchMethod(
         Invocation.getter(#currentOrgInfoController),
-        returnValue: _FakeStreamController_13<_i6.OrgInfo>(
+        returnValue: _FakeStreamController_13<_i5.OrgInfo>(
           this,
           Invocation.getter(#currentOrgInfoController),
         ),
-        returnValueForMissingStub: _FakeStreamController_13<_i6.OrgInfo>(
+        returnValueForMissingStub: _FakeStreamController_13<_i5.OrgInfo>(
           this,
           Invocation.getter(#currentOrgInfoController),
         ),
-      ) as _i7.StreamController<_i6.OrgInfo>);
+      ) as _i7.StreamController<_i5.OrgInfo>);
 
   @override
-  _i6.OrgInfo get currentOrg => (super.noSuchMethod(
+  _i5.OrgInfo get currentOrg => (super.noSuchMethod(
         Invocation.getter(#currentOrg),
-        returnValue: _FakeOrgInfo_12(
+        returnValue: _FakeOrgInfo_11(
           this,
           Invocation.getter(#currentOrg),
         ),
-        returnValueForMissingStub: _FakeOrgInfo_12(
+        returnValueForMissingStub: _FakeOrgInfo_11(
           this,
           Invocation.getter(#currentOrg),
         ),
-      ) as _i6.OrgInfo);
+      ) as _i5.OrgInfo);
 
   @override
   String get currentOrgName => (super.noSuchMethod(
@@ -1829,7 +1860,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as bool);
 
   @override
-  set currentOrg(_i6.OrgInfo? org) => super.noSuchMethod(
+  set currentOrg(_i5.OrgInfo? org) => super.noSuchMethod(
         Invocation.setter(
           #currentOrg,
           org,
@@ -1913,7 +1944,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as _i7.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i7.Future<void> updateUserJoinedOrg(List<_i6.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserJoinedOrg,
@@ -1924,7 +1955,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<void> updateUserCreatedOrg(List<_i6.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserCreatedOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserCreatedOrg,
@@ -1935,7 +1966,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<void> updateUserMemberRequestOrg(List<_i6.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserMemberRequestOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserMemberRequestOrg,
@@ -1946,7 +1977,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<void> updateUserAdminOrg(List<_i6.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserAdminOrg(List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserAdminOrg,
@@ -1995,7 +2026,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       );
 
   @override
-  void saveCurrentOrgInHive(_i6.OrgInfo? saveOrgAsCurrent) =>
+  void saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
       super.noSuchMethod(
         Invocation.method(
           #saveCurrentOrgInHive,
@@ -2262,20 +2293,20 @@ class MockSignupDetailsViewModel extends _i2.Mock
       );
 
   @override
-  _i6.OrgInfo get selectedOrganization => (super.noSuchMethod(
+  _i5.OrgInfo get selectedOrganization => (super.noSuchMethod(
         Invocation.getter(#selectedOrganization),
-        returnValue: _FakeOrgInfo_12(
+        returnValue: _FakeOrgInfo_11(
           this,
           Invocation.getter(#selectedOrganization),
         ),
-        returnValueForMissingStub: _FakeOrgInfo_12(
+        returnValueForMissingStub: _FakeOrgInfo_11(
           this,
           Invocation.getter(#selectedOrganization),
         ),
-      ) as _i6.OrgInfo);
+      ) as _i5.OrgInfo);
 
   @override
-  set selectedOrganization(_i6.OrgInfo? _selectedOrganization) =>
+  set selectedOrganization(_i5.OrgInfo? _selectedOrganization) =>
       super.noSuchMethod(
         Invocation.setter(
           #selectedOrganization,
@@ -2494,7 +2525,7 @@ class MockSignupDetailsViewModel extends _i2.Mock
       ) as bool);
 
   @override
-  void initialise(_i6.OrgInfo? org) => super.noSuchMethod(
+  void initialise(_i5.OrgInfo? org) => super.noSuchMethod(
         Invocation.method(
           #initialise,
           [org],
@@ -2671,7 +2702,7 @@ class MockPost extends _i2.Mock implements _i19.Post {
       );
 
   @override
-  set organization(_i6.OrgInfo? _organization) => super.noSuchMethod(
+  set organization(_i5.OrgInfo? _organization) => super.noSuchMethod(
         Invocation.setter(
           #organization,
           _organization,
@@ -3306,14 +3337,14 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       );
 
   @override
-  void initialise({bool? isTest = false}) => super.noSuchMethod(
+  _i7.Future<void> initialise() => (super.noSuchMethod(
         Invocation.method(
           #initialise,
           [],
-          {#isTest: isTest},
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   void setPosts(List<_i19.Post>? newPosts) => super.noSuchMethod(
@@ -3325,10 +3356,10 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       );
 
   @override
-  void setPinnedPosts(List<_i19.Post>? newPosts) => super.noSuchMethod(
+  void setPinnedPosts(List<_i19.Post>? newPinPosts) => super.noSuchMethod(
         Invocation.method(
           #setPinnedPosts,
-          [newPosts],
+          [newPinPosts],
         ),
         returnValueForMissingStub: null,
       );
@@ -3392,15 +3423,6 @@ class MockOrganizationFeedViewModel extends _i2.Mock
   void nextPage() => super.noSuchMethod(
         Invocation.method(
           #nextPage,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void nextPinnedPostPage() => super.noSuchMethod(
-        Invocation.method(
-          #nextPinnedPostPage,
           [],
         ),
         returnValueForMissingStub: null,

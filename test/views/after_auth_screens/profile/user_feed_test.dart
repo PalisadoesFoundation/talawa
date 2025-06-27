@@ -113,7 +113,7 @@ void main() {
   group('tests for User feed Screen', () {
     testWidgets('check if UserFeedScreen shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.userPosts).thenReturn([]);
       await tester.pumpWidget(userFeedScreen(isTest: true));
       await tester.pump();
@@ -123,7 +123,7 @@ void main() {
 
     testWidgets('check if CircularIndicator Shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(true);
-      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: false));
@@ -133,7 +133,7 @@ void main() {
     });
     testWidgets('check if No posts text shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
-      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
@@ -147,7 +147,7 @@ void main() {
     });
     testWidgets('check if text button shows up', (tester) async {
       when(mockViewModel.isFetchingPosts).thenReturn(false);
-      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.userPosts).thenReturn([]);
 
       await tester.pumpWidget(userFeedScreen(isTest: true));
@@ -172,7 +172,7 @@ void main() {
           organization: userConfig.currentOrg,
         ),
       ]);
-      when(mockViewModel.initialise()).thenReturn(null);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
 
       await tester.pumpWidget(userFeedScreen1(isTest: true));
       await tester.pumpAndSettle();

@@ -50,19 +50,19 @@ class PostBottomModal extends StatelessWidget {
             ],
           ),
         ),
-        Center(
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child: Icon(
-                  Icons.delete,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-              ),
-              post.creator?.id != null &&
-                      post.creator?.id == locator<UserConfig>().currentUser.id
-                  ? TextButton(
+        post.creator?.id != null &&
+                post.creator?.id == locator<UserConfig>().currentUser.id
+            ? Center(
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                    ),
+                    TextButton(
                       key: const Key('deletePost'),
                       onPressed: () {
                         showDialog(
@@ -105,10 +105,10 @@ class PostBottomModal extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     )
-                  : const SizedBox(),
-            ],
-          ),
-        ),
+                  ],
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

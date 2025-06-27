@@ -39,7 +39,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) => model.initialise(),
+      onModelReady: (model) async => await model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(

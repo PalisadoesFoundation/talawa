@@ -26,11 +26,11 @@ class PostAdapter extends TypeAdapter<Post> {
       commentsCount: fields[2] as int?,
       upvotesCount: fields[3] as int?,
       downvotesCount: fields[4] as int?,
-    )
-      ..hasVoted = fields[8] as bool
-      ..voteType = fields[9] as String?
-      ..isPinned = fields[11] as bool?
-      ..pinnedAt = fields[12] as DateTime?;
+      voteType: fields[9] as String?,
+      isPinned: fields[11] as bool?,
+      pinnedAt: fields[12] as DateTime?,
+      hasVoted: fields[8] as bool,
+    );
   }
 
   @override

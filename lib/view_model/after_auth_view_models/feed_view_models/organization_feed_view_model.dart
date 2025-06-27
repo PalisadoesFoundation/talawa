@@ -80,6 +80,7 @@ class OrganizationFeedViewModel extends BaseModel {
       _pinnedPosts.clear();
       _renderedPostID.clear();
       _currentOrgName = updatedOrganization;
+      _isFetchingPosts = false;
       notifyListeners();
     }
   }
@@ -105,8 +106,10 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void initialise() {
+  Future<void> initialise() async {
     _isFetchingPosts = true;
+
+    notifyListeners();
 
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
@@ -130,11 +133,13 @@ class OrganizationFeedViewModel extends BaseModel {
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
-    _postService.fetchPostsInitial();
-
-    _pinnedPostService.fetchPostsInitial();
+    await Future.wait([
+      _postService.fetchPostsInitial(),
+      _pinnedPostService.fetchPostsInitial(),
+    ]);
 
     _isFetchingPosts = false;
+    notifyListeners();
   }
 
   /// This function initialise `_posts` with `newPosts`.

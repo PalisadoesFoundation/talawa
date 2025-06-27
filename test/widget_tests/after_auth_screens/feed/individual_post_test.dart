@@ -11,6 +11,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -111,9 +112,10 @@ Widget createIndividualPostCommentSectionWidget({
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
     ],
-    home: const Scaffold(
+    home: Scaffold(
       body: IndividualPostCommentSection(
         postID: 'test  post id',
+        model: CommentsViewModel(),
       ),
     ),
   );

@@ -25,13 +25,14 @@ class _IndividualPostViewState extends State<IndividualPostView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-      ),
-      bottomSheet:
-          BaseView<CommentsViewModel>(builder: (context, model, child) {
-        return Container(
+    return BaseView<CommentsViewModel>(onModelReady: (model) async {
+      await model.initialise(widget.post.id!);
+    }, builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+        ),
+        bottomSheet: Container(
           height: 60,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
@@ -96,34 +97,33 @@ class _IndividualPostViewState extends State<IndividualPostView> {
               ),
             ],
           ),
-        );
-      }),
-      body: ListView(
-        children: [
-          // Post
-          PostWidget(
-            post: widget.post,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenHeight! * 0.010,
+        ),
+        body: ListView(
+          children: [
+            // Post
+            PostWidget(
+              post: widget.post,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // renders the number of users commented on the post.
-                IndividualPostCommentSection(
-                  postID: widget.post.id!,
-                ),
-                const SizedBox(
-                  height: 200,
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.screenHeight! * 0.010,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // renders the number of users commented on the post.
+                  IndividualPostCommentSection(
+                      postID: widget.post.id!, model: model),
+                  const SizedBox(
+                    height: 200,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -153,35 +153,33 @@ class IndividualPostCommentSection extends StatelessWidget {
     super.key,
     // required this.comments,
     required this.postID,
+    required this.model,
   });
 
   // /// List of comments on a post.
-  // final List<Comments> comments;
 
   /// ID of a post with associated comments.
   final String postID;
 
+  /// Instance of CommentsViewModel to manage comments.
+  final CommentsViewModel model;
+
   @override
   Widget build(BuildContext context) {
-    return BaseView<CommentsViewModel>(
-      onModelReady: (model) async {
-        await model.initialise(postID);
-      },
-      builder: (context, model, child) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildPadding(context, "Comments"),
-          // Looping through the commentList list,
-          for (int i = 0; i < model.commentList.length; i++)
-            // renders the custom widget for invidual user.
-            CommentTemplate(comment: model.commentList[i]),
-          if (model.hasNextPage)
-            TextButton(
-              onPressed: () => model.fetchNextPage(),
-              child: const Text('Load More....'),
-            ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildPadding(context, "Comments"),
+        // Looping through the commentList list,
+        for (int i = 0; i < model.commentList.length; i++)
+          // renders the custom widget for invidual user.
+          CommentTemplate(comment: model.commentList[i]),
+        if (model.hasNextPage)
+          TextButton(
+            onPressed: () => model.fetchNextPage(),
+            child: const Text('Load More....'),
+          ),
+      ],
     );
   }
 }
