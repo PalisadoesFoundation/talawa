@@ -3,7 +3,15 @@ import 'package:hive/hive.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-// Test-specific wrapper for Comment.fromJson to handle nested user structure
+/// Creates Comment from test JSON with proper nested user handling.
+///
+/// **Purpose:** Extracts user data from nested creator structures for proper Comment creation.
+///
+/// **params**:
+/// * `json`: The test JSON data containing nested creator structure
+///
+/// **returns**:
+/// * `Comment`: Properly constructed Comment with extracted creator data
 Comment commentFromJsonTest(Map<String, dynamic> json) {
   return Comment(
     text: json['text'] as String?,

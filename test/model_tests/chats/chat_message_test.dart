@@ -82,7 +82,13 @@ void main() {
       };
 
       final receiverUser = ChatUser(firstName: 'Harsh', id: '2');
-      final message = ChatMessage.fromJson(json, receiverUser: receiverUser);
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '1',
+        currentUserFirstName: 'Satyam',
+        currentUserImage: 'https://testimg.com',
+        receiverUser: receiverUser,
+      );
 
       expect(message.id, 'msg1');
       expect(message.messageContent, 'Hello from me!');
@@ -115,7 +121,12 @@ void main() {
         'updatedAt': '2023-01-01T00:00:00Z',
       };
 
-      final message = ChatMessage.fromJson(json);
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '2',
+        currentUserFirstName: 'Harsh',
+        currentUserImage: 'https://testimg.com',
+      );
 
       expect(message.id, 'msg2');
       expect(message.messageContent, 'Hello from someone else!');
@@ -145,13 +156,177 @@ void main() {
         'updatedAt': '2023-01-01T00:00:00Z',
       };
 
-      final message = ChatMessage.fromJson(json);
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '1',
+        currentUserFirstName: 'Test User',
+        currentUserImage: 'https://testimg.com',
+      );
 
       expect(message.id, 'msg3');
       expect(message.messageContent, 'Message with no creator');
       expect(message.sender, isNull);
       expect(message.createdAt, '2023-01-01T00:00:00Z');
       expect(message.updatedAt, '2023-01-01T00:00:00Z');
+    });
+
+    test('check if _parseCreator works with creator field', () {
+      final json = {
+        'creator': {
+          'id': '1',
+          'name': 'John Doe',
+        },
+        'sender': {
+          'id': '2',
+          'name': 'Jane Smith',
+        },
+      };
+
+      // Access the private method through fromJson to test it indirectly
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '3',
+        currentUserFirstName: 'Test User',
+      );
+
+      // The creator should be parsed from 'creator' field (priority 1)
+      expect(message.sender?.id, '1');
+      expect(message.sender?.firstName, 'John');
+    });
+
+    test('check if _parseCreator works with sender field when creator is null',
+        () {
+      final json = {
+        'creator': null,
+        'sender': {
+          'id': '2',
+          'name': 'Jane Smith',
+        },
+        'receiver': {
+          'id': '3',
+          'name': 'Bob Johnson',
+        },
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '4',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should parse from 'sender' field (priority 2)
+      expect(message.sender?.id, '2');
+      expect(message.sender?.firstName, 'Jane');
+    });
+
+    test(
+        'check if _parseCreator works with receiver field when creator and sender are null',
+        () {
+      final json = {
+        'creator': null,
+        'sender': null,
+        'receiver': {
+          'id': '3',
+          'name': 'Bob Johnson',
+        },
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '4',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should parse from 'receiver' field (priority 3)
+      expect(message.sender?.id, '3');
+      expect(message.sender?.firstName, 'Bob');
+    });
+
+    test('check if _parseCreator returns null when all fields are missing', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Test message',
+        // No creator, sender, or receiver fields
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '1',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should return null when no creator info is available
+      expect(message.sender, isNull);
+    });
+
+    test('check if _parseCreator handles empty fields correctly', () {
+      final json = {
+        'creator': {},
+        'sender': {
+          'id': '2',
+          'name': 'Jane Smith',
+        },
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '3',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should handle empty creator object and fall back to sender
+      expect(message.sender?.id, '2');
+      expect(message.sender?.firstName, 'Jane');
+    });
+
+    test('_parseCreator field priority order', () {
+      final json = {
+        'creator': {
+          'id': '1',
+          'name': 'Creator User',
+        },
+        'sender': {
+          'id': '2',
+          'name': 'Sender User',
+        },
+        'receiver': {
+          'id': '3',
+          'name': 'Receiver User',
+        },
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '4',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should prioritize 'creator' over 'sender' and 'receiver'
+      expect(message.sender?.id, '1');
+      expect(message.sender?.firstName, 'Creator');
+    });
+
+    test('check if _parseCreator handles ChatUser.fromJson exception', () {
+      final json = {
+        'creator': {
+          'invalidField':
+              'invalid data', // This will cause ChatUser.fromJson to fail
+        },
+        'receiver': {
+          'id': '3',
+          'name': 'Bob Johnson',
+        },
+      };
+
+      final message = ChatMessage.fromJson(
+        json,
+        currentUserId: '4',
+        currentUserFirstName: 'Test User',
+      );
+
+      // Should fall back to receiver when creator parsing fails
+      expect(message.sender?.id, '3');
+      expect(message.sender?.firstName, 'Bob');
     });
   });
 }

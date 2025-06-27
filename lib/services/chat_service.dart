@@ -81,6 +81,9 @@ class ChatService {
 
     final message = ChatMessage.fromJson(
       result.data?['sendMessageToDirectChat'] as Map<String, dynamic>,
+      currentUserId: _userConfig.currentUser.id!,
+      currentUserFirstName: _userConfig.currentUser.firstName,
+      currentUserImage: _userConfig.currentUser.image,
     );
 
     _chatMessageController.add(message);
@@ -165,7 +168,12 @@ class ChatService {
     for (final dynamic edge in messageEdges) {
       final Map<String, dynamic> messageNode =
           (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>;
-      final chatMessage = ChatMessage.fromJson(messageNode);
+      final chatMessage = ChatMessage.fromJson(
+        messageNode,
+        currentUserId: _userConfig.currentUser.id!,
+        currentUserFirstName: _userConfig.currentUser.firstName,
+        currentUserImage: _userConfig.currentUser.image,
+      );
       _chatMessageController.add(chatMessage);
     }
   }

@@ -4,7 +4,16 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-// Test-specific wrapper for Post.fromJson to handle nested user structure
+/// Creates Post from test JSON with proper nested user handling.
+///
+/// **Purpose:** Handles complex nested structures in posts including creator, likedBy, and comments.
+/// This method manually extracts user IDs from nested structures that don't match model expectations.
+///
+/// **params**:
+/// * `json`: The test JSON data containing nested user structures in multiple fields
+///
+/// **returns**:
+/// * `Post`: Properly constructed Post with extracted nested data
 Post postFromJsonTest(Map<String, dynamic> json) {
   final post = Post(
     sId: json['_id'] as String,

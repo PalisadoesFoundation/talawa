@@ -125,5 +125,62 @@ void main() {
 
       expect(result.length, 0); // Should return empty list when data is null
     });
+
+    test('Test getOrgMembersList with malformed user data', () async {
+      const String orgId = '123';
+      const String query = '''
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        id
+        name
+        avatarURL
+        description
+      }
+    }
+    ''';
+
+      // Mix of valid and invalid user data to test error handling
+      final List<Map<String, dynamic>> mixedUserJsonList = [
+        {
+          'id': 'user_id_1',
+          'name': 'Valid User',
+          'avatarURL': 'https://example.com/avatar1.jpg',
+          'description': 'Test user 1',
+        },
+        // Invalid data that will cause parsing error
+        {
+          'id': null, // Invalid ID
+          'name': 123, // Invalid name type
+          'avatarURL': true, // Invalid URL type
+        },
+        {
+          'id': 'user_id_3',
+          'name': 'Another Valid User',
+          'avatarURL': 'https://example.com/avatar3.jpg',
+          'description': 'Test user 3',
+        },
+      ];
+
+      final QueryResult queryResult = QueryResult.internal(
+        parserFn: (map) => '123',
+        source: null,
+        data: {
+          'usersByOrganizationId': mixedUserJsonList,
+        },
+      );
+      when(dbFunctions.gqlAuthQuery(query))
+          .thenAnswer((realInvocation) async => queryResult);
+
+      final result = await organizationService.getOrgMembersList(orgId);
+
+      // Should return only the valid users, skipping the malformed one
+      expect(result.length, 2);
+      expect(result[0].id, 'user_id_1');
+      expect(result[0].firstName, 'Valid');
+      expect(result[0].lastName, 'User');
+      expect(result[1].id, 'user_id_3');
+      expect(result[1].firstName, 'Another');
+      expect(result[1].lastName, 'Valid User');
+    });
   });
 }

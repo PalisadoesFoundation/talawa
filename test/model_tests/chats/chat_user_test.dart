@@ -26,7 +26,7 @@ void main() {
       final expectedJson = {
         'firstName': 'Ayush',
         'id': 'user123',
-        'image': 'random image url',
+        'avatarURL': 'random image url',
       };
 
       expect(json, expectedJson);

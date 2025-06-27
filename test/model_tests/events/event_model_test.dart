@@ -4,7 +4,15 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-// Test-specific wrapper for Event.fromJson to handle nested user structure for creator
+/// Creates Event from test JSON with proper nested user handling for creator.
+///
+/// **Purpose:** Handles nested creator and organization structures in event data.
+///
+/// **params**:
+/// * `json`: The test JSON data containing nested creator and organization structures
+///
+/// **returns**:
+/// * `Event`: Properly constructed Event with extracted nested data
 Event eventFromJsonTest(Map<String, dynamic> json) {
   return Event(
     id: json['_id'] as String,

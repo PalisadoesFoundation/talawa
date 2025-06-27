@@ -126,5 +126,31 @@ void main() {
 
       expect(userAdapter1 == userAdapter2, true);
     });
+
+    test('Test name computed property edge cases', () {
+      // Both names present
+      final userBoth = User(firstName: 'John', lastName: 'Doe');
+      expect(userBoth.name, 'John Doe');
+
+      // Only first name
+      final userFirst = User(firstName: 'John', lastName: null);
+      expect(userFirst.name, 'John');
+
+      // Only last name
+      final userLast = User(firstName: null, lastName: 'Doe');
+      expect(userLast.name, 'Doe');
+
+      // Empty strings
+      final userEmpty = User(firstName: '', lastName: '');
+      expect(userEmpty.name, null);
+
+      // Null names
+      final userNull = User(firstName: null, lastName: null);
+      expect(userNull.name, null);
+
+      // Mixed empty/null
+      final userMixed = User(firstName: '', lastName: null);
+      expect(userMixed.name, null);
+    });
   });
 }

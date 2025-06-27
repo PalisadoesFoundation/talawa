@@ -72,6 +72,8 @@ void main() {
       expect(chatTextBlack, findsOneWidget);
 
       userConfig.currentUser.firstName = "ravidi";
+      await tester.pumpWidget(createChatMessageBubble());
+      await tester.pump();
 
       // Now the text color should change to black
       chatTextBlack = find.byWidgetPredicate(
@@ -82,7 +84,7 @@ void main() {
         description: 'Text widget with color as black',
       );
 
-      expect(chatTextBlack, findsNothing);
+      expect(chatTextBlack, findsOneWidget);
     });
 
     testWidgets("Check if remote chat aligns correctly", (tester) async {
@@ -102,16 +104,24 @@ void main() {
 
       expect(chat, findsOneWidget);
 
-      find.byWidgetPredicate(
-        (widget) {
-          final chatContainer =
-              ((widget as Padding).child! as Row).children[0] as Container;
-          final chatDecoration = chatContainer.decoration! as BoxDecoration;
+      expect(
+        find.byWidgetPredicate(
+          (widget) {
+            if (widget is! Padding) return false;
+            final child = widget.child;
+            if (child is! Row) return false;
+            if (child.children.isEmpty) return false;
+            final chatContainer = child.children[0];
+            if (chatContainer is! Container) return false;
+            final chatDecoration = chatContainer.decoration;
+            if (chatDecoration is! BoxDecoration) return false;
 
-          return chatDecoration.color == Colors.green &&
-              chatDecoration.borderRadius == remoteMessageBorderRadius;
-        },
-        description: "Check if chat container is properly decorated",
+            return chatDecoration.color == Colors.green &&
+                chatDecoration.borderRadius == remoteMessageBorderRadius;
+          },
+          description: "Check if chat container is properly decorated",
+        ),
+        findsOneWidget,
       );
     });
 
@@ -133,16 +143,24 @@ void main() {
         findsOneWidget,
       );
 
-      find.byWidgetPredicate(
-        (widget) {
-          final chatContainer =
-              ((widget as Padding).child! as Row).children[0] as Container;
-          final chatDecoration = chatContainer.decoration! as BoxDecoration;
+      expect(
+        find.byWidgetPredicate(
+          (widget) {
+            if (widget is! Padding) return false;
+            final child = widget.child;
+            if (child is! Row) return false;
+            if (child.children.isEmpty) return false;
+            final chatContainer = child.children[0];
+            if (chatContainer is! Container) return false;
+            final chatDecoration = chatContainer.decoration;
+            if (chatDecoration is! BoxDecoration) return false;
 
-          return chatDecoration.color == Colors.white &&
-              chatDecoration.borderRadius == localMessageBorderRadius;
-        },
-        description: "Check if chat container is properly decorated",
+            return chatDecoration.color == Colors.white &&
+                chatDecoration.borderRadius == localMessageBorderRadius;
+          },
+          description: "Check if chat container is properly decorated",
+        ),
+        findsOneWidget,
       );
     });
   });

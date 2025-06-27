@@ -4,7 +4,26 @@ import 'package:talawa/models/events/event_volunteer.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-// Test-specific wrapper for EventVolunteer.fromJson to handle nested user structure
+/// Test-specific wrapper for EventVolunteer.fromJson to handle nested user structure.
+///
+/// **Why this helper is needed:**
+/// The production API returns user data in a nested structure like:
+/// ```json
+/// {
+///   "creator": {
+///     "user": {
+///       "id": "123",
+///       "name": "John Doe"
+///     }
+///   }
+/// }
+/// ```
+///
+/// However, the User.fromJson method expects different structures depending on the
+/// `fromOrg` parameter. This test helper manually constructs the EventVolunteer
+/// object with the correct User instances to avoid the complexity of mocking
+/// the exact API response structure in tests.
+
 EventVolunteer eventVolunteerFromJsonTest(Map<String, dynamic> json) {
   return EventVolunteer(
     id: json['_id'] as String?,

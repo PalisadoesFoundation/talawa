@@ -54,7 +54,7 @@ class ChatUser {
     return {
       'firstName': firstName,
       'id': id,
-      'image': image,
+      'avatarURL': image,
     };
   }
 

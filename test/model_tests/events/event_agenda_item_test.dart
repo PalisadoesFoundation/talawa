@@ -5,7 +5,15 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-// Test-specific wrapper for EventAgendaItem.fromJson to handle nested user structure
+/// Creates EventAgendaItem from test JSON with proper nested user handling.
+///
+/// **Purpose:** Handles complex nested structures in agenda items including user references.
+///
+/// **params**:
+/// * `json`: The test JSON data containing nested user and category structures
+///
+/// **returns**:
+/// * `EventAgendaItem`: Properly constructed EventAgendaItem with extracted nested data
 EventAgendaItem eventAgendaItemFromJsonTest(Map<String, dynamic> json) {
   return EventAgendaItem(
     id: json['_id'] as String?,

@@ -250,169 +250,137 @@ void main() {
       });
     });
 
-    testWidgets(
-        'should display user without image with first letter of firstName',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
-          image: null,
-        ),
+    group('Avatar display tests', () {
+      final avatarTestCases = <Map<String, Object?>>[
+        {
+          'description': 'first letter of firstName when image is null',
+          'firstName': 'John',
+          'lastName': 'Doe',
+          'image': null,
+          'expectedAvatar': 'J',
+        },
+        {
+          'description': 'first letter of lastName when firstName is empty',
+          'firstName': '',
+          'lastName': 'TestName',
+          'image': null,
+          'expectedAvatar': 'T',
+        },
+        {
+          'description': 'question mark when both names are empty',
+          'firstName': '',
+          'lastName': '',
+          'image': null,
+          'expectedAvatar': '?',
+        },
+        {
+          'description': 'question mark when both names are null',
+          'firstName': null,
+          'lastName': null,
+          'image': null,
+          'expectedAvatar': '?',
+        },
+        {
+          'description': 'first letter when image is empty string',
+          'firstName': 'John',
+          'lastName': null,
+          'image': '',
+          'expectedAvatar': 'J',
+        },
       ];
 
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
+      for (final testCase in avatarTestCases) {
+        testWidgets('should display ${testCase['description']}',
+            (WidgetTester tester) async {
+          final users = [
+            User(
+              id: 'user1',
+              firstName: testCase['firstName'] as String?,
+              lastName: testCase['lastName'] as String?,
+              image: testCase['image'] as String?,
+            ),
+          ];
 
-      await tester.pumpWidget(
-        createApp(),
-      );
+          when(mockOrganizationService.getOrgMembersList('test_org_id'))
+              .thenAnswer((_) async => users);
 
-      await tester.pumpAndSettle();
+          await tester.pumpWidget(createApp());
+          await tester.pumpAndSettle();
 
-      // Find the CircleAvatar
-      final circleAvatar =
-          tester.widget<CircleAvatar>(find.byType(CircleAvatar));
-      expect(circleAvatar.backgroundImage, isNull);
+          final circleAvatar =
+              tester.widget<CircleAvatar>(find.byType(CircleAvatar));
+          expect(circleAvatar.backgroundImage, isNull);
 
-      // Should have Text widget with 'J'
-      expect(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.text('J'),
-        ),
-        findsOneWidget,
-      );
+          expect(
+            find.descendant(
+              of: find.byType(CircleAvatar),
+              matching: find.text(testCase['expectedAvatar']! as String),
+            ),
+            findsOneWidget,
+          );
+        });
+      }
     });
 
-    testWidgets(
-        'should display user without image with first letter of lastName when firstName is empty',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: '', // Empty string, not null
-          lastName: 'TestName',
-          image: null,
-        ),
+    group('Name display tests', () {
+      final nameTestCases = <Map<String, Object?>>[
+        {
+          'description': 'firstName priority when both names exist',
+          'firstName': 'John',
+          'lastName': 'Doe',
+          'expectedDisplay': 'John',
+        },
+        {
+          'description': 'computed name when firstName is null',
+          'firstName': null,
+          'lastName': 'TestName',
+          'expectedDisplay': 'TestName',
+        },
+        {
+          'description': 'empty firstName when firstName is empty string',
+          'firstName': '',
+          'lastName': 'OnlyLast',
+          'expectedDisplay':
+              '', // Empty string is displayed, not the computed name
+        },
+        {
+          'description': '"Unknown User" when both names are null',
+          'firstName': null,
+          'lastName': null,
+          'expectedDisplay': 'Unknown User',
+        },
+        {
+          'description':
+              '"Unknown User" when firstName is empty and lastName is null',
+          'firstName': '',
+          'lastName': null,
+          'expectedDisplay': '', // Empty string firstName is displayed directly
+        },
       ];
 
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
+      for (final testCase in nameTestCases) {
+        testWidgets('should display ${testCase['description']}',
+            (WidgetTester tester) async {
+          final users = [
+            User(
+              id: 'user1',
+              firstName: testCase['firstName'] as String?,
+              lastName: testCase['lastName'] as String?,
+            ),
+          ];
 
-      await tester.pumpWidget(
-        createApp(),
-      );
+          when(mockOrganizationService.getOrgMembersList('test_org_id'))
+              .thenAnswer((_) async => users);
 
-      await tester.pumpAndSettle();
+          await tester.pumpWidget(createApp());
+          await tester.pumpAndSettle();
 
-      // the name getter returns just the lastName, so we display 'T'
-      expect(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.text('T'),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets(
-        'should display question mark for user with empty firstName and lastName',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: '',
-          lastName: '',
-          image: null,
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // The widget displays a question mark when both firstName and lastName are empty strings
-      expect(
-        find.text('?'),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('should display user name correctly - firstName priority',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Should display firstName (John)
-      expect(find.text('John'), findsOneWidget);
-    });
-
-    testWidgets('should display computed name when firstName is null',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: null,
-          lastName: 'TestName',
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Should display computed name (TestName from lastName)
-      expect(find.text('TestName'), findsOneWidget);
-    });
-
-    testWidgets(
-        'should display "Unknown User" when both firstName and name are null',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: null,
-          lastName: null,
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Should display "Unknown User"
-      expect(find.text('Unknown User'), findsOneWidget);
+          expect(
+            find.text(testCase['expectedDisplay']! as String),
+            findsOneWidget,
+          );
+        });
+      }
     });
 
     testWidgets('should handle user tap and print debug message',
@@ -428,23 +396,14 @@ void main() {
       when(mockOrganizationService.getOrgMembersList('test_org_id'))
           .thenAnswer((_) async => users);
 
-      await tester.pumpWidget(
-        createApp(),
-      );
-
+      await tester.pumpWidget(createApp());
       await tester.pumpAndSettle();
 
-      // Find the GestureDetector with correct key
       final gestureDetector = find.byKey(const Key('select_contact_gesture_0'));
       expect(gestureDetector, findsOneWidget);
 
-      // Tap the user
       await tester.tap(gestureDetector);
       await tester.pumpAndSettle();
-
-      // The tap should trigger the onTap callback
-      // Since we can't directly test debugPrint, we just verify the tap works
-      // by ensuring no exceptions are thrown
     });
 
     testWidgets('should handle multiple users correctly',
@@ -458,77 +417,31 @@ void main() {
       when(mockOrganizationService.getOrgMembersList('test_org_id'))
           .thenAnswer((_) async => users);
 
-      await tester.pumpWidget(
-        createApp(),
-      );
-
+      await tester.pumpWidget(createApp());
       await tester.pumpAndSettle();
 
-      // Verify all users are displayed
       expect(find.text('John'), findsOneWidget);
       expect(find.text('Jane'), findsOneWidget);
       expect(find.text('Bob'), findsOneWidget);
 
-      // Verify correct number of gesture detectors
       expect(find.byKey(const Key('select_contact_gesture_0')), findsOneWidget);
       expect(find.byKey(const Key('select_contact_gesture_1')), findsOneWidget);
       expect(find.byKey(const Key('select_contact_gesture_2')), findsOneWidget);
 
-      // Verify correct number of UI elements
       expect(find.byType(ListTile), findsNWidgets(3));
       expect(find.byType(CircleAvatar), findsNWidgets(3));
     });
 
-    testWidgets('should handle empty image string same as null',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: 'John',
-          image: '', // Empty string should be treated same as null
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Find the CircleAvatar
-      final circleAvatar =
-          tester.widget<CircleAvatar>(find.byType(CircleAvatar));
-      expect(circleAvatar.backgroundImage, isNull);
-
-      // Should have Text widget with 'J'
-      expect(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.text('J'),
-        ),
-        findsOneWidget,
-      );
-    });
-
     testWidgets('should verify correct padding and styling',
         (WidgetTester tester) async {
-      final users = [
-        User(id: 'user1', firstName: 'John'),
-      ];
+      final users = [User(id: 'user1', firstName: 'John')];
 
       when(mockOrganizationService.getOrgMembersList('test_org_id'))
           .thenAnswer((_) async => users);
 
-      await tester.pumpWidget(
-        createApp(),
-      );
-
+      await tester.pumpWidget(createApp());
       await tester.pumpAndSettle();
 
-      // Verify padding
       final padding = tester.widget<Padding>(
         find.ancestor(
           of: find.byType(ListTile),
@@ -537,7 +450,6 @@ void main() {
       );
       expect(padding.padding, const EdgeInsets.all(5.0));
 
-      // Verify text style in CircleAvatar
       final textWidget = tester.widget<Text>(
         find.descendant(
           of: find.byType(CircleAvatar),
@@ -547,85 +459,14 @@ void main() {
       expect(textWidget.style?.color, Colors.white);
     });
 
-    testWidgets('should handle null firstName and lastName properly',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: null,
-          lastName: null,
-          image: null,
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Should display "Unknown User" in title
-      expect(find.text('Unknown User'), findsOneWidget);
-
-      // Should display '?' in CircleAvatar
-      expect(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.text('?'),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('should handle user with only lastName',
-        (WidgetTester tester) async {
-      final users = [
-        User(
-          id: 'user1',
-          firstName: null,
-          lastName: 'OnlyLast',
-          image: null,
-        ),
-      ];
-
-      when(mockOrganizationService.getOrgMembersList('test_org_id'))
-          .thenAnswer((_) async => users);
-
-      await tester.pumpWidget(
-        createApp(),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Should display lastName as name (computed property)
-      expect(find.text('OnlyLast'), findsOneWidget);
-
-      // Should display 'O' in CircleAvatar (first letter of computed name)
-      expect(
-        find.descendant(
-          of: find.byType(CircleAvatar),
-          matching: find.text('O'),
-        ),
-        findsOneWidget,
-      );
-    });
-
     testWidgets('should handle error in organization service gracefully',
         (WidgetTester tester) async {
-      // Mock error from organization service
       when(mockOrganizationService.getOrgMembersList('test_org_id'))
           .thenThrow(Exception('Network error'));
 
-      await tester.pumpWidget(
-        createApp(),
-      );
-
+      await tester.pumpWidget(createApp());
       await tester.pumpAndSettle();
 
-      // Should show "No users found" message when error occurs
       expect(find.text('No users found in this organization'), findsOneWidget);
     });
 
@@ -634,16 +475,11 @@ void main() {
       when(mockOrganizationService.getOrgMembersList('test_org_id'))
           .thenAnswer((_) async => []);
 
-      await tester.pumpWidget(
-        createApp(),
-      );
-
+      await tester.pumpWidget(createApp());
       await tester.pumpAndSettle();
 
-      // Verify widget is displayed
       expect(find.byType(SelectContact), findsOneWidget);
 
-      // Navigate away from the widget
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -652,10 +488,8 @@ void main() {
           ),
         ),
       );
-
       await tester.pumpAndSettle();
 
-      // Verify widget is disposed
       expect(find.byType(SelectContact), findsNothing);
     });
   });

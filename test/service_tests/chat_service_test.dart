@@ -195,6 +195,106 @@ void main() {
       expect(messages.first.sender?.firstName, 'John');
     });
 
+    test('getDirectChatMessagesByChatId handles all error scenarios', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final service = ChatService();
+      final messages = <ChatMessage>[];
+      late StreamSubscription subscription;
+
+      // Helper function to test error scenarios
+      Future<void> testErrorScenario(String chatId, QueryResult result) async {
+        final query = ChatQueries().fetchDirectChatMessagesByChatId(chatId);
+        when(
+          dataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: {
+              "input": {
+                "id": chatId,
+              },
+            },
+          ),
+        ).thenAnswer((_) async => result);
+
+        messages.clear();
+        subscription = service.chatMessagesStream.listen((message) {
+          messages.add(message);
+        });
+
+        await service.getDirectChatMessagesByChatId(chatId);
+        await Future.delayed(const Duration(milliseconds: 50));
+        await subscription.cancel();
+
+        expect(messages.isEmpty, true);
+      }
+
+      final query = ChatQueries().fetchDirectChatMessagesByChatId('test');
+
+      // Test 1: GraphQL exception
+      await testErrorScenario(
+        'test-exception',
+        QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: null,
+          source: QueryResultSource.network,
+          exception: OperationException(
+            graphqlErrors: [const GraphQLError(message: 'Chat not found')],
+          ),
+        ),
+      );
+
+      // Test 2: Null chat data
+      await testErrorScenario(
+        'test-null-chat',
+        QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {'chat': null},
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Test 3: Null messages connection
+      await testErrorScenario(
+        'test-null-messages',
+        QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'chat': {'messages': null},
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Test 4: Missing edges
+      await testErrorScenario(
+        'test-missing-edges',
+        QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'chat': {
+              'messages': {
+                'pageInfo': {'hasNextPage': false},
+              },
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Test 5: Null edges
+      await testErrorScenario(
+        'test-null-edges',
+        QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'chat': {
+              'messages': {'edges': null},
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+    });
+
     test("chatListStream return a stream of ChatListTileDataModel", () {
       final service = ChatService();
       expect(service.chatListStream, isA<Stream<ChatListTileDataModel>>());
