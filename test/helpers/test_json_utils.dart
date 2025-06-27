@@ -37,15 +37,16 @@ class TestJsonUtils {
     if (json == null) return null;
 
     // Handle nested user structure (e.g., {'user': {...}, 'authenticationToken': '...'})
-    if (json.containsKey('user') && json['user'] is Map<String, dynamic>) {
-      return User.fromJson(
-        json['user'] as Map<String, dynamic>,
-        fromOrg: fromOrg,
-      );
+    if (json.containsKey('user')) {
+      final userData = json['user'];
+      if (userData == null) return null;
+      if (userData is Map<String, dynamic>) {
+        return User.fromJson(userData, fromOrg: true);
+      }
     }
 
     // Handle direct user structure
-    return User.fromJson(json, fromOrg: fromOrg);
+    return User.fromJson(json, fromOrg: true);
   }
 
   /// Creates a list of Users from test JSON array.
@@ -171,7 +172,7 @@ class TestJsonUtils {
       name: json['name'] as String?,
       updatedAt: json['updatedAt'] as String?,
       volunteers: (json['volunteers'] as List<dynamic>?)
-          ?.map((e) => EventVolunteer.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => createEventVolunteerFromJson(e as Map<String, dynamic>))
           .toList(),
       volunteersRequired: json['volunteersRequired'] as int?,
     );
@@ -235,6 +236,7 @@ class TestJsonUtils {
       post.likedBy = <LikedBy>[];
       (json['likedBy'] as List).forEach((v) {
         final vMap = v as Map<String, dynamic>;
+        // Extract user ID from nested structure: {user: {id: "..."}}
         final userMap = vMap['user'] as Map<String, dynamic>;
         final userId = userMap['id'] as String?;
         post.likedBy?.add(LikedBy(sId: userId));
@@ -246,6 +248,7 @@ class TestJsonUtils {
       post.comments = <Comments>[];
       (json['comments'] as List).forEach((v) {
         final vMap = v as Map<String, dynamic>;
+        // Extract user ID from nested structure: {user: {id: "..."}}
         final userMap = vMap['user'] as Map<String, dynamic>;
         final userId = userMap['id'] as String?;
         post.comments?.add(Comments(sId: userId));
