@@ -109,26 +109,6 @@ class MockCallBack extends Mock {
 
 class MockBuildContext extends Mock implements BuildContext {}
 
-class MockScaffoldState extends Mock implements ScaffoldState {
-  @override
-  bool get isDrawerOpen => super.noSuchMethod(
-        Invocation.getter(#isDrawerOpen),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool;
-
-  @override
-  void closeDrawer() => super.noSuchMethod(
-        Invocation.method(#closeDrawer, []),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return super.toString();
-  }
-}
-
 MainScreenViewModel getModel() {
   final model = MainScreenViewModel();
   model.context = MockBuildContext();
@@ -369,7 +349,7 @@ void main() {
         for (int i = 0; i < expectedTargets.length; i++) {
           expect(expectedTargets[i].keyName, keyNames[i]);
           expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          if (i != 1 && i != 4 && i != 5 && i != 6) {
+          if (i != 1 && i != 4 && i != 5) {
             expect(expectedTargets[i].next, null);
           } else {
             expect(expectedTargets[i].next, isNotNull);
@@ -453,7 +433,7 @@ void main() {
         for (int i = 0; i < expectedTargets.length; i++) {
           expect(expectedTargets[i].keyName, keyNames[i]);
           expect(expectedTargets[i].key, keysMap[keyNames[i]]);
-          if (i != 1 && i != 4 && i != 5) {
+          if (i != 1 && i != 4) {
             expect(expectedTargets[i].next, null);
           } else {
             expect(expectedTargets[i].next, isNotNull);
@@ -1308,124 +1288,6 @@ void main() {
         // Test the delay doesn't cause issues
         await tester.pump(const Duration(milliseconds: 400));
       }
-    });
-
-    test('Test drawer closing async functionality in keyBNHome target',
-        () async {
-      // Create a mock scaffold state that we can control
-      final mockScaffoldState = MockScaffoldState();
-      when(mockScaffoldState.isDrawerOpen).thenReturn(true);
-
-      // Create a function that simulates the exact code we need to cover
-      Future<void> testDrawerClosingLogic() async {
-        // This is the exact code that needs coverage
-        if (mockScaffoldState.isDrawerOpen) {
-          mockScaffoldState.closeDrawer();
-          // Add a small delay to let the drawer close animation complete
-          await Future.delayed(const Duration(milliseconds: 300));
-        }
-      }
-
-      // Measure timing to ensure async delay is properly executed
-      final stopwatch = Stopwatch()..start();
-
-      // Execute the function which includes the uncovered lines
-      await testDrawerClosingLogic();
-
-      stopwatch.stop();
-
-      // Verify the async delay was executed (should be >= 300ms)
-      expect(stopwatch.elapsedMilliseconds, greaterThanOrEqualTo(300));
-
-      // Verify closeDrawer was called
-      verify(mockScaffoldState.closeDrawer()).called(1);
-    });
-
-    test('Test drawer closing logic when drawer is already closed', () async {
-      // Create a mock scaffold state that is already closed
-      final mockScaffoldState = MockScaffoldState();
-      when(mockScaffoldState.isDrawerOpen).thenReturn(false);
-
-      // Create a function that simulates the exact code we need to cover
-      Future<void> testDrawerClosingLogic() async {
-        // This is the exact code that needs coverage
-        if (mockScaffoldState.isDrawerOpen) {
-          mockScaffoldState.closeDrawer();
-          // Add a small delay to let the drawer close animation complete
-          await Future.delayed(const Duration(milliseconds: 300));
-        }
-      }
-
-      // Measure timing - should be fast since drawer is already closed
-      final stopwatch = Stopwatch()..start();
-
-      // Execute the function - should not enter the if block
-      await testDrawerClosingLogic();
-
-      stopwatch.stop();
-
-      // Should be fast since no delay when drawer is already closed
-      expect(stopwatch.elapsedMilliseconds, lessThan(50));
-
-      // Verify closeDrawer was NOT called since drawer was already closed
-      verifyNever(mockScaffoldState.closeDrawer());
-    });
-
-    test('Test showHome method keyBNHome case triggers drawer closing',
-        () async {
-      testModel.context = MockBuildContext();
-
-      // Create target focus for keyBNHome
-      final targetFocus = TargetFocus(
-        identify: 'keyBNHome',
-        keyTarget: testModel.keyBNHome,
-      );
-
-      // Mock a scaffold state that's open
-      final mockScaffoldState = MockScaffoldState();
-      when(mockScaffoldState.isDrawerOpen).thenReturn(true);
-
-      // Test that showHome method handles keyBNHome case
-      expect(
-        () async {
-          testModel.showHome(targetFocus);
-          // Simulate the delay that would happen in the real showHome method
-          await Future.delayed(const Duration(milliseconds: 300));
-        },
-        returnsNormally,
-      );
-    });
-
-    test('Test exact async drawer closing logic from source code', () async {
-      // Create a mock scaffold state with controlled state
-      final mockScaffoldState = MockScaffoldState();
-
-      // Mock isDrawerOpen to return true
-      when(mockScaffoldState.isDrawerOpen).thenReturn(true);
-
-      // Simulate the exact logic from the source code:
-      // if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
-      //   scaffoldKey.currentState?.closeDrawer();
-      //   await Future.delayed(const Duration(milliseconds: 300));
-      // }
-
-      Future<void> simulateSourceCodeLogic() async {
-        // Test the null-aware operator ?? false
-        final isOpen = mockScaffoldState.isDrawerOpen;
-        if (isOpen) {
-          mockScaffoldState.closeDrawer();
-          // Add a small delay to let the drawer close animation complete
-          await Future.delayed(const Duration(milliseconds: 300));
-        }
-      }
-
-      final stopwatch = Stopwatch()..start();
-      await simulateSourceCodeLogic();
-      stopwatch.stop();
-
-      // Verify the delay was executed
-      expect(stopwatch.elapsedMilliseconds, greaterThanOrEqualTo(300));
-      verify(mockScaffoldState.closeDrawer()).called(1);
     });
   });
 }

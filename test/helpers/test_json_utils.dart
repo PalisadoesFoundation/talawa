@@ -17,7 +17,7 @@ import 'package:talawa/models/user/user_info.dart';
 ///
 /// **Key Features:**
 /// - Handles nested user structures consistently across all models
-/// - Omits `fromOrg: true` parameter for simplified test user creation
+/// - Uses `fromOrg: true` by default for simplified test user creation
 /// - Provides null-safe parsing for all optional fields
 /// - Reduces code duplication across test files
 /// - Maintains consistent parsing behavior for test scenarios
@@ -26,13 +26,13 @@ class TestJsonUtils {
   ///
   /// **params**:
   /// * `json`: Map containing user data, may be nested under 'user' key
-  /// * `fromOrg`: Whether to use organization-specific user parsing (default: false)
+  /// * `fromOrg`: Whether to use organization-specific user parsing (default: true for test data)
   ///
   /// **returns**:
   /// * `User?`: User instance or null if json is null
   static User? createUserFromJson(
     Map<String, dynamic>? json, {
-    bool fromOrg = false,
+    bool fromOrg = true,
   }) {
     if (json == null) return null;
 
@@ -41,12 +41,13 @@ class TestJsonUtils {
       final userData = json['user'];
       if (userData == null) return null;
       if (userData is Map<String, dynamic>) {
+        // For nested structures, always use fromOrg: true since we extract direct user data
         return User.fromJson(userData, fromOrg: true);
       }
     }
 
-    // Handle direct user structure
-    return User.fromJson(json, fromOrg: true);
+    // Handle direct user structure - respect the provided fromOrg parameter
+    return User.fromJson(json, fromOrg: fromOrg);
   }
 
   /// Creates a list of Users from test JSON array.

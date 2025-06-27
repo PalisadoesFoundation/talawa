@@ -420,14 +420,6 @@ class MainScreenViewModel extends BaseModel {
             "This is the home tab here you can see the latest post from other members of the current organization",
         isCircle: true,
         align: ContentAlign.top,
-        next: () async {
-          // Close the drawer before showing bottom navigation tour
-          if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
-            scaffoldKey.currentState?.closeDrawer();
-            // Add a small delay to let the drawer close animation complete
-            await Future.delayed(const Duration(milliseconds: 300));
-          }
-        },
         appTour: appTour,
       ),
     );
