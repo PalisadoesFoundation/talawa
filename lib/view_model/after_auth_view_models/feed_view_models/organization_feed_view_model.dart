@@ -10,6 +10,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:flutter/foundation.dart';
 
 /// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
 ///
@@ -30,7 +31,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   bool istest = false;
   List<Post> _pinnedPosts =
-      pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+  pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
@@ -108,9 +109,9 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  ///   None
-  void fetchNewPosts() {
-    _postService.refreshFeed();
+  /// * `Future<void>`: A future that completes when posts are refreshed
+  Future<void> fetchNewPosts() async {
+    await _postService.refreshFeed();
   }
 
   /// To initialize the view model.
@@ -126,28 +127,27 @@ class OrganizationFeedViewModel extends BaseModel {
     bool isTest = false,
   }) {
     _isFetchingPosts = true;
-
-    // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
+    notifyListeners();
     _currentOrgName = _userConfig.currentOrg.name!;
-    // ------
-    // Attaching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen(
-      (updatedOrganization) =>
-          setCurrentOrganizationName(updatedOrganization.name!),
-    );
+              (updatedOrganization) {
+            setCurrentOrganizationName(updatedOrganization.name!);
+          },
+        );
     _postsSubscription = _postService.postStream.listen((newPosts) {
-      return buildNewPosts(newPosts);
+      if (newPosts.isNotEmpty) {
+        buildNewPosts(newPosts);
+      }
     });
-
     _updatePostSubscription =
-        _postService.updatedPostStream.listen((post) => updatedPost(post));
-
+        _postService.updatedPostStream.listen((post) {
+          updatedPost(post);
+        });
     _postService.fetchPostsInitial();
     if (isTest) {
       istest = true;
     }
-    _isFetchingPosts = false;
   }
 
   // /// initializing the demo data.
@@ -182,12 +182,12 @@ class OrganizationFeedViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void buildNewPosts(List<Post> newPosts) {
-    _posts = newPosts;
+    _posts = List<Post>.from(newPosts);
     final currentUserId = _userConfig.currentUser.id!;
     _userPosts.clear();
     for (final post in newPosts) {
       if (!_userPosts.any((element) => element.sId == post.sId) &&
-          post.creator!.id == currentUserId) {
+          post.creator?.id == currentUserId) {
         _userPosts.insert(0, post);
       }
     }
