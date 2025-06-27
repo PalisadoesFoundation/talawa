@@ -26,7 +26,7 @@ class AppConnectivity extends BaseModel {
   StreamSubscription? _subscription;
 
   /// flag to handle online status.
-  static late bool isOnline;
+  static bool isOnline = false;
 
   /// Initializes the [AppConnectivity].
   ///

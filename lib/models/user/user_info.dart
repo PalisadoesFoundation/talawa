@@ -26,7 +26,7 @@ class User extends HiveObject {
 
   factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
     final Map<String, dynamic> userData =
-        json['user'] != null ? json['user'] as Map<String, dynamic> : {};
+        json['user'] != null ? json['user'] as Map<String, dynamic> : json;
     final String? fullName = userData['name'] as String?;
     final List<String>? nameParts = fullName?.split(' ');
     final String? firstName =

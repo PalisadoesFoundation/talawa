@@ -24,7 +24,6 @@ class GraphqlConfig {
   Future getToken() async {
     final authToken = userConfig.currentUser.authToken;
     token = authToken;
-    getOrgUrl();
     return true;
   }
 
