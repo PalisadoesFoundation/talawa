@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
+import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -62,10 +65,18 @@ void main() {
   setUp(() {
     registerServices();
     getAndRegisterDirectChatViewModel();
+    // Register SelectContactViewModel for navigation test
+    if (!locator.isRegistered<SelectContactViewModel>()) {
+      locator.registerFactory(() => SelectContactViewModel());
+    }
   });
 
   tearDown(() {
     unregisterServices();
+    // Unregister SelectContactViewModel if registered
+    if (locator.isRegistered<SelectContactViewModel>()) {
+      locator.unregister<SelectContactViewModel>();
+    }
   });
 
   group('ChatPage Widget Tests', () {
@@ -249,6 +260,34 @@ void main() {
       // Verify text styling properties
       expect(titleText.style?.fontWeight, FontWeight.w600);
       expect(titleText.style?.fontSize, 20);
+    });
+
+    testWidgets(
+        'should navigate to SelectContact when FloatingActionButton is pressed',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Find the FloatingActionButton
+        final fabFinder = find.byType(FloatingActionButton);
+        expect(fabFinder, findsOneWidget);
+
+        // Tap the FloatingActionButton
+        await tester.tap(fabFinder);
+        await tester.pumpAndSettle();
+
+        // Verify that SelectContact screen is now displayed
+        expect(find.byType(SelectContact), findsOneWidget);
+
+        // Verify that navigation occurred by checking if we can pop back
+        final context = tester.element(find.byType(SelectContact));
+        final navigator = Navigator.of(context);
+        expect(navigator.canPop(), true);
+
+        // Verify that the SelectContact screen has the correct AppBar title
+        expect(find.text('Select Contacts'), findsOneWidget);
+      });
     });
   });
 }

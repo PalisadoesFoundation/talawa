@@ -114,11 +114,13 @@ class TestJsonUtils {
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
       organization: json['organization'] == null
           ? null
+          // OrgInfo doesn't require nested user handling, use direct fromJson
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
       admins: createUserListFromJson(json['admins'] as List<dynamic>?),
       attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
           ? null
           : (json['attendees'] as List<dynamic>?)
+              // Attendee doesn't require nested user handling, use direct fromJson
               ?.map((e) => Attendee.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
@@ -203,10 +205,12 @@ class TestJsonUtils {
           ? createEventFromJson(json['relatedEvent'] as Map<String, dynamic>)
           : null,
       categories: (json['categories'] as List<dynamic>?)
+          // AgendaCategory doesn't require nested user handling, use direct fromJson
           ?.map((e) => AgendaCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
       sequence: json['sequence'] as int?,
       organization: json['organization'] != null
+          // OrgInfo doesn't require nested user handling, use direct fromJson
           ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
           : null,
     );
@@ -228,6 +232,7 @@ class TestJsonUtils {
       videoUrl: json['videoUrl'] as String?,
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
       organization: json['organization'] != null
+          // OrgInfo doesn't require nested user handling, use direct fromJson
           ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
           : null,
     );
@@ -240,6 +245,7 @@ class TestJsonUtils {
         // Extract user ID from nested structure: {user: {id: "..."}}
         final userMap = vMap['user'] as Map<String, dynamic>;
         final userId = userMap['id'] as String?;
+        // LikedBy only needs simple ID, no complex user handling required
         post.likedBy?.add(LikedBy(sId: userId));
       });
     }
@@ -252,6 +258,7 @@ class TestJsonUtils {
         // Extract user ID from nested structure: {user: {id: "..."}}
         final userMap = vMap['user'] as Map<String, dynamic>;
         final userId = userMap['id'] as String?;
+        // Comments only needs simple ID, no complex user handling required
         post.comments?.add(Comments(sId: userId));
       });
     }
