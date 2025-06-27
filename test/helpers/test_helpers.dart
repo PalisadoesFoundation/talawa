@@ -907,7 +907,6 @@ void registerViewModels() {
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
   locator.registerFactory(() => SelectContactViewModel());
-  locator.registerFactory(() => CommentsViewModel());
 }
 
 /// `unregisterViewModels` unregisters all the view models required for the test.
