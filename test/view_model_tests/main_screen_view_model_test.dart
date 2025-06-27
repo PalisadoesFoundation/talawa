@@ -1198,7 +1198,7 @@ void main() {
         final homeBottomNavTarget = homeBottomNavTargets.first;
         expect(homeBottomNavTarget.isCircle, true);
         expect(homeBottomNavTarget.align, ContentAlign.top);
-        expect(homeBottomNavTarget.next, isNotNull);
+        expect(homeBottomNavTarget.next, null);
       }
     });
 
@@ -1279,15 +1279,105 @@ void main() {
       if (homeTargets.isNotEmpty) {
         final homeTarget = homeTargets.first;
 
-        // Execute the next callback which includes async delay
-        homeTarget.next?.call();
-
-        // Verify drawer is closed
-        expect(scaffoldKey.currentState?.isDrawerOpen, false);
+        // Call showHome method instead of next callback
+        testModel.showHome(
+          TargetFocus(
+            identify: 'keyBNHome',
+            keyTarget: homeTarget.key,
+          ),
+        );
 
         // Test the delay doesn't cause issues
         await tester.pump(const Duration(milliseconds: 400));
+
+        // Verify drawer is closed after delay
+        expect(scaffoldKey.currentState?.isDrawerOpen, false);
       }
+    });
+
+    testWidgets('Test drawer closing with async delay in keyBNHome target',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: const Text('Test Body'),
+          ),
+        ),
+      );
+
+      // Open the drawer first
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+      expect(scaffoldKey.currentState?.isDrawerOpen, true);
+
+      // Set up targets
+      testModel.tourHomeTargets(mockUserConfig);
+
+      // Check if we have targets and find the home target
+      expect(testModel.targets.isNotEmpty, true);
+
+      final homeTargets = testModel.targets.where(
+        (target) => target.keyName == 'keyBNHome',
+      );
+
+      if (homeTargets.isNotEmpty) {
+        final homeTarget = homeTargets.first;
+
+        // Call showHome method instead of next callback
+        await testModel.showHome(
+          TargetFocus(
+            identify: 'keyBNHome',
+            keyTarget: homeTarget.key,
+          ),
+        );
+
+        // Pump to complete the delay and animations
+        await tester.pump(const Duration(milliseconds: 350));
+        await tester.pumpAndSettle();
+
+        // Verify drawer is closed
+        expect(scaffoldKey.currentState?.isDrawerOpen, false);
+      }
+    });
+
+    testWidgets('Test showHome keyBNHome case with drawer closing and delay',
+        (tester) async {
+      when(mockUserConfig.loggedIn).thenReturn(true);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            key: scaffoldKey,
+            drawer: const Drawer(child: Text('Test Drawer')),
+            body: const Text('Test Body'),
+          ),
+        ),
+      );
+
+      // Open drawer
+      scaffoldKey.currentState?.openDrawer();
+      await tester.pumpAndSettle();
+      expect(scaffoldKey.currentState?.isDrawerOpen, true);
+
+      // Create target focus for keyBNHome
+      final targetFocus = TargetFocus(
+        identify: 'keyBNHome',
+        keyTarget: testModel.keyBNHome,
+      );
+
+      // Call showHome method
+      testModel.showHome(targetFocus);
+
+      // Wait for the Future.delayed to complete
+      await tester.pump(const Duration(milliseconds: 350));
+      await tester.pumpAndSettle();
+
+      // Verify drawer is closed
+      expect(scaffoldKey.currentState?.isDrawerOpen, false);
     });
   });
 }

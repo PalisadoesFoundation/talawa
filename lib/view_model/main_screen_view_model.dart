@@ -464,7 +464,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void showHome(TargetFocus clickedTarget) {
+  Future<void> showHome(TargetFocus clickedTarget) async {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
@@ -477,7 +477,7 @@ class MainScreenViewModel extends BaseModel {
         if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
           scaffoldKey.currentState?.closeDrawer();
           // Add a small delay to let the drawer close animation complete
-          Future.delayed(const Duration(milliseconds: 300));
+          await Future.delayed(const Duration(milliseconds: 300));
         }
         break;
     }
