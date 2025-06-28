@@ -30,7 +30,6 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isRegistered = event.isRegistered ?? false;
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
@@ -39,12 +38,12 @@ class EventCard extends StatelessWidget {
             surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
             shape: RoundedRectangleBorder(
               side:
-                  isRegistered && userConfig.currentUser.id != event.creator!.id
-                      ? BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
-                          width: SizeConfig.screenWidth! * 0.008,
-                        )
-                      : BorderSide.none,
+              userConfig.currentUser.id != event.creator!.id
+                  ? BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+                width: SizeConfig.screenWidth! * 0.008,
+              )
+                  : BorderSide.none,
             ),
             elevation: 3,
             color: Theme.of(context).primaryColor,
@@ -85,35 +84,35 @@ class EventCard extends StatelessWidget {
                             width: SizeConfig.screenWidth! * 0.48,
                             child: isSearchItem
                                 ? RichText(
-                                    text: TextSpan(
-                                      text: eventTitleHighlightedText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                      children: [
-                                        TextSpan(
-                                          text: eventTitleNormalText,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
-                                                color: Colors.grey,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                  )
-                                : Text(
-                                    event.title!,
+                              text: TextSpan(
+                                text: eventTitleHighlightedText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: eventTitleNormalText,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall,
+                                        .headlineSmall!
+                                        .copyWith(
+                                      color: Colors.grey,
+                                    ),
                                   ),
+                                ],
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                            )
+                                : Text(
+                              event.name!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall,
+                            ),
                           ),
                           const Spacer(),
                           const Icon(
@@ -151,15 +150,6 @@ class EventCard extends StatelessWidget {
                               Icons.place,
                               size: 12,
                             ),
-                            SizedBox(
-                              child: Text(
-                                event.location!.substring(
-                                  0,
-                                  min(event.location!.length, 20),
-                                ),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
                           ],
                         ),
                       SizedBox(
@@ -192,52 +182,32 @@ class EventCard extends StatelessWidget {
                         children: [
                           userConfig.currentUser.id == event.creator!.id
                               ? Row(
-                                  children: [
-                                    Icon(
-                                      Icons.verified,
-                                      size: 13,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                    SizedBox(
-                                      width: SizeConfig.screenWidth! * 0.013,
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .strictTranslate('Created'),
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ],
-                                )
+                            children: [
+                              Icon(
+                                Icons.verified,
+                                size: 13,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary,
+                              ),
+                              SizedBox(
+                                width: SizeConfig.screenWidth! * 0.013,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Created'),
+                                style:
+                                Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          )
                               : const SizedBox(),
                           const Spacer(),
-                          event.isPublic!
-                              ? Icon(
-                                  Icons.lock_open,
-                                  size: 13,
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              : Icon(
-                                  Icons.lock,
-                                  size: 13,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-                          event.isPublic!
-                              ? Text(
-                                  AppLocalizations.of(context)!
-                                      .strictTranslate('public'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                )
-                              : Text(
-                                  AppLocalizations.of(context)!
-                                      .strictTranslate('private'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
+
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.027,
                           ),
@@ -249,10 +219,7 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-                          Text(
-                            (event.attendees?.length ?? 0).toString(),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
+
                         ],
                       ),
                     ],
@@ -264,30 +231,17 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child: isRegistered &&
-                    userConfig.currentUser.id != event.creator!.id
+            child:
+            userConfig.currentUser.id != event.creator!.id
                 ? DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate("Registered"),
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                        ),
-                      ),
-                    ),
-                  )
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                ),
+              ),
+
+            )
                 : const SizedBox(),
           ),
         ],

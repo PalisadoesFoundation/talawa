@@ -9,64 +9,37 @@ part 'event_model.g.dart';
 class Event {
   Event({
     this.id,
-    this.title,
+    this.name,
     this.description,
-    this.attendees,
-    this.location,
-    this.recurring,
-    this.allDay,
-    this.startDate,
-    this.endDate,
-    this.startTime,
-    this.endTime,
-    this.isPublic,
-    this.isRegistered,
-    this.isRegisterable,
-    this.creator,
+    this.startAt,
+    this.endAt,
     this.organization,
-    this.admins,
+    this.creator,
+    this.attachments,
+
   });
-  //Creating a new Event instance from a map structure.
-  factory Event.fromJson(
-    Map<String, dynamic> json,
-  ) {
+
+  // Creating a new Event instance from a map structure.
+  factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      id: json['_id'] as String,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      location: json['location'] as String?,
-      recurring: json['recurring'] as bool?,
-      allDay: json['allDay'] as bool?,
-      startDate: json['startDate'] as String?,
-      endDate: json['endDate'] as String?,
-      startTime: json['startTime'] as String?,
-      endTime: json['endTime'] as String?,
-      isPublic: json['isPublic'] as bool?,
-      isRegistered: json['isRegistered'] as bool?,
-      isRegisterable: json['isRegisterable'] as bool?,
-      creator: json['creator'] == null
-          ? null
-          : User.fromJson(
-              json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
-            ),
+      id: json['id']?.toString() ?? json['_id']?.toString(),
+      name: json['name']?.toString() ?? json['title']?.toString(),
+      description: json['description']?.toString(),
+      startAt: json['startAt']?.toString(),
+      endAt: json['endAt']?.toString(),
       organization: json['organization'] == null
           ? null
-          : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
-      admins: json['admins'] == null
+          : OrgInfo(
+        id: json['organization']['id']?.toString(),
+        name: json['organization']['name']?.toString(),
+      ),
+      creator: json['creator'] == null
           ? null
-          : (json['admins'] as List<dynamic>?)
-              ?.map(
-                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
-              )
-              .toList(),
-      attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
-          ? null
-          : (json['attendees'] as List<dynamic>?)
-              ?.map(
-                (e) => Attendee.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
+          : User(
+        id: json['creator']['id']?.toString(),
+        firstName: json['creator']['name']?.toString(),
+      ),
+      attachments: json['attachments'] as List<dynamic>?,
     );
   }
 
@@ -74,69 +47,73 @@ class Event {
   @HiveField(0)
   String? id;
 
-  /// The title of the event.
+  /// The name/title of the event.
   @HiveField(1)
-  String? title;
+  String? name;
 
   /// The description of the event.
   @HiveField(2)
   String? description;
 
-  /// The location of the event.
+  /// The start datetime of the event (ISO8601 string).
   @HiveField(3)
-  String? location;
+  String? startAt;
 
-  /// A boolean value that indicates if the event is recurring.
+  /// The end datetime of the event (ISO8601 string).
   @HiveField(4)
-  bool? recurring;
+  String? endAt;
 
-  /// A boolean value that indicates if the event is an all-day event.
+  /// The organization of the event (minimal info).
   @HiveField(5)
-  bool? allDay;
-
-  /// The start date of the event.
-  @HiveField(6)
-  String? startDate;
-
-  /// The end date of the event.
-  @HiveField(7)
-  String? endDate;
-
-  /// The start time of the event.
-  @HiveField(8)
-  String? startTime;
-
-  /// The end time of the event.
-  @HiveField(9)
-  String? endTime;
-
-  /// A boolean value that indicates if the event is public.
-  @HiveField(10)
-  bool? isPublic;
-
-  /// A boolean value that indicates if the user is registered for the event.
-  @HiveField(11)
-  bool? isRegistered;
-
-  /// A boolean value that indicates if the event is registerable.
-  @HiveField(12)
-  bool? isRegisterable;
-
-  /// The creator of the event.
-  @HiveField(13)
-  User? creator;
-
-  /// The organization of the event.
-  @HiveField(14)
   OrgInfo? organization;
 
-  /// The admins of the event.
-  @HiveField(15)
-  List<User>? admins;
+  /// The creator of the event (minimal info).
+  @HiveField(6)
+  User? creator;
 
-  /// The attendees of the event.
-  @HiveField(16)
-  List<Attendee>? attendees;
+  /// Attachments for the event.
+  @HiveField(7)
+  List<dynamic>? attachments;
+
+  String? get startDate {
+    if (startAt == null) return null;
+    try {
+      final dt = DateTime.parse(startAt!);
+      return "${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return null;
+    }
+  }
+
+  String? get startTime {
+    if (startAt == null) return null;
+    try {
+      final dt = DateTime.parse(startAt!);
+      return "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}:${dt.second.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return null;
+    }
+  }
+
+  String? get endDate {
+    if (endAt == null) return null;
+    try {
+      final dt = DateTime.parse(endAt!);
+      return "${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return null;
+    }
+  }
+
+  String? get endTime {
+    if (endAt == null) return null;
+    try {
+      final dt = DateTime.parse(endAt!);
+      return "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}:${dt.second.toString().padLeft(2, '0')}";
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 ///This class creates an attendee model and returns an Attendee instance.

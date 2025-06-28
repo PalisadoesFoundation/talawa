@@ -30,7 +30,7 @@ class EventCalendar extends StatelessWidget {
                 onPressed: () async {
                   // initially pickedDate is initialised with current time.
                   final pickedDate =
-                      await customDatePicker(initialDate: DateTime.now());
+                  await customDatePicker(initialDate: DateTime.now());
                   model.selectionChanged(
                     DateRangePickerSelectionChangedArgs(pickedDate),
                   );
@@ -146,10 +146,9 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
         startTime: startDate
             .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
         endTime:
-            endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
-        subject: event.title!,
+        endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
+        subject: event.name!,
         color: colors[index % colors.length],
-        location: event.location,
         id: event.id,
       ),
     );

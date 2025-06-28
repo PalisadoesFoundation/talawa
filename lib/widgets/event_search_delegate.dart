@@ -53,7 +53,7 @@ class EventSearch extends SearchDelegate<Event> {
     /// toList( ) method is used to convert an Iterable to a List.
     /// toLowerCase() converts all characters in a string to lower case.
     final suggestions = eventList.where((event) {
-      final eventLowerCase = event.title!.toLowerCase();
+      final eventLowerCase = event.name!.toLowerCase();
       final queryLowerCase = query.toLowerCase();
       return eventLowerCase.startsWith(queryLowerCase);
     }).toList();
@@ -71,8 +71,8 @@ class EventSearch extends SearchDelegate<Event> {
         itemCount: suggestions.length,
         itemBuilder: (BuildContext context, int index) {
           final highlightedText =
-              suggestions[index].title!.substring(0, query.length);
-          final normalText = suggestions[index].title!.substring(query.length);
+          suggestions[index].name!.substring(0, query.length);
+          final normalText = suggestions[index].name!.substring(query.length);
 
           /// Returns a widget that detects gestures.
           /// Defers to its child for its sizing behavior.

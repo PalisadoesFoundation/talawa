@@ -28,7 +28,7 @@ class EditEventViewModel extends BaseModel {
 
   /// TextEditingController to handle the text input for the event description.
   TextEditingController eventDescriptionTextController =
-      TextEditingController();
+  TextEditingController();
 
   /// TimeOfDay to store the selected start time for the event.
   TimeOfDay eventStartTime = TimeOfDay.now();
@@ -89,11 +89,8 @@ class EditEventViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void _fillEditForm() {
-    eventTitleTextController.text = _event.title!;
-    eventLocationTextController.text = _event.location!;
+    eventTitleTextController.text = _event.name!;
     eventDescriptionTextController.text = _event.description!;
-    isPublicSwitch = _event.isPublic!;
-    isRegisterableSwitch = _event.isRegisterable!;
     eventStartDate = DateFormat().add_yMd().parse(_event.startDate!);
     eventEndDate = DateFormat().add_yMd().parse(_event.endDate!);
     eventStartTime =
