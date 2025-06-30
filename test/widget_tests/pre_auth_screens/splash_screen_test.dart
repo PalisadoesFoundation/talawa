@@ -16,6 +16,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/splash_screen.dart';
@@ -47,7 +48,7 @@ Widget _createSplashScreen({
           home: const SplashScreen(
             key: Key('SplashScreen'),
           ),
-          navigatorKey: navigationService.navigatorKey,
+          navigatorKey: locator<NavigationService>().navigatorKey,
           onGenerateRoute: router.generateRoute,
         );
       },
@@ -104,6 +105,9 @@ Future<void> main() async {
 
     when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
     when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
+    
+    // Mock userConfig.loggedIn to return false to prevent navigation calls
+    when(mockUserConfig.loggedIn).thenReturn(false);
   });
 
   tearDown(() {

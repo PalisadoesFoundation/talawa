@@ -283,8 +283,10 @@ class EventInfoViewModel extends BaseModel {
         'sequence': _agendaItems.length + 1,
         'organizationId': orgId,
       };
-      final result = await locator<EventService>().createAgendaItem(variables)
-          as QueryResult;
+      final result = await locator<EventService>().createAgendaItem(variables);
+      if (result == null || result is! QueryResult) {
+        throw Exception('Failed to create agenda item: Invalid result type');
+      }
       if (result.data == null || result.data!['createAgendaItem'] == null) {
         throw Exception('Failed to create agenda item or no data returned');
       }

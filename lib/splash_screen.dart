@@ -207,6 +207,9 @@ class _SplashScreenState extends State<SplashScreen> {
   ///   None
   void _handleUserLogIn(bool userLoggedIn) {
     Future.delayed(const Duration(milliseconds: 750)).then((value) {
+      // Check if the widget is still mounted before proceeding
+      if (!mounted) return;
+      
       final pushReplacementScreen = navigationService.pushReplacementScreen;
       if (!userLoggedIn) {
         pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');

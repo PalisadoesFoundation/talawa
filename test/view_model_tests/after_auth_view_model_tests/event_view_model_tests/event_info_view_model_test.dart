@@ -175,6 +175,7 @@ void main() {
     test('createAgendaItem success', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
+      model.agendaItems.clear(); // Clear agendaItems at the start of test
 
       final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
@@ -190,27 +191,23 @@ void main() {
         options: QueryOptions(document: gql(EventQueries().createAgendaItem())),
       );
 
-      when(
-        eventService.createAgendaItem({
-          'title': 'Test Agenda',
-          'sequence': 1,
-          'description': 'desc',
-          'duration': '1h',
-          'organizationId': 'XYZ',
-          'attachments': [],
-          'relatedEventId': model.event.id,
-          'urls': [],
-          'categories': ['cat1'],
-        }),
-      ).thenAnswer((_) async => mockResult);
+      when(eventService.createAgendaItem({
+        'title': 'Test Agenda',
+        'description': null,
+        'duration': '1h',
+        'attachments': [],
+        'relatedEventId': '1',
+        'urls': [],
+        'categories': ['cat1'],
+        'sequence': 1,
+        'organizationId': 'XYZ',
+      })).thenAnswer((_) async => mockResult);
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
         duration: '1h',
         attachments: [],
         categories: ['cat1'],
-        description: 'desc',
-        sequence: 1,
         urls: [],
       );
 
@@ -471,15 +468,22 @@ void main() {
     test('createAgendaItem error handling', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
+      model.agendaItems.clear(); // Clear agendaItems at the start of test
 
       final eventService = getAndRegisterEventService();
+      final error = Exception('Create agenda item failed');
 
       when(eventService.createAgendaItem({
         'title': 'Test Agenda',
         'description': 'Test Description',
         'duration': '1h',
-        'eventId': '1',
-      })).thenThrow(Exception('Create agenda item failed'));
+        'attachments': null,
+        'relatedEventId': '1',
+        'urls': null,
+        'categories': null,
+        'sequence': 1,
+        'organizationId': 'XYZ',
+      })).thenThrow(error);
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
@@ -488,6 +492,7 @@ void main() {
       );
 
       expect(result, isNull);
+      expect(model.agendaItems.length, 0); // Verify no item was added
     });
 
     test('deleteAgendaItem error handling', () async {

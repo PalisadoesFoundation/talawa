@@ -686,6 +686,70 @@ EventService getAndRegisterEventService() {
     ),
   );
 
+  // Mock createAgendaItem method
+  when(service.createAgendaItem(any)).thenAnswer(
+    (realInvocation) async => QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'createAgendaItem': {
+          '_id': 'new-agenda-item-id',
+          'title': 'Created Agenda Item',
+          'description': 'Created agenda description',
+          'duration': '1h',
+          'sequence': 1,
+          'attachments': [],
+          'urls': [],
+          'categories': [],
+        },
+      },
+      options: QueryOptions(
+        document: gql('''
+          mutation createAgendaItem {
+            createAgendaItem {
+              _id
+              title
+              description
+              duration
+              sequence
+            }
+          }
+        '''),
+      ),
+    ),
+  );
+
+  // Mock updateAgendaItem method
+  when(service.updateAgendaItem(any, any)).thenAnswer(
+    (realInvocation) async => QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'updateAgendaItem': {
+          '_id': realInvocation.positionalArguments[0],
+          'title': 'Updated Agenda Item',
+          'description': 'Updated agenda description',
+          'sequence': 2,
+        },
+      },
+      options: QueryOptions(
+        document: gql('''
+          mutation updateAgendaItem {
+            updateAgendaItem {
+              _id
+              title
+              description
+              sequence
+            }
+          }
+        '''),
+      ),
+    ),
+  );
+
+  // Mock deleteAgendaItem method
+  when(service.deleteAgendaItem(any)).thenAnswer(
+    (realInvocation) async => true,
+  );
+
   locator.registerSingleton<EventService>(service);
   return service;
 }

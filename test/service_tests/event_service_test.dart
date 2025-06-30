@@ -18,8 +18,6 @@ import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-import '../model_tests/user/user_info_test.dart';
-
 void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -182,6 +180,36 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
       userConfig.currentOrg = OrgInfo(name: 'org', id: 'id');
+
+      // Add stub for gqlAuthQuery
+      when(dataBaseMutationFunctions.gqlAuthQuery(EventQueries().fetchOrgEvents('XYZ')))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'eventsByOrganizationId': [
+              {
+                'id': '1234567890',
+                'name': 'Sample Event',
+                'description': 'This is a sample event description.',
+                'startAt': '2025-06-30T10:00:00Z',
+                'endAt': '2025-06-30T16:00:00Z',
+                'creator': {
+                  'id': 'user123',
+                  'firstName': 'Creator Name'
+                },
+                'organization': {
+                  'id': 'org123',
+                  'name': 'Organization Name'
+                },
+                'attachments': []
+              }
+            ]
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().fetchOrgEvents('XYZ'),
@@ -190,43 +218,33 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'eventsByOrganizationConnection': [
+            'eventsByOrganizationId': [
               {
-                "_id": "1234567890",
-                "title": "Sample Event",
-                "description": "This is a sample event description.",
-                "location": "Sample Location",
-                "recurring": true,
-                "allDay": false,
-                "startDate": "2024-01-15",
-                "endDate": "2024-01-16",
-                "startTime": "10:00 AM",
-                "endTime": "4:00 PM",
-                "isPublic": true,
-                "isRegistered": true,
-                "isRegisterable": true,
-                "creator": {
-                  "id": "user123",
-                  "name": "Creator Name",
-                  "email": "creator@example.com",
+                'id': '1234567890',
+                'name': 'Sample Event',
+                'description': 'This is a sample event description.',
+                'startAt': '2025-06-30T10:00:00Z',
+                'endAt': '2025-06-30T16:00:00Z',
+                'creator': {
+                  'id': 'user123',
+                  'firstName': 'Creator Name'
                 },
-                "organization": {
-                  "id": "org123",
-                  "name": "Organization Name",
-                  "description": "Sample organization description.",
+                'organization': {
+                  'id': 'org123',
+                  'name': 'Organization Name'
                 },
-                "attendees": [
-                  testDataNotFromOrg,
-                ],
+                'attachments': []
               }
-            ],
+            ]
           },
           source: QueryResultSource.network,
         ),
       );
+
       final services = EventService();
       services.getEvents();
 
+      // Test with null data
       when(
         dataBaseMutationFunctions.gqlAuthMutation(
           EventQueries().fetchOrgEvents('XYZ'),
@@ -242,7 +260,6 @@ void main() {
       services.getEvents();
 
       AppConnectivity.isOnline = false;
-
       services.getEvents();
     });
 
@@ -679,92 +696,39 @@ void main() {
       final dbFunctions = locator<DataBaseMutationFunctions>();
       final eventService = EventService();
       final String mutation = EventQueries().fetchOrgEvents("XYZ");
-      final options = QueryOptions(
-        document: gql(mutation),
-      );
-
-      final data = {
-        "eventsByOrganizationConnection": [
-          {
-            "_id": "event1",
-            "title": "Test Event 1",
-            "description": "Description of Test Event 1",
-            "location": "Location 1",
-            "recurring": false,
-            "allDay": false,
-            "startDate": "2022-01-01T00:00:00.000Z",
-            "endDate": "2022-01-02T00:00:00.000Z",
-            "startTime": "10:00 AM",
-            "endTime": "12:00 PM",
-            "isPublic": true,
-            "isRegisterable": true,
-            "isRegistered": null,
-            "creator": {
-              "_id": "creator1",
-              "firstName": "Creator",
-              "lastName": "One",
-            },
-            "organization": {"_id": "org1", "image": "image1"},
-            "admins": [
-              {"_id": "admin1", "firstName": "Admin", "lastName": "One"},
-            ],
-            "attendees": [
-              {
-                "_id": "user1",
-                "firstName": "User",
-                "lastName": "One",
-                "image": "image1",
-              }
-            ],
-          },
-          {
-            "_id": "event2",
-            "title": "Test Event 2",
-            "description": "Description of Test Event 2",
-            "location": "Location 2",
-            "recurring": false,
-            "allDay": false,
-            "startDate": "2022-02-01T00:00:00.000Z",
-            "endDate": "2022-02-02T00:00:00.000Z",
-            "startTime": "11:00 AM",
-            "endTime": "1:00 PM",
-            "isPublic": true,
-            "isRegisterable": false,
-            "isRegistered": null,
-            "creator": {
-              "_id": "creator2",
-              "firstName": "Creator",
-              "lastName": "Two",
-            },
-            "organization": {"_id": "org2", "image": "image2"},
-            "admins": [
-              {"_id": "admin2", "firstName": "Admin", "lastName": "Two"},
-            ],
-            "attendees": [
-              {
-                "_id": "user2",
-                "firstName": "User",
-                "lastName": "Two",
-                "image": "image2",
-              }
-            ],
-          }
-        ],
-      };
-
+      
       when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
         (_) async => QueryResult(
-          options: options,
-          data: data,
           source: QueryResultSource.network,
+          data: {
+            'eventsByOrganizationId': [
+              {
+                'id': '1',
+                'name': 'Test Event 1',
+                'description': 'Description of Test Event 1',
+                'startAt': '2025-06-30T10:00:00Z',
+                'endAt': '2025-06-30T12:00:00Z',
+                'organization': {
+                  'id': 'org1',
+                  'name': 'Test Organization'
+                },
+                'creator': {
+                  'id': 'user1',
+                  'firstName': 'Test User'
+                },
+                'attachments': []
+              }
+            ]
+          },
+          options: QueryOptions(document: gql(mutation)),
         ),
       );
+      
       final events = await eventService.fetchDataFromApi();
-      print(events);
-      // expect(events, isA<List<Event>>());
-      // expect(events.length, 2);
-      // expect(events[0].title, "Test Event 1");
-      // expect(events[1].title, "Test Event 2");
+      expect(events, isA<List<Event>>());
+      expect(events.length, 1);
+      expect(events[0].name, equals("Test Event 1"));
+      expect(events[0].description, equals("Description of Test Event 1"));
     });
   });
 }
