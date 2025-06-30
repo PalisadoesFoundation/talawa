@@ -55,7 +55,7 @@ class EventInfoViewModel extends BaseModel {
   Future<void> initialize({required Map<String, dynamic> args}) async {
     event = args["event"] as Event;
     exploreEventsInstance =
-    args["exploreEventViewModel"] as ExploreEventsViewModel;
+        args["exploreEventViewModel"] as ExploreEventsViewModel;
     fabTitle = getFabTitle();
     await fetchCategories();
     await fetchAgendaItems();
@@ -82,7 +82,7 @@ class EventInfoViewModel extends BaseModel {
 
     // use `registerForAnEvent` function provided by `EventService` service.
     final registerResult =
-    await locator<EventService>().registerForAnEvent(event.id!);
+        await locator<EventService>().registerForAnEvent(event.id!);
     if (registerResult != null) {
       final userConfig = locator<UserConfig>();
       attendees.add(
@@ -98,7 +98,6 @@ class EventInfoViewModel extends BaseModel {
     navigationService.pop();
     notifyListeners();
     await locator<EventService>().getEvents();
-
   }
 
   /// The funtion returns title to be displayed on Floating Action Button.
@@ -109,9 +108,7 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   /// * `String`: Returns the title to be displayed on Floating Action Button.
   String getFabTitle() {
-
     return "Register";
-
   }
 
   /// This function is used to create a new volunteer group for an event.
@@ -124,10 +121,10 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<EventVolunteerGroup?>`: returns the new volunteer group for an event
   Future<EventVolunteerGroup?> createVolunteerGroup(
-      Event event,
-      String groupName,
-      int volunteersRequired,
-      ) async {
+    Event event,
+    String groupName,
+    int volunteersRequired,
+  ) async {
     try {
       final variables = {
         'eventId': event.id,
@@ -145,7 +142,7 @@ class EventInfoViewModel extends BaseModel {
 
       final data = result.data!['createEventVolunteerGroup'];
       final newGroup =
-      EventVolunteerGroup.fromJson(data as Map<String, dynamic>);
+          EventVolunteerGroup.fromJson(data as Map<String, dynamic>);
 
       _volunteerGroups.add(newGroup);
       notifyListeners();
@@ -167,7 +164,7 @@ class EventInfoViewModel extends BaseModel {
   Future<void> fetchVolunteerGroups(String eventId) async {
     try {
       final result =
-      await locator<EventService>().fetchVolunteerGroupsByEvent(eventId);
+          await locator<EventService>().fetchVolunteerGroupsByEvent(eventId);
 
       _volunteerGroups.clear();
       _volunteerGroups.addAll(result);
@@ -189,15 +186,16 @@ class EventInfoViewModel extends BaseModel {
     try {
       final orgId = userConfig.currentOrg.id;
       if (orgId == null || orgId == 'null' || orgId.isEmpty) {
-        throw Exception('Organization ID is not set. Please select an organization.');
+        throw Exception(
+            'Organization ID is not set. Please select an organization.');
       }
-      final result = await locator<EventService>()
-          .fetchAgendaCategories(orgId) as QueryResult;
+      final result = await locator<EventService>().fetchAgendaCategories(orgId)
+          as QueryResult;
 
       if (result.data == null) return;
 
       final List categoryJson =
-      result.data!['agendaItemCategoriesByOrganization'] as List;
+          result.data!['agendaItemCategoriesByOrganization'] as List;
       _categories = categoryJson
           .map((json) => AgendaCategory.fromJson(json as Map<String, dynamic>))
           .toList();
@@ -230,7 +228,7 @@ class EventInfoViewModel extends BaseModel {
   Future<void> fetchAgendaItems() async {
     try {
       final result = await locator<EventService>().fetchAgendaItems(event.id!)
-      as QueryResult;
+          as QueryResult;
 
       if (result.data == null) return;
       final List agendaJson = result.data!['agendaItemByEvent'] as List;
@@ -271,7 +269,8 @@ class EventInfoViewModel extends BaseModel {
     try {
       final orgId = userConfig.currentOrg.id;
       if (orgId == null || orgId == 'null' || orgId.isEmpty) {
-        throw Exception('Organization ID is not set. Please select an organization.');
+        throw Exception(
+            'Organization ID is not set. Please select an organization.');
       }
       final variables = {
         'title': title,
@@ -285,7 +284,7 @@ class EventInfoViewModel extends BaseModel {
         'organizationId': orgId,
       };
       final result = await locator<EventService>().createAgendaItem(variables)
-      as QueryResult;
+          as QueryResult;
       if (result.data == null || result.data!['createAgendaItem'] == null) {
         throw Exception('Failed to create agenda item or no data returned');
       }
@@ -293,7 +292,7 @@ class EventInfoViewModel extends BaseModel {
       final data = result.data!['createAgendaItem'];
 
       final newAgendaItem =
-      EventAgendaItem.fromJson(data as Map<String, dynamic>);
+          EventAgendaItem.fromJson(data as Map<String, dynamic>);
 
       _agendaItems.add(newAgendaItem);
       selectedCategories.clear();

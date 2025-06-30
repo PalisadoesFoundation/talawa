@@ -71,7 +71,7 @@ class EventSearch extends SearchDelegate<Event> {
         itemCount: suggestions.length,
         itemBuilder: (BuildContext context, int index) {
           final highlightedText =
-          suggestions[index].name!.substring(0, query.length);
+              suggestions[index].name!.substring(0, query.length);
           final normalText = suggestions[index].name!.substring(query.length);
 
           /// Returns a widget that detects gestures.

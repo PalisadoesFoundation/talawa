@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -20,6 +19,16 @@ import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
+/// Creates a user events screen widget for testing.
+///
+/// **params**:
+/// * `reverse`: reverse order flag
+/// * `dialogTitle`: dialog title
+/// * `passSecondaryFunc`: secondary function flag
+/// * `isTest`: test mode flag
+///
+/// **returns**:
+/// * `Widget`: configured test widget
 Widget userEventsScreen({
   bool reverse = false,
   String? dialogTitle,
@@ -136,26 +145,11 @@ void main() {
       when(mockViewModel.userEvents).thenReturn([
         Event(
           id: 'a',
-          title: 'Sample Event',
+          name: 'Sample Event',
           description: 'This is a fake event description.',
-          location: 'City Park',
-          recurring: false,
-          allDay: false,
-          startDate: '2022-01-01',
-          endDate: '2022-01-02',
-          startTime: '12:00 PM',
-          endTime: '3:00 PM',
-          isPublic: true,
-          isRegistered: false,
-          isRegisterable: true,
+          startAt: '2022-01-01T12:00:00.000Z',
+          endAt: '2022-01-02T15:00:00.000Z',
           creator: User(id: 'creator'),
-          organization: OrgInfo(),
-          admins: [
-            User(id: 'admin'),
-          ],
-          attendees: [
-            Attendee(id: 'attendee1'),
-          ],
         ),
       ]);
 

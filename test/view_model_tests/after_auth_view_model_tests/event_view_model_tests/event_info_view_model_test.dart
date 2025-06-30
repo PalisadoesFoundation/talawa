@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
@@ -35,8 +36,7 @@ void main() {
     final model = EventInfoViewModel();
 
     test("test initialization", () {
-      final Event event =
-          Event(id: "1", isRegisterable: true, isRegistered: false);
+      final Event event = Event(id: "1");
       final ExploreEventsViewModel exploreEventsViewModel =
           ExploreEventsViewModel();
       model.initialize(
@@ -49,8 +49,7 @@ void main() {
     });
 
     test("Test register for event", () async {
-      final Event event1 =
-          Event(id: "1", isRegisterable: true, isRegistered: false);
+      final Event event1 = Event(id: "1");
       model.event = event1;
 
       final eventService = getAndRegisterEventService();
@@ -61,33 +60,22 @@ void main() {
       await model.registerForEvent();
 
       verify(navigationService.pop());
-
       verify(eventService.registerForAnEvent(model.event.id!));
-      expect(model.event.isRegistered, true);
-      expect(model.fabTitle, "Registered");
-
-      // now make the event non registrable
-      model.event.isRegistered = false;
-      model.event.isRegisterable = false;
-      await model.registerForEvent();
-      verifyNever(eventService.registerForAnEvent(model.event.id!));
-      expect(model.event.isRegistered, false);
+      expect(model.fabTitle, "Register");
     });
 
     test("Test getFabTitle function", () {
-      final Event event1 = Event(id: "1", isRegisterable: false);
+      final Event event1 = Event(id: "1");
       model.event = event1;
-      expect(model.getFabTitle(), "Not Registrable");
+      expect(model.getFabTitle(), "Register");
 
-      final Event event2 =
-          Event(id: "2", isRegisterable: true, isRegistered: false);
+      final Event event2 = Event(id: "2");
       model.event = event2;
       expect(model.getFabTitle(), "Register");
 
-      final Event event3 =
-          Event(id: "3", isRegisterable: true, isRegistered: true);
+      final Event event3 = Event(id: "3");
       model.event = event3;
-      expect(model.getFabTitle(), "Registered");
+      expect(model.getFabTitle(), "Register");
     });
     test("Test createVolunteerGroup success", () async {
       final Event event1 = Event(id: "1");
@@ -359,6 +347,258 @@ void main() {
       expect(model.categories.length, 2);
       expect(model.categories[0].name, 'Category 1');
       expect(model.categories[1].name, 'Category 2');
+    });
+    test('reorderAgendaItems - moving item forward', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      // Setup agenda items with specific sequences that will need updating
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', title: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', title: 'Item 2', sequence: 2),
+        EventAgendaItem(id: '3', title: 'Item 3', sequence: 3),
+      ]);
+
+      // Mock the updateAgendaItemSequence calls
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'updateAgendaItem': {
+            '_id': '1',
+            'title': 'Item 1',
+            'sequence': 3,
+          },
+        },
+        options: QueryOptions(document: gql(EventQueries().updateAgendaItem())),
+      );
+
+      when(eventService.updateAgendaItem('2', {'sequence': 1}))
+          .thenAnswer((_) async => mockResult);
+      when(eventService.updateAgendaItem('3', {'sequence': 2}))
+          .thenAnswer((_) async => mockResult);
+      when(eventService.updateAgendaItem('1', {'sequence': 3}))
+          .thenAnswer((_) async => mockResult);
+
+      // Move first item to last position (oldIndex: 0, newIndex: 3)
+      await model.reorderAgendaItems(0, 3);
+
+      // Verify the correct update methods were called
+      verify(eventService.updateAgendaItem('2', {'sequence': 1}));
+      verify(eventService.updateAgendaItem('3', {'sequence': 2}));
+      verify(eventService.updateAgendaItem('1', {'sequence': 3}));
+    });
+
+    test('reorderAgendaItems - moving item backward', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      // Setup agenda items with specific sequences that will need updating
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', title: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', title: 'Item 2', sequence: 2),
+        EventAgendaItem(id: '3', title: 'Item 3', sequence: 3),
+      ]);
+
+      // Mock the updateAgendaItemSequence calls
+      final mockResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'updateAgendaItem': {
+            '_id': '3',
+            'title': 'Item 3',
+            'sequence': 1,
+          },
+        },
+        options: QueryOptions(document: gql(EventQueries().updateAgendaItem())),
+      );
+
+      when(eventService.updateAgendaItem('3', {'sequence': 1}))
+          .thenAnswer((_) async => mockResult);
+      when(eventService.updateAgendaItem('1', {'sequence': 2}))
+          .thenAnswer((_) async => mockResult);
+      when(eventService.updateAgendaItem('2', {'sequence': 3}))
+          .thenAnswer((_) async => mockResult);
+
+      // Move last item to first position (oldIndex: 2, newIndex: 0)
+      await model.reorderAgendaItems(2, 0);
+
+      // Verify the correct update methods were called
+      verify(eventService.updateAgendaItem('3', {'sequence': 1}));
+      verify(eventService.updateAgendaItem('1', {'sequence': 2}));
+      verify(eventService.updateAgendaItem('2', {'sequence': 3}));
+    });
+
+    test('reorderAgendaItems - no sequence update needed', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      // Setup agenda items where after reordering, the sequences will match expected values
+      // This means the for-loop runs but the if condition is never true
+      model.agendaItems.clear();
+      model.agendaItems.addAll([
+        EventAgendaItem(id: '1', title: 'Item 1', sequence: 2),
+        EventAgendaItem(id: '2', title: 'Item 2', sequence: 1),
+        EventAgendaItem(id: '3', title: 'Item 3', sequence: 3),
+      ]);
+
+      // Move second item to first position
+      // After this operation:
+      // - Item 2 will be at index 0 with sequence 1 (1 == 0 + 1, so no update needed)
+      // - Item 1 will be at index 1 with sequence 2 (2 == 1 + 1, so no update needed)
+      // - Item 3 will be at index 2 with sequence 3 (3 == 2 + 1, so no update needed)
+      await model.reorderAgendaItems(1, 0);
+
+      // Verify the order changed but no sequence updates were called
+      expect(model.agendaItems[0].id, '2');
+      expect(model.agendaItems[1].id, '1');
+      expect(model.agendaItems[2].id, '3');
+
+      // The for-loop runs but the if condition is never true
+      // This covers the case where item.sequence == i + 1 for all items
+      verifyNever(eventService.updateAgendaItem('2', {'sequence': 1}));
+      verifyNever(eventService.updateAgendaItem('1', {'sequence': 2}));
+      verifyNever(eventService.updateAgendaItem('3', {'sequence': 3}));
+    });
+
+    test('createAgendaItem error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      when(eventService.createAgendaItem({
+        'title': 'Test Agenda',
+        'description': 'Test Description',
+        'duration': '1h',
+        'eventId': '1',
+      })).thenThrow(Exception('Create agenda item failed'));
+
+      final result = await model.createAgendaItem(
+        title: 'Test Agenda',
+        description: 'Test Description',
+        duration: '1h',
+      );
+
+      expect(result, isNull);
+    });
+
+    test('deleteAgendaItem error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      model.agendaItems.clear();
+      model.agendaItems.add(EventAgendaItem(id: '1', title: 'Item 1'));
+
+      when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
+          .thenThrow(Exception('Delete failed'));
+
+      await model.deleteAgendaItem('1');
+
+      // Item should still be in the list since deletion failed
+      expect(model.agendaItems.length, 1);
+    });
+
+    test('updateAgendaItemSequence error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+      model.agendaItems.clear();
+      model.agendaItems
+          .add(EventAgendaItem(id: '1', title: 'Item 1', sequence: 1));
+
+      when(eventService.updateAgendaItem('1', {'sequence': 2}))
+          .thenThrow(Exception('Update failed'));
+
+      await model.updateAgendaItemSequence('1', 2);
+
+      // Sequence should remain unchanged since update failed
+      expect(model.agendaItems.first.sequence, 1);
+    });
+
+    test('fetchAgendaItems error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      // Pre-populate with some items to verify they remain unchanged on error
+      model.agendaItems.clear();
+      model.agendaItems
+          .add(EventAgendaItem(id: 'existing', title: 'Existing Item'));
+
+      when(eventService.fetchAgendaItems('1'))
+          .thenThrow(Exception('Fetch failed'));
+
+      await model.fetchAgendaItems();
+
+      // agendaItems should remain unchanged since fetch failed
+      expect(model.agendaItems.length, 1);
+      expect(model.agendaItems.first.id, 'existing');
+    });
+
+    test('fetchCategories error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      // Pre-populate with some categories to verify they remain unchanged on error
+      model.categories.clear();
+      model.categories
+          .add(AgendaCategory(id: 'existing', name: 'Existing Category'));
+
+      when(eventService.fetchAgendaCategories("XYZ"))
+          .thenThrow(Exception('Fetch categories failed'));
+
+      await model.fetchCategories();
+
+      // categories should remain unchanged since fetch failed
+      expect(model.categories.length, 1);
+      expect(model.categories.first.id, 'existing');
+    });
+
+    test('setSelectedCategories', () {
+      final categories = [
+        AgendaCategory(id: '1', name: 'Category 1'),
+        AgendaCategory(id: '2', name: 'Category 2'),
+      ];
+
+      model.setSelectedCategories(categories);
+
+      expect(model.selectedCategories.length, 2);
+      expect(model.selectedCategories[0].id, '1');
+      expect(model.selectedCategories[1].id, '2');
+    });
+
+    test('createVolunteerGroup error handling', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+
+      final eventService = getAndRegisterEventService();
+
+      when(eventService.createVolunteerGroup({
+        'eventId': '1',
+        'name': 'Test Group',
+        'volunteersRequired': 5,
+      })).thenThrow(Exception('Create volunteer group failed'));
+
+      final result = await model.createVolunteerGroup(
+        event1,
+        'Test Group',
+        5,
+      );
+
+      expect(result, isNull);
     });
   });
 }

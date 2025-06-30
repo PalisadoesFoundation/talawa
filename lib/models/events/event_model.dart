@@ -16,7 +16,6 @@ class Event {
     this.organization,
     this.creator,
     this.attachments,
-
   });
 
   // Creating a new Event instance from a map structure.
@@ -30,15 +29,15 @@ class Event {
       organization: json['organization'] == null
           ? null
           : OrgInfo(
-        id: json['organization']['id']?.toString(),
-        name: json['organization']['name']?.toString(),
-      ),
+              id: json['organization']['id']?.toString(),
+              name: json['organization']['name']?.toString(),
+            ),
       creator: json['creator'] == null
           ? null
           : User(
-        id: json['creator']['id']?.toString(),
-        firstName: json['creator']['name']?.toString(),
-      ),
+              id: json['creator']['id']?.toString(),
+              firstName: json['creator']['name']?.toString(),
+            ),
       attachments: json['attachments'] as List<dynamic>?,
     );
   }

@@ -53,12 +53,12 @@ class EventInfoBody extends StatelessWidget {
                     children: [
                       (model.event.creator!.id == userConfig.currentUser.id)
                           ? IconButton(
-                        onPressed: () => navigationService.pushScreen(
-                          "/editEventPage",
-                          arguments: model.event,
-                        ),
-                        icon: const Icon(Icons.edit),
-                      )
+                              onPressed: () => navigationService.pushScreen(
+                                "/editEventPage",
+                                arguments: model.event,
+                              ),
+                              icon: const Icon(Icons.edit),
+                            )
                           : Container(),
                       const Icon(Icons.chat_bubble_outline),
                     ],
@@ -99,7 +99,6 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 // If event type is public then renders 'public'
                 // else renders 'private' text translated into the app language.
-
               ],
             ),
             SizedBox(
@@ -136,7 +135,6 @@ class EventInfoBody extends StatelessWidget {
                 SizedBox(
                   width: SizeConfig.screenWidth! * 0.027,
                 ),
-
                 const Spacer(),
               ],
             ),
@@ -169,7 +167,6 @@ class EventInfoBody extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
-
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -185,14 +182,14 @@ class EventInfoBody extends StatelessWidget {
               thickness: 2,
             ),
             if (model.isBusy)
-            // if the model is still fetching the attendees details then display Circular Progress Indicator Icon.
+              // if the model is still fetching the attendees details then display Circular Progress Indicator Icon.
               const Padding(
                 padding: EdgeInsets.only(top: 12.0),
                 child: Center(child: CircularProgressIndicator()),
               )
             else
-            // else if the model fetched the attendees details successfully
-            //then renders all the attendees in ListView.
+              // else if the model fetched the attendees details successfully
+              //then renders all the attendees in ListView.
               ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,

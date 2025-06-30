@@ -6,12 +6,14 @@ import 'package:talawa/models/user/user_info.dart';
 class EventVolunteer {
   EventVolunteer({
     this.id,
+    this.createdAt,
     this.creator,
     this.event,
     this.group,
     this.isAssigned,
     this.isInvited,
     this.response,
+    this.updatedAt,
     this.user,
   });
 
@@ -19,6 +21,7 @@ class EventVolunteer {
   factory EventVolunteer.fromJson(Map<String, dynamic> json) {
     return EventVolunteer(
       id: json['_id'] as String?,
+      createdAt: json['createdAt'] as String?,
       creator: json['creator'] != null
           ? User.fromJson(
               json['creator'] as Map<String, dynamic>,
@@ -34,6 +37,7 @@ class EventVolunteer {
       isAssigned: json['isAssigned'] as bool?,
       isInvited: json['isInvited'] as bool?,
       response: json['response'] as String?,
+      updatedAt: json['updatedAt'] as String?,
       user: json['user'] != null
           ? User.fromJson(json['user'] as Map<String, dynamic>, fromOrg: true)
           : null,

@@ -41,7 +41,7 @@ class EventService extends BaseFeedManager<Event> {
   late Stream<List<Event>> _eventStream;
 
   final StreamController<List<Event>> _eventStreamController =
-  StreamController<List<Event>>();
+      StreamController<List<Event>>();
 
   List<Event> _events = [];
 
@@ -64,8 +64,11 @@ class EventService extends BaseFeedManager<Event> {
   @override
   Future<List<Event>> fetchDataFromApi() async {
     // get current organization id
-    if (_currentOrg.id == null || _currentOrg.id == 'null' || _currentOrg.id!.isEmpty) {
-      throw Exception('Organization ID is not set. Please select an organization.');
+    if (_currentOrg.id == null ||
+        _currentOrg.id == 'null' ||
+        _currentOrg.id!.isEmpty) {
+      throw Exception(
+          'Organization ID is not set. Please select an organization.');
     }
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
@@ -78,9 +81,8 @@ class EventService extends BaseFeedManager<Event> {
 
     // Clear the events list before adding new events
     _events.clear();
-    
-    final eventsJson =
-    result.data!["eventsByOrganizationId"] as List<dynamic>;
+
+    final eventsJson = result.data!["eventsByOrganizationId"] as List<dynamic>;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
 
@@ -130,8 +132,8 @@ class EventService extends BaseFeedManager<Event> {
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
-          _currentOrg = updatedOrganization;
-        });
+      _currentOrg = updatedOrganization;
+    });
   }
 
   /// This function is used to create an event using a GraphQL mutation.
@@ -279,8 +281,8 @@ class EventService extends BaseFeedManager<Event> {
   /// **returns**:
   /// * `Future<dynamic>`: Information about the removed volunteer.
   Future<dynamic> removeVolunteerFromGroup(
-      Map<String, dynamic> variables,
-      ) async {
+    Map<String, dynamic> variables,
+  ) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().removeVolunteerMutation(),
       variables: variables,
@@ -311,8 +313,8 @@ class EventService extends BaseFeedManager<Event> {
   /// **returns**:
   /// * `Future<List<EventVolunteerGroup>>`: returns the list of volunteer groups
   Future<List<EventVolunteerGroup>> fetchVolunteerGroupsByEvent(
-      String eventId,
-      ) async {
+    String eventId,
+  ) async {
     try {
       final variables = {
         "where": {"eventId": eventId},
@@ -326,8 +328,8 @@ class EventService extends BaseFeedManager<Event> {
       return groupsJson
           .map(
             (groupJson) =>
-            EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
-      )
+                EventVolunteerGroup.fromJson(groupJson as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       print('Error fetching volunteer groups: $e');
@@ -388,9 +390,9 @@ class EventService extends BaseFeedManager<Event> {
   /// **returns**:
   /// * `Future<dynamic>`: Information about the updated agenda item.
   Future<dynamic> updateAgendaItem(
-      String itemId,
-      Map<String, dynamic> variables,
-      ) async {
+    String itemId,
+    Map<String, dynamic> variables,
+  ) async {
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().updateAgendaItem(),
       variables: {

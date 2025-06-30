@@ -99,7 +99,7 @@ class ExploreEventsViewModel extends BaseModel {
           .listen((updatedOrganization) => refreshEvents());
 
       _eventStreamSubscription = _eventService.eventStream.listen(
-            (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
+        (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
       );
       await _eventService.fetchEventsInitial();
       _bufferEvents = _events;
@@ -205,7 +205,7 @@ class ExploreEventsViewModel extends BaseModel {
 
     if (!demoMode) {
       switch (_chosenValue) {
-      // if `_chosenValue` is "All events".
+        // if `_chosenValue` is "All events".
         case 'All Events':
           {
             // all events
@@ -214,21 +214,21 @@ class ExploreEventsViewModel extends BaseModel {
             _emptyListMessage = "Looks like there aren't any events.";
           }
           break;
-      // if `_chosenValue` is "created event".
+        // if `_chosenValue` is "created event".
         case 'My Events':
           {
             // loop through the `_events` list and check
             // for the creator id matched the current user id.
             _events = List.from(
               _bufferEvents.where(
-                    (element) => element.creator?.id == userConfig.currentUser?.id,
+                (element) => element.creator?.id == userConfig.currentUser?.id,
               ),
             );
             // if list is empty
             _emptyListMessage = "You have not created any event.";
           }
           break;
-      // if `_chosenValue` is "Registered Events".
+        // if `_chosenValue` is "Registered Events".
 
         default:
           {

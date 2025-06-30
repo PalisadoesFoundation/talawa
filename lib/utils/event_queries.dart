@@ -43,9 +43,6 @@ class EventQueries {
   ''';
   }
 
-
-
-
   /// Fetches attendees by event ID.
   ///
   /// **params**:

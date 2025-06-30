@@ -37,12 +37,11 @@ class EventCard extends StatelessWidget {
           Card(
             surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
             shape: RoundedRectangleBorder(
-              side:
-              userConfig.currentUser.id != event.creator!.id
+              side: userConfig.currentUser.id != event.creator!.id
                   ? BorderSide(
-                color: Theme.of(context).colorScheme.secondary,
-                width: SizeConfig.screenWidth! * 0.008,
-              )
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: SizeConfig.screenWidth! * 0.008,
+                    )
                   : BorderSide.none,
             ),
             elevation: 3,
@@ -84,35 +83,35 @@ class EventCard extends StatelessWidget {
                             width: SizeConfig.screenWidth! * 0.48,
                             child: isSearchItem
                                 ? RichText(
-                              text: TextSpan(
-                                text: eventTitleHighlightedText,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: eventTitleNormalText,
+                                    text: TextSpan(
+                                      text: eventTitleHighlightedText,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                      children: [
+                                        TextSpan(
+                                          text: eventTitleNormalText,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                color: Colors.grey,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                  )
+                                : Text(
+                                    event.name!,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                      color: Colors.grey,
-                                    ),
+                                        .headlineSmall,
                                   ),
-                                ],
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                            )
-                                : Text(
-                              event.name!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall,
-                            ),
                           ),
                           const Spacer(),
                           const Icon(
@@ -182,32 +181,30 @@ class EventCard extends StatelessWidget {
                         children: [
                           userConfig.currentUser.id == event.creator!.id
                               ? Row(
-                            children: [
-                              Icon(
-                                Icons.verified,
-                                size: 13,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondary,
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth! * 0.013,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .strictTranslate('Created'),
-                                style:
-                                Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ],
-                          )
+                                  children: [
+                                    Icon(
+                                      Icons.verified,
+                                      size: 13,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                    SizedBox(
+                                      width: SizeConfig.screenWidth! * 0.013,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .strictTranslate('Created'),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                )
                               : const SizedBox(),
                           const Spacer(),
-
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.027,
                           ),
@@ -219,7 +216,6 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-
                         ],
                       ),
                     ],
@@ -231,17 +227,15 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child:
-            userConfig.currentUser.id != event.creator!.id
+            child: userConfig.currentUser.id != event.creator!.id
                 ? DecoratedBox(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                ),
-              ),
-
-            )
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ),
         ],

@@ -16,13 +16,10 @@ void main() {
 
       final event = Event(
         id: 'fakeEventId',
-        title: 'Sample Event',
+        name: 'Sample Event',
         description: 'Sample Description',
-        location: 'Sample Location',
-        startDate: '2024-08-11',
-        endDate: '2024-08-12',
-        startTime: '10:00 AM',
-        endTime: '12:00 PM',
+        startAt: '2024-08-11T10:00:00Z',
+        endAt: '2024-08-12T12:00:00Z',
       );
 
       final eventVolunteerGroup = EventVolunteerGroup(
@@ -49,11 +46,8 @@ void main() {
           '_id': 'fakeEventId',
           'title': 'Sample Event',
           'description': 'Sample Description',
-          'location': 'Sample Location',
-          'startDate': '2024-08-11',
-          'endDate': '2024-08-12',
-          'startTime': '10:00 AM',
-          'endTime': '12:00 PM',
+          'startAt': '2024-08-11T10:00:00Z',
+          'endAt': '2024-08-12T12:00:00Z',
         },
         'leader': {
           'user': {

@@ -175,7 +175,7 @@ void main() {
       await tester.pump();
 
       bool refreshed = false;
-      when(mockViewModel.fetchNewPosts()).thenAnswer((_) {
+      when(mockViewModel.fetchNewPosts()).thenAnswer((_) async {
         refreshed = true;
       });
       await tester.drag(

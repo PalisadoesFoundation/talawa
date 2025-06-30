@@ -19,7 +19,6 @@ class EventCalendar extends StatelessWidget {
     return BaseView<EventCalendarViewModel>(
       onModelReady: (model) => model.initialize(eventList),
       builder: (context, model, child) {
-        print(model.calendarView);
         return Scaffold(
           // header of the page.
           appBar: AppBar(
@@ -30,7 +29,7 @@ class EventCalendar extends StatelessWidget {
                 onPressed: () async {
                   // initially pickedDate is initialised with current time.
                   final pickedDate =
-                  await customDatePicker(initialDate: DateTime.now());
+                      await customDatePicker(initialDate: DateTime.now());
                   model.selectionChanged(
                     DateRangePickerSelectionChangedArgs(pickedDate),
                   );
@@ -136,7 +135,6 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
     } else {
       endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
     }
-    print("${event.startTime!}##############################");
     final startTime = parseTime(event.startTime ?? '14:23:01');
     final endTime = parseTime(event.endTime ?? '21:23:01');
 
@@ -146,7 +144,7 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
         startTime: startDate
             .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
         endTime:
-        endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
+            endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
         subject: event.name!,
         color: colors[index % colors.length],
         id: event.id,
@@ -169,11 +167,9 @@ DateTime parseTime(String time) {
   try {
     return DateFormat('h:mm a', 'en_US').parse(time);
   } on FormatException {
-    print('Caught FormatException: $time');
     try {
-      return DateFormat('Hms').parse(time);
+      return DateFormat('HH:mm:ss').parse(time);
     } catch (e) {
-      print('Caught error: $e');
       throw Exception('Invalid time format: $time');
     }
   }

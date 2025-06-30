@@ -16,114 +16,250 @@ final event = Event(
     email: 'test@test.com',
   ),
   id: '12',
-  title: 'for test only',
+  name: 'for test only',
   description: 'for test only',
-  location: 'for test only',
-  recurring: false,
-  allDay: false,
-  startDate: 'for test only',
-  endDate: 'for test only',
-  startTime: 'for test only',
-  endTime: 'for test only',
-  isPublic: true,
-  isRegistered: true,
-  isRegisterable: true,
-  organization: OrgInfo(admins: users),
-  admins: users,
-  attendees: [
-    Attendee(
-      id: "attendee1",
-      firstName: "firstName1",
-      lastName: "lastName1",
-      image: null,
-    ),
-  ],
+  startAt: '2024-01-01T10:00:00.000Z',
+  endAt: '2024-01-01T20:00:00.000Z',
+  organization: OrgInfo(id: 'org123', name: 'Test Org'),
+  attachments: [],
 );
 
 final eventJson = {
   'creator': {
-    'user': {
-      'id': '123',
-      'name': 'Ayush Chaudhary',
-      'emailAddress': 'test@test.com',
-    },
+    'id': '123',
+    'name': 'Ayush Chaudhary',
   },
-  '_id': '12',
-  'title': 'for test only',
+  'id': '12',
+  'name': 'for test only',
   'description': 'for test only',
-  'location': 'for test only',
-  'recurring': false,
-  'allDay': false,
-  'startDate': 'for test only',
-  'endDate': 'for test only',
-  'startTime': 'for test only',
-  'endTime': 'for test only',
-  'isPublic': true,
-  'isRegistered': true,
-  'isRegisterable': true,
+  'startAt': '2024-01-01T10:00:00.000Z',
+  'endAt': '2024-01-01T20:00:00.000Z',
   'organization': {
-    'admin': {
-      'id': '123',
-      'firstName': 'Ayush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
+    'id': 'org123',
+    'name': 'Test Org',
   },
-  'admins': [
-    <String, dynamic>{
-      'id': '123',
-      'firstName': 'Ayush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
-    <String, dynamic>{
-      'id': '123',
-      'firstName': 'Aykkush',
-      'lastName': 'Chaudhary',
-      'email': 'test@test.com',
-    },
-  ],
-  'attendees': [
-    Attendee(
-      id: "attendee1",
-      firstName: "firstName1",
-      lastName: "lastName1",
-      image: null,
-    ).toJson(),
-  ],
+  'attachments': [],
 };
+
+final eventFromJson = Event(
+  creator: User(
+    id: '123',
+    firstName: 'Ayush Chaudhary',
+    lastName: null,
+    email: null,
+  ),
+  id: '12',
+  name: 'for test only',
+  description: 'for test only',
+  startAt: '2024-01-01T10:00:00.000Z',
+  endAt: '2024-01-01T20:00:00.000Z',
+  organization: OrgInfo(id: 'org123', name: 'Test Org'),
+  attachments: [],
+);
 
 void main() {
   group('Test Event Model', () {
-    test('Test Event ', () {
-      final eventFromJson = Event.fromJson(eventJson);
+    test('Test Event fromJson with complete data', () {
+      final parsedEvent = Event.fromJson(eventJson);
 
-      expect(event.creator?.id, eventFromJson.creator?.id);
-      expect(event.creator?.firstName, eventFromJson.creator?.firstName);
-      expect(event.creator?.lastName, eventFromJson.creator?.lastName);
-      expect(event.creator?.email, eventFromJson.creator?.email);
-      expect(event.title, eventFromJson.title);
-      expect(event.id, eventFromJson.id);
-      expect(event.description, eventFromJson.description);
-      expect(event.attendees?[0].id, eventFromJson.attendees?[0].id);
-      expect(
-        event.attendees?[0].firstName,
-        eventFromJson.attendees?[0].firstName,
+      expect(eventFromJson.creator?.id, parsedEvent.creator?.id);
+      expect(eventFromJson.creator?.firstName, parsedEvent.creator?.firstName);
+      expect(eventFromJson.creator?.lastName, parsedEvent.creator?.lastName);
+      expect(eventFromJson.creator?.email, parsedEvent.creator?.email);
+      expect(eventFromJson.name, parsedEvent.name);
+      expect(eventFromJson.id, parsedEvent.id);
+      expect(eventFromJson.description, parsedEvent.description);
+      expect(eventFromJson.startAt, parsedEvent.startAt);
+      expect(eventFromJson.endAt, parsedEvent.endAt);
+      expect(eventFromJson.organization?.id, parsedEvent.organization?.id);
+      expect(eventFromJson.organization?.name, parsedEvent.organization?.name);
+    });
+
+    test('Test Event fromJson with _id field', () {
+      final jsonWithIdField = {
+        '_id': 'event123',
+        'title': 'Test Event with _id',
+        'description': 'Testing _id field',
+        'startAt': '2024-01-01T10:00:00.000Z',
+        'endAt': '2024-01-01T20:00:00.000Z',
+      };
+
+      final event = Event.fromJson(jsonWithIdField);
+
+      expect(event.id, 'event123');
+      expect(event.name, 'Test Event with _id');
+      expect(event.description, 'Testing _id field');
+    });
+
+    test('Test Event fromJson with null values', () {
+      final jsonWithNulls = <String, dynamic>{
+        'id': null,
+        'name': null,
+        'description': null,
+        'startAt': null,
+        'endAt': null,
+        'organization': null,
+        'creator': null,
+        'attachments': null,
+      };
+
+      final event = Event.fromJson(jsonWithNulls);
+
+      expect(event.id, isNull);
+      expect(event.name, isNull);
+      expect(event.description, isNull);
+      expect(event.startAt, isNull);
+      expect(event.endAt, isNull);
+      expect(event.organization, isNull);
+      expect(event.creator, isNull);
+      expect(event.attachments, isNull);
+    });
+
+    test('Test Event fromJson with empty JSON', () {
+      final emptyJson = <String, dynamic>{};
+      final event = Event.fromJson(emptyJson);
+
+      expect(event.id, isNull);
+      expect(event.name, isNull);
+      expect(event.description, isNull);
+      expect(event.startAt, isNull);
+      expect(event.endAt, isNull);
+      expect(event.organization, isNull);
+      expect(event.creator, isNull);
+      expect(event.attachments, isNull);
+    });
+
+    test('Test Event getter methods with valid dates', () {
+      final event = Event(
+        startAt: '2024-01-15T14:30:45.000Z',
+        endAt: '2024-01-16T18:45:30.000Z',
       );
-      expect(
-        event.attendees?[0].lastName,
-        eventFromJson.attendees?[0].lastName,
+
+      expect(event.startDate, '2024-01-15');
+      expect(event.startTime, '14:30:45');
+      expect(event.endDate, '2024-01-16');
+      expect(event.endTime, '18:45:30');
+    });
+
+    test('Test Event getter methods with null dates', () {
+      final event = Event(
+        startAt: null,
+        endAt: null,
       );
-      expect(event.attendees?[0].image, eventFromJson.attendees?[0].image);
-      expect(event.location, eventFromJson.location);
-      expect(event.recurring, eventFromJson.recurring);
-      expect(event.allDay, eventFromJson.allDay);
-      expect(event.startDate, eventFromJson.startDate);
-      expect(event.startTime, eventFromJson.startTime);
-      expect(event.endTime, eventFromJson.endTime);
-      expect(event.isPublic, eventFromJson.isPublic);
-      expect(event.isRegistered, eventFromJson.isRegistered);
-      expect(event.isRegisterable, eventFromJson.isRegisterable);
+
+      expect(event.startDate, isNull);
+      expect(event.startTime, isNull);
+      expect(event.endDate, isNull);
+      expect(event.endTime, isNull);
+    });
+
+    test('Test Event getter methods with invalid dates', () {
+      final event = Event(
+        startAt: 'invalid-date',
+        endAt: 'another-invalid-date',
+      );
+
+      expect(event.startDate, isNull);
+      expect(event.startTime, isNull);
+      expect(event.endDate, isNull);
+      expect(event.endTime, isNull);
+    });
+
+    test('Test Event constructor', () {
+      final event = Event(
+        id: 'test-id',
+        name: 'Test Event',
+        description: 'Test Description',
+        startAt: '2024-01-01T10:00:00.000Z',
+        endAt: '2024-01-01T20:00:00.000Z',
+        organization: OrgInfo(id: 'org1', name: 'Test Org'),
+        creator: User(id: 'user1', firstName: 'John'),
+        attachments: ['file1.pdf', 'file2.jpg'],
+      );
+
+      expect(event.id, 'test-id');
+      expect(event.name, 'Test Event');
+      expect(event.description, 'Test Description');
+      expect(event.startAt, '2024-01-01T10:00:00.000Z');
+      expect(event.endAt, '2024-01-01T20:00:00.000Z');
+      expect(event.organization?.id, 'org1');
+      expect(event.creator?.id, 'user1');
+      expect(event.attachments, ['file1.pdf', 'file2.jpg']);
+    });
+  });
+
+  group('Test Attendee Model', () {
+    test('Test Attendee constructor', () {
+      final attendee = Attendee(
+        id: 'attendee1',
+        firstName: 'John',
+        lastName: 'Doe',
+        image: 'image.jpg',
+      );
+
+      expect(attendee.id, 'attendee1');
+      expect(attendee.firstName, 'John');
+      expect(attendee.lastName, 'Doe');
+      expect(attendee.image, 'image.jpg');
+    });
+
+    test('Test Attendee fromJson', () {
+      final json = {
+        '_id': 'attendee2',
+        'firstName': 'Jane',
+        'lastName': 'Smith',
+        'image': 'jane.jpg',
+      };
+
+      final attendee = Attendee.fromJson(json);
+
+      expect(attendee.id, 'attendee2');
+      expect(attendee.firstName, 'Jane');
+      expect(attendee.lastName, 'Smith');
+      expect(attendee.image, 'jane.jpg');
+    });
+
+    test('Test Attendee fromJson with null values', () {
+      final json = {
+        '_id': null,
+        'firstName': null,
+        'lastName': null,
+        'image': null,
+      };
+
+      final attendee = Attendee.fromJson(json);
+
+      expect(attendee.id, isNull);
+      expect(attendee.firstName, isNull);
+      expect(attendee.lastName, isNull);
+      expect(attendee.image, isNull);
+    });
+
+    test('Test Attendee toJson', () {
+      final attendee = Attendee(
+        id: 'attendee3',
+        firstName: 'Bob',
+        lastName: 'Johnson',
+        image: 'bob.jpg',
+      );
+
+      final json = attendee.toJson();
+
+      expect(json['_id'], 'attendee3');
+      expect(json['firstName'], 'Bob');
+      expect(json['lastName'], 'Johnson');
+      expect(json['image'], 'bob.jpg');
+    });
+
+    test('Test Attendee toJson with null values', () {
+      final attendee = Attendee();
+
+      final json = attendee.toJson();
+
+      expect(json['_id'], isNull);
+      expect(json['firstName'], isNull);
+      expect(json['lastName'], isNull);
+      expect(json['image'], isNull);
     });
   });
 
@@ -146,18 +282,12 @@ void main() {
           isNotNull,
         ); // Check that the fetched event is not null
         expect(fetchedEvent.id, event.id);
-        expect(fetchedEvent.title, event.title);
+        expect(fetchedEvent.name, event.name);
         expect(fetchedEvent.description, event.description);
-        expect(fetchedEvent.location, event.location);
-        expect(fetchedEvent.recurring, event.recurring);
-        expect(fetchedEvent.allDay, event.allDay);
-        expect(fetchedEvent.startDate, event.startDate);
-        expect(fetchedEvent.endDate, event.endDate);
-        expect(fetchedEvent.startTime, event.startTime);
-        expect(fetchedEvent.endTime, event.endTime);
-        expect(fetchedEvent.isPublic, event.isPublic);
-        expect(fetchedEvent.isRegistered, event.isRegistered);
-        expect(fetchedEvent.isRegisterable, event.isRegisterable);
+        expect(fetchedEvent.startAt, event.startAt);
+        expect(fetchedEvent.endAt, event.endAt);
+        expect(fetchedEvent.organization?.id, event.organization?.id);
+        expect(fetchedEvent.organization?.name, event.organization?.name);
       } catch (e) {
         fail('Failed to perform get or put operation: $e');
       }

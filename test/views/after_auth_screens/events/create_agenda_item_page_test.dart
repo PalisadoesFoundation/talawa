@@ -22,9 +22,9 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_agenda_item_page.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockImageService extends Mock implements ImageService {
@@ -37,43 +37,19 @@ class MockImageService extends Mock implements ImageService {
 }
 
 Event getTestEvent({
-  bool isPublic = false,
-  bool viewOnMap = true,
   bool asAdmin = false,
 }) {
   return Event(
     id: "1",
-    title: "test_event",
+    name: "test_event",
+    description: "test_event_description",
+    startAt: "2024-01-01T00:00:00.000Z",
+    endAt: "2024-12-31T24:00:00.000Z",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
       firstName: "ravidi",
       lastName: "shaikh",
     ),
-    isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
-    location: "iitbhu, varanasi",
-    description: "test_event_description",
-    admins: [
-      User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
-      ),
-      User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
-      ),
-    ],
-    attendees: [
-      Attendee(
-        id: "1",
-        firstName: "Test",
-        lastName: "User",
-      ),
-    ],
-    isRegisterable: true,
   );
 }
 
@@ -86,8 +62,6 @@ Widget createCreateAgendaItemScreen() {
           model.initialize(
             args: {
               "event": getTestEvent(
-                isPublic: true,
-                viewOnMap: false,
                 asAdmin: true,
               ),
               "exploreEventViewModel": ExploreEventsViewModel(),
@@ -342,23 +316,25 @@ void main() {
       expect(find.byType(Image), findsNWidgets(0));
     });
     testWidgets('Displays multiple attachments', (WidgetTester tester) async {
-      final attachments = [
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
-      ];
+      // Get the mock service from the locator
+      final mockMultiMediaPickerService =
+          locator<MultiMediaPickerService>() as MockMultiMediaPickerService;
+
+      // Mock the multi media picker service to return a file
+      when(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async => File('test_image.png'));
 
       await tester.pumpWidget(
         createCreateAgendaItemScreen(),
       );
       await tester.pumpAndSettle();
 
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      await tester.runAsync(() async {
-        state.safeSetState(() {
-          state.attachments = attachments;
-        });
-      });
+      // Add first attachment by tapping the add button
+      await tester.tap(find.byKey(const Key('addAttachmentButton')));
+      await tester.pumpAndSettle();
+
+      // Add second attachment
+      await tester.tap(find.byKey(const Key('addAttachmentButton')));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('attachmentItem_0')), findsOneWidget);
@@ -389,23 +365,25 @@ void main() {
       expect(state.attachments.length, 1);
     });
     testWidgets('Verify attachment removal', (WidgetTester tester) async {
-      final attachments = [
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
-      ];
+      // Get the mock service from the locator
+      final mockMultiMediaPickerService =
+          locator<MultiMediaPickerService>() as MockMultiMediaPickerService;
+
+      // Mock the multi media picker service to return a file
+      when(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async => File('test_image.png'));
 
       await tester.pumpWidget(
         createCreateAgendaItemScreen(),
       );
       await tester.pumpAndSettle();
 
-      final CreateAgendaItemPageState state =
-          tester.state(find.byType(CreateAgendaItemPage));
-      await tester.runAsync(() async {
-        state.safeSetState(() {
-          state.attachments = attachments;
-        });
-      });
+      // Add first attachment
+      await tester.tap(find.byKey(const Key('addAttachmentButton')));
+      await tester.pumpAndSettle();
+
+      // Add second attachment
+      await tester.tap(find.byKey(const Key('addAttachmentButton')));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('attachmentItem_0')), findsOneWidget);

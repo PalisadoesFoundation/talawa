@@ -13,16 +13,11 @@ import '../../helpers/test_locator.dart';
 
 Event getEvent({bool? isRegistered, bool isPublic = false}) {
   return Event(
-    title: "Testing",
-    location: "PyasePyasePyasePyasePyasePyase",
+    id: "event123",
+    name: "Testing",
     description: "Testing for the Event Card Widget",
-    startDate: "13 Dec",
-    endDate: "13 Dec",
-    startTime: "07:10PM",
-    endTime: "08:15PM",
-    isPublic: isPublic,
-    isRegistered: isRegistered,
-    attendees: [Attendee(id: "attendee1")],
+    startAt: "2023-12-13T19:10:00.000Z",
+    endAt: "2023-12-13T20:15:00.000Z",
     creator: User(id: "ravidi"),
   );
 }
@@ -120,9 +115,13 @@ void main() {
         const eventTitleHighlightedText = "ravidi";
         const eventTitle = "Testing";
 
+        final event = getEvent();
+        // Set current user to be the same as event creator to hide DecoratedBox
+        userConfig.currentUser.id = event.creator!.id;
+
         await tester.pumpWidget(
           createCustomEventCard(
-            getEvent(),
+            event,
             isSearchItem: false,
             eventTitleHighlightedText: eventTitleHighlightedText,
           ),
@@ -136,15 +135,12 @@ void main() {
           ),
           findsNothing,
         );
-        expect(find.text("Registered"), findsNothing);
 
         expect(
           find.text(eventTitleHighlightedText, findRichText: true),
           findsNothing,
         );
         expect(find.text(eventTitle), findsOneWidget);
-        expect(find.text('public'), findsNothing);
-        expect(find.text('private'), findsOneWidget);
       });
     });
 
@@ -153,9 +149,12 @@ void main() {
         const eventTitleHighlightedText = "ravidi";
         const eventTitle = "Testing";
 
+        // Set current user to a different user to show DecoratedBox
+        userConfig.currentUser.id = "differentUser";
+
         await tester.pumpWidget(
           createCustomEventCard(
-            getEvent(isRegistered: true, isPublic: true),
+            getEvent(),
             isSearchItem: true,
             eventTitleHighlightedText: eventTitleHighlightedText,
           ),
@@ -169,15 +168,12 @@ void main() {
           ),
           findsOneWidget,
         );
-        expect(find.text("Registered"), findsOneWidget);
 
         expect(
           find.text(eventTitleHighlightedText, findRichText: true),
           findsOneWidget,
         );
         expect(find.text(eventTitle), findsNothing);
-        expect(find.text('public'), findsOneWidget);
-        expect(find.text('private'), findsNothing);
       });
     });
 
@@ -186,17 +182,14 @@ void main() {
         await tester.pumpWidget(createCustomEventCard(getEvent()));
         await tester.pump();
 
-        expect(find.text("13 Dec - 13 Dec"), findsOneWidget); // duration date
-        expect(find.text("07:10PM - 08:15PM"), findsOneWidget); // duration time
+        expect(find.text("2023-12-13 - 2023-12-13"),
+            findsOneWidget); // duration date
         expect(
-          find.text("PyasePyasePyasePyase"),
-          findsOneWidget,
-        ); // trimmed location
+            find.text("19:10:00 - 20:15:00"), findsOneWidget); // duration time
         expect(
           find.text("Testing for the Event Card Widget"),
           findsOneWidget,
         ); // event description
-        expect(find.text("1"), findsOneWidget);
       });
     });
 

@@ -31,7 +31,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   bool istest = false;
   List<Post> _pinnedPosts =
-  pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+      pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
 
@@ -131,19 +131,18 @@ class OrganizationFeedViewModel extends BaseModel {
     _currentOrgName = _userConfig.currentOrg.name!;
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen(
-              (updatedOrganization) {
-            setCurrentOrganizationName(updatedOrganization.name!);
-          },
-        );
+      (updatedOrganization) {
+        setCurrentOrganizationName(updatedOrganization.name!);
+      },
+    );
     _postsSubscription = _postService.postStream.listen((newPosts) {
       if (newPosts.isNotEmpty) {
         buildNewPosts(newPosts);
       }
     });
-    _updatePostSubscription =
-        _postService.updatedPostStream.listen((post) {
-          updatedPost(post);
-        });
+    _updatePostSubscription = _postService.updatedPostStream.listen((post) {
+      updatedPost(post);
+    });
     _postService.fetchPostsInitial();
     if (isTest) {
       istest = true;
