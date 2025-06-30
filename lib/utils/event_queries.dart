@@ -82,7 +82,7 @@ class EventQueries {
     mutation Mutation(\$data: EventInput!, \$recurrenceRuleData: RecurrenceRuleInput) {
       createEvent(data: \$data, recurrenceRuleData: \$recurrenceRuleData) {
         _id
-        name
+        title
         description
       }
     }
@@ -147,10 +147,10 @@ class EventQueries {
     String? eventId,
   }) {
     return """mutation updateEvent( 
-        \$name:String!,
+        \$title:String!,
         \$description: String!,
-        \$startAt: String,
-        \$endAt: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,
@@ -160,19 +160,19 @@ class EventQueries {
       updateEvent(
          id: "$eventId"
          data:{
-           name: \$name,
+           title: \$title,
            description: \$description,
            isPublic: \$isPublic,
            isRegisterable: \$isRegisterable,
            recurring: \$recurring,
            allDay: \$allDay,
-           startAt: \$startAt
-           endAt: \$endAt
+           startTime: \$startTime
+           endTime: \$endTime
            location: \$location
          }
          ){
             _id
-            name
+            title
             description
           }
       }""";
@@ -463,7 +463,7 @@ class EventQueries {
       }
       relatedEvent {
         _id
-        name
+        title
       }
     }
   }

@@ -4,39 +4,51 @@ import 'package:talawa/utils/event_queries.dart';
 void main() {
   group("Tests for event_queries.dart", () {
     test("Check if fetchOrgEvents works correctly", () {
-      const data = '''
-    query {
-      eventsByOrganizationId(
-        input: { organizationId: "sampleID" }
-      ) {
-        id
-        name
-        description
-        startAt
-        endAt
-        organization {
-          id
-          name
-        }
-        creator {
-          id
-          name
-        }
-        updater {
-          id
-          name
-        }
-        attachments {
-          mimeType
-          url
-        }
+      const data = """
+      query {
+        eventsByOrganizationConnection(
+      where: {
+        organization_id: "sampleID"
+      }
+    ) {
+      _id
+      organization {
+        _id
+        image
+      }
+      title
+      description
+      isPublic
+      isRegisterable
+      recurring
+      startDate
+      endDate
+      allDay
+      startTime
+      endTime
+      location
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      admins {
+        _id
+        firstName
+        lastName
+      } 
+      attendees {
+        _id
+        firstName
+        lastName
+        image
       }
     }
-  ''';
+      }
+    """;
 
       final fnData = EventQueries().fetchOrgEvents("sampleID");
-      expect(fnData.replaceAll(' ', '').replaceAll('\n', ''),
-             data.replaceAll(' ', '').replaceAll('\n', ''));
+      expect(fnData, data);
     });
 
     test("Check if attendeesByEvent works correctly", () {
@@ -62,15 +74,14 @@ void main() {
     mutation Mutation(\$data: EventInput!, \$recurrenceRuleData: RecurrenceRuleInput) {
       createEvent(data: \$data, recurrenceRuleData: \$recurrenceRuleData) {
         _id
-        name
+        title
         description
       }
     }
   """;
 
       final fnData = EventQueries().addEvent();
-      expect(fnData.replaceAll(' ', '').replaceAll('\n', ''),
-             data.replaceAll(' ', '').replaceAll('\n', ''));
+      expect(fnData, data);
     });
 
     test("Check if registerForEvent works correctly", () {
@@ -103,10 +114,10 @@ void main() {
 
     test("Check if updateEvent works correctly", () {
       const data = """mutation updateEvent( 
-        \$name:String!,
+        \$title:String!,
         \$description: String!,
-        \$startAt: String,
-        \$endAt: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,
@@ -116,26 +127,25 @@ void main() {
       updateEvent(
          id: "sampleID"
          data:{
-           name: \$name,
+           title: \$title,
            description: \$description,
            isPublic: \$isPublic,
            isRegisterable: \$isRegisterable,
            recurring: \$recurring,
            allDay: \$allDay,
-           startAt: \$startAt
-           endAt: \$endAt
+           startTime: \$startTime
+           endTime: \$endTime
            location: \$location
          }
          ){
             _id
-            name
+            title
             description
           }
       }""";
 
       final fnData = EventQueries().updateEvent(eventId: "sampleID");
-      expect(fnData.replaceAll(' ', '').replaceAll('\n', ''),
-             data.replaceAll(' ', '').replaceAll('\n', ''));
+      expect(fnData, data);
     });
     test("Check if createVolunteerGroup works correctly", () {
       const data = '''
@@ -390,7 +400,7 @@ mutation CreateEventVolunteer(\$data: EventVolunteerInput!) {
       }
       relatedEvent {
         _id
-        name
+        title
       }
     }
   }
