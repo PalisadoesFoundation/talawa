@@ -105,7 +105,7 @@ Future<void> main() async {
 
     when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
     when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
-    
+
     // Mock userConfig.loggedIn to return false to prevent navigation calls
     when(mockUserConfig.loggedIn).thenReturn(false);
   });
