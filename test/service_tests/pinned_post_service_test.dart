@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/pinned_post_service.dart';
@@ -78,6 +79,62 @@ void main() {
       throwsA(predicate((e) =>
           e is Exception && e.toString().contains('Organization not found'))),
     );
+  });
+  test(
+      'setOrgStreamSubscription updates _currentOrg when stream emits new value',
+      () async {
+    final dbFunctions = locator<DataBaseMutationFunctions>();
+    final pinnedPostsQuery = PinnedPostQueries().getPinnedPostsByOrgID();
+
+    final pinnedPostsVariables = {
+      'orgId': '1',
+      'first': 10,
+      'after': null,
+      'before': null,
+      'last': null,
+    };
+
+    final pinnedPostsData = {
+      'organization': {
+        'pinnedPosts': {
+          'pageInfo': {
+            'hasNextPage': false,
+            'hasPreviousPage': false,
+            'startCursor': null,
+            'endCursor': 'cursor1',
+          },
+          'edges': [
+            {
+              'cursor': 'cursor1',
+              'node': {
+                'id': 'post1',
+                'caption': 'Test Post',
+              }
+            }
+          ]
+        }
+      }
+    };
+    when(dbFunctions.gqlAuthQuery(pinnedPostsQuery,
+            variables: pinnedPostsVariables))
+        .thenAnswer(
+      (_) async => QueryResult(
+        options: QueryOptions(document: gql(pinnedPostsQuery)),
+        data: pinnedPostsData,
+        source: QueryResultSource.network,
+      ),
+    );
+
+    userConfig.initialiseStream();
+
+    final postService = PinnedPostService();
+    postService.setOrgStreamSubscription();
+
+    final orgInfo2 = OrgInfo(name: 'Organization temp', id: '1');
+    userConfig.currentOrgInfoController.add(orgInfo2);
+    await Future.delayed(const Duration(milliseconds: 100));
+    expect(postService.currentOrg.name, 'Organization temp');
+    expect(postService.currentOrg.id, '1');
   });
 
   test('fetchDataFromApi throws if pinnedPosts is missing', () {

@@ -15,7 +15,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
   PinnedPostService() : super(HiveKeys.pinnedPostKey) {
     _pinnedPostStream = _pinnedPostStreamController.stream.asBroadcastStream();
     _currentOrg = _userConfig.currentOrg;
-    _userConfig.currentOrgInfoStream.listen(_onOrgChanged);
+    setOrgStreamSubscription();
   }
 
   final _pinnedPostStreamController = StreamController<List<Post>>();
@@ -48,6 +48,9 @@ class PinnedPostService extends BaseFeedManager<Post> {
 
   /// Returns a stream of pinned posts.
   Stream<List<Post>> get pinnedPostStream => _pinnedPostStream;
+
+  /// Returns current organisation.
+  OrgInfo get currentOrg => _currentOrg;
 
   @override
   Future<List<Post>> fetchDataFromApi() async {
@@ -97,7 +100,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
   Future<void> refreshPinnedPosts() async {
     after = null;
     before = null;
-    first = 5;
+    first = 10;
     last = null;
     _pinnedPosts = await getNewFeedAndRefreshCache();
     _pinnedPostStreamController.add(_pinnedPosts);
@@ -116,17 +119,20 @@ class PinnedPostService extends BaseFeedManager<Post> {
     await refreshPinnedPosts();
   }
 
-  /// Updates the current organization and refreshes pinned posts if the organization has changed.
+  ///This method sets up a stream that constantly listens to change in current org.
   ///
   /// **params**:
-  /// * `updatedOrganization`: The updated organization information.
+  ///   None
   ///
   /// **returns**:
   ///   None
-  void _onOrgChanged(OrgInfo updatedOrganization) {
-    if (updatedOrganization.id != _currentOrg.id) {
-      _currentOrg = updatedOrganization;
-      refreshPinnedPosts();
-    }
+  void setOrgStreamSubscription() {
+    _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
+      if (updatedOrganization != _currentOrg) {
+        _pinnedPosts.clear();
+        _currentOrg = updatedOrganization;
+        refreshPinnedPosts();
+      }
+    });
   }
 }

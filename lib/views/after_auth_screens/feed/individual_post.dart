@@ -127,24 +127,6 @@ class _IndividualPostViewState extends State<IndividualPostView> {
   }
 }
 
-/// Generates a `Padding` widget with customizable vertical padding around a text element.
-///
-/// **params**:
-/// * `context`: The build context in which the padding method is called.
-/// * `text`: The text on which padding should be applied.
-///
-/// **returns**:
-/// * `Padding`: Padding widget with vertical padding applied to the provided text.
-Padding buildPadding(BuildContext context, String text) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.006),
-    child: Text(
-      AppLocalizations.of(context)!.strictTranslate(text),
-      style: Theme.of(context).textTheme.titleLarge,
-    ),
-  );
-}
-
 /// Widget representing the comment section of an individual post.
 ///
 /// The `IndividualPostCommentSection` widget displays a list of comments on a post.
@@ -169,7 +151,14 @@ class IndividualPostCommentSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildPadding(context, "Comments"),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.006),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate("Comments"),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
         // Looping through the commentList list,
         for (int i = 0; i < model.commentList.length; i++)
           // renders the custom widget for invidual user.
@@ -228,7 +217,7 @@ class CommentTemplate extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  comment.body!,
+                  comment.body ?? '',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
