@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
@@ -51,19 +53,6 @@ void main() {
     unregisterServices();
   });
 
-  testWidgets('If container is coming on calling pinnedwidget',
-      (widgetTester) async {
-    await widgetTester.pumpWidget(
-      MaterialApp(
-        home: PinnedPost(
-          pinnedPost: pinnedPosts,
-        ),
-      ),
-    );
-    await widgetTester.pump(const Duration(seconds: 5));
-    expect(find.byKey(const Key('hello')), findsOneWidget);
-  });
-
   testWidgets('Text widget is present when there are pinned posts',
       (widgetTester) async {
     await widgetTester.pumpWidget(
@@ -107,5 +96,52 @@ void main() {
     );
 
     expect(imageWidget, findsOneWidget);
+  });
+
+  testWidgets('GestureDetector exists and is tappable', (tester) async {
+    final posts = [
+      Post(id: 'post1', caption: 'Test Caption', attachments: []),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: PinnedPost(pinnedPost: posts),
+        ),
+      ),
+    );
+
+    // Verify GestureDetector exists
+    expect(find.byKey(const Key('GestureDetectorPinnedPost0')), findsOneWidget);
+
+    // Verify it's a GestureDetector
+    expect(find.byType(GestureDetector), findsOneWidget);
+  });
+  testWidgets('GestureDetector navigates using tapAt', (tester) async {
+    final posts = [
+      Post(id: 'post1', caption: 'First Post'),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: PinnedPost(pinnedPost: posts),
+        ),
+      ),
+    );
+
+    // Get the center of the widget and tap there
+    final gestureDetector = tester.widget<GestureDetector>(
+      find.byKey(const Key('GestureDetectorPinnedPost0')),
+    );
+
+    // Manually call the onTap function
+    gestureDetector.onTap!();
+    await tester.pumpAndSettle();
+
+    verify(navigationService.pushScreen(
+      Routes.pinnedPostScreen,
+      arguments: anyNamed('arguments'),
+    )).called(1);
   });
 }

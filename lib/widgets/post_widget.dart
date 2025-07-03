@@ -59,7 +59,7 @@ class PostWidget extends StatelessWidget {
                 onPressed: () => showModalBottomSheet<void>(
                   context: context,
                   builder: (BuildContext context1) => Container(
-                    key: const Key('reportPost'),
+                    key: const Key('reportPostButton'),
                     height: 120,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
@@ -81,6 +81,8 @@ class PostWidget extends StatelessWidget {
               ),
             ),
             GestureDetector(
+              key: const Key('postContainergestureDetector'),
+
               /// showing caption if attachments are not present.
               child: post.attachments != null && post.attachments!.isNotEmpty
                   ? PostContainer(fileAttachmentList: post.attachments)
