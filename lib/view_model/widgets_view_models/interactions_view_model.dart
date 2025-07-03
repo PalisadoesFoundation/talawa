@@ -9,9 +9,9 @@ import 'package:talawa/view_model/base_view_model.dart';
 ///
 ///
 /// Methods include:
-/// * `toggleIsLiked`
-/// * `setIsLiked`
-/// * `updatePost`
+/// * `initialize` - initializes the ViewModel with the Post ID.
+/// * `updatePost` - updates the Post data when it is changed.
+/// * `dispose` - cleans up the resources used by the ViewModel.
 class InteractionsViewModel extends BaseModel {
   // Services
   final _postService = locator<PostService>();
@@ -32,7 +32,6 @@ class InteractionsViewModel extends BaseModel {
   ///   None
   void initialize(String? postID) {
     _postID = postID;
-    notifyListeners();
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatePost(post));
   }

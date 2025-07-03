@@ -24,23 +24,23 @@ class AttachmentModel {
   }
 
   /// Name of the attachment.
-  @HiveField(1)
+  @HiveField(0)
   String? name;
 
   /// Hash of the file.
-  @HiveField(2)
+  @HiveField(1)
   String? fileHash;
 
   /// MIME type of the attachment.
-  @HiveField(3)
+  @HiveField(2)
   String? mimetype;
 
   /// Name of the object in the storage.
-  @HiveField(4)
+  @HiveField(3)
   String? objectName;
 
   /// Url of the attachment.
-  @HiveField(5)
+  @HiveField(4)
   String? url;
 
   /// Converts the AttachmentModel instance to a JSON map.

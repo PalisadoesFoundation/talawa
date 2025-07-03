@@ -343,7 +343,7 @@ void main() {
     });
     test('nextPage calls getPosts and sets pagination variables', () async {
       final postService = TestablePostService();
-      postService.postInfo = PageInfo(
+      postService.pageInfo = PageInfo(
         hasNextPage: true,
         hasPreviousPage: false,
         startCursor: null,
@@ -361,7 +361,7 @@ void main() {
 
     test('previousPage calls getPosts and sets pagination variables', () async {
       final postService = TestablePostService();
-      postService.postInfo = PageInfo(
+      postService.pageInfo = PageInfo(
         hasNextPage: false,
         hasPreviousPage: true,
         startCursor: 'prev_cursor',
@@ -379,7 +379,7 @@ void main() {
 
     test('nextPage does not call getPosts if hasNextPage is false', () async {
       final postService = TestablePostService();
-      postService.postInfo = PageInfo(
+      postService.pageInfo = PageInfo(
         hasNextPage: false,
         hasPreviousPage: false,
         startCursor: null,
@@ -394,7 +394,7 @@ void main() {
     test('previousPage does not call getPosts if hasPreviousPage is false',
         () async {
       final postService = TestablePostService();
-      postService.postInfo = PageInfo(
+      postService.pageInfo = PageInfo(
         hasNextPage: false,
         hasPreviousPage: false,
         startCursor: null,

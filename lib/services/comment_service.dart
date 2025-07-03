@@ -89,9 +89,6 @@ class CommentService {
       return {'comments': [], 'pageInfo': {}};
     }
 
-    if (result.data == null) {
-      return {'comments': [], 'pageInfo': {}};
-    }
     final postData = result.data?['post'] as Map<String, dynamic>?;
     if (postData == null) {
       return {'comments': [], 'pageInfo': {}};

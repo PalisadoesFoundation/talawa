@@ -50,7 +50,7 @@ class PostService extends BaseFeedManager<Post> {
   List<Post> _posts = [];
 
   /// Object to hold pagination information for posts. It contains information like `after`, `before`, `first`, and `last`.
-  PageInfo postInfo = PageInfo(
+  PageInfo pageInfo = PageInfo(
     hasNextPage: false,
     hasPreviousPage: false,
     startCursor: null,
@@ -103,14 +103,14 @@ class PostService extends BaseFeedManager<Post> {
     final Map<String, dynamic> posts =
         organizations['posts'] as Map<String, dynamic>;
 
-    postInfo = PageInfo.fromJson(posts['pageInfo'] as Map<String, dynamic>);
+    pageInfo = PageInfo.fromJson(posts['pageInfo'] as Map<String, dynamic>);
 
     final List<Post> newPosts = [];
     for (final postJson in posts['edges'] as List) {
       final post = Post.fromJson(
         (postJson as Map<String, dynamic>)['node'] as Map<String, dynamic>,
       );
-      postInfo.endCursor = '${postJson['cursor']}';
+      pageInfo.endCursor = '${postJson['cursor']}';
       // Fetch presigned URL for attachments if they exist
       await post.getPresignedUrl(userConfig.currentOrg.id);
 
@@ -272,8 +272,8 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   Future<void> nextPage() async {
-    if (postInfo.hasNextPage == true) {
-      final nextCursor = postInfo.endCursor;
+    if (pageInfo.hasNextPage == true) {
+      final nextCursor = pageInfo.endCursor;
       if (nextCursor != null && nextCursor.isNotEmpty) {
         after = nextCursor;
         before = null;
@@ -292,8 +292,8 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   Future<void> previousPage() async {
-    if (postInfo.hasPreviousPage == true) {
-      final prevCursor = postInfo.startCursor;
+    if (pageInfo.hasPreviousPage == true) {
+      final prevCursor = pageInfo.startCursor;
       if (prevCursor != null && prevCursor.isNotEmpty) {
         before = prevCursor;
         after = null;

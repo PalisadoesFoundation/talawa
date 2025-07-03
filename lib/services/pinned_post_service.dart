@@ -17,7 +17,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
     _currentOrg = _userConfig.currentOrg;
     setOrgStreamSubscription();
   }
-
+  static const int _defaultPageSize = 10;
   final _pinnedPostStreamController = StreamController<List<Post>>();
   late final Stream<List<Post>> _pinnedPostStream;
 
@@ -100,7 +100,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
   Future<void> refreshPinnedPosts() async {
     after = null;
     before = null;
-    first = 10;
+    first = _defaultPageSize;
     last = null;
     _pinnedPosts = await getNewFeedAndRefreshCache();
     _pinnedPostStreamController.add(_pinnedPosts);
