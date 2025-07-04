@@ -44,7 +44,6 @@ void main() {
         getEventAttendeesByEventId(eventId: "sampleID") {
           eventId
           userId
-          isRegistered
           isInvited
           isCheckedIn
           isCheckedOut

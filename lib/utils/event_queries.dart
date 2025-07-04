@@ -59,7 +59,6 @@ class EventQueries {
         getEventAttendeesByEventId(eventId: "$eventId") {
           eventId
           userId
-          isRegistered
           isInvited
           isCheckedIn
           isCheckedOut
