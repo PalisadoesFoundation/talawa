@@ -5,6 +5,7 @@ analyzer:
     - lib/generated_plugin_registrant.dart
     - test/helpers/test_helpers.mocks.dart
 
+
   plugins:
     - custom_lint
 

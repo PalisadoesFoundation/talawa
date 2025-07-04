@@ -1,6 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
+
 part of 'org_info.dart';
 
 // **************************************************************************

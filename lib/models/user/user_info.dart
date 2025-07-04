@@ -6,6 +6,9 @@ import 'package:talawa/models/organization/org_info.dart';
 
 part 'user_info.g.dart';
 
+// Generated file ignore comments
+// ignore_for_file: talawa_api_doc, talawa_good_doc_comments
+
 @HiveType(typeId: 1)
 
 /// This class creates a User model and returns a user instance.
