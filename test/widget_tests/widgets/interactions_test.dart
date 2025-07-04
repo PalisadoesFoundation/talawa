@@ -98,10 +98,10 @@ void main() {
       ),
     );
 
-    // Verify downvote icon exists
+    // Verify upvote icon exists
     expect(find.byIcon(Icons.thumb_up_outlined), findsOneWidget);
 
-    // Act - tap the downvote button
+    // Act - tap the upvote button
     await tester.tap(find.byIcon(Icons.thumb_down_outlined));
     await tester.pumpAndSettle();
 

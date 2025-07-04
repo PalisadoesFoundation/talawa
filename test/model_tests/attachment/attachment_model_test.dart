@@ -43,14 +43,17 @@ void main() {
         fileHash: 'abc123',
         mimetype: 'text/plain',
         objectName: 'object/file.txt',
+        url: 'https://example.com/file.txt',
       );
 
       final json = attachment.toJson();
 
       expect(json['name'], 'file.txt');
       expect(json['fileHash'], 'abc123');
-      expect(json['mimetype'], 'text/plain'); // because of .split('.').last
+      expect(json['mimetype'], 'text/plain');
       expect(json['objectName'], 'object/file.txt');
+      expect(json['url'],
+          "https://example.com/file.txt"); // URL is not set, should be null
     });
 
     test('toJson handles null fields', () {
@@ -61,6 +64,7 @@ void main() {
       expect(json['fileHash'], isNull);
       expect(json['mimetype'], isNull);
       expect(json['objectName'], isNull);
+      expect(json['url'], isNull);
     });
   });
 }

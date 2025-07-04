@@ -56,6 +56,7 @@ class AttachmentModel {
       'fileHash': fileHash,
       'mimetype': mimetype,
       'objectName': objectName,
+      'url': url,
     };
   }
 }
