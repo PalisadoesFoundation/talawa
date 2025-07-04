@@ -68,7 +68,8 @@ class EventService extends BaseFeedManager<Event> {
         _currentOrg.id == 'null' ||
         _currentOrg.id!.isEmpty) {
       throw Exception(
-          'Organization ID is not set. Please select an organization.',);
+        'Organization ID is not set. Please select an organization.',
+      );
     }
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events

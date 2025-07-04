@@ -7,6 +7,7 @@ import 'package:talawa/widgets/event_card.dart';
 /// This class returns a list of the events which match the search query.
 class EventSearch extends SearchDelegate<Event> {
   EventSearch({required this.eventList, required this.exploreEventsViewModel});
+
   /// ViewModel used to manage and provide event data for the search functionality.
   ExploreEventsViewModel exploreEventsViewModel;
 
@@ -59,7 +60,6 @@ class EventSearch extends SearchDelegate<Event> {
     return buildSuggestionsSucess(suggestions);
   }
 
- 
   /// Builds the suggestion list UI for the search, displaying events that match the query.
   ///
   /// Displays a list of [Event]s that match the user's search input.

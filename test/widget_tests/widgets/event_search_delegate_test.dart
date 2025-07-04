@@ -109,35 +109,38 @@ void main() {
 
     // Mock the GraphQL query for eventsByOrganizationId to prevent API calls
     final databaseFunctions = locator<DataBaseMutationFunctions>();
-    when(databaseFunctions.gqlAuthQuery('eventsByOrganizationId'))
-        .thenAnswer((_) async => QueryResult(
-              options: QueryOptions(document: gql('')),
-              data: {
-                'eventsByOrganizationId': cachedEvents
-                    .map((event) => {
-                          'id': event.id,
-                          'name': event.name,
-                          'description': event.description,
-                          'startAt': event.startAt,
-                          'endAt': event.endAt,
-                          'organization': {
-                            'id': event.organization?.id,
-                            'name': event.organization?.name,
-                          },
-                          'creator': {
-                            'id': event.creator?.id,
-                            'name': event.creator?.firstName,
-                          },
-                          'updater': {
-                            'id': event.creator?.id,
-                            'name': event.creator?.firstName,
-                          },
-                          'attachments': [],
-                        },)
-                    .toList(),
-              },
-              source: QueryResultSource.network,
-            ),);
+    when(databaseFunctions.gqlAuthQuery('eventsByOrganizationId')).thenAnswer(
+      (_) async => QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'eventsByOrganizationId': cachedEvents
+              .map(
+                (event) => {
+                  'id': event.id,
+                  'name': event.name,
+                  'description': event.description,
+                  'startAt': event.startAt,
+                  'endAt': event.endAt,
+                  'organization': {
+                    'id': event.organization?.id,
+                    'name': event.organization?.name,
+                  },
+                  'creator': {
+                    'id': event.creator?.id,
+                    'name': event.creator?.firstName,
+                  },
+                  'updater': {
+                    'id': event.creator?.id,
+                    'name': event.creator?.firstName,
+                  },
+                  'attachments': [],
+                },
+              )
+              .toList(),
+        },
+        source: QueryResultSource.network,
+      ),
+    );
 
     locator.unregister<EventService>();
     locator.registerSingleton<EventService>(EventService());

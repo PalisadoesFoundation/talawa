@@ -12,8 +12,6 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-
-
 class CustomTutorialController extends TutorialCoachMarkController {
   @override
   void next() {}

@@ -474,12 +474,14 @@ void main() {
 
       final eventService = getAndRegisterEventService();
 
-      when(eventService.createAgendaItem({
-        'title': 'Test Agenda',
-        'description': 'Test Description',
-        'duration': '1h',
-        'eventId': '1',
-      }),).thenThrow(Exception('Create agenda item failed'));
+      when(
+        eventService.createAgendaItem({
+          'title': 'Test Agenda',
+          'description': 'Test Description',
+          'duration': '1h',
+          'eventId': '1',
+        }),
+      ).thenThrow(Exception('Create agenda item failed'));
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
@@ -586,11 +588,13 @@ void main() {
 
       final eventService = getAndRegisterEventService();
 
-      when(eventService.createVolunteerGroup({
-        'eventId': '1',
-        'name': 'Test Group',
-        'volunteersRequired': 5,
-      }),).thenThrow(Exception('Create volunteer group failed'));
+      when(
+        eventService.createVolunteerGroup({
+          'eventId': '1',
+          'name': 'Test Group',
+          'volunteersRequired': 5,
+        }),
+      ).thenThrow(Exception('Create volunteer group failed'));
 
       final result = await model.createVolunteerGroup(
         event1,

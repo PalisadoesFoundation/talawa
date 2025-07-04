@@ -29,14 +29,17 @@ class Event {
       organization: json['organization'] == null
           ? null
           : OrgInfo(
-              id: (json['organization'] as Map<String, dynamic>)['id']?.toString(),
-              name: (json['organization'] as Map<String, dynamic>)['name']?.toString(),
+              id: (json['organization'] as Map<String, dynamic>)['id']
+                  ?.toString(),
+              name: (json['organization'] as Map<String, dynamic>)['name']
+                  ?.toString(),
             ),
       creator: json['creator'] == null
           ? null
           : User(
               id: (json['creator'] as Map<String, dynamic>)['id']?.toString(),
-              firstName: (json['creator'] as Map<String, dynamic>)['name']?.toString(),
+              firstName:
+                  (json['creator'] as Map<String, dynamic>)['name']?.toString(),
             ),
       attachments: json['attachments'] as List<dynamic>?,
     );

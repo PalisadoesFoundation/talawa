@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      hive_generator:
+        options:
+          ignore_for_file:
+            - talawa_api_doc
+            - talawa_good_doc_comments
+      json_serializable:
+        options:
+          ignore_for_file:
+            - talawa_api_doc
+            - talawa_good_doc_comments

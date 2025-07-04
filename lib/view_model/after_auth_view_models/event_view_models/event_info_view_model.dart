@@ -187,7 +187,8 @@ class EventInfoViewModel extends BaseModel {
       final orgId = userConfig.currentOrg.id;
       if (orgId == null || orgId == 'null' || orgId.isEmpty) {
         throw Exception(
-            'Organization ID is not set. Please select an organization.',);
+          'Organization ID is not set. Please select an organization.',
+        );
       }
       final result = await locator<EventService>().fetchAgendaCategories(orgId)
           as QueryResult;
@@ -270,7 +271,8 @@ class EventInfoViewModel extends BaseModel {
       final orgId = userConfig.currentOrg.id;
       if (orgId == null || orgId == 'null' || orgId.isEmpty) {
         throw Exception(
-            'Organization ID is not set. Please select an organization.',);
+          'Organization ID is not set. Please select an organization.',
+        );
       }
       final variables = {
         'title': title,

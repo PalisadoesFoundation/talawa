@@ -9,7 +9,6 @@ import 'package:talawa/services/caching/offline_action_queue.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-
 void main() {
   late final Box<CachedUserAction> cacheBox;
   setUpAll(() {

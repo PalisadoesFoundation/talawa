@@ -185,7 +185,7 @@ class UserConfig {
   /// **params**:
   ///   None
   ///
-  /// **returns**: 
+  /// **returns**:
   ///   None
   Future<QueryResult> performLogout() async {
     return QueryResult(

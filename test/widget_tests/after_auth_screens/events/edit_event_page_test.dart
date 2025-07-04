@@ -102,8 +102,8 @@ void main() {
         (invocation) async => QueryResult(
           source: QueryResultSource.network,
           data: {
-            'updateEvent': {'id': '1'}
-          ,},
+            'updateEvent': {'id': '1'},
+          },
           options: QueryOptions(document: gql('mutation')),
         ),
       );

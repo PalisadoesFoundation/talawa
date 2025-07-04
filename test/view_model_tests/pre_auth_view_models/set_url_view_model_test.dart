@@ -135,8 +135,10 @@ Future<void> main() async {
 
       final box = Hive.box('url');
       expect(box.get(SetUrlViewModel.urlKey), 'http://<IPv4>:4000/graphql');
-      expect(box.get(SetUrlViewModel.imageUrlKey),
-          'http://<IPv4>:4000/graphql/talawa/',);
+      expect(
+        box.get(SetUrlViewModel.imageUrlKey),
+        'http://<IPv4>:4000/graphql/talawa/',
+      );
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();

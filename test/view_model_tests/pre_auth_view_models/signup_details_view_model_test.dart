@@ -20,13 +20,16 @@ import '../../helpers/test_locator.dart';
 
 class MockUserConfig extends Mock implements UserConfig {
   @override
-  User get currentUser =>
-      User(id: 'xyz1', authToken: 'testtoken', joinedOrganizations: [
-        OrgInfo(
-          id: 'xyz1',
-          name: 'Test Org',
-        )
-      ,],);
+  User get currentUser => User(
+        id: 'xyz1',
+        authToken: 'testtoken',
+        joinedOrganizations: [
+          OrgInfo(
+            id: 'xyz1',
+            name: 'Test Org',
+          ),
+        ],
+      );
   @override
   OrgInfo get currentOrg => OrgInfo(
         id: 'xyz1',
@@ -72,23 +75,23 @@ var mockSignUpData = {
                     'node': {
                       'name': 'John Doe',
                       'role': 'admin',
-                    }
-                  ,},
+                    },
+                  },
                   {
                     'node': {
                       'name': 'Jane Smith',
                       'role': 'member',
-                    }
-                  ,}
-                ]
-              ,}
-            ,}
-          ,}
-        ]
-      ,}
-    ,}
-  ,}
-,};
+                    },
+                  }
+                ],
+              },
+            },
+          }
+        ],
+      },
+    },
+  },
+};
 
 class SignUpMock extends StatelessWidget {
   const SignUpMock({required this.formKey, super.key});
@@ -130,10 +133,12 @@ void main() {
       );
 
       await tester.runAsync(() async {
-        model.initialise(OrgInfo(
-          id: "1",
-          name: "Test Org",
-        ),);
+        model.initialise(
+          OrgInfo(
+            id: "1",
+            name: "Test Org",
+          ),
+        );
       });
       await tester.pumpAndSettle();
 
@@ -163,9 +168,11 @@ void main() {
         source: QueryResultSource.network,
       );
 
-      when(databaseFunctions.gqlNonAuthMutation(
-        queries.registerUser('', '', '', '', org.id),
-      ),).thenAnswer((_) async => queryResult);
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', '', org.id),
+        ),
+      ).thenAnswer((_) async => queryResult);
 
       await tester.runAsync(() async {
         await tester.pumpWidget(SignUpMock(formKey: model.formKey));
@@ -181,11 +188,13 @@ void main() {
         ),
       );
 
-      verify(navigationService.removeAllAndPush(
-        Routes.mainScreen,
-        Routes.splashScreen,
-        arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-      ),).called(1);
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+        ),
+      ).called(1);
     });
 
     testWidgets('Check if signup() handling error when graphql mutation fails',
@@ -194,9 +203,11 @@ void main() {
         id: "xyz1",
         name: "Test Org",
       );
-      when(databaseFunctions.gqlNonAuthMutation(
-        queries.registerUser('', '', '', '', org.id),
-      ),).thenThrow(
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', '', org.id),
+        ),
+      ).thenThrow(
         Exception(
           'GraphQL mutation failed',
         ),
@@ -216,10 +227,12 @@ void main() {
         ),
       );
 
-      verify(navigationService.showTalawaErrorSnackBar(
-        'Something went wrong',
-        MessageType.error,
-      ),).called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong',
+          MessageType.error,
+        ),
+      ).called(1);
     });
     testWidgets(
         'Check if signup() is working fine when user is not save and/or token not refreshed',
@@ -243,9 +256,11 @@ void main() {
         source: QueryResultSource.network,
       );
 
-      when(databaseFunctions.gqlNonAuthMutation(
-        queries.registerUser('', '', '', '', org.id),
-      ),).thenAnswer((_) async => queryResult);
+      when(
+        databaseFunctions.gqlNonAuthMutation(
+          queries.registerUser('', '', '', '', org.id),
+        ),
+      ).thenAnswer((_) async => queryResult);
 
       await tester.runAsync(() async {
         await tester.pumpWidget(SignUpMock(formKey: model.formKey));
@@ -261,10 +276,12 @@ void main() {
         ),
       );
       await tester.pumpAndSettle(); // or pumpAndSettle() if needed
-      verify(navigationService.showTalawaErrorSnackBar(
-        TalawaErrors.userNotFound,
-        MessageType.error,
-      ),).called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          TalawaErrors.userNotFound,
+          MessageType.error,
+        ),
+      ).called(1);
       verifyNever(
         navigationService.removeAllAndPush(
           Routes.waitingScreen,

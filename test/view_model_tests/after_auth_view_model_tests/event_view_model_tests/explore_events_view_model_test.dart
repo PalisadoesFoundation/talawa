@@ -22,7 +22,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-
 class _MockStreamSubscription<T> extends Mock
     implements StreamSubscription<T> {}
 
