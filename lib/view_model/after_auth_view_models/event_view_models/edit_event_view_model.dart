@@ -46,7 +46,7 @@ class EditEventViewModel extends BaseModel {
   bool isPublicSwitch = true;
 
   /// Boolean to indicate if the event requires registration. True means registration is required.
-  bool isRegisterableSwitch = false;
+  bool isRegisterableSwitch = true;
 
   /// FocusNode to manage focus for the event title text input field.
   FocusNode titleFocus = FocusNode();
@@ -89,17 +89,22 @@ class EditEventViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void _fillEditForm() {
-    eventTitleTextController.text = _event.title!;
-    eventLocationTextController.text = _event.location!;
-    eventDescriptionTextController.text = _event.description!;
-    isPublicSwitch = _event.isPublic!;
-    isRegisterableSwitch = _event.isRegisterable!;
-    eventStartDate = DateFormat().add_yMd().parse(_event.startDate!);
-    eventEndDate = DateFormat().add_yMd().parse(_event.endDate!);
-    eventStartTime =
-        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.startTime!));
-    eventEndTime =
-        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
+    eventTitleTextController.text = _event.name ?? '';
+    eventDescriptionTextController.text = _event.description ?? '';
+    // Initialize location field as empty since location is optional
+    eventLocationTextController.text = '';
+
+    if (_event.startAt != null) {
+      final startDateTime = DateTime.parse(_event.startAt!);
+      eventStartDate = startDateTime;
+      eventStartTime = TimeOfDay.fromDateTime(startDateTime);
+    }
+
+    if (_event.endAt != null) {
+      final endDateTime = DateTime.parse(_event.endAt!);
+      eventEndDate = endDateTime;
+      eventEndTime = TimeOfDay.fromDateTime(endDateTime);
+    }
   }
 
   /// Updates an existing event with the data from the form.

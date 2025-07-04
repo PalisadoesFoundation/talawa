@@ -36,7 +36,7 @@ class EventInfoBody extends StatelessWidget {
                       Flexible(
                         child: Text(
                           // event title
-                          event.title!,
+                          event.name!,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -94,32 +94,11 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 const Spacer(),
                 // If event type is public then renders lock_open icon else renders lock icon.
-                event.isPublic!
-                    ? Icon(
-                        Icons.lock_open,
-                        size: 13,
-                        color: Theme.of(context).colorScheme.secondary,
-                      )
-                    : Icon(
-                        Icons.lock,
-                        size: 13,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
                 SizedBox(
                   width: SizeConfig.screenWidth! * 0.027,
                 ),
                 // If event type is public then renders 'public'
                 // else renders 'private' text translated into the app language.
-                event.isPublic!
-                    ? Text(
-                        AppLocalizations.of(context)!.strictTranslate('public'),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )
-                    : Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate('private'),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
               ],
             ),
             SizedBox(
@@ -156,13 +135,6 @@ class EventInfoBody extends StatelessWidget {
                 SizedBox(
                   width: SizeConfig.screenWidth! * 0.027,
                 ),
-                Text(
-                  event.location!,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
-                  maxLines: 3,
-                ),
                 const Spacer(),
               ],
             ),
@@ -194,23 +166,6 @@ class EventInfoBody extends StatelessWidget {
             Divider(
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
-            ),
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: event.admins!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CustomListTile(
-                  key: Key(
-                    '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
-                  ),
-                  index: index,
-                  type: TileType.user,
-                  userInfo: event.admins![index],
-                  onTapUserInfo: () {},
-                );
-              },
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,

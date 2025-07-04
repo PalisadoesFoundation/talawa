@@ -5,6 +5,8 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/organization_search_list.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 // Simplified mock without GraphQL complexity
 class SimpleSelectOrganizationViewModel extends SelectOrganizationViewModel {}
 

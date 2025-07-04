@@ -1,0 +1,6 @@
+# Lint exclusions for generated files
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"

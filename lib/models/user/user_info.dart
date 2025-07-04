@@ -9,6 +9,9 @@ part 'user_info.g.dart';
 @HiveType(typeId: 1)
 
 /// This class creates a User model and returns a user instance.
+///
+/// class Userextends HiveObject {
+
 class User extends HiveObject {
   User({
     this.adminFor,
@@ -183,10 +186,5 @@ class User extends HiveObject {
     this.email = details.email;
     this.image = details.image;
     this.authToken = details.authToken;
-    // this.refreshToken = details.refreshToken;
-    // this.joinedOrganizations = details.joinedOrganizations;
-    // this.createdOrganizations = details.createdOrganizations;
-    // this.membershipRequests = details.membershipRequests;
-    // this.adminFor = details.adminFor;
   }
 }

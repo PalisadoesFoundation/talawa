@@ -17,11 +17,9 @@ Widget createEventCalendar() {
     navigatorKey: navigationService.navigatorKey,
     home: EventCalendar([
       Event(
-        title: 'Test',
-        startDate: '07/14/2022',
-        startTime: '14:23:01',
-        endDate: '07/14/2022',
-        endTime: '21:23:01',
+        name: 'Test',
+        startAt: '2022-07-14T14:23:01.000Z',
+        endAt: '2022-07-14T21:23:01.000Z',
       ),
     ]),
   );
@@ -32,11 +30,9 @@ Widget createEventCalender2() {
     navigatorKey: navigationService.navigatorKey,
     home: EventCalendar([
       Event(
-        title: 'Test2',
-        startDate: '2022-07-14',
-        startTime: '14:23:01',
-        endDate: '2022-07-14',
-        endTime: '21:23:01',
+        name: 'Test2',
+        startAt: '2022-07-14T14:23:01.000Z',
+        endAt: '2022-07-14T21:23:01.000Z',
       ),
     ]),
   );
@@ -62,7 +58,7 @@ void main() {
       const timeString = "12:12:12";
 
       final parsedTime = parseTime(timeString);
-      final expectTime = DateFormat('Hms').parse(timeString);
+      final expectTime = DateFormat('HH:mm:ss').parse(timeString);
 
       expect(expectTime, parsedTime);
     });
@@ -134,21 +130,11 @@ void main() {
             tester.widget<EventCalendar>(find.byType(EventCalendar));
         final event = eventCalendar.eventList[0];
 
-        DateTime startDate;
-        DateTime endDate;
-        if (event.startDate!.contains('/')) {
-          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-        } else {
-          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-        }
-        if (event.endDate!.contains('/')) {
-          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-        } else {
-          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-        }
-
-        expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-        expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+        // Test the getter properties that parse the ISO8601 strings
+        expect(event.startDate, '2022-07-14');
+        expect(event.endDate, '2022-07-14');
+        expect(event.startTime, '14:23:01');
+        expect(event.endTime, '21:23:01');
       });
       testWidgets("Testing if EventCalendar shows up", (tester) async {
         await tester.pumpWidget(createEventCalender2());
@@ -159,21 +145,11 @@ void main() {
             tester.widget<EventCalendar>(find.byType(EventCalendar));
         final event = eventCalendar.eventList[0];
 
-        DateTime startDate;
-        DateTime endDate;
-        if (event.startDate!.contains('/')) {
-          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-        } else {
-          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-        }
-        if (event.endDate!.contains('/')) {
-          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-        } else {
-          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-        }
-
-        expect(startDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
-        expect(endDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));
+        // Test the getter properties that parse the ISO8601 strings
+        expect(event.startDate, '2022-07-14');
+        expect(event.endDate, '2022-07-14');
+        expect(event.startTime, '14:23:01');
+        expect(event.endTime, '21:23:01');
       });
     });
     test("dateRangePickerController getter", () {

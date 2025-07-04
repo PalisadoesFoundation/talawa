@@ -573,10 +573,9 @@ EventService getAndRegisterEventService() {
     (invocation) async => streamController.add([
       Event(
         id: '1',
-        title: 'test',
-        startTime: '10000',
-        endTime: '20000',
-        location: 'ABC',
+        name: 'test',
+        startAt: '2022-01-30T10:00:00.000Z',
+        endAt: '2022-01-30T20:00:00.000Z',
         description: 'test',
         creator: User(
           id: "xzy1",
@@ -586,14 +585,28 @@ EventService getAndRegisterEventService() {
           refreshToken: "testtoken",
           authToken: 'testtoken',
         ),
-        admins: [
-          User(
-            id: "xzy1",
-            firstName: "Test",
-            lastName: "User",
-          ),
-        ],
-        isPublic: true,
+        organization: OrgInfo(id: 'XYZ'),
+      ),
+    ]),
+  );
+
+  // Mock fetchEventsInitial method
+  when(service.fetchEventsInitial()).thenAnswer(
+    (invocation) async => streamController.add([
+      Event(
+        id: '1',
+        name: 'test',
+        startAt: '2022-01-30T10:00:00.000Z',
+        endAt: '2022-01-30T20:00:00.000Z',
+        description: 'test',
+        creator: User(
+          id: "xzy1",
+          firstName: "Test",
+          lastName: "User",
+          email: "testuser@gmail.com",
+          refreshToken: "testtoken",
+          authToken: 'testtoken',
+        ),
         organization: OrgInfo(id: 'XYZ'),
       ),
     ]),
@@ -613,6 +626,62 @@ EventService getAndRegisterEventService() {
         document: gql(
           EventQueries().attendeesByEvent('1'),
         ),
+      ),
+    ),
+  );
+
+  // Mock fetchAgendaCategories method
+  when(service.fetchAgendaCategories(any)).thenAnswer(
+    (realInvocation) async => QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'agendaItemCategoriesByOrganization': [
+          {
+            'id': 'category1',
+            'name': 'Category 1',
+            'description': 'Test category',
+          },
+        ],
+      },
+      options: QueryOptions(
+        document: gql('''
+          query fetchAgendaCategories {
+            agendaItemCategoriesByOrganization {
+              id
+              name
+              description
+            }
+          }
+        '''),
+      ),
+    ),
+  );
+
+  // Mock fetchAgendaItems method
+  when(service.fetchAgendaItems(any)).thenAnswer(
+    (realInvocation) async => QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'agendaItemByEvent': [
+          {
+            'id': 'agenda1',
+            'title': 'Test Agenda Item',
+            'description': 'Test agenda description',
+            'sequence': 1,
+          },
+        ],
+      },
+      options: QueryOptions(
+        document: gql('''
+          query fetchAgendaItems {
+            agendaItemByEvent {
+              id
+              title
+              description
+              sequence
+            }
+          }
+        '''),
       ),
     ),
   );

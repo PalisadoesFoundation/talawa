@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,12 +21,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-
-class MockBuildContext extends Mock implements BuildContext {}
-
-class MockCallbackFunction extends Mock {
-  void call();
-}
 
 class _MockStreamSubscription<T> extends Mock
     implements StreamSubscription<T> {}
@@ -69,19 +65,11 @@ void main() {
     locator<SizeConfig>().test();
     newEvent = Event(
       id: "1",
-      title: "fake_event_title",
+      name: "fake_event_title",
       description: "fake_event_desc",
-      attendees: [Attendee(id: 'Test Id')],
-      location: "fake_event_loc",
-      recurring: false,
-      startDate: '2024-01-14',
-      endDate: '2024-01-14',
-      startTime: '08:01:00.000Z',
-      endTime: '08:50:00.000Z',
+      startAt: '2024-01-14T08:01:00.000Z',
+      endAt: '2024-01-14T08:50:00.000Z',
       creator: User(id: 'xzy1'),
-      isPublic: true,
-      isRegistered: true,
-      isRegisterable: true,
       organization: OrgInfo(id: 'XYZ'),
     );
   });
@@ -111,15 +99,22 @@ void main() {
     });
 
     test(
-        "Test checkIfExistsAndAddNewEvent function when start time is not parsable",
+        "Test checkIfExistsAndAddNewEvent function when event belongs to different organization",
         () async {
       final model = ExploreEventsViewModel();
-      newEvent.startTime = "09:00:00";
-      newEvent.organization!.id = 'Test Id 1';
-      await model.checkIfExistsAndAddNewEvents([newEvent]);
+      // Create an event with a different organization ID
+      final differentOrgEvent = Event(
+        id: "2",
+        name: "different_org_event",
+        description: "event from different org",
+        startAt: '2024-01-14T09:00:00.000Z',
+        endAt: '2024-01-14T10:00:00.000Z',
+        creator: User(id: 'xzy1'),
+        organization: OrgInfo(id: 'Different_Org_ID'),
+      );
+      await model.checkIfExistsAndAddNewEvents([differentOrgEvent]);
       expect(model.events, isEmpty);
       expect(model.events.length, 0);
-      // expect(model.events.first.id, '1');
     });
 
     test("Test chooseValueFromDropdown function", () async {
@@ -140,42 +135,6 @@ void main() {
       expect(allCreated, true);
       expect(model.emptyListMessage, "You have not created any event.");
 
-      await model.choseValueFromDropdown("Registered Events");
-
-      allCreated = true;
-      bool allRegistered = true;
-      for (int i = 0; i < model.events.length; i++) {
-        if (model.events[i].creator?.id != userConfig.currentUser.id) {
-          allCreated = false;
-        }
-        if (model.events[i].isRegistered == false) {
-          allRegistered = false;
-        }
-      }
-      expect(allCreated, true);
-      expect(allRegistered, true);
-      expect(model.emptyListMessage, "No registered events are present");
-
-      await model.choseValueFromDropdown('Public Events');
-      bool allPublic = true;
-      for (int i = 0; i < model.events.length; i++) {
-        if (model.events[i].isPublic == false) {
-          allPublic = false;
-        }
-      }
-      expect(allPublic, true);
-      expect(model.emptyListMessage, "There aren't any public events.");
-
-      await model.choseValueFromDropdown('Private Events');
-      bool allPrivate = true;
-      for (int i = 0; i < model.events.length; i++) {
-        if (model.events[i].isPublic == true) {
-          allPrivate = false;
-        }
-      }
-      expect(allPrivate, true);
-      expect(model.emptyListMessage, "There aren't any private events.");
-
       //run default block
       await model.choseValueFromDropdown("Events");
     });
@@ -184,7 +143,7 @@ void main() {
       expect(model.eventService, isA<EventService>());
     });
     test(
-        "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
+        "Test chooseValueFromDropdown when value is default and _bufferEvents is not empty",
         () async {
       final model = ExploreEventsViewModel();
       when(userConfig.currentOrg)
@@ -196,12 +155,11 @@ void main() {
 
       await model.checkIfExistsAndAddNewEvents([newEvent]);
       await model.initialise();
-      await model.choseValueFromDropdown('Registered Events');
-      expect(model.emptyListMessage, "No registered events are present");
+      await model.choseValueFromDropdown('Some Other Value');
+      // Should default to showing all events
+      expect(model.events, isNotEmpty);
     });
-    test(
-        "Test chooseValueFromDropdown when value is Registered Events and _bufferEvents is not empty",
-        () {
+    test("Test userEvents getter returns empty list initially", () {
       final model = ExploreEventsViewModel();
       final List<Event> userEvents = model.userEvents;
       expect(userEvents, []);

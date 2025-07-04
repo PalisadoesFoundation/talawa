@@ -61,7 +61,6 @@ class EventInfoViewModel extends BaseModel {
     await fetchAgendaItems();
     selectedCategories.clear();
     setState(ViewState.busy);
-    attendees = event.attendees ?? [];
     setState(ViewState.idle);
   }
 
@@ -74,33 +73,31 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> registerForEvent() async {
     // if event registration is open and user not already registered for the event.
-    if (event.isRegisterable == true && event.isRegistered == false) {
-      navigationService.pushDialog(
-        const CustomProgressDialog(
-          key: Key('RegisterEvent'),
+
+    navigationService.pushDialog(
+      const CustomProgressDialog(
+        key: Key('RegisterEvent'),
+      ),
+    );
+
+    // use `registerForAnEvent` function provided by `EventService` service.
+    final registerResult =
+        await locator<EventService>().registerForAnEvent(event.id!);
+    if (registerResult != null) {
+      final userConfig = locator<UserConfig>();
+      attendees.add(
+        Attendee(
+          id: userConfig.currentUser.id,
+          firstName: userConfig.currentUser.firstName,
+          lastName: userConfig.currentUser.lastName,
+          image: userConfig.currentUser.image,
         ),
       );
-
-      // use `registerForAnEvent` function provided by `EventService` service.
-      final registerResult =
-          await locator<EventService>().registerForAnEvent(event.id!);
-      if (registerResult != null) {
-        event.isRegistered = true;
-        final userConfig = locator<UserConfig>();
-        attendees.add(
-          Attendee(
-            id: userConfig.currentUser.id,
-            firstName: userConfig.currentUser.firstName,
-            lastName: userConfig.currentUser.lastName,
-            image: userConfig.currentUser.image,
-          ),
-        );
-      }
-      fabTitle = getFabTitle();
-      navigationService.pop();
-      notifyListeners();
-      await locator<EventService>().getEvents();
     }
+    fabTitle = getFabTitle();
+    navigationService.pop();
+    notifyListeners();
+    await locator<EventService>().getEvents();
   }
 
   /// The funtion returns title to be displayed on Floating Action Button.
@@ -111,13 +108,7 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   /// * `String`: Returns the title to be displayed on Floating Action Button.
   String getFabTitle() {
-    if (event.isRegisterable == false) {
-      return "Not Registrable";
-    } else if (event.isRegistered == true) {
-      return "Registered";
-    } else {
-      return "Register";
-    }
+    return "Register";
   }
 
   /// This function is used to create a new volunteer group for an event.
@@ -193,8 +184,14 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchCategories() async {
     try {
-      final result = await locator<EventService>()
-          .fetchAgendaCategories(userConfig.currentOrg.id!) as QueryResult;
+      final orgId = userConfig.currentOrg.id;
+      if (orgId == null || orgId == 'null' || orgId.isEmpty) {
+        throw Exception(
+          'Organization ID is not set. Please select an organization.',
+        );
+      }
+      final result = await locator<EventService>().fetchAgendaCategories(orgId)
+          as QueryResult;
 
       if (result.data == null) return;
 
@@ -271,6 +268,12 @@ class EventInfoViewModel extends BaseModel {
     int? sequence,
   }) async {
     try {
+      final orgId = userConfig.currentOrg.id;
+      if (orgId == null || orgId == 'null' || orgId.isEmpty) {
+        throw Exception(
+          'Organization ID is not set. Please select an organization.',
+        );
+      }
       final variables = {
         'title': title,
         'description': description,
@@ -280,7 +283,7 @@ class EventInfoViewModel extends BaseModel {
         'urls': urls,
         'categories': categories,
         'sequence': _agendaItems.length + 1,
-        'organizationId': userConfig.currentOrg.id,
+        'organizationId': orgId,
       };
       final result = await locator<EventService>().createAgendaItem(variables)
           as QueryResult;

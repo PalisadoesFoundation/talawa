@@ -19,13 +19,10 @@ import '../../../helpers/test_locator.dart';
 
 final testEvent = Event(
   id: '1',
-  title: 'test',
-  startDate: '01/30/2022', // mm/dd/yyyy
-  endDate: '01/30/2022',
-  startTime: '06:40 PM',
-  endTime: '07:40 PM',
-  location: 'ABC',
+  name: 'test',
   description: 'test',
+  startAt: '2022-01-30T18:40:00.000Z',
+  endAt: '2022-01-30T19:40:00.000Z',
   creator: User(
     id: 'xzy1',
     firstName: 'Test',
@@ -34,8 +31,6 @@ final testEvent = Event(
     refreshToken: 'testtoken',
     authToken: 'testtoken',
   ),
-  isPublic: true,
-  isRegisterable: true,
   organization: OrgInfo(id: 'XYZ'),
 );
 
@@ -51,19 +46,16 @@ void main() {
       model.initialize(testEvent);
 
       expect(model.eventTitleTextController.text, 'test');
-      expect(model.eventLocationTextController.text, 'ABC');
       expect(model.eventDescriptionTextController.text, 'test');
-      expect(model.isPublicSwitch, true);
-      expect(model.isRegisterableSwitch, true);
-      expect(model.eventStartDate, DateFormat().add_yMd().parse('01/30/2022'));
-      expect(model.eventEndDate, DateFormat().add_yMd().parse('01/30/2022'));
+      expect(model.eventStartDate, DateTime.parse('2022-01-30T18:40:00.000Z'));
+      expect(model.eventEndDate, DateTime.parse('2022-01-30T19:40:00.000Z'));
       expect(
         model.eventStartTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('06:40 PM')),
+        const TimeOfDay(hour: 18, minute: 40),
       );
       expect(
         model.eventEndTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('07:40 PM')),
+        const TimeOfDay(hour: 19, minute: 40),
       );
     });
     testWidgets('Check if updateEvent() is working fine', (tester) async {
@@ -126,13 +118,10 @@ void main() {
       final model = EditEventViewModel();
       final inValidEvent = Event(
         id: '',
-        title: '',
-        startDate: '01/30/2022', // mm/dd/yyyy
-        endDate: '01/30/2022',
-        startTime: '06:40 PM',
-        endTime: '07:40 PM',
-        location: 'ABC',
+        name: '',
         description: '',
+        startAt: '2022-01-30T18:40:00.000Z',
+        endAt: '2022-01-30T19:40:00.000Z',
         creator: User(
           id: 'xzy1',
           firstName: 'Test',
@@ -141,8 +130,6 @@ void main() {
           refreshToken: 'testtoken',
           authToken: 'testtoken',
         ),
-        isPublic: true,
-        isRegisterable: true,
         organization: OrgInfo(id: 'XYZ'),
       );
       model.initialize(inValidEvent);
