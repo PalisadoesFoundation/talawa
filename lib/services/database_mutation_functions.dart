@@ -140,7 +140,6 @@ class DataBaseMutationFunctions {
       operationType: CachedOperationType.gqlAuthMutation,
       whenOnline: () async {
         final QueryResult result = await clientAuth.mutate(options);
-        print(result);
         // If there is an error or exception in [result]
         if (result.hasException) {
           GraphqlExceptionResolver.encounteredExceptionOrError(
@@ -291,8 +290,6 @@ class DataBaseMutationFunctions {
   /// **returns**:
   /// * `Future<dynamic>`: it returns Future of dynamic
   Future<dynamic> fetchOrgById(String id) async {
-    print(id);
-    print(id);
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
     // if there is an error or exception in [result]
@@ -304,9 +301,7 @@ class DataBaseMutationFunctions {
         fetchOrgById(id);
       }
     } else if (result.data != null && result.isConcrete) {
-      print(result.data!['organizations']);
       return OrgInfo.fromJson(
-        // ignore: collection_methods_unrelated_type
         (result.data!['organizations'] as List<Map<String, dynamic>>)[0],
       );
     }

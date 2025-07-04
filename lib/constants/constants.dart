@@ -185,4 +185,7 @@ class HiveKeys {
 
   /// The key used to identify the Hive box that stores the offline action queue.
   static const offlineActionQueueKey = 'offline_action_queue';
+
+  /// The key used to identify the Hive box that stores pinned posts.
+  static const pinnedPostKey = 'pinned_posts_key';
 }

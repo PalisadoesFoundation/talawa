@@ -17,28 +17,25 @@ class CommentAdapter extends TypeAdapter<Comment> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Comment(
-      text: fields[0] as String?,
+      body: fields[0] as String?,
       createdAt: fields[1] as String?,
       creator: fields[2] as User?,
-      post: fields[3] as String?,
-      likeCount: fields[4] as String?,
+      post: fields[3] as Post?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Comment obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.text)
+      ..write(obj.body)
       ..writeByte(1)
       ..write(obj.createdAt)
       ..writeByte(2)
       ..write(obj.creator)
       ..writeByte(3)
-      ..write(obj.post)
-      ..writeByte(4)
-      ..write(obj.likeCount);
+      ..write(obj.post);
   }
 
   @override
