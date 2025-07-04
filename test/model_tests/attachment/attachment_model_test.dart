@@ -52,8 +52,7 @@ void main() {
       expect(json['fileHash'], 'abc123');
       expect(json['mimetype'], 'text/plain');
       expect(json['objectName'], 'object/file.txt');
-      expect(json['url'],
-          "https://example.com/file.txt"); // URL is not set, should be null
+      expect(json['url'], "https://example.com/file.txt");
     });
 
     test('toJson handles null fields', () {

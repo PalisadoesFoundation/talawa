@@ -79,7 +79,7 @@ void main() {
     /// The down vote button does not have any functionality right now,
     /// so we just check that the icon is present and no errors occur.
   });
-  testWidgets('Downvote button displays correct icon and handles tap',
+  testWidgets('Upvote button displays correct icon and handles tap',
       (tester) async {
     // Arrange
     final testPost = Post(
@@ -102,7 +102,7 @@ void main() {
     expect(find.byIcon(Icons.thumb_up_outlined), findsOneWidget);
 
     // Act - tap the upvote button
-    await tester.tap(find.byIcon(Icons.thumb_down_outlined));
+    await tester.tap(find.byIcon(Icons.thumb_up_outlined));
     await tester.pumpAndSettle();
 
     /// The up vote button does not have any functionality right now,
