@@ -5,47 +5,34 @@ void main() {
   group("Tests for event_queries.dart", () {
     test("Check if fetchOrgEvents works correctly", () {
       const data = """
-      query {
-        eventsByOrganizationConnection(
-      where: {
-        organization_id: "sampleID"
-      }
-    ) {
-      _id
-      organization {
-        _id
-        image
-      }
-      title
-      description
-      isPublic
-      isRegisterable
-      recurring
-      startDate
-      endDate
-      allDay
-      startTime
-      endTime
-      location
-      creator {
-        _id
-        firstName
-        lastName
-      }
-      admins {
-        _id
-        firstName
-        lastName
-      } 
-      attendees {
-        _id
-        firstName
-        lastName
-        image
+    query {
+      eventsByOrganizationId(
+        input: { organizationId: "sampleID" }
+      ) {
+        id
+        name
+        description
+        startAt
+        endAt
+        organization {
+          id
+          name
+        }
+        creator {
+          id
+          name
+        }
+        updater {
+          id
+          name
+        }
+        attachments {
+          mimeType
+          url
+        }
       }
     }
-      }
-    """;
+  """;
 
       final fnData = EventQueries().fetchOrgEvents("sampleID");
       expect(fnData, data);
