@@ -125,7 +125,7 @@ void main() {
       );
 
       // Should handle null creator gracefully
-      expect(find.text('null null'), findsOneWidget);
+      expect(find.text('Unknown User'), findsOneWidget);
 
       final avatar = tester.widget<CustomAvatar>(find.byType(CustomAvatar));
       expect(avatar.isImageNull, isTrue);

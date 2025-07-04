@@ -47,7 +47,9 @@ class PostWidget extends StatelessWidget {
                 fontSize: 20,
               ),
               title: Text(
-                "${post.creator?.firstName} ${post.creator?.lastName}",
+                post.creator != null
+                    ? "${post.creator!.firstName} ${post.creator!.lastName}"
+                    : "Unknown User",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

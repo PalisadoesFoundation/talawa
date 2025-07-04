@@ -1037,23 +1037,23 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
 /// See the documentation for Mockito's code generation for more information.
 class MockPostService extends _i2.Mock implements _i18.PostService {
   @override
-  _i4.PageInfo get postInfo => (super.noSuchMethod(
-        Invocation.getter(#postInfo),
+  _i4.PageInfo get pageInfo => (super.noSuchMethod(
+        Invocation.getter(#pageInfo),
         returnValue: _FakePageInfo_10(
           this,
-          Invocation.getter(#postInfo),
+          Invocation.getter(#pageInfo),
         ),
         returnValueForMissingStub: _FakePageInfo_10(
           this,
-          Invocation.getter(#postInfo),
+          Invocation.getter(#pageInfo),
         ),
       ) as _i4.PageInfo);
 
   @override
-  set postInfo(_i4.PageInfo? _postInfo) => super.noSuchMethod(
+  set pageInfo(_i4.PageInfo? _pageInfo) => super.noSuchMethod(
         Invocation.setter(
-          #postInfo,
-          _postInfo,
+          #pageInfo,
+          _pageInfo,
         ),
         returnValueForMissingStub: null,
       );

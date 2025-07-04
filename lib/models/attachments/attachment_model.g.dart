@@ -17,11 +17,11 @@ class AttachmentModelAdapter extends TypeAdapter<AttachmentModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AttachmentModel(
-      name: fields[1] as String?,
-      fileHash: fields[2] as String?,
-      mimetype: fields[3] as String?,
-      objectName: fields[4] as String?,
-      url: fields[5] as String?,
+      name: fields[0] as String?,
+      fileHash: fields[1] as String?,
+      mimetype: fields[2] as String?,
+      objectName: fields[3] as String?,
+      url: fields[4] as String?,
     );
   }
 
@@ -29,15 +29,15 @@ class AttachmentModelAdapter extends TypeAdapter<AttachmentModel> {
   void write(BinaryWriter writer, AttachmentModel obj) {
     writer
       ..writeByte(5)
-      ..writeByte(1)
+      ..writeByte(0)
       ..write(obj.name)
-      ..writeByte(2)
+      ..writeByte(1)
       ..write(obj.fileHash)
-      ..writeByte(3)
+      ..writeByte(2)
       ..write(obj.mimetype)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.objectName)
-      ..writeByte(5)
+      ..writeByte(4)
       ..write(obj.url);
   }
 

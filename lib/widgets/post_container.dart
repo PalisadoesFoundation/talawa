@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
-import 'package:video_player/video_player.dart';
 
 /// Actual widget where files(images/videos) are displayed in a post.
 class PostContainer extends StatefulWidget {
@@ -55,7 +54,9 @@ class _PostContainerState extends State<PostContainer> {
                   cacheKey: att.url, // Using the URL as cache key
                 );
               } else if (mimeType.startsWith('video/')) {
-                return _VideoPlayerWidget(url: att.url ?? '');
+                // Handle video attachments.
+                // This is a placeholder as video handling requires a video player and proper backend support.
+                return const SizedBox();
               } else {
                 return const SizedBox();
               }
@@ -80,75 +81,6 @@ class _PostContainerState extends State<PostContainer> {
               ),
             ),
           ),
-      ],
-    );
-  }
-}
-
-/// Basic video player class to show video.
-class _VideoPlayerWidget extends StatefulWidget {
-  const _VideoPlayerWidget({required this.url});
-
-  /// url of the video to be played.
-  final String url;
-
-  @override
-  State<_VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
-  late VideoPlayerController _controller;
-  bool _initialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
-      ..initialize().then((_) {
-        setState(() {
-          _initialized = true;
-        });
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!_initialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: VideoPlayer(_controller),
-        ),
-        VideoProgressIndicator(_controller, allowScrubbing: true),
-        Align(
-          alignment: Alignment.center,
-          child: IconButton(
-            icon: Icon(
-              _controller.value.isPlaying
-                  ? Icons.pause_circle
-                  : Icons.play_circle,
-              size: 48,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                _controller.value.isPlaying
-                    ? _controller.pause()
-                    : _controller.play();
-              });
-            },
-          ),
-        ),
       ],
     );
   }

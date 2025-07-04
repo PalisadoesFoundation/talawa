@@ -1,15 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/post_service.dart';
 
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
-
-// Mock PostService
-class MockPostService extends Mock implements PostService {}
 
 void main() {
   setUp(() {
