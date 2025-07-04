@@ -133,11 +133,11 @@ void main() {
                             'name': event.creator?.firstName,
                           },
                           'attachments': [],
-                        })
+                        },)
                     .toList(),
               },
               source: QueryResultSource.network,
-            ));
+            ),);
 
     locator.unregister<EventService>();
     locator.registerSingleton<EventService>(EventService());

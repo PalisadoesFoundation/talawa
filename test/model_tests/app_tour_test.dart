@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,7 +12,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
+
 
 class CustomTutorialController extends TutorialCoachMarkController {
   @override

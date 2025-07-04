@@ -17,6 +17,8 @@ import 'package:talawa/widgets/post_modal.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 //Mock classes
 class MockFunction extends Mock {
   void call(Post post);

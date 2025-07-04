@@ -19,7 +19,8 @@ import 'package:talawa/views/main_screen.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 Widget createMainScreen({bool demoMode = true}) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),

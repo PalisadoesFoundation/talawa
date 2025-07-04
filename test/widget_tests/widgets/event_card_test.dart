@@ -10,7 +10,8 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/event_card.dart';
 
 import '../../helpers/test_locator.dart';
-
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 Event getEvent({bool? isRegistered, bool isPublic = false}) {
   return Event(
     id: "event123",
@@ -183,9 +184,9 @@ void main() {
         await tester.pump();
 
         expect(find.text("2023-12-13 - 2023-12-13"),
-            findsOneWidget); // duration date
+            findsOneWidget,); // duration date
         expect(
-            find.text("19:10:00 - 20:15:00"), findsOneWidget); // duration time
+            find.text("19:10:00 - 20:15:00"), findsOneWidget,); // duration time
         expect(
           find.text("Testing for the Event Card Widget"),
           findsOneWidget,

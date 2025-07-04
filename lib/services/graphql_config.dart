@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -5,6 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 
 /// GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
+///
 /// Talawa uses graphQL for the integrating with the API's.
 /// You can go through talawa-api, [here](https://github.com/PalisadoesFoundation/talawa-api).
 /// GraphqlConfig class provides service to configure graph ql API with talawa mobile-app.
@@ -21,6 +24,12 @@ class GraphqlConfig {
   String? displayImgRoute;
 
   /// This function is used to get user the access token.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Future<dynamic>`: Returns a future that resolves to true when the token is retrieved
   Future getToken() async {
     final authToken = userConfig.currentUser.authToken;
     token = authToken;
@@ -38,6 +47,8 @@ class GraphqlConfig {
     httpLink = HttpLink(orgURI!);
   }
 
+  /// Returns a [GraphQLClient] instance configured for making queries and mutations
+  /// using the current HTTP link without authentication.
   GraphQLClient clientToQuery() {
     //TODO: Implement websocket link from OrgUrl
     // final link = Link.split(
@@ -48,6 +59,10 @@ class GraphqlConfig {
     );
   }
 
+  /// Returns a [GraphQLClient] instance configured with authentication headers
+  /// using the current HTTP link and the stored access token.
+  ///
+  /// Use this client for making authenticated queries and mutations.
   GraphQLClient authClient() {
     final AuthLink authLink = AuthLink(getToken: () => 'Bearer $token');
     final Link finalAuthLink = authLink.concat(httpLink);

@@ -2257,6 +2257,19 @@ class MockSignupDetailsViewModel extends _i2.Mock
       );
 
   @override
+  _i5.OrgInfo get selectedOrganization => (super.noSuchMethod(
+        Invocation.getter(#selectedOrganization),
+        returnValue: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#selectedOrganization),
+        ),
+        returnValueForMissingStub: _FakeOrgInfo_11(
+          this,
+          Invocation.getter(#selectedOrganization),
+        ),
+      ) as _i5.OrgInfo);
+
+  @override
   set selectedOrganization(_i5.OrgInfo? _selectedOrganization) =>
       super.noSuchMethod(
         Invocation.setter(
@@ -3241,14 +3254,14 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       );
 
   @override
-  Future<void> fetchNewPosts() => (super.noSuchMethod(
+  _i6.Future<void> fetchNewPosts() => (super.noSuchMethod(
         Invocation.method(
           #fetchNewPosts,
           [],
         ),
-        returnValue: Future.value(),
-        returnValueForMissingStub: Future.value(),
-      ) as Future<void>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 
   @override
   void initialise({bool? isTest = false}) => super.noSuchMethod(

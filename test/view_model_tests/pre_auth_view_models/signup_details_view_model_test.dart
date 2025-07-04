@@ -1,6 +1,7 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -25,7 +26,7 @@ class MockUserConfig extends Mock implements UserConfig {
           id: 'xyz1',
           name: 'Test Org',
         )
-      ]);
+      ,],);
   @override
   OrgInfo get currentOrg => OrgInfo(
         id: 'xyz1',
@@ -72,22 +73,22 @@ var mockSignUpData = {
                       'name': 'John Doe',
                       'role': 'admin',
                     }
-                  },
+                  ,},
                   {
                     'node': {
                       'name': 'Jane Smith',
                       'role': 'member',
                     }
-                  }
+                  ,}
                 ]
-              }
-            }
-          }
+              ,}
+            ,}
+          ,}
         ]
-      }
-    }
-  }
-};
+      ,}
+    ,}
+  ,}
+,};
 
 class SignUpMock extends StatelessWidget {
   const SignUpMock({required this.formKey, super.key});
@@ -132,7 +133,7 @@ void main() {
         model.initialise(OrgInfo(
           id: "1",
           name: "Test Org",
-        ));
+        ),);
       });
       await tester.pumpAndSettle();
 
@@ -164,7 +165,7 @@ void main() {
 
       when(databaseFunctions.gqlNonAuthMutation(
         queries.registerUser('', '', '', '', org.id),
-      )).thenAnswer((_) async => queryResult);
+      ),).thenAnswer((_) async => queryResult);
 
       await tester.runAsync(() async {
         await tester.pumpWidget(SignUpMock(formKey: model.formKey));
@@ -184,7 +185,7 @@ void main() {
         Routes.mainScreen,
         Routes.splashScreen,
         arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-      )).called(1);
+      ),).called(1);
     });
 
     testWidgets('Check if signup() handling error when graphql mutation fails',
@@ -195,7 +196,7 @@ void main() {
       );
       when(databaseFunctions.gqlNonAuthMutation(
         queries.registerUser('', '', '', '', org.id),
-      )).thenThrow(
+      ),).thenThrow(
         Exception(
           'GraphQL mutation failed',
         ),
@@ -218,7 +219,7 @@ void main() {
       verify(navigationService.showTalawaErrorSnackBar(
         'Something went wrong',
         MessageType.error,
-      )).called(1);
+      ),).called(1);
     });
     testWidgets(
         'Check if signup() is working fine when user is not save and/or token not refreshed',
@@ -244,7 +245,7 @@ void main() {
 
       when(databaseFunctions.gqlNonAuthMutation(
         queries.registerUser('', '', '', '', org.id),
-      )).thenAnswer((_) async => queryResult);
+      ),).thenAnswer((_) async => queryResult);
 
       await tester.runAsync(() async {
         await tester.pumpWidget(SignUpMock(formKey: model.formKey));
@@ -263,7 +264,7 @@ void main() {
       verify(navigationService.showTalawaErrorSnackBar(
         TalawaErrors.userNotFound,
         MessageType.error,
-      )).called(1);
+      ),).called(1);
       verifyNever(
         navigationService.removeAllAndPush(
           Routes.waitingScreen,

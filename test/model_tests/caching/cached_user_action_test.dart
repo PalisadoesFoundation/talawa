@@ -9,7 +9,6 @@ import 'package:talawa/services/caching/offline_action_queue.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-class MockBinaryReader extends Mock implements BinaryReader {}
 
 void main() {
   late final Box<CachedUserAction> cacheBox;

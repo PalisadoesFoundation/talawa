@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,9 +12,19 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-
 import '../helpers/test_helpers.dart';
 
+/// Builds a base screen widget for testing GraphQL exception resolver.
+///
+/// This function creates a MaterialApp wrapped in BaseView with AppLanguage
+/// view model for testing purposes. It includes localization delegates and
+/// a test button that triggers the provided onClick callback.
+///
+/// **params**:
+/// * `onClick`: A callback function that gets executed when the test button is pressed
+///
+/// **returns**:
+/// * `Widget`: A MaterialApp widget configured for testing with localization support
 Widget buildBaseScreen({required Function() onClick}) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),

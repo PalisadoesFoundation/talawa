@@ -7,8 +7,10 @@ import 'package:talawa/widgets/event_card.dart';
 /// This class returns a list of the events which match the search query.
 class EventSearch extends SearchDelegate<Event> {
   EventSearch({required this.eventList, required this.exploreEventsViewModel});
+  /// ViewModel used to manage and provide event data for the search functionality.
   ExploreEventsViewModel exploreEventsViewModel;
 
+  /// The list of events to be searched and displayed as suggestions.
   final List<Event> eventList;
 
   @override
@@ -57,10 +59,17 @@ class EventSearch extends SearchDelegate<Event> {
     return buildSuggestionsSucess(suggestions);
   }
 
+ 
+  /// Builds the suggestion list UI for the search, displaying events that match the query.
+  ///
+  /// Displays a list of [Event]s that match the user's search input.
+  ///
+  /// **params**:
+  /// * `suggestions`: The list of events filtered based on the user's search input
+  ///
+  /// **returns**:
+  /// * `Widget`: A scrollable widget containing a list of EventCard widgets for matching events
   Widget buildSuggestionsSucess(List<Event> suggestions) {
-    /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
-    /// Returns a SingleChildScrollView of the events from the list.
-    /// SingleChildScrollView is box in which a single widget can be scrolled.
     return SingleChildScrollView(
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -71,9 +80,6 @@ class EventSearch extends SearchDelegate<Event> {
               suggestions[index].name!.substring(0, query.length);
           final normalText = suggestions[index].name!.substring(query.length);
 
-          /// Returns a widget that detects gestures.
-          /// Defers to its child for its sizing behavior.
-          /// Navigates to the screen with the event information.
           return GestureDetector(
             onTap: () {
               navigationService.pushScreen(

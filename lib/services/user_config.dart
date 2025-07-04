@@ -131,7 +131,6 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-
   Future<void> userLogOut() async {
     await actionHandlerService.performAction(
       actionType: ActionType.critical,
@@ -181,15 +180,13 @@ class UserConfig {
     );
   }
 
-  /// Performs client-side logout
-  ///
-  /// Note : implement server side token invalidation when logOut mutation is updated in API.
+  /// Performs client-side logout.
   ///
   /// **params**:
   ///   None
   ///
-  /// **returns**:
-  /// * `Future<QueryResult>`: returns future of QueryResult type.
+  /// **returns**: 
+  ///   None
   Future<QueryResult> performLogout() async {
     return QueryResult(
       data: {'logout': true},

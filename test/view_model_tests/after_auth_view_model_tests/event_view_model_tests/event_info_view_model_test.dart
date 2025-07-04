@@ -479,7 +479,7 @@ void main() {
         'description': 'Test Description',
         'duration': '1h',
         'eventId': '1',
-      })).thenThrow(Exception('Create agenda item failed'));
+      }),).thenThrow(Exception('Create agenda item failed'));
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
@@ -590,7 +590,7 @@ void main() {
         'eventId': '1',
         'name': 'Test Group',
         'volunteersRequired': 5,
-      })).thenThrow(Exception('Create volunteer group failed'));
+      }),).thenThrow(Exception('Create volunteer group failed'));
 
       final result = await model.createVolunteerGroup(
         event1,

@@ -29,14 +29,14 @@ class Event {
       organization: json['organization'] == null
           ? null
           : OrgInfo(
-              id: json['organization']['id']?.toString(),
-              name: json['organization']['name']?.toString(),
+              id: (json['organization'] as Map<String, dynamic>)['id']?.toString(),
+              name: (json['organization'] as Map<String, dynamic>)['name']?.toString(),
             ),
       creator: json['creator'] == null
           ? null
           : User(
-              id: json['creator']['id']?.toString(),
-              firstName: json['creator']['name']?.toString(),
+              id: (json['creator'] as Map<String, dynamic>)['id']?.toString(),
+              firstName: (json['creator'] as Map<String, dynamic>)['name']?.toString(),
             ),
       attachments: json['attachments'] as List<dynamic>?,
     );
@@ -74,6 +74,7 @@ class Event {
   @HiveField(7)
   List<dynamic>? attachments;
 
+  /// Returns the start date of the event in 'yyyy-MM-dd' format, or null if unavailable or parsing fails.
   String? get startDate {
     if (startAt == null) return null;
     try {
@@ -84,6 +85,7 @@ class Event {
     }
   }
 
+  /// Returns the start time of the event in 'HH:mm:ss' format, or null if unavailable or parsing fails.
   String? get startTime {
     if (startAt == null) return null;
     try {
@@ -94,6 +96,7 @@ class Event {
     }
   }
 
+  /// Returns the end date of the event in 'yyyy-MM-dd' format, or null if unavailable or parsing fails.
   String? get endDate {
     if (endAt == null) return null;
     try {
@@ -104,6 +107,10 @@ class Event {
     }
   }
 
+  /// Returns the end time of the event in 'HH:mm:ss' format, or null if unavailable or parsing fails.
+  ///
+  /// This getter extracts and formats the time portion from the [endAt] property,
+  /// returning it as a string in 'HH:mm:ss' format, or null if [endAt] is not set or cannot be parsed.
   String? get endTime {
     if (endAt == null) return null;
     try {

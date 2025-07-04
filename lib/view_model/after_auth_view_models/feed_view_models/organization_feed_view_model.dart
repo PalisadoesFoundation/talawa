@@ -10,7 +10,6 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:flutter/foundation.dart';
 
 /// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
 ///
@@ -109,7 +108,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: A future that completes when posts are refreshed
+  ///   None
   Future<void> fetchNewPosts() async {
     await _postService.refreshFeed();
   }

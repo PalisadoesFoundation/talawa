@@ -121,10 +121,10 @@ class ExploreEventsViewModel extends BaseModel {
       final eventId = newEvent.id;
       final org = newEvent.organization;
       final orgId = org?.id;
-      final currentOrgId = userConfig.currentOrg?.id;
+      final currentOrgId = userConfig.currentOrg.id;
       final creator = newEvent.creator;
       final creatorId = creator?.id;
-      final currentUserId = userConfig.currentUser?.id;
+      final currentUserId = userConfig.currentUser.id;
 
       if (eventId != null &&
           orgId != null &&
@@ -221,7 +221,7 @@ class ExploreEventsViewModel extends BaseModel {
             // for the creator id matched the current user id.
             _events = List.from(
               _bufferEvents.where(
-                (element) => element.creator?.id == userConfig.currentUser?.id,
+                (element) => element.creator?.id == userConfig.currentUser.id,
               ),
             );
             // if list is empty

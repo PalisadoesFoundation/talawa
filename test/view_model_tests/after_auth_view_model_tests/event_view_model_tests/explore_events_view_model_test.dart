@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,11 +22,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
-
-class MockCallbackFunction extends Mock {
-  void call();
-}
 
 class _MockStreamSubscription<T> extends Mock
     implements StreamSubscription<T> {}
