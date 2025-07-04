@@ -12,7 +12,7 @@ part 'user_info.g.dart';
 ///
 /// class Userextends HiveObject {
 
-class User {
+class User extends HiveObject  {
   User({
     this.adminFor,
     this.createdOrganizations,
@@ -186,10 +186,6 @@ class User {
     this.email = details.email;
     this.image = details.image;
     this.authToken = details.authToken;
-// this.refreshToken = details.refreshToken;
-// this.joinedOrganizations = details.joinedOrganizations;
-// this.createdOrganizations = details.createdOrganizations;
-// this.membershipRequests = details.membershipRequests;
-// this.adminFor = details.adminFor;
+
   }
 }
