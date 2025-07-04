@@ -1,7 +1,12 @@
 include: package:lint/analysis_options.yaml
 
-plugins:
-  - custom_lint
+analyzer:
+  exclude: 
+    - lib/generated_plugin_registrant.dart
+    - test/helpers/test_helpers.mocks.dart
+
+  plugins:
+    - custom_lint
 
 custom_lint:
   rules:
