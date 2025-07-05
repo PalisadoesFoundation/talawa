@@ -177,6 +177,9 @@ void main() {
       final Event event1 = Event(id: "1");
       model.event = event1;
 
+      // Clear any existing agenda items before the test
+      model.agendaItems.clear();
+
       final eventService = getAndRegisterEventService();
       // Mock userConfig.currentOrg
       final userConfig = getAndRegisterUserConfig();
