@@ -172,8 +172,7 @@ void main() {
       await tester.pumpWidget(createEventInfoBody());
       await tester.pumpAndSettle();
 
-      // The old Attendee and Admins keys may not exist in the new model structure
-      // Update this test based on the current widget structure
+
 
       await tester.pumpAndSettle();
     });

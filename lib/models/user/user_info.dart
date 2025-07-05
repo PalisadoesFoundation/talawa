@@ -11,6 +11,7 @@ part 'user_info.g.dart';
 /// This class creates a User model and returns a user instance.
 ///
 /// class Userextends HiveObject {
+///
 
 class User extends HiveObject {
   User({

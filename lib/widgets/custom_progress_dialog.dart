@@ -5,7 +5,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-/// A progress dialogue which shows an activity indicator.
+/// A progress dialog that shows an activity indicator.
 ///
 /// spinning clockwise if there is internet connectivity.
 /// Otherwise, it shows no-internet image and text.

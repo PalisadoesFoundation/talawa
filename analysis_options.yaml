@@ -87,3 +87,4 @@ linter:
     implicit_call_tearoffs: false
     dangling_library_doc_comments: false
     unintended_html_in_doc_comment: false
+    
