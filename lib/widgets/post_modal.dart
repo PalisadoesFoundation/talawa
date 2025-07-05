@@ -104,7 +104,7 @@ class PostBottomModal extends StatelessWidget {
                         'The post was deleted',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                    )
+                    ),
                   ],
                 ),
               )

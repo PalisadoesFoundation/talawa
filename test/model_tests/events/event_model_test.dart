@@ -4,6 +4,8 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+import '../../helpers/test_json_utils.dart';
+
 final User user1 = User(id: "fakeUser1");
 final User user2 = User(id: "fakeUser2");
 final List<User> users = [user1, user2];
@@ -96,7 +98,7 @@ final eventJson = {
 void main() {
   group('Test Event Model', () {
     test('Test Event ', () {
-      final eventFromJson = Event.fromJson(eventJson);
+      final eventFromJson = TestJsonUtils.createEventFromJson(eventJson);
 
       expect(event.creator?.id, eventFromJson.creator?.id);
       expect(event.creator?.firstName, eventFromJson.creator?.firstName);

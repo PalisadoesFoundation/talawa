@@ -79,8 +79,10 @@ class CommentService {
 
     final QueryResult<Object?> result;
     try {
-      result = await _dbFunctions.gqlAuthMutation(getCommentQuery,
-          variables: variables);
+      result = await _dbFunctions.gqlAuthMutation(
+        getCommentQuery,
+        variables: variables,
+      );
     } catch (e) {
       _navigationService.showTalawaErrorSnackBar(
         "Something went wrong while fetching comments",

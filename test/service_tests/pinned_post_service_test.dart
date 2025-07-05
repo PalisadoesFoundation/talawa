@@ -40,11 +40,11 @@ void main() {
               'node': {
                 'id': 'post1',
                 'caption': 'Pinned Post',
-              }
+              },
             }
-          ]
-        }
-      }
+          ],
+        },
+      },
     };
 
     when(dbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
@@ -68,16 +68,22 @@ void main() {
     final query = PinnedPostQueries().getPinnedPostsByOrgID();
 
     when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
-        .thenAnswer((_) async => QueryResult(
-              options: QueryOptions(document: gql('')),
-              data: {}, // No 'organization' key
-              source: QueryResultSource.network,
-            ));
+        .thenAnswer(
+      (_) async => QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {}, // No 'organization' key
+        source: QueryResultSource.network,
+      ),
+    );
 
     expect(
       () async => await service.fetchDataFromApi(),
-      throwsA(predicate((e) =>
-          e is Exception && e.toString().contains('Organization not found'))),
+      throwsA(
+        predicate(
+          (e) =>
+              e is Exception && e.toString().contains('Organization not found'),
+        ),
+      ),
     );
   });
   test(
@@ -109,15 +115,18 @@ void main() {
               'node': {
                 'id': 'post1',
                 'caption': 'Test Post',
-              }
+              },
             }
-          ]
-        }
-      }
+          ],
+        },
+      },
     };
-    when(dbFunctions.gqlAuthQuery(pinnedPostsQuery,
-            variables: pinnedPostsVariables))
-        .thenAnswer(
+    when(
+      dbFunctions.gqlAuthQuery(
+        pinnedPostsQuery,
+        variables: pinnedPostsVariables,
+      ),
+    ).thenAnswer(
       (_) async => QueryResult(
         options: QueryOptions(document: gql(pinnedPostsQuery)),
         data: pinnedPostsData,
@@ -143,21 +152,27 @@ void main() {
     final query = PinnedPostQueries().getPinnedPostsByOrgID();
 
     when(mockDbFunctions.gqlAuthQuery(query, variables: anyNamed('variables')))
-        .thenAnswer((_) async => QueryResult(
-              options: QueryOptions(document: gql('')),
-              data: {
-                'organization': {
-                  'id': 'org1',
-                  // No 'pinnedPosts' key
-                },
-              },
-              source: QueryResultSource.network,
-            ));
+        .thenAnswer(
+      (_) async => QueryResult(
+        options: QueryOptions(document: gql('')),
+        data: {
+          'organization': {
+            'id': 'org1',
+            // No 'pinnedPosts' key
+          },
+        },
+        source: QueryResultSource.network,
+      ),
+    );
 
     expect(
       () async => await service.fetchDataFromApi(),
-      throwsA(predicate((e) =>
-          e is Exception && e.toString().contains('Pinned posts not found'))),
+      throwsA(
+        predicate(
+          (e) =>
+              e is Exception && e.toString().contains('Pinned posts not found'),
+        ),
+      ),
     );
   });
 }

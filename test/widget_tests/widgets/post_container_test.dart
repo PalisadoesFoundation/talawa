@@ -52,10 +52,12 @@ void main() {
       );
       // There should be 2 indicator dots (circle containers)
       expect(
-        find.byWidgetPredicate((widget) =>
-            widget is Container &&
-            widget.decoration is BoxDecoration &&
-            (widget.decoration! as BoxDecoration).shape == BoxShape.circle),
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is Container &&
+              widget.decoration is BoxDecoration &&
+              (widget.decoration! as BoxDecoration).shape == BoxShape.circle,
+        ),
         findsNWidgets(2),
       );
     });
@@ -129,11 +131,17 @@ void main() {
       // Arrange
       final attachments = [
         AttachmentModel(
-            url: 'https://example.com/image1.jpg', mimetype: 'image/jpeg'),
+          url: 'https://example.com/image1.jpg',
+          mimetype: 'image/jpeg',
+        ),
         AttachmentModel(
-            url: 'https://example.com/image2.jpg', mimetype: 'image/jpeg'),
+          url: 'https://example.com/image2.jpg',
+          mimetype: 'image/jpeg',
+        ),
         AttachmentModel(
-            url: 'https://example.com/image3.jpg', mimetype: 'image/jpeg'),
+          url: 'https://example.com/image3.jpg',
+          mimetype: 'image/jpeg',
+        ),
       ];
 
       await tester.pumpWidget(
@@ -145,8 +153,10 @@ void main() {
       );
 
       // Initially first page indicator should be active (primary color)
-      expect(find.byType(Container),
-          findsNWidgets(4)); // 3 indicators + 1 main container
+      expect(
+        find.byType(Container),
+        findsNWidgets(4),
+      ); // 3 indicators + 1 main container
 
       // Act - Swipe to next page
       await tester.drag(find.byType(PageView), const Offset(-300, 0));
@@ -156,9 +166,12 @@ void main() {
       // Find all indicator containers and verify the active one changed
       final containers = tester.widgetList<Container>(find.byType(Container));
       final indicators = containers
-          .where((container) =>
-              container.decoration is BoxDecoration &&
-              (container.decoration! as BoxDecoration).shape == BoxShape.circle)
+          .where(
+            (container) =>
+                container.decoration is BoxDecoration &&
+                (container.decoration! as BoxDecoration).shape ==
+                    BoxShape.circle,
+          )
           .toList();
 
       expect(indicators.length, equals(3));
@@ -166,11 +179,14 @@ void main() {
       // Verify pindex was updated by checking active indicator
       // The second indicator should now have primary color
       expect(
-          find.byWidgetPredicate((widget) =>
+        find.byWidgetPredicate(
+          (widget) =>
               widget is Container &&
               widget.decoration is BoxDecoration &&
-              (widget.decoration! as BoxDecoration).color != Colors.grey),
-          findsOneWidget);
+              (widget.decoration! as BoxDecoration).color != Colors.grey,
+        ),
+        findsOneWidget,
+      );
     });
   });
 }

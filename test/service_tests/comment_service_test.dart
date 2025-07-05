@@ -21,8 +21,10 @@ void main() {
 
       final query = CommentQueries().createComment();
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(query,
-            variables: anyNamed('variables')),
+        dataBaseMutationFunctions.gqlAuthMutation(
+          query,
+          variables: anyNamed('variables'),
+        ),
       ).thenThrow(Exception('Your error message here'));
 
       final service = CommentService();
@@ -46,7 +48,7 @@ void main() {
         data: {
           'post': {
             'comments': null,
-          }
+          },
         },
         source: QueryResultSource.network,
         options: QueryOptions(document: gql('')),
@@ -90,10 +92,12 @@ void main() {
       final service = CommentService();
       final result = await service.getCommentsForPost(postId: 'test');
 
-      verify(navigationService.showTalawaErrorSnackBar(
-        "Something went wrong while fetching comments",
-        MessageType.error,
-      )).called(1);
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "Something went wrong while fetching comments",
+          MessageType.error,
+        ),
+      ).called(1);
 
       expect(result, {'comments': [], 'pageInfo': {}});
     });
@@ -106,19 +110,21 @@ void main() {
             'comments': {
               'edges': [
                 {
-                  'node': {'id': '1', 'body': 'test'}
+                  'node': {'id': '1', 'body': 'test'},
                 }
               ],
-              'pageInfo': {'hasNextPage': false}
-            }
-          }
+              'pageInfo': {'hasNextPage': false},
+            },
+          },
         },
         source: QueryResultSource.network,
         options: QueryOptions(document: gql(getCommmentQuery)),
       );
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommmentQuery,
-            variables: anyNamed('variables')),
+        dataBaseMutationFunctions.gqlAuthMutation(
+          getCommmentQuery,
+          variables: anyNamed('variables'),
+        ),
       ).thenAnswer((_) async => mockResult);
 
       final service = CommentService();
@@ -133,10 +139,12 @@ void main() {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
 
       final String getCommmentQuery = CommentQueries().getPostsComments();
-      when(dataBaseMutationFunctions.gqlAuthMutation(
-        getCommmentQuery,
-        variables: anyNamed('variables'),
-      )).thenAnswer(
+      when(
+        dataBaseMutationFunctions.gqlAuthMutation(
+          getCommmentQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommmentQuery)),
           data: {
@@ -163,8 +171,10 @@ void main() {
 
       final String getCommentQuery = CommentQueries().getPostsComments();
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommentQuery,
-            variables: anyNamed('variables')),
+        dataBaseMutationFunctions.gqlAuthMutation(
+          getCommentQuery,
+          variables: anyNamed('variables'),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommentQuery)),
@@ -187,8 +197,10 @@ void main() {
 
       final String getCommentQuery = CommentQueries().getPostsComments();
       when(
-        dataBaseMutationFunctions.gqlAuthMutation(getCommentQuery,
-            variables: anyNamed('variables')),
+        dataBaseMutationFunctions.gqlAuthMutation(
+          getCommentQuery,
+          variables: anyNamed('variables'),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(getCommentQuery)),
@@ -206,8 +218,10 @@ void main() {
     test('test for createComments', () async {
       final query = CommentQueries().createComment();
       when(
-        databaseFunctions.gqlAuthMutation(query,
-            variables: anyNamed('variables')),
+        databaseFunctions.gqlAuthMutation(
+          query,
+          variables: anyNamed('variables'),
+        ),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),

@@ -205,7 +205,9 @@ void main() {
     testWidgets('Test for pinnedPost route', (WidgetTester tester) async {
       final route = generateRoute(
         RouteSettings(
-            name: Routes.pinnedPostScreen, arguments: Post(id: "testId")),
+          name: Routes.pinnedPostScreen,
+          arguments: Post(id: "testId"),
+        ),
       );
       expect(route, isA<MaterialPageRoute>());
       if (route is MaterialPageRoute) {

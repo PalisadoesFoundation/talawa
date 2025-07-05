@@ -1,11 +1,7 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/org_service.dart';
 
@@ -22,45 +18,28 @@ void main() {
     test('Test getOrgMembersList', () async {
       const String orgId = '123';
       const String query = '''
-    query{
-      organizations(id: "$orgId"){
-        image
-        _id
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        id
         name
-        admins{
-          _id
-        }
+        avatarURL
         description
-        userRegistrationRequired
-        creator{
-          _id
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          image
-        }
       }
     }
-  ''';
+    ''';
 
       final List<Map<String, dynamic>> userJsonList = [
         {
-          '_id': 'user_id_1',
-          'accessToken': ' ',
-          'refreshToken': ' ',
-          'firstName': 'Some',
-          'lastName': 'Name',
+          'id': 'user_id_1',
+          'name': 'Some Name',
+          'avatarURL': 'https://example.com/avatar1.jpg',
+          'description': 'Test user 1',
         },
         {
-          '_id': 'user_id_2',
-          'accessToken': ' ',
-          'refreshToken': ' ',
-          'firstName': 'Name',
-          'lastName': 'Some',
+          'id': 'user_id_2',
+          'name': 'Name Some',
+          'avatarURL': 'https://example.com/avatar2.jpg',
+          'description': 'Test user 2',
         },
       ];
 
@@ -68,28 +47,140 @@ void main() {
         parserFn: (map) => '123',
         source: null,
         data: {
-          'organizations': [
-            {
-              'members': userJsonList,
-            },
-          ],
+          'usersByOrganizationId': userJsonList,
         },
       );
-      when(dbFunctions.gqlAuthMutation(query))
+      when(dbFunctions.gqlAuthQuery(query))
           .thenAnswer((realInvocation) async => queryResult);
 
       final result = await organizationService.getOrgMembersList(orgId);
 
       expect(result.length, 2);
-      for (int index = 0; index < result.length; index++) {
-        final User user = User.fromJson(userJsonList[index], fromOrg: true);
+      expect(result[0].id, 'user_id_1');
+      expect(result[0].firstName, 'Some'); // First part of the name
+      expect(result[0].lastName, 'Name'); // Rest of the name
+      expect(result[0].image, 'https://example.com/avatar1.jpg');
+      expect(result[0].authToken, null); // No auth token in org user data
+      expect(result[0].refreshToken, null); // No refresh token in org user data
 
-        expect(result[index].id, user.id);
-        expect(result[index].authToken, user.authToken);
-        expect(result[index].refreshToken, user.refreshToken);
-        expect(result[index].firstName, user.firstName);
-        expect(result[index].lastName, user.lastName);
+      expect(result[1].id, 'user_id_2');
+      expect(result[1].firstName, 'Name');
+      expect(result[1].lastName, 'Some');
+      expect(result[1].image, 'https://example.com/avatar2.jpg');
+    });
+
+    test('Test getOrgMembersList with GraphQL exception', () async {
+      const String orgId = '123';
+      const String query = '''
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        id
+        name
+        avatarURL
+        description
       }
+    }
+    ''';
+
+      final QueryResult queryResult = QueryResult.internal(
+        parserFn: (map) => '123',
+        source: null,
+        data: null,
+        exception: OperationException(
+          graphqlErrors: [
+            const GraphQLError(message: 'Test error'),
+          ],
+        ),
+      );
+      when(dbFunctions.gqlAuthQuery(query))
+          .thenAnswer((realInvocation) async => queryResult);
+
+      final result = await organizationService.getOrgMembersList(orgId);
+
+      expect(result.length, 0); // Should return empty list on error
+    });
+
+    test('Test getOrgMembersList with null data', () async {
+      const String orgId = '123';
+      const String query = '''
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        id
+        name
+        avatarURL
+        description
+      }
+    }
+    ''';
+
+      final QueryResult queryResult = QueryResult.internal(
+        parserFn: (map) => '123',
+        source: null,
+        data: null,
+      );
+      when(dbFunctions.gqlAuthQuery(query))
+          .thenAnswer((realInvocation) async => queryResult);
+
+      final result = await organizationService.getOrgMembersList(orgId);
+
+      expect(result.length, 0); // Should return empty list when data is null
+    });
+
+    test('Test getOrgMembersList with malformed user data', () async {
+      const String orgId = '123';
+      const String query = '''
+    query {
+      usersByOrganizationId(organizationId: "$orgId") {
+        id
+        name
+        avatarURL
+        description
+      }
+    }
+    ''';
+
+      // Mix of valid and invalid user data to test error handling
+      final List<Map<String, dynamic>> mixedUserJsonList = [
+        {
+          'id': 'user_id_1',
+          'name': 'Valid User',
+          'avatarURL': 'https://example.com/avatar1.jpg',
+          'description': 'Test user 1',
+        },
+        // Invalid data that will cause parsing error
+        {
+          'id': null, // Invalid ID
+          'name': 123, // Invalid name type
+          'avatarURL': true, // Invalid URL type
+        },
+        {
+          'id': 'user_id_3',
+          'name': 'Another Valid User',
+          'avatarURL': 'https://example.com/avatar3.jpg',
+          'description': 'Test user 3',
+        },
+      ];
+
+      final QueryResult queryResult = QueryResult.internal(
+        parserFn: (map) => '123',
+        source: null,
+        data: {
+          'usersByOrganizationId': mixedUserJsonList,
+        },
+      );
+      when(dbFunctions.gqlAuthQuery(query))
+          .thenAnswer((realInvocation) async => queryResult);
+
+      final result = await organizationService.getOrgMembersList(orgId);
+
+      // Should return only the valid users, skipping the malformed one
+      expect(result.length, 2);
+      expect(result[0].id, 'user_id_1');
+      expect(result[0].firstName, 'Valid');
+      expect(result[0].lastName, 'User');
+      expect(result[1].id, 'user_id_3');
+      expect(result[1].firstName, 'Another');
+      expect(result[1].lastName, 'Valid User');
     });
   });
 }

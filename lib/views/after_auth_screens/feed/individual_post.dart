@@ -25,105 +25,110 @@ class _IndividualPostViewState extends State<IndividualPostView> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<CommentsViewModel>(onModelReady: (model) async {
-      await model.initialise(widget.post.id!);
-    }, builder: (context, model, child) {
-      return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-        ),
-        bottomSheet: Container(
-          height: 60,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  key: const Key('indi_post_tf_key'),
-                  controller: _controller,
-                  textInputAction: TextInputAction.send,
-                  onChanged: (msg) {
-                    if (msg.isEmpty && _isCommentValid == true) {
-                      setState(() {
-                        _isCommentValid = false;
-                      });
-                    }
-                    if (msg.isEmpty == false && _isCommentValid == false) {
-                      setState(() {
-                        _isCommentValid = true;
-                      });
-                    }
-                  },
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.strictTranslate(
-                      "Write your comment here..",
-                    ),
-                    contentPadding: const EdgeInsets.all(8.0),
-                    focusColor: Colors.black,
-                    border: InputBorder.none,
-                  ),
-                  keyboardType: TextInputType.text,
-                ),
-              ),
-              // Button to send the comment.
-              TextButton(
-                key: const Key('sendButton'),
-                style: _isCommentValid == false
-                    ? ButtonStyle(
-                        overlayColor:
-                            WidgetStateProperty.all(Colors.transparent),
-                      )
-                    : null,
-                //check if button is enabled when comment is valid
-                onPressed: _isCommentValid
-                    ? () {
-                        model.createComment(_controller.text);
-                        _controller.text = "";
-
+    return BaseView<CommentsViewModel>(
+      onModelReady: (model) async {
+        await model.initialise(widget.post.id!);
+      },
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+          ),
+          bottomSheet: Container(
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    key: const Key('indi_post_tf_key'),
+                    controller: _controller,
+                    textInputAction: TextInputAction.send,
+                    onChanged: (msg) {
+                      if (msg.isEmpty && _isCommentValid == true) {
                         setState(() {
                           _isCommentValid = false;
                         });
                       }
-                    : null,
-                child: Text(
-                  AppLocalizations.of(context)!.strictTranslate(
-                    "Send",
+                      if (msg.isEmpty == false && _isCommentValid == false) {
+                        setState(() {
+                          _isCommentValid = true;
+                        });
+                      }
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.strictTranslate(
+                        "Write your comment here..",
+                      ),
+                      contentPadding: const EdgeInsets.all(8.0),
+                      focusColor: Colors.black,
+                      border: InputBorder.none,
+                    ),
+                    keyboardType: TextInputType.text,
                   ),
-                  style: !_isCommentValid
-                      ? const TextStyle(color: Colors.grey)
+                ),
+                // Button to send the comment.
+                TextButton(
+                  key: const Key('sendButton'),
+                  style: _isCommentValid == false
+                      ? ButtonStyle(
+                          overlayColor:
+                              WidgetStateProperty.all(Colors.transparent),
+                        )
                       : null,
+                  //check if button is enabled when comment is valid
+                  onPressed: _isCommentValid
+                      ? () {
+                          model.createComment(_controller.text);
+                          _controller.text = "";
+
+                          setState(() {
+                            _isCommentValid = false;
+                          });
+                        }
+                      : null,
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate(
+                      "Send",
+                    ),
+                    style: !_isCommentValid
+                        ? const TextStyle(color: Colors.grey)
+                        : null,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          body: ListView(
+            children: [
+              // Post
+              PostWidget(
+                post: widget.post,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenHeight! * 0.010,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // renders the number of users commented on the post.
+                    IndividualPostCommentSection(
+                      postID: widget.post.id!,
+                      model: model,
+                    ),
+                    const SizedBox(
+                      height: 200,
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ),
-        body: ListView(
-          children: [
-            // Post
-            PostWidget(
-              post: widget.post,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenHeight! * 0.010,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // renders the number of users commented on the post.
-                  IndividualPostCommentSection(
-                      postID: widget.post.id!, model: model),
-                  const SizedBox(
-                    height: 200,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 

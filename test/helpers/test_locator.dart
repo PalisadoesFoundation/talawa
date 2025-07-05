@@ -67,6 +67,7 @@ final multimediaPickerService = locator<MultiMediaPickerService>();
 final organizationService = locator<OrganizationService>();
 final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
+final chatService = locator<ChatService>();
 final connectivity = locator<Connectivity>();
 final connectivityService = locator<ConnectivityService>();
 final cacheService = locator<CacheService>();
@@ -102,6 +103,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => PostService());
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
+  locator.registerLazySingleton(() => ChatService());
   locator.registerLazySingleton(() => Connectivity());
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => ImageService());

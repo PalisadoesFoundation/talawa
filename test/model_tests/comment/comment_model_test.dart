@@ -1,10 +1,9 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+
+import '../../helpers/test_json_utils.dart';
 
 void main() {
   final comment = Comment(
@@ -32,9 +31,10 @@ void main() {
     'body': 'test text',
     'post': null,
   };
+
   group('Test Comment model', () {
     test('Test task json', () {
-      final commentFromJson = Comment.fromJson(commentJson);
+      final commentFromJson = TestJsonUtils.createCommentFromJson(commentJson);
       expect(comment.creator?.id, commentFromJson.creator?.id);
       expect(comment.creator?.firstName, commentFromJson.creator?.firstName);
       expect(comment.creator?.lastName, commentFromJson.creator?.lastName);

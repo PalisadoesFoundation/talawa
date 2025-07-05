@@ -94,8 +94,9 @@ class PostWidget extends StatelessWidget {
             Column(
               children: [
                 Interactions(
-                    post: post,
-                    redirectToIndividualPage: redirectToIndividualPage),
+                  post: post,
+                  redirectToIndividualPage: redirectToIndividualPage,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

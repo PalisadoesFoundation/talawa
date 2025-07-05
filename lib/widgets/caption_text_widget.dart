@@ -29,14 +29,18 @@ class _CaptionTextWidgetState extends State<CaptionTextWidget> {
   /// **returns**:
   /// * `List<InlineSpan>`: A list of `InlineSpan` objects that can be used in a `Text.rich` widget.
   List<InlineSpan> _highlightTags(
-      String text, TextStyle style, TextStyle tagStyle) {
+    String text,
+    TextStyle style,
+    TextStyle tagStyle,
+  ) {
     final exp = RegExp(r'(#[\w]+)');
     final spans = <InlineSpan>[];
     int start = 0;
     for (final match in exp.allMatches(text)) {
       if (match.start > start) {
         spans.add(
-            TextSpan(text: text.substring(start, match.start), style: style));
+          TextSpan(text: text.substring(start, match.start), style: style),
+        );
       }
       spans.add(TextSpan(text: match.group(0), style: tagStyle));
       start = match.end;

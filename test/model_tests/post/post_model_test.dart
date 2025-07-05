@@ -166,7 +166,9 @@ void main() {
         (_) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'createGetfileUrl': {'presignedUrl': 'https://example.com/file.txt'}
+            'createGetfileUrl': {
+              'presignedUrl': 'https://example.com/file.txt',
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -192,7 +194,7 @@ void main() {
           data: {
             'createGetfileUrl': {
               'presignedUrl': null,
-            }
+            },
           },
           source: QueryResultSource.network,
         ),

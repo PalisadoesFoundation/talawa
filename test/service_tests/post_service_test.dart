@@ -53,24 +53,27 @@ void main() {
                 'node': {
                   'id': 'post1',
                   'caption': 'Test Post',
-                }
+                },
               }
-            ]
-          }
-        }
+            ],
+          },
+        },
       };
       final hasUserVotedQuery = PostQueries().hasUserVoted();
 
-      when(dbFunctions.gqlAuthQuery(hasUserVotedQuery,
-              variables: anyNamed('variables')))
-          .thenAnswer(
+      when(
+        dbFunctions.gqlAuthQuery(
+          hasUserVotedQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(hasUserVotedQuery)),
           data: {
             'hasUserVoted': {
               'hasVoted': false,
               'voteType': null,
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -147,11 +150,11 @@ void main() {
                 'node': {
                   'id': 'post1',
                   'caption': 'Test Post',
-                }
+                },
               }
-            ]
-          }
-        }
+            ],
+          },
+        },
       };
 
       when(dbFunctions.gqlAuthQuery(postsQuery, variables: postsVariables))
@@ -167,16 +170,19 @@ void main() {
       final hasUserVotedQuery = PostQueries().hasUserVoted();
       final hasUserVotedVariables = {'postId': 'post1'};
 
-      when(dbFunctions.gqlAuthQuery(hasUserVotedQuery,
-              variables: hasUserVotedVariables))
-          .thenAnswer(
+      when(
+        dbFunctions.gqlAuthQuery(
+          hasUserVotedQuery,
+          variables: hasUserVotedVariables,
+        ),
+      ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(document: gql(hasUserVotedQuery)),
           data: {
             'hasUserVoted': {
               'hasVoted': false,
               'voteType': null,
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -256,7 +262,7 @@ void main() {
             'hasUserVoted': {
               'hasVoted': true,
               'voteType': 'upvote',
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -286,7 +292,7 @@ void main() {
             'hasUserVoted': {
               'hasVoted': null,
               'voteType': null,
-            }
+            },
           },
           source: QueryResultSource.network,
         ),
@@ -457,7 +463,7 @@ void main() {
         final postService = PostService();
         final posts = [
           Post(id: 'cache1', caption: 'Cache Test'),
-          Post(id: 'cache2', caption: 'Cache Test 2')
+          Post(id: 'cache2', caption: 'Cache Test 2'),
         ];
 
         // Save to cache

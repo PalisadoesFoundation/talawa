@@ -139,9 +139,11 @@ void main() {
     gestureDetector.onTap!();
     await tester.pumpAndSettle();
 
-    verify(navigationService.pushScreen(
-      Routes.pinnedPostScreen,
-      arguments: anyNamed('arguments'),
-    )).called(1);
+    verify(
+      navigationService.pushScreen(
+        Routes.pinnedPostScreen,
+        arguments: anyNamed('arguments'),
+      ),
+    ).called(1);
   });
 }

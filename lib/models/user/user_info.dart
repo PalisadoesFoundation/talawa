@@ -61,6 +61,21 @@ class User extends HiveObject {
     );
   }
 
+  /// Computed property to get the full name of the user.
+  String? get name {
+    final hasFirstName = firstName != null && firstName!.isNotEmpty;
+    final hasLastName = lastName != null && lastName!.isNotEmpty;
+
+    if (hasFirstName && hasLastName) {
+      return '$firstName $lastName';
+    } else if (hasFirstName) {
+      return firstName;
+    } else if (hasLastName) {
+      return lastName;
+    }
+    return null;
+  }
+
   /// Method to print the User details.
   ///
   /// **params**:

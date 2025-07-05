@@ -25,9 +25,11 @@ void main() {
     expect(query, contains('\$objectName'));
     expect(query, contains('\$organizationId'));
     expect(
-        query,
-        contains(
-            'createGetfileUrl(input: { objectName: \$objectName, organizationId: \$organizationId })'));
+      query,
+      contains(
+        'createGetfileUrl(input: { objectName: \$objectName, organizationId: \$organizationId })',
+      ),
+    );
   });
 
   test('addLike returns valid mutation', () {

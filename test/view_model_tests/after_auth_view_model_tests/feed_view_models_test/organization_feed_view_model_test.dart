@@ -181,9 +181,11 @@ void main() {
     viewModel.navigateToPinnedPostPage();
 
     // Assert
-    verify(navigationService.pushScreen(
-      Routes.pinnedPostPage,
-      arguments: pinnedPosts,
-    )).called(1);
+    verify(
+      navigationService.pushScreen(
+        Routes.pinnedPostPage,
+        arguments: pinnedPosts,
+      ),
+    ).called(1);
   });
 }

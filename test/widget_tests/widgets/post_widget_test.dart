@@ -71,8 +71,10 @@ void main() {
       expect(find.byType(Card), findsOneWidget);
       expect(find.byType(ListTile), findsOneWidget);
       expect(find.byType(CustomAvatar), findsOneWidget);
-      expect(find.byKey(const Key('postContainergestureDetector')),
-          findsOneWidget);
+      expect(
+        find.byKey(const Key('postContainergestureDetector')),
+        findsOneWidget,
+      );
       expect(find.byType(Interactions), findsOneWidget);
     });
 

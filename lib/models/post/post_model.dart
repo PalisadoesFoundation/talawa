@@ -187,7 +187,7 @@ class Post {
           final query = PostQueries().getPresignedUrl();
           final variables = {
             "objectName": attachment.name,
-            "organizationId": id
+            "organizationId": id,
           };
           final QueryResult<Object?>? result;
           try {

@@ -16,34 +16,38 @@ void main() {
   test('Testing model initialization and get functions after initialization',
       () async {
     final CommentService commentService = locator<CommentService>();
-    when(commentService.getCommentsForPost(
-      postId: 'testPostID',
-    )).thenAnswer((_) async => {
-          'comments': [
-            {
-              'node': {
-                'id': 'comment1',
-                'body': 'This is a test comment',
-                'createdAt': '2023-10-01T12:00:00Z',
-                'creator': null,
-              }
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
             },
-            {
-              'node': {
-                'id': 'comment2',
-                'body': 'This is another test comment',
-                'createdAt': '2023-10-02T12:00:00Z',
-                'creator': null,
-              }
-            }
-          ],
-          'pageInfo': {
-            'hasNextPage': false,
-            'hasPreviousPage': false,
-            'startCursor': null,
-            'endCursor': null,
+          },
+          {
+            'node': {
+              'id': 'comment2',
+              'body': 'This is another test comment',
+              'createdAt': '2023-10-02T12:00:00Z',
+              'creator': null,
+            },
           }
-        });
+        ],
+        'pageInfo': {
+          'hasNextPage': false,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     final commentsViewModel = CommentsViewModel();
 
@@ -54,7 +58,9 @@ void main() {
     expect(commentsViewModel.commentList.length, 2);
     expect(commentsViewModel.commentList[0].body, 'This is a test comment');
     expect(
-        commentsViewModel.commentList[1].body, 'This is another test comment');
+      commentsViewModel.commentList[1].body,
+      'This is another test comment',
+    );
     expect(commentsViewModel.pageInfo.hasNextPage, false);
   });
 
@@ -64,48 +70,56 @@ void main() {
 
     /// we don't want to test initialization but initialization is necessary to work with view model.
     /// This mock will help to initalize viewmodel and will not affect our result.
-    when(commentService.getCommentsForPost(
-      postId: 'testPostID',
-    )).thenAnswer((_) async => {
-          'comments': <Map<String, dynamic>>[],
-          'pageInfo': {
-            'hasNextPage': false,
-            'hasPreviousPage': false,
-            'startCursor': null,
-            'endCursor': null,
-          }
-        });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': <Map<String, dynamic>>[],
+        'pageInfo': {
+          'hasNextPage': false,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
     await viewModel.initialise('testPostID');
 
     /// this is when we are testing.
-    when(commentService.getCommentsForPost(
-      postId: 'testPostID',
-    )).thenAnswer((_) async => {
-          'comments': [
-            {
-              'node': {
-                'id': 'comment1',
-                'body': 'This is a test comment',
-                'createdAt': '2023-10-01T12:00:00Z',
-                'creator': null,
-              }
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
             },
-            {
-              'node': {
-                'id': 'comment2',
-                'body': 'This is another test comment',
-                'createdAt': '2023-10-02T12:00:00Z',
-                'creator': null,
-              }
-            }
-          ],
-          'pageInfo': {
-            'hasNextPage': false,
-            'hasPreviousPage': false,
-            'startCursor': null,
-            'endCursor': null,
+          },
+          {
+            'node': {
+              'id': 'comment2',
+              'body': 'This is another test comment',
+              'createdAt': '2023-10-02T12:00:00Z',
+              'creator': null,
+            },
           }
-        });
+        ],
+        'pageInfo': {
+          'hasNextPage': false,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
     await viewModel.getComments();
 
     expect(viewModel.commentList.length, 2);
@@ -118,34 +132,38 @@ void main() {
     final viewModel = CommentsViewModel();
     final CommentService commentService = locator<CommentService>();
 
-    when(commentService.getCommentsForPost(
-      postId: 'testPostID',
-    )).thenAnswer((_) async => {
-          'comments': [
-            {
-              'node': {
-                'id': 'comment1',
-                'body': 'This is a test comment',
-                'createdAt': '2023-10-01T12:00:00Z',
-                'creator': null,
-              }
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
             },
-            {
-              'node': {
-                'id': 'comment2',
-                'body': 'This is another test comment',
-                'createdAt': '2023-10-02T12:00:00Z',
-                'creator': null,
-              }
-            }
-          ],
-          'pageInfo': {
-            'hasNextPage': false,
-            'hasPreviousPage': false,
-            'startCursor': null,
-            'endCursor': null,
+          },
+          {
+            'node': {
+              'id': 'comment2',
+              'body': 'This is another test comment',
+              'createdAt': '2023-10-02T12:00:00Z',
+              'creator': null,
+            },
           }
-        });
+        ],
+        'pageInfo': {
+          'hasNextPage': false,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
     viewModel.initialise('testPostID');
 
     // Listen for state changes
@@ -159,26 +177,31 @@ void main() {
   test('fetchNextPage calls getComments if hasNextPage is true', () async {
     final viewModel = CommentsViewModel();
     final CommentService commentService = locator<CommentService>();
-    when(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .thenAnswer((_) async => {
-              'comments': [
-                {
-                  'node': {
-                    'id': 'comment1',
-                    'body': 'This is a test comment',
-                    'createdAt': '2023-10-01T12:00:00Z',
-                    'creator': null,
-                  }
-                }
-              ],
-              'pageInfo': {
-                'hasNextPage': true,
-                'hasPreviousPage': false,
-                'startCursor': null,
-                'endCursor': null,
-              }
-            });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
+            },
+          }
+        ],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     viewModel.initialise('testPostID');
 
@@ -193,9 +216,12 @@ void main() {
     expect(viewModel.commentList[1].body, 'This is a test comment');
 
     /// One time for initialization and second tume for refetching
-    verify(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .called(2);
+    verify(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).called(2);
   });
 
   test('fetchNextPage calls getComments if hasNextPage is false', () async {
@@ -203,26 +229,31 @@ void main() {
     final CommentService commentService = locator<CommentService>();
 
     // Mock the service to return comments
-    when(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .thenAnswer((_) async => {
-              'comments': [
-                {
-                  'node': {
-                    'id': 'comment1',
-                    'body': 'This is a test comment',
-                    'createdAt': '2023-10-01T12:00:00Z',
-                    'creator': null,
-                  }
-                }
-              ],
-              'pageInfo': {
-                'hasNextPage': true,
-                'hasPreviousPage': false,
-                'startCursor': null,
-                'endCursor': null,
-              }
-            });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
+            },
+          }
+        ],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     viewModel.initialise('testPostID');
 
@@ -235,9 +266,12 @@ void main() {
     expect(viewModel.commentList.length, 1);
 
     /// One time for initialization and second tume for refetching
-    verify(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .called(1);
+    verify(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).called(1);
   });
 
   test('createComment calls CommentService and adds locally', () async {
@@ -246,40 +280,50 @@ void main() {
     final CommentService commentService = locator<CommentService>();
 
     /// this if just for initialization
-    when(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .thenAnswer((_) async => {
-              'comments': <Map<String, dynamic>>[],
-              'pageInfo': {
-                'hasNextPage': true,
-                'hasPreviousPage': false,
-                'startCursor': null,
-                'endCursor': null,
-              }
-            });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': <Map<String, dynamic>>[],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     viewModel.initialise('testPostID');
 
-    when(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .thenAnswer((_) async => {
-              'comments': [
-                {
-                  'node': {
-                    'id': 'comment1',
-                    'body': 'This is a test comment',
-                    'createdAt': '2023-10-01T12:00:00Z',
-                    'creator': null,
-                  }
-                }
-              ],
-              'pageInfo': {
-                'hasNextPage': true,
-                'hasPreviousPage': false,
-                'startCursor': null,
-                'endCursor': null,
-              }
-            });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'id': 'comment1',
+              'body': 'This is a test comment',
+              'createdAt': '2023-10-01T12:00:00Z',
+              'creator': null,
+            },
+          }
+        ],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
     when(commentService.createComments('testPostID', 'Hello!'))
         .thenAnswer((_) async {});
 
@@ -297,17 +341,22 @@ void main() {
     final CommentService commentService = locator<CommentService>();
 
     /// this if just for initialization
-    when(commentService.getCommentsForPost(
-            postId: 'testPostID', after: anyNamed('after')))
-        .thenAnswer((_) async => {
-              'comments': <Map<String, dynamic>>[],
-              'pageInfo': {
-                'hasNextPage': true,
-                'hasPreviousPage': false,
-                'startCursor': null,
-                'endCursor': null,
-              }
-            });
+    when(
+      commentService.getCommentsForPost(
+        postId: 'testPostID',
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': <Map<String, dynamic>>[],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     viewModel.initialise('testPostID');
     var notified = false;

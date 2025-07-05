@@ -100,30 +100,34 @@ void main() {
   });
   group("testing Individual Post View ", () {
     setUpAll(() {
-      when(commentsService.getCommentsForPost(
-        postId: 'XYZ',
-        first: 10,
-        after: anyNamed('after'),
-      )).thenAnswer((_) async => {
-            'comments': [
-              {
-                'node': {
-                  'body': 'Test comment 1',
-                }
+      when(
+        commentsService.getCommentsForPost(
+          postId: 'XYZ',
+          first: 10,
+          after: anyNamed('after'),
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'comments': [
+            {
+              'node': {
+                'body': 'Test comment 1',
               },
-              {
-                'node': {
-                  'body': 'Test comment 2',
-                }
+            },
+            {
+              'node': {
+                'body': 'Test comment 2',
               },
-            ],
-            'pageInfo': {
-              'hasNextPage': true,
-              'hasPreviousPage': false,
-              'startCursor': null,
-              'endCursor': null,
-            }
-          });
+            },
+          ],
+          'pageInfo': {
+            'hasNextPage': true,
+            'hasPreviousPage': false,
+            'startCursor': null,
+            'endCursor': null,
+          },
+        },
+      );
     });
     testWidgets("Check if Send button is disabled",
         (WidgetTester tester) async {
@@ -249,30 +253,34 @@ void main() {
   });
   testWidgets('IndividualPostCommentSection exists in the widget tree',
       (tester) async {
-    when(commentsService.getCommentsForPost(
-      postId: 'XYZ',
-      first: 10,
-      after: anyNamed('after'),
-    )).thenAnswer((_) async => {
-          'comments': [
-            {
-              'node': {
-                'body': 'Test comment 1',
-              }
+    when(
+      commentsService.getCommentsForPost(
+        postId: 'XYZ',
+        first: 10,
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'body': 'Test comment 1',
             },
-            {
-              'node': {
-                'body': 'Test comment 2',
-              }
+          },
+          {
+            'node': {
+              'body': 'Test comment 2',
             },
-          ],
-          'pageInfo': {
-            'hasNextPage': true,
-            'hasPreviousPage': false,
-            'startCursor': null,
-            'endCursor': null,
-          }
-        });
+          },
+        ],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': null,
+          'endCursor': null,
+        },
+      },
+    );
 
     await tester.pumpWidget(
       MaterialApp(
@@ -309,30 +317,34 @@ void main() {
   testWidgets(
       'IndividualPostCommentSection displays comments and load more button',
       (tester) async {
-    when(commentsService.getCommentsForPost(
-      postId: 'XYZ',
-      first: 10,
-      after: anyNamed('after'),
-    )).thenAnswer((_) async => {
-          'comments': [
-            {
-              'node': {
-                'body': 'Test comment 1',
-              }
+    when(
+      commentsService.getCommentsForPost(
+        postId: 'XYZ',
+        first: 10,
+        after: anyNamed('after'),
+      ),
+    ).thenAnswer(
+      (_) async => {
+        'comments': [
+          {
+            'node': {
+              'body': 'Test comment 1',
             },
-            {
-              'node': {
-                'body': 'Test comment 2',
-              }
+          },
+          {
+            'node': {
+              'body': 'Test comment 2',
             },
-          ],
-          'pageInfo': {
-            'hasNextPage': true,
-            'hasPreviousPage': false,
-            'startCursor': 'cursor1',
-            'endCursor': 'cursor2',
-          }
-        });
+          },
+        ],
+        'pageInfo': {
+          'hasNextPage': true,
+          'hasPreviousPage': false,
+          'startCursor': 'cursor1',
+          'endCursor': 'cursor2',
+        },
+      },
+    );
     final model = CommentsViewModel();
 
     // Act: initialise the model
@@ -385,9 +397,11 @@ void main() {
     await tester.pumpAndSettle();
 
     // // Assert: getComments called again (fetchNextPage)
-    verify(commentsService.getCommentsForPost(
-      postId: 'XYZ',
-      after: anyNamed('after'),
-    )).called(greaterThan(1));
+    verify(
+      commentsService.getCommentsForPost(
+        postId: 'XYZ',
+        after: anyNamed('after'),
+      ),
+    ).called(greaterThan(1));
   });
 }

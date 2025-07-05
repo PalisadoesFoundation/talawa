@@ -161,13 +161,13 @@ NavigationService getAndRegisterNavigationService() {
   return service;
 }
 
-/// `getAndRegisterOrganizationService` returns a mock instance of the `OrganizationService` class.
+/// Registers and returns a mock OrganizationService instance.
 ///
 /// **params**:
 ///   None
 ///
 /// **returns**:
-/// * `OrganizationService`: A mock instance of the `OrganizationService` class.
+/// * `OrganizationService`: Mock service instance for testing purposes.
 OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
@@ -764,10 +764,18 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
       ChatUser(firstName: "XYZ", id: "XYZ", image: "XYZ");
   final ChatUser chatUser2 =
       ChatUser(firstName: "ABC", id: "ABC", image: "ABC");
-  final ChatMessage chatMessage1 =
-      ChatMessage("XYZ", chatUser1, "XYZ", chatUser2);
-  final ChatMessage chatMessage2 =
-      ChatMessage("XYZ", chatUser1, "Something", chatUser2);
+  final ChatMessage chatMessage1 = ChatMessage(
+    id: "XYZ",
+    sender: chatUser1,
+    messageContent: "XYZ",
+    receiver: chatUser2,
+  );
+  final ChatMessage chatMessage2 = ChatMessage(
+    id: "XYZ",
+    sender: chatUser1,
+    messageContent: "Something",
+    receiver: chatUser2,
+  );
   final Map<String, List<ChatMessage>> messages = {
     "XYZ": [chatMessage1],
   };
