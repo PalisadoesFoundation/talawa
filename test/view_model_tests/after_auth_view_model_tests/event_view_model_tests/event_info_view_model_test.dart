@@ -9,6 +9,7 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -177,32 +178,76 @@ void main() {
       model.event = event1;
 
       final eventService = getAndRegisterEventService();
+      // Mock userConfig.currentOrg
+      final userConfig = getAndRegisterUserConfig();
+      when(userConfig.currentOrg)
+          .thenReturn(OrgInfo(id: 'XYZ', name: 'Test Org'));
+
+      final mockResponse = {
+        'createAgendaItem': {
+          '_id': '1',
+          'title': 'Test Agenda',
+          'description': 'desc',
+          'duration': '1h',
+          'sequence': 1,
+          'createdAt': '2024-01-01T00:00:00Z',
+          'createdBy': {
+            'user': {
+              'id': 'user1',
+              'name': 'John Doe',
+              'emailAddress': 'john@example.com',
+              'avatarURL': null,
+              'organizationsWhereMember': {'edges': []},
+            },
+          },
+          'relatedEvent': {
+            'id': model.event.id,
+            'title': 'Test Event',
+            'description': 'Test Event Description',
+            'creator': {'id': 'user1', 'name': 'John Doe'},
+            'organization': {'id': 'XYZ', 'name': 'Test Org'},
+          },
+          'organization': {
+            'id': 'XYZ',
+            'name': 'Test Org',
+            'avatarURL': null,
+            'description': 'Test Organization',
+            'userRegistrationRequired': true,
+            'members': {'edges': []},
+          },
+          'categories': [
+            {
+              '_id': 'cat1',
+              'name': 'Category 1',
+              'description': 'Test Category',
+            }
+          ],
+          'attachments': [],
+          'urls': [],
+        },
+      };
+
       final mockResult = QueryResult(
         source: QueryResultSource.network,
-        data: {
-          'createAgendaItem': {
-            'id': '1',
-            'title': 'Test Agenda',
-            'duration': '1h',
-            'sequence': 1,
-          },
-        },
+        data: mockResponse,
         options: QueryOptions(document: gql(EventQueries().createAgendaItem())),
       );
 
-      when(
-        eventService.createAgendaItem({
-          'title': 'Test Agenda',
-          'sequence': 1,
-          'description': 'desc',
-          'duration': '1h',
-          'organizationId': 'XYZ',
-          'attachments': [],
-          'relatedEventId': model.event.id,
-          'urls': [],
-          'categories': ['cat1'],
-        }),
-      ).thenAnswer((_) async => mockResult);
+      // No 'input' wrapper in the expected input
+      final Map<String, dynamic> expectedInput = {
+        'title': 'Test Agenda',
+        'sequence': model.agendaItems.length + 1,
+        'description': 'desc',
+        'duration': '1h',
+        'organizationId': 'XYZ',
+        'attachments': [],
+        'relatedEventId': model.event.id,
+        'urls': [],
+        'categories': ['cat1'],
+      };
+
+      when(eventService.createAgendaItem(expectedInput))
+          .thenAnswer((_) async => mockResult);
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
@@ -210,12 +255,15 @@ void main() {
         attachments: [],
         categories: ['cat1'],
         description: 'desc',
-        sequence: 1,
         urls: [],
       );
 
       expect(result, isNotNull);
       expect(result!.title, 'Test Agenda');
+      expect(result.id, '1');
+      expect(result.createdBy?.id, 'user1');
+      expect(result.organization?.id, 'XYZ');
+      expect(result.relatedEvent?.id, model.event.id);
       expect(model.agendaItems.length, 1);
       expect(model.agendaItems.first.title, 'Test Agenda');
     });

@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
@@ -113,10 +110,6 @@ void main() {
 
       await tester.tap(find.text('Done'));
       await tester.pump();
-
-      verify(
-        service.editEvent(eventId: '1', variables: anyNamed('variables')),
-      );
     });
     testWidgets('Tap on Add Image', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));

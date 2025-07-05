@@ -1,5 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -51,6 +49,24 @@ void main() {
     registerServices();
     getAndRegisterAppTheme();
   });
+
+  setUp(() {
+    // Reset any mocks between tests
+    when(navigationService.navigatorKey)
+        .thenReturn(GlobalKey<NavigatorState>());
+    // Reset MainScreenViewModel for each test
+    if (locator.isRegistered<MainScreenViewModel>()) {
+      locator.unregister<MainScreenViewModel>();
+    }
+    locator.registerSingleton<MainScreenViewModel>(MainScreenViewModel());
+  });
+
+  tearDown(() {
+    // Clean up MainScreenViewModel
+    if (locator.isRegistered<MainScreenViewModel>()) {
+      locator.unregister<MainScreenViewModel>();
+    }
+  });
   group('build', () {
     testWidgets('check if profilePage shows up and refreshIndicator work',
         (tester) async {
@@ -59,13 +75,22 @@ void main() {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
+      // Wait for initial frame
+      await tester.pump();
+      // Verify the RefreshIndicator is present
       expect(find.byType(RefreshIndicator), findsOneWidget);
+
+      // Perform the drag operation
       await tester.drag(
         find.byKey(const Key('profilepic')),
         const Offset(0, 300),
       );
-      await tester.pumpAndSettle();
+      // Wait for drag animation
+      await tester.pump();
+      // Wait for refresh indicator animation
+      await tester.pump(const Duration(milliseconds: 300));
+      // Allow refresh to complete
+      await tester.pump(const Duration(seconds: 1));
     });
     testWidgets('check if invitebutton work', (tester) async {
       await tester.pumpWidget(
@@ -83,9 +108,19 @@ void main() {
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(Icons.menu));
-      await tester.pumpAndSettle();
+      // Wait for initial frame
+      await tester.pump();
+
+      // Verify menu icon is present
+      final menuIcon = find.byIcon(Icons.menu);
+      expect(menuIcon, findsOneWidget);
+
+      // Tap menu icon
+      await tester.tap(menuIcon);
+      // Wait for drawer animation to start
+      await tester.pump();
+      // Wait for drawer animation to complete (typical drawer animation is 300ms)
+      await tester.pump(const Duration(milliseconds: 300));
     });
     testWidgets('check if Donate button work', (tester) async {
       await tester.pumpWidget(
@@ -133,31 +168,52 @@ void main() {
       await tester.pump();
     });
     testWidgets('Test donate bottom sheet', (tester) async {
+      // Pump the widget
       await tester.pumpWidget(
         createProfilePage(
           mainScreenViewModel: locator<MainScreenViewModel>(),
         ),
       );
-      await tester.pumpAndSettle();
+      // Wait for initial frame
+      await tester.pump();
 
+      // Verify initial state
       expect(find.byType(ContainedTabBarView), findsOneWidget);
       final orgDonateBtn = find.text('Donate to the Community');
       expect(orgDonateBtn, findsOneWidget);
-      await tester.tap(orgDonateBtn);
-      await tester.pumpAndSettle();
 
+      // Open donate sheet
+      await tester.tap(orgDonateBtn);
+      // Wait for bottom sheet to start showing
+      await tester.pump();
+      // Wait for bottom sheet animation
+      await tester.pump(const Duration(milliseconds: 200));
+
+      // Enter donation amount
       final txtfield = find.byKey(const Key('custom_amt'));
+      expect(txtfield, findsOneWidget);
       await tester.enterText(txtfield, '25');
+      // Wait for text entry
       await tester.pump();
 
+      // Find and tap donate button
       final donateBtn = find.byKey(const Key('DONATE'));
-      await tester.ensureVisible(donateBtn);
-      await tester.pumpAndSettle();
+      expect(donateBtn, findsOneWidget);
       await tester.tap(donateBtn);
+      // Wait for any donate action
+      await tester.pump(const Duration(milliseconds: 100));
 
+      // Test currency button
       final currencyBtn = find.byKey(const Key('currency_btn'));
+      expect(currencyBtn, findsOneWidget);
       await tester.tap(currencyBtn);
-      await tester.pumpAndSettle();
+      // Wait for currency dialog to appear
+      await tester.pump();
+      // Wait for dialog animation
+      await tester.pump(const Duration(milliseconds: 200));
+      // Dismiss dialog to clean up
+      await tester.tapAt(const Offset(20, 20)); // Tap outside to dismiss
+      await tester.pump(const Duration(milliseconds: 200));
     });
   });
 }
