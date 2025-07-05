@@ -172,8 +172,6 @@ void main() {
       await tester.pumpWidget(createEventInfoBody());
       await tester.pumpAndSettle();
 
-
-
       await tester.pumpAndSettle();
     });
 

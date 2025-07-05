@@ -65,7 +65,6 @@ linter:
     # only after properly type casting. It's quite good and will avoid
     # null errors. 
     # For now, it affects the whole code base; wherever we have done 
-    # something like 
     # 
     # ``` 
     # var obj = json_data['obj'];

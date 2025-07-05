@@ -27,6 +27,66 @@ void main() {
   });
 
   group('Test EventService', () {
+    // Helper functions to reduce code duplication
+    DataBaseMutationFunctions _setupDbFunctions() {
+      return locator<DataBaseMutationFunctions>();
+    }
+
+    UserConfig _setupUserConfig() {
+      return locator<UserConfig>();
+    }
+
+    void _setupTestOrganization(UserConfig userConfig, String testOrgId) {
+      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+    }
+
+    String _createTestMutation(String testOrgId) {
+      return EventQueries().fetchOrgEvents(testOrgId);
+    }
+
+    Map<String, dynamic> _createMockEventData(String testOrgId,
+        {String eventName = 'Test Event'}) {
+      return {
+        "eventsByOrganizationId": [
+          {
+            "id": "event1",
+            "name": eventName,
+            "description": "Test Description",
+            "startAt": "2024-01-01T10:00:00.000Z",
+            "endAt": "2024-01-01T12:00:00.000Z",
+            "organization": {
+              "id": testOrgId,
+              "name": "Test Org",
+            },
+            "creator": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "attachments": [],
+          }
+        ],
+      };
+    }
+
+    void _setupGqlAuthQueryMock(DataBaseMutationFunctions dbFunctions,
+        String mutation, Map<String, dynamic> mockData) {
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(mutation)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+    }
+
+    EventService _createEventService() {
+      return EventService();
+    }
+
     test('Test editEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       const query = '';
@@ -750,51 +810,21 @@ void main() {
     });
 
     test('Test refreshFeed method', () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final userConfig = locator<UserConfig>();
+      final dbFunctions = _setupDbFunctions();
+      final userConfig = _setupUserConfig();
 
       // Set up organization with a test ID BEFORE creating service
       const testOrgId = 'testOrgId123';
-      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+      _setupTestOrganization(userConfig, testOrgId);
 
-      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
-
-      final mockData = {
-        "eventsByOrganizationId": [
-          {
-            "id": "event1",
-            "name": "Test Event",
-            "description": "Test Description",
-            "startAt": "2024-01-01T10:00:00.000Z",
-            "endAt": "2024-01-01T12:00:00.000Z",
-            "organization": {
-              "id": testOrgId,
-              "name": "Test Org",
-            },
-            "creator": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "updater": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "attachments": [],
-          }
-        ],
-      };
+      final String mutation = _createTestMutation(testOrgId);
+      final mockData = _createMockEventData(testOrgId);
 
       // Set up mock BEFORE creating the service
-      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(mutation)),
-          data: mockData,
-          source: QueryResultSource.network,
-        ),
-      );
+      _setupGqlAuthQueryMock(dbFunctions, mutation, mockData);
 
       // Now create the service
-      final eventService = EventService();
+      final eventService = _createEventService();
 
       // Test refreshFeed
       await eventService.refreshFeed();
@@ -804,51 +834,21 @@ void main() {
     });
 
     test('Test fetchEventsInitial method', () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final userConfig = locator<UserConfig>();
+      final dbFunctions = _setupDbFunctions();
+      final userConfig = _setupUserConfig();
 
       // Set up organization with a test ID BEFORE creating service
       const testOrgId = 'testOrgId456';
-      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+      _setupTestOrganization(userConfig, testOrgId);
 
-      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
-
-      final mockData = {
-        "eventsByOrganizationId": [
-          {
-            "id": "event1",
-            "name": "Test Event",
-            "description": "Test Description",
-            "startAt": "2024-01-01T10:00:00.000Z",
-            "endAt": "2024-01-01T12:00:00.000Z",
-            "organization": {
-              "id": testOrgId,
-              "name": "Test Org",
-            },
-            "creator": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "updater": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "attachments": [],
-          }
-        ],
-      };
+      final String mutation = _createTestMutation(testOrgId);
+      final mockData = _createMockEventData(testOrgId);
 
       // Set up mock BEFORE creating the service
-      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(mutation)),
-          data: mockData,
-          source: QueryResultSource.network,
-        ),
-      );
+      _setupGqlAuthQueryMock(dbFunctions, mutation, mockData);
 
       // Now create the service
-      final eventService = EventService();
+      final eventService = _createEventService();
 
       // Test fetchEventsInitial
       await eventService.fetchEventsInitial();
@@ -858,51 +858,22 @@ void main() {
     });
 
     test('Test refreshFeed method with stream updates', () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final userConfig = locator<UserConfig>();
+      final dbFunctions = _setupDbFunctions();
+      final userConfig = _setupUserConfig();
 
       // Set up organization with a test ID BEFORE creating service
       const testOrgId = 'testOrgId789';
-      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+      _setupTestOrganization(userConfig, testOrgId);
 
-      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
-
-      final mockData = {
-        "eventsByOrganizationId": [
-          {
-            "id": "event1",
-            "name": "Refresh Test Event",
-            "description": "Test Description",
-            "startAt": "2024-01-01T10:00:00.000Z",
-            "endAt": "2024-01-01T12:00:00.000Z",
-            "organization": {
-              "id": testOrgId,
-              "name": "Test Org",
-            },
-            "creator": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "updater": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "attachments": [],
-          }
-        ],
-      };
+      final String mutation = _createTestMutation(testOrgId);
+      final mockData =
+          _createMockEventData(testOrgId, eventName: 'Refresh Test Event');
 
       // Set up mock BEFORE creating the service
-      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(mutation)),
-          data: mockData,
-          source: QueryResultSource.network,
-        ),
-      );
+      _setupGqlAuthQueryMock(dbFunctions, mutation, mockData);
 
       // Now create the service
-      final eventService = EventService();
+      final eventService = _createEventService();
 
       // Listen to the event stream
       final streamEvents = <List<Event>>[];
@@ -924,51 +895,22 @@ void main() {
     });
 
     test('Test fetchEventsInitial method with stream updates', () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final userConfig = locator<UserConfig>();
+      final dbFunctions = _setupDbFunctions();
+      final userConfig = _setupUserConfig();
 
       // Set up organization with a test ID BEFORE creating service
       const testOrgId = 'testOrgId101';
-      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+      _setupTestOrganization(userConfig, testOrgId);
 
-      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
-
-      final mockData = {
-        "eventsByOrganizationId": [
-          {
-            "id": "event1",
-            "name": "Initial Test Event",
-            "description": "Test Description",
-            "startAt": "2024-01-01T10:00:00.000Z",
-            "endAt": "2024-01-01T12:00:00.000Z",
-            "organization": {
-              "id": testOrgId,
-              "name": "Test Org",
-            },
-            "creator": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "updater": {
-              "id": "creator1",
-              "name": "Test Creator",
-            },
-            "attachments": [],
-          }
-        ],
-      };
+      final String mutation = _createTestMutation(testOrgId);
+      final mockData =
+          _createMockEventData(testOrgId, eventName: 'Initial Test Event');
 
       // Set up mock BEFORE creating the service
-      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(mutation)),
-          data: mockData,
-          source: QueryResultSource.network,
-        ),
-      );
+      _setupGqlAuthQueryMock(dbFunctions, mutation, mockData);
 
       // Now create the service
-      final eventService = EventService();
+      final eventService = _createEventService();
 
       // Listen to the event stream
       final streamEvents = <List<Event>>[];
