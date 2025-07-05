@@ -8,6 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -22,47 +23,24 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/agenda_item_tile.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Event getTestEvent({
-  bool isPublic = false,
-  bool viewOnMap = true,
   bool asAdmin = false,
   String id = "1",
 }) {
   return Event(
     id: id,
-    title: "test_event",
+    name: "test_event",
+    description: "test_event_description",
+    startAt: "2024-01-01T00:00:00.000Z",
+    endAt: "2024-12-31T23:59:59.000Z",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
       firstName: "ravidi",
       lastName: "shaikh",
     ),
-    isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
-    location: "iitbhu, varanasi",
-    description: "test_event_description",
-    admins: [
-      User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
-      ),
-      User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
-      ),
-    ],
-    attendees: [
-      Attendee(
-        id: "1",
-        firstName: "Test",
-        lastName: "User",
-      ),
-    ],
-    isRegisterable: true,
   );
 }
 
@@ -75,8 +53,6 @@ Widget createManageAgendaScreen(String id) {
           model.initialize(
             args: {
               "event": getTestEvent(
-                isPublic: true,
-                viewOnMap: false,
                 asAdmin: true,
                 id: id,
               ),
@@ -109,6 +85,37 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
     registerServices();
+
+    // Mock EventService methods to return proper QueryResult objects
+    final mockEventService = locator<EventService>() as MockEventService;
+
+    // Mock fetchAgendaCategories
+    final categoryResult = QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'agendaItemCategoriesByOrganization': [],
+      },
+      options: QueryOptions(
+        document:
+            gql(EventQueries().fetchAgendaItemCategoriesByOrganization('org')),
+      ),
+    );
+    when(mockEventService.fetchAgendaCategories(any))
+        .thenAnswer((_) async => categoryResult);
+
+    // Mock fetchAgendaItems
+    final agendaResult = QueryResult(
+      source: QueryResultSource.network,
+      data: {
+        'agendaItemByEvent': [],
+      },
+      options: QueryOptions(
+        document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
+      ),
+    );
+    when(mockEventService.fetchAgendaItems(any))
+        .thenAnswer((_) async => agendaResult);
+
     locator<SizeConfig>().test();
   });
 

@@ -64,6 +64,13 @@ class EventService extends BaseFeedManager<Event> {
   @override
   Future<List<Event>> fetchDataFromApi() async {
     // get current organization id
+    if (_currentOrg.id == null ||
+        _currentOrg.id == 'null' ||
+        _currentOrg.id!.isEmpty) {
+      throw Exception(
+        'Organization ID is not set. Please select an organization.',
+      );
+    }
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
@@ -73,14 +80,13 @@ class EventService extends BaseFeedManager<Event> {
       throw Exception('unable to fetch data');
     }
 
-    final eventsJson =
-        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
+    // Clear the events list before adding new events
+    _events.clear();
+
+    final eventsJson = result.data!["eventsByOrganizationId"] as List<dynamic>;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.attendees?.any(
-            (attendee) => attendee.id == _userConfig.currentUser.id,
-          ) ??
-          false;
+
       _events.insert(0, event);
     });
     return _events;

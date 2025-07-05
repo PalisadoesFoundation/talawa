@@ -12,48 +12,35 @@ class EventQueries {
   /// based on the provided organization ID.
 
   String fetchOrgEvents(String orgId) {
-    return """
-      query {
-        eventsByOrganizationConnection(
-      where: {
-        organization_id: "$orgId"
-      }
-    ) {
-      _id
-      organization {
-        _id
-        image
-      }
-      title
-      description
-      isPublic
-      isRegisterable
-      recurring
-      startDate
-      endDate
-      allDay
-      startTime
-      endTime
-      location
-      creator {
-        _id
-        firstName
-        lastName
-      }
-      admins {
-        _id
-        firstName
-        lastName
-      } 
-      attendees {
-        _id
-        firstName
-        lastName
-        image
+    return '''
+    query {
+      eventsByOrganizationId(
+        input: { organizationId: "$orgId" }
+      ) {
+        id
+        name
+        description
+        startAt
+        endAt
+        organization {
+          id
+          name
+        }
+        creator {
+          id
+          name
+        }
+        updater {
+          id
+          name
+        }
+        attachments {
+          mimeType
+          url
+        }
       }
     }
-      }
-    """;
+  ''';
   }
 
   /// Fetches attendees by event ID.
@@ -72,7 +59,6 @@ class EventQueries {
         getEventAttendeesByEventId(eventId: "$eventId") {
           eventId
           userId
-          isRegistered
           isInvited
           isCheckedIn
           isCheckedOut

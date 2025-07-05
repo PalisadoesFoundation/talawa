@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
@@ -30,7 +29,6 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isRegistered = event.isRegistered ?? false;
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
@@ -38,13 +36,12 @@ class EventCard extends StatelessWidget {
           Card(
             surfaceTintColor: Theme.of(context).colorScheme.secondaryContainer,
             shape: RoundedRectangleBorder(
-              side:
-                  isRegistered && userConfig.currentUser.id != event.creator!.id
-                      ? BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
-                          width: SizeConfig.screenWidth! * 0.008,
-                        )
-                      : BorderSide.none,
+              side: userConfig.currentUser.id != event.creator!.id
+                  ? BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: SizeConfig.screenWidth! * 0.008,
+                    )
+                  : BorderSide.none,
             ),
             elevation: 3,
             color: Theme.of(context).primaryColor,
@@ -109,7 +106,7 @@ class EventCard extends StatelessWidget {
                                     textAlign: TextAlign.left,
                                   )
                                 : Text(
-                                    event.title!,
+                                    event.name!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall,
@@ -150,15 +147,6 @@ class EventCard extends StatelessWidget {
                             const Icon(
                               Icons.place,
                               size: 12,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                event.location!.substring(
-                                  0,
-                                  min(event.location!.length, 20),
-                                ),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
                             ),
                           ],
                         ),
@@ -213,31 +201,9 @@ class EventCard extends StatelessWidget {
                                 )
                               : const SizedBox(),
                           const Spacer(),
-                          event.isPublic!
-                              ? Icon(
-                                  Icons.lock_open,
-                                  size: 13,
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              : Icon(
-                                  Icons.lock,
-                                  size: 13,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
                           ),
-                          event.isPublic!
-                              ? Text(
-                                  AppLocalizations.of(context)!
-                                      .strictTranslate('public'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                )
-                              : Text(
-                                  AppLocalizations.of(context)!
-                                      .strictTranslate('private'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.027,
                           ),
@@ -248,10 +214,6 @@ class EventCard extends StatelessWidget {
                           ),
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.013,
-                          ),
-                          Text(
-                            (event.attendees?.length ?? 0).toString(),
-                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
@@ -264,27 +226,12 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child: isRegistered &&
-                    userConfig.currentUser.id != event.creator!.id
+            child: userConfig.currentUser.id != event.creator!.id
                 ? DecoratedBox(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(15),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate("Registered"),
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                        ),
                       ),
                     ),
                   )

@@ -50,16 +50,11 @@ void main() {
   final mockEvents = <Event>[
     Event(
       id: 'event1',
-      admins: [User(id: 'admin1')],
-      creator: User(id: 'admin2'),
-      startTime: DateTime.now().day.toString(),
-      endTime: DateTime.now().day.toString(),
-      title: 'event title',
-      startDate: DateTime.now().day.toString(),
-      endDate: DateTime.now().day.toString(),
-      location: 'location',
+      name: 'event title',
       description: 'description',
-      isPublic: true,
+      startAt: '2024-01-01T00:00:00.000Z',
+      endAt: '2024-12-31T23:59:59.000Z',
+      creator: User(id: 'admin2'),
     ),
   ];
 

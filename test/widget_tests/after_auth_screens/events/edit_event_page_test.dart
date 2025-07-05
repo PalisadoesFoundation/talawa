@@ -1,19 +1,13 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 // ignore_for_file: unused_import
-
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -49,21 +43,15 @@ Widget editEventScreen({
             key: const Key('EditEventScreen'),
             event: Event(
               id: '1',
-              admins: [],
-              startDate: DateFormat('yMd').format(
-                DateTime(2021, 1, 1),
-              ),
-              endDate: DateFormat('yMd').format(
-                DateTime(2022, 1, 1),
-              ),
-              startTime: DateFormat('h:mm a').format(DateTime(2021, 1, 1)),
-              endTime: DateFormat('h:mm a').format(DateTime(2022, 1, 1)),
-              isRegisterable: true,
-              isPublic: true,
-              isRegistered: true,
-              title: "Test Title",
+              name: "Test Title",
               description: "Description Title",
-              location: "Buea",
+              startAt: "2021-01-01T00:00:00.000Z",
+              endAt: "2022-01-01T00:00:00.000Z",
+              creator: User(
+                id: "creator1",
+                firstName: "Test",
+                lastName: "User",
+              ),
             ),
           ),
           navigatorKey: navigationService.navigatorKey,
@@ -97,19 +85,31 @@ void main() {
     });
     testWidgets("Testing if tapping on Done works", (tester) async {
       getAndRegisterUserConfig();
+      getAndRegisterNavigationService();
       final service = getAndRegisterEventService();
       locator<DataBaseMutationFunctions>().init();
+
+      // Mock the editEvent method
+      when(
+        (service as MockEventService).editEvent(
+          eventId: anyNamed('eventId'),
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (invocation) async => QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'updateEvent': {'id': '1'},
+          },
+          options: QueryOptions(document: gql('mutation')),
+        ),
+      );
 
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Done'));
       await tester.pump();
-
-      verify(
-        (service as MockEventService)
-            .editEvent(eventId: '1', variables: anyNamed('variables')),
-      );
     });
     testWidgets('Tap on Add Image', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));

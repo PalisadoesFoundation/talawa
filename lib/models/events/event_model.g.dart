@@ -18,63 +18,36 @@ class EventAdapter extends TypeAdapter<Event> {
     };
     return Event(
       id: fields[0] as String?,
-      title: fields[1] as String?,
+      name: fields[1] as String?,
       description: fields[2] as String?,
-      attendees: (fields[16] as List?)?.cast<Attendee>(),
-      location: fields[3] as String?,
-      recurring: fields[4] as bool?,
-      allDay: fields[5] as bool?,
-      startDate: fields[6] as String?,
-      endDate: fields[7] as String?,
-      startTime: fields[8] as String?,
-      endTime: fields[9] as String?,
-      isPublic: fields[10] as bool?,
-      isRegistered: fields[11] as bool?,
-      isRegisterable: fields[12] as bool?,
-      creator: fields[13] as User?,
-      organization: fields[14] as OrgInfo?,
-      admins: (fields[15] as List?)?.cast<User>(),
+      startAt: fields[3] as String?,
+      endAt: fields[4] as String?,
+      organization: fields[5] as OrgInfo?,
+      creator: fields[6] as User?,
+      attachments: (fields[7] as List?)?.cast<dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Event obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.name)
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.location)
+      ..write(obj.startAt)
       ..writeByte(4)
-      ..write(obj.recurring)
+      ..write(obj.endAt)
       ..writeByte(5)
-      ..write(obj.allDay)
-      ..writeByte(6)
-      ..write(obj.startDate)
-      ..writeByte(7)
-      ..write(obj.endDate)
-      ..writeByte(8)
-      ..write(obj.startTime)
-      ..writeByte(9)
-      ..write(obj.endTime)
-      ..writeByte(10)
-      ..write(obj.isPublic)
-      ..writeByte(11)
-      ..write(obj.isRegistered)
-      ..writeByte(12)
-      ..write(obj.isRegisterable)
-      ..writeByte(13)
-      ..write(obj.creator)
-      ..writeByte(14)
       ..write(obj.organization)
-      ..writeByte(15)
-      ..write(obj.admins)
-      ..writeByte(16)
-      ..write(obj.attendees);
+      ..writeByte(6)
+      ..write(obj.creator)
+      ..writeByte(7)
+      ..write(obj.attachments);
   }
 
   @override

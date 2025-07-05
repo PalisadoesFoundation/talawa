@@ -117,13 +117,28 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> checkIfExistsAndAddNewEvents(List<Event> newEvents) async {
     // Check if the event is unique and belongs to the current organization
     newEvents.forEach((newEvent) {
-      if (!_uniqueEventIds.contains(newEvent.id) &&
-          newEvent.organization!.id == userConfig.currentOrg.id) {
-        _uniqueEventIds.add(newEvent.id!);
+      // Check for nulls before accessing properties
+      final eventId = newEvent.id;
+      final org = newEvent.organization;
+      final orgId = org?.id;
+      final currentOrgId = userConfig.currentOrg.id;
+      final creator = newEvent.creator;
+      final creatorId = creator?.id;
+      final currentUserId = userConfig.currentUser.id;
+
+      if (eventId != null &&
+          orgId != null &&
+          currentOrgId != null &&
+          !_uniqueEventIds.contains(eventId) &&
+          orgId == currentOrgId) {
+        _uniqueEventIds.add(eventId);
         _events.insert(0, newEvent);
       }
-      if (!_userEvents.any((event) => event.id == newEvent.id) &&
-          newEvent.creator!.id == userConfig.currentUser.id) {
+      if (eventId != null &&
+          creatorId != null &&
+          currentUserId != null &&
+          !_userEvents.any((event) => event.id == eventId) &&
+          creatorId == currentUserId) {
         _userEvents.insert(0, newEvent);
       }
     });
@@ -206,7 +221,7 @@ class ExploreEventsViewModel extends BaseModel {
             // for the creator id matched the current user id.
             _events = List.from(
               _bufferEvents.where(
-                (element) => element.creator!.id == userConfig.currentUser.id,
+                (element) => element.creator?.id == userConfig.currentUser.id,
               ),
             );
             // if list is empty
@@ -214,45 +229,6 @@ class ExploreEventsViewModel extends BaseModel {
           }
           break;
         // if `_chosenValue` is "Registered Events".
-        case 'Registered Events':
-          {
-            // loop through the `_events` list and filter elements
-            // if `element.isRegistered` is true and user is not the creator.
-            _events = List.from(
-              _bufferEvents.where(
-                (element) =>
-                    element.isRegistered == true &&
-                    element.creator!.id != userConfig.currentUser.id,
-              ),
-            );
-            // if list is empty
-            _emptyListMessage = "No registered events are present";
-          }
-          break;
-        // if `_chosenValue` is "Registered Events".
-        case 'Public Events':
-          {
-            // loop through the `_events` list and filter elements
-            // with the `isPublic` as true.
-            _events = _bufferEvents
-                .where((element) => element.isPublic == true)
-                .toList();
-
-            // if list is empty
-            _emptyListMessage = "There aren't any public events.";
-          }
-          break;
-        case 'Private Events':
-          {
-            // loop through the `_events` list and filter elements
-            // with the `isPublic` as false.
-            _events = _bufferEvents
-                .where((element) => element.isPublic == false)
-                .toList();
-            // if list is empty
-            _emptyListMessage = "There aren't any private events.";
-          }
-          break;
 
         default:
           {

@@ -28,11 +28,10 @@ import '../../../helpers/test_helpers.dart';
 Event getEvent(bool isPublic, bool isCreator) {
   return Event(
     id: '1',
-    title: 'test',
-    startTime: '10000',
-    endTime: '20000',
-    location: 'ABC',
+    name: 'test',
     description: 'test',
+    startAt: '2022-01-01T10:00:00.000Z',
+    endAt: '2022-01-01T20:00:00.000Z',
     creator: User(
       id: isCreator ? "xzy1" : "abc1",
       firstName: "Test",
@@ -41,16 +40,6 @@ Event getEvent(bool isPublic, bool isCreator) {
       refreshToken: "testtoken",
       authToken: 'testtoken',
     ),
-    startDate: '10000',
-    endDate: '20000',
-    admins: [
-      User(
-        id: isCreator ? "xzy1" : "abc1",
-        firstName: "Test",
-        lastName: "User",
-      ),
-    ],
-    isPublic: isPublic,
     organization: OrgInfo(id: 'XYZ'),
   );
 }

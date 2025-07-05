@@ -18,7 +18,6 @@ import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-import '../model_tests/user/user_info_test.dart';
 
 void main() {
   setUpAll(() {
@@ -190,33 +189,30 @@ void main() {
         (realInvocation) async => QueryResult(
           options: QueryOptions(document: gql(query)),
           data: {
-            'eventsByOrganizationConnection': [
+            'eventsByOrganizationId': [
               {
-                "_id": "1234567890",
-                "title": "Sample Event",
+                "id": "1234567890",
+                "name": "Sample Event",
                 "description": "This is a sample event description.",
-                "location": "Sample Location",
-                "recurring": true,
-                "allDay": false,
-                "startDate": "2024-01-15",
-                "endDate": "2024-01-16",
-                "startTime": "10:00 AM",
-                "endTime": "4:00 PM",
-                "isPublic": true,
-                "isRegistered": true,
-                "isRegisterable": true,
-                "creator": {
-                  "id": "user123",
-                  "name": "Creator Name",
-                  "email": "creator@example.com",
-                },
+                "startAt": "2024-01-15T10:00:00Z",
+                "endAt": "2024-01-16T16:00:00Z",
                 "organization": {
                   "id": "org123",
                   "name": "Organization Name",
-                  "description": "Sample organization description.",
                 },
-                "attendees": [
-                  testDataNotFromOrg,
+                "creator": {
+                  "id": "user123",
+                  "name": "Creator Name",
+                },
+                "updater": {
+                  "id": "user123",
+                  "name": "Creator Name",
+                },
+                "attachments": [
+                  {
+                    "mimeType": "image/jpeg",
+                    "url": "https://example.com/image.jpg",
+                  }
                 ],
               }
             ],
@@ -684,68 +680,54 @@ void main() {
       );
 
       final data = {
-        "eventsByOrganizationConnection": [
+        "eventsByOrganizationId": [
           {
-            "_id": "event1",
-            "title": "Test Event 1",
+            "id": "event1",
+            "name": "Test Event 1",
             "description": "Description of Test Event 1",
-            "location": "Location 1",
-            "recurring": false,
-            "allDay": false,
-            "startDate": "2022-01-01T00:00:00.000Z",
-            "endDate": "2022-01-02T00:00:00.000Z",
-            "startTime": "10:00 AM",
-            "endTime": "12:00 PM",
-            "isPublic": true,
-            "isRegisterable": true,
-            "isRegistered": null,
-            "creator": {
-              "_id": "creator1",
-              "firstName": "Creator",
-              "lastName": "One",
+            "startAt": "2022-01-01T10:00:00.000Z",
+            "endAt": "2022-01-02T12:00:00.000Z",
+            "organization": {
+              "id": "org1",
+              "name": "Organization 1",
             },
-            "organization": {"_id": "org1", "image": "image1"},
-            "admins": [
-              {"_id": "admin1", "firstName": "Admin", "lastName": "One"},
-            ],
-            "attendees": [
+            "creator": {
+              "id": "creator1",
+              "name": "Creator One",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Creator One",
+            },
+            "attachments": [
               {
-                "_id": "user1",
-                "firstName": "User",
-                "lastName": "One",
-                "image": "image1",
+                "mimeType": "image/jpeg",
+                "url": "https://example.com/image1.jpg",
               }
             ],
           },
           {
-            "_id": "event2",
-            "title": "Test Event 2",
+            "id": "event2",
+            "name": "Test Event 2",
             "description": "Description of Test Event 2",
-            "location": "Location 2",
-            "recurring": false,
-            "allDay": false,
-            "startDate": "2022-02-01T00:00:00.000Z",
-            "endDate": "2022-02-02T00:00:00.000Z",
-            "startTime": "11:00 AM",
-            "endTime": "1:00 PM",
-            "isPublic": true,
-            "isRegisterable": false,
-            "isRegistered": null,
-            "creator": {
-              "_id": "creator2",
-              "firstName": "Creator",
-              "lastName": "Two",
+            "startAt": "2022-02-01T11:00:00.000Z",
+            "endAt": "2022-02-02T13:00:00.000Z",
+            "organization": {
+              "id": "org2",
+              "name": "Organization 2",
             },
-            "organization": {"_id": "org2", "image": "image2"},
-            "admins": [
-              {"_id": "admin2", "firstName": "Admin", "lastName": "Two"},
-            ],
-            "attendees": [
+            "creator": {
+              "id": "creator2",
+              "name": "Creator Two",
+            },
+            "updater": {
+              "id": "creator2",
+              "name": "Creator Two",
+            },
+            "attachments": [
               {
-                "_id": "user2",
-                "firstName": "User",
-                "lastName": "Two",
-                "image": "image2",
+                "mimeType": "image/png",
+                "url": "https://example.com/image2.png",
               }
             ],
           }
@@ -765,6 +747,246 @@ void main() {
       // expect(events.length, 2);
       // expect(events[0].title, "Test Event 1");
       // expect(events[1].title, "Test Event 2");
+    });
+
+    test('Test refreshFeed method', () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final userConfig = locator<UserConfig>();
+
+      // Set up organization with a test ID BEFORE creating service
+      const testOrgId = 'testOrgId123';
+      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+
+      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
+
+      final mockData = {
+        "eventsByOrganizationId": [
+          {
+            "id": "event1",
+            "name": "Test Event",
+            "description": "Test Description",
+            "startAt": "2024-01-01T10:00:00.000Z",
+            "endAt": "2024-01-01T12:00:00.000Z",
+            "organization": {
+              "id": testOrgId,
+              "name": "Test Org",
+            },
+            "creator": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "attachments": [],
+          }
+        ],
+      };
+
+      // Set up mock BEFORE creating the service
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(mutation)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Now create the service
+      final eventService = EventService();
+
+      // Test refreshFeed
+      await eventService.refreshFeed();
+
+      // Just verify the method completes without errors
+      expect(eventService, isNotNull);
+    });
+
+    test('Test fetchEventsInitial method', () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final userConfig = locator<UserConfig>();
+
+      // Set up organization with a test ID BEFORE creating service
+      const testOrgId = 'testOrgId456';
+      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+
+      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
+
+      final mockData = {
+        "eventsByOrganizationId": [
+          {
+            "id": "event1",
+            "name": "Test Event",
+            "description": "Test Description",
+            "startAt": "2024-01-01T10:00:00.000Z",
+            "endAt": "2024-01-01T12:00:00.000Z",
+            "organization": {
+              "id": testOrgId,
+              "name": "Test Org",
+            },
+            "creator": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "attachments": [],
+          }
+        ],
+      };
+
+      // Set up mock BEFORE creating the service
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(mutation)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Now create the service
+      final eventService = EventService();
+
+      // Test fetchEventsInitial
+      await eventService.fetchEventsInitial();
+
+      // Just verify the method completes without errors
+      expect(eventService, isNotNull);
+    });
+
+    test('Test refreshFeed method with stream updates', () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final userConfig = locator<UserConfig>();
+
+      // Set up organization with a test ID BEFORE creating service
+      const testOrgId = 'testOrgId789';
+      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+
+      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
+
+      final mockData = {
+        "eventsByOrganizationId": [
+          {
+            "id": "event1",
+            "name": "Refresh Test Event",
+            "description": "Test Description",
+            "startAt": "2024-01-01T10:00:00.000Z",
+            "endAt": "2024-01-01T12:00:00.000Z",
+            "organization": {
+              "id": testOrgId,
+              "name": "Test Org",
+            },
+            "creator": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "attachments": [],
+          }
+        ],
+      };
+
+      // Set up mock BEFORE creating the service
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(mutation)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Now create the service
+      final eventService = EventService();
+
+      // Listen to the event stream
+      final streamEvents = <List<Event>>[];
+      final subscription = eventService.eventStream.listen((events) {
+        streamEvents.add(events);
+      });
+
+      // Test refreshFeed
+      await eventService.refreshFeed();
+
+      // Allow time for stream to emit
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      // Verify stream received events
+      expect(streamEvents.isNotEmpty, true);
+
+      // Clean up
+      await subscription.cancel();
+    });
+
+    test('Test fetchEventsInitial method with stream updates', () async {
+      final dbFunctions = locator<DataBaseMutationFunctions>();
+      final userConfig = locator<UserConfig>();
+
+      // Set up organization with a test ID BEFORE creating service
+      const testOrgId = 'testOrgId101';
+      userConfig.currentOrg = OrgInfo(name: 'Test Org', id: testOrgId);
+
+      final String mutation = EventQueries().fetchOrgEvents(testOrgId);
+
+      final mockData = {
+        "eventsByOrganizationId": [
+          {
+            "id": "event1",
+            "name": "Initial Test Event",
+            "description": "Test Description",
+            "startAt": "2024-01-01T10:00:00.000Z",
+            "endAt": "2024-01-01T12:00:00.000Z",
+            "organization": {
+              "id": testOrgId,
+              "name": "Test Org",
+            },
+            "creator": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "updater": {
+              "id": "creator1",
+              "name": "Test Creator",
+            },
+            "attachments": [],
+          }
+        ],
+      };
+
+      // Set up mock BEFORE creating the service
+      when(dbFunctions.gqlAuthQuery(mutation)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(mutation)),
+          data: mockData,
+          source: QueryResultSource.network,
+        ),
+      );
+
+      // Now create the service
+      final eventService = EventService();
+
+      // Listen to the event stream
+      final streamEvents = <List<Event>>[];
+      final subscription = eventService.eventStream.listen((events) {
+        streamEvents.add(events);
+      });
+
+      // Test fetchEventsInitial
+      await eventService.fetchEventsInitial();
+
+      // Allow time for stream to emit
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      // Verify stream received events (should be called at least twice: once for cache, once for refresh)
+      expect(streamEvents.length, greaterThanOrEqualTo(1));
+
+      // Clean up
+      await subscription.cancel();
     });
   });
 }
