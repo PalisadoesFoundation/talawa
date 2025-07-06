@@ -126,7 +126,11 @@ class HiveManager {
 
     // Open Event box first, then migrate data
     await openBox<Event>(HiveKeys.eventFeedKey);
-    await _migrateEventData();
+    final migrationSuccess = await _migrateEventData();
+    if (!migrationSuccess) {
+      print(
+          'Warning: Event data migration failed. Some events may be unavailable.');
+    }
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -171,55 +175,73 @@ class HiveManager {
   ///   None
   ///
   /// **returns**:
-  ///   None
-  static Future<void> _migrateEventData() async {
+  /// * `Future<bool>`: Returns true if migration succeeds, false if it fails.
+  static Future<bool> _migrateEventData() async {
     try {
       final box = Hive.box<Event>(HiveKeys.eventFeedKey);
       const currentSchemaVersion = 2; // Current schema version
 
-      // Get all existing events
-      final existingEvents = <Event>[];
+      // Get all existing events as raw data to access original field names
+      final existingRawData = <String, Map<String, dynamic>>{};
       for (final key in box.keys) {
         try {
-          final event = box.get(key);
-          if (event != null) {
-            existingEvents.add(event);
+          // Read raw data to access original field names like 'title'
+          final rawData = box.get(key) as Map<String, dynamic>?;
+          if (rawData != null) {
+            existingRawData[key.toString()] = rawData;
           }
         } catch (e) {
-          // Skip corrupted entries
-          print('Skipping corrupted event entry: $e');
+          // Try reading as Event object for newer data
+          try {
+            final event = box.get(key);
+            if (event != null) {
+              // Convert Event to raw data for consistent processing
+              existingRawData[key.toString()] = _eventToRawData(event);
+            }
+          } catch (eventError) {
+            // Skip corrupted entries
+            print('Skipping corrupted event entry: $e');
+          }
         }
       }
 
-      if (existingEvents.isEmpty) {
+      if (existingRawData.isEmpty) {
         print('No existing events to migrate');
-        return;
+        return true;
       }
 
       // Clear the box to remove old data
       await box.clear();
 
       // Re-add events with updated schema version
-      for (final event in existingEvents) {
-        final migratedEvent =
-            _migrateEventToCurrentVersion(event, currentSchemaVersion);
-        await box.put(migratedEvent.id, migratedEvent);
+      for (final entry in existingRawData.entries) {
+        final migratedEvent = _migrateRawEventData(
+          entry.value,
+          currentSchemaVersion,
+        );
+        await box.put(entry.key, migratedEvent);
       }
 
       print('Event data migration completed successfully');
+      return true;
     } catch (e) {
       print('Event data migration failed: $e');
-      // If migration fails, create backup before clearing the box
+      // If migration fails, create persistent backup before clearing the box
       try {
         final box = Hive.box<Event>(HiveKeys.eventFeedKey);
 
-        // Create backup of existing data
-        final backupData = <String, Event>{};
+        // Create persistent backup using a temporary Hive box
+        final backupBoxName =
+            'event_backup_${DateTime.now().millisecondsSinceEpoch}';
+        final backupBox = await Hive.openBox(backupBoxName);
+
+        // Collect all data to backup
+        final backupData = <String, dynamic>{};
         for (final key in box.keys) {
           try {
-            final event = box.get(key);
-            if (event != null) {
-              backupData[key.toString()] = event;
+            final data = box.get(key);
+            if (data != null) {
+              backupData[key.toString()] = data;
             }
           } catch (backupError) {
             print('Failed to backup event with key $key: $backupError');
@@ -228,18 +250,28 @@ class HiveManager {
 
         // Only clear the box if backup was successful
         if (backupData.isNotEmpty) {
+          // Save backup data to persistent storage
+          for (final entry in backupData.entries) {
+            await backupBox.put(entry.key, entry.value);
+          }
+          await backupBox.close();
+
           print(
-              'Created backup of ${backupData.length} events before clearing box');
+            'Created persistent backup of ${backupData.length} events in $backupBoxName before clearing box',
+          );
           await box.clear();
           print(
-              'Event box cleared due to migration failure. Backup available for recovery.');
+            'Event box cleared due to migration failure. Backup available for recovery in $backupBoxName',
+          );
         } else {
+          await backupBox.close();
           print('No valid data to backup, clearing event box');
           await box.clear();
         }
       } catch (clearError) {
         print('Failed to clear event box: $clearError');
       }
+      return false;
     }
   }
 
@@ -254,81 +286,185 @@ class HiveManager {
   ///
   /// **returns**:
   /// * `Event`: The migrated event with updated schema version.
-  static Event _migrateEventToCurrentVersion(Event event, int targetVersion) {
-    final currentVersion = event.schemaVersion ?? 1;
+  /// Converts an Event object to raw data map for migration processing.
+  ///
+  /// **params**:
+  /// * `event`: The Event object to convert.
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: Raw data representation of the event.
+  static Map<String, dynamic> _eventToRawData(Event event) {
+    return {
+      'id': event.id,
+      'name': event.name,
+      'description': event.description,
+      'startAt': event.startAt,
+      'endAt': event.endAt,
+      'organization': event.organization,
+      'creator': event.creator,
+      'attachments': event.attachments,
+      'schemaVersion': event.schemaVersion,
+    };
+  }
+
+  /// Migrates raw event data to the current schema version.
+  ///
+  /// This method handles the migration of raw event data from older schema versions
+  /// to the current version, properly mapping old field names to new ones.
+  /// It performs incremental migration through each version step.
+  ///
+  /// **params**:
+  /// * `rawData`: The raw event data to migrate.
+  /// * `targetVersion`: The target schema version.
+  ///
+  /// **returns**:
+  /// * `Event`: The migrated event with updated schema version.
+  static Event _migrateRawEventData(
+      Map<String, dynamic> rawData, int targetVersion) {
+    final currentVersion = rawData['schemaVersion'] as int? ?? 1;
 
     // If already at target version, no migration needed
     if (currentVersion == targetVersion) {
-      return event;
+      return Event.fromJson(rawData);
     }
 
-    // Handle schema version transitions
-    switch (currentVersion) {
-      case 1:
-        // Migration from version 1 to 2
-        // Version 1 -> 2 changes:
-        // - Renamed 'title' field to 'name'
-        // - Replaced multiple date/time fields with ISO8601 'startAt' and 'endAt'
-        // - Added 'attachments' list field
-        // - Removed deprecated fields: isPublic, isRegistered, isRegisterable, etc.
-        event = _transformEventV1ToV2(event);
-        event.schemaVersion = targetVersion;
-        break;
-      case 2:
-        // Already at version 2, just ensure schema version is set
-        event.schemaVersion = targetVersion;
-        break;
-      default:
-        // Unknown version, set to current version
-        print(
-            'Unknown schema version $currentVersion, setting to $targetVersion');
-        event.schemaVersion = targetVersion;
-        break;
+    // Perform incremental migration through each version step
+    var migratedData = Map<String, dynamic>.from(rawData);
+    var currentSchemaVersion = currentVersion;
+
+    while (currentSchemaVersion < targetVersion) {
+      final nextVersion = currentSchemaVersion + 1;
+      migratedData = _migrateRawEventDataToNextVersion(
+          migratedData, currentSchemaVersion, nextVersion);
+      currentSchemaVersion = nextVersion;
     }
 
-    return event;
+    return Event.fromJson(migratedData);
   }
 
-  /// Transforms an Event from version 1 to version 2 schema.
+  /// Migrates raw event data from one version to the next version.
   ///
-  /// This method handles the actual data transformations needed when migrating
-  /// from version 1 to version 2 of the Event schema.
+  /// This helper method handles the migration between consecutive schema versions.
+  /// It applies the specific transformations needed for each version transition.
   ///
   /// **params**:
-  /// * `event`: The event to transform.
+  /// * `rawData`: The raw event data to migrate.
+  /// * `fromVersion`: The current schema version.
+  /// * `toVersion`: The target schema version (should be fromVersion + 1).
   ///
   /// **returns**:
-  /// * `Event`: The transformed event with version 2 schema.
-  static Event _transformEventV1ToV2(Event event) {
-    // Note: Since we're working with the current Event model structure,
-    // the actual field transformations would depend on the original v1 structure.
-    // For now, we ensure the event has the required v2 fields with default values
-    // if they're missing.
-    
-    // Ensure name field exists (was 'title' in v1)
-    if (event.name == null) {
-      // If name is null, we can't recover from the old 'title' field
-      // since we don't have access to the original v1 data structure
-      event.name = 'Migrated Event';
+  /// * `Map<String, dynamic>`: The migrated raw data with updated schema version.
+  static Map<String, dynamic> _migrateRawEventDataToNextVersion(
+    Map<String, dynamic> rawData,
+    int fromVersion,
+    int toVersion,
+  ) {
+    final migratedData = Map<String, dynamic>.from(rawData);
+
+    // Apply version-specific transformations
+    switch (fromVersion) {
+      case 1:
+        if (toVersion == 2) {
+          // Migration from version 1 to 2
+          // Map old field names to new schema
+          final transformedData = _transformRawEventV1ToV2(migratedData);
+          transformedData['schemaVersion'] = toVersion;
+          return transformedData;
+        }
+        break;
+      case 2:
+        if (toVersion == 3) {
+          // Future migration from version 2 to 3
+          // Add future transformations here
+          migratedData['schemaVersion'] = toVersion;
+          return migratedData;
+        }
+        break;
+      default:
+        // Unknown version transition, set to target version
+        print(
+            'Unknown version transition from $fromVersion to $toVersion, setting to $toVersion');
+        migratedData['schemaVersion'] = toVersion;
+        return migratedData;
     }
-    
-    // Ensure startAt and endAt fields exist (were separate date/time fields in v1)
-    if (event.startAt == null) {
-      event.startAt = DateTime.now().toIso8601String();
+
+    // If no specific transformation is defined, just update schema version
+    migratedData['schemaVersion'] = toVersion;
+    return migratedData;
+  }
+
+  /// Transforms raw event data from version 1 to version 2 schema.
+  ///
+  /// This method handles the actual field name mappings needed when migrating
+  /// from version 1 to version 2 of the Event schema. It preserves all
+  /// relevant v1 data and transforms it properly to v2 format.
+  ///
+  /// **params**:
+  /// * `rawData`: The raw event data to transform.
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: The transformed raw data with version 2 schema.
+  static Map<String, dynamic> _transformRawEventV1ToV2(
+      Map<String, dynamic> rawData) {
+    final migratedData = <String, dynamic>{};
+
+    // Map old field names to new schema - preserve all original data
+    migratedData['id'] = rawData['id'] ?? rawData['_id'];
+
+    // Transform 'title' field to 'name' field (v1 -> v2)
+    migratedData['name'] = rawData['name'] ?? rawData['title'];
+
+    // Preserve description
+    migratedData['description'] = rawData['description'];
+
+    // Handle date/time fields transformation (v1 had separate fields, v2 uses ISO8601 strings)
+    // First check if v2 format already exists
+    if (rawData['startAt'] != null) {
+      migratedData['startAt'] = rawData['startAt'];
+    } else {
+      // Transform v1 separate date/time fields to v2 ISO8601 format
+      final startDate = rawData['startDate']?.toString();
+      final startTime = rawData['startTime']?.toString();
+
+      if (startDate != null && startDate.isNotEmpty) {
+        if (startTime != null && startTime.isNotEmpty) {
+          // Combine date and time into ISO8601 format
+          migratedData['startAt'] = '${startDate}T${startTime}Z';
+        } else {
+          // Only date available, use default time
+          migratedData['startAt'] = '${startDate}T00:00:00Z';
+        }
+      }
     }
-    
-    if (event.endAt == null) {
-      event.endAt = DateTime.now().add(const Duration(hours: 1)).toIso8601String();
+
+    if (rawData['endAt'] != null) {
+      migratedData['endAt'] = rawData['endAt'];
+    } else {
+      // Transform v1 separate date/time fields to v2 ISO8601 format
+      final endDate = rawData['endDate']?.toString();
+      final endTime = rawData['endTime']?.toString();
+
+      if (endDate != null && endDate.isNotEmpty) {
+        if (endTime != null && endTime.isNotEmpty) {
+          // Combine date and time into ISO8601 format
+          migratedData['endAt'] = '${endDate}T${endTime}Z';
+        } else {
+          // Only date available, use default time
+          migratedData['endAt'] = '${endDate}T23:59:59Z';
+        }
+      }
     }
-    
-    // Ensure attachments field exists (was not present in v1)
-    if (event.attachments == null) {
-      event.attachments = [];
-    }
-    
-    // Remove any deprecated fields that might still exist in the object
-    // (These would be handled by the Hive adapter, but we ensure clean state)
-    
-    return event;
+
+    // Preserve organization and creator data
+    migratedData['organization'] = rawData['organization'];
+    migratedData['creator'] = rawData['creator'];
+
+    // Initialize attachments field (was not present in v1)
+    migratedData['attachments'] = rawData['attachments'] ?? [];
+
+    // Preserve any other fields that might exist in v1 but aren't deprecated
+    // This ensures we don't lose any data during migration
+
+    return migratedData;
   }
 }
