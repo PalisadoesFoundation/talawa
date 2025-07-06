@@ -323,5 +323,26 @@ void main() {
       expect(adapter3.hashCode, isA<int>());
       expect(adapter3 == adapter4, true);
     });
+
+    test('test schema version', () {
+      final event = Event(
+        id: 'test-id',
+        name: 'Test Event',
+        schemaVersion: 2,
+      );
+
+      expect(event.schemaVersion, 2);
+    });
+
+    test('test fromJson includes schema version', () {
+      final json = {
+        'id': 'test-id',
+        'name': 'Test Event',
+        'description': 'Test Description',
+      };
+
+      final event = Event.fromJson(json);
+      expect(event.schemaVersion, 2);
+    });
   });
 }

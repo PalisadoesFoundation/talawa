@@ -122,6 +122,9 @@ class HiveManager {
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
+    
+    // Migrate Event data before opening the box
+    await _migrateEventData();
     await openBox<Event>(HiveKeys.eventFeedKey);
   }
 
@@ -155,5 +158,64 @@ class HiveManager {
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);
     await closeBox<Event>(HiveKeys.eventFeedKey);
+  }
+
+  /// Migrates Event data to ensure compatibility with schema changes.
+  ///
+  /// This method handles the migration of Event data from older schema versions
+  /// to the current version. It checks for existing data and transforms it
+  /// to match the current Event model structure.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  static Future<void> _migrateEventData() async {
+    try {
+      // Check if the Event box already exists
+      if (Hive.isBoxOpen(HiveKeys.eventFeedKey)) {
+        final box = Hive.box<Event>(HiveKeys.eventFeedKey);
+        
+        // Get all existing events
+        final existingEvents = <Event>[];
+        for (final key in box.keys) {
+          try {
+            final event = box.get(key);
+            if (event != null) {
+              existingEvents.add(event);
+            }
+          } catch (e) {
+            // Skip corrupted entries
+            print('Skipping corrupted event entry: $e');
+          }
+        }
+
+        // Clear the box to remove old data
+        await box.clear();
+
+        // Re-add events with updated schema version
+        for (final event in existingEvents) {
+          // Ensure schema version is set
+          if (event.schemaVersion == null) {
+            event.schemaVersion = 2;
+          }
+          await box.put(event.id, event);
+        }
+
+        print('Event data migration completed successfully');
+      }
+    } catch (e) {
+      print('Event data migration failed: $e');
+      // If migration fails, clear the box to prevent corruption
+      try {
+        if (Hive.isBoxOpen(HiveKeys.eventFeedKey)) {
+          await Hive.box<Event>(HiveKeys.eventFeedKey).clear();
+          print('Event box cleared due to migration failure');
+        }
+      } catch (clearError) {
+        print('Failed to clear event box: $clearError');
+      }
+    }
   }
 }

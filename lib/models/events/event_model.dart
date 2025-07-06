@@ -17,6 +17,7 @@ class Event {
     this.organization,
     this.creator,
     this.attachments,
+    this.schemaVersion,
   });
 
   // Creating a new Event instance from a map structure.
@@ -39,6 +40,7 @@ class Event {
                   Attachment.fromJson(attachment as Map<String, dynamic>))
               .toList()
           : null,
+      schemaVersion: 2,
     );
   }
 
@@ -73,6 +75,10 @@ class Event {
   /// Attachments for the event.
   @HiveField(7)
   List<Attachment>? attachments;
+
+  /// Schema version for migration purposes.
+  @HiveField(8)
+  int? schemaVersion = 2;
 
   /// Cached DateTime object for the start time to avoid repeated parsing.
   DateTime? _cachedStartDateTime;
