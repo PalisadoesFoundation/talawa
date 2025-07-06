@@ -201,18 +201,42 @@ class HiveManager {
 
       // Re-add events with updated schema version
       for (final event in existingEvents) {
-        final migratedEvent = _migrateEventToCurrentVersion(event, currentSchemaVersion);
+        final migratedEvent =
+            _migrateEventToCurrentVersion(event, currentSchemaVersion);
         await box.put(migratedEvent.id, migratedEvent);
       }
 
       print('Event data migration completed successfully');
     } catch (e) {
       print('Event data migration failed: $e');
-      // If migration fails, clear the box to prevent corruption
+      // If migration fails, create backup before clearing the box
       try {
         final box = Hive.box<Event>(HiveKeys.eventFeedKey);
-        await box.clear();
-        print('Event box cleared due to migration failure');
+
+        // Create backup of existing data
+        final backupData = <String, Event>{};
+        for (final key in box.keys) {
+          try {
+            final event = box.get(key);
+            if (event != null) {
+              backupData[key.toString()] = event;
+            }
+          } catch (backupError) {
+            print('Failed to backup event with key $key: $backupError');
+          }
+        }
+
+        // Only clear the box if backup was successful
+        if (backupData.isNotEmpty) {
+          print(
+              'Created backup of ${backupData.length} events before clearing box');
+          await box.clear();
+          print(
+              'Event box cleared due to migration failure. Backup available for recovery.');
+        } else {
+          print('No valid data to backup, clearing event box');
+          await box.clear();
+        }
       } catch (clearError) {
         print('Failed to clear event box: $clearError');
       }
@@ -251,7 +275,8 @@ class HiveManager {
         break;
       default:
         // Unknown version, set to current version
-        print('Unknown schema version $currentVersion, setting to $targetVersion');
+        print(
+            'Unknown schema version $currentVersion, setting to $targetVersion');
         event.schemaVersion = targetVersion;
         break;
     }

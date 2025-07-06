@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -36,8 +37,10 @@ class Event {
           : User.fromJson(json['creator'] as Map<String, dynamic>),
       attachments: json['attachments'] != null
           ? (json['attachments'] as List<dynamic>)
-              .map((attachment) =>
-                  Attachment.fromJson(attachment as Map<String, dynamic>),)
+              .map(
+                (attachment) =>
+                    Attachment.fromJson(attachment as Map<String, dynamic>),
+              )
               .toList()
           : null,
       schemaVersion: json['schemaVersion'] as int? ?? 2,
@@ -103,7 +106,7 @@ class Event {
     _cachedStartDateTime = DateTime.tryParse(startAt!);
     if (_cachedStartDateTime == null) {
       // Log parsing error for debugging
-      print('Failed to parse startAt: $startAt');
+      debugPrint('Failed to parse startAt: $startAt');
       return null;
     }
 
@@ -123,7 +126,7 @@ class Event {
     _cachedStartDateTime = DateTime.tryParse(startAt!);
     if (_cachedStartDateTime == null) {
       // Log parsing error for debugging
-      print('Failed to parse startAt: $startAt');
+      debugPrint('Failed to parse startAt: $startAt');
       return null;
     }
 
@@ -143,7 +146,7 @@ class Event {
     _cachedEndDateTime = DateTime.tryParse(endAt!);
     if (_cachedEndDateTime == null) {
       // Log parsing error for debugging
-      print('Failed to parse endAt: $endAt');
+      debugPrint('Failed to parse endAt: $endAt');
       return null;
     }
 
@@ -166,7 +169,7 @@ class Event {
     _cachedEndDateTime = DateTime.tryParse(endAt!);
     if (_cachedEndDateTime == null) {
       // Log parsing error for debugging
-      print('Failed to parse endAt: $endAt');
+      debugPrint('Failed to parse endAt: $endAt');
       return null;
     }
 
@@ -192,9 +195,9 @@ class Attachment {
       name: json['name']?.toString(),
       url: json['url']?.toString(),
       type: json['type']?.toString(),
-      size: json['size'] is int 
-          ? json['size'] as int 
-          : json['size'] is String 
+      size: json['size'] is int
+          ? json['size'] as int
+          : json['size'] is String
               ? int.tryParse(json['size'] as String)
               : null,
     );
@@ -231,11 +234,11 @@ class Attachment {
   /// * `Map<String, dynamic>`: A map structure that can be converted to a JSON object.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['url'] = this.url;
-    data['type'] = this.type;
-    data['size'] = this.size;
+    data['id'] = id;
+    data['name'] = name;
+    data['url'] = url;
+    data['type'] = type;
+    data['size'] = size;
     return data;
   }
 }

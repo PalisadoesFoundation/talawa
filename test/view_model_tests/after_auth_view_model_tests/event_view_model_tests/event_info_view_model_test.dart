@@ -78,8 +78,10 @@ void main() {
       await model.registerForEvent();
 
       // Should show snackbar for duplicate registration
-      verify(navigationService
-          .showSnackBar('You are already registered for this event.'),);
+      verify(
+        navigationService
+            .showSnackBar('You are already registered for this event.'),
+      );
       // Should not call the registration service
       final eventService = getAndRegisterEventService();
       verifyNever(eventService.registerForAnEvent('1'));
@@ -609,9 +611,11 @@ void main() {
       expect(model.selectedCategories.length, 2);
       expect(model.selectedCategories[0].id, '1');
       expect(model.selectedCategories[1].id, '2');
-      expect(listenerCalled, isTrue,
-          reason:
-              'Listener should be notified when selected categories are set',);
+      expect(
+        listenerCalled,
+        isTrue,
+        reason: 'Listener should be notified when selected categories are set',
+      );
     });
 
     test('createVolunteerGroup error handling', () async {
