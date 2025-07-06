@@ -38,6 +38,62 @@ Widget createEventCalender2() {
   );
 }
 
+// Create a custom Event class for testing different date formats
+class TestEvent extends Event {
+  TestEvent({
+    super.id,
+    super.name,
+    super.description,
+    super.startAt,
+    super.endAt,
+    super.organization,
+    super.creator,
+    super.attachments,
+    super.schemaVersion,
+    this.customStartDate,
+    this.customEndDate,
+  });
+
+  final String? customStartDate;
+  final String? customEndDate;
+
+  @override
+  String? get startDate => customStartDate ?? super.startDate;
+
+  @override
+  String? get endDate => customEndDate ?? super.endDate;
+}
+
+Widget createEventCalendarWithSlashDates() {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: EventCalendar([
+      TestEvent(
+        name: 'Test with slash dates',
+        startAt: '2022-07-14T14:23:01.000Z',
+        endAt: '2022-07-14T21:23:01.000Z',
+        customStartDate: '07/14/2022',
+        customEndDate: '07/14/2022',
+      ),
+    ]),
+  );
+}
+
+Widget createEventCalendarWithHyphenDates() {
+  return MaterialApp(
+    navigatorKey: navigationService.navigatorKey,
+    home: EventCalendar([
+      TestEvent(
+        name: 'Test with hyphen dates',
+        startAt: '2022-07-14T14:23:01.000Z',
+        endAt: '2022-07-14T21:23:01.000Z',
+        customStartDate: '2022-07-14',
+        customEndDate: '2022-07-14',
+      ),
+    ]),
+  );
+}
+
 void main() {
   setUp(() {
     registerServices();
@@ -150,6 +206,42 @@ void main() {
         expect(event.endDate, '2022-07-14');
         expect(event.startTime, '14:23:01');
         expect(event.endTime, '21:23:01');
+      });
+
+      testWidgets(
+          'Testing EventCalendar with slash date format (covers if branches)',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendarWithSlashDates());
+        await tester.pump();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+        final event = eventCalendar.eventList[0];
+
+        // Test that the calendar widget can handle events with slash date format
+        // This covers the if branches in the date parsing logic (MM/dd/yyyy format)
+        expect(event.name, 'Test with slash dates');
+        expect(event.startDate, '07/14/2022');
+        expect(event.endDate, '07/14/2022');
+      });
+
+      testWidgets(
+          'Testing EventCalendar with hyphen date format (covers else branches)',
+          (tester) async {
+        await tester.pumpWidget(createEventCalendarWithHyphenDates());
+        await tester.pump();
+
+        expect(find.byType(EventCalendar), findsOneWidget);
+        final eventCalendar =
+            tester.widget<EventCalendar>(find.byType(EventCalendar));
+        final event = eventCalendar.eventList[0];
+
+        // Test that the calendar widget can handle events with hyphen date format
+        // This covers the else branches in the date parsing logic (yyyy-MM-dd format)
+        expect(event.name, 'Test with hyphen dates');
+        expect(event.startDate, '2022-07-14');
+        expect(event.endDate, '2022-07-14');
       });
     });
     test("dateRangePickerController getter", () {
