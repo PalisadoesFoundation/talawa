@@ -37,10 +37,10 @@ class Event {
       attachments: json['attachments'] != null
           ? (json['attachments'] as List<dynamic>)
               .map((attachment) =>
-                  Attachment.fromJson(attachment as Map<String, dynamic>))
+                  Attachment.fromJson(attachment as Map<String, dynamic>),)
               .toList()
           : null,
-      schemaVersion: 2,
+      schemaVersion: json['schemaVersion'] as int? ?? 2,
     );
   }
 
@@ -192,7 +192,11 @@ class Attachment {
       name: json['name']?.toString(),
       url: json['url']?.toString(),
       type: json['type']?.toString(),
-      size: json['size']?.toString(),
+      size: json['size'] is int 
+          ? json['size'] as int 
+          : json['size'] is String 
+              ? int.tryParse(json['size'] as String)
+              : null,
     );
   }
 
@@ -214,7 +218,7 @@ class Attachment {
 
   /// The size of the attachment in bytes.
   @HiveField(4)
-  String? size;
+  int? size;
 
   /// Converts the Attachment instance to a map structure.
   ///

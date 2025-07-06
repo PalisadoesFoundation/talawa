@@ -182,14 +182,14 @@ void main() {
             name: 'file1.pdf',
             url: 'url1',
             type: 'application/pdf',
-            size: '1024',
+            size: 1024,
           ),
           Attachment(
             id: '2',
             name: 'file2.jpg',
             url: 'url2',
             type: 'image/jpeg',
-            size: '2048',
+            size: 2048,
           ),
         ],
       );

@@ -102,6 +102,7 @@ class HiveManager {
     registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
     registerAdapter<Post>(PostAdapter());
     registerAdapter<Event>(EventAdapter());
+    registerAdapter<Attachment>(AttachmentAdapter());
     registerAdapter<LikedBy>(LikedByAdapter());
     registerAdapter<Attendee>(AttendeeAdapter());
     registerAdapter<Comment>(CommentAdapter());
@@ -123,9 +124,9 @@ class HiveManager {
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
 
-    // Migrate Event data before opening the box
-    await _migrateEventData();
+    // Open Event box first, then migrate data
     await openBox<Event>(HiveKeys.eventFeedKey);
+    await _migrateEventData();
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -163,8 +164,8 @@ class HiveManager {
   /// Migrates Event data to ensure compatibility with schema changes.
   ///
   /// This method handles the migration of Event data from older schema versions
-  /// to the current version. It checks for existing data and transforms it
-  /// to match the current Event model structure.
+  /// to the current version. It performs schema version upgrades and transforms
+  /// data to match the current Event model structure.
   ///
   /// **params**:
   ///   None
@@ -173,47 +174,88 @@ class HiveManager {
   ///   None
   static Future<void> _migrateEventData() async {
     try {
-      // Check if the Event box already exists
-      if (Hive.isBoxOpen(HiveKeys.eventFeedKey)) {
-        final box = Hive.box<Event>(HiveKeys.eventFeedKey);
+      final box = Hive.box<Event>(HiveKeys.eventFeedKey);
+      const currentSchemaVersion = 2; // Current schema version
 
-        // Get all existing events
-        final existingEvents = <Event>[];
-        for (final key in box.keys) {
-          try {
-            final event = box.get(key);
-            if (event != null) {
-              existingEvents.add(event);
-            }
-          } catch (e) {
-            // Skip corrupted entries
-            print('Skipping corrupted event entry: $e');
+      // Get all existing events
+      final existingEvents = <Event>[];
+      for (final key in box.keys) {
+        try {
+          final event = box.get(key);
+          if (event != null) {
+            existingEvents.add(event);
           }
+        } catch (e) {
+          // Skip corrupted entries
+          print('Skipping corrupted event entry: $e');
         }
-
-        // Clear the box to remove old data
-        await box.clear();
-
-        // Re-add events with updated schema version
-        for (final event in existingEvents) {
-          // Ensure schema version is set
-          event.schemaVersion ??= 2;
-          await box.put(event.id, event);
-        }
-
-        print('Event data migration completed successfully');
       }
+
+      if (existingEvents.isEmpty) {
+        print('No existing events to migrate');
+        return;
+      }
+
+      // Clear the box to remove old data
+      await box.clear();
+
+      // Re-add events with updated schema version
+      for (final event in existingEvents) {
+        final migratedEvent = _migrateEventToCurrentVersion(event, currentSchemaVersion);
+        await box.put(migratedEvent.id, migratedEvent);
+      }
+
+      print('Event data migration completed successfully');
     } catch (e) {
       print('Event data migration failed: $e');
       // If migration fails, clear the box to prevent corruption
       try {
-        if (Hive.isBoxOpen(HiveKeys.eventFeedKey)) {
-          await Hive.box<Event>(HiveKeys.eventFeedKey).clear();
-          print('Event box cleared due to migration failure');
-        }
+        final box = Hive.box<Event>(HiveKeys.eventFeedKey);
+        await box.clear();
+        print('Event box cleared due to migration failure');
       } catch (clearError) {
         print('Failed to clear event box: $clearError');
       }
     }
+  }
+
+  /// Migrates an Event to the current schema version.
+  ///
+  /// This method handles schema version transitions and applies necessary
+  /// transformations to ensure data compatibility.
+  ///
+  /// **params**:
+  /// * `event`: The event to migrate.
+  /// * `targetVersion`: The target schema version.
+  ///
+  /// **returns**:
+  /// * `Event`: The migrated event with updated schema version.
+  static Event _migrateEventToCurrentVersion(Event event, int targetVersion) {
+    final currentVersion = event.schemaVersion ?? 1;
+
+    // If already at target version, no migration needed
+    if (currentVersion == targetVersion) {
+      return event;
+    }
+
+    // Handle schema version transitions
+    switch (currentVersion) {
+      case 1:
+        // Migration from version 1 to 2
+        // Version 1 had different field structure, ensure compatibility
+        event.schemaVersion = targetVersion;
+        break;
+      case 2:
+        // Already at version 2, just ensure schema version is set
+        event.schemaVersion = targetVersion;
+        break;
+      default:
+        // Unknown version, set to current version
+        print('Unknown schema version $currentVersion, setting to $targetVersion');
+        event.schemaVersion = targetVersion;
+        break;
+    }
+
+    return event;
   }
 }

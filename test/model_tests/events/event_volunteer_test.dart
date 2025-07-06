@@ -63,7 +63,7 @@ void main() {
         },
         'event': {
           '_id': 'fakeEventId',
-          'title': 'Sample Event',
+          'name': 'Sample Event',
           'description': 'Sample Description',
           'startAt': '2024-08-11T10:00:00Z',
           'endAt': '2024-08-12T12:00:00Z',

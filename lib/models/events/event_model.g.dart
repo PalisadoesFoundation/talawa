@@ -79,7 +79,7 @@ class AttachmentAdapter extends TypeAdapter<Attachment> {
       name: fields[1] as String?,
       url: fields[2] as String?,
       type: fields[3] as String?,
-      size: fields[4] as String?,
+      size: fields[4] as int?,
     );
   }
 
