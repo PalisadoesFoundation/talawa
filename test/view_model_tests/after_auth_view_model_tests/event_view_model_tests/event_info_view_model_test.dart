@@ -59,18 +59,36 @@ void main() {
       expect(model.fabTitle, "Register");
     });
 
-    test("Test getFabTitle function", () {
+    test("Test register for event - duplicate registration prevention",
+        () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-      expect(model.getFabTitle(), "Register");
 
-      final Event event2 = Event(id: "2");
-      model.event = event2;
-      expect(model.getFabTitle(), "Register");
+      // Add current user to attendees list to simulate already registered
+      final userConfig = getAndRegisterUserConfig();
+      model.attendees.add(
+        Attendee(
+          id: userConfig.currentUser.id,
+          firstName: userConfig.currentUser.firstName,
+          lastName: userConfig.currentUser.lastName,
+          image: userConfig.currentUser.image,
+        ),
+      );
 
-      final Event event3 = Event(id: "3");
-      model.event = event3;
-      expect(model.getFabTitle(), "Register");
+      // Try to register again
+      await model.registerForEvent();
+
+      // Should show snackbar for duplicate registration
+      verify(navigationService
+          .showSnackBar('You are already registered for this event.'));
+
+      // Should not call the registration service
+      final eventService = getAndRegisterEventService();
+      verifyNever(eventService.registerForAnEvent('1'));
+    });
+
+    test("Test fabTitleText constant", () {
+      expect(EventInfoViewModel.fabTitleText, "Register");
     });
     test("Test createVolunteerGroup success", () async {
       final Event event1 = Event(id: "1");

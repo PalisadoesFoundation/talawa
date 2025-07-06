@@ -14,6 +14,9 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// EventInfoViewModel class helps interacting with model to serve view with the event information data.
 class EventInfoViewModel extends BaseModel {
+  /// Constant string for the FAB title.
+  static const String fabTitleText = "Register";
+
   /// ExploreEventsViewModel instance to fetch the event data.
   late ExploreEventsViewModel exploreEventsInstance;
 
@@ -56,7 +59,7 @@ class EventInfoViewModel extends BaseModel {
     event = args["event"] as Event;
     exploreEventsInstance =
         args["exploreEventViewModel"] as ExploreEventsViewModel;
-    fabTitle = getFabTitle();
+    fabTitle = fabTitleText;
     await fetchCategories();
     await fetchAgendaItems();
     selectedCategories.clear();
@@ -72,7 +75,21 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> registerForEvent() async {
-    // if event registration is open and user not already registered for the event.
+    final userConfig = locator<UserConfig>();
+    final currentUserId = userConfig.currentUser.id;
+
+    // Check if user is already registered for this event
+    final isAlreadyRegistered = attendees.any(
+      (attendee) => attendee.id == currentUserId,
+    );
+
+    if (isAlreadyRegistered) {
+      // Show appropriate message for duplicate registration
+      navigationService.showSnackBar(
+        'You are already registered for this event.',
+      );
+      return;
+    }
 
     navigationService.pushDialog(
       const CustomProgressDialog(
@@ -84,7 +101,6 @@ class EventInfoViewModel extends BaseModel {
     final registerResult =
         await locator<EventService>().registerForAnEvent(event.id!);
     if (registerResult != null) {
-      final userConfig = locator<UserConfig>();
       attendees.add(
         Attendee(
           id: userConfig.currentUser.id,
@@ -94,21 +110,10 @@ class EventInfoViewModel extends BaseModel {
         ),
       );
     }
-    fabTitle = getFabTitle();
+    fabTitle = fabTitleText;
     navigationService.pop();
     notifyListeners();
     await locator<EventService>().getEvents();
-  }
-
-  /// The funtion returns title to be displayed on Floating Action Button.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: Returns the title to be displayed on Floating Action Button.
-  String getFabTitle() {
-    return "Register";
   }
 
   /// This function is used to create a new volunteer group for an event.
