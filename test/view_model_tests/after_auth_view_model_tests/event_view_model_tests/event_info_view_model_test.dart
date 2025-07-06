@@ -609,7 +609,9 @@ void main() {
       expect(model.selectedCategories.length, 2);
       expect(model.selectedCategories[0].id, '1');
       expect(model.selectedCategories[1].id, '2');
-      expect(listenerCalled, isTrue, reason: 'Listener should be notified when selected categories are set');
+      expect(listenerCalled, isTrue,
+          reason:
+              'Listener should be notified when selected categories are set');
     });
 
     test('createVolunteerGroup error handling', () async {

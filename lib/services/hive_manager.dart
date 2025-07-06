@@ -122,7 +122,7 @@ class HiveManager {
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
-    
+
     // Migrate Event data before opening the box
     await _migrateEventData();
     await openBox<Event>(HiveKeys.eventFeedKey);
@@ -176,7 +176,7 @@ class HiveManager {
       // Check if the Event box already exists
       if (Hive.isBoxOpen(HiveKeys.eventFeedKey)) {
         final box = Hive.box<Event>(HiveKeys.eventFeedKey);
-        
+
         // Get all existing events
         final existingEvents = <Event>[];
         for (final key in box.keys) {
