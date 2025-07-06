@@ -489,6 +489,9 @@ void main() {
       final Event event1 = Event(id: "1");
       model.event = event1;
 
+      // Setup userConfig to ensure organization ID is available
+      getAndRegisterUserConfig();
+
       final eventService = getAndRegisterEventService();
 
       when(
@@ -496,7 +499,12 @@ void main() {
           'title': 'Test Agenda',
           'description': 'Test Description',
           'duration': '1h',
-          'eventId': '1',
+          'attachments': null,
+          'relatedEventId': '1',
+          'urls': null,
+          'categories': null,
+          'sequence': 1,
+          'organizationId': 'XYZ',
         }),
       ).thenThrow(Exception('Create agenda item failed'));
 
@@ -592,11 +600,18 @@ void main() {
         AgendaCategory(id: '2', name: 'Category 2'),
       ];
 
+      // Track if listener was notified
+      bool listenerCalled = false;
+      model.addListener(() {
+        listenerCalled = true;
+      });
+
       model.setSelectedCategories(categories);
 
       expect(model.selectedCategories.length, 2);
       expect(model.selectedCategories[0].id, '1');
       expect(model.selectedCategories[1].id, '2');
+      expect(listenerCalled, isTrue, reason: 'Listener should be notified when selected categories are set');
     });
 
     test('createVolunteerGroup error handling', () async {

@@ -197,9 +197,7 @@ class HiveManager {
         // Re-add events with updated schema version
         for (final event in existingEvents) {
           // Ensure schema version is set
-          if (event.schemaVersion == null) {
-            event.schemaVersion = 2;
-          }
+          event.schemaVersion ??= 2;
           await box.put(event.id, event);
         }
 

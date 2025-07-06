@@ -189,12 +189,7 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchCategories() async {
     try {
-      final orgId = userConfig.currentOrg.id;
-      if (orgId == null || orgId == 'null' || orgId.isEmpty) {
-        throw Exception(
-          'Organization ID is not set. Please select an organization.',
-        );
-      }
+      final orgId = _getValidatedOrgId();
       final result = await locator<EventService>().fetchAgendaCategories(orgId)
           as QueryResult;
 
@@ -210,6 +205,26 @@ class EventInfoViewModel extends BaseModel {
     } catch (e) {
       print('Error fetching categories: $e');
     }
+  }
+
+  /// Validates and returns the current organization ID.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The validated organization ID.
+  ///
+  /// **throws**:
+  /// * `Exception`: If the organization ID is null, 'null', or empty.
+  String _getValidatedOrgId() {
+    final orgId = userConfig.currentOrg.id;
+    if (orgId == null || orgId == 'null' || orgId.isEmpty) {
+      throw Exception(
+        'Organization ID is not set. Please select an organization.',
+      );
+    }
+    return orgId;
   }
 
   /// method to select multiple categories.
@@ -273,12 +288,7 @@ class EventInfoViewModel extends BaseModel {
     int? sequence,
   }) async {
     try {
-      final orgId = userConfig.currentOrg.id;
-      if (orgId == null || orgId == 'null' || orgId.isEmpty) {
-        throw Exception(
-          'Organization ID is not set. Please select an organization.',
-        );
-      }
+      final orgId = _getValidatedOrgId();
       final variables = {
         'title': title,
         'description': description,
