@@ -110,6 +110,10 @@ void main() {
 
       await tester.tap(find.text('Done'));
       await tester.pump();
+
+      verify(
+        service.editEvent(eventId: '1', variables: anyNamed('variables')),
+      );
     });
     testWidgets('Tap on Add Image', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));

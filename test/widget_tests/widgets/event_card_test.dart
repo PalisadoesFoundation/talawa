@@ -13,7 +13,7 @@ import '../../helpers/test_locator.dart';
 
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
-Event getEvent({bool isPublic = false}) {
+Event getEvent({bool? isRegistered, bool isPublic = false}) {
   return Event(
     id: "event123",
     name: "Testing",

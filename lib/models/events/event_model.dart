@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -28,20 +29,16 @@ class Event {
       endAt: json['endAt']?.toString(),
       organization: json['organization'] == null
           ? null
-          : OrgInfo(
-              id: (json['organization'] as Map<String, dynamic>)['id']
-                  ?.toString(),
-              name: (json['organization'] as Map<String, dynamic>)['name']
-                  ?.toString(),
-            ),
+          : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
       creator: json['creator'] == null
           ? null
-          : User(
-              id: (json['creator'] as Map<String, dynamic>)['id']?.toString(),
-              firstName:
-                  (json['creator'] as Map<String, dynamic>)['name']?.toString(),
-            ),
-      attachments: json['attachments'] as List<dynamic>?,
+          : User.fromJson(json['creator'] as Map<String, dynamic>),
+      attachments: json['attachments'] != null
+          ? (json['attachments'] as List<dynamic>)
+              .map((attachment) =>
+                  Attachment.fromJson(attachment as Map<String, dynamic>))
+              .toList()
+          : null,
     );
   }
 
@@ -75,39 +72,76 @@ class Event {
 
   /// Attachments for the event.
   @HiveField(7)
-  List<dynamic>? attachments;
+  List<Attachment>? attachments;
+
+  /// Cached DateTime object for the start time to avoid repeated parsing.
+  DateTime? _cachedStartDateTime;
+
+  /// Cached DateTime object for the end time to avoid repeated parsing.
+  DateTime? _cachedEndDateTime;
+
+  // DateFormat instances for consistent formatting
+  static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+  static final DateFormat _timeFormat = DateFormat('HH:mm:ss');
 
   /// Returns the start date of the event in 'yyyy-MM-dd' format, or null if unavailable or parsing fails.
   String? get startDate {
     if (startAt == null) return null;
-    try {
-      final dt = DateTime.parse(startAt!);
-      return "${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
-    } catch (e) {
+
+    // Use cached DateTime if available
+    if (_cachedStartDateTime != null) {
+      return _dateFormat.format(_cachedStartDateTime!);
+    }
+
+    // Parse and cache the DateTime
+    _cachedStartDateTime = DateTime.tryParse(startAt!);
+    if (_cachedStartDateTime == null) {
+      // Log parsing error for debugging
+      print('Failed to parse startAt: $startAt');
       return null;
     }
+
+    return _dateFormat.format(_cachedStartDateTime!);
   }
 
   /// Returns the start time of the event in 'HH:mm:ss' format, or null if unavailable or parsing fails.
   String? get startTime {
     if (startAt == null) return null;
-    try {
-      final dt = DateTime.parse(startAt!);
-      return "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}:${dt.second.toString().padLeft(2, '0')}";
-    } catch (e) {
+
+    // Use cached DateTime if available
+    if (_cachedStartDateTime != null) {
+      return _timeFormat.format(_cachedStartDateTime!);
+    }
+
+    // Parse and cache the DateTime
+    _cachedStartDateTime = DateTime.tryParse(startAt!);
+    if (_cachedStartDateTime == null) {
+      // Log parsing error for debugging
+      print('Failed to parse startAt: $startAt');
       return null;
     }
+
+    return _timeFormat.format(_cachedStartDateTime!);
   }
 
   /// Returns the end date of the event in 'yyyy-MM-dd' format, or null if unavailable or parsing fails.
   String? get endDate {
     if (endAt == null) return null;
-    try {
-      final dt = DateTime.parse(endAt!);
-      return "${dt.year}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
-    } catch (e) {
+
+    // Use cached DateTime if available
+    if (_cachedEndDateTime != null) {
+      return _dateFormat.format(_cachedEndDateTime!);
+    }
+
+    // Parse and cache the DateTime
+    _cachedEndDateTime = DateTime.tryParse(endAt!);
+    if (_cachedEndDateTime == null) {
+      // Log parsing error for debugging
+      print('Failed to parse endAt: $endAt');
       return null;
     }
+
+    return _dateFormat.format(_cachedEndDateTime!);
   }
 
   /// Returns the end time of the event in 'HH:mm:ss' format, or null if unavailable or parsing fails.
@@ -116,12 +150,83 @@ class Event {
   /// returning it as a string in 'HH:mm:ss' format, or null if [endAt] is not set or cannot be parsed.
   String? get endTime {
     if (endAt == null) return null;
-    try {
-      final dt = DateTime.parse(endAt!);
-      return "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}:${dt.second.toString().padLeft(2, '0')}";
-    } catch (e) {
+
+    // Use cached DateTime if available
+    if (_cachedEndDateTime != null) {
+      return _timeFormat.format(_cachedEndDateTime!);
+    }
+
+    // Parse and cache the DateTime
+    _cachedEndDateTime = DateTime.tryParse(endAt!);
+    if (_cachedEndDateTime == null) {
+      // Log parsing error for debugging
+      print('Failed to parse endAt: $endAt');
       return null;
     }
+
+    return _timeFormat.format(_cachedEndDateTime!);
+  }
+}
+
+/// This class creates an attachment model and returns an Attachment instance.
+@HiveType(typeId: 12)
+class Attachment {
+  Attachment({
+    this.id,
+    this.name,
+    this.url,
+    this.type,
+    this.size,
+  });
+
+  /// Creates an Attachment instance from a JSON map.
+  factory Attachment.fromJson(Map<String, dynamic> json) {
+    return Attachment(
+      id: json['id']?.toString() ?? json['_id']?.toString(),
+      name: json['name']?.toString(),
+      url: json['url']?.toString(),
+      type: json['type']?.toString(),
+      size: json['size']?.toString(),
+    );
+  }
+
+  /// Unique identifier for the attachment.
+  @HiveField(0)
+  String? id;
+
+  /// The name of the attachment file.
+  @HiveField(1)
+  String? name;
+
+  /// The URL where the attachment can be accessed.
+  @HiveField(2)
+  String? url;
+
+  /// The MIME type of the attachment.
+  @HiveField(3)
+  String? type;
+
+  /// The size of the attachment in bytes.
+  @HiveField(4)
+  String? size;
+
+  /// Converts the Attachment instance to a map structure.
+  ///
+  /// This method is used to convert the Attachment instance to a map structure that can be converted to a JSON object.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: A map structure that can be converted to a JSON object.
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['url'] = this.url;
+    data['type'] = this.type;
+    data['size'] = this.size;
+    return data;
   }
 }
 

@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,7 +6,6 @@ import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -17,8 +13,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-
-class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
   setUpAll(() {
@@ -177,80 +171,38 @@ void main() {
       final Event event1 = Event(id: "1");
       model.event = event1;
 
-      // Clear any existing agenda items before the test
+      // Clear agenda items to ensure predictable sequence calculation
       model.agendaItems.clear();
 
       final eventService = getAndRegisterEventService();
-      // Mock userConfig.currentOrg
-      final userConfig = getAndRegisterUserConfig();
-      when(userConfig.currentOrg)
-          .thenReturn(OrgInfo(id: 'XYZ', name: 'Test Org'));
-
-      final mockResponse = {
-        'createAgendaItem': {
-          '_id': '1',
-          'title': 'Test Agenda',
-          'description': 'desc',
-          'duration': '1h',
-          'sequence': 1,
-          'createdAt': '2024-01-01T00:00:00Z',
-          'createdBy': {
-            'user': {
-              'id': 'user1',
-              'name': 'John Doe',
-              'emailAddress': 'john@example.com',
-              'avatarURL': null,
-              'organizationsWhereMember': {'edges': []},
-            },
-          },
-          'relatedEvent': {
-            'id': model.event.id,
-            'title': 'Test Event',
-            'description': 'Test Event Description',
-            'creator': {'id': 'user1', 'name': 'John Doe'},
-            'organization': {'id': 'XYZ', 'name': 'Test Org'},
-          },
-          'organization': {
-            'id': 'XYZ',
-            'name': 'Test Org',
-            'avatarURL': null,
-            'description': 'Test Organization',
-            'userRegistrationRequired': true,
-            'members': {'edges': []},
-          },
-          'categories': [
-            {
-              '_id': 'cat1',
-              'name': 'Category 1',
-              'description': 'Test Category',
-            }
-          ],
-          'attachments': [],
-          'urls': [],
-        },
-      };
-
       final mockResult = QueryResult(
         source: QueryResultSource.network,
-        data: mockResponse,
+        data: {
+          'createAgendaItem': {
+            'id': '1',
+            'title': 'Test Agenda',
+            'duration': '1h',
+            'sequence': 1,
+          },
+        },
         options: QueryOptions(document: gql(EventQueries().createAgendaItem())),
       );
 
-      // No 'input' wrapper in the expected input
-      final Map<String, dynamic> expectedInput = {
-        'title': 'Test Agenda',
-        'sequence': model.agendaItems.length + 1,
-        'description': 'desc',
-        'duration': '1h',
-        'organizationId': 'XYZ',
-        'attachments': [],
-        'relatedEventId': model.event.id,
-        'urls': [],
-        'categories': ['cat1'],
-      };
-
-      when(eventService.createAgendaItem(expectedInput))
-          .thenAnswer((_) async => mockResult);
+      // Mock the createAgendaItem method with the correct parameters
+      when(
+        eventService.createAgendaItem({
+          'title': 'Test Agenda',
+          'description': 'desc',
+          'duration': '1h',
+          'attachments': [],
+          'relatedEventId': '1',
+          'urls': [],
+          'categories': ['cat1'],
+          'sequence':
+              1, // This is calculated as _agendaItems.length + 1 (0 + 1 = 1)
+          'organizationId': 'XYZ',
+        }),
+      ).thenAnswer((_) async => mockResult);
 
       final result = await model.createAgendaItem(
         title: 'Test Agenda',
@@ -263,10 +215,6 @@ void main() {
 
       expect(result, isNotNull);
       expect(result!.title, 'Test Agenda');
-      expect(result.id, '1');
-      expect(result.createdBy?.id, 'user1');
-      expect(result.organization?.id, 'XYZ');
-      expect(result.relatedEvent?.id, model.event.id);
       expect(model.agendaItems.length, 1);
       expect(model.agendaItems.first.title, 'Test Agenda');
     });

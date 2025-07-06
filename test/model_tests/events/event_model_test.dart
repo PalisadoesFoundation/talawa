@@ -26,8 +26,10 @@ final event = Event(
 
 final eventJson = {
   'creator': {
-    'id': '123',
-    'name': 'Ayush Chaudhary',
+    'user': {
+      'id': '123',
+      'name': 'Ayush Chaudhary',
+    },
   },
   'id': '12',
   'name': 'for test only',
@@ -44,8 +46,8 @@ final eventJson = {
 final eventFromJson = Event(
   creator: User(
     id: '123',
-    firstName: 'Ayush Chaudhary',
-    lastName: null,
+    firstName: 'Ayush',
+    lastName: 'Chaudhary',
     email: null,
   ),
   id: '12',
@@ -62,17 +64,17 @@ void main() {
     test('Test Event fromJson with complete data', () {
       final parsedEvent = Event.fromJson(eventJson);
 
-      expect(eventFromJson.creator?.id, parsedEvent.creator?.id);
-      expect(eventFromJson.creator?.firstName, parsedEvent.creator?.firstName);
-      expect(eventFromJson.creator?.lastName, parsedEvent.creator?.lastName);
-      expect(eventFromJson.creator?.email, parsedEvent.creator?.email);
-      expect(eventFromJson.name, parsedEvent.name);
-      expect(eventFromJson.id, parsedEvent.id);
-      expect(eventFromJson.description, parsedEvent.description);
-      expect(eventFromJson.startAt, parsedEvent.startAt);
-      expect(eventFromJson.endAt, parsedEvent.endAt);
-      expect(eventFromJson.organization?.id, parsedEvent.organization?.id);
-      expect(eventFromJson.organization?.name, parsedEvent.organization?.name);
+      expect(parsedEvent.creator?.id, eventFromJson.creator?.id);
+      expect(parsedEvent.creator?.firstName, eventFromJson.creator?.firstName);
+      expect(parsedEvent.creator?.lastName, eventFromJson.creator?.lastName);
+      expect(parsedEvent.creator?.email, eventFromJson.creator?.email);
+      expect(parsedEvent.name, eventFromJson.name);
+      expect(parsedEvent.id, eventFromJson.id);
+      expect(parsedEvent.description, eventFromJson.description);
+      expect(parsedEvent.startAt, eventFromJson.startAt);
+      expect(parsedEvent.endAt, eventFromJson.endAt);
+      expect(parsedEvent.organization?.id, eventFromJson.organization?.id);
+      expect(parsedEvent.organization?.name, eventFromJson.organization?.name);
     });
 
     test('Test Event fromJson with _id field', () {
@@ -174,7 +176,20 @@ void main() {
         endAt: '2024-01-01T20:00:00.000Z',
         organization: OrgInfo(id: 'org1', name: 'Test Org'),
         creator: User(id: 'user1', firstName: 'John'),
-        attachments: ['file1.pdf', 'file2.jpg'],
+        attachments: [
+          Attachment(
+              id: '1',
+              name: 'file1.pdf',
+              url: 'url1',
+              type: 'application/pdf',
+              size: '1024'),
+          Attachment(
+              id: '2',
+              name: 'file2.jpg',
+              url: 'url2',
+              type: 'image/jpeg',
+              size: '2048'),
+        ],
       );
 
       expect(event.id, 'test-id');
@@ -184,7 +199,9 @@ void main() {
       expect(event.endAt, '2024-01-01T20:00:00.000Z');
       expect(event.organization?.id, 'org1');
       expect(event.creator?.id, 'user1');
-      expect(event.attachments, ['file1.pdf', 'file2.jpg']);
+      expect(event.attachments?.length, 2);
+      expect(event.attachments?[0].name, 'file1.pdf');
+      expect(event.attachments?[1].name, 'file2.jpg');
     });
   });
 

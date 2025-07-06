@@ -91,8 +91,8 @@ class EditEventViewModel extends BaseModel {
   void _fillEditForm() {
     eventTitleTextController.text = _event.name ?? '';
     eventDescriptionTextController.text = _event.description ?? '';
-    // Initialize location field as empty since location is optional
-    eventLocationTextController.text = '';
+    // Set a default location since the new Event model doesn't have location
+    eventLocationTextController.text = 'Default Location';
 
     if (_event.startAt != null) {
       final startDateTime = DateTime.parse(_event.startAt!);
