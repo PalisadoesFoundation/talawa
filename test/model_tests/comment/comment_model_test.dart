@@ -3,8 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-import '../../helpers/test_json_utils.dart';
-
 void main() {
   final comment = Comment(
     creator: User(
@@ -34,7 +32,7 @@ void main() {
 
   group('Test Comment model', () {
     test('Test task json', () {
-      final commentFromJson = TestJsonUtils.createCommentFromJson(commentJson);
+      final commentFromJson = Comment.fromJson(commentJson);
       expect(comment.creator?.id, commentFromJson.creator?.id);
       expect(comment.creator?.firstName, commentFromJson.creator?.firstName);
       expect(comment.creator?.lastName, commentFromJson.creator?.lastName);

@@ -82,7 +82,7 @@ class TestJsonUtils {
   /// * `Comment`: Properly constructed Comment instance
   static Comment createCommentFromJson(Map<String, dynamic> json) {
     return Comment(
-      body: json['text'] as String?,
+      body: json['body'] as String?,
       createdAt: json['createdAt'] as String?,
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
     );

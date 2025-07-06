@@ -111,7 +111,6 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => ImageCropper());
   locator.registerSingleton(() => OrganizationService());
   locator.registerSingleton(Validator());
-  locator.registerLazySingleton(() => ChatService());
   locator.registerLazySingleton(() => PinnedPostService());
 
   //graphql
