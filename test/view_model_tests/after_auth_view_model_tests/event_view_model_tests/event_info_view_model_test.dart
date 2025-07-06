@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -81,7 +80,6 @@ void main() {
       // Should show snackbar for duplicate registration
       verify(navigationService
           .showSnackBar('You are already registered for this event.'));
-
       // Should not call the registration service
       final eventService = getAndRegisterEventService();
       verifyNever(eventService.registerForAnEvent('1'));
