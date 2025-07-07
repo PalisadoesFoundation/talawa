@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

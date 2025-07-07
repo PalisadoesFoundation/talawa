@@ -6,7 +6,7 @@ import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-// import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
@@ -225,16 +225,13 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Events'),
       ),
-
-      /// Makes chat inaccessible for the user
-      //TODO: add chat functionality
-      // BottomNavigationBarItem(
-      //   icon: Icon(
-      //     Icons.chat_outlined,
-      //     key: keyBNChat,
-      //   ),
-      //   label: AppLocalizations.of(context)!.strictTranslate('Chat'),
-      // ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.chat_outlined,
+          key: keyBNChat,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      ),
       BottomNavigationBarItem(
         icon: Icon(
           Icons.account_circle,
@@ -258,9 +255,9 @@ class MainScreenViewModel extends BaseModel {
         //   key: const Key('AddPost'),
         //   drawerKey: MainScreenViewModel.scaffoldKey,
         // ),
-        // const ChatPage(
-        //   key: Key('Chats'),
-        // ),
+        const ChatPage(
+          key: Key('Chats'),
+        ),
         ProfilePage(
           key: keySPEditProfile,
           homeModel: this,
@@ -280,9 +277,9 @@ class MainScreenViewModel extends BaseModel {
         //   key: const Key('DemoAddPost'),
         //   drawerKey: MainScreenViewModel.scaffoldKey,
         // ),
-        // const ChatPage(
-        //   key: Key('Chats'),
-        // ),
+        const ChatPage(
+          key: Key('DemoChats'),
+        ),
         DemoProfilePage(
           key: const Key('DemoProfile'),
           homeModel: this,
@@ -467,13 +464,22 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void showHome(TargetFocus clickedTarget) {
+  Future<void> showHome(TargetFocus clickedTarget) async {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
         break;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();
+        break;
+      case "keyBNHome":
+        // Close drawer when moving to bottom navigation tour
+        if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
+          scaffoldKey.currentState?.closeDrawer();
+          // Add a small delay to let the drawer close animation complete
+          await Future.delayed(const Duration(milliseconds: 300));
+        }
+        break;
     }
   }
 
@@ -540,7 +546,7 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          tourProfile();
+          tourChat();
         }
       },
       onClickTarget: (TargetFocus a) {},
@@ -572,8 +578,7 @@ class MainScreenViewModel extends BaseModel {
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
-          // tourChat();
-          tourProfile();
+          tourChat();
         }
       },
       onClickTarget: (TargetFocus a) {},

@@ -1,11 +1,10 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+
+import '../../helpers/test_json_utils.dart';
 
 final u1 = User(
   id: '123',
@@ -119,29 +118,14 @@ void main() {
           },
         ],
       };
-      final postFromJson = Post.fromJson(postJson);
+      final postFromJson = TestJsonUtils.createPostFromJson(postJson);
       post.getPostCreatedDuration();
       expect(post.creator?.id, postFromJson.creator?.id);
       expect(post.creator?.firstName, postFromJson.creator?.firstName);
       expect(post.creator?.lastName, postFromJson.creator?.lastName);
       expect(post.creator?.email, postFromJson.creator?.email);
     });
-    // final post = Post(
-    //   creator: User(
-    //     id: '123',
-    //     firstName: 'John',
-    //     lastName: 'Doe',
-    //     email: 'test@test.com',
-    //   ),
-    //   sId: "sid",
-    //   createdAt: myBirthday,
-    //   description: 'test description',
-    //   imageUrl: 'https://image.com',
-    //   videoUrl: 'https://image.com',
-    //   organization: OrgInfo(admins: users),
-    //   likedBy: likeby,
-    //   comments: comments,
-    // );
+
     group('check if getPostCreatedBuration is working', () {
       test('check if getPostCreatedBuration is working', () {
         final myBirthday =
