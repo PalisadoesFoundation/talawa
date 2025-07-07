@@ -194,10 +194,16 @@ class HiveManager {
         return true;
       }
 
+      // Read and store all event data before clearing the box
+      final tempEventData = <dynamic, dynamic>{};
+      for (final key in allKeys) {
+        tempEventData[key] = box.get(key);
+      }
+
       // Clear the box to remove old data
       await box.clear();
 
-      // Process events in batches
+      // Process events in batches from the stored data
       for (int i = 0; i < totalEvents; i += batchSize) {
         final batchEnd = (i + batchSize < totalEvents) ? i + batchSize : totalEvents;
         final batchKeys = allKeys.sublist(i, batchEnd);
@@ -205,7 +211,7 @@ class HiveManager {
         for (final key in batchKeys) {
           try {
             // Try reading as raw data (Map<String, dynamic>)
-            final rawData = box.get(key) as Map<String, dynamic>?;
+            final rawData = tempEventData[key] as Map<String, dynamic>?;
             if (rawData != null) {
               batchMigrated[key.toString()] = _migrateRawEventData(rawData, currentSchemaVersion);
               continue;
@@ -213,8 +219,8 @@ class HiveManager {
           } catch (_) {}
           try {
             // Try reading as Event object
-            final event = box.get(key);
-            if (event != null) {
+            final event = tempEventData[key];
+            if (event != null && event is Event) {
               final rawData = _eventToRawData(event);
               batchMigrated[key.toString()] = _migrateRawEventData(rawData, currentSchemaVersion);
             }
