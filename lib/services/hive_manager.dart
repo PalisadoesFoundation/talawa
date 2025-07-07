@@ -17,10 +17,19 @@ import 'package:talawa/models/user/user_info.dart';
 /// various models used throughout the application. It also provides a method to close all opened Hive boxes
 /// when they are no longer needed.
 class HiveManager {
-  /// Maximum number of days in the future that an event date can be set to.
-  /// This prevents events from being scheduled too far in the future.
-  static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
+--- a/lib/services/hive_manager.dart
++++ b/lib/services/hive_manager.dart
+@@ -18,9 +18,6 @@ class HiveManager {
+   /// Service class for managing Hive boxes.
+   ///
 
+-  /// Maximum number of days in the future that an event date can be set to.
+-  /// This prevents events from being scheduled too far in the future.
+-  static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
+
+   /// Registers Hive adapters and opens required boxes.
+   static Future<void> _openBoxes() async {
+     // ...
   /// Initializes Hive with the specified directory.
   ///
   /// **params**:
