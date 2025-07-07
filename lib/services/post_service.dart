@@ -20,9 +20,6 @@ import 'package:talawa/utils/post_queries.dart';
 ///
 /// Services include:
 /// * `getPosts` : to get all posts of the organization.
-/// * `addLike` : to add like to the post.
-/// * `removeLike` : to remove the like from the post.
-
 class PostService extends BaseFeedManager<Post> {
   // constructor
   PostService() : super(HiveKeys.postFeedKey) {
