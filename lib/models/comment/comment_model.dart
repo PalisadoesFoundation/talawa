@@ -4,7 +4,7 @@ import 'package:talawa/models/user/user_info.dart';
 part 'comment_model.g.dart';
 
 ///This class returns a Comment instance.
-@HiveType(typeId: 12)
+@HiveType(typeId: 13)
 class Comment {
   Comment({this.text, this.createdAt, this.creator, this.post, this.likeCount});
   //Creating a new Comment instance from a map structure.

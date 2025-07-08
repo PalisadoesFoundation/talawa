@@ -10,6 +10,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -257,28 +258,48 @@ void main() {
 
     testWidgets("Check add volunteer button work properly", (tester) async {
       final mockEventService = locator<EventService>();
+      final mockOrgService =
+          locator<OrganizationService>() as MockOrganizationService;
+
+      // Mock the organization members list
+      when(mockOrgService.getOrgMembersList(any)).thenAnswer(
+        (_) async => [
+          User(
+            id: "fakeUser1",
+            firstName: "Parag",
+            lastName: "xoxo",
+          ),
+          User(
+            id: "fakeUser2",
+            firstName: "Parag1",
+            lastName: "xoxo",
+          ),
+        ],
+      );
 
       final mockResult1 = {
         'createEventVolunteer': {
-          '_id': "volunteer_fakeUser1", // Unique volunteer record ID
+          '_id': "volunteer_fakeUser1",
           'user': {
-            'id': "fakeUser1", // Use 'id' not '_id' for fromOrg: true
-            'name': 'Parag xoxo', // Use full name for fromOrg: true
-            'avatarURL': null,
+            'user': {
+              'id': "fakeUser1",
+              'name': 'Parag xoxo',
+              'avatarURL': null,
+            },
           },
-          'response': null,
         },
       };
 
       final mockResult2 = {
         'createEventVolunteer': {
-          '_id': "volunteer_fakeUser2", // Unique volunteer record ID
+          '_id': "volunteer_fakeUser2",
           'user': {
-            'id': "fakeUser2", // Use 'id' not '_id' for fromOrg: true
-            'name': 'Parag1 xoxo', // Use full name for fromOrg: true
-            'avatarURL': null,
+            'user': {
+              'id': "fakeUser2",
+              'name': 'Parag1 xoxo',
+              'avatarURL': null,
+            },
           },
-          'response': null,
         },
       };
 

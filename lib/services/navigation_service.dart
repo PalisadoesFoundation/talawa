@@ -31,8 +31,11 @@ class NavigationService {
   /// **returns**:
   /// * `Future<dynamic>`: resolves if the Screen was succesfully pushed.
   Future<dynamic> pushScreen(String routeName, {dynamic arguments}) {
-    return navigatorKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
+    final currentState = navigatorKey.currentState;
+    if (currentState == null) {
+      return Future.value();
+    }
+    return currentState.pushNamed(routeName, arguments: arguments);
   }
 
   /// This function pop the initial route and push the new route to the navigator.
@@ -44,7 +47,11 @@ class NavigationService {
   /// **returns**:
   /// * `Future<dynamic>`: resolves if the Screen was succesfully popAndPushed.
   Future<dynamic> popAndPushScreen(String routeName, {dynamic arguments}) {
-    navigatorKey.currentState!.pop();
+    final currentState = navigatorKey.currentState;
+    if (currentState == null) {
+      return Future.value();
+    }
+    currentState.pop();
     return pushScreen(routeName, arguments: arguments);
   }
 
@@ -57,8 +64,12 @@ class NavigationService {
   /// **returns**:
   /// * `Future<dynamic>`: resolves if the Screen was succesfully pushedReplacementScreen.
   Future<dynamic> pushReplacementScreen(String routeName, {dynamic arguments}) {
-    return navigatorKey.currentState!
-        .pushReplacementNamed(routeName, arguments: arguments);
+    final currentState = navigatorKey.currentState;
+    if (currentState == null) {
+      // Return a completed future if navigator is not available
+      return Future.value();
+    }
+    return currentState.pushReplacementNamed(routeName, arguments: arguments);
   }
 
   // void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
@@ -83,7 +94,11 @@ class NavigationService {
     String tillRoute, {
     dynamic arguments,
   }) {
-    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
+    final currentState = navigatorKey.currentState;
+    if (currentState == null) {
+      return Future.value();
+    }
+    return currentState.pushNamedAndRemoveUntil(
       routeName,
       ModalRoute.withName(tillRoute),
       arguments: arguments,
@@ -98,8 +113,11 @@ class NavigationService {
   /// **returns**:
   ///   None
   void pushDialog(Widget dialog) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
     showDialog(
-      context: navigatorKey.currentContext!,
+      context: context,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -120,13 +138,15 @@ class NavigationService {
     String message, {
     Duration duration = const Duration(seconds: 2),
   }) {
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         duration: duration,
         content: Text(
-          AppLocalizations.of(navigatorKey.currentContext!)!
-              .strictTranslate(message),
+          AppLocalizations.of(context)!.strictTranslate(message),
         ),
       ),
     );
@@ -145,8 +165,11 @@ class NavigationService {
     String errorMessage,
     MessageType messageType,
   ) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
     final Duration duration = Duration(milliseconds: errorMessage.length * 80);
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         padding: EdgeInsets.zero,
         duration: duration,
@@ -169,8 +192,11 @@ class NavigationService {
   /// **returns**:
   ///   None
   void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
     showDialog(
-      context: navigatorKey.currentContext!,
+      context: context,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -190,6 +216,9 @@ class NavigationService {
   /// **returns**:
   ///   None
   void showCustomToast(String msg) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
     DelightToastBar(
       builder: (context) {
         return ToastCard(
@@ -207,7 +236,7 @@ class NavigationService {
           color: Colors.black.withAlpha((1.0 * 255).toInt()),
         );
       },
-    ).show(navigatorKey.currentContext!);
+    ).show(context);
   }
 
   /// This function pops the current state.
@@ -218,8 +247,9 @@ class NavigationService {
   /// **returns**:
   ///   None
   void pop() {
-    if (navigatorKey.currentState?.canPop() ?? false) {
-      return navigatorKey.currentState!.pop();
+    final currentState = navigatorKey.currentState;
+    if (currentState?.canPop() ?? false) {
+      currentState!.pop();
     }
   }
 

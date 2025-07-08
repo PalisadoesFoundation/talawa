@@ -14,13 +14,7 @@ void main() {
         EventVolunteer(id: "volunteer2"),
       ];
 
-      final event = Event(
-        id: 'fakeEventId',
-        name: 'Sample Event',
-        description: 'Sample Description',
-        startAt: '2024-08-11T10:00:00Z',
-        endAt: '2024-08-12T12:00:00Z',
-      );
+      final event = Event(id: 'fakeEventId', name: 'Sample Event');
 
       final eventVolunteerGroup = EventVolunteerGroup(
         id: 'group1',
@@ -38,9 +32,7 @@ void main() {
         '_id': 'group1',
         'createdAt': '2024-08-01',
         'creator': {
-          'user': {
-            'id': 'fakeCreatorId',
-          },
+          'id': 'fakeCreatorId',
         },
         'event': {
           '_id': 'fakeEventId',
@@ -50,9 +42,7 @@ void main() {
           'endAt': '2024-08-12T12:00:00Z',
         },
         'leader': {
-          'user': {
-            'id': 'fakeLeaderId',
-          },
+          'id': 'fakeLeaderId',
         },
         'name': 'Group Name',
         'updatedAt': '2024-08-05',
@@ -74,8 +64,8 @@ void main() {
       );
 
       expect(
-        eventVolunteerGroup.creator?.id,
         eventVolunteerGroupFromJson.creator?.id,
+        'fakeCreatorId',
       );
 
       expect(

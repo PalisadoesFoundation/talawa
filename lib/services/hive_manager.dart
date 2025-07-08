@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -17,19 +16,10 @@ import 'package:talawa/models/user/user_info.dart';
 /// various models used throughout the application. It also provides a method to close all opened Hive boxes
 /// when they are no longer needed.
 class HiveManager {
---- a/lib/services/hive_manager.dart
-+++ b/lib/services/hive_manager.dart
-@@ -18,9 +18,6 @@ class HiveManager {
-   /// Service class for managing Hive boxes.
-   ///
+  /// The maximum number of days in the future that an event date can be set to.
+  /// This prevents events from being scheduled too far in the future (10 years).
+  static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
 
--  /// Maximum number of days in the future that an event date can be set to.
--  /// This prevents events from being scheduled too far in the future.
--  static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
-
-   /// Registers Hive adapters and opens required boxes.
-   static Future<void> _openBoxes() async {
-     // ...
   /// Initializes Hive with the specified directory.
   ///
   /// **params**:
@@ -136,13 +126,12 @@ class HiveManager {
     await openBox(HiveKeys.urlBoxKey);
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
-
-    // Open Event box first, then migrate data
     await openBox<Event>(HiveKeys.eventFeedKey);
     final migrationSuccess = await _migrateEventData();
     if (!migrationSuccess) {
       print(
-          'Warning: Event data migration failed. Some events may be unavailable.',);
+        'Warning: Event data migration failed. Some events may be unavailable.',
+      );
     }
   }
 
@@ -214,7 +203,8 @@ class HiveManager {
 
       // Process events in batches from the stored data
       for (int i = 0; i < totalEvents; i += batchSize) {
-        final batchEnd = (i + batchSize < totalEvents) ? i + batchSize : totalEvents;
+        final batchEnd =
+            (i + batchSize < totalEvents) ? i + batchSize : totalEvents;
         final batchKeys = allKeys.sublist(i, batchEnd);
         final batchMigrated = <String, Event>{};
         for (final key in batchKeys) {
@@ -222,7 +212,8 @@ class HiveManager {
             // Try reading as raw data (Map<String, dynamic>)
             final rawData = tempEventData[key] as Map<String, dynamic>?;
             if (rawData != null) {
-              batchMigrated[key.toString()] = _migrateRawEventData(rawData, currentSchemaVersion);
+              batchMigrated[key.toString()] =
+                  _migrateRawEventData(rawData, currentSchemaVersion);
               continue;
             }
           } catch (_) {}
@@ -231,7 +222,8 @@ class HiveManager {
             final event = tempEventData[key];
             if (event != null && event is Event) {
               final rawData = _eventToRawData(event);
-              batchMigrated[key.toString()] = _migrateRawEventData(rawData, currentSchemaVersion);
+              batchMigrated[key.toString()] =
+                  _migrateRawEventData(rawData, currentSchemaVersion);
             }
           } catch (eventError) {
             print('Skipping corrupted event entry: $eventError');
@@ -342,7 +334,9 @@ class HiveManager {
   /// **returns**:
   /// * `Event`: The migrated event with updated schema version.
   static Event _migrateRawEventData(
-      Map<String, dynamic> rawData, int targetVersion,) {
+    Map<String, dynamic> rawData,
+    int targetVersion,
+  ) {
     final currentVersion = rawData['schemaVersion'] as int? ?? 1;
 
     // If already at target version, no migration needed
@@ -357,7 +351,10 @@ class HiveManager {
     while (currentSchemaVersion < targetVersion) {
       final nextVersion = currentSchemaVersion + 1;
       migratedData = _migrateRawEventDataToNextVersion(
-          migratedData, currentSchemaVersion, nextVersion,);
+        migratedData,
+        currentSchemaVersion,
+        nextVersion,
+      );
       currentSchemaVersion = nextVersion;
     }
 
@@ -405,7 +402,8 @@ class HiveManager {
       default:
         // Unknown version transition, set to target version
         print(
-            'Unknown version transition from $fromVersion to $toVersion, setting to $toVersion',);
+          'Unknown version transition from $fromVersion to $toVersion, setting to $toVersion',
+        );
         migratedData['schemaVersion'] = toVersion;
         return migratedData;
     }
@@ -427,7 +425,8 @@ class HiveManager {
   /// **returns**:
   /// * `Map<String, dynamic>`: The transformed raw data with version 2 schema.
   static Map<String, dynamic> _transformRawEventV1ToV2(
-      Map<String, dynamic> rawData,) {
+    Map<String, dynamic> rawData,
+  ) {
     final migratedData = <String, dynamic>{};
 
     // Map old field names to new schema - preserve all original data

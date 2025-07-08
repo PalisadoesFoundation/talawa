@@ -98,31 +98,27 @@ class TestJsonUtils {
   /// * `Event`: Properly constructed Event with extracted nested data
   static Event createEventFromJson(Map<String, dynamic> json) {
     return Event(
-      id: json['_id'] as String,
-      title: json['title'] as String?,
+      id: json['_id'] as String?,
+      name: json['name'] as String? ?? json['title'] as String?,
       description: json['description'] as String?,
-      location: json['location'] as String?,
-      recurring: json['recurring'] as bool?,
-      allDay: json['allDay'] as bool?,
-      startDate: json['startDate'] as String?,
-      endDate: json['endDate'] as String?,
-      startTime: json['startTime'] as String?,
-      endTime: json['endTime'] as String?,
-      isPublic: json['isPublic'] as bool?,
-      isRegistered: json['isRegistered'] as bool?,
-      isRegisterable: json['isRegisterable'] as bool?,
-      creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
+      startAt: json['startAt'] as String? ??
+          (json['startDate'] != null && json['startTime'] != null
+              ? '${json['startDate']}T${json['startTime']}Z'
+              : null),
+      endAt: json['endAt'] as String? ??
+          (json['endDate'] != null && json['endTime'] != null
+              ? '${json['endDate']}T${json['endTime']}Z'
+              : null),
       organization: json['organization'] == null
           ? null
-          // OrgInfo doesn't require nested user handling, use direct fromJson
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
-      admins: createUserListFromJson(json['admins'] as List<dynamic>?),
-      attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
-          ? null
-          : (json['attendees'] as List<dynamic>?)
-              // Attendee doesn't require nested user handling, use direct fromJson
-              ?.map((e) => Attendee.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
+      attachments: json['attachments'] != null
+          ? (json['attachments'] as List<dynamic>?)
+              ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : null,
+      schemaVersion: json['schemaVersion'] as int?,
     );
   }
 

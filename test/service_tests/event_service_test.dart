@@ -61,12 +61,16 @@ void main() {
               "name": "Test Org",
             },
             "creator": {
-              "id": "creator1",
-              "name": "Test Creator",
+              "user": {
+                "id": "creator1",
+                "name": "Test Creator",
+              },
             },
             "updater": {
-              "id": "creator1",
-              "name": "Test Creator",
+              "user": {
+                "id": "creator1",
+                "name": "Test Creator",
+              },
             },
             "attachments": [],
           }
@@ -266,12 +270,16 @@ void main() {
                   "name": "Organization Name",
                 },
                 "creator": {
-                  "id": "user123",
-                  "name": "Creator Name",
+                  "user": {
+                    "id": "user123",
+                    "name": "Creator Name",
+                  },
                 },
                 "updater": {
-                  "id": "user123",
-                  "name": "Creator Name",
+                  "user": {
+                    "id": "user123",
+                    "name": "Creator Name",
+                  },
                 },
                 "attachments": [
                   {
@@ -757,12 +765,16 @@ void main() {
               "name": "Organization 1",
             },
             "creator": {
-              "id": "creator1",
-              "name": "Creator One",
+              "user": {
+                "id": "creator1",
+                "name": "Creator One",
+              },
             },
             "updater": {
-              "id": "creator1",
-              "name": "Creator One",
+              "user": {
+                "id": "creator1",
+                "name": "Creator One",
+              },
             },
             "attachments": [
               {
@@ -782,12 +794,16 @@ void main() {
               "name": "Organization 2",
             },
             "creator": {
-              "id": "creator2",
-              "name": "Creator Two",
+              "user": {
+                "id": "creator2",
+                "name": "Creator Two",
+              },
             },
             "updater": {
-              "id": "creator2",
-              "name": "Creator Two",
+              "user": {
+                "id": "creator2",
+                "name": "Creator Two",
+              },
             },
             "attachments": [
               {

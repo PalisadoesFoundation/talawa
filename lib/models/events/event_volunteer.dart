@@ -23,10 +23,7 @@ class EventVolunteer {
       id: json['_id'] as String?,
       createdAt: json['createdAt'] as String?,
       creator: json['creator'] != null
-          ? User.fromJson(
-              json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
-            )
+          ? User.fromJson(json['creator'] as Map<String, dynamic>)
           : null,
       event: json['event'] != null
           ? Event.fromJson(json['event'] as Map<String, dynamic>)
@@ -39,7 +36,7 @@ class EventVolunteer {
       response: json['response'] as String?,
       updatedAt: json['updatedAt'] as String?,
       user: json['user'] != null
-          ? User.fromJson(json['user'] as Map<String, dynamic>, fromOrg: true)
+          ? User.fromJson(json['user'] as Map<String, dynamic>)
           : null,
     );
   }

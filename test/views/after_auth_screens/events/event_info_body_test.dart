@@ -8,7 +8,6 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/models/events/event_model.dart' show Attendee;
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
