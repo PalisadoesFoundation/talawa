@@ -19,7 +19,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
