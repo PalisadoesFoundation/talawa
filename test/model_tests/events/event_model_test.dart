@@ -284,22 +284,22 @@ void main() {
 
   group('Test Caching part', () {
     late final Box<Event> eventBox;
+    late final Box<Attendee> attendeeBox;
     setUpAll(() async {
       try {
         eventBox = await Hive.openBox<Event>('event_box');
+        attendeeBox = await Hive.openBox<Attendee>('attendee_box');
       } catch (e) {
         fail('Failed to open Hive box: $e');
       }
     });
+
     test('get and put', () async {
       try {
         await eventBox.put('key', event);
         final Event fetchedEvent = eventBox.get('key')!;
 
-        expect(
-          fetchedEvent,
-          isNotNull,
-        ); // Check that the fetched event is not null
+        expect(fetchedEvent, isNotNull);
         expect(fetchedEvent.id, event.id);
         expect(fetchedEvent.name, event.name);
         expect(fetchedEvent.description, event.description);
@@ -312,18 +312,26 @@ void main() {
       }
     });
 
-    test('test adapter', () {
-      final EventAdapter adapter1 = EventAdapter();
-      final EventAdapter adpater2 = EventAdapter();
+    test('test event with attachments', () async {
+      try {
+        final eventWithAttachments = Event(
+          id: 'event-with-attachments',
+          name: 'Event with Files',
+          attachments: [
+            Attachment(id: 'attach1', name: 'doc.pdf', size: 1024),
+            Attachment(id: 'attach2', name: 'img.jpg', size: 2048),
+          ],
+        );
 
-      expect(adpater2.hashCode, isA<int>());
-      expect(adpater2 == adapter1, true);
+        await eventBox.put('with_attachments', eventWithAttachments);
+        final fetched = eventBox.get('with_attachments')!;
 
-      final AttendeeAdapter adapter3 = AttendeeAdapter();
-      final AttendeeAdapter adapter4 = AttendeeAdapter();
-
-      expect(adapter3.hashCode, isA<int>());
-      expect(adapter3 == adapter4, true);
+        expect(fetched.attachments?.length, 2);
+        expect(fetched.attachments?[0].id, 'attach1');
+        expect(fetched.attachments?[1].size, 2048);
+      } catch (e) {
+        fail('Failed to test event with attachments: $e');
+      }
     });
 
     test('test schema version', () {
@@ -345,6 +353,82 @@ void main() {
 
       final event = Event.fromJson(json);
       expect(event.schemaVersion, 2);
+    });
+  });
+
+  group('Test Attachment Model', () {
+    test('Test Attachment constructor', () {
+      final attachment = Attachment(
+        id: 'attach1',
+        name: 'test.pdf',
+        url: 'https://example.com/test.pdf',
+        type: 'application/pdf',
+        size: 1024,
+      );
+
+      expect(attachment.id, 'attach1');
+      expect(attachment.name, 'test.pdf');
+      expect(attachment.url, 'https://example.com/test.pdf');
+      expect(attachment.type, 'application/pdf');
+      expect(attachment.size, 1024);
+    });
+
+    test('Test Attachment toJson', () {
+      final attachment = Attachment(
+        id: 'attach1',
+        name: 'test.pdf',
+        url: 'https://example.com/test.pdf',
+        type: 'application/pdf',
+        size: 1024,
+      );
+
+      final json = attachment.toJson();
+
+      expect(json['id'], 'attach1');
+      expect(json['name'], 'test.pdf');
+      expect(json['url'], 'https://example.com/test.pdf');
+      expect(json['type'], 'application/pdf');
+      expect(json['size'], 1024);
+    });
+
+    // Minimal tests to cover all Attachment.fromJson code paths
+    test('Test Attachment fromJson - id/_id fallback', () {
+      // Test _id fallback when id is not present
+      final json1 = {'_id': 'test', 'name': 'file.txt'};
+      final attachment1 = Attachment.fromJson(json1);
+      expect(attachment1.id, 'test');
+
+      // Test id when present
+      final json2 = {'id': 'test2', 'name': 'file2.txt'};
+      final attachment2 = Attachment.fromJson(json2);
+      expect(attachment2.id, 'test2');
+    });
+
+    test('Test Attachment fromJson - size parsing', () {
+      // Test size as int
+      final json1 = {'id': 'test1', 'size': 100};
+      final attachment1 = Attachment.fromJson(json1);
+      expect(attachment1.size, 100);
+
+      // Test size as parseable string
+      final json2 = {'id': 'test2', 'size': '200'};
+      final attachment2 = Attachment.fromJson(json2);
+      expect(attachment2.size, 200);
+
+      // Test size as unparseable string
+      final json3 = {'id': 'test3', 'size': 'invalid'};
+      final attachment3 = Attachment.fromJson(json3);
+      expect(attachment3.size, isNull);
+
+      // Test size as null
+      final json4 = {'id': 'test4', 'size': null};
+      final attachment4 = Attachment.fromJson(json4);
+      expect(attachment4.size, isNull);
+
+      // Test size as other type (double)
+      final json5 = {'id': 'test5', 'size': 12.5};
+      final attachment5 = Attachment.fromJson(json5);
+      expect(attachment5.size, isNull);
     });
   });
 }
