@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -55,13 +57,17 @@ Widget createApp() {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: const PinnedPostScreen(
-          post: {
-            'title': 'Sample Title',
-            'time': '23:00',
-            'postId': 'postId',
-            'imageUrl': 'imageUrl',
-          },
+        home: PinnedPostScreen(
+          post: Post(
+            caption: 'Sample Title',
+            createdAt: DateTime(2023, 10, 1, 23, 0),
+            pinnedAt: DateTime.now().subtract(const Duration(minutes: 5)),
+            id: 'postId',
+            attachments: [
+              AttachmentModel(url: 'https://example.com/image.jpg'),
+            ],
+          ),
+          cacheManager: MockCacheManager(),
         ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
@@ -109,9 +115,9 @@ void main() {
       expect(find.text('Sample Title'), findsOneWidget);
     });
 
-    testWidgets('Time', (tester) async {
+    testWidgets('Pinned post screen shows time', (tester) async {
       await showPinnedPostScreen(tester);
-      expect(find.text('23:00hr'), findsOneWidget);
+      expect(find.textContaining('Minutes Ago'), findsOneWidget);
     });
   });
 
@@ -119,26 +125,8 @@ void main() {
   testWidgets('Check if CachedNetworkImage is working', (tester) async {
     await mockNetworkImagesFor(() async {
       await showPinnedPostScreen(tester);
+      await tester.pumpAndSettle();
       expect(find.byType(CachedNetworkImage), findsOneWidget);
     });
-  });
-
-  testWidgets('Check if CachedNetworkImage shows CircularProgressIndicator',
-      (tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: PinnedPostScreen(
-          post: {
-            'title': 'Sample Title',
-            'time': '23:00',
-            'postId': 'postId',
-            'imageUrl': 'wrong_url',
-          },
-          cacheManager: GetIt.instance.get<BaseCacheManager>(),
-        ),
-      ),
-    );
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 }

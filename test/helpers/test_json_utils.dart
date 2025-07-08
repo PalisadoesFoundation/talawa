@@ -1,3 +1,4 @@
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
@@ -81,11 +82,9 @@ class TestJsonUtils {
   /// * `Comment`: Properly constructed Comment instance
   static Comment createCommentFromJson(Map<String, dynamic> json) {
     return Comment(
-      text: json['text'] as String?,
+      body: json['body'] as String?,
       createdAt: json['createdAt'] as String?,
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
-      post: json['post'] as String?,
-      likeCount: json['likeCount'] as String?,
     );
   }
 
@@ -225,43 +224,18 @@ class TestJsonUtils {
   /// * `Post`: Properly constructed Post with extracted nested data
   static Post createPostFromJson(Map<String, dynamic> json) {
     final post = Post(
-      sId: json['_id'] as String,
-      description: json['description'] as String?,
+      id: json['_id'] as String,
+      caption: json['description'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      imageUrl: json['imageUrl'] as String?,
-      videoUrl: json['videoUrl'] as String?,
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       creator: createUserFromJson(json['creator'] as Map<String, dynamic>?),
       organization: json['organization'] != null
           // OrgInfo doesn't require nested user handling, use direct fromJson
           ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
           : null,
     );
-
-    // Handle likedBy with nested structure
-    if (json['likedBy'] != null) {
-      post.likedBy = <LikedBy>[];
-      (json['likedBy'] as List).forEach((v) {
-        final vMap = v as Map<String, dynamic>;
-        // Extract user ID from nested structure: {user: {id: "..."}}
-        final userMap = vMap['user'] as Map<String, dynamic>;
-        final userId = userMap['id'] as String?;
-        // LikedBy only needs simple ID, no complex user handling required
-        post.likedBy?.add(LikedBy(sId: userId));
-      });
-    }
-
-    // Handle comments with nested structure
-    if (json['comments'] != null) {
-      post.comments = <Comments>[];
-      (json['comments'] as List).forEach((v) {
-        final vMap = v as Map<String, dynamic>;
-        // Extract user ID from nested structure: {user: {id: "..."}}
-        final userMap = vMap['user'] as Map<String, dynamic>;
-        final userId = userMap['id'] as String?;
-        // Comments only needs simple ID, no complex user handling required
-        post.comments?.add(Comments(sId: userId));
-      });
-    }
 
     return post;
   }

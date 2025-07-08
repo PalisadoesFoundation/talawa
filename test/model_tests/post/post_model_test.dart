@@ -1,322 +1,226 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mockito/mockito.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/post_queries.dart';
 
-import '../../helpers/test_json_utils.dart';
-
-final u1 = User(
-  id: '123',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'test@test.com',
-);
-final u2 = User(
-  id: '123',
-  firstName: 'Ayush',
-  lastName: 'Chaudhary',
-  email: 'test@test.com',
-);
-final List<User> users = [u1, u2];
-
-final LikedBy l1 = LikedBy(sId: 'test1');
-final LikedBy l2 = LikedBy(sId: 'test2');
-final List<LikedBy> likeby = [l1, l2];
-
-final comment1 = Comments(sId: 'comment1');
-final comment2 = Comments(sId: 'comment2');
-final comment3 = Comments(sId: 'comment3');
-final List<Comments> comments = [comment1, comment2, comment3];
-
-final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
-final post = Post(
-  creator: User(
-    id: '123',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@test.com',
-  ),
-  sId: "sid",
-  createdAt: myBirthday,
-  description: 'test description',
-  imageUrl: 'https://image.com',
-  videoUrl: 'https://image.com',
-  organization: OrgInfo(admins: users),
-  likedBy: likeby,
-  comments: comments,
-);
+import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
 
 void main() {
-  group('Test Post model', () {
-    test('Test Post model', () {
-      final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
-      final post = Post(
-        creator: User(
-          id: '123',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'test@test.com',
-        ),
-        sId: "sid",
-        createdAt: myBirthday,
-        description: 'test description',
-        imageUrl: 'https://image.com',
-        videoUrl: 'https://image.com',
-        organization: OrgInfo(admins: users),
-        likedBy: likeby,
-        comments: comments,
-      );
-      final postJson = {
+  group('Post Model', () {
+    test('fromJson creates correct Post object', () {
+      final json = {
+        'id': 'post1',
+        'caption': 'Test Caption',
+        'createdAt': '2024-06-19T12:00:00Z',
         'creator': {
-          'user': {
-            'id': '123',
-            'name': 'John Doe',
-            'emailAddress': 'test@test.com',
-          },
+          'id': 'user1',
+          'name': 'Alice',
         },
-        '_id': '1222',
-        'createdAt': '2023-03-15T15:28:52.122Z',
-        'description': 'test description',
-        'imageUrl': 'https://image.com',
-        'videoUrl': 'https://image.com',
         'organization': {
-          'admins': [
-            {
-              'user': {
-                'id': '123',
-                'name': 'John Doe',
-                'emailAddress': 'test@test.com',
-              },
-            },
-            {
-              'user': {
-                'id': '123',
-                'name': 'Ayush Chaudhary',
-                'emailAddress': 'test@test.com',
-              },
-            }
-          ],
+          'id': 'org1',
+          'name': 'Test Org',
         },
-        'likedBy': [
+        'attachments': [
           {
-            'user': {'id': 'test1'},
-          },
-          {
-            'user': {'id': 'test2'},
-          },
+            'name': 'file1.jpg',
+            'fileHash': 'hash1',
+            'mimeType': 'image/jpeg',
+            'objectName': 'obj1',
+            'url': 'https://example.com/file1.jpg',
+          }
         ],
-        'comments': [
-          {
-            'user': {'id': 'comment1'},
-          },
-          {
-            'user': {'id': 'comment2'},
-          },
-          {
-            'user': {'id': 'comment3'},
-          },
-        ],
+        'commentsCount': 5,
+        'upvotesCount': 10,
+        'downvotesCount': 2,
+        'hasVoted': true,
+        'voteType': 'upvote',
+        'isPinned': true,
+        'pinnedAt': '2024-06-18T12:00:00Z',
       };
-      final postFromJson = TestJsonUtils.createPostFromJson(postJson);
-      post.getPostCreatedDuration();
-      expect(post.creator?.id, postFromJson.creator?.id);
-      expect(post.creator?.firstName, postFromJson.creator?.firstName);
-      expect(post.creator?.lastName, postFromJson.creator?.lastName);
-      expect(post.creator?.email, postFromJson.creator?.email);
+
+      final post = Post.fromJson(json);
+
+      expect(post.id, 'post1');
+      expect(post.caption, 'Test Caption');
+      expect(post.createdAt, DateTime.parse('2024-06-19T12:00:00Z'));
+      expect(post.creator, isA<User>());
+      expect(post.organization, isA<OrgInfo>());
+      expect(post.attachments, isA<List<AttachmentModel>>());
+      expect(post.commentsCount, 5);
+      expect(post.upvotesCount, 10);
+      expect(post.downvotesCount, 2);
+      expect(post.hasVoted, true);
+      expect(post.voteType, 'upvote');
+      expect(post.isPinned, true);
+      expect(post.pinnedAt, DateTime.parse('2024-06-18T12:00:00Z'));
     });
 
-    group('check if getPostCreatedBuration is working', () {
-      test('check if getPostCreatedBuration is working', () {
-        final myBirthday =
-            DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-      test(
-          'Check if getPostCreatedBuration work when time is less than 60 seconds',
-          () {
-        final myBirthday30 =
-            DateTime.now().subtract(const Duration(seconds: 30));
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday30,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-      test(
-          'Check if getPostCreatedBuration work when time is less than 60 minutes',
-          () {
-        final myBirthday30 =
-            DateTime.now().subtract(const Duration(minutes: 30));
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday30,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-      test(
-          'Check if getPostCreatedBuration work when time is less than 12 hours',
-          () {
-        final myBirthday12 = DateTime.now().subtract(const Duration(hours: 12));
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday12,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-      test(
-          'Check if getPostCreatedBuration work when time is less than 15 days',
-          () {
-        final myBirthday15 = DateTime.now().subtract(const Duration(days: 15));
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday15,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-      test(
-          'Check if getPostCreatedBuration work when time is less than 200 days',
-          () {
-        final myBirthday200 =
-            DateTime.now().subtract(const Duration(days: 200));
-        final post = Post(
-          creator: User(
-            id: '123',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'test@test.com',
-          ),
-          sId: "sid",
-          createdAt: myBirthday200,
-          description: 'test description',
-          imageUrl: 'https://image.com',
-          videoUrl: 'https://image.com',
-          organization: OrgInfo(admins: users),
-          likedBy: likeby,
-          comments: comments,
-        );
-        post.getPostCreatedDuration();
-      });
-    });
-    group('check if LikedBy toJson works', () {
-      test('LikeBy model toJson', () {
-        final likedBy = LikedBy(sId: "test");
-        final likeByJson = {
-          '_id': 'test',
-        };
-        expect(likedBy.toJson(), likeByJson);
-      });
-    });
-    group('check if Comment toJson works', () {
-      test('Comment model toJson', () {
-        final comment = Comments(sId: 'test');
-        final commentJson = {
-          '_id': 'test',
-        };
-        expect(comment.toJson(), commentJson);
-      });
+    test(
+        'getPostCreatedDuration returns correct strings for all time units and null',
+        () {
+      final now = DateTime.now();
+
+      final cases = [
+        {
+          'post': Post(createdAt: now.subtract(const Duration(seconds: 2))),
+          'expected': 'Seconds Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(minutes: 2))),
+          'expected': 'Minutes Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(hours: 2))),
+          'expected': 'Hours Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 5))),
+          'expected': 'Days Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 65))),
+          'expected': 'Months Ago',
+        },
+        {
+          'post': Post(createdAt: now.subtract(const Duration(days: 800))),
+          'expected': 'Years Ago',
+        },
+        {
+          'post': Post(),
+          'expected': 'unknown date',
+        },
+      ];
+
+      for (final testCase in cases) {
+        final post = testCase['post']! as Post;
+        final expected = testCase['expected']! as String;
+        final duration = post.getPostCreatedDuration();
+        expect(duration, contains(expected), reason: 'Failed for $expected');
+      }
     });
 
-    group('Test caching part', () {
-      late final Box<Post> postBox;
-      setUpAll(() async {
-        postBox = await Hive.openBox<Post>('post_box');
-      });
-      test('get and put', () {
-        postBox.put('key', post);
-        final Post fetchedPost = postBox.get('key')!;
+    test(
+        'getPostPinnedDuration returns correct strings for all time units and null',
+        () {
+      final now = DateTime.now();
 
-        expect(fetchedPost.sId, post.sId);
-        expect(fetchedPost.createdAt, post.createdAt);
-        expect(fetchedPost.description, post.description);
-        expect(fetchedPost.imageUrl, post.imageUrl);
-        expect(fetchedPost.videoUrl, post.videoUrl);
+      final cases = [
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(seconds: 2))),
+          'expected': 'Seconds Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(minutes: 2))),
+          'expected': 'Minutes Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(hours: 2))),
+          'expected': 'Hours Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 5))),
+          'expected': 'Days Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 65))),
+          'expected': 'Months Ago',
+        },
+        {
+          'post': Post(pinnedAt: now.subtract(const Duration(days: 800))),
+          'expected': 'Years Ago',
+        },
+        {
+          'post': Post(),
+          'expected': 'unknown date',
+        },
+      ];
 
-        expect(
-          fetchedPost.organization,
-          post.organization,
-        ); // Assuming users are compared by their ids or some other unique attribute
-        expect(
-          fetchedPost.likedBy,
-          post.likedBy,
-        ); // Assuming likeby is compared by ids or some other unique attribute
-        expect(
-          fetchedPost.comments,
-          post.comments,
-        ); // Assuming comments are compared by their ids or some other unique attribute
-      });
+      for (final testCase in cases) {
+        final post = testCase['post']! as Post;
+        final expected = testCase['expected']! as String;
+        final duration = post.getPostPinnedDuration();
+        expect(duration, contains(expected), reason: 'Failed for $expected');
+      }
+    });
+  });
+  group("getPresignedUrl functions tests", () {
+    setUpAll(() {
+      registerServices();
+    });
 
-      test('adpaters', () {
-        final PostAdapter adapter1 = PostAdapter();
-        final PostAdapter adapter2 = PostAdapter();
+    test('getPresignedUrl sets attachment.url if presignedUrl is returned',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
 
-        expect(adapter2.hashCode, isA<int>());
-        expect(adapter2 == adapter1, true);
-      });
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': 'https://example.com/file.txt',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(post.attachments!.first.url, 'https://example.com/file.txt');
+    });
+
+    test('getPresignedUrl does not set url if presignedUrl is missing',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': null,
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(post.attachments!.first.url, isNull);
+    });
+
+    test('getPresignedUrl returns early if id is null or empty', () async {
+      final post =
+          Post(attachments: [AttachmentModel(name: 'file.txt', url: null)]);
+      // Should not throw or call gqlAuthMutation
+      await post.getPresignedUrl(null);
+      await post.getPresignedUrl('');
+      // No assertion needed, just checking for no exceptions
+    });
+
+    test('getPresignedUrl returns early if attachments is null or empty',
+        () async {
+      final post = Post(attachments: null);
+      await post.getPresignedUrl('org1');
+      final post2 = Post(attachments: []);
+      await post2.getPresignedUrl('org1');
+      // No assertion needed, just checking for no exceptions
     });
   });
 }

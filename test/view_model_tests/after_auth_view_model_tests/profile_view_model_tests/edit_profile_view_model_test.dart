@@ -11,7 +11,6 @@ import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edi
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 import '../../../service_tests/image_service_test.dart';
-import '../../../widget_tests/widgets/post_modal_test.dart';
 
 /// MockCallbackFunction class is used to mock callback function.
 class MockCallbackFunction extends Mock {
@@ -137,7 +136,7 @@ void main() {
           variables: vars,
         ),
       ).called(1);
-      print(navigationService is MockNavigationService);
+      print(navigationService);
       // verify(
       //   navigationService.showTalawaErrorSnackBar(
       //     "Profile updated successfully",
