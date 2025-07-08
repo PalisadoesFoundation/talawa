@@ -17,7 +17,6 @@ import 'package:talawa/models/user/user_info.dart';
 /// when they are no longer needed.
 class HiveManager {
   /// The maximum number of days in the future that an event date can be set to.
-  /// This prevents events from being scheduled too far in the future (10 years).
   static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
 
   /// Initializes Hive with the specified directory.
@@ -289,17 +288,6 @@ class HiveManager {
     }
   }
 
-  /// Migrates an Event to the current schema version.
-  ///
-  /// This method handles schema version transitions and applies necessary
-  /// transformations to ensure data compatibility.
-  ///
-  /// **params**:
-  /// * `event`: The event to migrate.
-  /// * `targetVersion`: The target schema version.
-  ///
-  /// **returns**:
-  /// * `Event`: The migrated event with updated schema version.
   /// Converts an Event object to raw data map for migration processing.
   ///
   /// **params**:

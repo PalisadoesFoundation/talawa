@@ -45,7 +45,7 @@ class GraphqlConfig {
     httpLink = HttpLink(orgURI!);
   }
 
-  /// Returns a [GraphQLClient] instance configured for making queries and mutations
+  /// Returns a [GraphQLClient] instance configured for making queries and mutations.
   /// using the current HTTP link without authentication.
   GraphQLClient clientToQuery() {
     //TODO: Implement websocket link from OrgUrl
