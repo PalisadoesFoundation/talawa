@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:hive/hive.dart';
-import 'package:logger/logger.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
@@ -20,9 +19,6 @@ class HiveManager {
   /// The maximum number of days in the future that an event date can be set to.
   /// This prevents events from being scheduled too far in the future (10 years).
   static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
-
-  /// Logger instance for HiveManager
-  static final Logger _logger = Logger();
 
   /// Initializes Hive with the specified directory.
   ///
@@ -59,7 +55,7 @@ class HiveManager {
     try {
       Hive.registerAdapter<T>(adapter);
     } catch (e) {
-      _logger.e('Failed to register Hive adapters: $e');
+      print('Failed to register Hive adapters: $e');
     }
   }
 
@@ -74,7 +70,7 @@ class HiveManager {
     try {
       await Hive.openBox<T>(boxName);
     } catch (e) {
-      _logger.e('Failed to open box $boxName: $e');
+      print('Failed to open box $boxName');
     }
   }
 
@@ -89,7 +85,7 @@ class HiveManager {
     try {
       await Hive.box<T>(boxName).close();
     } catch (e) {
-      _logger.e('Failed to close the box $boxName: $e');
+      print('Failed to close the box $boxName');
     }
   }
 
@@ -133,7 +129,7 @@ class HiveManager {
     await openBox<Event>(HiveKeys.eventFeedKey);
     final migrationSuccess = await _migrateEventData();
     if (!migrationSuccess) {
-      _logger.w(
+      print(
         'Warning: Event data migration failed. Some events may be unavailable.',
       );
     }
@@ -192,7 +188,7 @@ class HiveManager {
       const batchSize = 100;
       final totalEvents = allKeys.length;
       if (totalEvents == 0) {
-        _logger.i('No existing events to migrate');
+        print('No existing events to migrate');
         return true;
       }
 
@@ -230,20 +226,20 @@ class HiveManager {
                   _migrateRawEventData(rawData, currentSchemaVersion);
             }
           } catch (eventError) {
-            _logger.w('Skipping corrupted event entry: $eventError');
+            print('Skipping corrupted event entry: $eventError');
           }
         }
         // Save migrated events for this batch
         for (final entry in batchMigrated.entries) {
           await box.put(entry.key, entry.value);
         }
-        _logger.i('Migrated events ${i + 1} to $batchEnd of $totalEvents');
+        print('Migrated events ${i + 1} to $batchEnd of $totalEvents');
       }
 
-      _logger.i('Event data migration completed successfully');
+      print('Event data migration completed successfully');
       return true;
     } catch (e) {
-      _logger.e('Event data migration failed: $e');
+      print('Event data migration failed: $e');
       // If migration fails, create persistent backup before clearing the box
       try {
         final box = Hive.box<Event>(HiveKeys.eventFeedKey);
@@ -262,7 +258,7 @@ class HiveManager {
               backupData[key.toString()] = data;
             }
           } catch (backupError) {
-            _logger.e('Failed to backup event with key $key: $backupError');
+            print('Failed to backup event with key $key: $backupError');
           }
         }
 
@@ -274,26 +270,26 @@ class HiveManager {
           }
           await backupBox.close();
 
-          _logger.i(
+          print(
             'Created persistent backup of ${backupData.length} events in $backupBoxName before clearing box',
           );
           await box.clear();
-          _logger.i(
+          print(
             'Event box cleared due to migration failure. Backup available for recovery in $backupBoxName',
           );
         } else {
           await backupBox.close();
-          _logger.i('No valid data to backup, clearing event box');
+          print('No valid data to backup, clearing event box');
           await box.clear();
         }
       } catch (clearError) {
-        _logger.e('Failed to clear event box: $clearError');
+        print('Failed to clear event box: $clearError');
       }
       return false;
     }
   }
 
-   /// Migrates an Event to the current schema version.
+  /// Migrates an Event to the current schema version.
   ///
   /// This method handles schema version transitions and applies necessary
   /// transformations to ensure data compatibility.
@@ -405,7 +401,7 @@ class HiveManager {
         break;
       default:
         // Unknown version transition, set to target version
-        _logger.w(
+        print(
           'Unknown version transition from $fromVersion to $toVersion, setting to $toVersion',
         );
         migratedData['schemaVersion'] = toVersion;

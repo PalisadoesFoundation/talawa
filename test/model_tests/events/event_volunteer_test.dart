@@ -59,7 +59,9 @@ void main() {
         '_id': 'volunteer1',
         'createdAt': '2024-08-01T10:00:00Z',
         'creator': {
-          'user': {'id': 'fakeCreatorId'},
+          'id': 'fakeCreatorId',
+          'name': 'Creator Name',
+          'emailAddress': 'creator@example.com',
         },
         'event': {
           '_id': 'fakeEventId',
@@ -77,7 +79,9 @@ void main() {
         'response': 'Accepted',
         'updatedAt': '2024-08-02T10:00:00Z',
         'user': {
-          'user': {'id': 'fakeUserId'},
+          'id': 'fakeUserId',
+          'name': 'User Name',
+          'emailAddress': 'user@example.com',
         },
       };
 
@@ -143,7 +147,8 @@ void main() {
           '_id': 'eventId',
         },
         'user': {
-          'user': {'id': 'userId'},
+          'id': 'userId',
+          'name': 'User Name',
         },
       };
 
