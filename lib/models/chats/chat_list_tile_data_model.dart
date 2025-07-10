@@ -21,7 +21,11 @@ class ChatListTileDataModel {
   ///
   /// This method is typically used for serializing the model to be sent over a network or saved locally.
   ///
-  /// **params**: none
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: A JSON map representation of this ChatListTileDataModel instance.
   Map<String, dynamic> toJson() => _$ChatListTileDataModelToJson(this);
 
   /// The list of users participating in the chat, represented as [ChatUser] objects.
