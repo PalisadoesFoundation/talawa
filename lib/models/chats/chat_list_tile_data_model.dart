@@ -10,7 +10,10 @@ part 'chat_list_tile_data_model.g.dart';
 
 /// This class creates JSON code using the JsonSerializable package.
 class ChatListTileDataModel {
-  ChatListTileDataModel(this.users, this.id);
+  ChatListTileDataModel(
+    this.users,
+    this.id,
+  );
 
   // Connect the generated [_$ChatListTileDataModelFromJson] function to the `fromJson`
   // factory.

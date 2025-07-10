@@ -284,11 +284,9 @@ void main() {
 
   group('Test Caching part', () {
     late final Box<Event> eventBox;
-    late final Box<Attendee> attendeeBox;
     setUpAll(() async {
       try {
         eventBox = await Hive.openBox<Event>('event_box');
-        attendeeBox = await Hive.openBox<Attendee>('attendee_box');
       } catch (e) {
         fail('Failed to open Hive box: $e');
       }

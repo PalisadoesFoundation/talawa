@@ -90,8 +90,10 @@ void main() {
       test('registerAdapter handles duplicate registration gracefully',
           () async {
         // This test verifies that duplicate registration doesn't crash the app
-        expect(() => HiveManager.registerAdapter<User>(UserAdapter()),
-            returnsNormally);
+        expect(
+          () => HiveManager.registerAdapter<User>(UserAdapter()),
+          returnsNormally,
+        );
       });
     });
 
