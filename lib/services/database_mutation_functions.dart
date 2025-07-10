@@ -65,6 +65,17 @@ class DataBaseMutationFunctions {
     source: QueryResultSource.network,
   );
 
+  /// This function clears the GraphQL cache to ensure fresh data fetch.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void clearGraphQLCache() {
+    clientAuth.cache.store.reset();
+  }
+
   /// This function is used to run the graph-ql query for authentication.
   ///
   /// **params**:

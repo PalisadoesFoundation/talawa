@@ -128,6 +128,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
   ///   None
   void setOrgStreamSubscription() {
     _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
+      databaseFunctions.clearGraphQLCache();
       if (updatedOrganization != _currentOrg) {
         _pinnedPosts.clear();
         _currentOrg = updatedOrganization;

@@ -1944,7 +1944,7 @@ class MockUserConfig extends _i2.Mock implements _i28.UserConfig {
       ) as _i7.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i7.Future<void> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserJoinedOrg(_i5.OrgInfo? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserJoinedOrg,
@@ -2873,6 +2873,15 @@ class MockDataBaseMutationFunctions extends _i2.Mock
       );
 
   @override
+  void clearGraphQLCache() => super.noSuchMethod(
+        Invocation.method(
+          #clearGraphQLCache,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i7.Future<_i3.QueryResult<Object?>> gqlAuthQuery(
     String? query, {
     Map<String, dynamic>? variables,
@@ -3318,23 +3327,25 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       ) as bool);
 
   @override
-  void setCurrentOrganizationName(String? updatedOrganization) =>
-      super.noSuchMethod(
+  _i7.Future<void> setCurrentOrganizationName(String? updatedOrganization) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setCurrentOrganizationName,
           [updatedOrganization],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  void fetchNewPosts() => super.noSuchMethod(
+  _i7.Future<void> fetchNewPosts() => (super.noSuchMethod(
         Invocation.method(
           #fetchNewPosts,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   _i7.Future<void> initialise() => (super.noSuchMethod(

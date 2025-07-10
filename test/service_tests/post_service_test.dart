@@ -25,6 +25,51 @@ void main() {
       locator.reset();
       unregisterServices();
     });
+
+    test('refreshFeed resets state, fetches new posts, and emits them',
+        () async {
+      final postService = TestablePostService();
+      final emittedPosts = <List<Post>>[];
+      postService.postStream.listen(emittedPosts.add);
+
+      await postService.refreshFeed();
+      await Future.delayed(Duration.zero);
+
+      // Use public getters to check state
+      expect(postService.posts, isNotEmpty);
+      expect(postService.after, isNull);
+      expect(postService.before, isNull);
+      expect(postService.first, 5);
+      expect(postService.last, isNull);
+
+      // These are the posts returned by getNewFeedAndRefreshCache
+      final mockPosts = [
+        Post(
+          id: 'test_post',
+          caption: 'Test Post',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+        Post(
+          id: 'test_post2',
+          caption: 'Test Post 2',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+      ];
+
+      expect(postService.posts.first.id, mockPosts.first.id);
+
+      // Assert: stream emitted
+      expect(emittedPosts, isNotEmpty);
+      expect(emittedPosts.last.first.id, mockPosts.first.id);
+
+      // Assert: toast shown (side effect of CriticalActionException)
+
+      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
+    });
     test(
         'setOrgStreamSubscription updates _currentOrg when stream emits new value',
         () async {
@@ -410,51 +455,6 @@ void main() {
       await postService.previousPage();
 
       expect(postService.getPostsCalled, isFalse);
-    });
-
-    test('refreshFeed resets state, fetches new posts, and emits them',
-        () async {
-      final postService = TestablePostService();
-      final emittedPosts = <List<Post>>[];
-      postService.postStream.listen(emittedPosts.add);
-
-      await postService.refreshFeed();
-      await Future.delayed(Duration.zero);
-
-      // Use public getters to check state
-      expect(postService.posts, isNotEmpty);
-      expect(postService.after, isNull);
-      expect(postService.before, isNull);
-      expect(postService.first, 5);
-      expect(postService.last, isNull);
-
-      // These are the posts returned by getNewFeedAndRefreshCache
-      final mockPosts = [
-        Post(
-          id: 'test_post',
-          caption: 'Test Post',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-        Post(
-          id: 'test_post2',
-          caption: 'Test Post 2',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-      ];
-
-      expect(postService.posts.first.id, mockPosts.first.id);
-
-      // Assert: stream emitted
-      expect(emittedPosts, isNotEmpty);
-      expect(emittedPosts.last.first.id, mockPosts.first.id);
-
-      // Assert: toast shown (side effect of CriticalActionException)
-
-      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
     });
 
     test(

@@ -82,16 +82,16 @@ void main() {
       expect(mutation, true);
     });
 
-    test("Check if joinOrgById works correctly", () {
-      var mutation = false;
+    test("Check if joinOrgById returns correct GraphQL mutation", () {
+      // Get the query string
+      final queryString = Queries().joinOrgById();
 
-      expect(mutation, false);
+      // Check that it contains the expected GraphQL operation name
+      expect(queryString.contains('JoinPublicOrganization'), true);
 
-      final fnData = Queries().joinOrgById('orgId123');
-      if (fnData.contains('orgId123')) {
-        mutation = true;
-      }
-      expect(mutation, true);
+      // Check that it contains the expected fields
+      expect(queryString.contains('memberId'), true);
+      expect(queryString.contains('organizationId'), true);
     });
     test("Check if sendMembershipRequest works correctly", () {
       var mutation = false;

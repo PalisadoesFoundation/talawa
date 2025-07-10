@@ -205,8 +205,22 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
-    _currentUser!.updateJoinedOrg(orgDetails);
+  Future<void> updateUserJoinedOrg(OrgInfo orgDetails) async {
+    if (orgDetails.id == null || orgDetails.id!.isEmpty) {
+      return;
+    }
+    final List<OrgInfo>? joinedOrgs = _currentUser!.joinedOrganizations;
+    if (joinedOrgs != null) {
+      // Remove any org with the same id and insert new org at beginning
+      _currentUser!.joinedOrganizations = [
+        orgDetails,
+        ...joinedOrgs.where((org) => org.id != orgDetails.id),
+      ];
+    } else {
+      _currentUser!.joinedOrganizations = [orgDetails];
+    }
+    _currentOrg = orgDetails;
+    saveCurrentOrgInHive(orgDetails);
     saveUserInHive();
   }
 

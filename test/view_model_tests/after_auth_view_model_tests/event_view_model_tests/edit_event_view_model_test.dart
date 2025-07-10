@@ -112,7 +112,12 @@ void main() {
           data: {
             'test': true,
           },
-          options: QueryOptions(document: gql(queries.joinOrgById('id'))),
+          options: QueryOptions(
+            document: gql(queries.joinOrgById()),
+            variables: {
+              'organizationId': 'id',
+            },
+          ),
         );
       });
 

@@ -271,7 +271,7 @@ class MockUserConfig extends _i1.Mock implements _i7.UserConfig {
       ) as _i2.Future<_i5.QueryResult<Object?>>);
 
   @override
-  _i2.Future<void> updateUserJoinedOrg(List<_i3.OrgInfo>? orgDetails) =>
+  _i2.Future<void> updateUserJoinedOrg(_i3.OrgInfo? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserJoinedOrg,
