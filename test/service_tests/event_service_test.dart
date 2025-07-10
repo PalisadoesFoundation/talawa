@@ -721,6 +721,19 @@ void main() {
       expect(eventService.currentOrg.id, '1');
     });
 
+    test('fetchDataFromApi throws exception for null org ID', () async {
+      final eventService = EventService();
+      eventService.setOrgStreamSubscription();
+      final userConfig = locator<UserConfig>();
+      userConfig.initialiseStream();
+
+      // Trigger the exception by setting null org ID
+      userConfig.currentOrgInfoController.add(OrgInfo(name: 'Test', id: null));
+      await Future.delayed(const Duration(milliseconds: 50));
+
+      expect(() => eventService.fetchDataFromApi(), throwsException);
+    });
+
     test('fetchDataFromApi should throw an exception if data is null',
         () async {
       final dbFunctions = locator<DataBaseMutationFunctions>();

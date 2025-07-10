@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
-import 'package:talawa/widgets/custom_list_tile.dart';
+// TODO: Uncomment these imports when enabling attendees ListView
+// import 'package:talawa/enums/enums.dart';
+// import 'package:talawa/widgets/custom_list_tile.dart';
 
 /// EventInfoBody returns a stateless widget which describes the body of a particular event.
 class EventInfoBody extends StatelessWidget {
@@ -181,31 +182,32 @@ class EventInfoBody extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
-            if (model.isBusy)
-              // if the model is still fetching the attendees details then display Circular Progress Indicator Icon.
-              const Padding(
-                padding: EdgeInsets.only(top: 12.0),
-                child: Center(child: CircularProgressIndicator()),
-              )
-            else
-              // else if the model fetched the attendees details successfully
-              //then renders all the attendees in ListView.
-              ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: model.attendees.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CustomListTile(
-                    key: Key(
-                      'Attendee$index',
-                    ),
-                    index: index,
-                    type: TileType.attendee,
-                    attendeeInfo: model.attendees[index],
-                    onTapAttendeeInfo: () {},
-                  );
-                },
-              ),
+            // TODO: Attendees ListView - Commented out for now
+            // if (model.isBusy)
+            //   // if the model is still fetching the attendees details then display Circular Progress Indicator Icon.
+            //   const Padding(
+            //     padding: EdgeInsets.only(top: 12.0),
+            //     child: Center(child: CircularProgressIndicator()),
+            //   )
+            // else
+            //   // else if the model fetched the attendees details successfully
+            //   //then renders all the attendees in ListView.
+            //   ListView.builder(
+            //     padding: EdgeInsets.zero,
+            //     shrinkWrap: true,
+            //     itemCount: model.attendees.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return CustomListTile(
+            //         key: Key(
+            //           'Attendee$index',
+            //         ),
+            //         index: index,
+            //         type: TileType.attendee,
+            //         attendeeInfo: model.attendees[index],
+            //         onTapAttendeeInfo: () {},
+            //       );
+            //     },
+            //   ),
           ],
         ),
       ),

@@ -619,5 +619,69 @@ void main() {
       await tester.pumpAndSettle();
       expect(mockKey.currentState!.canPop(), false);
     });
+
+    group('NavigationService with null currentState', () {
+      test('pushScreen with null currentState', () async {
+        final service = NavigationService();
+        // Don't set navigatorKey.currentState (it will be null)
+        final result = await service.pushScreen('/test');
+        expect(result, isNull);
+      });
+
+      test('popAndPushScreen with null currentState', () async {
+        final service = NavigationService();
+        final result = await service.popAndPushScreen('/test');
+        expect(result, isNull);
+      });
+
+      test('pushReplacementScreen with null currentState', () async {
+        final service = NavigationService();
+        final result = await service.pushReplacementScreen('/test');
+        expect(result, isNull);
+      });
+
+      test('removeAllAndPush with null currentState', () async {
+        final service = NavigationService();
+        final result = await service.removeAllAndPush('/test', '/until');
+        expect(result, isNull);
+      });
+
+      test('pop with null currentState', () {
+        final service = NavigationService();
+        // Should not throw when currentState is null
+        expect(() => service.pop(), returnsNormally);
+      });
+
+      testWidgets('pop with canPop true - covers currentState!.pop() line',
+          (tester) async {
+        // Create a widget with navigation to test the actual pop() call
+        await tester.pumpWidget(
+          MaterialApp(
+            navigatorKey: navigationService.navigatorKey,
+            home: const Scaffold(body: Text('Home')),
+            routes: {
+              '/second': (context) => const Scaffold(body: Text('Second')),
+            },
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Navigate to second screen using the navigator directly to ensure we have a route to pop
+        navigationService.navigatorKey.currentState!.pushNamed('/second');
+        await tester.pumpAndSettle();
+
+        // Verify we're on the second screen and can pop
+        expect(find.text('Second'), findsOneWidget);
+        expect(navigationService.navigatorKey.currentState!.canPop(), true);
+
+        // Call pop() - this should execute currentState!.pop()
+        navigationService.pop();
+        await tester.pumpAndSettle();
+
+        // Verify we're back to home screen
+        expect(find.text('Home'), findsOneWidget);
+        expect(find.text('Second'), findsNothing);
+      });
+    });
   });
 }
