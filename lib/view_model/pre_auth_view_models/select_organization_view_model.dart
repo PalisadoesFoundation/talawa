@@ -186,10 +186,10 @@ class SelectOrganizationViewModel extends BaseModel {
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
     print("inside on tap join");
+    print(selectedOrganization!.userRegistrationRequired);
     // if `selectedOrganization` registrations is not required.
     if (selectedOrganization!.userRegistrationRequired != null &&
         selectedOrganization!.userRegistrationRequired == false) {
-      print("hello");
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
@@ -238,7 +238,7 @@ class SelectOrganizationViewModel extends BaseModel {
     } else {
       print("inside else");
       try {
-        // navigationService.pushScreen(Routes.requestAccess);
+        navigationService.pushScreen(Routes.requestAccess);
       } on Exception catch (e) {
         print(e);
         navigationService.showTalawaErrorSnackBar(

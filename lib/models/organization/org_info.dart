@@ -66,7 +66,7 @@ class OrgInfo {
           json['description'] != null ? json['description'] as String? : null,
       userRegistrationRequired: json['userRegistrationRequired'] != null
           ? json['userRegistrationRequired'] as bool?
-          : null,
+          : false,
       members: members,
       admins: admins,
       city: json['city'] as String?,
