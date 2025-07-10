@@ -185,8 +185,6 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
-    print("inside on tap join");
-    print(selectedOrganization!.userRegistrationRequired);
     // if `selectedOrganization` registrations is not required.
     if (selectedOrganization!.userRegistrationRequired != null &&
         selectedOrganization!.userRegistrationRequired == false) {
@@ -229,7 +227,6 @@ class SelectOrganizationViewModel extends BaseModel {
           MessageType.info,
         );
       } on Exception catch (e) {
-        print(e);
         navigationService.showTalawaErrorSnackBar(
           'Something went wrong $e',
           MessageType.error,
@@ -240,9 +237,8 @@ class SelectOrganizationViewModel extends BaseModel {
       try {
         navigationService.pushScreen(Routes.requestAccess);
       } on Exception catch (e) {
-        print(e);
         navigationService.showTalawaErrorSnackBar(
-          'SomeThing went wrong',
+          'Something went wrong $e',
           MessageType.error,
         );
       }

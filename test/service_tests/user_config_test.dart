@@ -296,6 +296,42 @@ void main() {
       expect(model.currentOrg.id, equals('org2'));
     });
 
+    test('updateUserJoinedOrg correctly handles null joinedOrganizations',
+        () async {
+      // Arrange
+      final model = UserConfig();
+
+      // Create a mock user with null joinedOrganizations
+      final userWithNullOrgs = User(
+        id: 'test-user',
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test@example.com',
+        joinedOrganizations: null, // Explicitly null
+      );
+
+      model.currentUser = userWithNullOrgs;
+
+      // Organization to join
+      final newOrg = OrgInfo(id: 'org123', name: 'New Organization');
+
+      // Act
+      await model.updateUserJoinedOrg(newOrg);
+
+      // Assert
+      expect(model.currentUser.joinedOrganizations, isNotNull);
+      expect(model.currentUser.joinedOrganizations!.length, equals(1));
+      expect(model.currentUser.joinedOrganizations![0].id, equals('org123'));
+      expect(
+        model.currentUser.joinedOrganizations![0].name,
+        equals('New Organization'),
+      );
+
+      // Verify the current org was also updated
+      expect(model.currentOrg.id, equals('org123'));
+      expect(model.currentOrg.name, equals('New Organization'));
+    });
+
     test('Test for updateUserCreatedOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
