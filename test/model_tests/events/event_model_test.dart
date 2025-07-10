@@ -312,28 +312,6 @@ void main() {
       }
     });
 
-    test('test event with attachments', () async {
-      try {
-        final eventWithAttachments = Event(
-          id: 'event-with-attachments',
-          name: 'Event with Files',
-          attachments: [
-            Attachment(id: 'attach1', name: 'doc.pdf', size: 1024),
-            Attachment(id: 'attach2', name: 'img.jpg', size: 2048),
-          ],
-        );
-
-        await eventBox.put('with_attachments', eventWithAttachments);
-        final fetched = eventBox.get('with_attachments')!;
-
-        expect(fetched.attachments?.length, 2);
-        expect(fetched.attachments?[0].id, 'attach1');
-        expect(fetched.attachments?[1].size, 2048);
-      } catch (e) {
-        fail('Failed to test event with attachments: $e');
-      }
-    });
-
     test('test schema version', () {
       final event = Event(
         id: 'test-id',

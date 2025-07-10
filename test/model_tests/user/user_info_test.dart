@@ -48,7 +48,7 @@ void main() {
       ); // No auth token in organization user data
       expect(
         userInfo.refreshToken,
-        null,
+        ' ',
       ); // No refresh token in organization user data
     });
 

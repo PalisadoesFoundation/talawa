@@ -1,8 +1,11 @@
 import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
+import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -16,9 +19,6 @@ import 'package:talawa/models/user/user_info.dart';
 /// various models used throughout the application. It also provides a method to close all opened Hive boxes
 /// when they are no longer needed.
 class HiveManager {
-  /// The maximum number of days in the future that an event date can be set to.
-  static const int maxFutureDateOffsetDays = 365 * 10; // 10 years
-
   /// Initializes Hive with the specified directory.
   ///
   /// **params**:
@@ -52,13 +52,9 @@ class HiveManager {
   ///   None
   static Future<void> registerAdapter<T>(TypeAdapter<T> adapter) async {
     try {
-      // Check if adapter is already registered
-      if (!Hive.isAdapterRegistered(adapter.typeId)) {
-        Hive.registerAdapter<T>(adapter);
-      }
+      Hive.registerAdapter<T>(adapter);
     } catch (e) {
-      // Silently ignore registration errors as they're usually due to duplicate registration
-      // which is harmless in tests
+      debugPrint('Failed to register Hive adapters: $e');
     }
   }
 
@@ -73,7 +69,7 @@ class HiveManager {
     try {
       await Hive.openBox<T>(boxName);
     } catch (e) {
-      print('Failed to open box $boxName');
+      debugPrint('Failed to open box $boxName');
     }
   }
 
@@ -88,7 +84,7 @@ class HiveManager {
     try {
       await Hive.box<T>(boxName).close();
     } catch (e) {
-      print('Failed to close the box $boxName');
+      debugPrint('Failed to close the box $boxName');
     }
   }
 
@@ -108,11 +104,9 @@ class HiveManager {
     registerAdapter<CachedUserActionStatus>(CachedUserActionStatusAdapter());
     registerAdapter<Post>(PostAdapter());
     registerAdapter<Event>(EventAdapter());
-    registerAdapter<Attachment>(AttachmentAdapter());
-    registerAdapter<LikedBy>(LikedByAdapter());
     registerAdapter<Attendee>(AttendeeAdapter());
     registerAdapter<Comment>(CommentAdapter());
-    registerAdapter<Comments>(CommentsAdapter());
+    registerAdapter<AttachmentModel>(AttachmentModelAdapter());
   }
 
   /// Opens the necessary Hive boxes for storing various types of data.
@@ -130,6 +124,7 @@ class HiveManager {
     await openBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await openBox<Post>(HiveKeys.postFeedKey);
     await openBox<Event>(HiveKeys.eventFeedKey);
+    await openBox<Post>(HiveKeys.pinnedPostKey);
   }
 
   /// Closes all opened Hive boxes and the Hive instance itself.
@@ -162,5 +157,6 @@ class HiveManager {
     await closeBox<CachedUserAction>(HiveKeys.offlineActionQueueKey);
     await closeBox<Post>(HiveKeys.postFeedKey);
     await closeBox<Event>(HiveKeys.eventFeedKey);
+    await closeBox<Post>(HiveKeys.pinnedPostKey);
   }
 }

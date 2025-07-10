@@ -72,14 +72,6 @@ class NavigationService {
     return currentState.pushReplacementNamed(routeName, arguments: arguments);
   }
 
-  // void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
-  //   int i = 0;
-  //   removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
-  //   for (i = 1; i < routeNames.length; i++) {
-  //     pushScreen('/${routeNames[i]}', arguments: arguments[i]);
-  //   }
-  // }
-
   /// This function remove all the routes till the particular route and add new route.
   ///
   /// **params**:

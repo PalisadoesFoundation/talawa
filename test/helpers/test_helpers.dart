@@ -48,7 +48,7 @@ import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
-import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 import '../service_tests/image_service_test.dart';
@@ -149,7 +149,8 @@ void _removeRegistrationIfExists<T extends Object>() {
 NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
-  when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
+  final key = GlobalKey<NavigatorState>();
+  when(service.navigatorKey).thenReturn(key);
   when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
@@ -160,13 +161,13 @@ NavigationService getAndRegisterNavigationService() {
   return service;
 }
 
-/// `getAndRegisterOrganizationService` returns a mock instance of the `OrganizationService` class.
+/// Registers and returns a mock OrganizationService instance.
 ///
 /// **params**:
 ///   None
 ///
 /// **returns**:
-/// * `OrganizationService`: A mock instance of the `OrganizationService` class.
+/// * `OrganizationService`: Mock service instance for testing purposes.
 OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
@@ -734,14 +735,13 @@ Post getPostMockModel({
   String duration = "2 Months Ago",
 }) {
   final postMock = MockPost();
-  when(postMock.sId).thenReturn(sId);
+  when(postMock.id).thenReturn(sId);
   when(postMock.creator).thenReturn(
     User(
       firstName: "TestName",
     ),
   );
-  when(postMock.description).thenReturn(description);
-  when(postMock.comments).thenReturn([]);
+  when(postMock.caption).thenReturn(description);
   when(postMock.getPostCreatedDuration()).thenReturn(duration);
   return postMock;
 }
@@ -973,7 +973,7 @@ void registerViewModels() {
       .registerFactory<CreateEventViewModel>(() => MockCreateEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
-  locator.registerFactory(() => LikeButtonViewModel());
+  locator.registerFactory(() => InteractionsViewModel());
   locator.registerFactory(() => SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
@@ -1000,7 +1000,7 @@ void unregisterViewModels() {
   locator.unregister<CreateEventViewModel>();
   locator.unregister<AddPostViewModel>();
   locator.unregister<ProfilePageViewModel>();
-  locator.unregister<LikeButtonViewModel>();
+  locator.unregister<InteractionsViewModel>();
   locator.unregister<SizeConfig>();
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();

@@ -10,19 +10,6 @@ part 'user_info.g.dart';
 
 /// This class creates a User model and returns a user instance.
 class User extends HiveObject {
-  /// Constructs a `User` instance.
-  ///
-  /// [adminFor] is the list of organizations where the user has admin privileges.
-  /// [createdOrganizations] is the list of organizations created by the user.
-  /// [email] is the user's email address.
-  /// [firstName] is the user's first name.
-  /// [id] is the unique identifier of the user.
-  /// [image] is the URL of the user's profile image/avatar.
-  /// [joinedOrganizations] is the list of organizations the user has joined.
-  /// [lastName] is the user's last name.
-  /// [authToken] is the authentication token for API requests.
-  /// [refreshToken] is the token used to refresh the authentication token.
-  /// [membershipRequests] is the list of organizations where the user has sent membership requests.
   User({
     this.adminFor,
     this.createdOrganizations,
@@ -37,79 +24,41 @@ class User extends HiveObject {
     this.membershipRequests,
   });
 
-  /// Creates a `User` instance from a JSON object.
-  ///
-  /// The [json] parameter is a map containing the user data.
-  /// The [fromOrg] parameter indicates whether the data comes from organization query.
-  ///
-  /// **params**:
-  /// * `json`: Map containing the user data from API response
-  /// * `fromOrg`: Boolean flag indicating if data is from organization query
-  ///
-  /// **returns**:
-  /// * `User`: An instance of User with populated data
   factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
-    if (fromOrg) {
-      // For usersByOrganizationId - direct user data from PostgreSQL
-      final nameData = _parseFullName(json['name'] as String?);
-
-      return User(
-        id: json['id'] as String?,
-        firstName: nameData['firstName'],
-        lastName: nameData['lastName'],
-        email: json['emailAddress'] as String?,
-        image: json['avatarURL'] as String?,
-        joinedOrganizations: [],
-      );
-    } else {
-      // For signIn and other queries - nested user data
-      final Map<String, dynamic> userData =
-          json['user'] as Map<String, dynamic>;
-      final nameData = _parseFullName(userData['name'] as String?);
-
-      List<Map<String, dynamic>>? orgList;
-      try {
-        final Map<String, dynamic>? org =
-            userData['organizationsWhereMember'] as Map<String, dynamic>?;
-        final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
-        orgList = edges?.map((e) => e as Map<String, dynamic>).toList();
-      } catch (e) {
-        // Log error if needed, but continue with empty list
-        orgList = null;
-      }
-
-      return User(
-        authToken: json['authenticationToken'] as String?,
-        refreshToken: json['refreshToken'] as String?,
-        id: userData['id'] as String?,
-        firstName: nameData['firstName'],
-        lastName: nameData['lastName'],
-        email: userData['emailAddress'] as String?,
-        image: userData['avatarURL'] as String?,
-        joinedOrganizations: orgList != null
-            ? orgList
-                .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
-                .toList()
-            : [],
-      );
-    }
-  }
-
-  /// Helper method to parse full name into firstName and lastName.
-  ///
-  /// **params**:
-  /// * `fullName`: The full name string to be parsed
-  ///
-  /// **returns**:
-  /// * `Map<String, String?>`: A map containing 'firstName' and 'lastName' keys
-  static Map<String, String?> _parseFullName(String? fullName) {
+    final Map<String, dynamic> userData =
+        json['user'] != null ? json['user'] as Map<String, dynamic> : json;
+    final String? fullName = userData['name'] as String?;
     final List<String>? nameParts = fullName?.split(' ');
     final String? firstName =
         nameParts != null && nameParts.isNotEmpty ? nameParts[0] : null;
     final String? lastName = nameParts != null && nameParts.length > 1
         ? nameParts.sublist(1).join(' ')
         : null;
-    return {'firstName': firstName, 'lastName': lastName};
+    final Map<String, dynamic>? org =
+        userData['organizationsWhereMember'] as Map<String, dynamic>?;
+    final List<dynamic>? edges = org?['edges'] as List<dynamic>?;
+    final List<Map<String, dynamic>>? orgList =
+        edges?.map((e) => e as Map<String, dynamic>).toList();
+    return User(
+      authToken: json['authenticationToken'] != null
+          ? json['authenticationToken'] as String?
+          : null,
+      refreshToken: fromOrg ? ' ' : json['refreshToken'] as String?,
+      id: userData['id'] as String?,
+      firstName: firstName,
+      lastName: lastName,
+      email: userData['emailAddress'] != null
+          ? userData['emailAddress'] as String?
+          : null,
+      image: userData['avatarURL'] != null
+          ? userData['avatarURL'] as String?
+          : null,
+      joinedOrganizations: orgList != null
+          ? orgList
+              .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
+              .toList()
+          : [],
+    );
   }
 
   /// Computed property to get the full name of the user.

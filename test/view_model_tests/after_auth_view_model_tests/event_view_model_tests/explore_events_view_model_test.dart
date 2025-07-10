@@ -171,7 +171,7 @@ void main() {
       when(model.eventService.deleteEvent(newEvent.id!)).thenAnswer(
         (realInvocation) async => QueryResult(
           options: QueryOptions(
-            document: gql(CommentQueries().getPostsComments('postId')),
+            document: gql(CommentQueries().getPostsComments()),
           ),
           data: {
             'post': {'comments': []},

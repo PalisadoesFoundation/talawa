@@ -24,8 +24,8 @@ import 'package:talawa/widgets/talawa_error_dialog.dart';
 /// * `updateUser` : helps to update the user.
 class UserConfig {
   // variables
-  late User? _currentUser = User(id: 'null', authToken: 'null');
-  late OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
+  User? _currentUser = User(id: 'null', authToken: 'null');
+  OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   late Stream<OrgInfo> _currentOrgInfoStream;
   final StreamController<OrgInfo> _currentOrgInfoController =
       StreamController<OrgInfo>.broadcast();
