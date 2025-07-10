@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 
@@ -20,9 +17,16 @@ class ChatListTileDataModel {
   factory ChatListTileDataModel.fromJson(Map<String, dynamic> json) =>
       _$ChatListTileDataModelFromJson(json);
 
-  // Connect the generated [_$ChatListTileDataModelToJson] function to the `toJson` method.
+  /// Converts this [ChatListTileDataModel] instance to a JSON map using the generated function.
+  ///
+  /// This method is typically used for serializing the model to be sent over a network or saved locally.
+  ///
+  /// **params**: none
   Map<String, dynamic> toJson() => _$ChatListTileDataModelToJson(this);
 
+  /// The list of users participating in the chat, represented as [ChatUser] objects.
   List<ChatUser>? users;
+
+  /// The unique identifier for the chat, used to distinguish between different chat sessions.
   String? id;
 }
