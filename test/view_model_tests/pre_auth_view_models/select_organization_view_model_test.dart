@@ -461,5 +461,283 @@ void main() {
         ],
       });
     });
+    testWidgets(
+        'Test for successful onTapJoin when userRegistrationRequired is false',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      // Setup org that doesn't require registration
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: false,
+      );
+
+      _user = User(id: 'user123');
+
+      // Mock successful join mutation
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': 'org123',
+          },
+        ),
+      ).thenAnswer((realInvocation) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'joinPublicOrganization': {
+              'memberId': 'user123',
+              'organizationId': 'org123',
+            },
+          },
+          options: QueryOptions(
+            document: gql(queries.joinOrgById()),
+            variables: {
+              'organizationId': 'org123',
+            },
+          ),
+        );
+      });
+
+      // Mock fetch organization query
+      when(databaseFunctions.gqlAuthQuery(queries.fetchOrgById('org123')))
+          .thenAnswer((realInvocation) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'organization': {
+              'id': 'org123',
+              'name': 'Test Organization',
+            },
+          },
+          options: QueryOptions(
+            document: gql(queries.fetchOrgById('org123')),
+          ),
+        );
+      });
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(navigationService.pop());
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Joined Test Organization successfully',
+          MessageType.info,
+        ),
+      );
+    });
+    testWidgets('Test for onTapJoin when userRegistrationRequired is true',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: true,
+      );
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(navigationService.pushScreen(Routes.requestAccess));
+    });
+
+    testWidgets('Test for onTapJoin when userRegistrationRequired is null',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: null,
+      );
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(navigationService.pushScreen(Routes.requestAccess));
+    });
+
+    testWidgets('Test for onTapJoin when mutation returns null data',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: false,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': 'org123',
+          },
+        ),
+      ).thenAnswer((realInvocation) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: null,
+          options: QueryOptions(
+            document: gql(queries.joinOrgById()),
+          ),
+        );
+      });
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong Exception: No data received',
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Test for onTapJoin when member ID mismatch occurs',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: false,
+      );
+
+      _user = User(id: 'user123');
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': 'org123',
+          },
+        ),
+      ).thenAnswer((realInvocation) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'joinPublicOrganization': {
+              'memberId': 'different-user',
+              'organizationId': 'org123',
+            },
+          },
+          options: QueryOptions(
+            document: gql(queries.joinOrgById()),
+          ),
+        );
+      });
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong Exception: Member ID mismatch',
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Test for onTapJoin when exception occurs during join',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: false,
+      );
+
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': 'org123',
+          },
+        ),
+      ).thenThrow(Exception('Test error'));
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong Exception: Test error',
+          MessageType.error,
+        ),
+      );
+    });
+
+    testWidgets('Test for onTapJoin when navigation to request access fails',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: true,
+      );
+
+      when(navigationService.pushScreen(Routes.requestAccess))
+          .thenThrow(Exception('Navigation error'));
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong Exception: Navigation error',
+          MessageType.error,
+        ),
+      );
+    });
   });
 }

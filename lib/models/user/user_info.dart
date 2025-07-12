@@ -148,7 +148,7 @@ class User extends HiveObject {
   ///
   /// **returns**:
   ///   None
-  void updateJoinedg(OrgInfo org) {
+  void updateJoinedOrg(OrgInfo org) {
     final existingOrgs = joinedOrganizations ?? [];
     // Remove any existing org with the same ID and add the new one
     this.joinedOrganizations = [

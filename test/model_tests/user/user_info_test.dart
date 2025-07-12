@@ -161,7 +161,7 @@ void main() {
       final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
 
       // Act
-      user.updateJoinedg(newOrg);
+      user.updateJoinedOrg(newOrg);
 
       // Assert
       expect(user.joinedOrganizations, isNotNull);
@@ -175,7 +175,7 @@ void main() {
       final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
 
       // Act
-      user.updateJoinedg(newOrg);
+      user.updateJoinedOrg(newOrg);
 
       // Assert
       expect(user.joinedOrganizations!.length, 1);
@@ -193,7 +193,7 @@ void main() {
       final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
 
       // Act
-      user.updateJoinedg(newOrg);
+      user.updateJoinedOrg(newOrg);
 
       // Assert
       expect(user.joinedOrganizations!.length, 3);
@@ -213,7 +213,7 @@ void main() {
       final updatedOrg = OrgInfo(id: 'org1', name: 'New Name');
 
       // Act
-      user.updateJoinedg(updatedOrg);
+      user.updateJoinedOrg(updatedOrg);
 
       // Assert
       expect(user.joinedOrganizations!.length, 2);
@@ -234,7 +234,7 @@ void main() {
       final updatedOrg = OrgInfo(id: 'org1', name: 'Updated Org');
 
       // Act
-      user.updateJoinedg(updatedOrg);
+      user.updateJoinedOrg(updatedOrg);
 
       // Assert
       expect(user.joinedOrganizations!.length, 2);

@@ -233,7 +233,6 @@ class SelectOrganizationViewModel extends BaseModel {
         );
       }
     } else {
-      print("inside else");
       try {
         navigationService.pushScreen(Routes.requestAccess);
       } on Exception catch (e) {
