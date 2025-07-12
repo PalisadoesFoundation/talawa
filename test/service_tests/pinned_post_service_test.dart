@@ -19,6 +19,19 @@ void main() {
     locator.reset();
   });
 
+  test('pinnedPosts getter returns internal pinnedPosts list', () {
+    // Arrange
+    final pinnedPostService = PinnedPostService();
+
+    // Act & Assert - Test initial state
+    expect(pinnedPostService.pinnedPosts, isA<List<Post>>());
+    expect(pinnedPostService.pinnedPosts, isEmpty);
+
+    // The getter should return the same reference as the internal list
+    final currentPosts = pinnedPostService.pinnedPosts;
+    expect(identical(currentPosts, pinnedPostService.pinnedPosts), isTrue);
+  });
+
   test('fetchDataFromApi returns pinned posts if data is valid', () async {
     final dbFunctions = locator<DataBaseMutationFunctions>();
     final pinnedPostService = PinnedPostService();
