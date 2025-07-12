@@ -9,6 +9,8 @@ import 'dart:ui' as _i11;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i12;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i48;
+import 'package:graphql/src/utilities/helpers.dart' as _i47;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
 import 'package:image_cropper/src/cropper.dart' as _i44;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
@@ -16,6 +18,7 @@ import 'package:image_cropper_platform_interface/image_cropper_platform_interfac
 import 'package:image_picker/image_picker.dart' as _i15;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i20;
+import 'package:normalize/normalize.dart' as _i46;
 import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i36;
 import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i37;
 import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i38;
@@ -357,6 +360,16 @@ class _FakeDateTime_25 extends _i2.SmartFake implements DateTime {
 class _FakeLostDataResponse_26 extends _i2.SmartFake
     implements _i15.LostDataResponse {
   _FakeLostDataResponse_26(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStore_27 extends _i2.SmartFake implements _i3.Store {
+  _FakeStore_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4933,4 +4946,338 @@ class MockImagePicker extends _i2.Mock implements _i15.ImagePicker {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+}
+
+/// A class which mocks [GraphQLCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
+  @override
+  _i3.Store get store => (super.noSuchMethod(
+        Invocation.getter(#store),
+        returnValue: _FakeStore_27(
+          this,
+          Invocation.getter(#store),
+        ),
+        returnValueForMissingStub: _FakeStore_27(
+          this,
+          Invocation.getter(#store),
+        ),
+      ) as _i3.Store);
+
+  @override
+  _i3.PartialDataCachePolicy get partialDataPolicy => (super.noSuchMethod(
+        Invocation.getter(#partialDataPolicy),
+        returnValue: _i3.PartialDataCachePolicy.accept,
+        returnValueForMissingStub: _i3.PartialDataCachePolicy.accept,
+      ) as _i3.PartialDataCachePolicy);
+
+  @override
+  Map<String, _i46.TypePolicy> get typePolicies => (super.noSuchMethod(
+        Invocation.getter(#typePolicies),
+        returnValue: <String, _i46.TypePolicy>{},
+        returnValueForMissingStub: <String, _i46.TypePolicy>{},
+      ) as Map<String, _i46.TypePolicy>);
+
+  @override
+  Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
+        Invocation.getter(#possibleTypes),
+        returnValue: <String, Set<String>>{},
+        returnValueForMissingStub: <String, Set<String>>{},
+      ) as Map<String, Set<String>>);
+
+  @override
+  _i47.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+        Invocation.getter(#sanitizeVariables),
+        returnValue: (Map<String, dynamic> variables) => null,
+        returnValueForMissingStub: (Map<String, dynamic> variables) => null,
+      ) as _i47.SanitizeVariables);
+
+  @override
+  int get inflightOptimisticTransactions => (super.noSuchMethod(
+        Invocation.getter(#inflightOptimisticTransactions),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set inflightOptimisticTransactions(int? _inflightOptimisticTransactions) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #inflightOptimisticTransactions,
+          _inflightOptimisticTransactions,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<_i48.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+        Invocation.getter(#optimisticPatches),
+        returnValue: <_i48.OptimisticPatch>[],
+        returnValueForMissingStub: <_i48.OptimisticPatch>[],
+      ) as List<_i48.OptimisticPatch>);
+
+  @override
+  set optimisticPatches(List<_i48.OptimisticPatch>? _optimisticPatches) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #optimisticPatches,
+          _optimisticPatches,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get acceptPartialData => (super.noSuchMethod(
+        Invocation.getter(#acceptPartialData),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get addTypename => (super.noSuchMethod(
+        Invocation.getter(#addTypename),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set addTypename(bool? _addTypename) => super.noSuchMethod(
+        Invocation.setter(
+          #addTypename,
+          _addTypename,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get broadcastRequested => (super.noSuchMethod(
+        Invocation.getter(#broadcastRequested),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set broadcastRequested(bool? _broadcastRequested) => super.noSuchMethod(
+        Invocation.setter(
+          #broadcastRequested,
+          _broadcastRequested,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set sanitizeVariables(_i47.SanitizeVariables? _sanitizeVariables) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #sanitizeVariables,
+          _sanitizeVariables,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get returnPartialData => (super.noSuchMethod(
+        Invocation.getter(#returnPartialData),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool shouldBroadcast({bool? claimExecution = false}) => (super.noSuchMethod(
+        Invocation.method(
+          #shouldBroadcast,
+          [],
+          {#claimExecution: claimExecution},
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  Map<String, dynamic>? readNormalized(
+    String? rootId, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readNormalized,
+          [rootId],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void writeNormalized(
+    String? dataId,
+    Map<String, dynamic>? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeNormalized,
+          [
+            dataId,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void recordOptimisticTransaction(
+    _i48.CacheTransaction? transaction,
+    String? addId,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #recordOptimisticTransaction,
+          [
+            transaction,
+            addId,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeOptimisticPatch(String? removeId) => super.noSuchMethod(
+        Invocation.method(
+          #removeOptimisticPatch,
+          [removeId],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, dynamic>? readQuery(
+    _i3.Request? request, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readQuery,
+          [request],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  Map<String, dynamic>? readFragment(
+    _i3.FragmentRequest? fragmentRequest, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readFragment,
+          [fragmentRequest],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void writeQuery(
+    _i3.Request? request, {
+    required Map<String, dynamic>? data,
+    bool? broadcast = true,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeQuery,
+          [request],
+          {
+            #data: data,
+            #broadcast: broadcast,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void writeFragment(
+    _i3.FragmentRequest? request, {
+    required Map<String, dynamic>? data,
+    bool? broadcast = true,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeFragment,
+          [request],
+          {
+            #data: data,
+            #broadcast: broadcast,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [Store].
+///
+/// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
+class MockStore extends _i2.Mock implements _i3.Store {
+  @override
+  Map<String, dynamic>? get(String? dataId) => (super.noSuchMethod(
+        Invocation.method(
+          #get,
+          [dataId],
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void put(
+    String? dataId,
+    Map<String, dynamic>? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #put,
+          [
+            dataId,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void putAll(Map<String, Map<String, dynamic>?>? data) => super.noSuchMethod(
+        Invocation.method(
+          #putAll,
+          [data],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void delete(String? dataId) => super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [dataId],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void reset() => super.noSuchMethod(
+        Invocation.method(
+          #reset,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, Map<String, dynamic>?> toMap() => (super.noSuchMethod(
+        Invocation.method(
+          #toMap,
+          [],
+        ),
+        returnValue: <String, Map<String, dynamic>?>{},
+        returnValueForMissingStub: <String, Map<String, dynamic>?>{},
+      ) as Map<String, Map<String, dynamic>?>);
 }

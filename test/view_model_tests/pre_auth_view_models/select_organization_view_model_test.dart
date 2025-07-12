@@ -739,5 +739,51 @@ void main() {
         ),
       );
     });
+
+    testWidgets(
+        'Test for onTapJoin when joinPublicOrganization data is missing',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = OrgInfo(
+        id: 'org123',
+        name: 'Test Organization',
+        userRegistrationRequired: false,
+      );
+
+      // Mock mutation response with empty data (no joinPublicOrganization key)
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': 'org123',
+          },
+        ),
+      ).thenAnswer((realInvocation) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {}, // Empty data object - no joinPublicOrganization key
+          options: QueryOptions(
+            document: gql(queries.joinOrgById()),
+          ),
+        );
+      });
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong Exception: Join operation failed',
+          MessageType.error,
+        ),
+      );
+    });
   });
 }
