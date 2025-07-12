@@ -26,6 +26,9 @@ class PinnedPostService extends BaseFeedManager<Post> {
   late OrgInfo _currentOrg;
   List<Post> _pinnedPosts = [];
 
+  /// Getter to access the list of pinned posts.
+  List<Post> get pinnedPosts => _pinnedPosts;
+
   /// Object to hold pagination information for posts. It contains information like `after`, `before`, `first`, and `last`.
   PageInfo pinnedPostInfo = PageInfo(
     hasNextPage: false,
