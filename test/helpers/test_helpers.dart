@@ -382,6 +382,24 @@ DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   when(service.fetchOrgById('fake_id')).thenAnswer((_) async {
     return fakeOrgInfo;
   });
+  when(service.gqlAuthQuery(any, variables: anyNamed('variables')))
+      .thenAnswer((_) async {
+    return QueryResult(
+      source: QueryResultSource.network,
+      data: <String, dynamic>{
+        'postsByOrganizationConnection': {
+          'edges': <dynamic>[],
+          'pageInfo': {
+            'startCursor': null,
+            'endCursor': null,
+            'hasNextPage': false,
+            'hasPreviousPage': false,
+          },
+        },
+      },
+      options: QueryOptions(document: gql('')),
+    );
+  });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }

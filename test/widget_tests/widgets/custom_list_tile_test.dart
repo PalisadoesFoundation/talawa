@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -85,18 +86,33 @@ void main() {
     unregisterServices();
   });
   group('Custom list tile test', () {
-    // testWidgets("Test type is org ", (WidgetTester tester) async {
-    //   bool executed = false;
-    //   _orgInfo = OrgInfo(
-    //     name: 'Test Name',
-    //     // userRegistrationRequired: false,
-    //     city: 'Test City',
-    //     countryCode: 'TC',
-    //   );
-    //   _onTapOrgInfo = (OrgInfo orgInfo) {
-    //     executed = true;
-    //   };
-    //   _tileType = TileType.org;
+    testWidgets("Test type is org", (WidgetTester tester) async {
+      bool executed = false;
+      _orgInfo = OrgInfo(
+        name: 'Test Organization',
+        city: 'Test City',
+        countryCode: 'TC',
+      );
+      _onTapOrgInfo = (OrgInfo orgInfo) {
+        executed = true;
+      };
+      _tileType = TileType.org;
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // test to see if onTap of Inkwell works and calls onTapOrgInfo
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      // Testing Rich Text for org name and address shows up
+      final orgName = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgName, findsOneWidget);
+    });
     //   await tester.pumpWidget(_createCustomListTile());
     //   await tester.pumpAndSettle();
 
@@ -368,5 +384,265 @@ void main() {
     // Test for checking if trailing icon button is shown
     //   expect(find.byIcon(Icons.send), findsOneWidget);
     // });
+
+    testWidgets("Test when type is attendee", (WidgetTester tester) async {
+      bool executed = false;
+      _tileType = TileType.attendee;
+
+      // Create attendee info
+      final attendeeInfo = Attendee(
+        firstName: 'Test',
+        lastName: 'Attendee',
+      );
+
+      // ignore: prefer_function_declarations_over_variables
+      void Function()? onTapAttendeeInfo = () => {executed = true};
+
+      // Create custom widget with attendee
+      final customWidget = MaterialApp(
+        navigatorKey: navigationService.navigatorKey,
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: Scaffold(
+          body: CustomListTile(
+            key: _key,
+            index: _index,
+            type: _tileType,
+            attendeeInfo: attendeeInfo,
+            onTapAttendeeInfo: onTapAttendeeInfo,
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(customWidget);
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // test to see if onTap of Inkwell works for attendee
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      // Testing Text for that contains attendee's name
+      final attendeeNameFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final attendeeNameWidget = tester.firstWidget(attendeeNameFinder) as Text;
+      expect(attendeeNameWidget.data, 'Test Attendee');
+    });
+
+    testWidgets("Test org with city and country code",
+        (WidgetTester tester) async {
+      _tileType = TileType.org;
+      _orgInfo = OrgInfo(
+        name: 'Test Organization',
+        city: 'New York',
+        countryCode: 'US',
+      );
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // Testing Rich Text for org name and address shows up
+      final orgNameFinder = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgNameFinder, findsOneWidget);
+
+      // Check the RichText widget directly for city and country code
+      final richTextWidget = tester.widget<RichText>(orgNameFinder);
+      final textSpan = richTextWidget.text as TextSpan;
+
+      // Check that the main text contains the organization name
+      expect(textSpan.text, 'Test Organization');
+
+      // Check that the children contain the city and country code
+      expect(textSpan.children, isNotNull);
+      expect(textSpan.children!.length, greaterThan(1));
+
+      // Find the TextSpan that contains the location info
+      final locationSpan = textSpan.children!
+          .whereType<TextSpan>()
+          .firstWhere((span) => span.text!.contains('New York'));
+      expect(locationSpan.text, '(New York, US)');
+    });
+
+    testWidgets("Test when type is option (default case)",
+        (WidgetTester tester) async {
+      bool executed = false;
+      _tileType = TileType.option;
+      _option = Options(
+        icon: const Icon(Icons.add),
+        title: 'Test Option',
+        subtitle: 'Just a test option',
+        trailingIconButton: null, // No trailing icon button
+      );
+      _onTapOption = () => executed = true;
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // test to see if onTap of Inkwell works for option (default case)
+      await tester.tap(find.byType(InkWell));
+      await tester.pump();
+      expect(executed, true);
+
+      // Testing Text that contains option's title
+      final optionTitleFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
+      expect(optionTitleWidget.data, 'Test Option');
+
+      // Test the style when trailingIconButton is null (should use bodyMedium)
+      expect(
+        optionTitleWidget.style,
+        Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .bodyMedium!
+            .copyWith(fontSize: 18, color: Colors.black),
+      );
+    });
+
+    testWidgets("Test option with trailing icon button",
+        (WidgetTester tester) async {
+      _tileType = TileType.option;
+      _option = Options(
+        icon: const Icon(Icons.add),
+        title: 'Test Option With Button',
+        subtitle: 'Just a test option',
+        trailingIconButton: IconButton(
+          icon: const Icon(Icons.send),
+          onPressed: () {},
+        ),
+      );
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // Testing Text that contains option's title
+      final optionTitleFinder = find
+          .descendant(
+            of: find.byType(Expanded).at(0),
+            matching: find.byType(Text),
+          )
+          .first;
+
+      final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
+      expect(optionTitleWidget.data, 'Test Option With Button');
+
+      // Test the style when trailingIconButton is NOT null (should use headlineSmall)
+      expect(
+        optionTitleWidget.style,
+        Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .headlineSmall!
+            .copyWith(fontSize: 18, color: Colors.black),
+      );
+    });
+    testWidgets("Test org without city and country code",
+        (WidgetTester tester) async {
+      _tileType = TileType.org;
+      _orgInfo = OrgInfo(
+        name: 'Test Organization Without Location',
+        city: null,
+        countryCode: null,
+      );
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // Testing Rich Text for org name shows up
+      final orgNameFinder = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgNameFinder, findsOneWidget);
+
+      // Check the RichText widget directly
+      final richTextWidget = tester.widget<RichText>(orgNameFinder);
+      final textSpan = richTextWidget.text as TextSpan;
+
+      // Check that the main text contains the organization name
+      expect(textSpan.text, 'Test Organization Without Location');
+
+      // Check that there are no children (no location info)
+      expect(textSpan.children?.length ?? 0, lessThanOrEqualTo(1));
+    });
+
+    testWidgets("Test org with only city (no country code)",
+        (WidgetTester tester) async {
+      _tileType = TileType.org;
+      _orgInfo = OrgInfo(
+        name: 'Test Organization Partial Location',
+        city: 'New York',
+        countryCode: null, // Only city, no country code
+      );
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // Testing Rich Text for org name shows up
+      final orgNameFinder = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgNameFinder, findsOneWidget);
+
+      // Check the RichText widget directly
+      final richTextWidget = tester.widget<RichText>(orgNameFinder);
+      final textSpan = richTextWidget.text as TextSpan;
+
+      // Check that the main text contains the organization name
+      expect(textSpan.text, 'Test Organization Partial Location');
+
+      // Check that there are no children (no location info because countryCode is null)
+      expect(textSpan.children?.length ?? 0, lessThanOrEqualTo(1));
+    });
+
+    testWidgets("Test org with only country code (no city)",
+        (WidgetTester tester) async {
+      _tileType = TileType.org;
+      _orgInfo = OrgInfo(
+        name: 'Test Organization Partial Location 2',
+        city: null, // No city
+        countryCode: 'US',
+      );
+
+      await tester.pumpWidget(_createCustomListTile());
+      await tester.pumpAndSettle();
+
+      // test to see if custom list tile widget shows up
+      expect(find.byKey(_key), findsOneWidget);
+
+      // Testing Rich Text for org name shows up
+      final orgNameFinder = find.byKey(const Key('OrgNamewithOrgAddress'));
+      expect(orgNameFinder, findsOneWidget);
+
+      // Check the RichText widget directly
+      final richTextWidget = tester.widget<RichText>(orgNameFinder);
+      final textSpan = richTextWidget.text as TextSpan;
+
+      // Check that the main text contains the organization name
+      expect(textSpan.text, 'Test Organization Partial Location 2');
+
+      // Check that there are no children (no location info because city is null)
+      expect(textSpan.children?.length ?? 0, lessThanOrEqualTo(1));
+    });
   });
 }

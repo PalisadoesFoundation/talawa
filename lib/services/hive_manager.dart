@@ -66,11 +66,7 @@ class HiveManager {
   /// **returns**:
   ///   None
   static Future<void> openBox<T>(String boxName) async {
-    try {
-      await Hive.openBox<T>(boxName);
-    } catch (e) {
-      debugPrint('Failed to open box $boxName');
-    }
+    await Hive.openBox<T>(boxName);
   }
 
   /// Closes the [boxName] named box.

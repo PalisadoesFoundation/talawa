@@ -384,5 +384,27 @@ void main() {
       expect(group.name, "Old Name");
       expect(group.volunteersRequired, 0);
     });
+
+    // Tests the error print coverage when removing a volunteer from a group.
+    test("Test removeVolunteerFromGroup error print coverage", () async {
+      final mockEventService = locator<EventService>();
+      when(
+        mockEventService.removeVolunteerFromGroup({'id': 'volunteer1'}),
+      ).thenThrow(Exception('Failed to remove volunteer'));
+      String log = "";
+      await runZonedGuarded(
+        () async {
+          await model.removeVolunteerFromGroup("volunteer1");
+        },
+        (error, stack) {},
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            log = line;
+          },
+        ),
+      );
+      expect(log, contains('Error removing volunteer:'));
+      expect(log, contains('Failed to remove volunteer'));
+    });
   });
 }
