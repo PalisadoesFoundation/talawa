@@ -396,7 +396,7 @@ void main() {
       );
 
       // ignore: prefer_function_declarations_over_variables
-      void Function()? onTapAttendeeInfo = () => {executed = true};
+      final void Function() onTapAttendeeInfo = () => {executed = true};
 
       // Create custom widget with attendee
       final customWidget = MaterialApp(
