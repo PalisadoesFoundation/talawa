@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
 import 'package:talawa/models/events/event_agenda_item.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -10,6 +13,7 @@ import '../../../helpers/test_locator.dart';
 
 void main() {
   late EditAgendaItemViewModel model;
+  late MultiMediaPickerService mockMultiMediaPickerService;
 
   final testAgendaItem = EventAgendaItem(
     id: '1',
@@ -28,6 +32,8 @@ void main() {
 
   setUp(() {
     registerServices();
+    getAndRegisterImageService(); // Register ImageService for the global imageService variable
+    mockMultiMediaPickerService = getAndRegisterMultiMediaPickerService();
     model = EditAgendaItemViewModel();
   });
 
@@ -80,6 +86,34 @@ void main() {
 
       model.titleController.text = 'Updated Title';
       expect(model.checkForChanges(), true);
+    });
+
+    test('pickAttachment() adds base64 attachment from picked file', () async {
+      final dummyFile = File('dummy.jpg');
+
+      // Mock the multimedia picker to return a dummy file
+      when(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async => dummyFile);
+
+      // Initialize with defaults
+      model.initialize(testAgendaItem, testCategories);
+
+      // Record initial state
+      final initialAttachmentCount = model.attachments.length;
+
+      bool listenerCalled = false;
+      model.addListener(() => listenerCalled = true);
+
+      // Test will fail if imageService.convertToBase64 throws or if pickAttachment doesn't work
+      await model.pickAttachment();
+
+      // Verify the multimedia picker was called
+      verify(mockMultiMediaPickerService.getPhotoFromGallery(camera: false))
+          .called(1);
+
+      // Verify an attachment was added (regardless of the actual base64 content)
+      expect(model.attachments.length, initialAttachmentCount + 1);
+      expect(listenerCalled, true);
     });
 
     testWidgets('updateAgendaItem() calls event service with correct data',

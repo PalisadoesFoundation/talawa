@@ -17,6 +17,9 @@ class EventInfoViewModel extends BaseModel {
   /// Constant string for the FAB title.
   static const String fabTitleText = "Register";
 
+  /// UserConfig instance to get user and organization data.
+  UserConfig get userConfig => locator<UserConfig>();
+
   /// ExploreEventsViewModel instance to fetch the event data.
   late ExploreEventsViewModel exploreEventsInstance;
 

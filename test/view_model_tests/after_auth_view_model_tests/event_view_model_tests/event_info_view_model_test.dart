@@ -640,5 +640,47 @@ void main() {
 
       expect(result, isNull);
     });
+
+    test('Organization ID validation handles all invalid cases', () async {
+      final Event event1 = Event(id: "1");
+      model.event = event1;
+      final userConfig = getAndRegisterUserConfig();
+
+      // Test null org ID
+      userConfig.currentOrg.id = null;
+      await model.fetchCategories();
+      expect(model.categories, isNotNull);
+
+      final result1 = await model.createAgendaItem(
+        title: 'Test Agenda',
+        description: 'Test Description',
+        duration: '1h',
+      );
+      expect(result1, isNull);
+
+      // Test empty org ID
+      userConfig.currentOrg.id = '';
+      await model.fetchCategories();
+      expect(model.categories, isNotNull);
+
+      final result2 = await model.createAgendaItem(
+        title: 'Test Agenda 2',
+        description: 'Test Description',
+        duration: '1h',
+      );
+      expect(result2, isNull);
+
+      // Test 'null' string org ID
+      userConfig.currentOrg.id = 'null';
+      await model.fetchCategories();
+      expect(model.categories, isNotNull);
+
+      final result3 = await model.createAgendaItem(
+        title: 'Test Agenda 3',
+        description: 'Test Description',
+        duration: '1h',
+      );
+      expect(result3, isNull);
+    });
   });
 }
