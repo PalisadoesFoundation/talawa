@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -10,8 +7,11 @@ import 'package:talawa/widgets/event_card.dart';
 /// This class returns a list of the events which match the search query.
 class EventSearch extends SearchDelegate<Event> {
   EventSearch({required this.eventList, required this.exploreEventsViewModel});
+
+  /// The model that contains the logic for exploring events.
   ExploreEventsViewModel exploreEventsViewModel;
 
+  /// List of events.
   final List<Event> eventList;
 
   @override
@@ -60,6 +60,13 @@ class EventSearch extends SearchDelegate<Event> {
     return buildSuggestionsSucess(suggestions);
   }
 
+  /// Builds the suggestion success widget.
+  ///
+  /// **params**:
+  /// * `suggestions`: The list of event suggestions to display.
+  ///
+  /// **returns**:
+  /// * `Widget`: The widget displaying the suggestions.
   Widget buildSuggestionsSucess(List<Event> suggestions) {
     /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
     /// Returns a SingleChildScrollView of the events from the list.
