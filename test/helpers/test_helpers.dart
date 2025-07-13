@@ -576,9 +576,9 @@ EventService getAndRegisterEventService() {
     (invocation) async => streamController.add([
       Event(
         id: '1',
-        title: 'test',
-        startTime: '10000',
-        endTime: '20000',
+        name: 'test',
+        startAt: DateTime.now(),
+        endAt: DateTime.now(),
         location: 'ABC',
         description: 'test',
         creator: User(

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -9,16 +10,14 @@ part 'event_model.g.dart';
 class Event {
   Event({
     this.id,
-    this.title,
+    this.name,
     this.description,
     this.attendees,
     this.location,
     this.recurring,
     this.allDay,
-    this.startDate,
-    this.endDate,
-    this.startTime,
-    this.endTime,
+    this.startAt,
+    this.endAt,
     this.isPublic,
     this.isRegistered,
     this.isRegisterable,
@@ -31,44 +30,47 @@ class Event {
     Map<String, dynamic> json,
   ) {
     return Event(
-      id: json['_id'] as String,
-      title: json['title'] as String?,
+      id: json['id'] as String?,
+      name: json['name'] as String?,
       description: json['description'] as String?,
       location: json['location'] as String?,
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
-      startDate: json['startDate'] as String?,
-      endDate: json['endDate'] as String?,
-      startTime: json['startTime'] as String?,
-      endTime: json['endTime'] as String?,
+      startAt: json['startAt'] != null
+          ? DateTime.parse(json['startAt'] as String)
+          : null,
+      endAt: json['endAt'] != null
+          ? DateTime.parse(json['endAt'] as String)
+          : null,
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,
-      creator: json['creator'] == null
-          ? null
-          : User.fromJson(
-              json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
-            ),
       organization: json['organization'] == null
           ? null
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
-      admins: json['admins'] == null
-          ? null
-          : (json['admins'] as List<dynamic>?)
-              ?.map(
-                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
-              )
-              .toList(),
       attendees: (json["attendees"] as List<dynamic>?)?.isEmpty ?? true
           ? null
           : (json['attendees'] as List<dynamic>?)
-              ?.map(
-                (e) => Attendee.fromJson(e as Map<String, dynamic>),
-              )
+              ?.map((e) => Attendee.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
   }
+
+  /// Computed property: formatted start date (e.g. "2025-07-30").
+  String get startDate =>
+      startAt != null ? DateFormat('yyyy-MM-dd').format(startAt!) : '';
+
+  /// Computed property: formatted end date (e.g. "2025-07-31").
+  String get endDate =>
+      endAt != null ? DateFormat('yyyy-MM-dd').format(endAt!) : '';
+
+  /// Computed property: formatted start time (e.g. "09:00 AM").
+  String get startTime =>
+      startAt != null ? DateFormat('hh:mm a').format(startAt!) : '';
+
+  /// Computed property: formatted end time (e.g. "05:00 PM").
+  String get endTime =>
+      endAt != null ? DateFormat('hh:mm a').format(endAt!) : '';
 
   /// Unique identifier for the event.
   @HiveField(0)
@@ -76,7 +78,7 @@ class Event {
 
   /// The title of the event.
   @HiveField(1)
-  String? title;
+  String? name;
 
   /// The description of the event.
   @HiveField(2)
@@ -94,21 +96,13 @@ class Event {
   @HiveField(5)
   bool? allDay;
 
-  /// The start date of the event.
+  /// The start DateTime of the event.
   @HiveField(6)
-  String? startDate;
+  DateTime? startAt;
 
-  /// The end date of the event.
+  /// The end DateTime of the event.
   @HiveField(7)
-  String? endDate;
-
-  /// The start time of the event.
-  @HiveField(8)
-  String? startTime;
-
-  /// The end time of the event.
-  @HiveField(9)
-  String? endTime;
+  DateTime? endAt;
 
   /// A boolean value that indicates if the event is public.
   @HiveField(10)

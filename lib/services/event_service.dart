@@ -5,6 +5,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/services/caching/base_feed_manager.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -26,7 +27,6 @@ import 'package:talawa/utils/event_queries.dart';
 class EventService extends BaseFeedManager<Event> {
   EventService() : super(HiveKeys.eventFeedKey) {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
-    print(_eventStream);
     _currentOrg = _userConfig.currentOrg;
     _userConfig.initialiseStream();
     setOrgStreamSubscription();
@@ -44,6 +44,23 @@ class EventService extends BaseFeedManager<Event> {
       StreamController<List<Event>>();
 
   List<Event> _events = [];
+
+  /// page info for the events.
+  PageInfo pageInfo = PageInfo(
+    hasNextPage: false,
+    hasPreviousPage: false,
+    startCursor: null,
+    endCursor: null,
+  );
+
+  ///  The after cursor for pagination.
+  String? after;
+
+  /// The first number of events to fetch.
+  int? first = 10;
+
+  /// Getter to check if there are more events to fetch.
+  bool get hasMoreEvents => pageInfo.hasNextPage ?? false;
 
   /// The event stream.
   ///
@@ -65,24 +82,30 @@ class EventService extends BaseFeedManager<Event> {
   Future<List<Event>> fetchDataFromApi() async {
     // get current organization id
     final String currentOrgID = _currentOrg.id!;
+    final Map<String, dynamic> variables = {
+      'orgId': currentOrgID,
+      'first': first,
+      'after': null,
+    };
     // mutation to fetch the events
-    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
-    final result = await _dbFunctions.gqlAuthQuery(mutation);
+    final String query = EventQueries().fetchOrgEvents();
+    final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
 
     if (result.data == null) {
       throw Exception('unable to fetch data');
     }
+    final org = result.data!['organization'] as Map<String, dynamic>;
+    final eventsMap = org['events'] as Map<String, dynamic>;
+    pageInfo = PageInfo.fromJson(eventsMap['pageInfo'] as Map<String, dynamic>);
 
-    final eventsJson =
-        result.data!["eventsByOrganizationConnection"] as List<dynamic>;
-    eventsJson.forEach((eventJsonData) {
-      final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
-      event.isRegistered = event.attendees?.any(
-            (attendee) => attendee.id == _userConfig.currentUser.id,
-          ) ??
-          false;
-      _events.insert(0, event);
-    });
+    final List<Event> newEvents = [];
+    for (final edge in eventsMap['edges'] as List) {
+      final event = Event.fromJson(
+        (edge as Map<String, dynamic>)['node'] as Map<String, dynamic>,
+      );
+      newEvents.add(event);
+    }
+    _events = newEvents;
     return _events;
   }
 
@@ -99,7 +122,7 @@ class EventService extends BaseFeedManager<Event> {
   Future<void> fetchEventsInitial() async {
     _events = await loadCachedData();
     _eventStreamController.add(_events);
-    refreshFeed();
+    await refreshFeed();
   }
 
   /// Refreshes the event feed by fetching the latest events from the API and updating the event stream.
@@ -113,6 +136,8 @@ class EventService extends BaseFeedManager<Event> {
   /// **returns**:
   ///   None
   Future<void> refreshFeed() async {
+    after = null;
+    first = 10;
     _events = await getNewFeedAndRefreshCache();
     _eventStreamController.add(_events);
   }
@@ -148,6 +173,24 @@ class EventService extends BaseFeedManager<Event> {
     return result;
   }
 
+  /// This function is used to fetch the next page of events if available.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> nextPage() async {
+    if (pageInfo.hasNextPage == true) {
+      final nextCursor = pageInfo.endCursor;
+      if (nextCursor != null && nextCursor.isNotEmpty) {
+        after = nextCursor;
+        first = 10;
+        await getEvents();
+      }
+    }
+  }
+
   /// This function is used to fetch all the events of an organization.
   ///
   /// **params**:
@@ -157,7 +200,11 @@ class EventService extends BaseFeedManager<Event> {
   ///   None
   Future<void> getEvents() async {
     final List<Event> newEvents = await getNewFeedAndRefreshCache();
-    _eventStreamController.add(newEvents);
+    // Add new events to the existing list, avoiding duplicates
+    final existingIds = _events.map((e) => e.id).toSet();
+    _events.addAll(newEvents.where((e) => !existingIds.contains(e.id)));
+    _eventStreamController.add(_events);
+    await saveDataToCache(_events); // Save all events (old + new) to cache
   }
 
   /// This function is used to fetch all registrants of an event.

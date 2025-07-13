@@ -17,11 +17,9 @@ Widget createEventCalendar() {
     navigatorKey: navigationService.navigatorKey,
     home: EventCalendar([
       Event(
-        title: 'Test',
-        startDate: '07/14/2022',
-        startTime: '14:23:01',
-        endDate: '07/14/2022',
-        endTime: '21:23:01',
+        name: 'Test',
+        startAt: DateTime.parse('2025-07-13T19:10:00.000Z'),
+        endAt: DateTime.parse('2025-07-13T20:15:00.000Z'),
       ),
     ]),
   );
@@ -32,11 +30,9 @@ Widget createEventCalender2() {
     navigatorKey: navigationService.navigatorKey,
     home: EventCalendar([
       Event(
-        title: 'Test2',
-        startDate: '2022-07-14',
-        startTime: '14:23:01',
-        endDate: '2022-07-14',
-        endTime: '21:23:01',
+        name: 'Test2',
+        startAt: DateTime.parse('2022-07-14T19:10:00.000Z'),
+        endAt: DateTime.parse('2022-07-14T20:15:00.000Z'),
       ),
     ]),
   );
@@ -47,26 +43,6 @@ void main() {
     registerServices();
   });
   group("Test for _parseTime function", () {
-    test("Test parsing valid time string", () {
-      const timeString = "5:30 PM";
-      final parsedTime = parseTime(timeString);
-      final expectedTime = DateFormat("h:mm a").parse(timeString);
-      expect(parsedTime, expectedTime);
-    });
-    test("Test for invalid time string", () {
-      const timeString = "invalid String ";
-
-      expect(() => parseTime(timeString), throwsException);
-    });
-    test("Test parsing  string in hms format", () {
-      const timeString = "12:12:12";
-
-      final parsedTime = parseTime(timeString);
-      final expectTime = DateFormat('Hms').parse(timeString);
-
-      expect(expectTime, parsedTime);
-    });
-
     group('Tests for EventCalendar', () {
       setUp(() => locator.registerSingleton(EventCalendarViewModel()));
       tearDown(() => locator.unregister<EventCalendarViewModel>());
@@ -136,19 +112,13 @@ void main() {
 
         DateTime startDate;
         DateTime endDate;
-        if (event.startDate!.contains('/')) {
-          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
-        } else {
-          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
-        }
-        if (event.endDate!.contains('/')) {
-          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
-        } else {
-          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
-        }
 
-        expect(startDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
-        expect(endDate, DateFormat('MM/dd/yyyy').parse('07/14/2022'));
+        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
+
+        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
+
+        expect(startDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
+        expect(endDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
       });
       testWidgets("Testing if EventCalendar shows up", (tester) async {
         await tester.pumpWidget(createEventCalender2());
@@ -161,15 +131,15 @@ void main() {
 
         DateTime startDate;
         DateTime endDate;
-        if (event.startDate!.contains('/')) {
-          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
+        if (event.startDate.contains('/')) {
+          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate);
         } else {
-          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
+          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
         }
-        if (event.endDate!.contains('/')) {
-          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
+        if (event.endDate.contains('/')) {
+          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate);
         } else {
-          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
+          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
         }
 
         expect(startDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));

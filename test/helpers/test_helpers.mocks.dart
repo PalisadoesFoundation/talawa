@@ -1365,6 +1365,53 @@ class MockMultiMediaPickerService extends _i2.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockEventService extends _i2.Mock implements _i13.EventService {
   @override
+  _i4.PageInfo get pageInfo => (super.noSuchMethod(
+        Invocation.getter(#pageInfo),
+        returnValue: _FakePageInfo_10(
+          this,
+          Invocation.getter(#pageInfo),
+        ),
+        returnValueForMissingStub: _FakePageInfo_10(
+          this,
+          Invocation.getter(#pageInfo),
+        ),
+      ) as _i4.PageInfo);
+
+  @override
+  set pageInfo(_i4.PageInfo? _pageInfo) => super.noSuchMethod(
+        Invocation.setter(
+          #pageInfo,
+          _pageInfo,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set after(String? _after) => super.noSuchMethod(
+        Invocation.setter(
+          #after,
+          _after,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set first(int? _first) => super.noSuchMethod(
+        Invocation.setter(
+          #first,
+          _first,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasMoreEvents => (super.noSuchMethod(
+        Invocation.getter(#hasMoreEvents),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   _i7.Stream<List<_i23.Event>> get eventStream => (super.noSuchMethod(
         Invocation.getter(#eventStream),
         returnValue: _i7.Stream<List<_i23.Event>>.empty(),
@@ -1465,6 +1512,16 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
           ),
         )),
       ) as _i7.Future<_i3.QueryResult<Object?>>);
+
+  @override
+  _i7.Future<void> nextPage() => (super.noSuchMethod(
+        Invocation.method(
+          #nextPage,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   _i7.Future<void> getEvents() => (super.noSuchMethod(

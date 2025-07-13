@@ -18,16 +18,14 @@ class EventAdapter extends TypeAdapter<Event> {
     };
     return Event(
       id: fields[0] as String?,
-      title: fields[1] as String?,
+      name: fields[1] as String?,
       description: fields[2] as String?,
       attendees: (fields[16] as List?)?.cast<Attendee>(),
       location: fields[3] as String?,
       recurring: fields[4] as bool?,
       allDay: fields[5] as bool?,
-      startDate: fields[6] as String?,
-      endDate: fields[7] as String?,
-      startTime: fields[8] as String?,
-      endTime: fields[9] as String?,
+      startAt: fields[6] as DateTime?,
+      endAt: fields[7] as DateTime?,
       isPublic: fields[10] as bool?,
       isRegistered: fields[11] as bool?,
       isRegisterable: fields[12] as bool?,
@@ -40,11 +38,11 @@ class EventAdapter extends TypeAdapter<Event> {
   @override
   void write(BinaryWriter writer, Event obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.name)
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
@@ -54,13 +52,9 @@ class EventAdapter extends TypeAdapter<Event> {
       ..writeByte(5)
       ..write(obj.allDay)
       ..writeByte(6)
-      ..write(obj.startDate)
+      ..write(obj.startAt)
       ..writeByte(7)
-      ..write(obj.endDate)
-      ..writeByte(8)
-      ..write(obj.startTime)
-      ..writeByte(9)
-      ..write(obj.endTime)
+      ..write(obj.endAt)
       ..writeByte(10)
       ..write(obj.isPublic)
       ..writeByte(11)

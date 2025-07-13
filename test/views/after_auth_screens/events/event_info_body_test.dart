@@ -24,19 +24,17 @@ Event getTestEvent({
 }) {
   return Event(
     id: "1",
-    title: "test_event",
+    name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
       firstName: "ravidi",
       lastName: "shaikh",
     ),
     isPublic: isPublic,
-    startDate: "00/00/0000",
-    endDate: "12/12/9999",
-    startTime: "00:00",
-    endTime: "24:00",
     location: "iitbhu, varanasi",
     description: "test_event_description",
+    startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
+    endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
     admins: [
       User(
         firstName: "ravidi_admin_one",
@@ -138,8 +136,8 @@ void main() {
 
       expect(find.text("test_event"), findsOneWidget);
       expect(find.text("Created by: ravidi shaikh"), findsOneWidget);
-      expect(find.text("00/00/0000 - 12/12/9999"), findsOneWidget);
-      expect(find.text("00:00 - 24:00"), findsOneWidget);
+      expect(find.text("2025-07-28 - 2025-07-30"), findsOneWidget);
+      expect(find.text("09:00 AM - 05:00 PM"), findsOneWidget);
       expect(find.text("iitbhu, varanasi"), findsOneWidget);
       expect(find.text("test_event_description"), findsOneWidget);
       expect(find.text("ravidi_admin_one shaikh_admin_one"), findsOneWidget);

@@ -30,14 +30,10 @@ void main() {
           'emailAddress': 'creator@example.com',
         },
         'event': {
-          '_id': 'fakeEventId',
-          'title': 'Sample Event',
+          'id': 'fakeEventId',
+          'name': 'Sample Event',
           'description': 'Sample Description',
           'location': 'Sample Location',
-          'startDate': '2024-08-11',
-          'endDate': '2024-08-12',
-          'startTime': '10:00 AM',
-          'endTime': '12:00 PM',
         },
         'group': {
           '_id': 'group1',
@@ -62,7 +58,7 @@ void main() {
       expect(eventVolunteerFromJson.creator?.firstName, 'Creator');
       expect(eventVolunteerFromJson.creator?.lastName, 'Name');
       expect(eventVolunteerFromJson.event?.id, 'fakeEventId');
-      expect(eventVolunteerFromJson.event?.title, 'Sample Event');
+      expect(eventVolunteerFromJson.event?.name, 'Sample Event');
       expect(eventVolunteerFromJson.group?.id, 'group1');
       expect(eventVolunteerFromJson.group?.name, 'Group Name');
       expect(eventVolunteerFromJson.isAssigned, true);
@@ -134,7 +130,7 @@ void main() {
 
     test('Test EventVolunteer constructor with all parameters', () {
       final creator = User(id: "creatorId", firstName: "Creator");
-      final event = Event(id: 'eventId', title: 'Test Event');
+      final event = Event(id: 'eventId', name: 'Test Event');
       final group = EventVolunteerGroup(id: 'groupId', name: 'Test Group');
       final user = User(id: "userId", firstName: "Volunteer");
 
@@ -199,14 +195,10 @@ void main() {
           'avatarURL': 'https://example.com/avatar.jpg',
         },
         'event': {
-          '_id': 'eventId',
-          'title': 'Complex Event',
+          'id': 'eventId',
+          'name': 'Complex Event',
           'description': 'This is a complex event',
           'location': 'Complex Location',
-          'startDate': '2024-12-01',
-          'endDate': '2024-12-02',
-          'startTime': '09:00 AM',
-          'endTime': '05:00 PM',
           'allDay': false,
           'recurring': false,
         },
@@ -236,7 +228,7 @@ void main() {
       expect(eventVolunteerFromJson.creator?.lastName, 'Doe');
       expect(eventVolunteerFromJson.creator?.email, 'john.doe@example.com');
       expect(eventVolunteerFromJson.event?.id, 'eventId');
-      expect(eventVolunteerFromJson.event?.title, 'Complex Event');
+      expect(eventVolunteerFromJson.event?.name, 'Complex Event');
       expect(eventVolunteerFromJson.group?.id, 'groupId');
       expect(eventVolunteerFromJson.group?.name, 'Complex Group');
       expect(eventVolunteerFromJson.isAssigned, true);

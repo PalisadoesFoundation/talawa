@@ -31,14 +31,10 @@ void main() {
           'emailAddress': 'creator@example.com',
         },
         'event': {
-          '_id': 'fakeEventId',
-          'title': 'Sample Event',
+          'id': 'fakeEventId',
+          'name': 'Sample Event',
           'description': 'Sample Description',
           'location': 'Sample Location',
-          'startDate': '2024-08-11',
-          'endDate': '2024-08-12',
-          'startTime': '10:00 AM',
-          'endTime': '12:00 PM',
         },
         'leader': {
           'id': 'fakeLeaderId',
@@ -71,7 +67,7 @@ void main() {
       expect(eventVolunteerGroupFromJson.creator?.firstName, 'Creator');
       expect(eventVolunteerGroupFromJson.creator?.lastName, 'Name');
       expect(eventVolunteerGroupFromJson.event?.id, 'fakeEventId');
-      expect(eventVolunteerGroupFromJson.event?.title, 'Sample Event');
+      expect(eventVolunteerGroupFromJson.event?.name, 'Sample Event');
       expect(eventVolunteerGroupFromJson.leader?.id, 'fakeLeaderId');
       expect(eventVolunteerGroupFromJson.leader?.firstName, 'Leader');
       expect(eventVolunteerGroupFromJson.leader?.lastName, 'Name');
@@ -202,7 +198,7 @@ void main() {
     test('Test EventVolunteerGroup constructor with all parameters', () {
       final creator = User(id: 'creatorId', firstName: 'Creator');
       final leader = User(id: 'leaderId', firstName: 'Leader');
-      final event = Event(id: 'eventId', title: 'Test Event');
+      final event = Event(id: 'eventId', name: 'Test Event');
       final volunteers = [
         EventVolunteer(id: 'vol1'),
         EventVolunteer(id: 'vol2'),

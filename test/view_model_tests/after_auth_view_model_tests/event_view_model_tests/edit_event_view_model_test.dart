@@ -19,11 +19,7 @@ import '../../../helpers/test_locator.dart';
 
 final testEvent = Event(
   id: '1',
-  title: 'test',
-  startDate: '01/30/2022', // mm/dd/yyyy
-  endDate: '01/30/2022',
-  startTime: '06:40 PM',
-  endTime: '07:40 PM',
+  name: 'test',
   location: 'ABC',
   description: 'test',
   creator: User(
@@ -34,6 +30,8 @@ final testEvent = Event(
     refreshToken: 'testtoken',
     authToken: 'testtoken',
   ),
+  startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
+  endAt: DateTime.parse('2025-07-30T09:00:00.000Z'),
   isPublic: true,
   isRegisterable: true,
   organization: OrgInfo(id: 'XYZ'),
@@ -55,15 +53,22 @@ void main() {
       expect(model.eventDescriptionTextController.text, 'test');
       expect(model.isPublicSwitch, true);
       expect(model.isRegisterableSwitch, true);
-      expect(model.eventStartDate, DateFormat().add_yMd().parse('01/30/2022'));
-      expect(model.eventEndDate, DateFormat().add_yMd().parse('01/30/2022'));
+
+      expect(
+        model.eventStartDate,
+        DateFormat('yyyy-MM-dd').parse('2025-07-28'),
+      );
+      expect(
+        model.eventEndDate,
+        DateFormat('yyyy-MM-dd').parse('2025-07-30'),
+      );
       expect(
         model.eventStartTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('06:40 PM')),
+        const TimeOfDay(hour: 09, minute: 00),
       );
       expect(
         model.eventEndTime,
-        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('07:40 PM')),
+        const TimeOfDay(hour: 9, minute: 00),
       );
     });
     testWidgets('Check if updateEvent() is working fine', (tester) async {
@@ -131,11 +136,7 @@ void main() {
       final model = EditEventViewModel();
       final inValidEvent = Event(
         id: '',
-        title: '',
-        startDate: '01/30/2022', // mm/dd/yyyy
-        endDate: '01/30/2022',
-        startTime: '06:40 PM',
-        endTime: '07:40 PM',
+        name: '',
         location: 'ABC',
         description: '',
         creator: User(
@@ -146,6 +147,8 @@ void main() {
           refreshToken: 'testtoken',
           authToken: 'testtoken',
         ),
+        startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
+        endAt: DateTime.parse('2025-07-30T09:00:00.000Z'),
         isPublic: true,
         isRegisterable: true,
         organization: OrgInfo(id: 'XYZ'),
