@@ -78,6 +78,9 @@ class EventService extends BaseFeedManager<Event> {
   /// * `OrgInfo`: returns the Organisation info.
   OrgInfo get currentOrg => _currentOrg;
 
+  /// Getter for list of events.
+  List<Event> get events => _events;
+
   @override
   Future<List<Event>> fetchDataFromApi() async {
     // get current organization id
@@ -171,24 +174,6 @@ class EventService extends BaseFeedManager<Event> {
       variables: variables,
     );
     return result;
-  }
-
-  /// This function is used to fetch the next page of events if available.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> nextPage() async {
-    if (pageInfo.hasNextPage == true) {
-      final nextCursor = pageInfo.endCursor;
-      if (nextCursor != null && nextCursor.isNotEmpty) {
-        after = nextCursor;
-        first = 10;
-        await getEvents();
-      }
-    }
   }
 
   /// This function is used to fetch all the events of an organization.
