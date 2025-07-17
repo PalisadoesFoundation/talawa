@@ -171,7 +171,7 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.55,
                             child: Text(
-                              event.description ?? 'no discription',
+                              event.description ?? 'no description',
                               style: Theme.of(context).textTheme.bodySmall,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,

@@ -9,6 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -251,6 +252,12 @@ void main() {
       expect(service.events.isNotEmpty, isTrue);
       expect(service.pageInfo.hasNextPage, isTrue);
       expect(service.pageInfo.endCursor, 'cursor1');
+    });
+
+    test('hasMoreEvents returns true when pageInfo.hasNextPage is true', () {
+      final service = EventService();
+      service.pageInfo = PageInfo(hasNextPage: true);
+      expect(service.hasMoreEvents, isTrue);
     });
 
     test('Test dispose method', () {

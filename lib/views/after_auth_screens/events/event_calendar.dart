@@ -147,11 +147,9 @@ DateTime parseTime(String time) {
   try {
     return DateFormat('h:mm a', 'en_US').parse(time);
   } on FormatException {
-    print('Caught FormatException: $time');
     try {
       return DateFormat('Hms').parse(time);
     } catch (e) {
-      print('Caught error: $e');
       throw Exception('Invalid time format: $time');
     }
   }

@@ -145,9 +145,11 @@ class CustomListTile extends StatelessWidget {
                         )
                       : Text(
                           type == TileType.user
-                              ? '${userInfo?.firstName!} ${userInfo?.lastName!}'
+                              ? '${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}'
+                                  .trim()
                               : type == TileType.attendee
-                                  ? '${attendeeInfo?.firstName} ${attendeeInfo?.lastName}'
+                                  ? '${attendeeInfo?.firstName ?? ''} ${attendeeInfo?.lastName ?? ''}'
+                                      .trim()
                                   : option?.title ?? 'Unknown Option',
                           style:
                               type == TileType.user || type == TileType.attendee

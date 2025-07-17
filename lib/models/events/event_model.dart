@@ -37,10 +37,10 @@ class Event {
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
       startAt: json['startAt'] != null
-          ? DateTime.parse(json['startAt'] as String)
+          ? DateTime.tryParse(json['startAt'] as String)
           : null,
       endAt: json['endAt'] != null
-          ? DateTime.parse(json['endAt'] as String)
+          ? DateTime.tryParse(json['endAt'] as String)
           : null,
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,

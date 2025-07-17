@@ -129,14 +129,14 @@ void main() {
             tester.widget<EventCalendar>(find.byType(EventCalendar));
         final event = eventCalendar.eventList[0];
 
-        DateTime startDate;
-        DateTime endDate;
-        if (event.startDate.contains('/')) {
+        DateTime? startDate;
+        DateTime? endDate;
+        if (event.startDate.contains('/') == true) {
           startDate = DateFormat('MM/dd/yyyy').parse(event.startDate);
         } else {
           startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
         }
-        if (event.endDate.contains('/')) {
+        if (event.endDate.contains('/') == true) {
           endDate = DateFormat('MM/dd/yyyy').parse(event.endDate);
         } else {
           endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
@@ -150,6 +150,21 @@ void main() {
       final EventCalendarViewModel model = EventCalendarViewModel();
       expect(model.dateRangePickerController, isA<DateRangePickerController>());
       expect(model.eventList, isA<List<Event>>());
+    });
+
+    test('parseTime parses 12-hour and 24-hour time formats', () {
+      // 12-hour format
+      final dt1 = parseTime('6:30 PM');
+      expect(dt1.hour, 18);
+      expect(dt1.minute, 30);
+
+      // 24-hour format fallback
+      final dt2 = parseTime('18:45:00');
+      expect(dt2.hour, 18);
+      expect(dt2.minute, 45);
+
+      // Invalid format throws
+      expect(() => parseTime('invalid'), throwsException);
     });
   });
 }

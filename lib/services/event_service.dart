@@ -88,7 +88,7 @@ class EventService extends BaseFeedManager<Event> {
     final Map<String, dynamic> variables = {
       'orgId': currentOrgID,
       'first': first,
-      'after': null,
+      'after': after,
     };
     // mutation to fetch the events
     final String query = EventQueries().fetchOrgEvents();
