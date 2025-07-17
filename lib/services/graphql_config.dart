@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,7 @@ class GraphqlConfig {
   static String? orgURI = ' ';
   static String? token;
   late HttpLink httpLink;
-  late WebSocketLink webSocketLink;
+  WebSocketLink? webSocketLink;
 
 //prefix route for showing images
   String? displayImgRoute;
@@ -24,6 +25,7 @@ class GraphqlConfig {
   Future getToken() async {
     final authToken = userConfig.currentUser.authToken;
     token = authToken;
+    getOrgUrl();
     return true;
   }
 
@@ -35,6 +37,34 @@ class GraphqlConfig {
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
+    _initializeWebSocketLink();
+  }
+
+  /// Initialize WebSocket link for GraphQL subscriptions
+  void _initializeWebSocketLink() {
+    try {
+      // Get socket URL from environment variables
+      final socketUrl =
+          dotenv.env['SOCKET_URL'] ?? 'ws://localhost:4000/graphql';
+
+      webSocketLink = WebSocketLink(
+        socketUrl,
+        config: SocketClientConfig(
+          autoReconnect: true,
+          inactivityTimeout: const Duration(minutes: 30),
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+          initialPayload: () async {
+            return {
+              'Authorization': 'Bearer $token',
+            };
+          },
+        ),
+      );
+    } catch (e) {
+      // Fallback to HTTP for subscriptions (though this won't work for real-time)
+    }
   }
 
   GraphQLClient clientToQuery() {
@@ -49,10 +79,30 @@ class GraphqlConfig {
 
   GraphQLClient authClient() {
     final AuthLink authLink = AuthLink(getToken: () => 'Bearer $token');
-    final Link finalAuthLink = authLink.concat(httpLink);
+
+    // Create HTTP link with authentication for queries and mutations
+    final Link httpAuthLink = authLink.concat(httpLink);
+
+    // If WebSocket link is available, use split link for subscriptions
+    Link finalLink;
+    try {
+      if (webSocketLink != null) {
+        // Use WebSocket for subscriptions, HTTP for queries/mutations
+        finalLink = Link.split(
+          (request) => request.isSubscription,
+          webSocketLink!,
+          httpAuthLink,
+        );
+      } else {
+        finalLink = httpAuthLink;
+      }
+    } catch (e) {
+      finalLink = httpAuthLink;
+    }
+
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: finalAuthLink,
+      link: finalLink,
     );
   }
 

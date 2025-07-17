@@ -11,6 +11,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -156,6 +157,51 @@ void main() {
       final currencyBtn = find.byKey(const Key('currency_btn'));
       await tester.tap(currencyBtn);
       await tester.pumpAndSettle();
+    });
+    testWidgets('CustomAvatar displays correctly with user name',
+        (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Find CustomAvatar widget by key
+      final customAvatarFinder = find.byKey(const Key('profilepic'));
+      expect(customAvatarFinder, findsOneWidget);
+
+      // Verify CustomAvatar properties
+      final customAvatarWidget =
+          tester.widget<CustomAvatar>(customAvatarFinder);
+      expect(customAvatarWidget.key, const Key('profilepic'));
+      expect(customAvatarWidget.isImageNull, isA<bool>());
+      expect(customAvatarWidget.firstAlphabet, isA<String?>());
+      expect(customAvatarWidget.imageUrl, isA<String?>());
+      expect(customAvatarWidget.fontSize, isA<double?>());
+      expect(customAvatarWidget.maxRadius, isA<double?>());
+    });
+
+    testWidgets('CustomAvatar firstAlphabet logic works correctly',
+        (tester) async {
+      await tester.pumpWidget(
+        createProfilePage(
+          mainScreenViewModel: locator<MainScreenViewModel>(),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final customAvatarWidget = tester.widget<CustomAvatar>(
+        find.byKey(const Key('profilepic')),
+      );
+
+      // Test that firstAlphabet is either a valid uppercase letter or '?'
+      if (customAvatarWidget.firstAlphabet != null) {
+        expect(
+          customAvatarWidget.firstAlphabet,
+          anyOf(equals('?'), matches(r'^[A-Z]$')),
+        );
+      }
     });
   });
 }

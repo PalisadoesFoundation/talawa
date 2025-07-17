@@ -1,332 +1,368 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/user_config.dart';
-
-import '../../helpers/test_helpers.dart';
-import '../../helpers/test_locator.dart';
-
-final chatUserOne =
-    ChatUser(firstName: 'Satyam', id: '1', image: "https://testimg.com");
-final chatUserTwo =
-    ChatUser(firstName: 'Harsh', id: '2', image: "https://testimg.com");
-
-class MockUserConfig extends Mock implements UserConfig {}
 
 void main() {
-  setUpAll(() {
-    testSetupLocator();
-  });
+  group('ChatMessage', () {
+    late ChatUser sampleUser1;
+    late ChatMessage sampleParentMessage;
 
-  group("Tests for ChatMessage.dart", () {
-    test('check if ChatMessage constructor works with named parameters', () {
-      final message = ChatMessage(
-        id: '1',
-        sender: chatUserOne,
-        messageContent: 'Hello, how are you?',
-        receiver: chatUserTwo,
-        createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-01T00:00:00Z',
+    setUp(() {
+      sampleUser1 = ChatUser(
+        id: 'user1',
+        firstName: 'John',
+        image: 'avatar1.jpg',
       );
 
-      expect(message.id, '1');
-      expect(message.sender?.firstName, 'Satyam');
-      expect(message.receiver?.id, '2');
-      expect(message.messageContent, 'Hello, how are you?');
-      expect(message.createdAt, '2023-01-01T00:00:00Z');
-      expect(message.updatedAt, '2023-01-01T00:00:00Z');
+      sampleParentMessage = ChatMessage(
+        id: 'parent_msg',
+        body: 'Original message',
+        creator: sampleUser1,
+        chatId: 'chat1',
+        createdAt: '2023-01-01T09:00:00Z',
+      );
     });
 
-    test('check if ChatMessage toJson works correctly', () {
+    test('constructor initializes all fields correctly', () {
       final message = ChatMessage(
-        id: '1',
-        sender: chatUserOne,
-        messageContent: 'Hello, how are you?',
-        receiver: chatUserTwo,
-        createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-01T00:00:00Z',
+        id: 'msg1',
+        body: 'Hello World',
+        creator: sampleUser1,
+        chatId: 'chat1',
+        parentMessage: sampleParentMessage,
+        createdAt: '2023-01-01T10:00:00Z',
+        updatedAt: '2023-01-01T10:05:00Z',
       );
 
-      final messageJson = message.toJson();
-
-      expect(messageJson['id'], '1');
-      expect(messageJson['messageContent'], 'Hello, how are you?');
-      expect(messageJson['createdAt'], '2023-01-01T00:00:00Z');
-      expect(messageJson['updatedAt'], '2023-01-01T00:00:00Z');
-      expect(messageJson['sender'], isA<Map<String, dynamic>>());
-      expect(messageJson['receiver'], isA<Map<String, dynamic>>());
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+      expect(message.creator, equals(sampleUser1));
+      expect(message.chatId, equals('chat1'));
+      expect(message.parentMessage, equals(sampleParentMessage));
+      expect(message.createdAt, equals('2023-01-01T10:00:00Z'));
+      expect(message.updatedAt, equals('2023-01-01T10:05:00Z'));
     });
 
-    test('check if ChatMessage fromJson works for current user as sender', () {
-      // Mock the current user
-      final mockUserConfig = getAndRegisterUserConfig();
-      when(mockUserConfig.currentUser).thenReturn(
-        User(
-          id: '1',
-          firstName: 'Satyam',
-          image: 'https://testimg.com',
-        ),
-      );
+    test('constructor with null values', () {
+      final message = ChatMessage();
 
+      expect(message.id, isNull);
+      expect(message.body, isNull);
+      expect(message.creator, isNull);
+      expect(message.chatId, isNull);
+      expect(message.parentMessage, isNull);
+      expect(message.createdAt, isNull);
+      expect(message.updatedAt, isNull);
+    });
+
+    test('fromJson creates correct instance with basic fields', () {
       final json = {
         'id': 'msg1',
-        'body': 'Hello from me!',
-        'creator': {
-          'id': '1',
-          'name': 'Satyam Jha',
-        },
-        'createdAt': '2023-01-01T00:00:00Z',
-        'updatedAt': '2023-01-01T00:00:00Z',
+        'body': 'Hello World',
+        'chatId': 'chat1',
+        'createdAt': '2023-01-01T10:00:00Z',
+        'updatedAt': '2023-01-01T10:05:00Z',
       };
 
-      final receiverUser = ChatUser(firstName: 'Harsh', id: '2');
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '1',
-        currentUserFirstName: 'Satyam',
-        currentUserImage: 'https://testimg.com',
-        receiverUser: receiverUser,
-      );
+      final message = ChatMessage.fromJson(json);
 
-      expect(message.id, 'msg1');
-      expect(message.messageContent, 'Hello from me!');
-      expect(message.sender?.id, '1');
-      expect(message.sender?.firstName, 'Satyam');
-      expect(message.receiver?.id, '2');
-      expect(message.createdAt, '2023-01-01T00:00:00Z');
-      expect(message.updatedAt, '2023-01-01T00:00:00Z');
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+      expect(message.chatId, equals('chat1'));
+      expect(message.createdAt, equals('2023-01-01T10:00:00Z'));
+      expect(message.updatedAt, equals('2023-01-01T10:05:00Z'));
+      expect(message.creator, isNull);
+      expect(message.parentMessage, isNull);
     });
 
-    test('check if ChatMessage fromJson works for other user as sender', () {
-      // Mock the current user
-      final mockUserConfig = getAndRegisterUserConfig();
-      when(mockUserConfig.currentUser).thenReturn(
-        User(
-          id: '2',
-          firstName: 'Harsh',
-          image: 'https://testimg.com',
-        ),
-      );
+    test('fromJson parses creator correctly', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'creator': {
+          'id': 'user1',
+          'name': 'John Doe',
+          'avatarURL': 'avatar1.jpg',
+        },
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
 
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.creator, isNotNull);
+      expect(message.creator!.id, equals('user1'));
+      expect(message.creator!.firstName, equals('John'));
+      expect(message.creator!.image, equals('avatar1.jpg'));
+    });
+
+    test('fromJson parses parentMessage correctly', () {
       final json = {
         'id': 'msg2',
-        'body': 'Hello from someone else!',
-        'creator': {
-          'id': '1',
-          'name': 'Satyam Jha',
+        'body': 'Reply message',
+        'parentMessage': {
+          'id': 'parent_msg',
+          'body': 'Original message',
+          'creator': {
+            'id': 'user1',
+            'name': 'John Doe',
+            'avatarURL': 'avatar1.jpg',
+          },
+          'createdAt': '2023-01-01T09:00:00Z',
         },
-        'createdAt': '2023-01-01T00:00:00Z',
-        'updatedAt': '2023-01-01T00:00:00Z',
+        'createdAt': '2023-01-01T10:00:00Z',
       };
 
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '2',
-        currentUserFirstName: 'Harsh',
-        currentUserImage: 'https://testimg.com',
-      );
+      final message = ChatMessage.fromJson(json);
 
-      expect(message.id, 'msg2');
-      expect(message.messageContent, 'Hello from someone else!');
-      expect(message.sender?.id, '1');
-      expect(message.sender?.firstName, 'Satyam');
-      expect(message.receiver?.id, '2'); // Current user becomes receiver
-      expect(message.receiver?.firstName, 'Harsh');
-      expect(message.createdAt, '2023-01-01T00:00:00Z');
-      expect(message.updatedAt, '2023-01-01T00:00:00Z');
+      expect(message.parentMessage, isNotNull);
+      expect(message.parentMessage!.id, equals('parent_msg'));
+      expect(message.parentMessage!.body, equals('Original message'));
+      expect(message.parentMessage!.creator, isNotNull);
+      expect(message.parentMessage!.creator!.id, equals('user1'));
+      expect(message.parentMessage!.creator!.firstName, equals('John'));
     });
 
-    test('check if ChatMessage fromJson handles missing creator', () {
-      // Mock the current user
-      final mockUserConfig = getAndRegisterUserConfig();
-      when(mockUserConfig.currentUser).thenReturn(
-        User(
-          id: '1',
-          firstName: 'Test User',
-          image: 'https://testimg.com',
-        ),
-      );
-
-      final json = {
-        'id': 'msg3',
-        'body': 'Message with no creator',
-        'createdAt': '2023-01-01T00:00:00Z',
-        'updatedAt': '2023-01-01T00:00:00Z',
-      };
-
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '1',
-        currentUserFirstName: 'Test User',
-        currentUserImage: 'https://testimg.com',
-      );
-
-      expect(message.id, 'msg3');
-      expect(message.messageContent, 'Message with no creator');
-      expect(message.sender, isNull);
-      expect(message.createdAt, '2023-01-01T00:00:00Z');
-      expect(message.updatedAt, '2023-01-01T00:00:00Z');
-    });
-
-    test('check if _parseCreator works with creator field', () {
-      final json = {
-        'creator': {
-          'id': '1',
-          'name': 'John Doe',
-        },
-        'sender': {
-          'id': '2',
-          'name': 'Jane Smith',
-        },
-      };
-
-      // Access the private method through fromJson to test it indirectly
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '3',
-        currentUserFirstName: 'Test User',
-      );
-
-      // The creator should be parsed from 'creator' field (priority 1)
-      expect(message.sender?.id, '1');
-      expect(message.sender?.firstName, 'John');
-    });
-
-    test('check if _parseCreator works with sender field when creator is null',
-        () {
-      final json = {
-        'creator': null,
-        'sender': {
-          'id': '2',
-          'name': 'Jane Smith',
-        },
-        'receiver': {
-          'id': '3',
-          'name': 'Bob Johnson',
-        },
-      };
-
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '4',
-        currentUserFirstName: 'Test User',
-      );
-
-      // Should parse from 'sender' field (priority 2)
-      expect(message.sender?.id, '2');
-      expect(message.sender?.firstName, 'Jane');
-    });
-
-    test(
-        'check if _parseCreator works with receiver field when creator and sender are null',
-        () {
-      final json = {
-        'creator': null,
-        'sender': null,
-        'receiver': {
-          'id': '3',
-          'name': 'Bob Johnson',
-        },
-      };
-
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '4',
-        currentUserFirstName: 'Test User',
-      );
-
-      // Should parse from 'receiver' field (priority 3)
-      expect(message.sender?.id, '3');
-      expect(message.sender?.firstName, 'Bob');
-    });
-
-    test('check if _parseCreator returns null when all fields are missing', () {
+    test('fromJson extracts chatId from chat object', () {
       final json = {
         'id': 'msg1',
-        'body': 'Test message',
-        // No creator, sender, or receiver fields
-      };
-
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '1',
-        currentUserFirstName: 'Test User',
-      );
-
-      // Should return null when no creator info is available
-      expect(message.sender, isNull);
-    });
-
-    test('check if _parseCreator handles empty fields correctly', () {
-      final json = {
-        'creator': {},
-        'sender': {
-          'id': '2',
-          'name': 'Jane Smith',
+        'body': 'Hello World',
+        'chat': {
+          'id': 'chat123',
+          'name': 'Test Chat',
         },
+        'createdAt': '2023-01-01T10:00:00Z',
       };
 
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '3',
-        currentUserFirstName: 'Test User',
-      );
+      final message = ChatMessage.fromJson(json);
 
-      // Should handle empty creator object and fall back to sender
-      expect(message.sender?.id, '2');
-      expect(message.sender?.firstName, 'Jane');
+      expect(message.chatId, equals('chat123'));
     });
 
-    test('_parseCreator field priority order', () {
+    test('fromJson prioritizes direct chatId over chat object', () {
       final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'chatId': 'direct_chat_id',
+        'chat': {
+          'id': 'nested_chat_id',
+          'name': 'Test Chat',
+        },
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(
+        message.chatId,
+        equals('nested_chat_id'),
+      ); // chat object is checked first
+    });
+
+    test('fromJson handles null creator gracefully', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'creator': null,
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.creator, isNull);
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles null parentMessage gracefully', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'parentMessage': null,
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.parentMessage, isNull);
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles empty JSON', () {
+      final json = <String, dynamic>{};
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.id, isNull);
+      expect(message.body, isNull);
+      expect(message.creator, isNull);
+      expect(message.chatId, isNull);
+      expect(message.parentMessage, isNull);
+      expect(message.createdAt, isNull);
+      expect(message.updatedAt, isNull);
+    });
+
+    test('fromJson handles nested parentMessage with creator', () {
+      final json = {
+        'id': 'reply_msg',
+        'body': 'This is a reply',
+        'parentMessage': {
+          'id': 'original_msg',
+          'body': 'Original message',
+          'creator': {
+            'id': 'user1',
+            'name': 'John Doe',
+            'avatarURL': 'avatar1.jpg',
+          },
+          'parentMessage': {
+            'id': 'root_msg',
+            'body': 'Root message',
+            'creator': {
+              'id': 'user2',
+              'name': 'Jane Smith',
+              'avatarURL': 'avatar2.jpg',
+            },
+          },
+        },
         'creator': {
-          'id': '1',
-          'name': 'Creator User',
-        },
-        'sender': {
-          'id': '2',
-          'name': 'Sender User',
-        },
-        'receiver': {
-          'id': '3',
-          'name': 'Receiver User',
+          'id': 'user3',
+          'name': 'Bob Wilson',
+          'avatarURL': 'avatar3.jpg',
         },
       };
 
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '4',
-        currentUserFirstName: 'Test User',
-      );
+      final message = ChatMessage.fromJson(json);
 
-      // Should prioritize 'creator' over 'sender' and 'receiver'
-      expect(message.sender?.id, '1');
-      expect(message.sender?.firstName, 'Creator');
+      expect(message.id, equals('reply_msg'));
+      expect(message.body, equals('This is a reply'));
+      expect(message.creator!.firstName, equals('Bob'));
+
+      expect(message.parentMessage, isNotNull);
+      expect(message.parentMessage!.id, equals('original_msg'));
+      expect(message.parentMessage!.creator!.firstName, equals('John'));
+
+      expect(message.parentMessage!.parentMessage, isNotNull);
+      expect(message.parentMessage!.parentMessage!.id, equals('root_msg'));
+      expect(
+        message.parentMessage!.parentMessage!.creator!.firstName,
+        equals('Jane'),
+      );
     });
 
-    test('check if _parseCreator handles ChatUser.fromJson exception', () {
-      final json = {
-        'creator': {
-          'invalidField':
-              'invalid data', // This will cause ChatUser.fromJson to fail
-        },
-        'receiver': {
-          'id': '3',
-          'name': 'Bob Johnson',
-        },
-      };
-
-      final message = ChatMessage.fromJson(
-        json,
-        currentUserId: '4',
-        currentUserFirstName: 'Test User',
+    test('toJson creates correct JSON with all fields', () {
+      final message = ChatMessage(
+        id: 'msg1',
+        body: 'Hello World',
+        creator: sampleUser1,
+        chatId: 'chat1',
+        parentMessage: sampleParentMessage,
+        createdAt: '2023-01-01T10:00:00Z',
+        updatedAt: '2023-01-01T10:05:00Z',
       );
 
-      // Should fall back to receiver when creator parsing fails
-      expect(message.sender?.id, '3');
-      expect(message.sender?.firstName, 'Bob');
+      final json = message.toJson();
+
+      expect(json['id'], equals('msg1'));
+      expect(json['body'], equals('Hello World'));
+      expect(json['chatId'], equals('chat1'));
+      expect(json['createdAt'], equals('2023-01-01T10:00:00Z'));
+      expect(json['updatedAt'], equals('2023-01-01T10:05:00Z'));
+      expect(json['creator'], isA<Map<String, dynamic>>());
+      expect(json['parentMessage'], isA<Map<String, dynamic>>());
+    });
+
+    test('toJson handles null creator and parentMessage', () {
+      final message = ChatMessage(
+        id: 'msg1',
+        body: 'Hello World',
+        chatId: 'chat1',
+        creator: null,
+        parentMessage: null,
+        createdAt: '2023-01-01T10:00:00Z',
+      );
+
+      final json = message.toJson();
+
+      expect(json['id'], equals('msg1'));
+      expect(json['body'], equals('Hello World'));
+      expect(json['chatId'], equals('chat1'));
+      expect(json['creator'], isNull);
+      expect(json['parentMessage'], isNull);
+      expect(json['createdAt'], equals('2023-01-01T10:00:00Z'));
+    });
+
+    test('fromJson and toJson roundtrip maintains data integrity', () {
+      final originalJson = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'creator': {
+          'id': 'user1',
+          'name': 'John Doe',
+          'avatarURL': 'avatar1.jpg',
+        },
+        'chatId': 'chat1',
+        'parentMessage': {
+          'id': 'parent_msg',
+          'body': 'Original message',
+          'creator': {
+            'id': 'user2',
+            'name': 'Jane Smith',
+            'avatarURL': 'avatar2.jpg',
+          },
+        },
+        'createdAt': '2023-01-01T10:00:00Z',
+        'updatedAt': '2023-01-01T10:05:00Z',
+      };
+
+      final message = ChatMessage.fromJson(originalJson);
+      final regeneratedJson = message.toJson();
+
+      expect(regeneratedJson['id'], equals(originalJson['id']));
+      expect(regeneratedJson['body'], equals(originalJson['body']));
+      expect(regeneratedJson['chatId'], equals(originalJson['chatId']));
+      expect(regeneratedJson['createdAt'], equals(originalJson['createdAt']));
+      expect(regeneratedJson['updatedAt'], equals(originalJson['updatedAt']));
+
+      // Verify creator data integrity
+      final creatorJson = regeneratedJson['creator'] as Map<String, dynamic>;
+      expect(creatorJson['id'], equals('user1'));
+      expect(creatorJson['firstName'], equals('John'));
+
+      // Verify parent message data integrity
+      final parentJson =
+          regeneratedJson['parentMessage'] as Map<String, dynamic>;
+      expect(parentJson['id'], equals('parent_msg'));
+      expect(parentJson['body'], equals('Original message'));
+    });
+
+    test('fromJson handles invalid creator data gracefully', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'creator': 'invalid_string_instead_of_object',
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.creator, isNull);
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles invalid parentMessage data gracefully', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'parentMessage': 'invalid_string_instead_of_object',
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.parentMessage, isNull);
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
     });
   });
 }

@@ -307,4 +307,53 @@ class DataBaseMutationFunctions {
     }
     return false;
   }
+
+  /// This function is used to run the graph-ql subscription for authenticated user.
+  ///
+  /// **params**:
+  /// * `subscription`: subscription query string for real-time data
+  /// * `variables`: variables to be passed with subscription
+  ///
+  /// **returns**:
+  /// * `Stream<QueryResult<Object?>>`: Stream of subscription results
+  Stream<QueryResult<Object?>> gqlAuthSubscription(
+    String subscription, {
+    Map<String, dynamic>? variables,
+  }) async* {
+    final SubscriptionOptions options = SubscriptionOptions(
+      document: gql(subscription),
+      variables: variables ?? <String, dynamic>{},
+    );
+
+    try {
+      // Use the auth client with WebSocket support for subscriptions
+      final stream = clientAuth.subscribe(options);
+
+      await for (final result in stream) {
+        // Handle exceptions similar to other methods
+        if (result.hasException) {
+          final exception =
+              GraphqlExceptionResolver.encounteredExceptionOrError(
+            result.exception!,
+          );
+          if (exception != null && exception) {
+            // In case of token refresh, continue the stream
+            continue;
+          }
+        } else if (result.data != null && result.isConcrete) {
+          // Apply time conversion for subscription data
+          traverseAndConvertDates(
+            result.data ?? <String, dynamic>{},
+            convertUTCToLocal,
+            splitDateTimeLocal,
+          );
+          yield result;
+        }
+      }
+    } catch (e) {
+      // Log subscription errors but don't break the stream
+      // Note: Subscriptions are real-time streams, so we don't use caching here
+      // as caching doesn't make sense for live data
+    }
+  }
 }

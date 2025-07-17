@@ -81,12 +81,15 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         focusedBorder: InputBorder.none,
                         suffixIcon: GestureDetector(
                           key: const Key('InputFieldGestureKey'),
-                          onTap: () {
-                            widget.model.sendMessageToDirectChat(
-                              widget.chatId,
-                              controller.text,
-                            );
-                            controller.clear();
+                          onTap: () async {
+                            final messageText = controller.text.trim();
+                            if (messageText.isNotEmpty) {
+                              controller.clear();
+                              await widget.model.sendMessageToDirectChat(
+                                widget.chatId,
+                                messageText,
+                              );
+                            }
                           },
                           child: Icon(
                             Icons.send,

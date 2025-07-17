@@ -84,8 +84,13 @@ class ProfilePage extends StatelessWidget {
                                 child: CustomAvatar(
                                   key: const Key('profilepic'),
                                   isImageNull: model.currentUser.image == null,
-                                  firstAlphabet: model.currentUser.firstName!
-                                      .substring(0, 1),
+                                  firstAlphabet:
+                                      (model.currentUser.name?.isNotEmpty ==
+                                              true)
+                                          ? model.currentUser.name!
+                                              .substring(0, 1)
+                                              .toUpperCase()
+                                          : '?',
                                   imageUrl: model.currentUser.image,
                                   fontSize: Theme.of(context)
                                       .textTheme
@@ -100,7 +105,7 @@ class ProfilePage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                                  model.currentUser.name ?? 'Unknown User',
                                   style: TextStyle(
                                     fontSize: SizeConfig.screenHeight! * 0.025,
                                   ),

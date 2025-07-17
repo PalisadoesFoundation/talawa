@@ -14,8 +14,7 @@ class ChatUser {
   /// Creates a `ChatUser` instance from a JSON object.
   ///
   /// The [json] parameter is a map containing the user data.
-  /// Handles both new PostgreSQL API format (with 'name' field) and
-  /// legacy format (with 'firstName' field).
+  /// Handles the new PostgreSQL API format with 'name' and 'avatarURL' fields.
   ///
   /// **params**:
   /// * `json`: Map containing user data from API
@@ -23,17 +22,14 @@ class ChatUser {
   /// **returns**:
   /// * `ChatUser`: Parsed chat user instance
   factory ChatUser.fromJson(Map<String, dynamic> json) {
-    // Handle new PostgreSQL API format
+    // Handle new PostgreSQL API format - extract first name from full name
     String? firstName;
     if (json['name'] != null) {
-      // Split full name to get first name for backward compatibility
       final String fullName = json['name'] as String;
       if (fullName.isNotEmpty) {
         final List<String> nameParts = fullName.split(' ');
         firstName = nameParts.isNotEmpty ? nameParts[0] : null;
       }
-    } else {
-      firstName = json['firstName'] as String?;
     }
 
     return ChatUser(

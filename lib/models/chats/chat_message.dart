@@ -1,20 +1,22 @@
 import 'package:talawa/models/chats/chat_user.dart';
 
-/// The `ChatMessage` class represents a message in the chat system.
+/// The `ChatMessage` class represents a message in the new PostgreSQL-based chat system.
 class ChatMessage {
   /// Constructs a `ChatMessage` instance.
   ///
   /// [id] is the unique identifier of the message.
-  /// [sender] is the user who sent the message.
-  /// [messageContent] is the actual text content of the message.
-  /// [receiver] is the user who will receive the message.
+  /// [body] is the actual text content of the message.
+  /// [creator] is the user who created the message.
+  /// [chatId] is the ID of the chat this message belongs to.
+  /// [parentMessage] is the parent message if this is a reply.
   /// [createdAt] is the timestamp when the message was created.
   /// [updatedAt] is the timestamp when the message was last updated.
   ChatMessage({
     this.id,
-    this.sender,
-    this.messageContent,
-    this.receiver,
+    this.body,
+    this.creator,
+    this.chatId,
+    this.parentMessage,
     this.createdAt,
     this.updatedAt,
   });
@@ -22,94 +24,50 @@ class ChatMessage {
   /// Creates a `ChatMessage` instance from a JSON object.
   ///
   /// The [json] parameter is a map containing the message data from the API.
-  /// The [currentUserId] parameter is the ID of the current user.
-  /// The [currentUserFirstName] parameter is the first name of the current user.
-  /// The [currentUserImage] parameter is the image URL of the current user.
-  /// The [receiverUser] parameter is an optional user who will receive the message
-  /// (used for UI logic to determine message direction).
   ///
   /// **params**:
   /// * `json`: JSON data from API containing message information
-  /// * `currentUserId`: The ID of the current user
-  /// * `currentUserFirstName`: The first name of the current user
-  /// * `currentUserImage`: The image URL of the current user
-  /// * `receiverUser`: The user who will receive the message (for UI logic)
   ///
   /// **returns**:
   /// * `ChatMessage`: Parsed chat message instance
-  factory ChatMessage.fromJson(
-    Map<String, dynamic> json, {
-    required String currentUserId,
-    String? currentUserFirstName,
-    String? currentUserImage,
-    ChatUser? receiverUser,
-  }) {
-    // Get the creator of the message
-    final creator = _parseCreator(json);
-
-    // Determine sender and receiver based on current user
-    ChatUser? sender;
-    ChatUser? receiver;
-
-    if (creator?.id == currentUserId) {
-      // Current user is the creator, so they are the sender
-      sender = creator;
-      receiver = receiverUser;
-    } else {
-      // Someone else is the creator, so they are the sender
-      sender = creator;
-      // Current user is the receiver (implicit)
-      receiver = ChatUser(
-        id: currentUserId,
-        firstName: currentUserFirstName,
-        image: currentUserImage,
-      );
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    // Parse creator if it exists
+    ChatUser? creator;
+    if (json['creator'] != null && json['creator'] is Map<String, dynamic>) {
+      creator = ChatUser.fromJson(json['creator'] as Map<String, dynamic>);
     }
 
-    return ChatMessage(
-      id: json['id'] as String?,
-      sender: sender,
-      messageContent:
-          json['messageContent'] as String? ?? json['body'] as String?,
-      receiver: receiver,
+    // Parse parent message if it exists
+    ChatMessage? parentMessage;
+    if (json['parentMessage'] != null &&
+        json['parentMessage'] is Map<String, dynamic>) {
+      parentMessage =
+          ChatMessage.fromJson(json['parentMessage'] as Map<String, dynamic>);
+    }
+
+    // Extract chat ID from chat object or direct field
+    String? chatId;
+    if (json['chat'] != null && json['chat'] is Map<String, dynamic>) {
+      final chatData = json['chat'] as Map<String, dynamic>;
+      chatId = chatData['id'] as String?;
+    } else if (json['chatId'] != null) {
+      chatId = json['chatId'] as String?;
+    }
+
+    final messageId = json['id'] as String?;
+    final messageBody = json['body'] as String?;
+
+    final message = ChatMessage(
+      id: messageId,
+      body: messageBody,
+      creator: creator,
+      chatId: chatId,
+      parentMessage: parentMessage,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
     );
-  }
 
-  /// Helper method to parse creator from different possible fields in JSON.
-  ///
-  /// Tries to parse creator from 'creator', 'sender', or 'receiver' fields
-  /// in that order of preference.
-  ///
-  /// **params**:
-  /// * `json`: JSON data from API containing message information
-  ///
-  /// **returns**:
-  /// * `ChatUser?`: Parsed chat user or null if no valid creator found
-  static ChatUser? _parseCreator(Map<String, dynamic> json) {
-    // Try to parse creator from different possible fields
-    final creatorFields = ['creator', 'sender', 'receiver'];
-
-    for (final field in creatorFields) {
-      if (json[field] != null && json[field] is Map<String, dynamic>) {
-        final userMap = json[field] as Map<String, dynamic>;
-        // Check if the map has at least one meaningful field
-        if (userMap.isNotEmpty &&
-            (userMap.containsKey('id') ||
-                userMap.containsKey('name') ||
-                userMap.containsKey('firstName'))) {
-          try {
-            return ChatUser.fromJson(userMap);
-          } catch (e) {
-            // If parsing fails, continue to next field
-            continue;
-          }
-        }
-      }
-    }
-
-    return null;
+    return message;
   }
 
   /// Converts the `ChatMessage` instance to a JSON object.
@@ -122,9 +80,10 @@ class ChatMessage {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'sender': sender?.toJson(),
-      'receiver': receiver?.toJson(),
-      'messageContent': messageContent,
+      'body': body,
+      'creator': creator?.toJson(),
+      'chatId': chatId,
+      'parentMessage': parentMessage?.toJson(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -133,14 +92,17 @@ class ChatMessage {
   /// The unique identifier of the message.
   String? id;
 
-  /// The user who sent the message.
-  ChatUser? sender;
-
-  /// The user who will receive the message.
-  ChatUser? receiver;
-
   /// The actual text content of the message.
-  String? messageContent;
+  String? body;
+
+  /// The user who created the message.
+  ChatUser? creator;
+
+  /// The ID of the chat this message belongs to.
+  String? chatId;
+
+  /// The parent message if this is a reply.
+  ChatMessage? parentMessage;
 
   /// The timestamp when the message was created.
   String? createdAt;
