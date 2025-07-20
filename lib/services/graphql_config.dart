@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
@@ -44,8 +45,11 @@ class GraphqlConfig {
   void _initializeWebSocketLink() {
     try {
       // Get socket URL from environment variables
-      final socketUrl =
-          dotenv.env['SOCKET_URL'] ?? 'ws://localhost:4000/graphql';
+      // TODO: Update SOCKET_URL in .env file for production
+      final socketUrl = dotenv.env['SOCKET_URL'] ??
+          (kReleaseMode
+              ? 'wss://production-server/graphql'
+              : 'ws://localhost:4000/graphql');
 
       webSocketLink = WebSocketLink(
         socketUrl,
@@ -62,15 +66,15 @@ class GraphqlConfig {
           },
         ),
       );
-    } catch (e) {
-      // Fallback to HTTP for subscriptions (though this won't work for real-time)
+    } catch (e, stackTrace) {
+      // Log the failure for diagnostics
+      debugPrint('WebSocket initialization failed: $e');
+      debugPrint('Stack trace:\n$stackTrace');
+      // TODO: disable real-time subscriptions or use a production SOCKET_URL fallback
     }
   }
 
   GraphQLClient clientToQuery() {
-    //TODO: Implement websocket link from OrgUrl
-    // final link = Link.split(
-    //     (request) => request.isSubscription, webSocketLink, httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: httpLink,

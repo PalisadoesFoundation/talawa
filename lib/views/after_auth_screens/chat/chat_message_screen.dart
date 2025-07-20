@@ -26,6 +26,7 @@ class ChatMessageScreen extends StatefulWidget {
 
 class _ChatMessageScreenState extends State<ChatMessageScreen> {
   late ScrollController _scrollController;
+  static const double _scrollThreshold = 200.0;
 
   @override
   void initState() {
@@ -68,7 +69,7 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
     // Check if scrolled to the top (for reversed list, top means end of scroll)
     if (_scrollController.position.maxScrollExtent > 0 &&
         _scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - 200) {
+            _scrollController.position.maxScrollExtent - _scrollThreshold) {
       // Trigger load more messages when near the top
       if (widget.model.hasMoreMessages(widget.chatId) &&
           !widget.model.isLoadingMoreMessages(widget.chatId)) {

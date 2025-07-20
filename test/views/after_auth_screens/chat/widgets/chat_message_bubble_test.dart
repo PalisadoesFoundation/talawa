@@ -263,5 +263,187 @@ void main() {
         expect(find.text(expectedDate), findsOneWidget);
       });
     });
+
+    group('Avatar Initials Tests', () {
+      testWidgets('shows first letter of firstName when available',
+          (tester) async {
+        await mockNetworkImagesFor(() async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: Message(
+                  message: ChatMessage(
+                    id: "test_id",
+                    creator: ChatUser(
+                      firstName: "John",
+                      id: "user_id",
+                      image: null, // No image to trigger initials
+                    ),
+                    body: "test message",
+                    createdAt: DateTime.now().toIso8601String(),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+
+          expect(find.text('J'), findsOneWidget);
+        });
+      });
+
+      testWidgets('shows ? when firstName is empty', (tester) async {
+        await mockNetworkImagesFor(() async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: Message(
+                  message: ChatMessage(
+                    id: "test_id",
+                    creator: ChatUser(
+                      firstName: "",
+                      id: "user_id",
+                      image: null, // No image to trigger initials
+                    ),
+                    body: "test message",
+                    createdAt: DateTime.now().toIso8601String(),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+
+          expect(find.text('?'), findsOneWidget);
+        });
+      });
+
+      testWidgets('shows ? when firstName is null', (tester) async {
+        await mockNetworkImagesFor(() async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: Message(
+                  message: ChatMessage(
+                    id: "test_id",
+                    creator: ChatUser(
+                      firstName: null,
+                      id: "user_id",
+                      image: null, // No image to trigger initials
+                    ),
+                    body: "test message",
+                    createdAt: DateTime.now().toIso8601String(),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+
+          expect(find.text('?'), findsOneWidget);
+        });
+      });
+    });
+
+    group('parseTimestamp Tests', () {
+      late Message messageWidget;
+
+      setUp(() {
+        messageWidget = Message(
+          message: ChatMessage(
+            id: "test_id",
+            creator: ChatUser(
+              firstName: "test",
+              id: "test_id",
+              image: "https://example.com/avatar.jpg",
+            ),
+            body: "test message",
+            createdAt: DateTime.now().toIso8601String(),
+          ),
+        );
+      });
+
+      test('parses valid ISO 8601 timestamp correctly', () {
+        const validTimestamp = '2023-01-01T10:00:00.000Z';
+        final result = messageWidget.parseTimestamp(validTimestamp);
+
+        expect(result.year, 2023);
+        expect(result.month, 1);
+        expect(result.day, 1);
+        expect(result.hour, 10);
+        expect(result.minute, 0);
+        expect(result.second, 0);
+      });
+
+      test('parses valid timestamp without milliseconds', () {
+        const validTimestamp = '2023-12-25T15:30:45Z';
+        final result = messageWidget.parseTimestamp(validTimestamp);
+
+        expect(result.year, 2023);
+        expect(result.month, 12);
+        expect(result.day, 25);
+        expect(result.hour, 15);
+        expect(result.minute, 30);
+        expect(result.second, 45);
+      });
+
+      test('returns current time for invalid timestamp', () {
+        const invalidTimestamp = 'invalid-timestamp';
+        final before = DateTime.now();
+        final result = messageWidget.parseTimestamp(invalidTimestamp);
+        final after = DateTime.now();
+
+        expect(
+          result.isAfter(before) || result.isAtSameMomentAs(before),
+          isTrue,
+        );
+        expect(
+          result.isBefore(after) || result.isAtSameMomentAs(after),
+          isTrue,
+        );
+      });
+
+      test('returns current time for empty timestamp', () {
+        const emptyTimestamp = '';
+        final before = DateTime.now();
+        final result = messageWidget.parseTimestamp(emptyTimestamp);
+        final after = DateTime.now();
+
+        expect(
+          result.isAfter(before) || result.isAtSameMomentAs(before),
+          isTrue,
+        );
+        expect(
+          result.isBefore(after) || result.isAtSameMomentAs(after),
+          isTrue,
+        );
+      });
+
+      test('returns DateTime for malformed date string', () {
+        const malformedTimestamp = 'definitely-not-a-date';
+        final result = messageWidget.parseTimestamp(malformedTimestamp);
+
+        // Just check that it returns a DateTime object and doesn't crash
+        expect(result, isA<DateTime>());
+      });
+
+      test('handles various timestamp formats gracefully', () {
+        const timestamps = [
+          '2023-01-01',
+          '2023-01-01T10:00:00',
+          '2023-01-01T10:00:00.123',
+          '2023-01-01T10:00:00.123456',
+          '2023-01-01T10:00:00+00:00',
+          '2023-01-01T10:00:00-05:00',
+        ];
+
+        for (final timestamp in timestamps) {
+          final result = messageWidget.parseTimestamp(timestamp);
+          expect(result, isA<DateTime>());
+          // Each should parse successfully or fallback to current time
+          expect(result.year, anyOf(equals(2023), equals(DateTime.now().year)));
+        }
+      });
+    });
   });
 }

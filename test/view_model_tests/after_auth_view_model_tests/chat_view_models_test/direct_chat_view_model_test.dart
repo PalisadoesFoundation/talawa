@@ -215,5 +215,27 @@ void main() {
         expect(messageStreamController.hasListener, isFalse);
       });
     });
+
+    group('hasMoreMessages', () {
+      test('returns result from chat service', () {
+        const chatId = 'chat1';
+        when(chatService.hasMoreMessages(chatId)).thenReturn(true);
+
+        final result = viewModel.hasMoreMessages(chatId);
+
+        expect(result, isTrue);
+        verify(chatService.hasMoreMessages(chatId)).called(1);
+      });
+
+      test('returns false when chat service returns false', () {
+        const chatId = 'chat1';
+        when(chatService.hasMoreMessages(chatId)).thenReturn(false);
+
+        final result = viewModel.hasMoreMessages(chatId);
+
+        expect(result, isFalse);
+        verify(chatService.hasMoreMessages(chatId)).called(1);
+      });
+    });
   });
 }

@@ -71,6 +71,26 @@ void main() {
     });
 
     group('traverseAndConvertDates', () {
+      test('traverseAndConvertDates catches and prints error for directFields',
+          () {
+        final testObj = {
+          'createdAt': 'bad-date',
+        };
+        // Custom convertFn that always throws
+        String throwingConvertFn(String? value) =>
+            throw Exception('Test error');
+        // Use splitDateTimeLocal as splitFn (won't be called)
+        expect(
+          () => traverseAndConvertDates(
+            testObj,
+            throwingConvertFn,
+            splitDateTimeLocal,
+          ),
+          returnsNormally,
+        );
+        // Value should remain unchanged since conversion failed
+        expect(testObj['createdAt'], 'bad-date');
+      });
       test('converts direct fields', () {
         final testObj = {
           'createdAt': '2023-05-01T14:30:00.000Z',

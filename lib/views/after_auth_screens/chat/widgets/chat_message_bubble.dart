@@ -105,7 +105,7 @@ class Message extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      formatTime(DateTime.parse(message.createdAt!)),
+                      formatTime(parseTimestamp(message.createdAt!)),
                       style: TextStyle(
                         fontSize: 10,
                         color: Colors.grey[500],
@@ -167,6 +167,24 @@ class Message extends StatelessWidget {
       return '${difference.inMinutes}m ago';
     } else {
       return 'now';
+    }
+  }
+
+  /// Parses a timestamp string into a DateTime object.
+  ///
+  /// Attempts to parse the given timestamp string into a DateTime.
+  /// If parsing fails, returns the current time as a fallback.
+  ///
+  /// **params**:
+  /// * `timestamp`: The timestamp string to parse
+  ///
+  /// **returns**:
+  /// * `DateTime`: The parsed DateTime or current time if parsing fails
+  DateTime parseTimestamp(String timestamp) {
+    try {
+      return DateTime.parse(timestamp);
+    } catch (e) {
+      return DateTime.now();
     }
   }
 }

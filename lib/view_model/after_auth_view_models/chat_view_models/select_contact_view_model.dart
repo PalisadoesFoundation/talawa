@@ -77,7 +77,6 @@ class SelectContactViewModel extends BaseModel {
       // First, check if a chat already exists with this user
       final existingChatId = await _checkExistingChat(selectedUser);
       if (existingChatId != null) {
-        log('Chat already exists with user: $existingChatId');
         // Chat already exists, return the existing chat ID
         return existingChatId;
       }
@@ -113,6 +112,7 @@ class SelectContactViewModel extends BaseModel {
         return null;
       }
     } catch (e) {
+      log('Error creating chat with user: $e');
       return null;
     } finally {
       setState(ViewState.idle);
@@ -132,28 +132,31 @@ class SelectContactViewModel extends BaseModel {
       final chats = await _chatService.getChatsByUser();
 
       // Find a chat that contains both the current user and the selected user
-      for (final chat in chats) {
-        if (chat.members != null && chat.members!.length == 2) {
-          final memberIds = chat.members!
-              .map((member) => member.id)
-              .where((id) => id != null)
-              .toList();
+      if (chats != null) {
+        for (final chat in chats) {
+          if (chat.members != null && chat.members!.length == 2) {
+            final memberIds = chat.members!
+                .map((member) => member.id)
+                .where((id) => id != null)
+                .toList();
 
-          final currentUserId = userConfig.currentUser.id;
-          final selectedUserId = selectedUser.id;
+            final currentUserId = userConfig.currentUser.id;
+            final selectedUserId = selectedUser.id;
 
-          // Check if both users are in the chat
-          if (currentUserId != null &&
-              selectedUserId != null &&
-              memberIds.contains(currentUserId) &&
-              memberIds.contains(selectedUserId)) {
-            return chat.id;
+            // Check if both users are in the chat
+            if (currentUserId != null &&
+                selectedUserId != null &&
+                memberIds.contains(currentUserId) &&
+                memberIds.contains(selectedUserId)) {
+              return chat.id;
+            }
           }
         }
       }
 
       return null; // No existing chat found
     } catch (e) {
+      log('Error checking existing chat: $e');
       return null;
     }
   }

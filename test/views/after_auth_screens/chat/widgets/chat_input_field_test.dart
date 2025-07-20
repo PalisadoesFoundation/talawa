@@ -195,7 +195,7 @@ void main() {
       // Verify error snackbar is shown
       verify(
         navigationService.showTalawaErrorDialog(
-          'Failed to send message: Exception: Failed to send',
+          'Failed to send message. Please try again.',
           MessageType.error,
         ),
       ).called(1);

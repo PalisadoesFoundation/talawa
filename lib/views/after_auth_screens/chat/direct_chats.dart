@@ -15,6 +15,23 @@ class DirectChats extends StatelessWidget {
   /// Creates a DirectChats widget.
   const DirectChats({super.key});
 
+  /// Handles the refresh action for the chat list.
+  ///
+  /// This method is called when the user pulls down to refresh the chat list.
+  /// It sets the chat state to loading, triggers a refresh of the chats,
+  /// and adds a small delay for better user experience.
+  ///
+  /// **params**:
+  /// * `model`: The DirectChatViewModel instance to refresh
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> onRefresh(DirectChatViewModel model) async {
+    model.chatState = ChatState.loading;
+    model.refreshChats();
+    await Future.delayed(const Duration(milliseconds: 500));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<DirectChatViewModel>(
@@ -24,56 +41,51 @@ class DirectChats extends StatelessWidget {
       builder: (context, model, child) {
         if (model.chats.isEmpty) {
           return RefreshIndicator(
-            onRefresh: () async {
-              model.chatState = ChatState.loading;
-              model.refreshChats();
-              await Future.delayed(const Duration(milliseconds: 500));
-            },
-            child: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.chat_outlined,
-                    size: 64,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'No chats yet',
-                    style: TextStyle(
-                      fontSize: 18,
+            onRefresh: () => onRefresh(model),
+            child: ListView(
+              children: const [
+                SizedBox(height: 200),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.chat_outlined,
+                      size: 64,
                       color: Colors.grey,
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Start a conversation by selecting a contact',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
+                    SizedBox(height: 16),
+                    Text(
+                      'No chats yet',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Pull down to refresh',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
+                    SizedBox(height: 8),
+                    Text(
+                      'Start a conversation by selecting a contact',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Pull down to refresh',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         }
 
         return RefreshIndicator(
-          onRefresh: () async {
-            model.chatState = ChatState.loading;
-            model.refreshChats();
-            await Future.delayed(const Duration(milliseconds: 500));
-          },
+          onRefresh: () => onRefresh(model),
           child: ListView.builder(
             itemCount: model.chats.length,
             itemBuilder: (context, index) {

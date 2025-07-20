@@ -300,7 +300,8 @@ void main() {
         await subscription.cancel();
 
         expect(result, isA<List<Chat>>());
-        expect(result.length, equals(2));
+        expect(result, isNotNull);
+        expect(result!.length, equals(2));
         expect(result[0].id, equals('chat1'));
         expect(result[0].name, equals('Chat 1'));
         expect(result[1].id, equals('chat2'));
@@ -310,15 +311,22 @@ void main() {
         expect(chats.length, equals(2));
       });
 
-      test('returns empty list when no userId', () async {
+      test('throws ArgumentError when userId is null', () async {
         when(mockUserConfig.currentUser).thenReturn(User(id: null));
 
-        final result = await chatService.getChatsByUser();
-
-        expect(result, isEmpty);
+        expect(
+          () => chatService.getChatsByUser(),
+          throwsA(
+            isA<ArgumentError>().having(
+              (e) => e.message,
+              'message',
+              'User ID is required to fetch chats',
+            ),
+          ),
+        );
       });
 
-      test('returns empty list on GraphQL exception', () async {
+      test('throws Exception on GraphQL exception', () async {
         final query = ChatQueries().chatsByUser();
         when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult(
@@ -331,9 +339,16 @@ void main() {
           ),
         );
 
-        final result = await chatService.getChatsByUser();
-
-        expect(result, isEmpty);
+        expect(
+          () => chatService.getChatsByUser(),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'toString',
+              contains('Failed to fetch chats'),
+            ),
+          ),
+        );
       });
 
       test('returns empty list when chatsByUser is null', () async {
@@ -778,7 +793,7 @@ void main() {
         expect(true, isTrue);
       });
 
-      test('dispose closes all streams and stops subscription', () {
+      test('dispose closes all streams and stops subscription', () async {
         chatService.dispose();
         // Test passes if no exceptions are thrown
         expect(true, isTrue);

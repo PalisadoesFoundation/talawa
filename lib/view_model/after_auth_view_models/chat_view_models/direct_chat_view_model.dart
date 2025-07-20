@@ -40,7 +40,7 @@ class DirectChatViewModel extends BaseModel {
   String? name;
 
   /// Set to store unique chat IDs.
-  final Set<String> _uniqueChatIds = {};
+  final Set<String?> _uniqueChatIds = {};
 
   /// List to store chat data using ChatListTileDataModel for backward compatibility.
   final List<ChatListTileDataModel> _chats = [];
@@ -99,8 +99,12 @@ class DirectChatViewModel extends BaseModel {
 
     // Listen to the chat stream and convert Chat objects to ChatListTileDataModel for backward compatibility
     _chatListSubscription = _chatService.chatListStream.listen((newChat) {
+      if (newChat.id == null) {
+        debugPrint('Received chat with null ID');
+        return;
+      }
       if (!_uniqueChatIds.contains(newChat.id)) {
-        _uniqueChatIds.add(newChat.id!);
+        _uniqueChatIds.add(newChat.id);
         // Convert Chat to ChatListTileDataModel for backward compatibility
         final chatListTileData = ChatListTileDataModel.fromChat(newChat);
         _chats.insert(0, chatListTileData);
@@ -249,7 +253,8 @@ class DirectChatViewModel extends BaseModel {
       final List<ChatUser> users = chat.users!;
 
       for (final user in users) {
-        if (user.id != userConfig.currentUser.id!) {
+        final currentUserId = userConfig.currentUser.id;
+        if (currentUserId != null && user.id != currentUserId) {
           name = user.firstName;
           break;
         }
@@ -257,7 +262,7 @@ class DirectChatViewModel extends BaseModel {
       return name;
     } catch (e) {
       // Chat not found in local list, return a default name
-      return 'Chat';
+      return null;
     }
   }
 }

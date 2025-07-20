@@ -54,8 +54,8 @@ class ChatMessage {
       chatId = json['chatId'] as String?;
     }
 
-    final messageId = json['id'] as String?;
-    final messageBody = json['body'] as String?;
+    final messageId = json['id'] is String ? json['id'] as String : null;
+    final messageBody = json['body'] is String ? json['body'] as String : null;
 
     final message = ChatMessage(
       id: messageId,

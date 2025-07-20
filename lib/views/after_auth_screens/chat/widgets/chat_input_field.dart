@@ -98,7 +98,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                                 // Show error snackbar
 
                                 navigationService.showTalawaErrorDialog(
-                                  'Failed to send message: $e',
+                                  'Failed to send message. Please try again.',
                                   MessageType.error,
                                 );
                               }

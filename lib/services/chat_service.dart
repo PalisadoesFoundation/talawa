@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
@@ -139,12 +140,16 @@ class ChatService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<List<Chat>>`: True if successful, false otherwise
-  Future<List<Chat>> getChatsByUser() async {
+  /// * `Future<List<Chat>?>`: True if successful, false otherwise
+  Future<List<Chat>?> getChatsByUser() async {
     final userId = _userConfig.currentUser.id;
 
     if (userId == null) {
-      return []; // Return empty list if no userId
+      navigationService.showTalawaErrorDialog(
+        "User ID is required to fetch chats",
+        MessageType.error,
+      );
+      throw ArgumentError('User ID is required to fetch chats');
     }
 
     final result = await _dbFunctions.gqlAuthQuery(
@@ -152,7 +157,12 @@ class ChatService {
     );
 
     if (result.hasException || result.data == null) {
-      return []; // Return empty list on error
+      debugPrint('Error fetching chats: ${result.exception}');
+      navigationService.showTalawaErrorDialog(
+        "Failed to fetch chats",
+        MessageType.error,
+      );
+      throw Exception('Failed to fetch chats: ${result.exception}');
     }
 
     final chatsList = result.data!['chatsByUser'] as List<dynamic>?;
@@ -395,6 +405,9 @@ class ChatService {
         }
 
         if (result.hasException) {
+          debugPrint(
+            'Subscription error for chat $chatId: ${result.exception}',
+          );
           // Continue listening instead of breaking
           continue;
         }
@@ -409,7 +422,8 @@ class ChatService {
             final message = ChatMessage.fromJson(messageData);
             _chatMessageController.add(message);
           } catch (e) {
-            // Error parsing message, continue
+            debugPrint('Error parsing chat message: $e');
+            debugPrint('Message data: $messageData');
           }
         }
       }

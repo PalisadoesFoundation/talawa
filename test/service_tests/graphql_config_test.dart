@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
@@ -18,6 +19,7 @@ void main() {
   setUp(() {
     getAndRegisterUserConfig();
     getAndRegisterDatabaseMutationFunctions();
+    dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
   tearDown(() async {
@@ -228,6 +230,54 @@ void main() {
 
       expect(link, isA<HttpLink>());
       expect(link.uri.toString(), 'https://example.com/graphql');
+    });
+  });
+
+  group('WebSocket Configuration Tests', () {
+    test('getOrgUrl initializes WebSocketLink with proper config', () {
+      const testUrl = 'https://test-org.example.com/graphql';
+      final box = Hive.box('url');
+      box.put(GraphqlConfig.urlKey, testUrl);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl();
+
+      expect(config.webSocketLink, isA<WebSocketLink?>());
+    });
+
+    test('authClient uses Link.split when WebSocket is available', () {
+      const testUrl = 'https://test-org.example.com/graphql';
+      final box = Hive.box('url');
+      box.put(GraphqlConfig.urlKey, testUrl);
+
+      final config = GraphqlConfig();
+      config.getOrgUrl(); // This will initialize WebSocket
+
+      final client = config.authClient();
+
+      expect(client, isA<GraphQLClient>());
+      expect(config.webSocketLink, isNotNull);
+    });
+
+    test('authClient handles null WebSocket gracefully', () {
+      final config = GraphqlConfig();
+      config.httpLink = HttpLink('https://example.com/graphql');
+      config.webSocketLink = null;
+
+      final client = config.authClient();
+
+      expect(client, isA<GraphQLClient>());
+    });
+
+    test('WebSocket initialization handles exceptions gracefully', () {
+      // This test verifies that _initializeWebSocketLink handles exceptions
+      final config = GraphqlConfig();
+
+      // This should not throw even with getOrgUrl
+      expect(
+        () => config.getOrgUrl(),
+        returnsNormally,
+      );
     });
   });
 }

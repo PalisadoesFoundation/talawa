@@ -322,6 +322,40 @@ void main() {
       expect(model.state, ViewState.idle);
     });
 
+    test('returns null if both memberships fail', () async {
+      final newChat = Chat(
+        id: 'newChatId',
+        members: [
+          ChatUser(id: 'currentUser'),
+          ChatUser(id: 'selectedUser'),
+        ],
+      );
+
+      when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => newChat);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'currentUser',
+        ),
+      ).thenAnswer((_) async => false);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'selectedUser',
+        ),
+      ).thenAnswer((_) async => false);
+
+      final chatId = await model.createChatWithUser(selectedUser);
+      expect(chatId, isNull);
+      expect(model.state, ViewState.idle);
+    });
+
     test('manages state correctly', () async {
       when(chatService.getChatsByUser()).thenAnswer((_) async {
         expect(model.state, ViewState.busy);

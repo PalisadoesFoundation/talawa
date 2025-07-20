@@ -144,23 +144,23 @@ void main() {
     });
 
     final avatarTestCases = [
-      {'f': 'John', 'l': 'Doe', 'e': 'J'},
-      {'f': '', 'l': 'TestName', 'e': 'T'},
-      {'f': '', 'l': 'TestName', 'e': 'T'},
-      {'f': null, 'l': 'TestName', 'e': 'T'},
-      {'f': '', 'l': '', 'e': '?'},
-      {'f': null, 'l': null, 'e': '?'},
+      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'J'},
+      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
+      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
+      {'firstName': null, 'lastName': 'TestName', 'expected': 'T'},
+      {'firstName': '', 'lastName': '', 'expected': '?'},
+      {'firstName': null, 'lastName': null, 'expected': '?'},
     ];
 
     for (final testCase in avatarTestCases) {
       testWidgets(
-          'should display avatar with "${testCase['e']}" when name is ${testCase['f']} ${testCase['l']}',
+          'should display avatar with "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['f'],
-            lastName: testCase['l'],
+            firstName: testCase['firstName'],
+            lastName: testCase['lastName'],
             image: null,
           ),
         ];
@@ -170,38 +170,38 @@ void main() {
         await tester.pumpAndSettle();
         final avatar = tester.widget<CircleAvatar>(find.byType(CircleAvatar));
         expect(avatar.backgroundImage, isNull);
-        expect(find.text(testCase['e']!), findsOneWidget);
+        expect(find.text(testCase['expected']!), findsOneWidget);
       });
     }
   });
 
   group('Name and Email Display', () {
     final nameTestCases = [
-      {'f': 'John', 'l': 'Doe', 'e': 'John'},
-      {'f': null, 'l': 'TestName', 'e': 'TestName'},
-      {'f': '', 'l': 'TestName', 'e': ''},
-      {'f': 'John', 'l': null, 'e': 'John'},
-      {'f': 'John', 'l': '', 'e': 'John'},
-      {'f': null, 'l': null, 'e': 'Unknown User'},
-      {'f': '', 'l': '', 'e': ''},
+      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'John'},
+      {'firstName': null, 'lastName': 'TestName', 'expected': 'TestName'},
+      {'firstName': '', 'lastName': 'TestName', 'expected': ''},
+      {'firstName': 'John', 'lastName': null, 'expected': 'John'},
+      {'firstName': 'John', 'lastName': '', 'expected': 'John'},
+      {'firstName': null, 'lastName': null, 'expected': 'Unknown User'},
+      {'firstName': '', 'lastName': '', 'expected': ''},
     ];
 
     for (final testCase in nameTestCases) {
       testWidgets(
-          'should display name "${testCase['e']}" when name is ${testCase['f']} ${testCase['l']}',
+          'should display name "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['f'],
-            lastName: testCase['l'],
+            firstName: testCase['firstName'],
+            lastName: testCase['lastName'],
           ),
         ];
         when(mockSelectContactViewModel.isBusy).thenReturn(false);
         when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
         await tester.pumpWidget(createSelectContactScreen());
         await tester.pumpAndSettle();
-        expect(find.text(testCase['e']!), findsOneWidget);
+        expect(find.text(testCase['expected']!), findsOneWidget);
       });
     }
 
@@ -287,5 +287,20 @@ void main() {
       verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
       verifyNever(mockDirectChatViewModel.initialise());
     });
+  });
+
+  testWidgets('should handle back button tap without errors', (tester) async {
+    when(mockSelectContactViewModel.isBusy).thenReturn(false);
+    when(mockSelectContactViewModel.orgMembersList).thenReturn([]);
+    await tester.pumpWidget(createSelectContactScreen());
+    await tester.pumpAndSettle();
+
+    // Tap the back button to ensure code coverage
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+
+    // Just verify no exceptions were thrown and widget is still present
+    expect(tester.takeException(), isNull);
+    expect(find.byIcon(Icons.arrow_back), findsOneWidget);
   });
 }

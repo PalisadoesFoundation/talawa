@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
@@ -354,6 +355,7 @@ class DataBaseMutationFunctions {
       // Log subscription errors but don't break the stream
       // Note: Subscriptions are real-time streams, so we don't use caching here
       // as caching doesn't make sense for live data
+      debugPrint('Subscription error: $e');
     }
   }
 }

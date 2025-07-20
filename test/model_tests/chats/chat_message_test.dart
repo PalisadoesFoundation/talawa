@@ -138,7 +138,7 @@ void main() {
       expect(message.chatId, equals('chat123'));
     });
 
-    test('fromJson prioritizes direct chatId over chat object', () {
+    test('fromJson prioritizes chat object id over direct chatId', () {
       final json = {
         'id': 'msg1',
         'body': 'Hello World',
@@ -361,6 +361,64 @@ void main() {
       final message = ChatMessage.fromJson(json);
 
       expect(message.parentMessage, isNull);
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles direct chatId field when chat object is null', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'chat': null,
+        'chatId': 'direct_chat_id',
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.chatId, equals('direct_chat_id'));
+      expect(message.id, equals('msg1'));
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles non-string id gracefully', () {
+      final json = {
+        'id': 123, // Non-string id
+        'body': 'Hello World',
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.id, isNull);
+      expect(message.body, equals('Hello World'));
+    });
+
+    test('fromJson handles non-string body gracefully', () {
+      final json = {
+        'id': 'msg1',
+        'body': 123, // Non-string body
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.id, equals('msg1'));
+      expect(message.body, isNull);
+    });
+
+    test('fromJson handles invalid chat object structure', () {
+      final json = {
+        'id': 'msg1',
+        'body': 'Hello World',
+        'chat': 'invalid_string_instead_of_object',
+        'chatId': 'fallback_chat_id',
+        'createdAt': '2023-01-01T10:00:00Z',
+      };
+
+      final message = ChatMessage.fromJson(json);
+
+      expect(message.chatId, equals('fallback_chat_id'));
       expect(message.id, equals('msg1'));
       expect(message.body, equals('Hello World'));
     });
