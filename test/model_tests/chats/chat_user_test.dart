@@ -32,20 +32,6 @@ void main() {
       expect(json, expectedJson);
     });
 
-    test('Test ChatUser.fromJson with old format (firstName field)', () {
-      final chatUserJson = {
-        'firstName': 'Ayush',
-        'id': 'user123',
-        'avatarURL': 'random image url',
-      };
-
-      final chatUserFromJson = ChatUser.fromJson(chatUserJson);
-
-      expect(chatUserFromJson.firstName, 'Ayush');
-      expect(chatUserFromJson.id, 'user123');
-      expect(chatUserFromJson.image, 'random image url');
-    });
-
     test('Test ChatUser.fromJson with new PostgreSQL format (name field)', () {
       final chatUserJson = {
         'name': 'Ayush Kumar Sharma',
@@ -110,7 +96,7 @@ void main() {
 
     test('Test ChatUser.fromJson with missing avatarURL', () {
       final chatUserJson = {
-        'firstName': 'Ayush',
+        'name': 'Ayush',
         'id': 'user123',
       };
 
@@ -126,7 +112,7 @@ void main() {
 
     test('Test ChatUser.fromJson with null avatarURL', () {
       final chatUserJson = {
-        'firstName': 'Ayush',
+        'name': 'Ayush',
         'id': 'user123',
         'avatarURL': null,
       };

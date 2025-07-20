@@ -99,7 +99,7 @@ class _SelectContactState extends State<SelectContact> {
                     } else {
                       // Show error message using navigation service
                       navigationService.showTalawaErrorSnackBar(
-                        'Failed to create chat with ${user.firstName}',
+                        'Failed to create chat',
                         MessageType.error,
                       );
                     }
@@ -138,7 +138,10 @@ class _SelectContactState extends State<SelectContact> {
                           : null,
                     ),
                     title: Text(
-                      user.firstName ?? user.name ?? 'Unknown User',
+                      user.firstName ??
+                          user.lastName ??
+                          user.name ??
+                          'Unknown User',
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                       ),

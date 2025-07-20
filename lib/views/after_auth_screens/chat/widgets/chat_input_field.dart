@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 
@@ -84,11 +86,22 @@ class _ChatInputFieldState extends State<ChatInputField> {
                           onTap: () async {
                             final messageText = controller.text.trim();
                             if (messageText.isNotEmpty) {
-                              controller.clear();
-                              await widget.model.sendMessageToDirectChat(
-                                widget.chatId,
-                                messageText,
-                              );
+                              try {
+                                controller.clear();
+                                await widget.model.sendMessageToDirectChat(
+                                  widget.chatId,
+                                  messageText,
+                                );
+                              } catch (e) {
+                                // Restore the message text if sending failed
+                                controller.text = messageText;
+                                // Show error snackbar
+
+                                navigationService.showTalawaErrorDialog(
+                                  'Failed to send message: $e',
+                                  MessageType.error,
+                                );
+                              }
                             }
                           },
                           child: Icon(

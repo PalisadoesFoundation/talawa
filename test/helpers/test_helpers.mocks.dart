@@ -1720,6 +1720,13 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
 /// See the documentation for Mockito's code generation for more information.
 class MockChatService extends _i2.Mock implements _i26.ChatService {
   @override
+  Map<String, String?> get beforeCursor => (super.noSuchMethod(
+        Invocation.getter(#beforeCursor),
+        returnValue: <String, String?>{},
+        returnValueForMissingStub: <String, String?>{},
+      ) as Map<String, String?>);
+
+  @override
   int get messagePageSize => (super.noSuchMethod(
         Invocation.getter(#messagePageSize),
         returnValue: 0,

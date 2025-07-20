@@ -357,7 +357,9 @@ void main() {
       expect(regeneratedJson['id'], equals(originalJson['id']));
       expect(regeneratedJson['name'], equals(originalJson['name']));
       expect(
-          regeneratedJson['description'], equals(originalJson['description']));
+        regeneratedJson['description'],
+        equals(originalJson['description']),
+      );
       expect(regeneratedJson['createdAt'], equals(originalJson['createdAt']));
       expect(regeneratedJson['updatedAt'], equals(originalJson['updatedAt']));
     });

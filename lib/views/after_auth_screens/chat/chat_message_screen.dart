@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_input_field.dart';
@@ -87,7 +88,7 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
           children: [
             IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => navigationService.pop(),
             ),
             SizedBox(width: SizeConfig.safeBlockHorizontal! * 2),
             const CircleAvatar(

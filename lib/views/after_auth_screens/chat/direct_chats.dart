@@ -6,10 +6,13 @@ import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-/// DirectChats return a statelessWidget for rendering all the direct.
+/// DirectChats returns a StatelessWidget for rendering all the direct chats of the current user in the Chat List Screen.
 ///
-/// chats of the current user in the Chat List Screen
+/// This widget displays either an empty state when no chats are available
+/// or a scrollable list of chat tiles when chats exist. It includes
+/// pull-to-refresh functionality for updating the chat list.
 class DirectChats extends StatelessWidget {
+  /// Creates a DirectChats widget.
   const DirectChats({super.key});
 
   @override
@@ -86,11 +89,21 @@ class DirectChats extends StatelessWidget {
   }
 }
 
-/// ChatTile return a widget for a tile in the list of Direct Chats in the Chat List Screen.
+/// ChatTile returns a widget for a tile in the list of Direct Chats in the Chat List Screen.
+///
+/// This widget displays individual chat information including user avatar,
+/// chat name, description, and timestamp. It handles navigation to the
+/// chat message screen when tapped.
 class ChatTile extends StatelessWidget {
+  /// Creates a ChatTile widget.
+  ///
+  /// The [chat] and [model] parameters are required.
   const ChatTile({super.key, required this.chat, required this.model});
 
+  /// The chat data model containing chat information and user details.
   final ChatListTileDataModel chat;
+
+  /// The DirectChatViewModel instance for handling chat operations.
   final DirectChatViewModel model;
 
   @override
@@ -151,6 +164,16 @@ class ChatTile extends StatelessWidget {
     );
   }
 
+  /// Formats the given DateTime into a human-readable time string.
+  ///
+  /// Returns the time difference in days (e.g., "3d"), hours (e.g., "5h"),
+  /// minutes (e.g., "30m"), or "now" for very recent times.
+  ///
+  /// **params**:
+  /// * `dateTime`: The DateTime to format
+  ///
+  /// **returns**:
+  /// * `String`: Formatted time string
   String _formatTime(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
@@ -166,6 +189,16 @@ class ChatTile extends StatelessWidget {
     }
   }
 
+  /// Gets the display name for the chat based on chat type and participants.
+  ///
+  /// For direct chats (2 users), returns the name of the other participant.
+  /// For group chats, returns the chat name or "Unknown Chat" if no name is set.
+  ///
+  /// **params**:
+  /// * `chat`: The ChatListTileDataModel containing chat information
+  ///
+  /// **returns**:
+  /// * `String`: The display name for the chat
   String _getDisplayName(ChatListTileDataModel chat) {
     if (chat.users != null && chat.users!.length == 2) {
       // For direct chats, show the other user's name

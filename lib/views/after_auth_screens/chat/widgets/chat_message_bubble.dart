@@ -4,7 +4,14 @@ import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/size_config.dart';
 
 /// Message returns a widget for chat message in the bubble form.
+///
+/// This widget displays a chat message in a bubble format with different
+/// styling for current user vs other users. It includes user avatars,
+/// message content, timestamps, and proper alignment based on the sender.
 class Message extends StatelessWidget {
+  /// Creates a Message widget.
+  ///
+  /// The [message] parameter is required and contains the chat message data.
   const Message({super.key, required this.message});
 
   /// The chat message to be displayed in the bubble.
@@ -98,7 +105,7 @@ class Message extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      _formatTime(DateTime.parse(message.createdAt!)),
+                      formatTime(DateTime.parse(message.createdAt!)),
                       style: TextStyle(
                         fontSize: 10,
                         color: Colors.grey[500],
@@ -135,7 +142,20 @@ class Message extends StatelessWidget {
     );
   }
 
-  String _formatTime(DateTime dateTime) {
+  /// Formats the given DateTime into a human-readable time string for chat messages.
+  ///
+  /// Returns different formats based on the time difference:
+  /// - For messages older than a day: "day/month" format
+  /// - For messages within a day: "hour:minute" format
+  /// - For messages within an hour: "Xm ago" format
+  /// - For very recent messages: "now"
+  ///
+  /// **params**:
+  /// * `dateTime`: The DateTime to format
+  ///
+  /// **returns**:
+  /// * `String`: Formatted time string appropriate for chat messages
+  String formatTime(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
 

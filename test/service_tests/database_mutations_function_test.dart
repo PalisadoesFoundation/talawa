@@ -1,13 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/chat_queries.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
+
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -1167,7 +1169,7 @@ void main() {
 
       test('Test with variables', () async {
         final variables = {
-          'input': {'chatId': 'chat123'}
+          'input': {'chatId': 'chat123'},
         };
         final mockStream = Stream.fromIterable([
           QueryResult(
@@ -1394,7 +1396,7 @@ void main() {
         final chatQueries = ChatQueries();
         final subscription = chatQueries.chatMessageCreate;
         final variables = {
-          'input': {'chatId': 'chat123'}
+          'input': {'chatId': 'chat123'},
         };
 
         final mockStream = Stream.fromIterable([

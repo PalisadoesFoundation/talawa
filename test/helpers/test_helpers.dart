@@ -97,7 +97,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SelectContactViewModel>(
-        onMissingStub: OnMissingStub.returnDefault),
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),

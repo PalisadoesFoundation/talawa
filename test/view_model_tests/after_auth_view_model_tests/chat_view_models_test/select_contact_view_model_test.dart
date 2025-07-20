@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/chats/chat.dart';
+import 'package:talawa/models/chats/chat_user.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -158,5 +161,185 @@ void main() {
 
     // Should return to idle even after error
     expect(model.state, ViewState.idle);
+  });
+
+  group('createChatWithUser', () {
+    late SelectContactViewModel model;
+    late User currentUser;
+    late User selectedUser;
+
+    setUp(() {
+      // Reset all mocks first
+      reset(chatService);
+      reset(userConfig);
+      reset(organizationService);
+
+      model = SelectContactViewModel();
+      model.initialise();
+      currentUser = User(id: 'currentUser');
+      selectedUser = User(id: 'selectedUser');
+
+      // Mock the current user
+      when(userConfig.currentUser).thenReturn(currentUser);
+
+      // Mock the current org to prevent issues with getCurrentOrgUsersList
+      when(userConfig.currentOrg).thenReturn(
+        OrgInfo(id: 'XYZ', name: 'Test Org'),
+      );
+    });
+
+    tearDown(() {
+      // Reset any state that might affect other tests
+      reset(chatService);
+      reset(userConfig);
+      reset(organizationService);
+    });
+
+    test('successfully creates a new chat', () async {
+      final newChat = Chat(
+        id: 'newChatId',
+        members: [
+          ChatUser(id: 'currentUser'),
+          ChatUser(id: 'selectedUser'),
+        ],
+      );
+
+      when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => newChat);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'currentUser',
+        ),
+      ).thenAnswer((_) async => true);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'selectedUser',
+        ),
+      ).thenAnswer((_) async => true);
+
+      final chatId = await model.createChatWithUser(selectedUser);
+
+      expect(chatId, 'newChatId');
+      expect(model.state, ViewState.idle);
+      verify(chatService.getChatsByUser()).called(1);
+      verify(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).called(1);
+    });
+
+    test('returns null if chat creation fails', () async {
+      when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => null);
+
+      final chatId = await model.createChatWithUser(selectedUser);
+
+      expect(chatId, isNull);
+      expect(model.state, ViewState.idle);
+    });
+
+    test('returns null if adding current user fails', () async {
+      final newChat = Chat(
+        id: 'newChatId',
+        members: [
+          ChatUser(id: 'currentUser'),
+          ChatUser(id: 'selectedUser'),
+        ],
+      );
+
+      when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => newChat);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'currentUser',
+        ),
+      ).thenAnswer((_) async => false);
+
+      final chatId = await model.createChatWithUser(selectedUser);
+      expect(chatId, isNull);
+      expect(model.state, ViewState.idle);
+    });
+
+    test('returns null if adding selected user fails', () async {
+      final newChat = Chat(
+        id: 'newChatId',
+        members: [
+          ChatUser(id: 'currentUser'),
+          ChatUser(id: 'selectedUser'),
+        ],
+      );
+
+      when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => newChat);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'currentUser',
+        ),
+      ).thenAnswer((_) async => true);
+      when(
+        chatService.createChatMembership(
+          chatId: 'newChatId',
+          userId: 'selectedUser',
+        ),
+      ).thenAnswer((_) async => false);
+
+      final chatId = await model.createChatWithUser(selectedUser);
+      expect(chatId, isNull);
+      expect(model.state, ViewState.idle);
+    });
+
+    test('handles exceptions gracefully', () async {
+      when(chatService.getChatsByUser()).thenThrow(Exception('Error'));
+
+      final chatId = await model.createChatWithUser(selectedUser);
+      expect(chatId, isNull);
+      expect(model.state, ViewState.idle);
+    });
+
+    test('manages state correctly', () async {
+      when(chatService.getChatsByUser()).thenAnswer((_) async {
+        expect(model.state, ViewState.busy);
+        await Future.delayed(const Duration(milliseconds: 10));
+        return [];
+      });
+
+      when(
+        chatService.createChat(
+          name: 'chat_currentUser_selectedUser',
+          description: 'Direct chat between users',
+        ),
+      ).thenAnswer((_) async => null);
+
+      final future = model.createChatWithUser(selectedUser);
+      expect(model.state, ViewState.busy);
+      await future;
+      expect(model.state, ViewState.idle);
+    });
   });
 }
