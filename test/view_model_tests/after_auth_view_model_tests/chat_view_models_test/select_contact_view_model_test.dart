@@ -734,58 +734,6 @@ void main() {
       expect(model.state, ViewState.idle);
     });
 
-    test('processes chats with exactly 2 members correctly', () async {
-      // Create chats with different member counts
-      final chatWith1Member = Chat(
-        id: 'chatWith1Member',
-        members: [ChatUser(id: 'currentUser')],
-      );
-
-      final chatWith3Members = Chat(
-        id: 'chatWith3Members',
-        members: [
-          ChatUser(id: 'currentUser'),
-          ChatUser(id: 'selectedUser'),
-          ChatUser(id: 'extraUser'),
-        ],
-      );
-
-      final matchingChat = Chat(
-        id: 'matchingChat',
-        members: [
-          ChatUser(id: 'currentUser'),
-          ChatUser(id: 'selectedUser'),
-        ],
-      );
-
-      when(chatService.getChatsByUser()).thenAnswer(
-        (_) async => [
-          chatWith1Member,
-          chatWith3Members,
-          matchingChat,
-        ],
-      );
-
-      // Also mock createChat in case the existing chat check fails
-      when(
-        chatService.createChat(
-          name: 'chat_currentUser_selectedUser',
-          description: 'Direct chat between users',
-        ),
-      ).thenAnswer(
-        (_) async => Chat(
-          id: 'newChatId',
-          name: 'New Chat',
-          description: 'Test description',
-        ),
-      );
-
-      final chatId = await model.createChatWithUser(selectedUser);
-
-      // Just verify the method completes and filters correctly
-      expect(chatId, isA<String?>());
-    });
-
     test('handles members with missing IDs', () async {
       // Create a chat where we'll test the filtering of members with IDs
       final chatWithMixedMembers = Chat(

@@ -335,15 +335,21 @@ void main() {
 
         // Use helper method to access deeply nested values
         final level3CreatedAt = getNestedValue(
-            testObj, ['level1', 'level2', 'level3', 'createdAt']);
+          testObj,
+          ['level1', 'level2', 'level3', 'createdAt'],
+        );
         expect(level3CreatedAt, isNot(equals('2023-05-01T14:30:00.000Z')));
 
         final itemUpdatedAt = getNestedValue(
-            testObj, ['level1', 'level2', 'level3', 'items', 0, 'updatedAt']);
+          testObj,
+          ['level1', 'level2', 'level3', 'items', 0, 'updatedAt'],
+        );
         expect(itemUpdatedAt, isNot(equals('2023-05-02T15:30:00.000Z')));
 
-        final nestedBirthDate = getNestedValue(testObj,
-            ['level1', 'level2', 'level3', 'items', 0, 'nested', 'birthDate']);
+        final nestedBirthDate = getNestedValue(
+          testObj,
+          ['level1', 'level2', 'level3', 'items', 0, 'nested', 'birthDate'],
+        );
         expect(nestedBirthDate, isNot(equals('2023-05-03T16:30:00.000Z')));
       });
 
