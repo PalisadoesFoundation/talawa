@@ -784,6 +784,51 @@ void main() {
 
         expect(messages, isEmpty);
       });
+
+      test('handles malformed message data gracefully', () async {
+        const chatId = 'chat123';
+        final messages = <ChatMessage>[];
+        late StreamSubscription subscription;
+
+        // Mock the subscription stream
+        final controller = StreamController<QueryResult>();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthSubscription(
+            ChatQueries().chatMessageCreate,
+            variables: {
+              "input": {
+                "id": chatId,
+              },
+            },
+          ),
+        ).thenAnswer((_) => controller.stream);
+
+        subscription =
+            chatService.subscribeToChatMessages(chatId).listen((message) {
+          messages.add(message);
+        });
+
+        // Simulate incoming message with completely invalid data structure
+        // This will cause an error in ChatMessage.fromJson when trying to access non-existent properties
+        controller.add(
+          QueryResult(
+            options:
+                QueryOptions(document: gql(ChatQueries().chatMessageCreate)),
+            data: {
+              'chatMessageCreate':
+                  'not-an-object', // This is a string, not an object as expected
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        await Future.delayed(const Duration(milliseconds: 50));
+        await subscription.cancel();
+        await controller.close();
+
+        // No message should be added due to parsing error
+        expect(messages, isEmpty);
+      });
     });
 
     group('stopSubscription and dispose', () {

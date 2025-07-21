@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -27,6 +28,7 @@ class ChatMessageScreen extends StatefulWidget {
 class _ChatMessageScreenState extends State<ChatMessageScreen> {
   late ScrollController _scrollController;
   static const double _scrollThreshold = 200.0;
+  Timer? _scrollDebounce;
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _scrollDebounce?.cancel();
     super.dispose();
   }
 
@@ -55,27 +58,30 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
   /// **returns**:
   ///   None
   void _onScroll() {
-    // Only check for pagination if we have messages and the chat is loaded
-    final messages = widget.model.chatMessagesByUser[widget.chatId];
-    final chatState = widget.model.chatState;
+    _scrollDebounce?.cancel();
+    _scrollDebounce = Timer(const Duration(milliseconds: 100), () {
+      // Only check for pagination if we have messages and the chat is loaded
+      final messages = widget.model.chatMessagesByUser[widget.chatId];
+      final chatState = widget.model.chatState;
 
-    // Don't trigger pagination if chat is still loading or has no messages
-    if (chatState == ChatState.loading ||
-        messages == null ||
-        messages.isEmpty) {
-      return;
-    }
-
-    // Check if scrolled to the top (for reversed list, top means end of scroll)
-    if (_scrollController.position.maxScrollExtent > 0 &&
-        _scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - _scrollThreshold) {
-      // Trigger load more messages when near the top
-      if (widget.model.hasMoreMessages(widget.chatId) &&
-          !widget.model.isLoadingMoreMessages(widget.chatId)) {
-        widget.model.loadMoreMessages(widget.chatId);
+      // Don't trigger pagination if chat is still loading or has no messages
+      if (chatState == ChatState.loading ||
+          messages == null ||
+          messages.isEmpty) {
+        return;
       }
-    }
+
+      // Check if scrolled to the top (for reversed list, top means end of scroll)
+      if (_scrollController.position.maxScrollExtent > 0 &&
+          _scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - _scrollThreshold) {
+        // Trigger load more messages when near the top
+        if (widget.model.hasMoreMessages(widget.chatId) &&
+            !widget.model.isLoadingMoreMessages(widget.chatId)) {
+          widget.model.loadMoreMessages(widget.chatId);
+        }
+      }
+    });
   }
 
   @override

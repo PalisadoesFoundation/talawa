@@ -149,15 +149,125 @@ void main() {
       verify(mockDirectChatViewModel.refreshChats()).called(1);
     });
 
-    test('onRefresh method exists and can be called', () {
+    testWidgets('should trigger onRefresh when pulling down on empty state',
+        (tester) async {
       // Arrange
-      const directChats = DirectChats();
+      when(mockDirectChatViewModel.chats).thenReturn([]);
+      when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
 
-      // Act & Assert - Just verify the method exists and doesn't throw immediately
-      expect(
-        () => directChats.onRefresh(mockDirectChatViewModel),
-        returnsNormally,
-      );
+      // Create a flag to track if refreshChats was called
+      bool refreshCalled = false;
+      when(mockDirectChatViewModel.refreshChats()).thenAnswer((_) {
+        refreshCalled = true;
+        return;
+      });
+
+      await tester.pumpWidget(createDirectChatsScreen());
+      await tester.pump();
+
+      // Act - Simulate pull to refresh
+      await tester.drag(find.byType(ListView), const Offset(0, 300));
+
+      // Pump frames to process the refresh indicator animation
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // Set the state back to complete to avoid timer issues
+      when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
+
+      // Complete the animation
+      await tester.pumpAndSettle();
+
+      // Assert that refresh was called
+      expect(refreshCalled, true);
+    });
+
+    testWidgets('should trigger onRefresh when pulling down on chat list',
+        (tester) async {
+      await mockNetworkImagesFor(() async {
+        // Arrange
+        final testChat = ChatListTileDataModel(
+          id: 'chat1',
+          users: [
+            ChatUser(id: 'user1', firstName: 'John'),
+            ChatUser(id: 'currentUser', firstName: 'Current'),
+          ],
+          chat: Chat(
+            id: 'chat1',
+            name: 'Test Chat',
+            description: 'Test Description',
+            createdAt: DateTime.now().toIso8601String(),
+          ),
+        );
+
+        when(mockDirectChatViewModel.chats).thenReturn([testChat]);
+        when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
+        when(mockUserConfig.currentUser).thenReturn(
+          User(id: 'currentUser', firstName: 'Current'),
+        );
+
+        // Create a flag to track if refreshChats was called
+        bool refreshCalled = false;
+        when(mockDirectChatViewModel.refreshChats()).thenAnswer((_) {
+          refreshCalled = true;
+          return;
+        });
+
+        await tester.pumpWidget(createDirectChatsScreen());
+        await tester.pump();
+
+        // Act - Simulate pull to refresh on the ListView with chats
+        await tester.drag(find.byType(ListView), const Offset(0, 300));
+
+        // Pump frames to process the refresh indicator animation
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+
+        // Set the state back to complete to avoid timer issues
+        when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
+
+        // Complete the animation
+        await tester.pumpAndSettle();
+
+        // Assert that refresh was called
+        expect(refreshCalled, true);
+      });
+    });
+
+    testWidgets('should show loading indicator during refresh', (tester) async {
+      // Arrange
+      when(mockDirectChatViewModel.chats).thenReturn([]);
+      when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
+
+      // Create a flag to track if refreshChats was called
+      bool refreshCalled = false;
+      when(mockDirectChatViewModel.refreshChats()).thenAnswer((_) {
+        refreshCalled = true;
+        return;
+      });
+
+      await tester.pumpWidget(createDirectChatsScreen());
+
+      // Act - Simulate pull to refresh
+      await tester.drag(find.byType(ListView), const Offset(0, 300));
+
+      // Change the state to loading to simulate what would happen
+      when(mockDirectChatViewModel.chatState).thenReturn(ChatState.loading);
+
+      // Pump to process the refresh indicator animation
+      await tester.pump();
+
+      // Verify refresh indicator is showing and in the loading state
+      expect(find.byType(RefreshIndicator), findsOneWidget);
+
+      // Change the state back to complete to avoid timer issues
+      when(mockDirectChatViewModel.chatState).thenReturn(ChatState.complete);
+
+      // Complete the animation
+      await tester.pumpAndSettle();
+
+      // Assert that refresh was called
+      expect(refreshCalled, true);
     });
   });
 

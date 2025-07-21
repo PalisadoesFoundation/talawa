@@ -14,6 +14,21 @@ void main() {
       unregisterServices();
     });
 
+    // Helper method to get nested values from complex objects
+    dynamic getNestedValue(dynamic obj, List<dynamic> path) {
+      dynamic current = obj;
+      for (final key in path) {
+        if (current is Map<String, dynamic>) {
+          current = current[key];
+        } else if (current is List && key is int) {
+          current = current[key];
+        } else {
+          return null;
+        }
+      }
+      return current;
+    }
+
     test('combineDateTime combines date and time correctly', () {
       expect(combineDateTime('2023-05-01', '14:30:00'), '2023-05-01 14:30:00');
     });
@@ -318,27 +333,18 @@ void main() {
 
         traverseAndConvertDates(testObj, convertUTCToLocal, splitDateTimeLocal);
 
-        expect(
-          (((testObj['level1']! as Map<String, dynamic>)['level2']
-                  as Map<String, dynamic>)['level3']
-              as Map<String, dynamic>)['createdAt'],
-          isNot(equals('2023-05-01T14:30:00.000Z')),
-        );
-        expect(
-          (((((testObj['level1']! as Map<String, dynamic>)['level2']
-                      as Map<String, dynamic>)['level3']
-                  as Map<String, dynamic>)['items'] as List)[0]
-              as Map<String, dynamic>)['updatedAt'],
-          isNot(equals('2023-05-02T15:30:00.000Z')),
-        );
-        expect(
-          ((((((testObj['level1']! as Map<String, dynamic>)['level2']
-                          as Map<String, dynamic>)['level3']
-                      as Map<String, dynamic>)['items'] as List)[0]
-                  as Map<String, dynamic>)['nested']
-              as Map<String, dynamic>)['birthDate'],
-          isNot(equals('2023-05-03T16:30:00.000Z')),
-        );
+        // Use helper method to access deeply nested values
+        final level3CreatedAt = getNestedValue(
+            testObj, ['level1', 'level2', 'level3', 'createdAt']);
+        expect(level3CreatedAt, isNot(equals('2023-05-01T14:30:00.000Z')));
+
+        final itemUpdatedAt = getNestedValue(
+            testObj, ['level1', 'level2', 'level3', 'items', 0, 'updatedAt']);
+        expect(itemUpdatedAt, isNot(equals('2023-05-02T15:30:00.000Z')));
+
+        final nestedBirthDate = getNestedValue(testObj,
+            ['level1', 'level2', 'level3', 'items', 0, 'nested', 'birthDate']);
+        expect(nestedBirthDate, isNot(equals('2023-05-03T16:30:00.000Z')));
       });
 
       test('handles empty and null objects in lists', () {
@@ -367,10 +373,9 @@ void main() {
         );
 
         // Valid date should be converted
-        expect(
-          ((testObj['items']! as List)[2] as Map<String, dynamic>)['createdAt'],
-          isNot(equals('2023-05-01T14:30:00.000Z')),
-        );
+        final itemCreatedAt =
+            getNestedValue(testObj, ['items', 2, 'createdAt']);
+        expect(itemCreatedAt, isNot(equals('2023-05-01T14:30:00.000Z')));
       });
 
       test('preserves original values when conversion fails', () {
@@ -410,22 +415,25 @@ void main() {
           testObj,
           convertUTCToLocal,
           splitDateTimeLocal,
-        ); // Valid dates should be converted
-        expect(testObj['createdAt'], isNot(equals('2023-05-01T14:30:00.000Z')));
-        expect(
-          ((testObj['items']! as List)[0] as Map<String, dynamic>)['createdAt'],
-          isNot(equals('2023-05-02T15:30:00.000Z')),
-        );
-        expect(
-          ((testObj['items']! as List)[2] as Map<String, dynamic>)['createdAt'],
-          isNot(equals('2023-05-03T16:30:00.000Z')),
         );
 
+        // Valid dates should be converted
+        expect(testObj['createdAt'], isNot(equals('2023-05-01T14:30:00.000Z')));
+
+        // Use helper method for nested values
+        final item0CreatedAt =
+            getNestedValue(testObj, ['items', 0, 'createdAt']);
+        expect(item0CreatedAt, isNot(equals('2023-05-02T15:30:00.000Z')));
+
+        final item2CreatedAt =
+            getNestedValue(testObj, ['items', 2, 'createdAt']);
+        expect(item2CreatedAt, isNot(equals('2023-05-03T16:30:00.000Z')));
+
         // Invalid date should be handled gracefully (gets set to empty when conversion fails)
-        expect(
-          ((testObj['items']! as List)[1] as Map<String, dynamic>)['createdAt'],
-          isEmpty,
-        );
+        final item1CreatedAt =
+            getNestedValue(testObj, ['items', 1, 'createdAt']);
+        expect(item1CreatedAt, isEmpty);
+
         // invalidField won't be processed since it's not in dateTimeFields
         expect(testObj['invalidField'], equals('not-a-date'));
       });

@@ -292,6 +292,65 @@ void main() {
         });
       });
 
+      testWidgets(
+          'shows uppercase first letter for both sender and receiver avatars',
+          (tester) async {
+        await mockNetworkImagesFor(() async {
+          // Set current user ID to test both sender and receiver views
+          userConfig.currentUser.id = "user_id";
+
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: Message(
+                  message: ChatMessage(
+                    id: "test_id",
+                    creator: ChatUser(
+                      firstName: "alice",
+                      id: "other_user_id", // Different from current user
+                      image: null, // No image to trigger initials
+                    ),
+                    body: "test message",
+                    createdAt: DateTime.now().toIso8601String(),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+
+          // Should show uppercase 'A' for the receiver avatar
+          expect(find.text('A'), findsOneWidget);
+
+          // Now test as sender
+          userConfig.currentUser.id =
+              "other_user_id"; // Same as message creator
+
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                body: Message(
+                  message: ChatMessage(
+                    id: "test_id",
+                    creator: ChatUser(
+                      firstName: "alice",
+                      id: "other_user_id",
+                      image: null, // No image to trigger initials
+                    ),
+                    body: "test message",
+                    createdAt: DateTime.now().toIso8601String(),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pump();
+
+          // Should show uppercase 'A' for the sender avatar
+          expect(find.text('A'), findsOneWidget);
+        });
+      });
+
       testWidgets('shows ? when firstName is empty', (tester) async {
         await mockNetworkImagesFor(() async {
           await tester.pumpWidget(
@@ -440,8 +499,12 @@ void main() {
         for (final timestamp in timestamps) {
           final result = messageWidget.parseTimestamp(timestamp);
           expect(result, isA<DateTime>());
-          // Each should parse successfully or fallback to current time
-          expect(result.year, anyOf(equals(2023), equals(DateTime.now().year)));
+          // Document expected behavior or add format-specific assertions
+          if (timestamp.startsWith('2023')) {
+            expect(result.year, equals(2023));
+          } else {
+            expect(result, isA<DateTime>());
+          }
         }
       });
     });

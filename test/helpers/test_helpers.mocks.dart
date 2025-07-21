@@ -4955,6 +4955,17 @@ class MockSelectContactViewModel extends _i2.Mock
       ) as _i7.Future<String?>);
 
   @override
+  _i7.Future<String?> checkExistingChat(_i8.User? selectedUser) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkExistingChat,
+          [selectedUser],
+        ),
+        returnValue: _i7.Future<String?>.value(),
+        returnValueForMissingStub: _i7.Future<String?>.value(),
+      ) as _i7.Future<String?>);
+
+  @override
   void setState(_i17.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,

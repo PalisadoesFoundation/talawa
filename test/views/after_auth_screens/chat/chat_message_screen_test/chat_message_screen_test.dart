@@ -149,7 +149,8 @@ void main() {
   });
 
   group('ChatMessageScreen Pagination Tests', () {
-    testWidgets('Loads more messages when scrolled to top', (tester) async {
+    testWidgets('Loads more messages when scrolled to top with debounce',
+        (tester) async {
       // Create a list of messages that's long enough to be scrollable
       final messages = List.generate(
         20,
@@ -182,12 +183,15 @@ void main() {
         controller.jumpTo(controller.position.maxScrollExtent);
         await tester.pump();
 
+        // Wait for debounce timer (100ms)
+        await tester.pumpAndSettle(const Duration(milliseconds: 150));
+
         // Verify that loadMoreMessages was called
         verify(directChatViewModel.loadMoreMessages("XYZ")).called(1);
       } else {
         // Alternative approach: scroll the ListView directly
         await tester.drag(listViewFinder, const Offset(0, -500));
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(milliseconds: 150));
 
         // The scroll might trigger the pagination logic
         verify(directChatViewModel.loadMoreMessages("XYZ")).called(1);
@@ -216,7 +220,7 @@ void main() {
       // Find the ListView and scroll
       final listViewFinder = find.byType(ListView);
       await tester.drag(listViewFinder, const Offset(0, -500));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 150));
 
       verifyNever(directChatViewModel.loadMoreMessages("XYZ"));
     });
@@ -244,7 +248,7 @@ void main() {
       // Find the ListView and scroll
       final listViewFinder = find.byType(ListView);
       await tester.drag(listViewFinder, const Offset(0, -500));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 150));
 
       verifyNever(directChatViewModel.loadMoreMessages("XYZ"));
     });
@@ -258,7 +262,7 @@ void main() {
       verify(directChatViewModel.getChatMessages("XYZ")).called(1);
     });
 
-    testWidgets('Disposes ScrollController properly', (tester) async {
+    testWidgets('Disposes ScrollController and Timer properly', (tester) async {
       await tester.pumpWidget(createApp());
       await tester.pump();
 

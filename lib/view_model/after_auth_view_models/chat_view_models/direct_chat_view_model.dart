@@ -40,7 +40,7 @@ class DirectChatViewModel extends BaseModel {
   String? name;
 
   /// Set to store unique chat IDs.
-  final Set<String?> _uniqueChatIds = {};
+  final Set<String> _uniqueChatIds = {};
 
   /// List to store chat data using ChatListTileDataModel for backward compatibility.
   final List<ChatListTileDataModel> _chats = [];
@@ -104,7 +104,7 @@ class DirectChatViewModel extends BaseModel {
         return;
       }
       if (!_uniqueChatIds.contains(newChat.id)) {
-        _uniqueChatIds.add(newChat.id);
+        _uniqueChatIds.add(newChat.id!);
         // Convert Chat to ChatListTileDataModel for backward compatibility
         final chatListTileData = ChatListTileDataModel.fromChat(newChat);
         _chats.insert(0, chatListTileData);

@@ -75,7 +75,7 @@ class SelectContactViewModel extends BaseModel {
       setState(ViewState.busy);
 
       // First, check if a chat already exists with this user
-      final existingChatId = await _checkExistingChat(selectedUser);
+      final existingChatId = await checkExistingChat(selectedUser);
       if (existingChatId != null) {
         // Chat already exists, return the existing chat ID
         return existingChatId;
@@ -126,7 +126,7 @@ class SelectContactViewModel extends BaseModel {
   ///
   /// **returns**:
   /// * `Future<String?>`: The chat ID if already exists, null otherwise.
-  Future<String?> _checkExistingChat(User selectedUser) async {
+  Future<String?> checkExistingChat(User selectedUser) async {
     try {
       // Get all chats for current user
       final chats = await _chatService.getChatsByUser();

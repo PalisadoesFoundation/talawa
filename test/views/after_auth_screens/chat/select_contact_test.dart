@@ -134,6 +134,7 @@ void main() {
         await tester.pumpAndSettle();
         final circleAvatar =
             tester.widget<CircleAvatar>(find.byType(CircleAvatar));
+        expect(circleAvatar.backgroundImage, isNotNull);
         expect(circleAvatar.backgroundImage, isA<NetworkImage>());
         expect(
           (circleAvatar.backgroundImage! as NetworkImage).url,
