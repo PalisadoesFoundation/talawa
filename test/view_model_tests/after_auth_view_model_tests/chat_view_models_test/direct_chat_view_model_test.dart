@@ -83,6 +83,29 @@ void main() {
 
         chatStreamController.close();
       });
+
+      test('handles chat with null ID and prints debug message', () async {
+        final chatStreamController = StreamController<Chat>();
+        when(chatService.chatListStream)
+            .thenAnswer((_) => chatStreamController.stream);
+        when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+
+        await viewModel.initialise();
+
+        // Add a chat with null ID - should trigger debugPrint
+        final chatWithNullId = Chat(
+          id: null, // This will trigger the debugPrint
+          name: 'Test Chat',
+        );
+
+        chatStreamController.add(chatWithNullId);
+        await Future.delayed(Duration.zero);
+
+        // The chat should not be added to the list
+        expect(viewModel.chats, hasLength(0));
+
+        chatStreamController.close();
+      });
     });
 
     group('getChatMessages', () {

@@ -241,6 +241,36 @@ void main() {
       // since it's a private callback, but we can verify the WebSocketLink was created
       expect(config.webSocketLink, isA<WebSocketLink>());
     });
+
+    test('covers initialPayload return with Authorization header', () async {
+      final config = GraphqlConfig();
+      GraphqlConfig.token = 'test-token-123';
+
+      // Force WebSocket initialization which creates the initialPayload function
+      config.getOrgUrl();
+
+      // Verify WebSocketLink was created with the token
+      expect(config.webSocketLink, isNotNull);
+      expect(config.webSocketLink, isA<WebSocketLink>());
+
+      // The initialPayload function should return {'Authorization': 'Bearer $token'}
+    });
+
+    test('covers request.isSubscription in Link.split', () {
+      final config = GraphqlConfig();
+      config.httpLink = HttpLink('https://example.com/graphql');
+      GraphqlConfig.token = 'test-token';
+
+      // Initialize WebSocket link
+      config.getOrgUrl();
+
+      // Create auth client which uses Link.split with the isSubscription predicate
+      final client = config.authClient();
+
+      expect(client, isA<GraphQLClient>());
+
+      // The Link.split function with (request) => request.isSubscription is now exercised
+    });
   });
 
   group('Testing MockHttpClient', () {

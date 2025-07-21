@@ -751,8 +751,8 @@ void main() {
       // This should still find the chat since the two required IDs are present
       final chatId = await model.createChatWithUser(selectedUser);
 
-      // Since the chat has 3 members (even though one has an empty ID), it won't match
-      // the exact 2-member requirement in checkExistingChat
+      // Since the chat has 3 members (even though one has an empty ID), createChatWithUser
+      // will call checkExistingChat which won't match due to the exact 2-member requirement
       expect(chatId, isNull);
     });
   });

@@ -423,6 +423,36 @@ void main() {
       ); // Should show other user's name
     });
 
+    testWidgets(
+        'should display first user when no other user found (orElse case)',
+        (tester) async {
+      // Arrange - This covers the orElse case where all users have the same ID
+      when(mockUserConfig.currentUser).thenReturn(
+        User(id: 'currentUser', firstName: 'Current'),
+      );
+
+      final testChat = ChatListTileDataModel(
+        id: 'chat1',
+        users: [
+          ChatUser(id: 'currentUser', firstName: 'First'),
+          ChatUser(id: 'currentUser', firstName: 'Second'),
+        ],
+        chat: Chat(id: 'chat1'),
+      );
+
+      // Act
+      await tester.pumpWidget(
+        createChatTileWidget(chat: testChat, model: mockDirectChatViewModel),
+      );
+      await tester.pump();
+
+      // Assert - Should fall back to first user (orElse case)
+      expect(
+        find.text('First'),
+        findsOneWidget,
+      );
+    });
+
     testWidgets('should display chat name for group chat', (tester) async {
       // Arrange
       final testChat = ChatListTileDataModel(
