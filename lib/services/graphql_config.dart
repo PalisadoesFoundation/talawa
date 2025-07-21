@@ -59,11 +59,7 @@ class GraphqlConfig {
           headers: {
             'Authorization': 'Bearer $token',
           },
-          initialPayload: () async {
-            return {
-              'Authorization': 'Bearer $token',
-            };
-          },
+          initialPayload: getInitialPayload,
         ),
       );
     } catch (e, stackTrace) {
@@ -72,6 +68,13 @@ class GraphqlConfig {
       debugPrint('Stack trace:\n$stackTrace');
       // TODO: disable real-time subscriptions or use a production SOCKET_URL fallback
     }
+  }
+
+  /// Get the initial payload for WebSocket connection
+  Future<Map<String, String>> getInitialPayload() async {
+    return {
+      'Authorization': 'Bearer $token',
+    };
   }
 
   GraphQLClient clientToQuery() {
@@ -93,7 +96,7 @@ class GraphqlConfig {
       if (webSocketLink != null) {
         // Use WebSocket for subscriptions, HTTP for queries/mutations
         finalLink = Link.split(
-          (request) => request.isSubscription,
+          isSubscriptionRequest,
           webSocketLink!,
           httpAuthLink,
         );
@@ -108,6 +111,11 @@ class GraphqlConfig {
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: finalLink,
     );
+  }
+
+  /// Check if a request is a subscription
+  bool isSubscriptionRequest(Request request) {
+    return request.isSubscription;
   }
 
   void test() {

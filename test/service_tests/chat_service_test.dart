@@ -829,51 +829,6 @@ void main() {
         // No message should be added due to parsing error
         expect(messages, isEmpty);
       });
-
-      test('debugPrints error when ChatMessage.fromJson throws exception',
-          () async {
-        const chatId = 'chat123';
-        final messages = <ChatMessage>[];
-        late StreamSubscription subscription;
-
-        final controller = StreamController<QueryResult>();
-        when(
-          mockDataBaseMutationFunctions.gqlAuthSubscription(
-            ChatQueries().chatMessageCreate,
-            variables: {
-              "input": {
-                "id": chatId,
-              },
-            },
-          ),
-        ).thenAnswer((_) => controller.stream);
-
-        subscription =
-            chatService.subscribeToChatMessages(chatId).listen((message) {
-          messages.add(message);
-        });
-
-        // Simulate incoming message with malformed data that will cause ChatMessage.fromJson to throw
-        // This will trigger both debugPrint statements by passing null instead of a Map
-        controller.add(
-          QueryResult(
-            options:
-                QueryOptions(document: gql(ChatQueries().chatMessageCreate)),
-            data: {
-              'chatMessageCreate':
-                  null, // This should be a Map but it's null - will cause casting exception
-            },
-            source: QueryResultSource.network,
-          ),
-        );
-
-        await Future.delayed(const Duration(milliseconds: 50));
-        await subscription.cancel();
-        await controller.close();
-
-        // No message should be added due to parsing error
-        expect(messages, isEmpty);
-      });
     });
 
     group('stopSubscription and dispose', () {

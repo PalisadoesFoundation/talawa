@@ -417,14 +417,9 @@ class ChatService {
           final messageData =
               result.data!['chatMessageCreate'] as Map<String, dynamic>;
 
-          try {
-            // Create and emit the message - add to the chat message controller
-            final message = ChatMessage.fromJson(messageData);
-            _chatMessageController.add(message);
-          } catch (e) {
-            debugPrint('Error parsing chat message: $e');
-            debugPrint('Message data: $messageData');
-          }
+          // Create and emit the message - add to the chat message controller
+          final message = ChatMessage.fromJson(messageData);
+          _chatMessageController.add(message);
         }
       }
     } catch (e) {
