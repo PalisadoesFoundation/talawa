@@ -94,8 +94,16 @@ class EditEventViewModel extends BaseModel {
     eventDescriptionTextController.text = _event.description!;
     isPublicSwitch = _event.isPublic!;
     isRegisterableSwitch = _event.isRegisterable!;
-    eventStartDate = DateFormat('yyyy-MM-dd').parse(_event.startDate);
-    eventEndDate = DateFormat('yyyy-MM-dd').parse(_event.endDate);
+    if (_event.startDate != null && _event.startDate!.isNotEmpty) {
+      eventStartDate = DateFormat('yyyy-MM-dd').tryParse(_event.startDate!) ??
+          DateTime.now();
+    }
+
+    if (_event.endDate != null && _event.endDate!.isNotEmpty) {
+      eventEndDate =
+          DateFormat('yyyy-MM-dd').tryParse(_event.endDate!) ?? DateTime.now();
+    }
+
     eventStartTime =
         TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.startTime));
 

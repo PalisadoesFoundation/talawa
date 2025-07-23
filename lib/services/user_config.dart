@@ -209,16 +209,8 @@ class UserConfig {
     if (orgDetails.id == null || orgDetails.id!.isEmpty) {
       return;
     }
-    final List<OrgInfo>? joinedOrgs = _currentUser!.joinedOrganizations;
-    if (joinedOrgs != null) {
-      // Remove any org with the same id and insert new org at beginning
-      _currentUser!.joinedOrganizations = [
-        orgDetails,
-        ...joinedOrgs.where((org) => org.id != orgDetails.id),
-      ];
-    } else {
-      _currentUser!.joinedOrganizations = [orgDetails];
-    }
+    _currentUser!.updateJoinedOrg(orgDetails);
+
     _currentOrg = orgDetails;
     saveCurrentOrgInHive(orgDetails);
     saveUserInHive();

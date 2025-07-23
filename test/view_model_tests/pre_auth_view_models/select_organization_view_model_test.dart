@@ -529,9 +529,9 @@ void main() {
 
       verify(navigationService.pop());
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showSnackBar(
           'Joined Test Organization successfully',
-          MessageType.info,
+          duration: const Duration(seconds: 2),
         ),
       );
     });
@@ -576,7 +576,35 @@ void main() {
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(navigationService.pushScreen(Routes.requestAccess));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Organization registration requirement is not set',
+          MessageType.warning,
+        ),
+      );
+    });
+
+    testWidgets('Test for onTapJoin when selected organization is null',
+        (WidgetTester tester) async {
+      locator.registerSingleton<UserConfig>(_MockUserConfig());
+      final selectOrganizationViewModel = SelectOrganizationViewModel();
+
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
+
+      selectOrganizationViewModel.selectedOrganization = null;
+
+      await selectOrganizationViewModel.onTapJoin();
+
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Please select an organization to join',
+          MessageType.warning,
+        ),
+      );
     });
 
     testWidgets('Test for onTapJoin when mutation returns null data',

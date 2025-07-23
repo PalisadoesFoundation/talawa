@@ -57,12 +57,12 @@ class Event {
   }
 
   /// Computed property: formatted start date (e.g. "2025-07-30").
-  String get startDate =>
-      startAt != null ? DateFormat('yyyy-MM-dd').format(startAt!) : '';
+  String? get startDate =>
+      startAt != null ? DateFormat('yyyy-MM-dd').format(startAt!) : null;
 
   /// Computed property: formatted end date (e.g. "2025-07-31").
-  String get endDate =>
-      endAt != null ? DateFormat('yyyy-MM-dd').format(endAt!) : '';
+  String? get endDate =>
+      endAt != null ? DateFormat('yyyy-MM-dd').format(endAt!) : null;
 
   /// Computed property: formatted start time (e.g. "09:00 AM").
   String get startTime =>

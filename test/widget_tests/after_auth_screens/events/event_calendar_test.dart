@@ -113,9 +113,9 @@ void main() {
         DateTime startDate;
         DateTime endDate;
 
-        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
+        startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
 
-        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
+        endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
 
         expect(startDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
         expect(endDate, DateFormat('yyyy-MM-dd').parse('2025-07-13'));
@@ -131,15 +131,15 @@ void main() {
 
         DateTime? startDate;
         DateTime? endDate;
-        if (event.startDate.contains('/') == true) {
-          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate);
+        if (event.startDate?.contains('/') == true) {
+          startDate = DateFormat('MM/dd/yyyy').parse(event.startDate!);
         } else {
-          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
+          startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
         }
-        if (event.endDate.contains('/') == true) {
-          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate);
+        if (event.endDate?.contains('/') == true) {
+          endDate = DateFormat('MM/dd/yyyy').parse(event.endDate!);
         } else {
-          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
+          endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
         }
 
         expect(startDate, DateFormat('yyyy-MM-dd').parse('2022-07-14'));

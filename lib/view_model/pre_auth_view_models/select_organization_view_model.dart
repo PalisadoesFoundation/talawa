@@ -185,8 +185,22 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
+    if (selectedOrganization == null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Please select an organization to join',
+        MessageType.warning,
+      );
+      return;
+    }
+    if (selectedOrganization!.userRegistrationRequired == null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Organization registration requirement is not set',
+        MessageType.warning,
+      );
+      return;
+    }
     // if `selectedOrganization` registrations is not required.
-    if (selectedOrganization!.userRegistrationRequired != null &&
+    else if (selectedOrganization!.userRegistrationRequired != null &&
         selectedOrganization!.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
@@ -222,9 +236,9 @@ class SelectOrganizationViewModel extends BaseModel {
         await userConfig.updateUserJoinedOrg(joinedOrg);
 
         navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showSnackBar(
           'Joined ${selectedOrganization?.name} successfully',
-          MessageType.info,
+          duration: const Duration(seconds: 2),
         );
       } on Exception catch (e) {
         navigationService.showTalawaErrorSnackBar(

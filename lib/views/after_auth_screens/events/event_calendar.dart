@@ -109,10 +109,15 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
   eventsList.forEach((event) {
     DateTime startDate;
     DateTime endDate;
+    try {
+      startDate = DateFormat('yyyy-MM-dd').parse(event.startDate ?? '');
 
-    startDate = DateFormat('yyyy-MM-dd').parse(event.startDate);
-
-    endDate = DateFormat('yyyy-MM-dd').parse(event.endDate);
+      endDate = DateFormat('yyyy-MM-dd').parse(event.endDate ?? '');
+    } catch (e) {
+      throw Exception(
+        'Invalid date format: ${event.startDate} or ${event.endDate}',
+      );
+    }
 
     final startTime = parseTime(event.startTime);
     final endTime = parseTime(event.endTime);
