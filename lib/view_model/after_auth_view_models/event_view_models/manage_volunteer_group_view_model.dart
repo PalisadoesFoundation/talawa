@@ -102,8 +102,11 @@ class ManageVolunteerGroupViewModel extends BaseModel {
       final result = await locator<EventService>()
           .addVolunteerToGroup(variables) as QueryResult;
       final data = result.data;
+      if (data == null || data['createEventVolunteer'] == null) {
+        return;
+      }
       final addedVolunteerData =
-          data!['createEventVolunteer'] as Map<String, dynamic>;
+          data['createEventVolunteer'] as Map<String, dynamic>;
       final addedVolunteer = EventVolunteer.fromJson(addedVolunteerData);
       _volunteers.add(addedVolunteer);
       notifyListeners();

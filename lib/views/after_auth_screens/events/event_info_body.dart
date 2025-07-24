@@ -70,7 +70,7 @@ class EventInfoBody extends StatelessWidget {
             ),
             Text(
               // Display event creator full name.
-              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator?.firstName} ${event.creator?.lastName}",
+              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator?.name ?? "unknown creator"}",
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -196,23 +196,30 @@ class EventInfoBody extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 2,
             ),
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: event.admins?.length ?? 0,
-              itemBuilder: (BuildContext context, int index) {
-                return CustomListTile(
-                  key: Key(
-                    '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
+            event.admins == null || event.admins!.isEmpty
+                ? Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate("No admins assigned"),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  )
+                : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: event.admins!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CustomListTile(
+                        key: Key(
+                          '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
+                        ),
+                        index: index,
+                        type: TileType.user,
+                        userInfo:
+                            event.admins != null ? event.admins![index] : null,
+                        onTapUserInfo: () {},
+                      );
+                    },
                   ),
-                  index: index,
-                  type: TileType.user,
-                  userInfo: event.admins != null ? event.admins![index] : null,
-                  onTapUserInfo: () {},
-                );
-              },
-            ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),

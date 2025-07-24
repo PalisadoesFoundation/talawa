@@ -110,9 +110,9 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
     DateTime startDate;
     DateTime endDate;
     try {
-      startDate = DateFormat('yyyy-MM-dd').parse(event.startDate ?? '');
+      startDate = DateFormat('yyyy-MM-dd').parse(event.startDate!);
 
-      endDate = DateFormat('yyyy-MM-dd').parse(event.endDate ?? '');
+      endDate = DateFormat('yyyy-MM-dd').parse(event.endDate!);
     } catch (e) {
       throw Exception(
         'Invalid date format: ${event.startDate} or ${event.endDate}',
@@ -129,7 +129,7 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
             .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
         endTime:
             endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
-        subject: event.name!,
+        subject: event.name ?? 'No Name',
         color: colors[index % colors.length],
         location: event.location,
         id: event.id,

@@ -48,6 +48,7 @@ class Queries {
                         postalCode,
                         countryCode,
                         description,
+                        isUserRegistrationRequired,
                         members(first:32){
                           edges{
                             node{
@@ -98,6 +99,7 @@ class Queries {
                 postalCode,
                 countryCode,
                 description,
+                isUserRegistrationRequired,
               }
             }
           }
@@ -161,6 +163,7 @@ class Queries {
         avatarURL,
         countryCode,
         state,
+        isUserRegistrationRequired,
       }
     }
     """;
@@ -402,6 +405,7 @@ class Queries {
         postalCode,
         countryCode,
         description,
+        isUserRegistrationRequired,
       }
     }
     ''';
@@ -520,6 +524,7 @@ class Queries {
         name
         avatarURL
         description
+        isUserRegistrationRequired
       }
     }
     ''';
