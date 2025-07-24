@@ -73,7 +73,8 @@ class ManageVolunteerGroupViewModel extends BaseModel {
     }).toList();
 
     for (final member in availableMembers) {
-      _memberCheckedMap.putIfAbsent(member.id ?? '', () => false);
+      if (member.id == null) continue;
+      _memberCheckedMap.putIfAbsent(member.id!, () => false);
     }
 
     return availableMembers;
