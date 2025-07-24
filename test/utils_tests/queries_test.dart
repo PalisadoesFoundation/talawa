@@ -55,6 +55,7 @@ void main() {
         avatarURL,
         countryCode,
         state,
+        isUserRegistrationRequired,
       }
     }
     """;

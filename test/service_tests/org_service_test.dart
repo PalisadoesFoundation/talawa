@@ -24,6 +24,7 @@ void main() {
         name
         avatarURL
         description
+        isUserRegistrationRequired
       }
     }
     ''';
@@ -135,6 +136,7 @@ void main() {
         name
         avatarURL
         description
+        isUserRegistrationRequired
       }
     }
     ''';
