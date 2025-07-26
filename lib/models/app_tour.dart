@@ -56,6 +56,7 @@ class AppTour {
         onClickTarget(target);
       },
     );
+    tutorialCoachMark.show(context: model.context);
   }
 }
 
