@@ -29,11 +29,13 @@ Widget createMainScreen({bool demoMode = true}) {
         builder: (context, themeModel, child) {
           return MaterialApp(
             locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
+            localizationsDelegates: const [
+              AppLocalizationsDelegate(isTest: true),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
+            supportedLocales: const [Locale('en', '')],
             key: const Key('Root'),
             theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
                 ? TalawaTheme.darkTheme
@@ -57,6 +59,9 @@ Widget createMainScreen({bool demoMode = true}) {
 }
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
+  @override
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   int get currentPageIndex => 0;
 
@@ -102,9 +107,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       final bannerFinder = find.byKey(const Key('banner'));
-
+      expect(bannerFinder, findsOneWidget);
       await tester.tap(bannerFinder);
-
       verify(navigationService.pushScreen(Routes.setUrlScreen, arguments: ''));
     });
 
@@ -113,6 +117,8 @@ void main() {
       await tester
           .pumpWidget(createMainScreen(demoMode: MainScreenViewModel.demoMode));
       await tester.pumpAndSettle(const Duration(seconds: 1));
+      final bannerFinder = find.byKey(const Key('banner'));
+      expect(bannerFinder, findsNothing);
     });
   });
 }
