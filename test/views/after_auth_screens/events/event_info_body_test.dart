@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -151,6 +152,69 @@ void main() {
         await tester.pumpAndSettle();
       },
     );
+
+    testWidgets('Shows "No admins assigned" when event.admins is empty',
+        (tester) async {
+      // Create an event with empty admins list
+      final eventWithNoAdmins = Event(
+        id: "1",
+        name: "test_event",
+        creator: User(
+          id: "acb1",
+          firstName: "ravidi",
+          lastName: "shaikh",
+        ),
+        isPublic: true,
+        location: "iitbhu, varanasi",
+        description: "test_event_description",
+        startAt: DateTime.parse('2025-07-28T09:00:00.000Z'),
+        endAt: DateTime.parse('2025-07-30T17:00:00.000Z'),
+        admins: null,
+        attendees: [
+          Attendee(
+            id: "1",
+            firstName: "Test",
+            lastName: "User",
+          ),
+        ],
+        isRegisterable: true,
+      );
+
+      // Provide a custom EventInfoViewModel that uses this event
+      final exploreEventsViewModel = ExploreEventsViewModel();
+      final eventInfoViewModel = EventInfoViewModel();
+      eventInfoViewModel.initialize(
+        args: {
+          "event": eventWithNoAdmins,
+          "exploreEventViewModel": exploreEventsViewModel,
+        },
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: ChangeNotifierProvider<EventInfoViewModel>.value(
+            value: eventInfoViewModel,
+            child: const Scaffold(
+              body: CustomScrollView(
+                slivers: [
+                  EventInfoBody(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(find.text("No admins assigned"), findsOneWidget);
+    });
 
     testWidgets("Check if all taps work", (tester) async {
       await tester.pumpWidget(createEventInfoBody());
