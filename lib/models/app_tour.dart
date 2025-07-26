@@ -45,7 +45,7 @@ class AppTour {
       onFinish: onFinish,
       onClickTarget: onClickTarget,
       onSkip: () {
-        if (MainScreenViewModel.scaffoldKey.currentState!.isDrawerOpen) {
+        if (model.scaffoldKey.currentState!.isDrawerOpen) {
           navigationService.pop();
         }
         model.tourSkipped = true;
@@ -56,7 +56,6 @@ class AppTour {
         onClickTarget(target);
       },
     );
-    if (!model.testMode) tutorialCoachMark.show(context: model.context);
   }
 }
 

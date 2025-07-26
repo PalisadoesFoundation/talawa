@@ -75,7 +75,8 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                 color: Colors.white,
               ),
               onPressed: () {
-                MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+                // Open the drawer if it exists
+                Scaffold.maybeOf(context)?.openDrawer();
               },
             ),
           ),
