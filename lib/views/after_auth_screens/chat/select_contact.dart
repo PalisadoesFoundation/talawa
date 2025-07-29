@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -61,36 +66,96 @@ class _SelectContactState extends State<SelectContact> {
               final user = model.orgMembersList[index];
               return GestureDetector(
                 key: Key('select_contact_gesture_$index'),
-                onTap: () {
-                  // TODO: Navigate to chat screen with selected user
-                  debugPrint('Selected user: ${user.firstName} (${user.id})');
+                onTap: () async {
+                  // Show loading dialog using navigation service
+                  navigationService.pushDialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+
+                  try {
+                    // Create chat with selected user
+                    final chatId = await model.createChatWithUser(user);
+
+                    log('Chat created with ID: $chatId');
+
+                    // Close loading dialog
+                    navigationService.pop();
+
+                    if (chatId != null) {
+                      // Get the DirectChatViewModel instance and ensure it's initialized
+                      final directChatViewModel =
+                          locator<DirectChatViewModel>();
+
+                      // Initialize the DirectChatViewModel before navigation
+                      await directChatViewModel.initialise();
+
+                      // Navigate to chat screen
+                      navigationService.pushScreen(
+                        Routes.chatMessageScreen,
+                        arguments: [chatId, directChatViewModel],
+                      );
+                    } else {
+                      // Show error message using navigation service
+                      navigationService.showTalawaErrorSnackBar(
+                        'Failed to create chat',
+                        MessageType.error,
+                      );
+                    }
+                  } catch (e) {
+                    // Close loading dialog
+                    navigationService.pop();
+
+                    // Show error message using navigation service
+                    navigationService.showTalawaErrorSnackBar(
+                      'Error: $e',
+                      MessageType.error,
+                    );
+                  }
                 },
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 25,
-                        backgroundImage:
-                            user.image != null && user.image!.isNotEmpty
-                                ? NetworkImage(user.image!)
-                                : null,
-                        child: user.image == null || user.image!.isEmpty
-                            ? Text(
-                                user.firstName?.isNotEmpty == true
-                                    ? user.firstName![0].toUpperCase()
-                                    : user.name?.isNotEmpty == true
-                                        ? user.name![0].toUpperCase()
-                                        : '?',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                              )
-                            : null,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 25,
+                      backgroundImage:
+                          user.image != null && user.image!.isNotEmpty
+                              ? NetworkImage(user.image!)
+                              : null,
+                      child: user.image == null || user.image!.isEmpty
+                          ? Text(
+                              user.firstName?.isNotEmpty == true
+                                  ? user.firstName![0].toUpperCase()
+                                  : user.name?.isNotEmpty == true
+                                      ? user.name![0].toUpperCase()
+                                      : '?',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : null,
+                    ),
+                    title: Text(
+                      user.firstName ??
+                          user.lastName ??
+                          user.name ??
+                          'Unknown User',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
                       ),
-                      title: Text(
-                        user.firstName ?? user.name ?? 'Unknown User',
+                    ),
+                    subtitle: Text(
+                      user.email ?? 'No email',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
                       ),
+                    ),
+                    trailing: const Icon(
+                      Icons.chat,
+                      color: Colors.blue,
                     ),
                   ),
                 ),

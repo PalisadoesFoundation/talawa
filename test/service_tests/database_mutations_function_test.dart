@@ -1,12 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/utils/chat_queries.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
+
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -1111,6 +1114,334 @@ void main() {
 
       final res = await functionsClass.gqlNonAuthQuery(query);
       expect(res.data, null);
+    });
+
+    group('gqlAuthSubscription Tests', () {
+      const String testSubscription = '''
+        subscription chatMessageCreate(\$input: SubscriptionChatMessageCreateInput!) {
+          chatMessageCreate(input: \$input) {
+            id
+            body
+            creator {
+              id
+              name
+            }
+            createdAt
+          }
+        }
+      ''';
+
+      test('Test without exception', () async {
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg123',
+                'body': 'Hello world',
+                'creator': {
+                  'id': 'user1',
+                  'name': 'John Doe',
+                },
+                'createdAt': '2023-01-01T00:00:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        expect(results.length, 1);
+        expect(results[0].data, isNotNull);
+        final messageData =
+            results[0].data!['chatMessageCreate'] as Map<String, dynamic>;
+        expect(messageData['id'], 'msg123');
+      });
+
+      test('Test with variables', () async {
+        final variables = {
+          'input': {'chatId': 'chat123'},
+        };
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(
+              document: gql(testSubscription),
+              variables: variables,
+            ),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg456',
+                'body': 'Message with variables',
+                'creator': {
+                  'id': 'user2',
+                  'name': 'Jane Smith',
+                },
+                'createdAt': '2023-01-01T00:01:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(
+              document: gql(testSubscription),
+              variables: variables,
+            ),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream = functionsClass.gqlAuthSubscription(
+          testSubscription,
+          variables: variables,
+        );
+        final results = await resultStream.toList();
+
+        expect(results.length, 1);
+        final messageData =
+            results[0].data!['chatMessageCreate'] as Map<String, dynamic>;
+        expect(messageData['id'], 'msg456');
+      });
+
+      test('Test with exception that should continue', () async {
+        final String query2 = Queries().refreshToken('abc');
+
+        userConfig.currentUser.refreshToken = 'abc';
+
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            exception: OperationException(
+              graphqlErrors: [userNotAuthenticated],
+            ),
+            source: QueryResultSource.network,
+          ),
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg789',
+                'body': 'Message after token refresh',
+                'creator': {
+                  'id': 'user3',
+                  'name': 'Alice Brown',
+                },
+                'createdAt': '2023-01-01T00:02:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        when(
+          locator<GraphQLClient>()
+              .mutate(MutationOptions(document: gql(query2))),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: MutationOptions(document: gql(query2)),
+            data: {
+              'refreshToken': {
+                'accessToken': 'newtoken',
+                'refreshToken': 'newrefreshtoken',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        // Should only yield the successful result after continuing from exception
+        expect(results.length, 1);
+        final messageData =
+            results[0].data!['chatMessageCreate'] as Map<String, dynamic>;
+        expect(messageData['id'], 'msg789');
+      });
+
+      test('Test with exception that should not continue', () async {
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            exception: OperationException(
+              graphqlErrors: [userNotFound],
+            ),
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        // Should not yield any results when exception handling returns false
+        expect(results.length, 0);
+      });
+
+      test('Test with stream error', () async {
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenThrow(Exception('WebSocket connection failed'));
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        // Should handle stream errors gracefully and return empty stream
+        expect(results.length, 0);
+      });
+
+      test('Test with multiple messages', () async {
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg1',
+                'body': 'First message',
+                'creator': {
+                  'id': 'user1',
+                  'name': 'John Doe',
+                },
+                'createdAt': '2023-01-01T00:00:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg2',
+                'body': 'Second message',
+                'creator': {
+                  'id': 'user2',
+                  'name': 'Jane Smith',
+                },
+                'createdAt': '2023-01-01T00:01:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        expect(results.length, 2);
+        final messageData1 =
+            results[0].data!['chatMessageCreate'] as Map<String, dynamic>;
+        final messageData2 =
+            results[1].data!['chatMessageCreate'] as Map<String, dynamic>;
+        expect(messageData1['id'], 'msg1');
+        expect(messageData2['id'], 'msg2');
+      });
+
+      test('Test with null data', () async {
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(document: gql(testSubscription)),
+            data: null,
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(document: gql(testSubscription)),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream =
+            functionsClass.gqlAuthSubscription(testSubscription);
+        final results = await resultStream.toList();
+
+        // Should not yield results when data is null
+        expect(results.length, 0);
+      });
+
+      test('Test using ChatQueries.chatMessageCreate', () async {
+        final chatQueries = ChatQueries();
+        final subscription = chatQueries.chatMessageCreate;
+        final variables = {
+          'input': {'chatId': 'chat123'},
+        };
+
+        final mockStream = Stream.fromIterable([
+          QueryResult(
+            options: SubscriptionOptions(
+              document: gql(subscription),
+              variables: variables,
+            ),
+            data: {
+              'chatMessageCreate': {
+                'id': 'msg555',
+                'body': 'Message from ChatQueries',
+                'creator': {
+                  'id': 'user4',
+                  'name': 'Bob Wilson',
+                },
+                'createdAt': '2023-01-01T00:03:00.000Z',
+                'updatedAt': '2023-01-01T00:03:00.000Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        ]);
+
+        when(
+          locator<GraphQLClient>().subscribe(
+            SubscriptionOptions(
+              document: gql(subscription),
+              variables: variables,
+            ),
+          ),
+        ).thenAnswer((_) => mockStream);
+
+        final resultStream = functionsClass.gqlAuthSubscription(
+          subscription,
+          variables: variables,
+        );
+        final results = await resultStream.toList();
+
+        expect(results.length, 1);
+        final messageData =
+            results[0].data!['chatMessageCreate'] as Map<String, dynamic>;
+        expect(messageData['id'], 'msg555');
+        expect(messageData['body'], 'Message from ChatQueries');
+      });
     });
   });
 }
