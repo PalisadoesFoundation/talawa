@@ -28,7 +28,6 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
           body: ProfilePage(
             key: const Key('Profile Page'),
             homeModel: mainScreenViewModel,

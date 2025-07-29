@@ -12,7 +12,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
@@ -47,7 +46,6 @@ Widget userFeedScreen({
       GlobalWidgetsLocalizations.delegate,
     ],
     home: Scaffold(
-      key: MainScreenViewModel.scaffoldKey,
       body: UserFeed(
         forTest: isTest,
         key: const Key('test_key'),
@@ -78,7 +76,6 @@ Widget userFeedScreen1({
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
           body: UserFeed(
             forTest: isTest,
             key: const Key('test_key'),

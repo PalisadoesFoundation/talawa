@@ -11,7 +11,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/profile/user_event.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
@@ -41,9 +40,8 @@ Widget userEventsScreen({
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
-          body: const UserEvents(
+        home: const Scaffold(
+          body: UserEvents(
             key: Key('test_key'),
           ),
         ),
