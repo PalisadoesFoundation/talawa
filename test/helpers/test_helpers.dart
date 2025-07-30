@@ -104,7 +104,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
-
   ],
 )
 

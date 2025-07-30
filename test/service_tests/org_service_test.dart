@@ -126,7 +126,7 @@ void main() {
         avatarURL
         description
         isUserRegistrationRequired
-        emailAddressp
+        emailAddress
       }
     }
     ''';
