@@ -34,7 +34,8 @@ class DemoProfilePage extends StatelessWidget {
           color: Theme.of(context).iconTheme.color,
           icon: const Icon(Icons.menu),
           onPressed: () {
-            MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+            // Open the drawer if it exists
+            Scaffold.maybeOf(context)?.openDrawer();
           },
         ),
         key: const Key("ProfilePageAppBar"),
@@ -129,7 +130,7 @@ class DemoProfilePage extends StatelessWidget {
               'Donate to the Community',
             ),
             onTap: () {
-              MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
+              Scaffold.maybeOf(context)?.openDrawer();
             },
             textColor: Theme.of(context)
                 .inputDecorationTheme

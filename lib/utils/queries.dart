@@ -525,6 +525,7 @@ class Queries {
         avatarURL
         description
         isUserRegistrationRequired
+        emailAddress
       }
     }
     ''';

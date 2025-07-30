@@ -50,8 +50,7 @@ class ExploreEvents extends StatelessWidget {
               icon: const Icon(
                 Icons.menu,
               ),
-              onPressed: () =>
-                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
+              onPressed: () => Scaffold.maybeOf(context)?.openDrawer(),
             ),
             actions: [
               Padding(

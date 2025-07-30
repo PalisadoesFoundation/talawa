@@ -32,7 +32,6 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       ],
       key: const Key('Root'),
       home: Scaffold(
-        key: MainScreenViewModel.scaffoldKey,
         drawer: CustomDrawer(
           homeModel: model,
         ),

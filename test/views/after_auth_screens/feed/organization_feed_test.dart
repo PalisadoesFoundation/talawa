@@ -46,7 +46,6 @@ Widget createOrganizationFeedScreen({
       GlobalWidgetsLocalizations.delegate,
     ],
     home: Scaffold(
-      key: MainScreenViewModel.scaffoldKey,
       body: OrganizationFeed(
         homeModel: homeModel,
         key: const Key('test_key'),
@@ -78,7 +77,6 @@ Widget createOrganizationFeedScreen2({
           GlobalWidgetsLocalizations.delegate,
         ],
         home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
           body: OrganizationFeed(
             homeModel: homeModel,
             key: const Key('test_key'),

@@ -152,7 +152,8 @@ class DemoOrganizationFeed extends StatelessWidget {
             color: Theme.of(context).iconTheme.color,
           ),
           onPressed: () {
-            MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+            // Open the drawer if it exists
+            Scaffold.maybeOf(context)?.openDrawer();
           },
         ),
       ),

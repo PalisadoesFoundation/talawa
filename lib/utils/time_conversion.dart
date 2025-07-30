@@ -8,7 +8,11 @@ import 'package:intl/intl.dart';
 ///
 /// **returns**:
 /// * `String`: A string that combines the `date` and `time`, separated by a space.
-String combineDateTime(String date, String time) {
+/// * Returns an empty string if either input is null or empty.
+String combineDateTime(String? date, String? time) {
+  if (date == null || time == null || date.isEmpty || time.isEmpty) {
+    return '';
+  }
   return '$date $time';
 }
 
@@ -19,8 +23,12 @@ String combineDateTime(String date, String time) {
 ///
 /// **returns**:
 /// * `Map<String, String>`: A map containing the separate date and time strings.
-/// * Returns an empty map if the input is invalid.
-Map<String, String> splitDateTimeUTC(String dateTimeStr) {
+/// * Returns an empty map if the input is invalid or null.
+Map<String, String> splitDateTimeUTC(String? dateTimeStr) {
+  if (dateTimeStr == null || dateTimeStr.isEmpty) {
+    return {};
+  }
+
   try {
     final DateTime dateTime = DateTime.parse(dateTimeStr);
     return {
@@ -40,8 +48,12 @@ Map<String, String> splitDateTimeUTC(String dateTimeStr) {
 ///
 /// **returns**:
 /// * `Map<String, String>`: A map containing the separate date and time strings.
-/// * Returns an empty map if the input is invalid.
-Map<String, String> splitDateTimeLocal(String dateTimeStr) {
+/// * Returns an empty map if the input is invalid or null.
+Map<String, String> splitDateTimeLocal(String? dateTimeStr) {
+  if (dateTimeStr == null || dateTimeStr.isEmpty) {
+    return {};
+  }
+
   try {
     final DateTime dateTime = DateTime.parse(dateTimeStr);
     return {
@@ -61,8 +73,12 @@ Map<String, String> splitDateTimeLocal(String dateTimeStr) {
 ///
 /// **returns**:
 /// * `String`: The converted local time string.
-/// * Returns an empty string if the input is invalid.
-String convertUTCToLocal(String utcTime) {
+/// * Returns an empty string if the input is invalid or null.
+String convertUTCToLocal(String? utcTime) {
+  if (utcTime == null || utcTime.isEmpty) {
+    return '';
+  }
+
   try {
     final DateTime dateTime = DateTime.parse(utcTime).toLocal();
     return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').format(dateTime);
@@ -79,13 +95,16 @@ String convertUTCToLocal(String utcTime) {
 ///
 /// **returns**:
 /// * `String`: The converted UTC time string.
-/// * Returns an empty string if the input is invalid.
-String convertLocalToUTC(String localTime) {
+/// * Returns an empty string if the input is invalid or null.
+String convertLocalToUTC(String? localTime) {
+  if (localTime == null || localTime.isEmpty) {
+    return '';
+  }
+
   try {
     final DateTime dateTime = DateTime.parse(localTime).toUtc();
     return DateFormat("yyyy-MM-ddTHH:mm:ss.SSS'Z'").format(dateTime);
   } catch (e) {
-    print('Timezone Error converting local to UTC: $e $localTime');
     return '';
   }
 }
@@ -101,8 +120,8 @@ String convertLocalToUTC(String localTime) {
 ///   None
 void traverseAndConvertDates(
   Map<String, dynamic> obj,
-  String Function(String) convertFn,
-  Map<String, String> Function(String) splitFn,
+  String Function(String?) convertFn,
+  Map<String, String> Function(String?) splitFn,
 ) {
   obj.forEach((key, value) {
     final pairedFields =
@@ -110,23 +129,41 @@ void traverseAndConvertDates(
     if (pairedFields != null) {
       for (final field in pairedFields) {
         if (key == field['dateField'] && obj.containsKey(field['timeField'])) {
-          final combinedDateTime = combineDateTime(
-            obj[field['dateField']] as String,
-            obj[field['timeField']] as String,
-          );
+          final dateValue = obj[field['dateField']];
+          final timeValue = obj[field['timeField']];
 
-          final convertedDateTime = convertFn(combinedDateTime);
+          if (dateValue != null &&
+              timeValue != null &&
+              dateValue is String &&
+              timeValue is String) {
+            try {
+              final combinedDateTime = combineDateTime(
+                dateValue,
+                timeValue,
+              );
 
-          final splitDateTime = splitFn(convertedDateTime);
+              final convertedDateTime = convertFn(combinedDateTime);
+              final splitDateTime = splitFn(convertedDateTime);
 
-          obj[field['dateField'] ?? ''] = splitDateTime['date'] ?? '';
-          obj[field['timeField'] ?? ''] = splitDateTime['time'] ?? '';
+              obj[field['dateField'] ?? ''] = splitDateTime['date'] ?? '';
+              obj[field['timeField'] ?? ''] = splitDateTime['time'] ?? '';
+            } catch (e) {
+              // Keep original values if conversion fails
+            }
+          }
         }
       }
     }
 
     if (dateTimeFields['directFields']?.cast<String>().contains(key) ?? false) {
-      obj[key] = convertFn(value as String);
+      if (value != null && value is String) {
+        try {
+          obj[key] = convertFn(value);
+        } catch (e) {
+          print('Error converting date field $key with value $value: $e');
+          // Keep the original value if conversion fails
+        }
+      }
     }
 
     if (value is Map<String, dynamic>) {

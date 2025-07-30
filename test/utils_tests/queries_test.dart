@@ -220,15 +220,28 @@ void main() {
       expect(mutation, true);
     });
     test("Check if fetchUsersByOrganizationId works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
+      const orgId = 'testOrgId123';
+      final query = Queries().fetchUsersByOrganizationId(orgId);
 
-      final fnData = Queries().fetchUsersByOrganizationId('orgId123');
-      if (fnData.contains('orgId123') &&
-          fnData.contains('usersByOrganizationId')) {
-        mutation = true;
-      }
-      expect(mutation, true);
+      // Verify it's a valid GraphQL query
+      expect(query.trim().startsWith('query'), true);
+
+      // Verify the organization ID is properly injected
+      expect(query.contains('"$orgId"'), true);
+
+      // Verify the correct query field is used
+      expect(query.contains('usersByOrganizationId'), true);
+
+      // Verify all expected fields are requested
+      expect(query.contains('id'), true);
+      expect(query.contains('name'), true);
+      expect(query.contains('avatarURL'), true);
+      expect(query.contains('description'), true);
+      expect(query.contains('emailAddress'), true);
+
+      // Verify proper GraphQL structure
+      expect(query.contains('organizationId:'), true);
+      expect(query.contains('{') && query.contains('}'), true);
     });
   });
 }

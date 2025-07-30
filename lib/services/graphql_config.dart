@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +17,7 @@ class GraphqlConfig {
   static String? orgURI = ' ';
   static String? token;
   late HttpLink httpLink;
-  late WebSocketLink webSocketLink;
+  WebSocketLink? webSocketLink;
 
 //prefix route for showing images
   String? displayImgRoute;
@@ -36,12 +38,46 @@ class GraphqlConfig {
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
+    _initializeWebSocketLink();
+  }
+
+  /// Initialize WebSocket link for GraphQL subscriptions
+  void _initializeWebSocketLink() {
+    try {
+      // Get socket URL from environment variables
+      // TODO: Update SOCKET_URL in .env file for production
+      final socketUrl = dotenv.env['SOCKET_URL'] ??
+          (kReleaseMode
+              ? 'wss://production-server/graphql'
+              : 'ws://localhost:4000/graphql');
+
+      webSocketLink = WebSocketLink(
+        socketUrl,
+        config: SocketClientConfig(
+          autoReconnect: true,
+          inactivityTimeout: const Duration(minutes: 30),
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+          initialPayload: getInitialPayload,
+        ),
+      );
+    } catch (e, stackTrace) {
+      // Log the failure for diagnostics
+      debugPrint('WebSocket initialization failed: $e');
+      debugPrint('Stack trace:\n$stackTrace');
+      // TODO: disable real-time subscriptions or use a production SOCKET_URL fallback
+    }
+  }
+
+  /// Get the initial payload for WebSocket connection
+  Future<Map<String, String>> getInitialPayload() async {
+    return {
+      'Authorization': 'Bearer $token',
+    };
   }
 
   GraphQLClient clientToQuery() {
-    //TODO: Implement websocket link from OrgUrl
-    // final link = Link.split(
-    //     (request) => request.isSubscription, webSocketLink, httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: httpLink,
@@ -50,11 +86,36 @@ class GraphqlConfig {
 
   GraphQLClient authClient() {
     final AuthLink authLink = AuthLink(getToken: () => 'Bearer $token');
-    final Link finalAuthLink = authLink.concat(httpLink);
+
+    // Create HTTP link with authentication for queries and mutations
+    final Link httpAuthLink = authLink.concat(httpLink);
+
+    // If WebSocket link is available, use split link for subscriptions
+    Link finalLink;
+    try {
+      if (webSocketLink != null) {
+        // Use WebSocket for subscriptions, HTTP for queries/mutations
+        finalLink = Link.split(
+          isSubscriptionRequest,
+          webSocketLink!,
+          httpAuthLink,
+        );
+      } else {
+        finalLink = httpAuthLink;
+      }
+    } catch (e) {
+      finalLink = httpAuthLink;
+    }
+
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: finalAuthLink,
+      link: finalLink,
     );
+  }
+
+  /// Check if a request is a subscription
+  bool isSubscriptionRequest(Request request) {
+    return request.isSubscription;
   }
 
   void test() {

@@ -9,11 +9,13 @@ import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/chat_service.dart';
@@ -94,10 +96,15 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<SelectContactViewModel>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
+
   ],
 )
 
@@ -246,32 +253,198 @@ SessionManager getAndRegisterSessionManager() {
 ChatService getAndRegisterChatService() {
   _removeRegistrationIfExists<ChatService>();
   final service = MockChatService();
-  final StreamController<ChatListTileDataModel> streamController =
-      StreamController();
-  final Stream<ChatListTileDataModel> stream =
-      streamController.stream.asBroadcastStream();
+
+  // Mock streams for the new PostgreSQL chat system
+  final StreamController<Chat> chatController = StreamController();
+  final Stream<Chat> chatStream = chatController.stream.asBroadcastStream();
 
   final StreamController<ChatMessage> chatMessageController =
       StreamController<ChatMessage>();
-  final Stream<ChatMessage> messagestream =
+  final Stream<ChatMessage> messageStream =
       chatMessageController.stream.asBroadcastStream();
 
-  when(service.chatListStream).thenAnswer((invocation) => stream);
-  when(service.chatMessagesStream).thenAnswer((invocation) => messagestream);
-  when(service.getDirectChatsByUserId()).thenAnswer(
-    (invocation) async => streamController.add(
-      ChatListTileDataModel(
-        [
-          ChatUser(
-            firstName: 'test',
+  // Mock the updated service methods
+  when(service.chatListStream).thenAnswer((invocation) => chatStream);
+  when(service.chatMessagesStream).thenAnswer((invocation) => messageStream);
+
+  // Mock createChat method
+  when(
+    service.createChat(
+      name: 'Test Chat',
+      description: 'A test chat',
+    ),
+  ).thenAnswer((invocation) async {
+    final chat = Chat(
+      id: 'test-chat-id',
+      name: 'Test Chat',
+      description: 'A test chat',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+      members: [],
+      messages: [],
+    );
+    chatController.add(chat);
+    return chat;
+  });
+
+  // Mock createChatMembership method
+  when(
+    service.createChatMembership(
+      chatId: 'test-chat-id',
+      userId: 'test-user-id',
+    ),
+  ).thenAnswer((invocation) async => true);
+
+  // Mock getChatsByUser method
+  when(service.getChatsByUser()).thenAnswer((invocation) async {
+    final chat = Chat(
+      id: 'test-chat-id',
+      name: 'Test Chat',
+      description: 'A test chat',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+      members: [
+        ChatUser(
+          firstName: 'Test',
+          id: '1',
+          image: 'fakeHttp',
+        ),
+      ],
+      messages: [],
+    );
+    chatController.add(chat);
+    return [chat]; // Return a list of chats
+  });
+
+  // Mock getChatDetails method (with and without isInitialLoad parameter)
+  when(service.getChatDetails('test-chat-id')).thenAnswer((invocation) async {
+    return Chat(
+      id: 'test-chat-id',
+      name: 'Test Chat',
+      description: 'A test chat',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+      members: [
+        ChatUser(
+          firstName: 'Test',
+          id: '1',
+          image: 'fakeHttp',
+        ),
+      ],
+      messages: [
+        ChatMessage(
+          id: 'test-message-id',
+          body: 'Test message',
+          creator: ChatUser(
+            firstName: 'Test',
             id: '1',
             image: 'fakeHttp',
           ),
-        ],
-        '1',
-      ),
+          chatId: 'test-chat-id',
+          createdAt: DateTime.now().toIso8601String(),
+        ),
+      ],
+    );
+  });
+
+  // Mock getChatDetails with isInitialLoad parameter
+  when(service.getChatDetails('test-chat-id', isInitialLoad: true))
+      .thenAnswer((invocation) async {
+    return Chat(
+      id: 'test-chat-id',
+      name: 'Test Chat',
+      description: 'A test chat',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+      members: [
+        ChatUser(
+          firstName: 'Test',
+          id: '1',
+          image: 'fakeHttp',
+        ),
+      ],
+      messages: [
+        ChatMessage(
+          id: 'test-message-id',
+          body: 'Test message',
+          creator: ChatUser(
+            firstName: 'Test',
+            id: '1',
+            image: 'fakeHttp',
+          ),
+          chatId: 'test-chat-id',
+          createdAt: DateTime.now().toIso8601String(),
+        ),
+      ],
+    );
+  });
+
+  when(service.getChatDetails('test-chat-id', isInitialLoad: false))
+      .thenAnswer((invocation) async {
+    return Chat(
+      id: 'test-chat-id',
+      name: 'Test Chat',
+      description: 'A test chat',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+      members: [
+        ChatUser(
+          firstName: 'Test',
+          id: '1',
+          image: 'fakeHttp',
+        ),
+      ],
+      messages: [
+        ChatMessage(
+          id: 'test-message-id',
+          body: 'Test message',
+          creator: ChatUser(
+            firstName: 'Test',
+            id: '1',
+            image: 'fakeHttp',
+          ),
+          chatId: 'test-chat-id',
+          createdAt: DateTime.now().toIso8601String(),
+        ),
+      ],
+    );
+  });
+
+  // Mock sendMessage method
+  when(
+    service.sendMessage(
+      chatId: 'test-chat-id',
+      body: 'Test message',
     ),
-  );
+  ).thenAnswer((invocation) async {
+    final chatMessage = ChatMessage(
+      id: 'test-message-id',
+      body: 'Test message',
+      creator: ChatUser(
+        firstName: 'Test',
+        id: '1',
+        image: 'fakeHttp',
+      ),
+      chatId: 'test-chat-id',
+      createdAt: DateTime.now().toIso8601String(),
+    );
+    chatMessageController.add(chatMessage);
+    return chatMessage;
+  });
+
+  // Mock subscribeToChatMessages method
+  when(service.subscribeToChatMessages(any))
+      .thenAnswer((invocation) => messageStream);
+
+  // Mock new pagination methods
+  when(service.loadMoreMessages(any)).thenAnswer((invocation) async => []);
+  when(service.hasMoreMessages(any)).thenReturn(false);
+
+  // Mock specific test cases
+  when(service.loadMoreMessages('test-chat-id'))
+      .thenAnswer((invocation) async => []);
+  when(service.hasMoreMessages('test-chat-id')).thenReturn(false);
+
   locator.registerSingleton<ChatService>(service);
   return service;
 }
@@ -768,21 +941,31 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
       ChatUser(firstName: "ABC", id: "ABC", image: "ABC");
   final ChatMessage chatMessage1 = ChatMessage(
     id: "XYZ",
-    sender: chatUser1,
-    messageContent: "XYZ",
-    receiver: chatUser2,
+    body: "XYZ",
+    creator: chatUser1,
+    chatId: "XYZ",
+    createdAt: DateTime.now().toIso8601String(),
   );
   final ChatMessage chatMessage2 = ChatMessage(
-    id: "XYZ",
-    sender: chatUser1,
-    messageContent: "Something",
-    receiver: chatUser2,
+    id: "ABC",
+    body: "Something",
+    creator: chatUser1,
+    chatId: "XYZ",
+    createdAt: DateTime.now().toIso8601String(),
   );
   final Map<String, List<ChatMessage>> messages = {
     "XYZ": [chatMessage1],
   };
-  final ChatListTileDataModel chatListTileDataModel1 =
-      ChatListTileDataModel([chatUser1, chatUser2], "XYZ");
+  final ChatListTileDataModel chatListTileDataModel1 = ChatListTileDataModel(
+    id: "XYZ",
+    users: [chatUser1, chatUser2],
+    chat: Chat(
+      id: "XYZ",
+      name: "Test Chat",
+      members: [chatUser1, chatUser2],
+      messages: [chatMessage1],
+    ),
+  );
 
   when(cachedViewModel.listKey).thenReturn(formKey);
   // Default is the loaded state
@@ -797,9 +980,43 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   });
   when(cachedViewModel.getChatMessages("XYZ"))
       .thenAnswer((realInvocation) async {});
-  when(cachedViewModel.chatName("XYZ")).thenAnswer((realInvocation) {});
+  when(cachedViewModel.chatName("XYZ")).thenReturn("Test Chat");
+
+  // Mock new pagination methods
+  when(cachedViewModel.loadMoreMessages("XYZ"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.hasMoreMessages("XYZ")).thenReturn(false);
+  when(cachedViewModel.isLoadingMoreMessages("XYZ")).thenReturn(false);
 
   locator.registerSingleton<DirectChatViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
+/// `getAndRegisterSelectContactViewModel` returns a mock instance of the `SelectContactViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `SelectContactViewModel`: A mock instance of the `SelectContactViewModel` class.
+SelectContactViewModel getAndRegisterSelectContactViewModel() {
+  _removeRegistrationIfExists<SelectContactViewModel>();
+  final cachedViewModel = MockSelectContactViewModel();
+
+  // Mock data for testing
+  final User testUser1 = User(id: "user1", firstName: "John", lastName: "Doe");
+  final User testUser2 =
+      User(id: "user2", firstName: "Jane", lastName: "Smith");
+  final List<User> orgMembersList = [testUser1, testUser2];
+
+  when(cachedViewModel.orgMembersList).thenReturn(orgMembersList);
+  when(cachedViewModel.initialise()).thenReturn(null);
+  when(cachedViewModel.getCurrentOrgUsersList())
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.createChatWithUser(any))
+      .thenAnswer((realInvocation) async => "testChatId");
+
+  locator.registerSingleton<SelectContactViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 
@@ -840,6 +1057,22 @@ MainScreenViewModel getAndRegisterMainViewModel() {
 
   locator.registerSingleton<MainScreenViewModel>(cachedViewModel);
   return cachedViewModel;
+}
+
+/// `getAndRegisterPageInfo` returns a mock instance of the `PageInfo` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `PageInfo`: A mock instance of the `PageInfo` class.
+PageInfo getPageInfoMock() {
+  return PageInfo(
+    hasNextPage: false,
+    hasPreviousPage: true,
+    startCursor: "start-cursor",
+    endCursor: "end-cursor",
+  );
 }
 
 /// `registerServices` registers all the services required for the test.
