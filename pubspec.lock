@@ -1570,10 +1570,10 @@ packages:
     dependency: "direct main"
     description:
       name: timelines_plus
-      sha256: be31f493402dc24df7fe410dc5f82a605807bb4ca13183de6d4362886449b593
+      sha256: "335cd832e0aed7035458a5f336bc2c882dc70dcfa4d500d3bcadd764f1ac6553"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.7"
   timezone:
     dependency: transitive
     description:
