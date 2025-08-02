@@ -1,19 +1,16 @@
-/* This is an abstraction service for picking up Photos/videos
-Library used: image_picker (https://pub.dev/packages/image_picker)
-Service usage: "add_post_view_model.dart"
-*/
-
 import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// This is a third party service which provide the service to select the image from.
 ///
@@ -32,6 +29,9 @@ class MultiMediaPickerService {
   /// Controller for handling the stream of selected files.
   final StreamController<File> _fileStreamController = StreamController();
 
+  /// Maximum size allowed for image upload in mb.
+  final maxImageSizeAllowed = 5 * 1024 * 1024; // 5 MB
+
   /// Stream of selected files.
   late Stream<File> _fileStream;
 
@@ -41,6 +41,9 @@ class MultiMediaPickerService {
   /// [ImageService] for additional image-related operations.
   late ImageService _imageService;
 
+  /// Navigation service for the app.
+  final navigationService = locator<NavigationService>();
+
   /// Provides a stream of selected multimedia files.
   ///
   /// params:
@@ -49,6 +52,48 @@ class MultiMediaPickerService {
   /// returns:
   /// * `Stream<dynamic>`: Stream of files.
   Stream get fileStream => _fileStream;
+
+  // Compresses the image file until it meets the specified size limit.
+  ///
+  /// **params**:
+  /// * `file`: The original image file to be compressed.
+  /// * `maxImageSizeAllowed`: The maximum allowed size for the compressed image in bytes
+  ///
+  /// **returns**:
+  /// * `Future<XFile?>`: The compressed image file if successful, or null if it fails.
+  Future<XFile?> compressUntilSize(
+    XFile file,
+  ) async {
+    final originalSize = await file.length();
+    // If already under the limit, return original
+    if (originalSize <= maxImageSizeAllowed) return file;
+
+    // Estimate initial quality based on size ratio (clamp between 10 and 95)
+    final int estimatedQuality =
+        ((maxImageSizeAllowed / originalSize) * 95).clamp(10, 95).toInt();
+
+    XFile? compressedFile;
+    int quality = estimatedQuality;
+
+    while (quality >= 10) {
+      final tempDir = Directory.systemTemp;
+      final targetPath =
+          '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.jpg';
+      final resultFile = await FlutterImageCompress.compressAndGetFile(
+        file.path,
+        targetPath,
+        quality: quality,
+      );
+      if (resultFile == null) break;
+      compressedFile = XFile(resultFile.path);
+      final newSize = await compressedFile.length();
+      if (newSize <= maxImageSizeAllowed) return compressedFile;
+      quality -= 10;
+    }
+
+    // If unable to compress below limit, return null
+    return null;
+  }
 
   /// Picks the image from gallery or to click the image from user's camera.
   ///
@@ -61,32 +106,62 @@ class MultiMediaPickerService {
   /// **returns**:
   /// * `Future<File?>`: the image the user choosed.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
-    // asking for user's camera access permission.
     try {
-      // checking for the image source, it could be camera or gallery.
       final image = await _picker.pickImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
-      // if image is selected or not null, call the cropImage function that provide service to crop the selected image.
-      if (image != null) {
-        return await _imageService.cropImage(
-          imageFile: File(image.path),
+      if (image == null) return null;
+
+      final XFile file = XFile(image.path);
+      final bytes = await file.length();
+
+      if (bytes > maxImageSizeAllowed) {
+        final completer = Completer<File?>();
+        navigationService.pushDialog(
+          CustomAlertDialog(
+            dialogTitle: 'File Size Exceeded',
+            dialogSubTitle: 'Do you want to compress the file?',
+            successText: 'OK',
+            success: () async {
+              navigationService.pop();
+              navigationService.pushDialog(
+                const CustomProgressDialog(key: Key('compressing_loader')),
+              );
+              final compressed = await compressUntilSize(file);
+              navigationService.pop(); // Remove loader
+              if (compressed == null) {
+                navigationService.pushDialog(
+                  CustomAlertDialog(
+                    dialogTitle: 'Compression Failed',
+                    dialogSubTitle:
+                        'Unable to compress the image below the size limit. Try again with a smaller image.',
+                    successText: 'OK',
+                    success: () => navigationService.pop(),
+                  ),
+                );
+                completer.complete(null);
+              } else {
+                final cropped = await _imageService.cropImage(
+                  imageFile: File(compressed.path),
+                );
+                completer.complete(cropped);
+              }
+            },
+          ),
         );
+        return await completer.future;
       }
+
+      return await _imageService.cropImage(imageFile: File(file.path));
     } catch (e) {
-      // if the permission denied or error occurs.
       if (e is PlatformException && e.code == 'camera_access_denied') {
-        // push the dialog alert with the message.
-        locator<NavigationService>().pushDialog(
-          permissionDeniedDialog(),
-        );
+        locator<NavigationService>().pushDialog(permissionDeniedDialog());
       }
       debugPrint(
         "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",
       );
+      return null;
     }
-
-    return null;
   }
 
   /// Generates a custom alert dialog for permission denial.
@@ -102,7 +177,7 @@ class MultiMediaPickerService {
   CustomAlertDialog permissionDeniedDialog() {
     return CustomAlertDialog(
       success: () {
-        locator<NavigationService>().pop();
+        navigationService.pop();
         openAppSettings();
       },
       dialogTitle: 'Permission Denied',
