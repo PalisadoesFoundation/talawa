@@ -53,7 +53,7 @@ class MultiMediaPickerService {
   /// * `Stream<dynamic>`: Stream of files.
   Stream get fileStream => _fileStream;
 
-  // Compresses the image file until it meets the specified size limit.
+  /// Compresses the image file until it meets the specified size limit.
   ///
   /// **params**:
   /// * `file`: The original image file to be compressed.
