@@ -107,12 +107,11 @@ class MultiMediaPickerService {
   /// * `Future<File?>`: the image the user choosed.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     try {
-      final image = await _picker.pickImage(
+      final file = await _picker.pickImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
-      if (image == null) return null;
+      if (file == null) return null;
 
-      final XFile file = XFile(image.path);
       final bytes = await file.length();
 
       if (bytes > maxImageSizeAllowed) {
@@ -155,7 +154,7 @@ class MultiMediaPickerService {
       return await _imageService.cropImage(imageFile: File(file.path));
     } catch (e) {
       if (e is PlatformException && e.code == 'camera_access_denied') {
-        locator<NavigationService>().pushDialog(permissionDeniedDialog());
+        navigationService.pushDialog(permissionDeniedDialog());
       }
       debugPrint(
         "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",

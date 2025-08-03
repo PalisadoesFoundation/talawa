@@ -96,6 +96,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 

@@ -14,6 +14,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import '../helpers/test_helpers.dart';
+import '../helpers/test_helpers.mocks.dart';
 import '../helpers/test_locator.dart';
 
 void main() {
@@ -30,12 +31,18 @@ void main() {
     SizeConfig().test();
   });
   group('MultiMediaPickerService test', () {
-    test("test get photo from gallery method if camera option is false",
+    test(
+        "test get photo from gallery method if camera option is false and image size is less than 5MB",
         () async {
       final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
-      final image = XFile(path);
+      final image = MockXFile();
+      when(image.path).thenReturn(path);
+      when(image.name).thenReturn('test_image.png');
+      when(image.mimeType).thenReturn('image/png');
+      when(image.length()).thenAnswer((_) async => 1024);
+
       when(mockPicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((realInvocation) async => image);
       when(
@@ -49,12 +56,18 @@ void main() {
 
       expect(result?.path, path);
     });
-    test("test get photo from gallery method if camera option is true",
+    test(
+        "test get photo from gallery method if camera option is true and image size is less than 5MB",
         () async {
-      final mockPicker = locator<ImagePicker>();
+      final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
-      final image = XFile(path);
+      final image = MockXFile();
+      when(image.path).thenReturn(path);
+      when(image.name).thenReturn('test_image.png');
+      when(image.mimeType).thenReturn('image/png');
+      when(image.length()).thenAnswer((_) async => 1024);
+
       when(mockPicker.pickImage(source: ImageSource.camera))
           .thenAnswer((realInvocation) async => image);
       when(
@@ -68,13 +81,19 @@ void main() {
 
       expect(result?.path, path);
     });
+
     test(
         "test get photo from gallery method with aspectRatioPresets in uiSettings",
         () async {
       final mockPicker = locator<ImagePicker>();
       final model = MultiMediaPickerService();
       const path = 'test';
-      final image = XFile(path);
+      final image = MockXFile();
+      when(image.path).thenReturn(path);
+      when(image.name).thenReturn('test_image.png');
+      when(image.mimeType).thenReturn('image/png');
+      when(image.length()).thenAnswer((_) async => 1024);
+
       when(mockPicker.pickImage(source: ImageSource.gallery))
           .thenAnswer((_) async => image);
       when(
