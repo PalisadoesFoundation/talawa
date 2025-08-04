@@ -2,6 +2,7 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -223,12 +224,124 @@ void main() {
       verify(navigationService.pop());
     });
 
+    testWidgets('Test for fileSizeExceededDialog success action.',
+        (tester) async {
+      final service = MultiMediaPickerService();
+      bool onCompressCalled = false;
+
+      final Widget app = MaterialApp(
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        navigatorObservers: [],
+        locale: const Locale('en'),
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('es', 'ES'),
+          const Locale('fr', 'FR'),
+          const Locale('hi', 'IN'),
+          const Locale('zh', 'CN'),
+          const Locale('de', 'DE'),
+          const Locale('ja', 'JP'),
+          const Locale('pt', 'PT'),
+        ],
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: Scaffold(
+          body: service.fileSizeExceededDialog(() {
+            onCompressCalled = true;
+          }),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle();
+
+      final okFinder = find.text('OK');
+
+      expect(okFinder, findsOneWidget);
+      expect(find.text('File Size Exceeded'), findsOneWidget);
+      expect(find.text('Do you want to compress the file?'), findsOneWidget);
+
+      await tester.tap(okFinder);
+
+      expect(onCompressCalled, isTrue);
+    });
+
+    testWidgets('Test for compressionFailedDialog success action.',
+        (tester) async {
+      final service = MultiMediaPickerService();
+
+      final Widget app = MaterialApp(
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        navigatorObservers: [],
+        locale: const Locale('en'),
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('es', 'ES'),
+          const Locale('fr', 'FR'),
+          const Locale('hi', 'IN'),
+          const Locale('zh', 'CN'),
+          const Locale('de', 'DE'),
+          const Locale('ja', 'JP'),
+          const Locale('pt', 'PT'),
+        ],
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: Scaffold(body: service.compressionFailedDialog()),
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle();
+
+      final okFinder = find.text('OK');
+
+      expect(okFinder, findsOneWidget);
+      expect(find.text('Compression Failed'), findsOneWidget);
+      expect(
+        find.text(
+          'Unable to compress the image below the size limit. Try again with a smaller image.',
+        ),
+        findsOneWidget,
+      );
+
+      await tester.tap(okFinder);
+
+      verify(navigationService.pop());
+    });
+
     test("test get fileStream", () {
       final model = MultiMediaPickerService();
       expect(
         model.fileStream.toString(),
         "Instance of '_AsBroadcastStream<File>'",
       );
+    });
+  });
+  group('MultiMediaPickerService.compressUntilSize', () {
+    test('returns original file if already under size limit', () async {
+      final service = MultiMediaPickerService();
+
+      // Create a small file (1KB)
+      final tempFile =
+          await File('${Directory.systemTemp.path}/small_image.jpg').create();
+      await tempFile.writeAsBytes(List.filled(1024, 0)); // 1KB
+
+      final mockXFile = MockXFile();
+      when(mockXFile.length()).thenAnswer((_) async => 1024); // 1KB
+      when(mockXFile.path).thenReturn(tempFile.path);
+
+      final result = await service.compressUntilSize(mockXFile);
+
+      expect(result, equals(mockXFile));
+      expect(await result!.length(), lessThan(service.maxImageSizeAllowed));
+
+      // Cleanup
+      await tempFile.delete();
     });
   });
 }

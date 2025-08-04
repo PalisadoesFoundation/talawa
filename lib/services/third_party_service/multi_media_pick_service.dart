@@ -117,11 +117,8 @@ class MultiMediaPickerService {
       if (bytes > maxImageSizeAllowed) {
         final completer = Completer<File?>();
         navigationService.pushDialog(
-          CustomAlertDialog(
-            dialogTitle: 'File Size Exceeded',
-            dialogSubTitle: 'Do you want to compress the file?',
-            successText: 'OK',
-            success: () async {
+          fileSizeExceededDialog(
+            () async {
               navigationService.pop();
               navigationService.pushDialog(
                 const CustomProgressDialog(key: Key('compressing_loader')),
@@ -129,15 +126,7 @@ class MultiMediaPickerService {
               final compressed = await compressUntilSize(file);
               navigationService.pop(); // Remove loader
               if (compressed == null) {
-                navigationService.pushDialog(
-                  CustomAlertDialog(
-                    dialogTitle: 'Compression Failed',
-                    dialogSubTitle:
-                        'Unable to compress the image below the size limit. Try again with a smaller image.',
-                    successText: 'OK',
-                    success: () => navigationService.pop(),
-                  ),
-                );
+                navigationService.pushDialog(compressionFailedDialog());
                 completer.complete(null);
               } else {
                 final cropped = await _imageService.cropImage(
@@ -183,6 +172,45 @@ class MultiMediaPickerService {
       successText: 'SETTINGS',
       dialogSubTitle:
           "Camera permission is required, to use this feature, give permission from app settings",
+    );
+  }
+
+  /// Generates a custom alert dialog for file size exceeded.
+  ///
+  /// When called, it creates and returns a `CustomAlertDialog` widget with pre-defined settings.
+  /// This dialog prompts the user to compress the file when size exceeds the limit.
+  ///
+  /// **params**:
+  /// * `onCompress`: Callback function to execute when user chooses to compress
+  ///
+  /// **returns**:
+  /// * `CustomAlertDialog`: Custom Alert Dialog widget.
+  CustomAlertDialog fileSizeExceededDialog(VoidCallback onCompress) {
+    return CustomAlertDialog(
+      dialogTitle: 'File Size Exceeded',
+      dialogSubTitle: 'Do you want to compress the file?',
+      successText: 'OK',
+      success: onCompress,
+    );
+  }
+
+  /// Generates a custom alert dialog for compression failure.
+  ///
+  /// When called, it creates and returns a `CustomAlertDialog` widget with pre-defined settings.
+  /// This dialog informs the user that compression failed.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `CustomAlertDialog`: Custom Alert Dialog widget.
+  CustomAlertDialog compressionFailedDialog() {
+    return CustomAlertDialog(
+      dialogTitle: 'Compression Failed',
+      dialogSubTitle:
+          'Unable to compress the image below the size limit. Try again with a smaller image.',
+      successText: 'OK',
+      success: () => navigationService.pop(),
     );
   }
 }

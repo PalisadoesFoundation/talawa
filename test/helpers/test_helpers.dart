@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -97,6 +98,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<XFile>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<FlutterImageCompress>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 

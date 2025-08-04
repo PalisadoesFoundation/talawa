@@ -5086,3 +5086,9 @@ class MockXFile extends _i2.Mock implements _i22.XFile {
         )),
       ) as _i8.Future<DateTime>);
 }
+
+/// A class which mocks [FlutterImageCompress].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFlutterImageCompress extends _i2.Mock
+    implements _i22.FlutterImageCompress {}
