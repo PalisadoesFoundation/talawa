@@ -30,8 +30,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
   /// static variables.
-  static final GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   /// static variables.
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
@@ -53,19 +52,17 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
   /// static variables.
-  static final GlobalKey keyDrawerCurOrg =
-      GlobalKey(debugLabel: "DrawerCurrentOrg");
+  final GlobalKey keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
 
   /// static variables.
-  static final GlobalKey keyDrawerSwitchableOrg =
+  final GlobalKey keyDrawerSwitchableOrg =
       GlobalKey(debugLabel: "DrawerSwitchableOrg");
 
   /// static variables.
-  static final GlobalKey keyDrawerJoinOrg =
-      GlobalKey(debugLabel: "DrawerJoinOrg");
+  final GlobalKey keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
 
   /// static variables.
-  static final GlobalKey keyDrawerLeaveCurrentOrg =
+  final GlobalKey keyDrawerLeaveCurrentOrg =
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
   /// static variables.
@@ -148,9 +145,6 @@ class MainScreenViewModel extends BaseModel {
   /// flag to represent if app is in demoMode.
   static bool demoMode = false;
 
-  /// flag to represent if app is in testMode.
-  bool testMode = false;
-
   /// Initalizing function.
   ///
   /// **params**:
@@ -158,7 +152,6 @@ class MainScreenViewModel extends BaseModel {
   /// * `fromSignUp`: Bool to find user entry
   /// * `mainScreenIndex`: Index to find tab on mainScreen
   /// * `demoMode`: Whether the app is in demo mode
-  /// * `testMode`: Whether the app is in test mode
   ///
   /// **returns**:
   ///   None
@@ -167,16 +160,12 @@ class MainScreenViewModel extends BaseModel {
     required bool fromSignUp,
     required int mainScreenIndex,
     bool demoMode = false,
-    bool testMode = false,
   }) {
-    this.testMode = testMode;
     MainScreenViewModel.demoMode = demoMode;
     currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp || demoMode;
     context = ctx;
     final appTourDialogWidget = appTourDialog(ctx);
-    print(ctx);
-    print(context);
 
     notifyListeners();
     if (!showAppTour) {
@@ -273,10 +262,6 @@ class MainScreenViewModel extends BaseModel {
           key: const Key('DemoExploreEvents'),
           homeModel: this,
         ),
-        // DemoAddPost(
-        //   key: const Key('DemoAddPost'),
-        //   drawerKey: MainScreenViewModel.scaffoldKey,
-        // ),
         const ChatPage(
           key: Key('DemoChats'),
         ),
@@ -318,10 +303,8 @@ class MainScreenViewModel extends BaseModel {
       secondaryButtonText: 'Skip',
       success: () {
         navigationService.pop();
-        print(MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen);
-        if (MainScreenViewModel.scaffoldKey.currentState?.isDrawerOpen ??
-            false) {
-          MainScreenViewModel.scaffoldKey.currentState?.closeDrawer();
+        if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
+          scaffoldKey.currentState?.closeDrawer();
         }
         tourHomeTargets();
       },
@@ -669,15 +652,6 @@ class MainScreenViewModel extends BaseModel {
         appTour: appTour,
       ),
     );
-
-// Uncomment the section below if you want to add the keySPInvite target
-// targets.add(
-//   FocusTarget(
-//     key: keySPInvite,
-//     keyName: 'keySPInvite',
-//     description: 'Wanna invite colleague, invite them from here',
-//   ),
-// );
 
     targets.add(
       FocusTarget(

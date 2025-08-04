@@ -1,83 +1,109 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 
-/// function to check if the users are equal or not.
-///
-/// **params**:
-/// * `users1`: list of ChatUser
-/// * `users2`: list of ChatUser
-///
-/// **returns**:
-///   None
-void checkUsers(List<ChatUser>? users1, List<ChatUser>? users2) {
-  if (users1 == null || users2 == null) {
-    expect(users1, users2);
-    return;
-  }
-
-  for (int index = 0; index < users1.length; index++) {
-    expect(users1[index].id, users2[index].id);
-    expect(users1[index].firstName, users2[index].firstName);
-    expect(users1[index].image, users2[index].image);
-  }
-}
-
 void main() {
-  group('Test ChatListTileDataModel', () {
-    const int listLength = 4;
+  group('ChatListTileDataModel', () {
+    late List<ChatUser> sampleUsers;
+    late Chat sampleChat;
 
-    final List<ChatUser> users = List.generate(listLength, (index) {
-      return ChatUser(
-        id: '$index',
-        firstName: 'First$index',
-        image: 'Image$index',
+    setUp(() {
+      sampleUsers = [
+        ChatUser(
+          id: 'user1',
+          firstName: 'John',
+          image: 'avatar1.jpg',
+        ),
+        ChatUser(
+          id: 'user2',
+          firstName: 'Jane',
+          image: 'avatar2.jpg',
+        ),
+      ];
+
+      sampleChat = Chat(
+        id: 'chat123',
+        name: 'Test Chat',
+        description: 'A test chat room',
+        members: sampleUsers,
       );
     });
 
-    final ChatListTileDataModel chatListTileDataModel = ChatListTileDataModel(
-      users,
-      '123',
-    );
-
-    final Map<String, dynamic> json = {
-      'id': '123',
-      'users': List.generate(listLength, (index) {
-        return {
-          'id': '$index',
-          'firstName': 'First$index',
-          'avatarURL': 'Image$index',
-        };
-      }),
-    };
-
-    test('Test constructor', () {
-      expect(chatListTileDataModel.id, '123');
-      checkUsers(chatListTileDataModel.users, users);
-    });
-
-    test('Test ChatListTileDataModel.fromJson', () {
-      final ChatListTileDataModel chatListTileDataModelFromJson =
-          ChatListTileDataModel.fromJson(json);
-
-      expect(chatListTileDataModel.id, chatListTileDataModelFromJson.id);
-      checkUsers(
-        chatListTileDataModel.users,
-        chatListTileDataModelFromJson.users,
+    test('constructor initializes all fields correctly', () {
+      final model = ChatListTileDataModel(
+        users: sampleUsers,
+        id: 'chat123',
+        chat: sampleChat,
       );
+
+      expect(model.users, equals(sampleUsers));
+      expect(model.id, equals('chat123'));
+      expect(model.chat, equals(sampleChat));
     });
 
-    test('Test toJson', () {
-      final Map<String, dynamic> json = chatListTileDataModel.toJson();
+    test('constructor with null values', () {
+      final model = ChatListTileDataModel();
 
-      expect(json['id'], chatListTileDataModel.id);
+      expect(model.users, isNull);
+      expect(model.id, isNull);
+      expect(model.chat, isNull);
+    });
 
-      // The toJson method returns ChatUser objects directly, not their JSON representation
-      // So we need to compare them directly
-      final List<ChatUser> usersFromJson =
-          (json['users'] as List<dynamic>).cast<ChatUser>();
+    test('fromChat factory constructor creates correct instance', () {
+      final model = ChatListTileDataModel.fromChat(sampleChat);
 
-      checkUsers(usersFromJson, chatListTileDataModel.users);
+      expect(model.id, equals(sampleChat.id));
+      expect(model.chat, equals(sampleChat));
+      expect(model.users, equals(sampleChat.members));
+    });
+
+    test('fromChat factory preserves all chat data', () {
+      final chatWithDetails = Chat(
+        id: 'detailed_chat',
+        name: 'Detailed Chat',
+        description: 'A chat with full details',
+        createdAt: '2023-01-01T00:00:00Z',
+        updatedAt: '2023-01-02T00:00:00Z',
+        members: sampleUsers,
+      );
+
+      final model = ChatListTileDataModel.fromChat(chatWithDetails);
+
+      expect(model.id, equals('detailed_chat'));
+      expect(model.chat?.name, equals('Detailed Chat'));
+      expect(model.chat?.description, equals('A chat with full details'));
+      expect(model.chat?.createdAt, equals('2023-01-01T00:00:00Z'));
+      expect(model.chat?.updatedAt, equals('2023-01-02T00:00:00Z'));
+      expect(model.users, equals(sampleUsers));
+    });
+
+    test('fromChat with empty members list', () {
+      final chatWithNoMembers = Chat(
+        id: 'empty_chat',
+        name: 'Empty Chat',
+        members: [],
+      );
+
+      final model = ChatListTileDataModel.fromChat(chatWithNoMembers);
+
+      expect(model.id, equals('empty_chat'));
+      expect(model.users, isEmpty);
+      expect(model.chat?.members, isEmpty);
+    });
+
+    test('fromChat with null members', () {
+      final chatWithNullMembers = Chat(
+        id: 'null_members_chat',
+        name: 'Null Members Chat',
+        members: null,
+      );
+
+      final model = ChatListTileDataModel.fromChat(chatWithNullMembers);
+
+      expect(model.id, equals('null_members_chat'));
+      expect(model.users, isNull);
+      expect(model.chat?.members, isNull);
     });
   });
 }
