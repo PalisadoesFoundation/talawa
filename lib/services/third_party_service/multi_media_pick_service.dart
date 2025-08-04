@@ -74,25 +74,63 @@ class MultiMediaPickerService {
 
     XFile? compressedFile;
     int quality = estimatedQuality;
+    final List<String> tempFilesToCleanup = [];
 
-    while (quality >= 10) {
-      final tempDir = Directory.systemTemp;
-      final targetPath =
-          '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.jpg';
-      final resultFile = await FlutterImageCompress.compressAndGetFile(
-        file.path,
-        targetPath,
-        quality: quality,
-      );
-      if (resultFile == null) break;
-      compressedFile = XFile(resultFile.path);
-      final newSize = await compressedFile.length();
-      if (newSize <= maxImageSizeAllowed) return compressedFile;
-      quality -= 10;
+    try {
+      while (quality >= 10) {
+        final tempDir = Directory.systemTemp;
+        final targetPath =
+            '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.jpg';
+        final resultFile = await FlutterImageCompress.compressAndGetFile(
+          file.path,
+          targetPath,
+          quality: quality,
+        );
+        if (resultFile == null) break;
+
+        // Track the temporary file for potential cleanup
+        tempFilesToCleanup.add(resultFile.path);
+
+        compressedFile = XFile(resultFile.path);
+        final newSize = await compressedFile.length();
+        if (newSize <= maxImageSizeAllowed) {
+          // Clean up previous temporary files (keep only the successful one)
+          for (int i = 0; i < tempFilesToCleanup.length - 1; i++) {
+            try {
+              await File(tempFilesToCleanup[i]).delete();
+            } catch (e) {
+              debugPrint(
+                'Failed to delete temporary file ${tempFilesToCleanup[i]}: $e',
+              );
+            }
+          }
+          return compressedFile;
+        }
+        quality -= 10;
+      }
+
+      // If unable to compress below limit, clean up all temporary files
+      for (final tempPath in tempFilesToCleanup) {
+        try {
+          await File(tempPath).delete();
+        } catch (e) {
+          debugPrint('Failed to delete temporary file $tempPath: $e');
+        }
+      }
+      return null;
+    } catch (e) {
+      // In case of any error, ensure cleanup of temporary files
+      for (final tempPath in tempFilesToCleanup) {
+        try {
+          await File(tempPath).delete();
+        } catch (cleanupError) {
+          debugPrint(
+            'Failed to delete temporary file $tempPath during error cleanup: $cleanupError',
+          );
+        }
+      }
+      rethrow;
     }
-
-    // If unable to compress below limit, return null
-    return null;
   }
 
   /// Picks the image from gallery or to click the image from user's camera.
