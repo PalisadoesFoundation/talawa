@@ -32,6 +32,21 @@ class MultiMediaPickerService {
   /// Maximum size allowed for image upload in mb.
   final maxImageSizeAllowed = 5 * 1024 * 1024; // 5 MB
 
+  /// Function for compressing the image.
+  Future<XFile?> Function(
+    String,
+    String, {
+    bool autoCorrectionAngle,
+    CompressFormat format,
+    int inSampleSize,
+    bool keepExif,
+    int minHeight,
+    int minWidth,
+    int numberOfRetries,
+    int quality,
+    int rotate,
+  }) compressImageFunction = FlutterImageCompress.compressAndGetFile;
+
   /// Stream of selected files.
   late Stream<File> _fileStream;
 
@@ -53,6 +68,27 @@ class MultiMediaPickerService {
   /// * `Stream<dynamic>`: Stream of files.
   Stream get fileStream => _fileStream;
 
+  /// Detects the image format and extension from file path.
+  ///
+  /// **params**:
+  /// * `filePath`: Path to the image file
+  ///
+  /// **returns**:
+  /// * `Map<String, dynamic>`: Map containing 'format' (CompressFormat) and 'extension' (String)
+  Map<String, dynamic> getImageFormatInfo(String filePath) {
+    final extension = filePath.toLowerCase().split('.').last;
+    switch (extension) {
+      case 'png':
+        return {'format': CompressFormat.png, 'extension': 'png'};
+      case 'webp':
+        return {'format': CompressFormat.webp, 'extension': 'webp'};
+      case 'heic':
+        return {'format': CompressFormat.heic, 'extension': 'heic'};
+      default:
+        return {'format': CompressFormat.jpeg, 'extension': 'jpg'};
+    }
+  }
+
   /// Compresses the image file until it meets the specified size limit.
   ///
   /// **params**:
@@ -68,45 +104,64 @@ class MultiMediaPickerService {
     // If already under the limit, return original
     if (originalSize <= maxImageSizeAllowed) return file;
 
-    // Estimate initial quality based on size ratio (clamp between 10 and 95)
-    final int estimatedQuality =
-        ((maxImageSizeAllowed / originalSize) * 95).clamp(10, 95).toInt();
+    // Detect original image format to preserve it
+    final formatInfo = getImageFormatInfo(file.path);
+    final format = formatInfo['format'] as CompressFormat;
+    final extension = formatInfo['extension'] as String;
 
     XFile? compressedFile;
-    int quality = estimatedQuality;
     final List<String> tempFilesToCleanup = [];
 
     try {
-      while (quality >= 10) {
+      // Binary search for optimal quality (between 10 and 95)
+      int minQuality = 10;
+      int maxQuality = 95;
+      XFile? bestResult;
+
+      while (minQuality <= maxQuality) {
+        final quality = (minQuality + maxQuality) ~/ 2;
         final tempDir = Directory.systemTemp;
         final targetPath =
-            '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.jpg';
-        final resultFile = await FlutterImageCompress.compressAndGetFile(
+            '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.$extension';
+
+        final resultFile = await compressImageFunction(
           file.path,
           targetPath,
           quality: quality,
+          format: format,
         );
-        if (resultFile == null) break;
 
-        // Track the temporary file for potential cleanup
+        if (resultFile == null) {
+          maxQuality = quality - 1;
+          continue;
+        }
+
         tempFilesToCleanup.add(resultFile.path);
 
         compressedFile = XFile(resultFile.path);
         final newSize = await compressedFile.length();
+
         if (newSize <= maxImageSizeAllowed) {
-          // Clean up previous temporary files (keep only the successful one)
-          for (int i = 0; i < tempFilesToCleanup.length - 1; i++) {
+          bestResult = compressedFile;
+          minQuality = quality + 1;
+        } else {
+          maxQuality = quality - 1;
+        }
+      }
+
+      if (bestResult != null) {
+        for (final tempPath in tempFilesToCleanup) {
+          if (tempPath != bestResult.path) {
             try {
-              await File(tempFilesToCleanup[i]).delete();
+              await File(tempPath).delete();
             } catch (e) {
               debugPrint(
-                'Failed to delete temporary file ${tempFilesToCleanup[i]}: $e',
+                'Failed to delete temporary file $tempPath: $e',
               );
             }
           }
-          return compressedFile;
         }
-        quality -= 10;
+        return bestResult;
       }
 
       // If unable to compress below limit, clean up all temporary files
