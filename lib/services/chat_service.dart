@@ -146,12 +146,11 @@ class ChatService {
   /// **returns**:
   /// * `Future<List<Chat>?>`: List of chats if successful, empty list if authentication fails, null if other errors
   Future<List<Chat>?> getChatsByUser() async {
-    
-  if (_userConfig.currentUser.authToken == null || 
-      _userConfig.currentUser.authToken!.isEmpty) {
-    debugPrint('Skipping chat fetch: Authentication token not available yet');
-    return [];
-  }
+    if (_userConfig.currentUser.authToken == null ||
+        _userConfig.currentUser.authToken!.isEmpty) {
+      debugPrint('Skipping chat fetch: Authentication token not available yet');
+      return [];
+    }
 
     final userId = _userConfig.currentUser.id;
 
@@ -166,16 +165,16 @@ class ChatService {
 
     if (result.hasException) {
       debugPrint('Error fetching chats: ${result.exception}');
-      
+
       // Check if it's an authentication error
       final exceptionString = result.exception.toString();
-      if (exceptionString.contains('unauthenticated') || 
+      if (exceptionString.contains('unauthenticated') ||
           exceptionString.contains('authentication') ||
           exceptionString.contains('You must be authenticated')) {
         debugPrint('Authentication error in chat fetch - returning empty list');
         return [];
       }
-      
+
       // For other errors, still return empty list but could optionally show error dialog
       // Only show error dialog if we're not in a test environment
       if (!exceptionString.contains('test')) {

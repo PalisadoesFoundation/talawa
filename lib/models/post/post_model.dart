@@ -195,7 +195,8 @@ class Post {
                 .gqlAuthMutation(query, variables: variables);
           } catch (e) {
             // Fallback to a placeholder image when API call fails
-            attachment.url = "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+            attachment.url =
+                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
             continue;
           }
 
@@ -208,16 +209,19 @@ class Post {
               // Check if the URL contains 'minio' hostname which might cause DNS issues
               if (url.contains('minio:') || url.contains('minio/')) {
                 // Use fallback image if MinIO URL is detected
-                attachment.url = "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+                attachment.url =
+                    "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
               } else {
                 attachment.url = url;
               }
             } else {
-              attachment.url = "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+              attachment.url =
+                  "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
             }
           } else {
             // Fallback when response doesn't contain expected data
-            attachment.url = "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+            attachment.url =
+                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
           }
         }
       }
