@@ -65,7 +65,6 @@ class LoginFormRobot {
   ///   None
   Future<void> _openLoginForm() async {
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    print("Finding Custom Drawer");
     await tester.pumpAndSettle(const Duration(seconds: 3));
     final Finder dismissButton = find.text('Dismiss');
     if (dismissButton.evaluate().isNotEmpty) {
@@ -84,14 +83,7 @@ class LoginFormRobot {
     scaffoldState.openDrawer();
 
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    print("Custom Drawer opened");
-    print("Finding Join new Organization button");
-    // final Finder joinButton = find.byKey(homeModel.keyDrawerJoinOrg);
-    // expect(joinButton, findsOneWidget);
-    // print("Join new Organization button found");
-    // await tester.tap(joinButton);
     await tester.tap(find.widgetWithIcon(ListTile, Icons.add));
-    print("Join new Organization button tapped");
     await tester.pumpAndSettle(const Duration(seconds: 3));
     final Finder loginButton = find.text('Login');
     await tester.tap(loginButton);

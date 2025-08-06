@@ -29,8 +29,6 @@ class LogoutRobot {
   ///   None
   Future<void> _openProfileSettings() async {
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    print("Finding Profile Page Icon");
-    // Try to find the profile tab by its key first
     final Finder profileTab = find.byKey(const Key("ProfileTab"));
     if (profileTab.evaluate().isNotEmpty) {
       await tester.tap(profileTab);
@@ -47,12 +45,10 @@ class LogoutRobot {
       expect(profileIcon, findsOneWidget);
       await tester.tap(profileIcon);
     }
-    print("Profile settings opened");
     await tester.pumpAndSettle(const Duration(seconds: 2));
     final Finder settingsButton = find.byKey(const Key('settingIcon'));
     expect(settingsButton, findsOneWidget);
     await tester.tap(settingsButton);
-    print("Settings opened");
     await tester.pumpAndSettle();
   }
 
@@ -65,7 +61,6 @@ class LogoutRobot {
   ///   None
   Future<void> _tapLogoutButton() async {
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    print("Finding Logout Button");
     final Finder logoutButton = find.byKey(
       const Key('Logout'),
     );
@@ -97,7 +92,6 @@ class LogoutRobot {
   /// **returns**:
   ///   None
   Future<void> _handleRememberMeCheckbox() async {
-    print("Looking for Remember me checkbox");
     final Finder rememberMeText = find.text('Remember me');
     expect(rememberMeText, findsOneWidget);
     final Finder checkbox = find.byType(Checkbox);
