@@ -74,7 +74,7 @@ class LogoutRobot {
 
     final Finder confirmLogoutButton = find.descendant(
       of: alertDialog,
-      matching: find.byKey(Key('Logout')),
+      matching: find.byKey(const Key('Logout')),
     );
     expect(confirmLogoutButton, findsOneWidget);
     await tester.tap(confirmLogoutButton);
