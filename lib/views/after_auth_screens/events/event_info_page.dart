@@ -106,6 +106,7 @@ class _EventInfoPageState extends State<EventInfoPage>
                             model.event.creator!.id !=
                                 userConfig.currentUser.id)
                         ? FloatingActionButton.extended(
+                            heroTag: "event_info_register_fab",
                             key: const Key("registerEventFloatingbtn"),
                             onPressed: () {
                               model.registerForEvent();
@@ -117,6 +118,7 @@ class _EventInfoPageState extends State<EventInfoPage>
                             ),
                           )
                         : FloatingActionButton(
+                            heroTag: "event_info_delete_fab",
                             onPressed: () {
                               (widget.args["exploreEventViewModel"]
                                       as ExploreEventsViewModel)
