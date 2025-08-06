@@ -11,6 +11,7 @@ import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:uuid/uuid.dart';
 
 /// This is a third party service which provide the service to select the image from.
 ///
@@ -93,7 +94,6 @@ class MultiMediaPickerService {
   ///
   /// **params**:
   /// * `file`: The original image file to be compressed.
-  /// * `maxImageSizeAllowed`: The maximum allowed size for the compressed image in bytes
   ///
   /// **returns**:
   /// * `Future<XFile?>`: The compressed image file if successful, or null if it fails.
@@ -108,7 +108,7 @@ class MultiMediaPickerService {
     final formatInfo = getImageFormatInfo(file.path);
     final format = formatInfo['format'] as CompressFormat;
     final extension = formatInfo['extension'] as String;
-
+    const Uuid uuid = Uuid();
     XFile? compressedFile;
     final List<String> tempFilesToCleanup = [];
 
@@ -122,7 +122,7 @@ class MultiMediaPickerService {
         final quality = (minQuality + maxQuality) ~/ 2;
         final tempDir = Directory.systemTemp;
         final targetPath =
-            '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}_$quality.$extension';
+            '${tempDir.path}/compressed_${uuid.v4()}_$quality.$extension';
 
         final resultFile = await compressImageFunction(
           file.path,
@@ -217,7 +217,7 @@ class MultiMediaPickerService {
                 const CustomProgressDialog(key: Key('compressing_loader')),
               );
               final compressed = await compressUntilSize(file);
-              navigationService.pop(); // Remove loader
+              navigationService.pop();
               if (compressed == null) {
                 navigationService.pushDialog(compressionFailedDialog());
                 completer.complete(null);
