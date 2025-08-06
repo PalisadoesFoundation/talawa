@@ -188,6 +188,39 @@ class MultiMediaPickerService {
     }
   }
 
+  /// Executes the complete compression workflow including progress dialogs and error handling.
+  ///
+  /// **params**:
+  /// * `file`: The XFile to compress and crop
+  ///
+  /// **returns**:
+  /// * `Future<File?>`: The final cropped file or null if failed
+  Future<File?> executeCompressionWorkflow(XFile file) async {
+    try {
+      navigationService.pushDialog(
+        const CustomProgressDialog(key: Key('compressing_loader')),
+      );
+
+      final compressed = await compressUntilSize(file);
+      navigationService.pop();
+
+      if (compressed == null) {
+        navigationService.pushDialog(compressionFailedDialog());
+        return null;
+      }
+
+      final cropped = await _imageService.cropImage(
+        imageFile: File(compressed.path),
+      );
+
+      return cropped;
+    } catch (e) {
+      navigationService.pop();
+      navigationService.pushDialog(compressionFailedDialog());
+      return null;
+    }
+  }
+
   /// Picks the image from gallery or to click the image from user's camera.
   ///
   /// First ask for the permission to access the camera, if denied then returns a message in.
@@ -213,28 +246,12 @@ class MultiMediaPickerService {
           fileSizeExceededDialog(
             () async {
               navigationService.pop();
-              navigationService.pushDialog(
-                const CustomProgressDialog(key: Key('compressing_loader')),
-              );
-              final compressed = await compressUntilSize(file);
-              navigationService.pop();
-              if (compressed == null) {
-                navigationService.pushDialog(compressionFailedDialog());
-                completer.complete(null);
-              } else {
-                final cropped = await _imageService.cropImage(
-                  imageFile: File(compressed.path),
-                );
-                completer.complete(cropped);
-              }
+              final result = await executeCompressionWorkflow(file);
+              completer.complete(result);
             },
           ),
-        ).then((_) {
-          // Complete with null if dialog was dismissed without action
-          if (!completer.isCompleted) {
-            completer.complete(null);
-          }
-        });
+        );
+
         return await completer.future;
       }
 

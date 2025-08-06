@@ -15,9 +15,9 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
-import '../helpers/test_helpers.dart';
-import '../helpers/test_helpers.mocks.dart';
-import '../helpers/test_locator.dart';
+import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
+import '../../helpers/test_locator.dart';
 
 void main() {
   late ImageCropper mockImageCropper;
