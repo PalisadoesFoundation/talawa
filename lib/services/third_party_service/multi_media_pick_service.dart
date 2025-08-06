@@ -229,7 +229,12 @@ class MultiMediaPickerService {
               }
             },
           ),
-        );
+        ).then((_) {
+          // Complete with null if dialog was dismissed without action
+          if (!completer.isCompleted) {
+            completer.complete(null);
+          }
+        });
         return await completer.future;
       }
 
