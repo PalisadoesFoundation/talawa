@@ -1327,6 +1327,86 @@ class MockMultiMediaPickerService extends _i2.Mock
       ) as int);
 
   @override
+  _i8.Future<_i23.XFile?> Function(
+    String,
+    String, {
+    bool autoCorrectionAngle,
+    _i23.CompressFormat format,
+    int inSampleSize,
+    bool keepExif,
+    int minHeight,
+    int minWidth,
+    int numberOfRetries,
+    int quality,
+    int rotate,
+  }) get compressImageFunction => (super.noSuchMethod(
+        Invocation.getter(#compressImageFunction),
+        returnValue: (
+          String __p0,
+          String __p1, {
+          bool? autoCorrectionAngle,
+          _i23.CompressFormat? format,
+          int? inSampleSize,
+          bool? keepExif,
+          int? minHeight,
+          int? minWidth,
+          int? numberOfRetries,
+          int? quality,
+          int? rotate,
+        }) =>
+            _i8.Future<_i23.XFile?>.value(),
+        returnValueForMissingStub: (
+          String __p0,
+          String __p1, {
+          bool? autoCorrectionAngle,
+          _i23.CompressFormat? format,
+          int? inSampleSize,
+          bool? keepExif,
+          int? minHeight,
+          int? minWidth,
+          int? numberOfRetries,
+          int? quality,
+          int? rotate,
+        }) =>
+            _i8.Future<_i23.XFile?>.value(),
+      ) as _i8.Future<_i23.XFile?> Function(
+        String,
+        String, {
+        bool autoCorrectionAngle,
+        _i23.CompressFormat format,
+        int inSampleSize,
+        bool keepExif,
+        int minHeight,
+        int minWidth,
+        int numberOfRetries,
+        int quality,
+        int rotate,
+      }));
+
+  @override
+  set compressImageFunction(
+          _i8.Future<_i23.XFile?> Function(
+            String,
+            String, {
+            bool autoCorrectionAngle,
+            _i23.CompressFormat format,
+            int inSampleSize,
+            bool keepExif,
+            int minHeight,
+            int minWidth,
+            int numberOfRetries,
+            int quality,
+            int rotate,
+          })? _compressImageFunction) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #compressImageFunction,
+          _compressImageFunction,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i6.NavigationService get navigationService => (super.noSuchMethod(
         Invocation.getter(#navigationService),
         returnValue: _FakeNavigationService_11(
@@ -1347,6 +1427,17 @@ class MockMultiMediaPickerService extends _i2.Mock
       ) as _i8.Stream<dynamic>);
 
   @override
+  Map<String, dynamic> getImageFormatInfo(String? filePath) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getImageFormatInfo,
+          [filePath],
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
   _i8.Future<_i23.XFile?> compressUntilSize(_i23.XFile? file) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1356,6 +1447,17 @@ class MockMultiMediaPickerService extends _i2.Mock
         returnValue: _i8.Future<_i23.XFile?>.value(),
         returnValueForMissingStub: _i8.Future<_i23.XFile?>.value(),
       ) as _i8.Future<_i23.XFile?>);
+
+  @override
+  _i8.Future<_i24.File?> executeCompressionWorkflow(_i23.XFile? file) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeCompressionWorkflow,
+          [file],
+        ),
+        returnValue: _i8.Future<_i24.File?>.value(),
+        returnValueForMissingStub: _i8.Future<_i24.File?>.value(),
+      ) as _i8.Future<_i24.File?>);
 
   @override
   _i8.Future<_i24.File?> getPhotoFromGallery({bool? camera = false}) =>
