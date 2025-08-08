@@ -262,12 +262,74 @@ void main() {
     });
 
     test('Test for updateUserJoinedOrg method', () async {
+      // Arrange
       final model = UserConfig();
+      // Setup mock user with existing joined orgs
+      final existingOrgs = [
+        OrgInfo(id: 'org1', name: 'orga'),
+        OrgInfo(id: 'org2', name: 'orgb'),
+      ];
+      mockUser.joinedOrganizations = existingOrgs;
       model.currentUser = mockUser;
 
-      await model.updateUserJoinedOrg(mockOrgDetails);
+      // Create a new org to join
+      final mockOrg = OrgInfo(id: 'org3', name: 'orgc');
 
-      expect(mockUser.joinedOrganizations, mockOrgDetails);
+      // Act
+      await model.updateUserJoinedOrg(mockOrg);
+
+      // Assert
+      // New org should be at the beginning of the list
+      expect(mockUser.joinedOrganizations!.first.id, equals('org3'));
+      expect(mockUser.joinedOrganizations!.length, equals(3));
+
+      // Test replacing existing org
+      final updatedOrg = OrgInfo(id: 'org2', name: 'updated orgb');
+      await model.updateUserJoinedOrg(updatedOrg);
+
+      // Should still have 3 items, with updated org at beginning
+      expect(mockUser.joinedOrganizations!.length, equals(3));
+      expect(mockUser.joinedOrganizations!.first.id, equals('org2'));
+      expect(mockUser.joinedOrganizations!.first.name, equals('updated orgb'));
+
+      // Verify that _currentOrg was updated
+      expect(model.currentOrg.id, equals('org2'));
+    });
+
+    test('updateUserJoinedOrg correctly handles null joinedOrganizations',
+        () async {
+      // Arrange
+      final model = UserConfig();
+
+      // Create a mock user with null joinedOrganizations
+      final userWithNullOrgs = User(
+        id: 'test-user',
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test@example.com',
+        joinedOrganizations: null, // Explicitly null
+      );
+
+      model.currentUser = userWithNullOrgs;
+
+      // Organization to join
+      final newOrg = OrgInfo(id: 'org123', name: 'New Organization');
+
+      // Act
+      await model.updateUserJoinedOrg(newOrg);
+
+      // Assert
+      expect(model.currentUser.joinedOrganizations, isNotNull);
+      expect(model.currentUser.joinedOrganizations!.length, equals(1));
+      expect(model.currentUser.joinedOrganizations![0].id, equals('org123'));
+      expect(
+        model.currentUser.joinedOrganizations![0].name,
+        equals('New Organization'),
+      );
+
+      // Verify the current org was also updated
+      expect(model.currentOrg.id, equals('org123'));
+      expect(model.currentOrg.name, equals('New Organization'));
     });
 
     test('Test for updateUserCreatedOrg method', () async {

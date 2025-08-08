@@ -98,15 +98,11 @@ class TestJsonUtils {
   static Event createEventFromJson(Map<String, dynamic> json) {
     return Event(
       id: json['_id'] as String,
-      title: json['title'] as String?,
+      name: json['title'] as String?,
       description: json['description'] as String?,
       location: json['location'] as String?,
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
-      startDate: json['startDate'] as String?,
-      endDate: json['endDate'] as String?,
-      startTime: json['startTime'] as String?,
-      endTime: json['endTime'] as String?,
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,

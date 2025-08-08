@@ -36,8 +36,8 @@ void main() {
         },
         'urls': ['https://example.com/agenda'],
         'relatedEvent': {
-          '_id': 'event1',
-          'title': 'Annual Conference',
+          'id': 'event1',
+          'name': 'Annual Conference',
           'description': 'Annual tech conference',
         },
         'categories': [
@@ -70,7 +70,7 @@ void main() {
       expect(eventAgendaItem.createdBy?.lastName, 'Doe');
       expect(eventAgendaItem.urls, ['https://example.com/agenda']);
       expect(eventAgendaItem.relatedEvent?.id, 'event1');
-      expect(eventAgendaItem.relatedEvent?.title, 'Annual Conference');
+      expect(eventAgendaItem.relatedEvent?.name, 'Annual Conference');
       expect(eventAgendaItem.categories?.length, 1);
       expect(eventAgendaItem.categories?[0].id, 'category1');
       expect(eventAgendaItem.categories?[0].name, 'Introduction');
@@ -208,7 +208,7 @@ void main() {
 
     test('Test EventAgendaItem constructor with all parameters', () {
       final creator = User(id: 'creatorId', firstName: 'Creator');
-      final event = Event(id: 'eventId', title: 'Test Event');
+      final event = Event(id: 'eventId', name: 'Test Event');
       final category1 = AgendaCategory(id: 'cat1', name: 'Category 1');
       final category2 = AgendaCategory(id: 'cat2', name: 'Category 2');
       final organization = OrgInfo(id: 'orgId', name: 'Test Org');

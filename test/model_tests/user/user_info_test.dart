@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 /// Test Data From Organization.
@@ -151,6 +152,95 @@ void main() {
       // Mixed empty/null
       final userMixed = User(firstName: '', lastName: null);
       expect(userMixed.name, null);
+    });
+  });
+  group('User.updateJoinedg', () {
+    test('adds organization to null joinedOrganizations list', () {
+      // Arrange
+      final user = User(joinedOrganizations: null);
+      final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
+
+      // Act
+      user.updateJoinedOrg(newOrg);
+
+      // Assert
+      expect(user.joinedOrganizations, isNotNull);
+      expect(user.joinedOrganizations!.length, 1);
+      expect(user.joinedOrganizations!.first.id, 'org1');
+    });
+
+    test('adds organization to empty joinedOrganizations list', () {
+      // Arrange
+      final user = User(joinedOrganizations: []);
+      final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
+
+      // Act
+      user.updateJoinedOrg(newOrg);
+
+      // Assert
+      expect(user.joinedOrganizations!.length, 1);
+      expect(user.joinedOrganizations!.first.id, 'org1');
+    });
+
+    test('adds organization to non-empty joinedOrganizations list', () {
+      // Arrange
+      final user = User(
+        joinedOrganizations: [
+          OrgInfo(id: 'org2', name: 'Organization 2'),
+          OrgInfo(id: 'org3', name: 'Organization 3'),
+        ],
+      );
+      final newOrg = OrgInfo(id: 'org1', name: 'Organization 1');
+
+      // Act
+      user.updateJoinedOrg(newOrg);
+
+      // Assert
+      expect(user.joinedOrganizations!.length, 3);
+      expect(user.joinedOrganizations!.first.id, 'org1');
+      expect(user.joinedOrganizations![1].id, 'org2');
+      expect(user.joinedOrganizations![2].id, 'org3');
+    });
+
+    test('replaces existing organization with same ID', () {
+      // Arrange
+      final user = User(
+        joinedOrganizations: [
+          OrgInfo(id: 'org1', name: 'Old Name'),
+          OrgInfo(id: 'org2', name: 'Organization 2'),
+        ],
+      );
+      final updatedOrg = OrgInfo(id: 'org1', name: 'New Name');
+
+      // Act
+      user.updateJoinedOrg(updatedOrg);
+
+      // Assert
+      expect(user.joinedOrganizations!.length, 2);
+      expect(user.joinedOrganizations!.first.id, 'org1');
+      expect(user.joinedOrganizations!.first.name, 'New Name');
+      expect(user.joinedOrganizations![1].id, 'org2');
+    });
+
+    test('removes all duplicate organizations with same ID', () {
+      // Arrange
+      final user = User(
+        joinedOrganizations: [
+          OrgInfo(id: 'org1', name: 'First Instance'),
+          OrgInfo(id: 'org2', name: 'Organization 2'),
+          OrgInfo(id: 'org1', name: 'Second Instance'), // Duplicate
+        ],
+      );
+      final updatedOrg = OrgInfo(id: 'org1', name: 'Updated Org');
+
+      // Act
+      user.updateJoinedOrg(updatedOrg);
+
+      // Assert
+      expect(user.joinedOrganizations!.length, 2);
+      expect(user.joinedOrganizations!.first.id, 'org1');
+      expect(user.joinedOrganizations!.first.name, 'Updated Org');
+      expect(user.joinedOrganizations![1].id, 'org2');
     });
   });
 }

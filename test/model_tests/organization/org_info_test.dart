@@ -14,6 +14,7 @@ void main() {
       "description": "Description",
       "city": "Delhi",
       "state": "Delhi",
+      "isUserRegistrationRequired": true,
       "members": {
         "edges": [
           {
@@ -38,6 +39,7 @@ void main() {
       expect(result.city, 'Delhi');
       expect(result.countryCode, "in");
       expect(result.state, 'Delhi');
+      expect(result.userRegistrationRequired, true);
     });
   });
 

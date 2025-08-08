@@ -101,6 +101,8 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
@@ -746,9 +748,9 @@ EventService getAndRegisterEventService() {
     (invocation) async => streamController.add([
       Event(
         id: '1',
-        title: 'test',
-        startTime: '10000',
-        endTime: '20000',
+        name: 'test',
+        startAt: DateTime.now(),
+        endAt: DateTime.now(),
         location: 'ABC',
         description: 'test',
         creator: User(

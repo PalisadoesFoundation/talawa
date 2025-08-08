@@ -84,7 +84,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => model.fetchNewPosts(),
+                  onRefresh: () async => await model.fetchNewPosts(),
                   child: NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
                       final currentScroll = _scrollController.position.pixels;

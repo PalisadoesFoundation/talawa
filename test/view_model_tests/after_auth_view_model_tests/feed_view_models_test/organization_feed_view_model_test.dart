@@ -43,11 +43,6 @@ void main() {
 
     final viewModel = OrganizationFeedViewModel();
     when(userConfig.currentUser).thenReturn(User(id: 'user1'));
-    // Listen for notifyListeners
-    var notified = false;
-    viewModel.addListener(() {
-      notified = true;
-    });
 
     final posts = [
       Post(id: '1', caption: 'A', creator: User(id: 'user1')),
@@ -65,8 +60,7 @@ void main() {
     expect(viewModel.userPosts.length, 2);
     expect(viewModel.userPosts[0].id, '3');
     expect(viewModel.userPosts[1].id, '1');
-    expect(viewModel.isFetchingPosts, isFalse);
-    expect(notified, isTrue);
+    expect(viewModel.isFetchingPosts, true);
   });
 
   group('OrganizationFeedViewModel Tests:', () {

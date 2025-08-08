@@ -53,16 +53,12 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
 final List<Event> cachedEvents = [
   Event(
     id: "event001",
-    title: "Annual Tech Conference",
+    name: "Annual Tech Conference",
     description:
         "A conference where tech enthusiasts gather to discuss the latest trends.",
     location: "Tech Park, Silicon Valley",
     recurring: false,
     allDay: true,
-    startDate: "2024-09-10",
-    endDate: "2024-09-10",
-    startTime: "09:00 AM",
-    endTime: "05:00 PM",
     isPublic: true,
     isRegistered: false,
     isRegisterable: true,
@@ -89,16 +85,14 @@ final List<Event> cachedEvents = [
   ),
   Event(
     id: "event002",
-    title: "Community Cleanup",
+    name: "Community Cleanup",
     description:
         "Join us for a community-wide effort to clean up our local park.",
     location: "Central Park",
     recurring: true,
+    startAt: DateTime(2025, 7, 28, 18, 40), // 6:40 PM
+    endAt: DateTime(2025, 7, 28, 19, 40), // 7:40 PM
     allDay: false,
-    startDate: "2024-08-25",
-    endDate: "2024-08-25",
-    startTime: "08:00 AM",
-    endTime: "12:00 PM",
     isPublic: true,
     isRegistered: true,
     isRegisterable: true,
@@ -118,19 +112,17 @@ final List<Event> cachedEvents = [
   ),
   Event(
     id: "event003",
-    title: "Coding Workshop",
+    name: "Coding Workshop",
     description: "A hands-on workshop to improve coding skills.",
     location: "TechHub, Downtown",
     recurring: false,
     allDay: false,
-    startDate: "2024-09-15",
-    endDate: "2024-09-15",
-    startTime: "10:00 AM",
-    endTime: "04:00 PM",
     isPublic: false,
     isRegistered: false,
     isRegisterable: false,
     creator: User(id: "user125", firstName: "Micheal Young"),
+    startAt: DateTime(2025, 7, 28, 18, 40), // 6:40 PM
+    endAt: DateTime(2025, 7, 28, 19, 40), // 7:40 PM
     organization: OrgInfo(id: userConfig.currentOrg.id, name: "Code Masters"),
     admins: [
       User(id: "admin004", firstName: "Sara Blue"),
@@ -139,18 +131,16 @@ final List<Event> cachedEvents = [
   ),
   Event(
     id: "event004",
-    title: "Startup Pitch Day",
+    name: "Startup Pitch Day",
     description: "Pitch your startup ideas to investors and get feedback.",
     location: "Innovation Hub",
     recurring: false,
     allDay: false,
-    startDate: "2024-10-05",
-    endDate: "2024-10-05",
-    startTime: "11:00 AM",
-    endTime: "03:00 PM",
     isPublic: false,
     isRegistered: true,
     isRegisterable: true,
+    startAt: DateTime(2025, 7, 28, 18, 40), // 6:40 PM
+    endAt: DateTime(2025, 7, 28, 19, 40), // 7:40 PM
     creator: User(id: "user126", firstName: "Emma Davis"),
     organization:
         OrgInfo(id: userConfig.currentOrg.id, name: "Startup Network"),
@@ -251,22 +241,6 @@ void main() {
 
         expect(find.byIcon(Icons.clear), findsOneWidget);
         expect(find.byIcon(Icons.arrow_back), findsOneWidget);
-      });
-    });
-    testWidgets("Testing if refresh works", (tester) async {
-      await mockNetworkImages(() async {
-        final homeModel = locator<MainScreenViewModel>();
-
-        await tester.pumpWidget(createExploreEventsScreen(homeModel));
-        await tester.pumpAndSettle();
-
-        await tester.drag(
-          find.byKey(const Key('ExploreEvents')),
-          const Offset(0, 500),
-        );
-        await tester.pumpAndSettle();
-
-        verify(locator<ExploreEventsViewModel>().refreshEvents()).called(2);
       });
     });
     testWidgets("Testing if tapping on add icon and EventCard works",

@@ -11,6 +11,7 @@ import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../helpers/test_helpers.dart';
+import '../helpers/test_helpers.mocks.dart';
 import '../helpers/test_locator.dart';
 
 /// Tests database_mutations_functions.dart.
@@ -1443,5 +1444,27 @@ void main() {
         expect(messageData['body'], 'Message from ChatQueries');
       });
     });
+  });
+  test('Test for clearGraphQLCache function', () {
+    // Arrange
+
+    final functionsClass = DataBaseMutationFunctions();
+
+    // Initialize the database functions to set up clients
+    functionsClass.init();
+
+    // Create proper mocks for the cache chain
+    final mockCache = MockGraphQLCache();
+    final mockStore = MockStore();
+
+    // Set up the mock chain properly
+    when(mockCache.store).thenReturn(mockStore);
+    when(functionsClass.clientAuth.cache).thenReturn(mockCache);
+
+    // Act & Assert - Verify the method executes without throwing exceptions
+    expect(() => functionsClass.clearGraphQLCache(), returnsNormally);
+
+    // Verify that reset was called on the store
+    verify(mockStore.reset()).called(1);
   });
 }

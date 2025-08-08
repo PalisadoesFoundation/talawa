@@ -3,52 +3,27 @@ import 'package:talawa/utils/event_queries.dart';
 
 void main() {
   group("Tests for event_queries.dart", () {
-    test("Check if fetchOrgEvents works correctly", () {
-      const data = """
-      query {
-        eventsByOrganizationConnection(
-      where: {
-        organization_id: "sampleID"
-      }
-    ) {
-      _id
-      organization {
-        _id
-        image
-      }
-      title
-      description
-      isPublic
-      isRegisterable
-      recurring
-      startDate
-      endDate
-      allDay
-      startTime
-      endTime
-      location
-      creator {
-        _id
-        firstName
-        lastName
-      }
-      admins {
-        _id
-        firstName
-        lastName
-      } 
-      attendees {
-        _id
-        firstName
-        lastName
-        image
-      }
-    }
-      }
-    """;
+    test('fetchOrgEvents returns correct GraphQL query string', () {
+      final query = EventQueries().fetchOrgEvents();
 
-      final fnData = EventQueries().fetchOrgEvents("sampleID");
-      expect(fnData, data);
+      expect(query, contains('query GetEventsByOrgID'));
+      expect(query, contains('organization(input: { id: \$orgId })'));
+      expect(query, contains('events(first: \$first, after: \$after)'));
+      expect(query, contains('edges'));
+      expect(query, contains('node'));
+      expect(query, contains('id'));
+      expect(query, contains('name'));
+      expect(query, contains('description'));
+      expect(query, contains('startAt'));
+      expect(query, contains('endAt'));
+      expect(query, contains('allDay'));
+      expect(query, contains('location'));
+      expect(query, contains('isPublic'));
+      expect(query, contains('isRegisterable'));
+      expect(query, contains('organization'));
+      expect(query, contains('pageInfo'));
+      expect(query, contains('hasNextPage'));
+      expect(query, contains('endCursor'));
     });
 
     test("Check if attendeesByEvent works correctly", () {

@@ -70,16 +70,21 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void setCurrentOrganizationName(String updatedOrganization) {
+  Future<void> setCurrentOrganizationName(String updatedOrganization) async {
     // if `updatedOrganization` is not same to `_currentOrgName`.
     if (updatedOrganization != _currentOrgName) {
       _isFetchingPosts = true;
+      databaseFunctions.clearGraphQLCache();
+      _currentOrgName = updatedOrganization;
       notifyListeners();
       _userPosts.clear();
       _posts.clear();
       _pinnedPosts.clear();
       _renderedPostID.clear();
-      _currentOrgName = updatedOrganization;
+      await Future.wait([
+        _postService.refreshFeed(),
+        _pinnedPostService.refreshPinnedPosts(),
+      ]);
       _isFetchingPosts = false;
       notifyListeners();
     }
@@ -92,9 +97,11 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void fetchNewPosts() {
-    _postService.refreshFeed();
-    _pinnedPostService.refreshPinnedPosts();
+  Future<void> fetchNewPosts() async {
+    await Future.wait([
+      _postService.refreshFeed(),
+      _pinnedPostService.refreshPinnedPosts(),
+    ]);
   }
 
   /// To initialize the view model.
@@ -108,7 +115,6 @@ class OrganizationFeedViewModel extends BaseModel {
   ///   None
   Future<void> initialise() async {
     _isFetchingPosts = true;
-
     notifyListeners();
 
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
@@ -134,8 +140,8 @@ class OrganizationFeedViewModel extends BaseModel {
         _postService.updatedPostStream.listen((post) => updatedPost(post));
 
     await Future.wait([
-      _postService.fetchPostsInitial(),
-      _pinnedPostService.fetchPostsInitial(),
+      _postService.refreshFeed(),
+      _pinnedPostService.refreshPinnedPosts(),
     ]);
 
     _isFetchingPosts = false;
@@ -161,8 +167,6 @@ class OrganizationFeedViewModel extends BaseModel {
         _userPosts.insert(0, post);
       }
     }
-    _isFetchingPosts = false;
-    notifyListeners();
   }
 
   /// This function initialise `_pinnedPosts` with `newPosts`.
