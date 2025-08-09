@@ -202,7 +202,10 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(post.attachments!.first.url, 'https://avatars.githubusercontent.com/u/24500036?s=280&v=4');
+      expect(
+        post.attachments!.first.url,
+        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
+      );
     });
 
     test('getPresignedUrl returns early if id is null or empty', () async {
