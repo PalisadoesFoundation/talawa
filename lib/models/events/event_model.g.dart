@@ -40,6 +40,7 @@ class EventAdapter extends TypeAdapter<Event> {
   void write(BinaryWriter writer, Event obj) {
     writer
       ..writeByte(16)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
