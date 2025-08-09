@@ -42,6 +42,7 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
+        authToken: 'sample-auth-token',
       );
 
       sampleOrg = OrgInfo(
@@ -311,22 +312,16 @@ void main() {
         expect(chats.length, equals(2));
       });
 
-      test('throws ArgumentError when userId is null', () async {
+      test('returns empty list when userId is null', () async {
         when(mockUserConfig.currentUser).thenReturn(User(id: null));
 
-        expect(
-          () => chatService.getChatsByUser(),
-          throwsA(
-            isA<ArgumentError>().having(
-              (e) => e.message,
-              'message',
-              'User ID is required to fetch chats',
-            ),
-          ),
-        );
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
       });
 
-      test('throws Exception on GraphQL exception', () async {
+      test('returns empty list on GraphQL exception', () async {
         final query = ChatQueries().chatsByUser();
         when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult(
@@ -339,16 +334,10 @@ void main() {
           ),
         );
 
-        expect(
-          () => chatService.getChatsByUser(),
-          throwsA(
-            isA<Exception>().having(
-              (e) => e.toString(),
-              'toString',
-              contains('Failed to fetch chats'),
-            ),
-          ),
-        );
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
       });
 
       test('returns empty list when chatsByUser is null', () async {

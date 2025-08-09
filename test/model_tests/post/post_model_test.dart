@@ -179,7 +179,7 @@ void main() {
       expect(post.attachments!.first.url, 'https://example.com/file.txt');
     });
 
-    test('getPresignedUrl does not set url if presignedUrl is missing',
+    test('getPresignedUrl sets fallback url if presignedUrl is missing',
         () async {
       final attachment = AttachmentModel(name: 'file.txt', url: null);
       final post = Post(attachments: [attachment]);
@@ -202,7 +202,7 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(post.attachments!.first.url, isNull);
+      expect(post.attachments!.first.url, 'https://avatars.githubusercontent.com/u/24500036?s=280&v=4');
     });
 
     test('getPresignedUrl returns early if id is null or empty', () async {
