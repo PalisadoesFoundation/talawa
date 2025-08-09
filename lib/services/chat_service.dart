@@ -156,6 +156,8 @@ class ChatService {
 
     if (userId == null) {
       debugPrint('Error fetching chats: User ID is required');
+      navigationService.showTalawaErrorDialog(
+          "User ID is requires to fetch chats", MessageType.error,);
       return [];
     }
 
