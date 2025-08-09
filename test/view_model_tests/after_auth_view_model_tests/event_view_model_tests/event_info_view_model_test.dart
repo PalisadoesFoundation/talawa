@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -194,7 +194,7 @@ void main() {
         data: {
           'createAgendaItem': {
             'id': '1',
-            'title': 'Test Agenda',
+            'name': 'Test Agenda',
             'duration': '1h',
             'sequence': 1,
           },
@@ -227,9 +227,9 @@ void main() {
       );
 
       expect(result, isNotNull);
-      expect(result!.title, 'Test Agenda');
+      expect(result!.name, 'Test Agenda');
       expect(model.agendaItems.length, 1);
-      expect(model.agendaItems.first.title, 'Test Agenda');
+      expect(model.agendaItems.first.name, 'Test Agenda');
     });
     test('deleteAgendaItem success', () async {
       final Event event1 = Event(id: "1");
@@ -238,8 +238,8 @@ void main() {
       final eventService = getAndRegisterEventService();
       model.agendaItems.clear();
       model.agendaItems.addAll([
-        EventAgendaItem(id: '1', title: 'Item 1'),
-        EventAgendaItem(id: '2', title: 'Item 2'),
+        EventAgendaItem(id: '1', name: 'Item 1'),
+        EventAgendaItem(id: '2', name: 'Item 2'),
       ]);
 
       when(eventService.deleteAgendaItem({"removeAgendaItemId": '1'}))
@@ -260,8 +260,8 @@ void main() {
         source: QueryResultSource.network,
         data: {
           'updateAgendaItem': {
-            'id': '1',
-            'title': 'Updated Item',
+            '_id': '1',
+            'name': 'Updated Item',
             'sequence': 2,
           },
         },
@@ -269,8 +269,8 @@ void main() {
       );
       model.agendaItems.clear();
       model.agendaItems.addAll([
-        EventAgendaItem(id: '1', title: 'Item 1', sequence: 1),
-        EventAgendaItem(id: '2', title: 'Item 2', sequence: 2),
+        EventAgendaItem(id: '1', name: 'Item 1', sequence: 1),
+        EventAgendaItem(id: '2', name: 'Item 2', sequence: 2),
       ]);
 
       when(
@@ -283,46 +283,7 @@ void main() {
       await model.updateAgendaItemSequence('1', 2);
 
       expect(model.agendaItems.first.sequence, 2);
-      expect(model.agendaItems.first.title, 'Updated Item');
-    });
-    test('fetchAgendaItems success', () async {
-      final Event event1 = Event(id: "1");
-      model.event = event1;
-
-      final eventService = getAndRegisterEventService();
-      final mockResult = QueryResult(
-        source: QueryResultSource.network,
-        data: {
-          'agendaItemByEvent': [
-            {
-              'id': '1',
-              'title': 'Agenda 1',
-              'duration': '1h',
-              'sequence': 1,
-            },
-            {
-              'id': '2',
-              'title': 'Agenda 2',
-              'duration': '30m',
-              'sequence': 2,
-            },
-          ],
-        },
-        options: QueryOptions(
-          document: gql(EventQueries().fetchAgendaItemsByEvent('1')),
-        ),
-      );
-
-      when(eventService.fetchAgendaItems('1'))
-          .thenAnswer((_) async => mockResult);
-
-      await model.fetchAgendaItems();
-
-      expect(model.agendaItems.length, 2);
-      expect(model.agendaItems[0].title, 'Agenda 1');
-      expect(model.agendaItems[1].title, 'Agenda 2');
-      expect(model.agendaItems[0].sequence, 1);
-      expect(model.agendaItems[1].sequence, 2);
+      expect(model.agendaItems.first.name, 'Updated Item');
     });
 
     test('fetchCategories success', () async {

@@ -33,7 +33,13 @@ class ExploreEventsViewModel extends BaseModel {
   final List<Event> _userEvents = [];
   final Set<String> _uniqueEventIds = {};
   late StreamSubscription _currentOrganizationStreamSubscription;
-  late final List<Event> _bufferEvents;
+  final List<Event> _bufferEvents = [];
+
+  /// ScrollController to handle scrolling events.
+  final ScrollController scrollController = ScrollController();
+
+  /// Flag to indicate if pagination is in progress.
+  bool isPaginating = false;
 
   /// Getter method to retrieve the list of events.
   List<Event> get events => _events;
@@ -50,22 +56,6 @@ class ExploreEventsViewModel extends BaseModel {
   /// Getter method to retrieve the chosen value.
   String get chosenValue => _chosenValue;
 
-  /// This function is used to fetch new events in the organization.
-  ///
-  /// The function uses `getEvents` method from `EventService`.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> fetchNewEvents() async {
-    setState(ViewState.busy);
-    notifyListeners();
-    await _eventService.getEvents();
-    setState(ViewState.idle);
-  }
-
   /// This function is used to refresh the events in the organization.
   ///
   /// The function uses `getEvents` method from `EventService`.
@@ -80,7 +70,8 @@ class ExploreEventsViewModel extends BaseModel {
     _events.clear();
     _userEvents.clear();
     _uniqueEventIds.clear();
-    await _eventService.getEvents();
+    _bufferEvents.clear();
+    await _eventService.refreshFeed();
     setState(ViewState.idle);
   }
 
@@ -102,8 +93,40 @@ class ExploreEventsViewModel extends BaseModel {
         (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
       );
       await _eventService.fetchEventsInitial();
-      _bufferEvents = _events;
+      scrollController.addListener(_onScroll);
     }
+    setState(ViewState.idle);
+  }
+
+  /// This function is used to fetch new events in the organization while scrolling.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void _onScroll() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent - 50) {
+      if (!isPaginating && eventService.hasMoreEvents) {
+        fetchNextEvents();
+      }
+    }
+  }
+
+  /// This function is used to fetch the next page of events.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> fetchNextEvents() async {
+    print('Fetching next events...');
+    isPaginating = true;
+    setState(ViewState.busy);
+    await _eventService.nextPage();
+    isPaginating = false;
     setState(ViewState.idle);
   }
 
@@ -119,12 +142,12 @@ class ExploreEventsViewModel extends BaseModel {
       if (!_uniqueEventIds.contains(newEvent.id) &&
           newEvent.organization?.id == userConfig.currentOrg.id) {
         _uniqueEventIds.add(newEvent.id ?? '');
+        _bufferEvents.insert(0, newEvent);
         _events.insert(0, newEvent);
       }
-      // Insert if creator is null or matches current user
+
       if (!_userEvents.any((event) => event.id == newEvent.id) &&
-          (newEvent.creator == null ||
-              newEvent.creator?.id == userConfig.currentUser.id)) {
+          (newEvent.creator?.id == userConfig.currentUser.id)) {
         _userEvents.insert(0, newEvent);
       }
     }
@@ -162,7 +185,6 @@ class ExploreEventsViewModel extends BaseModel {
               _uniqueEventIds.remove(eventId);
               _events.removeWhere((element) => element.id == eventId);
               _userEvents.removeWhere((element) => element.id == eventId);
-              await Future.delayed(const Duration(milliseconds: 500));
               navigationService.pop(); // Dismiss progress dialog
               setState(ViewState.idle);
             },
@@ -207,7 +229,7 @@ class ExploreEventsViewModel extends BaseModel {
             // for the creator id matched the current user id.
             _events = List.from(
               _bufferEvents.where(
-                (element) => element.creator!.id == userConfig.currentUser.id,
+                (element) => element.creator?.id == userConfig.currentUser.id,
               ),
             );
             // if list is empty
@@ -223,7 +245,7 @@ class ExploreEventsViewModel extends BaseModel {
               _bufferEvents.where(
                 (element) =>
                     element.isRegistered == true &&
-                    element.creator!.id != userConfig.currentUser.id,
+                    element.creator?.id != userConfig.currentUser.id,
               ),
             );
             // if list is empty
@@ -261,12 +283,12 @@ class ExploreEventsViewModel extends BaseModel {
           }
       }
     }
-    await Future.delayed(const Duration(milliseconds: 500));
     setState(ViewState.idle);
   }
 
   @override
   void dispose() {
+    scrollController.dispose();
     _eventStreamSubscription?.cancel();
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();

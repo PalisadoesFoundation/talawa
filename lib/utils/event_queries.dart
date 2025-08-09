@@ -13,39 +13,39 @@ class EventQueries {
 
   String fetchOrgEvents() {
     return '''
-      query GetEventsByOrgID(
-        \$orgId: String!,
-        \$first: Int,
-        \$after: String
-      ) {
-        organization(input: { id: \$orgId }) {
-          events(first: \$first, after: \$after) {
-            edges {
-              node {
+    query GetEventsByOrgID(
+      \$orgId: String!,
+      \$first: Int,
+      \$after: String
+    ) {
+      organization(input: { id: \$orgId }) {
+        events(first: \$first, after: \$after) {
+          edges {
+            node {
+              id
+              name
+              description
+              startAt
+              endAt
+              allDay
+              location
+              isPublic
+              isRegisterable
+              organization {
                 id
                 name
-                description
-                startAt
-                endAt
-                allDay
-                location
-                isPublic
-                isRegisterable
-                organization{
-                  id
-                  name
-                }
               }
-              cursor
             }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
           }
         }
       }
-    ''';
+    }
+  ''';
   }
 
   /// Fetches attendees by event ID.
@@ -107,7 +107,7 @@ class EventQueries {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
       registerForEvent(id: \$eventId) {
-        _id
+        id
       }
      }
     """;
@@ -129,7 +129,7 @@ class EventQueries {
         removeEvent(
           id: "$id",
           ){
-            _id
+            id
           }
         }
     """;

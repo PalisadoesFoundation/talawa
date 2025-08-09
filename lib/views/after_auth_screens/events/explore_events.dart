@@ -86,6 +86,7 @@ class ExploreEvents extends StatelessWidget {
                   child: Stack(
                     children: [
                       SingleChildScrollView(
+                        controller: model.scrollController,
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -263,6 +264,14 @@ class ExploreEvents extends StatelessWidget {
                                         );
                                       },
                                     ),
+                              if (model.isPaginating &&
+                                  model.eventService.hasMoreEvents)
+                                const Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
                             ],
                           ),
                         ),

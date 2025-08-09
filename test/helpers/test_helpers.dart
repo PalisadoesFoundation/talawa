@@ -744,7 +744,7 @@ EventService getAndRegisterEventService() {
   final Stream<List<Event>> stream =
       streamController.stream.asBroadcastStream();
   when(service.eventStream).thenAnswer((invocation) => stream);
-  when(service.getEvents()).thenAnswer(
+  when(service.fetchEventsInitial()).thenAnswer(
     (invocation) async => streamController.add([
       Event(
         id: '1',

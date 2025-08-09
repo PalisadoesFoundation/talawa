@@ -87,17 +87,6 @@ void main() {
   });
 
   group('Explore Event Tests', () {
-    test("Test fetchNewEvents and refreshEvents", () async {
-      final model = ExploreEventsViewModel();
-      await model.initialise();
-      when(eventService.getEvents()).thenAnswer((realInvocation) async {});
-      await model.fetchNewEvents();
-      verify(eventService.getEvents());
-
-      model.refreshEvents();
-      verify(eventService.getEvents());
-    });
-
     test("Test checkIfExistsAndAddNewEvent function", () async {
       final model = ExploreEventsViewModel();
       await model.initialise();

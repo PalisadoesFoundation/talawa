@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -50,7 +50,7 @@ Widget createEditAgendaItemScreen() {
 
 EventAgendaItem testAgendaItem = EventAgendaItem(
   id: '1',
-  title: 'Test Agenda Item',
+  name: 'Test Agenda Item',
   description: 'Test Description',
   duration: '00:30',
   categories: [],

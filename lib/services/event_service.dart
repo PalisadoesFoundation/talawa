@@ -100,7 +100,6 @@ class EventService extends BaseFeedManager<Event> {
     final org = result.data!['organization'] as Map<String, dynamic>;
     final eventsMap = org['events'] as Map<String, dynamic>;
     pageInfo = PageInfo.fromJson(eventsMap['pageInfo'] as Map<String, dynamic>);
-
     final List<Event> newEvents = [];
     for (final edge in eventsMap['edges'] as List) {
       final event = Event.fromJson(
@@ -145,6 +144,26 @@ class EventService extends BaseFeedManager<Event> {
     _eventStreamController.add(_events);
   }
 
+  /// Fetches new events from the API and refreshes the cache.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> nextPage() async {
+    if (hasMoreEvents) {
+      after = pageInfo.endCursor;
+      first = 10;
+      final newEvents = await getNewFeedAndRefreshCache();
+      // Add new events to the existing list, avoiding duplicates
+      final existingIds = _events.map((e) => e.id).toSet();
+      _events.addAll(newEvents.where((e) => !existingIds.contains(e.id)));
+      _eventStreamController.add(_events);
+      await saveDataToCache(_events);
+    }
+  }
+
   /// This function is used to set stream subscription for an organization.
   ///
   /// **params**:
@@ -174,22 +193,6 @@ class EventService extends BaseFeedManager<Event> {
       variables: variables,
     );
     return result;
-  }
-
-  /// This function is used to fetch all the events of an organization.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> getEvents() async {
-    final List<Event> newEvents = await getNewFeedAndRefreshCache();
-    // Add new events to the existing list, avoiding duplicates
-    final existingIds = _events.map((e) => e.id).toSet();
-    _events.addAll(newEvents.where((e) => !existingIds.contains(e.id)));
-    _eventStreamController.add(_events);
-    await saveDataToCache(_events); // Save all events (old + new) to cache
   }
 
   /// This function is used to fetch all registrants of an event.

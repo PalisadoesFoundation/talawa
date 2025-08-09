@@ -18,7 +18,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
-import '../model_tests/user/user_info_test.dart';
 
 void main() {
   setUpAll(() {
@@ -176,82 +175,6 @@ void main() {
       );
       final services = EventService();
       services.fetchAttendeesByEvent('eventId');
-    });
-
-    test('Test getEvents method with pagination', () async {
-      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
-      final query = EventQueries().fetchOrgEvents();
-
-      // Mock the query with correct variables for pagination
-      when(
-        dataBaseMutationFunctions.gqlAuthQuery(
-          query,
-          variables: {
-            'orgId': 'XYZ',
-            'first': 10,
-            'after': null,
-          },
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(
-            document: gql(query),
-            variables: {
-              'orgId': 'XYZ',
-              'first': 10,
-              'after': null,
-            },
-          ),
-          data: {
-            'organization': {
-              'events': {
-                'edges': [
-                  {
-                    'node': {
-                      'id': '1234567890',
-                      'name': 'Sample Event',
-                      'description': 'This is a sample event description.',
-                      'location': 'Sample Location',
-                      'recurring': true,
-                      'allDay': false,
-                      'isPublic': true,
-                      'isRegistered': true,
-                      'isRegisterable': true,
-                      'creator': {
-                        'id': 'user123',
-                        'name': 'Creator Name',
-                        'email': 'creator@example.com',
-                      },
-                      'organization': {
-                        'id': 'org123',
-                        'name': 'Organization Name',
-                        'description': 'Sample organization description.',
-                      },
-                      'attendees': [
-                        testDataNotFromOrg,
-                      ],
-                    },
-                    'cursor': 'cursor1',
-                  }
-                ],
-                'pageInfo': {
-                  'hasNextPage': true,
-                  'endCursor': 'cursor1',
-                },
-              },
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final service = EventService();
-      await service.getEvents();
-
-      // Add your assertions here
-      expect(service.events.isNotEmpty, isTrue);
-      expect(service.pageInfo.hasNextPage, isTrue);
-      expect(service.pageInfo.endCursor, 'cursor1');
     });
 
     test('hasMoreEvents returns true when pageInfo.hasNextPage is true', () {

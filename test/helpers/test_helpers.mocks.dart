@@ -295,8 +295,9 @@ class _FakeFocusNode_19 extends _i2.SmartFake implements _i1.FocusNode {
       super.toString();
 }
 
-class _FakeEventService_20 extends _i2.SmartFake implements _i13.EventService {
-  _FakeEventService_20(
+class _FakeScrollController_20 extends _i2.SmartFake
+    implements _i1.ScrollController {
+  _FakeScrollController_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -305,9 +306,19 @@ class _FakeEventService_20 extends _i2.SmartFake implements _i13.EventService {
         );
 }
 
-class _FakeSystemFeatures_21 extends _i2.SmartFake
+class _FakeEventService_21 extends _i2.SmartFake implements _i13.EventService {
+  _FakeEventService_21(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSystemFeatures_22 extends _i2.SmartFake
     implements _i14.SystemFeatures {
-  _FakeSystemFeatures_21(
+  _FakeSystemFeatures_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -316,8 +327,8 @@ class _FakeSystemFeatures_21 extends _i2.SmartFake
         );
 }
 
-class _FakeThemeData_22 extends _i2.SmartFake implements _i1.ThemeData {
-  _FakeThemeData_22(
+class _FakeThemeData_23 extends _i2.SmartFake implements _i1.ThemeData {
+  _FakeThemeData_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -330,8 +341,8 @@ class _FakeThemeData_22 extends _i2.SmartFake implements _i1.ThemeData {
       super.toString();
 }
 
-class _FakeTimeOfDay_23 extends _i2.SmartFake implements _i1.TimeOfDay {
-  _FakeTimeOfDay_23(
+class _FakeTimeOfDay_24 extends _i2.SmartFake implements _i1.TimeOfDay {
+  _FakeTimeOfDay_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -340,8 +351,8 @@ class _FakeTimeOfDay_23 extends _i2.SmartFake implements _i1.TimeOfDay {
         );
 }
 
-class _FakeDateTime_24 extends _i2.SmartFake implements DateTime {
-  _FakeDateTime_24(
+class _FakeDateTime_25 extends _i2.SmartFake implements DateTime {
+  _FakeDateTime_25(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -350,8 +361,8 @@ class _FakeDateTime_24 extends _i2.SmartFake implements DateTime {
         );
 }
 
-class _FakeUserConfig_25 extends _i2.SmartFake implements _i15.UserConfig {
-  _FakeUserConfig_25(
+class _FakeUserConfig_26 extends _i2.SmartFake implements _i15.UserConfig {
+  _FakeUserConfig_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -360,9 +371,9 @@ class _FakeUserConfig_25 extends _i2.SmartFake implements _i15.UserConfig {
         );
 }
 
-class _FakeLostDataResponse_26 extends _i2.SmartFake
+class _FakeLostDataResponse_27 extends _i2.SmartFake
     implements _i16.LostDataResponse {
-  _FakeLostDataResponse_26(
+  _FakeLostDataResponse_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -371,8 +382,8 @@ class _FakeLostDataResponse_26 extends _i2.SmartFake
         );
 }
 
-class _FakeStore_27 extends _i2.SmartFake implements _i3.Store {
-  _FakeStore_27(
+class _FakeStore_28 extends _i2.SmartFake implements _i3.Store {
+  _FakeStore_28(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1494,6 +1505,16 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
       ) as _i7.Future<void>);
 
   @override
+  _i7.Future<void> nextPage() => (super.noSuchMethod(
+        Invocation.method(
+          #nextPage,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
   void setOrgStreamSubscription() => super.noSuchMethod(
         Invocation.method(
           #setOrgStreamSubscription,
@@ -1530,16 +1551,6 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
           ),
         )),
       ) as _i7.Future<_i3.QueryResult<Object?>>);
-
-  @override
-  _i7.Future<void> getEvents() => (super.noSuchMethod(
-        Invocation.method(
-          #getEvents,
-          [],
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
 
   @override
   _i7.Future<dynamic> fetchAttendeesByEvent(String? eventId) =>
@@ -3267,6 +3278,35 @@ class MockExploreEventsViewModel extends _i2.Mock
       );
 
   @override
+  _i1.ScrollController get scrollController => (super.noSuchMethod(
+        Invocation.getter(#scrollController),
+        returnValue: _FakeScrollController_20(
+          this,
+          Invocation.getter(#scrollController),
+        ),
+        returnValueForMissingStub: _FakeScrollController_20(
+          this,
+          Invocation.getter(#scrollController),
+        ),
+      ) as _i1.ScrollController);
+
+  @override
+  bool get isPaginating => (super.noSuchMethod(
+        Invocation.getter(#isPaginating),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isPaginating(bool? _isPaginating) => super.noSuchMethod(
+        Invocation.setter(
+          #isPaginating,
+          _isPaginating,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<_i24.Event> get events => (super.noSuchMethod(
         Invocation.getter(#events),
         returnValue: <_i24.Event>[],
@@ -3283,11 +3323,11 @@ class MockExploreEventsViewModel extends _i2.Mock
   @override
   _i13.EventService get eventService => (super.noSuchMethod(
         Invocation.getter(#eventService),
-        returnValue: _FakeEventService_20(
+        returnValue: _FakeEventService_21(
           this,
           Invocation.getter(#eventService),
         ),
-        returnValueForMissingStub: _FakeEventService_20(
+        returnValueForMissingStub: _FakeEventService_21(
           this,
           Invocation.getter(#eventService),
         ),
@@ -3341,16 +3381,6 @@ class MockExploreEventsViewModel extends _i2.Mock
       ) as bool);
 
   @override
-  _i7.Future<void> fetchNewEvents() => (super.noSuchMethod(
-        Invocation.method(
-          #fetchNewEvents,
-          [],
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-
-  @override
   _i7.Future<void> refreshEvents() => (super.noSuchMethod(
         Invocation.method(
           #refreshEvents,
@@ -3364,6 +3394,16 @@ class MockExploreEventsViewModel extends _i2.Mock
   _i7.Future<void> initialise() => (super.noSuchMethod(
         Invocation.method(
           #initialise,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> fetchNextEvents() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchNextEvents,
           [],
         ),
         returnValue: _i7.Future<void>.value(),
@@ -3805,7 +3845,7 @@ class MockQRViewController extends _i2.Mock implements _i36.QRViewController {
           [],
         ),
         returnValue:
-            _i7.Future<_i14.SystemFeatures>.value(_FakeSystemFeatures_21(
+            _i7.Future<_i14.SystemFeatures>.value(_FakeSystemFeatures_22(
           this,
           Invocation.method(
             #getSystemFeatures,
@@ -3813,7 +3853,7 @@ class MockQRViewController extends _i2.Mock implements _i36.QRViewController {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i14.SystemFeatures>.value(_FakeSystemFeatures_21(
+            _i7.Future<_i14.SystemFeatures>.value(_FakeSystemFeatures_22(
           this,
           Invocation.method(
             #getSystemFeatures,
@@ -3917,11 +3957,11 @@ class MockAppTheme extends _i2.Mock implements _i40.AppTheme {
   @override
   _i1.ThemeData get theme => (super.noSuchMethod(
         Invocation.getter(#theme),
-        returnValue: _FakeThemeData_22(
+        returnValue: _FakeThemeData_23(
           this,
           Invocation.getter(#theme),
         ),
-        returnValueForMissingStub: _FakeThemeData_22(
+        returnValueForMissingStub: _FakeThemeData_23(
           this,
           Invocation.getter(#theme),
         ),
@@ -4144,11 +4184,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.TimeOfDay get eventStartTime => (super.noSuchMethod(
         Invocation.getter(#eventStartTime),
-        returnValue: _FakeTimeOfDay_23(
+        returnValue: _FakeTimeOfDay_24(
           this,
           Invocation.getter(#eventStartTime),
         ),
-        returnValueForMissingStub: _FakeTimeOfDay_23(
+        returnValueForMissingStub: _FakeTimeOfDay_24(
           this,
           Invocation.getter(#eventStartTime),
         ),
@@ -4166,11 +4206,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   _i1.TimeOfDay get eventEndTime => (super.noSuchMethod(
         Invocation.getter(#eventEndTime),
-        returnValue: _FakeTimeOfDay_23(
+        returnValue: _FakeTimeOfDay_24(
           this,
           Invocation.getter(#eventEndTime),
         ),
-        returnValueForMissingStub: _FakeTimeOfDay_23(
+        returnValueForMissingStub: _FakeTimeOfDay_24(
           this,
           Invocation.getter(#eventEndTime),
         ),
@@ -4188,11 +4228,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get eventStartDate => (super.noSuchMethod(
         Invocation.getter(#eventStartDate),
-        returnValue: _FakeDateTime_24(
+        returnValue: _FakeDateTime_25(
           this,
           Invocation.getter(#eventStartDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_24(
+        returnValueForMissingStub: _FakeDateTime_25(
           this,
           Invocation.getter(#eventStartDate),
         ),
@@ -4210,11 +4250,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get eventEndDate => (super.noSuchMethod(
         Invocation.getter(#eventEndDate),
-        returnValue: _FakeDateTime_24(
+        returnValue: _FakeDateTime_25(
           this,
           Invocation.getter(#eventEndDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_24(
+        returnValueForMissingStub: _FakeDateTime_25(
           this,
           Invocation.getter(#eventEndDate),
         ),
@@ -4232,11 +4272,11 @@ class MockCreateEventViewModel extends _i2.Mock
   @override
   DateTime get recurrenceStartDate => (super.noSuchMethod(
         Invocation.getter(#recurrenceStartDate),
-        returnValue: _FakeDateTime_24(
+        returnValue: _FakeDateTime_25(
           this,
           Invocation.getter(#recurrenceStartDate),
         ),
-        returnValueForMissingStub: _FakeDateTime_24(
+        returnValueForMissingStub: _FakeDateTime_25(
           this,
           Invocation.getter(#recurrenceStartDate),
         ),
@@ -4753,11 +4793,11 @@ class MockDirectChatViewModel extends _i2.Mock
   @override
   _i15.UserConfig get userConfig => (super.noSuchMethod(
         Invocation.getter(#userConfig),
-        returnValue: _FakeUserConfig_25(
+        returnValue: _FakeUserConfig_26(
           this,
           Invocation.getter(#userConfig),
         ),
-        returnValueForMissingStub: _FakeUserConfig_25(
+        returnValueForMissingStub: _FakeUserConfig_26(
           this,
           Invocation.getter(#userConfig),
         ),
@@ -4976,11 +5016,11 @@ class MockSelectContactViewModel extends _i2.Mock
   @override
   _i15.UserConfig get userConfig => (super.noSuchMethod(
         Invocation.getter(#userConfig),
-        returnValue: _FakeUserConfig_25(
+        returnValue: _FakeUserConfig_26(
           this,
           Invocation.getter(#userConfig),
         ),
-        returnValueForMissingStub: _FakeUserConfig_25(
+        returnValueForMissingStub: _FakeUserConfig_26(
           this,
           Invocation.getter(#userConfig),
         ),
@@ -5282,7 +5322,7 @@ class MockImagePicker extends _i2.Mock implements _i16.ImagePicker {
           [],
         ),
         returnValue:
-            _i7.Future<_i16.LostDataResponse>.value(_FakeLostDataResponse_26(
+            _i7.Future<_i16.LostDataResponse>.value(_FakeLostDataResponse_27(
           this,
           Invocation.method(
             #retrieveLostData,
@@ -5290,7 +5330,7 @@ class MockImagePicker extends _i2.Mock implements _i16.ImagePicker {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i16.LostDataResponse>.value(_FakeLostDataResponse_26(
+            _i7.Future<_i16.LostDataResponse>.value(_FakeLostDataResponse_27(
           this,
           Invocation.method(
             #retrieveLostData,
@@ -5317,11 +5357,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
   @override
   _i3.Store get store => (super.noSuchMethod(
         Invocation.getter(#store),
-        returnValue: _FakeStore_27(
+        returnValue: _FakeStore_28(
           this,
           Invocation.getter(#store),
         ),
-        returnValueForMissingStub: _FakeStore_27(
+        returnValueForMissingStub: _FakeStore_28(
           this,
           Invocation.getter(#store),
         ),

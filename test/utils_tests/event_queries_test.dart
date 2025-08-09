@@ -63,7 +63,7 @@ void main() {
       const data = """
      mutation registerForEvent(\$eventId: ID!) { 
       registerForEvent(id: \$eventId) {
-        _id
+        id
       }
      }
     """;
@@ -78,7 +78,7 @@ void main() {
         removeEvent(
           id: "sampleID",
           ){
-            _id
+            id
           }
         }
     """;

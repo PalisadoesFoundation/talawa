@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_agenda_category.dart';
-import 'package:talawa/models/events/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/services/event_service.dart';
@@ -99,7 +99,6 @@ class EventInfoViewModel extends BaseModel {
       fabTitle = getFabTitle();
       navigationService.pop();
       notifyListeners();
-      await locator<EventService>().getEvents();
     }
   }
 
@@ -231,14 +230,7 @@ class EventInfoViewModel extends BaseModel {
   ///   None
   Future<void> fetchAgendaItems() async {
     try {
-      final result = await locator<EventService>()
-          .fetchAgendaItems(event.id ?? '') as QueryResult;
-
-      if (result.data == null) return;
-      final List agendaJson = result.data!['agendaItemByEvent'] as List;
-      _agendaItems = agendaJson
-          .map((json) => EventAgendaItem.fromJson(json as Map<String, dynamic>))
-          .toList();
+      _agendaItems = event.agendaItems ?? [];
       _agendaItems.sort((a, b) => a.sequence!.compareTo(b.sequence!));
       notifyListeners();
     } catch (e) {

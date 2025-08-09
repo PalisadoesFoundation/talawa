@@ -262,9 +262,6 @@ class CreateEventViewModel extends BaseModel {
         }
         return databaseFunctions.noData;
       },
-      onValidResult: (result) async {
-        await _eventService.getEvents();
-      },
       updateUI: () {
         navigationService.pop();
       },

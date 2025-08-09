@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -24,6 +25,7 @@ class Event {
     this.creator,
     this.organization,
     this.admins,
+    this.agendaItems,
   });
   //Creating a new Event instance from a map structure.
   factory Event.fromJson(
@@ -45,6 +47,9 @@ class Event {
       isPublic: json['isPublic'] as bool?,
       isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,
+      creator: json['creator'] == null
+          ? null
+          : User.fromJson(json['creator'] as Map<String, dynamic>),
       organization: json['organization'] == null
           ? null
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
@@ -52,6 +57,11 @@ class Event {
           ? null
           : (json['attendees'] as List<dynamic>?)
               ?.map((e) => Attendee.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      agendaItems: json['agendaItems'] == null
+          ? null
+          : (json['agendaItems'] as List<dynamic>)
+              .map((e) => EventAgendaItem.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
   }
@@ -131,6 +141,10 @@ class Event {
   /// The attendees of the event.
   @HiveField(16)
   List<Attendee>? attendees;
+
+  /// Agenda items associated with the event.
+  @HiveField(17)
+  List<EventAgendaItem>? agendaItems;
 }
 
 ///This class creates an attendee model and returns an Attendee instance.

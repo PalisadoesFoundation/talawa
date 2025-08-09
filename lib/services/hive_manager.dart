@@ -8,6 +8,7 @@ import 'package:talawa/models/asymetric_keys/asymetric_keys.dart';
 import 'package:talawa/models/attachments/attachment_model.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/models/comment/comment_model.dart';
+import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -107,6 +108,7 @@ class HiveManager {
     registerAdapter<Attendee>(AttendeeAdapter());
     registerAdapter<Comment>(CommentAdapter());
     registerAdapter<AttachmentModel>(AttachmentModelAdapter());
+    registerAdapter<EventAgendaItem>(EventAgendaItemAdapter());
   }
 
   /// Opens the necessary Hive boxes for storing various types of data.
