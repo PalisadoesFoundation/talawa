@@ -172,6 +172,7 @@ void main() {
       bool refreshed = false;
       when(mockViewModel.fetchNewPosts()).thenAnswer((_) {
         refreshed = true;
+        return Future.delayed(Duration.zero);
       });
       await tester.drag(
         find.byType(RefreshIndicator),

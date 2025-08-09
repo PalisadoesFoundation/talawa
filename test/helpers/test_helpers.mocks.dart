@@ -9,6 +9,8 @@ import 'dart:ui' as _i11;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i12;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i50;
+import 'package:graphql/src/utilities/helpers.dart' as _i49;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
 import 'package:image_cropper/src/cropper.dart' as _i46;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
@@ -16,6 +18,7 @@ import 'package:image_cropper_platform_interface/image_cropper_platform_interfac
 import 'package:image_picker/image_picker.dart' as _i16;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i21;
+import 'package:normalize/normalize.dart' as _i48;
 import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i36;
 import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i37;
 import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i38;
@@ -368,6 +371,16 @@ class _FakeLostDataResponse_26 extends _i2.SmartFake
         );
 }
 
+class _FakeStore_27 extends _i2.SmartFake implements _i3.Store {
+  _FakeStore_27(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -606,6 +619,17 @@ class MockGraphqlConfig extends _i2.Mock implements _i18.GraphqlConfig {
       );
 
   @override
+  _i7.Future<Map<String, String>> getInitialPayload() => (super.noSuchMethod(
+        Invocation.method(
+          #getInitialPayload,
+          [],
+        ),
+        returnValue: _i7.Future<Map<String, String>>.value(<String, String>{}),
+        returnValueForMissingStub:
+            _i7.Future<Map<String, String>>.value(<String, String>{}),
+      ) as _i7.Future<Map<String, String>>);
+
+  @override
   _i3.GraphQLClient clientToQuery() => (super.noSuchMethod(
         Invocation.method(
           #clientToQuery,
@@ -648,6 +672,16 @@ class MockGraphqlConfig extends _i2.Mock implements _i18.GraphqlConfig {
           ),
         ),
       ) as _i3.GraphQLClient);
+
+  @override
+  bool isSubscriptionRequest(_i3.Request? request) => (super.noSuchMethod(
+        Invocation.method(
+          #isSubscriptionRequest,
+          [request],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
   void test() => super.noSuchMethod(
@@ -1342,6 +1376,53 @@ class MockMultiMediaPickerService extends _i2.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockEventService extends _i2.Mock implements _i13.EventService {
   @override
+  _i4.PageInfo get pageInfo => (super.noSuchMethod(
+        Invocation.getter(#pageInfo),
+        returnValue: _FakePageInfo_9(
+          this,
+          Invocation.getter(#pageInfo),
+        ),
+        returnValueForMissingStub: _FakePageInfo_9(
+          this,
+          Invocation.getter(#pageInfo),
+        ),
+      ) as _i4.PageInfo);
+
+  @override
+  set pageInfo(_i4.PageInfo? _pageInfo) => super.noSuchMethod(
+        Invocation.setter(
+          #pageInfo,
+          _pageInfo,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set after(String? _after) => super.noSuchMethod(
+        Invocation.setter(
+          #after,
+          _after,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set first(int? _first) => super.noSuchMethod(
+        Invocation.setter(
+          #first,
+          _first,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasMoreEvents => (super.noSuchMethod(
+        Invocation.getter(#hasMoreEvents),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   _i7.Stream<List<_i24.Event>> get eventStream => (super.noSuchMethod(
         Invocation.getter(#eventStream),
         returnValue: _i7.Stream<List<_i24.Event>>.empty(),
@@ -1360,6 +1441,13 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
           Invocation.getter(#currentOrg),
         ),
       ) as _i5.OrgInfo);
+
+  @override
+  List<_i24.Event> get events => (super.noSuchMethod(
+        Invocation.getter(#events),
+        returnValue: <_i24.Event>[],
+        returnValueForMissingStub: <_i24.Event>[],
+      ) as List<_i24.Event>);
 
   @override
   String get cacheKey => (super.noSuchMethod(
@@ -2031,7 +2119,7 @@ class MockUserConfig extends _i2.Mock implements _i15.UserConfig {
       ) as _i7.Future<_i3.QueryResult<Object?>>);
 
   @override
-  _i7.Future<void> updateUserJoinedOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i7.Future<void> updateUserJoinedOrg(_i5.OrgInfo? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserJoinedOrg,
@@ -2960,6 +3048,15 @@ class MockDataBaseMutationFunctions extends _i2.Mock
       );
 
   @override
+  void clearGraphQLCache() => super.noSuchMethod(
+        Invocation.method(
+          #clearGraphQLCache,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i7.Future<_i3.QueryResult<Object?>> gqlAuthQuery(
     String? query, {
     Map<String, dynamic>? variables,
@@ -3420,23 +3517,25 @@ class MockOrganizationFeedViewModel extends _i2.Mock
       ) as bool);
 
   @override
-  void setCurrentOrganizationName(String? updatedOrganization) =>
-      super.noSuchMethod(
+  _i7.Future<void> setCurrentOrganizationName(String? updatedOrganization) =>
+      (super.noSuchMethod(
         Invocation.method(
           #setCurrentOrganizationName,
           [updatedOrganization],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  void fetchNewPosts() => super.noSuchMethod(
+  _i7.Future<void> fetchNewPosts() => (super.noSuchMethod(
         Invocation.method(
           #fetchNewPosts,
           [],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   _i7.Future<void> initialise() => (super.noSuchMethod(
@@ -5209,6 +5308,340 @@ class MockImagePicker extends _i2.Mock implements _i16.ImagePicker {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+}
+
+/// A class which mocks [GraphQLCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
+  @override
+  _i3.Store get store => (super.noSuchMethod(
+        Invocation.getter(#store),
+        returnValue: _FakeStore_27(
+          this,
+          Invocation.getter(#store),
+        ),
+        returnValueForMissingStub: _FakeStore_27(
+          this,
+          Invocation.getter(#store),
+        ),
+      ) as _i3.Store);
+
+  @override
+  _i3.PartialDataCachePolicy get partialDataPolicy => (super.noSuchMethod(
+        Invocation.getter(#partialDataPolicy),
+        returnValue: _i3.PartialDataCachePolicy.accept,
+        returnValueForMissingStub: _i3.PartialDataCachePolicy.accept,
+      ) as _i3.PartialDataCachePolicy);
+
+  @override
+  Map<String, _i48.TypePolicy> get typePolicies => (super.noSuchMethod(
+        Invocation.getter(#typePolicies),
+        returnValue: <String, _i48.TypePolicy>{},
+        returnValueForMissingStub: <String, _i48.TypePolicy>{},
+      ) as Map<String, _i48.TypePolicy>);
+
+  @override
+  Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
+        Invocation.getter(#possibleTypes),
+        returnValue: <String, Set<String>>{},
+        returnValueForMissingStub: <String, Set<String>>{},
+      ) as Map<String, Set<String>>);
+
+  @override
+  _i49.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+        Invocation.getter(#sanitizeVariables),
+        returnValue: (Map<String, dynamic> variables) => null,
+        returnValueForMissingStub: (Map<String, dynamic> variables) => null,
+      ) as _i49.SanitizeVariables);
+
+  @override
+  int get inflightOptimisticTransactions => (super.noSuchMethod(
+        Invocation.getter(#inflightOptimisticTransactions),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set inflightOptimisticTransactions(int? _inflightOptimisticTransactions) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #inflightOptimisticTransactions,
+          _inflightOptimisticTransactions,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<_i50.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+        Invocation.getter(#optimisticPatches),
+        returnValue: <_i50.OptimisticPatch>[],
+        returnValueForMissingStub: <_i50.OptimisticPatch>[],
+      ) as List<_i50.OptimisticPatch>);
+
+  @override
+  set optimisticPatches(List<_i50.OptimisticPatch>? _optimisticPatches) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #optimisticPatches,
+          _optimisticPatches,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get acceptPartialData => (super.noSuchMethod(
+        Invocation.getter(#acceptPartialData),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get addTypename => (super.noSuchMethod(
+        Invocation.getter(#addTypename),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set addTypename(bool? _addTypename) => super.noSuchMethod(
+        Invocation.setter(
+          #addTypename,
+          _addTypename,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get broadcastRequested => (super.noSuchMethod(
+        Invocation.getter(#broadcastRequested),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set broadcastRequested(bool? _broadcastRequested) => super.noSuchMethod(
+        Invocation.setter(
+          #broadcastRequested,
+          _broadcastRequested,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set sanitizeVariables(_i49.SanitizeVariables? _sanitizeVariables) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #sanitizeVariables,
+          _sanitizeVariables,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get returnPartialData => (super.noSuchMethod(
+        Invocation.getter(#returnPartialData),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool shouldBroadcast({bool? claimExecution = false}) => (super.noSuchMethod(
+        Invocation.method(
+          #shouldBroadcast,
+          [],
+          {#claimExecution: claimExecution},
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  Map<String, dynamic>? readNormalized(
+    String? rootId, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readNormalized,
+          [rootId],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void writeNormalized(
+    String? dataId,
+    Map<String, dynamic>? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeNormalized,
+          [
+            dataId,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void recordOptimisticTransaction(
+    _i50.CacheTransaction? transaction,
+    String? addId,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #recordOptimisticTransaction,
+          [
+            transaction,
+            addId,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeOptimisticPatch(String? removeId) => super.noSuchMethod(
+        Invocation.method(
+          #removeOptimisticPatch,
+          [removeId],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, dynamic>? readQuery(
+    _i3.Request? request, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readQuery,
+          [request],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  Map<String, dynamic>? readFragment(
+    _i3.FragmentRequest? fragmentRequest, {
+    bool? optimistic = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readFragment,
+          [fragmentRequest],
+          {#optimistic: optimistic},
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void writeQuery(
+    _i3.Request? request, {
+    required Map<String, dynamic>? data,
+    bool? broadcast = true,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeQuery,
+          [request],
+          {
+            #data: data,
+            #broadcast: broadcast,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void writeFragment(
+    _i3.FragmentRequest? request, {
+    required Map<String, dynamic>? data,
+    bool? broadcast = true,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #writeFragment,
+          [request],
+          {
+            #data: data,
+            #broadcast: broadcast,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [Store].
+///
+/// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
+class MockStore extends _i2.Mock implements _i3.Store {
+  @override
+  Map<String, dynamic>? get(String? dataId) => (super.noSuchMethod(
+        Invocation.method(
+          #get,
+          [dataId],
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
+  void put(
+    String? dataId,
+    Map<String, dynamic>? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #put,
+          [
+            dataId,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void putAll(Map<String, Map<String, dynamic>?>? data) => super.noSuchMethod(
+        Invocation.method(
+          #putAll,
+          [data],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void delete(String? dataId) => super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [dataId],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void reset() => super.noSuchMethod(
+        Invocation.method(
+          #reset,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, Map<String, dynamic>?> toMap() => (super.noSuchMethod(
+        Invocation.method(
+          #toMap,
+          [],
+        ),
+        returnValue: <String, Map<String, dynamic>?>{},
+        returnValueForMissingStub: <String, Map<String, dynamic>?>{},
+      ) as Map<String, Map<String, dynamic>?>);
 }
 
 /// A class which mocks [PageInfo].
