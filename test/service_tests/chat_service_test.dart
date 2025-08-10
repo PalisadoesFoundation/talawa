@@ -314,7 +314,12 @@ void main() {
       });
 
       test('returns empty list when userId is null', () async {
-        when(mockUserConfig.currentUser).thenReturn(User(id: null));
+        when(mockUserConfig.currentUser).thenReturn(
+          User(
+            id: null,
+            authToken: 'valid-token',
+          ),
+        );
 
         final result = await chatService.getChatsByUser();
 
