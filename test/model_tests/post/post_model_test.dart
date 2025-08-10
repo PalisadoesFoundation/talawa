@@ -225,5 +225,107 @@ void main() {
       await post2.getPresignedUrl('org1');
       // No assertion needed, just checking for no exceptions
     });
+
+    test('getPresignedUrl handles API call exception (catch block)', () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      // Mock the API call to throw an exception
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenThrow(Exception('Network error'));
+
+      await post.getPresignedUrl('org1');
+
+      // Should set fallback URL when exception occurs
+      expect(
+        post.attachments!.first.url,
+        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
+      );
+    });
+
+    test('getPresignedUrl handles MinIO URL detection and uses fallback',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      // Test MinIO hostname with colon
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': 'http://minio:9000/bucket/file.txt',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(
+        post.attachments!.first.url,
+        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
+      );
+
+      // Reset for second test
+      attachment.url = null;
+
+      // Test MinIO hostname with slash
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createGetfileUrl': {
+              'presignedUrl': 'http://example.com/minio/bucket/file.txt',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(
+        post.attachments!.first.url,
+        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
+      );
+    });
+
+    test('getPresignedUrl handles response without expected data structure',
+        () async {
+      final attachment = AttachmentModel(name: 'file.txt', url: null);
+      final post = Post(attachments: [attachment]);
+
+      final query = PostQueries().getPresignedUrl();
+      final variables = {"objectName": 'file.txt', "organizationId": 'org1'};
+
+      // Mock response without 'createGetfileUrl' key
+      when(databaseFunctions.gqlAuthMutation(query, variables: variables))
+          .thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'someOtherKey': 'someValue',
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await post.getPresignedUrl('org1');
+
+      expect(
+        post.attachments!.first.url,
+        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
+      );
+    });
   });
 }
