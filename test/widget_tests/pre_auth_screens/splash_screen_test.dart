@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -57,16 +56,7 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
       darkTheme: TalawaTheme.darkTheme,
     );
 
-Future<void> main() async {
-  // Disable stack trace demangling for non-standard environments (e.g., CI)
-  // This ensures consistent stack traces across different environments and
-  // makes test failures more debuggable in CI pipelines
-  FlutterError.demangleStackTrace = (StackTrace stack) {
-    if (stack is Trace) return stack.vmTrace;
-    if (stack is Chain) return stack.toTrace().vmTrace;
-    return stack;
-  };
-
+void main() {
   late MockAppLinks mockAppLinks;
   late MockUserConfig mockUserConfig;
   setUpAll(() {
@@ -384,9 +374,8 @@ Future<void> main() async {
 
         // Act
         await tester.pumpWidget(createSplashScreenLight());
-        await tester.pumpWidget(Container()); // Force dispose
 
-        await tester.pumpAndSettle();
+        await tester.pump();
 
         // No explicit assert needed - test will fail if subscription isn't properly canceled
       });
