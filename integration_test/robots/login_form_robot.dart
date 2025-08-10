@@ -69,8 +69,7 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _openLoginForm() async {
-    await tester.pumpAndSettle(const Duration(seconds: 3));
-    await tester.pumpAndSettle(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
     final Finder dismissButton = find.text('Dismiss');
     if (dismissButton.evaluate().isNotEmpty) {
       devPrint("Dismiss button found, tapping it");
@@ -87,12 +86,12 @@ class LoginFormRobot {
     final ScaffoldState scaffoldState = tester.state(scaffoldFinder);
     scaffoldState.openDrawer();
 
-    await tester.pumpAndSettle(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
     await tester.tap(find.widgetWithIcon(ListTile, Icons.add));
-    await tester.pumpAndSettle(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
     final Finder loginButton = find.text('Login');
     await tester.tap(loginButton);
-    await tester.pumpAndSettle(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
   }
 
   /// Enter credentials in the Login Form.
