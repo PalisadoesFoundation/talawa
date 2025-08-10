@@ -55,6 +55,8 @@ import 'package:talawa/view_model/widgets_view_models/interactions_view_model.da
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/demo_page_view.dart';
 
+import 'test_helpers.mocks.dart';
+
 GetIt locator = GetIt.instance;
 final userConfig = locator<UserConfig>();
 final navigationService = locator<NavigationService>();
@@ -79,7 +81,7 @@ final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
 final pinnedPostService = locator<PinnedPostService>();
-
+final appLinks = locator<AppLinks>();
 void testSetupLocator() {
   locator.registerSingleton(CacheService());
 
@@ -160,5 +162,5 @@ void testSetupLocator() {
   locator.registerFactory(() => UserProfileService());
 
   //AppLinks
-  locator.registerSingleton(AppLinks());
+  locator.registerSingleton<AppLinks>(MockAppLinks());
 }

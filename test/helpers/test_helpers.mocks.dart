@@ -7,6 +7,7 @@ import 'dart:async' as _i7;
 import 'dart:io' as _i24;
 import 'dart:ui' as _i11;
 
+import 'package:app_links/src/app_links.dart' as _i53;
 import 'package:flutter/gestures.dart' as _i17;
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter/rendering.dart' as _i52;
@@ -3366,6 +3367,16 @@ class MockExploreEventsViewModel extends _i2.Mock
       ) as _i1.ScrollController);
 
   @override
+  set scrollController(_i1.ScrollController? _scrollController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #scrollController,
+          _scrollController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get isPaginating => (super.noSuchMethod(
         Invocation.getter(#isPaginating),
         returnValue: false,
@@ -3433,6 +3444,20 @@ class MockExploreEventsViewModel extends _i2.Mock
           Invocation.getter(#chosenValue),
         ),
       ) as String);
+
+  @override
+  Set<String> get uniqueEventIds => (super.noSuchMethod(
+        Invocation.getter(#uniqueEventIds),
+        returnValue: <String>{},
+        returnValueForMissingStub: <String>{},
+      ) as Set<String>);
+
+  @override
+  List<_i25.Event> get bufferEvents => (super.noSuchMethod(
+        Invocation.getter(#bufferEvents),
+        returnValue: <_i25.Event>[],
+        returnValueForMissingStub: <_i25.Event>[],
+      ) as List<_i25.Event>);
 
   @override
   _i18.ViewState get state => (super.noSuchMethod(
@@ -6670,4 +6695,63 @@ class MockScrollPosition extends _i2.Mock implements _i1.ScrollPosition {
           ),
         ),
       ) as _i1.ScrollMetrics);
+}
+
+/// A class which mocks [AppLinks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppLinks extends _i2.Mock implements _i53.AppLinks {
+  @override
+  _i7.Stream<String> get stringLinkStream => (super.noSuchMethod(
+        Invocation.getter(#stringLinkStream),
+        returnValue: _i7.Stream<String>.empty(),
+        returnValueForMissingStub: _i7.Stream<String>.empty(),
+      ) as _i7.Stream<String>);
+
+  @override
+  _i7.Stream<Uri> get uriLinkStream => (super.noSuchMethod(
+        Invocation.getter(#uriLinkStream),
+        returnValue: _i7.Stream<Uri>.empty(),
+        returnValueForMissingStub: _i7.Stream<Uri>.empty(),
+      ) as _i7.Stream<Uri>);
+
+  @override
+  _i7.Future<Uri?> getInitialLink() => (super.noSuchMethod(
+        Invocation.method(
+          #getInitialLink,
+          [],
+        ),
+        returnValue: _i7.Future<Uri?>.value(),
+        returnValueForMissingStub: _i7.Future<Uri?>.value(),
+      ) as _i7.Future<Uri?>);
+
+  @override
+  _i7.Future<String?> getInitialLinkString() => (super.noSuchMethod(
+        Invocation.method(
+          #getInitialLinkString,
+          [],
+        ),
+        returnValue: _i7.Future<String?>.value(),
+        returnValueForMissingStub: _i7.Future<String?>.value(),
+      ) as _i7.Future<String?>);
+
+  @override
+  _i7.Future<Uri?> getLatestLink() => (super.noSuchMethod(
+        Invocation.method(
+          #getLatestLink,
+          [],
+        ),
+        returnValue: _i7.Future<Uri?>.value(),
+        returnValueForMissingStub: _i7.Future<Uri?>.value(),
+      ) as _i7.Future<Uri?>);
+
+  @override
+  _i7.Future<String?> getLatestLinkString() => (super.noSuchMethod(
+        Invocation.method(
+          #getLatestLinkString,
+          [],
+        ),
+        returnValue: _i7.Future<String?>.value(),
+        returnValueForMissingStub: _i7.Future<String?>.value(),
+      ) as _i7.Future<String?>);
 }
