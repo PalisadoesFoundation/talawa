@@ -115,6 +115,10 @@ class Post {
   @HiveField(12)
   DateTime? pinnedAt;
 
+  /// Fallback URL for post attachments.
+  static const String fallbackAttachmentUrl =
+      'https://avatars.githubusercontent.com/u/24500036?s=280&v=4';
+
   /// this is to get duration of post.
   ///
   /// **params**:

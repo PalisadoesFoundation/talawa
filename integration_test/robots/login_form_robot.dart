@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
 
+import "../helper.dart";
+
 /// A robot class to automate interactions with the login form during integration tests.
 class LoginFormRobot {
   const LoginFormRobot(this.tester);
@@ -52,7 +54,7 @@ class LoginFormRobot {
     await tester.tap(selectLanguageButton);
     await tester.pump(const Duration(milliseconds: 500));
     await tester.tap(find.text('Skip'));
-    print("Language selected");
+    devPrint("Language selected");
   }
 
   /// Opens Login Form.
@@ -71,11 +73,11 @@ class LoginFormRobot {
     await tester.pumpAndSettle(const Duration(seconds: 3));
     final Finder dismissButton = find.text('Dismiss');
     if (dismissButton.evaluate().isNotEmpty) {
-      print("Dismiss button found, tapping it");
+      devPrint("Dismiss button found, tapping it");
       await tester.tap(dismissButton);
       await tester.pumpAndSettle(const Duration(seconds: 2));
     } else {
-      print("Dismiss button not found, continuing...");
+      devPrint("Dismiss button not found, continuing...");
     }
     final scaffoldFinder = find.byKey(const Key('MainScaffold'));
     // final scaffoldFinder = find.byType(Scaffold);

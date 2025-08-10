@@ -29,7 +29,7 @@ void main() {
       (WidgetTester tester) async {
         app.main();
 
-        await tester.pumpAndSettle(const Duration(seconds: 20));
+        await tester.pumpAndSettle();
 
         final graphqlConfig = locator<GraphqlConfig>();
         graphqlConfig.initializeForTesting(dotenv.get('API_URL'));

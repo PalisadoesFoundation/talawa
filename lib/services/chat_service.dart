@@ -144,7 +144,7 @@ class ChatService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<List<Chat>?>`: List of chats if successful, empty list if authentication fails, null if other errors
+  /// * `Future<List<Chat>?>`: List of chats if successful, or an empty list on failures (authentication or other errors)
   Future<List<Chat>?> getChatsByUser() async {
     if (_userConfig.currentUser.authToken == null ||
         _userConfig.currentUser.authToken!.isEmpty) {

@@ -202,10 +202,7 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(
-        post.attachments!.first.url,
-        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
-      );
+      expect(post.attachments!.first.url, Post.fallbackAttachmentUrl);
     });
 
     test('getPresignedUrl returns early if id is null or empty', () async {
@@ -240,10 +237,7 @@ void main() {
       await post.getPresignedUrl('org1');
 
       // Should set fallback URL when exception occurs
-      expect(
-        post.attachments!.first.url,
-        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
-      );
+      expect(post.attachments!.first.url, Post.fallbackAttachmentUrl);
     });
 
     test('getPresignedUrl handles MinIO URL detection and uses fallback',
@@ -270,10 +264,7 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(
-        post.attachments!.first.url,
-        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
-      );
+      expect(post.attachments!.first.url, Post.fallbackAttachmentUrl);
 
       // Reset for second test
       attachment.url = null;
@@ -294,10 +285,7 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(
-        post.attachments!.first.url,
-        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
-      );
+      expect(post.attachments!.first.url, Post.fallbackAttachmentUrl);
     });
 
     test('getPresignedUrl handles response without expected data structure',
@@ -322,10 +310,7 @@ void main() {
 
       await post.getPresignedUrl('org1');
 
-      expect(
-        post.attachments!.first.url,
-        'https://avatars.githubusercontent.com/u/24500036?s=280&v=4',
-      );
+      expect(post.attachments!.first.url, Post.fallbackAttachmentUrl);
     });
   });
 }
