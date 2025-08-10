@@ -1,5 +1,6 @@
 ///This class creates queries related to the events.
 class EventQueries {
+  // Todo: Add agendaItem in the query once the backend is ready.
   /// Fetches events by organization ID.
   ///
   /// **params**:
@@ -10,7 +11,6 @@ class EventQueries {
   ///
   /// This function generates a GraphQL query string to retrieve events
   /// based on the provided organization ID.
-
   String fetchOrgEvents() {
     return '''
     query GetEventsByOrgID(

@@ -617,7 +617,74 @@ void main() {
         expect(e, isA<Exception>());
       }
     });
+    test('Test next method with pagination', () async {
+      final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
+      final query = EventQueries().fetchOrgEvents();
 
+      // Mock the query with correct variables for pagination
+      when(
+        dataBaseMutationFunctions.gqlAuthQuery(
+          query,
+          variables: {
+            'orgId': 'XYZ',
+            'first': 10,
+            'after': 'cursor1',
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(
+            document: gql(query),
+            variables: {
+              'orgId': 'XYZ',
+              'first': 10,
+              'after': 'cursor1',
+            },
+          ),
+          data: {
+            'organization': {
+              'events': {
+                'edges': [
+                  {
+                    'node': {
+                      'id': '1234567890',
+                      'name': 'Sample Event',
+                      'description': 'This is a sample event description.',
+                      'location': 'Sample Location',
+                      'recurring': true,
+                      'allDay': false,
+                      'isPublic': true,
+                      'isRegistered': true,
+                      'isRegisterable': true,
+                    },
+                    'cursor': 'cursor2',
+                  }
+                ],
+                'pageInfo': {
+                  'hasNextPage': true,
+                  'endCursor': 'cursor2',
+                },
+              },
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      final service = EventService();
+      service.pageInfo = PageInfo(hasNextPage: true, endCursor: 'cursor1');
+      service.after = 'cursor1';
+      service.first = 10;
+      await service.nextPage();
+
+      // Add your assertions here
+      expect(service.events.isNotEmpty, isTrue);
+      expect(service.events.last.name, 'Sample Event');
+      expect(service.events.last.id, '1234567890');
+
+      expect(service.pageInfo.hasNextPage, isTrue);
+      expect(service.pageInfo.endCursor, 'cursor2');
+    });
     test('fetchDataFromApi should return a list of events if data is valid',
         () async {
       final dbFunctions = locator<DataBaseMutationFunctions>();

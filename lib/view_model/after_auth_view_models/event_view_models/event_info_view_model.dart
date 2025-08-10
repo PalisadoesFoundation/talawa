@@ -229,13 +229,11 @@ class EventInfoViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> fetchAgendaItems() async {
-    try {
-      _agendaItems = event.agendaItems ?? [];
-      _agendaItems.sort((a, b) => a.sequence!.compareTo(b.sequence!));
-      notifyListeners();
-    } catch (e) {
-      print('Error fetching agenda items: $e');
-    }
+    _agendaItems = event.agendaItems ?? [];
+    _agendaItems.sort(
+      (a, b) => (a.sequence ?? 0).compareTo(b.sequence ?? 0),
+    );
+    notifyListeners();
   }
 
   /// This function is used to create a new agenda item for an event.

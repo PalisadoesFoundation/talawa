@@ -6,10 +6,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:talawa/constants/constants.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -164,10 +162,6 @@ void main() {
   setUp(() {
     registerServices();
     registerViewModels();
-    locator.unregister<EventService>();
-    locator.registerSingleton<EventService>(EventService());
-    final eventBox = Hive.box<Event>(HiveKeys.eventFeedKey);
-    eventBox.addAll(cachedEvents);
   });
   tearDown(() {
     unregisterViewModels();

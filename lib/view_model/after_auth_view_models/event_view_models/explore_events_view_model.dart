@@ -122,10 +122,14 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> fetchNextEvents() async {
-    print('Fetching next events...');
     isPaginating = true;
     setState(ViewState.busy);
-    await _eventService.nextPage();
+    try {
+      await _eventService.nextPage();
+    } finally {
+      isPaginating = false;
+    }
+
     isPaginating = false;
     setState(ViewState.idle);
   }

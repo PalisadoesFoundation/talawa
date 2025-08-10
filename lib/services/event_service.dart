@@ -155,10 +155,9 @@ class EventService extends BaseFeedManager<Event> {
     if (hasMoreEvents) {
       after = pageInfo.endCursor;
       first = 10;
+      final previous = List<Event>.from(_events);
       final newEvents = await getNewFeedAndRefreshCache();
-      // Add new events to the existing list, avoiding duplicates
-      final existingIds = _events.map((e) => e.id).toSet();
-      _events.addAll(newEvents.where((e) => !existingIds.contains(e.id)));
+      _events = previous + newEvents;
       _eventStreamController.add(_events);
       await saveDataToCache(_events);
     }

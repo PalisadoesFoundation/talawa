@@ -8,8 +8,6 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/models/events/agendaItems/event_agenda_item.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/events/event_volunteer_group.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
@@ -19,11 +17,10 @@ import '../../../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
+  late EventInfoViewModel model = EventInfoViewModel();
   setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
+    model = EventInfoViewModel();
     testSetupLocator();
-    locator<GraphqlConfig>().test();
-    locator<SizeConfig>().test();
     registerServices();
   });
 
@@ -32,8 +29,6 @@ void main() {
   });
 
   group('Event Info Tests', () {
-    final model = EventInfoViewModel();
-
     test("test initialization", () {
       final Event event =
           Event(id: "1", isRegisterable: true, isRegistered: false);
@@ -53,7 +48,6 @@ void main() {
           Event(id: "1", isRegisterable: true, isRegistered: false);
       model.event = event1;
 
-      final eventService = getAndRegisterEventService();
       when(eventService.registerForAnEvent(model.event.id!))
           .thenAnswer((realInvocation) async {
         return "Event Registered";
@@ -92,8 +86,6 @@ void main() {
     test("Test createVolunteerGroup success", () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = {
         'createEventVolunteerGroup': {
           '_id': 'group1',
@@ -132,8 +124,6 @@ void main() {
       final Event event1 = Event(id: "1");
       model.event = event1;
 
-      final eventService = getAndRegisterEventService();
-
       when(
         eventService.createVolunteerGroup({
           'eventId': "1",
@@ -150,8 +140,6 @@ void main() {
     test("Test fetchVolunteerGroups success", () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = [
         EventVolunteerGroup(
           id: 'group1',
@@ -174,8 +162,6 @@ void main() {
       final Event event1 = Event(id: "1");
       model.event = event1;
       model.volunteerGroups.clear();
-
-      final eventService = getAndRegisterEventService();
       when(eventService.fetchVolunteerGroupsByEvent("1"))
           .thenThrow(Exception('Failed to fetch volunteer groups'));
 
@@ -187,8 +173,6 @@ void main() {
     test('createAgendaItem success', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
@@ -234,8 +218,6 @@ void main() {
     test('deleteAgendaItem success', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       model.agendaItems.clear();
       model.agendaItems.addAll([
         EventAgendaItem(id: '1', name: 'Item 1'),
@@ -254,8 +236,6 @@ void main() {
     test('updateAgendaItemSequence success', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {
@@ -289,8 +269,6 @@ void main() {
     test('fetchCategories success', () async {
       final Event event1 = Event(id: "1");
       model.event = event1;
-
-      final eventService = getAndRegisterEventService();
       final mockResult = QueryResult(
         source: QueryResultSource.network,
         data: {

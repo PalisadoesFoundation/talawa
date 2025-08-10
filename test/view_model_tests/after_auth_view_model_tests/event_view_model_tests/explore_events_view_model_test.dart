@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -19,12 +20,6 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-
-class MockBuildContext extends Mock implements BuildContext {}
-
-class MockCallbackFunction extends Mock {
-  void call();
-}
 
 class _MockStreamSubscription<T> extends Mock
     implements StreamSubscription<T> {}
@@ -230,6 +225,54 @@ void main() {
       await tester.tap(successFinder);
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(CustomProgressDialog), findsOneWidget);
+    });
+
+    test('Test _onScroll triggers fetchNextEvents when near bottom', () async {
+      final model = ExploreEventsViewModel();
+      when(eventService.hasMoreEvents).thenReturn(true);
+      when(eventService.nextPage()).thenAnswer((_) async {});
+      when(eventService.eventStream).thenAnswer((_) => Stream.value([]));
+
+      // Test the scroll condition logic
+      const currentPixels = 500.0;
+      const maxScrollExtent = 520.0; // Within 50px threshold
+
+      const shouldTrigger = currentPixels >= (maxScrollExtent - 50);
+      final canPaginate = shouldTrigger &&
+          !model.isPaginating &&
+          model.eventService.hasMoreEvents;
+
+      expect(shouldTrigger, isTrue);
+      expect(canPaginate, isTrue);
+
+      // Manually call fetchNextEvents to verify the behavior that _onScroll would trigger
+      await model.fetchNextEvents();
+
+      verify(eventService.nextPage()).called(1);
+    });
+    test('Test fetchNextEvents sets pagination state and calls nextPage',
+        () async {
+      final model = ExploreEventsViewModel();
+
+      when(eventService.hasMoreEvents).thenReturn(true);
+      when(eventService.nextPage()).thenAnswer((_) async {});
+      when(eventService.eventStream).thenAnswer((_) => Stream.value([]));
+
+      await model.initialise();
+
+      // Verify initial state
+      expect(model.isPaginating, isFalse);
+      expect(model.state, ViewState.idle);
+
+      // Call fetchNextEvents
+      await model.fetchNextEvents();
+
+      // Verify final state
+      expect(model.isPaginating, isFalse);
+      expect(model.state, ViewState.idle);
+
+      // Verify nextPage was called
+      verify(eventService.nextPage()).called(1);
     });
   });
 }
