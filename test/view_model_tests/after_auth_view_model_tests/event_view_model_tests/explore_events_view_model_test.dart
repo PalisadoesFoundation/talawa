@@ -240,7 +240,7 @@ void main() {
       // Mock scroll controller position
       final mockScrollController = MockScrollController();
       final mockScrollPosition = MockScrollPosition();
-
+      when(mockScrollController.hasClients).thenReturn(true);
       when(mockScrollController.position).thenReturn(mockScrollPosition);
       when(mockScrollPosition.pixels).thenReturn(500.0);
       when(mockScrollPosition.maxScrollExtent)
@@ -256,6 +256,29 @@ void main() {
 
       // Verify nextPage was called
       verify(eventService.nextPage()).called(1);
+    });
+    test('Test onScroll function has no clients', () async {
+      when(eventService.hasMoreEvents).thenReturn(true);
+      when(eventService.nextPage()).thenAnswer((_) async {});
+      when(eventService.eventStream).thenAnswer((_) => Stream.value([]));
+
+      final model = ExploreEventsViewModel();
+      await model.initialise();
+
+      // Mock scroll controller position
+      final mockScrollController = MockScrollController();
+      when(mockScrollController.hasClients).thenReturn(false);
+
+      model.scrollController = mockScrollController;
+
+      // Call the public onScroll function
+      model.onScroll();
+
+      // Wait for async operations
+      await Future.delayed(Duration.zero);
+
+      // Verify nextPage was called
+      verifyNever(eventService.nextPage());
     });
     test('Test fetchNextEvents sets pagination state and calls nextPage',
         () async {

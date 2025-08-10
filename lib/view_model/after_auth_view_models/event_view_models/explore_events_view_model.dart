@@ -56,10 +56,10 @@ class ExploreEventsViewModel extends BaseModel {
   /// Getter method to retrieve the chosen value.
   String get chosenValue => _chosenValue;
 
-  // Gettter for uniqueEventIds.
+  /// Gettter for uniqueEventIds.
   Set<String> get uniqueEventIds => _uniqueEventIds;
 
-  // Getter for bufferEvents.
+  /// Getter for bufferEvents.
   List<Event> get bufferEvents => _bufferEvents;
 
   /// This function is used to refresh the events in the organization.
@@ -112,6 +112,7 @@ class ExploreEventsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void onScroll() {
+    if (!scrollController.hasClients) return;
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent - 50) {
       if (!isPaginating && eventService.hasMoreEvents) {
