@@ -57,7 +57,7 @@ Event getTestEvent({
   );
 }
 
-final exploreEventsViewModel = ExploreEventsViewModel();
+final _exploreEventsViewModel = ExploreEventsViewModel();
 late EventInfoViewModel _eventInfoViewModel;
 
 Widget createEventInfoBody({
@@ -77,7 +77,7 @@ Widget createEventInfoBody({
                 viewOnMap: viewOnMap,
                 asAdmin: asAdmin,
               ),
-              "exploreEventViewModel": exploreEventsViewModel,
+              "exploreEventViewModel": _exploreEventsViewModel,
             },
           );
 

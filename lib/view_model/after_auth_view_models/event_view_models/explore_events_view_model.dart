@@ -36,7 +36,7 @@ class ExploreEventsViewModel extends BaseModel {
   final List<Event> _bufferEvents = [];
 
   /// ScrollController to handle scrolling events.
-  final ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
 
   /// Flag to indicate if pagination is in progress.
   bool isPaginating = false;
@@ -55,6 +55,12 @@ class ExploreEventsViewModel extends BaseModel {
 
   /// Getter method to retrieve the chosen value.
   String get chosenValue => _chosenValue;
+
+  // Gettter for uniqueEventIds.
+  Set<String> get uniqueEventIds => _uniqueEventIds;
+
+  // Getter for bufferEvents.
+  List<Event> get bufferEvents => _bufferEvents;
 
   /// This function is used to refresh the events in the organization.
   ///
@@ -93,7 +99,7 @@ class ExploreEventsViewModel extends BaseModel {
         (newEvents) => checkIfExistsAndAddNewEvents(newEvents),
       );
       await _eventService.fetchEventsInitial();
-      scrollController.addListener(_onScroll);
+      scrollController.addListener(onScroll);
     }
     setState(ViewState.idle);
   }
@@ -105,7 +111,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void _onScroll() {
+  void onScroll() {
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent - 50) {
       if (!isPaginating && eventService.hasMoreEvents) {
@@ -129,8 +135,6 @@ class ExploreEventsViewModel extends BaseModel {
     } finally {
       isPaginating = false;
     }
-
-    isPaginating = false;
     setState(ViewState.idle);
   }
 

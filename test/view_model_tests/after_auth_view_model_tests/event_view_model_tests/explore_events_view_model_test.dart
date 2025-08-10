@@ -19,6 +19,7 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class _MockStreamSubscription<T> extends Mock
@@ -88,6 +89,8 @@ void main() {
       await model.checkIfExistsAndAddNewEvents([newEvent]);
       expect(model.events.isNotEmpty, true);
       expect(model.events.first.id, newEvent.id);
+      expect(model.uniqueEventIds.isNotEmpty, true);
+      expect(model.bufferEvents.isNotEmpty, true);
     });
 
     test(
@@ -99,7 +102,6 @@ void main() {
       await model.checkIfExistsAndAddNewEvents([newEvent]);
       expect(model.events, isEmpty);
       expect(model.events.length, 0);
-      // expect(model.events.first.id, '1');
     });
 
     test("Test chooseValueFromDropdown function", () async {
@@ -227,27 +229,32 @@ void main() {
       expect(find.byType(CustomProgressDialog), findsOneWidget);
     });
 
-    test('Test _onScroll triggers fetchNextEvents when near bottom', () async {
-      final model = ExploreEventsViewModel();
+    test('Test onScroll function triggers pagination', () async {
       when(eventService.hasMoreEvents).thenReturn(true);
       when(eventService.nextPage()).thenAnswer((_) async {});
       when(eventService.eventStream).thenAnswer((_) => Stream.value([]));
 
-      // Test the scroll condition logic
-      const currentPixels = 500.0;
-      const maxScrollExtent = 520.0; // Within 50px threshold
+      final model = ExploreEventsViewModel();
+      await model.initialise();
 
-      const shouldTrigger = currentPixels >= (maxScrollExtent - 50);
-      final canPaginate = shouldTrigger &&
-          !model.isPaginating &&
-          model.eventService.hasMoreEvents;
+      // Mock scroll controller position
+      final mockScrollController = MockScrollController();
+      final mockScrollPosition = MockScrollPosition();
 
-      expect(shouldTrigger, isTrue);
-      expect(canPaginate, isTrue);
+      when(mockScrollController.position).thenReturn(mockScrollPosition);
+      when(mockScrollPosition.pixels).thenReturn(500.0);
+      when(mockScrollPosition.maxScrollExtent)
+          .thenReturn(520.0); // Within 50px threshold
 
-      // Manually call fetchNextEvents to verify the behavior that _onScroll would trigger
-      await model.fetchNextEvents();
+      model.scrollController = mockScrollController;
 
+      // Call the public onScroll function
+      model.onScroll();
+
+      // Wait for async operations
+      await Future.delayed(Duration.zero);
+
+      // Verify nextPage was called
       verify(eventService.nextPage()).called(1);
     });
     test('Test fetchNextEvents sets pagination state and calls nextPage',
@@ -273,6 +280,16 @@ void main() {
 
       // Verify nextPage was called
       verify(eventService.nextPage()).called(1);
+    });
+    test("Test refresh events function", () async {
+      final model = ExploreEventsViewModel();
+      await model.refreshEvents();
+      expect(model.state, ViewState.idle);
+      expect(model.events.isEmpty, true);
+      expect(model.userEvents.isEmpty, true);
+      expect(model.uniqueEventIds.isEmpty, true);
+      expect(model.bufferEvents.isEmpty, true);
+      verify(eventService.refreshFeed()).called(1);
     });
   });
 }
