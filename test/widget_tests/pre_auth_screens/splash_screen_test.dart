@@ -1,19 +1,13 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
-// ignore_for_file: unused_import
-
 import 'package:app_links/app_links.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
@@ -21,9 +15,7 @@ import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-
 import '../../helpers/test_helpers.mocks.dart';
-import '../../helpers/test_locator.dart';
 
 Widget _createSplashScreen({
   required ThemeMode themeMode,
@@ -75,19 +67,46 @@ Future<void> main() async {
     return stack;
   };
 
+  late MockAppLinks mockAppLinks;
+  late MockUserConfig mockUserConfig;
   setUpAll(() {
     // Set up shared preferences
     SharedPreferences.setMockInitialValues({});
+    // Set up any other test configurations
     TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
+    setupLocator();
+    graphqlConfig.test();
   });
 
   setUp(() {
-    when(appLinks.getInitialLink()).thenAnswer((_) async => null);
-    when(appLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
+    mockAppLinks = MockAppLinks();
+    mockUserConfig = MockUserConfig();
+
+    // Unregister and re-register AppLinks for each test
+    if (locator.isRegistered<AppLinks>()) {
+      locator.unregister<AppLinks>();
+    }
+    locator.registerSingleton<AppLinks>(mockAppLinks);
+
+    // Unregister and re-register UserConfig for each test
+    if (locator.isRegistered<UserConfig>()) {
+      locator.unregister<UserConfig>();
+    }
+    locator.registerSingleton<UserConfig>(mockUserConfig);
+
+    when(mockAppLinks.getInitialLink()).thenAnswer((_) async => null);
+    when(mockAppLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
   });
 
-  tearDown(() {});
+  tearDown(() {
+    // Clean up after each test
+    if (locator.isRegistered<AppLinks>()) {
+      locator.unregister<AppLinks>();
+    }
+    if (locator.isRegistered<UserConfig>()) {
+      locator.unregister<UserConfig>();
+    }
+  });
 
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
@@ -274,67 +293,103 @@ Future<void> main() async {
     });
   });
 
-  testWidgets("should handle PlatformException when getting initial URI",
-      (tester) async {
-    await tester.runAsync(() async {
-      // Arrange
-      when(appLinks.getInitialLink())
-          .thenThrow(PlatformException(code: 'TEST_ERROR'));
-      when(appLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
+  group("URI Link Handling Tests", () {
+    testWidgets("should handle initial URI successfully", (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        final uri = Uri.parse('talawa://example.com');
+        when(mockAppLinks.getInitialLink()).thenAnswer((_) async => uri);
+        when(mockAppLinks.uriLinkStream).thenAnswer((_) => Stream.value(uri));
 
-      // Act
-      await tester.pumpWidget(createSplashScreenLight());
-      await tester.pumpAndSettle();
+        // Act: Pump the widget
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
 
-      // Assert
-      verify(appLinks.getInitialLink()).called(1);
+        // Assert
+        verify(mockAppLinks.getInitialLink()).called(1);
+        expect(find.byKey(const Key('SplashScreenScaffold')), findsOneWidget);
+      });
     });
-  });
-  testWidgets("should handle FormatException when getting initial URI",
-      (tester) async {
-    await tester.runAsync(() async {
-      // Arrange
-      when(appLinks.getInitialLink())
-          .thenThrow(const FormatException('Invalid URI format'));
-      when(appLinks.uriLinkStream).thenAnswer((_) => const Stream.empty());
+    testWidgets('should handle URI stream updates', (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        final uri = Uri.parse('talawa://example.com');
+        when(mockAppLinks.uriLinkStream).thenAnswer((_) => Stream.value(uri));
+        when(mockUserConfig.loggedIn).thenReturn(true);
 
-      // Act
-      await tester.pumpWidget(createSplashScreenLight());
-      await tester.pumpAndSettle();
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
 
-      // Assert
-      verify(appLinks.getInitialLink()).called(1);
+        // Assert
+        verify(mockAppLinks.uriLinkStream).called(1);
+      });
     });
-  });
-  testWidgets('should handle URI stream errors', (tester) async {
-    await tester.runAsync(() async {
-      // Arrange
-      when(appLinks.uriLinkStream)
-          .thenAnswer((_) => Stream.error('Test error'));
-      when(userConfig.loggedIn).thenReturn(true);
+    testWidgets("should handle PlatformException when getting initial URI",
+        (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        when(mockAppLinks.getInitialLink())
+            .thenThrow(PlatformException(code: 'TEST_ERROR'));
+        when(mockAppLinks.uriLinkStream)
+            .thenAnswer((_) => const Stream.empty());
 
-      // Act
-      await tester.pumpWidget(createSplashScreenLight());
-      await tester.pumpAndSettle();
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
 
-      // Assert
-      verify(appLinks.uriLinkStream).called(1);
+        // Assert
+        verify(mockAppLinks.getInitialLink()).called(1);
+      });
     });
-  });
-  testWidgets('should cleanup stream subscription on dispose', (tester) async {
-    await tester.runAsync(() async {
-      // Arrange
-      when(userConfig.loggedIn).thenReturn(true);
-      when(appLinks.uriLinkStream)
-          .thenAnswer((_) => Stream.value(Uri.parse('talawa://example.com')));
+    testWidgets("should handle FormatException when getting initial URI",
+        (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        when(mockAppLinks.getInitialLink())
+            .thenThrow(const FormatException('Invalid URI format'));
+        when(mockAppLinks.uriLinkStream)
+            .thenAnswer((_) => const Stream.empty());
 
-      // Act
-      await tester.pumpWidget(createSplashScreenLight());
-      await tester.pumpWidget(Container()); // Force dispose
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
 
-      await tester.pumpAndSettle();
+        // Assert
+        verify(mockAppLinks.getInitialLink()).called(1);
+      });
+    });
+    testWidgets('should handle URI stream errors', (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        when(mockAppLinks.uriLinkStream)
+            .thenAnswer((_) => Stream.error('Test error'));
+        when(mockUserConfig.loggedIn).thenReturn(true);
 
-      // No explicit assert needed - test will fail if subscription isn't properly canceled
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpAndSettle();
+
+        // Assert
+        verify(mockAppLinks.uriLinkStream).called(1);
+      });
+    });
+    testWidgets('should cleanup stream subscription on dispose',
+        (tester) async {
+      await tester.runAsync(() async {
+        // Arrange
+        when(mockUserConfig.loggedIn).thenReturn(true);
+        when(mockAppLinks.uriLinkStream)
+            .thenAnswer((_) => Stream.value(Uri.parse('talawa://example.com')));
+
+        // Act
+        await tester.pumpWidget(createSplashScreenLight());
+        await tester.pumpWidget(Container()); // Force dispose
+
+        await tester.pumpAndSettle();
+
+        // No explicit assert needed - test will fail if subscription isn't properly canceled
+      });
     });
   });
 }
