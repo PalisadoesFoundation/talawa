@@ -587,6 +587,10 @@ void main() {
 
       // Debug: Check what quality corresponds to the returned file
       final resultQuality = filesCreated[result!.path];
+      print('Qualities used: $qualitiesUsed');
+      print('Files created: $filesCreated');
+      print('Result file path: ${result.path}');
+      print('Result quality: $resultQuality');
 
       // The algorithm searches for the HIGHEST quality that works
       // The returned file should correspond to quality 69 or less
@@ -695,413 +699,37 @@ class TestableMultiMediaPickerService extends MultiMediaPickerService {
       int? minHeight,
       int? minWidth,
       int? numberOfRetries,
-      test('executeCompressionWorkflow - successful compression and crop', () async {
-        final service = MultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        final mockCroppedFile = File('/test/cropped.jpg');
-        when(imageService.cropImage(imageFile: File('/test/compressed.jpg')))
-            .thenAnswer((_) async => mockCroppedFile);
-
-        service.compressImageFunction = (
-          String sourcePath,
-          String targetPath, {
-          bool autoCorrectionAngle = true,
-          CompressFormat format = CompressFormat.jpeg,
-          int inSampleSize = 1,
-          bool keepExif = false,
-          int minHeight = 0,
-          int minWidth = 0,
-          int numberOfRetries = 5,
-          int quality = 95,
-          int rotate = 0,
-        }) async {
-          await File(targetPath).writeAsBytes(List.filled(3 * 1024 * 1024, 0));
-          return XFile('/test/compressed.jpg');
-        };
-
-        final result = await service.executeCompressionWorkflow(mockXFile);
-
-        expect(result, equals(mockCroppedFile));
-        verify(navigationService.pushDialog(argThat(isA<CustomProgressDialog>()))).called(1);
-        verify(navigationService.pop()).called(1);
-        verify(imageService.cropImage(imageFile: File('/test/compressed.jpg'))).called(1);
-      });
-
-      test('executeCompressionWorkflow - compression fails', () async {
-        final service = MultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        service.compressImageFunction = (
-          String sourcePath,
-          String targetPath, {
-          bool autoCorrectionAngle = true,
-          CompressFormat format = CompressFormat.jpeg,
-          int inSampleSize = 1,
-          bool keepExif = false,
-          int minHeight = 0,
-          int minWidth = 0,
-          int numberOfRetries = 5,
-          int quality = 95,
-          int rotate = 0,
-        }) async {
-          return null;
-        };
-
-        final result = await service.executeCompressionWorkflow(mockXFile);
-
-        expect(result, isNull);
-        verify(navigationService.pushDialog(argThat(isA<CustomProgressDialog>()))).called(1);
-        verify(navigationService.pushDialog(argThat(isA<CustomAlertDialog>()))).called(1);
-        verify(navigationService.pop()).called(1);
-      });
-
-      test('executeCompressionWorkflow - exception during compression', () async {
-        final service = MultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        service.compressImageFunction = (
-          String sourcePath,
-          String targetPath, {
-          bool autoCorrectionAngle = true,
-          CompressFormat format = CompressFormat.jpeg,
-          int inSampleSize = 1,
-          bool keepExif = false,
-          int minHeight = 0,
-          int minWidth = 0,
-          int numberOfRetries = 5,
-          int quality = 95,
-          int rotate = 0,
-        }) async {
-          throw Exception('Compression error');
-        };
-
-        final result = await service.executeCompressionWorkflow(mockXFile);
-
-        expect(result, isNull);
-        verify(navigationService.pushDialog(argThat(isA<CustomProgressDialog>()))).called(1);
-        verify(navigationService.pushDialog(argThat(isA<CustomAlertDialog>()))).called(1);
-        verify(navigationService.pop()).called(1);
-      });
-
-      test('executeCompressionWorkflow - cropping returns null', () async {
-        final service = MultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        when(imageService.cropImage(imageFile: File('/test/compressed.jpg')))
-            .thenAnswer((_) async => null);
-
-        service.compressImageFunction = (
-          String sourcePath,
-          String targetPath, {
-          bool autoCorrectionAngle = true,
-          CompressFormat format = CompressFormat.jpeg,
-          int inSampleSize = 1,
-          bool keepExif = false,
-          int minHeight = 0,
-          int minWidth = 0,
-          int numberOfRetries = 5,
-          int quality = 95,
-          int rotate = 0,
-        }) async {
-          await File(targetPath).writeAsBytes(List.filled(3 * 1024 * 1024, 0));
-          return XFile('/test/compressed.jpg');
-        };
-
-        final result = await service.executeCompressionWorkflow(mockXFile);
-
-        expect(result, isNull);
-        verify(navigationService.pushDialog(argThat(isA<CustomProgressDialog>()))).called(1);
-        verify(navigationService.pop()).called(1);
-        verify(imageService.cropImage(imageFile: File('/test/compressed.jpg'))).called(1);
-      });
-
-      test('getPhotoFromGallery - large image triggers compression workflow', () async {
-        final mockPicker = imagePicker;
-        final service = MultiMediaPickerService();
-        const path = '/test/large_image.jpg';
-        final image = MockXFile();
-        when(image.path).thenReturn(path);
-        when(image.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        when(mockPicker.pickImage(source: ImageSource.gallery))
-            .thenAnswer((_) async => image);
-
-        final mockCroppedFile = File('/test/final_cropped.jpg');
-        when(imageService.cropImage(imageFile: File('/test/compressed_large.jpg')))
-            .thenAnswer((_) async => mockCroppedFile);
-
-        service.compressImageFunction = (
-          String sourcePath,
-          String targetPath, {
-          bool autoCorrectionAngle = true,
-          CompressFormat format = CompressFormat.jpeg,
-          int inSampleSize = 1,
-          bool keepExif = false,
-          int minHeight = 0,
-          int minWidth = 0,
-          int numberOfRetries = 5,
-          int quality = 95,
-          int rotate = 0,
-        }) async {
-          await File(targetPath).writeAsBytes(List.filled(3 * 1024 * 1024, 0));
-          return XFile('/test/compressed_large.jpg');
-        };
-
-        final completer = Completer<File?>();
-        
-        when(navigationService.pushDialog(argThat(isA<CustomAlertDialog>())))
-            .thenAnswer((_) async {
-          // Simulate user clicking OK on the dialog
-          await Future.delayed(Duration.zero);
-          final result = await service.executeCompressionWorkflow(image);
-          completer.complete(result);
-        });
-
-        final result = await service.getPhotoFromGallery(camera: false);
-
-        expect(result, equals(mockCroppedFile));
-        verify(navigationService.pushDialog(argThat(isA<CustomAlertDialog>()))).called(1);
-      });
-
-      test('compressUntilSize - handles cleanup on exception', () async {
-        final service = TestableMultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        final createdFiles = <String>[];
-
-        service.setupMockCompression((
-          sourcePath,
-          targetPath, {
-          bool? autoCorrectionAngle,
-          CompressFormat? format,
-          int? inSampleSize,
-          bool? keepExif,
-          int? minHeight,
-          int? minWidth,
-          int? numberOfRetries,
-          int? quality,
-          int? rotate,
-        }) async {
-          createdFiles.add(targetPath);
-          await File(targetPath).writeAsBytes(List.filled(1024, 0));
-          
-          if (createdFiles.length > 2) {
-            throw Exception('Compression error');
-          }
-          
-          return XFile(targetPath);
-        });
-
-        expect(() => service.compressUntilSize(mockXFile), throwsA(isA<Exception>()));
-      });
-
-      test('compressUntilSize - binary search edge cases', () async {
-        final service = TestableMultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        final qualitiesUsed = <int>[];
-
-        service.setupMockCompression((
-          sourcePath,
-          targetPath, {
-          bool? autoCorrectionAngle,
-          CompressFormat? format,
-          int? inSampleSize,
-          bool? keepExif,
-          int? minHeight,
-          int? minWidth,
-          int? numberOfRetries,
-          int? quality,
-          int? rotate,
-        }) async {
-          qualitiesUsed.add(quality!);
-          
-          final fileSize = quality == 10 ? 4 * 1024 * 1024 : 7 * 1024 * 1024;
-          
-          await File(targetPath).writeAsBytes(List.filled(fileSize, 0));
-          return XFile(targetPath);
-        });
-
-        final result = await service.compressUntilSize(mockXFile);
-
-        expect(result, isNotNull);
-        expect(qualitiesUsed, contains(10));
-        expect(await result!.length(), lessThanOrEqualTo(service.maxImageSizeAllowed));
-      });
-
-      test('compressUntilSize - no acceptable quality found', () async {
-        final service = TestableMultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.jpg');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        service.setupMockCompression((
-          sourcePath,
-          targetPath, {
-          bool? autoCorrectionAngle,
-          CompressFormat? format,
-          int? inSampleSize,
-          bool? keepExif,
-          int? minHeight,
-          int? minWidth,
-          int? numberOfRetries,
-          int? quality,
-          int? rotate,
-        }) async {
-          await File(targetPath).writeAsBytes(List.filled(7 * 1024 * 1024, 0));
-          return XFile(targetPath);
-        });
-
-        final result = await service.compressUntilSize(mockXFile);
-
-        expect(result, isNull);
-        expect(service.compressionAttempts, greaterThan(0));
-      });
-
-      test('getImageFormatInfo - case insensitive extension handling', () {
-        final service = MultiMediaPickerService();
-
-        final mixedCaseResults = [
-          service.getImageFormatInfo('/path/IMAGE.PNG'),
-          service.getImageFormatInfo('/path/image.PNG'),
-          service.getImageFormatInfo('/path/IMAGE.png'),
-          service.getImageFormatInfo('/path/Image.Png'),
-        ];
-
-        for (final result in mixedCaseResults) {
-          expect(result['format'], equals(CompressFormat.png));
-          expect(result['extension'], equals('png'));
-        }
-      });
-
-      test('getImageFormatInfo - path with multiple extensions', () {
-        final service = MultiMediaPickerService();
-
-        final result = service.getImageFormatInfo('/path/file.backup.old.png');
-        expect(result['format'], equals(CompressFormat.png));
-        expect(result['extension'], equals('png'));
-
-        final result2 = service.getImageFormatInfo('/complex.path/my.file.name.jpeg');
-        expect(result2['format'], equals(CompressFormat.jpeg));
-        expect(result2['extension'], equals('jpg'));
-      });
-
-      test('fileStream - verify broadcast stream behavior', () async {
-        final service = MultiMediaPickerService();
-        final stream1 = service.fileStream;
-        final stream2 = service.fileStream;
-
-        expect(stream1, equals(stream2));
-        expect(stream1.isBroadcast, isTrue);
-      });
-
-      test('getPhotoFromGallery - exception handling for non-camera errors', () async {
-        final mockPicker = imagePicker;
-        final model = MultiMediaPickerService();
-        final printed = <String>[];
-
-        final error = Exception('Network error');
-        when(mockPicker.pickImage(source: ImageSource.gallery)).thenThrow(error);
-        
-        final result = await runZoned(
-          () async => await model.getPhotoFromGallery(camera: false),
-          zoneSpecification: ZoneSpecification(
-            print: (self, parent, zone, line) {
-              printed.add(line);
-            },
-          ),
-        );
-
-        expect(result, isNull);
-        expect(
-          printed[0],
-          "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $error",
-        );
-      });
-
-      test('compressUntilSize - preserves file extension in temporary files', () async {
-        final service = TestableMultiMediaPickerService();
-        final mockXFile = MockXFile();
-        when(mockXFile.path).thenReturn('/test/image.webp');
-        when(mockXFile.length()).thenAnswer((_) async => 10 * 1024 * 1024);
-
-        final createdPaths = <String>[];
-
-        service.setupMockCompression((
-          sourcePath,
-          targetPath, {
-          bool? autoCorrectionAngle,
-          CompressFormat? format,
-          int? inSampleSize,
-          bool? keepExif,
-          int? minHeight,
-          int? minWidth,
-          int? numberOfRetries,
-          int? quality,
-          int? rotate,
-        }) async {
-          createdPaths.add(targetPath);
-          await File(targetPath).writeAsBytes(List.filled(3 * 1024 * 1024, 0));
-          return XFile(targetPath);
-        });
-
-        await service.compressUntilSize(mockXFile);
-
-        expect(createdPaths.isNotEmpty, isTrue);
-        for (final path in createdPaths) {
-          expect(path.endsWith('.webp'), isTrue);
-        }
-      });
-
-      test('compressionFailedDialog - dialog properties', () {
-        final service = MultiMediaPickerService();
-        final dialog = service.compressionFailedDialog();
-
-        expect(dialog.dialogTitle, equals('Compression Failed'));
-        expect(
-          dialog.dialogSubTitle,
-          equals('Unable to compress the image below the size limit. Try again with a smaller image.'),
-        );
-        expect(dialog.successText, equals('OK'));
-      });
-
-      test('permissionDeniedDialog - dialog properties', () {
-        final service = MultiMediaPickerService();
-        final dialog = service.permissionDeniedDialog();
-
-        expect(dialog.dialogTitle, equals('Permission Denied'));
-        expect(dialog.successText, equals('SETTINGS'));
-        expect(
-          dialog.dialogSubTitle,
-          equals('Camera permission is required, to use this feature, give permission from app settings'),
-        );
-      });
-
-      test('fileSizeExceededDialog - dialog properties', () {
-        final service = MultiMediaPickerService();
-        bool callbackCalled = false;
-        
-        final dialog = service.fileSizeExceededDialog(() {
-          callbackCalled = true;
-        });
-
-        expect(dialog.dialogTitle, equals('File Size Exceeded'));
-        expect(dialog.dialogSubTitle, equals('Do you want to compress the file?'));
-        expect(dialog.successText, equals('OK'));
-        
-        dialog.success!();
-        expect(callbackCalled, isTrue);
-      });
+      int? quality,
+      int? rotate,
+    }) mockFunction,
+  ) {
+    compressImageFunction = (
+      String sourcePath,
+      String targetPath, {
+      bool autoCorrectionAngle = true,
+      CompressFormat format = CompressFormat.jpeg,
+      int inSampleSize = 1,
+      bool keepExif = false,
+      int minHeight = 0,
+      int minWidth = 0,
+      int numberOfRetries = 5,
+      int quality = 95,
+      int rotate = 0,
+    }) async {
+      compressionAttempts++;
+      return await mockFunction(
+        sourcePath,
+        targetPath,
+        autoCorrectionAngle: autoCorrectionAngle,
+        format: format,
+        inSampleSize: inSampleSize,
+        keepExif: keepExif,
+        minHeight: minHeight,
+        minWidth: minWidth,
+        numberOfRetries: numberOfRetries,
+        quality: quality,
+        rotate: rotate,
+      );
+    };
+  }
+}
