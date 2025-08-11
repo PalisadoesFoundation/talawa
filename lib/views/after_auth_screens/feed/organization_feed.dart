@@ -43,6 +43,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
+            heroTag: "org_feed_fab",
             shape: const CircleBorder(side: BorderSide.none),
             key: const Key('floating_action_btn'),
             backgroundColor: Colors.green,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -42,6 +43,7 @@ void main() {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
+        authToken: 'sample-auth-token',
       );
 
       sampleOrg = OrgInfo(
@@ -311,22 +313,21 @@ void main() {
         expect(chats.length, equals(2));
       });
 
-      test('throws ArgumentError when userId is null', () async {
-        when(mockUserConfig.currentUser).thenReturn(User(id: null));
-
-        expect(
-          () => chatService.getChatsByUser(),
-          throwsA(
-            isA<ArgumentError>().having(
-              (e) => e.message,
-              'message',
-              'User ID is required to fetch chats',
-            ),
+      test('returns empty list when userId is null', () async {
+        when(mockUserConfig.currentUser).thenReturn(
+          User(
+            id: null,
+            authToken: 'valid-token',
           ),
         );
+
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
       });
 
-      test('throws Exception on GraphQL exception', () async {
+      test('returns empty list on GraphQL exception', () async {
         final query = ChatQueries().chatsByUser();
         when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
           (_) async => QueryResult(
@@ -339,16 +340,80 @@ void main() {
           ),
         );
 
-        expect(
-          () => chatService.getChatsByUser(),
-          throwsA(
-            isA<Exception>().having(
-              (e) => e.toString(),
-              'toString',
-              contains('Failed to fetch chats'),
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list on authentication exception', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'You must be authenticated'),
+              ],
             ),
           ),
         );
+
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list on unauthenticated exception', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'unauthenticated request'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('shows error dialog on non-authentication exception outside test',
+          () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [const GraphQLError(message: 'Network error')],
+            ),
+          ),
+        );
+
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+
+        // Verify that the navigation service was called to show error dialog
+        verify(
+          chatService.navigationService.showTalawaErrorDialog(
+            "Failed to fetch chats",
+            MessageType.error,
+          ),
+        ).called(1);
       });
 
       test('returns empty list when chatsByUser is null', () async {
@@ -357,6 +422,21 @@ void main() {
           (_) async => QueryResult(
             options: QueryOptions(document: gql(query)),
             data: {'chatsByUser': null},
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.getChatsByUser();
+
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list when result data is null', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
             source: QueryResultSource.network,
           ),
         );

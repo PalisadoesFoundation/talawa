@@ -42,6 +42,7 @@ class ChatPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
+          heroTag: "chat_list_fab",
           // onPressed to FloatingActionButton renders SelectContact Widget to chat with other users in the connection.
           onPressed: () {
             navigationService.pushScreen(
