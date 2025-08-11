@@ -14,6 +14,7 @@ import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 Widget _createSplashScreen({
@@ -65,6 +66,8 @@ void main() {
     // Set up any other test configurations
     TestWidgetsFlutterBinding.ensureInitialized();
     setupLocator();
+    registerServices();
+
     graphqlConfig.test();
   });
 
