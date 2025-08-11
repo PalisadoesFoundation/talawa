@@ -134,15 +134,11 @@ void main() {
       when(mockViewModel.userEvents).thenReturn([
         Event(
           id: 'a',
-          title: 'Sample Event',
+          name: 'Sample Event',
           description: 'This is a fake event description.',
           location: 'City Park',
           recurring: false,
           allDay: false,
-          startDate: '2022-01-01',
-          endDate: '2022-01-02',
-          startTime: '12:00 PM',
-          endTime: '3:00 PM',
           isPublic: true,
           isRegistered: false,
           isRegisterable: true,

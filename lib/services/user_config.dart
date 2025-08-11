@@ -205,8 +205,14 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  Future<void> updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
+  Future<void> updateUserJoinedOrg(OrgInfo orgDetails) async {
+    if (orgDetails.id == null || orgDetails.id!.isEmpty) {
+      return;
+    }
     _currentUser!.updateJoinedOrg(orgDetails);
+
+    _currentOrg = orgDetails;
+    saveCurrentOrgInHive(orgDetails);
     saveUserInHive();
   }
 

@@ -89,17 +89,26 @@ class EditEventViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void _fillEditForm() {
-    eventTitleTextController.text = _event.title!;
+    eventTitleTextController.text = _event.name!;
     eventLocationTextController.text = _event.location!;
     eventDescriptionTextController.text = _event.description!;
     isPublicSwitch = _event.isPublic!;
     isRegisterableSwitch = _event.isRegisterable!;
-    eventStartDate = DateFormat().add_yMd().parse(_event.startDate!);
-    eventEndDate = DateFormat().add_yMd().parse(_event.endDate!);
+    if (_event.startDate != null && _event.startDate!.isNotEmpty) {
+      eventStartDate = DateFormat('yyyy-MM-dd').tryParse(_event.startDate!) ??
+          DateTime.now();
+    }
+
+    if (_event.endDate != null && _event.endDate!.isNotEmpty) {
+      eventEndDate =
+          DateFormat('yyyy-MM-dd').tryParse(_event.endDate!) ?? DateTime.now();
+    }
+
     eventStartTime =
-        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.startTime!));
+        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.startTime));
+
     eventEndTime =
-        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
+        TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime));
   }
 
   /// Updates an existing event with the data from the form.

@@ -6,7 +6,6 @@ import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -110,13 +109,15 @@ class SelectOrganizationViewModel extends BaseModel {
           orgAlreadyJoined = true;
         }
       });
-      print("org1");
+
       // check if user has already send the membership request to the selected organization.
+      userConfig.currentUser.membershipRequests ??= [];
       userConfig.currentUser.membershipRequests!.forEach((element) {
         if (item != null && element.id! == item.id) {
           orgRequestAlreadyPresent = true;
         }
       });
+
       // if not already joined and not memebrship request.
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
@@ -184,57 +185,77 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> onTapJoin() async {
+    if (selectedOrganization == null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Please select an organization to join',
+        MessageType.warning,
+      );
+      return;
+    }
+    if (selectedOrganization!.userRegistrationRequired == null) {
+      navigationService.showTalawaErrorSnackBar(
+        'Organization registration requirement is not set',
+        MessageType.warning,
+      );
+      return;
+    }
     // if `selectedOrganization` registrations is not required.
-    if (selectedOrganization!.userRegistrationRequired == false) {
+    else if (selectedOrganization!.userRegistrationRequired != null &&
+        selectedOrganization!.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
-          queries.joinOrgById(selectedOrganization!.id!),
+          queries.joinOrgById(),
+          variables: {
+            'organizationId': selectedOrganization!.id,
+          },
         );
 
-        final List<OrgInfo>? joinedOrg =
-            ((result.data!['joinPublicOrganization']
-                        as Map<String, dynamic>)['joinedOrganizations']
-                    as List<dynamic>?)
-                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-                .toList();
-        userConfig.updateUserJoinedOrg(joinedOrg!);
-        // if user joined organization length is 1
-        if (userConfig.currentUser.joinedOrganizations!.length == 1) {
-          userConfig.saveCurrentOrgInHive(
-            userConfig.currentUser.joinedOrganizations![0],
-          );
-          navigationService.removeAllAndPush(
-            Routes.mainScreen,
-            Routes.splashScreen,
-            arguments: MainScreenArgs(mainScreenIndex: 0),
-          );
-        } else {
-          navigationService.pop();
-          navigationService.showTalawaErrorSnackBar(
-            'Joined ${selectedOrganization?.name} successfully',
-            MessageType.info,
-          );
+        final Map<String, dynamic>? resultData = result.data;
+        if (resultData == null) {
+          throw Exception('No data received');
         }
+
+        final Map<String, dynamic>? joinData =
+            resultData['joinPublicOrganization'] as Map<String, dynamic>?;
+        if (joinData == null) {
+          throw Exception('Join operation failed');
+        }
+
+        final String? memberId = joinData["memberId"] as String?;
+        if (memberId != userConfig.currentUser.id) {
+          throw Exception('Member ID mismatch');
+        }
+
+        final QueryResult joinedOrgData = await databaseFunctions
+            .gqlAuthQuery(queries.fetchOrgById(selectedOrganization?.id ?? ''));
+
+        final OrgInfo joinedOrg = OrgInfo.fromJson(
+          joinedOrgData.data!['organization'] as Map<String, dynamic>,
+        );
+        await userConfig.updateUserJoinedOrg(joinedOrg);
+
+        navigationService.pop();
+        navigationService.showSnackBar(
+          'Joined ${selectedOrganization?.name} successfully',
+          duration: const Duration(seconds: 2),
+        );
       } on Exception catch (e) {
-        print(e);
         navigationService.showTalawaErrorSnackBar(
-          'Something went wrong',
+          'Something went wrong $e',
+          MessageType.error,
+        );
+      }
+    } else {
+      try {
+        navigationService.pushScreen(Routes.requestAccess);
+      } on Exception catch (e) {
+        navigationService.showTalawaErrorSnackBar(
+          'Something went wrong $e',
           MessageType.error,
         );
       }
     }
-    // else {
-    //   try {
-    //     // navigationService.pushScreen(Routes.requestAccess);
-    //   } on Exception catch (e) {
-    //     print(e);
-    //     navigationService.showTalawaErrorSnackBar(
-    //       'SomeThing went wrong',
-    //       MessageType.error,
-    //     );
-    //   }
-    // }
   }
 
   /// This function fetch more option.

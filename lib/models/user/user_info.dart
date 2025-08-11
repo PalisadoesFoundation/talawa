@@ -144,12 +144,17 @@ class User extends HiveObject {
   /// Method to updated joinedOrganisation list.
   ///
   /// **params**:
-  /// * `orgList`: List of organsaitions user has joined.
+  /// * `org`: Organisation to be added to the joinedOrganizations list.
   ///
   /// **returns**:
   ///   None
-  void updateJoinedOrg(List<OrgInfo> orgList) {
-    this.joinedOrganizations = orgList;
+  void updateJoinedOrg(OrgInfo org) {
+    final existingOrgs = joinedOrganizations ?? [];
+    // Remove any existing org with the same ID and add the new one
+    this.joinedOrganizations = [
+      org,
+      ...existingOrgs.where((existingOrg) => existingOrg.id != org.id),
+    ];
   }
 
   /// Method to updated createdOrganisation list.

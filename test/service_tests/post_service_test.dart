@@ -25,6 +25,153 @@ void main() {
       locator.reset();
       unregisterServices();
     });
+
+    test('refreshFeed resets state, fetches new posts, and emits them',
+        () async {
+      final postService = TestablePostService();
+      final emittedPosts = <List<Post>>[];
+      postService.postStream.listen(emittedPosts.add);
+
+      await postService.refreshFeed();
+      await Future.delayed(Duration.zero);
+
+      // Use public getters to check state
+      expect(postService.posts, isNotEmpty);
+      expect(postService.after, isNull);
+      expect(postService.before, isNull);
+      expect(postService.first, 5);
+      expect(postService.last, isNull);
+
+      // These are the posts returned by getNewFeedAndRefreshCache
+      final mockPosts = [
+        Post(
+          id: 'test_post',
+          caption: 'Test Post',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+        Post(
+          id: 'test_post2',
+          caption: 'Test Post 2',
+          commentsCount: 0,
+          hasVoted: false,
+          voteType: null,
+        ),
+      ];
+
+      expect(postService.posts.first.id, mockPosts.first.id);
+
+      // Assert: stream emitted
+      expect(emittedPosts, isNotEmpty);
+      expect(emittedPosts.last.first.id, mockPosts.first.id);
+
+      // Assert: toast shown (side effect of CriticalActionException)
+
+      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
+    });
+
+    test('getPosts adds new posts, updates IDs and stream, and saves cache',
+        () async {
+      // Arrange
+      final postService = PostService();
+
+      final query = PostQueries().getPostsByOrgID();
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          query,
+          variables: {
+            'orgId': 'XYZ',
+            'first': 5,
+            'after': null,
+            'before': null,
+            'last': null,
+          },
+        ),
+      ).thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'organization': {
+              'posts': {
+                'edges': [
+                  {
+                    'node': {
+                      'id': 'new1',
+                      'caption': 'New Post 1',
+                      'upVotesCount': 0,
+                      'downVotesCount': 0,
+                      'commentsCount': 0,
+                      'createdAt': '2023-01-01T00:00:00.000Z',
+                      'creator': {
+                        'id': 'user1',
+                        'name': 'User',
+                        'avatarURL': null,
+                      },
+                      'organization': {'id': 'org1'},
+                      'attachments': [],
+                    },
+                    'cursor': 'cursor1',
+                  },
+                  {
+                    'node': {
+                      'id': 'new2',
+                      'caption': 'New Post 2',
+                      'upVotesCount': 0,
+                      'downVotesCount': 0,
+                      'commentsCount': 0,
+                      'createdAt': '2023-01-02T00:00:00.000Z',
+                      'creator': {
+                        'id': 'user2',
+                        'name': 'User2',
+                        'avatarURL': null,
+                      },
+                      'organization': {'id': 'org1'},
+                      'attachments': [],
+                    },
+                    'cursor': 'cursor2',
+                  },
+                ],
+                'pageInfo': {
+                  'endCursor': 'cursor2',
+                  'hasNextPage': false,
+                  'hasPreviousPage': false,
+                  'startCursor': 'cursor1',
+                },
+              },
+            },
+          },
+          options: QueryOptions(document: gql(query)),
+        );
+      });
+
+      final voteQuery = PostQueries().hasUserVoted();
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          voteQuery,
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer((_) async {
+        return QueryResult(
+          source: QueryResultSource.network,
+          data: {
+            'hasUserVoted': {
+              'hasVoted': true,
+            },
+          },
+          options: QueryOptions(document: gql(voteQuery)),
+        );
+      });
+      // Act
+      await postService.getPosts();
+
+      // Assert
+      expect(postService.posts.length, equals(2));
+      expect(postService.posts[0].id, equals('new2'));
+      expect(postService.posts[1].id, equals('new1'));
+    });
     test(
         'setOrgStreamSubscription updates _currentOrg when stream emits new value',
         () async {
@@ -410,51 +557,6 @@ void main() {
       await postService.previousPage();
 
       expect(postService.getPostsCalled, isFalse);
-    });
-
-    test('refreshFeed resets state, fetches new posts, and emits them',
-        () async {
-      final postService = TestablePostService();
-      final emittedPosts = <List<Post>>[];
-      postService.postStream.listen(emittedPosts.add);
-
-      await postService.refreshFeed();
-      await Future.delayed(Duration.zero);
-
-      // Use public getters to check state
-      expect(postService.posts, isNotEmpty);
-      expect(postService.after, isNull);
-      expect(postService.before, isNull);
-      expect(postService.first, 5);
-      expect(postService.last, isNull);
-
-      // These are the posts returned by getNewFeedAndRefreshCache
-      final mockPosts = [
-        Post(
-          id: 'test_post',
-          caption: 'Test Post',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-        Post(
-          id: 'test_post2',
-          caption: 'Test Post 2',
-          commentsCount: 0,
-          hasVoted: false,
-          voteType: null,
-        ),
-      ];
-
-      expect(postService.posts.first.id, mockPosts.first.id);
-
-      // Assert: stream emitted
-      expect(emittedPosts, isNotEmpty);
-      expect(emittedPosts.last.first.id, mockPosts.first.id);
-
-      // Assert: toast shown (side effect of CriticalActionException)
-
-      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
     });
 
     test(

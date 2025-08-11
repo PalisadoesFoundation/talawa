@@ -19,6 +19,19 @@ void main() {
     locator.reset();
   });
 
+  test('pinnedPosts getter returns internal pinnedPosts list', () {
+    // Arrange
+    final pinnedPostService = PinnedPostService();
+
+    // Act & Assert - Test initial state
+    expect(pinnedPostService.pinnedPosts, isA<List<Post>>());
+    expect(pinnedPostService.pinnedPosts, isEmpty);
+
+    // The getter should return the same reference as the internal list
+    final currentPosts = pinnedPostService.pinnedPosts;
+    expect(identical(currentPosts, pinnedPostService.pinnedPosts), isTrue);
+  });
+
   test('fetchDataFromApi returns pinned posts if data is valid', () async {
     final dbFunctions = locator<DataBaseMutationFunctions>();
     final pinnedPostService = PinnedPostService();
@@ -146,6 +159,95 @@ void main() {
     expect(postService.currentOrg.id, '1');
   });
 
+  test('fetchPostsInitial loads cached data, adds to stream, then refreshes',
+      () async {
+    // Arrange
+    final pinnedPostService = PinnedPostService();
+
+    final List<List<Post>> streamEvents = [];
+    final subscription = pinnedPostService.pinnedPostStream.listen((posts) {
+      streamEvents.add(List.from(posts));
+    });
+
+    final query = PinnedPostQueries().getPinnedPostsByOrgID();
+    // Mock the GraphQL query response
+    when(
+      databaseFunctions.gqlAuthQuery(
+        query,
+        variables: {
+          'orgId': 'XYZ',
+          'first': 10,
+          'after': null,
+          'before': null,
+          'last': null,
+        },
+      ),
+    ).thenAnswer((_) async {
+      return QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'organization': {
+            'pinnedPosts': {
+              'edges': [
+                {
+                  'node': {
+                    'id': 'post1',
+                    'caption': 'Test pinned post',
+                    'upVotesCount': 5,
+                    'downVotesCount': 1,
+                    'commentsCount': 3,
+                    'createdAt': '2023-01-01T00:00:00.000Z',
+                    'creator': {
+                      'id': 'user1',
+                      'name': 'Test User',
+                      'avatarURL': null,
+                    },
+                    'organization': {
+                      'id': 'org1',
+                    },
+                    'attachments': [],
+                  },
+                }
+              ],
+              'pageInfo': {
+                'startCursor': 'cursor1',
+                'endCursor': 'cursor1',
+                'hasNextPage': false,
+                'hasPreviousPage': false,
+              },
+            },
+          },
+        },
+        options: QueryOptions(document: gql(query)),
+      );
+    });
+
+    // Act
+    await pinnedPostService.fetchPostsInitial();
+
+    // Allow time for async operations
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    // Assert
+    expect(streamEvents.length, greaterThanOrEqualTo(1));
+
+    // Verify the GraphQL query was called
+    verify(
+      databaseFunctions.gqlAuthQuery(
+        query,
+        variables: {
+          'orgId': 'XYZ',
+          'first': 10,
+          'after': null,
+          'before': null,
+          'last': null,
+        },
+      ),
+    ).called(1);
+
+    // Cleanup
+    await subscription.cancel();
+  });
   test('fetchDataFromApi throws if pinnedPosts is missing', () {
     final mockDbFunctions = locator<DataBaseMutationFunctions>();
     final service = PinnedPostService();

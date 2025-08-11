@@ -69,6 +69,7 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: "volunteer_groups_fab",
         key: const Key("add_group_btn"),
         backgroundColor: Colors.green,
         child: const Icon(
@@ -162,7 +163,7 @@ class _VolunteerGroupsScreenState extends State<VolunteerGroupsScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Text(
-                                    group.name!,
+                                    group.name ?? 'N/A',
                                     style: const TextStyle(
                                       color: Colors.blue,
                                       fontSize: 16,

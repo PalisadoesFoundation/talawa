@@ -28,6 +28,7 @@ class OrganisationInfoScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       floatingActionButton: !joinedOrgsMap.containsKey(orgInfo.id)
           ? FloatingActionButton.extended(
+              heroTag: "org_info_join_fab",
               onPressed: () {
                 model.selectOrg(orgInfo);
               },
@@ -44,6 +45,7 @@ class OrganisationInfoScreen extends StatelessWidget {
               ),
             )
           : FloatingActionButton.extended(
+              heroTag: "org_info_leave_fab",
               onPressed: () {},
               label: Text(
                 'Leave',

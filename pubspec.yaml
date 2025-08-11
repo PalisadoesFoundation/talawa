@@ -89,6 +89,8 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^2.0.1
 
+  integration_test:
+    sdk: flutter
   json_serializable: ^6.8.0
   lint: ^2.7.0
 

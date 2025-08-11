@@ -48,6 +48,7 @@ class Queries {
                         postalCode,
                         countryCode,
                         description,
+                        isUserRegistrationRequired,
                         members(first:32){
                           edges{
                             node{
@@ -98,14 +99,7 @@ class Queries {
                 postalCode,
                 countryCode,
                 description,
-                members(first:32){
-                  edges{
-                    node{
-                      name
-                      role
-                    }
-                  }
-                }
+                isUserRegistrationRequired,
               }
             }
           }
@@ -169,6 +163,7 @@ class Queries {
         avatarURL,
         countryCode,
         state,
+        isUserRegistrationRequired,
       }
     }
     """;
@@ -210,30 +205,18 @@ class Queries {
   ///
   ///
   /// **params**:
-  /// * `orgId`: refer org object.
+  ///   None
   ///
   /// **returns**:
   /// * `String`: returns a string for client
-  String joinOrgById(String orgId) {
+  String joinOrgById() {
     return '''
-    mutation {
-      joinPublicOrganization(organizationId: "$orgId") {
-          joinedOrganizations{
-            _id
-            name
-            image
-            description
-            userRegistrationRequired
-            creator{
-              _id
-              firstName
-              lastName
-              image
-            }
-            
-          }
+    mutation JoinPublicOrganization(\$organizationId: ID!) {
+      joinPublicOrganization(input: {organizationId: \$organizationId}) {
+        memberId
+        organizationId
       }
-	}
+    }
   ''';
   }
 
@@ -263,6 +246,41 @@ class Queries {
               }
             }
          }
+    }
+  ''';
+  }
+
+  /// query to fetch org details.
+  ///
+  /// **params**:
+  /// * `orgId`: org identifier
+  ///
+  /// **returns**:
+  /// * `String`: query in string form, to be passed on to graphql client.
+  String fetchOrgDetailsById(String orgId) {
+    return '''
+    query{
+      organizations(id: "$orgId"){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        userRegistrationRequired
+        creator{
+          _id
+          firstName
+          lastName
+        }
+        members{
+          _id
+          firstName
+          lastName
+          image
+        }
+      }
     }
   ''';
   }
@@ -377,19 +395,20 @@ class Queries {
   String fetchOrgById(String orgId) {
     return '''
     query{
-      organizations(id: "$orgId"){
-        image
-        _id
-        name
-        image
-        userRegistrationRequired
-        creator{
-          firstName
-          lastName
-        }
+      organization(input:{id:"$orgId"}){
+        id,
+        name,
+        addressLine1,
+        addressLine2,
+        avatarMimeType,
+        avatarURL,
+        postalCode,
+        countryCode,
+        description,
+        isUserRegistrationRequired,
       }
     }
-  ''';
+    ''';
   }
 
   /// query to fetch user lang.
@@ -420,41 +439,6 @@ class Queries {
     return '''
     query{
       userLanguage(userId:"$userId")
-    }
-  ''';
-  }
-
-  /// query to fetch org details.
-  ///
-  /// **params**:
-  /// * `orgId`: org identifier
-  ///
-  /// **returns**:
-  /// * `String`: query in string form, to be passed on to graphql client.
-  String fetchOrgDetailsById(String orgId) {
-    return '''
-    query{
-      organizations(id: "$orgId"){
-        image
-        _id
-        name
-        admins{
-          _id
-        }
-        description
-        userRegistrationRequired
-        creator{
-          _id
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          image
-        }
-      }
     }
   ''';
   }
@@ -540,6 +524,7 @@ class Queries {
         name
         avatarURL
         description
+        isUserRegistrationRequired
         emailAddress
       }
     }

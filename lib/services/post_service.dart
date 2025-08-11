@@ -153,11 +153,14 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   void setOrgStreamSubscription() {
-    _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
+    _userConfig.currentOrgInfoStream.listen((updatedOrganization) async {
       if (updatedOrganization != _currentOrg) {
-        _renderedPostID.clear();
+        databaseFunctions.clearGraphQLCache();
         _currentOrg = updatedOrganization;
-        getPosts();
+        _posts.clear();
+        _renderedPostID.clear();
+
+        await refreshFeed();
       }
     });
   }

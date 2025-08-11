@@ -281,5 +281,6 @@
   "Members": " メンバー ",
   "Remember me": "ログイン情報を保存",
   "Login directly with": "直接ログイン",
-  "Continue Without Organization": "組織なしで続行"
+  "Continue Without Organization": "組織なしで続行",
+  "No admins assigned": "管理者が割り当てられていません"
 }

@@ -204,6 +204,17 @@ void main() {
       expect(GraphqlConfig.token, testToken);
     });
 
+    test('initializeForTesting sets httpLink and orgURI correctly', () {
+      const testApiUrl = 'https://test-api.example.com/graphql';
+      final config = GraphqlConfig();
+
+      config.initializeForTesting(testApiUrl);
+
+      expect(config.httpLink, isA<HttpLink>());
+      expect(config.httpLink.uri.toString(), testApiUrl);
+      expect(GraphqlConfig.orgURI, testApiUrl);
+    });
+
     test('displayImgRoute is set correctly from Hive', () {
       const testImageUrl = 'https://example.com/test-image.png';
       final box = Hive.box('url');

@@ -18,15 +18,11 @@ final event = Event(
     email: 'test@test.com',
   ),
   id: '12',
-  title: 'for test only',
+  name: 'for test only',
   description: 'for test only',
   location: 'for test only',
   recurring: false,
   allDay: false,
-  startDate: 'for test only',
-  endDate: 'for test only',
-  startTime: 'for test only',
-  endTime: 'for test only',
   isPublic: true,
   isRegistered: true,
   isRegisterable: true,
@@ -104,7 +100,7 @@ void main() {
       expect(event.creator?.firstName, eventFromJson.creator?.firstName);
       expect(event.creator?.lastName, eventFromJson.creator?.lastName);
       expect(event.creator?.email, eventFromJson.creator?.email);
-      expect(event.title, eventFromJson.title);
+      expect(event.name, eventFromJson.name);
       expect(event.id, eventFromJson.id);
       expect(event.description, eventFromJson.description);
       expect(event.attendees?[0].id, eventFromJson.attendees?[0].id);
@@ -148,7 +144,7 @@ void main() {
           isNotNull,
         ); // Check that the fetched event is not null
         expect(fetchedEvent.id, event.id);
-        expect(fetchedEvent.title, event.title);
+        expect(fetchedEvent.name, event.name);
         expect(fetchedEvent.description, event.description);
         expect(fetchedEvent.location, event.location);
         expect(fetchedEvent.recurring, event.recurring);

@@ -43,6 +43,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
       builder: (context, model, child) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
+            heroTag: "org_feed_fab",
             shape: const CircleBorder(side: BorderSide.none),
             key: const Key('floating_action_btn'),
             backgroundColor: Colors.green,
@@ -84,7 +85,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
           body: model.isFetchingPosts || model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => model.fetchNewPosts(),
+                  onRefresh: () async => await model.fetchNewPosts(),
                   child: NotificationListener<ScrollNotification>(
                     onNotification: (notification) {
                       final currentScroll = _scrollController.position.pixels;

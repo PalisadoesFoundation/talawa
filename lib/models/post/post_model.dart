@@ -115,6 +115,10 @@ class Post {
   @HiveField(12)
   DateTime? pinnedAt;
 
+  /// Fallback URL for post attachments.
+  static const String fallbackAttachmentUrl =
+      'https://avatars.githubusercontent.com/u/24500036?s=280&v=4';
+
   /// this is to get duration of post.
   ///
   /// **params**:
@@ -194,7 +198,10 @@ class Post {
             result = await locator<DataBaseMutationFunctions>()
                 .gqlAuthMutation(query, variables: variables);
           } catch (e) {
-            return;
+            // Fallback to a placeholder image when API call fails
+            attachment.url =
+                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+            continue;
           }
 
           if (result.data != null &&
@@ -203,8 +210,22 @@ class Post {
                 result.data?['createGetfileUrl'] as Map<String, dynamic>;
             final url = containsUrl['presignedUrl'] as String?;
             if (url != null && url.isNotEmpty) {
-              attachment.url = url;
+              // Check if the URL contains 'minio' hostname which might cause DNS issues
+              if (url.contains('minio:') || url.contains('minio/')) {
+                // Use fallback image if MinIO URL is detected
+                attachment.url =
+                    "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
+              } else {
+                attachment.url = url;
+              }
+            } else {
+              attachment.url =
+                  "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
             }
+          } else {
+            // Fallback when response doesn't contain expected data
+            attachment.url =
+                "https://avatars.githubusercontent.com/u/24500036?s=280&v=4";
           }
         }
       }
