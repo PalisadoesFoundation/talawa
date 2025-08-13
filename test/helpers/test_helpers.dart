@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -107,6 +108,9 @@ import 'test_helpers.mocks.dart';
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollController>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollPosition>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<AppLinks>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
