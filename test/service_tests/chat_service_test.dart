@@ -918,7 +918,7 @@ void main() {
         expect(true, isTrue);
       });
 
-      test('dispose closes all streams and stops subscription', () async {
+      test('dispose closes all streams and stops subscription', () {
         chatService.dispose();
         // Test passes if no exceptions are thrown
         expect(true, isTrue);
