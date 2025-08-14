@@ -39,7 +39,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: "3.32.8"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
@@ -93,7 +93,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: "3.32.8"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -130,7 +130,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: "3.32.8"
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
