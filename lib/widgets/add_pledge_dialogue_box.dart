@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
@@ -8,13 +7,9 @@ import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fu
 class AddPledgeDialog extends StatefulWidget {
   const AddPledgeDialog({
     super.key,
-    required this.onSubmit,
     required this.model,
     required this.campaign,
   });
-
-  /// Callback function that triggers when the form is submitted, passing the pledge data.
-  final Function(Map<String, dynamic>) onSubmit;
 
   /// ViewModel containing organization fund details and related methods.
   final FundViewModel model;
@@ -29,9 +24,15 @@ class AddPledgeDialog extends StatefulWidget {
 class _AddPledgeDialogState extends State<AddPledgeDialog> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _amountController = TextEditingController();
-  DateTime? _startDate;
-  DateTime? _endDate;
+  final TextEditingController _noteController = TextEditingController();
   User? _selectedPledger;
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +63,15 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                             ? const Text('No pledger selected')
                             : Chip(
                                 avatar: CircleAvatar(
-                                  backgroundImage: _selectedPledger!.image !=
+                                  backgroundImage: _selectedPledger?.image !=
                                           null
                                       ? NetworkImage(_selectedPledger!.image!)
                                       : null,
                                   backgroundColor:
-                                      _selectedPledger!.image == null
+                                      _selectedPledger?.image == null
                                           ? Colors.blue
                                           : Colors.transparent,
-                                  child: _selectedPledger!.image == null
+                                  child: _selectedPledger?.image == null
                                       ? const Icon(
                                           Icons.person_3,
                                           size: 18,
@@ -78,7 +79,7 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                                       : null,
                                 ),
                                 label: Text(
-                                  '${_selectedPledger!.firstName!} ${_selectedPledger!.lastName!}',
+                                  '${_selectedPledger?.firstName ?? ''} ${_selectedPledger?.lastName ?? ''}',
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -110,22 +111,23 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+
+                // note form field
+                TextFormField(
+                  controller: _noteController,
+                  decoration: const InputDecoration(
+                    labelText: 'Note',
+                  ),
+                ),
+
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        widget.campaign.currency ?? 'USD',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
                     Expanded(
                       child: TextFormField(
                         controller: _amountController,
                         decoration: InputDecoration(
                           labelText: 'Amount',
-                          prefixText: widget.campaign.currency ?? 'USD',
+                          prefixText: '${widget.campaign.currency ?? 'USD'} ',
                         ),
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -134,54 +136,6 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                           }
                           return null;
                         },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () async {
-                          final picked = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate:
-                                DateTime.now().add(const Duration(days: 365)),
-                          );
-                          if (picked != null) {
-                            setState(() => _startDate = picked);
-                          }
-                        },
-                        child: _startDate == null
-                            ? const Text('Select Start date')
-                            : Text(
-                                'Start: ${DateFormat('MMM d, y').format(_startDate!)}',
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () async {
-                          final picked = await showDatePicker(
-                            context: context,
-                            initialDate:
-                                _endDate ?? (_startDate ?? DateTime.now()),
-                            firstDate: _startDate ?? DateTime.now(),
-                            lastDate:
-                                DateTime.now().add(const Duration(days: 365)),
-                          );
-                          if (picked != null) setState(() => _endDate = picked);
-                        },
-                        child: _endDate == null
-                            ? const Text('Select End date')
-                            : Text(
-                                'End: ${DateFormat('MMM d, y').format(_endDate!)}',
-                                style: const TextStyle(fontSize: 13),
-                              ),
                       ),
                     ),
                   ],
@@ -198,17 +152,12 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
         ),
         ElevatedButton(
           onPressed: () {
-            if (_formKey.currentState!.validate() &&
-                _startDate != null &&
-                _endDate != null &&
-                _selectedPledger != null) {
-              widget.onSubmit({
-                'campaignId': widget.campaign.id,
+            if (_formKey.currentState!.validate() && _selectedPledger != null) {
+              widget.model.createPledge({
                 'amount': double.parse(_amountController.text),
-                'startDate': DateFormat('yyyy-MM-dd').format(_startDate!),
-                'endDate': DateFormat('yyyy-MM-dd').format(_endDate!),
-                'pledgerId': _selectedPledger!.id,
-                'currency': widget.campaign.currency ?? 'USD',
+                'campaignId': widget.campaign.id,
+                'note': _noteController.text,
+                'pledgerId': _selectedPledger?.id,
               });
               Navigator.of(context).pop();
             } else {
@@ -248,7 +197,7 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                   : null,
             ),
             const SizedBox(width: 8),
-            Text('${user.firstName} ${user.lastName}'),
+            Text(user.name ?? 'Unknown Name'),
           ],
         ),
       ],

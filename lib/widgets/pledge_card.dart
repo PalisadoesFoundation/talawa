@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
 
 /// a_line_ending_with_end_punctuation.
@@ -46,7 +47,7 @@ class PledgeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pledge Group',
+                    'Pledge',
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -68,7 +69,7 @@ class PledgeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pledgers',
+                    'Pledger',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -98,6 +99,23 @@ class PledgeCard extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Note',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        pledge.note ?? 'No note provided',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(color: Colors.green),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -109,7 +127,7 @@ class PledgeCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            '\$${pledge.amount!.toStringAsFixed(2)}',
+                            '${pledge.currency ?? 'USD'} ${pledge.amount!.toStringAsFixed(2)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -125,7 +143,7 @@ class PledgeCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            '\$0.00',
+                            '${pledge.currency ?? 'USD'} 0.00',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -168,24 +186,26 @@ class PledgeCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton.icon(
-                        icon: const Icon(Icons.edit),
-                        label: const Text('Update'),
-                        onPressed: onUpdate,
-                      ),
-                      const SizedBox(width: 8),
-                      TextButton.icon(
-                        icon: const Icon(Icons.delete),
-                        label: const Text('Delete'),
-                        onPressed: onDelete,
-                        style:
-                            TextButton.styleFrom(foregroundColor: Colors.red),
-                      ),
-                    ],
-                  ),
+                  if (pledge.pledger?.id != null &&
+                      pledge.pledger?.id == userConfig.currentUser.id)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton.icon(
+                          icon: const Icon(Icons.edit),
+                          label: const Text('Update'),
+                          onPressed: onUpdate,
+                        ),
+                        const SizedBox(width: 8),
+                        TextButton.icon(
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Delete'),
+                          onPressed: onDelete,
+                          style:
+                              TextButton.styleFrom(foregroundColor: Colors.red),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

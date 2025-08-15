@@ -152,25 +152,19 @@ class FundQueries {
   /// * `String`: Returns a GraphQL mutation string to create a pledge.
   String createPledge() {
     return '''
-      mutation CreateFundraisingCampaignPledge(
+      mutation CreateFundCampaignPledge(
+        \$amount: Int!
         \$campaignId: ID!
-        \$amount: Float!
-        \$currency: Currency!
-        \$startDate: Date!
-        \$endDate: Date!
+        \$note: String
         \$pledgerId: ID!
       ) {
-        createFundraisingCampaignPledge(
-          data: {
-            campaignId: \$campaignId
-            amount: \$amount
-            currency: \$currency
-            startDate: \$startDate
-            endDate: \$endDate
-            pledgerId: \$pledgerId
-          }
-        ) {
-          _id
+        createFundCampaignPledge(input: {
+          amount: \$amount
+          campaignId: \$campaignId
+          note: \$note
+          pledgerId: \$pledgerId
+        }) {
+          id
         }
       }
     ''';
@@ -185,26 +179,17 @@ class FundQueries {
   /// * `String`: Returns a GraphQL mutation string to update a pledge.
   String updatePledge() {
     return '''
-      mutation UpdateFundraisingCampaignPledge(
+      mutation UpdateFundCampaignPledge(
         \$id: ID!
-        \$amount: Float
-        \$currency: Currency
-        \$startDate: Date
-        \$endDate: Date
-        \$pledgerId: ID
+        \$amount: Int
+        \$note: String
       ) {
-        updateFundraisingCampaignPledge(
+        updateFundCampaignPledge(input: {
           id: \$id
-          data: {
-            pledgerId: \$pledgerId
-            amount: \$amount
-            currency: \$currency
-            startDate: \$startDate
-            endDate: \$endDate
-          }
-        ) {
-          _id
-          
+          amount: \$amount
+          note: \$note
+        }) {
+          id
         }
       }
     ''';
@@ -219,9 +204,9 @@ class FundQueries {
   /// * `String`: Returns a GraphQL mutation string to delete a pledge.
   String deletePledge() {
     return '''
-      mutation DeleteFundraisingCampaignPledge(\$id: ID!) {
-        removeFundraisingCampaignPledge(id: \$id) {
-          _id
+      mutation DeleteFundCampaignPledge(\$id: ID!) {
+        deleteFundCampaignPledge(input:{id: \$id}) {
+          id
         }
       }
     ''';

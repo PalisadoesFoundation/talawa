@@ -62,11 +62,9 @@ class FundViewModel extends BaseModel {
 
   String _fundSortOption = 'createdAt_DESC';
   String _campaignSortOption = 'endDate_DESC';
-  String _pledgeSortOption = 'endDate_DESC';
 
   String _fundSearchQuery = '';
   String _campaignSearchQuery = '';
-  String _pledgerSearchQuery = '';
 
   /// used to identify the current fund id.
   late String parentFundId;
@@ -137,9 +135,6 @@ class FundViewModel extends BaseModel {
 
   /// getter for campaigns sorting option.
   String get campaignSortOption => _campaignSortOption;
-
-  /// getter for pldeges sorting option.
-  String get pledgeSortOption => _pledgeSortOption;
 
   /// getter for user pledges.
   List<Pledge> get userPledges => _userPledges;
@@ -304,22 +299,6 @@ class FundViewModel extends BaseModel {
     }
   }
 
-  /// methoud to sort Pledges.
-  ///
-  /// **params**:
-  /// * `option`: sorting option to sort.
-  ///
-  /// **returns**:
-  ///   None
-  void sortPledges(String option) {
-    if (option != _pledgeSortOption) {
-      _pledgeSortOption = option;
-      if (_userPledges.isNotEmpty) {
-        fetchPledges(parentcampaignId);
-      }
-    }
-  }
-
   /// methoud to search Funds.
   ///
   /// **params**:
@@ -343,25 +322,6 @@ class FundViewModel extends BaseModel {
   void searchCampaigns(String query) {
     _campaignSearchQuery = query.toLowerCase();
     _applyCampaignFilters();
-    notifyListeners();
-  }
-
-  /// Method to search pledges by pledger.
-  ///
-  /// **params**:
-  /// * `query`: query to search for pledger.
-  ///
-  /// **returns**:
-  ///   None
-  void searchPledgers(String query) {
-    _pledgerSearchQuery = query.toLowerCase();
-    _filteredPledges = _allPledges.where((pledge) {
-      // Since only one user can pledge per pledge now
-      return pledge.pledger?.firstName
-              ?.toLowerCase()
-              .contains(_pledgerSearchQuery) ??
-          false;
-    }).toList();
     notifyListeners();
   }
 
@@ -414,9 +374,9 @@ class FundViewModel extends BaseModel {
           .toList();
       _filteredPledges = List.from(_userPledges);
       _isFetchingPledges = false;
-      notifyListeners();
     } catch (e) {
       _isFetchingPledges = false;
+    } finally {
       notifyListeners();
     }
   }
@@ -445,9 +405,9 @@ class FundViewModel extends BaseModel {
       _userPledges.addAll(newUserPledges);
       _filteredPledges = List.from(_userPledges);
       _isLoadingMorePledges = false;
-      notifyListeners();
     } catch (e) {
       _isLoadingMorePledges = false;
+    } finally {
       notifyListeners();
     }
   }
@@ -487,7 +447,9 @@ class FundViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> updatePledge(Map<String, dynamic> updatedPledgeData) async {
+  Future<void> updatePledge(
+    Map<String, dynamic> updatedPledgeData,
+  ) async {
     try {
       await _fundService.updatePledge(updatedPledgeData);
       await fetchPledges(parentcampaignId);
@@ -507,10 +469,9 @@ class FundViewModel extends BaseModel {
   Future<void> deletePledge(String pledgeId, String campaignId) async {
     try {
       await _fundService.deletePledge(pledgeId);
-      // Refresh pledges after deleting
       await fetchPledges(campaignId);
     } catch (e) {
-      print('Error updating pledge: $e');
+      print('Error deleting pledge: $e');
     }
   }
 
@@ -534,11 +495,5 @@ class FundViewModel extends BaseModel {
   ///   None
   void selectCampaign(String campaignId) {
     fetchPledges(campaignId);
-  }
-
-  @override
-  void dispose() {
-    // Clean up any resources if needed
-    super.dispose();
   }
 }

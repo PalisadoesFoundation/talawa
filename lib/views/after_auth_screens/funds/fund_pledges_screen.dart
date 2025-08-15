@@ -33,6 +33,7 @@ class _PledgesScreenState extends State<PledgesScreen> {
 
   @override
   void dispose() {
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -79,7 +80,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
             children: [
               _buildTabButtons(),
               _buildProgressIndicator(model),
-              _buildSearchAndSortBar(model),
               Expanded(
                 child: _buildPledgesList(model),
               ),
@@ -231,102 +231,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
     );
   }
 
-  /// Builds the search and sort bar above the pledges list.
-  ///
-  /// **params**:
-  /// * `model`: the data model for handling search and sorting actions.
-  ///
-  /// **returns**:
-  /// * `Widget`: a widget with search and sorting functionalities.
-  Widget _buildSearchAndSortBar(FundViewModel model) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: TextField(
-              onChanged: (value) => model.searchPledgers(value),
-              decoration: InputDecoration(
-                hintText: 'Search by Pledgers',
-                prefixIcon: const Icon(Icons.search, color: Colors.green),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green, width: 2),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.green),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  borderRadius: BorderRadius.circular(20),
-                  dropdownColor: const Color.fromARGB(255, 49, 49, 49),
-                  isExpanded: true,
-                  value: model.pledgeSortOption,
-                  icon: const Icon(Icons.sort, color: Colors.green),
-                  items: const [
-                    DropdownMenuItem(
-                      value: 'endDate_DESC',
-                      child: Text(
-                        'End Date (Latest)',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: 'endDate_ASC',
-                      child: Text(
-                        'End Date (Earliest)',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: 'amount_DESC',
-                      child: Text(
-                        'Amount (Highest)',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: 'amount_ASC',
-                      child: Text(
-                        'Amount (Lowest)',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                  ],
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      model.sortPledges(newValue);
-                    }
-                  },
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   /// Builds the list of pledges as a ListView.
   ///
   /// **params**:
@@ -427,9 +331,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
       builder: (context) => AddPledgeDialog(
         campaign: widget.campaign,
         model: model,
-        onSubmit: (pledgeData) {
-          model.createPledge(pledgeData);
-        },
       ),
     );
   }
@@ -453,10 +354,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
       builder: (BuildContext context) => UpdatePledgeDialog(
         model: model,
         pledge: pledge,
-        onSubmit: (updatedPledgeData) {
-          model.updatePledge(updatedPledgeData);
-          Navigator.of(context).pop();
-        },
       ),
     );
   }
