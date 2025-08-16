@@ -22,43 +22,16 @@ class PledgesScreen extends StatefulWidget {
 }
 
 class _PledgesScreenState extends State<PledgesScreen> {
-  bool _showPledged = true;
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  /// Handles the scroll event to load more pledges when reaching the bottom.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void _onScroll() {
-    final model = FundViewModel();
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
-      if (model.hasMorePledges && !model.isLoadingMorePledges) {
-        model.fetchNextPledges();
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BaseView<FundViewModel>(
       onModelReady: (model) {
+        if (widget.campaign.id == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Campaign ID is not available')),
+          );
+          return;
+        }
         model.fetchPledges(widget.campaign.id!);
         model.getCurrentOrgUsersList();
       },
@@ -78,8 +51,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
           ),
           body: Column(
             children: [
-              _buildTabButtons(),
-              _buildProgressIndicator(model),
               Expanded(
                 child: _buildPledgesList(model),
               ),
@@ -95,142 +66,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
     );
   }
 
-  /// Builds the tab buttons to toggle between "Pledged" and "Raised".
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `Widget`: the widget displaying tab buttons for toggling views.
-  Widget _buildTabButtons() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildTabButton('Pledged', _showPledged),
-          _buildTabButton('Raised', !_showPledged),
-        ],
-      ),
-    );
-  }
-
-  /// Creates an individual tab button with styling.
-  ///
-  /// **params**:
-  /// * `label`: the text label displayed on the button.
-  /// * `isSelected`: whether the button is currently selected.
-  ///
-  /// **returns**:
-  /// * `Widget`: a styled button for toggling views.
-  Widget _buildTabButton(String label, bool isSelected) {
-    return Container(
-      height: 40,
-      width: 120,
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.green : Colors.grey,
-        borderRadius: BorderRadius.horizontal(
-          left: label == 'Pledged' ? const Radius.circular(8.0) : Radius.zero,
-          right: label == 'Raised' ? const Radius.circular(8.0) : Radius.zero,
-        ),
-      ),
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            _showPledged = label == 'Pledged';
-          });
-        },
-        child: Text(
-          label,
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  /// Displays the progress indicator bar showing the campaign's funding status.
-  ///
-  /// **params**:
-  /// * `model`: the data model containing pledge and funding data.
-  ///
-  /// **returns**:
-  /// * `Widget`: a progress bar widget showing the funding progress.
-  /// Displays the progress indicator bar showing the campaign's funding status.
-  ///
-  /// **params**:
-  /// * `model`: the data model containing pledge and funding data.
-  ///
-  /// **returns**:
-  /// * `Widget`: a custom progress bar widget showing the funding progress.
-  Widget _buildProgressIndicator(FundViewModel model) {
-    final totalPledged = model.allPledges.fold(0, (int sum, pledge) {
-      final amount = pledge.amount ?? 0;
-      return sum + amount;
-    });
-
-    final goalAmount = widget.campaign.goalAmount ?? -1;
-    final totalRaised = model.allPledges.fold(0, (int sum, pledge) {
-      const amountDonated = 0;
-      return sum + amountDonated;
-    });
-
-    final double progress =
-        _showPledged ? (totalPledged / goalAmount) : (totalRaised / goalAmount);
-    final double progressValue = progress > 1.0 ? 1.0 : progress;
-
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              Container(
-                height: 20,
-                width: progressValue * MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              Positioned.fill(
-                child: Center(
-                  child: Text(
-                    '${(progressValue * 100).toStringAsFixed(1)}%',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                _showPledged
-                    ? 'Pledged: ${widget.campaign.currency} ${totalPledged.toStringAsFixed(2)}'
-                    : 'Raised: ${widget.campaign.currency} ${totalRaised.toStringAsFixed(2)}',
-              ),
-              Text(
-                'Goal: ${widget.campaign.currency} ${goalAmount.toStringAsFixed(2)}',
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   /// Builds the list of pledges as a ListView.
   ///
   /// **params**:
@@ -242,14 +77,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
     if (model.isFetchingPledges) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (model.allPledges.isEmpty) {
-      return const Center(
-        child: Text(
-          'No pledges found.',
-          style: TextStyle(fontSize: 18),
-        ),
-      );
-    }
     if (model.userPledges.isEmpty) {
       return const Center(
         child: Text(
@@ -258,38 +85,16 @@ class _PledgesScreenState extends State<PledgesScreen> {
         ),
       );
     }
-    return NotificationListener<ScrollNotification>(
-      onNotification: (scrollInfo) {
-        if (scrollInfo.metrics.pixels >=
-            scrollInfo.metrics.maxScrollExtent - 200) {
-          if (model.hasMorePledges && !model.isLoadingMorePledges) {
-            model.fetchNextPledges();
-          }
-        }
-        return false;
+    return ListView.builder(
+      itemCount: model.userPledges.length,
+      itemBuilder: (context, index) {
+        final pledge = model.userPledges[index];
+        return PledgeCard(
+          pledge: pledge,
+          onUpdate: () => _showUpdatePledgeDialog(context, model, pledge),
+          onDelete: () => _showDeleteConfirmationDialog(context, model, pledge),
+        );
       },
-      child: ListView.builder(
-        controller: _scrollController,
-        itemCount:
-            model.filteredPledges.length + (model.isLoadingMorePledges ? 1 : 0),
-        itemBuilder: (context, index) {
-          if (index < model.filteredPledges.length) {
-            final pledge = model.filteredPledges[index];
-            return PledgeCard(
-              pledge: pledge,
-              onUpdate: () => _showUpdatePledgeDialog(context, model, pledge),
-              onDelete: () =>
-                  _showDeleteConfirmationDialog(context, model, pledge),
-            );
-          } else {
-            // Show loading indicator at the end
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-        },
-      ),
     );
   }
 

@@ -16,7 +16,6 @@ import 'package:talawa/view_model/base_view_model.dart';
 /// * `fetchFunds` : to fetch all funds in the organization.
 /// * `fetchCampaigns` : to fetch campaigns for a specific fund.
 /// * `fetchPledges` : to fetch pledges for a specific campaign.
-/// * `fetchNextPledges` : to fetch the next page of pledges for pagination.
 /// * `createPledge` : to create a new pledge.
 /// * `updatePledge` : to update an existing pledge.
 /// * `deletePledge` : to delete a pledge.
@@ -31,9 +30,8 @@ class FundViewModel extends BaseModel {
   List<Fund> _filteredFunds = [];
   List<Campaign> _campaigns = [];
   List<Campaign> _filteredCampaigns = [];
-  List<Pledge> _allPledges = [];
   List<Pledge> _userPledges = [];
-  List<Pledge> _filteredPledges = [];
+
   PageInfo? _fundsPageInfo = PageInfo(
     hasNextPage: false,
     hasPreviousPage: false,
@@ -46,19 +44,12 @@ class FundViewModel extends BaseModel {
     startCursor: null,
     endCursor: null,
   );
-  PageInfo? _pledgesPageInfo = PageInfo(
-    hasNextPage: false,
-    hasPreviousPage: false,
-    startCursor: null,
-    endCursor: null,
-  );
 
   bool _isFetchingFunds = false;
   bool _isFetchingCampaigns = false;
   bool _isFetchingPledges = false;
   bool _isLoadingMoreFunds = false;
   bool _isLoadingMoreCampaigns = false;
-  bool _isLoadingMorePledges = false;
 
   String _fundSortOption = 'createdAt_DESC';
   String _campaignSortOption = 'endDate_DESC';
@@ -91,12 +82,6 @@ class FundViewModel extends BaseModel {
   /// getter for the filtered campaigns.
   List<Campaign> get filteredCampaigns => _filteredCampaigns;
 
-  /// getter for the all pledges.
-  List<Pledge> get allPledges => _allPledges;
-
-  /// getter for the filtered Pledges.
-  List<Pledge> get filteredPledges => _filteredPledges;
-
   /// getter for isFetchingFunds to show loading indicator.
   bool get isFetchingFunds => _isFetchingFunds;
 
@@ -112,23 +97,14 @@ class FundViewModel extends BaseModel {
   /// getter for isLoadingMoreCampaigns to show loading indicator for pagination.
   bool get isLoadingMoreCampaigns => _isLoadingMoreCampaigns;
 
-  /// getter for isLoadingMorePledges to show loading indicator for pagination.
-  bool get isLoadingMorePledges => _isLoadingMorePledges;
-
   /// getter to check if there are more funds to load.
   bool get hasMoreFunds => _fundsPageInfo?.hasNextPage ?? false;
 
   /// getter to check if there are more campaigns to load.
   bool get hasMoreCampaigns => _campaignsPageInfo?.hasNextPage ?? false;
 
-  /// getter to check if there are more pledges to load.
-  bool get hasMorePledges => _pledgesPageInfo?.hasNextPage ?? false;
-
   /// getter for the campaigns page info.
   PageInfo? get campaignsPageInfo => _campaignsPageInfo;
-
-  /// getter for the pledges page info.
-  PageInfo? get pledgesPageInfo => _pledgesPageInfo;
 
   /// getter for funds sorting option.
   String get fundSortOption => _fundSortOption;
@@ -367,46 +343,11 @@ class FundViewModel extends BaseModel {
       final result = await _fundService.getPledgesByCampaign(
         campaignId,
       );
-      _allPledges = result.first;
-      _pledgesPageInfo = result.second;
-      _userPledges = _allPledges
-          .where((pledge) => pledge.pledger?.id == userConfig.currentUser.id)
-          .toList();
-      _filteredPledges = List.from(_userPledges);
-      _isFetchingPledges = false;
-    } catch (e) {
-      _isFetchingPledges = false;
-    } finally {
-      notifyListeners();
-    }
-  }
+      _userPledges = result;
 
-  /// This function fetches the next page of pledges for the current campaign.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> fetchNextPledges() async {
-    if (_isLoadingMorePledges || !hasMorePledges) return;
-    _isLoadingMorePledges = true;
-    notifyListeners();
-    try {
-      final result = await _fundService.getPledgesByCampaign(
-        parentcampaignId,
-        after: _pledgesPageInfo?.endCursor,
-      );
-      _allPledges.addAll(result.first);
-      _pledgesPageInfo = result.second;
-      final newUserPledges = result.first
-          .where((pledge) => pledge.pledger?.id == userConfig.currentUser.id)
-          .toList();
-      _userPledges.addAll(newUserPledges);
-      _filteredPledges = List.from(_userPledges);
-      _isLoadingMorePledges = false;
+      _isFetchingPledges = false;
     } catch (e) {
-      _isLoadingMorePledges = false;
+      _isFetchingPledges = false;
     } finally {
       notifyListeners();
     }

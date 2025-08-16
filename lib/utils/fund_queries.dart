@@ -98,45 +98,27 @@ class FundQueries {
   /// * `String`: Returns a GraphQL query string to fetch pledges associated with the specified campaign ID.
   String fetchPledgesByCampaign() {
     return '''
-      query FundCampaignPledges(
-        \$id: String!
-        \$first: Int
-        \$last: Int
-        \$after: String
-        \$before: String
+      query GetMyPledgesForCampaign(
+        \$campaignId: ID!
       ) {
-        fundCampaign(input: { id: \$id }) {
-          pledges(
-            first: \$first
-            last: \$last
-            after: \$after
-            before: \$before
-          ) {
-            edges {
-              node {
-                id
-                amount
-                note
-                pledger {
-                  id
-                  name
-                  avatarURL
-                }
-                campaign {
-                  id
-                  startAt
-                  endAt
-                  currencyCode
-                }
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              endCursor
-              startCursor
-            }
+        getMyPledgesForCampaign(campaignId: \$campaignId) {
+          id
+          amount
+          note
+          pledger {
+            id
+            name
+            avatarURL
+          }
+          creator{
+            id
+            name
+          }
+          campaign {
+            id
+            startAt
+            endAt
+            currencyCode
           }
         }
       }

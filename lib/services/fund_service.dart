@@ -172,29 +172,15 @@ class FundService {
   ///
   /// **params**:
   /// * `campaignId`: ID of the campaign to fetch pledges for.
-  /// * `first`: Number of pledges to fetch from the beginning (pagination).
-  /// * `last`: Number of pledges to fetch from the end (pagination).
-  /// * `after`: Cursor for pagination (fetch records after this cursor).
-  /// * `before`: Cursor for pagination (fetch records before this cursor).
   ///
   /// **returns**:
-  /// * `Future<Pair<List<Pledge>, PageInfo>>`: Tuple containing list of pledges and pagination info.
-  Future<Pair<List<Pledge>, PageInfo>> getPledgesByCampaign(
-    String campaignId, {
-    int? first = 10,
-    int? last,
-    String? after,
-    String? before,
-  }) async {
+  /// * `Future<List<Pledge>>`: List of pledges.
+  Future<List<Pledge>> getPledgesByCampaign(String campaignId) async {
     try {
       final QueryResult result = await _dbFunctions.gqlAuthQuery(
         _fundQueries.fetchPledgesByCampaign(),
         variables: {
-          'id': campaignId,
-          'first': first,
-          'last': last,
-          'after': after,
-          'before': before,
+          'campaignId': campaignId,
         },
       );
 
@@ -202,30 +188,17 @@ class FundService {
         throw Exception('Unable to fetch pledges');
       }
 
-      final campaignData =
-          result.data!['fundCampaign'] as Map<String, dynamic>?;
-      if (campaignData == null) {
-        throw Exception('Campaign not found');
-      }
-
-      final pledgesData = campaignData['pledges'] as Map<String, dynamic>?;
-      if (pledgesData == null) {
+      final pledgesList =
+          result.data!['getMyPledgesForCampaign'] as List<dynamic>?;
+      if (pledgesList == null) {
         throw Exception('Pledges data not found');
       }
 
-      final pledgeEdges =
-          (pledgesData['edges'] as List<dynamic>).cast<Map<String, dynamic>>();
-
-      final pledges = pledgeEdges.map((edge) {
-        final pledgeNode = edge['node'] as Map<String, dynamic>;
-        return Pledge.fromJson(pledgeNode);
+      final pledges = pledgesList.map((pledgeData) {
+        return Pledge.fromJson(pledgeData as Map<String, dynamic>);
       }).toList();
 
-      final pageInfo = PageInfo.fromJson(
-        pledgesData['pageInfo'] as Map<String, dynamic>,
-      );
-
-      return Pair(pledges, pageInfo);
+      return pledges;
     } catch (e) {
       throw Exception('Failed to load pledges: $e');
     }

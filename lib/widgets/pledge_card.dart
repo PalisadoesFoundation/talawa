@@ -154,6 +154,11 @@ class PledgeCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
+                  Text(
+                    'Creator: ${pledge.creator?.name ?? 'Unknown Creator'}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

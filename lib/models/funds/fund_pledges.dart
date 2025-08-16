@@ -20,6 +20,7 @@ class Pledge {
     this.endDate,
     this.note,
     this.currency,
+    this.creator,
   });
 
   /// Creates a `Pledge` instance from a JSON object.
@@ -40,6 +41,12 @@ class Pledge {
       startDate: campaign.startDate,
       endDate: campaign.endDate,
       note: json['note'] as String?,
+      creator: json['creator'] != null
+          ? User.fromJson(
+              json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
+            )
+          : null,
       currency: campaign.currency,
     );
   }
@@ -49,6 +56,9 @@ class Pledge {
 
   /// The amount pledged.
   final int? amount;
+
+  /// The user who created the pledge.
+  final User? creator;
 
   /// The user who made the pledge.
   final User? pledger;
