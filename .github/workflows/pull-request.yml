@@ -310,7 +310,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           name: "Automated iOS Release"
-          artifacts: "app-release.ipa"
+          artifacts: "app.ipa"
           allowUpdates: "true"
           generateReleaseNotes: false
           tag: "automated"
