@@ -282,10 +282,13 @@ jobs:
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: iOS Build and Release
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: Flutter-Testing
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
