@@ -160,6 +160,8 @@ jobs:
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
     name: iOS Build and Relaese
+    permissions:
+      contents: write
     runs-on: macos-latest
     needs: Flutter-Testing
     

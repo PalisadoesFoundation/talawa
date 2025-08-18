@@ -280,8 +280,9 @@ jobs:
         run: flutter build apk
 
   iOS-Build:
-    if: ${{ github.actor != 'dependabot[bot]' }}
     name: iOS Build and Release
+    permissions:
+      contents: write
     runs-on: macos-latest
     needs: Flutter-Testing
     steps:
