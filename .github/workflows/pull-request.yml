@@ -299,6 +299,7 @@ jobs:
         run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
+        
   Test-Docusaurus-Deployment:
     name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
