@@ -94,14 +94,12 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
         ElevatedButton(
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
-              print("test1");
               Navigator.of(context).pop();
               await widget.model.updatePledge({
                 'id': widget.pledge.id,
                 'amount': double.parse(_amountController.text),
                 'note': _noteController.text,
               });
-              print("test2");
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Please fill all fields')),

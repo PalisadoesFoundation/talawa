@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
 
-/// a_line_ending_with_end_punctuation.
+/// Pledge card.
 class PledgeCard extends StatelessWidget {
   const PledgeCard({
     super.key,
@@ -68,15 +68,6 @@ class PledgeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Pledger',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  // Since only one user can pledge per pledge now
                   if (pledge.pledger != null)
                     Chip(
                       avatar: CircleAvatar(
@@ -170,7 +161,7 @@ class PledgeCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            _formatDate(pledge.startDate),
+                            formatDate(pledge.startDate),
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
@@ -183,7 +174,7 @@ class PledgeCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            _formatDate(pledge.endDate),
+                            formatDate(pledge.endDate),
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
@@ -220,16 +211,14 @@ class PledgeCard extends StatelessWidget {
     );
   }
 
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
+  /// Date Formatter.
   ///
   /// **params**:
   /// * `date`: define_the_param
   ///
   /// **returns**:
   /// * `String`: define_the_return
-  String _formatDate(DateTime? date) {
+  String formatDate(DateTime? date) {
     if (date == null) return 'N/A';
     return DateFormat('MMM d, y').format(date);
   }

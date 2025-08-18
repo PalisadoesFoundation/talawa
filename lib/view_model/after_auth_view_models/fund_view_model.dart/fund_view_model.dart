@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/funds/fund.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
@@ -115,6 +116,9 @@ class FundViewModel extends BaseModel {
   /// getter for user pledges.
   List<Pledge> get userPledges => _userPledges;
 
+  /// Stream for current organisation.
+  StreamSubscription? _currentOrganizationStreamSubscription;
+
   /// To initialize the view model.
   ///
   /// This method sets up the initial state and triggers the fetch of funds.
@@ -128,10 +132,49 @@ class FundViewModel extends BaseModel {
     _isFetchingFunds = true;
     _isFetchingCampaigns = true;
     _isFetchingPledges = true;
+    _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
+        .listen((updatedOrganization) => refreshFunds());
     notifyListeners();
     getCurrentOrgUsersList();
     fetchFunds();
-    // Note: We'll fetch campaigns and pledges after selecting a specific fund and campaign
+  }
+
+  /// This method refreshes funds when organisation changes.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void refreshFunds() {
+    debugPrint('Refreshing funds...${userConfig.currentOrg.name}');
+    _isFetchingFunds = true;
+    _isFetchingCampaigns = true;
+    _isFetchingPledges = true;
+    _funds.clear();
+    _filteredFunds.clear();
+    _campaigns.clear();
+    _filteredCampaigns.clear();
+    _userPledges.clear();
+    _fundsPageInfo = PageInfo(
+      hasNextPage: false,
+      hasPreviousPage: false,
+      startCursor: null,
+      endCursor: null,
+    );
+    _campaignsPageInfo = PageInfo(
+      hasNextPage: false,
+      hasPreviousPage: false,
+      startCursor: null,
+      endCursor: null,
+    );
+
+    print('Refreshing funds... sdf');
+
+    getCurrentOrgUsersList();
+    fetchFunds();
+    print("Fetched funds");
+    notifyListeners();
   }
 
   /// This function fetches all funds in the organization.
@@ -171,8 +214,6 @@ class FundViewModel extends BaseModel {
     notifyListeners();
 
     try {
-      print("This is the cursor");
-      print(_fundsPageInfo?.endCursor);
       final result = await _fundService.getFunds(
         after: _fundsPageInfo?.endCursor,
       );
@@ -209,7 +250,7 @@ class FundViewModel extends BaseModel {
       _isFetchingCampaigns = false;
       notifyListeners();
     } catch (e) {
-      print('Error fetching campaigns: $e');
+      debugPrint('Error fetching campaigns: $e');
       _isFetchingCampaigns = false;
       notifyListeners();
     }
@@ -377,7 +418,7 @@ class FundViewModel extends BaseModel {
       await _fundService.createPledge(pledgeData);
       await fetchPledges(parentcampaignId);
     } catch (e) {
-      print('Error creating pledge: $e');
+      debugPrint('Error creating pledge: $e');
     }
   }
 
@@ -395,7 +436,7 @@ class FundViewModel extends BaseModel {
       await _fundService.updatePledge(updatedPledgeData);
       await fetchPledges(parentcampaignId);
     } catch (e) {
-      print('Error updating pledge: $e');
+      debugPrint('Error updating pledge: $e');
     }
   }
 
@@ -412,7 +453,7 @@ class FundViewModel extends BaseModel {
       await _fundService.deletePledge(pledgeId);
       await fetchPledges(campaignId);
     } catch (e) {
-      print('Error deleting pledge: $e');
+      debugPrint('Error deleting pledge: $e');
     }
   }
 
@@ -436,5 +477,11 @@ class FundViewModel extends BaseModel {
   ///   None
   void selectCampaign(String campaignId) {
     fetchPledges(campaignId);
+  }
+
+  @override
+  void dispose() {
+    _currentOrganizationStreamSubscription?.cancel();
+    super.dispose();
   }
 }

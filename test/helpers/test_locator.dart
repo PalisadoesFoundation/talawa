@@ -11,6 +11,7 @@ import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -37,6 +38,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
@@ -79,6 +81,8 @@ final imageCropper = locator<ImageCropper>();
 final sessionManager = locator<SessionManager>();
 final actionHandlerService = locator<ActionHandlerService>();
 final pinnedPostService = locator<PinnedPostService>();
+final fundService = locator<FundService>();
+final fundViewModel = locator<FundViewModel>();
 
 void testSetupLocator() {
   locator.registerSingleton(CacheService());
@@ -112,6 +116,7 @@ void testSetupLocator() {
   locator.registerSingleton(() => OrganizationService());
   locator.registerSingleton(Validator());
   locator.registerLazySingleton(() => PinnedPostService());
+  locator.registerLazySingleton(() => FundService());
 
   //graphql
 
@@ -147,6 +152,7 @@ void testSetupLocator() {
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => AppSettingViewModel());
+  locator.registerFactory(() => FundViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());

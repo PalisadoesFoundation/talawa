@@ -29,8 +29,9 @@ class Pledge {
   ///
   /// Returns an instance of `Pledge`.
   factory Pledge.fromJson(Map<String, dynamic> json) {
-    final Campaign campaign =
-        Campaign.fromJson(json['campaign'] as Map<String, dynamic>);
+    final Campaign? campaign = json['campaign'] != null
+        ? Campaign.fromJson(json['campaign'] as Map<String, dynamic>)
+        : null;
     return Pledge(
       id: json['id'] as String?,
       amount: json['amount'] as int?,
@@ -38,8 +39,8 @@ class Pledge {
           ? User.fromJson(json['pledger'] as Map<String, dynamic>)
           : null,
       campaign: json['campaign'] != null ? campaign : null,
-      startDate: campaign.startDate,
-      endDate: campaign.endDate,
+      startDate: campaign?.startDate,
+      endDate: campaign?.endDate,
       note: json['note'] as String?,
       creator: json['creator'] != null
           ? User.fromJson(
@@ -47,7 +48,7 @@ class Pledge {
               fromOrg: true,
             )
           : null,
-      currency: campaign.currency,
+      currency: campaign?.currency,
     );
   }
 

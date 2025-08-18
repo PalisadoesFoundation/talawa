@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
-// import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -12,9 +11,6 @@ import 'package:talawa/views/main_screen.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
-// import '../../helpers/test_locator.dart';
-
-class MockBuildContext extends Mock implements BuildContext {}
 
 Widget createProfileScreen({required bool demoMode}) {
   return MaterialApp(
@@ -29,7 +25,7 @@ Widget createProfileScreen({required bool demoMode}) {
     home: MainScreen(
       key: const Key('MainScreen'),
       mainScreenArgs: MainScreenArgs(
-        mainScreenIndex: 3,
+        mainScreenIndex: 4,
         fromSignUp: false,
         toggleDemoMode: demoMode,
       ),
@@ -38,10 +34,6 @@ Widget createProfileScreen({required bool demoMode}) {
 }
 
 void main() {
-  // setUpAll(() {
-  //   TestWidgetsFlutterBinding.ensureInitialized();
-  //   testSetupLocator();
-  // });
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();

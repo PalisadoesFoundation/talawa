@@ -225,9 +225,9 @@ class CampaignCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    const raisedAmount = 0.0;
     final goalAmount = campaign.goalAmount ?? 0;
-    final progress = goalAmount > 0 ? raisedAmount / goalAmount : 0.0;
+    final progress =
+        goalAmount > 0 ? (campaign.pledgedAmount ?? 0) / goalAmount : 0.0;
 
     return Card(
       elevation: 2,
@@ -236,7 +236,13 @@ class CampaignCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(theme),
-          _buildBody(theme, raisedAmount, goalAmount, progress, context),
+          _buildBody(
+            theme,
+            campaign.pledgedAmount,
+            goalAmount,
+            progress,
+            context,
+          ),
           _buildFooter(context, theme),
         ],
       ),
@@ -292,7 +298,7 @@ class CampaignCard extends StatelessWidget {
   /// * `Widget`: The constructed body widget containing campaign progress and details.
   Widget _buildBody(
     ThemeData theme,
-    double raisedAmount,
+    double? raisedAmount,
     double goalAmount,
     double progress,
     BuildContext context,
@@ -332,7 +338,7 @@ class CampaignCard extends StatelessWidget {
   /// * `Widget`: The progress indicator widget showing the campaign's funding status.
   Widget _buildProgressIndicator(
     ThemeData theme,
-    double raisedAmount,
+    double? raisedAmount,
     double goalAmount,
     double progress,
     BuildContext context,
@@ -376,7 +382,7 @@ class CampaignCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${campaign.currency ?? ''} ${raisedAmount.toStringAsFixed(2)} raised',
+              '${campaign.currency ?? ''} ${(campaign.pledgedAmount ?? 0).toStringAsFixed(2)} raised',
               style: theme.textTheme.bodyLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),

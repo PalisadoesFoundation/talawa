@@ -3,7 +3,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/funds/fund.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -13,7 +12,6 @@ import 'package:talawa/utils/pair.dart';
 /// FundService class provides different services in the context of Funds, Campaigns, and Pledges.
 class FundService {
   FundService() {
-    _currentOrg = _userConfig.currentOrg;
     _fundQueries = FundQueries();
   }
 
@@ -21,8 +19,6 @@ class FundService {
   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
   late FundQueries _fundQueries;
-
-  late OrgInfo _currentOrg;
 
   /// This function is used to fetch all funds of the organization.
   ///
@@ -41,7 +37,7 @@ class FundService {
     String? before,
   }) async {
     try {
-      final String currentOrgID = _currentOrg.id!;
+      final String currentOrgID = _userConfig.currentOrg.id!;
 
       // Validate organization ID
       if (currentOrgID.isEmpty) {
