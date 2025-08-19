@@ -433,8 +433,11 @@ class FundViewModel extends BaseModel {
     Map<String, dynamic> updatedPledgeData,
   ) async {
     try {
+      print('Updating pledge with data: $updatedPledgeData');
       await _fundService.updatePledge(updatedPledgeData);
+      print('Pledge updated successfully');
       await fetchPledges(parentcampaignId);
+      print('Fetched pledges after update');
     } catch (e) {
       debugPrint('Error updating pledge: $e');
     }
