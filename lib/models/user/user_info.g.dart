@@ -20,11 +20,10 @@ class UserAdapter extends TypeAdapter<User> {
       adminFor: (fields[9] as List?)?.cast<OrgInfo>(),
       createdOrganizations: (fields[8] as List?)?.cast<OrgInfo>(),
       email: fields[5] as String?,
-      firstName: fields[3] as String?,
+      name: fields[3] as String?,
       id: fields[2] as String?,
       image: fields[6] as String?,
       joinedOrganizations: (fields[7] as List?)?.cast<OrgInfo>(),
-      lastName: fields[4] as String?,
       authToken: fields[0] as String?,
       refreshToken: fields[1] as String?,
       membershipRequests: (fields[10] as List?)?.cast<OrgInfo>(),
@@ -34,7 +33,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.authToken)
       ..writeByte(1)
@@ -42,9 +41,7 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(2)
       ..write(obj.id)
       ..writeByte(3)
-      ..write(obj.firstName)
-      ..writeByte(4)
-      ..write(obj.lastName)
+      ..write(obj.name)
       ..writeByte(5)
       ..write(obj.email)
       ..writeByte(6)

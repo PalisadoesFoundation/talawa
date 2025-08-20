@@ -71,8 +71,7 @@ void main() {
       OrgInfo(id: 'org2', name: 'orgb'),
     ],
     email: 'test@gmail.com',
-    firstName: 'user',
-    lastName: 'one',
+    name: 'user one',
     image: 'sample.jpg',
     joinedOrganizations: <OrgInfo>[
       OrgInfo(id: 'org1', name: 'orga'),
@@ -185,7 +184,7 @@ void main() {
       final model = UserConfig();
       model.currentUser.id = 'fake_id';
 
-      userBox.put('user', User(id: 'fake', firstName: 'first'));
+      userBox.put('user', User(id: 'fake', name: 'first'));
 
       final Map<String, dynamic> data = {
         'users': [
@@ -220,14 +219,14 @@ void main() {
 
       when(
         databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
+          queries.fetchUserInfo(),
           variables: anyNamed('variables'),
         ),
       ).thenAnswer((_) async {
         return QueryResult(
           source: QueryResultSource.network,
           data: data,
-          options: QueryOptions(document: gql(queries.fetchUserInfo)),
+          options: QueryOptions(document: gql(queries.fetchUserInfo())),
         );
       });
 
@@ -249,7 +248,7 @@ void main() {
 
       when(
         databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
+          queries.fetchUserInfo(),
           variables: anyNamed('variables'),
         ),
       ).thenAnswer((_) {
@@ -304,8 +303,7 @@ void main() {
       // Create a mock user with null joinedOrganizations
       final userWithNullOrgs = User(
         id: 'test-user',
-        firstName: 'Test',
-        lastName: 'User',
+        name: 'Test User',
         email: 'test@example.com',
         joinedOrganizations: null, // Explicitly null
       );

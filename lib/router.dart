@@ -233,7 +233,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case Routes.requestAccess:
       final OrgInfo org = settings.arguments! as OrgInfo;
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (context) => SendAccessRequest(
           key: const Key('Signup'),
           org: org,

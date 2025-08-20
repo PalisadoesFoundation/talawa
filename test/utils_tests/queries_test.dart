@@ -8,8 +8,7 @@ void main() {
       expect(mutation, false);
 
       final fnData = Queries().registerUser(
-        'Ayush',
-        'Chaudhary',
+        'Ayush Chaudhary',
         'ayush@gmail.com',
         'password',
         'orgId123',
@@ -61,16 +60,6 @@ void main() {
     """;
       expect(data, ff);
     });
-    test("Check if newUserLanguage works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().newUserLanguage('12345');
-      if (fnData.contains('12345')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if fetchJoinInOrgByName works correctly", () {
       var mutation = false;
       expect(mutation, false);
@@ -115,32 +104,12 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("Check if updateLanguage works correctly", () {
-      var mutation = false;
-
-      expect(mutation, false);
-      final fnData = Queries().updateLanguage('orgId123');
-      if (fnData.contains('orgId123')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if fetchOrgById works correctly", () {
       var mutation = false;
       expect(mutation, false);
 
       final fnData = Queries().fetchOrgById('orgId123');
       if (fnData.contains('orgId123')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
-    test("Check if userlanguage works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().userLanguage();
-      if (fnData.contains('myLanguage')) {
         mutation = true;
       }
       expect(mutation, true);
@@ -152,27 +121,6 @@ void main() {
       final fnData = Queries();
       final ff = fnData.fetchJoinInOrgByName;
       if (ff.contains('query organizationsConnection')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
-
-    test("Check if newUserLanguage works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().newUserLanguage('12345');
-      if (fnData.contains('12345')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
-    test("Check if fetchOrgDetailsById works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
-
-      final fnData = Queries().fetchOrgDetailsById('12345');
-      if (fnData.contains('12345')) {
         mutation = true;
       }
       expect(mutation, true);

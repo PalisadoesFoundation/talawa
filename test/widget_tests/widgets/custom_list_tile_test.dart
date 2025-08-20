@@ -173,8 +173,7 @@ void main() {
       bool executed = false;
       _tileType = TileType.user;
       _userInfo = User(
-        firstName: 'Test firstname',
-        lastName: 'Test lastname',
+        name: 'Test-firstname Test lastname',
       );
       _onTapUserInfo = () => {executed = true};
       await tester.pumpWidget(_createCustomListTile());

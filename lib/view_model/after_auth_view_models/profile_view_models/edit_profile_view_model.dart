@@ -85,7 +85,7 @@ class EditProfilePageViewModel extends BaseModel {
       base64Image = await imageService.convertToBase64(file);
       return base64Image!;
     } catch (error) {
-      print(error);
+      debugPrint('Error converting image to Base64: $error');
       return '';
     }
   }
@@ -122,7 +122,6 @@ class EditProfilePageViewModel extends BaseModel {
         }
         if (newImage != null) {
           final String imageAsString = await convertToBase64(newImage);
-          print('data:image/png;base64,$imageAsString');
           variables["file"] = 'data:image/png;base64,$imageAsString';
         }
         if (variables.isNotEmpty) {
@@ -140,14 +139,12 @@ class EditProfilePageViewModel extends BaseModel {
 
         final User userInfo = User.fromJson(
           users[0] as Map<String, dynamic>,
-          fromOrg: false,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
 
         await userConfig.updateUser(userInfo);
-        user.firstName = firstName ?? user.firstName;
-        user.lastName = lastName ?? user.lastName;
+        user.name = firstName ?? user.firstName;
         firstNameTextController.text = user.firstName!;
         lastNameTextController.text = user.lastName!;
       },
@@ -157,7 +154,6 @@ class EditProfilePageViewModel extends BaseModel {
           "Profile updated successfully",
           MessageType.info,
         );
-        print('cccccccccccccccccccccccccccccccccccccccc');
       },
       onActionException: (_) async {
         navigationService.showTalawaErrorSnackBar(

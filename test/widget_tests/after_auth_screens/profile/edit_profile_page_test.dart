@@ -77,7 +77,7 @@ Future<void> main() async {
   group('Edit Profile Screen Widget Test in light mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
-        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        User(name: 'Test Test', email: 'test@test.com'),
       );
       await tester
           .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
@@ -102,7 +102,7 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+          User(name: 'Test Test', email: 'test@test.com'),
         );
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
@@ -130,8 +130,7 @@ Future<void> main() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
           User(
-            firstName: 'Test',
-            lastName: 'Test',
+            name: 'Test Test',
             email: 'test@test.com',
             image: 'https://via.placeholder.com/150',
           ),
@@ -159,7 +158,7 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+          User(name: 'Test Test', email: 'test@test.com'),
         );
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.light));
@@ -185,7 +184,7 @@ Future<void> main() async {
   group('Edit Profile Screen Widget Test in dark mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
-        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        User(name: 'Test Test', email: 'test@test.com'),
       );
       await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
@@ -213,8 +212,7 @@ Future<void> main() async {
 
         userConfig.updateUser(
           User(
-            firstName: 'Test',
-            lastName: 'Test',
+            name: 'Test Test',
             email: 'test@test.com',
             image: 'https://via.placeholder.com/150',
           ),
@@ -245,8 +243,7 @@ Future<void> main() async {
 
         userConfig.updateUser(
           User(
-            firstName: 'Test',
-            lastName: 'Test',
+            name: 'Test Test',
             email: 'test@test.com',
             image: 'https://via.placeholder.com/150',
           ),
@@ -279,8 +276,7 @@ Future<void> main() async {
 
         userConfig.updateUser(
           User(
-            firstName: 'Test',
-            lastName: 'Test',
+            name: 'Test Test',
             email: 'test@test.com',
             image: 'https://via.placeholder.com/150',
           ),
@@ -316,8 +312,7 @@ Future<void> main() async {
 
         userConfig.updateUser(
           User(
-            firstName: 'Test',
-            lastName: 'Test',
+            name: 'Test Test',
             email: 'test@test.com',
             image: 'https://via.placeholder.com/150',
           ),
@@ -350,7 +345,7 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+          User(name: 'Test Test', email: 'test@test.com'),
         );
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
@@ -376,7 +371,7 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+          User(name: 'Test Test', email: 'test@test.com'),
         );
         await tester
             .pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
@@ -451,7 +446,7 @@ Future<void> main() async {
     testWidgets("Testing if firstName text field gets focus on onPressed",
         (tester) async {
       userConfig.updateUser(
-        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        User(name: 'Test Test', email: 'test@test.com'),
       );
 
       // Render the widget
@@ -487,7 +482,7 @@ Future<void> main() async {
         (tester) async {
       // Mock or set up user data
       userConfig.updateUser(
-        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        User(name: 'Test Test', email: 'test@test.com'),
       );
 
       // Render the widget

@@ -31,11 +31,8 @@ class SignupDetailsViewModel extends BaseModel {
   /// TextEditingController for handling confirmation password input field.
   TextEditingController confirmPassword = TextEditingController();
 
-  /// TextEditingController for handling first name input field.
-  TextEditingController firstName = TextEditingController();
-
-  /// TextEditingController for handling last name input field.
-  TextEditingController lastName = TextEditingController();
+  /// TextEditingController for handling name input field.
+  TextEditingController name = TextEditingController();
 
   /// TextEditingController for handling password input field.
   TextEditingController password = TextEditingController();
@@ -138,8 +135,7 @@ class SignupDetailsViewModel extends BaseModel {
           );
           databaseFunctions.init();
           final String query = queries.registerUser(
-            firstName.text,
-            lastName.text,
+            name.text,
             email.text,
             Encryptor.encryptString(
               password.text,

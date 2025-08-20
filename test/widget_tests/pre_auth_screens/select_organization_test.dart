@@ -90,8 +90,6 @@ void main() {
       orgViewModel.organizations = List.generate(
         5,
         (i) => OrgInfo(
-          admins: [],
-          members: [],
           id: '$i',
           description: 'Organization $i description',
           name: 'Organization $i',

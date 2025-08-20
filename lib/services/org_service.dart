@@ -53,7 +53,6 @@ class OrganizationService {
         try {
           final User member = User.fromJson(
             jsonElement as Map<String, dynamic>,
-            fromOrg: true,
           );
           orgMembersList.add(member);
         } catch (e) {

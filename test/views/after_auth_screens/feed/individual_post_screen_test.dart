@@ -47,8 +47,7 @@ Widget createCommentTemplateWidget({
         comment: Comment(
           creator: User(
             id: '123',
-            firstName: 'Ayush',
-            lastName: 'Chaudhary',
+            name: 'Ayush Chaudhary',
             email: 'test@test.com',
           ),
           createdAt: '123456',

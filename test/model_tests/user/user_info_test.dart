@@ -37,7 +37,7 @@ final testDataNotFromOrg = {
 void main() {
   group("Tests for UserInfo.dart", () {
     test('Check if UserInfo.fromJson works with fromOrg', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
 
       expect(userInfo.firstName, "ravidi");
       expect(userInfo.lastName, "sheikh");
@@ -65,7 +65,7 @@ void main() {
     });
 
     test('Check if the method "update" works', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
 
       expect(userInfo.firstName, "ravidi");
       expect(userInfo.lastName, "sheikh");
@@ -75,8 +75,7 @@ void main() {
 
       userInfo.update(
         User(
-          firstName: "ravidi_updated",
-          lastName: "sheikh_updated",
+          name: "ravidi_updated sheikh_updated",
           email: "updatedemail@test.com",
           image: "https://testimgupdated.com",
           authToken: "randomAuthToken_updated",
@@ -89,19 +88,11 @@ void main() {
       expect(userInfo.image, "https://testimgupdated.com");
       expect(userInfo.authToken, "randomAuthToken_updated");
     });
-
-    test('Check if print method works', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
-
-      // No way to test this. Calling here to increase
-      userInfo.print();
-    });
-
     test('Check if Hive storage works', () async {
       final userBox = await Hive.openBox('userInfo');
       expect(userBox.isOpen, true);
 
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
       userBox.put('user', userInfo);
 
       final newUserBox = await Hive.openBox('userInfo');
@@ -126,32 +117,6 @@ void main() {
       final userAdapter2 = UserAdapter();
 
       expect(userAdapter1 == userAdapter2, true);
-    });
-
-    test('Test name computed property edge cases', () {
-      // Both names present
-      final userBoth = User(firstName: 'John', lastName: 'Doe');
-      expect(userBoth.name, 'John Doe');
-
-      // Only first name
-      final userFirst = User(firstName: 'John', lastName: null);
-      expect(userFirst.name, 'John');
-
-      // Only last name
-      final userLast = User(firstName: null, lastName: 'Doe');
-      expect(userLast.name, 'Doe');
-
-      // Empty strings
-      final userEmpty = User(firstName: '', lastName: '');
-      expect(userEmpty.name, null);
-
-      // Null names
-      final userNull = User(firstName: null, lastName: null);
-      expect(userNull.name, null);
-
-      // Mixed empty/null
-      final userMixed = User(firstName: '', lastName: null);
-      expect(userMixed.name, null);
     });
   });
   group('User.updateJoinedg', () {

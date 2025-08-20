@@ -98,13 +98,12 @@ class UserConfig {
         await sessionManager.refreshSession();
         databaseFunctions.init();
         final QueryResult result = await databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
+          queries.fetchUserInfo(),
           variables: {'id': currentUser.id},
         );
         final List users = result.data!['users'] as List;
         final User userInfo = User.fromJson(
           users[0] as Map<String, dynamic>,
-          fromOrg: false,
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;

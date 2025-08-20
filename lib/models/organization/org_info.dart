@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:talawa/models/user/user_info.dart';
 
 part 'org_info.g.dart';
 
@@ -8,8 +7,6 @@ part 'org_info.g.dart';
 class OrgInfo {
   /// Constructs an OrgInfo object.
   OrgInfo({
-    this.admins,
-    this.members,
     this.description,
     this.id,
     this.image,
@@ -32,32 +29,6 @@ class OrgInfo {
   /// **returns**:
   /// * `OrgInfo`: Returns an instance of OrgInfo containing the parsed data.
   factory OrgInfo.fromJson(Map<String, dynamic> json) {
-    final membersJson = json['members'] as Map<String, dynamic>?;
-    final List<dynamic> edgesDynamic =
-        membersJson?['edges'] as List<dynamic>? ?? [];
-
-    final List<Map<String, dynamic>> memberEdges =
-        edgesDynamic.map((e) => e as Map<String, dynamic>).toList();
-
-    final List<User> members = memberEdges
-        .map(
-          (e) =>
-              User.fromJson(e['node'] as Map<String, dynamic>, fromOrg: true),
-        )
-        .toList();
-
-    final List<User> admins = memberEdges
-        .map((e) {
-          final Map<String, dynamic> user = e['node'] as Map<String, dynamic>;
-          if (user['role'] == 'administrator') {
-            return User.fromJson(user, fromOrg: true);
-          }
-          return null;
-        })
-        .where((user) => user != null)
-        .cast<User>()
-        .toList();
-
     return OrgInfo(
       id: json['id'] != null ? json['id'] as String : null,
       image: json['avatarURL'] != null ? json['avatarURL'] as String? : null,
@@ -67,8 +38,6 @@ class OrgInfo {
       userRegistrationRequired: json['isUserRegistrationRequired'] != null
           ? json['isUserRegistrationRequired'] as bool?
           : null,
-      members: members,
-      admins: admins,
       city: json['city'] as String?,
       countryCode: json['countryCode'] as String?,
       line1: json['addressLine1'] as String?,
@@ -138,14 +107,6 @@ class OrgInfo {
   /// The name of the organization.
   @HiveField(2)
   String? name;
-
-  /// The administrators of the organization.
-  @HiveField(3)
-  List<User>? admins;
-
-  /// The members of the organization.
-  @HiveField(4)
-  List<User>? members;
 
   /// The description of the organization.
   @HiveField(5)

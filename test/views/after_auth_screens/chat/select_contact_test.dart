@@ -66,8 +66,7 @@ void main() {
     when(mockUserConfig.currentOrg).thenReturn(mockOrg);
 
     // Setup mock current user
-    final mockCurrentUser =
-        User(id: 'current_user_id', firstName: 'Current', lastName: 'User');
+    final mockCurrentUser = User(id: 'current_user_id', name: 'Current User');
     when(mockUserConfig.currentUser).thenReturn(mockCurrentUser);
   });
 
@@ -122,8 +121,7 @@ void main() {
       final users = [
         User(
           id: 'user1',
-          firstName: 'John',
-          lastName: 'Doe',
+          name: 'John Doe',
           image: 'https://picsum.photos/200/300',
         ),
       ];
@@ -160,8 +158,7 @@ void main() {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['firstName'],
-            lastName: testCase['lastName'],
+            name: "${testCase['firstName']} ${testCase['lastName']}",
             image: null,
           ),
         ];
@@ -194,8 +191,7 @@ void main() {
         final users = [
           User(
             id: 'user1',
-            firstName: testCase['firstName'],
-            lastName: testCase['lastName'],
+            name: "${testCase['firstName']} ${testCase['lastName']}",
           ),
         ];
         when(mockSelectContactViewModel.isBusy).thenReturn(false);
@@ -226,7 +222,7 @@ void main() {
   });
 
   group('Chat Creation and Navigation', () {
-    final testUser = User(id: 'user1', firstName: 'John', lastName: 'Doe');
+    final testUser = User(id: 'user1', name: 'John Doe');
 
     testWidgets('should handle successful chat creation and navigation',
         (tester) async {

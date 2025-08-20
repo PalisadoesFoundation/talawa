@@ -317,8 +317,7 @@ Future<void> main() async {
       when(mockUserConfig.currentUser).thenReturn(
         User(
           id: "authenticated_user_id",
-          firstName: "Test",
-          lastName: "User",
+          name: "Test User",
           email: "test@example.com",
         ),
       );

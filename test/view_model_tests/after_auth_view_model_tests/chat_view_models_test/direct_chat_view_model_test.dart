@@ -197,7 +197,7 @@ void main() {
     });
 
     group('refreshChats', () {
-      test('clears existing chats and fetches again', () async {
+      test('clears existing chats and fetches again', () {
         final chat = Chat(id: 'chat1');
         viewModel.chats.add(ChatListTileDataModel.fromChat(chat));
         expect(viewModel.chats, isNotEmpty);

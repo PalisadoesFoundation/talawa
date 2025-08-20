@@ -15,17 +15,6 @@ void main() {
       "city": "Delhi",
       "state": "Delhi",
       "isUserRegistrationRequired": true,
-      "members": {
-        "edges": [
-          {
-            "node": {
-              "id": "id123",
-              "name": "user_id",
-              "role": "administrator",
-            },
-          }
-        ],
-      },
     };
 
     test('Test fromJson function', () {
@@ -35,7 +24,6 @@ void main() {
       expect(result.image, 'image_url');
       expect(result.name, 'Name');
       expect(result.description, 'Description');
-      expect(result.members!.length, 1);
       expect(result.city, 'Delhi');
       expect(result.countryCode, "in");
       expect(result.state, 'Delhi');

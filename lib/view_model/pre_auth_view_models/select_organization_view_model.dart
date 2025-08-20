@@ -99,43 +99,40 @@ class SelectOrganizationViewModel extends BaseModel {
   /// **returns**:
   /// * `Future<void>`: None
   Future<void> selectOrg(OrgInfo? item) async {
-    bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
     // if user session not expirec
     if (userConfig.loggedIn) {
       // check if user has already joined the selected organization.
-      userConfig.currentUser.joinedOrganizations!.forEach((element) {
-        if (item != null && element.id! == item.id) {
-          orgAlreadyJoined = true;
+      userConfig.currentUser.joinedOrganizations?.forEach((element) {
+        if (item != null && element.id == item.id) {
+          navigationService.showTalawaErrorSnackBar(
+            'Organisation already joined',
+            MessageType.warning,
+          );
+          return;
         }
       });
 
       // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests ??= [];
-      userConfig.currentUser.membershipRequests!.forEach((element) {
-        if (item != null && element.id! == item.id) {
+      userConfig.currentUser.membershipRequests?.forEach((element) {
+        if (item != null && element.id == item.id) {
           orgRequestAlreadyPresent = true;
         }
       });
 
       // if not already joined and not memebrship request.
-      if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
+      if (!orgRequestAlreadyPresent) {
         selectedOrganization = item;
         notifyListeners();
         onTapJoin();
 
-        if (selectedOrganization!.userRegistrationRequired == true) {
+        if (selectedOrganization?.userRegistrationRequired == true) {
           navigationService.pushScreen(
             Routes.requestAccess,
             arguments: selectedOrganization,
           );
         }
-      } else if (orgAlreadyJoined) {
-        selectedOrganization = OrgInfo(id: '-1');
-        navigationService.showTalawaErrorSnackBar(
-          'Organisation already joined',
-          MessageType.warning,
-        );
       } else {
         navigationService.showTalawaErrorSnackBar(
           'Membership request already sent',
@@ -191,8 +188,7 @@ class SelectOrganizationViewModel extends BaseModel {
         MessageType.warning,
       );
       return;
-    }
-    if (selectedOrganization!.userRegistrationRequired == null) {
+    } else if (selectedOrganization?.userRegistrationRequired == null) {
       navigationService.showTalawaErrorSnackBar(
         'Organization registration requirement is not set',
         MessageType.warning,
@@ -200,8 +196,7 @@ class SelectOrganizationViewModel extends BaseModel {
       return;
     }
     // if `selectedOrganization` registrations is not required.
-    else if (selectedOrganization!.userRegistrationRequired != null &&
-        selectedOrganization!.userRegistrationRequired == false) {
+    else if (selectedOrganization?.userRegistrationRequired == false) {
       try {
         // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(

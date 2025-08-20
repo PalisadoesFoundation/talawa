@@ -129,8 +129,6 @@ final List<User> admins = [admin1, admin2];
 final fakeOrgInfo = OrgInfo(
   id: "XYZ",
   name: "Organization Name",
-  members: members,
-  admins: admins,
   userRegistrationRequired: true,
 );
 
@@ -183,14 +181,12 @@ OrganizationService getAndRegisterOrganizationService() {
 
   final User user1 = User(
     id: "fakeUser1",
-    firstName: 'ayush',
-    lastName: 'chaudhary',
+    name: 'ayush chaudhary',
     image: 'www.image.com',
   );
   final User user2 = User(
     id: "fakeUser2",
-    firstName: 'ayush',
-    lastName: 'chaudhary',
+    name: 'ayush chaudhary',
     image: 'www.image.com',
   );
   final List<User> users = [user1, user2];
@@ -578,8 +574,7 @@ UserConfig getAndRegisterUserConfig() {
   when(service.currentUser).thenReturn(
     User(
       id: 'id',
-      firstName: 'john',
-      lastName: 'snow',
+      name: 'john snow',
     ),
   );
 
@@ -588,8 +583,6 @@ UserConfig getAndRegisterUserConfig() {
     OrgInfo(
       id: "XYZ",
       name: "Organization Name",
-      members: members,
-      admins: admins,
     ),
   );
 
@@ -604,8 +597,7 @@ UserConfig getAndRegisterUserConfig() {
   when(service.currentUser).thenReturn(
     User(
       id: "xzy1",
-      firstName: "Test",
-      lastName: "User",
+      name: "Test User",
       email: "testuser@gmail.com",
       refreshToken: "testtoken",
       authToken: 'testtoken',
@@ -755,8 +747,7 @@ EventService getAndRegisterEventService() {
         description: 'test',
         creator: User(
           id: "xzy1",
-          firstName: "Test",
-          lastName: "User",
+          name: "Test User",
           email: "testuser@gmail.com",
           refreshToken: "testtoken",
           authToken: 'testtoken',
@@ -764,8 +755,7 @@ EventService getAndRegisterEventService() {
         admins: [
           User(
             id: "xzy1",
-            firstName: "Test",
-            lastName: "User",
+            name: "Test User",
           ),
         ],
         isPublic: true,
@@ -843,7 +833,7 @@ Post getPostMockModel({
   when(postMock.id).thenReturn(sId);
   when(postMock.creator).thenReturn(
     User(
-      firstName: "TestName",
+      name: "TestName",
     ),
   );
   when(postMock.caption).thenReturn(description);
@@ -885,8 +875,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
 
   final User user1 = User(
     id: "fakeUser1",
-    firstName: 'r',
-    lastName: 'p',
+    name: 'r p',
   );
 
   final mapType = {user1.id!: true};
@@ -1003,9 +992,8 @@ SelectContactViewModel getAndRegisterSelectContactViewModel() {
   final cachedViewModel = MockSelectContactViewModel();
 
   // Mock data for testing
-  final User testUser1 = User(id: "user1", firstName: "John", lastName: "Doe");
-  final User testUser2 =
-      User(id: "user2", firstName: "Jane", lastName: "Smith");
+  final User testUser1 = User(id: "user1", name: "John Doe");
+  final User testUser2 = User(id: "user2", name: "Jane Smith");
   final List<User> orgMembersList = [testUser1, testUser2];
 
   when(cachedViewModel.orgMembersList).thenReturn(orgMembersList);

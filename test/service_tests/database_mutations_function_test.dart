@@ -73,7 +73,7 @@ void main() {
 
   group('Database Mutation Functions Tests', () {
     testWidgets('Widget Testing 1', (tester) async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
           .thenAnswer(
@@ -103,7 +103,7 @@ void main() {
     });
 
     testWidgets('Widget Testing 2', (tester) async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
           .thenAnswer(
@@ -149,7 +149,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
@@ -364,7 +363,7 @@ void main() {
     });
 
     test('Testing gqlAuthQuery function without exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().query(
@@ -386,7 +385,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
@@ -406,7 +404,7 @@ void main() {
     });
 
     test('Testing gqlAuthQuery with false exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().query(
@@ -431,7 +429,7 @@ void main() {
     });
 
     test('Testing gqlAuthQuery with true exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
       final String query2 = Queries().refreshToken('abc');
       final String query3 = Queries().refreshToken('xyz');
 
@@ -532,7 +530,7 @@ void main() {
     });
 
     test('Test for gql auth mutation', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
@@ -546,7 +544,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
@@ -566,7 +563,7 @@ void main() {
     });
 
     test('Test for gql auth mutation with false exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
@@ -583,7 +580,7 @@ void main() {
     });
 
     test('Test for gql auth mutation with true exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
       final String query2 = Queries().refreshToken('abc');
       final String query3 = Queries().refreshToken('xyz');
 
@@ -660,7 +657,7 @@ void main() {
     });
 
     test('Test for gql non auth query', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
           .thenAnswer(
@@ -673,7 +670,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
@@ -693,7 +689,7 @@ void main() {
     });
 
     test('Test for gql non auth mutation', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
@@ -707,7 +703,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
@@ -727,7 +722,7 @@ void main() {
     });
 
     test('Test for gql non auth mutation with false exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(
         locator<GraphQLClient>().mutate(MutationOptions(document: gql(query))),
@@ -744,7 +739,7 @@ void main() {
     });
 
     test('Test for gql non auth mutation with true exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
       final String query2 = Queries().refreshToken('abc');
       final String query3 = Queries().refreshToken('xyz');
 
@@ -945,7 +940,7 @@ void main() {
     });
 
     test('Test for gql non auth query with link exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
 
       when(locator<GraphQLClient>().query(QueryOptions(document: gql(query))))
           .thenAnswer(
@@ -967,7 +962,7 @@ void main() {
     });
 
     test('Test for gql non auth query with true exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
       final String query2 = Queries().refreshToken('abc');
       final String query3 = Queries().refreshToken('xyz');
 
@@ -1042,7 +1037,7 @@ void main() {
       expect(res.data, null);
     });
     test('Test for gql non auth query with false exception', () async {
-      final String query = Queries().fetchOrgDetailsById('XYZ');
+      final String query = Queries().fetchOrgById('XYZ');
       final String query2 = Queries().refreshToken('abc');
       final String query3 = Queries().refreshToken('xyz');
 

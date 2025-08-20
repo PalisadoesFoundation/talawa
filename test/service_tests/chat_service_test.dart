@@ -40,8 +40,7 @@ void main() {
 
       sampleUser = User(
         id: 'user123',
-        firstName: 'John',
-        lastName: 'Doe',
+        name: 'John Doe',
         email: 'john@example.com',
         authToken: 'sample-auth-token',
       );
@@ -918,7 +917,7 @@ void main() {
         expect(true, isTrue);
       });
 
-      test('dispose closes all streams and stops subscription', () async {
+      test('dispose closes all streams and stops subscription', () {
         chatService.dispose();
         // Test passes if no exceptions are thrown
         expect(true, isTrue);

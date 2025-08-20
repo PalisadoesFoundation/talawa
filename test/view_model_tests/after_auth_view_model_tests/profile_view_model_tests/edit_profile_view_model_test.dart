@@ -114,14 +114,14 @@ void main() {
       );
       when(
         databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
+          queries.fetchUserInfo(),
           variables: {'id': model.user.id},
         ),
       ).thenAnswer((_) async {
         return QueryResult(
           source: QueryResultSource.network,
           data: data,
-          options: QueryOptions(document: gql(queries.fetchUserInfo)),
+          options: QueryOptions(document: gql(queries.fetchUserInfo())),
         );
       });
       await model.updateUserProfile(
@@ -162,7 +162,7 @@ void main() {
       ).thenThrow(Exception());
       when(
         databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo,
+          queries.fetchUserInfo(),
           variables: {'id': model.user.id},
         ),
       ).thenThrow(Exception());

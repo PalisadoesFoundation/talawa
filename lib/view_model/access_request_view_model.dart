@@ -38,7 +38,14 @@ class AccessScreenViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> sendMembershipRequest() async {
-    //TODO: Implement Message arg for below function
+    if (selectedOrganization.id == null || selectedOrganization.id == '-1') {
+      navigationService.showTalawaErrorSnackBar(
+        'Please select an organization',
+        MessageType.error,
+      );
+      return;
+    }
+
     final result = await databaseFunctions.gqlAuthMutation(
       queries.sendMembershipRequest(selectedOrganization.id!),
     );

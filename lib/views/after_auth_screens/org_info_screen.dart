@@ -141,12 +141,12 @@ class OrganisationInfoScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16, left: 16, right: 20),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Description',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
@@ -154,43 +154,43 @@ class OrganisationInfoScreen extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // !orgInfo.userRegistrationRequired!
-                      //     ? const Icon(
-                      //         Icons.lock_open,
-                      //         size: 18,
-                      //         color: Colors.green,
-                      //       )
-                      //     : Icon(
-                      //         Icons.lock,
-                      //         size: 18,
-                      //         color: Theme.of(context).colorScheme.primary,
-                      //       ),
-                      // const SizedBox(width: 8),
-                      // !orgInfo.userRegistrationRequired!
-                      //     ? Text(
-                      //         "Public",
-                      //         style: Theme.of(context)
-                      //             .textTheme
-                      //             .bodySmall!
-                      //             .copyWith(
-                      //               color:
-                      //                   const Color.fromARGB(255, 98, 98, 98),
-                      //             ),
-                      //       )
-                      //     : Text(
-                      //         "Private",
-                      //         style: Theme.of(context)
-                      //             .textTheme
-                      //             .bodySmall!
-                      //             .copyWith(
-                      //               color: const Color.fromARGB(
-                      //                 255,
-                      //                 103,
-                      //                 103,
-                      //                 103,
-                      //               ),
-                      //             ),
-                      //       ),
+                      !orgInfo.userRegistrationRequired!
+                          ? const Icon(
+                              Icons.lock_open,
+                              size: 18,
+                              color: Colors.green,
+                            )
+                          : Icon(
+                              Icons.lock,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      const SizedBox(width: 8),
+                      !orgInfo.userRegistrationRequired!
+                          ? Text(
+                              "Public",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    color:
+                                        const Color.fromARGB(255, 98, 98, 98),
+                                  ),
+                            )
+                          : Text(
+                              "Private",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      103,
+                                      103,
+                                      103,
+                                    ),
+                                  ),
+                            ),
                     ],
                   ),
                 ],
@@ -208,42 +208,42 @@ class OrganisationInfoScreen extends StatelessWidget {
                 style: const TextStyle(fontSize: 16.0),
               ),
             ),
-            _buildSectionTitle(
-              context,
-              'Admins',
-              orgInfo.admins,
-              () => _showAllMembersBottomSheet(
-                context,
-                orgInfo.admins!,
-                'Admins',
-              ),
-              2,
-            ),
+            // _buildSectionTitle(
+            //   context,
+            //   'Admins',
+            //   orgInfo.admins,
+            //   () => _showAllMembersBottomSheet(
+            //     context,
+            //     orgInfo.admins!,
+            //     'Admins',
+            //   ),
+            //   2,
+            // ),
             Divider(
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 1,
               endIndent: 16,
               indent: 16,
             ),
-            _buildUserList(context, orgInfo.admins, 2),
-            _buildSectionTitle(
-              context,
-              'Members',
-              orgInfo.members,
-              () => _showAllMembersBottomSheet(
-                context,
-                orgInfo.members!,
-                'Members',
-              ),
-              4,
-            ),
+            // _buildUserList(context, orgInfo.admins, 2),
+            // _buildSectionTitle(
+            //   context,
+            //   'Members',
+            //   orgInfo.members,
+            //   () => _showAllMembersBottomSheet(
+            //     context,
+            //     orgInfo.members!,
+            //     'Members',
+            //   ),
+            //   4,
+            // ),
             Divider(
               color: Theme.of(context).colorScheme.onSurface,
               thickness: 1,
               endIndent: 16,
               indent: 16,
             ),
-            _buildUserList(context, orgInfo.members, 4),
+            // _buildUserList(context, orgInfo.members, 4),
           ],
         ),
       ),

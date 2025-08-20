@@ -35,18 +35,11 @@ void main() {
     // final model = MockSignupDetailsViewModel();
 
     test('Test validation for first and last name', () {
-      final String? blankFirstName = Validator.validateFirstName("");
+      final String? blankFirstName = Validator.validateName("");
       expect(blankFirstName, "Firstname must not be left blank.");
 
-      final String? blankLastName = Validator.validateLastName("");
-      expect(blankLastName, "Lastname must not be left blank.");
-
-      final String? validFirstName =
-          Validator.validateFirstName("testFirstName");
+      final String? validFirstName = Validator.validateName("testFirstName");
       expect(validFirstName, null);
-
-      final String? validLastName = Validator.validateLastName("testLastName");
-      expect(validLastName, null);
     });
 
     test('Test validation for Email', () {
