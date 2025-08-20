@@ -85,7 +85,12 @@ const config: Config = {
           to: 'https://docs-api.talawa.io/docs',
           target: '_self',
         },
-
+        {
+          label: 'Plugin Guide',
+          position: 'left',
+          to: 'https://docs-plugin.talawa.io/docs',
+          target: '_self',
+        },
         {
           label: 'Demo',
           position: 'left',
