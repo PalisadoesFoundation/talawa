@@ -101,9 +101,9 @@ class UserConfig {
           queries.fetchUserInfo(),
           variables: {'id': currentUser.id},
         );
-        final List users = result.data!['users'] as List;
+        final user = result.data!['user'] as Map<String, dynamic>;
         final User userInfo = User.fromJson(
-          users[0] as Map<String, dynamic>,
+          user
         );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;

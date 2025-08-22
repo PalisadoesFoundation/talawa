@@ -175,23 +175,20 @@ void main() {
 
   group('Name and Email Display', () {
     final nameTestCases = [
-      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'John'},
-      {'firstName': null, 'lastName': 'TestName', 'expected': 'TestName'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': ''},
-      {'firstName': 'John', 'lastName': null, 'expected': 'John'},
-      {'firstName': 'John', 'lastName': '', 'expected': 'John'},
-      {'firstName': null, 'lastName': null, 'expected': 'Unknown User'},
-      {'firstName': '', 'lastName': '', 'expected': ''},
+      {'name': 'John Doe', 'expected': 'John Doe'},
+      {'name': 'TestName', 'expected': 'TestName'},
+      {'name': '', 'expected': ''},
+      {'name': null, 'expected': 'Unknown User'},
     ];
 
     for (final testCase in nameTestCases) {
       testWidgets(
-          'should display name "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
+          'should display name "${testCase['expected']}" when name is ${testCase['name']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            name: "${testCase['firstName']} ${testCase['lastName']}",
+            name: "${testCase['name']}",
           ),
         ];
         when(mockSelectContactViewModel.isBusy).thenReturn(false);

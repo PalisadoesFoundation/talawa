@@ -258,8 +258,8 @@ void main() {
       final route = generateRoute(
         RouteSettings(name: Routes.requestAccess, arguments: orgInfo),
       );
-      expect(route, isA<CupertinoPageRoute>());
-      if (route is CupertinoPageRoute) {
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<SendAccessRequest>());

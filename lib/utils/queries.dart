@@ -107,21 +107,26 @@ class Queries {
   /// **returns**:
   /// * `String`: return a mutation
   String updateUserProfile() {
-    return """
-      mutation UpdateUserProfile(
-        \$firstName: String
-        \$lastName: String
-        \$email: EmailAddress
-        \$file: String
+    return '''
+      mutation UpdateCurrentUser(
+        \$emailAddress: EmailAddress,
+        \$name: String,
+        \$avatar: Upload
       ) {
-      updateUserProfile(
-        data: { firstName: \$firstName, lastName: \$lastName, email: \$email }
-        file: \$file
-      ) {
-        _id
+        updateCurrentUser(
+          input: {
+            emailAddress: \$emailAddress,
+            name: \$name,
+            avatar: \$avatar
+          }
+        ) {
+          id
+          name
+          emailAddress
+          avatarURL
         }
       }
-    """;
+    ''';
   }
 
   /// logout muiation.
@@ -214,14 +219,14 @@ class Queries {
   ///
   ///
   /// **params**:
-  /// * `orgId`: refer org object
+  ///   None
   ///
   /// **returns**:
   /// * `String`: mutation in string form, to be passed on to graphql client.
-  String sendMembershipRequest(String orgId) {
+  String sendMembershipRequest() {
     return '''
-      mutation {
-          sendMembershipRequest(input:{organizationId: "$orgId"}){
+      mutation SendMemberShipRequest(\$organizationId: ID!) {
+          sendMembershipRequest(input:{organizationId: \$organizationId}){
             userId
             membershipRequestId
             status 
@@ -240,7 +245,7 @@ class Queries {
   String fetchUserInfo() {
     return '''
       query fetchUserInfo(
-        \$id: ID!
+        \$id: String!
       ) {
         user(input: {id: \$id}) {
           id

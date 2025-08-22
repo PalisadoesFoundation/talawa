@@ -42,7 +42,8 @@ void main() {
         (WidgetTester tester) async {
       when(
         databaseFunctions.gqlAuthMutation(
-          queries.sendMembershipRequest("XYZ"),
+          queries.sendMembershipRequest(),
+          variables: anyNamed('variables'),
         ),
       ).thenAnswer(
         (realInvocation) async => QueryResult(

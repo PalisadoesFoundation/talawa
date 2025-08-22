@@ -47,7 +47,8 @@ class AccessScreenViewModel extends BaseModel {
     }
 
     final result = await databaseFunctions.gqlAuthMutation(
-      queries.sendMembershipRequest(selectedOrganization.id!),
+      queries.sendMembershipRequest(),
+      variables: {"organizationId": selectedOrganization.id},
     );
     if (result.data != null) {
       final OrgInfo membershipRequest = OrgInfo.fromJson(

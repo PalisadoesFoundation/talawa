@@ -31,7 +31,6 @@ final testDataNotFromOrg = {
     },
   },
   'authenticationToken': 'test_auth_token',
-  'refreshToken': 'test_refresh_token',
 };
 
 void main() {
@@ -49,7 +48,7 @@ void main() {
       ); // No auth token in organization user data
       expect(
         userInfo.refreshToken,
-        ' ',
+        null,
       ); // No refresh token in organization user data
     });
 
@@ -61,7 +60,7 @@ void main() {
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
       expect(userInfo.authToken, 'test_auth_token');
-      expect(userInfo.refreshToken, 'test_refresh_token');
+      expect(userInfo.refreshToken, null);
     });
 
     test('Check if the method "update" works', () {

@@ -39,12 +39,13 @@ void main() {
 
         when(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(org.id!),
+            queries.sendMembershipRequest(),
+            variables: anyNamed('variables'),
           ),
         ).thenAnswer(
           (_) async => QueryResult(
             options: QueryOptions(
-              document: gql(queries.sendMembershipRequest(org.id!)),
+              document: gql(queries.sendMembershipRequest()),
             ),
             data: {
               'sendMembershipRequest': {
@@ -70,7 +71,8 @@ void main() {
 
         verify(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(org.id!),
+            queries.sendMembershipRequest(),
+            variables: anyNamed('variables'),
           ),
         );
 
@@ -92,12 +94,13 @@ void main() {
 
         when(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(org.id!),
+            queries.sendMembershipRequest(),
+            variables: anyNamed('variables'),
           ),
         ).thenAnswer(
           (_) async => QueryResult(
             options: QueryOptions(
-              document: gql(queries.sendMembershipRequest(org.id!)),
+              document: gql(queries.sendMembershipRequest()),
             ),
             data: {
               'sendMembershipRequest': {
@@ -123,7 +126,8 @@ void main() {
 
         verify(
           databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(org.id!),
+            queries.sendMembershipRequest(),
+            variables: anyNamed('variables'),
           ),
         );
 

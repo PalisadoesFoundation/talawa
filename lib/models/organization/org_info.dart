@@ -18,6 +18,8 @@ class OrgInfo {
     this.line2,
     this.postalCode,
     this.state,
+    this.adminsCount,
+    this.membersCount,
   });
 
   /// Factory method to construct an OrgInfo from a JSON object.
@@ -44,6 +46,10 @@ class OrgInfo {
       line2: json['addressLine2'] as String?,
       postalCode: json['postalCode'] as String?,
       state: json['state'] as String?,
+      adminsCount:
+          json['adminsCount'] != null ? json['adminsCount'] as int? : null,
+      membersCount:
+          json['membersCount'] != null ? json['membersCount'] as int? : null,
     );
   }
 
@@ -139,4 +145,14 @@ class OrgInfo {
   /// The state of the organization's address.
   @HiveField(12)
   String? state;
+
+  @HiveField(13)
+
+  /// The count of admins in the organization.
+  int? adminsCount;
+
+  @HiveField(14)
+
+  /// The count of members in the organization.
+  int? membersCount;
 }

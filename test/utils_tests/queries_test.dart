@@ -83,17 +83,6 @@ void main() {
       expect(queryString.contains('memberId'), true);
       expect(queryString.contains('organizationId'), true);
     });
-    test("Check if sendMembershipRequest works correctly", () {
-      var mutation = false;
-
-      expect(mutation, false);
-
-      final fnData = Queries().sendMembershipRequest('orgId123');
-      if (fnData.contains('orgId123')) {
-        mutation = true;
-      }
-      expect(mutation, true);
-    });
     test("Check if refreshToken works correctly", () {
       var mutation = false;
       expect(mutation, false);

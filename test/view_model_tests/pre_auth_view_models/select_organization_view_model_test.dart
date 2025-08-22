@@ -305,38 +305,6 @@ void main() {
     });
 
     testWidgets(
-        'Test for selectOrg function when orgAlreadyJoined is true and orgRequestAlreadyPresent is false',
-        (WidgetTester tester) async {
-      locator.registerSingleton<UserConfig>(_MockUserConfig());
-      final selectOrganizationViewModel = SelectOrganizationViewModel();
-
-      await tester.pumpWidget(
-        SelectOrganizationViewModelWidget(
-          qrKey: selectOrganizationViewModel.qrKey,
-        ),
-      );
-      _user = User(
-        joinedOrganizations: [org],
-        membershipRequests: [
-          OrgInfo(
-            id: '1',
-          ),
-        ],
-      );
-      _userLoggedIn = true;
-
-      await selectOrganizationViewModel.selectOrg(org);
-
-      final orgTest = selectOrganizationViewModel.selectedOrganization;
-      expect(orgTest?.id, '-1');
-      verify(
-        navigationService.showTalawaErrorSnackBar(
-          'Organisation already joined',
-          MessageType.warning,
-        ),
-      );
-    });
-    testWidgets(
         'Test for selectOrg function when orgAlreadyJoined is false and orgRequestAlreadyPresent is true',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());

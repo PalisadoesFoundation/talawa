@@ -34,13 +34,13 @@ class Validator {
   /// * `String?`: error message if first name is invalid.
   static String? validateName(String value) {
     if (value.isEmpty) {
-      return 'Firstname must not be left blank.';
+      return 'Name must not be left blank.';
     }
     // ignore: unnecessary_raw_strings
     const String pattern = r'(?=.*?[A-Za-z]).+';
     final RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value)) {
-      return "Invalid Firstname";
+      return "Invalid Name";
     }
     return null;
   }
