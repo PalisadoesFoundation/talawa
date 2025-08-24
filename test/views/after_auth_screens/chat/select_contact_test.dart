@@ -215,13 +215,14 @@ void main() {
       expect(find.text('john@example.com'), findsOneWidget);
     });
 
-    testWidgets('should display "No email" when email is null', (tester) async {
+    testWidgets('should display "Not available" when email is null',
+        (tester) async {
       final users = [User(id: 'user1', email: null)];
       when(mockSelectContactViewModel.isBusy).thenReturn(false);
       when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
       await tester.pumpWidget(createSelectContactScreen());
       await tester.pumpAndSettle();
-      expect(find.text('No email'), findsOneWidget);
+      expect(find.text('Not available'), findsOneWidget);
     });
   });
 

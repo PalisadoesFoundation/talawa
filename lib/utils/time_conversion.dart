@@ -88,6 +88,27 @@ String convertUTCToLocal(String? utcTime) {
   }
 }
 
+/// Formats UTC time into local date and time string.
+///
+/// **params**:
+/// * `utcTime`: The UTC time string in a valid format.
+///
+/// **returns**:
+/// * `String`: The converted local time string.
+String formatLocalCreated(String utcTime) {
+  if (utcTime.isEmpty) {
+    return '';
+  }
+  try {
+    final localStr = convertUTCToLocal(utcTime);
+    final parts = splitDateTimeLocal(localStr);
+    return '${parts['date']} ${parts['time']}';
+  } catch (e) {
+    print('Error formatting local created time: $e $utcTime');
+    return '';
+  }
+}
+
 /// Converts the given local time to UTC time.
 ///
 /// **params**:

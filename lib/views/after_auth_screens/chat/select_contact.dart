@@ -46,6 +46,11 @@ class _SelectContactState extends State<SelectContact> {
           await model.getCurrentOrgUsersList();
         },
         builder: (context, model, child) {
+          // Filter out current user
+          final currentUserId = userConfig.currentUser.id;
+          final contacts = model.orgMembersList
+              .where((user) => user.id != currentUserId)
+              .toList();
           if (model.isBusy) {
             return const Center(
               child: CustomProgressDialog(
@@ -54,26 +59,19 @@ class _SelectContactState extends State<SelectContact> {
             );
           }
 
-          if (model.orgMembersList.isEmpty) {
+          if (contacts.isEmpty) {
             return const Center(
               child: Text('No users found in this organization'),
             );
           }
 
           return ListView.builder(
-            itemCount: model.orgMembersList.length,
+            itemCount: contacts.length,
             itemBuilder: (context, index) {
-              final user = model.orgMembersList[index];
+              final user = contacts[index];
               return GestureDetector(
                 key: Key('select_contact_gesture_$index'),
                 onTap: () async {
-                  // Show loading dialog using navigation service
-                  navigationService.pushDialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-
                   try {
                     // Create chat with selected user
                     final chatId = await model.createChatWithUser(user);
@@ -147,7 +145,7 @@ class _SelectContactState extends State<SelectContact> {
                       ),
                     ),
                     subtitle: Text(
-                      user.email ?? 'No email',
+                      user.email ?? 'Not available',
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 14,

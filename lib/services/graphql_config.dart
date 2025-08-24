@@ -54,7 +54,7 @@ class GraphqlConfig {
       // TODO: Update SOCKET_URL in .env file for production
       final socketUrl = dotenv.env['SOCKET_URL'] ??
           (kReleaseMode
-              ? 'wss://production-server/graphql'
+              ? 'ws://api-test.talawa.io/graphql'
               : 'ws://localhost:4000/graphql');
 
       webSocketLink = WebSocketLink(

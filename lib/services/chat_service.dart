@@ -468,6 +468,176 @@ class ChatService {
     _subscriptionCompleter?.complete();
   }
 
+  /// Deletes a chat.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat to delete
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: True if chat was deleted successfully, false otherwise
+  Future<bool> deleteChat(String chatId) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      ChatQueries().deleteChat(),
+      variables: {
+        "input": {
+          "id": chatId,
+        },
+      },
+    );
+
+    if (result.hasException || result.data == null) {
+      debugPrint('Error deleting chat: ${result.exception}');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to delete chat',
+        MessageType.error,
+      );
+      return false;
+    }
+
+    debugPrint('Chat deleted successfully: $chatId');
+    return result.data!['deleteChat'] != null;
+  }
+
+  /// Removes a member from a chat.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat
+  /// * `memberId`: The ID of the member to remove
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: True if member was removed successfully, false otherwise
+  Future<bool> removeChatMember({
+    required String chatId,
+    required String memberId,
+  }) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+      ChatQueries().deleteChatMembership(),
+      variables: {
+        "input": {
+          "chatId": chatId,
+          "memberId": memberId,
+        },
+      },
+    );
+
+    if (result.hasException || result.data == null) {
+      debugPrint('Error removing chat member: ${result.exception}');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to remove member',
+        MessageType.error,
+      );
+      return false;
+    }
+
+    debugPrint('Member removed successfully: $memberId from chat $chatId');
+    return result.data!['deleteChatMembership'] != null;
+  }
+
+  /// Updates a chat's name and/or description.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat to update
+  /// * `newName`: The new name for the chat (optional)
+  /// * `newDescription`: The new description for the chat (optional)
+  ///
+  /// **returns**:
+  /// * `Future<Chat?>`: The updated chat or null if failed
+  Future<Chat?> updateChat({
+    required String chatId,
+    String? newName,
+    String? newDescription,
+  }) async {
+    if (newName == null && newDescription == null) {
+      debugPrint('Error updating chat: No updates provided');
+      return null;
+    }
+
+    final result = await _dbFunctions.gqlAuthMutation(
+      ChatQueries().updateChat(),
+      variables: {
+        "input": {
+          "id": chatId,
+          if (newName != null) "name": newName,
+          if (newDescription != null) "description": newDescription,
+        },
+      },
+    );
+
+    if (result.hasException || result.data == null) {
+      debugPrint('Error updating chat: ${result.exception}');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to update chat',
+        MessageType.error,
+      );
+      return null;
+    }
+
+    // If update was successful, fetch refreshed chat data
+    if (result.data!['updateChat'] != null) {
+      debugPrint('Chat updated successfully: $chatId');
+      return await _fetchChatMessages(chatId: chatId);
+    }
+
+    return null;
+  }
+
+  /// Adds a member to an existing chat.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat
+  /// * `userId`: The ID of the user to add
+  ///
+  /// **returns**:
+  /// * `Future<bool>`: True if member was added successfully, false otherwise
+  Future<bool> addChatMember({
+    required String chatId,
+    required String userId,
+  }) async {
+    // This uses the existing createChatMembership method
+    return createChatMembership(chatId: chatId, userId: userId);
+  }
+
+  /// Fetches members of a specific chat with pagination support.
+  ///
+  /// **params**:
+  /// * `chatId`: The ID of the chat
+  /// * `first`: Number of members to fetch from the beginning (optional)
+  /// * `last`: Number of members to fetch from the end (optional)
+  /// * `after`: Cursor for forward pagination (optional)
+  /// * `before`: Cursor for backward pagination (optional)
+  ///
+  /// **returns**:
+  /// * `Future<Map<String, dynamic>?>`: Chat with members and pagination info, or null if failed
+  Future<Map<String, dynamic>?> fetchChatMembers({
+    required String chatId,
+    int? first,
+    int? last,
+    String? after,
+    String? before,
+  }) async {
+    final variables = <String, dynamic>{
+      "input": {"id": chatId},
+    };
+
+    // Add pagination parameters
+    if (first != null) variables["first"] = first;
+    if (last != null) variables["last"] = last;
+    if (after != null) variables["after"] = after;
+    if (before != null) variables["before"] = before;
+
+    final result = await _dbFunctions.gqlAuthQuery(
+      ChatQueries().fetchChatMembers(),
+      variables: variables,
+    );
+
+    if (result.hasException || result.data == null) {
+      debugPrint('Error fetching chat members: ${result.exception}');
+      return null;
+    }
+
+    return result.data!['chat'] as Map<String, dynamic>?;
+  }
+
   /// Disposes the service and closes streams.
   ///
   /// **params**:
