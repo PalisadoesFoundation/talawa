@@ -30,6 +30,12 @@ class GraphqlConfig {
     return true;
   }
 
+  /// This function is used to initialize the GraphQL client for testing.
+  void initializeForTesting(String apiUrl) {
+    httpLink = HttpLink(apiUrl);
+    orgURI = apiUrl;
+  }
+
   /// This function is used to get the organization URL.
   void getOrgUrl() {
     final box = Hive.box('url');
