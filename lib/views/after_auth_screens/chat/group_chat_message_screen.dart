@@ -5,11 +5,12 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/time_conversion.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
-import 'package:talawa/views/after_auth_screens/chat/widgets/add_members_dialog.dart';
+import 'package:talawa/views/after_auth_screens/chat/widgets/add_group_chat_members_dialog.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_message_bubble.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_input_field.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/manage_members_dialog.dart';
@@ -261,6 +262,12 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
   }
 
   /// Shows group information dialog.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void _showGroupInfo() {
     final chat = currentChat;
     if (chat == null) return;
@@ -385,7 +392,7 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
 
     showDialog(
       context: context,
-      builder: (context) => AddMembersDialog(
+      builder: (context) => AddGroupChatMembersDialog(
         availableMembers: availableMembers,
         onMembersSelected: (selectedMembers) async {
           navigationService.pop();
@@ -402,7 +409,7 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
   ///
   /// **returns**:
   ///   None
-  Future<void> _addSelectedMembers(List<dynamic> selectedMembers) async {
+  Future<void> _addSelectedMembers(List<User> selectedMembers) async {
     int successCount = 0;
     int failureCount = 0;
     int alreadyMemberCount = 0;
@@ -410,7 +417,7 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
     for (final member in selectedMembers) {
       final success = await widget.model.addGroupMember(
         chatId: widget.chatId,
-        userId: (member as dynamic).id as String,
+        userId: member.id!,
       );
 
       if (success) {
@@ -418,8 +425,8 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
       } else {
         // Check if the failure was due to member already being present
         final currentMembers = currentChat?.members ?? [];
-        final isAlreadyMember = currentMembers
-            .any((chatMember) => chatMember.id == (member as dynamic).id);
+        final isAlreadyMember =
+            currentMembers.any((chatMember) => chatMember.id == member.id);
 
         if (isAlreadyMember) {
           alreadyMemberCount++;

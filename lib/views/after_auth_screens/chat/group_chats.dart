@@ -123,7 +123,7 @@ class GroupChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatName = _getGroupChatDisplayName(chat);
+    final chatName = getGroupChatDisplayName(chat);
 
     return ListTile(
       onTap: () => navigationService.pushScreen(
@@ -193,7 +193,7 @@ class GroupChatTile extends StatelessWidget {
   ///
   /// **returns**:
   /// * `String`: The display name for the group chat
-  String _getGroupChatDisplayName(ChatListTileDataModel chat) {
+  String getGroupChatDisplayName(ChatListTileDataModel chat) {
     // If chat has a name, use it
     if (chat.chat?.name != null && chat.chat!.name!.isNotEmpty) {
       return ChatUtils.extractGroupName(chat.chat!.name!);

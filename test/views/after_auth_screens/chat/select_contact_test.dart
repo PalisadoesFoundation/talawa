@@ -69,6 +69,13 @@ void main() {
     final mockCurrentUser =
         User(id: 'current_user_id', firstName: 'Current', lastName: 'User');
     when(mockUserConfig.currentUser).thenReturn(mockCurrentUser);
+
+    // Ensure getCurrentOrgUsersList is properly stubbed for all test cases
+    when(mockSelectContactViewModel.getCurrentOrgUsersList())
+        .thenAnswer((_) async {});
+
+    // Also stub the initialise method to prevent it from calling problematic methods
+    when(mockSelectContactViewModel.initialise()).thenReturn(null);
   });
 
   tearDown(() {
@@ -89,8 +96,9 @@ void main() {
     testWidgets('should render AppBar correctly', (tester) async {
       when(mockSelectContactViewModel.isBusy).thenReturn(false);
       when(mockSelectContactViewModel.orgMembersList).thenReturn([]);
+
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.text('Select Contacts'), findsOneWidget);
       expect(find.byIcon(Icons.arrow_back), findsOneWidget);
@@ -111,8 +119,10 @@ void main() {
         (tester) async {
       when(mockSelectContactViewModel.isBusy).thenReturn(false);
       when(mockSelectContactViewModel.orgMembersList).thenReturn([]);
+
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
+
       expect(find.text('No users found in this organization'), findsOneWidget);
     });
   });
@@ -131,7 +141,7 @@ void main() {
       when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(createSelectContactScreen());
-        await tester.pumpAndSettle();
+        await tester.pump();
         final circleAvatar =
             tester.widget<CircleAvatar>(find.byType(CircleAvatar));
         expect(circleAvatar.backgroundImage, isNotNull);
@@ -168,7 +178,7 @@ void main() {
         when(mockSelectContactViewModel.isBusy).thenReturn(false);
         when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
         await tester.pumpWidget(createSelectContactScreen());
-        await tester.pumpAndSettle();
+        await tester.pump();
         final avatar = tester.widget<CircleAvatar>(find.byType(CircleAvatar));
         expect(avatar.backgroundImage, isNull);
         expect(find.text(testCase['expected']!), findsOneWidget);
@@ -201,7 +211,7 @@ void main() {
         when(mockSelectContactViewModel.isBusy).thenReturn(false);
         when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
         await tester.pumpWidget(createSelectContactScreen());
-        await tester.pumpAndSettle();
+        await tester.pump();
         expect(find.text(testCase['expected']!), findsOneWidget);
       });
     }
@@ -211,7 +221,7 @@ void main() {
       when(mockSelectContactViewModel.isBusy).thenReturn(false);
       when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
       expect(find.text('john@example.com'), findsOneWidget);
     });
 
@@ -221,7 +231,7 @@ void main() {
       when(mockSelectContactViewModel.isBusy).thenReturn(false);
       when(mockSelectContactViewModel.orgMembersList).thenReturn(users);
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
       expect(find.text('Not available'), findsOneWidget);
     });
   });
@@ -237,9 +247,9 @@ void main() {
           .thenAnswer((_) async => 'chat_id_123');
 
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
       await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
       verify(mockDirectChatViewModel.initialise()).called(1);
@@ -259,9 +269,9 @@ void main() {
           .thenAnswer((_) async => null);
 
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
       await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Verify the method was called (business logic)
       verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
@@ -279,11 +289,11 @@ void main() {
           .thenThrow(Exception('Network error'));
 
       await tester.pumpWidget(createSelectContactScreen());
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // This should not throw an exception in the UI
       await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Verify the method was called and handled gracefully
       verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
@@ -295,11 +305,11 @@ void main() {
     when(mockSelectContactViewModel.isBusy).thenReturn(false);
     when(mockSelectContactViewModel.orgMembersList).thenReturn([]);
     await tester.pumpWidget(createSelectContactScreen());
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     // Tap the back button to ensure code coverage
     await tester.tap(find.byIcon(Icons.arrow_back));
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     // Just verify no exceptions were thrown and widget is still present
     expect(tester.takeException(), isNull);

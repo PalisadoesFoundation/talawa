@@ -538,5 +538,110 @@ void main() {
         matches(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'),
       );
     });
+
+    group('formatLocalCreated', () {
+      test('formatLocalCreated formats UTC time to local date-time string', () {
+        const utcTime = '2023-05-01T14:30:00.000Z';
+        final result = formatLocalCreated(utcTime);
+
+        expect(result, isNotEmpty);
+        expect(result, matches(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'));
+        expect(result, contains('2023-05-01'));
+      });
+
+      test('formatLocalCreated handles empty input', () {
+        final result = formatLocalCreated('');
+        expect(result, isEmpty);
+      });
+
+      test('formatLocalCreated handles invalid UTC time format', () {
+        final result = formatLocalCreated('invalid-utc-time');
+        // When conversion fails, convertUTCToLocal returns empty string,
+        // splitDateTimeLocal returns empty map, so we get 'null null'
+        expect(result, equals('null null'));
+      });
+
+      test('formatLocalCreated handles null-like values', () {
+        // Test with typical "null" string values that might come from API
+        final result1 = formatLocalCreated('null');
+        expect(result1, equals('null null'));
+
+        final result2 = formatLocalCreated('undefined');
+        expect(result2, equals('null null'));
+      });
+      test('formatLocalCreated handles various UTC formats', () {
+        // Test with milliseconds
+        const utcTime1 = '2023-12-25T23:59:59.999Z';
+        final result1 = formatLocalCreated(utcTime1);
+        expect(result1, isNotEmpty);
+        expect(result1, matches(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'));
+
+        // Test without milliseconds
+        const utcTime2 = '2023-01-01T00:00:00Z';
+        final result2 = formatLocalCreated(utcTime2);
+        expect(result2, isNotEmpty);
+        expect(result2, matches(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'));
+      });
+
+      test('formatLocalCreated handles timezone conversion correctly', () {
+        withClock(Clock.fixed(DateTime.utc(2023, 5, 1, 12, 0)), () {
+          const utcTime = '2023-05-01T14:30:00.000Z';
+          final result = formatLocalCreated(utcTime);
+
+          // The result should be different from the original UTC time
+          expect(result, isNot(contains('14:30')));
+          expect(result, matches(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'));
+        });
+      });
+
+      test('formatLocalCreated error handling with malformed dates', () {
+        final testCases = [
+          'not-a-date',
+          '2023-05-01X14:30:00.000Z', // Wrong separator
+          'completely-invalid-format',
+          '2023/05/01 14:30:00', // Wrong format
+        ];
+
+        for (final testCase in testCases) {
+          final result = formatLocalCreated(testCase);
+          // When conversion fails, we get 'null null'
+          expect(
+            result,
+            equals('null null'),
+            reason: 'Failed for input: $testCase',
+          );
+        }
+      });
+
+      test('formatLocalCreated preserves date consistency', () {
+        // Test that the date part is consistent after conversion
+        const utcTime = '2023-05-01T02:30:00.000Z'; // Early morning UTC
+        final result = formatLocalCreated(utcTime);
+
+        expect(result, isNotEmpty);
+        expect(result, matches(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'));
+
+        // Extract date part
+        final datePart = result.split(' ')[0];
+        expect(datePart, matches(r'^\d{4}-\d{2}-\d{2}$'));
+      });
+
+      test('formatLocalCreated returns expected format structure', () {
+        const utcTime = '2023-05-01T14:30:00.000Z';
+        final result = formatLocalCreated(utcTime);
+
+        expect(result, isNotEmpty);
+
+        // Should contain exactly one space separating date and time
+        final parts = result.split(' ');
+        expect(parts.length, equals(2));
+
+        // Date part should be YYYY-MM-DD
+        expect(parts[0], matches(r'^\d{4}-\d{2}-\d{2}$'));
+
+        // Time part should be HH:MM
+        expect(parts[1], matches(r'^\d{2}:\d{2}$'));
+      });
+    });
   });
 }

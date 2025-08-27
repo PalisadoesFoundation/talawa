@@ -945,5 +945,570 @@ void main() {
         expect(chatService.messagePageSize, equals(25));
       });
     });
+
+    group('deleteChat', () {
+      test('deletes chat successfully', () async {
+        final query = ChatQueries().deleteChat();
+        const chatId = 'chat123';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: {
+              "input": {
+                "id": chatId,
+              },
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'deleteChat': {
+                'id': chatId,
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.deleteChat(chatId);
+
+        expect(result, isTrue);
+      });
+
+      test('returns false on GraphQL exception', () async {
+        final query = ChatQueries().deleteChat();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'Delete failed'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.deleteChat('chat123');
+
+        expect(result, isFalse);
+      });
+
+      test('returns false when deleteChat result is null', () async {
+        final query = ChatQueries().deleteChat();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {'deleteChat': null},
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.deleteChat('chat123');
+
+        expect(result, isFalse);
+      });
+    });
+
+    group('removeChatMember', () {
+      test('removes member successfully', () async {
+        final query = ChatQueries().deleteChatMembership();
+        const chatId = 'chat123';
+        const memberId = 'user456';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: {
+              "input": {
+                "chatId": chatId,
+                "memberId": memberId,
+              },
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'deleteChatMembership': {
+                'id': 'membership123',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.removeChatMember(
+          chatId: chatId,
+          memberId: memberId,
+        );
+
+        expect(result, isTrue);
+      });
+
+      test('returns false on GraphQL exception', () async {
+        final query = ChatQueries().deleteChatMembership();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'Remove member failed'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.removeChatMember(
+          chatId: 'chat123',
+          memberId: 'user456',
+        );
+
+        expect(result, isFalse);
+      });
+
+      test('returns false when deleteChatMembership result is null', () async {
+        final query = ChatQueries().deleteChatMembership();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {'deleteChatMembership': null},
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.removeChatMember(
+          chatId: 'chat123',
+          memberId: 'user456',
+        );
+
+        expect(result, isFalse);
+      });
+    });
+
+    group('updateChat', () {
+      test('updates chat with both name and description', () async {
+        final query = ChatQueries().updateChat();
+        const chatId = 'chat123';
+        const newName = 'Updated Chat';
+        const newDescription = 'Updated description';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: {
+              "input": {
+                "id": chatId,
+                "name": newName,
+                "description": newDescription,
+              },
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'updateChat': {
+                'id': chatId,
+                'name': newName,
+                'description': newDescription,
+                'updatedAt': '2023-01-01T12:00:00Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        // Mock the follow-up fetch
+        final fetchQuery = ChatQueries().fetchChatMessagesByChatId();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            fetchQuery,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(fetchQuery)),
+            data: {
+              'chat': {
+                'id': chatId,
+                'name': newName,
+                'description': newDescription,
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.updateChat(
+          chatId: chatId,
+          newName: newName,
+          newDescription: newDescription,
+        );
+
+        expect(result, isNotNull);
+        expect(result!.id, equals(chatId));
+        expect(result.name, equals(newName));
+        expect(result.description, equals(newDescription));
+      });
+
+      test('updates chat with only name', () async {
+        final query = ChatQueries().updateChat();
+        const chatId = 'chat123';
+        const newName = 'Updated Chat';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: {
+              "input": {
+                "id": chatId,
+                "name": newName,
+              },
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'updateChat': {
+                'id': chatId,
+                'name': newName,
+                'updatedAt': '2023-01-01T12:00:00Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        // Mock the follow-up fetch
+        final fetchQuery = ChatQueries().fetchChatMessagesByChatId();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            fetchQuery,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(fetchQuery)),
+            data: {
+              'chat': {
+                'id': chatId,
+                'name': newName,
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.updateChat(
+          chatId: chatId,
+          newName: newName,
+        );
+
+        expect(result, isNotNull);
+        expect(result!.name, equals(newName));
+      });
+
+      test('returns null when no updates provided', () async {
+        final result = await chatService.updateChat(chatId: 'chat123');
+
+        expect(result, isNull);
+      });
+
+      test('returns null on GraphQL exception', () async {
+        final query = ChatQueries().updateChat();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'Update failed'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.updateChat(
+          chatId: 'chat123',
+          newName: 'New Name',
+        );
+
+        expect(result, isNull);
+      });
+
+      test('returns null when updateChat result is null', () async {
+        final query = ChatQueries().updateChat();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {'updateChat': null},
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.updateChat(
+          chatId: 'chat123',
+          newName: 'New Name',
+        );
+
+        expect(result, isNull);
+      });
+    });
+
+    group('addChatMember', () {
+      test('adds member successfully', () async {
+        final query = ChatQueries().createChatMembership();
+        const chatId = 'chat123';
+        const userId = 'user456';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: {
+              "input": {
+                "chatId": chatId,
+                "memberId": userId,
+              },
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'createChatMembership': {
+                'id': 'membership123',
+                'createdAt': '2023-01-01T10:00:00Z',
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.addChatMember(
+          chatId: chatId,
+          userId: userId,
+        );
+
+        expect(result, isTrue);
+      });
+
+      test('returns false on failure', () async {
+        final query = ChatQueries().createChatMembership();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'Add member failed'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.addChatMember(
+          chatId: 'chat123',
+          userId: 'user456',
+        );
+
+        expect(result, isFalse);
+      });
+    });
+
+    group('fetchChatMembers', () {
+      test('fetches members successfully with pagination', () async {
+        final query = ChatQueries().fetchChatMembers();
+        const chatId = 'chat123';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: {
+              "input": {"id": chatId},
+              "first": 10,
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'chat': {
+                'id': chatId,
+                'name': 'Test Chat',
+                'members': {
+                  'edges': [
+                    {
+                      'cursor': 'cursor1',
+                      'node': {
+                        'id': 'user1',
+                        'name': 'John Doe',
+                        'avatarURL': 'avatar1.jpg',
+                      },
+                    },
+                    {
+                      'cursor': 'cursor2',
+                      'node': {
+                        'id': 'user2',
+                        'name': 'Jane Smith',
+                        'avatarURL': 'avatar2.jpg',
+                      },
+                    },
+                  ],
+                  'pageInfo': {
+                    'hasNextPage': true,
+                    'hasPreviousPage': false,
+                    'startCursor': 'cursor1',
+                    'endCursor': 'cursor2',
+                  },
+                },
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.fetchChatMembers(
+          chatId: chatId,
+          first: 10,
+        );
+
+        expect(result, isNotNull);
+        expect(result!['id'], equals(chatId));
+        final membersData = result['members'] as Map<String, dynamic>;
+        expect(membersData['edges'], hasLength(2));
+      });
+
+      test('fetches members with different pagination parameters', () async {
+        final query = ChatQueries().fetchChatMembers();
+        const chatId = 'chat123';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: {
+              "input": {"id": chatId},
+              "last": 5,
+              "before": "cursor10",
+            },
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'chat': {
+                'id': chatId,
+                'members': {
+                  'edges': [],
+                  'pageInfo': {
+                    'hasNextPage': false,
+                    'hasPreviousPage': true,
+                  },
+                },
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.fetchChatMembers(
+          chatId: chatId,
+          last: 5,
+          before: 'cursor10',
+        );
+
+        expect(result, isNotNull);
+        final membersData = result!['members'] as Map<String, dynamic>;
+        expect(membersData['edges'], isEmpty);
+      });
+
+      test('returns null on GraphQL exception', () async {
+        final query = ChatQueries().fetchChatMembers();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'Fetch members failed'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatService.fetchChatMembers(chatId: 'chat123');
+
+        expect(result, isNull);
+      });
+
+      test('returns null when chat data is null', () async {
+        final query = ChatQueries().fetchChatMembers();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {'chat': null},
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatService.fetchChatMembers(chatId: 'chat123');
+
+        expect(result, isNull);
+      });
+    });
   });
 }

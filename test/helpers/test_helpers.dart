@@ -36,6 +36,7 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
@@ -96,6 +97,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GroupChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SelectContactViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
@@ -750,7 +752,7 @@ EventService getAndRegisterEventService() {
         id: '1',
         name: 'test',
         startAt: DateTime.now(),
-        endAt: DateTime.now(),
+        endAt: DateTime.now().add(const Duration(hours: 1)),
         location: 'ABC',
         description: 'test',
         creator: User(
@@ -1019,6 +1021,94 @@ SelectContactViewModel getAndRegisterSelectContactViewModel() {
   return cachedViewModel;
 }
 
+/// `getAndRegisterGroupChatViewModel` returns a mock instance of the `GroupChatViewModel` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `GroupChatViewModel`: A mock instance of the `GroupChatViewModel` class.
+GroupChatViewModel getAndRegisterGroupChatViewModel() {
+  _removeRegistrationIfExists<GroupChatViewModel>();
+  final cachedViewModel = MockGroupChatViewModel();
+  final formKey = GlobalKey<AnimatedListState>();
+
+  // Create mock group chat users
+  final ChatUser chatUser1 =
+      ChatUser(firstName: "Alice", id: "user1", image: "avatar1.jpg");
+  final ChatUser chatUser2 =
+      ChatUser(firstName: "Bob", id: "user2", image: "avatar2.jpg");
+  final ChatUser chatUser3 =
+      ChatUser(firstName: "Charlie", id: "user3", image: "avatar3.jpg");
+
+  // Create mock group chat messages
+  final ChatMessage groupMessage1 = ChatMessage(
+    id: "msg1",
+    body: "Welcome to the group!",
+    creator: chatUser1,
+    chatId: "group1",
+    createdAt: DateTime.now().toIso8601String(),
+  );
+  final ChatMessage groupMessage2 = ChatMessage(
+    id: "msg2",
+    body: "Thanks for adding me!",
+    creator: chatUser2,
+    chatId: "group1",
+    createdAt: DateTime.now().toIso8601String(),
+  );
+
+  // Create mock group chat
+  final Chat groupChat = Chat(
+    id: "group1",
+    name: "Test Group Chat",
+    members: [chatUser1, chatUser2, chatUser3],
+    messages: [groupMessage1, groupMessage2],
+  );
+
+  final Map<String, List<ChatMessage>> messages = {
+    "group1": [groupMessage1, groupMessage2],
+  };
+
+  final ChatListTileDataModel groupChatListTile = ChatListTileDataModel(
+    id: "group1",
+    users: [chatUser1, chatUser2, chatUser3],
+    chat: groupChat,
+  );
+
+  when(cachedViewModel.listKey).thenReturn(formKey);
+  when(cachedViewModel.chatState).thenReturn(ChatState.complete);
+  when(cachedViewModel.name).thenReturn("Test Group Chat");
+  when(cachedViewModel.groupChats).thenReturn([groupChatListTile]);
+  when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
+  when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
+  when(cachedViewModel.getChatMessages("group1"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.sendMessageToGroupChat("group1", "New message"))
+      .thenAnswer((realInvocation) async {
+    messages['group1']?.add(
+      ChatMessage(
+        id: "msg3",
+        body: "New message",
+        creator: chatUser1,
+        chatId: "group1",
+        createdAt: DateTime.now().toIso8601String(),
+      ),
+    );
+  });
+
+  // Mock pagination methods
+  when(cachedViewModel.loadMoreMessages("group1"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.hasMoreMessages("group1")).thenReturn(false);
+  when(cachedViewModel.isLoadingMoreMessages("group1")).thenReturn(false);
+
+  // Mock refresh method
+  when(cachedViewModel.refreshChats()).thenReturn(null);
+
+  locator.registerSingleton<GroupChatViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
 /// `getAndRegisterExploreEventsViewModel` returns a mock instance of the `ExploreEventsViewModel` class.
 ///
 /// **params**:
@@ -1141,6 +1231,7 @@ void registerViewModels() {
   locator.registerFactory(() => InteractionsViewModel());
   locator.registerFactory(() => SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
+  locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
   locator.registerFactory(() => EventInfoViewModel());
@@ -1168,6 +1259,7 @@ void unregisterViewModels() {
   locator.unregister<InteractionsViewModel>();
   locator.unregister<SizeConfig>();
   locator.unregister<DirectChatViewModel>();
+  locator.unregister<GroupChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();

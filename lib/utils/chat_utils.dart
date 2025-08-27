@@ -95,14 +95,11 @@ class ChatUtils {
           ?.where((member) => member.id != currentUserId)
           .firstOrNull;
 
-      if (otherMember != null) {
-        final firstName = otherMember.firstName ?? '';
-        if (firstName.isNotEmpty) {
-          return firstName;
-        }
-        return 'Unknown User';
+      final firstName = otherMember!.firstName ?? '';
+      if (firstName.isNotEmpty) {
+        return firstName;
       }
-      return 'Direct Chat';
+      return 'Unknown User';
     } else {
       return 'Chat';
     }

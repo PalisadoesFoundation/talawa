@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -47,7 +48,7 @@ class _SelectContactState extends State<SelectContact> {
         },
         builder: (context, model, child) {
           // Filter out current user
-          final currentUserId = userConfig.currentUser.id;
+          final currentUserId = locator<UserConfig>().currentUser.id;
           final contacts = model.orgMembersList
               .where((user) => user.id != currentUserId)
               .toList();

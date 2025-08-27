@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/user/user_info.dart';
 
 /// Dialog widget for selecting members to add to a group chat.
-class AddMembersDialog extends StatefulWidget {
-  const AddMembersDialog({
+class AddGroupChatMembersDialog extends StatefulWidget {
+  const AddGroupChatMembersDialog({
     super.key,
     required this.availableMembers,
     required this.onMembersSelected,
   });
 
   /// List of organization members available to add.
-  final List<dynamic> availableMembers;
+  final List<User> availableMembers;
 
   /// Callback function when members are selected.
-  final Function(List<dynamic>) onMembersSelected;
+  final Function(List<User>) onMembersSelected;
 
   @override
-  State<AddMembersDialog> createState() => _AddMembersDialogState();
+  State<AddGroupChatMembersDialog> createState() =>
+      _AddGroupChatMembersDialogState();
 }
 
-class _AddMembersDialogState extends State<AddMembersDialog> {
-  final List<dynamic> _selectedMembers = [];
+class _AddGroupChatMembersDialogState extends State<AddGroupChatMembersDialog> {
+  final List<User> _selectedMembers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +50,10 @@ class _AddMembersDialogState extends State<AddMembersDialog> {
 
                         return CheckboxListTile(
                           title: Text(
-                            (member as dynamic).firstName as String? ??
-                                'Unknown',
+                            member.firstName ?? 'Unknown',
                           ),
                           subtitle: Text(
-                            (member as dynamic).email as String? ??
-                                'Unavailable',
+                            member.email ?? 'Unavailable',
                           ),
                           value: isSelected,
                           onChanged: (bool? value) {
@@ -67,11 +67,8 @@ class _AddMembersDialogState extends State<AddMembersDialog> {
                           },
                           secondary: CircleAvatar(
                             child: Text(
-                              (((member as dynamic).firstName as String?)
-                                          ?.isNotEmpty ==
-                                      true)
-                                  ? ((member as dynamic).firstName as String)[0]
-                                      .toUpperCase()
+                              (member.firstName?.isNotEmpty == true)
+                                  ? member.firstName![0].toUpperCase()
                                   : 'U',
                               style: const TextStyle(
                                 color: Colors.white,

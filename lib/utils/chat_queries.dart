@@ -61,12 +61,6 @@ class ChatQueries {
           createdAt
           updatedAt
           members(last: 30) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
             edges {
               node {
                 id

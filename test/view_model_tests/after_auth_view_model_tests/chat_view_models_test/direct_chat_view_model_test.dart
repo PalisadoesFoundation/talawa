@@ -84,6 +84,109 @@ void main() {
         chatStreamController.close();
       });
 
+      test('filters chats using ChatUtils.isDirectChat', () async {
+        final chatStreamController = StreamController<Chat>();
+        when(chatService.chatListStream)
+            .thenAnswer((_) => chatStreamController.stream);
+        when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+
+        await viewModel.initialise();
+
+        // Add a direct chat (exactly 2 members) - should be included
+        final directChat = Chat(
+          id: 'directChat1',
+          members: [
+            ChatUser(id: 'user1'),
+            ChatUser(id: 'user2'),
+          ],
+        );
+        chatStreamController.add(directChat);
+        await Future.delayed(Duration.zero);
+
+        expect(viewModel.chats, hasLength(1));
+        expect(viewModel.chats.first.id, 'directChat1');
+
+        // Add a group chat (more than 2 members) - should be filtered out
+        final groupChat = Chat(
+          id: 'groupChat1',
+          members: [
+            ChatUser(id: 'user1'),
+            ChatUser(id: 'user2'),
+            ChatUser(id: 'user3'),
+          ],
+        );
+        chatStreamController.add(groupChat);
+        await Future.delayed(Duration.zero);
+
+        // Should still only have the direct chat
+        expect(viewModel.chats, hasLength(1));
+        expect(viewModel.chats.first.id, 'directChat1');
+
+        chatStreamController.close();
+      });
+
+      test('handles empty members list in chat filtering', () async {
+        final chatStreamController = StreamController<Chat>();
+        when(chatService.chatListStream)
+            .thenAnswer((_) => chatStreamController.stream);
+        when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+
+        await viewModel.initialise();
+
+        // Add a chat with no members - should be filtered out
+        final emptyChat = Chat(
+          id: 'emptyChat1',
+          members: [],
+        );
+        chatStreamController.add(emptyChat);
+        await Future.delayed(Duration.zero);
+
+        expect(viewModel.chats, hasLength(0));
+
+        // Add a chat with null members - should be filtered out
+        final nullMembersChat = Chat(
+          id: 'nullMembersChat1',
+          members: null,
+        );
+        chatStreamController.add(nullMembersChat);
+        await Future.delayed(Duration.zero);
+
+        expect(viewModel.chats, hasLength(0));
+
+        chatStreamController.close();
+      });
+
+      test('prevents duplicate chats using unique chat IDs', () async {
+        final chatStreamController = StreamController<Chat>();
+        when(chatService.chatListStream)
+            .thenAnswer((_) => chatStreamController.stream);
+        when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+
+        await viewModel.initialise();
+
+        // Add the same direct chat twice
+        final directChat = Chat(
+          id: 'directChat1',
+          members: [
+            ChatUser(id: 'user1'),
+            ChatUser(id: 'user2'),
+          ],
+        );
+
+        chatStreamController.add(directChat);
+        await Future.delayed(Duration.zero);
+
+        // Add the same chat again
+        chatStreamController.add(directChat);
+        await Future.delayed(Duration.zero);
+
+        // Should only have one chat in the list
+        expect(viewModel.chats, hasLength(1));
+        expect(viewModel.chats.first.id, 'directChat1');
+
+        chatStreamController.close();
+      });
+
       test('handles chat with null ID and prints debug message', () async {
         final chatStreamController = StreamController<Chat>();
         when(chatService.chatListStream)
@@ -103,6 +206,44 @@ void main() {
 
         // The chat should not be added to the list
         expect(viewModel.chats, hasLength(0));
+
+        chatStreamController.close();
+      });
+
+      test('inserts new chats at the beginning of the list', () async {
+        final chatStreamController = StreamController<Chat>();
+        when(chatService.chatListStream)
+            .thenAnswer((_) => chatStreamController.stream);
+        when(chatService.getChatsByUser()).thenAnswer((_) async => []);
+
+        await viewModel.initialise();
+
+        // Add first direct chat
+        final firstChat = Chat(
+          id: 'chat1',
+          members: [
+            ChatUser(id: 'user1'),
+            ChatUser(id: 'user2'),
+          ],
+        );
+        chatStreamController.add(firstChat);
+        await Future.delayed(Duration.zero);
+
+        // Add second direct chat
+        final secondChat = Chat(
+          id: 'chat2',
+          members: [
+            ChatUser(id: 'user3'),
+            ChatUser(id: 'user4'),
+          ],
+        );
+        chatStreamController.add(secondChat);
+        await Future.delayed(Duration.zero);
+
+        // Second chat should be at index 0 (inserted at beginning)
+        expect(viewModel.chats, hasLength(2));
+        expect(viewModel.chats[0].id, 'chat2');
+        expect(viewModel.chats[1].id, 'chat1');
 
         chatStreamController.close();
       });
