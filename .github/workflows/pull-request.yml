@@ -284,6 +284,48 @@ jobs:
         run: |
           docker exec talawa-api-1 /bin/bash -c 'pnpm apply_drizzle_migrations'
 
+      - name: Start Backend Server
+        run: |
+          docker exec -d talawa-api-1 /bin/bash -c 'pnpm run start_development_server'
+          sleep 15
+
+      - name: Wait for GraphQL endpoint to become available
+        if: success()
+        run: |
+          echo "Waiting for the GraphQL endpoint to become available..."
+          for i in {1..40}; do
+            if ! docker ps | grep -q talawa-api-1; then
+              echo "Container talawa-api-1 not found. Waiting..."
+              sleep 2
+              continue
+            fi
+            docker exec talawa-api-1 which curl >/dev/null 2>&1 || {
+              docker exec talawa-api-1 apt-get update && \
+              docker exec talawa-api-1 apt-get install -y curl
+            }
+            RESPONSE=$(docker exec talawa-api-1 curl -s -X POST \
+              http://127.0.0.1:4000/graphql -H "Content-Type: application/json" \
+              -d '{"query":"{__typename}"}' 2>/dev/null || echo "Connection failed")
+            if echo "$RESPONSE" | grep -q '__typename'; then
+              echo "GraphQL endpoint is available, Backend is ready!"
+              exit 0
+            fi
+            echo "GraphQL endpoint not ready. Retrying in 2 seconds..."
+            sleep 2
+          done
+          echo "GraphQL endpoint did not become available within the expected time."
+          exit 1
+
+      - name: Seed Sample Data
+        run: |
+          echo "=== Seeding Sample Data ==="
+          if docker exec talawa-api-1 /bin/bash -c 'set -a; source ./.env; set +a; pnpm run add:sample_data'; then
+            echo "✅ Seeding completed successfully"
+          else
+            echo "❌ Seeding failed"
+            exit 1
+          fi
+
       - name: Checkout Flutter App Repository
         uses: actions/checkout@v4
       
@@ -299,6 +341,9 @@ jobs:
           flutter-version: "3.29.3"
           channel: "stable"
       
+      - name: Enable Flutter Web
+        run: flutter config --enable-web
+      
       - name: Install Flutter Dependencies
         run: flutter pub get
       
@@ -308,8 +353,23 @@ jobs:
       - name: Update API_URL in .env for integration tests
         run: echo "API_URL=http://127.0.0.1:4000/graphql" > .env
       
-      - name: Run Integration Tests
-        run: flutter test integration_test/app_test.dart
+      - name: Install Chrome for Web Testing
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+      
+      - name: Setup Virtual Display
+        run: |
+          sudo apt-get install -y xvfb
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+      
+      - name: Run Integration Tests on Web
+        run: |
+          export DISPLAY=:99
+          flutter test integration_test/app_test.dart -d chrome --web-renderer html
 
   Android-Build:
     name: Testing build for android
