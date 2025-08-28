@@ -257,6 +257,60 @@ jobs:
           path: "./coverage/lcov.info"
           min_coverage: 92.0
 
+  Integration-Testing:
+    name: Runnig Integration Tests
+    runs-on: ubuntu-latest
+    env:
+      API_URL: http://127.0.0.1:4000/graphql
+    steps:
+      - name: Checkout Backend
+        uses: actions/checkout@v4
+        with:
+          repository: palisadoesFoundation/talawa-api
+          ref: develop
+
+      - name: Setup Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          cp envFiles/.env.devcontainer .env
+          devcontainer up --workspace-folder .
+          echo "Waiting for devcontainer services to be ready..."
+          sleep 10
+
+      - name: Install Backend Dependencies
+        run: docker exec talawa-api-1 /bin/bash -c 'pnpm install'
+
+      - name: Apply Database Migrations
+        run: |
+          docker exec talawa-api-1 /bin/bash -c 'pnpm apply_drizzle_migrations'
+
+      - name: Checkout Flutter App Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Java for Flutter
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17.0"
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.29.3"
+          channel: "stable"
+      
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+      
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
+      
+      - name: Update API_URL in .env for integration tests
+        run: echo "API_URL=http://127.0.0.1:4000/graphql" > .env
+      
+      - name: Run Integration Tests
+        run: flutter test integration_test/app_test.dart
+
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
