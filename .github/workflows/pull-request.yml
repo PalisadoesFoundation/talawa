@@ -362,14 +362,20 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           cores: 2
+          heap-size: 512M
+          ram-size: 2048M
           sdcard-path-or-size: 100M
           avd-name: test
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -memory 2048
           disable-animations: true
           script: |
             echo "Starting emulator tests..."
-            flutter test integration_test/app_test.dart --verbose
+            echo "Waiting for emulator to be ready..."
+            adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+            echo "Emulator is ready"
+            flutter devices
+            flutter test integration_test/app_test.dart --verbose --device-id emulator-5554
             echo "Emulator tests completed"
 
   Android-Build:
