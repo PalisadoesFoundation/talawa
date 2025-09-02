@@ -334,15 +334,16 @@ jobs:
         with:
           distribution: "zulu"
           java-version: "17.0"
+
+      - uses: futureware-tech/simulator-action@v3
+        with:
+          model: 'iPhone 14'
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.29.3"
           channel: "stable"
-      
-      - name: Enable Flutter Web
-        run: flutter config --enable-web
       
       - name: Install Flutter Dependencies
         run: flutter pub get
@@ -353,23 +354,8 @@ jobs:
       - name: Update API_URL in .env for integration tests
         run: echo "API_URL=http://127.0.0.1:4000/graphql" > .env
       
-      - name: Install Chrome for Web Testing
-        run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-      
-      - name: Setup Virtual Display
-        run: |
-          sudo apt-get install -y xvfb
-          export DISPLAY=:99
-          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-      
-      - name: Run Integration Tests on Web
-        run: |
-          export DISPLAY=:99
-          flutter test integration_test/app_test.dart -d chrome --web-renderer html
+      - name: Run Integration Tests
+        run: flutter test integration_test/app_test.dart
 
   Android-Build:
     name: Testing build for android
