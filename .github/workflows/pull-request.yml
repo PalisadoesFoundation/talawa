@@ -258,8 +258,8 @@ jobs:
           min_coverage: 92.0
 
   Integration-Testing:
-    name: Runnig Integration Tests
-    runs-on: ubuntu-latest
+    name: Running Integration Tests
+    runs-on: macos-latest
     env:
       API_URL: http://127.0.0.1:4000/graphql
     steps:
