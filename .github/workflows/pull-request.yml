@@ -268,7 +268,6 @@ jobs:
         with:
           repository: palisadoesFoundation/talawa-api
           ref: develop
-
       - name: Setup Devcontainer
         run: |
           npm install -g @devcontainers/cli
@@ -276,7 +275,6 @@ jobs:
           devcontainer up --workspace-folder .
           echo "Waiting for devcontainer services to be ready..."
           sleep 10
-
       - name: Install Backend Dependencies
         run: docker exec talawa-api-1 /bin/bash -c 'pnpm install'
 
