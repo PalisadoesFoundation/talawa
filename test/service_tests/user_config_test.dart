@@ -62,14 +62,6 @@ void main() {
   });
 
   final mockUser = User(
-    adminFor: <OrgInfo>[
-      OrgInfo(id: 'org1', name: 'orga'),
-      OrgInfo(id: 'org2', name: 'orgb'),
-    ],
-    createdOrganizations: <OrgInfo>[
-      OrgInfo(id: 'org1', name: 'orga'),
-      OrgInfo(id: 'org2', name: 'orgb'),
-    ],
     email: 'test@gmail.com',
     name: 'user one',
     image: 'sample.jpg',
@@ -79,10 +71,7 @@ void main() {
     ],
     authToken: 'AuthToken',
     refreshToken: 'Refreshtoken',
-    membershipRequests: <OrgInfo>[
-      OrgInfo(id: 'org1', name: 'orga'),
-      OrgInfo(id: 'org2', name: 'orgb'),
-    ],
+    membershipRequests: ['org1', 'org2'],
   );
 
   final mockOrgDetails = <OrgInfo>[
@@ -330,31 +319,13 @@ void main() {
       expect(model.currentOrg.name, equals('New Organization'));
     });
 
-    test('Test for updateUserCreatedOrg method', () async {
-      final model = UserConfig();
-      model.currentUser = mockUser;
-
-      await model.updateUserCreatedOrg(mockOrgDetails);
-
-      expect(mockUser.createdOrganizations, mockOrgDetails);
-    });
-
     test('Test for updateUserMemberRequestOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
       final expected = [...mockUser.membershipRequests!, ...mockOrgDetails];
-      await model.updateUserMemberRequestOrg(mockOrgDetails);
+      await model.updateUserMemberRequestOrg(["org3", "org4"]);
 
       expect(mockUser.membershipRequests, expected);
-    });
-
-    test('Test for updateUserAdminOrg method', () async {
-      final model = UserConfig();
-      model.currentUser = mockUser;
-
-      await model.updateUserAdminOrg(mockOrgDetails);
-
-      expect(mockUser.adminFor, mockOrgDetails);
     });
 
     test('Test for updateAccessToken method.', () async {

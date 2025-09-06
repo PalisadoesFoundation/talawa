@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/waiting_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
 

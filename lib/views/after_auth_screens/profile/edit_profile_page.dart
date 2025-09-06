@@ -151,13 +151,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Flexible(
                             // Text field for first name with value text of user's first name.
                             child: TextFormField(
-                              key: const Key('FirstNameTextField'),
+                              key: const Key('NameTextField'),
                               controller: model.nameTextController,
                               focusNode: model.nameFocus,
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
-                                    .strictTranslate('First Name'),
+                                    .strictTranslate('Name'),
                                 labelStyle:
                                     Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
@@ -206,46 +206,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.027,
-                        width: SizeConfig.screenWidth! * 0.055,
-                        child: const Icon(Icons.email),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.screenWidth! * 0.045,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!
-                                .strictTranslate('Email'),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                ),
-                          ),
-                          // Text for first name with value text of user's first name.
-                          Text(
-                            model.user.email!,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(fontSize: 18),
                           ),
                         ],
                       ),

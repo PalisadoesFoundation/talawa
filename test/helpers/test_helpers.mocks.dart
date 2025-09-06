@@ -2152,32 +2152,10 @@ class MockUserConfig extends _i2.Mock implements _i15.UserConfig {
       ) as _i8.Future<void>);
 
   @override
-  _i8.Future<void> updateUserCreatedOrg(List<_i5.OrgInfo>? orgDetails) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateUserCreatedOrg,
-          [orgDetails],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-
-  @override
-  _i8.Future<void> updateUserMemberRequestOrg(List<_i5.OrgInfo>? orgDetails) =>
+  _i8.Future<void> updateUserMemberRequestOrg(List<String>? orgDetails) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateUserMemberRequestOrg,
-          [orgDetails],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-
-  @override
-  _i8.Future<void> updateUserAdminOrg(List<_i5.OrgInfo>? orgDetails) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateUserAdminOrg,
           [orgDetails],
         ),
         returnValue: _i8.Future<void>.value(),
@@ -2212,6 +2190,16 @@ class MockUserConfig extends _i2.Mock implements _i15.UserConfig {
         returnValue: _i8.Future<bool>.value(false),
         returnValueForMissingStub: _i8.Future<bool>.value(false),
       ) as _i8.Future<bool>);
+
+  @override
+  _i8.Future<void> exitCurrentOrg() => (super.noSuchMethod(
+        Invocation.method(
+          #exitCurrentOrg,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
   void saveUserInHive() => super.noSuchMethod(

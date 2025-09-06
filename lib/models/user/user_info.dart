@@ -10,8 +10,6 @@ part 'user_info.g.dart';
 /// This class creates a User model and returns a user instance.
 class User extends HiveObject {
   User({
-    this.adminFor,
-    this.createdOrganizations,
     this.email,
     this.name,
     this.id,
@@ -47,6 +45,9 @@ class User extends HiveObject {
           ? orgList
               .map((e) => OrgInfo.fromJson(e["node"] as Map<String, dynamic>))
               .toList()
+          : [],
+      membershipRequests: userData['orgIdWhereMembershipRequested'] != null
+          ? List<String>.from(userData['orgIdWhereMembershipRequested'] as List)
           : [],
     );
   }
@@ -85,28 +86,20 @@ class User extends HiveObject {
   String? name;
 
   /// HiveField for user's Email.
-  @HiveField(5)
+  @HiveField(4)
   String? email;
 
   /// HiveField for user's avatar.
-  @HiveField(6)
+  @HiveField(5)
   String? image;
 
   /// /// HiveField for all organisations joined by user.
-  @HiveField(7)
+  @HiveField(6)
   List<OrgInfo>? joinedOrganizations = [];
-
-  /// HiveField for all organisations created by user.
-  @HiveField(8)
-  List<OrgInfo>? createdOrganizations = [];
-
-  /// HiveField for all organisations user is admin of.
-  @HiveField(9)
-  List<OrgInfo>? adminFor = [];
 
   /// HiveField for all organisations user has sent membership request.
   @HiveField(10)
-  List<OrgInfo>? membershipRequests = [];
+  List<String>? membershipRequests = [];
 
   /// Method to updated joinedOrganisation list.
   ///
@@ -124,17 +117,6 @@ class User extends HiveObject {
     ];
   }
 
-  /// Method to updated createdOrganisation list.
-  ///
-  /// **params**:
-  /// * `orgList`: List of organsaitions user has created.
-  ///
-  /// **returns**:
-  ///   None
-  void updateCreatedOrg(List<OrgInfo> orgList) {
-    this.createdOrganizations = orgList;
-  }
-
   /// Method to update membershipRequests List.
   ///
   /// **params**:
@@ -142,19 +124,8 @@ class User extends HiveObject {
   ///
   /// **returns**:
   ///   None
-  void updateMemberRequestOrg(List<OrgInfo> orgList) {
+  void updateMemberRequestOrg(List<String> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
-  }
-
-  /// Method to update adminFor List.
-  ///
-  /// **params**:
-  /// * `orgList`: List of organisations user is admin of.
-  ///
-  /// **returns**:
-  ///   None
-  void updateAdminFor(List<OrgInfo> orgList) {
-    this.adminFor = orgList;
   }
 
   /// Method to update the user details.
@@ -169,10 +140,8 @@ class User extends HiveObject {
     this.email = details.email;
     this.image = details.image;
     this.authToken = details.authToken;
-    // this.refreshToken = details.refreshToken;
-    // this.joinedOrganizations = details.joinedOrganizations;
-    // this.createdOrganizations = details.createdOrganizations;
-    // this.membershipRequests = details.membershipRequests;
-    // this.adminFor = details.adminFor;
+    this.refreshToken = details.refreshToken;
+    this.joinedOrganizations = details.joinedOrganizations;
+    this.membershipRequests = details.membershipRequests;
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/waiting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
@@ -71,12 +72,24 @@ class WaitingPage extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     itemCount: model.pendingRequestOrg.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return CustomListTile(
-                        key: const Key('WaitingJoin'),
-                        index: index,
-                        type: TileType.org,
-                        orgInfo: model.pendingRequestOrg[index],
-                        onTapOrgInfo: (item) {},
+                      final orgId = model.pendingRequestOrg[index];
+                      return FutureBuilder<OrgInfo?>(
+                        future: model.getOrgInfo(orgId),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return CustomListTile(
+                            key: Key('WaitingJoin $orgId'),
+                            index: index,
+                            type: TileType.org,
+                            orgInfo: snapshot.data,
+                            onTapOrgInfo: (item) {},
+                          );
+                        },
                       );
                     },
                   ),
@@ -101,12 +114,12 @@ class WaitingPage extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,
                 ),
-                //Logout button
+                //Profile Page button
                 RaisedRoundedButton(
-                  key: const Key('Logout'),
-                  buttonLabel:
-                      AppLocalizations.of(context)!.strictTranslate('Log out'),
-                  onTap: model.logout,
+                  key: const Key('ProfilePage'),
+                  buttonLabel: AppLocalizations.of(context)!
+                      .strictTranslate('Setting Page'),
+                  onTap: model.settingPageNavigation,
                   textColor: Theme.of(context)
                       .inputDecorationTheme
                       .focusedBorder!

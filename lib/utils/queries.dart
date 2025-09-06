@@ -41,6 +41,7 @@ class Queries {
                   name,
                   addressLine1,
                   addressLine2,
+                  orgIdWhereMembershipRequested,
                   avatarMimeType,
                   avatarURL,
                   postalCode,
@@ -77,6 +78,7 @@ class Queries {
           emailAddress,
           name,
           avatarURL,
+          orgIdWhereMembershipRequested,
           organizationsWhereMember(first:32){
             edges{
               node{
@@ -229,6 +231,7 @@ class Queries {
           sendMembershipRequest(input:{organizationId: \$organizationId}){
             userId
             membershipRequestId
+            organizationId
             status 
          }
     }
@@ -252,6 +255,7 @@ class Queries {
           name
           avatarURL
           emailAddress
+          orgIdWhereMembershipRequested,
           organizationsWhereMember(first: 32) {
             edges {
               node {
@@ -315,6 +319,31 @@ class Queries {
         isUserRegistrationRequired,
       }
     }
+    ''';
+  }
+
+  /// mutation to delete organization membership.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String deleteOrganizationMembershipMutation() {
+    return '''
+      mutation DeleteOrganizationMembership(
+        \$memberId: ID!,
+        \$organizationId: ID!
+      ) {
+        deleteOrganizationMembership(
+          input: {
+            memberId: \$memberId,
+            organizationId: \$organizationId
+          }
+        ) {
+          id
+        }
+      }
     ''';
   }
 

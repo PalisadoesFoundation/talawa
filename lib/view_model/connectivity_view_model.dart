@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:talawa/exceptions/critical_action_exception.dart';
-import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -90,11 +88,7 @@ class AppConnectivity extends BaseModel {
     showSnackbar(isOnline: true);
     databaseFunctions.init();
     cacheService.offlineActionQueue.getActions().forEach((action) async {
-      final result = await action.execute();
-      GraphqlExceptionResolver.encounteredExceptionOrError(
-        CriticalActionException('action done'),
-      );
-      debugPrint(result.toString());
+      await action.execute();
     });
   }
 

@@ -4,8 +4,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/time_conversion.dart';
 
@@ -59,7 +57,11 @@ class DataBaseMutationFunctions {
   QueryResult noData = QueryResult(
     options: QueryOptions(
       document: gql(
-        PostQueries().addLike(),
+        '''
+        query {
+          __typename
+        }
+        ''',
       ),
     ),
     data: null,
@@ -290,32 +292,6 @@ class DataBaseMutationFunctions {
       );
       databaseFunctions.init();
       return true;
-    }
-    return false;
-  }
-
-  /// This function fetch the organization using the [id] passed.
-  ///
-  /// **params**:
-  /// * `id`: id that identifies a particular org
-  ///
-  /// **returns**:
-  /// * `Future<dynamic>`: it returns Future of dynamic
-  Future<dynamic> fetchOrgById(String id) async {
-    final QueryResult result = await clientNonAuth
-        .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
-    // if there is an error or exception in [result]
-    if (result.hasException) {
-      final exception = GraphqlExceptionResolver.encounteredExceptionOrError(
-        result.exception!,
-      );
-      if (exception!) {
-        fetchOrgById(id);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return OrgInfo.fromJson(
-        (result.data!['organizations'] as List<Map<String, dynamic>>)[0],
-      );
     }
     return false;
   }

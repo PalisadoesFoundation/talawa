@@ -57,7 +57,7 @@ late OrgInfo org;
 
 class _MockUserConfig extends Mock implements UserConfig {
   @override
-  Future<dynamic> updateUserMemberRequestOrg(List<OrgInfo>? orgDetails) =>
+  Future<dynamic> updateUserMemberRequestOrg(List<String>? orgDetails) =>
       Future.value(1);
 
   @override
@@ -211,11 +211,7 @@ void main() {
             id: '1',
           ),
         ],
-        membershipRequests: [
-          OrgInfo(
-            id: '1',
-          ),
-        ],
+        membershipRequests: ["1"],
       );
 
       await tester.pumpWidget(
@@ -293,9 +289,7 @@ void main() {
           ),
         ],
         membershipRequests: [
-          OrgInfo(
-            id: '1',
-          ),
+          "1",
         ],
       );
 
@@ -322,7 +316,7 @@ void main() {
             id: '1',
           ),
         ],
-        membershipRequests: [org],
+        membershipRequests: ["1"],
       );
 
       await selectOrganizationViewModel.selectOrg(org);

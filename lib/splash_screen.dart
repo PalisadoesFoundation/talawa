@@ -205,39 +205,41 @@ class _SplashScreenState extends State<SplashScreen> {
   ///
   /// **returns**:
   ///   None
-  void _handleUserLogIn(bool userLoggedIn) {
-    Future.delayed(const Duration(milliseconds: 750)).then((value) {
-      final pushReplacementScreen = navigationService.pushReplacementScreen;
-      if (!userLoggedIn) {
-        pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
-        return;
-      }
+  Future<void> _handleUserLogIn(bool userLoggedIn) async {
+    final pushReplacementScreen = navigationService.pushReplacementScreen;
+    if (!userLoggedIn) {
+      pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
+      return;
+    }
 
-      final currentUser = userConfig.currentUser;
-      if (currentUser.joinedOrganizations == null) {
-        final mainScreenArgs = MainScreenArgs(
-          mainScreenIndex: widget.mainScreenIndex,
-          fromSignUp: false,
-        );
-        pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
-        return;
-      }
-      if (currentUser.joinedOrganizations!.isNotEmpty) {
-        final mainScreenArgs = MainScreenArgs(
-          mainScreenIndex: widget.mainScreenIndex,
-          fromSignUp: false,
-        );
-        pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
-        return;
-      }
+    await userConfig.userLoggedIn();
 
-      if (currentUser.membershipRequests!.isNotEmpty) {
-        pushReplacementScreen(Routes.waitingScreen, arguments: '0');
-        return;
-      }
+    final currentUser = userConfig.currentUser;
+    if (currentUser.joinedOrganizations != null &&
+        currentUser.joinedOrganizations!.isNotEmpty) {
+      final mainScreenArgs = MainScreenArgs(
+        mainScreenIndex: widget.mainScreenIndex,
+        fromSignUp: false,
+      );
+      print("aadjfshna");
+      print(currentUser.joinedOrganizations?.length);
+      print(currentUser.joinedOrganizations?.first.name);
+      pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+      return;
+    } else if (currentUser.joinedOrganizations!.isNotEmpty) {
+      final mainScreenArgs = MainScreenArgs(
+        mainScreenIndex: widget.mainScreenIndex,
+        fromSignUp: false,
+      );
+      pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
+      return;
+    } else if (currentUser.membershipRequests != null &&
+        currentUser.membershipRequests!.isNotEmpty) {
+      pushReplacementScreen(Routes.waitingScreen, arguments: '0');
+      return;
+    }
 
-      pushReplacementScreen(Routes.joinOrg, arguments: '-1');
-    });
+    pushReplacementScreen(Routes.joinOrg, arguments: '-1');
   }
 
   @override

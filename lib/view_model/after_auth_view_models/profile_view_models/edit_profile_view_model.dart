@@ -101,8 +101,6 @@ class EditProfilePageViewModel extends BaseModel {
         if (newImage != null) {
           variables["avatar"] = newImage;
         }
-
-        print(variables);
         if (variables.isNotEmpty) {
           await userProfileService.updateUserProfile(variables);
           // Fetch updated user info from the database and save it in hivebox.
@@ -114,9 +112,8 @@ class EditProfilePageViewModel extends BaseModel {
         return databaseFunctions.noData;
       },
       onValidResult: (result) async {
-        
         final user = result.data!['user'] as Map<String, dynamic>;
-        
+
         final User userInfo = User.fromJson(
           user,
         );

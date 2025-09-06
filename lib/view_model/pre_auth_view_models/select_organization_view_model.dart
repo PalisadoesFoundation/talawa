@@ -2,10 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -15,13 +15,6 @@ import 'package:talawa/view_model/base_view_model.dart';
 /// * `selectOrg`
 /// * `onTapJoin`
 class SelectOrganizationViewModel extends BaseModel {
-  // variables
-  /// Organization selection required data.
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  /// Organization selection required data.
-  late Barcode result;
-
   /// Organization selection required data.
   final ScrollController allOrgController = ScrollController();
 
@@ -64,33 +57,6 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
-  /// initializer.
-  ///
-  /// **params**:
-  /// * `initialData`: data
-  ///
-  /// **returns**:
-  /// * `Future<void>`: None
-  Future<void> initialise(String initialData) async {
-    searchFocus.addListener(searchActive);
-    if (!initialData.contains('-1')) {
-      databaseFunctions.init();
-      final fetch = await databaseFunctions.fetchOrgById(initialData);
-      if (fetch.runtimeType == OrgInfo) {
-        selectedOrganization = fetch as OrgInfo;
-        if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
-          navigationService.pushScreen(
-            Routes.signupDetailScreen,
-            arguments: selectedOrganization,
-          );
-        } else {
-          selectOrg(selectedOrganization);
-        }
-        setState(ViewState.idle);
-      }
-    }
-  }
-
   /// This function select the organization.
   ///
   /// **params**:
@@ -115,8 +81,8 @@ class SelectOrganizationViewModel extends BaseModel {
 
       // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests ??= [];
-      userConfig.currentUser.membershipRequests?.forEach((element) {
-        if (item != null && element.id == item.id) {
+      userConfig.currentUser.membershipRequests?.forEach((orgId) {
+        if (item != null && orgId == item.id) {
           orgRequestAlreadyPresent = true;
         }
       });
@@ -234,6 +200,13 @@ class SelectOrganizationViewModel extends BaseModel {
         navigationService.showSnackBar(
           'Joined ${selectedOrganization?.name} successfully',
           duration: const Duration(seconds: 2),
+        );
+        navigationService.pushReplacementScreen(
+          Routes.mainScreen,
+          arguments: MainScreenArgs(
+            mainScreenIndex: 0,
+            fromSignUp: false,
+          ),
         );
       } on Exception catch (e) {
         navigationService.showTalawaErrorSnackBar(

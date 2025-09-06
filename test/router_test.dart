@@ -44,7 +44,7 @@ import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
-import 'package:talawa/views/pre_auth_screens/set_url.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
 
 import 'helpers/test_helpers.dart';

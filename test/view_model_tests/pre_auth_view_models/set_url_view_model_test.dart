@@ -16,7 +16,7 @@ import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/auth_landing_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 

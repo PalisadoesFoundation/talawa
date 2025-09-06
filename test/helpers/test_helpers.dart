@@ -6,7 +6,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
@@ -47,7 +46,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
-import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
@@ -91,7 +90,6 @@ import 'test_helpers.mocks.dart';
       onMissingStub: OnMissingStub.returnDefault,
     ),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
@@ -601,7 +599,6 @@ UserConfig getAndRegisterUserConfig() {
       email: "testuser@gmail.com",
       refreshToken: "testtoken",
       authToken: 'testtoken',
-      adminFor: [],
       joinedOrganizations: [
         OrgInfo(
           id: '3',
@@ -618,18 +615,7 @@ UserConfig getAndRegisterUserConfig() {
           name: "Organization Name",
         ),
       ],
-      membershipRequests: [
-        OrgInfo(
-          id: '1',
-          name: 'test org',
-          userRegistrationRequired: true,
-        ),
-        OrgInfo(
-          id: '2',
-          name: 'test org',
-          userRegistrationRequired: true,
-        ),
-      ],
+      membershipRequests: ["1", "2"],
     ),
   );
 

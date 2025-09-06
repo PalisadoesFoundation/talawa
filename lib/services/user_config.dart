@@ -8,6 +8,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 
@@ -92,34 +93,35 @@ class UserConfig {
       return false;
     }
     // generate access token
-    graphqlConfig.getToken().then((value) async {
-      try {
-        databaseFunctions.init();
-        await sessionManager.refreshSession();
-        databaseFunctions.init();
-        final QueryResult result = await databaseFunctions.gqlAuthQuery(
-          queries.fetchUserInfo(),
-          variables: {'id': currentUser.id},
-        );
-        final user = result.data!['user'] as Map<String, dynamic>;
-        final User userInfo = User.fromJson(
-          user
-        );
-        userInfo.authToken = userConfig.currentUser.authToken;
-        userInfo.refreshToken = userConfig.currentUser.refreshToken;
-        userConfig.updateUser(userInfo);
-        _currentOrg ??= _currentUser!.joinedOrganizations![0];
-        _currentOrgInfoController.add(_currentOrg!);
-        saveUserInHive();
-        return true;
-      } on Exception catch (e) {
-        print(e);
-        navigationService.showTalawaErrorSnackBar(
-          "Couldn't update User details",
-          MessageType.error,
-        );
-      }
-    });
+    graphqlConfig.getToken();
+
+    try {
+      databaseFunctions.init();
+      await sessionManager.refreshSession();
+      databaseFunctions.init();
+      final QueryResult result = await databaseFunctions.gqlAuthQuery(
+        queries.fetchUserInfo(),
+        variables: {'id': currentUser.id},
+      );
+      final user = result.data!['user'] as Map<String, dynamic>;
+      final User userInfo = User.fromJson(
+        user,
+      );
+      userInfo.authToken = userConfig.currentUser.authToken;
+      userInfo.refreshToken = userConfig.currentUser.refreshToken;
+      userConfig.updateUser(userInfo);
+      _currentOrg ??= _currentUser?.joinedOrganizations![0];
+      _currentOrgInfoController.add(_currentOrg!);
+      saveUserInHive();
+      return true;
+    } on Exception catch (e) {
+      print(e);
+      navigationService.showTalawaErrorSnackBar(
+        "Couldn't update User details",
+        MessageType.error,
+      );
+    }
+
     return true;
   }
 
@@ -208,22 +210,10 @@ class UserConfig {
     if (orgDetails.id == null || orgDetails.id!.isEmpty) {
       return;
     }
-    _currentUser!.updateJoinedOrg(orgDetails);
+    _currentUser?.updateJoinedOrg(orgDetails);
 
     _currentOrg = orgDetails;
     saveCurrentOrgInHive(orgDetails);
-    saveUserInHive();
-  }
-
-  /// Updates the user created organization.
-  ///
-  /// **params**:
-  /// * `orgDetails`: details of the organization that user joined.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
-    _currentUser!.updateCreatedOrg(orgDetails);
     saveUserInHive();
   }
 
@@ -234,20 +224,8 @@ class UserConfig {
   ///
   /// **returns**:
   ///   None
-  Future<void> updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
-    _currentUser!.updateMemberRequestOrg(orgDetails);
-    saveUserInHive();
-  }
-
-  /// Updates the organization admin.
-  ///
-  /// **params**:
-  /// * `orgDetails`: details of the organization that user joined.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> updateUserAdminOrg(List<OrgInfo> orgDetails) async {
-    _currentUser!.updateAdminFor(orgDetails);
+  Future<void> updateUserMemberRequestOrg(List<String> orgDetails) async {
+    _currentUser?.updateMemberRequestOrg(orgDetails);
     saveUserInHive();
   }
 
@@ -263,8 +241,8 @@ class UserConfig {
     required String accessToken,
     required String refreshToken,
   }) async {
-    _currentUser!.refreshToken = refreshToken;
-    _currentUser!.authToken = accessToken;
+    _currentUser?.refreshToken = refreshToken;
+    _currentUser?.authToken = accessToken;
     saveUserInHive();
   }
 
@@ -281,11 +259,86 @@ class UserConfig {
       _currentUser = updatedUserDetails;
       saveUserInHive();
       graphqlConfig.getToken();
-      databaseFunctions.init();
       return true;
     } on Exception catch (e) {
       debugPrint(e.toString());
       return false;
+    }
+  }
+
+  /// Executes an API call with error handling to exit current joined organization.
+  ///
+  /// **params**:
+  ///   None
+  ///   of type `T`.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> exitCurrentOrg() async {
+    if (_currentOrg == null ||
+        _currentOrg?.id == null ||
+        _currentOrg?.id == "null") {
+      return;
+    }
+    if (_currentUser == null ||
+        _currentUser?.joinedOrganizations == null ||
+        _currentUser!.joinedOrganizations!.isEmpty) {
+      return;
+    }
+
+    try {
+      final result = await databaseFunctions.gqlAuthMutation(
+        Queries().deleteOrganizationMembershipMutation(),
+        variables: {
+          'organizationId': _currentOrg!.id,
+          'memberId': _currentUser!.id,
+        },
+      );
+
+      if (result.data == null || result.hasException) {
+        throw Exception('Unable to exit organization, please try again.');
+      }
+
+      final orgMembership =
+          result.data!['deleteOrganizationMembership'] as Map<String, dynamic>?;
+      if (orgMembership == null || orgMembership['id'] == null) {
+        throw Exception('Unable to exit organization, please try again.');
+      }
+
+      _currentUser?.joinedOrganizations!
+          .removeWhere((org) => org.id == _currentOrg!.id);
+      navigationService.showSnackBar(
+        'Exited ${_currentOrg?.name} successfully',
+        duration: const Duration(seconds: 2),
+      );
+      if (_currentUser?.joinedOrganizations?.isNotEmpty == true) {
+        _currentOrg = _currentUser?.joinedOrganizations?.first;
+      } else {
+        _currentOrg = null;
+        if (userConfig.currentUser.membershipRequests != null &&
+            userConfig.currentUser.membershipRequests!.isNotEmpty) {
+          navigationService.removeAllAndPush(
+            Routes.waitingScreen,
+            Routes.mainScreen,
+            arguments: '0',
+          );
+        } else {
+          navigationService.removeAllAndPush(
+            Routes.joinOrg,
+            Routes.mainScreen,
+            arguments: '-1',
+          );
+        }
+      }
+
+      saveCurrentOrgInHive(_currentOrg!);
+      saveUserInHive();
+    } catch (e) {
+      debugPrint(e.toString());
+      navigationService.showTalawaErrorSnackBar(
+        'Unable to exit organization, please try again.',
+        MessageType.error,
+      );
     }
   }
 

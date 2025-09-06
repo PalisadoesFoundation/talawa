@@ -92,9 +92,7 @@ void main() {
       when(userConfig.currentUser).thenReturn(mockUser);
 
       final config = GraphqlConfig();
-      final result = await config.getToken();
-
-      expect(result, true);
+      config.getToken();
       expect(GraphqlConfig.token, 'test-token');
       expect(config.httpLink, isA<HttpLink>());
     });

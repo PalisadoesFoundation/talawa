@@ -28,13 +28,15 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       line2: fields[10] as String?,
       postalCode: fields[11] as String?,
       state: fields[12] as String?,
+      adminsCount: fields[13] as int?,
+      membersCount: fields[14] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, OrgInfo obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
@@ -56,7 +58,11 @@ class OrgInfoAdapter extends TypeAdapter<OrgInfo> {
       ..writeByte(11)
       ..write(obj.postalCode)
       ..writeByte(12)
-      ..write(obj.state);
+      ..write(obj.state)
+      ..writeByte(13)
+      ..write(obj.adminsCount)
+      ..writeByte(14)
+      ..write(obj.membersCount);
   }
 
   @override

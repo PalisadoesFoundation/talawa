@@ -51,11 +51,19 @@ class AccessScreenViewModel extends BaseModel {
       variables: {"organizationId": selectedOrganization.id},
     );
     if (result.data != null) {
-      final OrgInfo membershipRequest = OrgInfo.fromJson(
-        (result.data!['sendMembershipRequest']
-            as Map<String, dynamic>)['organization'] as Map<String, dynamic>,
-      );
-      userConfig.updateUserMemberRequestOrg([membershipRequest]);
+      final data =
+          result.data!['sendMembershipRequest'] as Map<String, dynamic>;
+      final organizationId = data['organizationId'] as String?;
+
+      if (organizationId != selectedOrganization.id) {
+        navigationService.showTalawaErrorSnackBar(
+          'Some error occurred. Please try again later.',
+          MessageType.error,
+        );
+        return;
+      }
+
+      userConfig.updateUserMemberRequestOrg([selectedOrganization.id!]);
       if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
         navigationService.removeAllAndPush(
           Routes.waitingScreen,
