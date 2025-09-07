@@ -4,8 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -23,33 +21,14 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
-/// This is a TestWidget class.
-class TestWidget extends StatelessWidget {
-  const TestWidget(this.model, {super.key});
-
-  /// State.
-  final SetUrlViewModel model;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FloatingActionButton(
-        onPressed: () => model.scanQR(context),
-      ),
-    );
-  }
-}
-
 /// This is a class for mock url for testing.
 class SetUrlMock extends StatelessWidget {
-  const SetUrlMock({required this.formKey, super.key});
+  const SetUrlMock({super.key});
 
-  /// formKey.
-  final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Form(
-        key: formKey,
         child: Container(),
       ),
       navigatorKey: navigationService.navigatorKey,
@@ -113,7 +92,7 @@ Future<void> main() async {
         (tester) async {
       locator.registerSingleton(Validator());
 
-      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+      await tester.pumpWidget(Form(child: Container()));
 
       await model.checkURLandNavigate('/', 'arguments');
 
@@ -142,7 +121,7 @@ Future<void> main() async {
     testWidgets('Check if initialize is working fine ', (tester) async {
       final model = SetUrlViewModel();
 
-      await tester.pumpWidget(SetUrlMock(formKey: model.formKey));
+      await tester.pumpWidget(const SetUrlMock());
 
       model.initialise();
     });
@@ -150,7 +129,7 @@ Future<void> main() async {
         (tester) async {
       final model = SetUrlViewModel();
 
-      await tester.pumpWidget(SetUrlMock(formKey: model.formKey));
+      await tester.pumpWidget(const SetUrlMock());
 
       model.initialise();
     });
@@ -163,7 +142,7 @@ Future<void> main() async {
 
       locator.registerSingleton<Validator>(service);
 
-      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+      await tester.pumpWidget(Form(child: Container()));
 
       when(service.validateUrlExistence('http://<IPv4>:4000/graphql'))
           .thenAnswer((_) async => false);
@@ -178,135 +157,6 @@ Future<void> main() async {
       );
 
       locator.unregister<Validator>();
-    });
-
-    testWidgets('Check if scanQR() is working fine', (tester) async {
-      await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
-
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      expect(find.byType(ClipRRect), findsOneWidget);
-      expect(find.byType(QRView), findsOneWidget);
-    });
-
-    testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: TestWidget(model),
-          navigatorKey: navigationService.navigatorKey,
-        ),
-      );
-
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
-    });
-
-    testWidgets(
-        'Check if _onQRViewCreated() is working fine when throws CameraException',
-        (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: TestWidget(model),
-          navigatorKey: navigationService.navigatorKey,
-        ),
-      );
-
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
-
-      when(controller.stopCamera())
-          .thenThrow(CameraException("200", "cameraException"));
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
-    });
-    testWidgets(
-        'Check if _onQRViewCreated() is working fine when throws QrEmbeddedImageException',
-        (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: TestWidget(model),
-          navigatorKey: navigationService.navigatorKey,
-        ),
-      );
-
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
-
-      when(controller.stopCamera())
-          .thenThrow(QrEmbeddedImageException("error"));
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
-    });
-    testWidgets(
-        'Check if _onQRViewCreated() is working fine when throws QrUnsupportedVersionException',
-        (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: TestWidget(model),
-          navigatorKey: navigationService.navigatorKey,
-        ),
-      );
-
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
-
-      when(controller.stopCamera()).thenThrow(QrUnsupportedVersionException(0));
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
-    });
-    testWidgets(
-        'Check if _onQRViewCreated() is working fine when throws Exception',
-        (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: TestWidget(model),
-          navigatorKey: navigationService.navigatorKey,
-        ),
-      );
-
-      final controller = MockQRViewController();
-      when(controller.scannedDataStream).thenAnswer((_) async* {
-        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
-      });
-      // when(controller.stopCamera())
-      //     .thenThrow(Exception({"errorType": "error"}));
-
-      when(controller.stopCamera()).thenThrow(Exception(0));
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
-
-      (tester.widget(find.byType(QRView)) as QRView)
-          .onQRViewCreated(controller);
     });
   });
 }

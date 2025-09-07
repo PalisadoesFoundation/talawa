@@ -442,43 +442,7 @@ Future<void> main() async {
       verify(notifyListenerCallback());
     });
 
-    // Testing onPressed for firstName
-    testWidgets("Testing if firstName text field gets focus on onPressed",
-        (tester) async {
-      userConfig.updateUser(
-        User(name: 'Test Test', email: 'test@test.com'),
-      );
-
-      // Render the widget
-      await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-
-      // Find the 'First Name' text field and its suffix icon
-      final firstNameTextField = find.byKey(const Key('FirstNameTextField'));
-      final editIconButton = find.descendant(
-        of: firstNameTextField,
-        matching: find.byIcon(Icons.edit),
-      );
-
-      // Ensure the text field and icon exist
-      expect(firstNameTextField, findsOneWidget);
-      expect(editIconButton, findsOneWidget);
-
-      // Tap on the edit icon button to trigger focus
-      await tester.tap(editIconButton);
-      await tester.pumpAndSettle();
-
-      // Verify that the lastNameFocus is focused
-      final focusedElement =
-          FocusScope.of(tester.element(firstNameTextField)).focusedChild;
-      expect(focusedElement, isNotNull); // Ensure there is a focused child
-      expect(
-        focusedElement!.hasPrimaryFocus,
-        isTrue,
-      ); // Ensure it h
-    });
-
-    testWidgets("Testing if lastName text field gets focus on onPressed",
+    testWidgets("Testing if name text field gets focus on onPressed",
         (tester) async {
       // Mock or set up user data
       userConfig.updateUser(
@@ -489,24 +453,24 @@ Future<void> main() async {
       await tester.pumpWidget(createEditProfilePage(themeMode: ThemeMode.dark));
       await tester.pumpAndSettle();
 
-      // Find the 'Last Name' text field and its suffix icon
-      final lastNameTextField = find.byKey(const Key('LastNameTextField'));
+      // Find the 'Name' text field and its suffix icon
+      final nameTextField = find.byKey(const Key('NameTextField'));
       final editIconButton = find.descendant(
-        of: lastNameTextField,
+        of: nameTextField,
         matching: find.byIcon(Icons.edit),
       );
 
       // Ensure the text field and icon exist
-      expect(lastNameTextField, findsOneWidget);
+      expect(nameTextField, findsOneWidget);
       expect(editIconButton, findsOneWidget);
 
       // Tap on the edit icon button to trigger focus
       await tester.tap(editIconButton);
       await tester.pumpAndSettle();
 
-      // Verify that the lastNameFocus is focused
+      // Verify that the nameFocus is focused
       final focusedElement =
-          FocusScope.of(tester.element(lastNameTextField)).focusedChild;
+          FocusScope.of(tester.element(nameTextField)).focusedChild;
       expect(focusedElement, isNotNull); // Ensure there is a focused child
       expect(
         focusedElement!.hasPrimaryFocus,

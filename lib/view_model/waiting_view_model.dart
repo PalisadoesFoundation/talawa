@@ -9,7 +9,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
 
 /// WaitingViewModel class helps to interact with model to serve data
 /// and react to user's input for Waiting section.

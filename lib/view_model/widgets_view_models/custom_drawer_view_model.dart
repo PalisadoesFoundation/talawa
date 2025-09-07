@@ -121,7 +121,7 @@ class CustomDrawerViewModel extends BaseModel {
   /// returns an exit alert dialog.
   ///
   /// **params**:
-  ///   None
+  /// * `context`: `BuildContext` instance of BuildContext.
   ///
   /// **returns**:
   /// * `CustomAlertDialog`: returns customAlertDialogBox.

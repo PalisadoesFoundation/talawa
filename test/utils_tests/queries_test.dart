@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/utils/queries.dart';
 
 void main() {
@@ -132,17 +133,30 @@ void main() {
       }
       expect(mutation, true);
     });
-    test("Check if updateUserProfile works correctly", () {
-      var mutation = false;
-      expect(mutation, false);
+    test(
+        'updateUserProfile should return valid GraphQL mutation with all required fields',
+        () {
+      // Arrange
+      final queries = Queries();
 
-      final fnData = Queries().updateUserProfile();
+      // Act
+      final result = queries.updateUserProfile();
 
-      if (fnData.contains('mutation UpdateUserProfile') &&
-          fnData.contains('updateUserProfile')) {
-        mutation = true;
-      }
-      expect(mutation, true);
+      // Assert
+      expect(result, isA<String>());
+      expect(result, isNotEmpty);
+      expect(result, contains('mutation UpdateCurrentUser'));
+      expect(result, contains('updateCurrentUser'));
+      expect(result, contains('\$emailAddress: EmailAddress'));
+      expect(result, contains('\$name: String'));
+      expect(result, contains('\$avatar: Upload'));
+      expect(result, contains('id'));
+      expect(result, contains('name'));
+      expect(result, contains('emailAddress'));
+      expect(result, contains('avatarURL'));
+
+      // Verify it's valid GraphQL syntax
+      expect(() => gql(result), returnsNormally);
     });
     test("Check if venueListQuery works correctly", () {
       var mutation = false;

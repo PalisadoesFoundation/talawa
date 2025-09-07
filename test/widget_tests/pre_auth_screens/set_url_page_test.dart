@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
@@ -99,31 +98,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(
@@ -402,50 +376,6 @@ Future<void> main() async {
       );
     });
 
-    testWidgets("Testing if icon button shows up", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.light,
-          theme: TalawaTheme.lightTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      //initializing the logo Finder
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      //finding the logo
-      expect(iconButton, findsOneWidget);
-      //testing logo size
-      expect(
-        (tester.firstWidget(iconButton) as Icon).semanticLabel,
-        'Join Organisation with QR',
-      );
-
-      expect((tester.firstWidget(iconButton) as Icon).size, 30);
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-    });
-    testWidgets("Check if QR button works", (tester) async {
-      //pushing setUrlScreen
-      await tester.pumpWidget(
-        createSetUrlScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      final iconButton = find.byIcon(Icons.qr_code_scanner);
-
-      // tapping the qr button
-      await tester.tap(iconButton);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(ClipRRect), findsOneWidget);
-      expect(find.byType(QRView), findsOneWidget);
-    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(

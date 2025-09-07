@@ -143,22 +143,19 @@ void main() {
     });
 
     final avatarTestCases = [
-      {'firstName': 'John', 'lastName': 'Doe', 'expected': 'J'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': '', 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': null, 'lastName': 'TestName', 'expected': 'T'},
-      {'firstName': '', 'lastName': '', 'expected': '?'},
-      {'firstName': null, 'lastName': null, 'expected': '?'},
+      {'name': 'John Doe', 'expected': 'J'},
+      {'name': 'TestName', 'expected': 'T'},
+      {'name': '', 'lastName': '', 'expected': '?'},
     ];
 
     for (final testCase in avatarTestCases) {
       testWidgets(
-          'should display avatar with "${testCase['expected']}" when name is ${testCase['firstName']} ${testCase['lastName']}',
+          'should display avatar with "${testCase['expected']}" when name is ${testCase['name']}',
           (tester) async {
         final users = [
           User(
             id: 'user1',
-            name: "${testCase['firstName']} ${testCase['lastName']}",
+            name: "${testCase['name']}",
             image: null,
           ),
         ];
@@ -175,10 +172,9 @@ void main() {
 
   group('Name and Email Display', () {
     final nameTestCases = [
-      {'name': 'John Doe', 'expected': 'John Doe'},
+      {'name': 'John Doe', 'expected': 'John'},
       {'name': 'TestName', 'expected': 'TestName'},
       {'name': '', 'expected': ''},
-      {'name': null, 'expected': 'Unknown User'},
     ];
 
     for (final testCase in nameTestCases) {

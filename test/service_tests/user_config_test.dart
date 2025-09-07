@@ -176,34 +176,14 @@ void main() {
       userBox.put('user', User(id: 'fake', name: 'first'));
 
       final Map<String, dynamic> data = {
-        'users': [
-          {
-            "user": {
-              "id": "1234567890",
-              "firstName": "ravidi",
-              "lastName": "sheikh",
-              "email": "ravidisheikh@test.com",
-              "image": "https://testimg.com",
-              "accessToken": "randomAccessToken",
-              "authToken": "randomAuthToken",
-              "refreshToken": "randomRefreshToken",
-            },
-            'appUserProfile': {
-              'createdOrganizations': [
-                {
-                  "name": 'test_org',
-                  "image": 'https://testimg.com',
-                }
-              ],
-              "adminFor": [
-                {
-                  "name": 'test_org1',
-                  "image": 'https://testimg.com',
-                }
-              ],
-            },
-          }
-        ],
+        "user": {
+          "id": "1234567890",
+          "name": "ravidi",
+          "email": "ravidisheikh@test.com",
+          "avatarURL": "https://testimg.com",
+          "accessToken": "randomAccessToken",
+          "refreshToken": "randomRefreshToken",
+        },
       };
 
       when(
@@ -234,6 +214,8 @@ void main() {
 
     test('test user loggedin when result throws an exception', () async {
       final model = UserConfig();
+
+      userBox.put('user', User(id: 'fake', name: 'first'));
 
       when(
         databaseFunctions.gqlAuthQuery(
@@ -322,7 +304,7 @@ void main() {
     test('Test for updateUserMemberRequestOrg method', () async {
       final model = UserConfig();
       model.currentUser = mockUser;
-      final expected = [...mockUser.membershipRequests!, ...mockOrgDetails];
+      final expected = [...mockUser.membershipRequests!, 'org3', 'org4'];
       await model.updateUserMemberRequestOrg(["org3", "org4"]);
 
       expect(mockUser.membershipRequests, expected);

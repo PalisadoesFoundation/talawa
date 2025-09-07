@@ -34,11 +34,11 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
+    registerServices();
   });
-  setUp(() => registerServices());
-  tearDown(() => unregisterServices());
+
   group("SendRequestAccess Screen test", () {
-    testWidgets("SendRequestAccess screen is build correctly",
+    testWidgets("SendRequestAccess screen is built correctly",
         (WidgetTester tester) async {
       when(
         databaseFunctions.gqlAuthMutation(
@@ -57,28 +57,114 @@ void main() {
         ),
       );
 
+      // Set a larger screen size for testing
+      await tester.binding.setSurfaceSize(const Size(1200, 800));
+
       await tester.pumpWidget(accessRequestScreen());
       await tester.pumpAndSettle();
 
-      //Verify that appbar is present with transparent background color
+      // Verify that appbar is present
       expect(find.byType(AppBar), findsOneWidget);
-      final AppBar appBar = tester.firstWidget(find.byType(AppBar));
-      expect(appBar.backgroundColor, Colors.transparent);
 
-      //Verify that the image is present
+      // Verify that the image is present
       expect(find.byType(Image), findsOneWidget);
-      expect(find.text("You need access"), findsOneWidget);
+
+      // Verify main title
       expect(
-        find.text("Request access, or switch to an account with access"),
+        find.text("Request Access to Private Organization"),
         findsOneWidget,
       );
-      expect(find.byType(TextField), findsOneWidget);
-      //Verify that the send request button is present
+
+      // Verify private organization explanation text (partial match)
+      expect(
+        find.textContaining("This is a private organization"),
+        findsOneWidget,
+      );
+
+      // Verify admin review explanation text (partial match)
+      expect(
+        find.textContaining("After you request access"),
+        findsOneWidget,
+      );
+
+      // Verify help text (partial match)
+      expect(
+        find.textContaining("Need help"),
+        findsOneWidget,
+      );
+
+      // Verify icons are present
+      expect(find.byIcon(Icons.lock), findsOneWidget);
+      expect(find.byIcon(Icons.admin_panel_settings), findsOneWidget);
+      expect(find.byIcon(Icons.send), findsOneWidget);
+
+      // Verify that the request access button is present
       expect(find.text("Request Access"), findsOneWidget);
 
-      //Tap the "Request Access" button and trigger a frame
-      await tester.tap(find.text("Request Access"));
-      await tester.pump();
+      // Verify container styling
+      final containers = find.byType(Container);
+      expect(containers, findsWidgets);
+    });
+
+    testWidgets("Button interaction works correctly",
+        (WidgetTester tester) async {
+      // Mock the sendMembershipRequest mutation with proper response
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.sendMembershipRequest(),
+          variables: anyNamed('variables'),
+        ),
+      ).thenAnswer(
+        (realInvocation) async => QueryResult(
+          options: QueryOptions(
+            document: gql(queries.sendMembershipRequest()),
+          ),
+          data: {
+            'sendMembershipRequest': {
+              'userId': 'test-user-id',
+              'membershipRequestId': 'test-request-id',
+              'organizationId': 'XYZ',
+              'status': 'PENDING',
+            },
+          },
+          source: QueryResultSource.network,
+        ),
+      );
+
+      await tester.pumpWidget(accessRequestScreen());
+      await tester.pumpAndSettle();
+
+      // Find the ElevatedButton widget
+      final elevatedButtonFinder = find.byWidgetPredicate(
+        (widget) => widget is ElevatedButton && widget.child != null,
+      );
+      expect(elevatedButtonFinder, findsOneWidget);
+
+      // Ensure the button is visible by scrolling to it
+      await tester.drag(
+        find.byType(SingleChildScrollView),
+        const Offset(0, -300),
+      );
+      await tester.pumpAndSettle();
+
+      // Try to tap using ensureVisible first
+      await tester.ensureVisible(elevatedButtonFinder);
+      await tester.pumpAndSettle();
+
+      // Now tap the button
+      await tester.tap(elevatedButtonFinder, warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      // Verify the mutation was called
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          queries.sendMembershipRequest(),
+          variables: anyNamed('variables'),
+        ),
+      ).called(1);
+
+      // Verify no errors occurred during button press
+      expect(tester.takeException(), isNull);
     });
   });
 }

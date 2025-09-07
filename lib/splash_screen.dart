@@ -211,9 +211,11 @@ class _SplashScreenState extends State<SplashScreen> {
       pushReplacementScreen(Routes.languageSelectionRoute, arguments: 'en');
       return;
     }
-
-    await userConfig.userLoggedIn();
-
+    try {
+      await userConfig.userLoggedIn();
+    } catch (e) {
+      debugPrint("Unable to update user $e");
+    }
     final currentUser = userConfig.currentUser;
     if (currentUser.joinedOrganizations != null &&
         currentUser.joinedOrganizations!.isNotEmpty) {
@@ -221,9 +223,6 @@ class _SplashScreenState extends State<SplashScreen> {
         mainScreenIndex: widget.mainScreenIndex,
         fromSignUp: false,
       );
-      print("aadjfshna");
-      print(currentUser.joinedOrganizations?.length);
-      print(currentUser.joinedOrganizations?.first.name);
       pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
       return;
     } else if (currentUser.joinedOrganizations!.isNotEmpty) {
