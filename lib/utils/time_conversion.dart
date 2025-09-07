@@ -188,8 +188,6 @@ const dateTimeFields = {
     'recurrenceEndDate',
     'dueDate',
     'completionDate',
-    'startCursor',
-    'endCursor',
   ],
   'pairedFields': [
     {'dateField': 'startDate', 'timeField': 'startTime'},

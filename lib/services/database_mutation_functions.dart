@@ -27,6 +27,21 @@ class DataBaseMutationFunctions {
   /// Query passed by fucntion calling this function.
   late Queries _query;
 
+  /// when result has no data and null.
+  QueryResult noData = QueryResult(
+    options: QueryOptions(
+      document: gql(
+        '''
+        query {
+          __typename
+        }
+        ''',
+      ),
+    ),
+    data: null,
+    source: QueryResultSource.network,
+  );
+
   /// Initialization function.
   ///
   /// **params**:
@@ -52,21 +67,6 @@ class DataBaseMutationFunctions {
     clientNonAuth = graphqlConfig.clientToQuery();
     _query = Queries();
   }
-
-  /// when result has no data and null.
-  QueryResult noData = QueryResult(
-    options: QueryOptions(
-      document: gql(
-        '''
-        query {
-          __typename
-        }
-        ''',
-      ),
-    ),
-    data: null,
-    source: QueryResultSource.network,
-  );
 
   /// This function clears the GraphQL cache to ensure fresh data fetch.
   ///
