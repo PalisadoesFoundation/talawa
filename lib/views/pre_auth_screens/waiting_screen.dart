@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -17,7 +18,7 @@ class WaitingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<WaitingViewModel>(
-      onModelReady: (model) => model.initialise(context),
+      onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('WaitingPageScaffold'),
@@ -51,7 +52,26 @@ class WaitingPage extends StatelessWidget {
                       //Greeting text
                       CustomRichText(
                         key: const Key('WaitingPageText'),
-                        words: model.greeting,
+                        words: [
+                          {
+                            'text': "Please wait",
+                            'textStyle':
+                                Theme.of(context).textTheme.headlineSmall,
+                          },
+                          {
+                            'text': " ${userConfig.currentUser.firstName} ",
+                            'textStyle': Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontSize: 24),
+                          },
+                          {
+                            'text':
+                                "for organisation(s) to accept your invitation.",
+                            'textStyle':
+                                Theme.of(context).textTheme.headlineSmall,
+                          },
+                        ],
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.03,

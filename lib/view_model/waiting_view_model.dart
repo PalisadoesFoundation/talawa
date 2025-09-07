@@ -1,51 +1,49 @@
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// WaitingViewModel class helps to interact with model to serve data
-/// and react to user's input for Waiting section.
+/// WaitingViewModel class helps to interact with model to serve data and react to user's input for Waiting section.
 ///
 /// Methods include:
 /// * `logout`
 class WaitingViewModel extends BaseModel {
-  late List<Map<String, dynamic>> greeting;
+  /// List of organization IDs for which the user's membership requests are pending.
   late List<String> pendingRequestOrg;
-  late User currentUser;
 
-  // initialiser
-  void initialise(BuildContext context) {
-    currentUser = userConfig.currentUser;
-    pendingRequestOrg = currentUser.membershipRequests ?? [];
-    // greetings
-    greeting = [
-      {
-        'text': "Please wait",
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-      {
-        'text': " ${currentUser.firstName} ",
-        'textStyle':
-            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24),
-      },
-      {
-        'text': "for organisation(s) to accept your invitation.",
-        'textStyle': Theme.of(context).textTheme.headlineSmall,
-      },
-    ];
+  /// initialiser.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
+  void initialise() {
+    pendingRequestOrg = userConfig.currentUser.membershipRequests ?? [];
   }
 
   /// This function ends the session for the user or logout the user from the application.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void settingPageNavigation() {
     navigationService.pushScreen(
       Routes.appSettings,
     );
   }
 
+  /// This function fetches the organization information based on the provided organization ID.
+  ///
+  /// **params**:
+  /// * `orgId`: The ID of the organization to fetch information for.
+  ///
+  /// **returns**:
+  /// * `Future<OrgInfo?>`: object containing the organization's information if found, otherwise `null`.
   Future<OrgInfo?> getOrgInfo(String orgId) async {
     try {
       final QueryResult joinedOrgData =
@@ -65,6 +63,13 @@ class WaitingViewModel extends BaseModel {
     return null;
   }
 
+  /// This function navigates the user to the join organization screen.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  ///   None
   void joinOrg() {
     navigationService.pushScreen(Routes.joinOrg, arguments: '-1');
   }
