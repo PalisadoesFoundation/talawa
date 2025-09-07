@@ -1,6 +1,4 @@
-// ignore_for_file: talawa_api_doc, talawa_good_doc_comments
 import 'package:flutter/material.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -43,9 +41,9 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               Expanded(
                 child: OrganizationList(model: model),
               ),
-              SizedBox(
-                height: SizeConfig.screenHeight! * 0.0215,
-              ),
+              // SizedBox(
+              //   height: SizeConfig.screenHeight! * 0.0215,
+              // ),
             ],
           ),
         );
