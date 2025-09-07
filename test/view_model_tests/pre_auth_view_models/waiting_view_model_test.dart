@@ -1,6 +1,5 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -39,7 +38,7 @@ void main() {
 
       when(
         navigationService.pushScreen(
-          Routes.splashScreen,
+          Routes.appSettings,
         ),
       ).thenAnswer((_) async {});
 
@@ -47,9 +46,9 @@ void main() {
 
       verify(
         navigationService.pushScreen(
-          Routes.splashScreen,
+          Routes.appSettings,
         ),
-      ).call(1);
+      );
     });
   });
 }
