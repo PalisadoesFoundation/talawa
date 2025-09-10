@@ -6,8 +6,9 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 import 'package:talawa/views/after_auth_screens/funds/fundraising_campaigns_screen.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/fund_build_info_row.dart';
 
-/// a_line_ending_with_end_punctuation.
+/// Screen to show the list of funds in the organization.
 class FundScreen extends StatefulWidget {
   const FundScreen({super.key});
 
@@ -185,11 +186,11 @@ class _FundScreenState extends State<FundScreen> {
   }
 }
 
-/// a_line_ending_with_end_punctuation.
+/// A card widget to display fund details.
 class FundCard extends StatelessWidget {
   const FundCard({super.key, required this.fund});
 
-  /// a_line_ending_with_end_punctuation.
+  /// Fund details to display.
   final Fund fund;
 
   @override
@@ -233,18 +234,18 @@ class FundCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.02),
-              _buildInfoRow(
-                context,
-                Icons.person,
-                'Created by',
-                '${fund.creator?.name ?? 'Unknown Creator'} ',
+              FundBuildInfoRow(
+                icon: Icons.person,
+                label: 'Created by',
+                value: '${fund.creator?.name ?? 'Unknown Creator'} ',
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.01),
-              _buildInfoRow(
-                context,
-                Icons.calendar_today,
-                'Created on',
-                _formatDate(fund.createdAt),
+              FundBuildInfoRow(
+                icon: Icons.calendar_today,
+                label: 'Created on',
+                value: fund.createdAt != null
+                    ? DateFormat.yMMMd().format(fund.createdAt!)
+                    : 'Unknown Date',
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.02),
               Center(
@@ -286,66 +287,5 @@ class FundCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
-  ///
-  /// **params**:
-  /// * `context`: define_the_param
-  /// * `icon`: define_the_param
-  /// * `label`: define_the_param
-  /// * `value`: define_the_param
-  ///
-  /// **returns**:
-  /// * `Widget`: define_the_return
-  Widget _buildInfoRow(
-    BuildContext context,
-    IconData icon,
-    String label,
-    String value,
-  ) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: SizeConfig.screenHeight! * 0.025,
-          color: Colors.white70,
-        ),
-        SizedBox(width: SizeConfig.screenWidth! * 0.02),
-        Text(
-          '$label: ',
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white70,
-              ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Colors.white),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// a_line_ending_with_end_punctuation.
-  ///
-  /// more_info_if_required
-  ///
-  /// **params**:
-  /// * `date`: define_the_param
-  ///
-  /// **returns**:
-  /// * `String`: define_the_return
-  String _formatDate(DateTime? date) {
-    if (date == null) return 'Unknown';
-    return DateFormat('MMM d, yyyy').format(date);
   }
 }
