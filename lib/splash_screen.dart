@@ -222,7 +222,7 @@ class _SplashScreenState extends State<SplashScreen> {
         pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
         return;
       }
-      if (currentUser.joinedOrganizations?.isNotEmpty ?? false) {
+      if (currentUser.joinedOrganizations!.isNotEmpty) {
         final mainScreenArgs = MainScreenArgs(
           mainScreenIndex: widget.mainScreenIndex,
           fromSignUp: false,
@@ -231,7 +231,7 @@ class _SplashScreenState extends State<SplashScreen> {
         return;
       }
 
-      if (currentUser.membershipRequests?.isNotEmpty ?? false) {
+      if (currentUser.membershipRequests!.isNotEmpty) {
         pushReplacementScreen(Routes.waitingScreen, arguments: '0');
         return;
       }
