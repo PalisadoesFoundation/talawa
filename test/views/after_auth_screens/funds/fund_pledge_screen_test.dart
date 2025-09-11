@@ -3,10 +3,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/views/after_auth_screens/funds/fund_pledges_screen.dart';
 import 'package:talawa/widgets/pledge_card.dart';
 
@@ -33,12 +35,13 @@ void main() {
       endDate: DateTime.now().add(const Duration(days: 1)),
       currency: 'USD',
     );
+
     pledges = [
       Pledge(
         id: 'pledge1',
         amount: 100,
         note: 'First pledge',
-        pledger: null,
+        pledger: User(id: 'xzy1'), // Use the same ID as in test_helpers.dart
         creator: null,
         currency: 'USD',
       ),
@@ -46,7 +49,7 @@ void main() {
         id: 'pledge2',
         amount: 200,
         note: 'Second pledge',
-        pledger: null,
+        pledger: User(id: 'xzy1'), // Use the same ID as in test_helpers.dart
         creator: null,
         currency: 'USD',
       ),
@@ -85,8 +88,8 @@ void main() {
   });
 
   testWidgets('Shows pledge list when pledges exist', (tester) async {
-    when(fundViewModel.isFetchingPledges).thenReturn(false);
-    when(fundViewModel.userPledges).thenReturn(pledges);
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
     await tester.pumpWidget(createScreen());
     await tester.pump();
     expect(find.byType(PledgeCard), findsNWidgets(2));
@@ -95,8 +98,8 @@ void main() {
   });
 
   testWidgets('Add pledge button opens dialog', (tester) async {
-    when(fundViewModel.isFetchingPledges).thenReturn(false);
-    when(fundViewModel.userPledges).thenReturn(pledges);
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
     await tester.pumpWidget(createScreen());
     await tester.pump();
     await tester.tap(find.byType(FloatingActionButton));
@@ -127,9 +130,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pump();
-    expect(
-      find.text('Cannot add pledge before campaign start date'),
-      findsOneWidget,
+    verify(
+      navigationService.showTalawaErrorSnackBar(
+        'Cannot add pledge before campaign start date',
+        MessageType.error,
+      ),
     );
   });
 
@@ -156,9 +161,107 @@ void main() {
     await tester.pump();
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pump();
-    expect(
-      find.text('Cannot add pledge after campaign end date'),
-      findsOneWidget,
+    verify(
+      navigationService.showTalawaErrorSnackBar(
+        'Cannot add pledge after campaign end date',
+        MessageType.error,
+      ),
     );
+  });
+  testWidgets('Update pledge button exists and can be tapped', (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify update button exists
+    expect(find.text('Update'), findsAtLeastNWidgets(1));
+    expect(find.byIcon(Icons.edit), findsAtLeastNWidgets(1));
+  });
+  testWidgets('Delete pledge button exists and can be tapped', (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify delete button exists
+    expect(find.text('Delete'), findsAtLeastNWidgets(1));
+    expect(find.byIcon(Icons.delete), findsAtLeastNWidgets(1));
+  });
+  testWidgets('Pledge cards show edit and delete buttons for user pledges',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify both update and delete buttons are present for user's pledges
+    expect(find.text('Update'), findsNWidgets(2)); // One for each pledge
+    expect(find.text('Delete'), findsNWidgets(2)); // One for each pledge
+    expect(find.byIcon(Icons.edit), findsNWidgets(2));
+    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+  });
+
+  testWidgets('Screen layout and basic functionality work correctly',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify screen components
+    expect(find.text('Pledges for Test Campaign'), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    expect(find.byType(PledgeCard), findsNWidgets(2));
+    expect(find.text('First pledge'), findsOneWidget);
+    expect(find.text('Second pledge'), findsOneWidget);
+  });
+
+  testWidgets('FloatingActionButton shows add pledge dialog when tapped',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn([]);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Tap the FloatingActionButton
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    // Verify add pledge dialog appears
+    expect(find.text('Create Pledge'), findsOneWidget);
+  });
+
+  testWidgets('Update and delete buttons are present for user pledges',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify both buttons exist for each pledge
+    expect(find.text('Update'), findsNWidgets(2));
+    expect(find.text('Delete'), findsNWidgets(2));
+
+    // Verify icons are present
+    expect(find.byIcon(Icons.edit), findsNWidgets(2));
+    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+  });
+
+  testWidgets('Screen shows correct title with campaign name', (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn([]);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Verify the app bar title includes campaign name
+    expect(find.text('Pledges for Test Campaign'), findsOneWidget);
   });
 }

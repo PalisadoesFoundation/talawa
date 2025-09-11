@@ -65,7 +65,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
     as _i39;
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart'
     as _i40;
-import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart'
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart'
     as _i41;
 import 'package:talawa/view_model/lang_view_model.dart' as _i35;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
@@ -5995,6 +5995,25 @@ class MockImagePicker extends _i2.Mock implements _i17.ImagePicker {
         returnValue: _i9.Future<_i17.XFile?>.value(),
         returnValueForMissingStub: _i9.Future<_i17.XFile?>.value(),
       ) as _i9.Future<_i17.XFile?>);
+
+  @override
+  _i9.Future<List<_i17.XFile>> pickMultiVideo({
+    Duration? maxDuration,
+    int? limit,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickMultiVideo,
+          [],
+          {
+            #maxDuration: maxDuration,
+            #limit: limit,
+          },
+        ),
+        returnValue: _i9.Future<List<_i17.XFile>>.value(<_i17.XFile>[]),
+        returnValueForMissingStub:
+            _i9.Future<List<_i17.XFile>>.value(<_i17.XFile>[]),
+      ) as _i9.Future<List<_i17.XFile>>);
 
   @override
   _i9.Future<_i17.LostDataResponse> retrieveLostData() => (super.noSuchMethod(

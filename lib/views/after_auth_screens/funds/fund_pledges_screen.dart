@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_pledge_dialogue_box.dart';
 import 'package:talawa/widgets/pledge_card.dart';
@@ -27,17 +29,6 @@ class _PledgesScreenState extends State<PledgesScreen> {
   Widget build(BuildContext context) {
     return BaseView<FundViewModel>(
       onModelReady: (model) {
-        if (widget.campaign.id == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                AppLocalizations.of(context)!
-                    .strictTranslate('Campaign ID is not available'),
-              ),
-            ),
-          );
-          return;
-        }
         model.fetchPledges(widget.campaign.id!);
         model.getCurrentOrgUsersList();
       },
@@ -116,37 +107,19 @@ class _PledgesScreenState extends State<PledgesScreen> {
   void _showAddPledgeDialog(BuildContext context, FundViewModel model) {
     if (widget.campaign.endDate != null &&
         DateTime.now().isAfter(widget.campaign.endDate!)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!
-                .strictTranslate('Cannot add pledge after campaign end date'),
-          ),
-        ),
+      navigationService.showTalawaErrorSnackBar(
+        AppLocalizations.of(context)!
+            .strictTranslate('Cannot add pledge after campaign end date'),
+        MessageType.error,
       );
       return;
     }
     if (widget.campaign.startDate != null &&
         DateTime.now().isBefore(widget.campaign.startDate!)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.strictTranslate(
-              'Cannot add pledge before campaign start date',
-            ),
-          ),
-        ),
-      );
-      return;
-    }
-    if (widget.campaign.id == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!
-                .strictTranslate('Campaign ID is not available'),
-          ),
-        ),
+      navigationService.showTalawaErrorSnackBar(
+        AppLocalizations.of(context)!
+            .strictTranslate('Cannot add pledge before campaign start date'),
+        MessageType.error,
       );
       return;
     }
