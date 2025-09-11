@@ -313,5 +313,19 @@
   "Unknown Date": "不明な日付",
   "Unnamed Fund": "無名の資金",
   "Fund ID is not available": "ファンドIDが利用できません",
-  "Pledge ID or Campaign ID is not available": "プレッジIDまたはキャンペーンIDが利用できません"
+  "Pledge ID or Campaign ID is not available": "プレッジIDまたはキャンペーンIDが利用できません",
+  "End Date (Latest)": "終了日（最新）",
+  "End Date (Earliest)": "終了日（最古）",
+  "Amount (Highest)": "金額（最高）",
+  "Amount (Lowest)": "金額（最低）",
+  "No campaigns for this fund": "このファンドにはキャンペーンがありません",
+  "Unnamed Campaign": "無名のキャンペーン",
+  "raised": "調達済み",
+  "Goal": "目標",
+  "Status": "ステータス",
+  "Not set": "未設定",
+  "Unknown": "不明",
+  "Upcoming": "予定",
+  "Ended": "終了",
+  "Active": "アクティブ"
 }

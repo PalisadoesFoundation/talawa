@@ -173,7 +173,7 @@ class _PledgesScreenState extends State<PledgesScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          AppLocalizations.of(context)!.strictTranslate("'Delete Pledge'"),
+          AppLocalizations.of(context)!.strictTranslate("Delete Pledge"),
         ),
         content: Text(
           AppLocalizations.of(context)!.strictTranslate(
@@ -182,26 +182,14 @@ class _PledgesScreenState extends State<PledgesScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: navigationService.pop,
             child:
                 Text(AppLocalizations.of(context)!.strictTranslate("Cancel")),
           ),
           TextButton(
             onPressed: () {
-              if (pledge.id == null || widget.campaign.id == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      AppLocalizations.of(context)!.strictTranslate(
-                        'Pledge ID or Campaign ID is not available',
-                      ),
-                    ),
-                  ),
-                );
-                return;
-              }
               model.deletePledge(pledge.id!, widget.campaign.id!);
-              Navigator.of(context).pop();
+              navigationService.pop();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child:

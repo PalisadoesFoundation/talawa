@@ -11,6 +11,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/views/after_auth_screens/funds/fund_pledges_screen.dart';
 import 'package:talawa/widgets/pledge_card.dart';
+import 'package:talawa/widgets/update_pledge_dialogue_box.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -54,6 +55,11 @@ void main() {
         currency: 'USD',
       ),
     ];
+
+    // Set up common mocks
+    when(mockModel.fetchPledges(any)).thenAnswer((_) async {});
+    when(mockModel.getCurrentOrgUsersList()).thenAnswer((_) async {});
+    when(mockModel.deletePledge(any, any)).thenAnswer((_) async {});
   });
 
   Widget createScreen() {
@@ -263,5 +269,124 @@ void main() {
 
     // Verify the app bar title includes campaign name
     expect(find.text('Pledges for Test Campaign'), findsOneWidget);
+  });
+
+  testWidgets('Update pledge dialog opens when update button is tapped',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Find and tap the first update button
+    final updateButtons = find.text('Update');
+    expect(updateButtons, findsNWidgets(2));
+
+    await tester.tap(updateButtons.first);
+    await tester.pumpAndSettle();
+
+    // Verify update dialog appears
+    expect(find.text('Update Pledge'), findsOneWidget);
+  });
+
+  testWidgets('Delete confirmation dialog opens when delete button is tapped',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Find and tap the first delete button
+    final deleteButtons = find.text('Delete');
+    expect(deleteButtons, findsNWidgets(2));
+
+    await tester.tap(deleteButtons.first);
+    await tester.pumpAndSettle();
+
+    // Verify delete confirmation dialog appears
+    expect(find.text("Delete Pledge"), findsOneWidget);
+    expect(
+      find.text('Are you sure you want to delete this pledge?'),
+      findsOneWidget,
+    );
+    expect(find.text('Cancel'), findsOneWidget);
+    expect(
+      find.text('Delete'),
+      findsAtLeastNWidgets(
+        1,
+      ),
+    ); // At least one because there might be multiple delete buttons
+  });
+
+  testWidgets('Delete confirmation dialog - Cancel button works',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Tap delete button to open dialog
+    await tester.tap(find.text('Delete').first);
+    await tester.pumpAndSettle();
+
+    // Verify dialog is open
+    expect(find.text("Delete Pledge"), findsOneWidget);
+
+    // Tap Cancel button
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    // Verify dialog is closed
+    expect(find.text("Delete Pledge"), findsNothing);
+  });
+
+  testWidgets(
+      'Delete confirmation dialog - Delete button calls model.deletePledge',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Tap delete button to open dialog
+    await tester.tap(find.text('Delete').first);
+    await tester.pumpAndSettle();
+
+    // Find the delete button in the dialog (not the card)
+    final dialogDeleteButton = find.descendant(
+      of: find.byType(AlertDialog),
+      matching: find.text('Delete'),
+    );
+
+    await tester.tap(dialogDeleteButton);
+    await tester.pumpAndSettle();
+
+    // Verify deletePledge was called with correct parameters
+    verify(mockModel.deletePledge('pledge1', 'camp1')).called(1);
+  });
+
+  testWidgets('Update pledge dialog contains UpdatePledgeDialog widget',
+      (tester) async {
+    when(mockModel.isFetchingPledges).thenReturn(false);
+    when(mockModel.userPledges).thenReturn(pledges);
+
+    await tester.pumpWidget(createScreen());
+    await tester.pump();
+
+    // Tap update button to open dialog
+    await tester.tap(find.text('Update').first);
+    await tester.pumpAndSettle();
+
+    // Verify UpdatePledgeDialog widget appears
+    expect(find.byType(UpdatePledgeDialog), findsOneWidget);
+    expect(find.text('Update Pledge'), findsOneWidget);
+  });
+
+  tearDownAll(() async {
+    await getIt.reset();
   });
 }

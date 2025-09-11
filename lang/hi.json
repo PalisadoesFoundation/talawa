@@ -313,5 +313,19 @@
   "Unknown Date": "अज्ञात तारीख",
   "Unnamed Fund": "बिना नाम का फंड",
   "Fund ID is not available": "फंड आईडी उपलब्ध नहीं है",
-  "Pledge ID or Campaign ID is not available": "प्रतिज्ञा आईडी या अभियान आईडी उपलब्ध नहीं है"
+  "Pledge ID or Campaign ID is not available": "प्रतिज्ञा आईडी या अभियान आईडी उपलब्ध नहीं है",
+  "End Date (Latest)": "समाप्ति तिथि (नवीनतम)",
+  "End Date (Earliest)": "समाप्ति तिथि (प्रारंभिक)",
+  "Amount (Highest)": "राशि (सर्वोच्च)",
+  "Amount (Lowest)": "राशि (न्यूनतम)",
+  "No campaigns for this fund": "इस फंड के लिए कोई अभियान नहीं",
+  "Unnamed Campaign": "बिना नाम का अभियान",
+  "raised": "एकत्रित",
+  "Goal": "लक्ष्य",
+  "Status": "स्थिति",
+  "Not set": "सेट नहीं",
+  "Unknown": "अज्ञात",
+  "Upcoming": "आगामी",
+  "Ended": "समाप्त",
+  "Active": "सक्रिय"
 }

@@ -313,5 +313,19 @@
   "Unknown Date": "Date Inconnue",
   "Unnamed Fund": "Fonds Sans Nom",
   "Fund ID is not available": "L'ID du fonds n'est pas disponible",
-  "Pledge ID or Campaign ID is not available": "L'ID de la promesse ou de la campagne n'est pas disponible"
+  "Pledge ID or Campaign ID is not available": "L'ID de la promesse ou de la campagne n'est pas disponible",
+  "End Date (Latest)": "Date de Fin (Plus Récente)",
+  "End Date (Earliest)": "Date de Fin (Plus Ancienne)",
+  "Amount (Highest)": "Montant (Plus Élevé)",
+  "Amount (Lowest)": "Montant (Plus Bas)",
+  "No campaigns for this fund": "Aucune campagne pour ce fonds",
+  "Unnamed Campaign": "Campagne Sans Nom",
+  "raised": "collecté",
+  "Goal": "Objectif",
+  "Status": "Statut",
+  "Not set": "Non défini",
+  "Unknown": "Inconnu",
+  "Upcoming": "À venir",
+  "Ended": "Terminée",
+  "Active": "Active"
 }

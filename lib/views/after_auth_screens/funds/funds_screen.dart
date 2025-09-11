@@ -264,17 +264,6 @@ class FundCard extends StatelessWidget {
               Center(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    if (fund.id == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            AppLocalizations.of(context)!
-                                .strictTranslate('Fund ID is not available'),
-                          ),
-                        ),
-                      );
-                      return;
-                    }
                     Navigator.push(
                       context,
                       MaterialPageRoute(

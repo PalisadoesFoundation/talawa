@@ -129,13 +129,14 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
                             isExpanded: true,
                             value: model.campaignSortOption,
                             icon: const Icon(Icons.sort, color: Colors.green),
-                            items: const [
+                            items: [
                               DropdownMenuItem(
                                 value: 'endDate_DESC',
                                 child: Text(
-                                  'End Date (Latest)',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('End Date (Latest)'),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
@@ -143,25 +144,28 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
                               DropdownMenuItem(
                                 value: 'endDate_ASC',
                                 child: Text(
-                                  'End Date (Earliest)',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('End Date (Earliest)'),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                               ),
                               DropdownMenuItem(
                                 value: 'amount_DESC',
                                 child: Text(
-                                  'Amount (Highest)',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('Amount (Highest)'),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                               ),
                               DropdownMenuItem(
                                 value: 'amount_ASC',
                                 child: Text(
-                                  'Amount (Lowest)',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('Amount (Lowest)'),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                               ),
                             ],
@@ -184,8 +188,12 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
                         onRefresh: () async =>
                             await model.fetchCampaigns(widget.fundId),
                         child: model.filteredCampaigns.isEmpty
-                            ? const Center(
-                                child: Text('No campaigns for this fund.'),
+                            ? Center(
+                                child: Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    'No campaigns for this fund',
+                                  ),
+                                ),
                               )
                             : ListView.builder(
                                 controller: _scrollController,
@@ -238,7 +246,7 @@ class CampaignCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(theme),
+          _buildHeader(theme, context),
           _buildBody(
             theme,
             campaign.pledgedAmount,
@@ -256,10 +264,11 @@ class CampaignCard extends StatelessWidget {
   ///
   /// **params**:
   /// * `theme`: The current [ThemeData] for styling purposes.
+  /// * `context`: Current Context
   ///
   /// **returns**:
   /// * `Widget`: The constructed header widget containing campaign title and icon.
-  Widget _buildHeader(ThemeData theme) {
+  Widget _buildHeader(ThemeData theme, BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.green,
@@ -275,7 +284,9 @@ class CampaignCard extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              campaign.name ?? 'Unnamed Campaign',
+              campaign.name ??
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Unnamed Campaign'),
               style: theme.textTheme.headlineSmall!.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -322,7 +333,7 @@ class CampaignCard extends StatelessWidget {
             context,
           ),
           const SizedBox(height: 16),
-          _buildInfoGrid(theme),
+          _buildInfoGrid(theme, context),
         ],
       ),
     );
@@ -385,12 +396,12 @@ class CampaignCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${campaign.currency ?? ''} ${(campaign.pledgedAmount ?? 0).toStringAsFixed(2)} raised',
+              '${campaign.currency ?? ''} ${(campaign.pledgedAmount ?? 0).toStringAsFixed(2)} ${AppLocalizations.of(context)!.strictTranslate('raised')}',
               style: theme.textTheme.bodyLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
-              'Goal: ${campaign.currency ?? ''} ${goalAmount.toStringAsFixed(2)}',
+              '${AppLocalizations.of(context)!.strictTranslate('Goal')}: ${campaign.currency ?? ''} ${goalAmount.toStringAsFixed(2)}',
               style: theme.textTheme.bodyMedium,
             ),
           ],
@@ -403,19 +414,32 @@ class CampaignCard extends StatelessWidget {
   ///
   /// **params**:
   /// * `theme`: The [ThemeData] object, providing styling and theme-specific properties.
+  /// * `context`: The [BuildContext] for accessing localization.
   ///
   /// **returns**:
   /// * `Widget`: The constructed widget styled according to the provided theme.
-  Widget _buildInfoGrid(ThemeData theme) {
+  Widget _buildInfoGrid(ThemeData theme, BuildContext context) {
     return GridView.count(
       crossAxisCount: 3,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       childAspectRatio: 2.5,
       children: [
-        _buildInfoItem(theme, 'Start Date', _formatDate(campaign.startDate)),
-        _buildInfoItem(theme, 'End Date', _formatDate(campaign.endDate)),
-        _buildInfoItem(theme, 'Status', _getCampaignStatus()),
+        _buildInfoItem(
+          theme,
+          AppLocalizations.of(context)!.strictTranslate('Start Date'),
+          _formatDate(campaign.startDate, context),
+        ),
+        _buildInfoItem(
+          theme,
+          AppLocalizations.of(context)!.strictTranslate('End Date'),
+          _formatDate(campaign.endDate, context),
+        ),
+        _buildInfoItem(
+          theme,
+          AppLocalizations.of(context)!.strictTranslate('Status'),
+          _getCampaignStatus(context),
+        ),
       ],
     );
   }
@@ -468,7 +492,7 @@ class CampaignCard extends StatelessWidget {
       child: Center(
         child: ElevatedButton.icon(
           icon: const Icon(Icons.volunteer_activism),
-          label: const Text('Pledge'),
+          label: Text(AppLocalizations.of(context)!.strictTranslate('Pledge')),
           onPressed: () {
             Navigator.push(
               context,
@@ -490,28 +514,35 @@ class CampaignCard extends StatelessWidget {
   ///
   /// **params**:
   /// * `date`: A [DateTime] object representing the date to be formatted.
+  /// * `context`: The [BuildContext] for accessing localization.
   ///
   /// **returns**:
   /// * `String`: The formatted date as a string.
-  String _formatDate(DateTime? date) {
-    if (date == null) return 'Not set';
+  String _formatDate(DateTime? date, BuildContext context) {
+    if (date == null) {
+      return AppLocalizations.of(context)!.strictTranslate('Not set');
+    }
     return DateFormat('MMM d, y').format(date);
   }
 
   /// Retrieves a string representation with end punctuation for display purposes.
   ///
   /// **params**:
-  ///   None
+  /// * `context`: The [BuildContext] for accessing localization.
   ///
   /// **returns**:
   /// * `String`: The formatted string with required punctuation.
-  String _getCampaignStatus() {
+  String _getCampaignStatus(BuildContext context) {
     final now = DateTime.now();
     if (campaign.startDate == null || campaign.endDate == null) {
-      return 'Unknown';
+      return AppLocalizations.of(context)!.strictTranslate('Unknown');
     }
-    if (now.isBefore(campaign.startDate!)) return 'Upcoming';
-    if (now.isAfter(campaign.endDate!)) return 'Ended';
-    return 'Active';
+    if (now.isBefore(campaign.startDate!)) {
+      return AppLocalizations.of(context)!.strictTranslate('Upcoming');
+    }
+    if (now.isAfter(campaign.endDate!)) {
+      return AppLocalizations.of(context)!.strictTranslate('Ended');
+    }
+    return AppLocalizations.of(context)!.strictTranslate('Active');
   }
 }

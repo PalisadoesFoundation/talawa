@@ -69,7 +69,7 @@ class FundViewModel extends BaseModel {
   List<Fund> get funds => _funds;
 
   /// List of organization members.
-  late List<User> orgMembersList = [];
+  List<User> orgMembersList = [];
 
   /// getter for the filtered funds.
   List<Fund> get filteredFunds => _filteredFunds;
@@ -130,8 +130,8 @@ class FundViewModel extends BaseModel {
   ///   None
   void initialise() {
     _isFetchingFunds = true;
-    _isFetchingCampaigns = true;
-    _isFetchingPledges = true;
+    _isFetchingCampaigns = false;
+    _isFetchingPledges = false;
     _currentOrganizationStreamSubscription = userConfig.currentOrgInfoStream
         .listen((updatedOrganization) => refreshFunds());
     notifyListeners();
@@ -148,8 +148,8 @@ class FundViewModel extends BaseModel {
   ///   None
   void refreshFunds() {
     _isFetchingFunds = true;
-    _isFetchingCampaigns = true;
-    _isFetchingPledges = true;
+    _isFetchingCampaigns = false;
+    _isFetchingPledges = false;
     _funds.clear();
     _filteredFunds.clear();
     _campaigns.clear();
@@ -401,6 +401,7 @@ class FundViewModel extends BaseModel {
   Future<void> getCurrentOrgUsersList() async {
     orgMembersList =
         await organizationService.getOrgMembersList(userConfig.currentOrg.id!);
+    notifyListeners();
   }
 
   /// This function creates a new pledge.

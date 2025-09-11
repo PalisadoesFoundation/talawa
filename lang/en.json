@@ -313,5 +313,19 @@
   "Unknown Date": "Unknown Date",
   "Unnamed Fund": "Unnamed Fund",
   "Fund ID is not available": "Fund ID is not available",
-  "Pledge ID or Campaign ID is not available": "Pledge ID or Campaign ID is not available"
+  "Pledge ID or Campaign ID is not available": "Pledge ID or Campaign ID is not available",
+  "End Date (Latest)": "End Date (Latest)",
+  "End Date (Earliest)": "End Date (Earliest)",
+  "Amount (Highest)": "Amount (Highest)",
+  "Amount (Lowest)": "Amount (Lowest)",
+  "No campaigns for this fund": "No campaigns for this fund",
+  "Unnamed Campaign": "Unnamed Campaign",
+  "raised": "raised",
+  "Goal": "Goal",
+  "Status": "Status",
+  "Not set": "Not set",
+  "Unknown": "Unknown",
+  "Upcoming": "Upcoming",
+  "Ended": "Ended",
+  "Active": "Active"
 }

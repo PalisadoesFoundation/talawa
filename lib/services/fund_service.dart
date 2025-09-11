@@ -57,13 +57,6 @@ class FundService {
         variables: variables,
       );
 
-      if (result.data == null) {
-        if (result.exception != null) {
-          throw Exception('GraphQL Error: ${result.exception}');
-        }
-        throw Exception('Unable to fetch funds - null data received');
-      }
-
       final organizationData =
           result.data!['organization'] as Map<String, dynamic>;
       final fundsData = organizationData['funds'] as Map<String, dynamic>;

@@ -38,8 +38,8 @@ void main() {
       );
       viewModel.initialise();
       expect(viewModel.isFetchingFunds, true);
-      expect(viewModel.isFetchingCampaigns, true);
-      expect(viewModel.isFetchingPledges, true);
+      expect(viewModel.isFetchingCampaigns, false);
+      expect(viewModel.isFetchingPledges, false);
     });
 
     test('fetchFunds populates funds and filteredFunds', () async {
@@ -139,8 +139,8 @@ void main() {
       viewModel.refreshFunds();
 
       expect(viewModel.isFetchingFunds, true);
-      expect(viewModel.isFetchingCampaigns, true);
-      expect(viewModel.isFetchingPledges, true);
+      expect(viewModel.isFetchingCampaigns, false);
+      expect(viewModel.isFetchingPledges, false);
       expect(viewModel.funds.isEmpty, true);
       expect(viewModel.campaigns.isEmpty, true);
     });
@@ -162,8 +162,100 @@ void main() {
       expect(viewModel.isLoadingMoreFunds, false);
     });
 
-    test('isLoadingMoreFunds getter returns correct state', () {
+    test(
+        'loadMoreFunds successfully loads more funds when hasMoreFunds is true',
+        () async {
+      // First, set up initial funds with pagination
+      final initialFunds = [Fund(id: 'f1', name: 'Fund 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getFunds())
+          .thenAnswer((_) async => Pair(initialFunds, initialPageInfo));
+
+      // Load initial funds
+      await viewModel.fetchFunds();
+
+      expect(viewModel.funds.length, 1);
+      expect(viewModel.hasMoreFunds, true);
+
+      // Mock additional funds to be loaded
+      final additionalFunds = [Fund(id: 'f2', name: 'Fund 2')];
+      final newPageInfo = PageInfo(
+        hasNextPage: false,
+        hasPreviousPage: true,
+        startCursor: 'cursor1',
+        endCursor: 'cursor2',
+      );
+
+      when(fundService.getFunds(after: 'cursor1'))
+          .thenAnswer((_) async => Pair(additionalFunds, newPageInfo));
+
+      await viewModel.loadMoreFunds();
+
+      expect(viewModel.funds.length, 2);
+      expect(viewModel.filteredFunds.length, 2);
       expect(viewModel.isLoadingMoreFunds, false);
+      expect(viewModel.hasMoreFunds, false);
+    });
+
+    test('loadMoreFunds handles errors gracefully', () async {
+      // Set up initial funds with pagination
+      final initialFunds = [Fund(id: 'f1', name: 'Fund 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getFunds())
+          .thenAnswer((_) async => Pair(initialFunds, initialPageInfo));
+
+      await viewModel.fetchFunds();
+
+      when(fundService.getFunds(after: 'cursor1'))
+          .thenThrow(Exception('Network error'));
+
+      await viewModel.loadMoreFunds();
+
+      expect(viewModel.isLoadingMoreFunds, false);
+      expect(viewModel.funds.length, 1); // Should not have changed
+    });
+
+    test('loadMoreFunds does not call service when already loading', () async {
+      // Set up initial funds with pagination to enable loading more
+      final initialFunds = [Fund(id: 'f1', name: 'Fund 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getFunds())
+          .thenAnswer((_) async => Pair(initialFunds, initialPageInfo));
+
+      await viewModel.fetchFunds();
+
+      // Clear any previous calls
+      clearInteractions(fundService);
+
+      // Mock the service call for the pagination request
+      when(fundService.getFunds(after: 'cursor1')).thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        return Pair([Fund(id: 'f2', name: 'Fund 2')], PageInfo());
+      });
+
+      // Simulate concurrent calls to loadMoreFunds
+      final future1 = viewModel.loadMoreFunds();
+      final future2 = viewModel.loadMoreFunds();
+
+      await Future.wait([future1, future2]);
+
+      // Should only call the service once due to the guard
+      verify(fundService.getFunds(after: 'cursor1')).called(1);
     });
 
     // Test loadMoreCampaigns
@@ -174,8 +266,131 @@ void main() {
       expect(viewModel.isLoadingMoreCampaigns, false);
     });
 
-    test('isLoadingMoreCampaigns getter returns correct state', () {
+    test(
+        'loadMoreCampaigns successfully loads more campaigns when hasMoreCampaigns is true',
+        () async {
+      // First, set up initial campaigns with pagination
+      final initialCampaigns = [Campaign(id: 'c1', name: 'Campaign 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getCampaigns('f1'))
+          .thenAnswer((_) async => Pair(initialCampaigns, initialPageInfo));
+
+      // Load initial campaigns
+      await viewModel.fetchCampaigns('f1');
+
+      expect(viewModel.campaigns.length, 1);
+      expect(viewModel.hasMoreCampaigns, true);
+      expect(viewModel.parentFundId, 'f1');
+
+      // Mock additional campaigns to be loaded
+      final additionalCampaigns = [Campaign(id: 'c2', name: 'Campaign 2')];
+      final newPageInfo = PageInfo(
+        hasNextPage: false,
+        hasPreviousPage: true,
+        startCursor: 'cursor1',
+        endCursor: 'cursor2',
+      );
+
+      when(fundService.getCampaigns('f1', after: 'cursor1'))
+          .thenAnswer((_) async => Pair(additionalCampaigns, newPageInfo));
+
+      await viewModel.loadMoreCampaigns();
+
+      expect(viewModel.campaigns.length, 2);
+      expect(viewModel.filteredCampaigns.length, 2);
       expect(viewModel.isLoadingMoreCampaigns, false);
+      expect(viewModel.hasMoreCampaigns, false);
+    });
+
+    test('loadMoreCampaigns handles errors gracefully', () async {
+      // Set up initial campaigns with pagination
+      final initialCampaigns = [Campaign(id: 'c1', name: 'Campaign 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getCampaigns('f1'))
+          .thenAnswer((_) async => Pair(initialCampaigns, initialPageInfo));
+
+      await viewModel.fetchCampaigns('f1');
+
+      when(fundService.getCampaigns('f1', after: 'cursor1'))
+          .thenThrow(Exception('Network error'));
+
+      await viewModel.loadMoreCampaigns();
+
+      expect(viewModel.isLoadingMoreCampaigns, false);
+      expect(viewModel.campaigns.length, 1); // Should not have changed
+    });
+
+    test('loadMoreCampaigns does not call service when already loading',
+        () async {
+      // Set up initial campaigns with pagination
+      final initialCampaigns = [Campaign(id: 'c1', name: 'Campaign 1')];
+      final initialPageInfo = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getCampaigns('f1'))
+          .thenAnswer((_) async => Pair(initialCampaigns, initialPageInfo));
+
+      await viewModel.fetchCampaigns('f1');
+
+      // Clear any previous calls
+      clearInteractions(fundService);
+
+      // Mock the service call for the pagination request
+      when(fundService.getCampaigns('f1', after: 'cursor1'))
+          .thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        return Pair([Campaign(id: 'c2', name: 'Campaign 2')], PageInfo());
+      });
+
+      // Simulate concurrent calls to loadMoreCampaigns
+      final future1 = viewModel.loadMoreCampaigns();
+      final future2 = viewModel.loadMoreCampaigns();
+
+      await Future.wait([future1, future2]);
+
+      // Should only call the service once due to the guard
+      verify(fundService.getCampaigns('f1', after: 'cursor1')).called(1);
+    });
+
+    test('hasMoreFunds and hasMoreCampaigns getters work correctly', () async {
+      // Initially no page info, so no more funds/campaigns
+      expect(viewModel.hasMoreFunds, false);
+      expect(viewModel.hasMoreCampaigns, false);
+
+      // Set up funds with more pages available
+      final fundsWithMore = [Fund(id: 'f1', name: 'Fund 1')];
+      final pageInfoWithMore = PageInfo(
+        hasNextPage: true,
+        hasPreviousPage: false,
+        endCursor: 'cursor1',
+      );
+
+      when(fundService.getFunds())
+          .thenAnswer((_) async => Pair(fundsWithMore, pageInfoWithMore));
+
+      await viewModel.fetchFunds();
+      expect(viewModel.hasMoreFunds, true);
+
+      // Set up campaigns with more pages available
+      final campaignsWithMore = [Campaign(id: 'c1', name: 'Campaign 1')];
+      when(fundService.getCampaigns('f1'))
+          .thenAnswer((_) async => Pair(campaignsWithMore, pageInfoWithMore));
+
+      await viewModel.fetchCampaigns('f1');
+      expect(viewModel.hasMoreCampaigns, true);
     });
 
     // Test sortCampaigns

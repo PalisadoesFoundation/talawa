@@ -313,5 +313,19 @@
   "Unknown Date": "未知日期",
   "Unnamed Fund": "未命名基金",
   "Fund ID is not available": "基金ID不可用",
-  "Pledge ID or Campaign ID is not available": "承诺ID或活动ID不可用"
+  "Pledge ID or Campaign ID is not available": "承诺ID或活动ID不可用",
+  "End Date (Latest)": "结束日期（最新）",
+  "End Date (Earliest)": "结束日期（最早）",
+  "Amount (Highest)": "金额（最高）",
+  "Amount (Lowest)": "金额（最低）",
+  "No campaigns for this fund": "此基金没有活动",
+  "Unnamed Campaign": "未命名活动",
+  "raised": "已筹集",
+  "Goal": "目标",
+  "Status": "状态",
+  "Not set": "未设置",
+  "Unknown": "未知",
+  "Upcoming": "即将到来",
+  "Ended": "已结束",
+  "Active": "活跃"
 }
