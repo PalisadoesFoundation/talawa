@@ -863,6 +863,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
     _i3.DefaultPolicies? defaultPolicies,
     bool? alwaysRebroadcast,
     _i3.DeepEqualsFn? deepEquals,
+    _i3.AsyncDeepEqualsFn? asyncDeepEquals,
     bool? deduplicatePollers = false,
     Duration? queryRequestTimeout,
   }) =>
@@ -876,6 +877,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
             #defaultPolicies: defaultPolicies,
             #alwaysRebroadcast: alwaysRebroadcast,
             #deepEquals: deepEquals,
+            #asyncDeepEquals: asyncDeepEquals,
             #deduplicatePollers: deduplicatePollers,
             #queryRequestTimeout: queryRequestTimeout,
           },
@@ -891,6 +893,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
               #defaultPolicies: defaultPolicies,
               #alwaysRebroadcast: alwaysRebroadcast,
               #deepEquals: deepEquals,
+              #asyncDeepEquals: asyncDeepEquals,
               #deduplicatePollers: deduplicatePollers,
               #queryRequestTimeout: queryRequestTimeout,
             },
@@ -907,6 +910,7 @@ class MockGraphQLClient extends _i2.Mock implements _i3.GraphQLClient {
               #defaultPolicies: defaultPolicies,
               #alwaysRebroadcast: alwaysRebroadcast,
               #deepEquals: deepEquals,
+              #asyncDeepEquals: asyncDeepEquals,
               #deduplicatePollers: deduplicatePollers,
               #queryRequestTimeout: queryRequestTimeout,
             },
@@ -5553,6 +5557,25 @@ class MockImagePicker extends _i2.Mock implements _i16.ImagePicker {
         returnValue: _i8.Future<_i24.XFile?>.value(),
         returnValueForMissingStub: _i8.Future<_i24.XFile?>.value(),
       ) as _i8.Future<_i24.XFile?>);
+
+  @override
+  _i8.Future<List<_i24.XFile>> pickMultiVideo({
+    Duration? maxDuration,
+    int? limit,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pickMultiVideo,
+          [],
+          {
+            #maxDuration: maxDuration,
+            #limit: limit,
+          },
+        ),
+        returnValue: _i8.Future<List<_i24.XFile>>.value(<_i24.XFile>[]),
+        returnValueForMissingStub:
+            _i8.Future<List<_i24.XFile>>.value(<_i24.XFile>[]),
+      ) as _i8.Future<List<_i24.XFile>>);
 
   @override
   _i8.Future<_i16.LostDataResponse> retrieveLostData() => (super.noSuchMethod(
