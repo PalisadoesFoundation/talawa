@@ -120,7 +120,7 @@ void main() {
       await tester.pumpWidget(createCampaignsScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('No campaigns for this fund.'), findsOneWidget);
+      expect(find.text('No campaigns for this fund'), findsOneWidget);
     });
 
     testWidgets('Test campaign card interactions', (tester) async {
