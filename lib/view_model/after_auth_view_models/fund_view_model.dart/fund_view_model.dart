@@ -147,7 +147,6 @@ class FundViewModel extends BaseModel {
   /// **returns**:
   ///   None
   void refreshFunds() {
-    debugPrint('Refreshing funds...${userConfig.currentOrg.name}');
     _isFetchingFunds = true;
     _isFetchingCampaigns = true;
     _isFetchingPledges = true;
@@ -169,11 +168,9 @@ class FundViewModel extends BaseModel {
       endCursor: null,
     );
 
-    print('Refreshing funds... sdf');
-
     getCurrentOrgUsersList();
     fetchFunds();
-    print("Fetched funds");
+
     notifyListeners();
   }
 
@@ -224,7 +221,7 @@ class FundViewModel extends BaseModel {
       _isLoadingMoreFunds = false;
       notifyListeners();
     } catch (e) {
-      print('Error loading more funds: $e');
+      debugPrint('Error loading more funds: $e');
       _isLoadingMoreFunds = false;
       notifyListeners();
     }
@@ -433,11 +430,9 @@ class FundViewModel extends BaseModel {
     Map<String, dynamic> updatedPledgeData,
   ) async {
     try {
-      print('Updating pledge with data: $updatedPledgeData');
       await _fundService.updatePledge(updatedPledgeData);
-      print('Pledge updated successfully');
+
       await fetchPledges(parentcampaignId);
-      print('Fetched pledges after update');
     } catch (e) {
       debugPrint('Error updating pledge: $e');
     }

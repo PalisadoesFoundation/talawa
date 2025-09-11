@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 import 'package:talawa/views/after_auth_screens/funds/fund_pledges_screen.dart';
 import 'package:talawa/widgets/pledge_card.dart';
@@ -53,6 +55,13 @@ void main() {
 
   Widget createScreen() {
     return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: const Locale('en'),
       home: Builder(
         builder: (context) => PledgesScreen(campaign: campaign),
       ),
@@ -103,9 +112,19 @@ void main() {
       endDate: DateTime.now().add(const Duration(days: 10)),
       currency: 'USD',
     );
-    await tester
-        .pumpWidget(MaterialApp(home: PledgesScreen(campaign: futureCampaign)));
-    await tester.pump();
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: const Locale('en'),
+        home: PledgesScreen(campaign: futureCampaign),
+      ),
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pump();
     expect(
@@ -122,8 +141,18 @@ void main() {
       endDate: DateTime.now().subtract(const Duration(days: 1)),
       currency: 'USD',
     );
-    await tester
-        .pumpWidget(MaterialApp(home: PledgesScreen(campaign: pastCampaign)));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: const Locale('en'),
+        home: PledgesScreen(campaign: pastCampaign),
+      ),
+    );
     await tester.pump();
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pump();

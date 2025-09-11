@@ -43,6 +43,7 @@ class FundBuildInfoRow extends StatelessWidget {
                 .bodyMedium!
                 .copyWith(color: Colors.white),
             overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ),
       ],

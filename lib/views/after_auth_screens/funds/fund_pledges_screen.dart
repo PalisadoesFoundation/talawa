@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_pledge_dialogue_box.dart';
@@ -28,7 +29,12 @@ class _PledgesScreenState extends State<PledgesScreen> {
       onModelReady: (model) {
         if (widget.campaign.id == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Campaign ID is not available')),
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context)!
+                    .strictTranslate('Campaign ID is not available'),
+              ),
+            ),
           );
           return;
         }
@@ -40,7 +46,7 @@ class _PledgesScreenState extends State<PledgesScreen> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              'Pledges for ${widget.campaign.name}',
+              '${AppLocalizations.of(context)!.strictTranslate('Pledges for')} ${widget.campaign.name}',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -78,10 +84,11 @@ class _PledgesScreenState extends State<PledgesScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     if (model.userPledges.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
-          'There are no pledges you are part of',
-          style: TextStyle(fontSize: 18),
+          AppLocalizations.of(context)!
+              .strictTranslate('There are no pledges you are part of'),
+          style: const TextStyle(fontSize: 18),
         ),
       );
     }
@@ -110,8 +117,11 @@ class _PledgesScreenState extends State<PledgesScreen> {
     if (widget.campaign.endDate != null &&
         DateTime.now().isAfter(widget.campaign.endDate!)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cannot add pledge after campaign end date'),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!
+                .strictTranslate('Cannot add pledge after campaign end date'),
+          ),
         ),
       );
       return;
@@ -119,15 +129,24 @@ class _PledgesScreenState extends State<PledgesScreen> {
     if (widget.campaign.startDate != null &&
         DateTime.now().isBefore(widget.campaign.startDate!)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cannot add pledge before campaign start date'),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.strictTranslate(
+              'Cannot add pledge before campaign start date',
+            ),
+          ),
         ),
       );
       return;
     }
     if (widget.campaign.id == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Campaign ID is not available')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!
+                .strictTranslate('Campaign ID is not available'),
+          ),
+        ),
       );
       return;
     }
@@ -180,20 +199,40 @@ class _PledgesScreenState extends State<PledgesScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Pledge'),
-        content: const Text('Are you sure you want to delete this pledge?'),
+        title: Text(
+          AppLocalizations.of(context)!.strictTranslate("'Delete Pledge'"),
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.strictTranslate(
+            "Are you sure you want to delete this pledge?",
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child:
+                Text(AppLocalizations.of(context)!.strictTranslate("Cancel")),
           ),
           TextButton(
             onPressed: () {
+              if (pledge.id == null || widget.campaign.id == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context)!.strictTranslate(
+                        'Pledge ID or Campaign ID is not available',
+                      ),
+                    ),
+                  ),
+                );
+                return;
+              }
               model.deletePledge(pledge.id!, widget.campaign.id!);
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child:
+                Text(AppLocalizations.of(context)!.strictTranslate("Delete")),
           ),
         ],
       ),

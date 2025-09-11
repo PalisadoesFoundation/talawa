@@ -42,14 +42,16 @@ class _FundScreenState extends State<FundScreen> {
   /// **returns**:
   ///   None
   void _onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // Load more funds when scrolled to bottom
-      if (_model != null &&
-          _model!.hasMoreFunds &&
-          !_model!.isLoadingMoreFunds) {
-        _model!.loadMoreFunds();
-      }
+    final pos = _scrollController.position;
+    if (_model == null) return;
+
+    // Trigger pagination when user is within 200px of bottom
+    // This provides better UX by loading content before reaching the very end
+    if (pos.extentAfter < 200 &&
+        _model!.hasMoreFunds &&
+        !_model!.isLoadingMoreFunds &&
+        !_model!.isFetchingFunds) {
+      _model!.loadMoreFunds();
     }
   }
 
@@ -93,7 +95,8 @@ class _FundScreenState extends State<FundScreen> {
                       child: TextField(
                         onChanged: (value) => model.searchFunds(value),
                         decoration: InputDecoration(
-                          hintText: 'Search Funds',
+                          hintText: AppLocalizations.of(context)!
+                              .strictTranslate('Search Funds'),
                           prefixIcon:
                               const Icon(Icons.search, color: Colors.green),
                           border: OutlineInputBorder(
@@ -151,10 +154,14 @@ class _FundScreenState extends State<FundScreen> {
                 child: model.isFetchingFunds
                     ? const Center(child: CircularProgressIndicator())
                     : RefreshIndicator(
-                        onRefresh: () async => await model.fetchFunds(),
+                        onRefresh: model.fetchFunds,
                         child: model.filteredFunds.isEmpty
-                            ? const Center(
-                                child: Text('No funds in this organization.'),
+                            ? Center(
+                                child: Text(
+                                  AppLocalizations.of(context)!.strictTranslate(
+                                    'No funds in this organization.',
+                                  ),
+                                ),
                               )
                             : ListView.builder(
                                 controller: _scrollController,
@@ -223,7 +230,9 @@ class FundCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      fund.name ?? 'Unnamed Fund',
+                      fund.name ??
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Unnamed Fund'),
                       style:
                           Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 fontWeight: FontWeight.bold,
@@ -236,21 +245,36 @@ class FundCard extends StatelessWidget {
               SizedBox(height: SizeConfig.screenHeight! * 0.02),
               FundBuildInfoRow(
                 icon: Icons.person,
-                label: 'Created by',
-                value: '${fund.creator?.name ?? 'Unknown Creator'} ',
+                label:
+                    AppLocalizations.of(context)!.strictTranslate('Created by'),
+                value:
+                    '${fund.creator?.name ?? AppLocalizations.of(context)!.strictTranslate('Unknown Creator')} ',
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.01),
               FundBuildInfoRow(
                 icon: Icons.calendar_today,
-                label: 'Created on',
+                label:
+                    AppLocalizations.of(context)!.strictTranslate('Created on'),
                 value: fund.createdAt != null
                     ? DateFormat.yMMMd().format(fund.createdAt!)
-                    : 'Unknown Date',
+                    : AppLocalizations.of(context)!
+                        .strictTranslate('Unknown Date'),
               ),
               SizedBox(height: SizeConfig.screenHeight! * 0.02),
               Center(
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    if (fund.id == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Fund ID is not available'),
+                          ),
+                        ),
+                      );
+                      return;
+                    }
                     Navigator.push(
                       context,
                       MaterialPageRoute(

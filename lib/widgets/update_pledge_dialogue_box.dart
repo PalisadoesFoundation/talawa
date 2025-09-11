@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/funds/fund_pledges.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 
-/// Displays a dialog to update the pledge details, including amount, dates, and pledgers.
+/// Displays a dialog to update the pledge details.
 class UpdatePledgeDialog extends StatefulWidget {
   const UpdatePledgeDialog({
     super.key,
@@ -42,7 +43,9 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Update Pledge'),
+      title: Text(
+        AppLocalizations.of(context)!.strictTranslate('Update Pledge'),
+      ),
       content: SingleChildScrollView(
         child: SizedBox(
           width: double.maxFinite,
@@ -54,9 +57,10 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
               children: [
                 TextFormField(
                   controller: _noteController,
-                  decoration: const InputDecoration(
-                    labelText: 'Note',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText:
+                        AppLocalizations.of(context)!.strictTranslate('Note'),
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -66,14 +70,16 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
                       child: TextFormField(
                         controller: _amountController,
                         decoration: InputDecoration(
-                          labelText: 'Amount',
+                          labelText: AppLocalizations.of(context)!
+                              .strictTranslate('Amount'),
                           prefixText:
                               '${widget.pledge.campaign?.currency ?? 'USD'} ',
                         ),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter an amount';
+                            return AppLocalizations.of(context)!
+                                .strictTranslate('Please enter an amount');
                           }
                           return null;
                         },
@@ -89,7 +95,9 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate('Cancel'),
+          ),
         ),
         ElevatedButton(
           onPressed: () async {
@@ -102,11 +110,18 @@ class _UpdatePledgeDialogState extends State<UpdatePledgeDialog> {
               });
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please fill all fields')),
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate('Please fill all fields'),
+                  ),
+                ),
               );
             }
           },
-          child: const Text('Update'),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate('Update'),
+          ),
         ),
       ],
     );

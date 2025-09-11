@@ -50,14 +50,16 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
   /// **returns**:
   ///   None
   void _onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // Load more campaigns when scrolled to bottom
-      if (_model != null &&
-          _model!.hasMoreCampaigns &&
-          !_model!.isLoadingMoreCampaigns) {
-        _model!.loadMoreCampaigns();
-      }
+    final pos = _scrollController.position;
+    if (_model == null) return;
+
+    // Trigger pagination when user is within 200px of bottom
+    // This provides better UX by loading content before reaching the very end
+    if (pos.extentAfter < 200 &&
+        _model!.hasMoreCampaigns &&
+        !_model!.isLoadingMoreCampaigns &&
+        !_model!.isFetchingCampaigns) {
+      _model!.loadMoreCampaigns();
     }
   }
 
@@ -94,7 +96,8 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
                       child: TextField(
                         onChanged: (value) => model.searchCampaigns(value),
                         decoration: InputDecoration(
-                          hintText: 'Search Campaigns',
+                          hintText: AppLocalizations.of(context)!
+                              .strictTranslate('Search Campaigns'),
                           prefixIcon:
                               const Icon(Icons.search, color: Colors.green),
                           border: OutlineInputBorder(

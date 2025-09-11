@@ -9,11 +9,10 @@ class Campaign {
   /// [name] is the name of the campaign.
   /// [startDate] is the start date of the campaign.
   /// [endDate] is the end date of the campaign.
-  /// [fundingGoal] is the funding goal of the campaign.
   /// [currency] is the currency used for the campaign.
   /// [pledges] is a list of pledge identifiers associated with the campaign.
-  /// [createdAt] is the timestamp of when the campaign was created.
-  /// [updatedAt] is the timestamp of when the campaign was last updated.
+  /// [pledgedAmount] is the total amount pledged to the campaign.
+  /// [goalAmount] is the funding goal of the campaign.
   Campaign({
     this.id,
     this.fundId,

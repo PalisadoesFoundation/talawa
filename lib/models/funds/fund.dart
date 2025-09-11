@@ -6,12 +6,8 @@ class Fund {
   /// Constructs a `Fund` instance.
   ///
   /// [id] is the unique identifier of the fund.
-  /// [organizationId] is the identifier of the organization to which the fund belongs.
   /// [name] is the name of the fund.
   /// [taxDeductible] indicates whether the fund is tax-deductible.
-  /// [isDefault] indicates whether the fund is the default fund.
-  /// [isArchived] indicates whether the fund is archived.
-  /// [creatorId] is the identifier of the user who created the fund.
   /// [campaigns] is a list of campaign identifiers associated with the fund.
   /// [createdAt] is the timestamp of when the fund was created.
   /// [updatedAt] is the timestamp of when the fund was last updated.
@@ -65,7 +61,7 @@ class Fund {
   /// The identifier of the user who created the fund.
   final User? creator;
 
-  /// A list of campaign identifiers associated with the fund.
+  /// A list of campaigns associated with the fund.
   final List<Campaign>? campaigns;
 
   /// The timestamp of when the fund was created.

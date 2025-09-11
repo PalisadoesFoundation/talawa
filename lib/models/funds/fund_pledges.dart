@@ -38,7 +38,7 @@ class Pledge {
       pledger: json['pledger'] != null
           ? User.fromJson(json['pledger'] as Map<String, dynamic>)
           : null,
-      campaign: json['campaign'] != null ? campaign : null,
+      campaign: campaign,
       startDate: campaign?.startDate,
       endDate: campaign?.endDate,
       note: json['note'] as String?,

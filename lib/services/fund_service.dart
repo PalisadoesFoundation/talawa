@@ -259,7 +259,7 @@ class FundService {
       );
       return result;
     } catch (e) {
-      throw Exception('Failed to load pledges');
+      throw Exception('Failed to delete pledges');
     }
   }
 }

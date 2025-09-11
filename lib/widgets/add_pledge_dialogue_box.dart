@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 
 /// A dialog widget for creating a pledge, allowing the user to input pledge details.
@@ -37,7 +38,9 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create Pledge'),
+      title: Text(
+        AppLocalizations.of(context)!.strictTranslate('Create Pledge'),
+      ),
       content: SingleChildScrollView(
         child: SizedBox(
           width: double.maxFinite,
@@ -47,7 +50,10 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Select Pledger:'),
+                Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Select Pledger:'),
+                ),
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.all(8.0),
@@ -60,7 +66,10 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                     children: [
                       Expanded(
                         child: _selectedPledger == null
-                            ? const Text('No pledger selected')
+                            ? Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('No pledger selected'),
+                              )
                             : Chip(
                                 avatar: CircleAvatar(
                                   backgroundImage: _selectedPledger?.image !=
@@ -115,8 +124,9 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                 // note form field
                 TextFormField(
                   controller: _noteController,
-                  decoration: const InputDecoration(
-                    labelText: 'Note',
+                  decoration: InputDecoration(
+                    labelText:
+                        AppLocalizations.of(context)!.strictTranslate('Note'),
                   ),
                 ),
 
@@ -126,13 +136,15 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                       child: TextFormField(
                         controller: _amountController,
                         decoration: InputDecoration(
-                          labelText: 'Amount',
+                          labelText: AppLocalizations.of(context)!
+                              .strictTranslate('Amount'),
                           prefixText: '${widget.campaign.currency ?? 'USD'} ',
                         ),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter an amount';
+                            return AppLocalizations.of(context)!
+                                .strictTranslate('Please enter an amount');
                           }
                           return null;
                         },
@@ -148,7 +160,9 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate('Cancel'),
+          ),
         ),
         ElevatedButton(
           onPressed: () {
@@ -162,11 +176,18 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
               Navigator.of(context).pop();
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please fill all fields')),
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate('Please fill all fields'),
+                  ),
+                ),
               );
             }
           },
-          child: const Text('Create'),
+          child: Text(
+            AppLocalizations.of(context)!.strictTranslate('Create'),
+          ),
         ),
       ],
     );
@@ -197,7 +218,10 @@ class _AddPledgeDialogState extends State<AddPledgeDialog> {
                   : null,
             ),
             const SizedBox(width: 8),
-            Text(user.name ?? 'Unknown Name'),
+            Text(
+              user.name ??
+                  AppLocalizations.of(context)!.strictTranslate('Unknown Name'),
+            ),
           ],
         ),
       ],

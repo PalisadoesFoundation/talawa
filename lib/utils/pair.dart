@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// A simple pair class to hold two values of potentially different types.
+@immutable
 class Pair<T, U> {
   /// Creates a new pair with the given values.
   const Pair(this.first, this.second);
@@ -21,5 +24,5 @@ class Pair<T, U> {
           second == other.second;
 
   @override
-  int get hashCode => first.hashCode ^ second.hashCode;
+  int get hashCode => Object.hash(first, second);
 }

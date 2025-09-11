@@ -1,9 +1,11 @@
 // ignore_for_file: talawa_api_doc
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/funds/fund_campaign.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model.dart/fund_view_model.dart';
 import 'package:talawa/widgets/add_pledge_dialogue_box.dart';
 
@@ -14,6 +16,13 @@ Widget createAddPledgeDialog({
   required Campaign campaign,
 }) {
   return MaterialApp(
+    localizationsDelegates: const [
+      AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    locale: const Locale('en'),
     home: Scaffold(
       body: Builder(
         builder: (context) => TextButton(
