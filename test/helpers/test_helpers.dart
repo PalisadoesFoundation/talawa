@@ -167,6 +167,7 @@ NavigationService getAndRegisterNavigationService() {
       .thenAnswer((_) async {});
   when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
   when(service.pushDialog(any)).thenAnswer((_) {});
+  when(service.showTalawaErrorSnackBar(any, any)).thenAnswer((_) {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -1105,6 +1106,19 @@ GroupChatViewModel getAndRegisterGroupChatViewModel() {
   // Mock refresh method
   when(cachedViewModel.refreshChats()).thenReturn(null);
 
+  // Mock getAvailableMembers method
+  when(cachedViewModel.getAvailableMembers(any)).thenReturn([]);
+
+  // Mock group management methods
+  when(
+    cachedViewModel.addGroupMember(
+      chatId: anyNamed('chatId'),
+      userId: anyNamed('userId'),
+    ),
+  ).thenAnswer((_) async => true);
+  when(cachedViewModel.deleteGroupChat(any)).thenAnswer((_) async => true);
+  when(cachedViewModel.leaveGroupChat(any, any)).thenAnswer((_) async => true);
+
   locator.registerSingleton<GroupChatViewModel>(cachedViewModel);
   return cachedViewModel;
 }
@@ -1211,6 +1225,7 @@ void unregisterServices() {
   locator.unregister<CommentService>();
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
+  locator.unregister<ChatService>();
 }
 
 /// registerViewModels registers all the view models required for the test.

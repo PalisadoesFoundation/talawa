@@ -96,15 +96,11 @@ String convertUTCToLocal(String? utcTime) {
 /// **returns**:
 /// * `String`: The converted local time string.
 String formatLocalCreated(String utcTime) {
-  if (utcTime.isEmpty) {
-    return '';
-  }
+  if (utcTime.isEmpty) return '';
   try {
-    final localStr = convertUTCToLocal(utcTime);
-    final parts = splitDateTimeLocal(localStr);
-    return '${parts['date']} ${parts['time']}';
-  } catch (e) {
-    print('Error formatting local created time: $e $utcTime');
+    final dt = DateTime.parse(utcTime).toLocal();
+    return '${DateFormat('yyyy-MM-dd').format(dt)} ${DateFormat('HH:mm').format(dt)}';
+  } catch (_) {
     return '';
   }
 }

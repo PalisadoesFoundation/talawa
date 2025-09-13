@@ -556,18 +556,17 @@ void main() {
 
       test('formatLocalCreated handles invalid UTC time format', () {
         final result = formatLocalCreated('invalid-utc-time');
-        // When conversion fails, convertUTCToLocal returns empty string,
-        // splitDateTimeLocal returns empty map, so we get 'null null'
-        expect(result, equals('null null'));
+        // With the new implementation, invalid formats return empty string
+        expect(result, isEmpty);
       });
 
       test('formatLocalCreated handles null-like values', () {
         // Test with typical "null" string values that might come from API
         final result1 = formatLocalCreated('null');
-        expect(result1, equals('null null'));
+        expect(result1, isEmpty);
 
         final result2 = formatLocalCreated('undefined');
-        expect(result2, equals('null null'));
+        expect(result2, isEmpty);
       });
       test('formatLocalCreated handles various UTC formats', () {
         // Test with milliseconds
@@ -604,10 +603,10 @@ void main() {
 
         for (final testCase in testCases) {
           final result = formatLocalCreated(testCase);
-          // When conversion fails, we get 'null null'
+          // With the new implementation, invalid formats return empty string
           expect(
             result,
-            equals('null null'),
+            isEmpty,
             reason: 'Failed for input: $testCase',
           );
         }

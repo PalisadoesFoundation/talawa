@@ -70,7 +70,7 @@ class _SelectContactState extends State<SelectContact> {
             itemCount: contacts.length,
             itemBuilder: (context, index) {
               final user = contacts[index];
-              return GestureDetector(
+              return InkWell(
                 key: Key('select_contact_gesture_$index'),
                 onTap: () async {
                   try {
@@ -78,9 +78,6 @@ class _SelectContactState extends State<SelectContact> {
                     final chatId = await model.createChatWithUser(user);
 
                     log('Chat created with ID: $chatId');
-
-                    // Close loading dialog
-                    navigationService.pop();
 
                     if (chatId != null) {
                       // Get the DirectChatViewModel instance and ensure it's initialized
@@ -103,9 +100,6 @@ class _SelectContactState extends State<SelectContact> {
                       );
                     }
                   } catch (e) {
-                    // Close loading dialog
-                    navigationService.pop();
-
                     // Show error message using navigation service
                     navigationService.showTalawaErrorSnackBar(
                       'Error: $e',

@@ -176,8 +176,9 @@ class GroupChatViewModel extends BaseModel {
       return;
     }
 
-    // Prevent multiple simultaneous pagination requests
-    if (_isLoadingMoreMessages[chatId] == true) {
+    // Check if we can load more messages
+    if (!_chatService.hasMoreMessages(chatId) ||
+        isLoadingMoreMessages(chatId)) {
       return;
     }
 
@@ -185,31 +186,16 @@ class GroupChatViewModel extends BaseModel {
     notifyListeners();
 
     try {
-      final currentMessages = _chatMessagesByUser[chatId]!;
-      debugPrint(
-        'Loading more messages for group chat: $chatId, current count: ${currentMessages.length}',
-      );
-
-      // Use getChatDetails for pagination - it handles the logic internally
-      final chat =
-          await _chatService.getChatDetails(chatId, isInitialLoad: false);
-
-      if (chat != null && chat.messages != null && chat.messages!.isNotEmpty) {
-        // Check if we got new (older) messages
-        final newMessages = chat.messages!
-            .where(
-              (msg) =>
-                  !currentMessages.any((existing) => existing.id == msg.id),
-            )
-            .toList();
-
-        if (newMessages.isNotEmpty) {
-          // Insert older messages at the beginning
-          _chatMessagesByUser[chatId]!.insertAll(0, newMessages);
-          debugPrint(
-            'Loaded ${newMessages.length} older messages for group chat: $chatId',
-          );
-        }
+      final olderMessages = await _chatService.loadMoreMessages(chatId);
+      if (olderMessages.isNotEmpty) {
+        // Prepend older messages to the beginning of the list
+        _chatMessagesByUser[chatId]!.insertAll(0, olderMessages);
+        // Force UI update by reassigning the list reference
+        _chatMessagesByUser[chatId] = List.from(_chatMessagesByUser[chatId]!);
+        debugPrint(
+          'Loaded ${olderMessages.length} older messages for group chat: $chatId',
+        );
+        notifyListeners();
       }
     } catch (e) {
       debugPrint('Error loading more messages for group chat $chatId: $e');
@@ -438,11 +424,16 @@ class GroupChatViewModel extends BaseModel {
         newName: newName,
         newDescription: newDescription,
       );
-      if (updatedChat != null) {
-        // Update local list tile
-        final index = _groupChats.indexWhere((tile) => tile.chat?.id == chatId);
-        if (index != -1) {
-          _groupChats[index] = ChatListTileDataModel.fromChat(updatedChat);
+      if (updatedChat) {
+        // Get updated chat details after successful update
+        final chatDetails = await _chatService.getChatDetails(chatId);
+        if (chatDetails != null) {
+          // Update local list tile
+          final index =
+              _groupChats.indexWhere((tile) => tile.chat?.id == chatId);
+          if (index != -1) {
+            _groupChats[index] = ChatListTileDataModel.fromChat(chatDetails);
+          }
         }
         navigationService.showTalawaErrorSnackBar(
           'Group updated successfully',

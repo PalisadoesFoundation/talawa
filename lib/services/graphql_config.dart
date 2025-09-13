@@ -53,7 +53,7 @@ class GraphqlConfig {
       // Get socket URL from environment variables
       final socketUrl = dotenv.env['SOCKET_URL'] ??
           (kReleaseMode
-              ? 'ws://api-test.talawa.io/graphql'
+              ? 'wss://api-test.talawa.io/graphql'
               : 'ws://localhost:4000/graphql');
 
       webSocketLink = WebSocketLink(

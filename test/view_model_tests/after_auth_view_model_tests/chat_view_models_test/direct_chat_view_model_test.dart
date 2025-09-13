@@ -66,9 +66,9 @@ void main() {
         final currentUser = User(id: 'currentUser');
         when(userConfig.currentUser).thenReturn(currentUser);
 
-        viewModel.initialise();
+        await viewModel.initialise();
 
-        expect(viewModel.chatState, ChatState.loading);
+        expect(viewModel.chatState, ChatState.complete);
 
         final chat1 = Chat(
           id: 'chat1',

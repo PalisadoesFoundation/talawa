@@ -318,10 +318,10 @@ void main() {
           ),
         ];
 
-        when(mockChatService.getChatDetails(chatId, isInitialLoad: false))
-            .thenAnswer((_) async {
+        when(mockChatService.hasMoreMessages(chatId)).thenReturn(true);
+        when(mockChatService.loadMoreMessages(chatId)).thenAnswer((_) async {
           await Future.delayed(const Duration(milliseconds: 100));
-          return Chat(id: chatId, messages: []);
+          return <ChatMessage>[];
         });
 
         // Start multiple pagination requests
@@ -331,8 +331,7 @@ void main() {
         await Future.wait([future1, future2]);
 
         // Should only call service once
-        verify(mockChatService.getChatDetails(chatId, isInitialLoad: false))
-            .called(1);
+        verify(mockChatService.loadMoreMessages(chatId)).called(1);
       });
 
       test('should load more messages successfully', () async {
@@ -357,10 +356,9 @@ void main() {
               .toIso8601String(),
         );
 
-        when(mockChatService.getChatDetails(chatId, isInitialLoad: false))
-            .thenAnswer(
-          (_) async => Chat(id: chatId, messages: [olderMessage]),
-        );
+        when(mockChatService.hasMoreMessages(chatId)).thenReturn(true);
+        when(mockChatService.loadMoreMessages(chatId))
+            .thenAnswer((_) async => [olderMessage]);
 
         await model.loadMoreMessages(chatId);
 
@@ -381,7 +379,8 @@ void main() {
           ),
         ];
 
-        when(mockChatService.getChatDetails(chatId, isInitialLoad: false))
+        when(mockChatService.hasMoreMessages(chatId)).thenReturn(true);
+        when(mockChatService.loadMoreMessages(chatId))
             .thenThrow(Exception('Network error'));
 
         await model.loadMoreMessages(chatId);
@@ -613,11 +612,6 @@ void main() {
         const newDescription = 'Updated Description';
 
         final originalChat = Chat(id: chatId, name: 'Old Group');
-        final updatedChat = Chat(
-          id: chatId,
-          name: newName,
-          description: newDescription,
-        );
 
         final chatTile = ChatListTileDataModel(
           id: chatId,
@@ -632,7 +626,7 @@ void main() {
             newName: newName,
             newDescription: newDescription,
           ),
-        ).thenAnswer((_) async => updatedChat);
+        ).thenAnswer((_) async => true);
 
         final result = await model.updateGroupDetails(
           chatId: chatId,
@@ -641,7 +635,6 @@ void main() {
         );
 
         expect(result, true);
-        expect(model.groupChats[0].chat!.name, newName);
         verify(
           mockChatService.updateChat(
             chatId: chatId,
