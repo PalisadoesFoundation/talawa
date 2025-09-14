@@ -100,6 +100,7 @@ class ChatSubscriptionService {
       }
     } catch (e) {
       // Error in subscription
+      debugPrint('Failed to start subscription: $e');
     }
   }
 

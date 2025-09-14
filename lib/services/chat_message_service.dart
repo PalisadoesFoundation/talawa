@@ -93,6 +93,7 @@ class ChatMessageService {
     );
 
     if (result.hasException || result.data == null) {
+      debugPrint('Error fetching chat messages: ${result.exception}');
       return null;
     }
 

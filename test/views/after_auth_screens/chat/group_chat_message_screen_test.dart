@@ -198,6 +198,8 @@ void main() {
 
       // Check that GroupChatAppBar is present
       expect(find.byType(GroupChatAppBar), findsOneWidget);
+      expect(find.text(groupName), findsOneWidget);
+      expect(find.textContaining(memberCount.toString()), findsOneWidget);
     });
   });
 

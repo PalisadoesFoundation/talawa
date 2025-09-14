@@ -47,6 +47,10 @@ class ChatMembershipService {
 
     if (result.hasException || result.data == null) {
       debugPrint('Error creating chat membership: ${result.exception}');
+      navigationService.showTalawaErrorSnackBar(
+        'Failed to add member',
+        MessageType.error,
+      );
       return false;
     }
 

@@ -86,13 +86,15 @@ void main() {
 
         // Verify dialog content
         expect(find.byType(AlertDialog), findsOneWidget);
+        // Verify content is scrollable to prevent overflow
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
         expect(find.text('Test Group'), findsOneWidget);
         expect(find.text('Members: 3'), findsOneWidget);
         expect(
           find.text('Description: A test group for testing'),
           findsOneWidget,
         );
-        expect(find.text('Created: 2023-01-01T10:00:00.000Z'), findsOneWidget);
+        expect(find.textContaining('Created:'), findsOneWidget);
         expect(find.byIcon(Icons.group), findsOneWidget);
         expect(find.text('Close'), findsOneWidget);
       });
@@ -128,6 +130,8 @@ void main() {
 
         // Verify dialog content with fallback values
         expect(find.byType(AlertDialog), findsOneWidget);
+        // Content should be scrollable
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
         expect(find.text('Group Chat'), findsOneWidget); // Fallback name
         expect(find.text('Members: 0'), findsOneWidget);
         expect(find.text('Description: No description'), findsOneWidget);
@@ -291,7 +295,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Clear the name field
-        final nameField = find.widgetWithText(TextField, 'Test Group');
+        final nameField = find.byKey(const Key('editGroupNameField'));
         await tester.enterText(nameField, '');
 
         // Try to save
@@ -308,6 +312,15 @@ void main() {
 
         // Dialog should still be open
         expect(find.byType(AlertDialog), findsOneWidget);
+
+        // Ensure update wasn’t attempted
+        verifyNever(
+          groupChatViewModel.updateGroupDetails(
+            chatId: chatId,
+            newName: anyNamed('newName'),
+            newDescription: anyNamed('newDescription'),
+          ),
+        );
       });
 
       testWidgets('Save button with valid data calls updateGroupDetails',
@@ -350,11 +363,10 @@ void main() {
         await tester.pumpAndSettle();
 
         // Update the fields
-        final nameField = find.widgetWithText(TextField, 'Original Name');
+        final nameField = find.byKey(const Key('editGroupNameField'));
         await tester.enterText(nameField, 'Updated Name');
 
-        final descField =
-            find.widgetWithText(TextField, 'Original description');
+        final descField = find.byKey(const Key('editGroupDescriptionField'));
         await tester.enterText(descField, 'Updated description');
 
         // Save changes
@@ -422,8 +434,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Clear description field
-        final descField =
-            find.widgetWithText(TextField, 'Original description');
+        final descField = find.byKey(const Key('editGroupDescriptionField'));
         await tester.enterText(descField, '');
 
         // Save changes
@@ -519,17 +530,17 @@ void main() {
         await tester.tap(find.text('Edit Group'));
         await tester.pumpAndSettle();
 
-        // Find TextField widgets
-        final textFields = find.byType(TextField);
-        expect(textFields, findsNWidgets(2));
-
         // Check name field constraints
-        final nameFieldWidget = tester.widget<TextField>(textFields.first);
+        final nameFieldWidget = tester.widget<TextField>(
+          find.byKey(const Key('editGroupNameField')),
+        );
         expect(nameFieldWidget.maxLength, equals(50));
         expect(nameFieldWidget.maxLines, equals(1));
 
         // Check description field constraints
-        final descFieldWidget = tester.widget<TextField>(textFields.last);
+        final descFieldWidget = tester.widget<TextField>(
+          find.byKey(const Key('editGroupDescriptionField')),
+        );
         expect(descFieldWidget.maxLength, equals(200));
         expect(descFieldWidget.maxLines, equals(3));
       });

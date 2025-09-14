@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/chat_membership_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
 import '../helpers/test_helpers.dart';
@@ -20,11 +22,13 @@ void main() {
   group('ChatMembershipService Tests', () {
     late ChatMembershipService chatMembershipService;
     late DataBaseMutationFunctions mockDataBaseMutationFunctions;
+    late NavigationService mockNavigationService;
 
     setUp(() {
       chatMembershipService = ChatMembershipService();
       mockDataBaseMutationFunctions =
           test_locator.locator<DataBaseMutationFunctions>();
+      mockNavigationService = test_locator.locator<NavigationService>();
     });
 
     group('createChatMembership', () {
@@ -91,6 +95,13 @@ void main() {
         );
 
         expect(result, isFalse);
+        // Verify that error snackbar is shown
+        verify(
+          mockNavigationService.showTalawaErrorSnackBar(
+            'Failed to add member',
+            MessageType.error,
+          ),
+        ).called(1);
       });
 
       test('returns false when createChatMembership is null', () async {
@@ -180,6 +191,34 @@ void main() {
           userId: 'user456',
         );
 
+        expect(result, isFalse);
+        // Verify that error snackbar is shown
+        verify(
+          mockNavigationService.showTalawaErrorSnackBar(
+            'Failed to add member',
+            MessageType.error,
+          ),
+        ).called(1);
+      });
+
+      test('returns false when createChatMembership returns null', () async {
+        final query = ChatQueries().createChatMembership();
+        when(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {'createChatMembership': null},
+            source: QueryResultSource.network,
+          ),
+        );
+        final result = await chatMembershipService.addChatMember(
+          chatId: 'chat123',
+          userId: 'user456',
+        );
         expect(result, isFalse);
       });
     });

@@ -6,15 +6,17 @@ import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_app_bar.dart';
 
 import '../../../../helpers/test_helpers.dart';
 import '../../../../helpers/test_locator.dart';
 
-final groupChatViewModel = getAndRegisterGroupChatViewModel();
-final navigationService = getAndRegisterNavigationService();
+late GroupChatViewModel groupChatViewModel;
+late NavigationService navigationService;
 
 Widget createGroupChatAppBarTestWidget({
   required String chatId,
@@ -52,6 +54,8 @@ void main() {
     SizeConfig().test();
     testSetupLocator();
     registerServices();
+    groupChatViewModel = getAndRegisterGroupChatViewModel();
+    navigationService = getAndRegisterNavigationService();
   });
 
   setUp(() {
@@ -113,6 +117,24 @@ void main() {
           matching: find.byIcon(Icons.arrow_back),
         );
         expect(leadingWidget, findsOneWidget);
+      });
+
+      testWidgets('Back button has correct tooltip', (tester) async {
+        const chatId = 'chat1';
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: false,
+          ),
+        );
+        await tester.pump();
+        // Verify the IconButton tooltip is 'Back'
+        final backIconButton = tester.widget<IconButton>(
+          find.widgetWithIcon(IconButton, Icons.arrow_back),
+        );
+        expect(backIconButton.tooltip, equals('Back'));
       });
 
       testWidgets('Shows more menu button', (tester) async {

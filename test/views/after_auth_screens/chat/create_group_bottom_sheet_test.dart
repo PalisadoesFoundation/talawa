@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -9,7 +10,6 @@ import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
-
 import 'package:talawa/views/after_auth_screens/chat/create_group_bottom_sheet.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -435,13 +435,13 @@ void main() {
 
     testWidgets('should handle group creation failure',
         (WidgetTester tester) async {
-      // Use the actual current date that will be generated
-      final currentDate = DateTime.now().toString().split(' ')[0];
+      // Use the actual date label generated
+      final dateLabel = DateFormat.yMMMd().format(DateTime.now());
 
       when(
         mockGroupChatViewModel.createGroupChat(
           groupName: 'Test Group',
-          description: 'Group chat created on $currentDate',
+          description: 'Group chat created on $dateLabel',
           memberIds: ['user1', 'user2'],
         ),
       ).thenAnswer((_) async => null);
@@ -485,7 +485,7 @@ void main() {
       verify(
         mockGroupChatViewModel.createGroupChat(
           groupName: 'Test Group',
-          description: 'Group chat created on $currentDate',
+          description: 'Group chat created on $dateLabel',
           memberIds: ['user1', 'user2'],
         ),
       ).called(1);

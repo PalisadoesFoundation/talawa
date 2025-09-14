@@ -103,6 +103,8 @@ void main() {
         expect(result!.id, equals('chat123'));
         expect(result.name, equals(chatName));
         expect(result.description, equals(chatDescription));
+        expect(result.creator?.id, equals('user123'));
+        expect(result.creator?.firstName, equals('John'));
       });
 
       test('returns null when no current organization', () async {
@@ -189,7 +191,7 @@ void main() {
 
         expect(result, isA<List<Chat>>());
         expect(result, isNotNull);
-        expect(result!.length, equals(2));
+        expect(result.length, equals(2));
         expect(result[0].id, equals('chat1'));
         expect(result[0].name, equals('Chat 1'));
         expect(result[1].id, equals('chat2'));
@@ -382,8 +384,14 @@ void main() {
 
       test('returns false when no updates provided', () async {
         final result = await chatCoreService.updateChat(chatId: 'chat123');
-
+        final query = ChatQueries().updateChat();
         expect(result, isFalse);
+        verifyNever(
+          mockDataBaseMutationFunctions.gqlAuthMutation(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        );
       });
 
       test('returns false on GraphQL exception', () async {

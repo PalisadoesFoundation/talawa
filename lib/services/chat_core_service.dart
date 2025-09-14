@@ -87,8 +87,8 @@ class ChatCoreService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<List<Chat>?>`: List of chats if successful, or an empty list on failures (authentication or other errors)
-  Future<List<Chat>?> getChatsByUser() async {
+  /// * `Future<List<Chat>>`: List of chats if successful, or an empty list on failures (authentication or other errors)
+  Future<List<Chat>> getChatsByUser() async {
     if (_userConfig.currentUser.authToken == null ||
         _userConfig.currentUser.authToken!.isEmpty) {
       debugPrint('Skipping chat fetch: Authentication token not available yet');

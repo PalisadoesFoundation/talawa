@@ -39,27 +39,28 @@ class GroupChatInfoDialogs {
             ),
           ],
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Members: ${chat.members?.length ?? 0}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Description: ${chat.description ?? 'No description'}',
-              style: const TextStyle(fontSize: 14),
-            ),
-            if (chat.createdAt != null) ...[
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Members: ${chat.members?.length ?? 0}',
+                style: const TextStyle(fontSize: 16),
+              ),
               const SizedBox(height: 8),
               Text(
-                'Created: ${chat.createdAt.toString().split(' ')[0]}',
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                'Description: ${chat.description ?? 'No description'}',
+                style: const TextStyle(fontSize: 14),
               ),
+              if (chat.createdAt != null) ...[
+                const SizedBox(height: 8),
+                Text(
+                  'Created: ${chat.createdAt.toString().split(' ')[0]}',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
         actions: [
           TextButton(
@@ -106,6 +107,7 @@ class GroupChatInfoDialogs {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              key: const Key('editGroupNameField'),
               controller: nameController,
               decoration: InputDecoration(
                 labelText:
@@ -116,6 +118,7 @@ class GroupChatInfoDialogs {
             ),
             const SizedBox(height: 16),
             TextField(
+              key: const Key('editGroupDescriptionField'),
               controller: descriptionController,
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!

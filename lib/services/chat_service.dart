@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/chat_core_service.dart';
@@ -13,10 +14,13 @@ import 'package:talawa/services/chat_message_service.dart';
 /// - ChatMembershipService: Member management operations
 /// - ChatMessageService: Message and subscription operations
 class ChatService {
-  ChatService()
-      : _coreService = ChatCoreService(),
-        _membershipService = ChatMembershipService(),
-        _messageService = ChatMessageService();
+  ChatService({
+    ChatCoreService? coreService,
+    ChatMembershipService? membershipService,
+    ChatMessageService? messageService,
+  })  : _coreService = coreService ?? ChatCoreService(),
+        _membershipService = membershipService ?? ChatMembershipService(),
+        _messageService = messageService ?? ChatMessageService();
 
   /// Core chat operations service.
   final ChatCoreService _coreService;
@@ -29,7 +33,7 @@ class ChatService {
 
   // Core Service Delegates
 
-  /// Stream for chat list data.
+  /// Stream for individual chat updates.
   Stream<Chat> get chatListStream => _coreService.chatListStream;
 
   /// Creates a new chat.
@@ -43,8 +47,14 @@ class ChatService {
   Future<Chat?> createChat({
     required String name,
     String? description,
-  }) =>
-      _coreService.createChat(name: name, description: description);
+  }) async {
+    name = name.trim();
+    if (name.isEmpty) {
+      debugPrint('Error creating chat: Empty name');
+      return null;
+    }
+    return _coreService.createChat(name: name, description: description);
+  }
 
   /// Retrieves all chats for the current user.
   ///
@@ -52,8 +62,8 @@ class ChatService {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<List<Chat>?>`: List of chats if successful, or an empty list on failures
-  Future<List<Chat>?> getChatsByUser() => _coreService.getChatsByUser();
+  /// * `Future<List<Chat>>`: List of chats if successful, or an empty list on failures
+  Future<List<Chat>> getChatsByUser() => _coreService.getChatsByUser();
 
   /// Deletes a chat.
   ///

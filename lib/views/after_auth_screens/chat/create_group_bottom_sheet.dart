@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -77,13 +78,14 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
       }
 
       // Create the group using GroupChatViewModel
+      final dateLabel = DateFormat.yMMMd().format(DateTime.now());
       final groupChatViewModel = locator<GroupChatViewModel>();
 
       final chat = await groupChatViewModel.createGroupChat(
         groupName: _groupNameController.text.trim(),
         description: _groupDescriptionController.text.trim().isNotEmpty
             ? _groupDescriptionController.text.trim()
-            : 'Group chat created on ${DateTime.now().toString().split(' ')[0]}',
+            : 'Group chat created on $dateLabel',
         memberIds: memberIds,
       );
 
@@ -103,7 +105,7 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
       }
     } catch (e) {
       debugPrint('EXCEPTION in _createGroup: $e');
-      _showError('Failed to create group: $e');
+      _showError('Failed to create group: Please try again.');
     } finally {
       if (mounted) {
         setState(() {

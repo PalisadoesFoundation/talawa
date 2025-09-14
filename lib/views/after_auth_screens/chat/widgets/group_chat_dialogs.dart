@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/chats/chat.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_info_dialogs.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_management_dialogs.dart';
@@ -124,27 +123,6 @@ class GroupChatDialogs {
       model,
       chatId,
       chat,
-    );
-  }
-
-  /// Adds selected members to the group chat.
-  ///
-  /// **params**:
-  /// * `selectedMembers`: List of users to add to the group
-  /// * `model`: The GroupChatViewModel instance
-  /// * `chatId`: The ID of the chat
-  ///
-  /// **returns**:
-  ///   None
-  static Future<void> addSelectedMembers(
-    List<User> selectedMembers,
-    GroupChatViewModel model,
-    String chatId,
-  ) async {
-    return GroupChatManagementDialogs.addSelectedMembers(
-      selectedMembers,
-      model,
-      chatId,
     );
   }
 }

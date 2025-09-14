@@ -207,6 +207,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
+        tooltip: AppLocalizations.of(context)!.strictTranslate('Back'),
         onPressed: () => navigationService.pop(),
       ),
       title: Column(

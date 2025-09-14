@@ -1851,14 +1851,15 @@ class MockChatService extends _i2.Mock implements _i26.ChatService {
       ) as _i7.Future<_i27.Chat?>);
 
   @override
-  _i7.Future<List<_i27.Chat>?> getChatsByUser() => (super.noSuchMethod(
+  _i7.Future<List<_i27.Chat>> getChatsByUser() => (super.noSuchMethod(
         Invocation.method(
           #getChatsByUser,
           [],
         ),
-        returnValue: _i7.Future<List<_i27.Chat>?>.value(),
-        returnValueForMissingStub: _i7.Future<List<_i27.Chat>?>.value(),
-      ) as _i7.Future<List<_i27.Chat>?>);
+        returnValue: _i7.Future<List<_i27.Chat>>.value(<_i27.Chat>[]),
+        returnValueForMissingStub:
+            _i7.Future<List<_i27.Chat>>.value(<_i27.Chat>[]),
+      ) as _i7.Future<List<_i27.Chat>>);
 
   @override
   _i7.Future<bool> deleteChat(String? chatId) => (super.noSuchMethod(

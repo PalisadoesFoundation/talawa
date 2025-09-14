@@ -94,7 +94,7 @@ String convertUTCToLocal(String? utcTime) {
 /// * `utcTime`: The UTC time string in a valid format.
 ///
 /// **returns**:
-/// * `String`: The converted local time string.
+/// * `String`: Local datetime in the format "yyyy-MM-dd HH:mm".
 String formatLocalCreated(String utcTime) {
   if (utcTime.isEmpty) return '';
   try {

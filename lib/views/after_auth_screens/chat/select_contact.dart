@@ -70,86 +70,84 @@ class _SelectContactState extends State<SelectContact> {
             itemCount: contacts.length,
             itemBuilder: (context, index) {
               final user = contacts[index];
-              return InkWell(
-                key: Key('select_contact_gesture_$index'),
-                onTap: () async {
-                  try {
-                    // Create chat with selected user
-                    final chatId = await model.createChatWithUser(user);
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ListTile(
+                  key: Key('select_contact_gesture_$index'),
+                  onTap: () async {
+                    try {
+                      // Create chat with selected user
+                      final chatId = await model.createChatWithUser(user);
 
-                    log('Chat created with ID: $chatId');
+                      log('Chat created with ID: $chatId');
 
-                    if (chatId != null) {
-                      // Get the DirectChatViewModel instance and ensure it's initialized
-                      final directChatViewModel =
-                          locator<DirectChatViewModel>();
+                      if (chatId != null) {
+                        // Get the DirectChatViewModel instance and ensure it's initialized
+                        final directChatViewModel =
+                            locator<DirectChatViewModel>();
 
-                      // Initialize the DirectChatViewModel before navigation
-                      await directChatViewModel.initialise();
+                        // Initialize the DirectChatViewModel before navigation
+                        await directChatViewModel.initialise();
 
-                      // Navigate to chat screen
-                      navigationService.pushScreen(
-                        Routes.chatMessageScreen,
-                        arguments: [chatId, directChatViewModel],
-                      );
-                    } else {
+                        // Navigate to chat screen
+                        navigationService.pushScreen(
+                          Routes.chatMessageScreen,
+                          arguments: [chatId, directChatViewModel],
+                        );
+                      } else {
+                        // Show error message using navigation service
+                        navigationService.showTalawaErrorSnackBar(
+                          'Failed to create chat',
+                          MessageType.error,
+                        );
+                      }
+                    } catch (e) {
                       // Show error message using navigation service
                       navigationService.showTalawaErrorSnackBar(
-                        'Failed to create chat',
+                        'Error: $e',
                         MessageType.error,
                       );
                     }
-                  } catch (e) {
-                    // Show error message using navigation service
-                    navigationService.showTalawaErrorSnackBar(
-                      'Error: $e',
-                      MessageType.error,
-                    );
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 25,
-                      backgroundImage:
-                          user.image != null && user.image!.isNotEmpty
-                              ? NetworkImage(user.image!)
-                              : null,
-                      child: user.image == null || user.image!.isEmpty
-                          ? Text(
-                              user.firstName?.isNotEmpty == true
-                                  ? user.firstName![0].toUpperCase()
-                                  : user.name?.isNotEmpty == true
-                                      ? user.name![0].toUpperCase()
-                                      : '?',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          : null,
+                  },
+                  leading: CircleAvatar(
+                    radius: 25,
+                    backgroundImage:
+                        user.image != null && user.image!.isNotEmpty
+                            ? NetworkImage(user.image!)
+                            : null,
+                    child: user.image == null || user.image!.isEmpty
+                        ? Text(
+                            user.firstName?.isNotEmpty == true
+                                ? user.firstName![0].toUpperCase()
+                                : user.name?.isNotEmpty == true
+                                    ? user.name![0].toUpperCase()
+                                    : '?',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : null,
+                  ),
+                  title: Text(
+                    user.firstName ??
+                        user.lastName ??
+                        user.name ??
+                        'Unknown User',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
                     ),
-                    title: Text(
-                      user.firstName ??
-                          user.lastName ??
-                          user.name ??
-                          'Unknown User',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  subtitle: Text(
+                    user.email ?? 'Not available',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14,
                     ),
-                    subtitle: Text(
-                      user.email ?? 'Not available',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                      ),
-                    ),
-                    trailing: const Icon(
-                      Icons.chat,
-                      color: Colors.blue,
-                    ),
+                  ),
+                  trailing: const Icon(
+                    Icons.chat,
+                    color: Colors.blue,
                   ),
                 ),
               );

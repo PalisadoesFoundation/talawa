@@ -359,57 +359,5 @@ void main() {
         );
       });
     });
-
-    group('addSelectedMembers Tests', () {
-      test('Delegates to GroupChatManagementDialogs.addSelectedMembers',
-          () async {
-        const chatId = 'chat1';
-        final selectedMembers = [
-          User(id: 'user1', firstName: 'Alice'),
-          User(id: 'user2', firstName: 'Bob'),
-        ];
-
-        when(
-          groupChatViewModel.addGroupMember(
-            chatId: chatId,
-            userId: 'user1',
-          ),
-        ).thenAnswer((_) async => true);
-
-        when(
-          groupChatViewModel.addGroupMember(
-            chatId: chatId,
-            userId: 'user2',
-          ),
-        ).thenAnswer((_) async => true);
-
-        when(groupChatViewModel.getChatMessages(chatId))
-            .thenAnswer((_) async {});
-
-        // Call the static method directly
-        await GroupChatDialogs.addSelectedMembers(
-          selectedMembers,
-          groupChatViewModel,
-          chatId,
-        );
-
-        // Verify the members were added through the facade
-        verify(
-          groupChatViewModel.addGroupMember(
-            chatId: chatId,
-            userId: 'user1',
-          ),
-        ).called(1);
-
-        verify(
-          groupChatViewModel.addGroupMember(
-            chatId: chatId,
-            userId: 'user2',
-          ),
-        ).called(1);
-
-        verify(groupChatViewModel.getChatMessages(chatId)).called(1);
-      });
-    });
   });
 }

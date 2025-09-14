@@ -41,8 +41,9 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
   ChatState get chatState => widget.model.chatState;
 
   /// Helper method to get messages for this chat.
-  List<dynamic> get messages =>
-      widget.model.chatMessagesByUser[widget.chatId] ?? [];
+  List<ChatMessage> get messages => List<ChatMessage>.from(
+        widget.model.chatMessagesByUser[widget.chatId] ?? <ChatMessage>[],
+      );
 
   /// Helper method to check if more messages can be loaded.
   bool get hasMoreMessages => widget.model.hasMoreMessages(widget.chatId);
@@ -204,8 +205,7 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
                         itemCount: currentMessages.length,
                         itemBuilder: (context, index) {
                           final message = currentMessages[
-                                  currentMessages.length - 1 - index]
-                              as ChatMessage;
+                              currentMessages.length - 1 - index];
                           return Message(message: message);
                         },
                       ),

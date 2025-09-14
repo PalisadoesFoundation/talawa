@@ -247,7 +247,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error sending message to group chat: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error sending message: $e',
+        'Error sending message: Please try again',
         MessageType.error,
       );
     } finally {
@@ -332,7 +332,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error creating group chat: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error creating group: $e',
+        'Error creating group: Please try again.',
         MessageType.error,
       );
       return null;
@@ -382,7 +382,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error deleting group chat: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error deleting group: $e',
+        'Error deleting group: Please try again.',
         MessageType.error,
       );
       return false;
@@ -512,7 +512,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error adding group member: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error adding member: $e',
+        'Error adding member: Please try again.',
         MessageType.error,
       );
       return false;
@@ -583,7 +583,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error removing group member: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error removing member: $e',
+        'Error removing member: Please try again.',
         MessageType.error,
       );
       return false;
@@ -640,7 +640,7 @@ class GroupChatViewModel extends BaseModel {
     } catch (e) {
       debugPrint('Error leaving group chat: $e');
       navigationService.showTalawaErrorSnackBar(
-        'Error leaving group: $e',
+        'Error leaving group: Please try again.',
         MessageType.error,
       );
       return false;
@@ -777,7 +777,7 @@ class GroupChatViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `chatId`: The ID of the group chat
-  /// * `limit`: Maximum number of members to fetch (default: 50)
+  /// * `limit`: Maximum number of members to fetch (default: 32)
   ///
   /// **returns**:
   /// * `Future<List<dynamic>?>`: List of chat members or null if failed
