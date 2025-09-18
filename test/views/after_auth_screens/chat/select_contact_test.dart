@@ -102,7 +102,7 @@ void main() {
 
       expect(find.text('Select Contacts'), findsOneWidget);
       expect(find.byIcon(Icons.arrow_back), findsOneWidget);
-      final AppBar appBar = tester.widget(find.byType(AppBar));
+      final AppBar appBar = tester.widget<AppBar>(find.byType(AppBar));
       expect(appBar.elevation, 0.0);
       expect(appBar.backgroundColor, Colors.black);
       expect(appBar.centerTitle, true);
@@ -298,6 +298,77 @@ void main() {
       // Verify the method was called and handled gracefully
       verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
       verifyNever(mockDirectChatViewModel.initialise());
+    });
+
+    testWidgets('should disable tiles when creating chat to prevent double-tap',
+        (tester) async {
+      when(mockSelectContactViewModel.isBusy).thenReturn(false);
+      when(mockSelectContactViewModel.orgMembersList).thenReturn([testUser]);
+      when(mockSelectContactViewModel.createChatWithUser(testUser))
+          .thenAnswer((_) async {
+        // Simulate a delay to test the disabling behavior
+        await Future.delayed(const Duration(milliseconds: 100));
+        return 'chat_id_123';
+      });
+
+      await tester.pumpWidget(createSelectContactScreen());
+      await tester.pump();
+
+      // First tap starts the creation process
+      await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
+      await tester.pump(const Duration(milliseconds: 50));
+
+      // Check that the ListTile is disabled during creation
+      final listTile = tester.widget<ListTile>(find.byType(ListTile).first);
+      expect(listTile.enabled, false);
+
+      // Try to tap again while creating - should not trigger another call
+      await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
+      await tester.pump();
+
+      // Wait for the async operation to complete
+      await tester.pumpAndSettle();
+
+      // Verify createChatWithUser was called only once despite multiple taps
+      verify(mockSelectContactViewModel.createChatWithUser(testUser)).called(1);
+    });
+
+    testWidgets('should re-enable tiles after chat creation fails',
+        (tester) async {
+      when(mockSelectContactViewModel.isBusy).thenReturn(false);
+      when(mockSelectContactViewModel.orgMembersList).thenReturn([testUser]);
+      when(mockSelectContactViewModel.createChatWithUser(testUser))
+          .thenAnswer((_) async => null); // Simulate failure
+
+      await tester.pumpWidget(createSelectContactScreen());
+      await tester.pump();
+
+      // Tap to start creation
+      await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
+      await tester.pumpAndSettle();
+
+      // After failure, the ListTile should be re-enabled
+      final listTile = tester.widget<ListTile>(find.byType(ListTile).first);
+      expect(listTile.enabled, true);
+    });
+
+    testWidgets('should re-enable tiles after exception during chat creation',
+        (tester) async {
+      when(mockSelectContactViewModel.isBusy).thenReturn(false);
+      when(mockSelectContactViewModel.orgMembersList).thenReturn([testUser]);
+      when(mockSelectContactViewModel.createChatWithUser(testUser))
+          .thenThrow(Exception('Network error')); // Simulate exception
+
+      await tester.pumpWidget(createSelectContactScreen());
+      await tester.pump();
+
+      // Tap to start creation
+      await tester.tap(find.byKey(const Key('select_contact_gesture_0')));
+      await tester.pumpAndSettle();
+
+      // After exception, the ListTile should be re-enabled
+      final listTile = tester.widget<ListTile>(find.byType(ListTile).first);
+      expect(listTile.enabled, true);
     });
   });
 

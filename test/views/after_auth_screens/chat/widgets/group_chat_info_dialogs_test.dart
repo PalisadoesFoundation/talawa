@@ -323,6 +323,56 @@ void main() {
         );
       });
 
+      testWidgets(
+          'Save with whitespace-only name shows error and does not update',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test',
+          members: [],
+        );
+        await tester.pumpWidget(
+          createGroupChatInfoDialogsTestWidget(
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () => GroupChatInfoDialogs.showEditGroupDialog(
+                  context,
+                  chat,
+                  groupChatViewModel,
+                  chatId,
+                ),
+                child: const Text('Edit Group'),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Edit Group'));
+        await tester.pumpAndSettle();
+        await tester.enterText(
+          find.byKey(const Key('editGroupNameField')),
+          '   ',
+        );
+        await tester.tap(find.text('Save'));
+        await tester.pumpAndSettle();
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            'Group name cannot be empty',
+            MessageType.error,
+          ),
+        ).called(1);
+        verifyNever(
+          groupChatViewModel.updateGroupDetails(
+            chatId: chatId,
+            newName: anyNamed('newName'),
+            newDescription: anyNamed('newDescription'),
+          ),
+        );
+        expect(find.byType(AlertDialog), findsOneWidget);
+      });
+
       testWidgets('Save button with valid data calls updateGroupDetails',
           (tester) async {
         const chatId = 'chat1';
@@ -379,14 +429,6 @@ void main() {
             chatId: chatId,
             newName: 'Updated Name',
             newDescription: 'Updated description',
-          ),
-        ).called(1);
-
-        // Verify success message
-        verify(
-          navigationService.showTalawaErrorSnackBar(
-            'Group updated successfully',
-            MessageType.info,
           ),
         ).called(1);
 
@@ -542,7 +584,7 @@ void main() {
           find.byKey(const Key('editGroupDescriptionField')),
         );
         expect(descFieldWidget.maxLength, equals(200));
-        expect(descFieldWidget.maxLines, equals(3));
+        expect(descFieldWidget.maxLines, equals(2));
       });
     });
   });

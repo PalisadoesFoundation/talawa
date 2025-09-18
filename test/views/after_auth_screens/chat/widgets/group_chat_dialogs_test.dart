@@ -8,15 +8,17 @@ import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_dialogs.dart';
 
 import '../../../../helpers/test_helpers.dart';
 import '../../../../helpers/test_locator.dart';
 
-final groupChatViewModel = getAndRegisterGroupChatViewModel();
-final navigationService = getAndRegisterNavigationService();
+late final GroupChatViewModel groupChatViewModel;
+late final NavigationService navigationService;
 
 Widget createGroupChatDialogsTestWidget({
   required Widget child,
@@ -40,6 +42,8 @@ void main() {
     SizeConfig().test();
     testSetupLocator();
     registerServices();
+    groupChatViewModel = getAndRegisterGroupChatViewModel();
+    navigationService = getAndRegisterNavigationService();
   });
 
   setUp(() {

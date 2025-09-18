@@ -112,7 +112,10 @@ class ChatSubscriptionService {
   /// **returns**:
   ///   None
   void stopSubscription() {
-    _subscriptionCompleter?.complete();
+    if (_subscriptionCompleter != null &&
+        !_subscriptionCompleter!.isCompleted) {
+      _subscriptionCompleter!.complete();
+    }
   }
 
   /// Disposes the service and closes streams.

@@ -144,7 +144,9 @@ class ChatCoreService {
     if (chatsList != null) {
       for (final chatData in chatsList) {
         final chat = Chat.fromJson(chatData as Map<String, dynamic>);
-        _chatController.add(chat);
+        if (!_chatController.isClosed) {
+          _chatController.add(chat);
+        }
         chats.add(chat);
       }
       return chats; // Return the list of chats

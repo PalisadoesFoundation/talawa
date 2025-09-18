@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -56,13 +57,13 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// **returns**:
   /// * `Widget`: The group actions popup menu widget
   Widget _buildGroupActions(BuildContext context) {
-    return PopupMenuButton<String>(
+    return PopupMenuButton<GroupChatAction>(
       icon: const Icon(Icons.more_vert),
       onSelected: (action) => _handleGroupAction(context, action),
       itemBuilder: (context) {
-        final List<PopupMenuEntry<String>> items = [
+        final List<PopupMenuEntry<GroupChatAction>> items = [
           PopupMenuItem(
-            value: 'info',
+            value: GroupChatAction.info,
             child: Row(
               children: [
                 const Icon(Icons.info),
@@ -78,7 +79,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (isCurrentUserAdmin) {
           items.addAll([
             PopupMenuItem(
-              value: 'edit',
+              value: GroupChatAction.edit,
               child: Row(
                 children: [
                   const Icon(Icons.edit),
@@ -90,7 +91,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             PopupMenuItem(
-              value: 'add_members',
+              value: GroupChatAction.addMembers,
               child: Row(
                 children: [
                   const Icon(Icons.person_add),
@@ -103,7 +104,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             PopupMenuItem(
-              value: 'manage_members',
+              value: GroupChatAction.manageMembers,
               child: Row(
                 children: [
                   const Icon(Icons.people),
@@ -117,7 +118,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             const PopupMenuDivider(),
             PopupMenuItem(
-              value: 'delete',
+              value: GroupChatAction.delete,
               child: Row(
                 children: [
                   const Icon(Icons.delete, color: Colors.red),
@@ -134,7 +135,7 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         } else {
           items.add(
             PopupMenuItem(
-              value: 'leave',
+              value: GroupChatAction.leave,
               child: Row(
                 children: [
                   const Icon(Icons.exit_to_app, color: Colors.orange),
@@ -159,29 +160,29 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///
   /// **params**:
   /// * `context`: The build context
-  /// * `action`: The selected action string from the popup menu
+  /// * `action`: The selected action from the popup menu
   ///
   /// **returns**:
   ///   None
-  void _handleGroupAction(BuildContext context, String action) {
+  void _handleGroupAction(BuildContext context, GroupChatAction action) {
     final chat = currentChat;
     if (chat == null) return;
 
     switch (action) {
-      case 'info':
+      case GroupChatAction.info:
         GroupChatDialogs.showGroupInfo(context, chat);
         break;
-      case 'edit':
+      case GroupChatAction.edit:
         GroupChatDialogs.showEditGroupDialog(context, chat, model, chatId);
         break;
-      case 'add_members':
+      case GroupChatAction.addMembers:
         GroupChatDialogs.showAddMembersDialog(
           context,
           model,
           chatId,
         );
         break;
-      case 'manage_members':
+      case GroupChatAction.manageMembers:
         GroupChatDialogs.showManageMembersDialog(
           context,
           model,
@@ -193,10 +194,10 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
         );
         break;
-      case 'delete':
+      case GroupChatAction.delete:
         GroupChatDialogs.showDeleteGroupDialog(context, model, chatId);
         break;
-      case 'leave':
+      case GroupChatAction.leave:
         GroupChatDialogs.showLeaveGroupDialog(context, model, chatId, chat);
         break;
     }
@@ -204,6 +205,10 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get current values from model instead of using static parameters
+    final currentName = model.getGroupDisplayName(chatId);
+    final currentMemberCount = model.getMemberCount(chatId);
+
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -214,14 +219,14 @@ class GroupChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            groupChatName,
+            currentName,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '$memberCount members',
+            '$currentMemberCount members',
             style: const TextStyle(
               fontSize: 12,
               color: Colors.grey,

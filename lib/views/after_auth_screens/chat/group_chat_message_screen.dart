@@ -146,75 +146,73 @@ class _GroupChatMessageScreenState extends State<GroupChatMessageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: GroupChatAppBar(
-        chatId: widget.chatId,
-        model: widget.model,
-        groupChatName: groupChatName,
-        memberCount: memberCount,
-        isCurrentUserAdmin: isCurrentUserAdmin,
-        currentChat: currentChat,
-      ),
-      body: AnimatedBuilder(
-        animation: widget.model,
-        builder: (context, child) {
-          final currentChatState = chatState;
-          final currentMessages = messages;
+    return AnimatedBuilder(
+      animation: widget.model,
+      builder: (context, child) {
+        final currentChatState = chatState;
+        final currentMessages = messages;
 
-          if (currentChatState == ChatState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          return Column(
-            children: [
-              Expanded(
-                child: currentMessages.isEmpty
-                    ? const Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.group_outlined,
-                              size: 64,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'No messages yet',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
+        return Scaffold(
+          appBar: GroupChatAppBar(
+            chatId: widget.chatId,
+            model: widget.model,
+            groupChatName: groupChatName,
+            memberCount: memberCount,
+            isCurrentUserAdmin: isCurrentUserAdmin,
+            currentChat: currentChat,
+          ),
+          body: currentChatState == ChatState.loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    Expanded(
+                      child: currentMessages.isEmpty
+                          ? const Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.group_outlined,
+                                    size: 64,
+                                    color: Colors.grey,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    'No messages yet',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'Start the group conversation!',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
+                            )
+                          : ListView.builder(
+                              controller: _scrollController,
+                              reverse: true,
+                              itemCount: currentMessages.length,
+                              itemBuilder: (context, index) {
+                                final message = currentMessages[
+                                    currentMessages.length - 1 - index];
+                                return Message(message: message);
+                              },
                             ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Start the group conversation!',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : ListView.builder(
-                        controller: _scrollController,
-                        reverse: true,
-                        itemCount: currentMessages.length,
-                        itemBuilder: (context, index) {
-                          final message = currentMessages[
-                              currentMessages.length - 1 - index];
-                          return Message(message: message);
-                        },
-                      ),
-              ),
-              _buildChatInput(),
-            ],
-          );
-        },
-      ),
+                    ),
+                    _buildChatInput(),
+                  ],
+                ),
+        );
+      },
     );
   }
 }

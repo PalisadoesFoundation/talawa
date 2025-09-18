@@ -302,5 +302,12 @@ void main() {
       expect(userSet.contains(user1), false);
       expect(userSet.contains(user3), true);
     });
+
+    test('Set dedupes users with null ids per equality contract', () {
+      final a = User(id: null, firstName: 'A');
+      final b = User(id: null, firstName: 'B');
+      final s = <User>{a, b};
+      expect(s.length, 1);
+    });
   });
 }

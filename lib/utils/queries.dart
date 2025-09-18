@@ -534,7 +534,6 @@ class Queries {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }

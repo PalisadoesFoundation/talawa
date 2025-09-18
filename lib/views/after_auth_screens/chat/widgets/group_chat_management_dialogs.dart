@@ -39,9 +39,9 @@ class GroupChatManagementDialogs {
     // Filter out users who are already members
     final availableMembers = model.getAvailableMembers(chatId);
     if (availableMembers.isEmpty) {
-      navigationService.showTalawaErrorDialog(
+      navigationService.showTalawaErrorSnackBar(
         'No available members to add',
-        MessageType.error,
+        MessageType.warning,
       );
       return;
     }
@@ -207,7 +207,6 @@ class GroupChatManagementDialogs {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child:
                 Text(AppLocalizations.of(context)!.strictTranslate('Delete')),
           ),

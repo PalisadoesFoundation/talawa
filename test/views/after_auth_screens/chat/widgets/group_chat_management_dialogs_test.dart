@@ -118,9 +118,9 @@ void main() {
 
         // Verify error dialog is shown
         verify(
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaErrorSnackBar(
             'No available members to add',
-            MessageType.error,
+            MessageType.warning,
           ),
         ).called(1);
 

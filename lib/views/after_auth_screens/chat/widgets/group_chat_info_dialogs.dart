@@ -4,6 +4,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/time_conversion.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 
 /// Utility class that provides information and basic edit dialog functions for group chat.
@@ -55,7 +56,7 @@ class GroupChatInfoDialogs {
               if (chat.createdAt != null) ...[
                 const SizedBox(height: 8),
                 Text(
-                  'Created: ${chat.createdAt.toString().split(' ')[0]}',
+                  'Created: ${formatLocalCreated(chat.createdAt!)}',
                   style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
@@ -125,7 +126,7 @@ class GroupChatInfoDialogs {
                     .strictTranslate('Description'),
                 border: const OutlineInputBorder(),
               ),
-              maxLines: 3,
+              maxLines: 2,
               maxLength: 200,
             ),
           ],
@@ -159,12 +160,7 @@ class GroupChatInfoDialogs {
                     newDescription.isNotEmpty ? newDescription : null,
               );
 
-              if (success) {
-                navigationService.showTalawaErrorSnackBar(
-                  'Group updated successfully',
-                  MessageType.info,
-                );
-              } else {
+              if (!success) {
                 navigationService.showTalawaErrorSnackBar(
                   'Failed to update group',
                   MessageType.error,

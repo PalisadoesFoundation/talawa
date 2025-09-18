@@ -16,14 +16,6 @@ import 'chat_service_test.mocks.dart';
 
 @GenerateMocks([ChatCoreService, ChatMembershipService, ChatMessageService])
 void main() {
-  setUp(() {
-    registerServices();
-  });
-
-  tearDown(() {
-    unregisterServices();
-  });
-
   group('ChatService Delegation Tests', () {
     late MockChatCoreService mockCoreService;
     late MockChatMembershipService mockMembershipService;
@@ -537,6 +529,13 @@ void main() {
   });
 
   group('ChatService Default Behavior', () {
+    setUp(() {
+      registerServices();
+    });
+
+    tearDown(() {
+      unregisterServices();
+    });
     test('ChatService works without injected dependencies', () {
       // Test that the service can be created with default implementations
       final defaultChatService = ChatService();

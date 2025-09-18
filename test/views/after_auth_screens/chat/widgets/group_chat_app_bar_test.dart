@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/chats/chat.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/router.dart' as router;
@@ -61,6 +62,11 @@ void main() {
   setUp(() {
     reset(groupChatViewModel);
     reset(navigationService);
+
+    // Set up default mocks for dynamic methods used by AppBar
+    when(groupChatViewModel.getGroupDisplayName('chat1'))
+        .thenReturn('Test Group');
+    when(groupChatViewModel.getMemberCount('chat1')).thenReturn(3);
   });
 
   group('GroupChatAppBar Tests', () {
@@ -70,6 +76,11 @@ void main() {
         const chatId = 'chat1';
         const groupName = 'My Test Group';
         const memberCount = 5;
+
+        // Mock the dynamic methods that the AppBar now uses
+        when(groupChatViewModel.getGroupDisplayName(chatId))
+            .thenReturn(groupName);
+        when(groupChatViewModel.getMemberCount(chatId)).thenReturn(memberCount);
 
         await tester.pumpWidget(
           createGroupChatAppBarTestWidget(
@@ -152,7 +163,7 @@ void main() {
         await tester.pump();
 
         // Look for PopupMenuButton instead of icon directly
-        expect(find.byType(PopupMenuButton<String>), findsOneWidget);
+        expect(find.byType(PopupMenuButton<GroupChatAction>), findsOneWidget);
 
         // Alternative: look within AppBar actions
         final moreButton = find.descendant(

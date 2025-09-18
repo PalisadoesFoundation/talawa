@@ -20,6 +20,7 @@ class SelectContact extends StatefulWidget {
 
 /// _SelectContactState returns a widget that renders the list of the users that current user can chat with.
 class _SelectContactState extends State<SelectContact> {
+  bool _creating = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,15 +74,19 @@ class _SelectContactState extends State<SelectContact> {
               return Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: ListTile(
+                  enabled: !_creating,
                   key: Key('select_contact_gesture_$index'),
                   onTap: () async {
+                    if (_creating) return;
+                    setState(() {
+                      _creating = true;
+                    });
                     try {
                       // Create chat with selected user
                       final chatId = await model.createChatWithUser(user);
 
-                      log('Chat created with ID: $chatId');
-
                       if (chatId != null) {
+                        log('Chat created with ID: $chatId');
                         // Get the DirectChatViewModel instance and ensure it's initialized
                         final directChatViewModel =
                             locator<DirectChatViewModel>();
@@ -107,6 +112,12 @@ class _SelectContactState extends State<SelectContact> {
                         'Error: $e',
                         MessageType.error,
                       );
+                    } finally {
+                      if (mounted) {
+                        setState(() {
+                          _creating = false;
+                        });
+                      }
                     }
                   },
                   leading: CircleAvatar(

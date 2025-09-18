@@ -10,6 +10,8 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/group_chat_manageme
 /// - GroupChatInfoDialogs: For information and basic editing
 /// - GroupChatManagementDialogs: For complex management operations
 class GroupChatDialogs {
+  const GroupChatDialogs._();
+
   /// Shows group information dialog.
   ///
   /// **params**:
