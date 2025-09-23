@@ -267,7 +267,11 @@ void main() {
       );
 
       // Tap Remove button in confirmation dialog
-      await tester.tap(find.widgetWithText(TextButton, 'Remove'));
+      final removeButton = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.widgetWithText(TextButton, 'Remove'),
+      );
+      await tester.tap(removeButton);
       await tester.pumpAndSettle();
 
       // Verify removal was called
@@ -338,7 +342,11 @@ void main() {
       );
 
       // Tap OK button
-      await tester.tap(find.widgetWithText(TextButton, 'OK'));
+      final okButton = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.widgetWithText(TextButton, 'OK'),
+      );
+      await tester.tap(okButton);
       await tester.pumpAndSettle();
 
       // Verify removal was not called
@@ -483,6 +491,52 @@ void main() {
 
     testWidgets('should display member avatars correctly',
         (WidgetTester tester) async {
+      await mockNetworkImages(() async {
+        final mockMembers = [
+          {
+            'id': 'user1',
+            'firstName': 'John',
+            'image': 'https://example.com/avatar1.jpg',
+          },
+          {
+            'id': 'user2',
+            'name':
+                'Jane Smith', // Testing name fallback when firstName is null
+            'firstName': null,
+            'image': null,
+          },
+        ];
+
+        when(
+          mockGroupChatViewModel.fetchGroupMembers(
+            chatId: 'chat123',
+            limit: 32,
+          ),
+        ).thenAnswer((_) async => mockMembers);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: ManageMembersDialog(
+              chatId: 'chat123',
+              model: mockGroupChatViewModel,
+              chat: mockChat,
+              userConfig: mockUserConfig,
+              onMemberRemoved: () {},
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        // Verify both members are displayed
+        expect(find.text('John'), findsOneWidget);
+        expect(find.text('Jane Smith'), findsOneWidget); // Tests name fallback
+        expect(find.byType(CircleAvatar), findsNWidgets(2));
+      });
+    });
+
+    testWidgets('should display member avatars with different scenarios',
+        (WidgetTester tester) async {
       await mockNetworkImages(
         () async {
           final mockMembers = [
@@ -622,17 +676,16 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap Cancel button in confirmation dialog
-      await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+      final cancelButton = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.widgetWithText(TextButton, 'Cancel'),
+      );
+      await tester.tap(cancelButton);
       await tester.pumpAndSettle();
 
-      // Verify removal was not called
-      verifyNever(
-        mockGroupChatViewModel.removeGroupMember(
-          chatId: 'any',
-          memberId: 'any',
-          chat: mockChat,
-        ),
-      );
+      // Verify we're back to the main dialog (not the confirmation dialog)
+      expect(find.text('Manage Members'), findsOneWidget);
+      expect(find.text('Are you sure you want to remove'), findsNothing);
     });
   });
 }

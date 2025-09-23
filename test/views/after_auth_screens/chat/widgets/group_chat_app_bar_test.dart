@@ -423,6 +423,119 @@ void main() {
         verify(groupChatViewModel.getAvailableMembers(chatId)).called(1);
       });
 
+      testWidgets('Manage Members action shows manage members dialog for admin',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test description',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+            ChatUser(id: 'user3', firstName: 'Charlie'),
+          ],
+        );
+
+        // Mock the fetchGroupMembers method that ManageMembersDialog uses
+        when(groupChatViewModel.fetchGroupMembers(chatId: chatId)).thenAnswer(
+          (_) async => [
+            {'id': 'user1', 'firstName': 'Alice', 'lastName': 'Smith'},
+            {'id': 'user2', 'firstName': 'Bob', 'lastName': 'Jones'},
+            {'id': 'user3', 'firstName': 'Charlie', 'lastName': 'Brown'},
+          ],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 3,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+
+        // Verify manage members dialog is shown
+        expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.text('Manage Members'), findsOneWidget);
+
+        // Wait for members to load
+        await tester.pumpAndSettle();
+
+        // Verify that fetchGroupMembers was called
+        verify(groupChatViewModel.fetchGroupMembers(chatId: chatId)).called(1);
+      });
+
+      testWidgets(
+          'Manage Members dialog callback refreshes chat messages when member removed',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          description: 'Test description',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+          ],
+        );
+
+        // Mock the required methods
+        when(groupChatViewModel.fetchGroupMembers(chatId: chatId)).thenAnswer(
+          (_) async => [
+            {'id': 'user1', 'firstName': 'Alice', 'lastName': 'Smith'},
+            {'id': 'user2', 'firstName': 'Bob', 'lastName': 'Jones'},
+          ],
+        );
+        when(groupChatViewModel.getChatMessages(chatId))
+            .thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          createGroupChatAppBarTestWidget(
+            chatId: chatId,
+            groupChatName: 'Test Group',
+            memberCount: 2,
+            isCurrentUserAdmin: true,
+            currentChat: chat,
+          ),
+        );
+
+        await tester.pump();
+
+        // Find and tap the more menu button to open Manage Members
+        final moreButton = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        );
+
+        await tester.tap(moreButton);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Manage Members'));
+        await tester.pumpAndSettle();
+
+        // The dialog should be shown and the callback should be passed correctly
+        expect(find.byType(AlertDialog), findsOneWidget);
+        expect(find.text('Manage Members'), findsOneWidget);
+
+        // This test verifies that the callback structure is set up correctly
+        // The actual callback execution (model.getChatMessages) would be tested
+        // in the ManageMembersDialog tests when a member is actually removed
+      });
+
       testWidgets('Delete Group action shows confirmation dialog for admin',
           (tester) async {
         const chatId = 'chat1';

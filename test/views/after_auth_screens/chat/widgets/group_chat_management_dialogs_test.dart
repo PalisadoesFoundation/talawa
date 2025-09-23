@@ -89,6 +89,71 @@ void main() {
         expect(find.byType(AddGroupChatMembersDialog), findsOneWidget);
       });
 
+      testWidgets('onMembersSelected callback executes addSelectedMembers',
+          (tester) async {
+        const chatId = 'chat1';
+        final availableMembers = [
+          User(id: 'user1', firstName: 'Alice', lastName: 'Smith'),
+          User(id: 'user2', firstName: 'Bob', lastName: 'Jones'),
+        ];
+
+        when(groupChatViewModel.getAvailableMembers(chatId))
+            .thenReturn(availableMembers);
+
+        // Mock the addGroupMember calls
+        when(
+          groupChatViewModel.addGroupMember(
+            chatId: chatId,
+            userId: 'user1',
+          ),
+        ).thenAnswer((_) async => true);
+
+        when(groupChatViewModel.getChatMessages(chatId))
+            .thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          createGroupChatManagementDialogsTestWidget(
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () =>
+                    GroupChatManagementDialogs.showAddMembersDialog(
+                  context,
+                  groupChatViewModel,
+                  chatId,
+                ),
+                child: const Text('Add Members'),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Tap button to show dialog
+        await tester.tap(find.text('Add Members'));
+        await tester.pumpAndSettle();
+
+        // Verify dialog is shown
+        expect(find.byType(AddGroupChatMembersDialog), findsOneWidget);
+
+        // Simulate onMembersSelected callback by finding and interacting with the dialog
+        // This should trigger the callback which calls addSelectedMembers
+        final dialog = tester.widget<AddGroupChatMembersDialog>(
+          find.byType(AddGroupChatMembersDialog),
+        );
+
+        // Trigger the callback manually to cover the line
+        dialog.onMembersSelected([availableMembers.first]);
+        await tester.pumpAndSettle();
+
+        // Verify that addGroupMember was called (which happens in addSelectedMembers)
+        verify(
+          groupChatViewModel.addGroupMember(
+            chatId: chatId,
+            userId: 'user1',
+          ),
+        ).called(1);
+      });
+
       testWidgets('Shows error when no available members exist',
           (tester) async {
         const chatId = 'chat1';
@@ -209,6 +274,48 @@ void main() {
         );
         expect(find.text('Cancel'), findsOneWidget);
         expect(find.text('Delete'), findsOneWidget);
+      });
+
+      testWidgets('Cancel button in delete dialog calls Navigator.pop',
+          (tester) async {
+        const chatId = 'chat1';
+
+        await tester.pumpWidget(
+          createGroupChatManagementDialogsTestWidget(
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () =>
+                    GroupChatManagementDialogs.showDeleteGroupDialog(
+                  context,
+                  groupChatViewModel,
+                  chatId,
+                ),
+                child: const Text('Delete Group'),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Show dialog
+        await tester.tap(find.text('Delete Group'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AlertDialog), findsOneWidget);
+
+        // Find the Cancel TextButton specifically and tap it
+        final cancelButton = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.widgetWithText(TextButton, 'Cancel'),
+        );
+        expect(cancelButton, findsOneWidget);
+        await tester.tap(cancelButton);
+        await tester.pumpAndSettle();
+
+        // Dialog should be closed
+        expect(find.byType(AlertDialog), findsNothing);
+        // Verify deleteGroupChat was not called
+        verifyZeroInteractions(groupChatViewModel);
       });
 
       testWidgets('Cancel button closes dialog without action', (tester) async {
@@ -447,6 +554,60 @@ void main() {
         );
         expect(find.text('Cancel'), findsOneWidget);
         expect(find.text('Leave'), findsOneWidget);
+      });
+
+      testWidgets('Cancel button in leave dialog calls Navigator.pop',
+          (tester) async {
+        const chatId = 'chat1';
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [
+            ChatUser(id: 'user1', firstName: 'Alice'),
+            ChatUser(id: 'user2', firstName: 'Bob'),
+            ChatUser(id: 'user3', firstName: 'Charlie'),
+            ChatUser(id: 'user4', firstName: 'Dave'),
+          ],
+        );
+
+        await tester.pumpWidget(
+          createGroupChatManagementDialogsTestWidget(
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () =>
+                    GroupChatManagementDialogs.showLeaveGroupDialog(
+                  context,
+                  groupChatViewModel,
+                  chatId,
+                  chat,
+                ),
+                child: const Text('Leave Group'),
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        // Show dialog
+        await tester.tap(find.text('Leave Group'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AlertDialog), findsOneWidget);
+
+        // Find the Cancel TextButton specifically and tap it
+        final cancelButton = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.widgetWithText(TextButton, 'Cancel'),
+        );
+        expect(cancelButton, findsOneWidget);
+        await tester.tap(cancelButton);
+        await tester.pumpAndSettle();
+
+        // Dialog should be closed
+        expect(find.byType(AlertDialog), findsNothing);
+        // Verify leaveGroupChat was not called
+        verifyZeroInteractions(groupChatViewModel);
       });
 
       testWidgets('Leave button calls leaveGroupChat on success',

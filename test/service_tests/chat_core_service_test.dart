@@ -214,6 +214,95 @@ void main() {
         expect(result, isEmpty);
       });
 
+      test('returns empty list when auth token is null', () async {
+        when(mockUserConfig.currentUser).thenReturn(
+          User(
+            id: 'user123',
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@example.com',
+            authToken: null,
+          ),
+        );
+
+        final result = await chatCoreService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list when auth token is empty', () async {
+        when(mockUserConfig.currentUser).thenReturn(
+          User(
+            id: 'user123',
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@example.com',
+            authToken: '',
+          ),
+        );
+
+        final result = await chatCoreService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list on authentication exception', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+            exception: OperationException(
+              graphqlErrors: [
+                const GraphQLError(message: 'You must be authenticated'),
+              ],
+            ),
+          ),
+        );
+
+        final result = await chatCoreService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list when data is null', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: null,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatCoreService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
+      test('returns empty list when chatsByUser is null', () async {
+        final query = ChatQueries().chatsByUser();
+        when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'chatsByUser': null,
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        final result = await chatCoreService.getChatsByUser();
+
+        expect(result, isNotNull);
+        expect(result, isEmpty);
+      });
+
       test('shows error dialog on non-authentication exception', () async {
         final query = ChatQueries().chatsByUser();
         when(mockDataBaseMutationFunctions.gqlAuthQuery(query)).thenAnswer(

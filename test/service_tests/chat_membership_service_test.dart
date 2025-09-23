@@ -376,6 +376,52 @@ void main() {
         expect(membersData['edges'], hasLength(2));
       });
 
+      test('covers all pagination parameters', () async {
+        final query = ChatQueries().fetchChatMembers();
+        const chatId = 'chat123';
+
+        when(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: {
+              'chat': {
+                'id': chatId,
+                'members': {'edges': []},
+              },
+            },
+            source: QueryResultSource.network,
+          ),
+        );
+
+        // Test with all pagination parameters to cover the conditional lines
+        await chatMembershipService.fetchChatMembers(
+          chatId: chatId,
+          first: 10,
+          last: 5,
+          after: 'cursor1',
+          before: 'cursor2',
+        );
+
+        // Verify the call was made with all parameters
+        verify(
+          mockDataBaseMutationFunctions.gqlAuthQuery(
+            query,
+            variables: {
+              'input': {'id': chatId},
+              'first': 10,
+              'last': 5,
+              'after': 'cursor1',
+              'before': 'cursor2',
+            },
+          ),
+        ).called(1);
+      });
+
       test('returns null on GraphQL exception', () async {
         final query = ChatQueries().fetchChatMembers();
         when(

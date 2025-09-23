@@ -576,6 +576,114 @@ void main() {
         expect(model.chatState, ChatState.complete);
       });
 
+      test('should handle creator addition failure during group creation',
+          () async {
+        const chatId = 'group1';
+        const groupName = 'Test Group';
+        const memberIds = ['user2', 'user3'];
+
+        final mockChat = Chat(
+          id: chatId,
+          name: groupName,
+          members: [],
+        );
+
+        // Mock successful chat creation but failed creator addition
+        when(mockChatService.createChat(name: groupName, description: null))
+            .thenAnswer((_) async => mockChat);
+
+        when(
+          mockChatService.createChatMembership(
+            chatId: chatId,
+            userId: 'current_user_id',
+          ),
+        ).thenAnswer((_) async => false); // Creator addition fails
+
+        when(mockUserConfig.currentUser).thenReturn(
+          User(id: 'current_user_id', firstName: 'Current'),
+        );
+
+        final result = await model.createGroupChat(
+          groupName: groupName,
+          memberIds: memberIds,
+        );
+
+        // Should still return the chat even if creator addition fails (debugPrint is logged)
+        expect(result, isNotNull);
+        expect(result?.id, chatId);
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.createChatMembership(
+            chatId: chatId,
+            userId: 'current_user_id',
+          ),
+        ).called(1);
+      });
+
+      test('should handle member addition failure during group creation',
+          () async {
+        const chatId = 'group1';
+        const groupName = 'Test Group';
+        const memberIds = ['user2', 'user3'];
+
+        final mockChat = Chat(
+          id: chatId,
+          name: groupName,
+          members: [],
+        );
+
+        when(mockChatService.createChat(name: groupName, description: null))
+            .thenAnswer((_) async => mockChat);
+
+        when(mockUserConfig.currentUser).thenReturn(
+          User(id: 'current_user_id', firstName: 'Current'),
+        );
+
+        // Mock successful creator addition but failed member addition
+        when(
+          mockChatService.createChatMembership(
+            chatId: chatId,
+            userId: 'current_user_id',
+          ),
+        ).thenAnswer((_) async => true);
+
+        when(
+          mockChatService.createChatMembership(
+            chatId: chatId,
+            userId: 'user2',
+          ),
+        ).thenAnswer((_) async => false); // Member addition fails
+
+        final result = await model.createGroupChat(
+          groupName: groupName,
+          memberIds: memberIds,
+        );
+
+        // Should still return the chat even if some member additions fail
+        expect(result, isNotNull);
+        expect(result?.id, chatId);
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.createChatMembership(
+            chatId: chatId,
+            userId: 'user2',
+          ),
+        ).called(1);
+      });
+
+      test('should handle delete group chat error', () async {
+        const chatId = 'group1';
+
+        when(mockChatService.deleteChat(chatId))
+            .thenThrow(Exception('Network error'));
+
+        final result = await model.deleteGroupChat(chatId);
+
+        expect(result, false);
+        expect(model.chatState, ChatState.complete);
+        verify(mockChatService.deleteChat(chatId)).called(1);
+      });
+
       test('should delete group chat successfully', () async {
         const chatId = 'group1';
         final groupChat = ChatListTileDataModel(
@@ -886,6 +994,174 @@ void main() {
           mockChatService.removeChatMember(
             chatId: chatId,
             memberId: currentUserId,
+          ),
+        ).called(1);
+      });
+
+      test('should handle add member error', () async {
+        const chatId = 'group1';
+        const userId = 'user2';
+
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          members: [ChatUser(id: 'user1', firstName: 'User1')],
+        );
+
+        final chatTile = ChatListTileDataModel(
+          id: chatId,
+          users: [],
+          chat: chat,
+        );
+        model.groupChats.add(chatTile);
+
+        when(mockChatService.addChatMember(chatId: chatId, userId: userId))
+            .thenThrow(Exception('Network error'));
+
+        final result =
+            await model.addGroupMember(chatId: chatId, userId: userId);
+
+        expect(result, false);
+        expect(model.chatState, ChatState.complete);
+        verify(mockChatService.addChatMember(chatId: chatId, userId: userId))
+            .called(1);
+      });
+
+      test('should handle remove member error', () async {
+        const chatId = 'group1';
+        const memberId = 'user2';
+        const currentUserId = 'user1';
+
+        when(mockUserConfig.currentUser)
+            .thenReturn(User(id: currentUserId, firstName: 'User1'));
+
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          creator: ChatUser(id: currentUserId, firstName: 'User1'),
+          members: [
+            ChatUser(id: 'user1', firstName: 'User1'),
+            ChatUser(id: 'user2', firstName: 'User2'),
+            ChatUser(id: 'user3', firstName: 'User3'),
+            ChatUser(id: 'user4', firstName: 'User4'),
+          ],
+        );
+
+        when(
+          mockChatService.removeChatMember(
+            chatId: chatId,
+            memberId: memberId,
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        final result = await model.removeGroupMember(
+          chatId: chatId,
+          chat: chat,
+          memberId: memberId,
+        );
+
+        expect(result, false);
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.removeChatMember(
+            chatId: chatId,
+            memberId: memberId,
+          ),
+        ).called(1);
+      });
+
+      test('should handle leave group chat error', () async {
+        const chatId = 'group1';
+        const currentUserId = 'user2';
+
+        when(mockUserConfig.currentUser)
+            .thenReturn(User(id: currentUserId, firstName: 'User2'));
+
+        final chat = Chat(
+          id: chatId,
+          name: 'Test Group',
+          creator: ChatUser(
+            id: 'user1',
+            firstName: 'User1',
+          ), // user1 is admin, user2 is not
+          members: [
+            ChatUser(id: 'user1', firstName: 'User1'),
+            ChatUser(id: 'user2', firstName: 'User2'),
+            ChatUser(id: 'user3', firstName: 'User3'),
+            ChatUser(
+              id: 'user4',
+              firstName: 'User4',
+            ), // Need at least 4 members to allow leaving
+          ],
+        );
+
+        when(
+          mockChatService.removeChatMember(
+            chatId: chatId,
+            memberId: currentUserId,
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        final result = await model.leaveGroupChat(chatId, chat);
+
+        expect(result, false);
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.removeChatMember(
+            chatId: chatId,
+            memberId: currentUserId,
+          ),
+        ).called(1);
+      });
+
+      test('should handle update group details error', () async {
+        const chatId = 'group1';
+        const newName = 'New Name';
+        const newDescription = 'New Description';
+
+        when(
+          mockChatService.updateChat(
+            chatId: chatId,
+            newName: newName,
+            newDescription: newDescription,
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        final result = await model.updateGroupDetails(
+          chatId: chatId,
+          newName: newName,
+          newDescription: newDescription,
+        );
+
+        expect(result, false);
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.updateChat(
+            chatId: chatId,
+            newName: newName,
+            newDescription: newDescription,
+          ),
+        ).called(1);
+      });
+
+      test('should handle send message error', () async {
+        const chatId = 'group1';
+        const message = 'Test message';
+
+        when(
+          mockChatService.sendMessage(
+            chatId: chatId,
+            body: message,
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        await model.sendMessageToGroupChat(chatId, message);
+
+        expect(model.chatState, ChatState.complete);
+        verify(
+          mockChatService.sendMessage(
+            chatId: chatId,
+            body: message,
           ),
         ).called(1);
       });

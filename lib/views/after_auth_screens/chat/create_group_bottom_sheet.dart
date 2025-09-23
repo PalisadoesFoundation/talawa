@@ -46,19 +46,19 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
   ///   None
   Future<void> _createGroup() async {
     if (_groupNameController.text.trim().isEmpty) {
-      _showError('Please enter a group name');
+      showError('Please enter a group name');
       return;
     }
 
     if (_selectedMembers.length < 2) {
-      _showError(
+      showError(
         'Please select at least 2 other members (minimum 3 total including you)',
       );
       return;
     }
 
     if (_selectedMembers.length > 99) {
-      _showError('Maximum 99 members allowed (100 including you)');
+      showError('Maximum 99 members allowed (100 including you)');
       return;
     }
 
@@ -73,7 +73,7 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
           .toList();
 
       if (memberIds.length != _selectedMembers.length) {
-        _showError('Some selected members have invalid IDs. Please try again.');
+        showError('Some selected members have invalid IDs. Please try again.');
         return;
       }
 
@@ -101,11 +101,11 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
         }
       } else {
         debugPrint('ERROR: Chat is null');
-        _showError('Failed to create group: Unknown error');
+        showError('Failed to create group: Unknown error');
       }
     } catch (e) {
       debugPrint('EXCEPTION in _createGroup: $e');
-      _showError('Failed to create group: Please try again.');
+      showError('Failed to create group: Please try again.');
     } finally {
       if (mounted) {
         setState(() {
@@ -122,7 +122,7 @@ class _CreateGroupBottomSheetState extends State<CreateGroupBottomSheet> {
   ///
   /// **returns**:
   ///   None
-  void _showError(String message) {
+  void showError(String message) {
     navigationService.showTalawaErrorDialog(
       message,
       MessageType.error,
