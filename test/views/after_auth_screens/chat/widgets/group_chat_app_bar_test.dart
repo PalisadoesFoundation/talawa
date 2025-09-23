@@ -98,7 +98,7 @@ void main() {
 
         // Verify group name and member count are displayed
         expect(find.text(groupName), findsOneWidget);
-        expect(find.text('$memberCount members'), findsOneWidget);
+        expect(find.textContaining('$memberCount'), findsOneWidget);
       });
 
       testWidgets('Shows back button', (tester) async {

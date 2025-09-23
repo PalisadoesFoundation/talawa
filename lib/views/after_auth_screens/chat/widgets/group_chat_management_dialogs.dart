@@ -19,6 +19,8 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/manage_members_dial
 /// - Leave group dialog (non-admin only)
 /// - Member addition logic
 class GroupChatManagementDialogs {
+  const GroupChatManagementDialogs._();
+
   /// Navigation service instance.
   static final navigationService = locator<NavigationService>();
 

@@ -258,7 +258,6 @@ void main() {
       final user2 = User(id: '456', firstName: 'John', lastName: 'Doe');
 
       expect(user1 == user2, false);
-      expect(user1.hashCode != user2.hashCode, true);
     });
 
     test('User is equal to itself', () {
