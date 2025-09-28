@@ -1,12 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/exceptions/critical_action_exception.dart';
-import 'package:talawa/exceptions/graphql_exception_resolver.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/page_info/page_info.dart';
@@ -45,6 +40,8 @@ class PostService extends BaseFeedManager<Post> {
   late OrgInfo _currentOrg;
   final Set<String> _renderedPostID = {};
   List<Post> _posts = [];
+
+  bool _isRefreshing = false;
 
   /// Object to hold pagination information for posts. It contains information like `after`, `before`, `first`, and `last`.
   PageInfo pageInfo = PageInfo(
@@ -89,6 +86,7 @@ class PostService extends BaseFeedManager<Post> {
       'after': after,
       'before': before,
       'last': last,
+      'userId': _userConfig.currentUser.id,
     };
     final result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
     //Checking if the dbFunctions return the postJSON, if not return.
@@ -111,38 +109,9 @@ class PostService extends BaseFeedManager<Post> {
       // Fetch presigned URL for attachments if they exist
       await post.getPresignedUrl(userConfig.currentOrg.id);
 
-      // Fetch and set user's vote status for the post
-      await fetchAndSetUserVoteStatus(post);
-
       newPosts.insert(0, post);
     }
     return newPosts;
-  }
-
-  /// Method to fetch and set the user's vote status for a post.
-  ///
-  /// **params**:
-  /// * `post`: The post for which the user's vote status is to be fetched.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> fetchAndSetUserVoteStatus(Post post) async {
-    final query = PostQueries().hasUserVoted();
-    final variables = {'postId': post.id};
-
-    final QueryResult<Object?> result;
-    try {
-      result = await _dbFunctions.gqlAuthQuery(query, variables: variables);
-    } catch (e) {
-      // Handle the exception, e.g., log it or show an error message
-      debugPrint('Error fetching user vote status: $e');
-      return;
-    }
-    if (result.data != null && result.data!['hasUserVoted'] != null) {
-      final voteData = result.data!['hasUserVoted'] as Map<String, dynamic>;
-      post.hasVoted = voteData['hasVoted'] as bool? ?? false;
-      post.voteType = voteData['voteType'] as String?;
-    }
   }
 
   ///This method sets up a stream that constantly listens to change in current org.
@@ -155,12 +124,7 @@ class PostService extends BaseFeedManager<Post> {
   void setOrgStreamSubscription() {
     _userConfig.currentOrgInfoStream.listen((updatedOrganization) async {
       if (updatedOrganization != _currentOrg) {
-        databaseFunctions.clearGraphQLCache();
         _currentOrg = updatedOrganization;
-        _posts.clear();
-        _renderedPostID.clear();
-
-        await refreshFeed();
       }
     });
   }
@@ -178,19 +142,57 @@ class PostService extends BaseFeedManager<Post> {
     refreshFeed();
   }
 
-  /// Method used to fetch all posts of the current organisation.
+  /// Method to toggle upvote on a post.
   ///
   /// **params**:
-  ///   None
+  /// * `post`: post for which vote needs to be updated
   ///
   /// **returns**:
   ///   None
-  Future<void> getPosts() async {
-    final List<Post> newPosts = await getNewFeedAndRefreshCache();
-    _posts.addAll(newPosts);
-    _renderedPostID.addAll(newPosts.map((post) => post.id ?? ''));
-    _postStreamController.add(_posts);
-    saveDataToCache(_posts);
+  Future<void> toggleUpVote(Post post) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (!(post.hasVoted == true && post.voteType == 'up_vote')) {
+        // Add upvote (or change from downvote to upvote)
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': 'up_vote',
+        };
+
+        await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+      }
+    } catch (e) {
+      print('Error toggling upvote: $e');
+    }
+  }
+
+  /// Method to toggle downvote on a post.
+  ///
+  /// **params**:
+  /// * `post`: post for which vote needs to be updated
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleDownVote(Post post) async {
+    try {
+      String mutation;
+      Map<String, dynamic> variables;
+
+      if (!(post.hasVoted == true && post.voteType == 'down_vote')) {
+        // Add downvote (or change from upvote to downvote)
+        mutation = PostQueries().updateVotePost();
+        variables = {
+          'postId': post.id,
+          'type': 'down_vote',
+        };
+        await _dbFunctions.gqlAuthMutation(mutation, variables: variables);
+      }
+    } catch (e) {
+      print('Error toggling downvote: $e');
+    }
   }
 
   /// Method to refresh feed of current selected organisation.
@@ -201,18 +203,21 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   Future<void> refreshFeed() async {
-    after = null;
-    before = null;
-    first = 5;
-    last = null;
-    final List<Post> newPosts = await getNewFeedAndRefreshCache();
-    _renderedPostID.clear();
-    _posts.clear();
-    _posts = newPosts;
-    GraphqlExceptionResolver.encounteredExceptionOrError(
-      CriticalActionException('Feed refreshed!!!'),
-    );
-    _postStreamController.add(_posts);
+    if (_isRefreshing) return;
+    _isRefreshing = true;
+    try {
+      after = null;
+      before = null;
+      first = 5;
+      last = null;
+      final List<Post> newPosts = await getNewFeedAndRefreshCache();
+      _renderedPostID.clear();
+      _posts.clear();
+      _posts = newPosts;
+      _postStreamController.add(_posts);
+    } finally {
+      _isRefreshing = false;
+    }
   }
 
   ///Method to add newly created post at the very top of the feed.
@@ -272,34 +277,32 @@ class PostService extends BaseFeedManager<Post> {
   /// **returns**:
   ///   None
   Future<void> nextPage() async {
-    if (pageInfo.hasNextPage == true) {
+    if (pageInfo.hasNextPage == true && !_isRefreshing) {
       final nextCursor = pageInfo.endCursor;
       if (nextCursor != null && nextCursor.isNotEmpty) {
-        after = nextCursor;
-        before = null;
-        first = 5;
-        last = null;
-        await getPosts();
-      }
-    }
-  }
+        _isRefreshing = true;
+        try {
+          after = nextCursor;
+          before = null;
+          first = 5;
+          last = null;
 
-  /// Method to handle pagination by fetching previous page of posts.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> previousPage() async {
-    if (pageInfo.hasPreviousPage == true) {
-      final prevCursor = pageInfo.startCursor;
-      if (prevCursor != null && prevCursor.isNotEmpty) {
-        before = prevCursor;
-        after = null;
-        last = 5;
-        first = null;
-        await getPosts();
+          // Fetch new posts without clearing existing ones
+          final List<Post> newPosts = await fetchDataFromApi();
+
+          // Add only new posts that aren't already in the list
+          for (final post in newPosts) {
+            if (!_renderedPostID.contains(post.id)) {
+              _posts.add(post);
+              _renderedPostID.add(post.id ?? '');
+            }
+          }
+
+          _postStreamController.add(_posts);
+          saveDataToCache(_posts);
+        } finally {
+          _isRefreshing = false;
+        }
       }
     }
   }

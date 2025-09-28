@@ -36,7 +36,6 @@ void main() {
         ],
         'commentsCount': 5,
         'upvotesCount': 10,
-        'downvotesCount': 2,
         'hasVoted': true,
         'voteType': 'upvote',
         'isPinned': true,
@@ -53,7 +52,6 @@ void main() {
       expect(post.attachments, isA<List<AttachmentModel>>());
       expect(post.commentsCount, 5);
       expect(post.upvotesCount, 10);
-      expect(post.downvotesCount, 2);
       expect(post.hasVoted, true);
       expect(post.voteType, 'upvote');
       expect(post.isPinned, true);

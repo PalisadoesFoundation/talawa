@@ -20,12 +20,9 @@ class Interactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<InteractionsViewModel>(
-      onModelReady: (model) {
-        model.initialize(post.id);
-      },
       builder: (context, model, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
+        spacing: 12,
         children: [
           Column(
             children: [
@@ -33,10 +30,15 @@ class Interactions extends StatelessWidget {
                 height: (MediaQuery.sizeOf(context).width / 392) * 35,
                 width: (MediaQuery.sizeOf(context).width / 392) * 35,
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.thumb_up_outlined,
-                  ),
-                  onPressed: () {},
+                  icon: post.hasVoted == true && post.voteType == 'up_vote'
+                      ? const Icon(
+                          Icons.thumb_up,
+                          color: Colors.blue,
+                        )
+                      : const Icon(
+                          Icons.thumb_up_outlined,
+                        ),
+                  onPressed: () => model.toggleUpVotePost(post),
                 ),
               ),
               Text(
@@ -53,8 +55,15 @@ class Interactions extends StatelessWidget {
                 height: (MediaQuery.sizeOf(context).width / 392) * 35,
                 width: (MediaQuery.sizeOf(context).width / 392) * 35,
                 child: IconButton(
-                  icon: const Icon(Icons.thumb_down_outlined),
-                  onPressed: () {},
+                  icon: post.hasVoted == true && post.voteType == 'down_vote'
+                      ? const Icon(
+                          Icons.thumb_down,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.thumb_down_outlined,
+                        ),
+                  onPressed: () => model.toggleDownVotePost(post),
                 ),
               ),
               Text(

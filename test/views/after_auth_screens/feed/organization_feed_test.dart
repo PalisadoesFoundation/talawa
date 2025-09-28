@@ -170,7 +170,7 @@ void main() {
       await tester.pump();
 
       bool refreshed = false;
-      when(mockViewModel.fetchNewPosts()).thenAnswer((_) {
+      when(mockViewModel.refreshPosts()).thenAnswer((_) async {
         refreshed = true;
         return Future.delayed(Duration.zero);
       });
@@ -258,7 +258,7 @@ void main() {
           .thenReturn([post, post, post, post, post, post]);
       when(mockViewModel.pinnedPosts).thenReturn([post]);
       bool nextPageCalled = false;
-      when(mockViewModel.nextPage()).thenAnswer((_) {
+      when(mockViewModel.nextPage()).thenAnswer((_) async {
         nextPageCalled = true;
       });
 
@@ -266,19 +266,15 @@ void main() {
       await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
       await tester.pumpAndSettle();
 
+      // Scroll to bottom to trigger nextPage
       await tester.drag(
         find.byKey(const Key('listView')),
-        const Offset(0, 10),
+        const Offset(0, -800), // Scroll up (negative Y) to reach bottom
       );
-
-      await tester.drag(
-        find.byKey(const Key('listView')),
-        const Offset(10, 20),
-      );
+      await tester.pumpAndSettle();
 
       expect(nextPageCalled, true);
       verify(mockViewModel.nextPage()).called(1);
-      verify(mockViewModel.previousPage()).called(1);
     });
 
     testWidgets('check if FloatingActionButton click works fine',
@@ -298,27 +294,80 @@ void main() {
       verify(locator<NavigationService>().pushScreen('/addpostscreen'));
     });
 
-    testWidgets(
-        'check if counters reset when scrolling occurs anywhere other than at the edge',
+    testWidgets('check if scroll within content does not trigger nextPage',
         (tester) async {
       // Arrange
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
       when(mockViewModel.posts)
           .thenReturn([post, post, post, post, post, post]);
+      when(mockViewModel.pinnedPosts).thenReturn([post]);
+
       final model = locator<MainScreenViewModel>();
       await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
       await tester.pumpAndSettle();
 
-      // Simulate Scroll within content (not at edge)
+      // Simulate Scroll within content (not at bottom edge)
       await tester.drag(
         find.byKey(const Key('listView')),
         const Offset(0, -200),
       );
       await tester.pumpAndSettle();
 
-      // Verify that counters are reset and loading state
-      expect(find.byType(CircularProgressIndicator), findsNothing);
+      // Verify that nextPage is not called for mid-scroll
       verifyNever(mockViewModel.nextPage());
-      verifyNever(mockViewModel.previousPage());
+    });
+
+    testWidgets('check if scroll triggers nextPage method call',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.posts)
+          .thenReturn([post, post, post, post, post, post]);
+      when(mockViewModel.pinnedPosts).thenReturn([post]);
+
+      when(mockViewModel.nextPage()).thenAnswer((_) async {});
+
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pumpAndSettle();
+
+      // Scroll down to trigger pagination
+      await tester.drag(
+        find.byKey(const Key('listView')),
+        const Offset(0, -800),
+      );
+      await tester.pumpAndSettle();
+
+      // Verify nextPage was called
+      verify(mockViewModel.nextPage()).called(1);
+    });
+
+    testWidgets('check if widget renders correctly with empty posts',
+        (tester) async {
+      when(mockViewModel.currentOrgName).thenReturn('testOrg');
+      when(mockViewModel.isFetchingPosts).thenReturn(false);
+      when(mockViewModel.isBusy).thenReturn(false);
+      when(mockViewModel.initialise()).thenAnswer((_) async {});
+      when(mockViewModel.posts).thenReturn([]);
+      when(mockViewModel.pinnedPosts).thenReturn([]);
+
+      final model = locator<MainScreenViewModel>();
+      await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+      await tester.pumpAndSettle();
+
+      // Verify that the ListView is present
+      expect(find.byKey(const Key('listView')), findsOneWidget);
+
+      // Verify empty state message is shown
+      expect(
+        find.text('There are no posts in this organization'),
+        findsOneWidget,
+      );
     });
   });
 }

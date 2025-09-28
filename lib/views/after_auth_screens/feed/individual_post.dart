@@ -5,6 +5,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/comment_interactions.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
@@ -167,7 +168,10 @@ class IndividualPostCommentSection extends StatelessWidget {
         // Looping through the commentList list,
         for (int i = 0; i < model.commentList.length; i++)
           // renders the custom widget for invidual user.
-          CommentTemplate(comment: model.commentList[i]),
+          CommentTemplate(
+            comment: model.commentList[i],
+            model: model,
+          ),
         if (model.hasNextPage)
           TextButton(
             onPressed: () => model.fetchNextPage(),
@@ -183,10 +187,14 @@ class CommentTemplate extends StatelessWidget {
   const CommentTemplate({
     super.key,
     required this.comment,
+    required this.model,
   });
 
   /// Instance of comment.
   final Comment comment;
+
+  /// Instance of CommentsViewModel to manage comment interactions.
+  final CommentsViewModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -211,23 +219,29 @@ class CommentTemplate extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(16.0),
             margin: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    "${comment.creator?.firstName} ${comment.creator?.lastName}",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        "${comment.creator?.firstName} ${comment.creator?.lastName}",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                    Text(
+                      comment.body ?? '',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontSize: 16.0),
+                    ),
+                  ],
                 ),
-                Text(
-                  comment.body ?? '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 16.0),
-                ),
+                CommentInteractions(comment: comment),
               ],
             ),
           ),

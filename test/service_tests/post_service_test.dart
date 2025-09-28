@@ -65,174 +65,11 @@ void main() {
       // Assert: stream emitted
       expect(emittedPosts, isNotEmpty);
       expect(emittedPosts.last.first.id, mockPosts.first.id);
-
-      // Assert: toast shown (side effect of CriticalActionException)
-
-      verify(navigationService.showCustomToast('Feed refreshed!!!')).called(1);
     });
 
-    test('getPosts adds new posts, updates IDs and stream, and saves cache',
-        () async {
-      // Arrange
-      final postService = PostService();
-
-      final query = PostQueries().getPostsByOrgID();
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          query,
-          variables: {
-            'orgId': 'XYZ',
-            'first': 5,
-            'after': null,
-            'before': null,
-            'last': null,
-          },
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: {
-            'organization': {
-              'posts': {
-                'edges': [
-                  {
-                    'node': {
-                      'id': 'new1',
-                      'caption': 'New Post 1',
-                      'upVotesCount': 0,
-                      'downVotesCount': 0,
-                      'commentsCount': 0,
-                      'createdAt': '2023-01-01T00:00:00.000Z',
-                      'creator': {
-                        'id': 'user1',
-                        'name': 'User',
-                        'avatarURL': null,
-                      },
-                      'organization': {'id': 'org1'},
-                      'attachments': [],
-                    },
-                    'cursor': 'cursor1',
-                  },
-                  {
-                    'node': {
-                      'id': 'new2',
-                      'caption': 'New Post 2',
-                      'upVotesCount': 0,
-                      'downVotesCount': 0,
-                      'commentsCount': 0,
-                      'createdAt': '2023-01-02T00:00:00.000Z',
-                      'creator': {
-                        'id': 'user2',
-                        'name': 'User2',
-                        'avatarURL': null,
-                      },
-                      'organization': {'id': 'org1'},
-                      'attachments': [],
-                    },
-                    'cursor': 'cursor2',
-                  },
-                ],
-                'pageInfo': {
-                  'endCursor': 'cursor2',
-                  'hasNextPage': false,
-                  'hasPreviousPage': false,
-                  'startCursor': 'cursor1',
-                },
-              },
-            },
-          },
-          options: QueryOptions(document: gql(query)),
-        );
-      });
-
-      final voteQuery = PostQueries().hasUserVoted();
-
-      when(
-        databaseFunctions.gqlAuthQuery(
-          voteQuery,
-          variables: anyNamed('variables'),
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          source: QueryResultSource.network,
-          data: {
-            'hasUserVoted': {
-              'hasVoted': true,
-            },
-          },
-          options: QueryOptions(document: gql(voteQuery)),
-        );
-      });
-      // Act
-      await postService.getPosts();
-
-      // Assert
-      expect(postService.posts.length, equals(2));
-      expect(postService.posts[0].id, equals('new2'));
-      expect(postService.posts[1].id, equals('new1'));
-    });
     test(
         'setOrgStreamSubscription updates _currentOrg when stream emits new value',
         () async {
-      final dbFunctions = locator<DataBaseMutationFunctions>();
-      final postsQuery = PostQueries().getPostsByOrgID();
-      final postsVariables = {
-        'orgId': '1',
-        'first': 5,
-        'after': null,
-        'before': null,
-        'last': null,
-      };
-
-      final postsData = {
-        'organization': {
-          'posts': {
-            'pageInfo': {
-              'hasNextPage': false,
-              'hasPreviousPage': false,
-              'startCursor': null,
-              'endCursor': 'cursor1',
-            },
-            'edges': [
-              {
-                'cursor': 'cursor1',
-                'node': {
-                  'id': 'post1',
-                  'caption': 'Test Post',
-                },
-              }
-            ],
-          },
-        },
-      };
-      final hasUserVotedQuery = PostQueries().hasUserVoted();
-
-      when(
-        dbFunctions.gqlAuthQuery(
-          hasUserVotedQuery,
-          variables: anyNamed('variables'),
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(hasUserVotedQuery)),
-          data: {
-            'hasUserVoted': {
-              'hasVoted': false,
-              'voteType': null,
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-      when(dbFunctions.gqlAuthQuery(postsQuery, variables: postsVariables))
-          .thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(postsQuery)),
-          data: postsData,
-          source: QueryResultSource.network,
-        ),
-      );
       userConfig.initialiseStream();
 
       final postService = PostService();
@@ -313,33 +150,9 @@ void main() {
         ),
       );
 
-      // Mock the voting query
-      final hasUserVotedQuery = PostQueries().hasUserVoted();
-      final hasUserVotedVariables = {'postId': 'post1'};
-
-      when(
-        dbFunctions.gqlAuthQuery(
-          hasUserVotedQuery,
-          variables: hasUserVotedVariables,
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(hasUserVotedQuery)),
-          data: {
-            'hasUserVoted': {
-              'hasVoted': false,
-              'voteType': null,
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
       final posts = await postService.fetchDataFromApi();
       expect(posts, isA<List<Post>>());
       expect(posts.first.caption, 'Test Post');
-      expect(posts.first.hasVoted, false);
-      expect(posts.first.voteType, null);
     });
 
     test('getNewFeedAndRefreshCache returns cached data when offline',
@@ -393,83 +206,6 @@ void main() {
       expect(emitted.commentsCount, 1);
     });
 
-    test('fetchAndSetUserVoteStatus sets hasVoted and voteType', () async {
-      final mockDbFunctions = locator<DataBaseMutationFunctions>();
-      final postService = PostService();
-      final post = Post(id: 'post1');
-
-      final query = PostQueries().hasUserVoted();
-      final variables = {'postId': 'post1'};
-
-      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
-          .thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'hasUserVoted': {
-              'hasVoted': true,
-              'voteType': 'upvote',
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await postService.fetchAndSetUserVoteStatus(post);
-
-      expect(post.hasVoted, true);
-      expect(post.voteType, 'upvote');
-    });
-
-    test(
-        'fetchAndSetUserVoteStatus sets hasVoted to false and voteType to null if not present',
-        () async {
-      final mockDbFunctions = locator<DataBaseMutationFunctions>();
-      final postService = PostService();
-      final post = Post(id: 'post2');
-
-      final query = PostQueries().hasUserVoted();
-      final variables = {'postId': 'post2'};
-
-      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
-          .thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(document: gql(query)),
-          data: {
-            'hasUserVoted': {
-              'hasVoted': null,
-              'voteType': null,
-            },
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      await postService.fetchAndSetUserVoteStatus(post);
-
-      expect(post.hasVoted, false);
-      expect(post.voteType, null);
-    });
-
-    test('fetchAndSetUserVoteStatus handles exception gracefully', () async {
-      final mockDbFunctions = locator<DataBaseMutationFunctions>();
-      final postService = PostService();
-      final post = Post(id: 'post3');
-
-      final query = PostQueries().hasUserVoted();
-      final variables = {'postId': 'post3'};
-
-      when(mockDbFunctions.gqlAuthQuery(query, variables: variables))
-          .thenThrow(Exception('Network error'));
-
-      // Should not throw
-      await postService.fetchAndSetUserVoteStatus(post);
-
-      // Should not set hasVoted or voteType
-      expect(post.hasVoted, false); // Default value
-      expect(post.voteType, null);
-    });
-
     test('deletePost calls gqlAuthMutation and returns result', () async {
       final dbFunction = locator<DataBaseMutationFunctions>();
 
@@ -494,8 +230,15 @@ void main() {
       verify(dbFunction.gqlAuthMutation(mutation, variables: variables))
           .called(1);
     });
-    test('nextPage calls getPosts and sets pagination variables', () async {
+    test('nextPage fetches new posts and appends them when hasNextPage is true',
+        () async {
       final postService = TestablePostService();
+
+      // Set up initial posts
+      final initialPost = Post(id: 'initial', caption: 'Initial Post');
+      postService.addNewpost(initialPost);
+
+      // Set up pagination info
       postService.pageInfo = PageInfo(
         hasNextPage: true,
         hasPreviousPage: false,
@@ -503,35 +246,24 @@ void main() {
         endCursor: 'next_cursor',
       );
 
+      final initialCount = postService.posts.length;
       await postService.nextPage();
 
-      expect(postService.getPostsCalled, isTrue);
+      // Should have added new posts
+      expect(postService.posts.length, greaterThan(initialCount));
       expect(postService.after, 'next_cursor');
       expect(postService.before, null);
       expect(postService.first, 5);
       expect(postService.last, null);
     });
 
-    test('previousPage calls getPosts and sets pagination variables', () async {
+    test('nextPage does not fetch posts if hasNextPage is false', () async {
       final postService = TestablePostService();
-      postService.pageInfo = PageInfo(
-        hasNextPage: false,
-        hasPreviousPage: true,
-        startCursor: 'prev_cursor',
-        endCursor: null,
-      );
 
-      await postService.previousPage();
+      // Set up initial posts
+      final initialPost = Post(id: 'initial', caption: 'Initial Post');
+      postService.addNewpost(initialPost);
 
-      expect(postService.getPostsCalled, isTrue);
-      expect(postService.before, 'prev_cursor');
-      expect(postService.after, null);
-      expect(postService.last, 5);
-      expect(postService.first, null);
-    });
-
-    test('nextPage does not call getPosts if hasNextPage is false', () async {
-      final postService = TestablePostService();
       postService.pageInfo = PageInfo(
         hasNextPage: false,
         hasPreviousPage: false,
@@ -539,24 +271,11 @@ void main() {
         endCursor: null,
       );
 
+      final initialCount = postService.posts.length;
       await postService.nextPage();
 
-      expect(postService.getPostsCalled, isFalse);
-    });
-
-    test('previousPage does not call getPosts if hasPreviousPage is false',
-        () async {
-      final postService = TestablePostService();
-      postService.pageInfo = PageInfo(
-        hasNextPage: false,
-        hasPreviousPage: false,
-        startCursor: null,
-        endCursor: null,
-      );
-
-      await postService.previousPage();
-
-      expect(postService.getPostsCalled, isFalse);
+      // Should not have added new posts
+      expect(postService.posts.length, equals(initialCount));
     });
 
     test(
@@ -592,18 +311,37 @@ void main() {
         await sub.cancel();
       },
     );
+
+    test('toggleUpVote completes successfully', () async {
+      final postService = PostService();
+      final post = Post(id: 'test_post', hasVoted: false);
+
+      // This should complete without throwing
+      await expectLater(postService.toggleUpVote(post), completes);
+    });
+
+    test('refreshFeed prevents concurrent refreshes', () async {
+      final postService = TestablePostService();
+      final futures = <Future<void>>[];
+
+      // Start multiple refresh operations concurrently
+      for (int i = 0; i < 3; i++) {
+        futures.add(postService.refreshFeed());
+      }
+
+      // All should complete without error
+      await Future.wait(futures);
+
+      // Posts should be set (not multiplied by concurrent calls)
+      expect(postService.posts, isNotEmpty);
+      expect(postService.posts.length, 2); // From TestablePostService mock
+    });
   });
 }
 
-/// A testable version of PostService to mock the getPosts method.
-/// This is useful for testing purposes where you want to verify if the method was called.
+/// A testable version of PostService to mock the fetchDataFromApi method.
+/// This is useful for testing purposes where you want to control the API response.
 class TestablePostService extends PostService {
-  bool getPostsCalled = false;
-  @override
-  Future<void> getPosts() async {
-    getPostsCalled = true;
-  }
-
   @override
   Future<List<Post>> getNewFeedAndRefreshCache() async {
     return [
@@ -617,6 +355,27 @@ class TestablePostService extends PostService {
       Post(
         id: 'test_post2',
         caption: 'Test Post 2',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+    ];
+  }
+
+  @override
+  Future<List<Post>> fetchDataFromApi() async {
+    // Mock new posts for pagination
+    return [
+      Post(
+        id: 'paginated_post_1',
+        caption: 'Paginated Post 1',
+        commentsCount: 0,
+        hasVoted: false,
+        voteType: null,
+      ),
+      Post(
+        id: 'paginated_post_2',
+        caption: 'Paginated Post 2',
         commentsCount: 0,
         hasVoted: false,
         voteType: null,

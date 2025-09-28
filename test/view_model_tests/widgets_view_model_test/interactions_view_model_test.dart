@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/models/post/post_model.dart';
-
 import 'package:talawa/view_model/widgets_view_models/interactions_view_model.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -17,43 +16,40 @@ void main() {
     unregisterServices();
   });
 
-  test('initialize sets postID and subscribes to stream', () {
-    final viewModel = InteractionsViewModel();
-    viewModel.initialize('post123');
+  group('InteractionsViewModel Tests', () {
+    test('toggleUpVotePost - should upvote when not voted', () async {
+      // Arrange
+      final model = InteractionsViewModel();
+      final post = Post(
+        id: 'test_post_id',
+        hasVoted: false,
+        upvotesCount: 5,
+      );
 
-    expect(viewModel.postID, 'post123');
-  });
+      // Act
+      await model.toggleUpVotePost(post);
 
-  test('updatePost does not throw when post id matches', () {
-    final viewModel = InteractionsViewModel();
-    viewModel.initialize('post123');
-
-    final post = Post();
-    post.id = 'post123';
-
-    expect(() => viewModel.updatePost(post), returnsNormally);
-  });
-
-  test('dispose cancels the subscription', () {
-    final viewModel = InteractionsViewModel();
-    viewModel.initialize('post123');
-    viewModel.dispose();
-  });
-
-  test('updatePost is called when stream emits', () async {
-    final viewModel = InteractionsViewModel();
-    viewModel.initialize('post123');
-
-    final post = Post();
-    post.id = 'post123';
-
-    var notified = false;
-    viewModel.addListener(() {
-      notified = true;
+      // Assert
+      expect(post.hasVoted, true);
+      expect(post.upvotesCount, 6);
     });
 
-    await Future.delayed(const Duration(milliseconds: 10));
+    test('toggleUpVotePost - should remove upvote when already voted',
+        () async {
+      // Arrange
+      final model = InteractionsViewModel();
+      final post = Post(
+        id: 'test_post_id',
+        hasVoted: true,
+        upvotesCount: 5,
+      );
 
-    expect(notified, isFalse);
+      // Act
+      await model.toggleUpVotePost(post);
+
+      // Assert
+      expect(post.hasVoted, false);
+      expect(post.upvotesCount, 4);
+    });
   });
 }

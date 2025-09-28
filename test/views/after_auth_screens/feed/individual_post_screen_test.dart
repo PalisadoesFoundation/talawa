@@ -44,7 +44,9 @@ Widget createCommentTemplateWidget({
     ],
     home: Scaffold(
       body: CommentTemplate(
+        model: CommentsViewModel(),
         comment: Comment(
+          id: "Test id",
           creator: User(
             id: '123',
             firstName: 'Ayush',

@@ -26,7 +26,7 @@ class Post {
     this.voteType,
     this.isPinned,
     this.pinnedAt,
-    this.hasVoted = false,
+    this.hasVoted,
   });
 
   ///Creating a new Post instance from a map structure.
@@ -52,10 +52,10 @@ class Post {
         ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
         .toList();
     commentsCount = json['commentsCount'] as int?;
-    upvotesCount = json['upvotesCount'] as int?;
-    downvotesCount = json['downvotesCount'] as int?;
-    hasVoted = json['hasVoted'] as bool? ?? false;
-    voteType = json['voteType'] as String?;
+    upvotesCount = json['upVotesCount'] as int?;
+    downvotesCount = json['downVotesCount'] as int?;
+    hasVoted = json["hasUserVoted"]['hasVoted'] as bool?;
+    voteType = json["hasUserVoted"]['voteType'] as String?;
     isPinned = json['isPinned'] as bool?;
     pinnedAt = json['pinnedAt'] != null
         ? DateTime.tryParse(json['pinnedAt'] as String)
@@ -78,42 +78,41 @@ class Post {
   @HiveField(3)
   int? upvotesCount;
 
-  @HiveField(4)
-
-  /// Number of downvotes on the post.
-  int? downvotesCount;
-
   /// Attachments associated with the post.
-  @HiveField(5)
+  @HiveField(4)
   List<AttachmentModel>? attachments;
 
   /// Creation timestamp of the post.
-  @HiveField(6)
+  @HiveField(5)
   DateTime? createdAt;
 
   /// User who created the post.
-  @HiveField(7)
+  @HiveField(6)
   User? creator;
 
   /// Variable to check if post is voted by the user.
-  @HiveField(8)
-  bool hasVoted = false;
+  @HiveField(7)
+  bool? hasVoted;
 
   /// Variable to check the type of vote on the post by the user (if not voted then null).
-  @HiveField(9)
+  @HiveField(8)
   String? voteType;
 
   /// Organization associated with the post.
-  @HiveField(10)
+  @HiveField(9)
   OrgInfo? organization;
 
   /// Variable to check if post is pinned by the user.
-  @HiveField(11)
+  @HiveField(10)
   bool? isPinned;
 
   /// Timestamp when the post was pinned.
-  @HiveField(12)
+  @HiveField(11)
   DateTime? pinnedAt;
+
+  /// Number of downvotes on the post.
+  @HiveField(12)
+  int? downvotesCount;
 
   /// Fallback URL for post attachments.
   static const String fallbackAttachmentUrl =

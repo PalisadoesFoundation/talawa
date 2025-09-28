@@ -14,14 +14,15 @@ class PostQueries {
       \$after: String,
       \$before: String,
       \$first: Int,
-      \$last: Int
+      \$last: Int,
+      \$userId: ID!
     ) {
       organization(input: { id: \$orgId }) {
         posts(
           first: \$first,
           last: \$last,
           after: \$after,
-          before: \$before
+          before: \$before,
         ) {
           edges {
             node {
@@ -31,6 +32,10 @@ class PostQueries {
               downVotesCount
               commentsCount
               createdAt
+              hasUserVoted(userId: \$userId) {
+                hasVoted
+                voteType
+              }
               creator {
                 id
                 name
@@ -56,23 +61,6 @@ class PostQueries {
             startCursor
           }
         }
-      }
-    }
-  ''';
-  }
-
-  /// Query to fetch vote details of a post.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `String`: The query related to fetchingVoteDetails
-  String hasUserVoted() {
-    return '''
-    query HasUserVoted(\$postId: String!) {
-      hasUserVoted(input: { postId: \$postId }) {
-        hasVoted
       }
     }
   ''';
@@ -108,6 +96,25 @@ class PostQueries {
       likePost( id: \$postID,)
       {
         _id
+      }
+    }
+  """;
+  }
+
+  /// Update vote on a post (upvote or downvote, or change vote type).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The mutation for updating vote on a post
+  String updateVotePost() {
+    return """
+     mutation UpdateVotePost(\$postId: ID!, \$type: PostVoteType!) { 
+      updatePostVote(input: { postId: \$postId, type: \$type }) {
+        id
+        upVotesCount
+        downVotesCount
       }
     }
   """;

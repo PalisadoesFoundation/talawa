@@ -97,7 +97,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  Future<void> fetchNewPosts() async {
+  Future<void> refreshPosts() async {
     await Future.wait([
       _postService.refreshFeed(),
       _pinnedPostService.refreshPinnedPosts(),
@@ -149,8 +149,6 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   /// This function initialise `_posts` with `newPosts`.
-  ///
-  /// more_info_if_required
   ///
   /// **params**:
   /// * `newPosts`: new post
@@ -284,18 +282,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// **returns**:
   ///   None
-  void nextPage() {
-    _postService.nextPage();
-  }
-
-  /// Method to fetch previous posts.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  void previousPage() {
-    _postService.previousPage();
+  Future<void> nextPage() async {
+    await _postService.nextPage();
   }
 }

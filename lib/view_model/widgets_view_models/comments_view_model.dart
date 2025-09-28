@@ -4,7 +4,6 @@ import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/page_info/page_info.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/post_service.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// CommentsViewModel class helps to serve the data from model and to react to user's input for Comment Widget.
@@ -24,9 +23,6 @@ class CommentsViewModel extends BaseModel {
 
   /// List of comments on the post.
   late List<Comment> _commentlist;
-
-  /// UserConfig instance.
-  late UserConfig _userConfig;
 
   /// comment list getter.
   List<Comment> get commentList => _commentlist;
@@ -57,7 +53,6 @@ class CommentsViewModel extends BaseModel {
     _commentlist = [];
     _postID = postID;
     _commentService = locator<CommentService>();
-    _userConfig = locator<UserConfig>();
     _postService = locator<PostService>();
     notifyListeners();
     await getComments();
@@ -110,14 +105,43 @@ class CommentsViewModel extends BaseModel {
   /// **returns**:
   ///   None
   Future<void> createComment(String msg) async {
+    Comment? comment;
     await actionHandlerService.performAction(
       actionType: ActionType.optimistic,
       action: () async {
-        await _commentService.createComments(_postID, msg);
+        comment = await _commentService.createComments(_postID, msg);
         return null;
       },
       updateUI: () {
-        addCommentLocally(msg);
+        addCommentLocally(comment);
+      },
+    );
+  }
+
+  /// This function toggle upvote on the comment. The function uses `toggleUpVoteComment` method provided by Comment Service.
+  ///
+  /// **params**:
+  /// * `comment`: The comment to be upvoted or remove upvote.
+  ///
+  /// **returns**:
+  ///   None
+  Future<void> toggleUpVoteComment(Comment comment) async {
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        // await _commentService.toggleUpVoteComment(_postID, isUpvoted);
+        return null;
+      },
+      updateUI: () {
+        comment.upvotesCount = (comment.upvotesCount ?? 0) +
+            (comment.hasVoted != null && comment.hasVoted == true ? -1 : 1);
+
+        if (comment.hasVoted != null && comment.hasVoted == true) {
+          comment.hasVoted = false;
+        } else {
+          comment.hasVoted = true;
+        }
+        notifyListeners();
       },
     );
   }
@@ -125,19 +149,16 @@ class CommentsViewModel extends BaseModel {
   /// This function add comment locally.
   ///
   /// **params**:
-  /// * `msg`: BuildContext, contain parent info
+  /// * `comment`: The comment to add.
   ///
   /// **returns**:
   ///   None
-  void addCommentLocally(String msg) {
+  void addCommentLocally(Comment? comment) {
+    if (comment == null) {
+      return;
+    }
     _postService.addCommentLocally(_postID);
-    final creator = _userConfig.currentUser;
-    final Comment localComment = Comment(
-      body: msg,
-      createdAt: DateTime.now().toString(),
-      creator: creator,
-    );
-    _commentlist.add(localComment);
+    _commentlist.add(comment);
     notifyListeners();
   }
 }

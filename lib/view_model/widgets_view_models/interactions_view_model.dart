@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/post_service.dart';
@@ -15,41 +16,76 @@ import 'package:talawa/view_model/base_view_model.dart';
 class InteractionsViewModel extends BaseModel {
   // Services
   final _postService = locator<PostService>();
-  String? _postID;
 
-  /// Getter of Post ID of the Post.
-  String get postID => _postID ?? '';
-
-  /// Setter of Post ID of the Post.
-  late StreamSubscription _updatePostSubscription;
-
-  /// First function to initialize the ViewModel.
+  /// This function is used to toggle user upvote on post.
   ///
   /// **params**:
-  /// * `postID`: Post Id of the Post
+  /// * `post`: Post to interact with.
   ///
   /// **returns**:
   ///   None
-  void initialize(String? postID) {
-    _postID = postID;
-    _updatePostSubscription =
-        _postService.updatedPostStream.listen((post) => updatePost(post));
+  Future<void> toggleUpVotePost(Post post) async {
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        await _postService.toggleUpVote(post);
+        return null;
+      },
+      updateUI: () {
+        final bool wasUpvoted =
+            post.hasVoted == true && post.voteType == 'up_vote';
+        final bool wasDownvoted =
+            post.hasVoted == true && post.voteType == 'down_vote';
+
+        if (wasDownvoted) {
+          // Change from downvote to upvote
+          post.downvotesCount = (post.downvotesCount ?? 1) - 1;
+          post.upvotesCount = (post.upvotesCount ?? 0) + 1;
+          post.voteType = 'up_vote';
+        } else if (!wasUpvoted && !wasDownvoted) {
+          // Add upvote
+          post.upvotesCount = (post.upvotesCount ?? 0) + 1;
+          post.hasVoted = true;
+          post.voteType = 'up_vote';
+        }
+        notifyListeners();
+      },
+    );
   }
 
-  /// function to update the Post.
+  /// This function is used to toggle user downvote on post.
   ///
   /// **params**:
-  /// * `post`: Post Object
+  /// * `post`: Post to interact with.
   ///
   /// **returns**:
   ///   None
-  void updatePost(Post post) {
-    if (_postID == post.id) {}
-  }
+  Future<void> toggleDownVotePost(Post post) async {
+    await actionHandlerService.performAction(
+      actionType: ActionType.optimistic,
+      action: () async {
+        await _postService.toggleDownVote(post);
+        return null;
+      },
+      updateUI: () {
+        final bool wasUpvoted =
+            post.hasVoted == true && post.voteType == 'up_vote';
+        final bool wasDownvoted =
+            post.hasVoted == true && post.voteType == 'down_vote';
 
-  @override
-  void dispose() {
-    super.dispose();
-    _updatePostSubscription.cancel();
+        if (wasUpvoted) {
+          // Change from upvote to downvote
+          post.upvotesCount = (post.upvotesCount ?? 1) - 1;
+          post.downvotesCount = (post.downvotesCount ?? 0) + 1;
+          post.voteType = 'down_vote';
+        } else if (!wasDownvoted && !wasUpvoted) {
+          // Add downvote
+          post.downvotesCount = (post.downvotesCount ?? 0) + 1;
+          post.hasVoted = true;
+          post.voteType = 'down_vote';
+        }
+        notifyListeners();
+      },
+    );
   }
 }
