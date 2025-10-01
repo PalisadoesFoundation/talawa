@@ -50,7 +50,7 @@ dependencies:
   flutter_svg: ^2.1.0
   font_awesome_flutter: ^10.9.1
   get_it: ^8.2.0
-  graphql_flutter: ^5.2.0-beta.8
+  graphql_flutter: ^5.2.1
   hive: ^2.2.3
   http: ^1.5.0
   image_cropper: 9.1.0
