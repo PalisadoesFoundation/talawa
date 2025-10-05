@@ -9,16 +9,16 @@ import 'dart:ui' as _i11;
 
 import 'package:flutter/material.dart' as _i1;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i12;
-import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i50;
-import 'package:graphql/src/utilities/helpers.dart' as _i49;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i51;
+import 'package:graphql/src/utilities/helpers.dart' as _i50;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i46;
+import 'package:image_cropper/src/cropper.dart' as _i47;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i47;
+    as _i48;
 import 'package:image_picker/image_picker.dart' as _i16;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i21;
-import 'package:normalize/normalize.dart' as _i48;
+import 'package:normalize/normalize.dart' as _i49;
 import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i36;
 import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i37;
 import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i38;
@@ -49,8 +49,10 @@ import 'package:talawa/services/user_config.dart' as _i15;
 import 'package:talawa/utils/validators.dart' as _i35;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
     as _i43;
-import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart'
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart'
     as _i45;
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart'
+    as _i46;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
     as _i41;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
@@ -608,6 +610,15 @@ class MockGraphqlConfig extends _i2.Mock implements _i18.GraphqlConfig {
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
+
+  @override
+  void initializeForTesting(String? apiUrl) => super.noSuchMethod(
+        Invocation.method(
+          #initializeForTesting,
+          [apiUrl],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void getOrgUrl() => super.noSuchMethod(
@@ -1808,29 +1819,6 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
 /// See the documentation for Mockito's code generation for more information.
 class MockChatService extends _i2.Mock implements _i26.ChatService {
   @override
-  Map<String, String?> get beforeCursor => (super.noSuchMethod(
-        Invocation.getter(#beforeCursor),
-        returnValue: <String, String?>{},
-        returnValueForMissingStub: <String, String?>{},
-      ) as Map<String, String?>);
-
-  @override
-  int get messagePageSize => (super.noSuchMethod(
-        Invocation.getter(#messagePageSize),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  set messagePageSize(int? _messagePageSize) => super.noSuchMethod(
-        Invocation.setter(
-          #messagePageSize,
-          _messagePageSize,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i7.Stream<_i27.Chat> get chatListStream => (super.noSuchMethod(
         Invocation.getter(#chatListStream),
         returnValue: _i7.Stream<_i27.Chat>.empty(),
@@ -1863,6 +1851,47 @@ class MockChatService extends _i2.Mock implements _i26.ChatService {
       ) as _i7.Future<_i27.Chat?>);
 
   @override
+  _i7.Future<List<_i27.Chat>> getChatsByUser() => (super.noSuchMethod(
+        Invocation.method(
+          #getChatsByUser,
+          [],
+        ),
+        returnValue: _i7.Future<List<_i27.Chat>>.value(<_i27.Chat>[]),
+        returnValueForMissingStub:
+            _i7.Future<List<_i27.Chat>>.value(<_i27.Chat>[]),
+      ) as _i7.Future<List<_i27.Chat>>);
+
+  @override
+  _i7.Future<bool> deleteChat(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteChat,
+          [chatId],
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> updateChat({
+    required String? chatId,
+    String? newName,
+    String? newDescription,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateChat,
+          [],
+          {
+            #chatId: chatId,
+            #newName: newName,
+            #newDescription: newDescription,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
   _i7.Future<bool> createChatMembership({
     required String? chatId,
     required String? userId,
@@ -1881,14 +1910,64 @@ class MockChatService extends _i2.Mock implements _i26.ChatService {
       ) as _i7.Future<bool>);
 
   @override
-  _i7.Future<List<_i27.Chat>?> getChatsByUser() => (super.noSuchMethod(
+  _i7.Future<bool> addChatMember({
+    required String? chatId,
+    required String? userId,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #getChatsByUser,
+          #addChatMember,
           [],
+          {
+            #chatId: chatId,
+            #userId: userId,
+          },
         ),
-        returnValue: _i7.Future<List<_i27.Chat>?>.value(),
-        returnValueForMissingStub: _i7.Future<List<_i27.Chat>?>.value(),
-      ) as _i7.Future<List<_i27.Chat>?>);
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> removeChatMember({
+    required String? chatId,
+    required String? memberId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeChatMember,
+          [],
+          {
+            #chatId: chatId,
+            #memberId: memberId,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<Map<String, dynamic>?> fetchChatMembers({
+    required String? chatId,
+    int? first,
+    int? last,
+    String? after,
+    String? before,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchChatMembers,
+          [],
+          {
+            #chatId: chatId,
+            #first: first,
+            #last: last,
+            #after: after,
+            #before: before,
+          },
+        ),
+        returnValue: _i7.Future<Map<String, dynamic>?>.value(),
+        returnValueForMissingStub: _i7.Future<Map<String, dynamic>?>.value(),
+      ) as _i7.Future<Map<String, dynamic>?>);
 
   @override
   _i7.Future<_i27.Chat?> getChatDetails(
@@ -4968,11 +5047,428 @@ class MockDirectChatViewModel extends _i2.Mock
       );
 }
 
+/// A class which mocks [GroupChatViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGroupChatViewModel extends _i2.Mock
+    implements _i45.GroupChatViewModel {
+  @override
+  _i15.UserConfig get userConfig => (super.noSuchMethod(
+        Invocation.getter(#userConfig),
+        returnValue: _FakeUserConfig_25(
+          this,
+          Invocation.getter(#userConfig),
+        ),
+        returnValueForMissingStub: _FakeUserConfig_25(
+          this,
+          Invocation.getter(#userConfig),
+        ),
+      ) as _i15.UserConfig);
+
+  @override
+  _i1.GlobalKey<_i1.AnimatedListState> get listKey => (super.noSuchMethod(
+        Invocation.getter(#listKey),
+        returnValue: _FakeGlobalKey_0<_i1.AnimatedListState>(
+          this,
+          Invocation.getter(#listKey),
+        ),
+        returnValueForMissingStub: _FakeGlobalKey_0<_i1.AnimatedListState>(
+          this,
+          Invocation.getter(#listKey),
+        ),
+      ) as _i1.GlobalKey<_i1.AnimatedListState>);
+
+  @override
+  _i17.ChatState get chatState => (super.noSuchMethod(
+        Invocation.getter(#chatState),
+        returnValue: _i17.ChatState.initial,
+        returnValueForMissingStub: _i17.ChatState.initial,
+      ) as _i17.ChatState);
+
+  @override
+  set chatState(_i17.ChatState? _chatState) => super.noSuchMethod(
+        Invocation.setter(
+          #chatState,
+          _chatState,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set name(String? _name) => super.noSuchMethod(
+        Invocation.setter(
+          #name,
+          _name,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<_i44.ChatListTileDataModel> get groupChats => (super.noSuchMethod(
+        Invocation.getter(#groupChats),
+        returnValue: <_i44.ChatListTileDataModel>[],
+        returnValueForMissingStub: <_i44.ChatListTileDataModel>[],
+      ) as List<_i44.ChatListTileDataModel>);
+
+  @override
+  Map<String, List<_i28.ChatMessage>> get chatMessagesByUser =>
+      (super.noSuchMethod(
+        Invocation.getter(#chatMessagesByUser),
+        returnValue: <String, List<_i28.ChatMessage>>{},
+        returnValueForMissingStub: <String, List<_i28.ChatMessage>>{},
+      ) as Map<String, List<_i28.ChatMessage>>);
+
+  @override
+  _i17.ViewState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i17.ViewState.idle,
+        returnValueForMissingStub: _i17.ViewState.idle,
+      ) as _i17.ViewState);
+
+  @override
+  bool get isBusy => (super.noSuchMethod(
+        Invocation.getter(#isBusy),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool isLoadingMoreMessages(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #isLoadingMoreMessages,
+          [chatId],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  void refreshChats() => super.noSuchMethod(
+        Invocation.method(
+          #refreshChats,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Future<void> initialise() => (super.noSuchMethod(
+        Invocation.method(
+          #initialise,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> getChatMessages(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #getChatMessages,
+          [chatId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> loadMoreMessages(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #loadMoreMessages,
+          [chatId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  bool hasMoreMessages(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #hasMoreMessages,
+          [chatId],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i7.Future<void> sendMessageToGroupChat(
+    String? chatId,
+    String? messageText,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendMessageToGroupChat,
+          [
+            chatId,
+            messageText,
+          ],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<_i27.Chat?> createGroupChat({
+    required String? groupName,
+    String? description,
+    required List<String>? memberIds,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createGroupChat,
+          [],
+          {
+            #groupName: groupName,
+            #description: description,
+            #memberIds: memberIds,
+          },
+        ),
+        returnValue: _i7.Future<_i27.Chat?>.value(),
+        returnValueForMissingStub: _i7.Future<_i27.Chat?>.value(),
+      ) as _i7.Future<_i27.Chat?>);
+
+  @override
+  bool isCurrentUserAdmin(_i27.Chat? chat) => (super.noSuchMethod(
+        Invocation.method(
+          #isCurrentUserAdmin,
+          [chat],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i7.Future<bool> deleteGroupChat(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteGroupChat,
+          [chatId],
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> updateGroupDetails({
+    required String? chatId,
+    String? newName,
+    String? newDescription,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateGroupDetails,
+          [],
+          {
+            #chatId: chatId,
+            #newName: newName,
+            #newDescription: newDescription,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> addGroupMember({
+    required String? chatId,
+    required String? userId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addGroupMember,
+          [],
+          {
+            #chatId: chatId,
+            #userId: userId,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> removeGroupMember({
+    required String? chatId,
+    required String? memberId,
+    required _i27.Chat? chat,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeGroupMember,
+          [],
+          {
+            #chatId: chatId,
+            #memberId: memberId,
+            #chat: chat,
+          },
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<bool> leaveGroupChat(
+    String? chatId,
+    _i27.Chat? chat,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveGroupChat,
+          [
+            chatId,
+            chat,
+          ],
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<_i8.User> getAvailableMembers(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #getAvailableMembers,
+          [chatId],
+        ),
+        returnValue: <_i8.User>[],
+        returnValueForMissingStub: <_i8.User>[],
+      ) as List<_i8.User>);
+
+  @override
+  Map<String, dynamic> validateMemberRemoval({
+    required String? chatId,
+    required String? memberId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #validateMemberRemoval,
+          [],
+          {
+            #chatId: chatId,
+            #memberId: memberId,
+          },
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
+  bool isCurrentUserAdminById(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #isCurrentUserAdminById,
+          [chatId],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  int getMemberCount(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #getMemberCount,
+          [chatId],
+        ),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  String getGroupDisplayName(String? chatId) => (super.noSuchMethod(
+        Invocation.method(
+          #getGroupDisplayName,
+          [chatId],
+        ),
+        returnValue: _i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getGroupDisplayName,
+            [chatId],
+          ),
+        ),
+        returnValueForMissingStub: _i21.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getGroupDisplayName,
+            [chatId],
+          ),
+        ),
+      ) as String);
+
+  @override
+  _i7.Future<List<dynamic>?> fetchGroupMembers({
+    required String? chatId,
+    int? limit = 32,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchGroupMembers,
+          [],
+          {
+            #chatId: chatId,
+            #limit: limit,
+          },
+        ),
+        returnValue: _i7.Future<List<dynamic>?>.value(),
+        returnValueForMissingStub: _i7.Future<List<dynamic>?>.value(),
+      ) as _i7.Future<List<dynamic>?>);
+
+  @override
+  void setState(_i17.ViewState? viewState) => super.noSuchMethod(
+        Invocation.method(
+          #setState,
+          [viewState],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i11.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [SelectContactViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSelectContactViewModel extends _i2.Mock
-    implements _i45.SelectContactViewModel {
+    implements _i46.SelectContactViewModel {
   @override
   _i15.UserConfig get userConfig => (super.noSuchMethod(
         Invocation.getter(#userConfig),
@@ -5113,16 +5609,16 @@ class MockSelectContactViewModel extends _i2.Mock
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i46.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i47.ImageCropper {
   @override
-  _i7.Future<_i47.CroppedFile?> cropImage({
+  _i7.Future<_i48.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i47.CropAspectRatio? aspectRatio,
-    _i47.ImageCompressFormat? compressFormat = _i47.ImageCompressFormat.jpg,
+    _i48.CropAspectRatio? aspectRatio,
+    _i48.ImageCompressFormat? compressFormat = _i48.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i47.PlatformUiSettings>? uiSettings,
+    List<_i48.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -5138,19 +5634,19 @@ class MockImageCropper extends _i2.Mock implements _i46.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i7.Future<_i47.CroppedFile?>.value(),
-        returnValueForMissingStub: _i7.Future<_i47.CroppedFile?>.value(),
-      ) as _i7.Future<_i47.CroppedFile?>);
+        returnValue: _i7.Future<_i48.CroppedFile?>.value(),
+        returnValueForMissingStub: _i7.Future<_i48.CroppedFile?>.value(),
+      ) as _i7.Future<_i48.CroppedFile?>);
 
   @override
-  _i7.Future<_i47.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i7.Future<_i48.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i7.Future<_i47.CroppedFile?>.value(),
-        returnValueForMissingStub: _i7.Future<_i47.CroppedFile?>.value(),
-      ) as _i7.Future<_i47.CroppedFile?>);
+        returnValue: _i7.Future<_i48.CroppedFile?>.value(),
+        returnValueForMissingStub: _i7.Future<_i48.CroppedFile?>.value(),
+      ) as _i7.Future<_i48.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].
@@ -5335,11 +5831,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as _i3.PartialDataCachePolicy);
 
   @override
-  Map<String, _i48.TypePolicy> get typePolicies => (super.noSuchMethod(
+  Map<String, _i49.TypePolicy> get typePolicies => (super.noSuchMethod(
         Invocation.getter(#typePolicies),
-        returnValue: <String, _i48.TypePolicy>{},
-        returnValueForMissingStub: <String, _i48.TypePolicy>{},
-      ) as Map<String, _i48.TypePolicy>);
+        returnValue: <String, _i49.TypePolicy>{},
+        returnValueForMissingStub: <String, _i49.TypePolicy>{},
+      ) as Map<String, _i49.TypePolicy>);
 
   @override
   Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
@@ -5349,11 +5845,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as Map<String, Set<String>>);
 
   @override
-  _i49.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+  _i50.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
         Invocation.getter(#sanitizeVariables),
         returnValue: (Map<String, dynamic> variables) => null,
         returnValueForMissingStub: (Map<String, dynamic> variables) => null,
-      ) as _i49.SanitizeVariables);
+      ) as _i50.SanitizeVariables);
 
   @override
   int get inflightOptimisticTransactions => (super.noSuchMethod(
@@ -5373,14 +5869,14 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  List<_i50.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+  List<_i51.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
         Invocation.getter(#optimisticPatches),
-        returnValue: <_i50.OptimisticPatch>[],
-        returnValueForMissingStub: <_i50.OptimisticPatch>[],
-      ) as List<_i50.OptimisticPatch>);
+        returnValue: <_i51.OptimisticPatch>[],
+        returnValueForMissingStub: <_i51.OptimisticPatch>[],
+      ) as List<_i51.OptimisticPatch>);
 
   @override
-  set optimisticPatches(List<_i50.OptimisticPatch>? _optimisticPatches) =>
+  set optimisticPatches(List<_i51.OptimisticPatch>? _optimisticPatches) =>
       super.noSuchMethod(
         Invocation.setter(
           #optimisticPatches,
@@ -5429,7 +5925,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  set sanitizeVariables(_i49.SanitizeVariables? _sanitizeVariables) =>
+  set sanitizeVariables(_i50.SanitizeVariables? _sanitizeVariables) =>
       super.noSuchMethod(
         Invocation.setter(
           #sanitizeVariables,
@@ -5488,7 +5984,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
 
   @override
   void recordOptimisticTransaction(
-    _i50.CacheTransaction? transaction,
+    _i51.CacheTransaction? transaction,
     String? addId,
   ) =>
       super.noSuchMethod(

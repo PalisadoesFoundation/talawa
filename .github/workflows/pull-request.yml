@@ -17,6 +17,7 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+  FLUTTER_VERSION: "3.32.8"
 
 jobs:
   Flutter-Codebase-Check:
@@ -37,7 +38,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Set default branch.
         run: git remote set-head origin --auto
@@ -53,7 +54,7 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/scripts/countline.py
       - name: Running count lines
-        run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart
+        run: ./.github/workflows/scripts/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart lib/views/after_auth_screens/org_info_screen.dart lib/views/after_auth_screens/events/manage_volunteer_group.dart lib/views/after_auth_screens/events/create_agenda_item_page.dart lib/views/after_auth_screens/events/edit_agenda_item_page.dart lib/utils/event_queries.dart lib/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart
       - name: Check for presence of ignore directives corresponding to custom lints
         run: chmod +x ./.github/workflows/scripts/check_ignore.py
       - name: Copy .env.example to .env
@@ -233,7 +234,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -269,7 +270,7 @@ jobs:
           java-version: "17.0"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -277,16 +278,23 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+        env:
+          GRADLE_OPTS: "-Xmx3g -XX:MaxMetaspaceSize=512m"
 
   iOS-Build:
     name: Testing build for iOS
+    permissions:
+      contents: write
     runs-on: macos-latest
     needs: [Flutter-Testing]
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.29.3"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Copy .env.example to .env
