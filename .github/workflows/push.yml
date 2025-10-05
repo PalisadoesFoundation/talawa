@@ -20,7 +20,7 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-  FLUTTER_VERSION: 3.32.8
+  FLUTTER_VERSION: 3.32.
 
 jobs:
   Flutter-Codebase-Check:
@@ -141,6 +141,8 @@ jobs:
         run: flutter pub get
       - name: Building for android
         run: flutter build apk
+        env:
+          GRADLE_OPTS: "-Xmx3g -XX:MaxMetaspaceSize=512m"
 
         ###################################################
         ## Release the built apk as an automated release ##
@@ -172,6 +174,8 @@ jobs:
           xcode-version: latest-stable
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable" # or: 'beta', 'dev' or 'master'
           architecture: x64
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable" # or: 'beta', 'dev' or 'master'

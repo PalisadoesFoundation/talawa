@@ -9,6 +9,7 @@ import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/chat_utils.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// This ViewModel class have different functions that are used interact with model in the context of Direct Chat.
@@ -97,18 +98,22 @@ class DirectChatViewModel extends BaseModel {
     setState(ViewState.busy);
     chatState = ChatState.loading;
 
-    // Listen to the chat stream and convert Chat objects to ChatListTileDataModel for backward compatibility
+    // Listen to the chat stream and filter for direct chats (exactly 2 members)
     _chatListSubscription = _chatService.chatListStream.listen((newChat) {
       if (newChat.id == null) {
         debugPrint('Received chat with null ID');
         return;
       }
-      if (!_uniqueChatIds.contains(newChat.id)) {
-        _uniqueChatIds.add(newChat.id!);
-        // Convert Chat to ChatListTileDataModel for backward compatibility
-        final chatListTileData = ChatListTileDataModel.fromChat(newChat);
-        _chats.insert(0, chatListTileData);
-        notifyListeners();
+
+      // Filter for direct chats using ChatUtils
+      if (ChatUtils.isDirectChat(newChat)) {
+        if (!_uniqueChatIds.contains(newChat.id)) {
+          _uniqueChatIds.add(newChat.id!);
+          // Convert Chat to ChatListTileDataModel for backward compatibility
+          final chatListTileData = ChatListTileDataModel.fromChat(newChat);
+          _chats.insert(0, chatListTileData);
+          notifyListeners();
+        }
       }
     });
 

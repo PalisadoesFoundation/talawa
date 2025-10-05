@@ -16,6 +16,10 @@ class ChatQueries {
           description
           createdAt
           updatedAt
+          creator {
+            id
+            name
+          }
         }
       }
     ''';
@@ -35,10 +39,6 @@ class ChatQueries {
           id
           createdAt
           updatedAt
-          creator {
-            id
-            name
-          }
         }
       }
     ''';
@@ -60,13 +60,17 @@ class ChatQueries {
           description
           createdAt
           updatedAt
-          members(last: 2) {
+          members(last: 30) {
             edges {
               node {
                 id
                 name
               }
             }
+          }
+          creator {
+            id
+            name
           }
         }
       }
@@ -89,6 +93,10 @@ class ChatQueries {
           description
           createdAt
           updatedAt
+          creator {
+            id
+            name
+          }
           messages(first: \$first, last: \$last, after: \$after, before: \$before) {
             pageInfo {
               hasNextPage
@@ -109,8 +117,51 @@ class ChatQueries {
               }
             }
           }
-          members(last: 2) {
+          members(last: 30) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              startCursor
+              endCursor
+            }
             edges {
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    ''';
+  }
+
+  /// Fetches members of a specific chat with pagination support.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL query string for fetching chat members with pagination
+  String fetchChatMembers() {
+    return '''
+      query chat(\$input: QueryChatInput!, \$first: Int, \$last: Int, \$after: String, \$before: String) {
+        chat(input: \$input) {
+          id
+          name
+          creator {
+            id
+            name
+          }
+          members(first: \$first, last: \$last, after: \$after, before: \$before) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              startCursor
+              endCursor
+            }
+            edges {
+              cursor
               node {
                 id
                 name
@@ -167,4 +218,62 @@ class ChatQueries {
         }
       }
   ''';
+
+  /// Deletes a chat.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL mutation string for deleting a chat
+  String deleteChat() {
+    return '''
+      mutation deleteChat(\$input: MutationDeleteChatInput!) {
+        deleteChat(input: \$input) {
+          id
+        }
+      }
+    ''';
+  }
+
+  /// Deletes a chat membership (removes a user from a chat).
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL mutation string for deleting chat membership
+  String deleteChatMembership() {
+    return '''
+      mutation deleteChatMembership(\$input: MutationDeleteChatMembershipInput!) {
+        deleteChatMembership(input: \$input) {
+          id
+        }
+      }
+    ''';
+  }
+
+  /// Updates a chat's information.
+  ///
+  /// **params**:
+  ///   None
+  ///
+  /// **returns**:
+  /// * `String`: The GraphQL mutation string for updating a chat
+  String updateChat() {
+    return '''
+      mutation updateChat(\$input: MutationUpdateChatInput!) {
+        updateChat(input: \$input) {
+          id
+          name
+          description
+          updatedAt
+          creator {
+            id
+            name
+          }
+        }
+      }
+    ''';
+  }
 }

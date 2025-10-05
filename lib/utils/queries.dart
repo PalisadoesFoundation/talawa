@@ -52,6 +52,7 @@ class Queries {
                         members(first:32){
                           edges{
                             node{
+                              id
                               name
                               role
                             }
@@ -99,7 +100,16 @@ class Queries {
                 postalCode,
                 countryCode,
                 description,
-                isUserRegistrationRequired,
+                isUserRegistrationRequired
+                members(first:32){
+                  edges{
+                    node{
+                      id
+                      name
+                      role
+                    }
+                  }
+                }
               }
             }
           }

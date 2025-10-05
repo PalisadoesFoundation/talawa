@@ -90,7 +90,6 @@ void main() {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }
