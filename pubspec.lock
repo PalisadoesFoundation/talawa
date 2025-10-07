@@ -74,10 +74,10 @@ packages:
     dependency: transitive
     description:
       name: async
-      sha256: d2872f9c19731c2e5f10444b14686eb7cc85c76274bd6c16e1816bff9a3bab63
+      sha256: "758e6d74e971c3e5aceb4110bfd6698efc7f501675bcfe0c775459a8140750eb"
       url: "https://pub.dev"
     source: hosted
-    version: "2.12.0"
+    version: "2.13.0"
   auto_size_text:
     dependency: "direct main"
     description:
@@ -394,10 +394,10 @@ packages:
     dependency: "direct dev"
     description:
       name: fake_async
-      sha256: "6a95e56b2449df2273fd8c45a662d6947ce1ebb7aafe80e550a3f68297f3cacc"
+      sha256: "5368f224a74523e8d2e7399ea1638b37aecfca824a3cc4dfdf77bf1fa905ac44"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.3.3"
   ffi:
     dependency: transitive
     description:
@@ -736,10 +736,10 @@ packages:
     dependency: "direct main"
     description:
       name: graphql_flutter
-      sha256: "49867a84a9243142d69a31075dbb9ff9468366827b0e5bfcdb3867abbe1d5ee6"
+      sha256: "0fef9dc2483c4f21c6ac93cd2ef0b820542fc0ce6db6efa87367326d7f36ade4"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "5.2.1"
   graphs:
     dependency: transitive
     description:
@@ -909,10 +909,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.0"
+    version: "0.20.2"
   io:
     dependency: transitive
     description:
@@ -949,10 +949,10 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: c35baad643ba394b40aac41080300150a4f08fd0fd6a10378f8f7c6bc161acec
+      sha256: "6bb818ecbdffe216e81182c2f0714a2e62b593f4a4f13098713ff1685dfb6ab0"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.8"
+    version: "10.0.9"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
@@ -1293,10 +1293,10 @@ packages:
     dependency: "direct main"
     description:
       name: qr_code_scanner_plus
-      sha256: "39696b50d277097ee4d90d4292de36f38c66213a4f5216a06b2bdd2b63117859"
+      sha256: a0f1ac8e13299b3db2646635f252fe2ec67222b848b24ed34d11052faf080bfa
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.10+1"
+    version: "2.0.12"
   qr_flutter:
     dependency: "direct main"
     description:
@@ -1641,10 +1641,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "9d06212b1362abc2f0f0d78e6f09f726608c74e3b9462e8368bb03314aa8d603"
+      sha256: f6a7e5c4835bb4e3026a04793a4199ca2d14c739ec378fdfe23fc8075d0439f8
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1745,18 +1745,18 @@ packages:
     dependency: "direct main"
     description:
       name: vibration
-      sha256: "804ee8f9628f31ee71fbe6137a2bc6206a64e101ec22cd9dd6d3a7dc0272591b"
+      sha256: "1fd51cb0f91c6d512734ca0e282dd87fbc7f389b6da5f03c77709ba2cf8fa901"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "3.1.4"
   vibration_platform_interface:
     dependency: transitive
     description:
       name: vibration_platform_interface
-      sha256: "03e9deaa4df48a1a6212e281bfee5f610d62e9247929dd2f26f4efd4fa5e225c"
+      sha256: "4134fbfcd427b59a7a91f8733292e4e9b29a7f1e8224ff0d80f5745fbf0743c6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   video_player:
     dependency: "direct main"
     description:
@@ -1809,10 +1809,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "0968250880a6c5fe7edc067ed0a13d4bae1577fe2771dcf3010d52c4a9d3ca14"
+      sha256: ddfa8d30d89985b96407efce8acbdd124701f96741f2d981ca860662f1c0dc02
       url: "https://pub.dev"
     source: hosted
-    version: "14.3.1"
+    version: "15.0.0"
   watcher:
     dependency: transitive
     description:
@@ -1849,10 +1849,10 @@ packages:
     dependency: transitive
     description:
       name: webdriver
-      sha256: "3d773670966f02a646319410766d3b5e1037efb7f07cc68f844d5e06cd4d61c8"
+      sha256: "2f3a14ca026957870cfd9c635b83507e0e51d8091568e90129fbf805aba7cade"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.4"
+    version: "3.1.0"
   win32:
     dependency: transitive
     description:
@@ -1894,5 +1894,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.7.0 <=3.7.2"
-  flutter: ">=3.27.0"
+  dart: ">=3.7.0 <=3.8.1"
+  flutter: ">=3.29.0"

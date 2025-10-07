@@ -15,8 +15,8 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/chat_input_field.da
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_message_bubble.dart';
 import 'package:talawa/views/base_view.dart';
 
-import '../../../../helpers/test_helpers.dart';
-import '../../../../helpers/test_locator.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_locator.dart';
 
 final directChatViewModel = getAndRegisterDirectChatViewModel();
 

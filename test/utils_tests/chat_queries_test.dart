@@ -24,6 +24,7 @@ void main() {
         expect(result, contains('description'));
         expect(result, contains('createdAt'));
         expect(result, contains('updatedAt'));
+        expect(result, contains('creator'));
       });
     });
 
@@ -42,8 +43,6 @@ void main() {
         expect(result, contains('id'));
         expect(result, contains('createdAt'));
         expect(result, contains('updatedAt'));
-        expect(result, contains('creator'));
-        expect(result, contains('name'));
       });
     });
 
@@ -59,9 +58,10 @@ void main() {
         expect(result, contains('description'));
         expect(result, contains('createdAt'));
         expect(result, contains('updatedAt'));
-        expect(result, contains('members(last: 2)'));
+        expect(result, contains('members(last: 30)'));
         expect(result, contains('edges'));
         expect(result, contains('node'));
+        expect(result, contains('creator'));
       });
     });
 
@@ -90,6 +90,7 @@ void main() {
         expect(result, contains('endCursor'));
         expect(result, contains('body'));
         expect(result, contains('creator'));
+        expect(result, contains('members(last: 30)'));
       });
 
       test("Check if fetchChatMessagesByChatId includes pagination support",
@@ -102,6 +103,36 @@ void main() {
         expect(result, contains('\$before: String'));
         expect(result, contains('cursor'));
         expect(result, contains('edges'));
+      });
+    });
+
+    group('fetchChatMembers', () {
+      test("Check if fetchChatMembers works correctly", () {
+        final result = chatQueries.fetchChatMembers();
+
+        expect(result, isA<String>());
+        expect(
+          result,
+          contains(
+            'query chat(\$input: QueryChatInput!, \$first: Int, \$last: Int, \$after: String, \$before: String)',
+          ),
+        );
+        expect(result, contains('chat(input: \$input)'));
+        expect(
+          result,
+          contains(
+            'members(first: \$first, last: \$last, after: \$after, before: \$before)',
+          ),
+        );
+        expect(result, contains('pageInfo'));
+        expect(result, contains('hasNextPage'));
+        expect(result, contains('hasPreviousPage'));
+        expect(result, contains('startCursor'));
+        expect(result, contains('endCursor'));
+        expect(result, contains('cursor'));
+        expect(result, contains('edges'));
+        expect(result, contains('node'));
+        expect(result, contains('creator'));
       });
     });
 
@@ -122,6 +153,54 @@ void main() {
         expect(result, contains('creator'));
         expect(result, contains('createdAt'));
         expect(result, contains('updatedAt'));
+      });
+    });
+
+    group('deleteChat', () {
+      test("Check if deleteChat works correctly", () {
+        final result = chatQueries.deleteChat();
+
+        expect(result, isA<String>());
+        expect(
+          result,
+          contains('mutation deleteChat(\$input: MutationDeleteChatInput!)'),
+        );
+        expect(result, contains('deleteChat(input: \$input)'));
+        expect(result, contains('id'));
+      });
+    });
+
+    group('deleteChatMembership', () {
+      test("Check if deleteChatMembership works correctly", () {
+        final result = chatQueries.deleteChatMembership();
+
+        expect(result, isA<String>());
+        expect(
+          result,
+          contains(
+            'mutation deleteChatMembership(\$input: MutationDeleteChatMembershipInput!)',
+          ),
+        );
+        expect(result, contains('deleteChatMembership(input: \$input)'));
+        expect(result, contains('id'));
+      });
+    });
+
+    group('updateChat', () {
+      test("Check if updateChat works correctly", () {
+        final result = chatQueries.updateChat();
+
+        expect(result, isA<String>());
+        expect(
+          result,
+          contains('mutation updateChat(\$input: MutationUpdateChatInput!)'),
+        );
+        expect(result, contains('updateChat(input: \$input)'));
+        expect(result, contains('id'));
+        expect(result, contains('name'));
+        expect(result, contains('description'));
+        expect(result, contains('updatedAt'));
+        expect(result, contains('creator'));
       });
     });
 
@@ -161,8 +240,12 @@ void main() {
           chatQueries.createChatMembership(),
           chatQueries.chatsByUser(),
           chatQueries.fetchChatMessagesByChatId(),
+          chatQueries.fetchChatMembers(),
           chatQueries.createChatMessage(),
           chatQueries.chatMessageCreate,
+          chatQueries.deleteChat(),
+          chatQueries.deleteChatMembership(),
+          chatQueries.updateChat(),
         ];
 
         for (final query in queries) {
@@ -184,6 +267,9 @@ void main() {
           chatQueries.createChat(),
           chatQueries.createChatMembership(),
           chatQueries.createChatMessage(),
+          chatQueries.deleteChat(),
+          chatQueries.deleteChatMembership(),
+          chatQueries.updateChat(),
         ];
 
         for (final mutation in mutations) {

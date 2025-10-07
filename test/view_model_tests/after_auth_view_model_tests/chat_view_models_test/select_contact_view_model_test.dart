@@ -234,14 +234,6 @@ void main() {
       expect(chatId, isNull);
     });
 
-    test('returns null when chats list is null', () async {
-      when(chatService.getChatsByUser()).thenAnswer((_) async => null);
-
-      final chatId = await model.checkExistingChat(selectedUser);
-
-      expect(chatId, isNull);
-    });
-
     test('handles chat with null members', () async {
       final chatWithNullMembers = Chat(
         id: 'chatWithNullMembers',
