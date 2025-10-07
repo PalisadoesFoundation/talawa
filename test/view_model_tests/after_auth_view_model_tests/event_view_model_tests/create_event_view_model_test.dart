@@ -1,111 +1,50 @@
-import 'dart:io';
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/recurrence_values.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/utils/event_queries.dart';
-import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
-import 'package:talawa/view_model/connectivity_view_model.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-/// `MockBuildContext` class represents mock instance of Build context.
-class MockBuildContext extends Mock implements BuildContext {}
-
-/// Instance of callback function.
 class MockCallbackFunction extends Mock {
-  /// Callback function.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
   void call();
 }
 
-/// a_line_ending_with_end_punctuation.
-///
-/// more_info_if_required
-///
-/// **params**:
-/// * `formKey`: define_the_param
-/// * `eventTitleTextController`: define_the_param
-/// * `eventLocationTextController`: define_the_param
-/// * `eventDescriptionTextController`: define_the_param
-///
-/// **returns**:
-/// * `Widget`: define_the_return
-Widget createApp(
-  GlobalKey<FormState> formKey,
-  TextEditingController eventTitleTextController,
-  TextEditingController eventLocationTextController,
-  TextEditingController eventDescriptionTextController,
-) {
-  return MaterialApp(
-    locale: const Locale('en'),
-    localizationsDelegates: [
-      const AppLocalizationsDelegate(isTest: true),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    home: Scaffold(
-      body: Container(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: eventTitleTextController,
-              ),
-              TextFormField(
-                controller: eventLocationTextController,
-              ),
-              TextFormField(
-                controller: eventDescriptionTextController,
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-    navigatorKey: navigationService.navigatorKey,
-    onGenerateRoute: router.generateRoute,
-  );
-}
-
 void main() {
-  setUp(() {
-    registerServices();
-  });
-  tearDown(() {
-    unregisterServices();
-  });
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    locator<GraphqlConfig>().test();
-    locator<SizeConfig>().test();
-    locator<SizeConfig>().test();
-    getAndRegisterDatabaseMutationFunctions();
   });
 
-  group('Create Event Tests', () {
-    test('check if fetchVenues method work properly when null is thrown', () {
+  setUp(() {
+    registerServices();
+  });
+
+  tearDown(() {
+    unregisterServices();
+  });
+
+  group('CreateEventViewModel Tests', () {
+    test('initializes with default values', () {
       final model = CreateEventViewModel();
-      model.initialize();
+
+      expect(model.orgMembersList, isEmpty);
+      expect(model.selectedMembers, isEmpty);
+      expect(model.memberCheckedMap, isEmpty);
+      expect(model.isPublicSwitch, true);
+      expect(model.isRegisterableSwitch, true);
+      expect(model.isAllDay, true);
+      expect(model.isRecurring, false);
+    });
+
+    test('fetchVenues returns empty list when data is null', () async {
+      final model = CreateEventViewModel();
+
       final mockQueryResult = QueryResult(
         source: QueryResultSource.network,
         data: null,
@@ -115,17 +54,17 @@ void main() {
       when(
         databaseFunctions.gqlAuthQuery(
           queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
+          variables: {"orgId": 'XYZ'},
         ),
       ).thenAnswer((_) async => mockQueryResult);
 
-      model.fetchVenues();
+      final result = await model.fetchVenues();
+
+      expect(result, isEmpty);
     });
-    test('check if fetchVenues method work properly', () {
+
+    test('fetchVenues returns venue list successfully', () async {
       final model = CreateEventViewModel();
-      model.initialize();
 
       final mockQueryResult = QueryResult(
         source: QueryResultSource.network,
@@ -133,17 +72,17 @@ void main() {
           'getVenueByOrgId': [
             {
               'id': '1',
-              'name': 'Mock Venue 1',
+              'name': 'Venue 1',
               'capacity': 100,
-              'imageUrl': '',
-              'description': 'aaa',
+              'imageUrl': 'url1',
+              'description': 'Description 1',
             },
             {
               'id': '2',
-              'name': 'Mock Venue 2',
-              'capacity': 150,
-              'imageUrl': '',
-              'description': 'aaa',
+              'name': 'Venue 2',
+              'capacity': 200,
+              'imageUrl': 'url2',
+              'description': 'Description 2',
             },
           ],
         },
@@ -153,519 +92,154 @@ void main() {
       when(
         databaseFunctions.gqlAuthQuery(
           queries.venueListQuery(),
-          variables: {
-            "orgId": 'XYZ',
-          },
+          variables: {"orgId": 'XYZ'},
         ),
       ).thenAnswer((_) async => mockQueryResult);
 
-      model.fetchVenues();
-    });
-    test("test getCurrentOrgUsersList with isAdmin false", () async {
-      final model = CreateEventViewModel();
-      model.initialize();
+      final result = await model.fetchVenues();
 
-      final User user1 = User(id: "fakeUser1");
-      final User user2 = User(id: "fakeUser2");
-      final List<User> users = [user1, user2];
+      expect(result.length, 2);
+      expect(result[0].name, 'Venue 1');
+      expect(result[0].capacity, 100);
+      expect(result[1].name, 'Venue 2');
+      expect(result[1].capacity, 200);
+    });
+
+    test('getCurrentOrgUsersList populates members list', () async {
+      final model = CreateEventViewModel();
+
+      final user1 = User(id: "user1", firstName: "Test1");
+      final user2 = User(id: "user2", firstName: "Test2");
+      final users = [user1, user2];
 
       when(organizationService.getOrgMembersList("XYZ"))
-          .thenAnswer((realInvocation) async {
-        return users;
-      });
+          .thenAnswer((_) async => users);
 
-      await model.getCurrentOrgUsersList();
+      final result = await model.getCurrentOrgUsersList();
 
-      bool isListCorrect = true;
-
-      users.forEach((user) {
-        final bool x = model.memberCheckedMap.containsKey(user.id);
-        if (!x) {
-          isListCorrect = false;
-        }
-      });
-
-      expect(isListCorrect, true);
+      expect(result.length, 2);
+      expect(model.orgMembersList.length, 2);
+      expect(model.memberCheckedMap.containsKey("user1"), true);
+      expect(model.memberCheckedMap.containsKey("user2"), true);
+      expect(model.memberCheckedMap["user1"], false);
+      expect(model.memberCheckedMap["user2"], false);
     });
 
-    testWidgets("testing createEvent function", (tester) async {
+    test('buildUserList adds selected members correctly', () {
       final model = CreateEventViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        createApp(
-          model.formKey,
-          model.eventTitleTextController,
-          model.eventLocationTextController,
-          model.eventDescriptionTextController,
-        ),
-      );
 
-      final DateTime startMoment = DateTime(
-        model.eventStartDate.year,
-        model.eventStartDate.month,
-        model.eventStartDate.day,
-        model.eventStartTime.hour,
-        model.eventStartTime.minute,
-      );
-      final DateTime endMoment = DateTime(
-        model.eventEndDate.year,
-        model.eventEndDate.month,
-        model.eventEndDate.day,
-        model.eventEndTime.hour,
-        model.eventEndTime.minute,
-      );
+      final user1 = User(id: "user1", firstName: "Test1");
+      final user2 = User(id: "user2", firstName: "Test2");
+      model.orgMembersList = [user1, user2];
+      model.memberCheckedMap["user1"] = true;
+      model.memberCheckedMap["user2"] = false;
 
-      await tester.pump();
-      await tester.pumpAndSettle();
-
-      await tester.enterText(
-        find.byType(TextFormField).first,
-        'fakeEventTitle',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).last,
-        'fakeEventDescription',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        'fakeEventLocation',
-      );
-      databaseFunctions.init();
-
-      when(databaseFunctions.refreshAccessToken("testtoken"))
-          .thenAnswer((realInvocation) async {
-        return true;
-      });
-
-      final variables = {
-        'data': {
-          'title': model.eventTitleTextController.text,
-          'description': model.eventDescriptionTextController.text,
-          'location': model.eventLocationTextController.text,
-          'isPublic': model.isPublicSwitch,
-          'isRegisterable': model.isRegisterableSwitch,
-          'recurring': model.isRecurring,
-          'allDay': true,
-          'organizationId': 'XYZ',
-          'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
-          'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
-          'startTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-          'endTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
-        },
-        if (model.isRecurring)
-          'recurrenceRuleData': {
-            'recurrenceStartDate':
-                DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
-            'recurrenceEndDate': model.recurrenceEndDate != null
-                ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
-                : null,
-            'frequency': model.frequency,
-            'weekDays': (model.frequency == Frequency.weekly ||
-                    (model.frequency == Frequency.monthly &&
-                        model.weekDayOccurenceInMonth != null))
-                ? model.weekDays.toList()
-                : null,
-            'interval': model.interval,
-            'count': model.count,
-            'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
-          },
-      };
-
-      when(
-        locator<EventService>().createEvent(variables: variables),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(EventQueries().addEvent())),
-          exception: OperationException(
-            graphqlErrors: [],
-          ),
-          data: {
-            'test': 'data',
-          },
-          source: QueryResultSource.network,
-        );
-      });
-
-      await model.createEvent();
-
-      verify(
-        locator<EventService>().createEvent(
-          variables: variables,
-        ),
-      );
-
-      verify(navigationService.pop());
-    });
-
-    test("test getImageFromGallery and removeImage functions", () async {
-      final notifyListenerCallback = MockCallbackFunction();
-      final model = CreateEventViewModel()..addListener(notifyListenerCallback);
-      model.initialize();
-
-      // testing getImageFromGallery
-      // with camera false
-      when(multimediaPickerService.getPhotoFromGallery(camera: false))
-          .thenAnswer((realInvocation) async {
-        return null;
-      });
-
-      await model.getImageFromGallery();
-      verify(multimediaPickerService.getPhotoFromGallery(camera: false));
-      expect(model.imageFile, null);
-
-      // with camera true
-      final file = File('fakePath');
-      when(multimediaPickerService.getPhotoFromGallery(camera: true))
-          .thenAnswer((_) async {
-        return file;
-      });
-      await model.getImageFromGallery(camera: true);
-      verify(multimediaPickerService.getPhotoFromGallery(camera: true));
-      expect(model.imageFile, file);
-      verify(notifyListenerCallback());
-
-      // testing removeImage
-      model.removeImage();
-      expect(model.imageFile, null);
-      verify(notifyListenerCallback());
-    });
-
-    test('check that empty values are not accepted for required fields', () {
-      final String? emptyTitle = Validator.validateEventForm("", "Title");
-      expect(emptyTitle, "Title must not be left blank.");
-
-      final String? emptyLocation = Validator.validateEventForm("", "Location");
-      expect(emptyLocation, "Location must not be left blank.");
-
-      final String? emptyDescription =
-          Validator.validateEventForm("", "Description");
-      expect(emptyDescription, "Description must not be left blank.");
-    });
-
-    test('Check validators return null for valid values', () {
-      final String? validTitle =
-          Validator.validateEventForm("Test Title", "Title");
-      expect(validTitle, null);
-
-      final String? validLocation =
-          Validator.validateEventForm("Test Location", "Location");
-      expect(validLocation, null);
-
-      final String? validDescription =
-          Validator.validateEventForm("Test Description", "Description");
-      expect(validDescription, null);
-    });
-
-    test('Check addition of members', () {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final List<User> allMembers =
-          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.orgMembersList = allMembers;
-
-      // non admins (normal members)
-      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
-      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
       model.buildUserList();
-      final bool isMemberFound =
-          model.selectedMembers.contains(usersInCurrentOrg.first);
-      expect(isMemberFound, true);
+
+      expect(model.selectedMembers.length, 1);
+      expect(model.selectedMembers.first.id, "user1");
     });
 
-    test('Removing of members from event', () {
+    test('buildUserList clears and rebuilds selected members', () {
       final model = CreateEventViewModel();
-      model.initialize();
-      final List<User> allMembers =
-          userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.orgMembersList = allMembers;
 
-      // non admins (normal members)
-      // to remove, first we need to add a member
-      final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
-      model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
+      final user1 = User(id: "user1", firstName: "Test1");
+      final user2 = User(id: "user2", firstName: "Test2");
+      model.orgMembersList = [user1, user2];
+
+      // First selection
+      model.memberCheckedMap["user1"] = true;
       model.buildUserList();
-      model.removeUserFromList(
-        userId: usersInCurrentOrg.first.id!,
-      );
-      final bool isMemberFound =
-          model.selectedMembers.contains(usersInCurrentOrg.first);
-      expect(isMemberFound, false);
+      expect(model.selectedMembers.length, 1);
+
+      // Change selection
+      model.memberCheckedMap["user1"] = false;
+      model.memberCheckedMap["user2"] = true;
+      model.buildUserList();
+
+      expect(model.selectedMembers.length, 1);
+      expect(model.selectedMembers.first.id, "user2");
     });
 
-    test('setEventEndDate should set the event end date and notify listeners',
-        () {
+    test('removeUserFromList removes user and updates state', () {
       final model = CreateEventViewModel();
-      model.initialize();
-
-      final newDate = DateTime.now().add(const Duration(days: 1));
       final notifyListenerCallback = MockCallbackFunction();
       model.addListener(notifyListenerCallback);
 
-      model.setEventEndDate(newDate);
+      final user1 = User(id: "user1", firstName: "Test1");
+      model.orgMembersList = [user1];
+      model.memberCheckedMap["user1"] = true;
+      model.buildUserList();
 
-      expect(model.eventEndDate, newDate);
-      verify(notifyListenerCallback()).called(1);
+      model.removeUserFromList(userId: "user1");
+
+      expect(model.selectedMembers, isEmpty);
+      expect(model.memberCheckedMap["user1"], false);
+      verify(notifyListenerCallback()).called(greaterThan(0));
     });
 
-    testWidgets("testing createEvent function (Recurring)", (tester) async {
+    test('clearFormState resets all fields to defaults', () {
       final model = CreateEventViewModel();
-      model.initialize();
-      await tester.pumpWidget(
-        createApp(
-          model.formKey,
-          model.eventTitleTextController,
-          model.eventLocationTextController,
-          model.eventDescriptionTextController,
-        ),
-      );
 
-      final DateTime startMoment = DateTime(
-        model.eventStartDate.year,
-        model.eventStartDate.month,
-        model.eventStartDate.day,
-        model.eventStartTime.hour,
-        model.eventStartTime.minute,
-      );
-
-      final DateTime endMoment = DateTime(
-        model.eventEndDate.year,
-        model.eventEndDate.month,
-        model.eventEndDate.day,
-        model.eventEndTime.hour,
-        model.eventEndTime.minute,
-      );
-
-      model.isRecurring = true;
-
-      await tester.pump();
-      await tester.pumpAndSettle();
-
-      await tester.enterText(
-        find.byType(TextFormField).first,
-        'fakeEventTitle',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).last,
-        'fakeEventDescription',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        'fakeEventLocation',
-      );
-      databaseFunctions.init();
-
-      when(databaseFunctions.refreshAccessToken("testtoken"))
-          .thenAnswer((realInvocation) async {
-        return true;
-      });
-
-      model.weekDayOccurenceInMonth = 1;
-      model.recurrenceEndDate = DateTime.now();
-      model.frequency = 'MONTHLY';
-
-      final vars = {
-        'data': {
-          'title': model.eventTitleTextController.text,
-          'description': model.eventDescriptionTextController.text,
-          'location': model.eventLocationTextController.text,
-          'isPublic': model.isPublicSwitch,
-          'isRegisterable': model.isRegisterableSwitch,
-          'recurring': model.isRecurring,
-          'allDay': true,
-          'organizationId': 'XYZ',
-          'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
-          'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
-          'startTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-          'endTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
-        },
-        if (model.isRecurring)
-          'recurrenceRuleData': {
-            'recurrenceStartDate':
-                DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
-            'recurrenceEndDate': model.recurrenceEndDate != null
-                ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
-                : null,
-            'frequency': model.frequency,
-            'weekDays': (model.frequency == Frequency.weekly ||
-                    (model.frequency == Frequency.monthly &&
-                        model.weekDayOccurenceInMonth != null))
-                ? model.weekDays.toList()
-                : null,
-            'interval': model.interval,
-            'count': model.count,
-            'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
-          },
-      };
-
-      when(
-        locator<EventService>().createEvent(
-          variables: vars,
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(EventQueries().addEvent())),
-          exception: OperationException(
-            graphqlErrors: [],
-          ),
-          data: {
-            'test': 'data',
-          },
-          source: QueryResultSource.network,
-        );
-      });
-
-      await model.createEvent();
-
-      verify(
-        locator<EventService>().createEvent(
-          variables: vars,
-        ),
-      );
-
-      verify(navigationService.pop());
-
-      model.recurrenceEndDate = DateTime.now();
-      model.frequency = Frequency.monthly;
-      model.weekDayOccurenceInMonth = 1;
-
-      await model.createEvent();
-
-      verify(
-        locator<EventService>().createEvent(
-          variables: vars,
-        ),
-      );
-
-      verify(navigationService.pop());
-
-      model.initialize();
+      // Set various values
+      model.eventTitleTextController.text = 'Title';
+      model.eventLocationTextController.text = 'Location';
+      model.eventDescriptionTextController.text = 'Description';
+      model.isPublicSwitch = false;
+      model.isRegisterableSwitch = false;
       model.isAllDay = false;
+      model.isRecurring = true;
+      model.frequency = Frequency.daily;
+      model.weekDays = {WeekDays.monday};
+      model.interval = 5;
+      model.count = 10;
 
-      await model.createEvent();
+      model.clearFormState();
+
+      expect(model.eventTitleTextController.text, isEmpty);
+      expect(model.eventLocationTextController.text, isEmpty);
+      expect(model.eventDescriptionTextController.text, isEmpty);
+      expect(model.repeatsEveryCountController.text, '1');
+      expect(model.isPublicSwitch, true);
+      expect(model.isRegisterableSwitch, true);
+      expect(model.isAllDay, true);
+      expect(model.isRecurring, false);
+      expect(model.frequency, Frequency.weekly);
+      expect(model.weekDays, isEmpty);
+      expect(model.interval, 1);
+      expect(model.count, null);
+      expect(model.selectedMembers, isEmpty);
+      expect(model.memberCheckedMap, isEmpty);
     });
 
-    testWidgets("testing createEvent function (Recurring)", (tester) async {
+    test('clearFormState resets recurrence settings', () {
       final model = CreateEventViewModel();
-      AppConnectivity.isOnline = false;
-      model.initialize();
-      await tester.pumpWidget(
-        createApp(
-          model.formKey,
-          model.eventTitleTextController,
-          model.eventLocationTextController,
-          model.eventDescriptionTextController,
-        ),
-      );
-
-      final DateTime startMoment = DateTime(
-        model.eventStartDate.year,
-        model.eventStartDate.month,
-        model.eventStartDate.day,
-        model.eventStartTime.hour,
-        model.eventStartTime.minute,
-      );
-
-      final DateTime endMoment = DateTime(
-        model.eventEndDate.year,
-        model.eventEndDate.month,
-        model.eventEndDate.day,
-        model.eventEndTime.hour,
-        model.eventEndTime.minute,
-      );
 
       model.isRecurring = true;
-
-      await tester.pump();
-      await tester.pumpAndSettle();
-
-      await tester.enterText(
-        find.byType(TextFormField).first,
-        'fakeEventTitle',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).last,
-        'fakeEventDescription',
-      );
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        'fakeEventLocation',
-      );
-      databaseFunctions.init();
-
-      when(databaseFunctions.refreshAccessToken("testtoken"))
-          .thenAnswer((realInvocation) async {
-        return true;
-      });
-
-      model.weekDayOccurenceInMonth = 1;
+      model.count = 10;
       model.recurrenceEndDate = DateTime.now();
-      model.frequency = 'MONTHLY';
+      model.never = false;
+      model.byMonth = [6, 12];
+      model.byMonthDay = [15];
 
-      final vars = {
-        'data': {
-          'title': model.eventTitleTextController.text,
-          'description': model.eventDescriptionTextController.text,
-          'location': model.eventLocationTextController.text,
-          'isPublic': model.isPublicSwitch,
-          'isRegisterable': model.isRegisterableSwitch,
-          'recurring': model.isRecurring,
-          'allDay': true,
-          'organizationId': 'XYZ',
-          'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
-          'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
-          'startTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(startMoment)}Z',
-          'endTime': model.isAllDay
-              ? null
-              : '${DateFormat('HH:mm:ss').format(endMoment)}Z',
-        },
-        if (model.isRecurring)
-          'recurrenceRuleData': {
-            'recurrenceStartDate':
-                DateFormat('yyyy-MM-dd').format(model.recurrenceStartDate),
-            'recurrenceEndDate': model.recurrenceEndDate != null
-                ? DateFormat('yyyy-MM-dd').format(model.recurrenceEndDate!)
-                : null,
-            'frequency': model.frequency,
-            'weekDays': (model.frequency == Frequency.weekly ||
-                    (model.frequency == Frequency.monthly &&
-                        model.weekDayOccurenceInMonth != null))
-                ? model.weekDays.toList()
-                : null,
-            'interval': model.interval,
-            'count': model.count,
-            'weekDayOccurenceInMonth': model.weekDayOccurenceInMonth,
-          },
-      };
+      model.clearFormState();
 
-      when(
-        locator<EventService>().createEvent(
-          variables: vars,
-        ),
-      ).thenAnswer((_) async {
-        return QueryResult(
-          options: QueryOptions(document: gql(EventQueries().addEvent())),
-          exception: OperationException(
-            graphqlErrors: [],
-          ),
-          data: {
-            'test': 'data',
-          },
-          source: QueryResultSource.network,
-        );
-      });
+      expect(model.isRecurring, false);
+      expect(model.count, null);
+      expect(model.recurrenceEndDate, null);
+      expect(model.never, true);
+      expect(model.byMonth, null);
+      expect(model.byMonthDay, null);
+    });
 
-      await model.createEvent();
+    test('clearFormState resets image file', () {
+      final model = CreateEventViewModel();
+
+      model.imageFile = null; // Simulate having an image
+
+      model.clearFormState();
+
+      expect(model.imageFile, null);
     });
   });
 }

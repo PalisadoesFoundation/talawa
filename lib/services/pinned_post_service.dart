@@ -56,7 +56,7 @@ class PinnedPostService extends BaseFeedManager<Post> {
   OrgInfo get currentOrg => _currentOrg;
 
   @override
-  Future<List<Post>> fetchDataFromApi() async {
+  Future<List<Post>> fetchDataFromApi({Map<String, dynamic>? params}) async {
     final query = PinnedPostQueries().getPinnedPostsByOrgID();
     final variables = {
       'orgId': _currentOrg.id,

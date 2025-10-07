@@ -8,9 +8,9 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
+import 'package:talawa/views/after_auth_screens/events/custom_recurring_event.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/create_recurring_event_helper_widgets.dart';
+import 'package:talawa/widgets/recurring_event_helper_widgets.dart';
 import 'package:talawa/widgets/custom_weekday_selector.dart';
 
 import '../../../helpers/test_helpers.dart';

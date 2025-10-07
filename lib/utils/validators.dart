@@ -176,19 +176,60 @@ class Validator {
     return null;
   }
 
-  /// Method to validate event time.
+  /// Validates that event end date/time is not before start date/time.
   ///
   /// **params**:
-  /// * `startTime`: the start time of the event
-  /// * `endTime`: the end time of the event
+  /// * `startDate`: start date of the event
+  /// * `startTime`: start time of the event
+  /// * `endDate`: end date of the event
+  /// * `endTime`: end time of the event
   ///
   /// **returns**:
-  /// * `String?`: error message if time is invalid.
-  static String? validateEventTime(TimeOfDay startTime, TimeOfDay endTime) {
-    if (startTime.hour > endTime.hour ||
-        (startTime.hour == endTime.hour && startTime.minute > endTime.minute)) {
-      return 'Start time must be before or equal to end time';
+  /// * `String?`: error message if invalid, null if valid
+  static String? validateEventDateTime(
+    DateTime startDate,
+    TimeOfDay startTime,
+    DateTime endDate,
+    TimeOfDay endTime,
+  ) {
+    // Convert to comparable DateTime objects with time
+    final start = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+      startTime.hour,
+      startTime.minute,
+    );
+    final end = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      endTime.hour,
+      endTime.minute,
+    );
+
+    if (end.isBefore(start)) {
+      return 'Event end date/time cannot be before start date/time';
     }
+
+    return null;
+  }
+
+  /// Validates that event start date is not in the past.
+  ///
+  /// **params**:
+  /// * `startDate`: start date of the event
+  ///
+  /// **returns**:
+  /// * `String?`: error message if invalid, null if valid
+  static String? validateEventStartDate(DateTime startDate) {
+    // Check if start date is in the past
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    if (startDate.isBefore(today)) {
+      return 'Cannot create events having date prior than today';
+    }
+
     return null;
   }
 }
