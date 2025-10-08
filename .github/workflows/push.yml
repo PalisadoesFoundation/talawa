@@ -20,7 +20,7 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-  FLUTTER_VERSION: "3.32.8"
+  FLUTTER_VERSION: 3.32.
 
 jobs:
   Flutter-Codebase-Check:
@@ -161,7 +161,7 @@ jobs:
 
   iOS-Build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: iOS Build and Release
+    name: iOS Build and Relaese
     permissions:
       contents: write
     runs-on: macos-latest
