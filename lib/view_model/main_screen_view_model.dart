@@ -9,6 +9,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
@@ -99,6 +100,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// static variables.
   final GlobalKey keyBNDemoProfile = GlobalKey(debugLabel: "DemoProfileTab");
+
+  /// static variables.
+  final GlobalKey keyBNFunds = GlobalKey(debugLabel: "FundsTab");
 
   /// static variables.
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
@@ -223,6 +227,13 @@ class MainScreenViewModel extends BaseModel {
       ),
       BottomNavigationBarItem(
         icon: Icon(
+          Icons.currency_exchange,
+          key: keyBNFunds,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Funds'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
           Icons.account_circle,
           key: keyBNProfile,
         ),
@@ -240,12 +251,11 @@ class MainScreenViewModel extends BaseModel {
           key: const Key('ExploreEvents'),
           homeModel: this,
         ),
-        // AddPost(
-        //   key: const Key('AddPost'),
-        //   drawerKey: MainScreenViewModel.scaffoldKey,
-        // ),
         const ChatPage(
           key: Key('Chats'),
+        ),
+        const FundScreen(
+          key: Key('Funds'),
         ),
         ProfilePage(
           key: keySPEditProfile,
@@ -264,6 +274,9 @@ class MainScreenViewModel extends BaseModel {
         ),
         const ChatPage(
           key: Key('DemoChats'),
+        ),
+        const FundScreen(
+          key: Key('Funds'),
         ),
         DemoProfilePage(
           key: const Key('DemoProfile'),

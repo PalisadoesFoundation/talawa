@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -22,6 +23,7 @@ import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -43,6 +45,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
@@ -75,6 +78,7 @@ import 'test_helpers.mocks.dart';
     ),
     MockSpec<EventService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<FundService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SignupDetailsViewModel>(
@@ -91,6 +95,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<OrganizationFeedViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
+    MockSpec<FundViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
@@ -106,6 +111,9 @@ import 'test_helpers.mocks.dart';
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<Store>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<PageInfo>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollController>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ScrollPosition>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<AppLinks>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
@@ -465,6 +473,22 @@ AppLanguage getAndRegisterAppLanguage() {
   when(service.appLocal).thenReturn(const Locale('en'));
 
   locator.registerSingleton<AppLanguage>(service);
+  return service;
+}
+
+/// `getAndRegisterFundService` returns a mock instance of the `FundService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `FundService`: A mock instance of the `FundService` class.
+FundService getAndRegisterFundService() {
+  _removeRegistrationIfExists<FundService>();
+  final service = MockFundService();
+
+  _removeRegistrationIfExists<FundService>();
+  locator.registerSingleton<FundService>(service);
   return service;
 }
 
@@ -1202,6 +1226,7 @@ void registerServices() {
   getAndRegisterChatService();
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
+  getAndRegisterFundService();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1217,6 +1242,7 @@ void unregisterServices() {
   locator.unregister<UserConfig>();
   locator.unregister<PostService>();
   locator.unregister<EventService>();
+  locator.unregister<FundService>();
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
   locator.unregister<ConnectivityService>();
