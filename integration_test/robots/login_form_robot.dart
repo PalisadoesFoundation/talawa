@@ -69,7 +69,7 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _openLoginForm() async {
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 5));
     final Finder dismissButton = find.text('Dismiss');
     if (dismissButton.evaluate().isNotEmpty) {
       devPrint("Dismiss button found, tapping it");
