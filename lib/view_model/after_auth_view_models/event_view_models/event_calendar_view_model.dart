@@ -23,10 +23,10 @@ class EventCalendarViewModel extends BaseModel {
   final CalendarController _calendarController = CalendarController();
 
   /// Subscription for tracking changes in the current organization.
-  late StreamSubscription _currentOrganizationStreamSubscription;
+  StreamSubscription? _currentOrganizationStreamSubscription;
 
   /// Subscription for tracking changes in events.
-  late StreamSubscription _eventStreamSubscription;
+  StreamSubscription? _eventStreamSubscription;
 
   /// Controller for managing the date range picker.
   final DateRangePickerController _dateRangePickerController =
@@ -182,10 +182,10 @@ class EventCalendarViewModel extends BaseModel {
   ///   None
   @override
   void dispose() {
-    _currentOrganizationStreamSubscription.cancel();
+    _currentOrganizationStreamSubscription?.cancel();
     _calendarController.dispose();
     _dateRangePickerController.dispose();
-    _eventStreamSubscription.cancel();
+    _eventStreamSubscription?.cancel();
     super.dispose();
   }
 

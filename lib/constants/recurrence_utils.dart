@@ -116,7 +116,7 @@ class RecurrenceUtils {
   /// * `frequency`: Recurrence frequency (DAILY, WEEKLY, etc.)
   /// * `interval`: Recurrence interval (e.g., every 2 days)
   /// * `weekDays`: Selected weekdays for weekly recurrence
-  /// * `byMonthDay` : Selected days of the month for monthly/yearly recurrence
+  /// * `byMonthDay`: Selected days of the month for monthly/yearly recurrence
   /// * `byMonth`: Selected months for yearly recurrence
   /// * `count`: Number of occurrences
   /// * `endDate`: End date for recurrence
@@ -255,15 +255,16 @@ class RecurrenceUtils {
   /// * `frequency`: Recurrence frequency (DAILY, WEEKLY, etc.)
   /// * `interval`: Recurrence interval (e.g., every 2 days)
   /// * `weekDays`: Selected weekdays for weekly recurrence
+  /// * `eventStartDate`: The event's start date (used for defaults)
   /// * `byMonthDay`: Selected days of the month for monthly/yearly recurrence
   /// * `byMonth`: Selected months for yearly recurrence
   /// * `count`: Number of occurrences
   /// * `recurrenceEndDate`: End date for recurrence
   /// * `never`: Whether recurrence never ends
+  /// * `eventEndType`: Type of end condition (never, after, on)
   /// * `byPosition`: Position in month/year for nth weekday recurrence (1st Monday, 3rd Friday, etc.)
   /// * `useDayOfWeekMonthly`: Whether to use day-of-week pattern for monthly
   /// * `useDayOfWeekYearly`: Whether to use day-of-week pattern for yearly
-  /// * `eventStartDate`: The event's start date (used for defaults)
   ///
   /// **returns**:
   /// * `Map<String, dynamic>`: Complete recurrence data map ready for the API

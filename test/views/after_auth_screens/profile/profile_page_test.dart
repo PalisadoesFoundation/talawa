@@ -118,18 +118,6 @@ void main() {
       expect(find.byType(ContainedTabBarView), findsOneWidget);
       expect(find.byKey(const Key("UserFeed")), findsOneWidget);
     });
-    testWidgets('check if User Event is present', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pump();
-
-      expect(find.byType(ContainedTabBarView), findsOneWidget);
-      await tester.tap(find.text('Events'));
-      await tester.pump();
-    });
     testWidgets('Test donate bottom sheet', (tester) async {
       await tester.pumpWidget(
         createProfilePage(

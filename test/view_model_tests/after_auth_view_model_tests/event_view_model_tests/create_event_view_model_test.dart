@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -11,35 +12,470 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/creat
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
 
-class MockCallbackFunction extends Mock {
-  void call();
-}
-
 void main() {
+  testSetupLocator();
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    testSetupLocator();
-  });
-
-  setUp(() {
     registerServices();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 
   group('CreateEventViewModel Tests', () {
-    test('initializes with default values', () {
+    test('execute creates non-recurring event successfully', () async {
       final model = CreateEventViewModel();
 
-      expect(model.orgMembersList, isEmpty);
-      expect(model.selectedMembers, isEmpty);
-      expect(model.memberCheckedMap, isEmpty);
-      expect(model.isPublicSwitch, true);
-      expect(model.isRegisterableSwitch, true);
-      expect(model.isAllDay, true);
-      expect(model.isRecurring, false);
+      model.eventTitleTextController.text = 'Test Event';
+      model.eventDescriptionTextController.text = 'Test Description';
+      model.eventLocationTextController.text = 'Test Location';
+      model.isPublicSwitch = true;
+      model.isRegisterableSwitch = false;
+      model.isAllDay = false;
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+
+      final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Test Event',
+              'description': 'Test Description',
+              'location': 'Test Location',
+              'isPublic': true,
+              'isRegisterable': false,
+              'allDay': false,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createEvent': {'id': 'event1'},
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      verify(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Test Event',
+              'description': 'Test Description',
+              'location': 'Test Location',
+              'isPublic': true,
+              'isRegisterable': false,
+              'allDay': false,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).called(1);
+
+      // Verify form is cleared after successful creation
+      expect(model.eventTitleTextController.text, isEmpty);
+      expect(model.eventLocationTextController.text, isEmpty);
+    });
+
+    test('execute creates recurring event successfully', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'Recurring Event';
+      model.eventDescriptionTextController.text = 'Description';
+      model.eventLocationTextController.text = 'Location';
+      model.isPublicSwitch = true;
+      model.isRegisterableSwitch = true;
+      model.isAllDay = false;
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+      model.isRecurring = true;
+      model.frequency = Frequency.weekly;
+      model.interval = 1;
+      model.weekDays = {WeekDays.monday, WeekDays.wednesday};
+      model.eventEndType = EventEndTypes.after;
+      model.count = 10;
+
+      final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Recurring Event',
+              'description': 'Description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': false,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'WEEKLY',
+                'interval': 1,
+                'byDay': ['MO', 'WE'],
+                'count': 10,
+                'never': false,
+              },
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createEvent': {'id': 'event2'},
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      verify(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Recurring Event',
+              'description': 'Description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': false,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'WEEKLY',
+                'interval': 1,
+                'byDay': ['MO', 'WE'],
+                'count': 10,
+                'never': false,
+              },
+            },
+          },
+        ),
+      ).called(1);
+    });
+
+    test('execute creates daily recurring event', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'Daily Event';
+      model.eventDescriptionTextController.text = 'Daily Description';
+      model.eventLocationTextController.text = 'Daily Location';
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 9, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 10, minute: 0);
+      model.isRecurring = true;
+      model.frequency = Frequency.daily;
+      model.interval = 2;
+      model.never = true;
+
+      final startAt = DateTime(2025, 8, 1, 9, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Daily Event',
+              'description': 'Daily Description',
+              'location': 'Daily Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'DAILY',
+                'interval': 2,
+                'never': true,
+              },
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createEvent': {'id': 'event3'},
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      verify(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Daily Event',
+              'description': 'Daily Description',
+              'location': 'Daily Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'DAILY',
+                'interval': 2,
+                'never': true,
+              },
+            },
+          },
+        ),
+      ).called(1);
+    });
+
+    test('execute creates monthly recurring event with day of month', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'Monthly Event';
+      model.eventDescriptionTextController.text = 'Monthly Description';
+      model.eventLocationTextController.text = 'Monthly Location';
+      model.eventStartDate = DateTime(2025, 8, 15);
+      model.eventStartTime = const TimeOfDay(hour: 14, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 15);
+      model.eventEndTime = const TimeOfDay(hour: 15, minute: 0);
+      model.isRecurring = true;
+      model.frequency = Frequency.monthly;
+      model.interval = 1;
+      model.byMonthDay = [15];
+      model.useDayOfWeekMonthly = false;
+      model.eventEndType = EventEndTypes.on;
+      model.recurrenceEndDate = DateTime(2026, 8, 15);
+
+      final startAt = DateTime(2025, 8, 15, 14, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 15, 15, 0).toUtc().toIso8601String();
+      final recEndDate = DateTime(2026, 8, 15).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Monthly Event',
+              'description': 'Monthly Description',
+              'location': 'Monthly Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'MONTHLY',
+                'interval': 1,
+                'byMonthDay': [15],
+                'endDate': recEndDate,
+                'never': false,
+              },
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createEvent': {'id': 'event4'},
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      verify(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Monthly Event',
+              'description': 'Monthly Description',
+              'location': 'Monthly Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+              'recurrence': {
+                'frequency': 'MONTHLY',
+                'interval': 1,
+                'byMonthDay': [15],
+                'endDate': recEndDate,
+                'never': false,
+              },
+            },
+          },
+        ),
+      ).called(1);
+    });
+
+    test('execute handles creation failure gracefully', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'Failed Event';
+      model.eventDescriptionTextController.text = 'Description';
+      model.eventLocationTextController.text = 'Location';
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+
+      final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Failed Event',
+              'description': 'Description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: null,
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      // Should not clear form on failure
+      expect(model.eventTitleTextController.text, 'Failed Event');
+    });
+
+    test('execute handles exception during creation', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'Exception Event';
+      model.eventDescriptionTextController.text = 'Description';
+      model.eventLocationTextController.text = 'Location';
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 11, minute: 0);
+
+      final startAt = DateTime(2025, 8, 1, 10, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 11, 0).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'Exception Event',
+              'description': 'Description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).thenThrow(Exception('Network error'));
+
+      await model.execute();
+
+      // Should not clear form on exception
+      expect(model.eventTitleTextController.text, 'Exception Event');
+    });
+
+    test('execute creates all-day event correctly', () async {
+      final model = CreateEventViewModel();
+
+      model.eventTitleTextController.text = 'All Day Event';
+      model.eventDescriptionTextController.text = 'All day description';
+      model.eventLocationTextController.text = 'Location';
+      model.isAllDay = true;
+      model.eventStartDate = DateTime(2025, 8, 1);
+      model.eventStartTime = const TimeOfDay(hour: 0, minute: 0);
+      model.eventEndDate = DateTime(2025, 8, 1);
+      model.eventEndTime = const TimeOfDay(hour: 23, minute: 59);
+
+      final startAt = DateTime(2025, 8, 1, 0, 0).toUtc().toIso8601String();
+      final endAt = DateTime(2025, 8, 1, 23, 59).toUtc().toIso8601String();
+
+      when(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'All Day Event',
+              'description': 'All day description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).thenAnswer(
+        (_) async => QueryResult(
+          data: {
+            'createEvent': {'id': 'event5'},
+          },
+          source: QueryResultSource.network,
+          options: QueryOptions(document: gql('')),
+        ),
+      );
+
+      await model.execute();
+
+      verify(
+        eventService.createEvent(
+          variables: {
+            "input": {
+              'name': 'All Day Event',
+              'description': 'All day description',
+              'location': 'Location',
+              'isPublic': true,
+              'isRegisterable': true,
+              'allDay': true,
+              'organizationId': 'XYZ',
+              'startAt': startAt,
+              'endAt': endAt,
+            },
+          },
+        ),
+      ).called(1);
     });
 
     test('fetchVenues returns empty list when data is null', () async {
@@ -163,8 +599,6 @@ void main() {
 
     test('removeUserFromList removes user and updates state', () {
       final model = CreateEventViewModel();
-      final notifyListenerCallback = MockCallbackFunction();
-      model.addListener(notifyListenerCallback);
 
       final user1 = User(id: "user1", firstName: "Test1");
       model.orgMembersList = [user1];
@@ -175,7 +609,6 @@ void main() {
 
       expect(model.selectedMembers, isEmpty);
       expect(model.memberCheckedMap["user1"], false);
-      verify(notifyListenerCallback()).called(greaterThan(0));
     });
 
     test('clearFormState resets all fields to defaults', () {

@@ -64,35 +64,53 @@ class _EventCalendarState extends State<EventCalendar> {
               ),
             ],
           ),
-          body: SfCalendar(
-            view: CalendarView.month,
-            headerHeight: 60,
-            viewHeaderHeight: 60,
-            controller: model.calendarController,
-            dataSource:
-                EventDataSource(_convertEventsToAppointments(model.eventList)),
-            onViewChanged: model.viewChanged,
-            monthViewSettings: const MonthViewSettings(
-              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-              showAgenda: true,
-              agendaViewHeight: 200,
-              agendaItemHeight: 50,
-              monthCellStyle: MonthCellStyle(
-                textStyle: TextStyle(fontSize: 14),
-                trailingDatesTextStyle: TextStyle(color: Colors.grey),
-                leadingDatesTextStyle: TextStyle(color: Colors.grey),
-              ),
-            ),
-            onTap: (details) {
-              if (details.targetElement == CalendarElement.appointment &&
-                  details.appointments != null &&
-                  details.appointments!.isNotEmpty) {
-                final appointment = details.appointments?.first as Appointment;
-                final originalEventId = appointment.id;
-                final event =
-                    model.eventList.firstWhere((e) => e.id == originalEventId);
-                navigationService.pushScreen("/eventInfo", arguments: event);
-              }
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              // Ensure minimum size constraints for calendar
+              final minHeight =
+                  constraints.maxHeight > 0 ? constraints.maxHeight : 600.0;
+              final minWidth =
+                  constraints.maxWidth > 0 ? constraints.maxWidth : 400.0;
+
+              return SizedBox(
+                height: minHeight,
+                width: minWidth,
+                child: SfCalendar(
+                  view: CalendarView.month,
+                  headerHeight: 60,
+                  viewHeaderHeight: 60,
+                  controller: model.calendarController,
+                  dataSource: EventDataSource(
+                    _convertEventsToAppointments(model.eventList),
+                  ),
+                  onViewChanged: model.viewChanged,
+                  monthViewSettings: const MonthViewSettings(
+                    appointmentDisplayMode:
+                        MonthAppointmentDisplayMode.appointment,
+                    showAgenda: true,
+                    agendaViewHeight: 200,
+                    agendaItemHeight: 50,
+                    monthCellStyle: MonthCellStyle(
+                      textStyle: TextStyle(fontSize: 14),
+                      trailingDatesTextStyle: TextStyle(color: Colors.grey),
+                      leadingDatesTextStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  onTap: (details) {
+                    if (details.targetElement == CalendarElement.appointment &&
+                        details.appointments != null &&
+                        details.appointments!.isNotEmpty) {
+                      final appointment =
+                          details.appointments?.first as Appointment;
+                      final originalEventId = appointment.id;
+                      final event = model.eventList
+                          .firstWhere((e) => e.id == originalEventId);
+                      navigationService.pushScreen("/eventInfo",
+                          arguments: event);
+                    }
+                  },
+                ),
+              );
             },
           ),
         );
@@ -103,11 +121,17 @@ class _EventCalendarState extends State<EventCalendar> {
 
 /// Converts Event objects to Appointment objects for the calendar.
 ///
+/// Includes validation and fallbacks for:
+/// - Null or invalid start/end dates
+/// - End time before start time
+/// - Zero duration events
+/// - Invalid date ranges
+///
 /// **params**:
 /// * `eventsList`: List of Event objects to convert
 ///
 /// **returns**:
-/// * `List<Appointment>`: List of Appointment objects for the calendar
+/// * `List<Appointment>`: List of valid Appointment objects for the calendar
 List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
   const colors = [
     Colors.green,
@@ -118,40 +142,142 @@ List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
     Colors.pink,
   ];
   final List<Appointment> appointments = [];
+
   for (final event in eventsList) {
-    if (event.startAt == null || event.endAt == null) continue;
-    final index = eventsList.indexOf(event);
+    try {
+      // Skip events without required date fields
+      if (event.startAt == null || event.endAt == null) {
+        continue;
+      }
 
-    final startDate = DateTime(
-      event.startAt!.year,
-      event.startAt!.month,
-      event.startAt!.day,
-      event.startAt!.hour,
-      event.startAt!.minute,
-      event.startAt!.second,
-    );
+      // Validate that dates are valid DateTime objects
+      if (!_isValidDateTime(event.startAt!) ||
+          !_isValidDateTime(event.endAt!)) {
+        continue;
+      }
 
-    final endDate = DateTime(
-      event.endAt!.year,
-      event.endAt!.month,
-      event.endAt!.day,
-      event.endAt!.hour,
-      event.endAt!.minute,
-      event.endAt!.second,
-    );
-    final appointment = Appointment(
-      startTime: startDate,
-      endTime: endDate,
-      subject: event.name ?? 'No Name',
-      color: colors[index % colors.length],
-      location: event.location,
-      id: event.id,
-      isAllDay: event.allDay ?? false,
-    );
-    appointments.add(appointment);
+      final index = eventsList.indexOf(event);
+
+      // Create DateTime objects with validation
+      DateTime startDate = DateTime(
+        event.startAt!.year,
+        event.startAt!.month,
+        event.startAt!.day,
+        event.startAt!.hour,
+        event.startAt!.minute,
+        event.startAt!.second,
+      );
+
+      DateTime endDate = DateTime(
+        event.endAt!.year,
+        event.endAt!.month,
+        event.endAt!.day,
+        event.endAt!.hour,
+        event.endAt!.minute,
+        event.endAt!.second,
+      );
+
+      // Fallback 1: End time before start time - swap them
+      if (endDate.isBefore(startDate)) {
+        debugPrint(
+          'Warning: Event ${event.id} has end time before start time. Swapping dates.',
+        );
+        final temp = startDate;
+        startDate = endDate;
+        endDate = temp;
+      }
+
+      // Fallback 2: Zero duration events - add minimum 1 hour duration
+      if (endDate.isAtSameMomentAs(startDate)) {
+        debugPrint(
+          'Warning: Event ${event.id} has zero duration. Adding 1 hour.',
+        );
+        endDate = startDate.add(const Duration(hours: 1));
+      }
+
+      // Fallback 3: Ensure reasonable duration (not more than 1 year)
+      final duration = endDate.difference(startDate);
+      if (duration.inDays > 365) {
+        debugPrint(
+          'Warning: Event ${event.id} has excessive duration (${duration.inDays} days). Capping at 1 day.',
+        );
+        endDate = startDate.add(const Duration(days: 1));
+      }
+
+      // Fallback 4: Ensure dates are not too far in the past or future
+      final now = DateTime.now();
+      final maxPast = now.subtract(const Duration(days: 365 * 10)); // 10 years
+      final maxFuture = now.add(const Duration(days: 365 * 10)); // 10 years
+
+      if (startDate.isBefore(maxPast) || startDate.isAfter(maxFuture)) {
+        debugPrint(
+          'Warning: Event ${event.id} has unreasonable start date. Skipping.',
+        );
+        continue;
+      }
+
+      final appointment = Appointment(
+        startTime: startDate,
+        endTime: endDate,
+        subject: event.name?.isNotEmpty == true ? event.name! : 'Unnamed Event',
+        color: colors[index % colors.length],
+        location: event.location ?? '',
+        id: event.id,
+        isAllDay: event.allDay ?? false,
+      );
+
+      appointments.add(appointment);
+    } catch (e) {
+      // Catch any unexpected errors during conversion
+      debugPrint('Error converting event ${event.id} to appointment: $e');
+      continue;
+    }
   }
 
   return appointments;
+}
+
+/// Validates that a DateTime object has valid values.
+///
+/// **params**:
+/// * `dateTime`: DateTime to validate
+///
+/// **returns**:
+/// * `bool`: True if the DateTime is valid
+bool _isValidDateTime(DateTime dateTime) {
+  try {
+    // Check if year is reasonable (between 1900 and 2200)
+    if (dateTime.year < 1900 || dateTime.year > 2200) {
+      return false;
+    }
+
+    // Check if month is valid (1-12)
+    if (dateTime.month < 1 || dateTime.month > 12) {
+      return false;
+    }
+
+    // Check if day is valid (1-31)
+    if (dateTime.day < 1 || dateTime.day > 31) {
+      return false;
+    }
+
+    // Check if hour is valid (0-23)
+    if (dateTime.hour < 0 || dateTime.hour > 23) {
+      return false;
+    }
+
+    // Check if minute is valid (0-59)
+    if (dateTime.minute < 0 || dateTime.minute > 59) {
+      return false;
+    }
+
+    // Try to format the date to ensure it's valid
+    dateTime.toIso8601String();
+
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 /// Simple data source for SfCalendar.

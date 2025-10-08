@@ -1,36 +1,33 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
+// import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/user/user_info.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
-import 'package:talawa/widgets/event_card.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-// class MockBuildContext extends Mock implements BuildContext {}
-
-Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
+/// Creates the DemoExploreEvents screen for testing.
+///
+/// **params**:
+/// * `model`: The MainScreenViewModel for the drawer
+///
+/// **returns**:
+/// * `Widget`: DemoExploreEvents wrapped in MaterialApp with drawer
+Widget createDemoExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
       locale: const Locale('en'),
       localizationsDelegates: [
         const AppLocalizationsDelegate(isTest: true),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      key: const Key('Root'),
       home: Scaffold(
         drawer: CustomDrawer(
           homeModel: model,
@@ -39,183 +36,159 @@ Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
           key: Key('ExploreEvents'),
         ),
       ),
-      navigatorKey: navigationService.navigatorKey,
+      navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
     );
 
 void main() {
-  SizeConfig().test();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+  });
 
-  final mockEvents = <Event>[
-    Event(
-      id: 'event1',
-      admins: [User(id: 'admin1')],
-      creator: User(id: 'admin2'),
-      name: 'event title',
-      location: 'location',
-      description: 'description',
-      isPublic: true,
-    ),
-  ];
+  setUp(() {
+    SizeConfig().test();
+    registerServices();
+    registerViewModels();
+  });
 
-  late ExploreEventsViewModel exploreEventsViewModel;
-  group('Test for DemoExploreEventsPage', () {
-    setUpAll(() {
-      registerServices();
-      registerViewModels();
-      exploreEventsViewModel = getAndRegisterExploreEventsViewModel();
-    });
-    tearDownAll(() {
-      unregisterServices();
-      unregisterViewModels();
-    });
-    testWidgets('Test for menu button.', (tester) async {
+  tearDown(() {
+    unregisterViewModels();
+    unregisterServices();
+  });
+
+  group('DemoExploreEvents Widget Tests', () {
+    testWidgets('DemoExploreEvents renders correctly', (tester) async {
       final model = MainScreenViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
-
-      final menuButton = find.byIcon(Icons.menu);
-
-      await tester.tap(menuButton);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(CustomDrawer), findsOneWidget);
+      expect(find.byType(DemoExploreEvents), findsOneWidget);
+      expect(find.text('Explore Events'), findsOneWidget);
     });
 
-    testWidgets('Test for AddDate button.', (tester) async {
+    testWidgets('AppBar contains required icons', (tester) async {
       final model = MainScreenViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
-
-      final addDateButton = find.textContaining('Add Date');
-
-      await tester.tap(addDateButton);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(ExploreEventDialog), findsOneWidget);
+      expect(find.byIcon(Icons.menu), findsOneWidget);
+      expect(find.byIcon(Icons.date_range), findsOneWidget);
+      expect(find.byIcon(Icons.view_agenda), findsOneWidget);
     });
 
-    testWidgets('Test for Calendar button', (tester) async {
+    testWidgets('Calendar widget is present', (tester) async {
       final model = MainScreenViewModel();
-      final mockModel = ExploreEventsViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
+      expect(find.byType(SfCalendar), findsOneWidget);
+    });
 
-      final calendarBtn = find.byIcon(Icons.calendar_month);
+    testWidgets('Calendar has demo events', (tester) async {
+      final model = MainScreenViewModel();
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      expect(calendarBtn, findsOneWidget);
-
-      await tester.tap(calendarBtn);
-      await tester.pumpAndSettle();
-
-      verify(
-        navigationService.pushScreen(
-          Routes.calendar,
-          arguments: mockModel.events,
-        ),
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      expect(calendar.dataSource, isNotNull);
+      expect(calendar.dataSource!.appointments, isNotEmpty);
+      expect(
+        calendar.dataSource!.appointments!.length,
+        greaterThanOrEqualTo(5),
       );
     });
 
-    testWidgets('Test for floatingAction button', (tester) async {
+    testWidgets('Calendar has month view settings', (tester) async {
       final model = MainScreenViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
-
-      final floatingBtn = find.byType(FloatingActionButton);
-
-      expect(floatingBtn, findsOneWidget);
-
-      await tester.tap(floatingBtn);
-      await tester.pumpAndSettle();
-
-      verify(
-        navigationService.pushScreen(
-          "/createEventPage",
-        ),
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      expect(calendar.monthViewSettings, isNotNull);
+      expect(
+        calendar.monthViewSettings.appointmentDisplayMode,
+        MonthAppointmentDisplayMode.appointment,
       );
+      expect(calendar.monthViewSettings.showAgenda, isTrue);
+      expect(calendar.monthViewSettings.agendaViewHeight, 200);
     });
 
-    testWidgets('Test for eventCard.', (tester) async {
+    testWidgets('Calendar has onTap callback', (tester) async {
       final model = MainScreenViewModel();
-      when(exploreEventsViewModel.events).thenAnswer((_) {
-        return mockEvents;
-      });
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
-
-      final eventCard = find.byType(EventCard).first;
-
-      expect(eventCard, findsOneWidget);
-
-      await tester.tap(eventCard);
-      await tester.pumpAndSettle();
-
-      verify(
-        navigationService.navigatorKey,
-      );
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      expect(calendar.onTap, isNotNull);
     });
 
-    testWidgets('Test for dropDown button', (tester) async {
+    testWidgets('Widget disposes correctly', (tester) async {
       final model = MainScreenViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
+      // Remove the widget
+      await tester.pumpWidget(const SizedBox());
+      await tester.pump();
 
-      final dropDownBtn = find.byType(DropdownButton<String>);
+      // No errors means disposal worked
+      expect(find.byType(DemoExploreEvents), findsNothing);
+    });
+  });
 
-      await tester.tap(dropDownBtn);
-      await tester.pumpAndSettle();
+  group('DemoExploreEvents Demo Data Tests', () {
+    testWidgets('Demo events have valid properties', (tester) async {
+      final model = MainScreenViewModel();
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      final createEventsBtn = find.textContaining('Created Events');
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      final appointments = calendar.dataSource!.appointments!;
 
-      expect(createEventsBtn, findsOneWidget);
-
-      await tester.tap(createEventsBtn);
-      await tester.pumpAndSettle();
+      for (final appointment in appointments) {
+        final app = appointment as Appointment;
+        expect(app.subject, isNotEmpty);
+        expect(app.startTime, isNotNull);
+        expect(app.endTime, isNotNull);
+        expect(app.color, isNotNull);
+        expect(app.endTime.isAfter(app.startTime), isTrue);
+      }
     });
 
-    testWidgets('Test for ExploreEvent dialog', (tester) async {
+    testWidgets('Demo events span multiple days', (tester) async {
       final model = MainScreenViewModel();
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      final appointments = calendar.dataSource!.appointments!;
 
-      final dropDownBtn = find.byType(DropdownButton<String>);
+      final startDates = appointments.map((a) {
+        final app = a as Appointment;
+        return DateTime(
+          app.startTime.year,
+          app.startTime.month,
+          app.startTime.day,
+        );
+      }).toSet();
 
-      await tester.tap(dropDownBtn);
-      await tester.pumpAndSettle();
-
-      final createEventsBtn = find.textContaining('Created Events');
-
-      expect(createEventsBtn, findsOneWidget);
-
-      await tester.tap(createEventsBtn);
-      await tester.pumpAndSettle();
+      expect(startDates.length, greaterThan(1));
     });
 
-    testWidgets('Test for layout when zero events', (tester) async {
+    testWidgets('Demo events include all-day and timed events', (tester) async {
       final model = MainScreenViewModel();
-      when(exploreEventsViewModel.events).thenReturn(<Event>[]);
-      await tester.pumpWidget(createExploreEventsScreen(model));
+      await tester.pumpWidget(createDemoExploreEventsScreen(model));
+      await tester.pump();
 
-      await tester.pumpAndSettle();
+      final calendar = tester.widget<SfCalendar>(find.byType(SfCalendar));
+      final appointments = calendar.dataSource!.appointments!;
 
-      final dropDownBtn = find.byType(DropdownButton<String>);
+      final hasAllDay = appointments.any((a) => (a as Appointment).isAllDay);
+      final hasTimedEvents =
+          appointments.any((a) => !(a as Appointment).isAllDay);
 
-      await tester.tap(dropDownBtn);
-      await tester.pumpAndSettle();
-
-      final createEventsBtn = find.textContaining('Created Events');
-
-      expect(createEventsBtn, findsOneWidget);
-
-      await tester.tap(createEventsBtn);
-      await tester.pumpAndSettle();
+      expect(hasAllDay, isTrue);
+      expect(hasTimedEvents, isTrue);
     });
   });
 }

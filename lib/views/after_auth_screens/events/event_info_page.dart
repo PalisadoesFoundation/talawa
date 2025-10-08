@@ -57,6 +57,7 @@ class _EventInfoPageState extends State<EventInfoPage>
               AppLocalizations.of(context)!.strictTranslate('Event Details'),
             ),
             bottom: TabBar(
+              key: const Key("tabBar"),
               controller: _tabController,
               tabs: [
                 const Tab(
@@ -97,6 +98,7 @@ class _EventInfoPageState extends State<EventInfoPage>
                       child: const Icon(Icons.delete),
                     )
                   : FloatingActionButton.extended(
+                      key: const Key("registerEventFloatingbtn"),
                       heroTag: "event_info_register_fab",
                       onPressed: () {
                         model.registerForEvent();

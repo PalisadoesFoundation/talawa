@@ -11,7 +11,6 @@ import 'package:talawa/models/events/event_volunteer_group.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import '../../../helpers/test_helpers.dart';
-import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -22,11 +21,11 @@ void main() {
     testSetupLocator();
   });
 
-  setUp(() {
+  setUpAll(() {
     registerServices();
   });
 
-  tearDown(() {
+  tearDownAll(() {
     unregisterServices();
   });
 
@@ -99,7 +98,11 @@ void main() {
       };
 
       when(
-        eventService.createVolunteerGroup(argThat(isA<Map<String, dynamic>>())),
+        eventService.createVolunteerGroup({
+          'eventId': "1",
+          'name': 'Group 1',
+          'volunteersRequired': 10,
+        }),
       ).thenAnswer(
         (_) async => QueryResult(
           data: mockResult,

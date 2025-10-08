@@ -1066,6 +1066,7 @@ void registerViewModels() {
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
   locator.registerFactory(() => EventInfoViewModel());
+  locator.registerFactory(() => EventCalendarViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
@@ -1091,6 +1092,7 @@ void unregisterViewModels() {
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
+  locator.unregister<EventCalendarViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
   locator.unregister<CustomDrawerViewModel>();

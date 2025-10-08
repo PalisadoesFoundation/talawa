@@ -75,16 +75,13 @@ Widget createManageAgendaScreen(
       return BaseView<EventInfoViewModel>(
         onModelReady: (model) {
           model.initialize(
-            args: {
-              "event": getTestEvent(
-                isPublic: true,
-                viewOnMap: false,
-                asAdmin: true,
-                id: id,
-                agendaItems: agendaItems,
-              ),
-              "exploreEventViewModel": ExploreEventsViewModel(),
-            },
+            getTestEvent(
+              isPublic: true,
+              viewOnMap: false,
+              asAdmin: true,
+              id: id,
+              agendaItems: agendaItems,
+            ),
           );
         },
         builder: (context, model, child) {

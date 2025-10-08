@@ -143,9 +143,12 @@ void main() {
         expect(event.allDay, isFalse);
         expect(
           event.startAt,
-          equals(DateTime.parse('2025-08-15T09:00:00.000Z')),
+          equals(DateTime.parse('2025-08-15T09:00:00.000Z').toLocal()),
         );
-        expect(event.endAt, equals(DateTime.parse('2025-08-15T17:00:00.000Z')));
+        expect(
+          event.endAt,
+          equals(DateTime.parse('2025-08-15T17:00:00.000Z').toLocal()),
+        );
         expect(event.isPublic, isTrue);
         expect(event.isRegistered, isTrue);
         expect(event.isRegisterable, isTrue);

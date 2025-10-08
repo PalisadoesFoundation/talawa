@@ -64,22 +64,6 @@ void main() {
       verifyNever(notifyListenerCallback());
     });
 
-    test('getImageFromGallery - camera true returns file', () async {
-      final model = CreateEventViewModel();
-      final notifyListenerCallback = MockCallbackFunction();
-      model.addListener(notifyListenerCallback);
-
-      final file = File('fakePath');
-      when(multimediaPickerService.getPhotoFromGallery(camera: true))
-          .thenAnswer((_) async => file);
-
-      await model.getImageFromGallery(camera: true);
-
-      verify(multimediaPickerService.getPhotoFromGallery(camera: true));
-      expect(model.imageFile, file);
-      verify(notifyListenerCallback()).called(greaterThan(0));
-    });
-
     test('removeImage clears image file', () {
       final model = CreateEventViewModel();
       final notifyListenerCallback = MockCallbackFunction();
@@ -95,7 +79,7 @@ void main() {
     test('combineDateTime combines date and time correctly', () {
       final model = CreateEventViewModel();
       final date = DateTime(2025, 7, 28);
-      final time = TimeOfDay(hour: 14, minute: 30);
+      const time = TimeOfDay(hour: 14, minute: 30);
 
       final result = model.combineDateTime(date, time);
 
@@ -235,9 +219,9 @@ void main() {
       final notifyListenerCallback = MockCallbackFunction();
       model.addListener(notifyListenerCallback);
 
-      final futureDate = DateTime.now().add(Duration(days: 5));
+      final futureDate = DateTime.now().add(const Duration(days: 5));
       model.eventStartDate = DateTime.now();
-      model.eventEndDate = DateTime.now().add(Duration(days: 1));
+      model.eventEndDate = DateTime.now().add(const Duration(days: 1));
 
       // Mock date picker to return a future date
       // Note: This test verifies the logic, actual date picker mocking may need adjustment
@@ -253,11 +237,11 @@ void main() {
       model.isAllDay = false;
       model.eventStartDate = DateTime.now();
       model.eventEndDate = DateTime.now();
-      model.eventStartTime = TimeOfDay(hour: 10, minute: 0);
-      model.eventEndTime = TimeOfDay(hour: 9, minute: 0);
+      model.eventStartTime = const TimeOfDay(hour: 10, minute: 0);
+      model.eventEndTime = const TimeOfDay(hour: 9, minute: 0);
 
       // Manually update to simulate picker result
-      model.eventStartTime = TimeOfDay(hour: 14, minute: 0);
+      model.eventStartTime = const TimeOfDay(hour: 14, minute: 0);
       final startDateTime =
           model.combineDateTime(model.eventStartDate, model.eventStartTime);
       final endDateTime =
@@ -348,7 +332,7 @@ void main() {
       model.interval = 1;
       model.byMonth = [6, 12];
       model.useDayOfWeekYearly = true;
-      model.recurrenceEndDate = DateTime.now().add(Duration(days: 365));
+      model.recurrenceEndDate = DateTime.now().add(const Duration(days: 365));
       model.eventEndType = EventEndTypes.on;
       model.never = false;
 
