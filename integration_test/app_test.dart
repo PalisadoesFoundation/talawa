@@ -18,15 +18,14 @@ void main() {
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-setUpAll(() async {
-  await dotenv.load(fileName: ".env");
-  debugPrint("Environment variables loaded");
-  debugPrint("API_URL = ${dotenv.get('API_URL')}");
+  setUpAll(() async {
+    await dotenv.load(fileName: ".env");
+    debugPrint("Environment variables loaded");
+    debugPrint("API_URL = ${dotenv.get('API_URL')}");
 
-  final Directory dir = await getApplicationDocumentsDirectory();
-  await HiveManager.initializeHive(dir: dir); 
-});
-
+    final Directory dir = await getApplicationDocumentsDirectory();
+    await HiveManager.initializeHive(dir: dir);
+  });
 
   group("E2E Tests : ", () {
     testWidgets(
