@@ -1,13 +1,13 @@
-import 'dart:io'; // <-- add this import
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:path_provider/path_provider.dart'; // <-- add this import
+import 'package:path_provider/path_provider.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/main.dart' as app;
 import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/hive_manager.dart'; // <-- add this import
+import 'package:talawa/services/hive_manager.dart';
 import 'helper.dart';
 import 'robots/login_form_robot.dart';
 import 'robots/logout_robot.dart';
