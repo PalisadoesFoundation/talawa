@@ -32,7 +32,7 @@ void main() {
 
       verify(navigationService.pushScreen(Routes.joinOrg, arguments: '-1'));
     });
-    test("Check if settingPageNavigation() is working properly", () async {
+    test("Check if settingPageNavigation() is working properly", () {
       final model = WaitingViewModel();
       model.initialise();
 

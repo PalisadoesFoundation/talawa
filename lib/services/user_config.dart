@@ -97,12 +97,16 @@ class UserConfig {
 
     try {
       databaseFunctions.init();
-      await sessionManager.refreshSession();
-      databaseFunctions.init();
+
       final QueryResult result = await databaseFunctions.gqlAuthQuery(
         queries.fetchUserInfo(),
         variables: {'id': currentUser.id},
       );
+      if (result.hasException ||
+          result.data == null ||
+          result.data!['user'] == null) {
+        throw Exception('Unable to fetch user details');
+      }
       final user = result.data!['user'] as Map<String, dynamic>;
       final User userInfo = User.fromJson(
         user,
@@ -111,8 +115,8 @@ class UserConfig {
       userInfo.refreshToken = userConfig.currentUser.refreshToken;
       userConfig.updateUser(userInfo);
       _currentOrg ??= _currentUser?.joinedOrganizations![0];
-      _currentOrgInfoController.add(_currentOrg!);
-      saveUserInHive();
+      userConfig.updateUserJoinedOrg(_currentOrg!);
+
       return true;
     } on Exception catch (e) {
       print(e);
@@ -332,7 +336,10 @@ class UserConfig {
         }
       }
 
-      saveCurrentOrgInHive(_currentOrg!);
+      if (_currentOrg != null) {
+        saveCurrentOrgInHive(_currentOrg!);
+      }
+
       saveUserInHive();
     } catch (e) {
       debugPrint(e.toString());

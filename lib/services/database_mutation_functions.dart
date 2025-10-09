@@ -94,7 +94,6 @@ class DataBaseMutationFunctions {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},
-      fetchPolicy: FetchPolicy.networkOnly,
     );
     final response = await cacheService.executeOrCacheOperation(
       operation: query,

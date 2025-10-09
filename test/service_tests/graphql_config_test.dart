@@ -78,7 +78,7 @@ void main() {
       );
     });
 
-    test('getToken updates token and calls getOrgUrl', () async {
+    test('getToken updates token and calls getOrgUrl', () {
       final userConfig = getAndRegisterUserConfig();
       final mockUser = User(
         id: 'testuser',

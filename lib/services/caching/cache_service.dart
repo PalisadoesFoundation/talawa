@@ -3,6 +3,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/services/caching/offline_action_queue.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
+import 'package:uuid/uuid.dart';
 
 /// This class provides functionalities for caching GraphQL operations.
 class CacheService {
@@ -63,7 +64,7 @@ class CacheService {
       final timeStamp = DateTime.now();
       final expiry = timeStamp.add(_timeToLive);
       final cachedAction = CachedUserAction(
-        id: 'PlaceHolder', // Placeholder for actual ID generation
+        id: const Uuid().v4(),
         operation: operation,
         variables: variables,
         operationType: operationType,

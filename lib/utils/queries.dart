@@ -34,6 +34,7 @@ class Queries {
             name,
             avatarURL,
             emailAddress,
+            orgIdWhereMembershipRequested,
             organizationsWhereMember(first:32){
               edges{
                 node{
@@ -41,7 +42,6 @@ class Queries {
                   name,
                   addressLine1,
                   addressLine2,
-                  orgIdWhereMembershipRequested,
                   avatarMimeType,
                   avatarURL,
                   postalCode,

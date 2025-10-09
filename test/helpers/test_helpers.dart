@@ -501,7 +501,7 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
     return locator<GraphQLClient>();
   });
 
-  when(service.getToken()).thenAnswer((_) async => "sample_token");
+  when(service.getToken()).thenAnswer((_) => "sample_token");
 
   locator.registerSingleton<GraphqlConfig>(service);
   return service;

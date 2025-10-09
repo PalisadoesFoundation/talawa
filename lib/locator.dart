@@ -20,7 +20,6 @@ import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_action_handler.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
@@ -181,7 +180,6 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
-  locator.registerFactory(() => UserProfileService());
 
   //AppLinks
   locator.registerSingleton(AppLinks());
