@@ -116,14 +116,12 @@ void main() {
         locator<GraphQLClient>().query(
           QueryOptions(
             document: gql(query),
-            fetchPolicy: FetchPolicy.networkOnly,
           ),
         ),
       ).thenAnswer(
         (_) async => QueryResult(
           options: QueryOptions(
             document: gql(query),
-            fetchPolicy: FetchPolicy.networkOnly,
           ),
           data: {
             'organizations': [
@@ -132,7 +130,6 @@ void main() {
                 'image': 'sampleimg',
                 'name': 'Sample1',
                 'userRegistrationRequired': false,
-                'creator': {'firstName': 'Shivam', 'lastName': 'Gupta'},
               },
             ],
           },
