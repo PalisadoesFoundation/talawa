@@ -70,10 +70,22 @@ class LoginFormRobot {
   ///   None
   Future<void> _openLoginForm() async {
     await tester.pumpAndSettle(const Duration(seconds: 5));
-    final Finder dismissButton = find.text('Dismiss');
-    if (dismissButton.evaluate().isNotEmpty) {
-      devPrint("Dismiss button found, tapping it");
-      await tester.tap(dismissButton);
+    final Finder dismissButtons = find.text('Dismiss');
+    if (dismissButtons.evaluate().isNotEmpty) {
+      final int dismissButtonCount = dismissButtons.evaluate().length;
+      devPrint("Found $dismissButtonCount dismiss button(s), dismissing all");
+      // Dismiss all error dialogs by tapping all dismiss buttons
+      for (int i = 0; i < dismissButtonCount; i++) {
+        try {
+          final Finder currentDismissButtons = find.text('Dismiss');
+          if (currentDismissButtons.evaluate().isNotEmpty) {
+            await tester.tap(currentDismissButtons.first);
+            await tester.pumpAndSettle(const Duration(milliseconds: 500));
+          }
+        } catch (e) {
+          devPrint("Error dismissing dialog: $e");
+        }
+      }
       await tester.pumpAndSettle(const Duration(seconds: 2));
     } else {
       devPrint("Dismiss button not found, continuing...");

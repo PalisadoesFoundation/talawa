@@ -353,7 +353,7 @@ jobs:
         run: cp .env.example .env
       
       - name: Update API_URL in .env for integration tests
-        run: echo "API_URL=http://127.0.0.1:4000/graphql" > .env
+        run: echo "API_URL=https://api-test.talawa.io/graphql" > .env
       
       - name: Run Flutter Tests on Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
