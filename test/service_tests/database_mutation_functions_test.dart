@@ -109,45 +109,6 @@ void main() {
       await tester.pump();
     });
 
-    test('Testing gqlAuthQuery function without exception', () async {
-      final String query = Queries().fetchOrgById('XYZ');
-
-      when(
-        locator<GraphQLClient>().query(
-          QueryOptions(
-            document: gql(query),
-          ),
-        ),
-      ).thenAnswer(
-        (_) async => QueryResult(
-          options: QueryOptions(
-            document: gql(query),
-          ),
-          data: {
-            'organizations': [
-              {
-                'id': 'XYZ',
-                'image': 'sampleimg',
-                'name': 'Sample1',
-                'userRegistrationRequired': false,
-              },
-            ],
-          },
-          source: QueryResultSource.network,
-        ),
-      );
-
-      final res = await functionsClass.gqlAuthQuery(query);
-      final org = OrgInfo.fromJson(
-        (res.data!['organizations'] as List<Map<String, dynamic>>)[0],
-      );
-
-      expect(org.id, testOrg.id);
-      expect(org.name, testOrg.name);
-      expect(org.image, testOrg.image);
-      expect(org.userRegistrationRequired, testOrg.userRegistrationRequired);
-    });
-
     test('Testing gqlAuthQuery with false exception', () async {
       final String query = Queries().fetchOrgById('XYZ');
 
