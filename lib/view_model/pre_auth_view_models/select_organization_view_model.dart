@@ -1,4 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments, talawa_api_doc
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -63,7 +62,7 @@ class SelectOrganizationViewModel extends BaseModel {
   /// * `item`: Selected organization data.
   ///
   /// **returns**:
-  /// * `Future<void>`: None
+  ///   None
   Future<void> selectOrg(OrgInfo? item) async {
     bool orgRequestAlreadyPresent = false;
     // if user session not expirec
@@ -148,7 +147,7 @@ class SelectOrganizationViewModel extends BaseModel {
   ///   None
   ///
   /// **returns**:
-  /// * `Future<void>`: None
+  ///   None
   Future<void> onTapJoin() async {
     if (selectedOrganization == null) {
       navigationService.showTalawaErrorSnackBar(

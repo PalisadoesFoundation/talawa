@@ -115,7 +115,15 @@ class UserConfig {
       userInfo.refreshToken = userConfig.currentUser.refreshToken;
       userConfig.updateUser(userInfo);
       _currentOrg ??= _currentUser?.joinedOrganizations![0];
-      userConfig.updateUserJoinedOrg(_currentOrg!);
+      if (_currentOrg == null ||
+          _currentOrg?.id == null ||
+          _currentOrg?.id == 'null') {
+        final joined = _currentUser?.joinedOrganizations;
+        if (joined != null && joined.isNotEmpty) {
+          _currentOrg = joined.first;
+          userConfig.updateUserJoinedOrg(_currentOrg!);
+        }
+      }
 
       return true;
     } on Exception catch (e) {
@@ -124,9 +132,8 @@ class UserConfig {
         "Couldn't update User details",
         MessageType.error,
       );
+      return false;
     }
-
-    return true;
   }
 
   /// Logs out the current user.

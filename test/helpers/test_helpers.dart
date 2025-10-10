@@ -36,6 +36,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/connectivity_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
@@ -115,7 +116,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppLinks>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatCoreService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ChatMembershipService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ChatMessageService>(onMissingStub: OnMissingStub.returnDefault)
+    MockSpec<ChatMessageService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<UserProfileService>(onMissingStub: OnMissingStub.returnDefault),
   ],
 )
 
@@ -1177,6 +1179,20 @@ PageInfo getPageInfoMock() {
   );
 }
 
+/// `getAndRegisterUserProfileService` returns a mock instance of the `UserProfileService` class.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `UserProfileService`: A mock instance of the `UserProfileService` class.
+UserProfileService getAndRegisterUserProfileService() {
+  _removeRegistrationIfExists<UserProfileService>();
+  final service = MockUserProfileService();
+  locator.registerSingleton<UserProfileService>(service);
+  return service;
+}
+
 /// `registerServices` registers all the services required for the test.
 ///
 /// **params**:
@@ -1202,6 +1218,7 @@ void registerServices() {
   getAndRegisterImageCropper();
   getAndRegisterImagePicker();
   getAndRegisterFundService();
+  getAndRegisterUserProfileService();
 }
 
 /// `unregisterServices` unregisters all the services required for the test.
@@ -1227,6 +1244,7 @@ void unregisterServices() {
   locator.unregister<ImageCropper>();
   locator.unregister<ImagePicker>();
   locator.unregister<ChatService>();
+  locator.unregister<UserProfileService>();
 }
 
 /// registerViewModels registers all the view models required for the test.

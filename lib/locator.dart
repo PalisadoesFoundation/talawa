@@ -156,7 +156,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => DemoViewModel());
   // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => SetUrlViewModel());
+  locator.registerFactory(() => AuthLandingViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());

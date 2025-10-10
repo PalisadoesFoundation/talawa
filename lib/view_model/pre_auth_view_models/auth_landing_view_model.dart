@@ -8,7 +8,7 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// SetUrlViewModel class helps to interact with model to serve data.
+/// AuthLandingViewModel class helps to interact with model to serve data.
 ///
 /// and react to user's input for Set Url Section.
 /// Methods include:
@@ -17,7 +17,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 /// * `checkURLandNavigate`
 /// * `checkURLandShowPopUp`
 
-class SetUrlViewModel extends BaseModel {
+class AuthLandingViewModel extends BaseModel {
   /// organizationID.
   String orgId = '-1';
 

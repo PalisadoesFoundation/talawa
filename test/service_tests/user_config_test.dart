@@ -1,17 +1,16 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/session_manager.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 
@@ -30,17 +29,6 @@ class TestUserConfig extends UserConfig {
     throw Exception("Unable to logOut");
   }
 }
-// class MockUser extends Mock implements User {
-//   @override
-//   void updateJoinedOrg(List<OrgInfo> orgList) {
-//     // TODO: implement updateJoinedOrg
-//   }
-
-//   @override
-//   void updateMemberRequestOrg(List<OrgInfo> orgList) {
-//     // TODO: implement updateMemberRequestOrg
-//   }
-// }
 
 class MockSessionManger extends Mock implements SessionManager {
   @override
@@ -116,6 +104,207 @@ void main() {
       });
 
       UserConfig().userLogOut();
+    });
+
+    group('exitCurrentOrg', () {
+      test('returns early when currentOrg id is null or "null"', () async {
+        final model = UserConfig();
+        model.currentUser =
+            User(id: 'u1', joinedOrganizations: [OrgInfo(id: 'a')]);
+
+        // Case: id is null
+        model.currentOrg = OrgInfo(id: null);
+        await model.exitCurrentOrg();
+        // No mutation should be triggered on invalid currentOrg
+
+        // Case: id is "null"
+        model.currentOrg = OrgInfo(id: 'null');
+        await model.exitCurrentOrg();
+        // No mutation should be triggered on invalid currentOrg
+      });
+
+      test('returns early when user has no joined organizations', () async {
+        final model = UserConfig();
+        model.currentUser = User(id: 'u2', joinedOrganizations: []);
+        model.currentOrg = OrgInfo(id: 'orgX');
+
+        await model.exitCurrentOrg();
+        // No mutation should be triggered when user has no joined orgs
+      });
+
+      test('successful exit updates current org to next and shows snackbar',
+          () async {
+        final model = UserConfig();
+        final orgA = OrgInfo(id: 'A', name: 'Org A');
+        final orgB = OrgInfo(id: 'B', name: 'Org B');
+        model.currentUser = User(id: 'u3', joinedOrganizations: [orgA, orgB]);
+        model.currentOrg = orgA;
+        final mutation = Queries().deleteOrganizationMembershipMutation();
+        when(
+          databaseFunctions.gqlAuthMutation(
+            mutation,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'deleteOrganizationMembership': {'id': 'mem1'},
+            },
+            options: QueryOptions(document: gql('{ __typename }')),
+          ),
+        );
+
+        await model.exitCurrentOrg();
+
+        // org A removed, current becomes B
+        expect(model.currentUser.joinedOrganizations!.any((o) => o.id == 'A'),
+            false);
+        expect(model.currentOrg.id, 'B');
+        verify(navigationService.showSnackBar('Exited Org A successfully',
+            duration: const Duration(seconds: 2)));
+        // No navigation reset expected here
+      });
+
+      test(
+          'navigates to waitingScreen when no orgs left but membershipRequests present',
+          () async {
+        final model = UserConfig();
+        final orgA = OrgInfo(id: 'A', name: 'Org A');
+        model.currentUser = User(
+            id: 'u4',
+            joinedOrganizations: [orgA],
+            membershipRequests: ['req1']);
+        model.currentOrg = orgA;
+        // Align global userConfig used inside method with our model's currentUser
+        when(userConfig.currentUser).thenReturn(model.currentUser);
+        final mutation = Queries().deleteOrganizationMembershipMutation();
+        when(
+          databaseFunctions.gqlAuthMutation(
+            mutation,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'deleteOrganizationMembership': {'id': 'mem1'},
+            },
+            options: QueryOptions(document: gql('{ __typename }')),
+          ),
+        );
+
+        await model.exitCurrentOrg();
+
+        expect(model.currentUser.joinedOrganizations, isEmpty);
+        verify(
+          navigationService.removeAllAndPush(
+            Routes.waitingScreen,
+            Routes.mainScreen,
+            arguments: '0',
+          ),
+        );
+      });
+
+      test('navigates to joinOrg when no orgs/membershipRequests left',
+          () async {
+        final model = UserConfig();
+        final orgA = OrgInfo(id: 'A', name: 'Org A');
+        model.currentUser =
+            User(id: 'u5', joinedOrganizations: [orgA], membershipRequests: []);
+        model.currentOrg = orgA;
+        // Align global userConfig used inside method with our model's currentUser
+        when(userConfig.currentUser).thenReturn(model.currentUser);
+
+        final mutation = Queries().deleteOrganizationMembershipMutation();
+        when(
+          databaseFunctions.gqlAuthMutation(
+            mutation,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'deleteOrganizationMembership': {'id': 'mem1'},
+            },
+            options: QueryOptions(document: gql('{ __typename }')),
+          ),
+        );
+
+        await model.exitCurrentOrg();
+
+        expect(model.currentUser.joinedOrganizations, isEmpty);
+        verify(
+          navigationService.removeAllAndPush(
+            Routes.joinOrg,
+            Routes.mainScreen,
+            arguments: '-1',
+          ),
+        );
+      });
+
+      test('shows error when mutation returns null data', () async {
+        final model = UserConfig();
+        final orgA = OrgInfo(id: 'A', name: 'Org A');
+        model.currentUser = User(id: 'u6', joinedOrganizations: [orgA]);
+        model.currentOrg = orgA;
+
+        final mutation = Queries().deleteOrganizationMembershipMutation();
+        when(
+          databaseFunctions.gqlAuthMutation(
+            mutation,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: null,
+            options: QueryOptions(document: gql('{ __typename }')),
+          ),
+        );
+
+        await model.exitCurrentOrg();
+
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            'Unable to exit organization, please try again.',
+            MessageType.error,
+          ),
+        );
+      });
+
+      test('shows error when orgMembership missing or id null', () async {
+        final model = UserConfig();
+        final orgA = OrgInfo(id: 'A', name: 'Org A');
+        model.currentUser = User(id: 'u7', joinedOrganizations: [orgA]);
+        model.currentOrg = orgA;
+
+        final mutation = Queries().deleteOrganizationMembershipMutation();
+        when(
+          databaseFunctions.gqlAuthMutation(
+            mutation,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            source: QueryResultSource.network,
+            data: {
+              'deleteOrganizationMembership': null,
+            },
+            options: QueryOptions(document: gql('{ __typename }')),
+          ),
+        );
+
+        await model.exitCurrentOrg();
+
+        verify(
+          navigationService.showTalawaErrorSnackBar(
+            'Unable to exit organization, please try again.',
+            MessageType.error,
+          ),
+        );
+      });
     });
     test('Test for User log out method.', () async {
       databaseFunctions.init();
@@ -228,7 +417,7 @@ void main() {
 
       // show couldn't update errorsnackbar.
       final loggedIn = await model.userLoggedIn();
-      expect(loggedIn, true);
+      expect(loggedIn, false);
     });
 
     test('Test for updateUserJoinedOrg method', () async {

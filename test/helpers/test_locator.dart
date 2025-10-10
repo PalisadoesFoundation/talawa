@@ -84,6 +84,7 @@ final actionHandlerService = locator<ActionHandlerService>();
 final pinnedPostService = locator<PinnedPostService>();
 final fundService = locator<FundService>();
 final fundViewModel = locator<FundViewModel>();
+final userProfileService = locator<UserProfileService>();
 
 void testSetupLocator() {
   locator.registerSingleton(CacheService());
@@ -118,7 +119,7 @@ void testSetupLocator() {
   locator.registerSingleton(Validator());
   locator.registerLazySingleton(() => PinnedPostService());
   locator.registerLazySingleton(() => FundService());
-
+  locator.registerLazySingleton(() => UserProfileService());
   //graphql
 
   //databaseMutationFunction
@@ -136,7 +137,7 @@ void testSetupLocator() {
   locator.registerFactory(() => DemoViewModel());
   // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator.registerFactory(() => SetUrlViewModel());
+  locator.registerFactory(() => AuthLandingViewModel());
   locator.registerFactory(() => LoginViewModel());
   locator.registerFactory(() => ManageVolunteerGroupViewModel());
   locator.registerFactory(() => EditAgendaItemViewModel());
@@ -165,7 +166,6 @@ void testSetupLocator() {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => SelectContactViewModel());
-  locator.registerFactory(() => UserProfileService());
 
   //AppLinks
   locator.registerSingleton(AppLinks());

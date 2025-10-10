@@ -50,6 +50,7 @@ import 'package:talawa/services/post_service.dart' as _i19;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i22;
 import 'package:talawa/services/user_config.dart' as _i15;
+import 'package:talawa/services/user_profile_service.dart' as _i58;
 import 'package:talawa/utils/pair.dart' as _i7;
 import 'package:talawa/utils/validators.dart' as _i40;
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart'
@@ -6957,4 +6958,61 @@ class MockChatMessageService extends _i2.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [UserProfileService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserProfileService extends _i2.Mock
+    implements _i58.UserProfileService {
+  @override
+  _i8.Future<_i3.QueryResult<Object?>> updateUserProfile(
+          Map<String, dynamic>? variables) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateUserProfile,
+          [variables],
+        ),
+        returnValue: _i8.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateUserProfile,
+            [variables],
+          ),
+        )),
+        returnValueForMissingStub: _i8.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #updateUserProfile,
+            [variables],
+          ),
+        )),
+      ) as _i8.Future<_i3.QueryResult<Object?>>);
+
+  @override
+  _i8.Future<_i3.QueryResult<Object?>> getUserProfileInfo(_i9.User? user) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserProfileInfo,
+          [user],
+        ),
+        returnValue: _i8.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #getUserProfileInfo,
+            [user],
+          ),
+        )),
+        returnValueForMissingStub: _i8.Future<_i3.QueryResult<Object?>>.value(
+            _FakeQueryResult_8<Object?>(
+          this,
+          Invocation.method(
+            #getUserProfileInfo,
+            [user],
+          ),
+        )),
+      ) as _i8.Future<_i3.QueryResult<Object?>>);
 }

@@ -22,8 +22,8 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 /// This is a class for mock url for testing.
-class SetUrlMock extends StatelessWidget {
-  const SetUrlMock({super.key});
+class AuthLandingMock extends StatelessWidget {
+  const AuthLandingMock({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class SetUrlMock extends StatelessWidget {
 Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
-        final model1 = SetUrlViewModel();
+        final model1 = AuthLandingViewModel();
         return MaterialApp(
           locale: const Locale('en'),
           localizationsDelegates: [
@@ -72,7 +72,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
 Future<void> main() async {
   SizeConfig().test();
 
-  late SetUrlViewModel model;
+  late AuthLandingViewModel model;
 
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
@@ -80,7 +80,7 @@ Future<void> main() async {
     dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
     registerServices();
     registerViewModels();
-    model = SetUrlViewModel();
+    model = AuthLandingViewModel();
   });
   tearDown(() {
     unregisterViewModels();
@@ -112,24 +112,25 @@ Future<void> main() async {
       verify(graphqlConfig.getOrgUrl());
 
       final box = Hive.box('url');
-      expect(box.get(SetUrlViewModel.urlKey), 'http://<IPv4>:4000/graphql');
       expect(
-        box.get(SetUrlViewModel.imageUrlKey),
+          box.get(AuthLandingViewModel.urlKey), 'http://<IPv4>:4000/graphql');
+      expect(
+        box.get(AuthLandingViewModel.imageUrlKey),
         'http://<IPv4>:4000/graphql/talawa/',
       );
     });
     testWidgets('Check if initialize is working fine ', (tester) async {
-      final model = SetUrlViewModel();
+      final model = AuthLandingViewModel();
 
-      await tester.pumpWidget(const SetUrlMock());
+      await tester.pumpWidget(const AuthLandingMock());
 
       model.initialise();
     });
     testWidgets('Check if initialize is working fine when we give url',
         (tester) async {
-      final model = SetUrlViewModel();
+      final model = AuthLandingViewModel();
 
-      await tester.pumpWidget(const SetUrlMock());
+      await tester.pumpWidget(const AuthLandingMock());
 
       model.initialise();
     });
