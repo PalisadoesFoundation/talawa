@@ -124,9 +124,7 @@ class SendAccessRequest extends StatelessWidget {
                             ),
                             elevation: 4,
                           ),
-                          onPressed: () {
-                            model.sendMembershipRequest();
-                          },
+                          onPressed: model.sendMembershipRequest,
                         ),
                       ),
                       const SizedBox(height: 16),

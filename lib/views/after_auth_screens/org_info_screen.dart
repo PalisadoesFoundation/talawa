@@ -26,6 +26,9 @@ class OrganisationInfoScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         heroTag: "org_info_join_fab",
         onPressed: () {
+          if (joinedOrgsMap.containsKey(orgInfo.id)) {
+            return;
+          }
           model.selectOrg(orgInfo);
         },
         label: Text(

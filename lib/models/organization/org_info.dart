@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-
+import 'package:talawa/models/user/user_info.dart';
 part 'org_info.g.dart';
 
 /// This class creates an organization-information model and returns an OrgInfo instance.
@@ -20,6 +20,8 @@ class OrgInfo {
     this.state,
     this.adminsCount,
     this.membersCount,
+    this.members,
+    this.admins,
   });
 
   /// Factory method to construct an OrgInfo from a JSON object.
@@ -31,6 +33,29 @@ class OrgInfo {
   /// **returns**:
   /// * `OrgInfo`: Returns an instance of OrgInfo containing the parsed data.
   factory OrgInfo.fromJson(Map<String, dynamic> json) {
+    final membersJson = json['members'] as Map<String, dynamic>?;
+    final List<dynamic> edgesDynamic =
+        membersJson?['edges'] as List<dynamic>? ?? [];
+
+    final List<Map<String, dynamic>> memberEdges =
+        edgesDynamic.map((e) => e as Map<String, dynamic>).toList();
+    final List<User> members = memberEdges
+        .map(
+          (e) => User.fromJson(e['node'] as Map<String, dynamic>),
+        )
+        .toList();
+
+    final List<User> admins = memberEdges
+        .map((e) {
+          final Map<String, dynamic> user = e['node'] as Map<String, dynamic>;
+          if (user['role'] == 'administrator') {
+            return User.fromJson(user);
+          }
+          return null;
+        })
+        .where((user) => user != null)
+        .cast<User>()
+        .toList();
     return OrgInfo(
       id: json['id'] != null ? json['id'] as String : null,
       image: json['avatarURL'] != null ? json['avatarURL'] as String? : null,
@@ -46,6 +71,8 @@ class OrgInfo {
       line2: json['addressLine2'] as String?,
       postalCode: json['postalCode'] as String?,
       state: json['state'] as String?,
+      members: members,
+      admins: admins,
       adminsCount:
           json['adminsCount'] != null ? json['adminsCount'] as int? : null,
       membersCount:
@@ -155,4 +182,14 @@ class OrgInfo {
 
   /// The count of members in the organization.
   int? membersCount;
+
+  @HiveField(15)
+
+  /// List of members in the organization.
+  List<User>? members;
+
+  @HiveField(16)
+
+  /// List of admins in the organization.
+  List<User>? admins;
 }

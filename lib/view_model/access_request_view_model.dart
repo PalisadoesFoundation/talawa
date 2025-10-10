@@ -13,9 +13,6 @@ class AccessScreenViewModel extends BaseModel {
   /// organizations list.
   late List<OrgInfo> organizations = [];
 
-  /// org identifier.
-  late String orgId;
-
   /// text controller for optional message during the request.
   final optionalMessageController = TextEditingController();
 
@@ -77,5 +74,11 @@ class AccessScreenViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    optionalMessageController.dispose();
+    super.dispose();
   }
 }

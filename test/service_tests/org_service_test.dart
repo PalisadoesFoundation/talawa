@@ -30,7 +30,6 @@ void main() {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }
@@ -90,7 +89,6 @@ void main() {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }
@@ -124,7 +122,6 @@ void main() {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }
@@ -153,7 +150,6 @@ void main() {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }

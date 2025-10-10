@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
@@ -8,7 +9,10 @@ import 'package:talawa/view_model/base_view_model.dart';
 /// WaitingViewModel class helps to interact with model to serve data and react to user's input for Waiting section.
 ///
 /// Methods include:
-/// * `logout`
+/// * `initialise`
+/// * `settingPageNavigation`
+/// * `getOrgInfo`
+/// * `joinOrg`
 class WaitingViewModel extends BaseModel {
   /// List of organization IDs for which the user's membership requests are pending.
   late List<String> pendingRequestOrg;
@@ -54,7 +58,7 @@ class WaitingViewModel extends BaseModel {
       );
       return orgInfo;
     } on Exception catch (e) {
-      print(e);
+      debugPrint('Error fetching org info: $e');
       navigationService.showTalawaErrorSnackBar(
         'Some error occurred. Please try again later.',
         MessageType.error,

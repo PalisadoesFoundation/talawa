@@ -117,8 +117,6 @@ class EditProfilePageViewModel extends BaseModel {
         final User userInfo = User.fromJson(
           user,
         );
-
-        print(userInfo);
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
 
@@ -150,5 +148,14 @@ class EditProfilePageViewModel extends BaseModel {
   void removeImage() {
     imageFile = null;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    emailTextController.dispose();
+    nameFocus.dispose();
+    emailFocus.dispose();
+    super.dispose();
   }
 }

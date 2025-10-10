@@ -87,9 +87,9 @@ class AppConnectivity extends BaseModel {
     isOnline = true;
     showSnackbar(isOnline: true);
     databaseFunctions.init();
-    cacheService.offlineActionQueue.getActions().forEach((action) async {
+    for (final action in cacheService.offlineActionQueue.getActions()) {
       await action.execute();
-    });
+    }
   }
 
   /// This function handles the actions to be taken when the device is offline.

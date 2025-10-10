@@ -20,41 +20,48 @@ class Queries {
     String? selectedOrganization,
   ) {
     return """
-      mutation {
-        signUp(input: {
-          emailAddress: "$email"
-          name: "$name"
-          password: "$password"
-          selectedOrganization: "$selectedOrganization"
-          
-        }) {
-          authenticationToken,
-          user{
-            id
-            name,
-            avatarURL,
-            emailAddress,
-            orgIdWhereMembershipRequested,
-            organizationsWhereMember(first:32){
-              edges{
-                node{
-                  id,
+            mutation {
+              signUp(input: {
+                emailAddress: "$email"
+                name: "$name"
+                password: "$password"
+                selectedOrganization: "$selectedOrganization"
+                
+              }) {
+                authenticationToken,
+                user{
+                  id
                   name,
-                  addressLine1,
-                  addressLine2,
-                  avatarMimeType,
                   avatarURL,
-                  postalCode,
-                  countryCode,
-                  description,
-                  isUserRegistrationRequired,
+                  emailAddress,
+                  organizationsWhereMember(first:32){
+                    edges{
+                      node{
+                        id,
+                        name,
+                        addressLine1,
+                        addressLine2,
+                        avatarMimeType,
+                        avatarURL,
+                        postalCode,
+                        countryCode,
+                        description,
+                        isUserRegistrationRequired,
+                        members(first:32){
+                          edges{
+                            node{
+                              name
+                              role
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
+                
               }
             }
-          }
-          
-        }
-      }
     """;
   }
 
@@ -91,7 +98,16 @@ class Queries {
                 postalCode,
                 countryCode,
                 description,
-                isUserRegistrationRequired,
+                isUserRegistrationRequired
+                members(first:32){
+                  edges{
+                    node{
+                      id
+                      name
+                      role
+                    }
+                  }
+                }
               }
             }
           }
@@ -428,7 +444,6 @@ class Queries {
         name
         avatarURL
         description
-        isUserRegistrationRequired
         emailAddress
       }
     }

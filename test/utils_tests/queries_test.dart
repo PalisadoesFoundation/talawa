@@ -19,6 +19,22 @@ void main() {
       }
       expect(mutation, true);
     });
+
+    test("Check if registerUser includes id field in members block", () {
+      final fnData = Queries().registerUser(
+        'Ayush Chaudhary',
+        'ayush@gmail.com',
+        'password',
+        'orgId123',
+      );
+
+      // Check that the members block contains id field
+      expect(fnData.contains('members(first:32)'), true);
+      expect(fnData.contains('node{'), true);
+      expect(fnData.contains('id'), true);
+      expect(fnData.contains('name'), true);
+      expect(fnData.contains('role'), true);
+    });
     test("Check if loginUser works correctly", () {
       var mutation = false;
       expect(mutation, false);
@@ -28,6 +44,27 @@ void main() {
         mutation = true;
       }
       expect(mutation, true);
+    });
+
+    test("Check if loginUser includes id field in members block", () {
+      final fnData = Queries().loginUser('ayush@gmail.com', 'password');
+
+      // Check that the members block contains id field
+      expect(fnData.contains('members(first:32)'), true);
+      expect(fnData.contains('node{'), true);
+      expect(fnData.contains('id'), true);
+      expect(fnData.contains('name'), true);
+      expect(fnData.contains('role'), true);
+
+      // Verify the complete structure of members block
+      final membersPattern = RegExp(
+        r'members\(first:32\)\s*\{\s*edges\s*\{\s*node\s*\{\s*id\s+name\s+role\s*\}\s*\}\s*\}',
+        multiLine: true,
+      );
+      expect(
+        membersPattern.hasMatch(fnData.replaceAll(RegExp(r'\s+'), ' ')),
+        true,
+      );
     });
     test("Check if logout works correctly", () {
       const mutation = false;

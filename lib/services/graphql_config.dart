@@ -50,10 +50,9 @@ class GraphqlConfig {
   void _initializeWebSocketLink() {
     try {
       // Get socket URL from environment variables
-      // TODO: Update SOCKET_URL in .env file for production
       final socketUrl = dotenv.env['SOCKET_URL'] ??
           (kReleaseMode
-              ? 'wss://production-server/graphql'
+              ? 'wss://api-test.talawa.io/graphql'
               : 'ws://localhost:4000/graphql');
 
       webSocketLink = WebSocketLink(
@@ -71,7 +70,6 @@ class GraphqlConfig {
       // Log the failure for diagnostics
       debugPrint('WebSocket initialization failed: $e');
       debugPrint('Stack trace:\n$stackTrace');
-      // TODO: disable real-time subscriptions or use a production SOCKET_URL fallback
     }
   }
 

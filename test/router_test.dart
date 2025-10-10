@@ -15,11 +15,13 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 import 'package:talawa/views/after_auth_screens/events/create_custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
@@ -41,7 +43,7 @@ import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
 import 'package:talawa/views/main_screen.dart';
-import 'package:talawa/views/pre_auth_screens/auth_landing.dart.dart';
+import 'package:talawa/views/pre_auth_screens/auth_landing.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 import 'package:talawa/views/pre_auth_screens/select_organization.dart';
@@ -291,7 +293,7 @@ void main() {
       }
     });
 
-    testWidgets('Test for chatMessageScreen route',
+    testWidgets('Test for ChatMessageScreen route',
         (WidgetTester tester) async {
       final List<dynamic> arguments = [
         'ChatId',
@@ -305,6 +307,26 @@ void main() {
         final builder = route.builder;
         final widget = builder(MockBuildContext());
         expect(widget, isA<ChatMessageScreen>());
+      }
+    });
+
+    testWidgets('Test for GroupChatMessageScreen route',
+        (WidgetTester tester) async {
+      final List<dynamic> arguments = [
+        'ChatId',
+        GroupChatViewModel(),
+      ];
+      final route = generateRoute(
+        RouteSettings(
+          name: Routes.groupChatMessageScreen,
+          arguments: arguments,
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<GroupChatMessageScreen>());
       }
     });
 

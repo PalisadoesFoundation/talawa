@@ -25,15 +25,15 @@ class Validator {
     return null;
   }
 
-  /// Method to validate a user's first name.
+  /// Method to validate a user's name.
   ///
   /// **params**:
-  /// * `value`: the value of the first name
+  /// * `value`: the value of the  name
   ///
   /// **returns**:
-  /// * `String?`: error message if first name is invalid.
+  /// * `String?`: error message if  name is invalid.
   static String? validateName(String value) {
-    if (value.isEmpty) {
+    if (value.trim().isEmpty) {
       return 'Name must not be left blank.';
     }
     // ignore: unnecessary_raw_strings

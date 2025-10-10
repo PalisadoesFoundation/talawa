@@ -217,8 +217,9 @@ class _SplashScreenState extends State<SplashScreen> {
       debugPrint("Unable to update user $e");
     }
     final currentUser = userConfig.currentUser;
-    if (currentUser.joinedOrganizations != null &&
-        currentUser.joinedOrganizations!.isNotEmpty) {
+    final hasJoinedOrgs = currentUser.joinedOrganizations?.isNotEmpty ?? false;
+
+    if (hasJoinedOrgs) {
       final mainScreenArgs = MainScreenArgs(
         mainScreenIndex: widget.mainScreenIndex,
         fromSignUp: false,

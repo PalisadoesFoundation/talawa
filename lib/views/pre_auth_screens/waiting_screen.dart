@@ -102,6 +102,13 @@ class WaitingPage extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             );
                           }
+                          if (snapshot.hasError || !snapshot.hasData) {
+                            return ListTile(
+                              title: Text(AppLocalizations.of(context)!
+                                  .strictTranslate(
+                                      "Error loading organization")),
+                            );
+                          }
                           return CustomListTile(
                             key: Key('WaitingJoin $orgId'),
                             index: index,
@@ -136,7 +143,7 @@ class WaitingPage extends StatelessWidget {
                 ),
                 //Profile Page button
                 RaisedRoundedButton(
-                  key: const Key('ProfilePage'),
+                  key: const Key('Setting Page'),
                   buttonLabel: AppLocalizations.of(context)!
                       .strictTranslate('Setting Page'),
                   onTap: model.settingPageNavigation,

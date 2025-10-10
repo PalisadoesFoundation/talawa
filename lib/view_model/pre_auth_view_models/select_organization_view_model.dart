@@ -69,15 +69,17 @@ class SelectOrganizationViewModel extends BaseModel {
     // if user session not expirec
     if (userConfig.loggedIn) {
       // check if user has already joined the selected organization.
-      userConfig.currentUser.joinedOrganizations?.forEach((element) {
-        if (item != null && element.id == item.id) {
-          navigationService.showTalawaErrorSnackBar(
-            'Organisation already joined',
-            MessageType.warning,
-          );
-          return;
-        }
-      });
+      final alreadyJoined = item != null &&
+          (userConfig.currentUser.joinedOrganizations
+                  ?.any((e) => e.id == item.id) ??
+              false);
+      if (alreadyJoined) {
+        navigationService.showTalawaErrorSnackBar(
+          'Organisation already joined',
+          MessageType.warning,
+        );
+        return;
+      }
 
       // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests ??= [];

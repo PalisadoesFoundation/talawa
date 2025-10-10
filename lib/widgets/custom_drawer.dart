@@ -51,7 +51,9 @@ class CustomDrawer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              model.selectedOrg?.name ?? "NULL",
+                              model.selectedOrg?.name ??
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Unnamed Organization"),
                             ),
                             Text(
                               AppLocalizations.of(context)!
