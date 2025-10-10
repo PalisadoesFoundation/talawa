@@ -20,7 +20,7 @@ on:
 
 env:
   CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
-  FLUTTER_VERSION: 3.32.
+  FLUTTER_VERSION: 3.32.8
 
 jobs:
   Flutter-Codebase-Check:
