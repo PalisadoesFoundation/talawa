@@ -32,7 +32,8 @@ void main() {
 
   group('OrganisationInfoScreen - UI rendering', () {
     testWidgets('shows fallback asset when image is null', (tester) async {
-      final org = OrgInfo(id: 'o1', name: 'Org', image: null, userRegistrationRequired: false);
+      final org = OrgInfo(
+          id: 'o1', name: 'Org', image: null, userRegistrationRequired: false);
 
       await tester.pumpWidget(
         MaterialApp(
@@ -48,8 +49,10 @@ void main() {
 
     // Skip network image loading in tests to avoid HttpClient errors
 
-    testWidgets('shows Public indicator when registration not required', (tester) async {
-      final org = OrgInfo(id: 'o3', name: 'PublicOrg', userRegistrationRequired: false);
+    testWidgets('shows Public indicator when registration not required',
+        (tester) async {
+      final org =
+          OrgInfo(id: 'o3', name: 'PublicOrg', userRegistrationRequired: false);
 
       await tester.pumpWidget(
         MaterialApp(home: OrganisationInfoScreen(orgInfo: org)),
@@ -61,8 +64,10 @@ void main() {
       expect(find.text('Private'), findsNothing);
     });
 
-    testWidgets('shows Private indicator when registration required', (tester) async {
-      final org = OrgInfo(id: 'o4', name: 'PrivateOrg', userRegistrationRequired: true);
+    testWidgets('shows Private indicator when registration required',
+        (tester) async {
+      final org =
+          OrgInfo(id: 'o4', name: 'PrivateOrg', userRegistrationRequired: true);
 
       await tester.pumpWidget(
         MaterialApp(home: OrganisationInfoScreen(orgInfo: org)),
@@ -75,7 +80,11 @@ void main() {
     });
 
     testWidgets('shows default description when null', (tester) async {
-      final org = OrgInfo(id: 'o5', name: 'NoDescOrg', userRegistrationRequired: false, description: null);
+      final org = OrgInfo(
+          id: 'o5',
+          name: 'NoDescOrg',
+          userRegistrationRequired: false,
+          description: null);
 
       await tester.pumpWidget(
         MaterialApp(home: OrganisationInfoScreen(orgInfo: org)),
@@ -123,7 +132,8 @@ void main() {
     testWidgets('FAB disabled color when org already joined', (tester) async {
       final user = app_locator.locator<UserConfig>();
       // Current user already joined this org
-      final joinedOrg = OrgInfo(id: 'joined1', name: 'Joined', userRegistrationRequired: false);
+      final joinedOrg = OrgInfo(
+          id: 'joined1', name: 'Joined', userRegistrationRequired: false);
       when(user.currentUser).thenReturn(
         User(
           id: 'u1',
@@ -132,7 +142,8 @@ void main() {
         ),
       );
 
-      final org = OrgInfo(id: 'joined1', name: 'Joined', userRegistrationRequired: false);
+      final org = OrgInfo(
+          id: 'joined1', name: 'Joined', userRegistrationRequired: false);
 
       await tester.pumpWidget(
         MaterialApp(home: OrganisationInfoScreen(orgInfo: org)),
@@ -154,7 +165,8 @@ void main() {
         ),
       );
 
-      final org = OrgInfo(id: 'not_joined', name: 'NotJoined', userRegistrationRequired: true);
+      final org = OrgInfo(
+          id: 'not_joined', name: 'NotJoined', userRegistrationRequired: true);
 
       await tester.pumpWidget(
         MaterialApp(home: OrganisationInfoScreen(orgInfo: org)),
