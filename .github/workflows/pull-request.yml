@@ -262,7 +262,7 @@ jobs:
     name: Running Integration Tests
     runs-on: ubuntu-latest
     env:
-      API_URL: http://127.0.0.1:4000/graphql
+      API_URL: https://api-test.talawa.io/graphql
     steps:
       - name: Checkout Flutter App Repository
         uses: actions/checkout@v4
