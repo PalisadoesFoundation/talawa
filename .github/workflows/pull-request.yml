@@ -298,7 +298,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          target: google_apis
+          target: default
           arch: x86_64
           profile: Nexus 6
           cores: 2
@@ -306,24 +306,16 @@ jobs:
           ram-size: 2048M
           sdcard-path-or-size: 100M
           avd-name: test
-          force-avd-creation: true
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -memory 2048 -wipe-data
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -memory 2048
           disable-animations: true
           script: |
             echo "Starting emulator tests..."
             echo "Waiting for emulator to be ready..."
-            PACKAGE_NAME="com.example.talawa"
-            echo "Attempting robust pre-test cleanup..."
             adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-            adb uninstall $PACKAGE_NAME || echo "Package not found or uninstall failed (OK for pre-cleanup)"
-            adb shell pm uninstall --user 0 $PACKAGE_NAME || echo "Secondary uninstall failed (OK for pre-cleanup)"
             echo "Emulator is ready"
             flutter devices
             flutter test integration_test/app_test.dart --verbose --device-id emulator-5554
-            echo "Attempting post-test cleanup to avoid subsequent run failures..."
-            adb uninstall $PACKAGE_NAME || echo "Post-test uninstall failed (ignoring for runner's final cleanup)"
-            adb shell pm uninstall --user 0 $PACKAGE_NAME || echo "Secondary post-test uninstall failed (ignoring for runner's final cleanup)"
-            echo "Emulator tests completed"
 
   Android-Build:
     name: Testing build for android
