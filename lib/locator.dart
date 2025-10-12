@@ -8,6 +8,7 @@ import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/fund_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -26,6 +27,7 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/access_request_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
@@ -35,6 +37,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/manage_volunteer_group_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
@@ -171,6 +174,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => AppSettingViewModel());
   locator.registerFactory(() => SelectContactViewModel());
+  locator.registerFactory(() => FundViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
@@ -180,8 +184,10 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => CommentsViewModel());
   locator.registerFactory(() => AppTheme());
   locator.registerFactory(() => DirectChatViewModel());
+  locator.registerFactory(() => GroupChatViewModel());
   locator.registerFactory(() => AccessScreenViewModel());
   locator.registerFactory(() => UserProfileService());
+  locator.registerFactory(() => FundService());
 
   //AppLinks
   locator.registerSingleton(AppLinks());

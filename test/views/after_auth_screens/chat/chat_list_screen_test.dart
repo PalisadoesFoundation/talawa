@@ -4,9 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/create_group_bottom_sheet.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chats.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -46,6 +49,7 @@ void main() {
   setUp(() {
     registerServices();
     getAndRegisterDirectChatViewModel();
+    getAndRegisterGroupChatViewModel();
     // Register SelectContactViewModel for navigation test if not already registered
     if (!locator.isRegistered<SelectContactViewModel>()) {
       locator.registerFactory(() => SelectContactViewModel());
@@ -58,21 +62,21 @@ void main() {
     if (locator.isRegistered<SelectContactViewModel>()) {
       locator.unregister<SelectContactViewModel>();
     }
+    // Unregister GroupChatViewModel if registered
+    if (locator.isRegistered<GroupChatViewModel>()) {
+      locator.unregister<GroupChatViewModel>();
+    }
   });
 
   group('ChatPage Widget Tests', () {
-    testWidgets('should render ChatPage widget with all components',
+    testWidgets('should render ChatPage widget with all main components',
         (WidgetTester tester) async {
-      // Mock network images to avoid network calls during tests
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(createChatListScreen());
         await tester.pumpAndSettle();
 
         // Verify that the main widget is rendered
         expect(find.byType(ChatPage), findsOneWidget);
-
-        // Verify DefaultTabController is present
-        expect(find.byType(DefaultTabController), findsOneWidget);
 
         // Verify Scaffold is present
         expect(find.byType(Scaffold), findsOneWidget);
@@ -86,27 +90,31 @@ void main() {
         // Verify TabBar is present
         expect(find.byType(TabBar), findsOneWidget);
 
-        // Verify Tab with "Direct" text
+        // Verify both tabs are present
         expect(find.text('Direct'), findsOneWidget);
+        expect(find.text('Groups'), findsOneWidget);
 
         // Verify TabBarView is present
         expect(find.byType(TabBarView), findsOneWidget);
 
-        // Verify DirectChats widget is present
+        // Verify DirectChats widget is present (default tab)
         expect(find.byType(DirectChats), findsOneWidget);
 
-        // Verify FloatingActionButton is present
+        // Verify AnimatedBuilder for FAB is present - be more specific
+        expect(find.byType(AnimatedBuilder), findsWidgets);
+
+        // Verify FloatingActionButton.extended is present
         expect(find.byType(FloatingActionButton), findsOneWidget);
 
-        // Verify FloatingActionButton has the correct icon
+        // Verify initial FAB shows contact icon (Direct tab is active)
         expect(find.byIcon(Icons.contacts), findsOneWidget);
 
-        // Verify FloatingActionButton has the correct label
+        // Verify initial FAB has "Chat" label
         expect(find.text('Chat'), findsOneWidget);
       });
     });
 
-    testWidgets('should verify AppBar styling and properties',
+    testWidgets('should verify AppBar styling and TabBar configuration',
         (WidgetTester tester) async {
       await tester.pumpWidget(createChatListScreen());
       await tester.pumpAndSettle();
@@ -124,73 +132,199 @@ void main() {
       // Verify TabBar is in the bottom of AppBar
       expect(appBar.bottom, isA<TabBar>());
       final TabBar tabBar = appBar.bottom! as TabBar;
-      expect(tabBar.tabs.length, 1);
+      expect(tabBar.tabs.length, 2); // Should have 2 tabs now
       expect(tabBar.tabs.first, isA<Tab>());
+      expect(tabBar.tabs.last, isA<Tab>());
     });
 
-    testWidgets('should verify FloatingActionButton styling and properties',
+    testWidgets(
+        'should verify TabController with correct length and functionality',
         (WidgetTester tester) async {
       await tester.pumpWidget(createChatListScreen());
       await tester.pumpAndSettle();
 
-      // Get the FloatingActionButton widget
+      // Verify TabBar has 2 tabs
+      final tabBarFinder = find.byType(TabBar);
+      expect(tabBarFinder, findsOneWidget);
+
+      final TabBar tabBar = tester.widget<TabBar>(tabBarFinder);
+      expect(tabBar.tabs.length, 2);
+
+      // Verify TabBarView has correct children
+      final tabBarViewFinder = find.byType(TabBarView);
+      expect(tabBarViewFinder, findsOneWidget);
+
+      // Initially DirectChats should be visible
+      expect(find.byType(DirectChats), findsOneWidget);
+      expect(find.byType(GroupChats), findsNothing); // Not visible initially
+    });
+
+    testWidgets('should switch between Direct and Groups tabs correctly',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Initially should show Direct tab
+        expect(find.byType(DirectChats), findsOneWidget);
+        expect(find.byIcon(Icons.contacts), findsOneWidget);
+        expect(find.text('Chat'), findsOneWidget);
+
+        // Tap on Groups tab
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
+
+        // Should now show Groups tab
+        expect(find.byType(GroupChats), findsOneWidget);
+        expect(find.byIcon(Icons.group_add), findsOneWidget);
+        expect(find.text('Create Group'), findsOneWidget);
+
+        // Tap back to Direct tab
+        await tester.tap(find.text('Direct'));
+        await tester.pumpAndSettle();
+
+        // Should show Direct tab again
+        expect(find.byType(DirectChats), findsOneWidget);
+        expect(find.byIcon(Icons.contacts), findsOneWidget);
+        expect(find.text('Chat'), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'should verify FloatingActionButton changes based on active tab',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Test Direct tab FAB
+        final fabFinder = find.byType(FloatingActionButton);
+        expect(fabFinder, findsOneWidget);
+
+        // Verify Direct tab FAB properties
+        expect(find.byIcon(Icons.contacts), findsOneWidget);
+        expect(find.text('Chat'), findsOneWidget);
+
+        // Switch to Groups tab
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
+
+        // Verify Groups tab FAB properties
+        expect(find.byIcon(Icons.group_add), findsOneWidget);
+        expect(find.text('Create Group'), findsOneWidget);
+        expect(
+          find.byIcon(Icons.contacts),
+          findsNothing,
+        ); // Should not be present anymore
+      });
+    });
+
+    testWidgets(
+        'should handle Direct chat FAB tap and navigate to select contact',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Ensure we're on Direct tab
+        expect(find.text('Direct'), findsOneWidget);
+        expect(find.byIcon(Icons.contacts), findsOneWidget);
+
+        // Find and tap the FloatingActionButton
+        final fabFinder = find.byType(FloatingActionButton);
+        expect(fabFinder, findsOneWidget);
+
+        await tester.tap(fabFinder);
+        await tester.pump();
+
+        // Verify the FAB is still present (no errors occurred)
+        expect(fabFinder, findsOneWidget);
+      });
+    });
+
+    testWidgets('should handle Groups FAB tap and show create group dialog',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Switch to Groups tab
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
+
+        // Verify we're on Groups tab
+        expect(find.byIcon(Icons.group_add), findsOneWidget);
+        expect(find.text('Create Group'), findsOneWidget);
+
+        // Find and tap the FloatingActionButton
+        final fabFinder = find.byType(FloatingActionButton);
+        expect(fabFinder, findsOneWidget);
+
+        await tester.tap(fabFinder);
+        await tester.pumpAndSettle();
+
+        // Verify the bottom sheet is shown
+        expect(find.byType(CreateGroupBottomSheet), findsOneWidget);
+      });
+    });
+
+    testWidgets('should verify create group bottom sheet properties',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Switch to Groups tab
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
+
+        // Tap the FloatingActionButton to show dialog
+        final fabFinder = find.byType(FloatingActionButton);
+        await tester.tap(fabFinder);
+        await tester.pumpAndSettle();
+
+        // Verify CreateGroupBottomSheet is present
+        expect(find.byType(CreateGroupBottomSheet), findsOneWidget);
+      });
+    });
+
+    testWidgets('should verify FloatingActionButton heroTag for Direct tab',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createChatListScreen());
+      await tester.pumpAndSettle();
+
+      // Get the FloatingActionButton widget on Direct tab
       final fabFinder = find.byType(FloatingActionButton);
       expect(fabFinder, findsOneWidget);
 
       final FloatingActionButton fab =
           tester.widget<FloatingActionButton>(fabFinder);
 
-      // Verify it's an extended FAB
-      expect(fab, isA<FloatingActionButton>());
-
-      // Verify the icon color is white
-      final iconFinder = find.descendant(
-        of: fabFinder,
-        matching: find.byType(Icon),
-      );
-      expect(iconFinder, findsOneWidget);
-
-      final Icon icon = tester.widget<Icon>(iconFinder);
-      expect(icon.icon, Icons.contacts);
-      expect(icon.color, Colors.white);
+      // Verify heroTag is set correctly for Direct tab
+      expect(fab.heroTag, equals("chat_list_fab"));
     });
 
-    testWidgets('should verify DefaultTabController has correct length',
+    testWidgets('should verify icon colors are white for both FABs',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createChatListScreen());
-      await tester.pumpAndSettle();
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
 
-      // Get the DefaultTabController widget
-      final tabControllerFinder = find.byType(DefaultTabController);
-      expect(tabControllerFinder, findsOneWidget);
+        // Test Direct tab icon color
+        final contactsIcon = tester.widget<Icon>(find.byIcon(Icons.contacts));
+        expect(contactsIcon.color, Colors.white);
 
-      final DefaultTabController tabController =
-          tester.widget<DefaultTabController>(tabControllerFinder);
+        // Switch to Groups tab
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
 
-      // Verify tab controller has length of 1
-      expect(tabController.length, 1);
+        // Test Groups tab icon color
+        final groupAddIcon = tester.widget<Icon>(find.byIcon(Icons.group_add));
+        expect(groupAddIcon.color, Colors.white);
+      });
     });
 
-    testWidgets('should verify TabBarView contains DirectChats',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(createChatListScreen());
-      await tester.pumpAndSettle();
-
-      // Get the TabBarView widget
-      final tabBarViewFinder = find.byType(TabBarView);
-      expect(tabBarViewFinder, findsOneWidget);
-
-      // Verify DirectChats is a child of TabBarView
-      expect(
-        find.descendant(
-          of: tabBarViewFinder,
-          matching: find.byType(DirectChats),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('should verify widget hierarchy structure',
+    testWidgets('should verify widget hierarchy structure is correct',
         (WidgetTester tester) async {
       await tester.pumpWidget(createChatListScreen());
       await tester.pumpAndSettle();
@@ -198,7 +332,6 @@ void main() {
       // Verify the widget hierarchy structure
       expect(find.byType(MaterialApp), findsOneWidget);
       expect(find.byType(ChatPage), findsOneWidget);
-      expect(find.byType(DefaultTabController), findsOneWidget);
       expect(find.byType(Scaffold), findsOneWidget);
 
       // Verify Scaffold contains AppBar, body, and floatingActionButton
@@ -246,29 +379,62 @@ void main() {
       expect(titleText.style?.fontSize, 20);
     });
 
-    testWidgets('should handle FloatingActionButton tap without errors',
+    testWidgets('should verify StatefulWidget lifecycle methods',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(createChatListScreen());
+      await tester.pumpAndSettle();
+
+      // Verify the widget is built correctly (implicitly tests initState)
+      expect(find.byType(ChatPage), findsOneWidget);
+      expect(find.byType(TabBar), findsOneWidget);
+
+      // Remove the widget to test dispose
+      await tester.pumpWidget(Container());
+      await tester.pumpAndSettle();
+
+      // Widget should be disposed without errors
+      expect(find.byType(ChatPage), findsNothing);
+    });
+
+    testWidgets(
+        'should verify TabBarView contains both DirectChats and GroupChats',
         (WidgetTester tester) async {
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(createChatListScreen());
         await tester.pumpAndSettle();
 
-        // Find the FloatingActionButton
-        final fabFinder = find.byType(FloatingActionButton);
-        expect(fabFinder, findsOneWidget);
+        // Get the TabBarView widget
+        final tabBarViewFinder = find.byType(TabBarView);
+        expect(tabBarViewFinder, findsOneWidget);
 
-        // Verify the FAB has the correct icon
-        final iconFinder = find.descendant(
-          of: fabFinder,
-          matching: find.byIcon(Icons.contacts),
-        );
-        expect(iconFinder, findsOneWidget);
+        // Initially DirectChats should be visible
+        expect(find.byType(DirectChats), findsOneWidget);
 
-        // Tap the FloatingActionButton - should not throw any errors
-        await tester.tap(fabFinder);
-        await tester.pump(); // Just pump once, don't wait for settle
+        // Switch to Groups tab to verify GroupChats
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
 
-        // Verify the FAB is still present (no errors occurred)
-        expect(fabFinder, findsOneWidget);
+        expect(find.byType(GroupChats), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+        'should verify FloatingActionButton responds to tab controller changes',
+        (WidgetTester tester) async {
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createChatListScreen());
+        await tester.pumpAndSettle();
+
+        // Verify FAB content changes based on tab selection
+        expect(find.byIcon(Icons.contacts), findsOneWidget);
+
+        // Change tab and verify FAB content updates
+        await tester.tap(find.text('Groups'));
+        await tester.pumpAndSettle();
+
+        // Should now show group_add icon
+        expect(find.byIcon(Icons.group_add), findsOneWidget);
+        expect(find.byIcon(Icons.contacts), findsNothing);
       });
     });
   });

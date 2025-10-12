@@ -53,6 +53,7 @@ void main() {
         description: 'A test chat room',
         createdAt: '2023-01-01T00:00:00Z',
         updatedAt: '2023-01-01T12:00:00Z',
+        creator: sampleUser1,
         members: sampleMembers,
         messages: sampleMessages,
       );
@@ -62,6 +63,7 @@ void main() {
       expect(chat.description, equals('A test chat room'));
       expect(chat.createdAt, equals('2023-01-01T00:00:00Z'));
       expect(chat.updatedAt, equals('2023-01-01T12:00:00Z'));
+      expect(chat.creator, equals(sampleUser1));
       expect(chat.members, equals(sampleMembers));
       expect(chat.messages, equals(sampleMessages));
     });
@@ -74,6 +76,7 @@ void main() {
       expect(chat.description, isNull);
       expect(chat.createdAt, isNull);
       expect(chat.updatedAt, isNull);
+      expect(chat.creator, isNull);
       expect(chat.members, isNull);
       expect(chat.messages, isNull);
     });
@@ -94,8 +97,43 @@ void main() {
       expect(chat.description, equals('A test chat room'));
       expect(chat.createdAt, equals('2023-01-01T00:00:00Z'));
       expect(chat.updatedAt, equals('2023-01-01T12:00:00Z'));
+      expect(chat.creator, isNull);
       expect(chat.members, isNull);
       expect(chat.messages, isNull);
+    });
+
+    test('fromJson parses creator field correctly', () {
+      final json = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'creator': {
+          'id': 'creator1',
+          'name': 'Chat Creator',
+          'firstName': 'Chat',
+          'lastName': 'Creator',
+          'avatarURL': 'creator.jpg',
+        },
+      };
+
+      final chat = Chat.fromJson(json);
+
+      expect(chat.creator, isNotNull);
+      expect(chat.creator!.id, equals('creator1'));
+      expect(chat.creator!.firstName, equals('Chat'));
+      expect(chat.creator!.image, equals('creator.jpg'));
+    });
+
+    test('fromJson handles null creator', () {
+      final json = {
+        'id': 'chat1',
+        'name': 'Test Chat',
+        'creator': null,
+      };
+
+      final chat = Chat.fromJson(json);
+
+      expect(chat.id, equals('chat1'));
+      expect(chat.creator, isNull);
     });
 
     test('fromJson parses members from GraphQL edges format', () {
@@ -272,6 +310,7 @@ void main() {
         description: 'A test chat room',
         createdAt: '2023-01-01T00:00:00Z',
         updatedAt: '2023-01-01T12:00:00Z',
+        creator: sampleUser1,
         members: sampleMembers,
         messages: sampleMessages,
       );
@@ -283,16 +322,22 @@ void main() {
       expect(json['description'], equals('A test chat room'));
       expect(json['createdAt'], equals('2023-01-01T00:00:00Z'));
       expect(json['updatedAt'], equals('2023-01-01T12:00:00Z'));
-      expect(json['members'], isA<List>());
-      expect((json['members'] as List).length, equals(2));
-      expect(json['messages'], isA<List>());
-      expect((json['messages'] as List).length, equals(2));
+      expect(json['creator'], isA<Map<String, dynamic>>());
+      final creatorMap = json['creator'] as Map<String, dynamic>;
+      expect(creatorMap['id'], equals('user1'));
+      expect(json['members'], isA<List<dynamic>>());
+      final membersList = json['members'] as List<dynamic>;
+      expect(membersList.length, equals(2));
+      expect(json['messages'], isA<List<dynamic>>());
+      final messagesList = json['messages'] as List<dynamic>;
+      expect(messagesList.length, equals(2));
     });
 
     test('toJson handles null members and messages', () {
       final chat = Chat(
         id: 'chat1',
         name: 'Test Chat',
+        creator: null,
         members: null,
         messages: null,
       );
@@ -301,6 +346,7 @@ void main() {
 
       expect(json['id'], equals('chat1'));
       expect(json['name'], equals('Test Chat'));
+      expect(json['creator'], isNull);
       expect(json['members'], isNull);
       expect(json['messages'], isNull);
     });
