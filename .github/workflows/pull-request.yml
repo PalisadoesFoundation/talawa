@@ -309,6 +309,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -memory 2048
           disable-animations: true
+          emulator-boot-timeout: 1200
           script: |
             echo "Starting emulator tests..."
             echo "Waiting for emulator to be ready..."
