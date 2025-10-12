@@ -1090,30 +1090,6 @@ GroupChatViewModel getAndRegisterGroupChatViewModel() {
   return cachedViewModel;
 }
 
-/// `getAndRegisterExploreEventsViewModel` returns a mock instance of the `ExploreEventsViewModel` class.
-///
-/// **params**:
-///   None
-///
-/// **returns**:
-/// * `ExploreEventsViewModel`: A mock instance of the `ExploreEventsViewModel` class.
-ExploreEventsViewModel getAndRegisterExploreEventsViewModel() {
-  _removeRegistrationIfExists<ExploreEventsViewModel>();
-  final cachedViewModel = MockExploreEventsViewModel();
-
-  const String chosenValue = 'All Events';
-  const String emptyListMessage = "Looks like there aren't any events.";
-
-  final EventService mockEventService = EventService();
-
-  when(cachedViewModel.eventService).thenReturn(mockEventService);
-  when(cachedViewModel.chosenValue).thenReturn(chosenValue);
-  when(cachedViewModel.emptyListMessage).thenReturn(emptyListMessage);
-
-  locator.registerSingleton<ExploreEventsViewModel>(cachedViewModel);
-  return cachedViewModel;
-}
-
 /// `getAndRegisterMainViewModel` returns a mock instance of the `MainScreenViewModel` class.
 ///
 /// **params**:
