@@ -9,10 +9,13 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/group_chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 import 'package:talawa/views/after_auth_screens/events/custom_recurring_event.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
@@ -258,6 +261,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => ChatMessageScreen(
           key: const Key('ChatMessageScreen'),
+          chatId: chatId,
+          model: model,
+        ),
+      );
+
+    // Returns the GroupChatMessageScreen Widget
+    case Routes.groupChatMessageScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final String chatId = arguments[0] as String;
+      final GroupChatViewModel model = arguments[1] as GroupChatViewModel;
+      return MaterialPageRoute(
+        builder: (context) => GroupChatMessageScreen(
+          key: const Key('GroupChatMessageScreen'),
           chatId: chatId,
           model: model,
         ),

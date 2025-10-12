@@ -95,6 +95,9 @@ class Routes {
   static const String chatMessageScreen = '/chatMessageScreen';
 
   /// static variables.
+  static const String groupChatMessageScreen = '/groupChatMessageScreen';
+
+  /// static variables.
   static const String calendar = '/calendar';
 
   /// static variables.

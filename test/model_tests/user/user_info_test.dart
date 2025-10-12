@@ -243,4 +243,70 @@ void main() {
       expect(user.joinedOrganizations![1].id, 'org2');
     });
   });
+
+  group('User equality tests', () {
+    test('Users with same id are equal', () {
+      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
+      final user2 = User(id: '123', firstName: 'Jane', lastName: 'Smith');
+
+      expect(user1 == user2, true);
+      expect(user1.hashCode, user2.hashCode);
+    });
+
+    test('Users with different ids are not equal', () {
+      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
+      final user2 = User(id: '456', firstName: 'John', lastName: 'Doe');
+
+      expect(user1 == user2, false);
+    });
+
+    test('User is equal to itself', () {
+      final user = User(id: '123', firstName: 'John', lastName: 'Doe');
+
+      expect(user == user, true);
+      expect(user.hashCode, user.hashCode);
+    });
+
+    test('Users with null ids are handled correctly', () {
+      final user1 = User(id: null, firstName: 'John');
+      final user2 = User(id: null, firstName: 'Jane');
+
+      expect(user1 == user2, true);
+      expect(user1.hashCode, user2.hashCode);
+    });
+
+    test('Set operations work correctly with User equality', () {
+      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
+      final user2 = User(
+        id: '123',
+        firstName: 'Jane',
+        lastName: 'Smith',
+      ); // Same id, different name
+      final user3 = User(id: '456', firstName: 'Bob', lastName: 'Wilson');
+
+      final userSet = <User>{user1, user2, user3};
+
+      // Should only contain 2 users since user1 and user2 have same id
+      expect(userSet.length, 2);
+      expect(userSet.contains(user1), true);
+      expect(
+        userSet.contains(user2),
+        true,
+      ); // Should find user1 since they're equal
+      expect(userSet.contains(user3), true);
+
+      // Test remove
+      userSet.remove(user2); // Should remove user1 since they're equal
+      expect(userSet.length, 1);
+      expect(userSet.contains(user1), false);
+      expect(userSet.contains(user3), true);
+    });
+
+    test('Set dedupes users with null ids per equality contract', () {
+      final a = User(id: null, firstName: 'A');
+      final b = User(id: null, firstName: 'B');
+      final s = <User>{a, b};
+      expect(s.length, 1);
+    });
+  });
 }
