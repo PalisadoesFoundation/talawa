@@ -14,9 +14,9 @@ import 'package:talawa/widgets/event_search_delegate.dart';
 /// Shows the list of events with options to categorize them.
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
-    required Key key,
+    super.key,
     this.homeModel,
-  }) : super(key: key);
+  });
 
   /// Represents the view model for the home screen.
   final MainScreenViewModel? homeModel;
