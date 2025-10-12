@@ -144,7 +144,8 @@ class EditEventViewModel extends BaseEventViewModel {
           byPosition = int.tryParse(posStr);
 
           // Add the weekday without position
-          final weekDaysToAdd = _convertShortCodesToWeekDays([dayCode]);
+          final weekDaysToAdd =
+              RecurrenceUtils.convertShortCodesToWeekDays([dayCode]);
           weekDays = weekDaysToAdd;
 
           // Enable appropriate position mode based on frequency
@@ -155,7 +156,7 @@ class EditEventViewModel extends BaseEventViewModel {
           }
         } else {
           // Normal weekdays without position
-          weekDays = _convertShortCodesToWeekDays(byDayList);
+          weekDays = RecurrenceUtils.convertShortCodesToWeekDays(byDayList);
         }
       }
 
@@ -262,7 +263,21 @@ class EditEventViewModel extends BaseEventViewModel {
           // 1. We're using thisAndFollowing option, or
           // 2. We're changing from non-recurring to recurring
           if (recurrenceType == 'thisAndFollowing' || hasRecurrenceChanged) {
-            final recurrenceData = _buildRecurrenceData();
+            final recurrenceData = RecurrenceUtils.buildRecurrenceData(
+              frequency: frequency,
+              interval: interval,
+              weekDays: weekDays,
+              eventStartDate: eventStartDate,
+              byMonthDay: byMonthDay,
+              byMonth: byMonth,
+              count: count,
+              recurrenceEndDate: recurrenceEndDate,
+              never: never,
+              eventEndType: eventEndType,
+              byPosition: byPosition,
+              useDayOfWeekMonthly: useDayOfWeekMonthly,
+              useDayOfWeekYearly: useDayOfWeekYearly,
+            );
             if (recurrenceData.isNotEmpty) {
               variables['recurrence'] = recurrenceData;
             }
@@ -274,7 +289,21 @@ class EditEventViewModel extends BaseEventViewModel {
       } else if (isRecurring) {
         // For standalone events being made recurring
         variables['recurring'] = true;
-        final recurrenceData = _buildRecurrenceData();
+        final recurrenceData = RecurrenceUtils.buildRecurrenceData(
+          frequency: frequency,
+          interval: interval,
+          weekDays: weekDays,
+          eventStartDate: eventStartDate,
+          byMonthDay: byMonthDay,
+          byMonth: byMonth,
+          count: count,
+          recurrenceEndDate: recurrenceEndDate,
+          never: never,
+          eventEndType: eventEndType,
+          byPosition: byPosition,
+          useDayOfWeekMonthly: useDayOfWeekMonthly,
+          useDayOfWeekYearly: useDayOfWeekYearly,
+        );
         if (recurrenceData.isNotEmpty) {
           variables['recurrence'] = recurrenceData;
         }
@@ -387,61 +416,6 @@ class EditEventViewModel extends BaseEventViewModel {
     );
   }
 
-  /// Build recurrence data for API.
-  ///
-  /// Constructs a structured recurrence data map based on the current recurrence settings
-  /// by delegating to the centralized RecurrenceUtils.buildRecurrenceData method.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  /// * `Map<String, dynamic>`: Recurrence data map ready for the API
-  Map<String, dynamic> _buildRecurrenceData() {
-    return RecurrenceUtils.buildRecurrenceData(
-      frequency: frequency,
-      interval: interval,
-      weekDays: weekDays,
-      eventStartDate: eventStartDate,
-      byMonthDay: byMonthDay,
-      byMonth: byMonth,
-      count: count,
-      recurrenceEndDate: recurrenceEndDate,
-      never: never,
-      eventEndType: eventEndType,
-      byPosition: byPosition,
-      useDayOfWeekMonthly: useDayOfWeekMonthly,
-      useDayOfWeekYearly: useDayOfWeekYearly,
-    );
-  }
-
-  /// Convert short day codes (MO, TU, etc.) to weekday names.
-  ///
-  /// **params**:
-  /// * `dayCodes`: List of day short codes
-  ///
-  /// **returns**:
-  /// * `Set<String>`: Set of weekday names
-  Set<String> _convertShortCodesToWeekDays(List<String> dayCodes) {
-    final Map<String, String> codeToDay = {
-      DayCodes.monday: WeekDays.monday,
-      DayCodes.tuesday: WeekDays.tuesday,
-      DayCodes.wednesday: WeekDays.wednesday,
-      DayCodes.thursday: WeekDays.thursday,
-      DayCodes.friday: WeekDays.friday,
-      DayCodes.saturday: WeekDays.saturday,
-      DayCodes.sunday: WeekDays.sunday,
-    };
-
-    final Set<String> days = {};
-    for (final code in dayCodes) {
-      if (codeToDay.containsKey(code)) {
-        days.add(codeToDay[code]!);
-      }
-    }
-    return days;
-  }
-
   /// Checks if recurrence settings are being edited.
   ///
   /// **params**:
@@ -477,7 +451,7 @@ class EditEventViewModel extends BaseEventViewModel {
       // Check for changes in weekdays
       if (recurrenceRule.byDay != null) {
         final originalWeekDays =
-            _convertShortCodesToWeekDays(recurrenceRule.byDay!);
+            RecurrenceUtils.convertShortCodesToWeekDays(recurrenceRule.byDay!);
         if (weekDays.difference(originalWeekDays).isNotEmpty ||
             originalWeekDays.difference(weekDays).isNotEmpty) {
           return true;

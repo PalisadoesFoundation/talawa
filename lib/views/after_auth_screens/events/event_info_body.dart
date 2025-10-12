@@ -13,8 +13,7 @@ class EventInfoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<EventInfoViewModel>(context);
-    final event = model.event;
+    final event = Provider.of<EventInfoViewModel>(context).event;
     final theme = Theme.of(context);
     final isCreator = event.creator?.id == userConfig.currentUser.id;
 
@@ -35,10 +34,8 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 if (isCreator)
                   IconButton(
-                    onPressed: () => navigationService.pushScreen(
-                      Routes.eventPageForm,
-                      arguments: event,
-                    ),
+                    onPressed: () => navigationService
+                        .pushScreen(Routes.eventPageForm, arguments: event),
                     icon: Icon(Icons.edit, color: theme.colorScheme.primary),
                   ),
               ],
@@ -145,27 +142,19 @@ class EventInfoBody extends StatelessWidget {
             const _SectionTitle(title: "Attendees"),
             _InfoCard(
               children: [
-                if (model.isBusy)
+                if (Provider.of<EventInfoViewModel>(context).isBusy)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 24.0),
                     child: Center(child: CircularProgressIndicator()),
                   )
-                else if (model.attendees.isEmpty)
+                else if (Provider.of<EventInfoViewModel>(context)
+                    .attendees
+                    .isEmpty)
                   Text(
                     AppLocalizations.of(context)!
                         .strictTranslate("No attendees yet"),
                     style: theme.textTheme.bodyMedium,
                   ),
-                // else
-                // ...model.attendees.asMap().entries.map(
-                //       (entry) => CustomListTile(
-                //         key: Key('Attendee${entry.key + }'),
-                //         index: entry.key,
-                //         type: TileType.attendee,
-                //         attendeeInfo: entry.value,
-                //         onTapAttendeeInfo: () {},
-                //       ),
-                //     ),
               ],
             ),
 

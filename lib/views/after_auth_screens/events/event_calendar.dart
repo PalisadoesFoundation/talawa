@@ -240,16 +240,10 @@ List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
         continue;
       }
 
-      // Validate that dates are valid DateTime objects
-      if (!_isValidDateTime(event.startAt!) ||
-          !_isValidDateTime(event.endAt!)) {
-        continue;
-      }
-
       final index = eventsList.indexOf(event);
 
       // Create DateTime objects with validation
-      DateTime startDate = DateTime(
+      final DateTime startDate = DateTime(
         event.startAt!.year,
         event.startAt!.month,
         event.startAt!.day,
@@ -258,7 +252,7 @@ List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
         event.startAt!.second,
       );
 
-      DateTime endDate = DateTime(
+      final DateTime endDate = DateTime(
         event.endAt!.year,
         event.endAt!.month,
         event.endAt!.day,
@@ -266,45 +260,6 @@ List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
         event.endAt!.minute,
         event.endAt!.second,
       );
-
-      // Fallback 1: End time before start time - swap them
-      if (endDate.isBefore(startDate)) {
-        debugPrint(
-          'Warning: Event ${event.id} has end time before start time. Swapping dates.',
-        );
-        final temp = startDate;
-        startDate = endDate;
-        endDate = temp;
-      }
-
-      // Fallback 2: Zero duration events - add minimum 1 hour duration
-      if (endDate.isAtSameMomentAs(startDate)) {
-        debugPrint(
-          'Warning: Event ${event.id} has zero duration. Adding 1 hour.',
-        );
-        endDate = startDate.add(const Duration(hours: 1));
-      }
-
-      // Fallback 3: Ensure reasonable duration (not more than 1 year)
-      final duration = endDate.difference(startDate);
-      if (duration.inDays > 365) {
-        debugPrint(
-          'Warning: Event ${event.id} has excessive duration (${duration.inDays} days). Capping at 1 day.',
-        );
-        endDate = startDate.add(const Duration(days: 1));
-      }
-
-      // Fallback 4: Ensure dates are not too far in the past or future
-      final now = DateTime.now();
-      final maxPast = now.subtract(const Duration(days: 365 * 10)); // 10 years
-      final maxFuture = now.add(const Duration(days: 365 * 10)); // 10 years
-
-      if (startDate.isBefore(maxPast) || startDate.isAfter(maxFuture)) {
-        debugPrint(
-          'Warning: Event ${event.id} has unreasonable start date. Skipping.',
-        );
-        continue;
-      }
 
       final appointment = Appointment(
         startTime: startDate,
@@ -325,49 +280,6 @@ List<Appointment> _convertEventsToAppointments(List<Event> eventsList) {
   }
 
   return appointments;
-}
-
-/// Validates that a DateTime object has valid values.
-///
-/// **params**:
-/// * `dateTime`: DateTime to validate
-///
-/// **returns**:
-/// * `bool`: True if the DateTime is valid
-bool _isValidDateTime(DateTime dateTime) {
-  try {
-    // Check if year is reasonable (between 1900 and 2200)
-    if (dateTime.year < 1900 || dateTime.year > 2200) {
-      return false;
-    }
-
-    // Check if month is valid (1-12)
-    if (dateTime.month < 1 || dateTime.month > 12) {
-      return false;
-    }
-
-    // Check if day is valid (1-31)
-    if (dateTime.day < 1 || dateTime.day > 31) {
-      return false;
-    }
-
-    // Check if hour is valid (0-23)
-    if (dateTime.hour < 0 || dateTime.hour > 23) {
-      return false;
-    }
-
-    // Check if minute is valid (0-59)
-    if (dateTime.minute < 0 || dateTime.minute > 59) {
-      return false;
-    }
-
-    // Try to format the date to ensure it's valid
-    dateTime.toIso8601String();
-
-    return true;
-  } catch (e) {
-    return false;
-  }
 }
 
 /// Simple data source for SfCalendar.

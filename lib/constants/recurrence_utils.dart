@@ -82,6 +82,33 @@ class RecurrenceUtils {
     return dayCodes;
   }
 
+  /// Convert short day codes (MO, TU, etc.) to weekday names.
+  ///
+  /// **params**:
+  /// * `dayCodes`: List of day short codes
+  ///
+  /// **returns**:
+  /// * `Set<String>`: Set of weekday names
+  static Set<String> convertShortCodesToWeekDays(List<String> dayCodes) {
+    final Map<String, String> codeToDay = {
+      DayCodes.monday: WeekDays.monday,
+      DayCodes.tuesday: WeekDays.tuesday,
+      DayCodes.wednesday: WeekDays.wednesday,
+      DayCodes.thursday: WeekDays.thursday,
+      DayCodes.friday: WeekDays.friday,
+      DayCodes.saturday: WeekDays.saturday,
+      DayCodes.sunday: WeekDays.sunday,
+    };
+
+    final Set<String> days = {};
+    for (final code in dayCodes) {
+      if (codeToDay.containsKey(code)) {
+        days.add(codeToDay[code]!);
+      }
+    }
+    return days;
+  }
+
   /// Convert DateTime weekday to short code (MO, TU, etc.) for API.
   ///
   /// **params**:
