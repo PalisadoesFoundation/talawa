@@ -45,14 +45,14 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _selectLanguage() async {
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
     final Finder selectLanguageButton =
         find.byKey(const Key('SelectLangTextButton'));
     await tester.pumpAndSettle();
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 2));
     expect(selectLanguageButton, findsOneWidget);
     await tester.tap(selectLanguageButton);
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 2));
     await tester.tap(find.text('Skip'));
     devPrint("Language selected");
   }
@@ -80,7 +80,7 @@ class LoginFormRobot {
           final Finder currentDismissButtons = find.text('Dismiss');
           if (currentDismissButtons.evaluate().isNotEmpty) {
             await tester.tap(currentDismissButtons.first);
-            await tester.pumpAndSettle(const Duration(milliseconds: 500));
+            await tester.pumpAndSettle(const Duration(seconds: 2));
           }
         } catch (e) {
           devPrint("Error dismissing dialog: $e");
