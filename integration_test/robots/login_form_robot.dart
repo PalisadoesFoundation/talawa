@@ -79,7 +79,7 @@ class LoginFormRobot {
         try {
           final Finder currentDismissButtons = find.text('Dismiss');
           if (currentDismissButtons.evaluate().isNotEmpty) {
-            await tester.tap(currentDismissButtons.first);
+            await tester.tap(currentDismissButtons.first, warnIfMissed: false);
             await tester.pumpAndSettle(const Duration(seconds: 2));
           }
         } catch (e) {
@@ -101,8 +101,11 @@ class LoginFormRobot {
     await tester.pumpAndSettle(const Duration(seconds: 2));
     await tester.tap(find.widgetWithIcon(ListTile, Icons.add));
     await tester.pumpAndSettle(const Duration(seconds: 2));
-    final Finder loginButton = find.text('Login');
-    await tester.tap(loginButton);
+    devPrint("Finding Login Button");
+    // final Finder loginButton = find.text('Login');
+    final Finder loginButton = find.byKey(const Key('LoginButton'));
+    await tester.tap(loginButton, warnIfMissed: false);
+    devPrint("Tapped on Login Button");
     await tester.pumpAndSettle();
   }
 
@@ -131,7 +134,8 @@ class LoginFormRobot {
   Future<void> _submit() async {
     await tester.pumpAndSettle(const Duration(seconds: 5));
     final Finder loginButton = find.byKey(const Key('LoginButton'));
-    await tester.tap(loginButton);
+    await tester.tap(loginButton, warnIfMissed: false);
+    devPrint("Tapped on Login Submit Button");
     await tester.pumpAndSettle(const Duration(seconds: 5));
   }
 }
