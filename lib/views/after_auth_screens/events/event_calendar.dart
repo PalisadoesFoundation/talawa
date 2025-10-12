@@ -18,11 +18,25 @@ class EventCalendar extends StatefulWidget {
 }
 
 class _EventCalendarState extends State<EventCalendar> {
+  DateTime? _selectedDate;
+
   @override
   Widget build(BuildContext context) {
     return BaseView<EventCalendarViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
+        final appointments = _convertEventsToAppointments(model.eventList);
+        final List<Appointment> selectedDateEvents = _selectedDate != null
+            ? appointments
+                .where(
+                  (a) =>
+                      a.startTime.year == _selectedDate!.year &&
+                      a.startTime.month == _selectedDate!.month &&
+                      a.startTime.day == _selectedDate!.day,
+                )
+                .toList()
+            : [];
+
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.green,
@@ -66,49 +80,125 @@ class _EventCalendarState extends State<EventCalendar> {
           ),
           body: LayoutBuilder(
             builder: (context, constraints) {
-              // Ensure minimum size constraints for calendar
-              final minHeight =
-                  constraints.maxHeight > 0 ? constraints.maxHeight : 600.0;
-              final minWidth =
-                  constraints.maxWidth > 0 ? constraints.maxWidth : 400.0;
-
-              return SizedBox(
-                height: minHeight,
-                width: minWidth,
-                child: SfCalendar(
-                  view: CalendarView.month,
-                  headerHeight: 60,
-                  viewHeaderHeight: 60,
-                  controller: model.calendarController,
-                  dataSource: EventDataSource(
-                    _convertEventsToAppointments(model.eventList),
-                  ),
-                  onViewChanged: model.viewChanged,
-                  monthViewSettings: const MonthViewSettings(
-                    appointmentDisplayMode:
-                        MonthAppointmentDisplayMode.appointment,
-                    showAgenda: true,
-                    agendaViewHeight: 200,
-                    agendaItemHeight: 50,
-                    monthCellStyle: MonthCellStyle(
-                      textStyle: TextStyle(fontSize: 14),
-                      trailingDatesTextStyle: TextStyle(color: Colors.grey),
-                      leadingDatesTextStyle: TextStyle(color: Colors.grey),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    // Calendar
+                    SizedBox(
+                      height: constraints.maxHeight * 2 / 3,
+                      child: SfCalendar(
+                        view: CalendarView.month,
+                        headerHeight: 60,
+                        viewHeaderHeight: 60,
+                        controller: model.calendarController,
+                        dataSource: EventDataSource(appointments),
+                        onViewChanged: model.viewChanged,
+                        onSelectionChanged: (args) {
+                          setState(() {
+                            _selectedDate = args.date;
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  onTap: (details) {
-                    if (details.targetElement == CalendarElement.appointment &&
-                        details.appointments != null &&
-                        details.appointments!.isNotEmpty) {
-                      final appointment =
-                          details.appointments?.first as Appointment;
-                      final originalEventId = appointment.id;
-                      final event = model.eventList
-                          .firstWhere((e) => e.id == originalEventId);
-                      navigationService.pushScreen("/eventInfo",
-                          arguments: event);
-                    }
-                  },
+                    const Divider(),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: selectedDateEvents.length,
+                        itemBuilder: (context, index) {
+                          final event = selectedDateEvents[index];
+
+                          // Format time
+                          final String startTime =
+                              '${event.startTime.hour.toString().padLeft(2, '0')}:${event.startTime.minute.toString().padLeft(2, '0')}';
+                          final String endTime =
+                              '${event.endTime.hour.toString().padLeft(2, '0')}:${event.endTime.minute.toString().padLeft(2, '0')}';
+
+                          return GestureDetector(
+                            onTap: () {
+                              final originalEvent = model.eventList
+                                  .firstWhere((e) => e.id == event.id);
+                              navigationService.pushScreen(
+                                "/eventInfo",
+                                arguments: originalEvent,
+                              );
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              margin: const EdgeInsets.symmetric(vertical: 6),
+                              elevation: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 16,
+                                ),
+                                child: Row(
+                                  children: [
+                                    // Color accent bar
+                                    Container(
+                                      width: 5,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: event.color,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    // Event details
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            event.subject,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 6),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.access_time,
+                                                size: 16,
+                                                color: Colors.grey[700],
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                '$startTime - $endTime',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                      color: Colors.grey[700],
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
