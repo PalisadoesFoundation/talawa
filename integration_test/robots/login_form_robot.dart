@@ -30,11 +30,16 @@ class LoginFormRobot {
     await _submit();
     final orgHeader = find.text("Unity Foundation - North");
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    expect(
-      orgHeader,
-      findsOneWidget,
-      reason: 'Admin login failed or page not loaded',
-    );
+    try {
+      expect(
+        orgHeader,
+        findsOneWidget,
+        reason: 'Admin login failed or page not loaded',
+      );
+    } catch (e) {
+      devPrint('Admin login verification FAILED. Error: $e');
+      rethrow;
+    }
   }
 
   /// Select the English language from the language selection screen.
