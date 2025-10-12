@@ -30,16 +30,11 @@ class LoginFormRobot {
     await _submit();
     final orgHeader = find.text("Unity Foundation - North");
     await tester.pumpAndSettle(const Duration(seconds: 3));
-    try {
-      expect(
-        orgHeader,
-        findsOneWidget,
-        reason: 'Admin login failed or page not loaded',
-      );
-    } catch (e) {
-      devPrint('Admin login verification FAILED. Error: $e');
-      rethrow;
-    }
+    expect(
+      orgHeader,
+      findsOneWidget,
+      reason: 'Admin login failed or page not loaded',
+    );
   }
 
   /// Select the English language from the language selection screen.
@@ -103,9 +98,9 @@ class LoginFormRobot {
     final ScaffoldState scaffoldState = tester.state(scaffoldFinder);
     scaffoldState.openDrawer();
 
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 2));
     await tester.tap(find.widgetWithIcon(ListTile, Icons.add));
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 2));
     final Finder loginButton = find.text('Login');
     await tester.tap(loginButton);
     await tester.pumpAndSettle();
@@ -134,9 +129,9 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _submit() async {
+    await tester.pumpAndSettle(const Duration(seconds: 5));
     final Finder loginButton = find.byKey(const Key('LoginButton'));
     await tester.tap(loginButton);
-
     await tester.pumpAndSettle(const Duration(seconds: 5));
   }
 }
