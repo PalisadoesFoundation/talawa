@@ -1,5 +1,6 @@
 {
   labelsSynonyms: {
+    'ci/cd': ['GitHub', 'Workflow', 'ci/cd'],
     dependencies: [
       'dependabot',
       'dependency',
@@ -12,3 +13,5 @@
   },
   defaultLabels: ['unapproved'],
 }
+
+
