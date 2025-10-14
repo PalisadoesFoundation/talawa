@@ -109,7 +109,9 @@ def collect_plugin_dependencies():
         dependencies = config.get("dependencies", {})
 
         if dependencies:
-            print_info(f"Plugin: {Colors.BOLD}{plugin_name}{Colors.ENDC} ({plugin_id})")
+            print_info(
+                f"Plugin: {Colors.BOLD}{plugin_name}{Colors.ENDC} ({plugin_id})"
+            )
             for dep_name, dep_version in dependencies.items():
                 print(f"  • {dep_name}: {dep_version}")
                 all_dependencies[dep_name] = dep_version
@@ -158,7 +160,9 @@ def update_pubspec(dependencies):
                 existing_version = pubspec["dependencies"][dep_name]
                 if existing_version != dep_version:
                     pubspec["dependencies"][dep_name] = dep_version
-                    updated.append(f"{dep_name}: {existing_version} → {dep_version}")
+                    updated.append(
+                        f"{dep_name}: {existing_version} → {dep_version}"
+                    )
                 else:
                     skipped.append(f"{dep_name}: {dep_version}")
             else:
@@ -178,7 +182,12 @@ def update_pubspec(dependencies):
             # Check if we're in the dependencies section
             if line.strip().startswith("dependencies:"):
                 in_dependencies = True
-            elif in_dependencies and line and not line[0].isspace() and ":" in line:
+            elif (
+                in_dependencies
+                and line
+                and not line[0].isspace()
+                and ":" in line
+            ):
                 # We've exited the dependencies section
                 in_dependencies = False
 
@@ -186,7 +195,11 @@ def update_pubspec(dependencies):
             if in_dependencies:
                 # Check if this line is a dependency
                 stripped = line.strip()
-                if stripped and not stripped.startswith("#") and ":" in stripped:
+                if (
+                    stripped
+                    and not stripped.startswith("#")
+                    and ":" in stripped
+                ):
                     dep_key = stripped.split(":")[0].strip()
                     dependencies_inserted.add(dep_key)
 
@@ -199,9 +212,9 @@ def update_pubspec(dependencies):
                     if new_lines[j] and not new_lines[j][0].isspace():
                         insert_index = j
                         break
-                    elif new_lines[j].strip() and not new_lines[j].strip().startswith(
-                        "#"
-                    ):
+                    elif new_lines[j].strip() and not new_lines[
+                        j
+                    ].strip().startswith("#"):
                         insert_index = j + 1
                 break
 
@@ -275,4 +288,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
