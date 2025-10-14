@@ -40,6 +40,9 @@ class PluginRegistry {
         case InjectorType.G1:
           injectors.addAll(extensions.G1);
           break;
+        case InjectorType.G2:
+          injectors.addAll(extensions.G2);
+          break;
       }
     }
     // Sort by order

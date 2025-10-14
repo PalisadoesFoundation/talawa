@@ -41,7 +41,7 @@ class PluginInjectorExtension {
   final String pluginId;
   final String name;
   final String? description;
-  final WidgetBuilder builder;
+  final Widget Function(BuildContext context, {Map<String, dynamic>? data}) builder;
   final int order;
 
   const PluginInjectorExtension({
@@ -55,16 +55,20 @@ class PluginInjectorExtension {
 
 /// Injector types - locations where plugins can inject widgets
 /// G1 - General injector for menu page (under Plugins section)
+/// G2 - Post content injector (under post caption)
 enum InjectorType {
   G1, // Menu page - under Plugins section
+  G2, // Post content - under post caption
 }
 
 /// Plugin extension points
 class PluginExtensions {
   final List<PluginInjectorExtension> G1; // Menu page injectors (under Plugins section)
+  final List<PluginInjectorExtension> G2; // Post content injectors (under post caption)
 
   const PluginExtensions({
     this.G1 = const [],
+    this.G2 = const [],
   });
 }
 

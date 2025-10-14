@@ -9,6 +9,7 @@ import 'package:talawa/plugin/types.dart';
 ///
 /// Currently supported injector types:
 /// - G1: Menu page - under Plugins section
+/// - G2: Post content - under post caption
 ///
 /// Example usage:
 /// ```dart
@@ -55,7 +56,7 @@ class PluginInjector extends StatelessWidget {
 
   Widget _buildInjectorWidget(BuildContext context, PluginInjectorExtension injector) {
     try {
-      return injector.builder(context);
+      return injector.builder(context, data: data);
     } catch (e) {
       print('Error rendering plugin injector "${injector.name}": $e');
       return const SizedBox.shrink();
