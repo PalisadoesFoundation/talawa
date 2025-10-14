@@ -32,6 +32,7 @@ import 'package:talawa/views/after_auth_screens/join_org_after_auth/join_organis
 import 'package:talawa/views/after_auth_screens/org_info_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/demo_page_view.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
@@ -45,6 +46,10 @@ import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_screen.dart';
+import 'package:talawa/plugin/index.dart' as plugins;
+import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/plugin/registry.dart';
+import 'package:talawa/plugin/available/index.dart';
 
 /// The MaterialApp provides us with a property called generateRoute where.
 ///
@@ -332,7 +337,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => ManageGroupScreen(group: group, event: event),
       );
 
+    case Routes.menuPage:
+      return MaterialPageRoute(
+        builder: (context) => const MenuPage(key: Key('MenuPage')),
+      );
+
     default:
+      // Try plugin provided routes first
+      final pluginRoutes = plugins.buildPluginRoutes();
+      final builder = pluginRoutes[settings.name];
+      if (builder != null) {
+        return MaterialPageRoute(builder: builder);
+      }
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
           key: Key("DemoPage"),

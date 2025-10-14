@@ -11,6 +11,7 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/funds/funds_screen.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 import 'package:talawa/views/demo_screens/profile_page_demo.dart';
@@ -239,6 +240,12 @@ class MainScreenViewModel extends BaseModel {
         ),
         label: AppLocalizations.of(context)!.strictTranslate('Profile'),
       ),
+      BottomNavigationBarItem(
+        icon: const Icon(
+          Icons.menu,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Menu'),
+      ),
     ];
 
     if (!demoMode) {
@@ -261,6 +268,9 @@ class MainScreenViewModel extends BaseModel {
           key: keySPEditProfile,
           homeModel: this,
         ),
+        const MenuPage(
+          key: Key('Menu'),
+        ),
       ];
     } else {
       pages = [
@@ -281,6 +291,9 @@ class MainScreenViewModel extends BaseModel {
         DemoProfilePage(
           key: const Key('DemoProfile'),
           homeModel: this,
+        ),
+        const MenuPage(
+          key: Key('Menu'),
         ),
       ];
     }
