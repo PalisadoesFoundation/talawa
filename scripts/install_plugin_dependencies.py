@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-Talawa Mobile - Plugin Dependency Installer
+"""Talawa Mobile - Plugin Dependency Installer.
 
 This script scans all bundled plugins and installs their dependencies
 into the main pubspec.yaml file before building the app.
@@ -18,6 +17,8 @@ from pathlib import Path
 
 # ANSI color codes for terminal output
 class Colors:
+    """ANSI color codes for terminal formatting."""
+
     HEADER = "\033[95m"
     OKBLUE = "\033[94m"
     OKCYAN = "\033[96m"
@@ -30,24 +31,29 @@ class Colors:
 
 
 def print_header(text):
-    print(f"\n{Colors.HEADER}{Colors.BOLD}{'='*60}{Colors.ENDC}")
+    """Print a formatted header with borders."""
+    print(f"\n{Colors.HEADER}{Colors.BOLD}{'=' * 60}{Colors.ENDC}")
     print(f"{Colors.HEADER}{Colors.BOLD}{text.center(60)}{Colors.ENDC}")
-    print(f"{Colors.HEADER}{Colors.BOLD}{'='*60}{Colors.ENDC}\n")
+    print(f"{Colors.HEADER}{Colors.BOLD}{'=' * 60}{Colors.ENDC}\n")
 
 
 def print_success(text):
+    """Print a success message with checkmark icon."""
     print(f"{Colors.OKGREEN}✓{Colors.ENDC} {text}")
 
 
 def print_info(text):
+    """Print an informational message with info icon."""
     print(f"{Colors.OKBLUE}ℹ{Colors.ENDC} {text}")
 
 
 def print_warning(text):
+    """Print a warning message with warning icon."""
     print(f"{Colors.WARNING}⚠{Colors.ENDC} {text}")
 
 
 def print_error(text):
+    """Print an error message with error icon."""
     print(f"{Colors.FAIL}✗{Colors.ENDC} {text}")
 
 
@@ -116,9 +122,11 @@ def collect_plugin_dependencies():
                 print(f"  • {dep_name}: {dep_version}")
                 all_dependencies[dep_name] = dep_version
         else:
-            print_info(
-                f"Plugin: {Colors.BOLD}{plugin_name}{Colors.ENDC} ({plugin_id}) - No dependencies"
+            plugin_info = (
+                f"Plugin: {Colors.BOLD}{plugin_name}{Colors.ENDC} "
+                f"({plugin_id}) - No dependencies"
             )
+            print_info(plugin_info)
 
     return all_dependencies
 
@@ -170,7 +178,8 @@ def update_pubspec(dependencies):
                 added.append(f"{dep_name}: {dep_version}")
 
         # Write back to pubspec.yaml with preserved formatting
-        # We need to insert dependencies manually to preserve comments and formatting
+        # We need to insert dependencies manually to preserve comments
+        # and formatting
         lines = content.split("\n")
         new_lines = []
         in_dependencies = False
@@ -222,10 +231,10 @@ def update_pubspec(dependencies):
         if insert_index is not None:
             for dep_name, dep_version in dependencies.items():
                 if dep_name not in dependencies_inserted:
-                    new_lines.insert(
-                        insert_index,
-                        f"  {dep_name}: {dep_version}  # Added by plugin: {get_plugin_for_dependency(dep_name)}",
-                    )
+                    plugin_id = get_plugin_for_dependency(dep_name)
+                    comment = f"  # Added by plugin: {plugin_id}"
+                    new_line = f"  {dep_name}: {dep_version}{comment}"
+                    new_lines.insert(insert_index, new_line)
                     insert_index += 1
 
         # Write updated content
@@ -269,6 +278,7 @@ def get_plugin_for_dependency(dep_name):
 
 
 def main():
+    """Execute the main plugin dependency installation process."""
     print_header("Talawa Mobile - Plugin Dependency Installer")
 
     # Collect dependencies from all plugins

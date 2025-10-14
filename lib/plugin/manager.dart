@@ -22,8 +22,8 @@ class PluginManager {
     print('Active plugin IDs from database: $active');
     
     if (active == null || active.isEmpty) {
-      print('No active list provided, registering all bundled plugins');
-      registry.registerAll(available);
+      print('No active plugins in database - skipping plugin registration');
+      // Don't register any plugins if none are active
     } else {
       // Find bundled plugins that are activated in the database
       final filtered = available.where((p) {
