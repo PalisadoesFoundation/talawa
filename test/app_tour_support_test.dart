@@ -27,10 +27,12 @@ void main() {
         builder: (context, langModel, child) {
           return MaterialApp(
             locale: const Locale('en'),
+            supportedLocales: const [Locale('en')],
             localizationsDelegates: const [
               AppLocalizationsDelegate(isTest: true),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
             home: BaseView<MainScreenViewModel>(
               onModelReady: (model2) => model2.initialise(
@@ -89,7 +91,6 @@ void main() {
         CustomTutorialController(),
       );
 
-      
       // Render built widget in a harness and assert behavior
       final harness = MaterialApp(home: Scaffold(body: builtWidget));
       await tester.pumpWidget(harness);
