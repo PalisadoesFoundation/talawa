@@ -4,9 +4,6 @@ import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-/// Mock BuildContext for testing purposes
-//class MockBuildContext extends Mock implements BuildContext {}
-
 /// Custom TutorialCoachMarkController for testing purposes
 class CustomTutorialController extends TutorialCoachMarkController {
   @override
@@ -46,7 +43,7 @@ class MockAppTour extends Mock implements AppTour {
     onFinish();
     onClickTarget(
       TargetFocus(
-        identify: MainScreenViewModel.keyDrawerCurOrg,
+        identify: "keyDrawerCurOrg",
         keyTarget: MainScreenViewModel.keyBNChat,
       ),
     );

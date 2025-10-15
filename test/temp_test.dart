@@ -79,8 +79,7 @@ void main() {
         },
       );
 
-      await tester.pumpWidget(app);
-      await tester.pump(); // Changed from pumpAndSettle
+      
       await tester.pump(const Duration(seconds: 1));
 
       final tutorialBtn =
@@ -95,7 +94,7 @@ void main() {
         mockFocusTarget!.focusWidget.contents![0].builder!(
           capturedContext!,
           CustomTutorialController(),
-        ) as Container,
+        ),
         isA<Container>(),
       );
     });
