@@ -41,7 +41,6 @@ class AppTour {
   }
 
   /// Creates a TutorialCoachMark widget with the specified configuration.
-  /// This method is extracted for testing purposes.
   ///
   /// **params**:
   /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
@@ -51,7 +50,6 @@ class AppTour {
   /// **returns**:
   /// * `TutorialCoachMark`: The configured tutorial coach mark widget.
   ///
-  @visibleForTesting
   TutorialCoachMark createTutorialCoachMark({
     required Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,

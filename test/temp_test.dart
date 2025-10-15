@@ -1,59 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/app_tour.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
-
-class CustomTutorialController extends TutorialCoachMarkController {
-  @override
-  void next() {}
-
-  @override
-  void previous() {}
-
-  @override
-  void skip() {}
-}
-
-class MockTutorialCoachMark extends Mock implements TutorialCoachMark {
-  @override
-  void next() {}
-}
-
-class MockAppTour extends Mock implements AppTour {
-  MockAppTour({
-    required this.model,
-  });
-
-  @override
-  TutorialCoachMark get tutorialCoachMark => MockTutorialCoachMark();
-
-  @override
-  void showTutorial({
-    required Function(TargetFocus p1) onClickTarget,
-    required Function() onFinish,
-    required List<FocusTarget> targets,
-  }) {
-    onFinish();
-    onClickTarget(
-      TargetFocus(
-        identify: MainScreenViewModel.keyDrawerCurOrg,
-        keyTarget: MainScreenViewModel.keyBNChat,
-      ),
-    );
-  }
-
-  @override
-  MainScreenViewModel model;
-}
+import 'test_support.dart';
 
 void main() {
   setUpAll(() {

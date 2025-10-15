@@ -10,9 +10,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-import '../temp_test.dart';
-
-class MockTutorialCoachMark extends Mock implements TutorialCoachMark {}
+import '../test_support.dart';
 
 /// A testable version of AppTour that allows mocking the TutorialCoachMark creation
 class TestableAppTour extends AppTour {
@@ -37,33 +35,6 @@ class TestableAppTour extends AppTour {
       targets: targets,
     );
   }
-}
-
-class MockAppTour extends Mock implements AppTour {
-  MockAppTour({
-    required this.model,
-  });
-
-  @override
-  TutorialCoachMark get tutorialCoachMark => MockTutorialCoachMark();
-
-  @override
-  void showTutorial({
-    required Function(TargetFocus p1) onClickTarget,
-    required Function() onFinish,
-    required List<FocusTarget> targets,
-  }) {
-    onFinish();
-    onClickTarget(
-      TargetFocus(
-        identify: MainScreenViewModel.keyDrawerCurOrg,
-        keyTarget: MainScreenViewModel.keyBNChat,
-      ),
-    );
-  }
-
-  @override
-  MainScreenViewModel model;
 }
 
 /// Creates a MaterialApp widget with the given home widget and common localizations.
@@ -495,7 +466,7 @@ void main() {
         appTour: testableAppTour,
       );
 
-      // Test the createTutorialCoachMark method directly (this covers lines 35-77)
+      // Test the createTutorialCoachMark method directly
       final tutorialCoachMark = testableAppTour.createTutorialCoachMark(
         onClickTarget: (target) {
           onClickTargetCalled = true;
@@ -513,11 +484,11 @@ void main() {
       expect(tutorialCoachMark.paddingFocus, equals(10));
       expect(tutorialCoachMark.opacityShadow, equals(1.0));
 
-      // Test onFinish callback (line 55)
+      // Test onFinish callback
       tutorialCoachMark.onFinish!();
       expect(onFinishCalled, isTrue);
 
-      // Test onClickTarget callback (line 56)
+      // Test onClickTarget callback
       tutorialCoachMark.onClickTarget!(
         TargetFocus(
           identify: 'test',
@@ -532,7 +503,7 @@ void main() {
       expect(skipResult, isTrue);
       expect(viewModel!.tourSkipped, isTrue);
 
-      // Test onClickOverlay callback (lines 66-68)
+      // Test onClickOverlay callback
       // Reset the flag to test onClickOverlay
       onClickTargetCalled = false;
       tutorialCoachMark.onClickOverlay!(
@@ -604,17 +575,17 @@ void main() {
         appTour: testableAppTour,
       );
 
-      // Test showTutorial method (covers lines 30, 35, 40)
+      // Test showTutorial method
       testableAppTour.showTutorial(
         onClickTarget: (target) {},
         onFinish: () {},
         targets: <FocusTarget>[focusTarget],
       );
 
-      // Verify tutorialCoachMark was assigned (line 35)
+      // Verify tutorialCoachMark was assigned
       expect(testableAppTour.tutorialCoachMark, equals(mockTutorialCoachMark));
 
-      // Verify show() was called (line 40)
+      // Verify show() was called
       verify(mockTutorialCoachMark.show(context: viewModel!.context)).called(1);
     });
 
@@ -683,7 +654,7 @@ void main() {
         targets: <FocusTarget>[focusTarget],
       );
 
-      // Test onSkip callback with drawer open (covers line 74)
+      // Test onSkip callback with drawer open
       final skipResult = tutorialCoachMark.onSkip!();
       expect(skipResult, isTrue);
       expect(viewModel!.tourSkipped, isTrue);
