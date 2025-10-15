@@ -243,7 +243,9 @@ void main() {
 
       // Test onClickOverlay callback - just ensure it's callable
       expect(
-          () => mockAppTour!.tutorialCoachMark.onClickOverlay, returnsNormally);
+        () => mockAppTour!.tutorialCoachMark.onClickOverlay,
+        returnsNormally,
+      );
 
       // Test the second builder's GestureDetector
       (mockFocusTarget!.focusWidget.contents![1].builder!(
@@ -328,12 +330,16 @@ void main() {
 
       // first builder returns a Container
       final first = mockFocusTarget!.focusWidget.contents![0].builder!(
-          capturedContext!, CustomTutorialController());
+        capturedContext!,
+        CustomTutorialController(),
+      );
       expect(first, isA<Container>());
 
       // second builder should return a GestureDetector whose child Text is 'COMPLETE'
       final second = mockFocusTarget!.focusWidget.contents![1].builder!(
-          capturedContext!, CustomTutorialController());
+        capturedContext!,
+        CustomTutorialController(),
+      );
       expect(second, isA<GestureDetector>());
       final detector = second as GestureDetector;
       // Ensure tapping doesn't throw even when next is null
@@ -421,7 +427,9 @@ void main() {
 
       // Directly invoke the second builder and trigger onTap; avoid calling showTutorial
       final second = mockFocusTarget!.focusWidget.contents![1].builder!(
-          capturedContext!, CustomTutorialController()) as GestureDetector;
+        capturedContext!,
+        CustomTutorialController(),
+      ) as GestureDetector;
       second.onTap!();
 
       // Verify the next callback executed and tutorialCoachMark.next called
@@ -510,10 +518,12 @@ void main() {
       expect(onFinishCalled, isTrue);
 
       // Test onClickTarget callback (line 56)
-      tutorialCoachMark.onClickTarget!(TargetFocus(
-        identify: 'test',
-        keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-      ));
+      tutorialCoachMark.onClickTarget!(
+        TargetFocus(
+          identify: 'test',
+          keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        ),
+      );
       expect(onClickTargetCalled, isTrue);
 
       // Test onSkip callback (lines 57-65)
@@ -525,10 +535,12 @@ void main() {
       // Test onClickOverlay callback (lines 66-68)
       // Reset the flag to test onClickOverlay
       onClickTargetCalled = false;
-      tutorialCoachMark.onClickOverlay!(TargetFocus(
-        identify: 'overlay-test',
-        keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-      ));
+      tutorialCoachMark.onClickOverlay!(
+        TargetFocus(
+          identify: 'overlay-test',
+          keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        ),
+      );
       // The onClickOverlay should call onClickTarget again
       expect(onClickTargetCalled, isTrue);
     });

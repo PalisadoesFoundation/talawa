@@ -59,7 +59,6 @@ Widget createMainScreen({bool demoMode = true}) {
 }
 
 class MockMainScreenViewModel extends Mock implements MainScreenViewModel {
-  @override
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
