@@ -5,7 +5,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// Mock BuildContext for testing purposes
-class MockBuildContext extends Mock implements BuildContext {}
+//class MockBuildContext extends Mock implements BuildContext {}
 
 /// Custom TutorialCoachMarkController for testing purposes
 class CustomTutorialController extends TutorialCoachMarkController {
@@ -28,13 +28,19 @@ class MockAppTour extends Mock implements AppTour {
     required this.model,
   });
 
+  TutorialCoachMark? _tutorialCoachMark;
+
   @override
-  TutorialCoachMark get tutorialCoachMark => MockTutorialCoachMark();
+  TutorialCoachMark get tutorialCoachMark =>
+      _tutorialCoachMark ??= MockTutorialCoachMark();
+
+  @override
+  set tutorialCoachMark(TutorialCoachMark value) => _tutorialCoachMark = value;
 
   @override
   void showTutorial({
-    required Function(TargetFocus p1) onClickTarget,
-    required Function() onFinish,
+    required void Function(TargetFocus p1) onClickTarget,
+    required VoidCallback onFinish,
     required List<FocusTarget> targets,
   }) {
     onFinish();

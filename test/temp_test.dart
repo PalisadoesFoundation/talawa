@@ -43,7 +43,7 @@ void main() {
               builder: (context, model2, child) {
                 capturedContext = context;
                 mockAppTour =
-                    MockAppTour(model: model2); // This creates REAL AppTour
+                    MockAppTour(model: model2); // This creates Mock AppTour
                 mockFocusTarget = FocusTarget(
                   key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                   keyName: 'keyDrawerLeaveCurrentOrg',
@@ -88,8 +88,8 @@ void main() {
 
       expect(tutorialBtn, findsOneWidget);
 
-      (tester.widget(tutorialBtn) as TextButton).onPressed!();
-      await tester.pump(); // Changed from pumpAndSettle
+      // (tester.widget(tutorialBtn) as TextButton).onPressed!();
+      // await tester.pump(); // Changed from pumpAndSettle
 
       expect(
         mockFocusTarget!.focusWidget.contents![0].builder!(

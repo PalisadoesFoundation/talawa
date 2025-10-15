@@ -69,7 +69,7 @@ class MainScreenViewModel extends BaseModel {
 
   /// static variables.
   static final GlobalKey keyDrawerLeaveCurrentOrg =
-      GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
+      GlobalKey(debugLabel: "DrawerLeaveCurrentOrg");
 
   /// static variables.
   static final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");

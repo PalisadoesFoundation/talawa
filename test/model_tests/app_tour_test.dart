@@ -21,8 +21,8 @@ class TestableAppTour extends AppTour {
   /// Override to return a mock instead of creating the real TutorialCoachMark
   @override
   TutorialCoachMark createTutorialCoachMark({
-    required Function(TargetFocus) onClickTarget,
-    required dynamic Function() onFinish,
+    required void Function(TargetFocus) onClickTarget,
+    required VoidCallback onFinish,
     required List<FocusTarget> targets,
   }) {
     if (mockTutorialCoachMark != null) {
