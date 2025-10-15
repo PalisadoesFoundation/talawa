@@ -79,7 +79,8 @@ void main() {
         },
       );
 
-      
+      await tester.pumpWidget(app);
+      await tester.pump();
       await tester.pump(const Duration(seconds: 1));
 
       final tutorialBtn =
