@@ -131,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                         Column(
                           children: [
                             RaisedRoundedButton(
-                              key: homeModel!.keySPDonateUs,
+                              key: MainScreenViewModel.keySPDonateUs,
                               buttonLabel:
                                   AppLocalizations.of(context)!.strictTranslate(
                                 'Donate to the Community',

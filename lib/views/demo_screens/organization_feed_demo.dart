@@ -139,14 +139,14 @@ class DemoOrganizationFeed extends StatelessWidget {
         centerTitle: true,
         title: Text(
           AppLocalizations.of(context)!.strictTranslate("Organisation Name"),
-          key: homeModel?.keySHOrgName,
+          key: MainScreenViewModel.keySHOrgName,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontSize: 20,
                 color: Colors.white,
               ),
         ),
         leading: IconButton(
-          key: homeModel?.keySHMenuIcon,
+          key: MainScreenViewModel.keySHMenuIcon,
           icon: Icon(
             Icons.menu,
             color: Theme.of(context).iconTheme.color,

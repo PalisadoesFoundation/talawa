@@ -31,101 +31,111 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 /// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
   /// static variables.
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
 
   /// static variables.
-  final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
+  static final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
 
   /// static variables.
-  final GlobalKey keyBNDemoHome = GlobalKey(debugLabel: "DemoHomeTab");
+  static final GlobalKey keyBNDemoHome = GlobalKey(debugLabel: "DemoHomeTab");
 
   /// static variables.
-  final GlobalKey keySHPinnedPost =
+  static final GlobalKey keySHPinnedPost =
       GlobalKey(debugLabel: "HomeScreenPinnedPost");
 
   /// static variables.
-  final GlobalKey keySHPost = GlobalKey(debugLabel: "HomeScreenPost");
+  static final GlobalKey keySHPost = GlobalKey(debugLabel: "HomeScreenPost");
 
   /// static variables.
-  final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
+  static final GlobalKey keySHOrgName =
+      GlobalKey(debugLabel: "HomeScreenOrgName");
 
   /// static variables.
-  final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
+  static final GlobalKey keySHMenuIcon =
+      GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
   /// static variables.
-  final GlobalKey keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
+  static final GlobalKey keyDrawerCurOrg =
+      GlobalKey(debugLabel: "DrawerCurrentOrg");
 
   /// static variables.
-  final GlobalKey keyDrawerSwitchableOrg =
+  static final GlobalKey keyDrawerSwitchableOrg =
       GlobalKey(debugLabel: "DrawerSwitchableOrg");
 
   /// static variables.
-  final GlobalKey keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
+  static final GlobalKey keyDrawerJoinOrg =
+      GlobalKey(debugLabel: "DrawerJoinOrg");
 
   /// static variables.
-  final GlobalKey keyDrawerLeaveCurrentOrg =
+  static final GlobalKey keyDrawerLeaveCurrentOrg =
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
   /// static variables.
-  final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
+  static final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
 
   /// static variables.
-  final GlobalKey keyBNDemoEvents = GlobalKey(debugLabel: "DemoEventTab");
+  static final GlobalKey keyBNDemoEvents =
+      GlobalKey(debugLabel: "DemoEventTab");
 
   /// static variables.
-  final GlobalKey keySECategoryMenu =
+  static final GlobalKey keySECategoryMenu =
       GlobalKey(debugLabel: "EventScreenCategory");
 
   /// static variables.
-  final GlobalKey keySEDateFilter =
+  static final GlobalKey keySEDateFilter =
       GlobalKey(debugLabel: "EventScreenDateFilter");
 
   /// static variables.
-  final GlobalKey keySEAdd = GlobalKey(debugLabel: "EventScreenAdd");
+  static final GlobalKey keySEAdd = GlobalKey(debugLabel: "EventScreenAdd");
 
   /// static variables.
-  final GlobalKey keySECard = GlobalKey(debugLabel: "EventScreenCard");
+  static final GlobalKey keySECard = GlobalKey(debugLabel: "EventScreenCard");
 
   /// static variables.
-  final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
+  static final GlobalKey keyBNPost = GlobalKey(debugLabel: "PostTab");
 
   /// static variables.
-  final GlobalKey keyBNDemoPost = GlobalKey(debugLabel: "DemoPostTab");
+  static final GlobalKey keyBNDemoPost = GlobalKey(debugLabel: "DemoPostTab");
 
   /// static variables.
-  final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
+  static final GlobalKey keyBNChat = GlobalKey(debugLabel: "ChatTab");
 
   /// static variables.
-  final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
+  static final GlobalKey keyBNProfile = GlobalKey(debugLabel: "ProfileTab");
 
   /// static variables.
-  final GlobalKey keyBNDemoProfile = GlobalKey(debugLabel: "DemoProfileTab");
+  static final GlobalKey keyBNDemoProfile =
+      GlobalKey(debugLabel: "DemoProfileTab");
 
   /// static variables.
-  final GlobalKey keyBNFunds = GlobalKey(debugLabel: "FundsTab");
+  static final GlobalKey keyBNFunds = GlobalKey(debugLabel: "FundsTab");
 
   /// static variables.
-  final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
+  static final GlobalKey keySPEditProfile =
+      GlobalKey(debugLabel: "ProfileScreenEdit");
 
   /// static variables.
-  final GlobalKey keySPAppSetting =
+  static final GlobalKey keySPAppSetting =
       GlobalKey(debugLabel: "ProfileScreenAppSetting");
 
   /// static variables.
-  final GlobalKey keySPHelp = GlobalKey(debugLabel: "ProfileScreenHelp");
+  static final GlobalKey keySPHelp = GlobalKey(debugLabel: "ProfileScreenHelp");
 
   /// static variables.
-  final GlobalKey keySPDonateUs =
+  static final GlobalKey keySPDonateUs =
       GlobalKey(debugLabel: "ProfileScreenDonateUs");
 
   /// static variables.
-  final GlobalKey keySPInvite = GlobalKey(debugLabel: "ProfileScreenInvite");
+  static final GlobalKey keySPInvite =
+      GlobalKey(debugLabel: "ProfileScreenInvite");
 
   /// static variables.
-  final GlobalKey keySPLogout = GlobalKey(debugLabel: "ProfileScreenLogout");
+  static final GlobalKey keySPLogout =
+      GlobalKey(debugLabel: "ProfileScreenLogout");
 
   /// static variables.
-  final GlobalKey keySPPalisadoes =
+  static final GlobalKey keySPPalisadoes =
       GlobalKey(debugLabel: "ProfileScreenPalisadoes");
 
   /// bool to determine if we wanna show the apptour.
@@ -164,10 +174,11 @@ class MainScreenViewModel extends BaseModel {
     required bool fromSignUp,
     required int mainScreenIndex,
     bool demoMode = false,
+    bool testMode = false,
   }) {
-    MainScreenViewModel.demoMode = demoMode;
+    MainScreenViewModel.demoMode = demoMode || testMode;
     currentPageIndex = mainScreenIndex;
-    showAppTour = fromSignUp || demoMode;
+    showAppTour = fromSignUp || MainScreenViewModel.demoMode;
     context = ctx;
     final appTourDialogWidget = appTourDialog(ctx);
 
@@ -175,7 +186,7 @@ class MainScreenViewModel extends BaseModel {
     if (!showAppTour) {
       tourComplete = true;
       tourSkipped = false;
-    } else {
+    } else if (!testMode) {
       Future.delayed(
         const Duration(seconds: 1),
         () => navigationService.pushDialog(

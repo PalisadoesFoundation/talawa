@@ -112,7 +112,7 @@ class DemoExploreEvents extends StatelessWidget {
                             );
                           },
                           child: Card(
-                            key: homeModel?.keySEDateFilter,
+                            key: MainScreenViewModel.keySEDateFilter,
                             color: Theme.of(context).colorScheme.onPrimary,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -203,7 +203,7 @@ class DemoExploreEvents extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        key: homeModel?.keySEAdd,
+        key: MainScreenViewModel.keySEAdd,
         heroTag: "AddEventFabDemo",
         backgroundColor: Theme.of(context).colorScheme.surface,
         onPressed: () {
@@ -236,7 +236,7 @@ class DemoExploreEvents extends StatelessWidget {
   /// * `Widget`: the dropdown
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
-      key: homeModel?.keySECategoryMenu,
+      key: MainScreenViewModel.keySECategoryMenu,
       value: model.chosenValue,
       isExpanded: true,
       items: <String>[

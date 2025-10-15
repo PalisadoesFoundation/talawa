@@ -125,7 +125,7 @@ class DemoProfilePage extends StatelessWidget {
             height: 20,
           ),
           RaisedRoundedButton(
-            key: homeModel!.keySPDonateUs,
+            key: MainScreenViewModel.keySPDonateUs,
             buttonLabel: AppLocalizations.of(context)!.strictTranslate(
               'Donate to the Community',
             ),
@@ -239,7 +239,7 @@ class DemoProfilePage extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.05,
                 ),
-                FromPalisadoes(key: homeModel!.keySPPalisadoes),
+                FromPalisadoes(key: MainScreenViewModel.keySPPalisadoes),
               ],
             ),
           ),

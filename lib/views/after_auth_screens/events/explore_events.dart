@@ -160,7 +160,8 @@ class ExploreEvents extends StatelessWidget {
                                         surfaceTintColor: Theme.of(context)
                                             .colorScheme
                                             .secondaryContainer,
-                                        key: homeModel?.keySEDateFilter,
+                                        key:
+                                            MainScreenViewModel.keySEDateFilter,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary,
@@ -271,7 +272,7 @@ class ExploreEvents extends StatelessWidget {
                   ),
                 ),
           floatingActionButton: FloatingActionButton.extended(
-            key: homeModel?.keySEAdd,
+            key: MainScreenViewModel.keySEAdd,
             heroTag: "AddEventFab",
             backgroundColor: Theme.of(context).colorScheme.surface,
             onPressed: () => navigationService.pushScreen("/createEventPage"),

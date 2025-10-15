@@ -62,7 +62,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
             centerTitle: true,
             title: Text(
               model.currentOrgName,
-              key: widget.homeModel?.keySHOrgName,
+              key: MainScreenViewModel.keySHOrgName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -70,7 +70,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                   ),
             ),
             leading: IconButton(
-              key: widget.homeModel?.keySHMenuIcon,
+              key: MainScreenViewModel.keySHMenuIcon,
               icon: const Icon(
                 Icons.menu,
                 color: Colors.white,
@@ -133,7 +133,7 @@ class _OrganizationFeedState extends State<OrganizationFeed> {
                         ),
                         model.posts.isNotEmpty
                             ? PostListWidget(
-                                key: widget.homeModel?.keySHPost,
+                                key: MainScreenViewModel.keySHPost,
                                 posts: model.posts,
                                 redirectToIndividualPage:
                                     model.navigateToIndividualPage,

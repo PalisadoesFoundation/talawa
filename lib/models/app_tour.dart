@@ -45,7 +45,7 @@ class AppTour {
       onFinish: onFinish,
       onClickTarget: onClickTarget,
       onSkip: () {
-        if (model.scaffoldKey.currentState!.isDrawerOpen) {
+        if (MainScreenViewModel.scaffoldKey.currentState!.isDrawerOpen) {
           navigationService.pop();
         }
         model.tourSkipped = true;
