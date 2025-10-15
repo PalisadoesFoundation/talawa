@@ -61,7 +61,7 @@ void main() {
                     onPressed: () {
                       MainScreenViewModel.scaffoldKey.currentState!
                           .openDrawer();
-                      // This calls the REAL showTutorial method
+                      // This calls the Mock showTutorial method
                       mockAppTour!.showTutorial(
                         onClickTarget: (x) {},
                         onFinish: () {},
@@ -80,16 +80,13 @@ void main() {
       );
 
       await tester.pumpWidget(app);
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       final tutorialBtn =
           find.byKey(MainScreenViewModel.keyDrawerLeaveCurrentOrg);
 
       expect(tutorialBtn, findsOneWidget);
 
-      // (tester.widget(tutorialBtn) as TextButton).onPressed!();
-      // await tester.pump(); // Changed from pumpAndSettle
 
       expect(
         mockFocusTarget!.focusWidget.contents![0].builder!(
