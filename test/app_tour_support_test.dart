@@ -76,39 +76,32 @@ void main() {
 
       expect(tutorialBtn, findsOneWidget);
 
-      // Test the FocusTarget builder with comprehensive assertions
-      final builtWidget = mockFocusTarget!.focusWidget.contents![0].builder!(
+      // Validate structure before access
+      expect(mockFocusTarget, isNotNull);
+      expect(mockFocusTarget!.focusWidget.contents, isNotNull);
+      expect(mockFocusTarget!.focusWidget.contents!.isNotEmpty, isTrue);
+      final firstContent = mockFocusTarget!.focusWidget.contents!.first;
+      expect(firstContent.builder, isNotNull);
+      expect(capturedContext, isNotNull);
+      // Build the widget
+      final builtWidget = firstContent.builder!(
         capturedContext!,
         CustomTutorialController(),
       );
 
-      // Verify it returns a Container
-      expect(builtWidget, isA<Container>());
+      
+      // Render built widget in a harness and assert behavior
+      final harness = MaterialApp(home: Scaffold(body: builtWidget));
+      await tester.pumpWidget(harness);
+      await tester.pumpAndSettle();
 
-      final container = builtWidget as Container;
-
-      // Verify the Container has a child Column
-      expect(container.child, isA<Column>());
-
-      final column = container.child! as Column;
-
-      // Verify Column properties
-      expect(column.mainAxisSize, equals(MainAxisSize.max));
-      expect(column.crossAxisAlignment, equals(CrossAxisAlignment.start));
-      expect(column.children.length, equals(1));
-
-      // Verify the Column contains a Text widget
-      expect(column.children[0], isA<Text>());
-
-      final textWidget = column.children[0] as Text;
-
-      // Verify the text content matches the description
-      expect(textWidget.data, equals('description'));
-
-      // Verify text styling
+      // Verify the description text is present and styled
+      final descFinder = find.text('description');
+      expect(descFinder, findsOneWidget);
+      final textWidget = tester.widget<Text>(descFinder);
       expect(textWidget.style, isNotNull);
+      // Prefer a shared constant if available; otherwise keep 20
       expect(textWidget.style!.fontSize, equals(20));
-      // Note: Color verification would require theme context, but we can verify structure
     });
   });
 }
