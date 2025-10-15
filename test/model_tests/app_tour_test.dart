@@ -10,20 +10,34 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
-
-class CustomTutorialController extends TutorialCoachMarkController {
-  @override
-  void next() {}
-
-  @override
-  void previous() {}
-
-  @override
-  void skip() {}
-}
+import '../temp_test.dart';
 
 class MockTutorialCoachMark extends Mock implements TutorialCoachMark {}
+
+/// A testable version of AppTour that allows mocking the TutorialCoachMark creation
+class TestableAppTour extends AppTour {
+  TestableAppTour({required super.model});
+
+  TutorialCoachMark? mockTutorialCoachMark;
+
+  /// Override to return a mock instead of creating the real TutorialCoachMark
+  @override
+  TutorialCoachMark createTutorialCoachMark({
+    required Function(TargetFocus) onClickTarget,
+    required dynamic Function() onFinish,
+    required List<FocusTarget> targets,
+  }) {
+    if (mockTutorialCoachMark != null) {
+      return mockTutorialCoachMark!;
+    }
+    // Call the real implementation to test the actual code
+    return super.createTutorialCoachMark(
+      onClickTarget: onClickTarget,
+      onFinish: onFinish,
+      targets: targets,
+    );
+  }
+}
 
 class MockAppTour extends Mock implements AppTour {
   MockAppTour({
@@ -60,19 +74,6 @@ class MockAppTour extends Mock implements AppTour {
 /// **returns**:
 /// * `MaterialApp`: The MaterialApp widget.
 ///
-MaterialApp createMaterialApp({required Widget home}) {
-  return MaterialApp(
-    home: home,
-    localizationsDelegates: const [
-      AppLocalizationsDelegate(isTest: true),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    supportedLocales: const [
-      Locale('en', ''),
-    ],
-  );
-}
 
 void main() {
   setUpAll(() {
@@ -426,6 +427,254 @@ void main() {
       // Verify the next callback executed and tutorialCoachMark.next called
       expect(invoked, isTrue);
       verify(mockTutorial.next()).called(1);
+    });
+
+    testWidgets(
+        'Test createTutorialCoachMark method covers all uncovered lines',
+        (tester) async {
+      TestableAppTour? testableAppTour;
+      FocusTarget? focusTarget;
+      MainScreenViewModel? viewModel;
+
+      var onClickTargetCalled = false;
+      var onFinishCalled = false;
+
+      final app = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: BaseView<MainScreenViewModel>(
+              onModelReady: (model2) => model2.initialise(
+                context,
+                fromSignUp: false,
+                mainScreenIndex: 0,
+                demoMode: true,
+                testMode: true,
+              ),
+              builder: (context, model2, child) {
+                viewModel = model2;
+                model2.context = context;
+                return Scaffold(
+                  key: MainScreenViewModel.scaffoldKey,
+                  drawer: const Drawer(),
+                  body: Container(
+                    key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                  ),
+                );
+              },
+            ),
+            navigatorKey: navigationService.navigatorKey,
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pump();
+
+      // Create TestableAppTour
+      testableAppTour = TestableAppTour(model: viewModel!);
+      focusTarget = FocusTarget(
+        key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        keyName: 'keyDrawerLeaveCurrentOrg',
+        description: 'Test description',
+        next: () {},
+        appTour: testableAppTour,
+      );
+
+      // Test the createTutorialCoachMark method directly (this covers lines 35-77)
+      final tutorialCoachMark = testableAppTour.createTutorialCoachMark(
+        onClickTarget: (target) {
+          onClickTargetCalled = true;
+        },
+        onFinish: () {
+          onFinishCalled = true;
+        },
+        targets: <FocusTarget>[focusTarget],
+      );
+
+      // Verify the TutorialCoachMark was created with correct configuration
+      expect(tutorialCoachMark, isNotNull);
+      expect(tutorialCoachMark.targets.length, equals(1));
+      expect(tutorialCoachMark.textSkip, equals("SKIP"));
+      expect(tutorialCoachMark.paddingFocus, equals(10));
+      expect(tutorialCoachMark.opacityShadow, equals(1.0));
+
+      // Test onFinish callback (line 55)
+      tutorialCoachMark.onFinish!();
+      expect(onFinishCalled, isTrue);
+
+      // Test onClickTarget callback (line 56)
+      tutorialCoachMark.onClickTarget!(TargetFocus(
+        identify: 'test',
+        keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+      ));
+      expect(onClickTargetCalled, isTrue);
+
+      // Test onSkip callback (lines 57-65)
+      expect(viewModel!.tourSkipped, isFalse);
+      final skipResult = tutorialCoachMark.onSkip!();
+      expect(skipResult, isTrue);
+      expect(viewModel!.tourSkipped, isTrue);
+
+      // Test onClickOverlay callback (lines 66-68)
+      // Reset the flag to test onClickOverlay
+      onClickTargetCalled = false;
+      tutorialCoachMark.onClickOverlay!(TargetFocus(
+        identify: 'overlay-test',
+        keyTarget: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+      ));
+      // The onClickOverlay should call onClickTarget again
+      expect(onClickTargetCalled, isTrue);
+    });
+
+    testWidgets(
+        'Test showTutorial method calls createTutorialCoachMark and show',
+        (tester) async {
+      TestableAppTour? testableAppTour;
+      FocusTarget? focusTarget;
+      MainScreenViewModel? viewModel;
+
+      final mockTutorialCoachMark = MockTutorialCoachMark();
+
+      final app = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: BaseView<MainScreenViewModel>(
+              onModelReady: (model2) => model2.initialise(
+                context,
+                fromSignUp: false,
+                mainScreenIndex: 0,
+                demoMode: true,
+                testMode: true,
+              ),
+              builder: (context, model2, child) {
+                viewModel = model2;
+                model2.context = context;
+                return Scaffold(
+                  key: MainScreenViewModel.scaffoldKey,
+                  drawer: const Drawer(),
+                  body: Container(
+                    key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                  ),
+                );
+              },
+            ),
+            navigatorKey: navigationService.navigatorKey,
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pump();
+
+      // Create TestableAppTour with mock
+      testableAppTour = TestableAppTour(model: viewModel!);
+      testableAppTour.mockTutorialCoachMark = mockTutorialCoachMark;
+
+      focusTarget = FocusTarget(
+        key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        keyName: 'keyDrawerLeaveCurrentOrg',
+        description: 'Test description',
+        next: () {},
+        appTour: testableAppTour,
+      );
+
+      // Test showTutorial method (covers lines 30, 35, 40)
+      testableAppTour.showTutorial(
+        onClickTarget: (target) {},
+        onFinish: () {},
+        targets: <FocusTarget>[focusTarget],
+      );
+
+      // Verify tutorialCoachMark was assigned (line 35)
+      expect(testableAppTour.tutorialCoachMark, equals(mockTutorialCoachMark));
+
+      // Verify show() was called (line 40)
+      verify(mockTutorialCoachMark.show(context: viewModel!.context)).called(1);
+    });
+
+    testWidgets('Test onSkip callback with drawer open scenario',
+        (tester) async {
+      TestableAppTour? testableAppTour;
+      FocusTarget? focusTarget;
+      MainScreenViewModel? viewModel;
+
+      final app = BaseView<AppLanguage>(
+        onModelReady: (model) => model.initialize(),
+        builder: (context, langModel, child) {
+          return MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(isTest: true),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: BaseView<MainScreenViewModel>(
+              onModelReady: (model2) => model2.initialise(
+                context,
+                fromSignUp: false,
+                mainScreenIndex: 0,
+                demoMode: true,
+                testMode: true,
+              ),
+              builder: (context, model2, child) {
+                viewModel = model2;
+                model2.context = context;
+                return Scaffold(
+                  key: MainScreenViewModel.scaffoldKey,
+                  drawer: const Drawer(),
+                  body: Container(
+                    key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+                  ),
+                );
+              },
+            ),
+            navigatorKey: navigationService.navigatorKey,
+          );
+        },
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pump();
+
+      // Create TestableAppTour
+      testableAppTour = TestableAppTour(model: viewModel!);
+      focusTarget = FocusTarget(
+        key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
+        keyName: 'keyDrawerLeaveCurrentOrg',
+        description: 'Test description',
+        next: () {},
+        appTour: testableAppTour,
+      );
+
+      // First open the drawer
+      MainScreenViewModel.scaffoldKey.currentState!.openDrawer();
+      await tester.pump();
+
+      // Create TutorialCoachMark to test onSkip with drawer open
+      final tutorialCoachMark = testableAppTour.createTutorialCoachMark(
+        onClickTarget: (target) {},
+        onFinish: () {},
+        targets: <FocusTarget>[focusTarget],
+      );
+
+      // Test onSkip callback with drawer open (covers line 74)
+      final skipResult = tutorialCoachMark.onSkip!();
+      expect(skipResult, isTrue);
+      expect(viewModel!.tourSkipped, isTrue);
     });
   });
 }

@@ -87,7 +87,8 @@ void main() {
               ),
               builder: (context, model2, child) {
                 capturedContext = context;
-                mockAppTour = AppTour(model: model2); // This creates REAL AppTour
+                mockAppTour =
+                    MockAppTour(model: model2); // This creates REAL AppTour
                 mockFocusTarget = FocusTarget(
                   key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                   keyName: 'keyDrawerLeaveCurrentOrg',

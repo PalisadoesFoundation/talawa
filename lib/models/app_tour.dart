@@ -32,7 +32,32 @@ class AppTour {
     required dynamic Function() onFinish,
     required List<FocusTarget> targets,
   }) {
-    tutorialCoachMark = TutorialCoachMark(
+    tutorialCoachMark = createTutorialCoachMark(
+      onClickTarget: onClickTarget,
+      onFinish: onFinish,
+      targets: targets,
+    );
+    tutorialCoachMark.show(context: model.context);
+  }
+
+  /// Creates a TutorialCoachMark widget with the specified configuration.
+  /// This method is extracted for testing purposes.
+  ///
+  /// **params**:
+  /// * `onClickTarget`: Its a function which is required to run desired tasks on click.
+  /// * `onFinish`: Its a function which is required to run desired tasks on finish
+  /// * `targets`: [FocusTargets] to show the tour on.
+  ///
+  /// **returns**:
+  /// * `TutorialCoachMark`: The configured tutorial coach mark widget.
+  ///
+  @visibleForTesting
+  TutorialCoachMark createTutorialCoachMark({
+    required Function(TargetFocus) onClickTarget,
+    required dynamic Function() onFinish,
+    required List<FocusTarget> targets,
+  }) {
+    return TutorialCoachMark(
       targets: targets.map((target) => target.focusWidget).toList(),
       colorShadow: Theme.of(model.context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
@@ -56,7 +81,6 @@ class AppTour {
         onClickTarget(target);
       },
     );
-    tutorialCoachMark.show(context: model.context);
   }
 }
 
