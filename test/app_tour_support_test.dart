@@ -58,18 +58,7 @@ void main() {
                   body: TextButton(
                     key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                     child: const Text('tutorial'),
-                    onPressed: () {
-                      MainScreenViewModel.scaffoldKey.currentState!
-                          .openDrawer();
-                      // This calls the Mock showTutorial method
-                      mockAppTour!.showTutorial(
-                        onClickTarget: (x) {},
-                        onFinish: () {},
-                        targets: <FocusTarget>[
-                          mockFocusTarget!,
-                        ],
-                      );
-                    },
+                    onPressed: () {},
                   ),
                 );
               },
@@ -87,14 +76,39 @@ void main() {
 
       expect(tutorialBtn, findsOneWidget);
 
-
-      expect(
-        mockFocusTarget!.focusWidget.contents![0].builder!(
-          capturedContext!,
-          CustomTutorialController(),
-        ),
-        isA<Container>(),
+      // Test the FocusTarget builder with comprehensive assertions
+      final builtWidget = mockFocusTarget!.focusWidget.contents![0].builder!(
+        capturedContext!,
+        CustomTutorialController(),
       );
+
+      // Verify it returns a Container
+      expect(builtWidget, isA<Container>());
+
+      final container = builtWidget as Container;
+
+      // Verify the Container has a child Column
+      expect(container.child, isA<Column>());
+
+      final column = container.child! as Column;
+
+      // Verify Column properties
+      expect(column.mainAxisSize, equals(MainAxisSize.max));
+      expect(column.crossAxisAlignment, equals(CrossAxisAlignment.start));
+      expect(column.children.length, equals(1));
+
+      // Verify the Column contains a Text widget
+      expect(column.children[0], isA<Text>());
+
+      final textWidget = column.children[0] as Text;
+
+      // Verify the text content matches the description
+      expect(textWidget.data, equals('description'));
+
+      // Verify text styling
+      expect(textWidget.style, isNotNull);
+      expect(textWidget.style!.fontSize, equals(20));
+      // Note: Color verification would require theme context, but we can verify structure
     });
   });
 }
