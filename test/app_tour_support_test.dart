@@ -27,8 +27,8 @@ void main() {
         builder: (context, langModel, child) {
           return MaterialApp(
             locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
+            localizationsDelegates: const [
+              AppLocalizationsDelegate(isTest: true),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
