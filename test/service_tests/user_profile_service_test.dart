@@ -310,7 +310,7 @@ void main() {
         verify(databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo(),
           variables: {'id': user.id},
-        )).called(1);
+        )).called(2);
       });
     });
   });
