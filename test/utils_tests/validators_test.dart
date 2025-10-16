@@ -1,6 +1,7 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/validators.dart';
 
@@ -228,4 +229,39 @@ void main() {
       );
     },
   );
+  group('EventDateTimeValidator', () {
+    test('validateEventDateTime', () {
+      final date = DateTime(2025, 10, 16);
+
+      final invalid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 9, minute: 0),
+      );
+      expect(invalid, 'Event end date/time cannot be before start date/time');
+
+      final valid = Validator.validateEventDateTime(
+        date,
+        const TimeOfDay(hour: 10, minute: 0),
+        date,
+        const TimeOfDay(hour: 11, minute: 0),
+      );
+      expect(valid, isNull);
+    });
+
+    test('validateEventStartDate', () {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final past = today.subtract(const Duration(days: 1));
+      final future = today.add(const Duration(days: 1));
+
+      expect(
+        Validator.validateEventStartDate(past),
+        'Cannot create events having date prior than today',
+      );
+      expect(Validator.validateEventStartDate(today), isNull);
+      expect(Validator.validateEventStartDate(future), isNull);
+    });
+  });
 }

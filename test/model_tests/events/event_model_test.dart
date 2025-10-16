@@ -287,6 +287,61 @@ void main() {
         expect(event.endTime, equals(''));
       });
 
+      test('should parse recurrenceRule from JSON', () {
+        final json = {
+          'recurrenceRule': {
+            'frequency': 'weekly',
+            'interval': 2,
+            'count': 5,
+            'never': false,
+            'byDay': ['MO', 'WE'],
+            'byMonth': [1, 2],
+            'byMonthDay': [10, 20],
+          },
+        };
+        final event = Event.fromJson(json);
+        expect(event.recurrenceRule, isNotNull);
+        expect(event.recurrenceRule?.frequency, equals('weekly'));
+        expect(event.recurrenceRule?.interval, equals(2));
+        expect(event.recurrenceRule?.count, equals(5));
+        expect(event.recurrenceRule?.never, isFalse);
+        expect(event.recurrenceRule?.byDay, equals(['MO', 'WE']));
+        expect(event.recurrenceRule?.byMonth, equals([1, 2]));
+        expect(event.recurrenceRule?.byMonthDay, equals([10, 20]));
+      });
+      test('should parse venues from JSON', () {
+        final json = {
+          'venues': [
+            {
+              '_id': 'venue1',
+              'capacity': 100,
+              'description': 'Main Hall',
+              'imageUrl': 'image.jpg',
+              'name': 'Hall A',
+              'organization': {'_id': 'org1'},
+            },
+          ],
+        };
+        final event = Event.fromJson(json);
+        expect(event.venues, isNotNull);
+        expect(event.venues?.length, equals(1));
+        expect(event.venues?.first.id, equals('venue1'));
+        expect(event.venues?.first.name, equals('Hall A'));
+        expect(event.venues?.first.organizationId, equals('org1'));
+      });
+
+      test('should parse baseEvent from JSON', () {
+        final json = {
+          'baseEvent': {
+            'id': 'base1',
+            'name': 'Base Event',
+          },
+        };
+        final event = Event.fromJson(json);
+        expect(event.baseEvent, isNotNull);
+        expect(event.baseEvent?.id, equals('base1'));
+        expect(event.baseEvent?.name, equals('Base Event'));
+      });
       test('should handle midnight times correctly', () {
         final event = Event(
           startAt: DateTime(2025, 8, 15, 0, 0),
