@@ -87,6 +87,32 @@ void main() {
       expect(userInfo.image, "https://testimgupdated.com");
       expect(userInfo.authToken, "randomAuthToken_updated");
     });
+    test('Check if UserInfo.fromJson works with membershipRequests', () {
+      final json = {
+        'user': {
+          'id': '1234567890',
+          'name': 'ravidi sheikh',
+          'emailAddress': 'ravidisheikh@test.com',
+          'avatarURL': 'https://testimg.com',
+          'organizationsWhereMember': {
+            'edges': [],
+          },
+          'orgIdWhereMembershipRequested': ['org1', 'org2'],
+        },
+        'authenticationToken': 'test_auth_token',
+      };
+
+      final user = User.fromJson(json);
+
+      expect(user.id, '1234567890');
+      expect(user.name, 'ravidi sheikh');
+      expect(user.email, 'ravidisheikh@test.com');
+      expect(user.image, 'https://testimg.com');
+      expect(user.authToken, 'test_auth_token');
+      expect(user.joinedOrganizations, isEmpty);
+      expect(user.membershipRequests, ['org1', 'org2']);
+    });
+
     test('Check if Hive storage works', () async {
       final userBox = await Hive.openBox('userInfo');
       expect(userBox.isOpen, true);

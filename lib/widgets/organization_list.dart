@@ -50,13 +50,8 @@ class OrganizationList extends StatelessWidget {
               showSnackBar: noOfRefetch == 0,
             );
             if (isException != null && noOfRefetch <= maxRefetch) {
-              if (isException) {
-                refetch!();
-                noOfRefetch++;
-              } else {
-                refetch!();
-                noOfRefetch++;
-              }
+              refetch!();
+              noOfRefetch++;
             }
           } else {
             // If the result is still loading!

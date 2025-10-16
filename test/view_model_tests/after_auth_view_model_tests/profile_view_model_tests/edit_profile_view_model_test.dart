@@ -12,8 +12,8 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/user_profile_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 
-import '../../helpers/test_helpers.dart';
-import '../../helpers/test_locator.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_locator.dart';
 
 void main() {
   setUpAll(() {
@@ -43,6 +43,21 @@ void main() {
           name: model.user.name, email: model.user.email, newImage: null);
       verifyNever(navigationService.showTalawaErrorSnackBar(
           'Profile updated successfully', MessageType.info));
+    });
+
+    test('returns early when no changes are made - noData scenario', () async {
+      final model = EditProfilePageViewModel();
+      model.initialize();
+
+      // Call with unchanged values - should return early without calling services
+      await model.updateUserProfile(
+        name: model.user.name,
+        email: model.user.email,
+        newImage: null,
+      );
+
+      // Since no changes were made, no database calls should be made
+      verifyNever(userProfileService.updateUserProfile(any));
     });
 
     test('updates only name and persists new user', () async {
