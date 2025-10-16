@@ -70,7 +70,13 @@ class MenuPage extends StatelessWidget {
     );
   }
 
-  /// Initialize plugins with activated status from database
+  /// Initialize plugins with activated status from database.
+  ///
+  /// **params**:
+  /// * `context`: Build context
+  ///
+  /// **returns**:
+  /// * `Widget`: Plugin injector section
   Widget _buildPluginSection(BuildContext context) {
     // If already initialized, just show the injector
     if (PluginManager.instance.isInitialized) {

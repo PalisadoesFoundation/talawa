@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/types.dart';
 
-/// PluginInjector - Renders plugin-injected widgets at specific locations
+/// Renders plugin-injected widgets at specific locations.
 ///
 /// This widget allows plugins to inject custom UI components anywhere in the app
 /// by specifying an injector type.
@@ -19,6 +19,13 @@ import 'package:talawa/plugin/types.dart';
 /// )
 /// ```
 class PluginInjector extends StatelessWidget {
+  /// Creates a widget for rendering plugin injectors.
+  ///
+  /// **params**:
+  /// * `key`: Optional widget key
+  /// * `injectorType`: Target injection location
+  /// * `data`: Optional data passed to injectors
+  /// * `padding`: Optional padding around injected widgets
   const PluginInjector({
     super.key,
     required this.injectorType,
@@ -26,8 +33,13 @@ class PluginInjector extends StatelessWidget {
     this.padding,
   });
 
+  /// Target injection location.
   final InjectorType injectorType;
+
+  /// Optional data passed to injectors.
   final Map<String, dynamic>? data;
+
+  /// Optional padding around injected widgets.
   final EdgeInsetsGeometry? padding;
 
   @override
@@ -56,6 +68,14 @@ class PluginInjector extends StatelessWidget {
     );
   }
 
+  /// Builds a single injector widget.
+  ///
+  /// **params**:
+  /// * `context`: Build context
+  /// * `injector`: Injector definition
+  ///
+  /// **returns**:
+  /// * `Widget`: Built widget or empty box on error
   Widget _buildInjectorWidget(
     BuildContext context,
     PluginInjectorExtension injector,

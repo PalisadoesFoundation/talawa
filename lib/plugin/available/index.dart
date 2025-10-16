@@ -1,4 +1,10 @@
 import 'package:talawa/plugin/types.dart';
 
-/// Pre-bundled plugins in the mobile app.
+/// Returns pre-bundled plugins shipped with the app.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `List<TalawaMobilePlugin>`: Bundled plugins.
 List<TalawaMobilePlugin> getBundledPlugins() => [];

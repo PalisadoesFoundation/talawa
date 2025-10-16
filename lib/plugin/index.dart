@@ -6,7 +6,13 @@ export 'plugin_injector.dart';
 export 'registry.dart';
 export 'types.dart';
 
-/// Helper function to build plugin routes from the global manager instance
+/// Builds plugin routes from the global [PluginManager] instance.
+///
+/// **params**:
+///   None
+///
+/// **returns**:
+/// * `Map<String, WidgetBuilder>`: A map of route names to their corresponding widget builders.
 Map<String, WidgetBuilder> buildPluginRoutes() {
   final routes = <String, WidgetBuilder>{};
   for (final r in PluginManager.instance.routes) {
