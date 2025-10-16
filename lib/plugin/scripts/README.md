@@ -6,7 +6,7 @@ Scripts for managing plugin dependencies in Talawa Mobile.
 
 ```bash
 # Install plugin dependencies
-python3 scripts/install_plugin_dependencies.py
+python3 plugin/scripts/install_plugin_dependencies.py
 
 # Get Flutter packages
 flutter pub get
