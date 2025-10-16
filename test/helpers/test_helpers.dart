@@ -1183,8 +1183,7 @@ void unregisterServices() {
 void registerViewModels() {
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
-  locator
-      .registerFactory<CreateEventViewModel>(() => MockCreateEventViewModel());
+  locator.registerFactory<CreateEventViewModel>(() => CreateEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => InteractionsViewModel());
