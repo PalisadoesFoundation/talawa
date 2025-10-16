@@ -85,6 +85,7 @@ class PluginInjectorExtension {
 enum InjectorType {
   /// Menu page - under Plugins section.
   g1,
+
   /// Post content - under post caption.
   g2,
 }
