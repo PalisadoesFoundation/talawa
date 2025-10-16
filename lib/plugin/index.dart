@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/plugin/manager.dart';
-import 'package:talawa/plugin/types.dart';
 
-export 'types.dart';
-export 'registry.dart';
 export 'manager.dart';
 export 'plugin_injector.dart';
+export 'registry.dart';
+export 'types.dart';
 
 /// Helper function to build plugin routes from the global manager instance
 Map<String, WidgetBuilder> buildPluginRoutes() {

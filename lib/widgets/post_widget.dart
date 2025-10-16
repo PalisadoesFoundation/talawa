@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/plugin/plugin_injector.dart';
+import 'package:talawa/plugin/types.dart';
 import 'package:talawa/widgets/caption_text_widget.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/interaction.dart';
 import 'package:talawa/widgets/post_container.dart';
 import 'package:talawa/widgets/post_modal.dart';
-import 'package:talawa/plugin/plugin_injector.dart';
-import 'package:talawa/plugin/types.dart';
 
 /// Stateless class to show the fetched post.
 class PostWidget extends StatelessWidget {
@@ -95,7 +95,7 @@ class PostWidget extends StatelessWidget {
                       children: [
                         CaptionTextWidget(caption: post.caption ?? ''),
                         PluginInjector(
-                          injectorType: InjectorType.G2,
+                          injectorType: InjectorType.g2,
                           data: {
                             'caption': post.caption ?? '',
                             'postId': post.id,
@@ -123,7 +123,7 @@ class PostWidget extends StatelessWidget {
                           children: [
                             CaptionTextWidget(caption: post.caption ?? ''),
                             PluginInjector(
-                              injectorType: InjectorType.G2,
+                              injectorType: InjectorType.g2,
                               data: {
                                 'caption': post.caption ?? '',
                                 'postId': post.id,

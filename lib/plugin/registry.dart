@@ -26,9 +26,7 @@ class PluginRegistry {
   }
 
   List<PluginMenuItem> collectMenuItems(BuildContext context) {
-    return all
-        .expand((p) => p.getMenuItems(context))
-        .toList(growable: false);
+    return all.expand((p) => p.getMenuItems(context)).toList(growable: false);
   }
 
   /// Collect injectors for a specific type
@@ -37,11 +35,11 @@ class PluginRegistry {
     for (final plugin in all) {
       final extensions = plugin.getExtensions();
       switch (type) {
-        case InjectorType.G1:
-          injectors.addAll(extensions.G1);
+        case InjectorType.g1:
+          injectors.addAll(extensions.g1);
           break;
-        case InjectorType.G2:
-          injectors.addAll(extensions.G2);
+        case InjectorType.g2:
+          injectors.addAll(extensions.g2);
           break;
       }
     }

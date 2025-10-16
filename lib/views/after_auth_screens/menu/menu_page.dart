@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/plugin/available/index.dart';
+import 'package:talawa/plugin/manager.dart';
 import 'package:talawa/plugin/plugin_injector.dart';
 import 'package:talawa/plugin/types.dart';
-import 'package:talawa/plugin/manager.dart';
-import 'package:talawa/plugin/available/index.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 /// MenuPage returns a widget that renders a menu page with vertical stack of links.
 class MenuPage extends StatelessWidget {
@@ -75,7 +75,7 @@ class MenuPage extends StatelessWidget {
     // If already initialized, just show the injector
     if (PluginManager.instance.isInitialized) {
       return const PluginInjector(
-        injectorType: InjectorType.G1,
+        injectorType: InjectorType.g1,
       );
     }
 
@@ -84,7 +84,7 @@ class MenuPage extends StatelessWidget {
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
       child: Query(
         options: QueryOptions(
-          document: gql(r'''
+          document: gql('''
             query GetAllPlugins {
               getPlugins(input: {}) {
                 id
@@ -96,7 +96,11 @@ class MenuPage extends StatelessWidget {
           '''),
           fetchPolicy: FetchPolicy.networkOnly,
         ),
-        builder: (QueryResult result, {VoidCallback? refetch, FetchMore? fetchMore}) {
+        builder: (
+          QueryResult result, {
+          VoidCallback? refetch,
+          FetchMore? fetchMore,
+        }) {
           if (result.isLoading) {
             return const Center(
               child: Padding(
@@ -110,26 +114,27 @@ class MenuPage extends StatelessWidget {
             // On error, initialize with all bundled plugins (fallback)
             PluginManager.instance.initialize(getBundledPlugins());
             return const PluginInjector(
-              injectorType: InjectorType.G1,
+              injectorType: InjectorType.g1,
             );
           }
 
           // Extract activated plugin IDs from the response
           final List<String> activePluginIds = [];
           try {
-            final pluginList = result.data?['getPlugins'] as List<dynamic>?;
-            if (pluginList != null) {
-              for (final plugin in pluginList) {
-                if (plugin['isActivated'] == true) {
-                  activePluginIds.add(plugin['pluginId'] as String);
-                }
+            final List<Map<String, dynamic>> pluginList =
+                (result.data?['getPlugins'] as List?)
+                        ?.cast<Map<String, dynamic>>() ??
+                    <Map<String, dynamic>>[];
+            for (final plugin in pluginList) {
+              if (plugin['isActivated'] == true) {
+                activePluginIds.add(plugin['pluginId'] as String);
               }
             }
           } catch (e) {
             // On parsing error, initialize with all bundled plugins
             PluginManager.instance.initialize(getBundledPlugins());
             return const PluginInjector(
-              injectorType: InjectorType.G1,
+              injectorType: InjectorType.g1,
             );
           }
 
@@ -140,7 +145,7 @@ class MenuPage extends StatelessWidget {
           );
 
           return const PluginInjector(
-            injectorType: InjectorType.G1,
+            injectorType: InjectorType.g1,
           );
         },
       ),

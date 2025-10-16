@@ -8,27 +8,27 @@ import 'package:talawa/plugin/types.dart';
 /// by specifying an injector type.
 ///
 /// Currently supported injector types:
-/// - G1: Menu page - under Plugins section
-/// - G2: Post content - under post caption
+/// - g1: Menu page - under Plugins section
+/// - g2: Post content - under post caption
 ///
 /// Example usage:
 /// ```dart
 /// // In your screen/widget:
 /// PluginInjector(
-///   injectorType: InjectorType.G1,  // Menu page injector
+///   injectorType: InjectorType.g1,  // Menu page injector
 /// )
 /// ```
 class PluginInjector extends StatelessWidget {
-  final InjectorType injectorType;
-  final Map<String, dynamic>? data;
-  final EdgeInsetsGeometry? padding;
-
   const PluginInjector({
-    Key? key,
+    super.key,
     required this.injectorType,
     this.data,
     this.padding,
-  }) : super(key: key);
+  });
+
+  final InjectorType injectorType;
+  final Map<String, dynamic>? data;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +45,21 @@ class PluginInjector extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: injectors.map((injector) {
-        return Padding(
-          padding: padding ?? const EdgeInsets.symmetric(vertical: 4.0),
-          child: _buildInjectorWidget(context, injector),
-        );
-      }).toList(),
+      children: injectors
+          .map(
+            (injector) => Padding(
+              padding: padding ?? const EdgeInsets.symmetric(vertical: 4.0),
+              child: _buildInjectorWidget(context, injector),
+            ),
+          )
+          .toList(),
     );
   }
 
-  Widget _buildInjectorWidget(BuildContext context, PluginInjectorExtension injector) {
+  Widget _buildInjectorWidget(
+    BuildContext context,
+    PluginInjectorExtension injector,
+  ) {
     try {
       return injector.builder(context, data: data);
     } catch (e) {
