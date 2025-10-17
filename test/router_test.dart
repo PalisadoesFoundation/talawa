@@ -467,5 +467,34 @@ void main() {
         expect(widget, isA<ManageGroupScreen>());
       }
     });
+
+    testWidgets('Test for menuPage route', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(
+          name: Routes.menuPage,
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        expect(widget, isA<Widget>());
+      }
+    });
+
+    testWidgets('Test for plugin route fallback', (WidgetTester tester) async {
+      final route = generateRoute(
+        const RouteSettings(
+          name: '/unknown_route',
+        ),
+      );
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        // Should return DemoPageView for unknown routes
+        expect(widget, isA<DemoPageView>());
+      }
+    });
   });
 }

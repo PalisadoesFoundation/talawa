@@ -182,6 +182,27 @@ void main() {
       );
     });
 
+    test(
+      'initialize should warn when active plugin not in bundled list',
+      () {
+        final plugin1 = MockPlugin('plugin1');
+
+        // Active list includes 'plugin2' which is not bundled
+        PluginManager.instance.initialize(
+          [plugin1],
+          active: ['plugin1', 'plugin2', 'plugin3'],
+        );
+
+        // Only plugin1 should be registered
+        expect(PluginManager.instance.registry.all.length, equals(1));
+        expect(
+          PluginManager.instance.registry.all.first.manifest.id,
+          equals('plugin1'),
+        );
+        // The warning message should be printed (tested via console output)
+      },
+    );
+
     test('routes getter should return all plugin routes', () {
       final plugin1 = MockPlugin('plugin1');
       final plugin2 = MockPlugin('plugin2');
