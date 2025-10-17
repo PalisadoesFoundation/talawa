@@ -1,3 +1,4 @@
+// ignore_for_file: talawa_good_doc_comments
 import 'package:flutter/material.dart';
 import 'package:talawa/plugin/manager.dart';
 
