@@ -12,6 +12,8 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/plugin/manager.dart';
+import 'package:talawa/plugin/types.dart';
 import 'package:talawa/router.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
@@ -53,10 +55,37 @@ import 'helpers/test_helpers.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
+// Mock plugin for testing
+class TestPlugin implements TalawaMobilePlugin {
+  @override
+  PluginManifest get manifest => const PluginManifest(
+        id: 'test_plugin',
+        name: 'Test Plugin',
+      );
+
+  @override
+  List<PluginRoute> getRoutes() => [
+        PluginRoute(
+          routeName: '/test_plugin_route',
+          builder: (context) => const Placeholder(key: Key('TestPluginPage')),
+        ),
+      ];
+
+  @override
+  List<PluginMenuItem> getMenuItems(BuildContext context) => [];
+
+  @override
+  PluginExtensions getExtensions() => const PluginExtensions();
+}
+
 void main() {
   setUpAll(() {
     setupLocator();
     getAndRegisterConnectivity();
+  });
+
+  tearDown(() {
+    PluginManager.instance.reset();
   });
 
   group('Tests for router', () {
@@ -494,6 +523,30 @@ void main() {
         final widget = builder(MockBuildContext());
         // Should return DemoPageView for unknown routes
         expect(widget, isA<DemoPageView>());
+      }
+    });
+
+    testWidgets('Test for plugin provided route', (WidgetTester tester) async {
+      // Initialize plugin manager with a test plugin
+      PluginManager.instance.initialize(
+        [TestPlugin()],
+        active: ['test_plugin'],
+      );
+
+      // Test that plugin route is handled
+      final route = generateRoute(
+        const RouteSettings(
+          name: '/test_plugin_route',
+        ),
+      );
+
+      expect(route, isA<MaterialPageRoute>());
+      if (route is MaterialPageRoute) {
+        final builder = route.builder;
+        final widget = builder(MockBuildContext());
+        // Should return the plugin's widget
+        expect(widget, isA<Placeholder>());
+        expect((widget as Placeholder).key, equals(const Key('TestPluginPage')));
       }
     });
   });
