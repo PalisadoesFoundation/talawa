@@ -296,7 +296,9 @@ void main() {
 
       final padding = tester.widget<Padding>(find.byType(Padding).first);
       expect(
-          padding.padding, equals(const EdgeInsets.symmetric(vertical: 4.0)));
+        padding.padding,
+        equals(const EdgeInsets.symmetric(vertical: 4.0)),
+      );
     });
 
     testWidgets('should handle injector builder errors gracefully',

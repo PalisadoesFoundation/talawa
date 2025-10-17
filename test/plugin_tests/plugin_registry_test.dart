@@ -140,7 +140,9 @@ void main() {
 
       // Returned list should not be growable
       expect(
-          () => allPlugins.add(MockPlugin('plugin3')), throwsUnsupportedError);
+        () => allPlugins.add(MockPlugin('plugin3')),
+        throwsUnsupportedError,
+      );
     });
 
     test('collectRoutes should return all routes from all plugins', () {
@@ -152,9 +154,13 @@ void main() {
       final routes = registry.collectRoutes();
       expect(routes.length, equals(5)); // 2 + 3
       expect(
-          routes.any((r) => r.routeName == '/plugin_plugin1_route_0'), isTrue);
+        routes.any((r) => r.routeName == '/plugin_plugin1_route_0'),
+        isTrue,
+      );
       expect(
-          routes.any((r) => r.routeName == '/plugin_plugin2_route_2'), isTrue);
+        routes.any((r) => r.routeName == '/plugin_plugin2_route_2'),
+        isTrue,
+      );
     });
 
     test('collectMenuItems should return all menu items from all plugins', () {
@@ -216,11 +222,14 @@ void main() {
 
       final routes = registry.collectRoutes();
       expect(
-          () => routes.add(PluginRoute(
-                routeName: '/test',
-                builder: (context) => const Placeholder(),
-              )),
-          throwsUnsupportedError);
+        () => routes.add(
+          PluginRoute(
+            routeName: '/test',
+            builder: (context) => const Placeholder(),
+          ),
+        ),
+        throwsUnsupportedError,
+      );
     });
   });
 }

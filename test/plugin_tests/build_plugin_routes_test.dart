@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/plugin/index.dart';
-import 'package:talawa/plugin/manager.dart';
-import 'package:talawa/plugin/types.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';

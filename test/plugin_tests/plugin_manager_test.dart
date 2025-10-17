@@ -176,8 +176,10 @@ void main() {
       );
 
       expect(PluginManager.instance.registry.all.length, equals(1));
-      expect(PluginManager.instance.registry.all.first.manifest.id,
-          equals('plugin2'));
+      expect(
+        PluginManager.instance.registry.all.first.manifest.id,
+        equals('plugin2'),
+      );
     });
 
     test('routes getter should return all plugin routes', () {
@@ -209,9 +211,13 @@ void main() {
       );
       expect(menuItems.length, equals(2));
       expect(
-          menuItems.any((item) => item.title == 'Plugin plugin1 Item'), isTrue);
+        menuItems.any((item) => item.title == 'Plugin plugin1 Item'),
+        isTrue,
+      );
       expect(
-          menuItems.any((item) => item.title == 'Plugin plugin2 Item'), isTrue);
+        menuItems.any((item) => item.title == 'Plugin plugin2 Item'),
+        isTrue,
+      );
     });
 
     test('getInjectors should return injectors for specific type', () {
