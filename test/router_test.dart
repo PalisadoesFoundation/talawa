@@ -546,7 +546,10 @@ void main() {
         final widget = builder(MockBuildContext());
         // Should return the plugin's widget
         expect(widget, isA<Placeholder>());
-        expect((widget as Placeholder).key, equals(const Key('TestPluginPage')));
+        expect(
+          (widget as Placeholder).key,
+          equals(const Key('TestPluginPage')),
+        );
       }
     });
   });
