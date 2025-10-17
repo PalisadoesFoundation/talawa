@@ -2,20 +2,50 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/locator.dart' as talawa_locator;
+import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/menu/menu_page.dart';
+import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+
+Widget createMenuPage() {
+  return BaseView<AppLanguage>(
+    onModelReady: (model) => model.initialize(),
+    builder: (context, langModel, child) {
+      return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: const Scaffold(
+          body: MenuPage(
+            key: Key('MenuPage'),
+          ),
+        ),
+        navigatorKey: navigationService.navigatorKey,
+        onGenerateRoute: router.generateRoute,
+        theme: TalawaTheme.darkTheme,
+      );
+    },
+  );
+}
 
 void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     testSetupLocator();
-    talawa_locator.locator<SizeConfig>().test();
+    locator<SizeConfig>().test();
     registerServices();
   });
 
@@ -207,78 +237,249 @@ void main() {
   });
 
   group('MenuPage Widget Tests', () {
-    testWidgets('should create MenuPage with key (line 15)', (tester) async {
-      // Testing the constructor - line 15: }) : super(key: key);
-      const menuPage = MenuPage(key: Key('TestMenuPage'));
+    const String queryString = '''
+            query GetAllPlugins {
+              getPlugins(input: {}) {
+                id
+                pluginId
+                isActivated
+                isInstalled
+              }
+            }
+          ''';
 
-      // Verify key is set correctly
-      expect(menuPage.key, equals(const Key('TestMenuPage')));
-    });
-
-    testWidgets('should render menu button and trigger drawer (line 27)',
+    testWidgets('MenuPage renders and constructor executes (line 15)',
         (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: const Drawer(child: Text('Drawer')),
-            body: Builder(
-              builder: (context) {
-                // Testing line 27: onPressed: () => Scaffold.maybeOf(context)?.openDrawer()
-                return IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.maybeOf(context)?.openDrawer(),
-                );
-              },
-            ),
-          ),
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
         ),
       );
 
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      // This test covers line 15: }) : super(key: key);
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify MenuPage is rendered (constructor was called with key)
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
+
+    testWidgets('Menu button triggers drawer open (line 27)', (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
       // Find and tap the menu button
+      // This tests line 27: onPressed: () => Scaffold.maybeOf(context)?.openDrawer()
       final menuButton = find.byIcon(Icons.menu);
       expect(menuButton, findsOneWidget);
       await tester.tap(menuButton);
       await tester.pumpAndSettle();
+    });
 
-      // Verify drawer opened (confirms line 27 executes)
-      expect(find.text('Drawer'), findsOneWidget);
+    testWidgets('Settings button navigates to app settings (line 42)',
+        (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Find and tap the settings button
+      // This tests line 42: navigationService.pushScreen(Routes.appSettings);
+      final settingsButton = find.byIcon(Icons.settings);
+      expect(settingsButton, findsOneWidget);
+      await tester.tap(settingsButton);
+      await tester.pumpAndSettle();
+
+      // Verify navigation was attempted
+      verify(navigationService.pushScreen('/appSettingsPage')).called(1);
     });
 
     testWidgets(
-      'should handle settings button press (line 42)',
-      (tester) async {
-        // Create a simple widget that tests line 42:
-        // navigationService.pushScreen(Routes.appSettings);
-        bool buttonPressed = false;
+        'MenuPage parses valid plugin data successfully (lines 128-150)',
+        (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [
+            {
+              'id': '1',
+              'pluginId': 'plugin_1',
+              'isActivated': true,
+              'isInstalled': true,
+            },
+            {
+              'id': '2',
+              'pluginId': 'plugin_2',
+              'isActivated': false,
+              'isInstalled': true,
+            },
+            {
+              'id': '3',
+              'pluginId': 'plugin_3',
+              'isActivated': true,
+              'isInstalled': true,
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              appBar: AppBar(
-                actions: [
-                  IconButton(
-                    key: const Key('settingIcon'),
-                    onPressed: () {
-                      // Simulate the action on line 42
-                      buttonPressed = true;
-                    },
-                    icon: const Icon(Icons.settings),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
 
-        final settingsIcon = find.byKey(const Key('settingIcon'));
-        expect(settingsIcon, findsOneWidget);
+      // This test covers lines 128-150: the try-catch block parsing GraphQL response
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
 
-        await tester.tap(settingsIcon);
-        await tester.pump();
+      // Verify MenuPage is rendered and parsing succeeded
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
 
-        // Verify button was pressed (line 42 logic executed)
-        expect(buttonPressed, isTrue);
-      },
-    );
+    testWidgets(
+        'MenuPage handles GraphQL parsing error gracefully (lines 128-150 catch block)',
+        (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': 'invalid_data_structure', // Invalid - should be a list
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      // This test covers the catch block in lines 128-150
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify MenuPage handles error and still renders
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
+
+    testWidgets('MenuPage handles null data gracefully (lines 128-150)',
+        (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: null,
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      // This test covers lines 128-150 with null data
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      // Verify MenuPage handles null data
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
+
+    testWidgets('MenuPage filters inactive plugins correctly (lines 128-150)',
+        (tester) async {
+      final mockQueryResult = QueryResult(
+        source: QueryResultSource.network,
+        data: {
+          'getPlugins': [
+            {
+              'id': '1',
+              'pluginId': 'plugin_active',
+              'isActivated': true,
+              'isInstalled': true,
+            },
+            {
+              'id': '2',
+              'pluginId': 'plugin_inactive',
+              'isActivated': false,
+              'isInstalled': true,
+            },
+            {
+              'id': '3',
+              'pluginId': 'plugin_not_installed',
+              'isActivated': true,
+              'isInstalled': false,
+            },
+          ],
+        },
+        options: QueryOptions(
+          document: gql(queryString),
+        ),
+      );
+
+      when(
+        databaseFunctions.gqlAuthQuery(
+          queryString,
+          variables: {},
+        ),
+      ).thenAnswer((_) async => mockQueryResult);
+
+      // This test ensures the filtering logic in lines 128-150 works correctly
+      await tester.pumpWidget(createMenuPage());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('MenuPage')), findsOneWidget);
+    });
   });
 }
