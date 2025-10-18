@@ -1,6 +1,6 @@
 # Talawa
 
-💬 Join the community on Slack from our [Palisadoes Foundation GitHub Home Page](https://github.com/PalisadoesFoundation)
+💬 Join our [community forum](https://community.talawa.io/) to meet others using and modifying Talawa!
 
 ![talawa-logo-lite-200x200](https://github.com/PalisadoesFoundation/talawa-admin/assets/16875803/26291ec5-d3c1-4135-8bc7-80885dff613d)
 
