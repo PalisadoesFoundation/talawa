@@ -72,7 +72,6 @@ void main() {
       expect(result[0].image, 'https://example.com/avatar1.jpg');
       expect(result[0].email, 'user1@example.com');
       expect(result[0].authToken, null); // No auth token in org user data
-      expect(result[0].refreshToken, ' '); // No refresh token in org user data
 
       expect(result[1].id, 'user_id_2');
       expect(result[1].firstName, 'Name');

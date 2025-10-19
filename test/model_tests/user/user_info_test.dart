@@ -31,13 +31,12 @@ final testDataNotFromOrg = {
     },
   },
   'authenticationToken': 'test_auth_token',
-  'refreshToken': 'test_refresh_token',
 };
 
 void main() {
   group("Tests for UserInfo.dart", () {
     test('Check if UserInfo.fromJson works with fromOrg', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
 
       expect(userInfo.firstName, "ravidi");
       expect(userInfo.lastName, "sheikh");
@@ -49,7 +48,7 @@ void main() {
       ); // No auth token in organization user data
       expect(
         userInfo.refreshToken,
-        ' ',
+        null,
       ); // No refresh token in organization user data
     });
 
@@ -61,11 +60,11 @@ void main() {
       expect(userInfo.email, "ravidisheikh@test.com");
       expect(userInfo.image, "https://testimg.com");
       expect(userInfo.authToken, 'test_auth_token');
-      expect(userInfo.refreshToken, 'test_refresh_token');
+      expect(userInfo.refreshToken, null);
     });
 
     test('Check if the method "update" works', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
 
       expect(userInfo.firstName, "ravidi");
       expect(userInfo.lastName, "sheikh");
@@ -75,8 +74,7 @@ void main() {
 
       userInfo.update(
         User(
-          firstName: "ravidi_updated",
-          lastName: "sheikh_updated",
+          name: "ravidi_updated sheikh_updated",
           email: "updatedemail@test.com",
           image: "https://testimgupdated.com",
           authToken: "randomAuthToken_updated",
@@ -89,19 +87,37 @@ void main() {
       expect(userInfo.image, "https://testimgupdated.com");
       expect(userInfo.authToken, "randomAuthToken_updated");
     });
+    test('Check if UserInfo.fromJson works with membershipRequests', () {
+      final json = {
+        'user': {
+          'id': '1234567890',
+          'name': 'ravidi sheikh',
+          'emailAddress': 'ravidisheikh@test.com',
+          'avatarURL': 'https://testimg.com',
+          'organizationsWhereMember': {
+            'edges': [],
+          },
+          'orgIdWhereMembershipRequested': ['org1', 'org2'],
+        },
+        'authenticationToken': 'test_auth_token',
+      };
 
-    test('Check if print method works', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final user = User.fromJson(json);
 
-      // No way to test this. Calling here to increase
-      userInfo.print();
+      expect(user.id, '1234567890');
+      expect(user.name, 'ravidi sheikh');
+      expect(user.email, 'ravidisheikh@test.com');
+      expect(user.image, 'https://testimg.com');
+      expect(user.authToken, 'test_auth_token');
+      expect(user.joinedOrganizations, isEmpty);
+      expect(user.membershipRequests, ['org1', 'org2']);
     });
 
     test('Check if Hive storage works', () async {
       final userBox = await Hive.openBox('userInfo');
       expect(userBox.isOpen, true);
 
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userInfo = User.fromJson(testDataFromOrg);
       userBox.put('user', userInfo);
 
       final newUserBox = await Hive.openBox('userInfo');
@@ -126,32 +142,6 @@ void main() {
       final userAdapter2 = UserAdapter();
 
       expect(userAdapter1 == userAdapter2, true);
-    });
-
-    test('Test name computed property edge cases', () {
-      // Both names present
-      final userBoth = User(firstName: 'John', lastName: 'Doe');
-      expect(userBoth.name, 'John Doe');
-
-      // Only first name
-      final userFirst = User(firstName: 'John', lastName: null);
-      expect(userFirst.name, 'John');
-
-      // Only last name
-      final userLast = User(firstName: null, lastName: 'Doe');
-      expect(userLast.name, 'Doe');
-
-      // Empty strings
-      final userEmpty = User(firstName: '', lastName: '');
-      expect(userEmpty.name, null);
-
-      // Null names
-      final userNull = User(firstName: null, lastName: null);
-      expect(userNull.name, null);
-
-      // Mixed empty/null
-      final userMixed = User(firstName: '', lastName: null);
-      expect(userMixed.name, null);
     });
   });
   group('User.updateJoinedg', () {
@@ -246,43 +236,42 @@ void main() {
 
   group('User equality tests', () {
     test('Users with same id are equal', () {
-      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
-      final user2 = User(id: '123', firstName: 'Jane', lastName: 'Smith');
+      final user1 = User(id: '123', name: 'John Doe');
+      final user2 = User(id: '123', name: 'Jane Smith');
 
       expect(user1 == user2, true);
       expect(user1.hashCode, user2.hashCode);
     });
 
     test('Users with different ids are not equal', () {
-      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
-      final user2 = User(id: '456', firstName: 'John', lastName: 'Doe');
+      final user1 = User(id: '123', name: 'John Doe');
+      final user2 = User(id: '456', name: 'John Doe');
 
       expect(user1 == user2, false);
     });
 
     test('User is equal to itself', () {
-      final user = User(id: '123', firstName: 'John', lastName: 'Doe');
+      final user = User(id: '123', name: 'John Doe');
 
       expect(user == user, true);
       expect(user.hashCode, user.hashCode);
     });
 
     test('Users with null ids are handled correctly', () {
-      final user1 = User(id: null, firstName: 'John');
-      final user2 = User(id: null, firstName: 'Jane');
+      final user1 = User(id: null, name: 'John Doe');
+      final user2 = User(id: null, name: 'Jane Smith');
 
       expect(user1 == user2, true);
       expect(user1.hashCode, user2.hashCode);
     });
 
     test('Set operations work correctly with User equality', () {
-      final user1 = User(id: '123', firstName: 'John', lastName: 'Doe');
+      final user1 = User(id: '123', name: 'John Doe');
       final user2 = User(
         id: '123',
-        firstName: 'Jane',
-        lastName: 'Smith',
+        name: 'Jane Smith',
       ); // Same id, different name
-      final user3 = User(id: '456', firstName: 'Bob', lastName: 'Wilson');
+      final user3 = User(id: '456', name: 'Bob Wilson');
 
       final userSet = <User>{user1, user2, user3};
 
@@ -303,8 +292,8 @@ void main() {
     });
 
     test('Set dedupes users with null ids per equality contract', () {
-      final a = User(id: null, firstName: 'A');
-      final b = User(id: null, firstName: 'B');
+      final a = User(id: null, name: 'A');
+      final b = User(id: null, name: 'B');
       final s = <User>{a, b};
       expect(s.length, 1);
     });

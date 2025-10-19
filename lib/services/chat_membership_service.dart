@@ -68,7 +68,7 @@ class ChatMembershipService {
   Future<bool> addChatMember({
     required String chatId,
     required String userId,
-  }) async {
+  }) {
     // This uses the existing createChatMembership method
     return createChatMembership(chatId: chatId, userId: userId);
   }

@@ -259,7 +259,6 @@ class MainScreenViewModel extends BaseModel {
         ),
         ProfilePage(
           key: keySPEditProfile,
-          homeModel: this,
         ),
       ];
     } else {

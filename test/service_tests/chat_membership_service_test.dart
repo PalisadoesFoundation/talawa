@@ -473,7 +473,7 @@ void main() {
     });
 
     group('disposal', () {
-      test('service completes without errors', () async {
+      test('service completes without errors', () {
         // ChatMembershipService doesn't have disposal logic
         // This test ensures the service can be garbage collected properly
         expect(true, isTrue);

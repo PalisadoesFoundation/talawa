@@ -6,8 +6,7 @@ class Queries {
   ///
   ///
   /// **params**:
-  /// * `firstName`: user's data.
-  /// * `lastName`: user's data.
+  /// * `name`: user's data.
   /// * `email`: user's data.
   /// * `password`: user's data.
   /// * `selectedOrganization`: ID of the selected organization.
@@ -15,8 +14,7 @@ class Queries {
   /// **returns**:
   /// * `String`: Return the mutation in string type to be passed to graphql client.
   String registerUser(
-    String firstName,
-    String lastName,
+    String name,
     String email,
     String password,
     String? selectedOrganization,
@@ -25,7 +23,7 @@ class Queries {
             mutation {
               signUp(input: {
                 emailAddress: "$email"
-                name: "$firstName $lastName"
+                name: "$name"
                 password: "$password"
                 selectedOrganization: "$selectedOrganization"
                 
@@ -52,7 +50,6 @@ class Queries {
                         members(first:32){
                           edges{
                             node{
-                              id
                               name
                               role
                             }
@@ -88,6 +85,7 @@ class Queries {
           emailAddress,
           name,
           avatarURL,
+          orgIdWhereMembershipRequested,
           organizationsWhereMember(first:32){
             edges{
               node{
@@ -127,21 +125,26 @@ class Queries {
   /// **returns**:
   /// * `String`: return a mutation
   String updateUserProfile() {
-    return """
-      mutation UpdateUserProfile(
-        \$firstName: String
-        \$lastName: String
-        \$email: EmailAddress
-        \$file: String
+    return '''
+      mutation UpdateCurrentUser(
+        \$emailAddress: EmailAddress,
+        \$name: String,
+        \$avatar: Upload
       ) {
-      updateUserProfile(
-        data: { firstName: \$firstName, lastName: \$lastName, email: \$email }
-        file: \$file
-      ) {
-        _id
+        updateCurrentUser(
+          input: {
+            emailAddress: \$emailAddress,
+            name: \$name,
+            avatar: \$avatar
+          }
+        ) {
+          id
+          name
+          emailAddress
+          avatarURL
         }
       }
-    """;
+    ''';
   }
 
   /// logout muiation.
@@ -234,128 +237,61 @@ class Queries {
   ///
   ///
   /// **params**:
-  /// * `orgId`: refer org object
+  ///   None
   ///
   /// **returns**:
   /// * `String`: mutation in string form, to be passed on to graphql client.
-  String sendMembershipRequest(String orgId) {
+  String sendMembershipRequest() {
     return '''
-      mutation {
-          sendMembershipRequest(organizationId: "$orgId"){
-            organization{
-              _id
-              name
-              image
-              description
-              userRegistrationRequired
-              creator{
-                _id
-                firstName
-                lastName
-                image
-              }
-            }
+      mutation SendMemberShipRequest(\$organizationId: ID!) {
+          sendMembershipRequest(input:{organizationId: \$organizationId}){
+            userId
+            membershipRequestId
+            organizationId
+            status 
          }
     }
   ''';
   }
 
-  /// query to fetch org details.
+  /// mutation in string form, to be passed on to graphql client.
   ///
   /// **params**:
-  /// * `orgId`: org identifier
+  ///   None
   ///
   /// **returns**:
-  /// * `String`: query in string form, to be passed on to graphql client.
-  String fetchOrgDetailsById(String orgId) {
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String fetchUserInfo() {
     return '''
-    query{
-      organizations(id: "$orgId"){
-        image
-        _id
-        name
-        admins{
-          _id
-        }
-        description
-        userRegistrationRequired
-        creator{
-          _id
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          image
-        }
-      }
-    }
-  ''';
-  }
-
-  /// mutation in string form, to be passed on to graphql client..
-  String fetchUserInfo = '''
-       query Users(\$id: ID!){
-          users(where: { id: \$id }) {
-            appUserProfile{
-              adminFor{
-                _id
+      query fetchUserInfo(
+        \$id: String!
+      ) {
+        user(input: {id: \$id}) {
+          id
+          name
+          avatarURL
+          emailAddress
+          orgIdWhereMembershipRequested,
+          organizationsWhereMember(first: 32) {
+            edges {
+              node {
+                id
                 name
-              }
-              createdOrganizations{
-                _id
-                name
-                image
+                addressLine1
+                addressLine2
+                avatarMimeType
+                avatarURL
+                postalCode
+                countryCode
                 description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-            }
-            user{
-              _id
-              firstName
-              lastName
-              email
-              image
-              joinedOrganizations{
-                _id
-                name
-                image
-                description
-                userRegistrationRequired
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                } 
-              }
-              membershipRequests{
-                organization{
-                  _id
-                  name
-                  image
-                  description
-                  userRegistrationRequired
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                  } 
-                }
+                isUserRegistrationRequired
               }
             }
           }
         }
+      }
     ''';
+  }
 
   /// mutation for refresh token.
   ///
@@ -370,25 +306,6 @@ class Queries {
           refreshToken(refreshToken: "$refreshToken"){
             accessToken
             refreshToken
-          }
-        }
-    ''';
-  }
-
-  /// lang update mutation.
-  ///
-  /// **params**:
-  /// * `languageCode`: lang code to identify the lang, refer lang jsons
-  ///
-  /// **returns**:
-  /// * `String`: mutation in string form, to be passed on to graphql client.
-  String updateLanguage(String languageCode) {
-    return '''
-        mutation {
-          updateLanguage(languageCode: "$languageCode"){
-            _id
-            firstName
-            appLanguageCode
           }
         }
     ''';
@@ -421,36 +338,29 @@ class Queries {
     ''';
   }
 
-  /// query to fetch user lang.
-  ///
+  /// mutation to delete organization membership.
   ///
   /// **params**:
   ///   None
   ///
   /// **returns**:
-  /// * `String`: query in string form, to be passed on to graphql client.
-  String userLanguage() {
+  /// * `String`: mutation in string form, to be passed on to graphql client.
+  String deleteOrganizationMembershipMutation() {
     return '''
-    query{
-      myLanguage
-    }
-  ''';
-  }
-
-  /// query for new user language .
-  ///
-  ///
-  /// **params**:
-  /// * `userId`: user identifier
-  ///
-  /// **returns**:
-  /// * `String`: query in string form, to be passed on to graphql client.
-  String newUserLanguage(String userId) {
-    return '''
-    query{
-      userLanguage(userId:"$userId")
-    }
-  ''';
+      mutation DeleteOrganizationMembership(
+        \$memberId: ID!,
+        \$organizationId: ID!
+      ) {
+        deleteOrganizationMembership(
+          input: {
+            memberId: \$memberId,
+            organizationId: \$organizationId
+          }
+        ) {
+          id
+        }
+      }
+    ''';
   }
 
   /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters.

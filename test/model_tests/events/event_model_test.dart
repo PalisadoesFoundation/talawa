@@ -13,8 +13,7 @@ final List<User> users = [user1, user2];
 final event = Event(
   creator: User(
     id: '123',
-    firstName: 'Ayush',
-    lastName: 'Chaudhary',
+    name: 'Ayush Chaudhary',
     email: 'test@test.com',
   ),
   id: '12',
@@ -26,7 +25,7 @@ final event = Event(
   isPublic: true,
   isRegistered: true,
   isRegisterable: true,
-  organization: OrgInfo(admins: users),
+  organization: OrgInfo(),
   admins: users,
   attendees: [
     Attendee(

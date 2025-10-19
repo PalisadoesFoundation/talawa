@@ -161,7 +161,6 @@ class AppLanguage extends BaseModel {
   ///   None
   Future<void> selectLanguagePress() async {
     if (userConfig.currentUser.id != 'null') {
-      dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
       navigationService.pushScreen(
@@ -172,59 +171,6 @@ class AppLanguage extends BaseModel {
           toggleDemoMode: true,
         ),
       );
-    }
-  }
-
-  /// This function updates the Database Language by running the graphQL `mutations`.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> dbLanguageUpdate() async {
-    try {
-      await databaseFunctions
-          .gqlAuthMutation(queries.updateLanguage(_appLocale.languageCode));
-      print('Language Updated in Database');
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  /// Queries the app language.
-  ///
-  /// Performs graphQL query to check the app language.
-  /// The function uses `gqlAuthQuery` method provided by Database
-  /// Functions Services.
-  ///
-  /// **params**:
-  ///   None
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> appLanguageQuery() async {
-    try {
-      await databaseFunctions.gqlAuthQuery(queries.userLanguage());
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  /// This function perform graphQL query to check the user's language in the database.
-  ///
-  /// The function uses `gqlAuthQuery` method provided by Database Functions Services.
-  ///
-  /// **params**:
-  /// * `userId`: user for which language need to be fetch.
-  ///
-  /// **returns**:
-  ///   None
-  Future<void> userLanguageQuery(String userId) async {
-    try {
-      await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
-    } catch (e) {
-      print(e);
     }
   }
 }

@@ -30,20 +30,17 @@ Event getTestEvent({
     name: "test_event",
     creator: User(
       id: asAdmin ? "xzy1" : "acb1",
-      firstName: "ravidi",
-      lastName: "shaikh",
+      name: "ravidi shaikh",
     ),
     isPublic: isPublic,
     location: "iitbhu, varanasi",
     description: "test_event_description",
     admins: [
       User(
-        firstName: "ravidi_admin_one",
-        lastName: "shaikh_admin_one",
+        name: "ravidi_admin_one shaikh_admin_one",
       ),
       User(
-        firstName: "ravidi_admin_two",
-        lastName: "shaikh_admin_two",
+        name: "ravidi_admin_two shaikh_admin_two",
       ),
     ],
     attendees: [
@@ -66,8 +63,7 @@ EventVolunteerGroup group1 = EventVolunteerGroup(
       id: "volunteer_id_1",
       user: User(
         id: "existing_user_1", // Add ID to avoid null comparison
-        firstName: "first1",
-        lastName: "last1",
+        name: "first1 last1",
       ),
       response: null,
     ),
@@ -75,8 +71,7 @@ EventVolunteerGroup group1 = EventVolunteerGroup(
       id: "volunteer_id_2",
       user: User(
         id: "existing_user_2", // Add ID to avoid null comparison
-        firstName: "first2",
-        lastName: "last2",
+        name: "first2 last2",
       ),
       response: null,
     ),

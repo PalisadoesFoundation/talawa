@@ -387,7 +387,7 @@ void main() {
     });
 
     group('subscribeToChatMessages', () {
-      test('delegates to subscription service', () async {
+      test('delegates to subscription service', () {
         const chatId = 'chat123';
 
         final result = chatMessageService.subscribeToChatMessages(chatId);
@@ -420,7 +420,7 @@ void main() {
     });
 
     group('disposal', () {
-      test('dispose closes all streams and stops subscription', () async {
+      test('dispose closes all streams and stops subscription', () {
         expect(() => chatMessageService.dispose(), returnsNormally);
       });
     });

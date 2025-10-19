@@ -64,8 +64,7 @@ void main() {
     // Essential mocks needed for all tests
     final mockCurrentUser = User(
       id: 'currentUser123',
-      firstName: 'Current',
-      lastName: 'User',
+      name: 'Current User',
     );
     when(userConfig.currentUser).thenReturn(mockCurrentUser);
   });

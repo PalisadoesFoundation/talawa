@@ -67,11 +67,11 @@ final List<Event> cachedEvents = [
     isPublic: true,
     isRegistered: false,
     isRegisterable: true,
-    creator: User(id: "user123", firstName: "Alice Johnson"),
+    creator: User(id: "user123", name: "Alice Johnson"),
     organization: OrgInfo(id: userConfig.currentOrg.id, name: "Tech Community"),
     admins: [
-      User(id: "admin001", firstName: "Bob", lastName: "Smith"),
-      User(id: "admin002", firstName: "Carol", lastName: "Lee"),
+      User(id: "admin001", name: "Bob Smith"),
+      User(id: "admin002", name: "Carol Lee"),
     ],
     attendees: [
       Attendee(
@@ -99,10 +99,10 @@ final List<Event> cachedEvents = [
     isPublic: true,
     isRegistered: true,
     isRegisterable: true,
-    creator: User(id: "user124", firstName: "John Doe"),
+    creator: User(id: "user124", name: "John Doe"),
     organization: OrgInfo(id: userConfig.currentOrg.id, name: "Green Earth"),
     admins: [
-      User(id: "admin003", firstName: "Sam", lastName: "Green"),
+      User(id: "admin003", name: "Sam Green"),
     ],
     attendees: [
       Attendee(
@@ -123,10 +123,10 @@ final List<Event> cachedEvents = [
     isPublic: false,
     isRegistered: false,
     isRegisterable: false,
-    creator: User(id: "user125", firstName: "Micheal Young"),
+    creator: User(id: "user125", name: "Micheal Young"),
     organization: OrgInfo(id: userConfig.currentOrg.id, name: "Code Masters"),
     admins: [
-      User(id: "admin004", firstName: "Sara", lastName: "Blue"),
+      User(id: "admin004", name: "Sara Blue"),
     ],
     attendees: [],
   ),
@@ -140,12 +140,12 @@ final List<Event> cachedEvents = [
     isPublic: false,
     isRegistered: true,
     isRegisterable: true,
-    creator: User(id: "user126", firstName: "Emma Davis"),
+    creator: User(id: "user126", name: "Emma Davis"),
     organization:
         OrgInfo(id: userConfig.currentOrg.id, name: "Startup Network"),
     admins: [
-      User(id: "admin005", firstName: "Jake", lastName: 'Wilson'),
-      User(id: "admin006", firstName: "Nina", lastName: 'Harris'),
+      User(id: "admin005", name: "Jake Wilson"),
+      User(id: "admin006", name: "Nina Harris"),
     ],
     attendees: [
       Attendee(

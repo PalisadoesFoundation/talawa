@@ -31,7 +31,7 @@ class UserProfileService {
   /// * `Future<QueryResult<Object?>>`: which contains the result of the GraphQL query.
   Future<QueryResult<Object?>> getUserProfileInfo(User user) async {
     final QueryResult result = await databaseFunctions.gqlAuthQuery(
-      queries.fetchUserInfo,
+      queries.fetchUserInfo(),
       variables: {'id': user.id},
     );
     return result;

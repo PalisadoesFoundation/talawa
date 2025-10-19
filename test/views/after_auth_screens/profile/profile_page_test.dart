@@ -27,10 +27,9 @@ Widget createProfilePage({required MainScreenViewModel mainScreenViewModel}) {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: Scaffold(
+        home: const Scaffold(
           body: ProfilePage(
-            key: const Key('Profile Page'),
-            homeModel: mainScreenViewModel,
+            key: Key('Profile Page'),
           ),
         ),
         navigatorKey: navigationService.navigatorKey,
@@ -64,16 +63,6 @@ void main() {
         const Offset(0, 300),
       );
       await tester.pumpAndSettle();
-    });
-    testWidgets('check if invitebutton work', (tester) async {
-      await tester.pumpWidget(
-        createProfilePage(
-          mainScreenViewModel: locator<MainScreenViewModel>(),
-        ),
-      );
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('inviteicon')));
-      await tester.pump();
     });
     testWidgets('check if left drawer works', (tester) async {
       await tester.pumpWidget(

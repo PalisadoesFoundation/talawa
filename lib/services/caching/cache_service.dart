@@ -1,13 +1,11 @@
-/// This class provides functionalities for caching GraphQL operations.
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/caching/cached_user_action.dart';
 import 'package:talawa/services/caching/offline_action_queue.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/connectivity_view_model.dart';
+import 'package:uuid/uuid.dart';
 
-/// Service to handle caching routines.
+/// This class provides functionalities for caching GraphQL operations.
 class CacheService {
   /// Initializes the cache service and the offline action queue.
   CacheService() {
@@ -23,7 +21,13 @@ class CacheService {
   /// static graphql result when device is offline.
   static final QueryResult offlineResult = QueryResult(
     options: QueryOptions(
-      document: gql(PostQueries().addLike()),
+      document: gql(
+        '''
+        query {
+          __typename
+        }
+        ''',
+      ),
     ),
     data: {
       'cached': true,
@@ -60,7 +64,7 @@ class CacheService {
       final timeStamp = DateTime.now();
       final expiry = timeStamp.add(_timeToLive);
       final cachedAction = CachedUserAction(
-        id: 'PlaceHolder', // Placeholder for actual ID generation
+        id: const Uuid().v4(),
         operation: operation,
         variables: variables,
         operationType: operationType,
@@ -69,7 +73,6 @@ class CacheService {
         expiry: expiry,
       );
       await offlineActionQueue.addAction(cachedAction);
-      debugPrint('cached');
       return offlineResult;
     }
   }
