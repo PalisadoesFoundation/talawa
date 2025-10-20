@@ -98,7 +98,7 @@ Future<void> main() async {
   locator.registerSingleton<ActionHandlerService>(ActionHandlerService());
 
   setUp(() {
-    dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
+    dotenv.loadFromString(envString: '''API_URL=http://<IPv4>:4000/graphql''');
     registerServices();
     registerViewModels();
     model = SetUrlViewModel();
