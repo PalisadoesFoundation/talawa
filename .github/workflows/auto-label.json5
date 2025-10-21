@@ -1,0 +1,16 @@
+{
+  labelsSynonyms: {
+    'ci/cd': ['.github', 'Workflow', 'ci/cd'],
+    dependencies: [
+      'dependabot',
+      'dependency',
+      'dependencies',
+      'package',
+      'packages',
+    ],
+    security: ['security'],
+    'ui/ux': ['layout', 'screen', 'design', 'figma'],
+  },
+  defaultLabels: ['unapproved'],
+}
+
