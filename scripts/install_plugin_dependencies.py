@@ -31,40 +31,89 @@ class Colors:
 
 
 def print_header(text):
-    """Print a formatted header with borders."""
+    """Print a formatted header with borders.
+
+    Args:
+        text: The text to display in the header.
+
+    Returns:
+        None
+    """
     print(f"\n{Colors.HEADER}{Colors.BOLD}{'=' * 60}{Colors.ENDC}")
     print(f"{Colors.HEADER}{Colors.BOLD}{text.center(60)}{Colors.ENDC}")
     print(f"{Colors.HEADER}{Colors.BOLD}{'=' * 60}{Colors.ENDC}\n")
 
 
 def print_success(text):
-    """Print a success message with checkmark icon."""
+    """Print a success message with checkmark icon.
+
+    Args:
+        text: The success message to display.
+
+    Returns:
+        None
+    """
     print(f"{Colors.OKGREEN}✓{Colors.ENDC} {text}")
 
 
 def print_info(text):
-    """Print an informational message with info icon."""
+    """Print an informational message with info icon.
+
+    Args:
+        text: The informational message to display.
+
+    Returns:
+        None
+    """
     print(f"{Colors.OKBLUE}ℹ{Colors.ENDC} {text}")
 
 
 def print_warning(text):
-    """Print a warning message with warning icon."""
+    """Print a warning message with warning icon.
+
+    Args:
+        text: The warning message to display.
+
+    Returns:
+        None
+    """
     print(f"{Colors.WARNING}⚠{Colors.ENDC} {text}")
 
 
 def print_error(text):
-    """Print an error message with error icon."""
+    """Print an error message with error icon.
+
+    Args:
+        text: The error message to display.
+
+    Returns:
+        None
+    """
     print(f"{Colors.FAIL}✗{Colors.ENDC} {text}")
 
 
 def get_project_root():
-    """Get the project root directory."""
+    """Get the project root directory.
+
+    Args:
+        None
+
+    Returns:
+        Path: The absolute path to the project root directory.
+    """
     script_dir = Path(__file__).parent.absolute()
     return script_dir.parent
 
 
 def find_plugin_configs():
-    """Find all plugin.yaml files in the plugins directory."""
+    """Find all plugin.yaml files in the plugins directory.
+
+    Args:
+        None
+
+    Returns:
+        list: A list of Path objects pointing to plugin.yaml files.
+    """
     project_root = get_project_root()
     plugins_dir = project_root / "lib" / "plugin" / "available"
 
@@ -84,7 +133,14 @@ def find_plugin_configs():
 
 
 def read_yaml(file_path):
-    """Read and parse YAML file."""
+    """Read and parse YAML file.
+
+    Args:
+        file_path: Path to the YAML file to read.
+
+    Returns:
+        dict: Parsed YAML content, or None if an error occurs.
+    """
     try:
         with open(file_path, "r") as f:
             return yaml.safe_load(f)
@@ -94,7 +150,14 @@ def read_yaml(file_path):
 
 
 def collect_plugin_dependencies():
-    """Collect all dependencies from plugin configurations."""
+    """Collect all dependencies from plugin configurations.
+
+    Args:
+        None
+
+    Returns:
+        dict: A dictionary mapping dependency names to their versions.
+    """
     print_header("Scanning Plugin Dependencies")
 
     plugin_configs = find_plugin_configs()
@@ -132,7 +195,14 @@ def collect_plugin_dependencies():
 
 
 def update_pubspec(dependencies):
-    """Update pubspec.yaml with plugin dependencies."""
+    """Update pubspec.yaml with plugin dependencies.
+
+    Args:
+        dependencies: A dictionary mapping dependency names to their versions.
+
+    Returns:
+        bool: True if the update was successful, False otherwise.
+    """
     print_header("Updating pubspec.yaml")
 
     if not dependencies:
@@ -268,7 +338,14 @@ def update_pubspec(dependencies):
 
 
 def get_plugin_for_dependency(dep_name):
-    """Find which plugin requires this dependency."""
+    """Find which plugin requires this dependency.
+
+    Args:
+        dep_name: The name of the dependency to search for.
+
+    Returns:
+        str: The plugin ID that requires this dependency, or "unknown".
+    """
     plugin_configs = find_plugin_configs()
     for config_file in plugin_configs:
         config = read_yaml(config_file)
@@ -278,7 +355,14 @@ def get_plugin_for_dependency(dep_name):
 
 
 def main():
-    """Execute the main plugin dependency installation process."""
+    """Execute the main plugin dependency installation process.
+
+    Args:
+        None
+
+    Returns:
+        int: Exit code (0 for success, 1 for failure).
+    """
     print_header("Talawa Mobile - Plugin Dependency Installer")
 
     # Collect dependencies from all plugins
