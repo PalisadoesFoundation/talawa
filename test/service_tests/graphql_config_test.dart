@@ -31,7 +31,7 @@ void main() {
     dotenv.testLoad(fileInput: '''API_URL=http://<IPv4>:4000/graphql''');
   });
 
-  tearDown(() async {
+  tearDown(() {
     locator.reset();
   });
 
@@ -289,7 +289,7 @@ void main() {
       // The Link.split predicate (request) => request.isSubscription has been created
     });
 
-    test('covers initialPayload return with Authorization header', () async {
+    test('covers initialPayload return with Authorization header', () {
       final config = GraphqlConfig();
       GraphqlConfig.token = 'test-token-123';
 
