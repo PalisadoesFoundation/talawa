@@ -58,13 +58,13 @@ def print_error(text):
 
 
 def get_project_root():
-    """Get the project root directory"""
+    """Get the project root directory."""
     script_dir = Path(__file__).parent.absolute()
     return script_dir.parent
 
 
 def find_plugin_configs():
-    """Find all plugin.yaml files in the plugins directory"""
+    """Find all plugin.yaml files in the plugins directory."""
     project_root = get_project_root()
     plugins_dir = project_root / "lib" / "plugin" / "available"
 
@@ -84,7 +84,7 @@ def find_plugin_configs():
 
 
 def read_yaml(file_path):
-    """Read and parse YAML file"""
+    """Read and parse YAML file."""
     try:
         with open(file_path, "r") as f:
             return yaml.safe_load(f)
@@ -94,7 +94,7 @@ def read_yaml(file_path):
 
 
 def collect_plugin_dependencies():
-    """Collect all dependencies from plugin configurations"""
+    """Collect all dependencies from plugin configurations."""
     print_header("Scanning Plugin Dependencies")
 
     plugin_configs = find_plugin_configs()
@@ -132,7 +132,7 @@ def collect_plugin_dependencies():
 
 
 def update_pubspec(dependencies):
-    """Update pubspec.yaml with plugin dependencies"""
+    """Update pubspec.yaml with plugin dependencies."""
     print_header("Updating pubspec.yaml")
 
     if not dependencies:
@@ -268,7 +268,7 @@ def update_pubspec(dependencies):
 
 
 def get_plugin_for_dependency(dep_name):
-    """Find which plugin requires this dependency"""
+    """Find which plugin requires this dependency."""
     plugin_configs = find_plugin_configs()
     for config_file in plugin_configs:
         config = read_yaml(config_file)
