@@ -141,9 +141,9 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
+
           LABELS="$(gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels --jq '.[].name' | tr '\n' ' ')"
-          
+
           if echo "$LABELS" | grep -qw "ignore-sensitive-files-pr"; then
             echo "::notice::Skipping sensitive files check due to 'ignore-sensitive-files-pr' label."
             echo "skip=true" >> $GITHUB_OUTPUT
@@ -284,7 +284,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
           verbose: true
-          exclude: 'docs/'
+          exclude: "docs/"
 
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v3
@@ -335,7 +335,7 @@ jobs:
         run: cp .env.example .env
       - name: Building for ios
         run: flutter build ios --release --no-codesign
-        
+
   Test-Docusaurus-Deployment:
     name: Test Deployment to https://docs-mobile.talawa.io
     runs-on: ubuntu-latest
