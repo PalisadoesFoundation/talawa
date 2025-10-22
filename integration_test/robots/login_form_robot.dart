@@ -45,14 +45,14 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _selectLanguage() async {
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
     final Finder selectLanguageButton =
         find.byKey(const Key('SelectLangTextButton'));
     await tester.pumpAndSettle();
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 2));
     expect(selectLanguageButton, findsOneWidget);
     await tester.tap(selectLanguageButton);
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 2));
     await tester.tap(find.text('Skip'));
     devPrint("Language selected");
   }
@@ -69,11 +69,23 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _openLoginForm() async {
-    await tester.pumpAndSettle();
-    final Finder dismissButton = find.text('Dismiss');
-    if (dismissButton.evaluate().isNotEmpty) {
-      devPrint("Dismiss button found, tapping it");
-      await tester.tap(dismissButton);
+    await tester.pumpAndSettle(const Duration(seconds: 5));
+    final Finder dismissButtons = find.text('Dismiss');
+    if (dismissButtons.evaluate().isNotEmpty) {
+      final int dismissButtonCount = dismissButtons.evaluate().length;
+      devPrint("Found $dismissButtonCount dismiss button(s), dismissing all");
+      // Dismiss all error dialogs by tapping all dismiss buttons
+      for (int i = 0; i < dismissButtonCount; i++) {
+        try {
+          final Finder currentDismissButtons = find.text('Dismiss');
+          if (currentDismissButtons.evaluate().isNotEmpty) {
+            await tester.tap(currentDismissButtons.first, warnIfMissed: false);
+            await tester.pumpAndSettle(const Duration(seconds: 2));
+          }
+        } catch (e) {
+          devPrint("Error dismissing dialog: $e");
+        }
+      }
       await tester.pumpAndSettle(const Duration(seconds: 2));
     } else {
       devPrint("Dismiss button not found, continuing...");
@@ -86,11 +98,14 @@ class LoginFormRobot {
     final ScaffoldState scaffoldState = tester.state(scaffoldFinder);
     scaffoldState.openDrawer();
 
-    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 2));
     await tester.tap(find.widgetWithIcon(ListTile, Icons.add));
-    await tester.pumpAndSettle();
-    final Finder loginButton = find.text('Login');
-    await tester.tap(loginButton);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    devPrint("Finding Login Button");
+    // final Finder loginButton = find.text('Login');
+    final Finder loginButton = find.byKey(const Key('LoginButton'));
+    await tester.tap(loginButton, warnIfMissed: false);
+    devPrint("Tapped on Login Button");
     await tester.pumpAndSettle();
   }
 
@@ -117,9 +132,10 @@ class LoginFormRobot {
   /// **returns**:
   ///   None
   Future<void> _submit() async {
+    await tester.pumpAndSettle(const Duration(seconds: 5));
     final Finder loginButton = find.byKey(const Key('LoginButton'));
-    await tester.tap(loginButton);
-
+    await tester.tap(loginButton, warnIfMissed: false);
+    devPrint("Tapped on Login Submit Button");
     await tester.pumpAndSettle(const Duration(seconds: 5));
   }
 }

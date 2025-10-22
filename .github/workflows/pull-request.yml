@@ -265,6 +265,66 @@ jobs:
           path: "./coverage/lcov.info"
           min_coverage: 93.0
 
+  Integration-Testing:
+    name: Running Integration Tests
+    runs-on: ubuntu-latest
+    env:
+      API_URL: https://api-test.talawa.io/graphql
+    steps:
+      - name: Checkout Flutter App Repository
+        uses: actions/checkout@v4
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      
+      - name: Setup Java for Flutter
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17.0"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+      
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+      
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
+      
+      - name: Update API_URL in .env for integration tests
+        run: echo "API_URL=https://api-test.talawa.io/graphql" > .env
+      
+      - name: Run Flutter Tests on Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: default
+          arch: x86_64
+          profile: Nexus 6
+          cores: 2
+          heap-size: 512M
+          ram-size: 2048M
+          sdcard-path-or-size: 100M
+          avd-name: test
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none -memory 2048
+          disable-animations: true
+          emulator-boot-timeout: 1200
+          script: |
+            echo "Starting emulator tests..."
+            echo "Waiting for emulator to be ready..."
+            adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+            echo "Emulator is ready"
+            flutter devices
+            flutter test integration_test/app_test.dart --verbose --device-id emulator-5554
+
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
