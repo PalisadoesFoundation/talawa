@@ -7,21 +7,21 @@ import 'dart:async' as _i8;
 import 'dart:io' as _i25;
 import 'dart:ui' as _i12;
 
-import 'package:app_links/src/app_links.dart' as _i60;
+import 'package:app_links/src/app_links.dart' as _i61;
 import 'package:flutter/gestures.dart' as _i18;
 import 'package:flutter/material.dart' as _i1;
-import 'package:flutter/rendering.dart' as _i59;
+import 'package:flutter/rendering.dart' as _i60;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i13;
-import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i58;
-import 'package:graphql/src/utilities/helpers.dart' as _i57;
+import 'package:graphql/src/cache/_optimistic_transactions.dart' as _i59;
+import 'package:graphql/src/utilities/helpers.dart' as _i58;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
-import 'package:image_cropper/src/cropper.dart' as _i54;
+import 'package:image_cropper/src/cropper.dart' as _i55;
 import 'package:image_cropper_platform_interface/image_cropper_platform_interface.dart'
-    as _i55;
+    as _i56;
 import 'package:image_picker/image_picker.dart' as _i17;
 import 'package:mockito/mockito.dart' as _i2;
 import 'package:mockito/src/dummies.dart' as _i23;
-import 'package:normalize/normalize.dart' as _i56;
+import 'package:normalize/normalize.dart' as _i57;
 import 'package:qr_code_scanner_plus/src/qr_code_scanner.dart' as _i43;
 import 'package:qr_code_scanner_plus/src/types/barcode.dart' as _i44;
 import 'package:qr_code_scanner_plus/src/types/camera.dart' as _i45;
@@ -69,6 +69,8 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
     as _i40;
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart'
     as _i41;
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart'
+    as _i54;
 import 'package:talawa/view_model/lang_view_model.dart' as _i35;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i36;
@@ -6305,19 +6307,111 @@ class MockSelectContactViewModel extends _i2.Mock
       );
 }
 
+/// A class which mocks [AppSettingViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppSettingViewModel extends _i2.Mock
+    implements _i54.AppSettingViewModel {
+  @override
+  _i19.ViewState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i19.ViewState.idle,
+        returnValueForMissingStub: _i19.ViewState.idle,
+      ) as _i19.ViewState);
+
+  @override
+  bool get isBusy => (super.noSuchMethod(
+        Invocation.getter(#isBusy),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i8.Future<void> logout() => (super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
+  _i8.Future<bool> launchWebsite(String? url) => (super.noSuchMethod(
+        Invocation.method(
+          #launchWebsite,
+          [url],
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+
+  @override
+  void setState(_i19.ViewState? viewState) => super.noSuchMethod(
+        Invocation.method(
+          #setState,
+          [viewState],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i12.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [ImageCropper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageCropper extends _i2.Mock implements _i54.ImageCropper {
+class MockImageCropper extends _i2.Mock implements _i55.ImageCropper {
   @override
-  _i8.Future<_i55.CroppedFile?> cropImage({
+  _i8.Future<_i56.CroppedFile?> cropImage({
     required String? sourcePath,
     int? maxWidth,
     int? maxHeight,
-    _i55.CropAspectRatio? aspectRatio,
-    _i55.ImageCompressFormat? compressFormat = _i55.ImageCompressFormat.jpg,
+    _i56.CropAspectRatio? aspectRatio,
+    _i56.ImageCompressFormat? compressFormat = _i56.ImageCompressFormat.jpg,
     int? compressQuality = 90,
-    List<_i55.PlatformUiSettings>? uiSettings,
+    List<_i56.PlatformUiSettings>? uiSettings,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -6333,19 +6427,19 @@ class MockImageCropper extends _i2.Mock implements _i54.ImageCropper {
             #uiSettings: uiSettings,
           },
         ),
-        returnValue: _i8.Future<_i55.CroppedFile?>.value(),
-        returnValueForMissingStub: _i8.Future<_i55.CroppedFile?>.value(),
-      ) as _i8.Future<_i55.CroppedFile?>);
+        returnValue: _i8.Future<_i56.CroppedFile?>.value(),
+        returnValueForMissingStub: _i8.Future<_i56.CroppedFile?>.value(),
+      ) as _i8.Future<_i56.CroppedFile?>);
 
   @override
-  _i8.Future<_i55.CroppedFile?> recoverImage() => (super.noSuchMethod(
+  _i8.Future<_i56.CroppedFile?> recoverImage() => (super.noSuchMethod(
         Invocation.method(
           #recoverImage,
           [],
         ),
-        returnValue: _i8.Future<_i55.CroppedFile?>.value(),
-        returnValueForMissingStub: _i8.Future<_i55.CroppedFile?>.value(),
-      ) as _i8.Future<_i55.CroppedFile?>);
+        returnValue: _i8.Future<_i56.CroppedFile?>.value(),
+        returnValueForMissingStub: _i8.Future<_i56.CroppedFile?>.value(),
+      ) as _i8.Future<_i56.CroppedFile?>);
 }
 
 /// A class which mocks [ImagePicker].
@@ -6549,11 +6643,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as _i3.PartialDataCachePolicy);
 
   @override
-  Map<String, _i56.TypePolicy> get typePolicies => (super.noSuchMethod(
+  Map<String, _i57.TypePolicy> get typePolicies => (super.noSuchMethod(
         Invocation.getter(#typePolicies),
-        returnValue: <String, _i56.TypePolicy>{},
-        returnValueForMissingStub: <String, _i56.TypePolicy>{},
-      ) as Map<String, _i56.TypePolicy>);
+        returnValue: <String, _i57.TypePolicy>{},
+        returnValueForMissingStub: <String, _i57.TypePolicy>{},
+      ) as Map<String, _i57.TypePolicy>);
 
   @override
   Map<String, Set<String>> get possibleTypes => (super.noSuchMethod(
@@ -6563,11 +6657,11 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       ) as Map<String, Set<String>>);
 
   @override
-  _i57.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
+  _i58.SanitizeVariables get sanitizeVariables => (super.noSuchMethod(
         Invocation.getter(#sanitizeVariables),
         returnValue: (Map<String, dynamic> variables) => null,
         returnValueForMissingStub: (Map<String, dynamic> variables) => null,
-      ) as _i57.SanitizeVariables);
+      ) as _i58.SanitizeVariables);
 
   @override
   int get inflightOptimisticTransactions => (super.noSuchMethod(
@@ -6587,14 +6681,14 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  List<_i58.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
+  List<_i59.OptimisticPatch> get optimisticPatches => (super.noSuchMethod(
         Invocation.getter(#optimisticPatches),
-        returnValue: <_i58.OptimisticPatch>[],
-        returnValueForMissingStub: <_i58.OptimisticPatch>[],
-      ) as List<_i58.OptimisticPatch>);
+        returnValue: <_i59.OptimisticPatch>[],
+        returnValueForMissingStub: <_i59.OptimisticPatch>[],
+      ) as List<_i59.OptimisticPatch>);
 
   @override
-  set optimisticPatches(List<_i58.OptimisticPatch>? _optimisticPatches) =>
+  set optimisticPatches(List<_i59.OptimisticPatch>? _optimisticPatches) =>
       super.noSuchMethod(
         Invocation.setter(
           #optimisticPatches,
@@ -6643,7 +6737,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
       );
 
   @override
-  set sanitizeVariables(_i57.SanitizeVariables? _sanitizeVariables) =>
+  set sanitizeVariables(_i58.SanitizeVariables? _sanitizeVariables) =>
       super.noSuchMethod(
         Invocation.setter(
           #sanitizeVariables,
@@ -6702,7 +6796,7 @@ class MockGraphQLCache extends _i2.Mock implements _i3.GraphQLCache {
 
   @override
   void recordOptimisticTransaction(
-    _i58.CacheTransaction? transaction,
+    _i59.CacheTransaction? transaction,
     String? addId,
   ) =>
       super.noSuchMethod(
@@ -7217,11 +7311,11 @@ class MockScrollPosition extends _i2.Mock implements _i1.ScrollPosition {
       ) as bool);
 
   @override
-  _i59.ScrollDirection get userScrollDirection => (super.noSuchMethod(
+  _i60.ScrollDirection get userScrollDirection => (super.noSuchMethod(
         Invocation.getter(#userScrollDirection),
-        returnValue: _i59.ScrollDirection.idle,
-        returnValueForMissingStub: _i59.ScrollDirection.idle,
-      ) as _i59.ScrollDirection);
+        returnValue: _i60.ScrollDirection.idle,
+        returnValueForMissingStub: _i60.ScrollDirection.idle,
+      ) as _i60.ScrollDirection);
 
   @override
   bool get hasListeners => (super.noSuchMethod(
@@ -7633,7 +7727,7 @@ class MockScrollPosition extends _i2.Mock implements _i1.ScrollPosition {
       );
 
   @override
-  void didUpdateScrollDirection(_i59.ScrollDirection? direction) =>
+  void didUpdateScrollDirection(_i60.ScrollDirection? direction) =>
       super.noSuchMethod(
         Invocation.method(
           #didUpdateScrollDirection,
@@ -7765,7 +7859,7 @@ class MockScrollPosition extends _i2.Mock implements _i1.ScrollPosition {
 /// A class which mocks [AppLinks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppLinks extends _i2.Mock implements _i60.AppLinks {
+class MockAppLinks extends _i2.Mock implements _i61.AppLinks {
   @override
   _i8.Stream<String> get stringLinkStream => (super.noSuchMethod(
         Invocation.getter(#stringLinkStream),

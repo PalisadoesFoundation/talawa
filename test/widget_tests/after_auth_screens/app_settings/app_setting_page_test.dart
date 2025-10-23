@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -21,27 +19,11 @@ import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.d
 import 'package:talawa/views/base_view.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 /// MockBuildContext class helps to mock the BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
-
-/// Mock Class for Flutter Secure Storage that throws exceptions.
-class MockFlutterSecureStorageThrows extends Mock
-    implements FlutterSecureStorage {
-  @override
-  Future<void> delete({
-    required String key,
-    IOSOptions? iOptions,
-    AndroidOptions? aOptions,
-    LinuxOptions? lOptions,
-    WebOptions? webOptions,
-    MacOsOptions? mOptions,
-    WindowsOptions? wOptions,
-  }) {
-    throw Exception("Deletion error");
-  }
-}
 
 /// MockCallbackFunction class helps to mock the callback function.
 class MockCallbackFunction extends Mock {
@@ -320,9 +302,15 @@ Future<void> main() async {
     testWidgets('Test if Logout is successful', (tester) async {
       when(userConfig.loggedIn).thenAnswer((_) => true);
 
-      final AppSettingViewModel model = AppSettingViewModel();
+      // Create mock and register it with the locator
+      final mockAppSettingViewModel = MockAppSettingViewModel();
+      when(mockAppSettingViewModel.logout()).thenAnswer((_) async {});
 
-      when(model.logout()).thenAnswer((realInvocation) async {});
+      // Register mock in locator before pumping widget
+      locator.unregister<AppSettingViewModel>();
+      locator.registerFactory<AppSettingViewModel>(
+        () => mockAppSettingViewModel,
+      );
 
       await tester.pumpWidget(
         createAppSettingScreen(themeMode: ThemeMode.dark),
@@ -336,11 +324,16 @@ Future<void> main() async {
       expect(logoutButton, findsOneWidget);
       await tester.tap(logoutButton);
 
-      verify(model.logout());
+      // Verify the mock was called
+      verify(mockAppSettingViewModel.logout());
+
+      // Clean up: restore original registration
+      locator.unregister<AppSettingViewModel>();
+      locator.registerFactory(() => AppSettingViewModel());
     });
 
     testWidgets(
-      'Test logout with checkbox unchecked deletes secure storage values',
+      'Test logout with "Remember me" unchecked deletes secure storage values',
       (tester) async {
         when(userConfig.loggedIn).thenReturn(true);
 
@@ -357,9 +350,32 @@ Future<void> main() async {
         await tester.tap(find.byKey(const Key('Logout')));
         await tester.pumpAndSettle();
 
-        final checkbox = find.byType(Checkbox);
+        // Find the dialog
+        final dialog = find.byType(AlertDialog);
+        expect(dialog, findsOneWidget);
+
+        // Find checkbox within the dialog and verify it's initially checked
+        final checkbox = find.descendant(
+          of: dialog,
+          matching: find.byType(Checkbox),
+        );
+        expect(checkbox, findsOneWidget);
+        expect(
+          tester.widget<Checkbox>(checkbox).value,
+          isTrue,
+          reason: '"Remember me" checkbox should be initially checked',
+        );
+
+        // Uncheck the "Remember me" checkbox
         await tester.tap(checkbox);
         await tester.pumpAndSettle();
+
+        // Verify checkbox is now unchecked
+        expect(
+          tester.widget<Checkbox>(checkbox).value,
+          isFalse,
+          reason: '"Remember me" checkbox should be unchecked after tap',
+        );
 
         final logoutButton = find.text('Logout').last;
         await tester.tap(logoutButton);
@@ -372,46 +388,10 @@ Future<void> main() async {
 
         expect(userEmail, isNull);
         expect(userPassword, isNull);
+
+        // Reset mock storage to avoid test interference
+        FlutterSecureStorage.setMockInitialValues({});
       },
     );
-
-    test('Should handle exception during secure storage deletion', () async {
-      final mockSecureStorage = MockFlutterSecureStorageThrows();
-      final List<String> capturedLogs = [];
-
-      await runZoned(
-        () async {
-          // Separate try-catch for each delete to ensure both are attempted
-          try {
-            await mockSecureStorage.delete(key: "userEmail");
-          } catch (e) {
-            print("Unable to delete stored value: $e");
-          }
-
-          try {
-            await mockSecureStorage.delete(key: "userPassword");
-          } catch (e) {
-            print("Unable to delete stored value: $e");
-          }
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            capturedLogs.add(line);
-          },
-        ),
-      );
-
-      // Verify both errors were logged
-      expect(capturedLogs.length, equals(2));
-      expect(
-        capturedLogs
-            .every((log) => log.contains("Unable to delete stored value")),
-        isTrue,
-      );
-      expect(
-        capturedLogs.every((log) => log.contains("Deletion error")),
-        isTrue,
-      );
-    });
   });
 }
