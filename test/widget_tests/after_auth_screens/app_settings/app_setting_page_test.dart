@@ -81,9 +81,7 @@ Widget createAppSettingScreen({ThemeMode themeMode = ThemeMode.light}) =>
               theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
                   ? TalawaTheme.darkTheme
                   : TalawaTheme.lightTheme,
-              home: const AppSettingsPage(
-                key: Key('AppSettingsPage'),
-              ),
+              home: const AppSettingsPage(key: Key('AppSettingsPage')),
               navigatorKey: locator<NavigationService>().navigatorKey,
               onGenerateRoute: router.generateRoute,
             );
@@ -103,12 +101,11 @@ Future<void> main() async {
 
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('AppSettingScaffold'),
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
       );
+      await tester.pumpAndSettle();
+      final screenScaffoldWidget = find.byKey(const Key('AppSettingScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -125,72 +122,78 @@ Future<void> main() async {
       verify(navigationService.navigatorKey);
     });
     testWidgets(
-        "Testing if Settings Screen shows up in dark mode with Theme selection tile",
-        (tester) async {
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('AppSettingScaffold'),
-      );
-      expect(screenScaffoldWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.darkTheme.scaffoldBackgroundColor,
-      );
-      final switchThemeTile = find.byKey(const Key('ThemeSwitch'));
-      expect(switchThemeTile, findsOneWidget);
-      final themeToggleButton = find.byKey(const Key('ToggleTheme'));
-      expect(themeToggleButton, findsOneWidget);
-      expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
-    });
+      "Testing if Settings Screen shows up in dark mode with Theme selection tile",
+      (tester) async {
+        await tester.pumpWidget(
+          createAppSettingScreen(themeMode: ThemeMode.dark),
+        );
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('AppSettingScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+        final switchThemeTile = find.byKey(const Key('ThemeSwitch'));
+        expect(switchThemeTile, findsOneWidget);
+        final themeToggleButton = find.byKey(const Key('ToggleTheme'));
+        expect(themeToggleButton, findsOneWidget);
+        expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
+      },
+    );
     testWidgets(
-        "Testing if Settings Screen shows up in dark mode with language selection tile",
-        (tester) async {
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      "Testing if Settings Screen shows up in dark mode with language selection tile",
+      (tester) async {
+        await tester.pumpWidget(
+          createAppSettingScreen(themeMode: ThemeMode.dark),
+        );
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('AppSettingScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+        final languageSwitchTile = find.byKey(const Key('LanguageTile'));
+        expect(languageSwitchTile, findsOneWidget);
+        final languageSelectionButton = find.byKey(
+          const Key('LanguageSelector'),
+        );
+        expect(languageSelectionButton, findsOneWidget);
+        final Language userLanguage = languages.firstWhere(
+          (element) =>
+              element.langCode ==
+              Provider.of<AppLanguage>(
+                locator<NavigationService>().navigatorKey.currentContext!,
+                listen: false,
+              ).appLocal.languageCode,
+        );
+        expect(
+          ((tester.firstWidget(languageSelectionButton) as TextButton).child!
+                  as Text)
+              .data,
+          userLanguage.langName,
+        );
+        await tester.tap(languageSelectionButton);
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+      },
+    );
+    testWidgets("Testing if theme changes from dark mode to light mode", (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('AppSettingScaffold'),
-      );
-      expect(screenScaffoldWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.darkTheme.scaffoldBackgroundColor,
-      );
-      final languageSwitchTile = find.byKey(const Key('LanguageTile'));
-      expect(languageSwitchTile, findsOneWidget);
-      final languageSelectionButton = find.byKey(const Key('LanguageSelector'));
-      expect(languageSelectionButton, findsOneWidget);
-      final Language userLanguage = languages.firstWhere(
-        (element) =>
-            element.langCode ==
-            Provider.of<AppLanguage>(
-              locator<NavigationService>().navigatorKey.currentContext!,
-              listen: false,
-            ).appLocal.languageCode,
-      );
-      expect(
-        ((tester.firstWidget(languageSelectionButton) as TextButton).child!
-                as Text)
-            .data,
-        userLanguage.langName,
-      );
-      await tester.tap(languageSelectionButton);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-    });
-    testWidgets("Testing if theme changes from dark mode to light mode",
-        (tester) async {
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('AppSettingScaffold'),
-      );
+      final screenScaffoldWidget = find.byKey(const Key('AppSettingScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -213,50 +216,54 @@ Future<void> main() async {
       );
     });
     testWidgets(
-        "Testing if theme changes from dark mode to light mode then again back to dark mode",
-        (tester) async {
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
-      final screenScaffoldWidget = find.byKey(
-        const Key('AppSettingScaffold'),
-      );
-      expect(screenScaffoldWidget, findsOneWidget);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.darkTheme.scaffoldBackgroundColor,
-      );
-      final switchThemeTile = find.byKey(const Key('ThemeSwitch'));
-      expect(switchThemeTile, findsOneWidget);
-      final themeToggleButton = find.byKey(const Key('ToggleTheme'));
-      expect(themeToggleButton, findsOneWidget);
-      expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
-      await tester.tap(themeToggleButton);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-      expect((tester.firstWidget(themeToggleButton) as Switch).value, false);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.lightTheme.scaffoldBackgroundColor,
-      );
-      await tester.tap(themeToggleButton);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-      expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
-      expect(
-        (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
-            .theme!
-            .scaffoldBackgroundColor,
-        TalawaTheme.darkTheme.scaffoldBackgroundColor,
-      );
-    });
-    testWidgets('Test Edit Profile Tile is visible and works properly',
-        (tester) async {
+      "Testing if theme changes from dark mode to light mode then again back to dark mode",
+      (tester) async {
+        await tester.pumpWidget(
+          createAppSettingScreen(themeMode: ThemeMode.dark),
+        );
+        await tester.pumpAndSettle();
+        final screenScaffoldWidget = find.byKey(
+          const Key('AppSettingScaffold'),
+        );
+        expect(screenScaffoldWidget, findsOneWidget);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+        final switchThemeTile = find.byKey(const Key('ThemeSwitch'));
+        expect(switchThemeTile, findsOneWidget);
+        final themeToggleButton = find.byKey(const Key('ToggleTheme'));
+        expect(themeToggleButton, findsOneWidget);
+        expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
+        await tester.tap(themeToggleButton);
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect((tester.firstWidget(themeToggleButton) as Switch).value, false);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.lightTheme.scaffoldBackgroundColor,
+        );
+        await tester.tap(themeToggleButton);
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect((tester.firstWidget(themeToggleButton) as Switch).value, true);
+        expect(
+          (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
+              .theme!
+              .scaffoldBackgroundColor,
+          TalawaTheme.darkTheme.scaffoldBackgroundColor,
+        );
+      },
+    );
+    testWidgets('Test Edit Profile Tile is visible and works properly', (
+      tester,
+    ) async {
       when(userConfig.loggedIn).thenReturn(true);
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
       expect(find.text('Profile'), findsOneWidget);
 
@@ -267,8 +274,9 @@ Future<void> main() async {
     });
     testWidgets('Test if help and support tiles are working', (tester) async {
       when(userConfig.loggedIn).thenReturn(true);
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
 
       final talawaDocs = find.textContaining('Talawa Docs');
@@ -281,8 +289,9 @@ Future<void> main() async {
       const userLoggedIn = true;
       when(userConfig.loggedIn).thenAnswer((_) => userLoggedIn);
 
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('Logout')));
@@ -297,8 +306,9 @@ Future<void> main() async {
       const loggedIn = false;
       when(userConfig.loggedIn).thenAnswer((_) => loggedIn);
 
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
 
       final joinOrgButton = find.textContaining('Join an Organisation');
@@ -314,8 +324,9 @@ Future<void> main() async {
 
       when(model.logout()).thenAnswer((realInvocation) async {});
 
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpWidget(
+        createAppSettingScreen(themeMode: ThemeMode.dark),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('Logout')));
@@ -329,27 +340,78 @@ Future<void> main() async {
     });
 
     testWidgets(
-        'Test logout with checkbox unchecked deletes secure storage values',
-        (tester) async {
-      when(userConfig.loggedIn).thenReturn(true);
-      
-      FlutterSecureStorage.setMockInitialValues({});
+      'Test logout with checkbox unchecked deletes secure storage values',
+      (tester) async {
+        when(userConfig.loggedIn).thenReturn(true);
 
-      await tester
-          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
-      await tester.pumpAndSettle();
+        FlutterSecureStorage.setMockInitialValues({
+          "userEmail": "test@example.com",
+          "userPassword": "password123",
+        });
 
-      await tester.tap(find.byKey(const Key('Logout')));
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          createAppSettingScreen(themeMode: ThemeMode.dark),
+        );
+        await tester.pumpAndSettle();
 
-      final checkbox = find.byType(Checkbox);
-      await tester.tap(checkbox);
-      await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('Logout')));
+        await tester.pumpAndSettle();
 
-      final logoutButton = find.text('Logout').last;
-      await tester.tap(logoutButton);
-      await tester.pumpAndSettle();
+        final checkbox = find.byType(Checkbox);
+        await tester.tap(checkbox);
+        await tester.pumpAndSettle();
+
+        final logoutButton = find.text('Logout').last;
+        await tester.tap(logoutButton);
+        await tester.pumpAndSettle();
+
+        // Verify secure storage was cleared
+        const secureStorage = FlutterSecureStorage();
+        final userEmail = await secureStorage.read(key: "userEmail");
+        final userPassword = await secureStorage.read(key: "userPassword");
+
+        expect(userEmail, isNull);
+        expect(userPassword, isNull);
+      },
+    );
+
+    test('Should handle exception during secure storage deletion', () async {
+      final mockSecureStorage = MockFlutterSecureStorageThrows();
+      final List<String> capturedLogs = [];
+
+      await runZoned(
+        () async {
+          // Separate try-catch for each delete to ensure both are attempted
+          try {
+            await mockSecureStorage.delete(key: "userEmail");
+          } catch (e) {
+            print("Unable to delete stored value: $e");
+          }
+
+          try {
+            await mockSecureStorage.delete(key: "userPassword");
+          } catch (e) {
+            print("Unable to delete stored value: $e");
+          }
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, line) {
+            capturedLogs.add(line);
+          },
+        ),
+      );
+
+      // Verify both errors were logged
+      expect(capturedLogs.length, equals(2));
+      expect(
+        capturedLogs
+            .every((log) => log.contains("Unable to delete stored value")),
+        isTrue,
+      );
+      expect(
+        capturedLogs.every((log) => log.contains("Deletion error")),
+        isTrue,
+      );
     });
-
   });
 }
