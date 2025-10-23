@@ -364,7 +364,7 @@ void main() {
 
       final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
       expect(optionTitleWidget.data, 'Test Option with Button');
-      
+
       // Verify that when trailingIconButton is present, headlineSmall style is used
       final context = tester.element(find.byKey(_key));
       expect(
