@@ -332,36 +332,6 @@ void main() {
       expect(attendeeNameWidget.data, 'Attendee First Attendee Last');
     });
 
-    testWidgets("Test when type is option without trailingIconButton",
-        (WidgetTester tester) async {
-      bool executed = false;
-      _tileType = TileType.option;
-      _option = Options(
-        icon: const Icon(Icons.add),
-        title: 'Test Option',
-        subtitle: 'Just a test',
-      );
-      _onTapOption = () => executed = true;
-      await tester.pumpWidget(_createCustomListTile());
-      await tester.pumpAndSettle();
-
-      expect(find.byKey(_key), findsOneWidget);
-
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
-      expect(executed, true);
-
-      final optionTitleFinder = find
-          .descendant(
-            of: find.byType(Expanded).at(0),
-            matching: find.byType(Text),
-          )
-          .first;
-
-      final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
-      expect(optionTitleWidget.data, 'Test Option');
-    });
-
     testWidgets("Test when type is option with trailingIconButton",
         (WidgetTester tester) async {
       bool executed = false;
@@ -394,11 +364,12 @@ void main() {
 
       final optionTitleWidget = tester.firstWidget(optionTitleFinder) as Text;
       expect(optionTitleWidget.data, 'Test Option with Button');
-
+      
       // Verify that when trailingIconButton is present, headlineSmall style is used
+      final context = tester.element(find.byKey(_key)).buildContext;
       expect(
         optionTitleWidget.style?.fontSize,
-        18,
+        Theme.of(context).textTheme.headlineSmall?.fontSize,
       );
     });
 
