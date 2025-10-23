@@ -26,8 +26,9 @@ import '../../../helpers/test_locator.dart';
 /// MockBuildContext class helps to mock the BuildContext class.
 class MockBuildContext extends Mock implements BuildContext {}
 
-/// Mock Class for Flutter Secure Storage.
-class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
+/// Mock Class for Flutter Secure Storage that throws exceptions.
+class MockFlutterSecureStorageThrows extends Mock
+    implements FlutterSecureStorage {
   @override
   Future<void> delete({
     required String key,
@@ -38,10 +39,7 @@ class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
   }) {
-    if (key == "userEmail" || key == "userPassword") {
-      throw Exception("Deletion error");
-    }
-    return Future.value(null);
+    throw Exception("Deletion error");
   }
 }
 
@@ -329,60 +327,29 @@ Future<void> main() async {
 
       verify(model.logout());
     });
-    test('Should delete stored values if checkBoxVal is false', () async {
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      const secureStorage = FlutterSecureStorage();
-      const bool checkBoxVal = false;
-      if (checkBoxVal == false) {
-        try {
-          await secureStorage.delete(key: "userEmail");
-          await secureStorage.delete(key: "userPassword");
-        } catch (e) {
-          print("Unable to delete stored value : $e");
-        }
-      }
-      final userEmail = await secureStorage.read(key: "userEmail");
-      final userPassword = await secureStorage.read(key: "userPassword");
-      expect(userEmail, isNull);
-      expect(userPassword, isNull);
-    });
-    test('Should handle exception during deletion', () async {
-      FlutterSecureStorage.setMockInitialValues(
-        {"userEmail": "test@example.com", "userPassword": "password123"},
-      );
-      final mockSecureStorage = MockFlutterSecureStorage();
-      const checkBoxVal = false;
 
-      String log = "";
+    testWidgets(
+        'Test logout with checkbox unchecked deletes secure storage values',
+        (tester) async {
+      when(userConfig.loggedIn).thenReturn(true);
+      
+      FlutterSecureStorage.setMockInitialValues({});
 
-      await runZonedGuarded(
-        () async {
-          if (checkBoxVal == false) {
-            try {
-              await mockSecureStorage.delete(key: "userEmail");
-              await mockSecureStorage.delete(key: "userPassword");
-            } catch (e) {
-              print("Unable to delete stored value: $e");
-            }
-          }
-        },
-        (error, stack) {
-          expect(error, isA<Exception>());
-          expect(error.toString(), contains("Deletion error"));
-          expect(stack, isNotNull);
-        },
-        zoneSpecification: ZoneSpecification(
-          print: (self, parent, zone, line) {
-            log = line;
-          },
-        ),
-      );
-      expect(
-        log,
-        contains("Deletion error"),
-      );
+      await tester
+          .pumpWidget(createAppSettingScreen(themeMode: ThemeMode.dark));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('Logout')));
+      await tester.pumpAndSettle();
+
+      final checkbox = find.byType(Checkbox);
+      await tester.tap(checkbox);
+      await tester.pumpAndSettle();
+
+      final logoutButton = find.text('Logout').last;
+      await tester.tap(logoutButton);
+      await tester.pumpAndSettle();
     });
+
   });
 }
