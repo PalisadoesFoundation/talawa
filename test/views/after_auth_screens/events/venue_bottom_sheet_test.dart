@@ -161,29 +161,23 @@ void main() {
         await tester.pumpWidget(createVenueBottomSheet(venues));
         await tester.pumpAndSettle();
 
-        // Open search to show TextField
         await tester.tap(find.byIcon(Icons.search));
         await tester.pumpAndSettle();
 
-        // Focus the TextField by tapping on it
         await tester.tap(find.byType(TextField));
         await tester.pumpAndSettle();
 
-        // Verify TextField is focused before unfocus action
         final textFieldElement = tester.element(find.byType(TextField));
         expect(FocusScope.of(textFieldElement).hasFocus, isTrue);
 
-        // Get the GestureDetector and invoke its onTap to test unfocus behavior
         final gestureDetector = tester.widget<GestureDetector>(
           find.byKey(const Key('gestureDetector1')),
         );
         expect(gestureDetector.onTap, isNotNull);
 
-        // Invoke the onTap callback to trigger unfocus
         gestureDetector.onTap!();
         await tester.pumpAndSettle();
 
-        // Verify focus is removed after unfocus action
         expect(FocusScope.of(textFieldElement).hasPrimaryFocus, isFalse);
       });
     });
