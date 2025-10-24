@@ -9,7 +9,6 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
 import 'package:talawa/views/after_auth_screens/events/manage_agenda_items_screen.dart';
@@ -69,10 +68,7 @@ Widget createEventInfoPage(bool isPublic, bool isCreator) {
     navigatorKey: navigationService.navigatorKey,
     onGenerateRoute: router.generateRoute,
     home: EventInfoPage(
-      args: {
-        'event': getEvent(isPublic, isCreator),
-        'exploreEventViewModel': ExploreEventsViewModel(),
-      },
+      event: getEvent(isPublic, isCreator),
     ),
   );
 }

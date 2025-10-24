@@ -6,11 +6,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
+
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/views/main_screen.dart';
+
+import 'package:talawa/views/demo_screens/organization_feed_demo.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -27,12 +28,11 @@ Widget createHomeScreen({required bool demoMode}) {
     ],
     themeMode: ThemeMode.light,
     theme: TalawaTheme.lightTheme,
-    home: MainScreen(
-      key: const Key('MainScreen'),
-      mainScreenArgs: MainScreenArgs(
-        mainScreenIndex: 0,
-        fromSignUp: false,
-        toggleDemoMode: demoMode,
+    home: const Scaffold(
+      body: DemoOrganizationFeed(key: Key('DemoOrgFeed')),
+      drawer: Drawer(
+        key: Key("Drawer"),
+        child: Text('Drawer'),
       ),
     ),
   );
