@@ -3,7 +3,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/caching/cache_service.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -30,7 +29,6 @@ import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/ad
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/group_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
-import 'package:talawa/view_model/after_auth_view_models/event_view_models/base_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_agenda_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
@@ -166,9 +164,6 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
-  locator.registerFactoryParam<BaseEventViewModel, Event?, void>(
-    (event, _) => event != null ? EditEventViewModel() : CreateEventViewModel(),
-  );
   locator.registerFactory(() => CreateEventViewModel());
   locator.registerFactory(() => EditEventViewModel());
   locator.registerFactory(() => EventCalendarViewModel());

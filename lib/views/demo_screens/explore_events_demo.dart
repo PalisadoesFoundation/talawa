@@ -6,22 +6,27 @@ import 'package:talawa/widgets/date_time_picker.dart';
 
 /// Calendar demo screen with multiple view options and sample events.
 class DemoExploreEvents extends StatefulWidget {
-  const DemoExploreEvents({required Key key}) : super(key: key);
+  const DemoExploreEvents({super.key});
 
   @override
-  State<DemoExploreEvents> createState() => _DemoExploreEventsState();
+  State<DemoExploreEvents> createState() => DemoExploreEventsState();
 }
 
-class _DemoExploreEventsState extends State<DemoExploreEvents> {
-  CalendarView _calendarView = CalendarView.month;
-  final CalendarController _calendarController = CalendarController();
-  final DateRangePickerController _dateRangePickerController =
+class DemoExploreEventsState extends State<DemoExploreEvents> {
+  /// The current calendar view.
+  CalendarView calendarView = CalendarView.month;
+
+  /// The calendar controller.
+  final CalendarController calendarController = CalendarController();
+
+  /// The date range picker controller.
+  final DateRangePickerController dateRangePickerController =
       DateRangePickerController();
 
   @override
   void dispose() {
-    _calendarController.dispose();
-    _dateRangePickerController.dispose();
+    calendarController.dispose();
+    dateRangePickerController.dispose();
     super.dispose();
   }
 
@@ -53,25 +58,25 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
             onPressed: () async {
               final pickedDate =
                   await customDatePicker(initialDate: DateTime.now());
-              _dateRangePickerController.selectedDate = pickedDate;
-              _calendarController.displayDate = pickedDate;
+              dateRangePickerController.selectedDate = pickedDate;
+              calendarController.displayDate = pickedDate;
             },
             icon: const Icon(Icons.date_range, color: Colors.white),
           ),
-          _calendarViewSelection(),
+          calendarViewSelection(),
         ],
       ),
       body: Column(
         children: [
           Expanded(
             child: SfCalendar(
-              view: _calendarView,
+              view: calendarView,
               headerHeight: 60,
               viewHeaderHeight: 60,
-              controller: _calendarController,
-              dataSource: DemoAppointmentDataSource(_getDemoEvents()),
-              onViewChanged: _onViewChanged,
-              onTap: _onCalendarTap,
+              controller: calendarController,
+              dataSource: DemoAppointmentDataSource(getDemoEvents()),
+              onViewChanged: onViewChanged,
+              onTap: onCalendarTap,
               monthViewSettings: const MonthViewSettings(
                 appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
                 showAgenda: true,
@@ -91,11 +96,11 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   ///   None
-  void _onViewChanged(ViewChangedDetails viewChangedDetails) {
+  void onViewChanged(ViewChangedDetails viewChangedDetails) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _dateRangePickerController.selectedDate =
+      dateRangePickerController.selectedDate =
           viewChangedDetails.visibleDates[0];
-      _dateRangePickerController.displayDate =
+      dateRangePickerController.displayDate =
           viewChangedDetails.visibleDates[0];
     });
   }
@@ -107,11 +112,11 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   ///   None
-  void _onCalendarTap(CalendarTapDetails details) {
+  void onCalendarTap(CalendarTapDetails details) {
     if (details.appointments != null && details.appointments!.isNotEmpty) {
       final Appointment appointment =
           details.appointments!.first as Appointment;
-      _showEventDetails(appointment);
+      showEventDetails(appointment);
     }
   }
 
@@ -122,7 +127,7 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   ///   None
-  void _showEventDetails(Appointment appointment) {
+  void showEventDetails(Appointment appointment) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -137,7 +142,7 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
                   const Icon(Icons.access_time, size: 16),
                   const SizedBox(width: 8),
                   Text(
-                    "${_formatTime(appointment.startTime)} - ${_formatTime(appointment.endTime)}",
+                    "${formatTime(appointment.startTime)} - ${formatTime(appointment.endTime)}",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
@@ -193,7 +198,7 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   /// * `PopupMenuButton<String>`: A popup menu for calendar view selection.
-  PopupMenuButton<String> _calendarViewSelection() {
+  PopupMenuButton<String> calendarViewSelection() {
     final List<String> views = ["Month", "Schedule"];
     return PopupMenuButton<String>(
       icon: const Icon(Icons.view_agenda, color: Colors.white),
@@ -210,16 +215,16 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
         setState(() {
           switch (value) {
             case "Month":
-              _calendarView = CalendarView.month;
+              calendarView = CalendarView.month;
               break;
             case "Schedule":
-              _calendarView = CalendarView.schedule;
+              calendarView = CalendarView.schedule;
               break;
             default:
               break;
           }
           // Update the calendar controller's view
-          _calendarController.view = _calendarView;
+          calendarController.view = calendarView;
         });
       },
     );
@@ -232,7 +237,7 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   /// * `List<Appointment>`: A list of demo appointments for the calendar.
-  List<Appointment> _getDemoEvents() {
+  List<Appointment> getDemoEvents() {
     final List<Appointment> appointments = <Appointment>[];
     final DateTime today = DateTime.now();
     final colors = [
@@ -338,7 +343,7 @@ class _DemoExploreEventsState extends State<DemoExploreEvents> {
   ///
   /// **returns**:
   /// * `String`: A formatted time string.
-  String _formatTime(DateTime dateTime) {
+  String formatTime(DateTime dateTime) {
     final hour = dateTime.hour;
     final minute = dateTime.minute;
     final period = hour >= 12 ? 'PM' : 'AM';

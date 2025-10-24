@@ -2,13 +2,46 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
+
+// Mock the customDatePicker function
+DateTime? mockPickedDate;
+
+Future<DateTime?> mockCustomDatePicker({required DateTime initialDate}) async {
+  return mockPickedDate;
+}
+
+/// Helper widget to wrap DemoExploreEvents with necessary providers.
+Widget createExploreEventsScreen() {
+  return MaterialApp(
+    locale: const Locale('en'),
+    localizationsDelegates: const [
+      AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    themeMode: ThemeMode.light,
+    theme: TalawaTheme.lightTheme,
+    home: const Scaffold(
+      key: Key('TestScaffold'),
+      body: DemoExploreEvents(key: Key('demo_explore_events')),
+      drawer: Drawer(
+        key: Key("Drawer"),
+        child: Text('Drawer'),
+      ),
+    ),
+  );
+}
 
 void main() {
   setUpAll(() {
@@ -16,9 +49,18 @@ void main() {
     testSetupLocator();
     registerServices();
     locator<SizeConfig>().test();
+    locator<GraphqlConfig>().test();
   });
 
-  group('DemoExploreEvents Widget Tests', () {
+  tearDownAll(() {
+    unregisterServices();
+  });
+
+  setUp(() {
+    mockPickedDate = null;
+  });
+
+  group('DemoExploreEvents Widget Creation Tests', () {
     testWidgets('Should create DemoExploreEvents widget without error',
         (WidgetTester tester) async {
       const widget = DemoExploreEvents(key: Key('demo_explore_events'));
@@ -32,30 +74,13 @@ void main() {
       const widget = DemoExploreEvents(key: Key('demo_explore_events'));
       final state = widget.createState();
 
-      expect(state, isA<State<DemoExploreEvents>>());
+      expect(state, isA<DemoExploreEventsState>());
     });
 
-    testWidgets('Should render basic structure in isolation',
-        (WidgetTester tester) async {
-      // Test just the basic widget creation and build method
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (context) {
-              // Test basic structure without complex dependencies
-              return Scaffold(
-                appBar: AppBar(title: const Text('Test')),
-                body: const Center(
-                  child: Text('Demo Widget Created Successfully'),
-                ),
-              );
-            },
-          ),
-        ),
-      );
+    testWidgets('Should be a StatefulWidget', (WidgetTester tester) async {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
 
-      expect(find.text('Demo Widget Created Successfully'), findsOneWidget);
-      expect(find.byType(Scaffold), findsOneWidget);
+      expect(widget, isA<StatefulWidget>());
     });
   });
 
