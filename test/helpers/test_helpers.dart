@@ -47,6 +47,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/fund_view_model/fund_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/settings_view_models/app_setting_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
@@ -103,6 +104,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<SelectContactViewModel>(
       onMissingStub: OnMissingStub.returnDefault,
     ),
+    MockSpec<AppSettingViewModel>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<GraphQLCache>(onMissingStub: OnMissingStub.returnDefault),
