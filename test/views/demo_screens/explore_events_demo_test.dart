@@ -14,13 +14,6 @@ import 'package:talawa/views/demo_screens/explore_events_demo.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-// Mock the customDatePicker function
-DateTime? mockPickedDate;
-
-Future<DateTime?> mockCustomDatePicker({required DateTime initialDate}) async {
-  return mockPickedDate;
-}
-
 /// Helper widget to wrap DemoExploreEvents with necessary providers.
 Widget createExploreEventsScreen() {
   return MaterialApp(
@@ -56,10 +49,6 @@ void main() {
     unregisterServices();
   });
 
-  setUp(() {
-    mockPickedDate = null;
-  });
-
   group('DemoExploreEvents Widget Creation Tests', () {
     testWidgets('Should create DemoExploreEvents widget without error',
         (WidgetTester tester) async {
@@ -75,12 +64,6 @@ void main() {
       final state = widget.createState();
 
       expect(state, isA<DemoExploreEventsState>());
-    });
-
-    testWidgets('Should be a StatefulWidget', (WidgetTester tester) async {
-      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
-
-      expect(widget, isA<StatefulWidget>());
     });
   });
 
@@ -113,21 +96,6 @@ void main() {
       final dataSource = DemoAppointmentDataSource([]);
 
       expect(dataSource.appointments, isEmpty);
-    });
-
-    testWidgets('Should extend CalendarDataSource',
-        (WidgetTester tester) async {
-      final testAppointments = [
-        Appointment(
-          startTime: DateTime.now(),
-          endTime: DateTime.now().add(const Duration(hours: 1)),
-          subject: 'Test Event',
-          color: Colors.blue,
-        ),
-      ];
-      final dataSource = DemoAppointmentDataSource(testAppointments);
-
-      expect(dataSource, isA<CalendarDataSource>());
     });
 
     testWidgets('Should properly store appointment data',
@@ -199,6 +167,181 @@ void main() {
       expect(retrievedAppointment.subject, 'Independence Day');
       expect(retrievedAppointment.isAllDay, true);
       expect(retrievedAppointment.color, Colors.red);
+    });
+  });
+
+  group('DemoExploreEvents Event Generation Tests', () {
+    test('Should generate correct number of demo events', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final events = (state as DemoExploreEventsState).getDemoEvents();
+
+      expect(events.length, 6);
+    });
+
+    test('Should generate events with correct properties', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final events = (state as DemoExploreEventsState).getDemoEvents();
+
+      // Check first event
+      final firstEvent = events.first;
+      expect(firstEvent.subject, 'Community Meeting');
+      expect(firstEvent.location, 'Main Hall');
+      expect(
+        firstEvent.notes,
+        'Monthly community gathering to discuss upcoming projects and initiatives.',
+      );
+      expect(firstEvent.isAllDay, false);
+      expect(firstEvent.color, Colors.green);
+    });
+
+    test('Should generate all-day events correctly', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final events = (state as DemoExploreEventsState).getDemoEvents();
+
+      // Find the all-day event (Fundraising Event)
+      final allDayEvent = events.firstWhere((event) => event.isAllDay);
+      expect(allDayEvent.subject, 'Fundraising Event');
+      expect(allDayEvent.isAllDay, true);
+      expect(
+        allDayEvent.endTime.difference(allDayEvent.startTime),
+        const Duration(hours: 24),
+      );
+    });
+
+    test('Should generate events with different colors', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final events = (state as DemoExploreEventsState).getDemoEvents();
+
+      final colors = events.map((e) => e.color).toSet();
+      expect(colors.length, greaterThan(1)); // Should have multiple colors
+    });
+
+    test('Should generate events with correct time calculations', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final events = (state as DemoExploreEventsState).getDemoEvents();
+      final today = DateTime.now();
+
+      // Check that events are scheduled for future dates
+      for (final event in events) {
+        expect(
+          event.startTime.isAfter(today.subtract(const Duration(days: 1))),
+          true,
+        );
+        expect(event.endTime.isAfter(event.startTime), true);
+      }
+    });
+  });
+
+  group('DemoExploreEvents Time Formatting Tests', () {
+    test('Should format AM time correctly', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final testTime = DateTime(2023, 1, 1, 9, 30);
+      final formattedTime =
+          (state as DemoExploreEventsState).formatTime(testTime);
+
+      expect(formattedTime, '09:30 AM');
+    });
+
+    test('Should format PM time correctly', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final testTime = DateTime(2023, 1, 1, 15, 45);
+      final formattedTime =
+          (state as DemoExploreEventsState).formatTime(testTime);
+
+      expect(formattedTime, '03:45 PM');
+    });
+
+    test('Should format midnight correctly', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState();
+      final testTime = DateTime(2023, 1, 1, 0, 0);
+      final formattedTime =
+          (state as DemoExploreEventsState).formatTime(testTime);
+
+      expect(formattedTime, '12:00 AM');
+    });
+  });
+
+  group('DemoExploreEvents Edge Cases and Error Handling', () {
+    test('Should handle empty events list gracefully', () {
+      final emptyDataSource = DemoAppointmentDataSource([]);
+      expect(emptyDataSource.appointments, isEmpty);
+    });
+
+    test('Should handle null appointment properties gracefully', () {
+      final appointmentWithNulls = Appointment(
+        startTime: DateTime.now(),
+        endTime: DateTime.now().add(const Duration(hours: 1)),
+        subject: 'Test Event',
+        color: Colors.blue,
+        location: null,
+        notes: null,
+      );
+
+      final dataSource = DemoAppointmentDataSource([appointmentWithNulls]);
+      expect(dataSource.appointments, isNotEmpty);
+    });
+
+    test('Should handle events with same start and end time', () {
+      final sameTimeEvent = Appointment(
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        subject: 'Instant Event',
+        color: Colors.blue,
+      );
+
+      final dataSource = DemoAppointmentDataSource([sameTimeEvent]);
+      expect(dataSource.appointments, isNotEmpty);
+    });
+
+    test('Should handle events in the past', () {
+      final pastEvent = Appointment(
+        startTime: DateTime.now().subtract(const Duration(days: 1)),
+        endTime: DateTime.now()
+            .subtract(const Duration(days: 1))
+            .add(const Duration(hours: 1)),
+        subject: 'Past Event',
+        color: Colors.grey,
+      );
+
+      final dataSource = DemoAppointmentDataSource([pastEvent]);
+      expect(dataSource.appointments, isNotEmpty);
+    });
+
+    test('Should handle events spanning multiple days', () {
+      final multiDayEvent = Appointment(
+        startTime: DateTime.now(),
+        endTime: DateTime.now().add(const Duration(days: 3)),
+        subject: 'Multi-day Event',
+        color: Colors.purple,
+        isAllDay: true,
+      );
+
+      final dataSource = DemoAppointmentDataSource([multiDayEvent]);
+      expect(dataSource.appointments, isNotEmpty);
+    });
+  });
+
+  group('DemoExploreEvents State Management Tests', () {
+    test('Should handle view changes correctly', () {
+      const widget = DemoExploreEvents(key: Key('demo_explore_events'));
+      final state = widget.createState() as DemoExploreEventsState;
+
+      // Create mock view changed details
+      final viewChangedDetails = ViewChangedDetails([
+        DateTime.now(),
+        DateTime.now().add(const Duration(days: 1)),
+      ]);
+
+      // Should not throw error
+      expect(() => state.onViewChanged(viewChangedDetails), returnsNormally);
     });
   });
 }

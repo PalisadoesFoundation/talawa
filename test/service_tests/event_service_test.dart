@@ -439,6 +439,204 @@ void main() {
           ),
         ).called(3);
       });
+
+      test(
+          'fetchEventsWithDates - fetches events for date range and updates stream',
+          () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the base class method getNewFeedAndRefreshCache
+        final eventServiceMock = EventService();
+
+        // Reset the mock to count only this test's calls
+        reset(mockDbFunctions);
+
+        // Mock the query response data
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "event1",
+                    "name": "Event 1",
+                    "description": "Description 1",
+                    "location": "Location 1",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                },
+                {
+                  "node": {
+                    "id": "event2",
+                    "name": "Event 2",
+                    "description": "Description 2",
+                    "location": "Location 2",
+                    "allDay": false,
+                    "startAt": "2024-01-15T11:00:00.000Z",
+                    "endAt": "2024-01-15T13:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": false,
+                  },
+                }
+              ],
+            },
+          },
+        };
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: argThat(
+              predicate(
+                (Map<String, dynamic> vars) =>
+                    vars['startDate'] == startDate.toUtc().toIso8601String() &&
+                    vars['endDate'] == endDate.toUtc().toIso8601String() &&
+                    vars['includeRecurring'] == true,
+              ),
+              named: 'variables',
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        // Test the actual method
+        await eventServiceMock.fetchEventsWithDates(
+          startDate,
+          endDate,
+          includeRecurring: true,
+        );
+
+        // Verify the parameters passed to the API call
+        verify(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: argThat(
+              predicate(
+                (Map<String, dynamic> vars) =>
+                    vars['startDate'] == startDate.toUtc().toIso8601String() &&
+                    vars['endDate'] == endDate.toUtc().toIso8601String() &&
+                    vars['includeRecurring'] == true,
+              ),
+              named: 'variables',
+            ),
+          ),
+        ).called(1);
+
+        // Verify events are added to the list
+        expect(eventServiceMock.events.length, 2);
+        expect(eventServiceMock.events[0].name, "Event 1");
+        expect(eventServiceMock.events[1].name, "Event 2");
+      });
+
+      test('fetchEventsWithDates - prevents duplicate events', () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the query response with duplicate event
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "event1",
+                    "name": "Event 1",
+                    "description": "Description 1",
+                    "location": "Location 1",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                }
+              ],
+            },
+          },
+        };
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        // First call to add the event
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Second call with same event should not add duplicate
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Should still have only one event
+        expect(eventService.events.length, 1);
+        expect(eventService.events[0].name, "Event 1");
+      });
+
+      test('fetchEventsWithDates - handles events with null IDs', () async {
+        final startDate = DateTime(2024, 1, 1);
+        final endDate = DateTime(2024, 1, 31);
+
+        // Mock the query response with event that has null ID
+        final query = EventQueries().fetchOrgEvents();
+        final mockData = {
+          "organization": {
+            "events": {
+              "edges": [
+                {
+                  "node": {
+                    "id": null,
+                    "name": "Event Without ID",
+                    "description": "Description",
+                    "location": "Location",
+                    "allDay": false,
+                    "startAt": "2024-01-01T10:00:00.000Z",
+                    "endAt": "2024-01-01T12:00:00.000Z",
+                    "isPublic": true,
+                    "isRegisterable": true,
+                  },
+                }
+              ],
+            },
+          },
+        };
+
+        when(
+          mockDbFunctions.gqlAuthQuery(
+            query,
+            variables: anyNamed('variables'),
+          ),
+        ).thenAnswer(
+          (_) async => QueryResult(
+            options: QueryOptions(document: gql(query)),
+            data: mockData,
+            source: QueryResultSource.network,
+          ),
+        );
+
+        await eventService.fetchEventsWithDates(startDate, endDate);
+
+        // Events with null IDs should be filtered out
+        expect(eventService.events.length, 0);
+      });
     });
 
     group('Event Registration and Attendees', () {
