@@ -355,7 +355,7 @@ class MainScreenViewModel extends BaseModel {
         description:
             'Click this button to see options related to switching, joining and leaving organization(s)',
         isCircle: true,
-        next: () => scaffoldKey.currentState!.openDrawer(),
+        next: () => scaffoldKey.currentState?.openDrawer(),
         appTour: appTour,
       ),
     );
@@ -463,7 +463,7 @@ class MainScreenViewModel extends BaseModel {
   Future<void> showHome(TargetFocus clickedTarget) async {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
-        scaffoldKey.currentState!.openDrawer();
+        scaffoldKey.currentState?.openDrawer();
         break;
       case "keyDrawerLeaveCurrentOrg":
         navigationService.pop();

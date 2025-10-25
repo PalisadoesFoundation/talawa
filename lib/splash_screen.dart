@@ -231,7 +231,7 @@ class _SplashScreenState extends State<SplashScreen> {
         return;
       }
 
-      if (currentUser.membershipRequests!.isNotEmpty) {
+      if (currentUser.membershipRequests?.isNotEmpty ?? false) {
         pushReplacementScreen(Routes.waitingScreen, arguments: '0');
         return;
       }
